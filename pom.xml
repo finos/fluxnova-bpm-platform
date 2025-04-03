@@ -360,29 +360,22 @@
 
   <repositories>
     <repository>
-      <id>gitlab-maven</id>
-      <url>https://gitlab.example.com/api/v4/projects/68204012/packages/maven</url>
+      <id>ossrh</id>
+      <url>https://gitlab.com/api/v4/projects/68204012/packages/maven</url>
     </repository>
-    <repository>
-      <id>maven-central</id>
-      <name>Maven Central</name>
-      <url>https://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <!-- Required for local builds by community users on master branch -->
-      <id>camunda-public-repository</id>
-      <name>Camunda Platform Maven Repository</name>
-      <url>https://artifacts.camunda.com/artifactory/public/</url>
-    </repository>
-    <repository>
-      <!-- Required for local builds by developers on maintainance branches -->
-      <id>camunda-nexus</id>
-      <name>Camunda Nexus</name>
-      <url>https://artifacts.camunda.com/artifactory/internal</url>
-    </repository>
+<!--    TODO: Uncomment if the build is broken-->
+<!--    <repository>-->
+<!--      &lt;!&ndash; Required for local builds by community users on master branch &ndash;&gt;-->
+<!--      <id>camunda-public-repository</id>-->
+<!--      <name>Camunda Platform Maven Repository</name>-->
+<!--      <url>https://artifacts.camunda.com/artifactory/public/</url>-->
+<!--    </repository>-->
+<!--    <repository>-->
+<!--      &lt;!&ndash; Required for local builds by developers on maintainance branches &ndash;&gt;-->
+<!--      <id>camunda-nexus</id>-->
+<!--      <name>Camunda Nexus</name>-->
+<!--      <url>https://artifacts.camunda.com/artifactory/internal</url>-->
+<!--    </repository>-->
   </repositories>
 
   <licenses>
@@ -422,11 +415,11 @@
 
   <distributionManagement>
     <repository>
-      <id>gitlab-maven</id>
+      <id>ossrh</id>
       <url>https://gitlab.example.com/api/v4/projects/68204012/packages/maven</url>
     </repository>
     <snapshotRepository>
-      <id>gitlab-maven</id>
+      <id>ossrh</id>
       <url>https://gitlab.example.com/api/v4/projects/68204012/packages/maven</url>
     </snapshotRepository>
   </distributionManagement>

@@ -29,10 +29,9 @@ jobs:
           java-version: 21
           distribution: 'temurin'
           cache: 'maven'
-      # TODO : SET THE RIGHT ENVIRONMENT VARIABLES - GITHUB SECRETS (DO NOT DO THIS UNTIL WE ARE PUBLIC)
-      #          server-id: ossrh
-      #          server-username: CI_DEPLOY_USERNAME
-      #          server-password: CI_DEPLOY_PASSWORD
+          server-id: ossrh
+          server-username: CI_DEPLOY_USERNAME
+          server-password: CI_DEPLOY_PASSWORD
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
@@ -45,16 +44,16 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+
       - name: Check Java version
         run: java -version
 
-      # TODO: UPDATE WHEN WE ARE PUBLIC AND THE RELEASE PROCESS IS TESTED LOCALLY
-      #      - name: Configure git
-      #        run: |
-      #          git config --global committer.email "infra@finos.org"
-      #          git config --global committer.name "FINOS Admin"
-      #          git config --global author.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      #          git config --global author.name "${GITHUB_ACTOR}"
+      - name: Configure git
+        run: |
+          git config --global committer.email "infra@finos.org"
+          git config --global committer.name "FINOS Admin"
+          git config --global author.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git config --global author.name "${GITHUB_ACTOR}"
 
       - name: Download deps and plugins
         run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies
@@ -65,21 +64,24 @@ jobs:
           theme: dark
 
       - name: Build + Sonar
-        if: github.ref != 'refs/heads/main'
+        if: github.ref == 'refs/heads/feature/*'
         env:
           MAVEN_OPTS: "-Xmx8g"
         run: |
-          mvn -B -e deploy -Psonar -DskipTests=true
+          mvn -B -e package -Psonar -DskipTests=true
+
       # TODO: WE ARE NOT DOING DEPLOYMENT AND DOCKER YET
       - name: Build (with Maven Deploy + Docker Snapshot + Sonar)
         if: github.ref == 'refs/heads/main'
         env:
-          DOCKER_USERNAME: finos
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#          TODO: Enable when we want to enable docker
+#          DOCKER_REGISTRY: registry.gitlab.com
+#          DOCKER_USERNAME: gitlab-token
+#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           MAVEN_OPTS: "-Xmx8g"
         run: |
-          mvn -B -e deploy -Psonar -DskipTests=true
-  #          -P docker-snapshot -> profile docker-snapshot doesn't exist for flowave
+          mvn -B -e package -Psonar -DskipTests=true
+  #          -P docker-snapshot -> TODO: profile docker-snapshot doesn't exist for flowave
 
   unit-test:
     name: Unit Tests
@@ -95,10 +97,9 @@ jobs:
           java-version: 21
           distribution: 'temurin'
           cache: 'maven'
-      # TODO : SET THE RIGHT ENVIRONMENT VARIABLES - GITHUB SECRETS (DO NOT DO THIS UNTIL WE ARE PUBLIC)
-      #          server-id: ossrh
-      #          server-username: CI_DEPLOY_USERNAME
-      #          server-password: CI_DEPLOY_PASSWORD
+          server-id: ossrh
+          server-username: CI_DEPLOY_USERNAME
+          server-password: CI_DEPLOY_PASSWORD
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
@@ -117,6 +118,7 @@ jobs:
           MAVEN_CONFIG: ~/.m2/repository
         run: |
           mvn -B -e verify -DskipITs=true
+
   integration-test:
     name: Integration tests
     runs-on: ubuntu-latest
@@ -131,10 +133,9 @@ jobs:
           java-version: 21
           distribution: 'temurin'
           cache: 'maven'
-      # TODO : SET THE RIGHT ENVIRONMENT VARIABLES - GITHUB SECRETS (DO NOT DO THIS UNTIL WE ARE PUBLIC)
-      #          server-id: ossrh
-      #          server-username: CI_DEPLOY_USERNAME
-      #          server-password: CI_DEPLOY_PASSWORD
+          server-id: ossrh
+          server-username: CI_DEPLOY_USERNAME
+          server-password: CI_DEPLOY_PASSWORD
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
