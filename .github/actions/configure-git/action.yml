@@ -1,0 +1,12 @@
+name: "Configure Git"
+description: "Configure Git"
+runs:
+  using: "composite"
+  steps:
+    - name: Configure git
+      shell: bash
+      run: |
+        git config --global committer.email "infra@finos.org"
+        git config --global committer.name "FINOS Admin"
+        git config --global author.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git config --global author.name "${GITHUB_ACTOR}"

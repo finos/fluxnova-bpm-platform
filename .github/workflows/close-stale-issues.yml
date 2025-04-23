@@ -5,9 +5,9 @@
 # https://github.com/actions/stale
 name: 'Close stale issues and PRs'
 on:
-  schedule:
-    - cron: '0 4 * * 2-6'
   workflow_dispatch:
+#  schedule:
+#    - cron: '0 4 * * 2-6'
 
 jobs:
   call-reusable-flow:

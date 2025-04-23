@@ -1,0 +1,12 @@
+name: "Integration Test"
+description: "Runs all the integration tests"
+runs:
+  using: "composite"
+  steps:
+    - name: Integration Tests
+      env:
+        MAVEN_OPTS: "-Xmx8g"
+        MAVEN_CONFIG: ~/.m2/repository
+      shell: bash
+      run: |
+        mvn clean install -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2 -DargLine="-XX:MaxRAMPercentage=70.0"

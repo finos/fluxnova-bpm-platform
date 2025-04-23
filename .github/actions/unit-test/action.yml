@@ -1,0 +1,12 @@
+name: "Unit Test"
+description: "Runs all the unit tests"
+runs:
+  using: "composite"
+  steps:
+    - name: Unit Tests
+      env:
+        MAVEN_OPTS: "-Xmx8g"
+        MAVEN_CONFIG: ~/.m2/repository
+      shell: bash
+      run: |
+        mvn -B -e verify -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime'

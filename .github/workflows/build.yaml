@@ -1,14 +1,7 @@
 name: "Build CI"
 
-env:
-  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
-  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
 on:
-  push:
   pull_request:
-    branches: [ "main" ]
 
 concurrency:
   group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) ||
@@ -23,18 +16,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Maven setup
-        uses: ./.github/actions/maven-setup
-
-      - name: Check Java version
-        run: java -version
+      - name: Java setup
+        uses: ./.github/actions/java-setup
 
       - name: Configure git
-        run: |
-          git config --global committer.email "infra@finos.org"
-          git config --global committer.name "FINOS Admin"
-          git config --global author.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git config --global author.name "${GITHUB_ACTOR}"
+        uses: ./.github/actions/configure-git
 
       - name: Download deps and plugins
         run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies
@@ -45,25 +31,7 @@ jobs:
           theme: dark
 
       - name: Build
-        if: startsWith(github.ref, 'refs/heads/feature/')
-        env:
-          MAVEN_OPTS: "-Xmx8g"
-        run: |
-          mvn -B -e -U deploy -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, 
-          !distro/run/qa/runtime'
-
-      # TODO: WE ARE NOT DOING DEPLOYMENT AND DOCKER YET
-      - name: Build (with Maven Deploy + Docker Snapshot + Sonar)
-        if: github.ref == 'refs/heads/main'
-        env:
-#          TODO: Enable when we want to enable docker
-#          DOCKER_REGISTRY: registry.gitlab.com
-#          DOCKER_USERNAME: gitlab-token
-#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          MAVEN_OPTS: "-Xmx8g"
-        run: |
-          mvn -B -e -U deploy -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime'
-  #          -P docker-snapshot -> TODO: profile docker-snapshot doesn't exist for flowave
+        uses: ./.github/actions/build-deploy
 
   unit-test:
     name: Unit Tests
@@ -77,11 +45,7 @@ jobs:
         uses: ./.github/actions/maven-setup
 
       - name: Unit Tests
-        env:
-          MAVEN_OPTS: "-Xmx8g"
-          MAVEN_CONFIG: ~/.m2/repository
-        run: |
-          mvn -B -e verify -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime'
+        uses: ./.github/actions/unit-test
 
   integration-test:
     name: Integration tests
@@ -95,8 +59,4 @@ jobs:
         uses: ./.github/actions/maven-setup
 
       - name: Integration Tests
-        env:
-          MAVEN_OPTS: "-Xmx8g"
-          MAVEN_CONFIG: ~/.m2/repository
-        run: |
-          mvn clean install -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2 -DargLine="-XX:MaxRAMPercentage=70.0"
+        uses: ./.github/actions/integration-test

@@ -1,5 +1,5 @@
-name: "Maven setup"
-description: "Common maven setup steps"
+name: "Java setup"
+description: "Common steps for Java setup"
 runs:
   using: "composite"
   steps:
@@ -9,9 +9,6 @@ runs:
         java-version: 21
         distribution: 'temurin'
         cache: 'maven'
-        server-id: ossrh
-        server-username: CI_DEPLOY_USERNAME
-        server-password: CI_DEPLOY_PASSWORD
 
     - name: Cache Maven dependencies
       uses: actions/cache@v4
@@ -24,3 +21,7 @@ runs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+
+    - name: Check Java version
+      shell: bash
+      run: java -version

@@ -1,0 +1,25 @@
+name: "Build CI/CD"
+description: "Build and deploy Flowave"
+runs:
+  using: "composite"
+  steps:
+    - name: Build
+      if: startsWith(github.ref, 'refs/heads/feature/')
+      env:
+          MAVEN_OPTS: "-Xmx8g"
+      shell: bash
+      run: |
+        mvn -B -e -U deploy -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime'
+
+    # TODO: WE ARE NOT DOING DEPLOYMENT AND DOCKER YET
+    - name: Build (with Maven Deploy + Sonar + Docker)
+      if: github.ref == 'refs/heads/main'
+      env:
+        MAVEN_OPTS: "-Xmx8g"
+        # TODO: Enable when we want to enable docker
+        # DOCKER_REGISTRY: registry.gitlab.com
+        # DOCKER_USERNAME: gitlab-token
+        # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      shell: bash
+      run: |
+        mvn -B -e -U deploy -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime'

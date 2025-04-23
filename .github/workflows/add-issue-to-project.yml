@@ -1,10 +1,12 @@
 name: Add issue to project
 
 on:
-  issues:
-    types:
-      - opened
-      - transferred
+  workflow_dispatch:
+#  issues:
+#    types:
+#      - opened
+#      - transferred
+
 
 jobs:
   call-reusable-flow:

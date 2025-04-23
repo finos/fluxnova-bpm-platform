@@ -1,8 +1,9 @@
 name: Java Dependency Check
 
 on:
-  pull_request:
-    types: [ labeled ]
+  workflow_dispatch:
+#  pull_request:
+#    types: [ labeled ]
 
 jobs:
   call-reusable-flow:
