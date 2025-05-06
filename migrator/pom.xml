@@ -5,6 +5,7 @@
     <groupId>org.flowave</groupId>
     <artifactId>flowave-migrator</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Flowave Platform - Migrator</name>
 
     <properties>
         <!-- Maven Dependencies -->
