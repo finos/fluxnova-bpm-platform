@@ -333,18 +333,24 @@
       </snapshots>
     </repository>
     <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+      <id>maven-central</id>
+      <name>Maven Central</name>
+      <url>https://repo1.maven.org/maven2</url>
       <snapshots>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
       </snapshots>
     </repository>
     <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <!-- Required for local builds by community users on master branch -->
+      <id>camunda-public-repository</id>
+      <name>Camunda Platform Maven Repository</name>
+      <url>https://artifacts.camunda.com/artifactory/public/</url>
+    </repository>
+    <repository>
+      <!-- Required for local builds by developers on maintainance branches -->
+      <id>camunda-nexus</id>
+      <name>Camunda Nexus</name>
+      <url>https://artifacts.camunda.com/artifactory/internal</url>
     </repository>
   </repositories>
 
