@@ -1,0 +1,27 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>github</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${env.GITHUB_TOKEN}</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+            <id>flowave-bpm-platform-mirror</id>
+            <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+            <mirrorOf>flowave-bpm-platform</mirrorOf>
+        </mirror>
+        <mirror>
+            <id>flowave-bpm-release-parent-mirror</id>
+            <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
+            <mirrorOf>flowave-bpm-release-parent</mirrorOf>
+        </mirror>
+        <mirror>
+            <id>flowave-feel-scala-mirror</id>
+            <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+            <mirrorOf>flowave-feel-scala</mirrorOf>
+        </mirror>
+    </mirrors>
+</settings>

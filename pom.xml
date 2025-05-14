@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda</groupId>
     <artifactId>camunda-bpm-release-parent</artifactId>
-    <version>2.3.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
     <relativePath />
   </parent>
@@ -28,7 +28,7 @@
     <version.mybatis>3.5.15</version.mybatis>
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
-    <version.feel-scala>1.19.1</version.feel-scala>
+    <version.feel-scala>0.0.1-SNAPSHOT</version.feel-scala>
   </properties>
 
   <build>
@@ -326,8 +326,22 @@
 
   <repositories>
     <repository>
-      <id>github</id>
+      <id>flowave-bpm-platform</id>
       <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>flowave-feel-scala</id>
+      <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>flowave-bpm-release-parent</id>
+      <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -391,12 +405,12 @@
 
   <distributionManagement>
     <repository>
-      <id>github</id>
+      <id>flowave-bpm-platform</id>
       <name>GitHub Flowave Maven Packages</name>
       <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
     </repository>
     <snapshotRepository>
-      <id>github</id>
+      <id>flowave-bpm-platform</id>
       <name>GitHub Flowave Maven Packages</name>
       <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
     </snapshotRepository>

@@ -30,12 +30,14 @@ jobs:
         uses: ./.github/actions/configure-git
 
       - name: Set version
-        run: mvn versions:set -DnewVersion=0.0.1-SNAPSHOT -DgenerateBackupPoms=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn versions:set -DnewVersion=0.0.1-SNAPSHOT -DgenerateBackupPoms=false -s ./settings.xml
 
       - name: Download deps and plugins
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies
+        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
 
       - name: Collect Workflow Telemetry
         uses: runforesight/workflow-telemetry-action@v1
