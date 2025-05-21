@@ -22,6 +22,8 @@ runs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - name: Check Java version
+    - name: Show versions
       shell: bash
-      run: java -version
+      run: |
+        java -version
+        mvn --version
