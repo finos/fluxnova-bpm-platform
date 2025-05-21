@@ -11,7 +11,7 @@ runs:
         cache: 'maven'
 
     - name: Set up Maven
-      uses: s4u/setup-maven-action
+      uses: s4u/setup-maven-action@v1.18.0
       with:
         maven-version: '3.8.8'
 
