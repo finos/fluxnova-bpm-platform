@@ -9,7 +9,7 @@
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-database-settings</artifactId>
     <relativePath>../database</relativePath>
-    <version>7.23.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <dependencyManagement>
@@ -354,7 +354,7 @@
 
     <!-- We shade artifacts into the jar, so we need to generate a dependency BOM
     for the license book -->
-    <skip-third-party-bom>false</skip-third-party-bom>
+    <skip-third-party-bom>true</skip-third-party-bom>
 
     <camunda.artifact>
       org.camunda.bpm

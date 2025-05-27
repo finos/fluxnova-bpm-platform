@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-engine-rest-root</artifactId>
-    <version>7.23.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -16,7 +16,7 @@
     We include compile and provided scope dependencies;
     all the dependencies that we include in only one of the
     runtime-specific-WARs are in provided scope -->
-    <skip-third-party-bom>false</skip-third-party-bom>
+    <skip-third-party-bom>true</skip-third-party-bom>
     <third-party-bom-scopes>compile|provided</third-party-bom-scopes>
 
     <version.resteasy>6.2.3.Final</version.resteasy>

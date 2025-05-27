@@ -10,6 +10,13 @@ runs:
         distribution: 'temurin'
         cache: 'maven'
 
+    # TODO - disable in order to avoid issues during the migration process
+    # See https://github.com/finos/flowave-bpm-platform/pull/66#issuecomment-2900954827
+    # - name: Set up Maven
+    #   uses: s4u/setup-maven-action@v1.18.0
+    #   with:
+    #     maven-version: '3.8.8'
+
     - name: Cache Maven dependencies
       uses: actions/cache@v4
       env:
@@ -22,6 +29,8 @@ runs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - name: Check Java version
+    - name: Show versions
       shell: bash
-      run: java -version
+      run: |
+        java -version
+        mvn --version

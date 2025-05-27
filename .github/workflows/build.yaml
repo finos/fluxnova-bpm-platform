@@ -1,26 +1,32 @@
 name: "Build CI"
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 on:
   push:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.ref == 'refs/heads/main' && format('ci-default-branch-{0}-{1}', github.sha, github.workflow) ||
     format('ci-pr-{0}-{1}', github.ref, github.workflow) }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  packages: write
+  actions: read
+  pull-requests: write
+  attestations: write
+  id-token: write
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -31,11 +37,14 @@ jobs:
       - name: Configure git
         uses: ./.github/actions/configure-git
 
+      - name: Set version
+        run: mvn versions:set -DnewVersion=0.0.1-SNAPSHOT -DgenerateBackupPoms=false -s ./settings.xml
+
       - name: Download deps and plugins
-        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies
+        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
 
       - name: Collect Workflow Telemetry
-        uses: runforesight/workflow-telemetry-action@v1
+        uses: catchpoint/workflow-telemetry-action@v2
         with:
           theme: dark
 

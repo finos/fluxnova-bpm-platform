@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda.connect</groupId>
     <artifactId>camunda-connect-root</artifactId>
-    <version>7.23.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>camunda-connect-connectors-all</artifactId>
@@ -13,7 +13,7 @@
   <properties>
     <!-- We shade artifacts into the jar, so we need to generate 
     a dependency BOM for the license book -->
-    <skip-third-party-bom>false</skip-third-party-bom>
+    <skip-third-party-bom>true</skip-third-party-bom>
   </properties>
 
   <dependencies>

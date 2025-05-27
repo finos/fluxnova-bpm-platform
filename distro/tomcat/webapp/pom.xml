@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.camunda.bpm.tomcat</groupId>
     <artifactId>camunda-tomcat</artifactId>
-    <version>7.23.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -13,7 +13,7 @@
   <packaging>war</packaging>
   
   <properties>
-    <skip-third-party-bom>false</skip-third-party-bom>
+    <skip-third-party-bom>true</skip-third-party-bom>
   </properties>
 
   <dependencies>

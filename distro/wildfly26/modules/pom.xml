@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda.bpm.wildfly</groupId>
     <artifactId>camunda-wildfly26</artifactId>
-    <version>7.23.0</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>camunda-wildfly26-modules</artifactId>
@@ -16,7 +16,7 @@
     <!-- generate a bom of compile time dependencies for the license book.
     Note: Every compile time dependency will end up in the license book. Please
     declare only dependencies that are actually needed -->
-    <skip-third-party-bom>false</skip-third-party-bom>
+    <skip-third-party-bom>true</skip-third-party-bom>
     <!-- json-smart and accessors-smart are runtime dependencies of json-path -->
     <third-party-bom-scopes>compile|runtime</third-party-bom-scopes>
   </properties>
