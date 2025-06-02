@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.camunda</groupId>
-    <artifactId>camunda-bpm-release-parent</artifactId>
+    <groupId>org.flowave</groupId>
+    <artifactId>flowave-bpm-release-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
     <relativePath />
@@ -324,11 +324,63 @@
 
   </profiles>
 
-  <licenses>
+  <repositories>
+    <repository>
+      <id>flowave-bpm-platform</id>
+      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>flowave-feel-scala</id>
+      <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>flowave-bpm-release-parent</id>
+      <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>flowave-release-parent</id>
+      <url>https://maven.pkg.github.com/finos/flowave-release-parent</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+
+ <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+  
+  
+  <issueManagement>
+    <system>Jira</system>
+    <url>https://github.com/orgs/finos/projects/116</url>
+  </issueManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>flowave-bpm-platform</id>
+      <name>GitHub Flowave Maven Packages</name>
+      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+    </repository>
+    <snapshotRepository>
+      <id>flowave-bpm-platform</id>
+      <name>GitHub Flowave Maven Packages</name>
+      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 
 </project>
