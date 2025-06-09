@@ -2,7 +2,7 @@
 
 # Camunda Platform 7 - The open source BPMN platform
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm/camunda-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm/camunda-parent) [![camunda manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.camunda.org/manual/latest/) [![License](https://img.shields.io/github/license/camunda/camunda-bpm-platform?color=blue&logo=apache)](https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE) [![Forum](https://img.shields.io/badge/forum-camunda-green)](https://forum.camunda.org/)
+[![Build CI](https://github.com/finos/flowave-bpm-platform/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/finos/flowave-bpm-platform/actions/workflows/build.yaml?query=branch%3Amain) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm/camunda-parent/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm/camunda-parent) [![camunda manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.camunda.org/manual/latest/) [![License](https://img.shields.io/github/license/camunda/camunda-bpm-platform?color=blue&logo=apache)](https://github.com/camunda/camunda-bpm-platform/blob/master/LICENSE)
 
 > [!Caution]  
 > Camunda 7 Community Edition will reach its **end of life by October 2025** and the Enterprise Edition will move into maintenance mode, receiving only maintenance improvements as well as bug and security fixes from that point forward. Looking ahead, [Camunda 8](https://github.com/camunda/camunda) is the successor to this project, so we strongly encourage you to explore it and contribute there instead.
