@@ -6,6 +6,7 @@
 - [Execution](#execution)
     - [Method 1: Using as a Project](#method-1-using-as-a-project)
     - [Method 2: Using the JAR File](#method-2-using-the-jar-file)
+    - [Method 3: Using Docker](#method-3-using-docker)
 - [Extending the Migrator](#extending-the-migrator)
 
 ## Overview
@@ -56,12 +57,20 @@ The target project must be a valid Maven project with a pom.xml file
 1. Download the JAR file from the artifactory
 2. Run the migrator with your target project location as an argument `java -jar flowave-migrator-1.0-SNAPSHOT.jar "/path/to/your/project"`
 
+## Method 3: Using Docker
+1. Find the docker file in the Migrator module
+2. Build the image using `docker build -t flowave-migrator .`
+3. Run the image using `docker run --rm -v "C:\path\to\your\project:/data" flowave-migrator /data`
+
 **Important Notes:**
 
 - The path to your project should be enclosed in quotes, especially if it contains spaces
 - Use the appropriate path format for your operating system (e.g., "C:\project\location" for Windows)
 - Verify that the migration was successful by checking for the log message:
 `[INFO] Using active recipe(s) [camundaToFlowave]`
+- While using docker please make sure target project should build successfully inside the docker.
+  This may not work for projects which use organization specific libraries. We may need to amend `settings.xml` 
+  of maven inside docker image.
 
 ## Extending the Migrator
 To extend the migrator with your own custom transformations:
