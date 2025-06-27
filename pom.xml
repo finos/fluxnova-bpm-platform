@@ -114,6 +114,7 @@
         <module>database</module>
         <module>parent</module>
         <module>bom</module>
+        <module>migrator</module>
       </modules>
     </profile>
 

@@ -7,12 +7,13 @@ import org.apache.maven.shared.invoker.*;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.flowave.Migrator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import java.util.List;
  */
 public class MigratorService {
 
+    protected static final Logger LOG = LoggerFactory.getLogger(MigratorService.class);
     private final String projectLocation;
 
     /**
@@ -168,8 +170,6 @@ public class MigratorService {
     /**
      * Copies the rewrite.yml file containing the migration recipe to the project directory.
      * This file defines the transformations that will be applied to the codebase.
-     *
-     * @throws IOException If there is an error copying the file
      */
     private void copyRewriteYml() {
         String rewriteYmlFile = "rewrite.yml"; // the file inside src/main/resources
@@ -177,8 +177,9 @@ public class MigratorService {
 
         try (InputStream inputStream = Migrator.class.getClassLoader().getResourceAsStream(rewriteYmlFile)) {
             Files.createDirectories(targetPath.getParent()); // create target dir if not exists
+            assert inputStream != null;
             Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("Copied to " + targetPath);
+            LOG.info("Copied to " + targetPath);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,12 +227,12 @@ public class MigratorService {
                         ("rewrite-core".equals(dep.getArtifactId())
                                 || "rewrite-java".equals(dep.getArtifactId()))) {
                     iterator.remove();
-                    System.out.println("Removed dependency from dependencyManagement: " +
+                    LOG.info("Removed dependency from dependencyManagement: " +
                             dep.getGroupId() + ":" + dep.getArtifactId());
                 }
             }
         } else {
-            System.out.println("<dependencyManagement> not found in pom.xml.");
+            LOG.info("<dependencyManagement> not found in pom.xml.");
         }
     }
 
@@ -252,7 +253,7 @@ public class MigratorService {
                 if ("rewrite-maven-plugin".equals(plugin.getArtifactId())
                         && "org.openrewrite.maven".equals(plugin.getGroupId())) {
                     iterator.remove();
-                    System.out.println("Removed rewrite-maven-plugin from pom.xml");
+                    LOG.info("Removed rewrite-maven-plugin from pom.xml");
                 }
             }
         }
@@ -265,22 +266,37 @@ public class MigratorService {
      * @param pomFile The path to the project's pom.xml file
      * @throws MavenInvocationException If there is an error invoking Maven
      */
-    void invokeRewriteRunGoal(String pomFile) throws MavenInvocationException {
+    void invokeRewriteRunGoal(String pomFile) throws MavenInvocationException, IOException {
         String mavenHome = System.getenv("M2_HOME");
         if (mavenHome == null || mavenHome.isEmpty()) {
-            System.out.println("M2_HOME not set");
-        } else {
-            System.out.println("Maven home: " + mavenHome);
+            LOG.info("M2_HOME not set");
+            // Migrator service will most probably run in the Windows machine
+            // However the below logic is required to get the test passed in CICD where M2_HOME is not explicitly set.
+            String os = System.getProperty("os.name").toLowerCase();
+            String command = os.contains("win") ? "where" : "which";
+            ProcessBuilder pb = new ProcessBuilder(command, "mvn");
+            Process process = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
+            String mvnPath = reader.readLine();
+            if (mvnPath != null) {
+                mavenHome = mvnPath.replace("\\bin\\mvn.cmd", "").replace("/bin/mvn", "");
+                LOG.info("Maven Home inferred: " + mavenHome);
+            } else {
+                LOG.info("Maven not found in PATH.");
+            }
+        } else {
+            LOG.info("Maven home: " + mavenHome);
         }
 
         InvocationRequest request = new DefaultInvocationRequest();
         request.setPomFile(new File(pomFile));
-        request.setGoals(Arrays.asList("rewrite:run"));
+        request.setGoals(List.of("rewrite:run"));
 
         Invoker invoker = new DefaultInvoker();
+        assert mavenHome != null;
         invoker.setMavenHome(new File(mavenHome));
-        invoker.setOutputHandler(System.out::println);
+        invoker.setOutputHandler(LOG::info);
         invoker.execute(request);
     }
 
@@ -296,8 +312,7 @@ public class MigratorService {
      *   <li>If the file was not found, it prints a notification</li>
      *   <li>If an error occurs during deletion, it prints the error message</li>
      * </ul>
-     * 
-     * @throws IOException This exception is caught internally and logged to System.err
+     *
      */
     void deleteRewriteYml() {
         String rewriteYmlFile = "rewrite.yml";
@@ -306,9 +321,9 @@ public class MigratorService {
         try {
             boolean deleted = Files.deleteIfExists(targetPath);
             if (deleted) {
-                System.out.println(rewriteYmlFile + " file deleted successfully.");
+                LOG.info(rewriteYmlFile + " file deleted successfully.");
             } else {
-                System.out.println(rewriteYmlFile + " file not found.");
+                LOG.info(rewriteYmlFile + " file not found.");
             }
         } catch (IOException e) {
             System.err.println("Error deleting file: " + e.getMessage());
@@ -334,9 +349,9 @@ public class MigratorService {
                 String newName = file.getName().replace(".bpmn", "__bpmn__.xml");
                 File newFile = new File(file.getParent(), newName);
                 if (file.renameTo(newFile)) {
-                    System.out.println("Renamed to XML: " + file.getName() + " -> " + newName);
+                    LOG.info("Renamed to XML: " + file.getName() + " -> " + newName);
                 } else {
-                    System.out.println("Failed to rename: " + file.getAbsolutePath());
+                    LOG.info("Failed to rename: " + file.getAbsolutePath());
                 }
             }
         }
@@ -360,9 +375,9 @@ public class MigratorService {
                 String newName = file.getName().replace("__bpmn__.xml", ".bpmn");
                 File newFile = new File(file.getParent(), newName);
                 if (file.renameTo(newFile)) {
-                    System.out.println("Reverted to BPMN: " + file.getName() + " -> " + newName);
+                    LOG.info("Reverted to BPMN: " + file.getName() + " -> " + newName);
                 } else {
-                    System.out.println("Failed to rename: " + file.getAbsolutePath());
+                    LOG.info("Failed to rename: " + file.getAbsolutePath());
                 }
             }
         }

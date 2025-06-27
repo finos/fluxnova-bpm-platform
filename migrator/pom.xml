@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.camunda.bpm</groupId>
-        <artifactId>camunda-parent</artifactId>
+        <groupId>org.flowave.bpm</groupId>
+        <artifactId>flowave-parent</artifactId>
         <relativePath>../parent</relativePath>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -15,11 +15,9 @@
     <name>Flowave Platform - Migrator</name>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <!-- Maven Dependencies -->
-        <maven-model.version>3.9.6</maven-model.version>
-        <maven-invoker.version>3.2.0</maven-invoker.version>
+        <maven-model.version>3.9.9</maven-model.version>
+        <maven-invoker.version>3.3.0</maven-invoker.version>
         <plexus-utils.version>3.5.1</plexus-utils.version>
 
         <!-- Testing Dependencies -->
@@ -75,6 +73,16 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.version.compiler}</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <release>21</release>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
