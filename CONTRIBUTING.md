@@ -18,60 +18,38 @@ Please also see our [Governance guidelines](https://github.com/finos/flowave-bpm
 
 # Ways to contribute
 
-We would love you to contribute to this project. You can do so in various ways.
-
+We’re excited you’re here and want to contribute to Flowave! This guide outlines how you can contribute effectively and collaboratively.
 
 ## Contribute your knowledge
 
-Help others by participating in our [forum](https://forum.camunda.org/). Please read the [Forum FAQ](https://forum.camunda.org/faq) before you start.
-
+Help others by participating in discussions on [GitHub](https://github.com/finos/flowave-bpm-platform/discussions) or by joining our mailing list [flowave@lists.finos.org](mailto:flowave@lists.finos.org) (email [help@finos.org](mailto:help@finos.org) to add you to the list).
 
 ## File bugs or feature requests
 
-Found a bug in the code or have a feature that you would like to see in the future? [Search our open issues](https://github.com/camunda/camunda-bpm-platform/issues) if we have it on the radar already or [create a new issue otherwise](https://github.com/camunda/camunda-bpm-platform/issues/new/choose).
+Found a bug in the code or have a feature that you would like to see in the future? [Search our open issues](https://github.com/finos/flowave-bpm-platform/issues) if we have it on the radar already or [create a new issue otherwise](https://github.com/finos/flowave-bpm-platform/issues/new/choose).
 
-Try to apply our best practices for creating issues:
+Please try to create high quality issues:
 
-* Only Raise an issue if your request requires a code change in Camunda Platform 7
-  * If you want to contact the Camunda customer support, please see our [Enterprise Support Guide](https://camunda.com/services/enterprise-support-guide/).
-  * If you have an understanding question or need help building your solution, check out our [user forum](https://forum.camunda.io/).
-* Create a high-quality issue:
-  * Give enough context so that a person who doesn't know your project can understand your request
-  * Be concise, only add what's needed to understand the core of the request
-  * If you raise a bug report, describe the steps to reproduce the problem
-  * Specify your environment (e.g. Camunda version, Camunda modules you use, ...)
-  * Provide code. For a bug report, create a test that reproduces the problem. For feature requests, create mockup code that shows how the feature might look like. Fork our [unit test Github template](https://github.com/camunda/camunda-engine-unittest) to get started quickly.
+* Give enough context so that a person who doesn't know your project can understand your request
+* Be concise, only add what's needed to understand the core of the request
+* If you raise a bug report, describe the steps to reproduce the problem
+* Specify your environment (e.g. flowave version, flowave modules you use, ...)
+* Provide code. For a bug report, create a test that reproduces the problem. For feature requests, create mockup code that shows how the feature might look like. 
 
-
-## Write code
+## Contribute code
 
 You can contribute code that fixes bugs and/or implements features. Here is how it works:
 
-1. Select a ticket that you would like to implement. Have a look at [our backlog](https://github.com/camunda/camunda-bpm-platform/issues) if you need inspiration. Be aware that some of the issues need good knowledge of the surrounding code.
-1. Tell us in the ticket comments or in the [forum](https://forum.camunda.org/c/contributions/14) (select the *Contributions* category) that you want to work on your ticket. This is also the place where you can ask questions.
+1. Select an issue that you would like to work on. Have a look at [our Project Board](https://github.com/orgs/finos/projects/116) or the issues lists for the individual projects, e.g.  [Flowave-BPM-Platform Issues](https://github.com/finos/flowave-bpm-platform/issues) if you need inspiration. Be aware that some of the issues need good knowledge of the surrounding code.
+1. [Create a fork of the project](https://github.com/finos/flowave-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes. 
 1. Check your code changes against our [contribution checklist](#contribution-checklist)
-1. [Create a pull request](https://github.com/camunda/camunda-bpm-platform/pulls). Note that you can already do this before you have finished your implementation if you would like feedback on your work in progress.
-
+1. [Create a pull request](https://github.com/finos/flowave-bpm-platform/pulls). Note that you can already do this before you have finished your implementation if you would like feedback on your work in progress.
 
 # Browse our issues
 
-In this repository, we manage the [issues](https://github.com/camunda/camunda-bpm-platform/issues) for the following Camunda Platform 7 code repositories and projects:
+We manage issues for the multiple Flowave projects through [our Project Board](https://github.com/orgs/finos/projects/116).
+You can find the fuyll list of FINOS hosted Flowave projects [here](https://github.com/finos/?q=flowave&type=all&language=&sort=).
 
-* https://github.com/camunda/camunda-bpm-platform
-* Camunda Platform 7 Enterprise Edition
-* Camunda Platform 7 RPA Bridge
-* https://github.com/camunda/camunda-spin
-* https://github.com/camunda/camunda-connect
-* https://github.com/camunda/docker-camunda-bpm-platform
-* https://github.com/camunda/camunda-template-engines-jsr223
-* Camunda Platform 7 XSLT Script engine Extension
-* https://github.com/camunda/camunda-commons
-* https://github.com/camunda/camunda-bpm-examples
-* https://github.com/camunda/camunda-docs-manual
-* https://github.com/camunda/camunda-archetypes
-* https://github.com/camunda/camunda-engine-dmn-unittest
-* https://github.com/camunda/camunda-engine-unittest
-* https://github.com/camunda/camunda-external-task-client-js
 
 We use [labels](https://github.com/camunda/camunda-bpm-platform/labels) to mark and group our issues for easier browsing. We define the following label prefixes:
 
@@ -84,43 +62,216 @@ We use [labels](https://github.com/camunda/camunda-bpm-platform/labels) to mark 
 * `type:` Issue type. Every issue should have exactly one of these labels. They are automatically added when you create a new issue from a template.
 * `version:` Issues that will be released (with high confidence) with the given version.
 
-
 # Build from source
 
-In order to build our codebase from source, add the following to your Maven `settings.xml`.
+## Building Flowave BPM Platform Locally
+
+### Important Note
+
+Currently, not all Flowave packages on FINOS are public. To build `flowave-bpm-platform`, you must first clone and build
+all dependent repositories locally. Once all packages are public, you will be able to build `flowave-bpm-platform` directly
+without building dependencies locally.
+
+### Build Prerequisites
+
+- Java 17+
+- Maven 3.8+
+- Git
+
+### Build Order and Steps
+
+1. **Clone and Build `flowave-release-parent` Repository**
+
+   This repository contains the parent POM used by other Flowave projects.
+
+   ```bash
+   git clone https://github.com/finos/flowave-release-parent
+   cd flowave-release-parent
+   mvn clean install -o
+   ```
+
+2. **Clone and Build `flowave-bpm-release-parent` Repository**
+
+   This repository is the next-level parent POM, used by downstream projects.
+
+   ```bash
+   git clone https://github.com/finos/flowave-bpm-release-parent
+   cd flowave-bpm-release-parent
+   mvn clean install -o
+   ```
+
+3. **Clone and Build `flowave-feel-scala` Repository**
+
+   This repository is a dependency for `flowave-bpm-platform`.
+
+   ```bash
+   git clone https://github.com/finos/flowave-feel-scala
+   cd flowave-feel-scala
+   # To skip tests:
+   mvn clean install -DskipTests -DskipITs -o
+
+   # To run all tests:
+   mvn clean install -o
+   ```
+
+4. **Clone and Build `flowave-bpm-platform` Repository**
+
+   Finally, build the main project. You can skip tests or run them as needed.
+
+   ```bash
+   git clone https://github.com/finos/flowave-bpm-platform
+   cd flowave-bpm-platform
+   # To skip tests:
+   mvn clean install -DskipTests -DskipITs -o
+
+   # To run all tests:
+   mvn clean install -o
+   ```
+
+### Notes
+
+- The `-o` flag enables Maven offline mode, so it uses dependencies from your local `.m2/repository/org/flowave` directory.
+- Artifacts from each build will be stored in your local Maven repository and used by subsequent builds.
+- Once all Flowave dependencies are public, you can build `flowave-bpm-platform` directly without building the other repositories locally.
+
+-----------------------------------------------------------------------------------------------------------------------
+
+## Building with GitHub Actions on FINOS
+
+The `flowave-bpm-platform` project uses GitHub Actions for automated CI/CD on FINOS. This workflow builds, tests, and deploys the project.
+
+### Workflow Triggers
+
+- **Automatic Triggers:**  
+  The workflow runs automatically on every push to the `main` branch and on every pull request.
+- **Manual Trigger:**  
+  You can manually trigger the workflow from the GitHub Actions tab using the "Run workflow" button.  
+  When using this manual trigger (`workflow_dispatch`), you can select which branch to build.
+
+### Steps in the Workflow
+
+1. **Checkout Repository:**  
+   Checks out the latest code from the selected branch.
+2. **Java Setup:**  
+   Sets up the required Java version.
+3. **Git Configuration:**  
+   Configures Git for the workflow environment.
+4. **Set Project Version:**  
+   Sets the Maven project version.
+5. **Download Dependencies:**  
+   Resolves and downloads all Maven dependencies and plugins.
+6. **Build and Deploy:**  
+   Builds the project and deploys artifacts to GitHub Packages.
+7. **Run Tests:**  
+   Runs unit and integration tests in separate jobs.
+
+### Deployment to GitHub Packages
+
+The deployment of artifacts to GitHub Packages is configured in the root `pom.xml` using the `<distributionManagement>` and `<repositories>` tags.
+
+- **`<distributionManagement>`**:  
+  Specifies where Maven should deploy release and snapshot artifacts. For this project, both releases and snapshots are deployed to GitHub Packages.
+
+- **`<repositories>`**:  
+  Lists the Maven repositories (including GitHub Packages for all Flowave dependencies) from which dependencies are resolved during the build.
+
+Example configuration in the root `pom.xml`:
 
 ```xml
-<profiles>
-  <profile>
-    <id>camunda-bpm</id>
-    <repositories>
-      <repository>
-        <id>camunda-bpm-nexus</id>
-        <name>camunda-bpm-nexus</name>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-        <snapshots>
-          <enabled>true</enabled>
-        </snapshots>
-        <url>https://artifacts.camunda.com/artifactory/public/</url>
-      </repository>
-    </repositories>
-  </profile>
-</profiles>
-<activeProfiles>
-  <activeProfile>camunda-bpm</activeProfile>
-</activeProfiles>
+<repositories>
+  <repository>
+    <id>flowave-bpm-platform</id>
+    <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+  <repository>
+    <id>flowave-feel-scala</id>
+    <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+  <repository>
+    <id>flowave-bpm-release-parent</id>
+    <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+  <repository>
+    <id>flowave-release-parent</id>
+    <url>https://maven.pkg.github.com/finos/flowave-release-parent</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+
+<distributionManagement>
+<repository>
+   <id>flowave-bpm-platform</id>
+   <name>GitHub Flowave Maven Packages</name>
+   <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+</repository>
+<snapshotRepository>
+   <id>flowave-bpm-platform</id>
+   <name>GitHub Flowave Maven Packages</name>
+   <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+</snapshotRepository>
+</distributionManagement>
 ```
 
-An entire repository can then be built by running `mvn clean install` in the root directory.
-This will build all sub modules and execute unit tests.
-Furthermore, you can restrict the build to just the module you are changing by running the same command in the corresponding directory.
-Check the repository's or module's README for additional module-specific instructions.
-The `webapps` module requires NodeJS.
-You can exclude building them by running `mvn clean install -pl '!webapps,!webapps/assembly,!webapps/assembly-jakarta'`.
+This setup ensures that all builds and deployments use GitHub Packages for both publishing and resolving dependencies. The workflow uses the `GH_TOKEN` for authentication.
 
-Integration tests (e.g. tests that run in an actual application server) are usually not part of the default Maven profiles. If you think they are relevant to your contribution, please ask us in the ticket, on the forum or in your pull request for how to run them. Smaller contributions usually do not need this.
+### Dependency Management
+
+When building on GitHub Actions, you do **not** need to build dependent projects locally. All dependencies are already
+built and published to GitHub Packages from their respective repositories. The workflow uses the `GH_TOKEN` (a GitHub Personal Access Token)
+to access these packages securely.
+
+### Viewing Packages
+
+- Go to the [Packages](https://github.com/orgs/finos/packages?tab=packages&q=org.flowave) section of the repository on GitHub to view published artifacts.
+- These packages can be used as dependencies in other projects via GitHub Packages.
+
+
+## Running Flowave BPM Platform
+
+You can run Flowave in two modes: **Tomcat** and **Spring Boot**.
+
+### Running the Tomcat Version
+
+1. After a successful build, extract the Tomcat distribution archive:
+   ```bash
+   unzip distro/tomcat/distro/target/flowave-bpm-tomcat-0.0.1-SNAPSHOT.zip
+   ```
+2. Navigate to the extracted folder:
+   ```bash
+   cd flowave-bpm-tomcat-0.0.1-SNAPSHOT
+   ```
+3. Start the Camunda Tomcat server:
+   ```bash
+   sh start-camunda.sh
+   ```
+4. Access the Camunda Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
+
+### Running the Spring Boot Version
+
+1. After a successful build, extract the Spring Boot distribution archive:
+   ```bash
+   unzip distro/run/distro/target/flowave-bpm-run-0.0.1-SNAPSHOT.zip
+   ```
+2. Navigate to the extracted folder:
+   ```bash
+   cd flowave-bpm-run-0.0.1-SNAPSHOT
+   ```
+3. Start the Spring Boot server:
+   ```bash
+   sh start.sh
+   ```
+4. Access the Camunda Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
 
 # Create a pull request
 
@@ -128,9 +279,9 @@ In order to show us your code, you can create a pull request on Github. Do this 
 
 A pull request can be submitted as follows: 
 
-1. [Fork the Camunda repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) you are contributing to
+1. [Fork the Flowave repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) you are contributing to
 1. Commit and push your changes to a branch in your fork
-1. [Submit a Pull Request to the Camunda repository](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). As the *base* branch (the one that you contribute to), select `master`. This should also be the default in the Github UI.
+1. [Submit a Pull Request to the Flowave repository](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). As the *base* branch (the one that you contribute to), select `main`. This should also be the default in the Github UI.
 1. In the pull request description, reference the github issue that your pull request addresses.
 
 # Contribution checklist
