@@ -6,6 +6,8 @@ Please also see our [contribution guidelines] (https://github.com/finos/flowave-
 
 ## Roles
 
+Flowave is a meritocratic, consensus-based community project, in so far that is possible, decision-making is done based on user consensus following open discussion on our Working Groups and issue list. No major decisions about the project’s direction, bug fixes, or features should be made in private without community involvement and participation. Discussions must begin at the earliest possible point on a topic; the community’s participation is vital during the entire decision-making process.
+
 ### Contributors
 
 A Contributor is anyone who submits a contribution to the project. Contributions may include code, issues, documentation, comments, tests or design inputs.
