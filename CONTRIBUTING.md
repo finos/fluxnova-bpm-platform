@@ -41,14 +41,15 @@ Please try to create high quality issues:
 You can contribute code that fixes bugs and/or implements features. Here is how it works:
 
 1. Select an issue that you would like to work on. Have a look at [our Project Board](https://github.com/orgs/finos/projects/116) or the issues lists for the individual projects, e.g.  [Flowave-BPM-Platform Issues](https://github.com/finos/flowave-bpm-platform/issues) if you need inspiration. Be aware that some of the issues need good knowledge of the surrounding code.
-1. [Create a fork of the project](https://github.com/finos/flowave-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes. 
+1. [Create a fork of the project](https://github.com/finos/flowave-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes.
 1. Check your code changes against our [contribution checklist](#contribution-checklist)
-1. [Create a pull request](https://github.com/finos/flowave-bpm-platform/pulls). Note that you can already do this before you have finished your implementation if you would like feedback on your work in progress.
+    1. For large changes, open a draft PR before you have finished your implementation to get feedback.
+1. [Create a pull request](https://github.com/finos/flowave-bpm-platform/pulls). 
 
 # Browse our issues
 
 We manage issues for the multiple Flowave projects through [our Project Board](https://github.com/orgs/finos/projects/116).
-You can find the fuyll list of FINOS hosted Flowave projects [here](https://github.com/finos/?q=flowave&type=all&language=&sort=).
+You can find the full list of FINOS hosted Flowave projects [here](https://github.com/finos/?q=flowave&type=all&language=&sort=).
 
 
 We use [labels](https://github.com/camunda/camunda-bpm-platform/labels) to mark and group our issues for easier browsing. We define the following label prefixes:
@@ -251,9 +252,9 @@ You can run Flowave in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    cd flowave-bpm-tomcat-0.0.1-SNAPSHOT
    ```
-3. Start the Camunda Tomcat server:
+3. Start the Flowave Tomcat server:
    ```bash
-   sh start-camunda.sh
+   sh start-Flowave.sh
    ```
 4. Access the Camunda Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
 
