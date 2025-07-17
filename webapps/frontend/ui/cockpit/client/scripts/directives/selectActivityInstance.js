@@ -22,7 +22,7 @@ module.exports = function() {
     link: function(scope, element) {
       var processData = scope.processData;
       var selectedActivityInstanceQuery = element.attr(
-        'cam-select-activity-instance'
+        'fw-select-activity-instance'
       );
 
       if (!processData) {
@@ -31,7 +31,7 @@ module.exports = function() {
 
       if (!selectedActivityInstanceQuery) {
         throw new Error(
-          'No activity instance id query given in @cam-select-activity'
+          'No activity instance id query given in @fw-select-activity'
         );
       }
 

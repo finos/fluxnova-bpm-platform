@@ -121,7 +121,7 @@ public class MultiTenancyCommandTenantCheckTest {
 
       @Override
       public Void execute(CommandContext commandContext) {
-        // camunda-admin should access data from all tenants
+        // flowave-admin should access data from all tenants
         assertThat(commandContext.getTenantManager().isTenantCheckEnabled()).isFalse();
 
         return null;

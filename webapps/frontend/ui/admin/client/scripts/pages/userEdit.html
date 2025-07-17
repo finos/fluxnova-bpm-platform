@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/userEdit.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/userEdit.html -->
 <section>
   <aside>
     <ul>
@@ -160,10 +160,10 @@
                  for="inputPassword">{{ 'USERS_NEW_PASSWORD' | translate }}</label>
 
           <div class="col-sm-8 col-md-10">
-            <div cam-widget-password
-                 cam-widget-password-profile="persistedProfile"
-                 cam-widget-password-password="credentials.password"
-                 cam-widget-password-valid="credentials.valid"></div>
+            <div fw-widget-password
+                 fw-widget-password-profile="persistedProfile"
+                 fw-widget-password-password="credentials.password"
+                 fw-widget-password-valid="credentials.valid"></div>
 
             <p class="text-danger"
                ng-show="updateCredentialsForm.inputPassword.$error.password">
@@ -243,25 +243,25 @@
              translate-values='{firstname: user.firstName, lastname: user.lastName}'>
         </div>
 
-        <div cam-widget-loader
+        <div fw-widget-loader
              loading-state="{{ groupLoadingState }}"
              text-empty="{{ translate('USERS_NOT_MEMBER_GROUP', { firstname: user.firstName, lastname: user.lastName }) }}">
-          <table class="cam-table"
+          <table class="fw-table"
                  ng-hide="groupList.length == 0">
-            <thead cam-sortable-table-header
+            <thead fw-sortable-table-header
                    default-sort-by="id"
                    default-sort-order="asc"
                    sorting-id="admin-sorting-users-groups"
                    on-sort-change="onGroupsSortingChanged(sorting)">
               <tr>
                 <th class="group-id"
-                    cam-sortable-table-column
+                    fw-sortable-table-column
                     sort-by-property="id">{{ 'USERS_GROUP_ID' | translate }}</th>
                 <th class="group-name"
-                    cam-sortable-table-column
+                    fw-sortable-table-column
                     sort-by-property="name">{{ 'USERS_GROUP_NAME' | translate }}</th>
                 <th class="group-type"
-                    cam-sortable-table-column
+                    fw-sortable-table-column
                     sort-by-property="type">{{ 'USERS_GROUP_TYPE' | translate }}</th>
                 <th class="action">
                   {{ 'USERS_ACTION' | translate }}
@@ -289,7 +289,7 @@
               </tr>
             </tbody>
           </table>
-          <div cam-pagination="onPaginationChange(pages)" total="pages.total"></div>
+          <div fw-pagination="onPaginationChange(pages)" total="pages.total"></div>
         </div>
 
       </form>
@@ -304,12 +304,12 @@
              translate-values='{firstname: user.firstName, lastname: user.lastName}'>
         </div>
 
-        <div cam-widget-loader
+        <div fw-widget-loader
              loading-state="{{ tenantLoadingState }}"
              text-empty="{{ translate('USERS_NOT_MEMBER_TENTANT', { firstname: user.firstName, lastname: user.lastName }) }}">
-          <table class="cam-table"
+          <table class="fw-table"
                  ng-hide="tenantList.length == 0">
-            <thead cam-sortable-table-header
+            <thead fw-sortable-table-header
                    default-sort-by="id"
                    default-sort-order="asc"
                    sorting-id="admin-sorting-users-tenants"
@@ -317,10 +317,10 @@
                    on-sort-initialized="onTenantsSortingChanged(sorting)">
             <tr>
               <th class="tenant-id"
-                    cam-sortable-table-column
+                    fw-sortable-table-column
                     sort-by-property="id">{{ 'USERS_TENANT_ID' | translate }}</th>
               <th class="tenant-name"
-                    cam-sortable-table-column
+                    fw-sortable-table-column
                     sort-by-property="name">{{ 'USERS_TENANT_NAME' | translate }}</th>
               <th class="action">
                 {{ 'USERS_ACTION' | translate }}
@@ -362,4 +362,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/userEdit.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/userEdit.html -->

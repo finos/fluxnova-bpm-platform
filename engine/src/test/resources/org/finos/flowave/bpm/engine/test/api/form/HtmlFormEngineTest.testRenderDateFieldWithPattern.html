@@ -4,14 +4,14 @@
       Date Field
     </label>
     <div class="input-group">
-      <input class="form-control" name="dateField" cam-variable-type="String" cam-variable-name="dateField" type="text" uib-datepicker-popup="yyyy-MM-dd" is-open="dateFieldOpeneddateField" />
+      <input class="form-control" name="dateField" fw-variable-type="String" fw-variable-name="dateField" type="text" uib-datepicker-popup="yyyy-MM-dd" is-open="dateFieldOpeneddateField" />
       <div class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="opendateField($event)">
           <i class="glyphicon glyphicon-calendar">
           </i>
         </button>
       </div>
-      <script cam-script type="text/form-script">
+      <script fw-script type="text/form-script">
         $scope.opendateField = function ($event) { $event.preventDefault(); $event.stopPropagation(); $scope.dateFieldOpeneddateField = true; };
       </script>
     </div>

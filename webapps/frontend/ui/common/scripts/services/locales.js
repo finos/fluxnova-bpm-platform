@@ -16,8 +16,8 @@
  */
 
 'use strict';
-var moment = require('camunda-commons-ui/vendor/moment'),
-  angular = require('camunda-commons-ui/vendor/angular');
+var moment = require('flowave-commons-ui/vendor/moment'),
+  angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = function(ngModule, appRoot, appName) {
   ngModule.factory('sanitizeMissingTranslationKey', [

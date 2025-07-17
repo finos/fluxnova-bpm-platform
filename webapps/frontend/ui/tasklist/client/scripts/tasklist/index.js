@@ -17,23 +17,23 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   /* controller */
-  camTasklistListCtrl = require('./controller/cam-tasklist-list-ctrl'),
+  fwTasklistListCtrl = require('./controller/fw-tasklist-list-ctrl'),
   /* directives */
-  camTasklistTasks = require('./directives/cam-tasklist-tasks'),
+  fwTasklistTasks = require('./directives/fw-tasklist-tasks'),
   /* plugins */
-  camTasklistSearchPlugin = require('./plugins/cam-tasklist-search-plugin');
+  fwTasklistSearchPlugin = require('./plugins/fw-tasklist-search-plugin');
 
 var ngModule = angular.module('cam.tasklist.tasklist', ['ui.bootstrap']);
 
 /* controller */
-ngModule.controller('camListCtrl', camTasklistListCtrl);
+ngModule.controller('fwListCtrl', fwTasklistListCtrl);
 
 /* directives */
-ngModule.directive('camTasks', camTasklistTasks);
+ngModule.directive('fwTasks', fwTasklistTasks);
 
 /* plugins */
-ngModule.config(camTasklistSearchPlugin);
+ngModule.config(fwTasklistSearchPlugin);
 
 module.exports = ngModule;

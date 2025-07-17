@@ -19,14 +19,14 @@
 
 var template = require('./process-instance.html?raw');
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 var commonModule = require('../../../../common/scripts/module');
 
 var routeUtil = require('../../../../common/scripts/util/routeUtil');
-var camCommons = require('camunda-commons-ui/lib');
+var fwCommons = require('flowave-commons-ui/lib');
 
 var ngModule = angular.module('cam.cockpit.pages.processInstance', [
-  camCommons.name,
+  fwCommons.name,
   commonModule.name,
   'dataDepend'
 ]);
@@ -50,7 +50,7 @@ var Controller = [
   'integrateActivityInstanceFilter',
   'isModuleAvailable',
   '$translate',
-  'camAPI',
+  'fwAPI',
   function(
     $scope,
     $filter,
@@ -70,7 +70,7 @@ var Controller = [
     integrateActivityInstanceFilter,
     isModuleAvailable,
     $translate,
-    camAPI
+    fwAPI
   ) {
     $scope.hasMigrationPlugin = isModuleAvailable('cockpit.plugin.migration');
     $scope.processInstance = processInstance;
@@ -321,7 +321,7 @@ var Controller = [
         } else {
           queryParams.withoutTenantId = true;
         }
-        return camAPI.resource('process-definition').list(queryParams);
+        return fwAPI.resource('process-definition').list(queryParams);
       }
     ]);
 

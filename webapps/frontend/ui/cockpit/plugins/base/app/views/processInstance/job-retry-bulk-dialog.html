@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/job-retry-bulk-dialog.html -->
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/job-retry-bulk-dialog.html -->
 <div class="modal-header">
   <h3>{{ 'PLUGIN_JOB_RETRY_BULK_INCREMENT_RETRIES' | translate }}</h3>
 </div>
@@ -50,7 +50,7 @@
             <div ng-if="radio.value === 'dueDate'">
               <label class="col-sm-5 form-control-static text-right">{{ 'PLUGIN_JOB_RETRY_DUE_DATE' | translate }}</label>
               <div class="col-sm-7">
-              <span cam-widget-inline-field
+              <span fw-widget-inline-field
                     class="form-control-static"
                     type="datetime"
                     change="changeDueDate(varValue)"
@@ -74,10 +74,10 @@
         </div>
 
         <p ng-if="failedJobs.length > 0">{{ 'PLUGIN_JOB_RETRY_BULK_SELECT_FAILED_JOB' | translate }}</p>
-        <div cam-widget-loader
+        <div fw-widget-loader
              loading-state="{{ loadingState }}"
              text-empty="{{ 'PLUGIN_JOB_RETRY_BULK_THERE_ARE_NO_FAILED_JOBS' | translate }}">
-          <table class="cam-table">
+          <table class="fw-table">
             <thead>
             <tr>
               <th class="row-select">
@@ -128,7 +128,7 @@
 
   <div ng-show="status === 'finished' || status === 'performing'">
 
-    <table class="cam-table">
+    <table class="fw-table">
       <thead>
       <tr>
         <th class="job-id uuid">{{ 'PLUGIN_JOB_RETRY_BULK_ID' | translate }}</th>
@@ -198,4 +198,4 @@
     {{ 'PLUGIN_JOB_RETRY_BULK_OK' | translate }}
   </button>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/job-retry-bulk-dialog.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/job-retry-bulk-dialog.html -->

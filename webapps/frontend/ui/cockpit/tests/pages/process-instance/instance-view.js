@@ -62,7 +62,7 @@ module.exports = Base.extend({
 
   isInstanceSuspended: function() {
     return element(
-      by.css('.cam-breadcrumb .active .badge-suspended')
+      by.css('.fw-breadcrumb .active .badge-suspended')
     ).isPresent();
   },
 

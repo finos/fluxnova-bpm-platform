@@ -22,7 +22,7 @@ const moment = require('moment');
 const angular = require('angular');
 const Chart = require('chart.js');
 
-const debouncePromiseFactory = require('camunda-bpm-sdk-js').utils
+const debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
   .debouncePromiseFactory;
 const debounceMonthly = debouncePromiseFactory();
 const debounceAnnual = debouncePromiseFactory();
@@ -49,7 +49,7 @@ const datasetMetricColors = {
 const Controller = [
   '$scope',
   '$filter',
-  'camAPI',
+  'fwAPI',
   'configuration',
   'localConf',
   'PluginMetricsResource',
@@ -57,13 +57,13 @@ const Controller = [
   function(
     $scope,
     $filter,
-    camAPI,
+    fwAPI,
     configuration,
     localConf,
     PluginMetricsResource,
     $translate
   ) {
-    const telemetryResource = camAPI.resource('telemetry');
+    const telemetryResource = fwAPI.resource('telemetry');
     const dateFilter = $filter('date');
 
     // initial scope data

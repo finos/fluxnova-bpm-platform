@@ -1,4 +1,4 @@
-<!-- # CE - camunda-admin-ui/client/scripts/pages/tenant.html -->
+<!-- # CE - flowave-admin-ui/client/scripts/pages/tenant.html -->
 <section ng-cloak>
   <!-- <aside></aside> -->
   <div class="section-content">
@@ -15,15 +15,15 @@
       </div>
     </header>
 
-    <div cam-searchable-area
+    <div fw-searchable-area
          config="searchConfig"
          on-search-change="onSearchChange(query, pages)"
          loading-state="loadingState"
          text-empty="{{ 'TENANTS_NO_TENANTS' | translate }}"
          storage-group="'ANT'"
          blocked="blocked">
-      <table class="cam-table tenant">
-        <thead cam-sortable-table-header
+      <table class="fw-table tenant">
+        <thead fw-sortable-table-header
                default-sort-by="id"
                default-sort-order="asc"
                sorting-id="admin-sorting-tenants"
@@ -31,11 +31,11 @@
                on-sort-initialized="onSortInitialized(sorting)">
           <tr>
             <th class="tenant-id"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="id">{{ 'TENANTS_TENANT_ID' | translate }}
             </th>
             <th class="tenant-name"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="name">{{ 'TENANTS_TENANT_NAME' | translate }}
             </th>
             <th class="action">{{ 'TENANTS_ACTION' | translate }}</th>
@@ -61,4 +61,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-admin-ui/client/scripts/pages/tenant.html -->
+<!-- / CE - flowave-admin-ui/client/scripts/pages/tenant.html -->

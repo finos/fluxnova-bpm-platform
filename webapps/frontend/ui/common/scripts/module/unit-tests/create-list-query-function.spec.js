@@ -20,21 +20,21 @@
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
-var camCommon = require('../index');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var fwCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common createListQueryFunction', function() {
+describe('fw-common createListQueryFunction', function() {
   var $rootScope;
   var $q;
   var getCount;
   var getList;
   var query;
 
-  beforeEach(module(camCommon.name));
+  beforeEach(module(fwCommon.name));
 
   beforeEach(inject(function(_$rootScope_, _$q_, createListQueryFunction) {
     $rootScope = _$rootScope_;

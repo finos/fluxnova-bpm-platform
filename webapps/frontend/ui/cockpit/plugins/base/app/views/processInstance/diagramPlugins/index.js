@@ -18,14 +18,14 @@
 'use strict';
 
 var angular = require('angular');
-var camCommon = require('ui/common/scripts/module/index');
+var fwCommon = require('ui/common/scripts/module/index');
 
 var instanceCount = require('./instanceCount');
 var callActivity = require('./callActivity');
 
 var ngModule = angular.module(
   'cockpit.plugin.base.views.instance.diagram-plugins',
-  [camCommon.name]
+  [fwCommon.name]
 );
 
 ngModule.config(instanceCount);

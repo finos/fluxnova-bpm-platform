@@ -28,7 +28,7 @@ require('angular-mocks');
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common integrateActivityInstanceFilter', function() {
+describe('fw-common integrateActivityInstanceFilter', function() {
   var activityIds;
   var params;
   var search;

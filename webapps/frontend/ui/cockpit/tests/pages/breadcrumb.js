@@ -22,7 +22,7 @@ var Base = require('./base');
 module.exports = Base.extend({
   crumb: function(index) {
     return element(
-      by.css('.cam-breadcrumb [data-index="' + index + '"] a.text')
+      by.css('.fw-breadcrumb [data-index="' + index + '"] a.text')
     );
   },
 
@@ -31,27 +31,27 @@ module.exports = Base.extend({
   },
 
   activeCrumb: function() {
-    return element(by.css('.cam-breadcrumb li.active > .text'));
+    return element(by.css('.fw-breadcrumb li.active > .text'));
   },
 
   activeCrumbViewSwitcher: function() {
-    return element(by.css('.cam-breadcrumb li.active .switcher'));
+    return element(by.css('.fw-breadcrumb li.active .switcher'));
   },
 
   activeCrumbViewSwitcherCurrent: function() {
-    return element(by.css('.cam-breadcrumb li.active .switcher .current'));
+    return element(by.css('.fw-breadcrumb li.active .switcher .current'));
   },
 
   activeCrumbViewSwitcherLink: function() {
-    return element(by.css('.cam-breadcrumb li.active .switcher a'));
+    return element(by.css('.fw-breadcrumb li.active .switcher a'));
   },
 
   activeCrumbDropdown: function() {
-    return element(by.css('.cam-breadcrumb li.active > .dropdown'));
+    return element(by.css('.fw-breadcrumb li.active > .dropdown'));
   },
 
   activeCrumbDropdownLabel: function() {
-    return element(by.css('.cam-breadcrumb li.active .dropdown-toggle'));
+    return element(by.css('.fw-breadcrumb li.active .dropdown-toggle'));
   },
 
   activeCrumbDropdownOpen: function() {

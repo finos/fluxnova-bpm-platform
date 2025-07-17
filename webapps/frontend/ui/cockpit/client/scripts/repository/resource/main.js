@@ -17,35 +17,35 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   /* controllers */
-  camResourceDetailsCtrl = require('./controllers/cam-cockpit-resource-details-ctrl'),
+  fwResourceDetailsCtrl = require('./controllers/fw-cockpit-resource-details-ctrl'),
   /* directives */
-  camCockpitResourceWrapper = require('./directives/cam-cockpit-resource-wrapper'),
-  camCockpitResourceMeta = require('./directives/cam-cockpit-resource-meta'),
-  camCockpitResourceContent = require('./directives/cam-cockpit-resource-content'),
-  camCockpitHtmlSource = require('./directives/cam-cockpit-html-source'),
-  camCockpitSource = require('./directives/cam-cockpit-source'),
-  camCockpitForm = require('./directives/cam-cockpit-form'),
+  fwCockpitResourceWrapper = require('./directives/fw-cockpit-resource-wrapper'),
+  fwCockpitResourceMeta = require('./directives/fw-cockpit-resource-meta'),
+  fwCockpitResourceContent = require('./directives/fw-cockpit-resource-content'),
+  fwCockpitHtmlSource = require('./directives/fw-cockpit-html-source'),
+  fwCockpitSource = require('./directives/fw-cockpit-source'),
+  fwCockpitForm = require('./directives/fw-cockpit-form'),
   /* plugins */
-  camCockpitDefinitionsPlugin = require('./plugins/details/definitions/cam-cockpit-definitions-plugin'),
-  camCockpitResourceDownloadPlugin = require('./plugins/actions/download/cam-cockpit-resource-action-download-plugin');
+  fwCockpitDefinitionsPlugin = require('./plugins/details/definitions/fw-cockpit-definitions-plugin'),
+  fwCockpitResourceDownloadPlugin = require('./plugins/actions/download/fw-cockpit-resource-action-download-plugin');
 
 var resourceModule = angular.module('cam.cockpit.repository.resource', []);
 
 /* controllers */
-resourceModule.controller('camResourceDetailsCtrl', camResourceDetailsCtrl);
+resourceModule.controller('fwResourceDetailsCtrl', fwResourceDetailsCtrl);
 
 /* directives */
-resourceModule.directive('camResourceWrapper', camCockpitResourceWrapper);
-resourceModule.directive('camResourceMeta', camCockpitResourceMeta);
-resourceModule.directive('camResourceContent', camCockpitResourceContent);
-resourceModule.directive('camForm', camCockpitForm);
-resourceModule.directive('camSource', camCockpitSource);
-resourceModule.directive('camHtmlSource', camCockpitHtmlSource);
+resourceModule.directive('fwResourceWrapper', fwCockpitResourceWrapper);
+resourceModule.directive('fwResourceMeta', fwCockpitResourceMeta);
+resourceModule.directive('fwResourceContent', fwCockpitResourceContent);
+resourceModule.directive('fwForm', fwCockpitForm);
+resourceModule.directive('fwSource', fwCockpitSource);
+resourceModule.directive('fwHtmlSource', fwCockpitHtmlSource);
 
 /* plugins */
-resourceModule.config(camCockpitDefinitionsPlugin);
-resourceModule.config(camCockpitResourceDownloadPlugin);
+resourceModule.config(fwCockpitDefinitionsPlugin);
+resourceModule.config(fwCockpitResourceDownloadPlugin);
 
 module.exports = resourceModule;

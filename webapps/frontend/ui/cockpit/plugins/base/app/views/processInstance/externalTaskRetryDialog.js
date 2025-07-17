@@ -21,7 +21,7 @@ module.exports = [
   '$scope',
   '$location',
   'Notifications',
-  'camAPI',
+  'fwAPI',
   '$uibModalInstance',
   'incident',
   '$translate',
@@ -29,7 +29,7 @@ module.exports = [
     $scope,
     $location,
     Notifications,
-    camAPI,
+    fwAPI,
     $modalInstance,
     incident,
     $translate
@@ -38,7 +38,7 @@ module.exports = [
       PERFORM = 'performing',
       FAILED = 'failed';
 
-    var ExternalTask = camAPI.resource('external-task');
+    var ExternalTask = fwAPI.resource('external-task');
 
     $scope.$on('$routeChangeStart', function() {
       $modalInstance.close($scope.status);

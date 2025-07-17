@@ -17,16 +17,16 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
-var debouncePromiseFactory = require('camunda-bpm-sdk-js').utils
+var angular = require('flowave-commons-ui/vendor/angular');
+var debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
   .debouncePromiseFactory;
 var debouncePromise = debouncePromiseFactory();
 
 module.exports = [
-  'camAPI',
+  'fwAPI',
   'createListQueryFunction',
-  function(camAPI, createListQueryFunction) {
-    var externalTasks = camAPI.resource('external-task');
+  function(fwAPI, createListQueryFunction) {
+    var externalTasks = fwAPI.resource('external-task');
     var getExternalTasks = createListQueryFunction(
       externalTasks.count.bind(externalTasks),
       externalTasks.list.bind(externalTasks)

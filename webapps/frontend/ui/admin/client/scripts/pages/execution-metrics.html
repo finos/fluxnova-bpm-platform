@@ -32,7 +32,7 @@
         {{ 'EXECUTION_METRICS_START_DATE' | translate }}
       </label>
       <div>
-        <span cam-widget-inline-field
+        <span fw-widget-inline-field
               id="startDate"
               class="form-control-static"
               type="date"
@@ -68,10 +68,10 @@
       <canvas id="monthly-metrics-chart-canvas"></canvas>
     </div>
     <div class="col-xs-12">
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{ loadingStateMonthly }}"
            text-error="{{ loadingErrorMonthly }}">
-        <table class="cam-table metrics-monthly"
+        <table class="fw-table metrics-monthly"
                ng-class="{'without-legacy': !displayLegacyMetrics}">
           <thead>
           <tr>
@@ -110,11 +110,11 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{ loadingStateAnnual }}"
            text-error="{{ loadingErrorAnnual }}"
            text-empty="{{ 'EXECUTION_METRICS_ANNUAL_TABLE_EMPTY' | translate }}">
-        <table class="cam-table metrics-annual">
+        <table class="fw-table metrics-annual">
           <thead>
           <tr>
             <th></th>
@@ -130,27 +130,27 @@
           <tr ng-repeat="metric in annualMetrics">
             <td>{{metric.labelFmt}}</td>
             <td class="metric-row">
-              <span cam-widget-clipboard="metric['process-instances'].sum.toString()"
+              <span fw-widget-clipboard="metric['process-instances'].sum.toString()"
                     left-side="true">{{metric['process-instances'].sumFmt}}</span>
             </td>
             <td class="metric-row">
-              <span cam-widget-clipboard="metric['decision-instances'].sum.toString()"
+              <span fw-widget-clipboard="metric['decision-instances'].sum.toString()"
                     left-side="true">{{metric['decision-instances'].sumFmt}}</span>
             </td>
             <td class="metric-row">
-              <span cam-widget-clipboard="metric['task-users'].sum.toString()"
+              <span fw-widget-clipboard="metric['task-users'].sum.toString()"
                     left-side="true">{{metric['task-users'].sumFmt}}</span>
             </td>
             <td class="metric-row">
-              <span cam-widget-clipboard="metric['flow-node-instances'].sum.toString()"
+              <span fw-widget-clipboard="metric['flow-node-instances'].sum.toString()"
                     left-side="true">{{metric['flow-node-instances'].sumFmt}}</span>
             </td>
             <td class="metric-row">
-              <span cam-widget-clipboard="metric['executed-decision-elements'].sum.toString()"
+              <span fw-widget-clipboard="metric['executed-decision-elements'].sum.toString()"
                     left-side="true">{{metric['executed-decision-elements'].sumFmt}}</span>
             </td>
             <td class="metric-action-value">
-              <span class="hovered" cam-widget-clipboard="getClipboardText(metric)"
+              <span class="hovered" fw-widget-clipboard="getClipboardText(metric)"
                     tooltip-text="{{ 'EXECUTION_METRICS_COPY_TOOLTIP' | translate }}"></span>
             </td>
           </tr>

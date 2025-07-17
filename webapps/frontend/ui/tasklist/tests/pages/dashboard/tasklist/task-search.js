@@ -24,7 +24,7 @@ var Page = require('./../dashboard-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[cam-widget-search]'));
+    return element(by.css('[fw-widget-search]'));
   },
 
   searchList: function() {
@@ -83,7 +83,7 @@ module.exports = Page.extend({
   changeType: function(index, type) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="type.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="type.value"]'))
       .click();
     this.searchList()
       .get(index)
@@ -94,7 +94,7 @@ module.exports = Page.extend({
   changeOperator: function(index, operator) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="operator.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="operator.value"]'))
       .click();
     this.searchList()
       .get(index)
@@ -105,7 +105,7 @@ module.exports = Page.extend({
   changeValue: function(index, value) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="value.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="value.value"]'))
       .click();
 
     var input = this.searchList()

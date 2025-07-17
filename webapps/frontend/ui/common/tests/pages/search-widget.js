@@ -21,7 +21,7 @@ var Base = require('./../../../cockpit/tests/pages/base');
 
 module.exports = Base.extend({
   formElement: function() {
-    return element(by.css('[cam-widget-search]'));
+    return element(by.css('[fw-widget-search]'));
   },
 
   createSearch: function(type, operator, value, name) {
@@ -85,6 +85,6 @@ module.exports = Base.extend({
   },
 
   searchPills: function() {
-    return this.formElement().all(by.css('[cam-widget-search-pill]'));
+    return this.formElement().all(by.css('[fw-widget-search-pill]'));
   }
 });

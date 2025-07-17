@@ -19,7 +19,7 @@
 
 var Ctrl = require('../components/batch');
 var events = require('../components/events');
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 var searchConfig = require('../config/batch-search-config.json');
 
 var deleteModalTemplate = require('./../templates/delete-modal.html?raw');
@@ -31,7 +31,7 @@ var jobLogModalTemplate = require('./../templates/job-log.html?raw');
 module.exports = [
   '$scope',
   'page',
-  'camAPI',
+  'fwAPI',
   '$location',
   '$uibModal',
   '$translate',
@@ -42,7 +42,7 @@ module.exports = [
   function(
     $scope,
     page,
-    camAPI,
+    fwAPI,
     $location,
     $modal,
     $translate,
@@ -218,7 +218,7 @@ module.exports = [
 
     require('../components/breadcrumbs')(page, $scope.$root, $translate);
 
-    $scope.ctrl = new Ctrl(camAPI, localConf, configuration);
+    $scope.ctrl = new Ctrl(fwAPI, localConf, configuration);
     $scope.ctrl.loadPeriodically(5000);
 
     $scope.openLog = function(job) {

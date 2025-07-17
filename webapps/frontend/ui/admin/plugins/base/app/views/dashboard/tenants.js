@@ -29,9 +29,9 @@ module.exports = [
       pagePath: '#/tenants',
       controller: [
         '$scope',
-        'camAPI',
-        function($scope, camAPI) {
-          var service = camAPI.resource('tenant');
+        'fwAPI',
+        function($scope, fwAPI) {
+          var service = fwAPI.resource('tenant');
 
           $scope.access = {};
 

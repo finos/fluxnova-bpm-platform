@@ -16,16 +16,16 @@
  */
 
 var $ = (window.jQuery = window.$ = require('jquery'));
-var commons = require('camunda-commons-ui/lib');
-var sdk = require('camunda-bpm-sdk-js/lib/angularjs/index');
+var commons = require('flowave-commons-ui/lib');
+var sdk = require('flowave-bpm-sdk-js/lib/angularjs/index');
 var dataDepend = require('angular-data-depend');
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 window.angular = angular;
 window.jquery = $;
-window['camunda-commons-ui'] = commons;
-window['camunda-bpm-sdk-js'] = sdk;
+window['flowave-commons-ui'] = commons;
+window['flowave-bpm-sdk-js'] = sdk;
 window['angular-data-depend'] = dataDepend;
-window['moment'] = require('camunda-commons-ui/vendor/moment');
+window['moment'] = require('flowave-commons-ui/vendor/moment');
 window['events'] = require('events');
-window['cam-common'] = require('../scripts/module');
+window['fw-common'] = require('../scripts/module');

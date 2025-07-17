@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/setup.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/setup.html -->
 <section>
   <!-- <aside></aside> -->
   <div class="section-content"
@@ -60,10 +60,10 @@
                    for="inputPassword">{{ 'SETUP_USER_PASSWORD' | translate }}</label>
 
             <div class="col-sm-8">
-              <div cam-widget-password
-                   cam-widget-password-profile="profile"
-                   cam-widget-password-password="credentials.password"
-                   cam-widget-password-valid="credentials.valid"></div>
+              <div fw-widget-password
+                   fw-widget-password-profile="profile"
+                   fw-widget-password-password="credentials.password"
+                   fw-widget-password-valid="credentials.valid"></div>
 
               <span class="help-inline"
                     ng-show="createUserForm.inputPassword.$error.password">
@@ -184,4 +184,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/setup.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/setup.html -->

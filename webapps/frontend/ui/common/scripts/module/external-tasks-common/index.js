@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 // Services
 var observeBpmnElements = require('./services/observe-bpmn-elements');
@@ -32,7 +32,7 @@ var ExternalTaskActivityLinkController = require('./controllers/external-task-ac
 var ExternalTasksTabController = require('./controllers/external-tasks-tab-controller');
 var ExternalTaskErrorMessageLinkController = require('./controllers/external-task-error-message-link-controller');
 
-var ngModule = angular.module('cam-common.external-tasks-common', []);
+var ngModule = angular.module('fw-common.external-tasks-common', []);
 
 // Services
 ngModule.factory('observeBpmnElements', observeBpmnElements);

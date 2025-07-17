@@ -19,14 +19,14 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
 var drdCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common isModuleAvailable service', function() {
+describe('fw-common isModuleAvailable service', function() {
   beforeEach(module(drdCommon.name));
 
   it('should return false when module is not available', function() {

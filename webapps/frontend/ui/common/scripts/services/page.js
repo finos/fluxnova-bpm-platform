@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 /**
  * A service to manage a page page.
@@ -32,8 +32,8 @@ var angular = require('camunda-commons-ui/vendor/angular');
 module.exports = [
   '$rootScope',
   '$location',
-  'camAPI',
-  function($rootScope, $location, camAPI) {
+  'fwAPI',
+  function($rootScope, $location, fwAPI) {
     var page = {
       title: 'Flowave',
       breadcrumbs: []
@@ -59,7 +59,7 @@ module.exports = [
         return;
       }
 
-      var userService = camAPI.resource('user');
+      var userService = fwAPI.resource('user');
       userService.profile(auth.name, function(err, info) {
         if (err) {
           $rootScope.userFullName = null;

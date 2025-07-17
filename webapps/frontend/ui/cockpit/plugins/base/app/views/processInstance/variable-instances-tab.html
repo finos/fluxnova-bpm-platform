@@ -1,5 +1,5 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/variable-instances-tab.html -->
-<div cam-searchable-area
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/variable-instances-tab.html -->
+<div fw-searchable-area
      config="searchConfig"
      array-types="['activityInstanceIdIn']"
      variable-types="['variableValues']"
@@ -9,7 +9,7 @@
      blocked="!instanceIdToInstanceMap"
      storage-group="'VI'">
 
-      <div cam-widget-variables-table
+      <div fw-widget-variables-table
            on-save="saveVariable"
            on-edit="editVariable"
            on-upload="uploadVariable"
@@ -17,9 +17,9 @@
            on-download="downloadVariable"
            on-sort-change="onSortChange(query, pages,sortObj)"
            default-sort = "sortObj"
-           cam-variables="variables"
-           cam-editable="['type', 'value']"
-           cam-headers="headColumns">
+           fw-variables="variables"
+           fw-editable="['type', 'value']"
+           fw-headers="headColumns">
       </div>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/variable-instances-tab.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/variable-instances-tab.html -->

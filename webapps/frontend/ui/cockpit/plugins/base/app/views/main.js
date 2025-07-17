@@ -21,7 +21,7 @@
 'use strict';
 
 var angular = require('angular'),
-  camCommon = require('ui/common/scripts/module/index'),
+  fwCommon = require('ui/common/scripts/module/index'),
   diagramInstancePlugins = require('./processInstance/diagramPlugins'),
   diagramDefinitionPlugins = require('./processDefinition/diagramPlugins'),
   // dashboard
@@ -58,7 +58,7 @@ var angular = require('angular'),
   jobsTab = require('./processInstance/jobsTab');
 
 var ngModule = angular.module('cockpit.plugin.base.views', [
-  camCommon.name,
+  fwCommon.name,
   diagramInstancePlugins.name,
   diagramDefinitionPlugins.name
 ]);

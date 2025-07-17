@@ -123,7 +123,7 @@ public class DemoDataGenerator {
       // create group
       if(identityService.createGroupQuery().groupId(Groups.CAMUNDA_ADMIN).count() == 0) {
         Group camundaAdminGroup = identityService.newGroup(Groups.CAMUNDA_ADMIN);
-        camundaAdminGroup.setName("camunda BPM Administrators");
+        camundaAdminGroup.setName("Flowave BPM Administrators");
         camundaAdminGroup.setType(Groups.GROUP_TYPE_SYSTEM);
         identityService.saveGroup(camundaAdminGroup);
       }
@@ -143,7 +143,7 @@ public class DemoDataGenerator {
       identityService.createMembership("demo", "sales");
       identityService.createMembership("demo", "accounting");
       identityService.createMembership("demo", "management");
-      identityService.createMembership("demo", "camunda-admin");
+      identityService.createMembership("demo", "flowave-admin");
 
       identityService.createMembership("john", "sales");
       identityService.createMembership("mary", "accounting");

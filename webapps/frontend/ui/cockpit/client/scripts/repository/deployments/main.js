@@ -17,40 +17,40 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   /* controller */
-  camCockpitDeploymentsCtrl = require('./controllers/cam-cockpit-deployments-ctrl'),
+  fwCockpitDeploymentsCtrl = require('./controllers/fw-cockpit-deployments-ctrl'),
   /* directives */
-  camCockpitDeployments = require('./directives/cam-cockpit-deployments'),
-  camCockpitDeployment = require('./directives/cam-cockpit-deployment'),
-  camCockpitDeploymentsSortingChoices = require('./directives/cam-cockpit-deployments-sorting-choices'),
+  fwCockpitDeployments = require('./directives/fw-cockpit-deployments'),
+  fwCockpitDeployment = require('./directives/fw-cockpit-deployment'),
+  fwCockpitDeploymentsSortingChoices = require('./directives/fw-cockpit-deployments-sorting-choices'),
   /* plugins */
-  camCockpitDeleteDeploymentPlugin = require('./plugins/actions/delete/cam-cockpit-delete-deployment-plugin'),
+  fwCockpitDeleteDeploymentPlugin = require('./plugins/actions/delete/fw-cockpit-delete-deployment-plugin'),
   /* modals */
-  camCockpitDeleteDeploymentModalCtrl = require('./plugins/actions/delete/modals/cam-cockpit-delete-deployment-modal-ctrl');
+  fwCockpitDeleteDeploymentModalCtrl = require('./plugins/actions/delete/modals/fw-cockpit-delete-deployment-modal-ctrl');
 
 var deploymentsModule = angular.module('cam.cockpit.repository.deployments', [
   'ui.bootstrap'
 ]);
 
 /* controllers */
-deploymentsModule.controller('camDeploymentsCtrl', camCockpitDeploymentsCtrl);
+deploymentsModule.controller('fwDeploymentsCtrl', fwCockpitDeploymentsCtrl);
 
 /* directives */
-deploymentsModule.directive('camDeployments', camCockpitDeployments);
-deploymentsModule.directive('camDeployment', camCockpitDeployment);
+deploymentsModule.directive('fwDeployments', fwCockpitDeployments);
+deploymentsModule.directive('fwDeployment', fwCockpitDeployment);
 deploymentsModule.directive(
-  'camDeploymentsSortingChoices',
-  camCockpitDeploymentsSortingChoices
+  'fwDeploymentsSortingChoices',
+  fwCockpitDeploymentsSortingChoices
 );
 
 /* plugins */
-deploymentsModule.config(camCockpitDeleteDeploymentPlugin);
+deploymentsModule.config(fwCockpitDeleteDeploymentPlugin);
 
 /* modals */
 deploymentsModule.controller(
-  'camDeleteDeploymentModalCtrl',
-  camCockpitDeleteDeploymentModalCtrl
+  'fwDeleteDeploymentModalCtrl',
+  fwCockpitDeleteDeploymentModalCtrl
 );
 
 module.exports = deploymentsModule;

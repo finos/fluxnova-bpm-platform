@@ -1,0 +1,30 @@
+<!-- # CE - flowave-commons-ui/lib/widgets/inline-field/dialog/template.html -->
+<div class="modal-header">
+  <h3 class="modal-title">{{ 'FW_WIDGET_INLINE_FIELD_CRIT_VALUE' | translate }}</h3>
+</div>
+
+<div class="modal-body">
+  <div class="inline-field-dialog">
+    <p>{{ 'FW_WIDGET_INLINE_FIELD_CRIT_VALUE_CHANGE' | translate }}</p>
+    <form class="form-horizontal">
+      <textarea ng-model="formData.editValue"
+                rows="10"
+                class="form-control"></textarea>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal-footer">
+  <button class="btn btn-link"
+          ng-click="$dismiss()">
+    {{ 'FW_WIDGET_INLINE_FIELD_CRIT_VALUE_BTN_CLOSE' | translate }}
+  </button>
+
+  <button type="submit"
+          class="btn btn-primary"
+          ng-click="changeValue()">
+    {{ 'FW_WIDGET_INLINE_FIELD_CRIT_VALUE_BTN_CHANGE' | translate}}
+  </button>
+</div>
+<!-- / CE - flowave-commons-ui/lib/widgets/inline-field/dialog/template.html -->

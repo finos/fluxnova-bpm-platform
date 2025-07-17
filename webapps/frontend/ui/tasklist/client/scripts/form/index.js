@@ -17,27 +17,27 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
-  camTasklistForm = require('./directives/cam-tasklist-form'),
-  camTasklistFormGeneric = require('./directives/cam-tasklist-form-generic'),
-  camTasklistFormGenericVariables = require('./directives/cam-tasklist-form-generic-variables'),
-  camTasklistFormEmbedded = require('./directives/cam-tasklist-form-embedded'),
-  camTasklistFormExternal = require('./directives/cam-tasklist-form-external'),
-  camTasklistFormCamunda = require('./directives/cam-tasklist-form-camunda'),
-  camTasklistUniqueValue = require('./directives/cam-tasklist-unique-value');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  fwTasklistForm = require('./directives/fw-tasklist-form'),
+  fwTasklistFormGeneric = require('./directives/fw-tasklist-form-generic'),
+  fwTasklistFormGenericVariables = require('./directives/fw-tasklist-form-generic-variables'),
+  fwTasklistFormEmbedded = require('./directives/fw-tasklist-form-embedded'),
+  fwTasklistFormExternal = require('./directives/fw-tasklist-form-external'),
+  fwTasklistFormCamunda = require('./directives/fw-tasklist-form-flowave'),
+  fwTasklistUniqueValue = require('./directives/fw-tasklist-unique-value');
 
 var formModule = angular.module('cam.tasklist.form', ['ui.bootstrap']);
 
-formModule.directive('camTasklistForm', camTasklistForm);
-formModule.directive('camTasklistFormGeneric', camTasklistFormGeneric);
+formModule.directive('fwTasklistForm', fwTasklistForm);
+formModule.directive('fwTasklistFormGeneric', fwTasklistFormGeneric);
 formModule.directive(
-  'camTasklistFormGenericVariables',
-  camTasklistFormGenericVariables
+  'fwTasklistFormGenericVariables',
+  fwTasklistFormGenericVariables
 );
-formModule.directive('camTasklistFormEmbedded', camTasklistFormEmbedded);
-formModule.directive('camTasklistFormExternal', camTasklistFormExternal);
-formModule.directive('camTasklistFormCamunda', camTasklistFormCamunda);
+formModule.directive('fwTasklistFormEmbedded', fwTasklistFormEmbedded);
+formModule.directive('fwTasklistFormExternal', fwTasklistFormExternal);
+formModule.directive('fwTasklistFormCamunda', fwTasklistFormCamunda);
 
-formModule.directive('camUniqueValue', camTasklistUniqueValue);
+formModule.directive('fwUniqueValue', fwTasklistUniqueValue);
 
 module.exports = formModule;

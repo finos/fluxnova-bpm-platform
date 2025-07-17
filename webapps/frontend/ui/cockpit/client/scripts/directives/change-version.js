@@ -23,14 +23,14 @@ module.exports = [
   '$timeout',
   '$location',
   'ProcessDefinitionResource',
-  'camAPI',
+  'fwAPI',
   'Notifications',
   '$translate',
   function(
     $timeout,
     $location,
     ProcessDefinitionResource,
-    camAPI,
+    fwAPI,
     Notifications,
     $translate
   ) {
@@ -117,9 +117,9 @@ module.exports = [
               definitions = ProcessDefinitionResource.query(queryParams)
                 .$promise;
             } else if ($scope.type === 'drd') {
-              definitions = camAPI.resource('drd').list(queryParams);
+              definitions = fwAPI.resource('drd').list(queryParams);
             } else {
-              definitions = camAPI
+              definitions = fwAPI
                 .resource($scope.type + '-definition')
                 .list(queryParams);
             }

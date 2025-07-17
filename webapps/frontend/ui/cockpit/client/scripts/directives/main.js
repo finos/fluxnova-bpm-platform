@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   breadcrumbs = require('./../../../../common/scripts/directives/breadcrumbs'),
   numeric = require('./numeric'),
   date = require('./../../../../common/scripts/directives/date'),
@@ -39,16 +39,16 @@ var angular = require('camunda-commons-ui/vendor/angular'),
   diagramStatisticsLoader = require('./diagramStatisticsLoader'),
   timeToLive = require('./time-to-live/time-to-live.js'),
   changeVersion = require('./change-version.js'),
-  camCommon = require('../../../../common/scripts/module'),
+  fwCommon = require('../../../../common/scripts/module'),
   isSidebarCollapsed = require('./isSidebarCollapsed'),
   incidentsTab = require('./incidentsTab'),
   sortableTableHead = require('./sortableTableHead');
 
 var directivesModule = angular.module('cam.cockpit.directives', [
-  camCommon.name
+  fwCommon.name
 ]);
 
-directivesModule.directive('camBreadcrumbsPanel', breadcrumbs);
+directivesModule.directive('fwBreadcrumbsPanel', breadcrumbs);
 directivesModule.directive('numeric', numeric);
 directivesModule.directive('date', date);
 directivesModule.directive('processDiagram', processDiagram);
@@ -60,12 +60,12 @@ directivesModule.directive('stateCircle', stateCircle);
 directivesModule.directive('variable', variable);
 directivesModule.directive('focus', focus);
 directivesModule.directive('viewPills', viewPills);
-directivesModule.directive('camSelectActivity', selectActivity);
-directivesModule.directive('camPieChart', pieChart);
-directivesModule.directive('camSelectActivityInstance', selectActivityInstance);
+directivesModule.directive('fwSelectActivity', selectActivity);
+directivesModule.directive('fwPieChart', pieChart);
+directivesModule.directive('fwSelectActivityInstance', selectActivityInstance);
 directivesModule.directive('processVariable', processVariable);
-directivesModule.directive('camDynamicName', dynamicName);
-directivesModule.directive('camQuickFilter', quickFilter);
+directivesModule.directive('fwDynamicName', dynamicName);
+directivesModule.directive('fwQuickFilter', quickFilter);
 directivesModule.directive('diagramStatisticsLoader', diagramStatisticsLoader);
 directivesModule.directive('timeToLive', timeToLive);
 directivesModule.directive('changeVersion', changeVersion);

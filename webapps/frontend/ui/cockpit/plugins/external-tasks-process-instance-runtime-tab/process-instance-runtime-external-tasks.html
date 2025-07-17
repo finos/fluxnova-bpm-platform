@@ -1,7 +1,7 @@
 <!-- # CE - ui/cockpit/plugins/external-tasks-process-instance-runtime-tab/process-instance-runtime-external-tasks.html -->
 <div external-tasks-tab="RuntimeTab.onLoad(pages, activityIds)"
      process-data="RuntimeTab.processData">
-  <table class="history-job-log cam-table">
+  <table class="history-job-log fw-table">
 
     <thead sortable-table-head
            head-columns="RuntimeTab.headColumns"
@@ -11,7 +11,7 @@
     <tbody>
       <tr ng-repeat="task in RuntimeTab.tasks track by task.id">
         <td class="state"
-            cam-widget-clipboard="task.id">{{task.id}}</td>
+            fw-widget-clipboard="task.id">{{task.id}}</td>
         <td class="activity">
           <span external-task-activity-link="task.activityId"
                 bpmn-elements="RuntimeTab.bpmnElements">

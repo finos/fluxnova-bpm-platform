@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-var angular = require('camunda-commons-ui/vendor/angular');
-var createCamApiMock = require('./create-cam-api-mock');
+var angular = require('flowave-commons-ui/vendor/angular');
+var createFwApiMock = require('./create-fw-api-mock');
 var ViewsProvider = require('./views-provider-mock');
 var $routeProvider = require('./route-provider-mock');
 var localConfMock = require('./local-conf-mock');
 
 var ngModule = angular.module('common-tests-module', []);
 
-ngModule.value('camAPI', createCamApiMock());
+ngModule.value('fwAPI', createFwApiMock());
 ngModule.provider('Views', function() {
   return ViewsProvider;
 });

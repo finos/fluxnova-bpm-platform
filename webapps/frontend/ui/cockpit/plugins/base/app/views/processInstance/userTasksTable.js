@@ -76,7 +76,7 @@ module.exports = function(ngModule) {
   ngModule.controller('UserTaskController', [
     '$scope',
     'search',
-    'camAPI',
+    'fwAPI',
     'TaskResource',
     'Notifications',
     '$uibModal',
@@ -86,7 +86,7 @@ module.exports = function(ngModule) {
     function(
       $scope,
       search,
-      camAPI,
+      fwAPI,
       TaskResource,
       Notifications,
       $modal,
@@ -113,7 +113,7 @@ module.exports = function(ngModule) {
       var filter = null;
       var executionIdToInstanceMap = null;
 
-      var Task = camAPI.resource('task');
+      var Task = fwAPI.resource('task');
 
       var sorting = ($scope.sorting = loadLocal({
         sortBy: 'created',
@@ -405,7 +405,7 @@ module.exports = function(ngModule) {
 
   ngModule.controller('IdentityLinksController', [
     '$uibModalInstance',
-    'camAPI',
+    'fwAPI',
     '$scope',
     'Notifications',
     'userTask',
@@ -413,14 +413,14 @@ module.exports = function(ngModule) {
     'decorator',
     function(
       $modalInstance,
-      camAPI,
+      fwAPI,
       $scope,
       Notifications,
       userTask,
       identityLinks,
       decorator
     ) {
-      var Task = camAPI.resource('task');
+      var Task = fwAPI.resource('task');
 
       $scope.identityLinks = identityLinks;
       $scope.decorator = decorator;

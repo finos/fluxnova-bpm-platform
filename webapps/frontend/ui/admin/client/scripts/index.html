@@ -34,7 +34,7 @@
         welcome-api="$APP_ROOT/api/welcome/"
         engine-api="$APP_ROOT/api/engine/"
         app-root="$APP_ROOT"
-        cam-exclude-plugins="admin.dashboard:process-definition-tiles" />
+        fw-exclude-plugins="admin.dashboard:process-definition-tiles" />
   -->
 
   <%= htmlWebpackPlugin.tags.headTags %>
@@ -43,14 +43,14 @@
         type="text/css"
         href="<%= htmlWebpackPlugin.options.appRoot %>/app/admin/styles/user-styles.css?bust=<%= htmlWebpackPlugin.options.version %>">
 </head>
-<body ng-controller="camAdminAppCtrl" ng-class="{'no-breadcrumbs': !$root.showBreadcrumbs}">
+<body ng-controller="fwAdminAppCtrl" ng-class="{'no-breadcrumbs': !$root.showBreadcrumbs}">
 <!-- navigation -->
-<div cam-widget-header
+<div fw-widget-header
      authentication="authentication"
      user-name="userFullName"
      current-app="admin"
      ng-cloak>
-  <ul cam-if-logged-in
+  <ul fw-if-logged-in
       ng-controller="NavigationController">
 
     <li ng-class="activeClass('#/user')">
@@ -78,7 +78,7 @@
 <div class="ctn-main">
   <div class="ctn-wrapper">
     <div ng-if="showBreadcrumbs"
-         cam-breadcrumbs-panel
+         fw-breadcrumbs-panel
          divider="&raquo;"
          ng-cloak
          class="breadcrumbs-panel"></div>
@@ -98,11 +98,11 @@
 </div>
 
 <!-- footer -->
-<footer cam-widget-footer
+<footer fw-widget-footer
         version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
 <script type="application/javascript" $CSP_NONCE>
-  var adminConf = window.camAdminConf = {};
+  var adminConf = window.fwAdminConf = {};
 
   window.PLUGIN_DEPENDENCIES = <%= htmlWebpackPlugin.options.pluginDeps %> || [];
   window.PLUGIN_PACKAGES = <%= htmlWebpackPlugin.options.pluginPackages %> || [];

@@ -312,9 +312,9 @@ public abstract class ProcessEngineConfiguration {
    * and Tenant IDs. The pattern can be defined by using the standard
    * Java Regular Expression syntax should be used.
    *
-   * <p>By default only alphanumeric values (or 'camunda-admin') will be accepted.</p>
+   * <p>By default only alphanumeric values (or 'flowave-admin') will be accepted.</p>
    */
-  protected String generalResourceWhitelistPattern =  "[a-zA-Z0-9]+|camunda-admin";
+  protected String generalResourceWhitelistPattern =  "[a-zA-Z0-9]+|flowave-admin";
 
   /**
    * A parameter used for defining acceptable values for the User IDs.
@@ -322,7 +322,7 @@ public abstract class ProcessEngineConfiguration {
    * Expression syntax should be used.
    *
    * <p>If not defined, the general pattern is used. Only alphanumeric
-   * values (or 'camunda-admin') will be accepted.</p>
+   * values (or 'flowave-admin') will be accepted.</p>
    */
   protected String userResourceWhitelistPattern;
 
@@ -332,7 +332,7 @@ public abstract class ProcessEngineConfiguration {
    * Expression syntax should be used.
    *
    * <p>If not defined, the general pattern is used. Only alphanumeric
-   * values (or 'camunda-admin') will be accepted.</p>
+   * values (or 'flowave-admin') will be accepted.</p>
    */
   protected String groupResourceWhitelistPattern;
 
@@ -342,7 +342,7 @@ public abstract class ProcessEngineConfiguration {
    * Expression syntax should be used.
    *
    * <p>If not defined, the general pattern is used. Only alphanumeric
-   * values (or 'camunda-admin') will be accepted.</p>
+   * values (or 'flowave-admin') will be accepted.</p>
    */
   protected String tenantResourceWhitelistPattern;
 

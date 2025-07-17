@@ -3,11 +3,11 @@
 </div>
 
 <div class="batch-job-log-modal modal-body">
-  <div cam-widget-loader
+  <div fw-widget-loader
        loading-state="{{ loadingState }}"
        text-empty="{{ 'PLGN_BATCH_NO_JOB_LOGS' | translate }}"
        text-error="{{ 'PLGN_BATCH_NO_JOB_ERROR' | translate }}">
-    <table class="cam-table cam-fixed-layout">
+    <table class="fw-table fw-fixed-layout">
     <thead sortable-table-head
             head-columns="headColumns"
             on-sort-change="onSortChange(sortObj)"
@@ -39,22 +39,22 @@
         </td>
 
         <td class="timestamp"
-            cam-widget-clipboard="log.timestamp | camDate">
-          {{ log.timestamp | camDate }}
+            fw-widget-clipboard="log.timestamp | fwDate">
+          {{ log.timestamp | fwDate }}
         </td>
 
         <td class="job"
-            cam-widget-clipboard="log.jobId">
+            fw-widget-clipboard="log.jobId">
           {{ log.jobId }}
         </td>
 
         <td class="type"
-            cam-widget-clipboard="log.jobDefinitionType">
+            fw-widget-clipboard="log.jobDefinitionType">
           {{ log.jobDefinitionType }}
         </td>
 
         <td class="configuration"
-            cam-widget-clipboard="log.jobDefinitionConfiguration">
+            fw-widget-clipboard="log.jobDefinitionConfiguration">
           {{ log.jobDefinitionConfiguration }}
         </td>
 
@@ -63,7 +63,7 @@
         </td>
 
         <td class="hostname"
-            cam-widget-clipboard="log.hostname">
+            fw-widget-clipboard="log.hostname">
           {{ log.hostname }}
         </td>
 

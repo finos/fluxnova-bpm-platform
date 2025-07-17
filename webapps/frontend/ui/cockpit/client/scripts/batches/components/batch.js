@@ -21,8 +21,8 @@ var events = require('./events');
 
 var PAGE_SIZE = 10;
 
-var Batch = function(camAPI, localConf, configuration) {
-  this._sdk = camAPI;
+var Batch = function(fwAPI, localConf, configuration) {
+  this._sdk = fwAPI;
   this._localConf = localConf;
   this.shouldLoadHistory = configuration.getBatchOperationAutoLoadEnded();
 

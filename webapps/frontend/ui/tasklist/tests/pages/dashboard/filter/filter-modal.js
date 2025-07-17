@@ -110,7 +110,7 @@ module.exports = Base.extend({
 
   // permissions
   permissionPageElement: function() {
-    return element(by.css('[cam-tasklist-filter-modal-form-permission]'));
+    return element(by.css('[fw-tasklist-filter-modal-form-permission]'));
   },
 
   permissionHelpText: function() {
@@ -328,7 +328,7 @@ module.exports = Base.extend({
 
   // variables
   variablePageElement: function() {
-    return element(by.css('[cam-tasklist-filter-modal-form-variable]'));
+    return element(by.css('[fw-tasklist-filter-modal-form-variable]'));
   },
 
   variableHelpText: function() {

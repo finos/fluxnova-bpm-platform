@@ -19,18 +19,18 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
-var camCommon = require('../index');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var fwCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common isFileUploadSupported', function() {
+describe('fw-common isFileUploadSupported', function() {
   var FileReader;
   var isFileUploadSupported;
 
-  beforeEach(module(camCommon.name));
+  beforeEach(module(fwCommon.name));
 
   beforeEach(
     module(function($provide) {

@@ -20,14 +20,14 @@
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
-var camCommon = require('../index');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var fwCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common getDeploymentUrl', function() {
+describe('fw-common getDeploymentUrl', function() {
   var searchParams;
   var $location;
   var url;
@@ -36,7 +36,7 @@ describe('cam-common getDeploymentUrl', function() {
   var deployment;
   var resource;
 
-  beforeEach(module(camCommon.name));
+  beforeEach(module(fwCommon.name));
 
   beforeEach(
     module(function($provide) {

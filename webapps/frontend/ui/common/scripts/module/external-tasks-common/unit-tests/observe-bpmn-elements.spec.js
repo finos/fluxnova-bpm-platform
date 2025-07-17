@@ -27,7 +27,7 @@ require('angular-mocks');
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common.external-tasks-common observeBpmnElements', function() {
+describe('fw-common.external-tasks-common observeBpmnElements', function() {
   var $scope;
   var bpmnElements;
   var instance;

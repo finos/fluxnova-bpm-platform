@@ -1,0 +1,53 @@
+<!-- # cockpit client/scripts/repository/resource/directives/fw-cockpit-resource-content.html -->
+<div ng-if="binary || (resource && isImageResource(resource))"
+     class="resource-wrapper">
+
+  <div ng-if="isBpmnResource(resource)"
+       fw-widget-bpmn-viewer
+       diagram-data="binary"
+       bpmn-js-conf="bpmnJsConf">
+  </div>
+
+
+  <div ng-if="isDmnResource(resource)"
+       fw-widget-dmn-viewer
+       enable-drd-navigation="true"
+       xml="binary">
+  </div>
+
+  <div ng-if="isCmmnResource(resource)"
+       fw-widget-cmmn-viewer
+       diagram-data="binary">
+  </div>
+
+  <div ng-if="isImageResource(resource)"
+       class="image-resource">
+    <img ng-src="{{ imageLink(deployment, resource) }}">
+  </div>
+
+  <div ng-if="isHtmlResource(resource)"
+       class="html-resource">
+    <div fw-html-source
+         name="resource.name"
+         source="binary"></div>
+  </div>
+
+  <div ng-if="isFormResource(resource)"
+       class="json-resource">
+     <div fw-form
+          source="binary"
+          name="resource.name"></div>
+  </div>
+
+  <div ng-if="isUnkownResource(resource)"
+       class="unkown-resource">
+    <div fw-source
+         name="resource.name"
+         source="binary">
+    </div>
+  </div>
+
+  <div>
+
+</div>
+<!-- / cockpit client/scripts/repository/resource/directives/fw-cockpit-resource-content.html -->

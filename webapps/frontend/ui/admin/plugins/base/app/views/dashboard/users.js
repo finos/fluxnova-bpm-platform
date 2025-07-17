@@ -29,9 +29,9 @@ module.exports = [
       pagePath: '#/users',
       controller: [
         '$scope',
-        'camAPI',
-        function($scope, camAPI) {
-          var service = camAPI.resource('user');
+        'fwAPI',
+        function($scope, fwAPI) {
+          var service = fwAPI.resource('user');
 
           $scope.access = {};
 

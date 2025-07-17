@@ -21,7 +21,7 @@ var Page = require('./repository-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[cam-resource-wrapper]'));
+    return element(by.css('[fw-resource-wrapper]'));
   },
 
   noResourceInfoText: function() {
@@ -54,15 +54,15 @@ module.exports = Page.extend({
   },
 
   bpmnDiagramFormElement: function() {
-    return element(by.css('[cam-widget-bpmn-viewer]'));
+    return element(by.css('[fw-widget-bpmn-viewer]'));
   },
 
   dmnDiagramFormElement: function() {
-    return element(by.css('[cam-widget-dmn-viewer]'));
+    return element(by.css('[fw-widget-dmn-viewer]'));
   },
 
   cmmnDiagramFormElement: function() {
-    return element(by.css('[cam-widget-cmmn-viewer]'));
+    return element(by.css('[fw-widget-cmmn-viewer]'));
   },
 
   imageFormElement: function() {

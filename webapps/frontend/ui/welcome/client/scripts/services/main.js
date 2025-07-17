@@ -17,13 +17,13 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
-var camAPI = require('./../../../../common/scripts/services/cam-api');
+var angular = require('flowave-commons-ui/vendor/angular');
+var fwAPI = require('./../../../../common/scripts/services/fw-api');
 var customLinks = require('./custom-links');
 
 var servicesModule = angular.module('cam.welcome.services', []);
 
-servicesModule.factory('camAPI', camAPI);
+servicesModule.factory('fwAPI', fwAPI);
 servicesModule.factory('customLinks', customLinks);
 
 module.exports = servicesModule;

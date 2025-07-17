@@ -18,7 +18,7 @@
 'use strict';
 
 var template = require('./dashboard.html?raw');
-var series = require('camunda-bpm-sdk-js').utils.series;
+var series = require('flowave-bpm-sdk-js').utils.series;
 
 function prioritySort(a, b) {
   return a.priority > b.priority ? 1 : a.priority < b.priority ? -1 : 0;
@@ -49,7 +49,7 @@ function valuesTreshold(l, t) {
 
 var Controller = [
   '$scope',
-  'camAPI',
+  'fwAPI',
   'localConf',
   'Views',
   'hasPlugin',
@@ -59,7 +59,7 @@ var Controller = [
   '$translate',
   function(
     $scope,
-    camAPI,
+    fwAPI,
     localConf,
     Views,
     hasPlugin,
@@ -154,10 +154,10 @@ var Controller = [
       });
     }
 
-    var caseDefResource = camAPI.resource('case-definition');
-    var decisionDefResource = camAPI.resource('decision-definition');
-    var deploymentResource = camAPI.resource('deployment');
-    var processDefinitionService = camAPI.resource('process-definition');
+    var caseDefResource = fwAPI.resource('case-definition');
+    var decisionDefResource = fwAPI.resource('decision-definition');
+    var deploymentResource = fwAPI.resource('deployment');
+    var processDefinitionService = fwAPI.resource('process-definition');
 
     $scope.processData = dataDepend.create($scope);
     var processData = $scope.processData.newChild($scope);
@@ -225,7 +225,7 @@ var Controller = [
       $scope.data.actual.openIncidents = totalIncidents;
     }
 
-    var taskResource = camAPI.resource('task');
+    var taskResource = fwAPI.resource('task');
     $scope.$watch('actualActive', function() {
       if (!$scope.actualActive) {
         return;

@@ -44,7 +44,7 @@ describe('cockpit.plugin.process-instance-runtime-tab.external-tasks externalTas
         list: sinon.stub()
       };
 
-      $provide.value('camAPI', {
+      $provide.value('fwAPI', {
         resource: sinon.stub().returns(externalTasksResource)
       });
     })

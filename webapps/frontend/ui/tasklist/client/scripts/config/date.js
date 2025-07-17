@@ -17,9 +17,9 @@
 
 'use strict';
 module.exports = [
-  'camDateFormatProvider',
+  'fwDateFormatProvider',
   'configurationProvider',
-  function(camDateFormatProvider, configurationProvider) {
+  function(fwDateFormatProvider, configurationProvider) {
     var dateProperties = [
       'monthName',
       'day',
@@ -29,7 +29,7 @@ module.exports = [
       'short'
     ];
     for (var i = 0; i < dateProperties.length; i++) {
-      camDateFormatProvider.setDateFormat(
+      fwDateFormatProvider.setDateFormat(
         configurationProvider.getDateFormat(dateProperties[i]),
         dateProperties[i]
       );

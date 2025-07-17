@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/identity-links-modal.html -->
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/identity-links-modal.html -->
 <div class="modal-header">
   <h3 class="modal-title">{{ title | translate }}</h3>
 </div>
@@ -11,7 +11,7 @@
     <fieldset ng-show="identityLinks.length">
       <legend>{{ decorator.table.label }}</legend>
 
-      <table class="table cam-table">
+      <table class="table fw-table">
         <thead>
           <tr>
             <th class="id">{{ decorator.table.id }}</th>
@@ -22,7 +22,7 @@
         <tbody>
           <tr ng-repeat="(delta, identityLink) in identityLinks">
             <td class="id">
-              <span cam-widget-clipboard="identityLink[key]">{{ identityLink[key] }}</span>
+              <span fw-widget-clipboard="identityLink[key]">{{ identityLink[key] }}</span>
             </td>
             <td class="action text-right">
               <span class="btn btn-default action-button"
@@ -60,4 +60,4 @@
     {{ 'PLUGIN_IDENTITY_LINKS_CLOSE' | translate }}
   </button>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/identity-links-modal.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/identity-links-modal.html -->

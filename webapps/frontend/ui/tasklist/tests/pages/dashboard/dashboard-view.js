@@ -23,7 +23,7 @@ module.exports = Base.extend({
   url: '/flowave/app/tasklist/default/#/',
 
   header: function() {
-    return element(by.css('[cam-widget-header]'));
+    return element(by.css('[fw-widget-header]'));
   },
 
   accountDropdown: function() {

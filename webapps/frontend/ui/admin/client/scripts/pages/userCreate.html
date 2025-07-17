@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/userCreate.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/userCreate.html -->
 <section ng-cloak>
   <!-- <aside></aside> -->
   <div class="section-content">
@@ -32,10 +32,10 @@
                  for="inputPassword">{{ 'USERS_PASSWORD' | translate }}</label>
 
           <div class="col-sm-8 col-md-10">
-              <div cam-widget-password
-                   cam-widget-password-profile="profile"
-                   cam-widget-password-password="credentials.password"
-                   cam-widget-password-valid="credentials.valid"></div>
+              <div fw-widget-password
+                   fw-widget-password-profile="profile"
+                   fw-widget-password-password="credentials.password"
+                   fw-widget-password-valid="credentials.valid"></div>
 
             <span class="help-inline"
                   ng-show="createUserForm.inputPassword.$error.password">
@@ -144,4 +144,4 @@
     </form>
   </div>
 </section>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/userCreate.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/userCreate.html -->

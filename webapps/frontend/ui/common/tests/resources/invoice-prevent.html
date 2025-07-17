@@ -1,10 +1,10 @@
 <form class="form-horizontal"
       role="form">
 
-  <script cam-script type="text/form-script">
+  <script fw-script type="text/form-script">
     var submitted = false;
 
-    camForm.on('submit', function(evt) {
+    fwForm.on('submit', function(evt) {
       if (!submitted) { // it should prevent first submition
         evt.submitPrevented = true;
       }

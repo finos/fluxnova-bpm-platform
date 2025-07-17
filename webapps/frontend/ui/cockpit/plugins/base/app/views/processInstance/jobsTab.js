@@ -18,7 +18,7 @@
 'use strict';
 
 var angular = require('angular');
-var moment = require('camunda-commons-ui/vendor/moment');
+var moment = require('flowave-commons-ui/vendor/moment');
 
 var jobsTemplate = require('./jobs-tab.html?raw');
 var jobRescheduleTemplate = require('./jobs-reschedule-modal.html?raw');
@@ -31,7 +31,7 @@ var Configuration = function PluginConfiguration(ViewsProvider) {
     priority: 0,
     controller: [
       '$scope',
-      'camAPI',
+      'fwAPI',
       'Notifications',
       '$translate',
       '$uibModal',
@@ -39,15 +39,15 @@ var Configuration = function PluginConfiguration(ViewsProvider) {
       '$q',
       function(
         $scope,
-        camAPI,
+        fwAPI,
         Notifications,
         $translate,
         $modal,
         localConf,
         $q
       ) {
-        var jobProvider = camAPI.resource('job');
-        var jobDefinitionProvider = camAPI.resource('job-definition');
+        var jobProvider = fwAPI.resource('job');
+        var jobDefinitionProvider = fwAPI.resource('job-definition');
         var processInstance = $scope.processInstance;
 
         $scope.pages = {size: 50, total: 0, current: 1};

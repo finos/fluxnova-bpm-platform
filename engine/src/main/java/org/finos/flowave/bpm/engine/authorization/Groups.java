@@ -23,7 +23,7 @@ package org.finos.flowave.bpm.engine.authorization;
  */
 public interface Groups {
 
-  public static final String CAMUNDA_ADMIN = "camunda-admin";
+  public static final String CAMUNDA_ADMIN = "flowave-admin";
   public static final String GROUP_TYPE_SYSTEM = "SYSTEM";
   public static final String GROUP_TYPE_WORKFLOW = "WORKFLOW";
   

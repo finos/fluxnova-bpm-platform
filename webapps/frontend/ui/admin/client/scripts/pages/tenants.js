@@ -20,19 +20,19 @@
 var template = require('./tenants.html?raw');
 var searchConfig = require('./tenants-search-plugin-config.json');
 
-var debouncePromiseFactory = require('camunda-bpm-sdk-js').utils
+var debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
   .debouncePromiseFactory;
 var debounceQuery = debouncePromiseFactory();
 var debounceCount = debouncePromiseFactory();
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 var Controller = [
   '$scope',
   '$location',
   'search',
   'TenantResource',
-  'camAPI',
+  'fwAPI',
   'page',
   '$translate',
   function(
@@ -40,7 +40,7 @@ var Controller = [
     $location,
     search,
     TenantResource,
-    camAPI,
+    fwAPI,
     pageService,
     $translate
   ) {

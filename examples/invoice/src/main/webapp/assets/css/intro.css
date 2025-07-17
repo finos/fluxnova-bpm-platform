@@ -3,12 +3,12 @@ body.dashboard {
   padding-top: 70px;
 }
 
-[cam-widget-header] .btn-primary,
-[cam-widget-header] .btn-primary:hover {
+[fw-widget-header] .btn-primary,
+[fw-widget-header] .btn-primary:hover {
   font-size: 14px;
   color: #fff;
 }
-[cam-widget-header] .row {
+[fw-widget-header] .row {
   display: flex;
   align-items: center;
 }

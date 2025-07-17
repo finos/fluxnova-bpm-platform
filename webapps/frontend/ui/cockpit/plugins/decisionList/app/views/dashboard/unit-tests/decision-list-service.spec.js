@@ -30,7 +30,7 @@ var inject = angular.mock.inject;
 
 describe('cockpit.plugin.decisionList.views.dashboard decisionList service', function() {
   var decisionList;
-  var camAPI;
+  var fwAPI;
   var $rootScope;
   var $q;
 
@@ -38,12 +38,12 @@ describe('cockpit.plugin.decisionList.views.dashboard decisionList service', fun
 
   beforeEach(
     module(function($provide) {
-      camAPI = {
+      fwAPI = {
         list: sinon.stub(),
         resource: sinon.stub().returnsThis()
       };
 
-      $provide.value('camAPI', camAPI);
+      $provide.value('fwAPI', fwAPI);
     })
   );
 
@@ -53,9 +53,9 @@ describe('cockpit.plugin.decisionList.views.dashboard decisionList service', fun
     $q = _$q_;
   }));
 
-  it('should use decision-definition and drd resources of camAPI', function() {
-    expect(camAPI.resource.calledWith('drd')).to.eql(true);
-    expect(camAPI.resource.calledWith('decision-definition')).to.eql(true);
+  it('should use decision-definition and drd resources of fwAPI', function() {
+    expect(fwAPI.resource.calledWith('drd')).to.eql(true);
+    expect(fwAPI.resource.calledWith('decision-definition')).to.eql(true);
   });
 
   describe('getDecisionsLists', function() {
@@ -81,8 +81,8 @@ describe('cockpit.plugin.decisionList.views.dashboard decisionList service', fun
         }
       ];
 
-      camAPI.list.onCall(0).returns($q.when(mockDecisions));
-      camAPI.list.onCall(1).returns($q.when(mockDrds));
+      fwAPI.list.onCall(0).returns($q.when(mockDecisions));
+      fwAPI.list.onCall(1).returns($q.when(mockDrds));
 
       responsePromise = decisionList.getDecisionsLists();
     });

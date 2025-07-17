@@ -31,8 +31,8 @@
         href="<%= htmlWebpackPlugin.options.appRoot %>/app/tasklist/styles/user-styles.css?bust=<%= htmlWebpackPlugin.options.version %>">
 </head>
 
-<body ng-controller="camTasklistAppCtrl">
-<div cam-widget-header
+<body ng-controller="fwTasklistAppCtrl">
+<div fw-widget-header
      authentication="authentication"
      user-name="userFullName"
      current-app="tasklist"
@@ -40,8 +40,8 @@
      sign-out="{{ 'SIGN_OUT_ACTION' | translate }}"
      my-profile="{{ 'MY_PROFILE' | translate }}"
      ng-cloak>
-  <ul cam-if-logged-in
-      ng-controller="camHeaderViewsCtrl">
+  <ul fw-if-logged-in
+      ng-controller="fwHeaderViewsCtrl">
     <li ng-repeat="actionProvider in navbarActions"
         ng-class="actionProvider.id">
       <view ng-cloak
@@ -71,7 +71,7 @@
 
 
 <!-- # page-footer -->
-<footer cam-widget-footer
+<footer fw-widget-footer
         version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
 

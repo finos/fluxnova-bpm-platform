@@ -21,7 +21,7 @@ var Page = require('./repository-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[cam-resources]'));
+    return element(by.css('[fw-resources]'));
   },
 
   resourceList: function() {
@@ -49,7 +49,7 @@ module.exports = Page.extend({
         .element(by.css('a'))
         .click();
       self.waitForElementToBeVisible(
-        element(by.css('[cam-resource-meta] .name'))
+        element(by.css('[fw-resource-meta] .name'))
       );
     }
 

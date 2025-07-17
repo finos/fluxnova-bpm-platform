@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/cockpit/scripts/components/variables/variable-inspect-modal.html -->
+<!-- # CE - flowave-bpm-webapp/ui/cockpit/scripts/components/variables/variable-inspect-modal.html -->
 <div class="modal-header">
   <h3 translate="VARIABLE_INSPECT_MODAL_TITLE"
       translate-values="{ name: variable.name }"></h3>
@@ -14,13 +14,13 @@
     <div ng-if="!isJsonOrXml" class="form-group">
       <label>{{ 'VARIABLE_INSPECT_OBJECT_TYPE_NAME' | translate }}</label>
       <code class="form-control-static"
-            cam-widget-clipboard="variable.valueInfo.objectTypeName">{{ variable.valueInfo.objectTypeName }}</code>
+            fw-widget-clipboard="variable.valueInfo.objectTypeName">{{ variable.valueInfo.objectTypeName }}</code>
     </div>
 
     <div ng-if="!isJsonOrXml" class="form-group">
       <label>{{ 'VARIABLE_INSPECT_SERIALIZATION_DATA' | translate }}</label>
       <code class="form-control-static"
-            cam-widget-clipboard="variable.valueInfo.serializationDataFormat">{{ variable.valueInfo.serializationDataFormat }}</code>
+            fw-widget-clipboard="variable.valueInfo.serializationDataFormat">{{ variable.valueInfo.serializationDataFormat }}</code>
     </div>
 
     <div ng-if="!isJsonOrXml" class="form-group">
@@ -67,10 +67,10 @@
          class="form-group">
         <form name="jsonXmlForm">
           <label for="value"
-                 cam-widget-clipboard="variable.value"
+                 fw-widget-clipboard="variable.value"
                  no-tooltip
                  ng-class="{hovered: hovered === 'var-value'}">
-            {{ 'CAM_WIDGET_STRING_DIALOG_LABEL_VALUE' | translate }}
+            {{ 'FW_WIDGET_STRING_DIALOG_LABEL_VALUE' | translate }}
           </label>
           <div variable="variable"
                readonly="readonly"
@@ -120,4 +120,4 @@
     </button>
   <![endif]>
 </div>
-<!-- / CE - camunda-bpm-webapp/ui/cockpit/scripts/components/variables/variable-inspect-modal.html -->
+<!-- / CE - flowave-bpm-webapp/ui/cockpit/scripts/components/variables/variable-inspect-modal.html -->

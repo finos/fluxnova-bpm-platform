@@ -67,7 +67,7 @@ module.exports = Page.extend({
         .get(idx)
         .click();
       that.waitForElementToBeVisible(
-        element(by.css('[cam-resources] .resources'))
+        element(by.css('[fw-resources] .resources'))
       );
     }
 
@@ -114,7 +114,7 @@ module.exports = Page.extend({
 
   sortingElement: function() {
     return this.formElement().element(
-      by.css('[cam-deployments-sorting-choices]')
+      by.css('[fw-deployments-sorting-choices]')
     );
   },
 
@@ -170,7 +170,7 @@ module.exports = Page.extend({
   // search ////////////////////////////////////////////////
 
   searchElement: function() {
-    return this.formElement().element(by.css('[cam-widget-search]'));
+    return this.formElement().element(by.css('[fw-widget-search]'));
   },
 
   searchList: function() {
@@ -200,7 +200,7 @@ module.exports = Page.extend({
     if (value) {
       if (isDateValue) {
         element(
-          by.css('.cam-widget-inline-field > button[ng-click="changeType()"]')
+          by.css('.fw-widget-inline-field > button[ng-click="changeType()"]')
         ).click();
       }
       this.searchList()
@@ -236,14 +236,14 @@ module.exports = Page.extend({
   getType: function(index) {
     return this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="type.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="type.value"]'))
       .getText();
   },
 
   changeType: function(index, type) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="type.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="type.value"]'))
       .click();
     this.searchList()
       .get(index)
@@ -254,14 +254,14 @@ module.exports = Page.extend({
   getOperator: function(index) {
     return this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="operator.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="operator.value"]'))
       .getText();
   },
 
   changeOperator: function(index, operator) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="operator.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="operator.value"]'))
       .click();
     this.searchList()
       .get(index)
@@ -272,20 +272,20 @@ module.exports = Page.extend({
   getValue: function(index) {
     return this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="value.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="value.value"]'))
       .getText();
   },
 
   changeValue: function(index, value, isDateValue) {
     this.searchList()
       .get(index)
-      .element(by.css('[cam-widget-inline-field][value="value.value"]'))
+      .element(by.css('[fw-widget-inline-field][value="value.value"]'))
       .click();
 
     if (isDateValue) {
       if (isDateValue) {
         element(
-          by.css('.cam-widget-inline-field > button[ng-click="changeType()"]')
+          by.css('.fw-widget-inline-field > button[ng-click="changeType()"]')
         ).click();
       }
     }

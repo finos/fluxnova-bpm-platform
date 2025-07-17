@@ -34,7 +34,7 @@
           welcome-api="$APP_ROOT/api/welcome/"
           engine-api="$APP_ROOT/api/engine/"
           app-root="$APP_ROOT"
-          cam-exclude-plugins="cockpit.dashboard:process-definition-tiles" />
+          fw-exclude-plugins="cockpit.dashboard:process-definition-tiles" />
     -->
 
     <%= htmlWebpackPlugin.tags.headTags %>
@@ -45,7 +45,7 @@
   </head>
   <body>
     <!-- navigation -->
-    <div cam-widget-header
+    <div fw-widget-header
          class="Header"
          authentication="authentication"
          user-name="userFullName"
@@ -53,8 +53,8 @@
          ng-cloak
          sign-out="{{ 'SIGN_OUT_ACTION' | translate }}"
          my-profile="{{ 'MY_PROFILE' | translate }}">
-      <ul cam-if-logged-in
-          ng-controller="camHeaderViewsCtrl">
+      <ul fw-if-logged-in
+          ng-controller="fwHeaderViewsCtrl">
         <li ng-repeat="actionProvider in menuActions"
             ng-if="actionProvider.accessible"
             ng-class="activeClass(actionProvider)">
@@ -82,7 +82,7 @@
       <div class="ctn-wrapper">
         <div ng-if="showBreadcrumbs"
              ng-cloak
-             cam-breadcrumbs-panel
+             fw-breadcrumbs-panel
              divider="&raquo;"
              class="breadcrumbs-panel"></div>
 
@@ -99,11 +99,11 @@
     </div>
 
     <!-- footer -->
-    <footer cam-widget-footer
+    <footer fw-widget-footer
             version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
     <script type="application/javascript" $CSP_NONCE>
-        window.camCockpitConf = {};
+        window.fwCockpitConf = {};
 
         window.PLUGIN_DEPENDENCIES = <%= htmlWebpackPlugin.options.pluginDeps %> || [];
         window.PLUGIN_PACKAGES = <%= htmlWebpackPlugin.options.pluginPackages %> || [];

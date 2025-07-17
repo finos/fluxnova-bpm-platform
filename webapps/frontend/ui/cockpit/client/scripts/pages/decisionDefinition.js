@@ -19,13 +19,13 @@
 
 var template = require('./decision-definition.html?raw');
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   routeUtil = require('../../../../common/scripts/util/routeUtil'),
-  camCommons = require('camunda-commons-ui/lib');
+  fwCommons = require('flowave-commons-ui/lib');
 
 var ngModule = angular.module('cam.cockpit.pages.decisionDefinition', [
   'dataDepend',
-  camCommons.name
+  fwCommons.name
 ]);
 
 var Controller = [
@@ -34,7 +34,7 @@ var Controller = [
   '$q',
   'dataDepend',
   'page',
-  'camAPI',
+  'fwAPI',
   'decisionDefinition',
   'Views',
   'search',
@@ -47,7 +47,7 @@ var Controller = [
     $q,
     dataDepend,
     page,
-    camAPI,
+    fwAPI,
     decisionDefinition,
     Views,
     search,
@@ -61,7 +61,7 @@ var Controller = [
 
     // utilities ///////////////////////
 
-    var decisionDefinitionService = camAPI.resource('decision-definition');
+    var decisionDefinitionService = fwAPI.resource('decision-definition');
 
     $scope.hasDrdPlugin = isModuleAvailable('cockpit.plugin.drd');
     $scope.decisionDefinition = decisionDefinition;
@@ -291,15 +291,15 @@ var RouteConfig = [
         resolve: {
           decisionDefinition: [
             'ResourceResolver',
-            'camAPI',
+            'fwAPI',
             '$q',
-            function(ResourceResolver, camAPI, $q) {
+            function(ResourceResolver, fwAPI, $q) {
               return ResourceResolver.getByRouteParam('id', {
                 name: 'decision definition',
                 resolve: function(id) {
                   var deferred = $q.defer();
 
-                  var decisionDefinitionService = camAPI.resource(
+                  var decisionDefinitionService = fwAPI.resource(
                     'decision-definition'
                   );
 

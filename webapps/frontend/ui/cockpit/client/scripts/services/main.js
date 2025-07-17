@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
+var angular = require('flowave-commons-ui/vendor/angular'),
   transform = require('./transform'),
   variables = require('./variables'),
   breadcrumbTrails = require('./breadcrumbTrails'),
@@ -25,9 +25,9 @@ var angular = require('camunda-commons-ui/vendor/angular'),
   variableUtils = require('./variable-utils'),
   routeUtil = require('./../../../../common/scripts/services/routeUtil'),
   page = require('./../../../../common/scripts/services/page'),
-  camAPI = require('./../../../../common/scripts/services/cam-api'),
+  fwAPI = require('./../../../../common/scripts/services/fw-api'),
   hasPlugin = require('./../../../../common/scripts/services/has-plugin'),
-  localConf = require('camunda-commons-ui/lib/services/cam-local-configuration'),
+  localConf = require('flowave-commons-ui/lib/services/fw-local-configuration'),
   typeUtils = require('./../../../../common/scripts/services/typeUtils'),
   escapeHtml = require('./escapeHtml');
 
@@ -40,7 +40,7 @@ servicesModule.factory('breadcrumbTrails', breadcrumbTrails);
 servicesModule.factory('queryMaxResults', queryMaxResults);
 servicesModule.factory('varUtils', variableUtils);
 servicesModule.factory('routeUtil', routeUtil);
-servicesModule.factory('camAPI', camAPI);
+servicesModule.factory('fwAPI', fwAPI);
 servicesModule.factory('hasPlugin', hasPlugin);
 servicesModule.factory('localConf', localConf);
 servicesModule.factory('typeUtils', typeUtils);

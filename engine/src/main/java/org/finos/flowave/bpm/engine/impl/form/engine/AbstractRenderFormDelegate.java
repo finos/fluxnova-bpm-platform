@@ -57,10 +57,10 @@ public abstract class AbstractRenderFormDelegate {
   protected static final String IS_OPEN_ATTRIBUTE = "is-open";
   protected static final String DATEPICKER_POPUP_ATTRIBUTE = "datepicker-popup";
 
-  /* camunda attributes */
-  protected static final String CAM_VARIABLE_TYPE_ATTRIBUTE = "cam-variable-type";
-  protected static final String CAM_VARIABLE_NAME_ATTRIBUTE = "cam-variable-name";
-  protected static final String CAM_SCRIPT_ATTRIBUTE = "cam-script";
+  /* flowave attributes */
+  protected static final String CAM_VARIABLE_TYPE_ATTRIBUTE = "fw-variable-type";
+  protected static final String CAM_VARIABLE_NAME_ATTRIBUTE = "fw-variable-name";
+  protected static final String CAM_SCRIPT_ATTRIBUTE = "fw-script";
 
   /* angular attributes*/
   protected static final String NG_CLICK_ATTRIBUTE = "ng-click";

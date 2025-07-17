@@ -18,8 +18,8 @@
 'use strict';
 var angular = require('angular');
 
-var camTasklistVariables = require('./directives/cam-tasklist-variables');
-var camTasklistVariablesDetailsModalCtrl = require('./modals/cam-tasklist-variables-detail-modal');
+var fwTasklistVariables = require('./directives/fw-tasklist-variables');
+var fwTasklistVariablesDetailsModalCtrl = require('./modals/fw-tasklist-variables-detail-modal');
 
 var ngModule = angular.module('tasklist.plugin.tasklistCard.variables', [
   'ui.bootstrap',
@@ -32,7 +32,7 @@ var tasklistCardVariablesPlugin = [
     ViewsProvider.registerDefaultView('tasklist.card', {
       id: 'tasklist-card-variables',
       template:
-        '<div cam-tasklist-variables ' +
+        '<div fw-tasklist-variables ' +
         'filter-properties="filterProperties" ' +
         'variables="task._embedded.variable" ' +
         'class="row variables"></div>',
@@ -43,10 +43,10 @@ var tasklistCardVariablesPlugin = [
 ];
 
 ngModule.config(tasklistCardVariablesPlugin);
-ngModule.directive('camTasklistVariables', camTasklistVariables);
+ngModule.directive('fwTasklistVariables', fwTasklistVariables);
 ngModule.controller(
-  'camTasklistVariablesDetailsModalCtrl',
-  camTasklistVariablesDetailsModalCtrl
+  'fwTasklistVariablesDetailsModalCtrl',
+  fwTasklistVariablesDetailsModalCtrl
 );
 
 module.exports = ngModule;

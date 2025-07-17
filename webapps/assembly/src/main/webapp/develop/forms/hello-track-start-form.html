@@ -13,8 +13,8 @@
                  name="inputLongVar"
                  class="form-control"
                  placeholder="e.g. 123"
-                 cam-variable-type="Long"
-                 cam-variable-name="longVar" />
+                 fw-variable-type="Long"
+                 fw-variable-name="longVar" />
         </div>
 
         <label class="control-label col-md-4"
@@ -25,11 +25,11 @@
                  name="customerNumber"
                  class="form-control"
                  placeholder="e.g. 11513"
-                 cam-variable-type="Integer"
-                 cam-variable-name="customerNumber" />
+                 fw-variable-type="Integer"
+                 fw-variable-name="customerNumber" />
         </div>
       </div>
-      <script cam-script type="text/form-script">
+      <script fw-script type="text/form-script">
           var variableManager = camForm.variableManager;
 
           camForm.on('submit', function(evt) {

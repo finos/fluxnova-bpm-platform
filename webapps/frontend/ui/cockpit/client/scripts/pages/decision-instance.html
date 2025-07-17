@@ -1,4 +1,4 @@
-<!-- # CE - camunda-cockpit-ui/client/scripts/pages/decision-instance.html -->
+<!-- # CE - flowave-cockpit-ui/client/scripts/pages/decision-instance.html -->
 <div class="ctn-fixed-view decision-page-layout">
   <div class="ctn-content-container"
        ctn-collapsable-parent="sidebar">
@@ -17,30 +17,30 @@
 
     <!-- sidebar -->
     <div class="ctn-column ctn-sidebar ctn-scroll"
-         cam-hover-area
+         fw-hover-area
          ctn-collapsable="left">
       <dl class="process-information">
-        <dt cam-widget-clipboard="decisionInstance.id"
-            cam-hoverable-title="instance-id">
+        <dt fw-widget-clipboard="decisionInstance.id"
+            fw-hoverable-title="instance-id">
           <span uib-tooltip="{{ 'DECISION_INSTANCE_TOOLTIP_INSTANCE_ID' |  translate }}">{{ 'DECISION_INSTANCE_INSTANCE_ID' |  translate }}</span>
         </dt>
         <dd class="instance-id"
-            cam-hover-trigger="instance-id">{{ decisionInstance.id }}</dd>
+            fw-hover-trigger="instance-id">{{ decisionInstance.id }}</dd>
 
         <dt>{{ 'DECISION_INSTANCE_DEFINITION_VERSION' |  translate }}</dt>
         <dd class="definition-version">{{decisionDefinition.version}}</dd>
 
-        <dt cam-widget-clipboard="decisionInstance.decisionDefinitionId"
-            cam-hoverable-title="definition-id">{{ 'DECISION_INSTANCE_DEFINITION_ID' |  translate }}</dt>
+        <dt fw-widget-clipboard="decisionInstance.decisionDefinitionId"
+            fw-hoverable-title="definition-id">{{ 'DECISION_INSTANCE_DEFINITION_ID' |  translate }}</dt>
         <dd class="definition-id"
-            cam-hover-trigger="definition-id">
+            fw-hover-trigger="definition-id">
           <a ng-href="#/decision-definition/{{ decisionInstance.decisionDefinitionId }}">{{ decisionInstance.decisionDefinitionId }}</a>
         </dd>
 
-        <dt cam-widget-clipboard="decisionInstance.decisionDefinitionKey"
-            cam-hoverable-title="definition-key">{{ 'DECISION_INSTANCE_DEFINITION_KEY' |  translate }}</dt>
+        <dt fw-widget-clipboard="decisionInstance.decisionDefinitionKey"
+            fw-hoverable-title="definition-key">{{ 'DECISION_INSTANCE_DEFINITION_KEY' |  translate }}</dt>
         <dd class="definition-key"
-            cam-hover-trigger="definition-key">{{ decisionInstance.decisionDefinitionKey }}</dd>
+            fw-hover-trigger="definition-key">{{ decisionInstance.decisionDefinitionKey }}</dd>
 
         <dt>{{ 'DECISION_INSTANCE_DEFINITION_NAME' |  translate }}</dt>
         <dd class="definition-name"
@@ -49,29 +49,29 @@
             ng-if="!decisionInstance.decisionDefinitionName || decisionInstance.decisionDefinitionName === decisionInstance.key"><span class="null-value">{{ 'DECISION_INSTANCE_NULL' |  translate }}</span></dd>
 
         <dt ng-if="decisionInstance.tenantId"
-            cam-widget-clipboard="decisionInstance.tenantId"
-            cam-hoverable-title="tenant-id">{{ 'DECISION_INSTANCE_TENANT_ID' |  translate }}</dt>
+            fw-widget-clipboard="decisionInstance.tenantId"
+            fw-hoverable-title="tenant-id">{{ 'DECISION_INSTANCE_TENANT_ID' |  translate }}</dt>
         <dd class="tenant-id"
             ng-if="decisionInstance.tenantId"
-            cam-hover-trigger="tenant-id">{{ decisionInstance.tenantId }}</dd>
+            fw-hover-trigger="tenant-id">{{ decisionInstance.tenantId }}</dd>
         <dt ng-if="!decisionInstance.tenantId">{{ 'DECISION_INSTANCE_TENANT_ID' |  translate }}</dt>
         <dd class="tenant-id"
             ng-if="!decisionInstance.tenantId"><span class="null-value">{{ 'DECISION_INSTANCE_NULL' |  translate }}</span></dd>
 
-        <dt cam-widget-clipboard="decisionDefinition.deploymentId"
-            cam-hoverable-title="deployment-id">{{ 'DECISION_INSTANCE_DEPLOYMENT_ID' |  translate }}</dt>
+        <dt fw-widget-clipboard="decisionDefinition.deploymentId"
+            fw-hoverable-title="deployment-id">{{ 'DECISION_INSTANCE_DEPLOYMENT_ID' |  translate }}</dt>
         <dd class="deployment-id"
             ng-if="decisionDefinition"
-            cam-hover-trigger="deployment-id">
+            fw-hover-trigger="deployment-id">
           <a ng-href="{{ getDeploymentUrl() }}">{{ decisionDefinition.deploymentId }}</a>
         </dd>
 
         <dt ng-if="decisionInstance.processInstanceId"
-            cam-widget-clipboard="decisionInstance.processInstanceId"
-            cam-hoverable-title="super-process-instance-id">{{ 'DECISION_INSTANCE_PROCESS_INSTANCE_ID' |  translate }}</dt>
+            fw-widget-clipboard="decisionInstance.processInstanceId"
+            fw-hoverable-title="super-process-instance-id">{{ 'DECISION_INSTANCE_PROCESS_INSTANCE_ID' |  translate }}</dt>
         <dd class="super-process-instance-id"
             ng-if="decisionInstance.processInstanceId"
-            cam-hover-trigger="super-process-instance-id">
+            fw-hover-trigger="super-process-instance-id">
           <a ng-href="{{ processInstanceLink }}">{{ decisionInstance.processInstanceId }}</a>
         </dd>
         <dt ng-if="!decisionInstance.processInstanceId">{{ 'DECISION_INSTANCE_PROCESS_INSTANCE_ID' |  translate }}</dt>
@@ -79,11 +79,11 @@
             ng-if="!decisionInstance.processInstanceId"><span class="null-value">{{ 'DECISION_INSTANCE_NULL' |  translate }}</span></dd>
 
         <dt ng-if="decisionInstance.caseInstanceId"
-            cam-widget-clipboard="decisionInstance.caseInstanceId"
-            cam-hoverable-title="super-case-instance-id">{{ 'DECISION_INSTANCE_CASE_INSTANCE_ID' |  translate }}</dt>
+            fw-widget-clipboard="decisionInstance.caseInstanceId"
+            fw-hoverable-title="super-case-instance-id">{{ 'DECISION_INSTANCE_CASE_INSTANCE_ID' |  translate }}</dt>
         <dd class="super-case-instance-id"
             ng-if="decisionInstance.caseInstanceId"
-            cam-hover-trigger="super-case-instance-id">
+            fw-hover-trigger="super-case-instance-id">
           <a ng-if="hasCasePlugin"
              ng-href="#/case-instance/{{decisionInstance.caseInstanceId}}?searchQuery={{ getActivitySearch(decisionInstance) }}">
             {{ decisionInstance.caseInstanceId }}
@@ -98,11 +98,11 @@
 
 
         <dt ng-if="decisionInstance.decisionRequirementsDefinitionId"
-            cam-widget-clipboard="decisionInstance.decisionRequirementsDefinitionId"
-            cam-hoverable-title="drd">{{ 'DECISION_INSTANCE_DECISION_REQUIREMENTS_DEFINITION' |  translate }}</dt>
+            fw-widget-clipboard="decisionInstance.decisionRequirementsDefinitionId"
+            fw-hoverable-title="drd">{{ 'DECISION_INSTANCE_DECISION_REQUIREMENTS_DEFINITION' |  translate }}</dt>
         <dd class="super-case-instance-id"
             ng-if="decisionInstance.decisionRequirementsDefinitionId"
-            cam-hover-trigger="drd">
+            fw-hover-trigger="drd">
           <a ng-if="hasCasePlugin"
              ng-href="#/decision-requirement/{{decisionInstance.decisionRequirementsDefinitionId}}/history">
             {{ decisionInstance.decisionRequirementsDefinitionId }}
@@ -116,11 +116,11 @@
             ng-if="!decisionInstance.decisionRequirementsDefinitionId"><span class="null-value">{{ 'DECISION_INSTANCE_NULL' |  translate }}</span></dd>
 
         <dt ng-if="decisionInstance.removalTime"
-            cam-widget-clipboard="decisionInstance.removalTime | camDate"
-            cam-hoverable-title="removal-time">{{ 'DECISION_INSTANCE_REMOVAL_TIME' |  translate }}</dt>
+            fw-widget-clipboard="decisionInstance.removalTime | fwDate"
+            fw-hoverable-title="removal-time">{{ 'DECISION_INSTANCE_REMOVAL_TIME' |  translate }}</dt>
         <dd class="removal-time"
             ng-if="decisionInstance.removalTime"
-            cam-hover-trigger="removal-time">{{ decisionInstance.removalTime | camDate }}</dd>
+            fw-hover-trigger="removal-time">{{ decisionInstance.removalTime | fwDate }}</dd>
         <dt ng-if="!decisionInstance.removalTime">{{ 'DECISION_INSTANCE_REMOVAL_TIME' |  translate }}</dt>
         <dd class="removal-time"
             ng-if="!decisionInstance.removalTime"><span class="null-value">{{ 'DECISION_INSTANCE_NULL' |  translate }}</span></dd>
@@ -178,4 +178,4 @@
   </div>
 
 </div><!-- end .ctn-fixed-view -->
-<!-- / CE - camunda-cockpit-ui/client/scripts/pages/decision-instance.html -->
+<!-- / CE - flowave-cockpit-ui/client/scripts/pages/decision-instance.html -->

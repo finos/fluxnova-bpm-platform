@@ -20,7 +20,7 @@
 var Configuration = function PluginConfiguration(ViewsProvider) {
   ViewsProvider.registerDefaultView('tasklist.header', {
     id: 'tasklist-sorting',
-    template: '<div cam-sorting-choices tasklist-data="tasklistData"></div>',
+    template: '<div fw-sorting-choices tasklist-data="tasklistData"></div>',
     controller: function() {},
     priority: 200
   });

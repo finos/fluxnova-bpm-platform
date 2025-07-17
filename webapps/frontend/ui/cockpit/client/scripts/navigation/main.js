@@ -17,11 +17,11 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
-  camHeaderViewsCtrl = require('./controllers/cam-header-views-ctrl');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  fwHeaderViewsCtrl = require('./controllers/fw-header-views-ctrl');
 
 var navigationModule = angular.module('cam.cockpit.navigation', []);
 
-navigationModule.controller('camHeaderViewsCtrl', camHeaderViewsCtrl);
+navigationModule.controller('fwHeaderViewsCtrl', fwHeaderViewsCtrl);
 
 module.exports = navigationModule;

@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/update-suspension-state-dialog.html -->
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/update-suspension-state-dialog.html -->
 <div class="modal-header">
   <h3>{{ processDefinition.suspended ? 'PLUGIN_SUSPENSION_ACTIVATE_PROCESS' : 'PLUGIN_SUSPENSION_SUSPEND_PROCESS' | translate }}</h3>
 </div>
@@ -125,14 +125,14 @@
     </p>
     <p ng-show="processDefinition.suspended && !data.executeImmediately"
        translate="PLUGIN_SUSPENSION_ACTIVATION_SCHEDULED_TO"
-       translate-values='{date: (data.executionDate | camDate) }'>
+       translate-values='{date: (data.executionDate | fwDate) }'>
     </p>
     <p ng-show="!processDefinition.suspended && data.executeImmediately">
       {{'PLUGIN_SUSPENSION_STATE_SUSPENDED' | translate}}
     </p>
     <p ng-show="!processDefinition.suspended && !data.executeImmediately"
        translate="PLUGIN_SUSPENSION_SUSPENSION_SCHEDULED_TO"
-       translate-values='{date: (data.executionDate | camDate) }'>
+       translate-values='{date: (data.executionDate | fwDate) }'>
     </p>
   </div>
 
@@ -142,14 +142,14 @@
     </p>
     <p ng-show="processDefinition.suspended && !data.executeImmediately"
        translate="PLUGIN_SUSPENSION_ACTIVATION_NOT_SCHEDULED_TO"
-       translate-values='{date: (data.executionDate | camDate) }'>
+       translate-values='{date: (data.executionDate | fwDate) }'>
     </p>
     <p ng-show="!processDefinition.suspended && data.executeImmediately">
       {{'PLUGIN_SUSPENSION_STATE_NOT_SUSPENDED' | translate}}
     </p>
     <p ng-show="!processDefinition.suspended && !data.executeImmediately"
        translate="PLUGIN_SUSPENSION_SUSPENSION_NOT_SCHEDULED_TO"
-       translate-values='{date: (data.executionDate | camDate) }'>
+       translate-values='{date: (data.executionDate | fwDate) }'>
     </p>
   </div>
 
@@ -177,4 +177,4 @@
     {{'PLUGIN_SUSPENSION_OK' | translate}}
   </button>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/update-suspension-state-dialog.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/update-suspension-state-dialog.html -->

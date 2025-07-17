@@ -1,8 +1,8 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
-<div cam-widget-loader
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
+<div fw-widget-loader
      loading-state="{{ loadingState }}"
      text-empty="{{ 'PLUGIN_CALLED_PROCESS_NO_PROCESS_INSTANCES' | translate }}">
-  <table class="called-process-instance cam-table">
+  <table class="called-process-instance fw-table">
 
     <thead sortable-table-head
            head-columns="headColumns"
@@ -19,14 +19,14 @@
           </div>
         </td>
         <td class="called-process-instance"
-            cam-widget-clipboard="calledProcessInstance.id">
+            fw-widget-clipboard="calledProcessInstance.id">
           <a href="#/process-instance/{{ calledProcessInstance.id }}/runtime">
             {{ calledProcessInstance.id }}
           </a>
         </td>
 
         <td class="process-definition"
-            cam-widget-clipboard="calledProcessInstance.processDefinitionId">
+            fw-widget-clipboard="calledProcessInstance.processDefinitionId">
           <a href="#/process-definition/{{ calledProcessInstance.processDefinitionId }}/runtime?parentProcessDefinitionId={{ processInstance.definitionId }}">
             {{ calledProcessInstance.processDefinitionLabel}}
           </a>
@@ -34,7 +34,7 @@
 
         <td class="activity">
           <span ng-if="!!calledProcessInstance.instance"
-                cam-widget-clipboard="calledProcessInstance.instance.id">
+                fw-widget-clipboard="calledProcessInstance.instance.id">
             <a ng-href="#/process-instance/{{ processInstance.id }}/runtime?tab=called-process-instances-tab&{{ getSearchQueryForSearchType(calledProcessInstance.instance.id) }}">
               {{ calledProcessInstance.instance.name }}
             </a>
@@ -42,11 +42,11 @@
         </td>
 
         <td class="business-key"
-            cam-widget-clipboard="calledProcessInstance.businessKey">
+            fw-widget-clipboard="calledProcessInstance.businessKey">
           {{ calledProcessInstance.businessKey }}
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->

@@ -9,14 +9,14 @@
   <div class="form-group">
     <label class="control-label col-md-2">Invoice Document</label>
     <div class="form-control-static col-md-10">
-      <a cam-file-download="invoiceDocument"></a>
+      <a fw-file-download="invoiceDocument"></a>
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-md-2">Creditor</label>
     <div class="col-md-10">
-      <input cam-variable-name="creditor"
+      <input fw-variable-name="creditor"
              type="text"
              name="creditor"
              class="form-control" />
@@ -26,7 +26,7 @@
   <div class="form-group">
     <label class="control-label col-md-2">Amount</label>
     <div class="col-md-10">
-      <input cam-variable-name="amount"
+      <input fw-variable-name="amount"
              type="text"
              name="amount"
              class="form-control" />
@@ -36,7 +36,7 @@
   <div class="form-group">
     <label class="control-label col-md-2">Invoice Category</label>
     <div class="col-md-10">
-      <select cam-variable-name="invoiceCategory"
+      <select fw-variable-name="invoiceCategory"
               class="form-control">
         <option>Travel Expenses</option>
         <option>Misc</option>
@@ -47,7 +47,7 @@
   <div class="form-group">
     <label class="control-label col-md-2">Invoice Number</label>
     <div class="col-md-10">
-      <input cam-variable-name="invoiceNumber"
+      <input fw-variable-name="invoiceNumber"
              type="text"
              name="invoiceNumber"
              class="form-control" />
@@ -58,8 +58,8 @@
     <div class="col-md-10 col-md-offset-2">
       <div class="checkbox">
         <label>
-          <input cam-variable-name="clarified"
-                 cam-variable-type="Boolean"
+          <input fw-variable-name="clarified"
+                 fw-variable-type="Boolean"
                  type="checkbox"
                  name="clarified"
                  class="form-control" />

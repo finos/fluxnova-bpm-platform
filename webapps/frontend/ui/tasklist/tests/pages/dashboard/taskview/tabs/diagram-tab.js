@@ -23,7 +23,7 @@ module.exports = Tab.extend({
   tabIndex: 2,
 
   diagramFormElement: function() {
-    return element(by.css('[cam-widget-bpmn-viewer]'));
+    return element(by.css('[fw-widget-bpmn-viewer]'));
   },
 
   diagramActivity: function(activityName) {

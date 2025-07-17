@@ -16,23 +16,23 @@
  */
 
 'use strict';
-var angular = require('camunda-commons-ui/vendor/angular'),
-  CamSDK = require('camunda-bpm-sdk-js/lib/angularjs/index');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  FwSDK = require('flowave-bpm-sdk-js/lib/angularjs/index');
 
 var apiModule = angular.module('cam.tasklist.client', []);
 
-apiModule.value('HttpClient', CamSDK.Client);
+apiModule.value('HttpClient', FwSDK.Client);
 
-apiModule.value('CamForm', CamSDK.Form);
+apiModule.value('FwForm', FwSDK.Form);
 
-apiModule.factory('camAPI', [
-  'camAPIHttpClient',
+apiModule.factory('fwAPI', [
+  'fwAPIHttpClient',
   '$window',
   'Uri',
-  function(camAPIHttpClient, $window, Uri) {
+  function(fwAPIHttpClient, $window, Uri) {
     var conf = {
       apiUri: 'engine-rest/api/engine',
-      HttpClient: camAPIHttpClient,
+      HttpClient: fwAPIHttpClient,
       engine: Uri.appUri(':engine')
     };
     if ($window.tasklistConf) {
@@ -41,7 +41,7 @@ apiModule.factory('camAPI', [
       }
     }
 
-    return new CamSDK.Client(conf);
+    return new FwSDK.Client(conf);
   }
 ]);
 

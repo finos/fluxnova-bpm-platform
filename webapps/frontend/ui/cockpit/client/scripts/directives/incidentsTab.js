@@ -22,7 +22,7 @@ var angular = require('angular');
 var template = require('./incidents-tab.html?raw');
 var inspectTemplate = require('./incidents-tab-stacktrace.html?raw');
 
-var debouncePromiseFactory = require('camunda-bpm-sdk-js').utils
+var debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
   .debouncePromiseFactory;
 var debouncePromise = debouncePromiseFactory();
 
@@ -36,7 +36,7 @@ var Directive = [
   '$translate',
   'localConf',
   '$location',
-  'camAPI',
+  'fwAPI',
   function(
     $http,
     $q,
@@ -47,7 +47,7 @@ var Directive = [
     $translate,
     localConf,
     $location,
-    camAPI
+    fwAPI
   ) {
     var Link = function linkFunction(scope) {
       // ordered available columns
@@ -343,7 +343,7 @@ var Directive = [
         });
       };
 
-      const incidentResource = camAPI.resource('incident');
+      const incidentResource = fwAPI.resource('incident');
       scope.getAnnotationHandler = function(incident) {
         return function(annotation) {
           return incidentResource.setAnnotation({

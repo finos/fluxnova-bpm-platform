@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
 <div class="modal-header">
   <h3>{{ 'USER_MEMBERSHIP_TENANT_SELECT_TENANTS' | translate }}</h3>
 </div>
@@ -6,9 +6,9 @@
 <div class="create-tenant-membership modal-body">
   <div notifications-panel></div>
 
-  <table class="cam-table tenant"
+  <table class="fw-table tenant"
          ng-hide="status !== 'beforeCreate' || availableTenants.length == 0">
-    <thead cam-sortable-table-header
+    <thead fw-sortable-table-header
            default-sort-by="id"
            default-sort-order="asc"
            sorting-id="admin-sorting-users-edit-tenants"
@@ -21,10 +21,10 @@
                  ng-click="checkAllTenants()"  />
         </th>
         <th class="tenant-id"
-            cam-sortable-table-column
+            fw-sortable-table-column
             sort-by-property="id">{{ 'USER_MEMBERSHIP_TENANT_TENANT_ID' | translate }}</th>
         <th class="tenant-name"
-            cam-sortable-table-column
+            fw-sortable-table-column
             sort-by-property="name">{{ 'USER_MEMBERSHIP_TENANT_TENANT_NAME' | translate }}</th>
       </tr>
     </thead>
@@ -96,4 +96,4 @@
           translate-values="{ itemsCount: checkedItemsCount }">
   </button>
 </div>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->

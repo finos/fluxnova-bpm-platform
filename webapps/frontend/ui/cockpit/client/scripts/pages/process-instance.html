@@ -31,7 +31,7 @@
       <div class="tab-content"
            ng-if="sidebarTab === 'info'">
         <dl class="process-information">
-          <dt cam-widget-clipboard="processInstance.id"
+          <dt fw-widget-clipboard="processInstance.id"
               ng-class="{hovered: hovered === 'instance-id'}">
             <span uib-tooltip="{{ 'PROCESS_INSTANCE_TOOLTIP_INSTANCE_ID_DATABASE' | translate }}">{{ 'PROCESS_INSTANCE_INSTANCE_ID' | translate }}</span>
           </dt>
@@ -41,7 +41,7 @@
             {{ processInstance.id }}
           </dd>
 
-          <dt cam-widget-clipboard="processInstance.businessKey"
+          <dt fw-widget-clipboard="processInstance.businessKey"
               ng-class="{hovered: hovered === 'business-key'}"
               ng-if="processInstance.businessKey">
             <span uib-tooltip="{{ 'PROCESS_INSTANCE_TOOLTIP_BUSINESS_KEY' | translate }}">{{ 'PROCESS_INSTANCE_BUSINESS_KEY' | translate }}</span>
@@ -70,7 +70,7 @@
             </a>
           </dd>
 
-          <dt cam-widget-clipboard="processDefinition.id"
+          <dt fw-widget-clipboard="processDefinition.id"
               ng-class="{hovered: hovered === 'definition-id'}">{{ 'PROCESS_INSTANCE_DEFINITION_ID' | translate }}</dt>
           <dd class="definition-id"
               ng-mouseenter="hoverTitle('definition-id')"
@@ -78,7 +78,7 @@
             <a ng-href="#/process-definition/{{ processDefinition.id }}/runtime">{{ processDefinition.id }}</a>
           </dd>
 
-          <dt cam-widget-clipboard="processDefinition.key"
+          <dt fw-widget-clipboard="processDefinition.key"
               ng-class="{hovered: hovered === 'definition-key'}">{{ 'PROCESS_INSTANCE_DEFINITION_KEY' | translate }}</dt>
           <dd class="definition-key"
               ng-mouseenter="hoverTitle('definition-key')"
@@ -89,7 +89,7 @@
 
           <dt ng-if="processInstance.tenantId"
               ng-class="{hovered: hovered === 'tenant-id'}"
-              cam-widget-clipboard="processInstance.tenantId">{{ 'PROCESS_INSTANCE_TENANT_ID' | translate }}</dt>
+              fw-widget-clipboard="processInstance.tenantId">{{ 'PROCESS_INSTANCE_TENANT_ID' | translate }}</dt>
           <dd class="tenant-id"
               ng-if="processInstance.tenantId"
               ng-mouseenter="hoverTitle('tenant-id')"
@@ -98,7 +98,7 @@
           <dd class="tenant-id"
               ng-if="!processInstance.tenantId"><span class="null-value">{{ 'PROCESS_INSTANCE_NULL' | translate }}</span></dd>
 
-          <dt cam-widget-clipboard="processDefinition.deploymentId"
+          <dt fw-widget-clipboard="processDefinition.deploymentId"
               ng-class="{hovered: hovered === 'deployment-id'}">{{ 'PROCESS_INSTANCE_DEPLOYMENT_ID' | translate }}</dt>
           <dd class="deployment-id"
               ng-mouseenter="hoverTitle('deployment-id')"
@@ -107,7 +107,7 @@
           </dd>
 
           <dt ng-if="superProcessInstance"
-              cam-widget-clipboard="superProcessInstance.id"
+              fw-widget-clipboard="superProcessInstance.id"
               ng-class="{hovered: hovered === 'super-process-instance-id'}">{{ 'PROCESS_INSTANCE_SUPER_PROCESS_INSTANCE_ID' | translate }}</dt>
           <dd class="super-process-instance-id"
               ng-if="superProcessInstance.id"
@@ -141,7 +141,7 @@
                 uib-tooltip="{{ 'PROCESS_INSTANCE_TOOLTIP_ACTIVITY_INSTANCE_TREE' | translate }}"></span>
         </h5>
 
-        <div cam-quick-filter
+        <div fw-quick-filter
              name-filter
              holder-selector=".instance-tree"
              label-selector=".tree-node-label"
@@ -207,7 +207,7 @@
       <div class="ctn-row ctn-content-bottom ctn-tabbed">
         <a class="show-collapsable vertical-collapse"
            title="{{ 'PROCESS_INSTANCE_HIDE_TABS' | translate }}"></a>
-        <div cam-tabs="{component: 'cockpit.processInstance.runtime.tab'}"
+        <div fw-tabs="{component: 'cockpit.processInstance.runtime.tab'}"
              providers="tabs"
              vars="processInstanceVars"
              vars-values="initData">
@@ -219,4 +219,4 @@
   </div>
 
 </div><!-- end .ctn-fixed-view -->
-<!-- / CE - camunda-cockpit-ui/client/scripts/pages/process-instance.html -->
+<!-- / CE - flowave-cockpit-ui/client/scripts/pages/process-instance.html -->

@@ -699,7 +699,7 @@ describe('Admin Authorizations Spec', function() {
       ).to.eventually.eql(0);
     });
 
-    // skiped due to #CAM-6037
+    // skiped due to #fw-6037
     it.skip('can be created in an empty list', function() {
       // when
       authorizationsPage

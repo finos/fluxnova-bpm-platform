@@ -20,14 +20,14 @@
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
 var drdCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common HoverAreaController', function() {
+describe('fw-common HoverAreaController', function() {
   var instance;
   var title;
   var listener;

@@ -42,7 +42,7 @@ RuleRow.prototype.getCellText = function(idx) {
 
 module.exports = Base.extend({
   tableElement: function() {
-    return element(by.css('[cam-widget-dmn-viewer]'));
+    return element(by.css('[fw-widget-dmn-viewer]'));
   },
 
   row: function(idx) {

@@ -1,5 +1,5 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
-<div cam-searchable-area
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
+<div fw-searchable-area
      config="searchConfig"
      array-types="['activityIdIn']"
      variable-types="['variables']"
@@ -8,7 +8,7 @@
      text-empty="{{'PLUGIN_PROCESS_INSTANCE_NO_PROCESS' | translate}}"
      storage-group="'PDI'">
 
-  <table class="process-instances cam-table">
+  <table class="process-instances fw-table">
 
     <thead sortable-table-head
            head-columns="headColumns"
@@ -31,7 +31,7 @@
         </td>
 
         <td class="instance-id"
-            cam-widget-clipboard="processInstance.id">
+            fw-widget-clipboard="processInstance.id">
           <a ng-href="{{ getProcessInstanceUrl(processInstance) }}"
              title="{{ processInstance.id }}">
             {{ processInstance.id }}
@@ -39,13 +39,13 @@
         </td>
 
         <td class="start-time"
-            cam-widget-clipboard="processInstance.startTime | camDate">
-          {{ processInstance.startTime | camDate }}
+            fw-widget-clipboard="processInstance.startTime | fwDate">
+          {{ processInstance.startTime | fwDate }}
         </td>
 
         <td class="business-key"
             ng-if="processInstance.businessKey"
-            cam-widget-clipboard="processInstance.businessKey">
+            fw-widget-clipboard="processInstance.businessKey">
           {{ processInstance.businessKey }}
         </td>
         <td class="business-key"
@@ -55,4 +55,4 @@
   </table>
 </div>
 
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->

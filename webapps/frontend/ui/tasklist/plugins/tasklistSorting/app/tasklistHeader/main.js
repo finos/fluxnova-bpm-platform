@@ -18,18 +18,18 @@
 'use strict';
 
 var angular = require('angular'),
-  camTasklistSortingChoices = require('./cam-tasklist-sorting-choices'),
-  camTasklistSortingDropdown = require('./cam-tasklist-sorting-dropdown'),
-  camTasklistSortingInputs = require('./cam-tasklist-sorting-inputs'),
+  fwTasklistSortingChoices = require('./fw-tasklist-sorting-choices'),
+  fwTasklistSortingDropdown = require('./fw-tasklist-sorting-dropdown'),
+  fwTasklistSortingInputs = require('./fw-tasklist-sorting-inputs'),
   tasklistSortingPlugin = require('./tasklist-sorting');
 
 var ngModule = angular.module(
   'tasklist.plugin.tasklistSorting.tasklistHeader',
   []
 );
-ngModule.directive('camSortingChoices', camTasklistSortingChoices);
-ngModule.directive('camSortingDropdown', camTasklistSortingDropdown);
-ngModule.directive('camSortingInputs', camTasklistSortingInputs);
+ngModule.directive('fwSortingChoices', fwTasklistSortingChoices);
+ngModule.directive('fwSortingDropdown', fwTasklistSortingDropdown);
+ngModule.directive('fwSortingInputs', fwTasklistSortingInputs);
 
 ngModule.config(tasklistSortingPlugin);
 

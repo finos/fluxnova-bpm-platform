@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/users.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/users.html -->
 <section ng-cloak>
   <!-- <aside></aside> -->
   <div class="section-content">
@@ -15,15 +15,15 @@
       </div>
     </header>
 
-    <div cam-searchable-area
+    <div fw-searchable-area
          config="searchConfig"
          on-search-change="onSearchChange(query, pages)"
          loading-state="loadingState"
          text-empty="{{ 'USERS_NOT_FOUND' | translate }}"
          storage-group="'ANU'"
          blocked="blocked">
-      <table class="cam-table">
-        <thead cam-sortable-table-header
+      <table class="fw-table">
+        <thead fw-sortable-table-header
                default-sort-by="userId"
                default-sort-order="asc"
                sorting-id="admin-sorting-users"
@@ -31,19 +31,19 @@
                on-sort-initialized="onSortInitialized(sorting)">
           <tr ng-if="canSortEntries">
             <th class="username"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="userId">{{ 'USERS_ID' | translate }}
             </th>
             <th class="firstname"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="firstName">{{ 'USERS_FIRSTNAME' | translate }}
             </th>
             <th class="lastname"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="lastName">{{ 'USERS_LASTNAME' | translate }}
             </th>
             <th class="email"
-                cam-sortable-table-column
+                fw-sortable-table-column
                 sort-by-property="email">{{ 'USERS_EMAIL' | translate }}
             </th>
             <th class="action">{{ 'USERS_ACTION' | translate }}</th>
@@ -84,4 +84,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/users.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/users.html -->

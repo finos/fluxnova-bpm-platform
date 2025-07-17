@@ -1,4 +1,4 @@
-<!-- # CE - camunda-admin-ui/client/scripts/pages/tenantEdit.html -->
+<!-- # CE - flowave-admin-ui/client/scripts/pages/tenantEdit.html -->
 <section ng-cloak>
   <aside>
     <ul>
@@ -18,7 +18,7 @@
     <form ng-show="show('tenant')"
           class="form-horizontal"
           name="editTenantForm"
-          cam-widget-loader
+          fw-widget-loader
           loading-state="{{ tenantLoadingState }}">
       <div class="h3">{{ tenant.name }}</div>
 
@@ -72,22 +72,22 @@
     <div ng-show="show('users')">
       <div class="h4">{{ 'TENANTS_TENANT_USERS' | translate }}</div>
 
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{ userLoadingState }}"
            text-empty="{{ translate('TENANTS_NO_USERS', { tenant: tenant.name }) }}">
-        <table class="cam-table">
-          <thead cam-sortable-table-header
+        <table class="fw-table">
+          <thead fw-sortable-table-header
                  default-sort-by="userId"
                  default-sort-order="asc"
                  sorting-id="admin-sorting-tenants-users"
                  on-sort-change="onUsersSortingChanged(sorting)"
                  on-sort-initialized="onUsersSortingInitialized(sorting)">
             <tr ng-if="canSortUserEntries">
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="userId">{{ 'USERS_ID' | translate }}</th>
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="firstName">{{ 'USERS_FIRSTNAME' | translate }}</th>
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="lastName">{{ 'USERS_LASTNAME' | translate }}</th>
             </tr>
             <tr ng-if="!canSortUserEntries">
@@ -104,7 +104,7 @@
             </tr>
           </tbody>
         </table>
-      </div><!-- /cam-widget-loader -->
+      </div><!-- /fw-widget-loader -->
 
       <ul uib-pagination ng-if="tenantUserPages.total > tenantUserPages.size"
                   class="pagination-sm"
@@ -128,18 +128,18 @@
     <div ng-show="show('groups')">
       <div class="h4">{{ 'TENANTS_TENANT_GROUPS' | translate }}</div>
 
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{ groupLoadingState }}"
            text-empty="{{ translate('TENANTS_NO_GROUPS', { tenant: tenant.name }) }}">
-        <table class="cam-table">
-          <thead cam-sortable-table-header
+        <table class="fw-table">
+          <thead fw-sortable-table-header
                  default-sort-by="name"
                  default-sort-order="asc"
                  sorting-id="admin-sorting-tenants-groups"
                  on-sort-change="onGroupsSortingChanged(sorting)"
                  on-sort-initialized="onGroupsSortingInitialized(sorting)">
             <tr>
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="name">{{ 'TENANTS_NAME' | translate }}</th>
             </tr>
           </thead>
@@ -149,7 +149,7 @@
           </tr>
           </tbody>
         </table>
-      </div><!-- /cam-widget-loader -->
+      </div><!-- /fw-widget-loader -->
 
       <ul uib-pagination ng-if="tenantGroupPages.total > tenantGroupPages.size"
                   class="pagination-sm"
@@ -171,4 +171,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-admin-ui/client/scripts/pages/tenantEdit.html -->
+<!-- / CE - flowave-admin-ui/client/scripts/pages/tenantEdit.html -->

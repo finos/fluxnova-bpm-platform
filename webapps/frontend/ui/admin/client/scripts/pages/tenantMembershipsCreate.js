@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -26,7 +26,7 @@ module.exports = [
   'search',
   'Uri',
   'Notifications',
-  'camAPI',
+  'fwAPI',
   '$uibModalInstance',
   'member',
   'memberId',
@@ -39,7 +39,7 @@ module.exports = [
     search,
     Uri,
     Notifications,
-    camAPI,
+    fwAPI,
     $modalInstance,
     member,
     memberId,
@@ -109,7 +109,7 @@ module.exports = [
       search.updateSilently({modalPage: !page || page == 1 ? null : page});
     };
 
-    var TenantResource = camAPI.resource('tenant');
+    var TenantResource = fwAPI.resource('tenant');
 
     var BEFORE_CREATE = 'beforeCreate',
       PERFORM_CREATE = 'performCancel',

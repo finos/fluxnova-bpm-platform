@@ -17,9 +17,9 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
-  camNavbarActionStartProcessPlugin = require('./plugins/action/cam-tasklist-navbar-action-start-process-plugin'),
-  camProcessStartModalCtrl = require('./plugins/action/modals/cam-tasklist-process-start-modal');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  fwNavbarActionStartProcessPlugin = require('./plugins/action/fw-tasklist-navbar-action-start-process-plugin'),
+  fwProcessStartModalCtrl = require('./plugins/action/modals/fw-tasklist-process-start-modal');
 
 var processModule = angular.module('cam.tasklist.process', [
   'cam.tasklist.client',
@@ -28,9 +28,9 @@ var processModule = angular.module('cam.tasklist.process', [
 ]);
 
 /* action plugins */
-processModule.config(camNavbarActionStartProcessPlugin);
+processModule.config(fwNavbarActionStartProcessPlugin);
 
 /* action plugin controller */
-processModule.controller('camProcessStartModalCtrl', camProcessStartModalCtrl);
+processModule.controller('fwProcessStartModalCtrl', fwProcessStartModalCtrl);
 
 module.exports = processModule;

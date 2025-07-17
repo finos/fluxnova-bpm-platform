@@ -17,8 +17,8 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
-var camCommon = require('ui/common/scripts/module/index');
+var angular = require('flowave-commons-ui/vendor/angular');
+var fwCommon = require('ui/common/scripts/module/index');
 
 var externalTasks = require('./services/external-tasks');
 
@@ -27,7 +27,7 @@ var ProcessInstanceRuntimeTabController = require('./controllers/process-instanc
 var viewConfig = require('./view-provider.config');
 
 var ngModule = angular.module('cockpit.plugin.process-instance-runtime-tab', [
-  camCommon.name
+  fwCommon.name
 ]);
 
 ngModule.factory('externalTasks', externalTasks);

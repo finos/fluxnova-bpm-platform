@@ -55,7 +55,7 @@ var Configuration = function PluginConfiguration(ViewsProvider) {
                   angular.extend({}, $scope.filter)
                 );
                 $rootScope.$broadcast(
-                  'cam-common:cam-searchable:query-force-change'
+                  'fw-common:fw-searchable:query-force-change'
                 );
               }
             })

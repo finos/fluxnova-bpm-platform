@@ -27,9 +27,9 @@ var Controller = [
   'Views',
   '$translate',
   'localConf',
-  'camAPI',
+  'fwAPI',
   'search',
-  function($scope, Views, $translate, localConf, camAPI, search) {
+  function($scope, Views, $translate, localConf, fwAPI, search) {
     // prettier-ignore
     $scope.headColumns = [
       { class: 'state',         request: 'suspended'     , sortable: true, content: $translate.instant('PLUGIN_JOBDEFINITION_STATE')},
@@ -68,7 +68,7 @@ var Controller = [
     var jobDefinitions,
       bpmnElements = [];
 
-    var JobProvider = camAPI.resource('job-definition');
+    var JobProvider = fwAPI.resource('job-definition');
 
     $scope.pages = {
       total: 0,

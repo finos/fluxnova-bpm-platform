@@ -19,10 +19,10 @@
 
 module.exports = [
   '$q',
-  'camAPI',
-  function($q, camAPI) {
-    var decisionDefinitionService = camAPI.resource('decision-definition');
-    var drdService = camAPI.resource('drd');
+  'fwAPI',
+  function($q, fwAPI) {
+    var decisionDefinitionService = fwAPI.resource('decision-definition');
+    var drdService = fwAPI.resource('drd');
 
     var drds, decisions;
 

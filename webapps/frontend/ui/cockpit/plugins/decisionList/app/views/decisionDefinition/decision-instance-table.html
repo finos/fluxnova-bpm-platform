@@ -1,5 +1,5 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionDefinition/decision-instance-table.html -->
-<div cam-searchable-area
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionDefinition/decision-instance-table.html -->
+<div fw-searchable-area
      config="searchConfig"
      array-types="['activityIdIn', 'activityInstanceIdIn']"
      variable-types="['variableValues']"
@@ -8,7 +8,7 @@
      text-empty="{{ 'PLUGIN_DECISION_TABLE_NOT_FOUND' | translate }}"
      storage-group="'DI'">
 
-  <table class="decision-instances cam-table cam-fixed-layout">
+  <table class="decision-instances fw-table fw-fixed-layout">
 
     <thead sortable-table-head
            head-columns="headColumns"
@@ -19,27 +19,27 @@
     <tbody>
       <tr ng-repeat="decisionInstance in decisionInstances">
         <td class="instance-id"
-            cam-widget-clipboard="decisionInstance.id">
+            fw-widget-clipboard="decisionInstance.id">
           <a ng-href="#/decision-instance/{{ decisionInstance.id }}" title="{{ decisionInstance.id }}">
             {{ decisionInstance.id }}
           </a>
         </td>
 
         <td class="start-time"
-            cam-widget-clipboard="decisionInstance.evaluationTime | camDate">
-          {{ decisionInstance.evaluationTime | camDate }}
+            fw-widget-clipboard="decisionInstance.evaluationTime | fwDate">
+          {{ decisionInstance.evaluationTime | fwDate }}
         </td>
 
         <td class="definition-key"
             ng-if="decisionInstance.processDefinitionKey"
-            cam-widget-clipboard="decisionInstance.processDefinitionKey">
+            fw-widget-clipboard="decisionInstance.processDefinitionKey">
           <a ng-href="{{ getProcessDefinitionLink(decisionInstance) }}">
             {{ decisionInstance.processDefinitionKey }}
           </a>
         </td>
         <td class="definition-key"
             ng-if="decisionInstance.caseDefinitionKey"
-            cam-widget-clipboard="decisionInstance.caseDefinitionKey">
+            fw-widget-clipboard="decisionInstance.caseDefinitionKey">
           <a ng-if="hasCasePlugin"
              ng-href="#/case-definition/{{ decisionInstance.caseDefinitionId }}?searchQuery={{ getActivitySearch(decisionInstance) }}">
             {{ decisionInstance.caseDefinitionKey }}
@@ -54,14 +54,14 @@
 
         <td class="instance-id"
             ng-if="decisionInstance.processInstanceId"
-            cam-widget-clipboard="decisionInstance.processInstanceId">
+            fw-widget-clipboard="decisionInstance.processInstanceId">
           <a ng-href="{{ getProcessInstanceLink(decisionInstance) }}">
             {{ decisionInstance.processInstanceId }}
           </a>
         </td>
         <td class="instance-id"
             ng-if="decisionInstance.caseInstanceId"
-            cam-widget-clipboard="decisionInstance.caseInstanceId">
+            fw-widget-clipboard="decisionInstance.caseInstanceId">
           <a ng-if="hasCasePlugin"
              ng-href="#/case-instance/{{ decisionInstance.caseInstanceId }}?searchQuery={{ getActivitySearch(decisionInstance) }}">
             {{ decisionInstance.caseInstanceId }}
@@ -76,7 +76,7 @@
 
         <td class="activity-id"
             ng-if="decisionInstance.activityId"
-            cam-widget-clipboard="decisionInstance.activityId">
+            fw-widget-clipboard="decisionInstance.activityId">
           {{ decisionInstance.activityId }}
         </td>
         <td class="activity-id"
@@ -87,4 +87,4 @@
     </tbody>
   </table>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionDefinition/decision-instance-table.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionDefinition/decision-instance-table.html -->

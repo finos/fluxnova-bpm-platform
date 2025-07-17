@@ -31,7 +31,7 @@ module.exports = [
       controller: [
         '$scope',
         'Views',
-        'camAPI',
+        'fwAPI',
         'localConf',
         '$translate',
         '$location',
@@ -40,14 +40,14 @@ module.exports = [
         function(
           $scope,
           Views,
-          camAPI,
+          fwAPI,
           localConf,
           $translate,
           $location,
           search,
           PluginProcessDefinitionResource
         ) {
-          var processDefinitionService = camAPI.resource('process-definition');
+          var processDefinitionService = fwAPI.resource('process-definition');
 
           $scope.searchId = 'pdSearch';
           $scope.paginationId = 'pdPage';

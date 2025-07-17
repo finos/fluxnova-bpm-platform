@@ -68,10 +68,10 @@ public class HtmlFormEngine implements FormEngine {
   protected static final String DATEPICKER_POPUP_ATTRIBUTE = "uib-datepicker-popup";
 
   /* camunda attributes */
-  protected static final String CAM_VARIABLE_TYPE_ATTRIBUTE = "cam-variable-type";
-  protected static final String CAM_VARIABLE_NAME_ATTRIBUTE = "cam-variable-name";
-  protected static final String CAM_SCRIPT_ATTRIBUTE = "cam-script";
-  protected static final String CAM_BUSINESS_KEY_ATTRIBUTE = "cam-business-key";
+  protected static final String CAM_VARIABLE_TYPE_ATTRIBUTE = "fw-variable-type";
+  protected static final String CAM_VARIABLE_NAME_ATTRIBUTE = "fw-variable-name";
+  protected static final String CAM_SCRIPT_ATTRIBUTE = "fw-script";
+  protected static final String CAM_BUSINESS_KEY_ATTRIBUTE = "fw-business-key";
 
   /* angular attributes*/
   protected static final String NG_CLICK_ATTRIBUTE = "ng-click";

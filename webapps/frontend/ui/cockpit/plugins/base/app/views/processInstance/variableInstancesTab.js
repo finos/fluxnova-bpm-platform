@@ -36,7 +36,7 @@ module.exports = function(ngModule) {
     'Notifications',
     '$uibModal',
     '$q',
-    'camAPI',
+    'fwAPI',
     'fixDate',
     'unfixDate',
     '$translate',
@@ -51,7 +51,7 @@ module.exports = function(ngModule) {
       Notifications,
       $modal,
       $q,
-      camAPI,
+      fwAPI,
       fixDate,
       unfixDate,
       $translate,
@@ -64,9 +64,9 @@ module.exports = function(ngModule) {
         variableInstanceIdexceptionMessageMap,
         variableCopies;
 
-      var executionService = camAPI.resource('execution'),
-        taskService = camAPI.resource('task'),
-        variableService = camAPI.resource('variable');
+      var executionService = fwAPI.resource('execution'),
+        taskService = fwAPI.resource('task'),
+        variableService = fwAPI.resource('variable');
 
       // Table header
       // prettier-ignore
@@ -228,7 +228,7 @@ module.exports = function(ngModule) {
 
             controller: inspectTemplate.controller,
 
-            windowClass: 'cam-widget-variable-dialog',
+            windowClass: 'fw-widget-variable-dialog',
 
             resolve: {
               basePath: function() {

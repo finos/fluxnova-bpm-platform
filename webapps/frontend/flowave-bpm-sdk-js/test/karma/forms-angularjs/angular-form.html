@@ -1,0 +1,46 @@
+<form fw-form role="form" name="form">
+
+  <input fw-variable-name="stringVar"
+    fw-variable-type="String"
+    type="text"
+    name="stringVar"
+    ng-model="modelProperty"
+    min-length="5"
+    max-length="10">
+
+  <input fw-variable-name="autoBindVar"
+    fw-variable-type="String"
+    type="text">
+
+  <p>
+  {{modelProperty}}
+  </p>
+
+  <input fw-variable-name="integerVar"
+    fw-variable-type="Integer"
+    type="text"
+    name="integerVar"
+    ng-model="integerProperty">
+
+  <script fw-script type="text/form-script">
+
+    // scope must be defined
+    if(typeof $scope !== 'object') {
+      throw Error('Expecting "$scope" to be defined');
+    }
+
+    // inject must be available
+    if(typeof inject !== 'function') {
+      throw Error('Expecting "inject" to be defined');
+    }
+
+    fwForm.on('variables-applied', function() {
+      if(!$scope.modelProperty) {
+        throw Error('Expecting "$scope.modelProperty" to be defined');
+      }
+    });
+
+  </script>
+
+</form>
+

@@ -21,7 +21,7 @@ var Page = require('./../dashboard-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[cam-tasklist-task]'));
+    return element(by.css('[fw-tasklist-task]'));
   },
 
   noTaskInfoText: function() {
@@ -121,7 +121,7 @@ module.exports = Page.extend({
     this.claimedUserFieldEditMode().sendKeys(userName);
     element(
       by.css(
-        'body > .cam-widget-inline-field > [ng-click="applyChange($event);"]'
+        'body > .fw-widget-inline-field > [ng-click="applyChange($event);"]'
       )
     ).click();
   },
@@ -131,15 +131,15 @@ module.exports = Page.extend({
   },
 
   datePickerDialogElement: function() {
-    return element(by.css('.cam-widget-inline-field'));
+    return element(by.css('.fw-widget-inline-field'));
   },
 
   editDate: function(newTime, newDate) {
     var datePickerButton = element(
-      by.css('.cam-widget-inline-field.btn-group')
+      by.css('.fw-widget-inline-field.btn-group')
     );
     var datePickerField = element(
-      by.css('.cam-widget-inline-field.field-control')
+      by.css('.fw-widget-inline-field.field-control')
     );
     this.waitForElementToBeVisible(datePickerField);
 

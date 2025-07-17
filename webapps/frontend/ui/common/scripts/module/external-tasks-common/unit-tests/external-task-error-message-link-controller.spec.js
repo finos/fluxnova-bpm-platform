@@ -27,7 +27,7 @@ require('angular-mocks');
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common.external-task ExternalTaskErrorMessageLink', function() {
+describe('fw-common.external-task ExternalTaskErrorMessageLink', function() {
   var $scope;
   var Uri;
   var instance;

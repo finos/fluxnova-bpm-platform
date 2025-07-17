@@ -21,14 +21,14 @@ module.exports = function() {
   return {
     link: function(scope, element) {
       var processData = scope.processData;
-      var selectedActivityQuery = element.attr('cam-select-activity');
+      var selectedActivityQuery = element.attr('fw-select-activity');
 
       if (!processData) {
         throw new Error('No processData defined in scope');
       }
 
       if (!selectedActivityQuery) {
-        throw new Error('No activity ID query given in @cam-select-activity');
+        throw new Error('No activity ID query given in @fw-select-activity');
       }
 
       element.on('click', function(event) {

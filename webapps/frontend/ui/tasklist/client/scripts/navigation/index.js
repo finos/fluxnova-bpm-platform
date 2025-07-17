@@ -17,18 +17,18 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
-  camLayoutCtrl = require('./controllers/cam-layout-ctrl'),
-  camHeaderViewsCtrl = require('./controllers/cam-header-views-ctrl');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  fwLayoutCtrl = require('./controllers/fw-layout-ctrl'),
+  fwHeaderViewsCtrl = require('./controllers/fw-header-views-ctrl');
 
-require('camunda-commons-ui/lib/util/index');
+require('flowave-commons-ui/lib/util/index');
 
 var navigationModule = angular.module('cam.tasklist.navigation', [
-  require('camunda-commons-ui/lib/util/index').name,
+  require('flowave-commons-ui/lib/util/index').name,
   'ui.bootstrap'
 ]);
 
-navigationModule.controller('camHeaderViewsCtrl', camHeaderViewsCtrl);
-navigationModule.controller('camLayoutCtrl', camLayoutCtrl);
+navigationModule.controller('fwHeaderViewsCtrl', fwHeaderViewsCtrl);
+navigationModule.controller('fwLayoutCtrl', fwLayoutCtrl);
 
 module.exports = navigationModule;

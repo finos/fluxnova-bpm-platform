@@ -22,7 +22,7 @@
   .three-cols-layout(250px, 250px * 1.618);
 }
 
-[cam-resource-wrapper] {
+[fw-resource-wrapper] {
   max-height: 100%;
 
   header {
@@ -70,15 +70,15 @@
     overflow: auto;
   }
 
-  [cam-widget-bpmn-viewer],
-  [cam-widget-cmmn-viewer],
-  [cam-widget-dmn-viewer] {
+  [fw-widget-bpmn-viewer],
+  [fw-widget-cmmn-viewer],
+  [fw-widget-dmn-viewer] {
     height: 400px;
     overflow: auto;
   }
 
   .cmmn-resource {
-    > [cam-source] {
+    > [fw-source] {
       overflow: auto;
     }
 
@@ -188,11 +188,11 @@
   }
 
   .column-left {
-    .three-cols-layout-cell.top [cam-deployments-sorting-choices] {
+    .three-cols-layout-cell.top [fw-deployments-sorting-choices] {
       float: left;
     }
 
-    [cam-widget-search] {
+    [fw-widget-search] {
       margin: 0 (@grid-gutter-width * 0.5) (@grid-gutter-width * 0.5)
         (@grid-gutter-width * 0.5);
     }

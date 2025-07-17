@@ -27,7 +27,7 @@ require('angular-mocks');
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common.external-tasks ExternalTaskActivityLinkController', function() {
+describe('fw-common.external-tasks ExternalTaskActivityLinkController', function() {
   var $scope;
   var params;
   var search;

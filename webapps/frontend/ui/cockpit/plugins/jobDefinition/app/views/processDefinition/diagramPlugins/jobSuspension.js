@@ -33,8 +33,8 @@ module.exports = [
           'control',
           'processData',
           'processDiagram',
-          'camAPI',
-          function($scope, control, processData, processDiagram, camAPI) {
+          'fwAPI',
+          function($scope, control, processData, processDiagram, fwAPI) {
             var viewer = control.getViewer();
             var overlays = viewer.get('overlays');
             var elementRegistry = viewer.get('elementRegistry');
@@ -55,7 +55,7 @@ module.exports = [
 
               if (!processDefinition) return;
 
-              camAPI
+              fwAPI
                 .resource('job-definition')
                 .list({
                   processDefinitionId: processDefinition.id,

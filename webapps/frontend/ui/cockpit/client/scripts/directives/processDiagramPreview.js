@@ -19,7 +19,7 @@
 
 var template = require('./processDiagramPreview.html?raw');
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = [
   'ProcessDefinitionResource',
@@ -47,7 +47,7 @@ module.exports = [
             ProcessDefinitionResource.getBpmn20Xml({id: processDefinitionId})
               .$promise.then(function(response) {
                 scope.diagramXML = response.bpmn20Xml;
-                element.find('[cam-widget-bpmn-viewer]').css({
+                element.find('[fw-widget-bpmn-viewer]').css({
                   width: parseInt(element.parent().width(), 10),
                   height: element.parent().height()
                 });
@@ -60,7 +60,7 @@ module.exports = [
                   scope.control.resetZoom();
                 }, 500);
                 angular.element(window).on('resize', function() {
-                  element.find('[cam-widget-bpmn-viewer]').css({
+                  element.find('[fw-widget-bpmn-viewer]').css({
                     width: parseInt(element.parent().width(), 10),
                     height: element.parent().height()
                   });

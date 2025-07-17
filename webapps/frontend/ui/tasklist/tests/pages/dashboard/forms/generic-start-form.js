@@ -32,7 +32,7 @@ module.exports = Page.extend({
 
   businessKeyInput: function(inputValue) {
     var inputField = this.genericFormElement().element(
-      by.css('[cam-business-key]')
+      by.css('[fw-business-key]')
     );
 
     if (arguments.length !== 0) inputField.sendKeys(inputValue);

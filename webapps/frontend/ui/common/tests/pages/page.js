@@ -111,12 +111,12 @@ Page.prototype.notification = function(item) {
 };
 
 Page.prototype.logout = function() {
-  element(by.css('[cam-widget-header] .account')).click();
-  element(by.css('[cam-widget-header] [ng-click="logout()"]')).click();
+  element(by.css('[fw-widget-header] .account')).click();
+  element(by.css('[fw-widget-header] [ng-click="logout()"]')).click();
 };
 
 Page.prototype.loggedInUser = function() {
-  return element(by.css('[cam-widget-header] .account')).getText();
+  return element(by.css('[fw-widget-header] .account')).getText();
 };
 
 Page.prototype.findElementIndexInRepeater = function(
@@ -155,7 +155,7 @@ Page.prototype.findElementIndexInRepeater = function(
 };
 
 Page.prototype.headerWidget = function() {
-  return element(by.css('[cam-widget-header]'));
+  return element(by.css('[fw-widget-header]'));
 };
 
 Page.prototype.hamburgerButton = function() {

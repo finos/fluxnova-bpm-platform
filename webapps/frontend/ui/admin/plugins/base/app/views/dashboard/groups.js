@@ -29,9 +29,9 @@ module.exports = [
       pagePath: '#/groups',
       controller: [
         '$scope',
-        'camAPI',
-        function($scope, camAPI) {
-          var service = camAPI.resource('group');
+        'fwAPI',
+        function($scope, fwAPI) {
+          var service = fwAPI.resource('group');
 
           $scope.access = {};
 

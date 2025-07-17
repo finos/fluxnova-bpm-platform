@@ -43,7 +43,7 @@ module.exports = Page.extend({
     if (!itemIndex) itemIndex = 1;
 
     item = navigationSection.element(
-      by.css('[cam-widget-header] ul li:nth-child(' + itemIndex + ')')
+      by.css('[fw-widget-header] ul li:nth-child(' + itemIndex + ')')
     );
     item.click();
 
@@ -56,7 +56,7 @@ module.exports = Page.extend({
     if (!idx) idx = 1;
 
     return navigationSection.element(
-      by.css('[cam-widget-header] ul li:nth-child(' + idx + ')')
+      by.css('[fw-widget-header] ul li:nth-child(' + idx + ')')
     );
   }
 });

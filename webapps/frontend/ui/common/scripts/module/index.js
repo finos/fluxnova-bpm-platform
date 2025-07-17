@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 // Services
 var isModuleAvailable = require('./services/is-module-available');
@@ -35,24 +35,24 @@ var get = require('./services/get');
 var pluginApi = require('../services/plugins/getApiAttributes');
 
 // Components
-var camToolbar = require('./components/cam-toolbar');
-var camPagination = require('./components/cam-pagination');
-var camSearchableArea = require('./components/cam-searchable-area');
-var camTabs = require('./components/cam-tabs');
+var fwToolbar = require('./components/fw-toolbar');
+var fwPagination = require('./components/fw-pagination');
+var fwSearchableArea = require('./components/fw-searchable-area');
+var fwTabs = require('./components/fw-tabs');
 
 // Directives
-var camHoverArea = require('./directives/cam-hover-area');
-var camHoverTrigger = require('./directives/cam-hover-trigger');
-var camHoverableTitle = require('./directives/cam-hoverable-title');
-var camFile = require('./directives/cam-file');
-var camSortableTableHeader = require('./directives/cam-sortable-table-header');
-var camSortableTableColumn = require('./directives/cam-sortable-table-column');
+var fwHoverArea = require('./directives/fw-hover-area');
+var fwHoverTrigger = require('./directives/fw-hover-trigger');
+var fwHoverableTitle = require('./directives/fw-hoverable-title');
+var fwFile = require('./directives/fw-file');
+var fwSortableTableHeader = require('./directives/fw-sortable-table-header');
+var fwSortableTableColumn = require('./directives/fw-sortable-table-column');
 
 // Controllers
 var HoverAreaController = require('./controllers/hover-area');
-var CamPaginationController = require('./controllers/cam-pagination');
-var CamTabsController = require('./controllers/cam-tabs');
-var CamPaginationSearchIntegrationController = require('./controllers/cam-pagination-search-integration');
+var FwPaginationController = require('./controllers/fw-pagination');
+var FwTabsController = require('./controllers/fw-tabs');
+var FwPaginationSearchIntegrationController = require('./controllers/fw-pagination-search-integration');
 
 // Values
 var routeUtil = require('../util/routeUtil');
@@ -62,7 +62,7 @@ var searchWidgetUtils = require('../util/search-widget-utils');
 // Optional Modules
 var externalTasksCommon = require('./external-tasks-common');
 
-var ngModule = angular.module('cam-common', [externalTasksCommon.name]);
+var ngModule = angular.module('fw-common', [externalTasksCommon.name]);
 
 // Services
 ngModule.factory('isModuleAvailable', isModuleAvailable);
@@ -86,26 +86,26 @@ ngModule.factory('get', get);
 ngModule.factory('getPluginApiAttributes', () => pluginApi);
 
 // Components
-ngModule.directive('camToolbar', camToolbar);
-ngModule.directive('camPagination', camPagination);
-ngModule.directive('camSearchableArea', camSearchableArea);
-ngModule.directive('camTabs', camTabs);
+ngModule.directive('fwToolbar', fwToolbar);
+ngModule.directive('fwPagination', fwPagination);
+ngModule.directive('fwSearchableArea', fwSearchableArea);
+ngModule.directive('fwTabs', fwTabs);
 
 // Directives
-ngModule.directive('camHoverArea', camHoverArea);
-ngModule.directive('camHoverTrigger', camHoverTrigger);
-ngModule.directive('camHoverableTitle', camHoverableTitle);
-ngModule.directive('camFile', camFile);
-ngModule.directive('camSortableTableHeader', camSortableTableHeader);
-ngModule.directive('camSortableTableColumn', camSortableTableColumn);
+ngModule.directive('fwHoverArea', fwHoverArea);
+ngModule.directive('fwHoverTrigger', fwHoverTrigger);
+ngModule.directive('fwHoverableTitle', fwHoverableTitle);
+ngModule.directive('fwFile', fwFile);
+ngModule.directive('fwSortableTableHeader', fwSortableTableHeader);
+ngModule.directive('fwSortableTableColumn', fwSortableTableColumn);
 
 // Controllers
 ngModule.controller('HoverAreaController', HoverAreaController);
-ngModule.controller('CamPaginationController', CamPaginationController);
-ngModule.controller('CamTabsController', CamTabsController);
+ngModule.controller('FwPaginationController', FwPaginationController);
+ngModule.controller('FwTabsController', FwTabsController);
 ngModule.controller(
-  'CamPaginationSearchIntegrationController',
-  CamPaginationSearchIntegrationController
+  'FwPaginationSearchIntegrationController',
+  FwPaginationSearchIntegrationController
 );
 
 // Values

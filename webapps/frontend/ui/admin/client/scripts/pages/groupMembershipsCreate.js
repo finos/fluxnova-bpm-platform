@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -25,7 +25,7 @@ module.exports = [
   '$location',
   'Uri',
   'Notifications',
-  'camAPI',
+  'fwAPI',
   '$uibModalInstance',
   'member',
   'memberId',
@@ -37,14 +37,14 @@ module.exports = [
     $location,
     Uri,
     Notifications,
-    camAPI,
+    fwAPI,
     $modalInstance,
     member,
     memberId,
     idList,
     $translate
   ) {
-    var GroupResource = camAPI.resource('group');
+    var GroupResource = fwAPI.resource('group');
 
     var BEFORE_CREATE = 'beforeCreate',
       PERFORM_CREATE = 'performCancel',

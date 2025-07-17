@@ -37,7 +37,7 @@ flowave.bpm:
 #    ldap:
 #      enabled: true
 #      server-url: ldaps://localhost:4334
-#      administrator-group-name: camunda-admin
+#      administrator-group-name: flowave-admin
 #      accept-untrusted-certificates: false
 #      manager-dn: uid=jonny,ou=office-berlin,o=camunda,c=org
 #      manager-password: s3cr3t

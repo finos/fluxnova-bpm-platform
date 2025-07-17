@@ -3,7 +3,7 @@
 
 .three-cols-layout-base();
 
-.tasks-list [cam-tasks] {
+.tasks-list [fw-tasks] {
   position: relative;
   clear: both;
 }
@@ -51,7 +51,7 @@ button {
 .three-cols-layout-colors(@column-left-bg, @column-center-bg, @column-right-bg);
 .three-cols-layout-header();
 
-[cam-widget-header] [ng-transclude] {
+[fw-widget-header] [ng-transclude] {
   float: right;
   border-right: 1px solid darken(@gray-lighter, 10%);
 
@@ -131,7 +131,7 @@ button {
     }
   }
 
-  [cam-tasklist-form-generic] .row-action {
+  [fw-tasklist-form-generic] .row-action {
     > a[ng-click],
     .btn-link {
       display: block;
@@ -201,7 +201,7 @@ button {
     }
   }
 
-  [cam-widget-search] {
+  [fw-widget-search] {
     margin: 0 (@grid-gutter-width * 0.5);
     padding-bottom: 0;
   }
@@ -261,7 +261,7 @@ button {
   }
 }
 
-body.task-column-close [cam-widget-search].multiline-pills [cam-widget-search-pill] {
+body.task-column-close [fw-widget-search].multiline-pills [fw-widget-search-pill] {
   width: auto;
   vertical-align: top;
 
@@ -302,7 +302,7 @@ body.task-column-close [cam-widget-search].multiline-pills [cam-widget-search-pi
       }
     }
 
-    [cam-tasklist-variables] .variables-list {
+    [fw-tasklist-variables] .variables-list {
       max-height: 20000px;
 
       .shutter {
@@ -361,7 +361,7 @@ body.task-column-close [cam-widget-search].multiline-pills [cam-widget-search-pi
       }
     }
 
-    [cam-widget-search] {
+    [fw-widget-search] {
       position: relative;
       z-index: 15;
       padding-bottom: (@grid-gutter-width / 2);

@@ -17,12 +17,12 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular'),
-  camCockpitResources = require('./directives/cam-cockpit-resources');
+var angular = require('flowave-commons-ui/vendor/angular'),
+  fwCockpitResources = require('./directives/fw-cockpit-resources');
 
 var resourcesModule = angular.module('cam.cockpit.repository.resources', []);
 
 /* directives */
-resourcesModule.directive('camResources', camCockpitResources);
+resourcesModule.directive('fwResources', fwCockpitResources);
 
 module.exports = resourcesModule;

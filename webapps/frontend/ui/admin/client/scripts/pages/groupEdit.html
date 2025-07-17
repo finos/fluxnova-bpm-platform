@@ -1,4 +1,4 @@
-<!-- # CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
+<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
 <section ng-cloak>
   <aside>
     <ul>
@@ -33,7 +33,7 @@
     <form ng-show="show('group')"
           class="form-horizontal"
           name="editGroupForm"
-          cam-widget-loader
+          fw-widget-loader
           loading-state="{{ groupLoadingState }}">
       <div class="h4">{{ 'GROUP_EDIT_GROUP_DETAILS' | translate }}</div>
 
@@ -106,12 +106,12 @@
              translate-values="{ group: group.name }">
         </div>
 
-        <div cam-widget-loader
+        <div fw-widget-loader
              loading-state="{{ tenantLoadingState }}"
              text-empty="{{ translate('GROUP_EDIT_MESSAGE_GROUP', { group: group.name }) }}">
-          <table class="cam-table"
+          <table class="fw-table"
                  ng-hide="tenantList.length == 0">
-            <thead cam-sortable-table-header
+            <thead fw-sortable-table-header
                    default-sort-by="id"
                    default-sort-order="asc"
                    sorting-id="admin-sorting-groups-tenants"
@@ -119,10 +119,10 @@
                    on-sort-initialized="onTenantsSortingChanged(sorting)">
             <tr>
               <th class="tenant-id"
-                  cam-sortable-table-column
+                  fw-sortable-table-column
                   sort-by-property="id">{{ 'GROUP_EDIT_TENANT_ID' | translate }}</th>
               <th class="tenant-name"
-                  cam-sortable-table-column
+                  fw-sortable-table-column
                   sort-by-property="name">{{ 'GROUP_EDIT_TENANT_NAME' | translate }}</th>
               <th class="action">
                 {{ 'GROUP_EDIT_ACTION' | translate }}
@@ -167,22 +167,22 @@
     <div ng-show="show('users')">
       <div class="h3">{{ 'GROUP_EDIT_GROUP_USERS' | translate }}</div>
 
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{ userLoadingState }}"
            text-empty="{{ translate('GROUP_EDIT_MESSAGE_USERS', {group: group.name}) }}">
-        <table class="cam-table">
-          <thead cam-sortable-table-header
+        <table class="fw-table">
+          <thead fw-sortable-table-header
                  default-sort-by="userId"
                  default-sort-order="asc"
                  sorting-id="admin-sorting-groups-users"
                  on-sort-change="onUsersSortingChanged(sorting)"
                  on-sort-initialized="onUsersSortingInitialized(sorting)">
             <tr ng-if="canSortUserEntries">
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="userId">{{ 'USERS_ID' | translate }}</th>
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="firstName">{{ 'USERS_FIRSTNAME' | translate }}</th>
-              <th cam-sortable-table-column
+              <th fw-sortable-table-column
                   sort-by-property="lastName">{{ 'USERS_LASTNAME' | translate }}</th>
             </tr>
             <tr ng-if="!canSortUserEntries">
@@ -200,7 +200,7 @@
             </tr>
           </tbody>
         </table>
-      </div><!-- /cam-widget-loader -->
+      </div><!-- /fw-widget-loader -->
 
       <ul uib-pagination ng-if="groupUserPages.total > groupUserPages.size"
                   class="pagination-sm"
@@ -222,4 +222,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - camunda-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
+<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->

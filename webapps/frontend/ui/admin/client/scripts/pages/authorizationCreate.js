@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -25,10 +25,10 @@ module.exports = [
   '$location',
   'Uri',
   'Notifications',
-  'camAPI',
+  'fwAPI',
   '$translate',
-  function($scope, $q, $location, Uri, Notifications, camAPI, $translate) {
-    var AuthorizationResource = camAPI.resource('authorization');
+  function($scope, $q, $location, Uri, Notifications, fwAPI, $translate) {
+    var AuthorizationResource = fwAPI.resource('authorization');
 
     $scope.addNewAuthorization = function() {
       $scope.authorizations.push({

@@ -49,12 +49,12 @@ module.exports = function(config) {
             expose: {
               angular: 'angular',
               jquery: 'jquery',
-              'camunda-commons-ui': 'camunda-commons-ui',
-              'camunda-bpm-sdk-js': 'camunda-bpm-sdk-js',
+              'flowave-commons-ui': 'flowave-commons-ui',
+              'flowave-bpm-sdk-js': 'flowave-bpm-sdk-js',
               'angular-data-depend': 'angular-data-depend',
               moment: 'moment',
               events: 'events',
-              'cam-common': 'cam-common'
+              'fw-common': 'fw-common'
             }
           }
         ]

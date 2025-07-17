@@ -22,12 +22,12 @@ var template = require('./tenantCreate.html?raw');
 var Controller = [
   '$scope',
   'page',
-  'camAPI',
+  'fwAPI',
   'Notifications',
   '$location',
   '$translate',
-  function($scope, page, camAPI, Notifications, $location, $translate) {
-    var TenantResource = camAPI.resource('tenant');
+  function($scope, page, fwAPI, Notifications, $location, $translate) {
+    var TenantResource = fwAPI.resource('tenant');
 
     $scope.$root.showBreadcrumbs = true;
 

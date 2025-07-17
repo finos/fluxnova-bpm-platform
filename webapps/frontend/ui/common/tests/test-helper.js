@@ -19,8 +19,8 @@
 
 var resetUrl = 'http://localhost:8080/flowave/ensureCleanDb/default';
 var request = require('request');
-var CamSDK = require('camunda-bpm-sdk-js');
-var camClient = new CamSDK.Client({
+var FwSDK = require('flowave-bpm-sdk-js');
+var fwClient = new FwSDK.Client({
   mock: false,
   apiUri: 'http://localhost:8080/engine-rest'
 });
@@ -75,7 +75,7 @@ module.exports = function(operations, noReset, done) {
   }
 
   operations.forEach(function(operation) {
-    var resource = new camClient.resource(operation.module);
+    var resource = new fwClient.resource(operation.module);
     callbacks.push(function(cb) {
       resource[operation.operation](operation.params, function(err) {
         console.info(
@@ -87,7 +87,7 @@ module.exports = function(operations, noReset, done) {
     });
   });
 
-  CamSDK.utils.series(callbacks, function(err, result) {
+  FwSDK.utils.series(callbacks, function(err, result) {
     // now all process instances are started, we can start the jobs to create incidents
     // This method sets retries to 0 for all jobs that were created in the test setup
     if (err) {
@@ -95,7 +95,7 @@ module.exports = function(operations, noReset, done) {
       return done(err, result);
     }
 
-    var resource = new camClient.resource('job');
+    var resource = new fwClient.resource('job');
 
     var pollCount = 0;
     var pollFct = function() {

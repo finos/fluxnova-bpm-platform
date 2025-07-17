@@ -19,14 +19,14 @@
 
 var template = require('./process-definition.html?raw');
 
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 var routeUtil = require('../../../../common/scripts/util/routeUtil');
 var searchWidgetUtils = require('../../../../common/scripts/util/search-widget-utils');
-var camCommons = require('camunda-commons-ui/lib');
+var fwCommons = require('flowave-commons-ui/lib');
 
 var ngModule = angular.module('cam.cockpit.pages.processDefinition', [
   'dataDepend',
-  camCommons.name
+  fwCommons.name
 ]);
 
 var Controller = [
@@ -38,7 +38,7 @@ var Controller = [
   'search',
   'ProcessDefinitionResource',
   'ProcessInstanceResource',
-  'camAPI',
+  'fwAPI',
   'Views',
   'Data',
   'Transform',
@@ -58,7 +58,7 @@ var Controller = [
     search,
     ProcessDefinitionResource,
     ProcessInstanceResource,
-    camAPI,
+    fwAPI,
     Views,
     Data,
     Transform,
@@ -296,10 +296,10 @@ var Controller = [
         return queryMaxResults(
           queryParams,
           function(params) {
-            return camAPI.resource('process-definition').list(params);
+            return fwAPI.resource('process-definition').list(params);
           },
           function(params) {
-            return camAPI.resource('process-definition').count(params);
+            return fwAPI.resource('process-definition').count(params);
           }
         ).then(function(res) {
           return res.items;
@@ -403,7 +403,7 @@ var Controller = [
             element => element.$type === 'bpmn:CallActivity'
           )
         ) {
-          return camAPI
+          return fwAPI
             .resource('process-definition')
             .staticCalledProcessDefinitions(processDefinition.id);
         } else {

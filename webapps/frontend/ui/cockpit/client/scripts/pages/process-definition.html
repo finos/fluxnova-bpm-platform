@@ -16,7 +16,7 @@
 
     <!-- sidebar -->
     <div class="ctn-column ctn-sidebar ctn-scroll"
-         cam-hover-area
+         fw-hover-area
          ctn-collapsable="left">
 
       <dl class="process-information">
@@ -59,13 +59,13 @@
         <dd class="version-tag"
             ng-if="!processDefinition.versionTag"><span class="null-value">{{ 'PROCESS_DEFINITION_NULL' | translate }}</span></dd>
 
-        <dt cam-widget-clipboard="processDefinition.id"
-            cam-hoverable-title="definition-id">{{ 'PROCESS_DEFINITION_DEFINITION_ID' | translate }}</dt>
-        <dd class="definition-id" cam-hover-trigger="definition-id">{{ processDefinition.id }}</dd>
+        <dt fw-widget-clipboard="processDefinition.id"
+            fw-hoverable-title="definition-id">{{ 'PROCESS_DEFINITION_DEFINITION_ID' | translate }}</dt>
+        <dd class="definition-id" fw-hover-trigger="definition-id">{{ processDefinition.id }}</dd>
 
-        <dt cam-widget-clipboard="processDefinition.key"
-            cam-hoverable-title="definition-key">{{ 'PROCESS_DEFINITION_DEFINITION_KEY' | translate }}</dt>
-        <dd class="definition-key" cam-hover-trigger="definition-key">{{ processDefinition.key }}</dd>
+        <dt fw-widget-clipboard="processDefinition.key"
+            fw-hoverable-title="definition-key">{{ 'PROCESS_DEFINITION_DEFINITION_KEY' | translate }}</dt>
+        <dd class="definition-key" fw-hover-trigger="definition-key">{{ processDefinition.key }}</dd>
 
         <dt>{{ 'PROCESS_DEFINITION_DEFINITION_NAME' | translate }}</dt>
         <dd class="definition-name"
@@ -73,28 +73,28 @@
         <dd class="definition-name"
             ng-if="!processDefinition.name"><span class="null-value">{{ 'PROCESS_DEFINITION_NULL' | translate }}</span></dd>
 
-        <dt cam-widget-clipboard="processDefinition.historyTimeToLive"
-            cam-hoverable-title="history-time-to-live">
+        <dt fw-widget-clipboard="processDefinition.historyTimeToLive"
+            fw-hoverable-title="history-time-to-live">
             {{ 'PROCESS_DEFINITION_HISTORY_TIME_TO_LIVE' | translate }}
         </dt>
-        <dd class="history-time-to-live" cam-hover-trigger="history-time-to-live">
+        <dd class="history-time-to-live" fw-hover-trigger="history-time-to-live">
           <span time-to-live="processDefinition" resource="process-definition"></span>
         </dd>
 
         <dt ng-if="processDefinition.tenantId"
-            cam-widget-clipboard="processDefinition.tenantId"
-            cam-hoverable-title="tenant-id">{{ 'PROCESS_DEFINITION_TENANT_ID' | translate }}</dt>
+            fw-widget-clipboard="processDefinition.tenantId"
+            fw-hoverable-title="tenant-id">{{ 'PROCESS_DEFINITION_TENANT_ID' | translate }}</dt>
         <dd class="tenant-id"
-            ng-if="processDefinition.tenantId" cam-hover-trigger="tenant-id">
+            ng-if="processDefinition.tenantId" fw-hover-trigger="tenant-id">
             {{ processDefinition.tenantId }}
         </dd>
         <dt ng-if="!processDefinition.tenantId">{{ 'PROCESS_DEFINITION_TENANT_ID' | translate }}</dt>
         <dd class="tenant-id"
             ng-if="!processDefinition.tenantId"><span class="null-value">{{ 'PROCESS_DEFINITION_NULL' | translate }}</span></dd>
 
-        <dt cam-widget-clipboard="processDefinition.deploymentId"
-            cam-hoverable-title="deployment-id">{{ 'PROCESS_DEFINITION_DEPLOYMENT_ID' | translate }}</dt>
-        <dd class="deployment-id" cam-hover-trigger="deployment-id">
+        <dt fw-widget-clipboard="processDefinition.deploymentId"
+            fw-hoverable-title="deployment-id">{{ 'PROCESS_DEFINITION_DEPLOYMENT_ID' | translate }}</dt>
+        <dd class="deployment-id" fw-hover-trigger="deployment-id">
           <a ng-href="{{ getDeploymentUrl() }}">{{ processDefinition.deploymentId }}</a>
         </dd>
 
@@ -201,4 +201,4 @@
   </div>
 
 </div><!-- end .ctn-fixed-view -->
-<!-- / CE - camunda-cockpit-ui/client/scripts/pages/process-definition.html -->
+<!-- / CE - flowave-cockpit-ui/client/scripts/pages/process-definition.html -->

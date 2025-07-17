@@ -1,10 +1,10 @@
-<!-- # CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
+<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
 
-<div cam-widget-loader
+<div fw-widget-loader
 loading-state="{{ loadingState }}"
 text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
 
-  <table class="jobs-tab cam-table">
+  <table class="jobs-tab fw-table">
 
     <thead sortable-table-head
       head-columns="headColumns"
@@ -15,14 +15,14 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
     <tbody>
       <tr ng-repeat="job in jobs">
         <td class="id">
-            <span cam-widget-clipboard="job.id">{{job.id}}</span>
+            <span fw-widget-clipboard="job.id">{{job.id}}</span>
         </td>
         <td class="date">
-            <span ng-if="job.dueDate" cam-widget-clipboard="job.dueDate | camDate">{{job.dueDate | camDate}}</span>
+            <span ng-if="job.dueDate" fw-widget-clipboard="job.dueDate | fwDate">{{job.dueDate | fwDate}}</span>
             <span ng-if="!job.dueDate" class="null-value">null</span>
         </td>
         <td>
-            <span cam-widget-clipboard="job.createTime | camDate">{{job.createTime | camDate}}</span>
+            <span fw-widget-clipboard="job.createTime | fwDate">{{job.createTime | fwDate}}</span>
         </td>
         <td>
           {{job.retries}}
@@ -34,7 +34,7 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
         </td>
         <td>
           <span ng-if="job.failedActivityId"
-          cam-widget-clipboard="job.failedActivityId">
+          fw-widget-clipboard="job.failedActivityId">
             {{ job.failedActivityName }}
           </span>
         </td>
@@ -68,6 +68,6 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
     </tbody>
   </table>
 
-  <div cam-pagination="onPaginationChange(pages)" total="pages.total"></div>
+  <div fw-pagination="onPaginationChange(pages)" total="pages.total"></div>
 </div>
-<!-- / CE - camunda-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
+<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->

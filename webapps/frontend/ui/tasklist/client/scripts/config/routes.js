@@ -25,7 +25,7 @@ module.exports = [
     $routeProvider
       .when('/', {
         template: tasklistTemplate,
-        controller: 'camTasklistViewCtrl',
+        controller: 'fwTasklistViewCtrl',
         authentication: 'required',
         reloadOnSearch: false
       })

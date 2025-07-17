@@ -26,30 +26,30 @@
     </header>
 
     <div ng-if="activeSection"
-         ng-controller="CamPaginationSearchIntegrationController as SearchController">
+         ng-controller="FwPaginationSearchIntegrationController as SearchController">
 
-      <div cam-widget-loader
+      <div fw-widget-loader
            loading-state="{{mainLoadingState}}"
            text-empty="{{ 'PLUGIN_PROCESS_DEF_NO_PROCESS_DEF' | translate }}">
 
-        <div cam-widget-search
-             cam-widget-search-id='pdSearch'
-             cam-widget-search-total="SearchController.pages.total"
-             cam-widget-search-valid-searches="SearchController.config.searches"
-             cam-widget-search-translations="SearchController.config.tooltips"
-             cam-widget-search-types="SearchController.config.types"
-             cam-widget-search-operators="SearchController.config.operators"
-             cam-widget-search-mode="search"
-             cam-widget-search-storage-group="'PD'">
+        <div fw-widget-search
+             fw-widget-search-id='pdSearch'
+             fw-widget-search-total="SearchController.pages.total"
+             fw-widget-search-valid-searches="SearchController.config.searches"
+             fw-widget-search-translations="SearchController.config.tooltips"
+             fw-widget-search-types="SearchController.config.types"
+             fw-widget-search-operators="SearchController.config.operators"
+             fw-widget-search-mode="search"
+             fw-widget-search-storage-group="'PD'">
         </div>
 
-        <div cam-widget-loader
+        <div fw-widget-loader
              loading-state="{{SearchController.loadingState}}"
              class="deployed-processes"
              text-empty="{{ 'PLUGIN_PROCESS_DEF_NO_PROCESS_DEF' | translate }}">
 
           <table ng-if="activeTab === 'list'"
-                 class="process-definitions-list cam-table search-results">
+                 class="process-definitions-list fw-table search-results">
             <thead sortable-table-head
                    head-columns="headColumns"
                    on-sort-change="onSortChange(null, null, sortBy)"
@@ -83,7 +83,7 @@
                 <span class="glyphicon glyphicon-refresh animate-spin"></span>
               </td>
 
-              <td class="key" cam-widget-clipboard="pd.key">
+              <td class="key" fw-widget-clipboard="pd.key">
                 <a href="#/process-definition/{{ pd.id }}">
                   {{ pd.key }}
                 </a>
@@ -93,7 +93,7 @@
                   ng-if="!pd.name"></td>
 
               <td class="name"
-                  cam-widget-clipboard="pd.name"
+                  fw-widget-clipboard="pd.name"
                   ng-if="pd.name">
                 <a href="#/process-definition/{{ pd.id }}">
                   {{ pd.name }}

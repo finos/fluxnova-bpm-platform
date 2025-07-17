@@ -1,0 +1,28 @@
+<div fw-widget-search
+     fw-widget-search-total="Searchable.pages.total"
+     fw-widget-search-size="Searchable.pages.size"
+     fw-widget-search-valid-searches="Searchable.config.searches"
+     fw-widget-search-translations="Searchable.config.tooltips"
+     fw-widget-search-types="Searchable.config.types"
+     fw-widget-search-id="{{searchId}}"
+     fw-widget-search-operators="Searchable.config.operators"
+     fw-widget-search-storage-group="Searchable.storageGroup"
+     fw-widget-search-mode="filter">
+</div>
+<div fw-widget-loader
+     text-error="{{Searchable.loadingError}}"
+     text-empty="{{Searchable.textEmpty}}"
+     loading-state="{{Searchable.loadingState}}">
+
+  <div ng-transclude></div>
+
+  <ul uib-pagination ng-if="Searchable.pages.total > Searchable.pages.size"
+              class="pagination-sm"
+              page="Searchable.pages.current"
+              ng-model="Searchable.pages.current"
+              total-items="Searchable.pages.total"
+              items-per-page="Searchable.pages.size"
+              max-size="7"
+              boundary-links="true">
+  </ul>
+</div>

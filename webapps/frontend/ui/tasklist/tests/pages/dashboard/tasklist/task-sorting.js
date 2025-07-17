@@ -21,7 +21,7 @@ var Page = require('./../dashboard-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[cam-sorting-choices]'));
+    return element(by.css('[fw-sorting-choices]'));
   },
 
   sortingList: function() {

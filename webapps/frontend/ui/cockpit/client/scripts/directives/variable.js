@@ -17,7 +17,7 @@
 
 /*
   DEPRECATION WARNING:
-  this directive should not be used anymore, see cam-widget-variable instead
+  this directive should not be used anymore, see fw-widget-variable instead
 */
 
 'use strict';

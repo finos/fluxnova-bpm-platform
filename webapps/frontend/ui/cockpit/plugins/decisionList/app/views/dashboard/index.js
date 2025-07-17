@@ -18,14 +18,14 @@
 'use strict';
 
 var angular = require('angular');
-var camCommon = require('ui/common/scripts/module/index');
+var fwCommon = require('ui/common/scripts/module/index');
 var decisionList = require('./views/decision-list');
 var DecisionListController = require('./controllers/decision-list');
 var decisionListService = require('./services/decision-list');
 var decisionsTableComponent = require('./components/decisions-table');
 
 var ngModule = angular.module('cockpit.plugin.decisionList.views.dashboard', [
-  camCommon.name
+  fwCommon.name
 ]);
 
 ngModule.config(decisionList);

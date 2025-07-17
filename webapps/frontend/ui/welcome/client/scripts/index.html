@@ -34,7 +34,7 @@
           welcome-api="$APP_ROOT/api/welcome/"
           engine-api="$APP_ROOT/api/engine/"
           app-root="$APP_ROOT"
-          cam-exclude-plugins="welcome.dashboard:process-definition-tiles" />
+          fw-exclude-plugins="welcome.dashboard:process-definition-tiles" />
     -->
     <%= htmlWebpackPlugin.tags.headTags %>
 
@@ -44,7 +44,7 @@
   </head>
   <body ng-controller="WelcomePage as welcomePage">
     <!-- navigation -->
-    <div cam-widget-header
+    <div fw-widget-header
          authentication="authentication"
          user-name="userFullName"
          current-app="welcome"
@@ -68,7 +68,7 @@
     </div>
 
     <!-- footer -->
-    <footer cam-widget-footer
+    <footer fw-widget-footer
             version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
     <script type="text/javascript" $CSP_NONCE>

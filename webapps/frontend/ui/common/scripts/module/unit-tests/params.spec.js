@@ -19,17 +19,17 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../camunda-commons-ui/vendor/angular');
-var camCommon = require('../index');
+var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var fwCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common params', function() {
+describe('fw-common params', function() {
   var params;
 
-  beforeEach(module(camCommon.name));
+  beforeEach(module(fwCommon.name));
 
   beforeEach(inject(function(_params_) {
     params = _params_;

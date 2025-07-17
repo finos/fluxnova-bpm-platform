@@ -21,7 +21,7 @@ var Base = require('./base');
 
 module.exports = Base.extend({
   diagramElement: function() {
-    return element(by.css('[cam-widget-bpmn-viewer]'));
+    return element(by.css('[fw-widget-bpmn-viewer]'));
   },
 
   instancesBadgeFor: function(activityName) {

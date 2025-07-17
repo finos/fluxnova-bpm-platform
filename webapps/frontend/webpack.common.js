@@ -34,10 +34,10 @@ module.exports = (_env, argv = {}) => {
   return {
     entry: {
       /* Cockpit */
-      'app/cockpit/camunda-cockpit-bootstrap': {
+      'app/cockpit/flowave-cockpit-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/cockpit/client/scripts/camunda-cockpit-bootstrap.js'
+          'ui/cockpit/client/scripts/flowave-cockpit-bootstrap.js'
         )
       },
       'plugin/cockpit/app/plugin': {
@@ -45,10 +45,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Tasklist */
-      'app/tasklist/camunda-tasklist-bootstrap': {
+      'app/tasklist/flowave-tasklist-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/tasklist/client/scripts/camunda-tasklist-bootstrap.js'
+          'ui/tasklist/client/scripts/flowave-tasklist-bootstrap.js'
         )
       },
       'plugin/tasklist/app/plugin': {
@@ -56,10 +56,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Admin */
-      'app/admin/camunda-admin-bootstrap': {
+      'app/admin/flowave-admin-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/admin/client/scripts/camunda-admin-bootstrap.js'
+          'ui/admin/client/scripts/flowave-admin-bootstrap.js'
         )
       },
       'plugin/admin/app/plugin': {
@@ -67,10 +67,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Welcome */
-      'app/welcome/camunda-welcome-bootstrap': {
+      'app/welcome/flowave-welcome-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/welcome/client/scripts/camunda-welcome-bootstrap.js'
+          'ui/welcome/client/scripts/flowave-welcome-bootstrap.js'
         )
       }
     },
@@ -90,10 +90,10 @@ module.exports = (_env, argv = {}) => {
       },
       extensions: ['.js', '.less'],
       alias: {
-        'camunda-commons-ui': path.resolve(__dirname, 'camunda-commons-ui'),
+        'flowave-commons-ui': path.resolve(__dirname, 'flowave-commons-ui'),
         ui: path.resolve(__dirname, 'ui'),
-        'camunda-bpm-sdk-js': path.resolve(__dirname, 'camunda-bpm-sdk-js'),
-        'cam-common': path.resolve(__dirname, 'ui/common/scripts/module'),
+        'flowave-bpm-sdk-js': path.resolve(__dirname, 'flowave-bpm-sdk-js'),
+        'fw-common': path.resolve(__dirname, 'ui/common/scripts/module'),
         jquery: path.resolve(__dirname, 'node_modules/jquery'),
         'core-js': path.resolve(__dirname, 'node_modules/core-js'),
         angular: path.resolve(__dirname, 'node_modules/angular'), // avoid loading angular twice
@@ -149,7 +149,7 @@ module.exports = (_env, argv = {}) => {
         appName: 'cockpit',
         template: path.resolve(__dirname, 'ui/cockpit/client/scripts/index.html'),
         filename: 'app/cockpit/index.html',
-        chunks: ['app/cockpit/camunda-cockpit-bootstrap'],
+        chunks: ['app/cockpit/flowave-cockpit-bootstrap'],
         favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
@@ -160,7 +160,7 @@ module.exports = (_env, argv = {}) => {
         appName: 'tasklist',
         template: path.resolve(__dirname, 'ui/tasklist/client/index.html'),
         filename: 'app/tasklist/index.html',
-        chunks: ['app/tasklist/camunda-tasklist-bootstrap'],
+        chunks: ['app/tasklist/flowave-tasklist-bootstrap'],
         favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
@@ -171,7 +171,7 @@ module.exports = (_env, argv = {}) => {
         appName: 'admin',
         template: path.resolve(__dirname, 'ui/admin/client/scripts/index.html'),
         filename: 'app/admin/index.html',
-        chunks: ['app/admin/camunda-admin-bootstrap'],
+        chunks: ['app/admin/flowave-admin-bootstrap'],
         favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
@@ -182,7 +182,7 @@ module.exports = (_env, argv = {}) => {
         appName: 'welcome',
         template: path.resolve(__dirname, 'ui/welcome/client/scripts/index.html'),
         filename: 'app/welcome/index.html',
-        chunks: ['app/welcome/camunda-welcome-bootstrap'],
+        chunks: ['app/welcome/flowave-welcome-bootstrap'],
         favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
         publicPath: '$APP_ROOT',
         version

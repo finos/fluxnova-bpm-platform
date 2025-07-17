@@ -17,14 +17,14 @@
 
 'use strict';
 
-var template = require('./../controllers/cam-cockpit-repository-view.html?raw');
+var template = require('./../controllers/fw-cockpit-repository-view.html?raw');
 
 module.exports = [
   '$routeProvider',
   function($routeProvider) {
     $routeProvider.when('/repository', {
       template: template,
-      controller: 'camCockpitRepositoryViewCtrl',
+      controller: 'fwCockpitRepositoryViewCtrl',
       authentication: 'required',
       reloadOnSearch: false
     });

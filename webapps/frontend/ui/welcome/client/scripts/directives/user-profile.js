@@ -18,13 +18,13 @@
 'use strict';
 
 var template = require('./user-profile.html?raw');
-var angular = require('camunda-commons-ui/vendor/angular');
+var angular = require('flowave-commons-ui/vendor/angular');
 
 module.exports = [
-  'camAPI',
+  'fwAPI',
   'Notifications',
   '$translate',
-  function(camAPI, Notifications, $translate) {
+  function(fwAPI, Notifications, $translate) {
     return {
       restrict: 'A',
 
@@ -60,7 +60,7 @@ module.exports = [
           total: 0
         });
 
-        var groupResource = camAPI.resource('group');
+        var groupResource = fwAPI.resource('group');
 
         groupResource.count({member: $scope.user.id}).then(function(res) {
           groupPages.total = res.count;
@@ -84,7 +84,7 @@ module.exports = [
 
         $scope.loadGroups();
 
-        var userResource = camAPI.resource('user');
+        var userResource = fwAPI.resource('user');
         userResource.profile(
           {
             id: $scope.user.id

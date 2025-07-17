@@ -23,7 +23,7 @@ module.exports = Page.extend({
   url: '/flowave/app/cockpit/default/#/reports',
 
   reportsType: function() {
-    return element(by.css('[cam-reports-type]'));
+    return element(by.css('[fw-reports-type]'));
   },
 
   noReportsAvailableHint: function() {

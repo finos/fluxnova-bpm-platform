@@ -27,7 +27,7 @@ require('angular-mocks');
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('cam-common.external-tasks ExternalTasksTabController', function() {
+describe('fw-common.external-tasks ExternalTasksTabController', function() {
   var $rootScope;
   var $q;
   var $scope;

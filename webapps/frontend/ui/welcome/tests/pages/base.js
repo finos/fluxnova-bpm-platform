@@ -21,7 +21,7 @@ var Page = require('../../../common/tests/pages/page');
 
 module.exports = Page.extend({
   navbar: function() {
-    return element(by.css('[cam-widget-header]'));
+    return element(by.css('[fw-widget-header]'));
   },
 
   navbarItems: function() {
