@@ -40,9 +40,6 @@ jobs:
       - name: Set version
         run: mvn versions:set -DnewVersion=0.0.1-SNAPSHOT -DgenerateBackupPoms=false -s ./settings.xml
 
-      - name: Download deps and plugins
-        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
-
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2
         with:

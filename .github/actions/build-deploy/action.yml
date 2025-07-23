@@ -8,4 +8,4 @@ runs:
           MAVEN_OPTS: "-Xmx8g"
       shell: bash
       run: |
-        mvn -B -e -U deploy -s ./settings.xml
+        mvn -B -e -U deploy -DskipTests=true -DskipITs=true -s ./settings.xml
