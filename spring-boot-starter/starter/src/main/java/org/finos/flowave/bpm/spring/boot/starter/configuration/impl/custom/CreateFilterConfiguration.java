@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl.custom;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.filter.Filter;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.impl.AbstractCamundaConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.impl.AbstractFlowaveConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.property.FilterProperty;
 
 import jakarta.annotation.PostConstruct;
@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CreateFilterConfiguration extends AbstractCamundaConfiguration {
+public class CreateFilterConfiguration extends AbstractFlowaveConfiguration {
 
   protected String filterName;
 

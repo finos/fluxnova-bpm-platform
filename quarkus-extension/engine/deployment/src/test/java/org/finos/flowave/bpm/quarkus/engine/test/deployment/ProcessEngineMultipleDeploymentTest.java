@@ -31,7 +31,7 @@ import org.finos.flowave.bpm.engine.repository.Deployment;
 import org.finos.flowave.bpm.engine.repository.ProcessDefinition;
 import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
-import org.finos.flowave.bpm.quarkus.engine.extension.event.CamundaEngineStartupEvent;
+import org.finos.flowave.bpm.quarkus.engine.extension.event.FlowaveEngineStartupEvent;
 import org.finos.flowave.bpm.quarkus.engine.test.helper.ProcessEngineAwareExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -64,7 +64,7 @@ public class ProcessEngineMultipleDeploymentTest {
     @Inject
     RepositoryService repositoryService;
 
-    public void createDeployment1(@Observes CamundaEngineStartupEvent event) {
+    public void createDeployment1(@Observes FlowaveEngineStartupEvent event) {
       repositoryService.createDeployment()
           .name("deployment-1")
           .addModelInstance("process-one.bpmn", process1)
@@ -72,7 +72,7 @@ public class ProcessEngineMultipleDeploymentTest {
           .deploy();
     }
 
-    public void createDeployment2(@Observes CamundaEngineStartupEvent event) {
+    public void createDeployment2(@Observes FlowaveEngineStartupEvent event) {
       repositoryService.createDeployment()
           .name("deployment-2")
           .addClasspathResource("org/finos/flowave/bpm/quarkus/engine/test/deployment/simpleServiceTaskProcess.bpmn")

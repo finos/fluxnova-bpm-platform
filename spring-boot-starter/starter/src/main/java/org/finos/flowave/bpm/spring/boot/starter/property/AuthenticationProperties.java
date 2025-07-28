@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.spring.boot.starter.property;
 
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 public class AuthenticationProperties {
 

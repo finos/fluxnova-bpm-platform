@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.engine.test.api.form;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.entry;
-import static org.finos.flowave.bpm.engine.test.util.CamundaFormUtils.findAllCamundaFormDefinitionEntities;
+import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllCamundaFormDefinitionEntities;
 import static org.finos.flowave.bpm.engine.variable.Variables.booleanValue;
 import static org.finos.flowave.bpm.engine.variable.Variables.createVariables;
 import static org.finos.flowave.bpm.engine.variable.Variables.objectValue;
@@ -78,7 +78,7 @@ import org.finos.flowave.bpm.engine.task.Task;
 import org.finos.flowave.bpm.engine.test.Deployment;
 import org.finos.flowave.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.flowave.bpm.engine.test.api.runtime.migration.models.ProcessModels;
-import org.finos.flowave.bpm.engine.test.form.deployment.FindCamundaFormDefinitionsCmd;
+import org.finos.flowave.bpm.engine.test.form.deployment.FindFlowaveFormDefinitionsCmd;
 import org.finos.flowave.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.flowave.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.flowave.bpm.engine.test.util.ProvidedProcessEngineRule;
@@ -1715,7 +1715,7 @@ public class FormServiceTest {
     // then
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(1);
     assertThat(engineRule.getProcessEngineConfiguration().getCommandExecutorTxRequired()
-        .execute(new FindCamundaFormDefinitionsCmd())).hasSize(1);
+        .execute(new FindFlowaveFormDefinitionsCmd())).hasSize(1);
     assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(0);
     assertThat(historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(1);
   }
@@ -1735,7 +1735,7 @@ public class FormServiceTest {
     // then
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(1);
     assertThat(engineRule.getProcessEngineConfiguration().getCommandExecutorTxRequired()
-        .execute(new FindCamundaFormDefinitionsCmd())).hasSize(1);
+        .execute(new FindFlowaveFormDefinitionsCmd())).hasSize(1);
     assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(0);
     assertThat(historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(1);
     assertThat(taskService.createTaskQuery().list()).hasSize(0);

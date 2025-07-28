@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.CleanableHistoricCaseInstanceReport;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 
@@ -55,27 +55,27 @@ public class CleanableHistoricCaseInstanceReportDto extends AbstractQueryDto<Cle
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam(value = "caseDefinitionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "caseDefinitionIdIn", converter = StringArrayConverter.class)
   public void setCaseDefinitionIdIn(String[] caseDefinitionIdIn) {
     this.caseDefinitionIdIn = caseDefinitionIdIn;
   }
 
-  @CamundaQueryParam(value = "caseDefinitionKeyIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "caseDefinitionKeyIn", converter = StringArrayConverter.class)
   public void setCaseDefinitionKeyIn(String[] caseDefinitionKeyIn) {
     this.caseDefinitionKeyIn = caseDefinitionKeyIn;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringArrayConverter.class)
   public void setTenantIdIn(String[] tenantIdIn) {
     this.tenantIdIn = tenantIdIn;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "compact", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "compact", converter = BooleanConverter.class)
   public void setCompact(Boolean compact) {
     this.compact = compact;
   }

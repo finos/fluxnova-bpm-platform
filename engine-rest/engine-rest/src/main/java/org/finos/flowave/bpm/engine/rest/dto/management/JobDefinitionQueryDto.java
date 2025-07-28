@@ -27,7 +27,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.management.JobDefinitionQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -79,62 +79,62 @@ public class JobDefinitionQueryDto extends AbstractQueryDto<JobDefinitionQuery> 
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("jobDefinitionId")
+  @FlowaveQueryParam("jobDefinitionId")
   public void setJobDefinitionId(String jobDefinitionId) {
     this.jobDefinitionId = jobDefinitionId;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIdIn) {
     this.activityIdIn = activityIdIn;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam("jobType")
+  @FlowaveQueryParam("jobType")
   public void setJobType(String jobType) {
     this.jobType = jobType;
   }
 
-  @CamundaQueryParam("jobConfiguration")
+  @FlowaveQueryParam("jobConfiguration")
   public void setJobConfiguration(String jobConfiguration) {
     this.jobConfiguration = jobConfiguration;
   }
 
-  @CamundaQueryParam(value="active", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="active", converter = BooleanConverter.class)
   public void setActive(Boolean active) {
     this.active = active;
   }
 
-  @CamundaQueryParam(value="suspended", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="suspended", converter = BooleanConverter.class)
   public void setSuspended(Boolean suspended) {
     this.suspended = suspended;
   }
 
-  @CamundaQueryParam(value="withOverridingJobPriority", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="withOverridingJobPriority", converter = BooleanConverter.class)
   public void setWithOverridingJobPriority(Boolean withOverridingJobPriority) {
     this.withOverridingJobPriority = withOverridingJobPriority;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "includeJobDefinitionsWithoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeJobDefinitionsWithoutTenantId", converter = BooleanConverter.class)
   public void setIncludeJobDefinitionsWithoutTenantId(Boolean includeJobDefinitionsWithoutTenantId) {
     this.includeJobDefinitionsWithoutTenantId = includeJobDefinitionsWithoutTenantId;
   }

@@ -65,7 +65,7 @@ public abstract class AbstractSearchQueryDto {
   }
 
   /**
-   * Finds the methods that are annotated with a {@link CamundaQueryParam} with a value that matches the key parameter.
+   * Finds the methods that are annotated with a {@link FlowaveQueryParam} with a value that matches the key parameter.
    * Before invoking these methods, the annotated {@link StringToTypeConverter} is used to convert the String value to the desired Java type.
    * @param key
    * @param value
@@ -106,8 +106,8 @@ public abstract class AbstractSearchQueryDto {
 
       for (int j = 0; j < methodAnnotations.length; j++) {
         Annotation annotation = methodAnnotations[j];
-        if (annotation instanceof CamundaQueryParam) {
-          CamundaQueryParam parameterAnnotation = (CamundaQueryParam) annotation;
+        if (annotation instanceof FlowaveQueryParam) {
+          FlowaveQueryParam parameterAnnotation = (FlowaveQueryParam) annotation;
           if (parameterAnnotation.value().equals(parameterName)) {
             result.add(method);
           }
@@ -122,8 +122,8 @@ public abstract class AbstractSearchQueryDto {
 
     for (int j = 0; j < methodAnnotations.length; j++) {
       Annotation annotation = methodAnnotations[j];
-      if (annotation instanceof CamundaQueryParam) {
-        CamundaQueryParam parameterAnnotation = (CamundaQueryParam) annotation;
+      if (annotation instanceof FlowaveQueryParam) {
+        FlowaveQueryParam parameterAnnotation = (FlowaveQueryParam) annotation;
         return parameterAnnotation.converter();
       }
     }

@@ -22,7 +22,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import org.finos.flowave.bpm.engine.identity.User;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.flowave.bpm.engine.test.ProcessEngineRule;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.test.helper.StandaloneInMemoryTestConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.util.SpringBootProcessEngineLogger;
 import org.finos.flowave.commons.testing.ProcessEngineLoggingRule;
@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateAdminUserConfigurationTest {
 
-  private final CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+  private final FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
   {
     camundaBpmProperties.getAdminUser().setId("admin");
     camundaBpmProperties.getAdminUser().setPassword("password");

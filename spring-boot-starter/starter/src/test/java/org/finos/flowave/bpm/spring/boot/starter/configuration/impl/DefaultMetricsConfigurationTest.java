@@ -21,13 +21,13 @@ import static org.springframework.test.util.ReflectionTestUtils.invokeMethod;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 
 public class DefaultMetricsConfigurationTest {
   private DefaultMetricsConfiguration defaultMetricsConfiguration = new DefaultMetricsConfiguration();
-  private CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+  private FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
   private SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
 
   @Before

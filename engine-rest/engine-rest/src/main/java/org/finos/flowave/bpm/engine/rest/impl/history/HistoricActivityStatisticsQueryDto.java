@@ -24,7 +24,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricActivityStatisticsQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -60,47 +60,47 @@ public class HistoricActivityStatisticsQueryDto extends AbstractQueryDto<Histori
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam(value = "canceled", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "canceled", converter = BooleanConverter.class)
   public void setIncludeCanceled(Boolean includeCanceled) {
     this.includeCanceled = includeCanceled;
   }
 
-  @CamundaQueryParam(value = "finished", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "finished", converter = BooleanConverter.class)
   public void setIncludeFinished(Boolean includeFinished) {
     this.includeFinished = includeFinished;
   }
 
-  @CamundaQueryParam(value = "completeScope", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "completeScope", converter = BooleanConverter.class)
   public void setIncludeCompleteScope(Boolean includeCompleteScope) {
     this.includeCompleteScope = includeCompleteScope;
   }
 
-  @CamundaQueryParam(value = "incidents", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "incidents", converter = BooleanConverter.class)
   public void setIncludeIncidents(Boolean includeClosedIncidents) {
     this.includeIncidents = includeClosedIncidents;
   }
 
-  @CamundaQueryParam(value = "startedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "startedAfter", converter = DateConverter.class)
   public void setStartedAfter(Date startedAfter) {
     this.startedAfter = startedAfter;
   }
 
-  @CamundaQueryParam(value = "startedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "startedBefore", converter = DateConverter.class)
   public void setStartedBefore(Date startedBefore) {
     this.startedBefore = startedBefore;
   }
 
-  @CamundaQueryParam(value = "finishedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "finishedAfter", converter = DateConverter.class)
   public void setFinishedAfter(Date finishedAfter) {
     this.finishedAfter = finishedAfter;
   }
 
-  @CamundaQueryParam(value = "finishedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "finishedBefore", converter = DateConverter.class)
   public void setFinishedBefore(Date finishedBefore) {
     this.finishedBefore = finishedBefore;
   }
 
-  @CamundaQueryParam(value = "processInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "processInstanceIdIn", converter = StringArrayConverter.class)
   public void setProcessInstanceIdIn(String[] processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
   }

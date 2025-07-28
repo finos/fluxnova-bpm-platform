@@ -33,7 +33,7 @@ import org.finos.flowave.bpm.engine.task.TaskQuery;
 import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.SequenceFlow;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -239,7 +239,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .name(TASK_WITH_CONDITION)
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
@@ -274,7 +274,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .name(TASK_WITH_CONDITION)
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
@@ -312,7 +312,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .camundaAsyncBefore()
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
@@ -348,7 +348,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .camundaAsyncBefore()
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
@@ -458,7 +458,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .subProcessDone()
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE_ON_PARENT);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
@@ -498,7 +498,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .subProcessDone()
       .endEvent(END_EVENT_ID)
       .done();
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaExpression(EXPR_SET_VARIABLE_ON_PARENT);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);

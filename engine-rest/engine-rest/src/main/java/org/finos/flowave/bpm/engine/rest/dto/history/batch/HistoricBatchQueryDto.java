@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.batch.history.HistoricBatchQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
 
@@ -60,27 +60,27 @@ public class HistoricBatchQueryDto extends AbstractQueryDto<HistoricBatchQuery> 
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("batchId")
+  @FlowaveQueryParam("batchId")
   public void setBatchId(String batchId) {
     this.batchId = batchId;
   }
 
-  @CamundaQueryParam("type")
+  @FlowaveQueryParam("type")
   public void setType(String type) {
     this.type = type;
   }
 
-  @CamundaQueryParam(value = "completed", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "completed", converter = BooleanConverter.class)
   public void setCompleted(Boolean completed) {
     this.completed = completed;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }

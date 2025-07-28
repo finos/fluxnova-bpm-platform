@@ -21,8 +21,8 @@ import org.finos.flowave.bpm.model.bpmn.BpmnModelException;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.*;
 import org.finos.flowave.bpm.model.bpmn.instance.bpmndi.BpmnShape;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFailedJobRetryTimeCycle;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFailedJobRetryTimeCycle;
 import org.finos.flowave.bpm.model.xml.instance.ModelElementInstance;
 
 /**
@@ -407,7 +407,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    * @return the builder object
    */
   public B camundaFailedJobRetryTimeCycle(String retryTimeCycle) {
-    CamundaFailedJobRetryTimeCycle failedJobRetryTimeCycle = createInstance(CamundaFailedJobRetryTimeCycle.class);
+    FlowaveFailedJobRetryTimeCycle failedJobRetryTimeCycle = createInstance(FlowaveFailedJobRetryTimeCycle.class);
     failedJobRetryTimeCycle.setTextContent(retryTimeCycle);
 
     addExtensionElement(failedJobRetryTimeCycle);
@@ -421,7 +421,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public B camundaExecutionListenerClass(String eventName, String fullQualifiedClassName) {
-    CamundaExecutionListener executionListener = createInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
     executionListener.setCamundaEvent(eventName);
     executionListener.setCamundaClass(fullQualifiedClassName);
 
@@ -431,7 +431,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public B camundaExecutionListenerExpression(String eventName, String expression) {
-    CamundaExecutionListener executionListener = createInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
     executionListener.setCamundaEvent(eventName);
     executionListener.setCamundaExpression(expression);
 
@@ -441,7 +441,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public B camundaExecutionListenerDelegateExpression(String eventName, String delegateExpression) {
-    CamundaExecutionListener executionListener = createInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
     executionListener.setCamundaEvent(eventName);
     executionListener.setCamundaDelegateExpression(delegateExpression);
 

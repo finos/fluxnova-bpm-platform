@@ -20,7 +20,7 @@ import org.finos.flowave.bpm.cockpit.impl.plugin.base.dto.ProcessInstanceDto;
 import org.finos.flowave.bpm.cockpit.rest.dto.AbstractRestQueryParametersDto;
 import org.finos.flowave.bpm.engine.impl.QueryVariableValue;
 import org.finos.flowave.bpm.engine.impl.variable.serializer.VariableSerializers;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.ConditionQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.VariableQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
@@ -79,7 +79,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return processDefinitionId;
   }
 
-  @CamundaQueryParam(value="processDefinitionId")
+  @FlowaveQueryParam(value="processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
@@ -88,12 +88,12 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return parentProcessDefinitionId;
   }
 
-  @CamundaQueryParam(value="parentProcessDefinitionId")
+  @FlowaveQueryParam(value="parentProcessDefinitionId")
   public void setParentProcessDefinitionId(String parentProcessDefinitionId) {
     this.parentProcessDefinitionId = parentProcessDefinitionId;
   }
 
-  @CamundaQueryParam(value = "variables", converter = VariableListConverter.class)
+  @FlowaveQueryParam(value = "variables", converter = VariableListConverter.class)
   public void setVariables(List<VariableQueryParameterDto> variables) {
     this.variables = variables;
   }
@@ -110,7 +110,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return parentProcessInstanceId;
   }
 
-  @CamundaQueryParam(value="parentProcessInstanceId")
+  @FlowaveQueryParam(value="parentProcessInstanceId")
   public void setParentProcessInstanceId(String parentProcessInstanceId) {
     this.parentProcessInstanceId = parentProcessInstanceId;
   }
@@ -119,7 +119,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return activityIdIn;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIdIn) {
     this.activityIdIn = activityIdIn;
   }
@@ -128,7 +128,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return activityInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
   public void setActivityInstanceIdIn(String[] activityInstanceIdIn) {
     this.activityInstanceIdIn = activityInstanceIdIn;
   }
@@ -137,7 +137,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return businessKey;
   }
 
-  @CamundaQueryParam(value="businessKey")
+  @FlowaveQueryParam(value="businessKey")
   public void setBusinessKey(String businessKey) {
     this.businessKey = businessKey;
   }
@@ -146,7 +146,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return startedBefore;
   }
 
-  @CamundaQueryParam(value="startedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value="startedBefore", converter = DateConverter.class)
   public void setStartedBefore(Date startedBefore) {
     this.startedBefore = startedBefore;
   }
@@ -155,7 +155,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return startedAfter;
   }
 
-  @CamundaQueryParam(value="startedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value="startedAfter", converter = DateConverter.class)
   public void setStartedAfter(Date startedAfter) {
     this.startedAfter = startedAfter;
   }
@@ -164,7 +164,7 @@ public abstract class AbstractProcessInstanceQueryDto<T extends ProcessInstanceD
     return withIncident;
   }
 
-  @CamundaQueryParam(value="withIncident", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="withIncident", converter = BooleanConverter.class)
   public void setWithIncident(Boolean withIncident) {
     this.withIncident = withIncident;
   }

@@ -23,10 +23,10 @@ import static org.junit.Assert.assertTrue;
 import org.finos.flowave.bpm.engine.delegate.Expression;
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.FieldDeclaration;
 import org.finos.flowave.bpm.model.cmmn.CmmnModelInstance;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaCaseExecutionListener;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaExpression;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaField;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaString;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveCaseExecutionListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveExpression;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveField;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveString;
 
 public class FieldSpec {
 
@@ -56,22 +56,22 @@ public class FieldSpec {
     assertEquals(getExpectedExpression(), expressionValue.getExpressionText());
   }
 
-  public void addFieldToListenerElement(CmmnModelInstance modelInstance, CamundaCaseExecutionListener listenerElement) {
-    CamundaField field = SpecUtil.createElement(modelInstance, listenerElement, null, CamundaField.class);
+  public void addFieldToListenerElement(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listenerElement) {
+    FlowaveField field = SpecUtil.createElement(modelInstance, listenerElement, null, FlowaveField.class);
     field.setCamundaName(fieldName);
 
     if (expression != null) {
       field.setCamundaExpression(expression);
 
     } else if (childExpression != null) {
-      CamundaExpression fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, CamundaExpression.class);
+      FlowaveExpression fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, FlowaveExpression.class);
       fieldExpressionChild.setTextContent(childExpression);
 
     } else if (stringValue != null) {
       field.setCamundaStringValue(stringValue);
 
     } else if (childStringValue != null) {
-      CamundaString fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, CamundaString.class);
+      FlowaveString fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, FlowaveString.class);
       fieldExpressionChild.setTextContent(childStringValue);
     }
   }

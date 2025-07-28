@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.engine.rest.dto.task;
 
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.form.FormData;
 
 /**
@@ -26,7 +26,7 @@ import org.finos.flowave.bpm.engine.form.FormData;
 public class FormDto {
 
   private String key;
-  private CamundaFormRef camundaFormRef;
+  private FlowaveFormRef camundaFormRef;
   private String contextPath;
 
   public void setKey(String form) {
@@ -37,11 +37,11 @@ public class FormDto {
     return key;
   }
 
-  public CamundaFormRef getCamundaFormRef() {
+  public FlowaveFormRef getCamundaFormRef() {
     return camundaFormRef;
   }
 
-  public void setCamundaFormRef(CamundaFormRef camundaFormRef) {
+  public void setCamundaFormRef(FlowaveFormRef camundaFormRef) {
     this.camundaFormRef = camundaFormRef;
   }
 

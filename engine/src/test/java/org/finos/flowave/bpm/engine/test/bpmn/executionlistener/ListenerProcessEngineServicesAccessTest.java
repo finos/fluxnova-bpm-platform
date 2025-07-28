@@ -22,7 +22,7 @@ import org.finos.flowave.bpm.engine.test.bpmn.common.AbstractProcessEngineServic
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.ManualTask;
 import org.finos.flowave.bpm.model.bpmn.instance.Task;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
 
 /**
  * @author Daniel Meyer
@@ -49,7 +49,7 @@ public class ListenerProcessEngineServicesAccessTest extends AbstractProcessEngi
   protected Task createModelAccessTask(BpmnModelInstance modelInstance, Class<?> delegateClass) {
     ManualTask task = modelInstance.newInstance(ManualTask.class);
     task.setId("manualTask");
-    CamundaExecutionListener executionListener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener executionListener = modelInstance.newInstance(FlowaveExecutionListener.class);
     executionListener.setCamundaEvent(ExecutionListener.EVENTNAME_START);
     executionListener.setCamundaClass(delegateClass.getName());
     task.builder().addExtensionElement(executionListener);

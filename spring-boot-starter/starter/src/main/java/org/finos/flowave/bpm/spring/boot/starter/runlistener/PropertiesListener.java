@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.spring.boot.starter.runlistener;
 
-import org.finos.flowave.bpm.spring.boot.starter.util.CamundaBpmVersion;
+import org.finos.flowave.bpm.spring.boot.starter.util.FlowaveBpmVersion;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 
@@ -25,15 +25,15 @@ import org.springframework.context.ApplicationListener;
  */
 public class PropertiesListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
-  private final CamundaBpmVersion version;
+  private final FlowaveBpmVersion version;
 
   /**
    * Default constructor, used when initializing via spring.factories.
    *
-   * @see PropertiesListener#PropertiesListener(CamundaBpmVersion)
+   * @see PropertiesListener#PropertiesListener(FlowaveBpmVersion)
    */
   public PropertiesListener() {
-    this(new CamundaBpmVersion());
+    this(new FlowaveBpmVersion());
   }
 
   /**
@@ -41,7 +41,7 @@ public class PropertiesListener implements ApplicationListener<ApplicationEnviro
    *
    * @param version the current camundaBpmVersion instance.
    */
-  PropertiesListener(CamundaBpmVersion version) {
+  PropertiesListener(FlowaveBpmVersion version) {
     this.version = version;
   }
 

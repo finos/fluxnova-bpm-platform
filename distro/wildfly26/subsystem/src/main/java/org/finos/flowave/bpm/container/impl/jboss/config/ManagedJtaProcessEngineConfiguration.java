@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.finos.flowave.bpm.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.finos.flowave.bpm.engine.impl.persistence.StrongUuidGenerator;
-import org.finos.flowave.bpm.engine.impl.diagnostics.CamundaIntegration;
+import org.finos.flowave.bpm.engine.impl.diagnostics.FlowaveIntegration;
 
 /**
  *
@@ -45,7 +45,7 @@ public class ManagedJtaProcessEngineConfiguration extends JtaProcessEngineConfig
   protected void initTelemetryData() {
     super.initTelemetryData();
     Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
-    camundaIntegration.add(CamundaIntegration.WILDFLY_SUBSYSTEM);
+    camundaIntegration.add(FlowaveIntegration.WILDFLY_SUBSYSTEM);
   }
 
 }

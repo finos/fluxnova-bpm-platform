@@ -19,9 +19,9 @@ package org.finos.flowave.bpm.run.test.config.identity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.finos.flowave.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin;
-import org.finos.flowave.bpm.run.CamundaBpmRun;
-import org.finos.flowave.bpm.run.property.CamundaBpmRunAdministratorAuthorizationProperties;
-import org.finos.flowave.bpm.run.property.CamundaBpmRunProperties;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunAdministratorAuthorizationProperties;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class })
+@SpringBootTest(classes = { FlowaveBpmRun.class })
 @ActiveProfiles(profiles = { "test-auth-enabled" , "test-admin-auth-enabled" })
 public class AdminAuthorizationConfigurationTest {
 
@@ -40,12 +40,12 @@ public class AdminAuthorizationConfigurationTest {
   protected AdministratorAuthorizationPlugin authorizationPlugin;
 
   @Autowired
-  protected CamundaBpmRunProperties properties;
+  protected FlowaveBpmRunProperties properties;
 
   @Test
   public void shouldPickUpConfiguration() {
     // given
-    CamundaBpmRunAdministratorAuthorizationProperties adminProps = properties.getAdminAuth();
+    FlowaveBpmRunAdministratorAuthorizationProperties adminProps = properties.getAdminAuth();
 
     // then
     assertThat(adminProps.isEnabled()).isTrue();

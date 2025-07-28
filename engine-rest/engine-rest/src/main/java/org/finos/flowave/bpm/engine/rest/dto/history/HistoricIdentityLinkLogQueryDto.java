@@ -28,7 +28,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricIdentityLinkLogQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -98,62 +98,62 @@ public class HistoricIdentityLinkLogQueryDto extends AbstractQueryDto<HistoricId
     return engine.getHistoryService().createHistoricIdentityLinkLogQuery();
   }
 
-  @CamundaQueryParam("type")
+  @FlowaveQueryParam("type")
   public void setType(String type) {
     this.type = type;
   }
 
-  @CamundaQueryParam("userId")
+  @FlowaveQueryParam("userId")
   public void setUserId(String userId) {
     this.userId = userId;
   }
 
-  @CamundaQueryParam("groupId")
+  @FlowaveQueryParam("groupId")
   public void setGroupId(String groupId) {
     this.groupId = groupId;
   }
 
-  @CamundaQueryParam(value = "dateBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "dateBefore", converter = DateConverter.class)
   public void setDateBefore(Date dateBefore) {
     this.dateBefore = dateBefore;
   }
 
-  @CamundaQueryParam(value = "dateAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "dateAfter", converter = DateConverter.class)
   public void setDateAfter(Date dateAfter) {
     this.dateAfter = dateAfter;
   }
 
-  @CamundaQueryParam("taskId")
+  @FlowaveQueryParam("taskId")
   public void setTaskId(String taskId) {
     this.taskId = taskId;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
   
-  @CamundaQueryParam("operationType")
+  @FlowaveQueryParam("operationType")
   public void setOperationType(String operationType) {
     this.operationType = operationType;
   }
 
-  @CamundaQueryParam("assignerId")
+  @FlowaveQueryParam("assignerId")
   public void setAssignerId(String assignerId) {
     this.assignerId = assignerId;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }

@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.cockpit.impl.plugin.base.dto.query;
 
 import org.finos.flowave.bpm.cockpit.impl.plugin.base.dto.ProcessDefinitionStatisticsDto;
 import org.finos.flowave.bpm.cockpit.rest.dto.AbstractRestQueryParametersDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
@@ -45,22 +45,22 @@ public class ProcessDefinitionStatisticsQueryDto extends AbstractRestQueryParame
     super(queryParameters);
   }
 
-  @CamundaQueryParam("key")
+  @FlowaveQueryParam("key")
   public void setKey(String key) {
     this.key = key;
   }
 
-  @CamundaQueryParam("keyLike")
+  @FlowaveQueryParam("keyLike")
   public void setKeyLike(String keyLike) {
     this.keyLike = keyLike;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String name) {
     this.name = name;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String nameLike) {
     this.nameLike = nameLike;
   }

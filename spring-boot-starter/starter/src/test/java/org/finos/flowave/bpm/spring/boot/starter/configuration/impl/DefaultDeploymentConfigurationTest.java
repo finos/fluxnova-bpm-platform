@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.Resource;
@@ -31,7 +31,7 @@ import org.springframework.core.io.Resource;
 public class DefaultDeploymentConfigurationTest {
 
   private final DefaultDeploymentConfiguration defaultDeploymentConfiguration = new DefaultDeploymentConfiguration();
-  private final CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+  private final FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
   private final SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
 
   @Before

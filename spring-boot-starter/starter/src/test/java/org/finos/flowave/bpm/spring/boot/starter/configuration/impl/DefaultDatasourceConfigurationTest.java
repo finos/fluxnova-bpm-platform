@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 import javax.sql.DataSource;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +38,7 @@ public class DefaultDatasourceConfigurationTest {
   @Mock
   private PlatformTransactionManager platformTransactionManager;
 
-  private CamundaBpmProperties camundaBpmProperties;
+  private FlowaveBpmProperties camundaBpmProperties;
 
   @InjectMocks
   private DefaultDatasourceConfiguration defaultDatasourceConfiguration;
@@ -48,7 +48,7 @@ public class DefaultDatasourceConfigurationTest {
   @Before
   public void before() {
     configuration = new SpringProcessEngineConfiguration();
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
     defaultDatasourceConfiguration.camundaBpmProperties = camundaBpmProperties;
   }
 

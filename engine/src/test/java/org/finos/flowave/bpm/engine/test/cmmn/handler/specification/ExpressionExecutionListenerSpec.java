@@ -23,7 +23,7 @@ import org.finos.flowave.bpm.engine.delegate.BaseDelegateExecution;
 import org.finos.flowave.bpm.engine.delegate.DelegateListener;
 import org.finos.flowave.bpm.engine.impl.cmmn.listener.ExpressionCaseExecutionListener;
 import org.finos.flowave.bpm.model.cmmn.CmmnModelInstance;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaCaseExecutionListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveCaseExecutionListener;
 
 public class ExpressionExecutionListenerSpec extends AbstractExecutionListenerSpec {
 
@@ -33,7 +33,7 @@ public class ExpressionExecutionListenerSpec extends AbstractExecutionListenerSp
     super(eventName);
   }
 
-  protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, CamundaCaseExecutionListener listener) {
+  protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
     listener.setCamundaExpression(EXPRESSION);
 
   }

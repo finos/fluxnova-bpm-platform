@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.engine.rest.dto.task;
 import java.util.Date;
 
 import org.finos.flowave.bpm.engine.BadUserRequestException;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DelegationStateConverter;
 import org.finos.flowave.bpm.engine.runtime.ProcessInstance;
 import org.finos.flowave.bpm.engine.task.DelegationState;
@@ -48,7 +48,7 @@ public class TaskDto {
   private String caseDefinitionId;
   private boolean suspended;
   private String formKey;
-  private CamundaFormRef camundaFormRef;
+  private FlowaveFormRef camundaFormRef;
   private String tenantId;
   /**
    * Returns task State of task
@@ -225,7 +225,7 @@ public class TaskDto {
     return formKey;
   }
 
-  public CamundaFormRef getCamundaFormRef() {
+  public FlowaveFormRef getCamundaFormRef() {
     return camundaFormRef;
   }
 

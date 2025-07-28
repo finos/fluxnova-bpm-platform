@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.engine.impl.form.handler;
 
 import org.finos.flowave.bpm.engine.delegate.Expression;
 import org.finos.flowave.bpm.engine.form.TaskFormData;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.impl.form.FormDefinition;
 import org.finos.flowave.bpm.engine.impl.form.TaskFormDataImpl;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.TaskEntity;
@@ -49,7 +49,7 @@ public class DefaultTaskFormHandler extends DefaultFormHandler implements TaskFo
     } else if (camundaFormDefinitionKey != null && camundaFormDefinitionBinding != null) {
       Object formRefKeyValue = camundaFormDefinitionKey.getValue(task);
       if(formRefKeyValue != null) {
-        CamundaFormRefImpl ref = new CamundaFormRefImpl(formRefKeyValue.toString(), camundaFormDefinitionBinding);
+        FlowaveFormRefImpl ref = new FlowaveFormRefImpl(formRefKeyValue.toString(), camundaFormDefinitionBinding);
         if(camundaFormDefinitionBinding.equals(FORM_REF_BINDING_VERSION) && camundaFormDefinitionVersion != null) {
           Object formRefVersionValue = camundaFormDefinitionVersion.getValue(task);
           if(formRefVersionValue != null) {

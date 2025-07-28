@@ -39,9 +39,9 @@ import org.finos.flowave.bpm.engine.repository.Deployment;
 import org.finos.flowave.bpm.model.cmmn.instance.CmmnElement;
 import org.finos.flowave.bpm.model.cmmn.instance.HumanTask;
 import org.finos.flowave.bpm.model.cmmn.instance.Role;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaField;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaScript;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaTaskListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveField;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveScript;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveTaskListener;
 
 /**
  * @author Roman Smirnov
@@ -246,9 +246,9 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   protected void initializeTaskListeners(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, TaskDefinition taskDefinition) {
     HumanTask humanTask = getDefinition(element);
 
-    List<CamundaTaskListener> listeners = queryExtensionElementsByClass(humanTask, CamundaTaskListener.class);
+    List<FlowaveTaskListener> listeners = queryExtensionElementsByClass(humanTask, FlowaveTaskListener.class);
 
-    for (CamundaTaskListener listener : listeners) {
+    for (FlowaveTaskListener listener : listeners) {
       TaskListener taskListener = initializeTaskListener(element, activity, context, listener);
 
       String eventName = listener.getCamundaEvent();
@@ -265,8 +265,8 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     }
   }
 
-  protected TaskListener initializeTaskListener(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, CamundaTaskListener listener) {
-    Collection<CamundaField> fields = listener.getCamundaFields();
+  protected TaskListener initializeTaskListener(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveTaskListener listener) {
+    Collection<FlowaveField> fields = listener.getCamundaFields();
     List<FieldDeclaration> fieldDeclarations = initializeFieldDeclarations(element, activity, context, fields);
 
     ExpressionManager expressionManager = context.getExpressionManager();
@@ -276,7 +276,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     String className = listener.getCamundaClass();
     String expression = listener.getCamundaExpression();
     String delegateExpression = listener.getCamundaDelegateExpression();
-    CamundaScript scriptElement = listener.getCamundaScript();
+    FlowaveScript scriptElement = listener.getCamundaScript();
 
     if (className != null) {
       taskListener = new ClassDelegateTaskListener(className, fieldDeclarations);

@@ -26,7 +26,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.externaltask.ExternalTaskQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.LongConverter;
@@ -79,62 +79,62 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("externalTaskId")
+  @FlowaveQueryParam("externalTaskId")
   public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 
-  @CamundaQueryParam(value = "externalTaskIdIn", converter = StringSetConverter.class)
+  @FlowaveQueryParam(value = "externalTaskIdIn", converter = StringSetConverter.class)
   public void setExternalTaskIdIn(Set<String> externalTaskIds) {
     this.externalTaskIds = externalTaskIds;
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
-  @CamundaQueryParam(value = "activityIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "activityIdIn", converter = StringListConverter.class)
   public void setActivityIdIn(List<String> activityIdIn) {
     this.activityIdIn = activityIdIn;
   }
 
-  @CamundaQueryParam(value = "lockExpirationBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "lockExpirationBefore", converter = DateConverter.class)
   public void setLockExpirationBefore(Date lockExpirationBefore) {
     this.lockExpirationBefore = lockExpirationBefore;
   }
 
-  @CamundaQueryParam(value = "lockExpirationAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "lockExpirationAfter", converter = DateConverter.class)
   public void setLockExpirationAfter(Date lockExpirationAfter) {
     this.lockExpirationAfter = lockExpirationAfter;
   }
 
-  @CamundaQueryParam("topicName")
+  @FlowaveQueryParam("topicName")
   public void setTopicName(String topicName) {
     this.topicName = topicName;
   }
 
-  @CamundaQueryParam(value = "locked", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "locked", converter = BooleanConverter.class)
   public void setLocked(Boolean locked) {
     this.locked = locked;
   }
 
-  @CamundaQueryParam(value = "notLocked", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "notLocked", converter = BooleanConverter.class)
   public void setNotLocked(Boolean notLocked) {
     this.notLocked = notLocked;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam(value="processInstanceIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value="processInstanceIdIn", converter = StringListConverter.class)
   public void setProcessInstanceIdIn(List<String> processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
   }
@@ -143,46 +143,46 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
     return processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam(value = "active", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "active", converter = BooleanConverter.class)
   public void setActive(Boolean active) {
     this.active = active;
   }
 
-  @CamundaQueryParam(value = "suspended", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "suspended", converter = BooleanConverter.class)
   public void setSuspended(Boolean suspended) {
     this.suspended = suspended;
   }
 
-  @CamundaQueryParam(value = "withRetriesLeft", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withRetriesLeft", converter = BooleanConverter.class)
   public void setWithRetriesLeft(Boolean withRetriesLeft) {
     this.withRetriesLeft = withRetriesLeft;
   }
 
-  @CamundaQueryParam(value = "noRetriesLeft", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "noRetriesLeft", converter = BooleanConverter.class)
   public void setNoRetriesLeft(Boolean noRetriesLeft) {
     this.noRetriesLeft = noRetriesLeft;
   }
 
-  @CamundaQueryParam("workerId")
+  @FlowaveQueryParam("workerId")
   public void setWorkerId(String workerId) {
     this.workerId = workerId;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
-  @CamundaQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
   public void setPriorityHigherThanOrEquals(Long priorityHigherThanOrEquals) {
     this.priorityHigherThanOrEquals = priorityHigherThanOrEquals;
   }
 
-  @CamundaQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
   public void setPriorityLowerThanOrEquals(Long priorityLowerThanOrEquals) {
     this.priorityLowerThanOrEquals = priorityLowerThanOrEquals;
   }

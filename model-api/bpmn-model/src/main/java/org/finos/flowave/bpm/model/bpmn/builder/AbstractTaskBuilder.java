@@ -19,11 +19,11 @@ package org.finos.flowave.bpm.model.bpmn.builder;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.ExtensionElements;
 import org.finos.flowave.bpm.model.bpmn.instance.Task;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputOutput;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputParameter;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOutputParameter;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaTaskListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputOutput;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOutputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveTaskListener;
 
 /**
  * @author Sebastian Menski

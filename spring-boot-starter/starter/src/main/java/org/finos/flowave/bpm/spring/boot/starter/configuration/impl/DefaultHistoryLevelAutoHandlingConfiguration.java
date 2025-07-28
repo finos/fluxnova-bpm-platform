@@ -17,7 +17,7 @@
 package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaHistoryLevelAutoHandlingConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveHistoryLevelAutoHandlingConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.configuration.Ordering;
 import org.finos.flowave.bpm.spring.boot.starter.jdbc.HistoryLevelDeterminator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.util.StringUtils;
 
 @Order(Ordering.DEFAULT_ORDER + 1)
-public class DefaultHistoryLevelAutoHandlingConfiguration extends AbstractCamundaConfiguration implements CamundaHistoryLevelAutoHandlingConfiguration {
+public class DefaultHistoryLevelAutoHandlingConfiguration extends AbstractFlowaveConfiguration implements FlowaveHistoryLevelAutoHandlingConfiguration {
 
   @Autowired
   protected HistoryLevelDeterminator historyLevelDeterminator;

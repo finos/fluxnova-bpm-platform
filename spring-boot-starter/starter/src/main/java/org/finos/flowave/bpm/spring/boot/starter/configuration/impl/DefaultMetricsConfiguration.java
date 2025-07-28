@@ -17,12 +17,12 @@
 package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaMetricsConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveMetricsConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.property.MetricsProperty;
 
 import jakarta.annotation.PostConstruct;
 
-public class DefaultMetricsConfiguration extends AbstractCamundaConfiguration implements CamundaMetricsConfiguration {
+public class DefaultMetricsConfiguration extends AbstractFlowaveConfiguration implements FlowaveMetricsConfiguration {
 
   private MetricsProperty metrics;
 

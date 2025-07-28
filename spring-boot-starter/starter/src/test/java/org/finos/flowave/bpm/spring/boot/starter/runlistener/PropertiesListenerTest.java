@@ -16,8 +16,8 @@
  */
 package org.finos.flowave.bpm.spring.boot.starter.runlistener;
 
-import org.finos.flowave.bpm.spring.boot.starter.util.CamundaBpmVersion;
-import org.finos.flowave.bpm.spring.boot.starter.util.CamundaBpmVersionTest;
+import org.finos.flowave.bpm.spring.boot.starter.util.FlowaveBpmVersion;
+import org.finos.flowave.bpm.spring.boot.starter.util.FlowaveBpmVersionTest;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,7 +60,7 @@ public class PropertiesListenerTest {
 
   @Test
   public void addPropertiesPropertySource() throws Exception {
-    final CamundaBpmVersion version = new CamundaBpmVersion();
+    final FlowaveBpmVersion version = new FlowaveBpmVersion();
 
     new PropertiesListener(version).onApplicationEvent(event);
 

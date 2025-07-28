@@ -47,7 +47,7 @@ public class DeploymentCache {
   protected CaseDefinitionCache caseDefinitionCache;
   protected DecisionDefinitionCache decisionDefinitionCache;
   protected DecisionRequirementsDefinitionCache decisionRequirementsDefinitionCache;
-  protected CamundaFormDefinitionCache camundaFormDefinitionCache;
+  protected FlowaveFormDefinitionCache camundaFormDefinitionCache;
 
 
   protected BpmnModelInstanceCache bpmnModelInstanceCache;
@@ -60,7 +60,7 @@ public class DeploymentCache {
     caseDefinitionCache = new CaseDefinitionCache(factory, cacheCapacity, cacheDeployer);
     decisionDefinitionCache = new DecisionDefinitionCache(factory, cacheCapacity, cacheDeployer);
     decisionRequirementsDefinitionCache = new DecisionRequirementsDefinitionCache(factory, cacheCapacity, cacheDeployer);
-    camundaFormDefinitionCache = new CamundaFormDefinitionCache(factory, cacheCapacity, cacheDeployer);
+    camundaFormDefinitionCache = new FlowaveFormDefinitionCache(factory, cacheCapacity, cacheDeployer);
 
     bpmnModelInstanceCache = new BpmnModelInstanceCache(factory, cacheCapacity, processDefinitionEntityCache);
     cmmnModelInstanceCache = new CmmnModelInstanceCache(factory, cacheCapacity, caseDefinitionCache);

@@ -63,8 +63,8 @@ import org.finos.flowave.bpm.model.cmmn.instance.PlanItemControl;
 import org.finos.flowave.bpm.model.cmmn.instance.RepetitionRule;
 import org.finos.flowave.bpm.model.cmmn.instance.RequiredRule;
 import org.finos.flowave.bpm.model.cmmn.instance.Sentry;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaOut;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveOut;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -341,7 +341,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String businessKey = "myBusinessKey";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn businessKeyElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn businessKeyElement = createElement(extensionElements, null, FlowaveIn.class);
     businessKeyElement.setCamundaBusinessKey(businessKey);
 
     // when
@@ -363,7 +363,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String businessKey = "${myBusinessKey}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn businessKeyElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn businessKeyElement = createElement(extensionElements, null, FlowaveIn.class);
     businessKeyElement.setCamundaBusinessKey(businessKey);
 
     // when
@@ -385,11 +385,11 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testInputs() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn variablesElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn variablesElement = createElement(extensionElements, null, FlowaveIn.class);
     variablesElement.setCamundaVariables("all");
-    CamundaIn sourceElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
     sourceElement.setCamundaSource("a");
-    CamundaIn sourceExpressionElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn sourceExpressionElement = createElement(extensionElements, null, FlowaveIn.class);
     sourceExpressionElement.setCamundaSourceExpression("${b}");
 
     // when
@@ -410,7 +410,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testInputVariables() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn variablesElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn variablesElement = createElement(extensionElements, null, FlowaveIn.class);
     variablesElement.setCamundaVariables("all");
 
     // when
@@ -431,7 +431,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String source = "a";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn sourceElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
     sourceElement.setCamundaSource(source);
 
     // when
@@ -457,7 +457,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String source = "${a}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn sourceElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
     sourceElement.setCamundaSourceExpression(source);
 
     // when
@@ -484,7 +484,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String target = "b";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaIn sourceElement = createElement(extensionElements, null, CamundaIn.class);
+    FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
     sourceElement.setCamundaTarget(target);
 
     // when
@@ -505,11 +505,11 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testOutputs() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaOut variablesElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut variablesElement = createElement(extensionElements, null, FlowaveOut.class);
     variablesElement.setCamundaVariables("all");
-    CamundaOut sourceElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
     sourceElement.setCamundaSource("a");
-    CamundaOut sourceExpressionElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut sourceExpressionElement = createElement(extensionElements, null, FlowaveOut.class);
     sourceExpressionElement.setCamundaSourceExpression("${b}");
 
     // when
@@ -530,7 +530,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testOutputVariables() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaOut variablesElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut variablesElement = createElement(extensionElements, null, FlowaveOut.class);
     variablesElement.setCamundaVariables("all");
 
     // when
@@ -551,7 +551,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String source = "a";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaOut sourceElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
     sourceElement.setCamundaSource(source);
 
     // when
@@ -577,7 +577,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String source = "${a}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaOut sourceElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
     sourceElement.setCamundaSourceExpression(source);
 
     // when
@@ -604,7 +604,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     String target = "b";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
-    CamundaOut sourceElement = createElement(extensionElements, null, CamundaOut.class);
+    FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
     sourceElement.setCamundaTarget(target);
 
     // when

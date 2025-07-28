@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricExternalTaskLogQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.LongConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -93,97 +93,97 @@ public class HistoricExternalTaskLogQueryDto extends AbstractQueryDto<HistoricEx
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("logId")
+  @FlowaveQueryParam("logId")
   public void setLogId(String id) {
     this.id = id;
   }
 
-  @CamundaQueryParam("externalTaskId")
+  @FlowaveQueryParam("externalTaskId")
   public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 
-  @CamundaQueryParam("topicName")
+  @FlowaveQueryParam("topicName")
   public void setTopicName(String topicName) {
     this.topicName = topicName;
   }
 
-  @CamundaQueryParam("workerId")
+  @FlowaveQueryParam("workerId")
   public void setWorkerId(String workerId) {
     this.workerId = workerId;
   }
 
-  @CamundaQueryParam("errorMessage")
+  @FlowaveQueryParam("errorMessage")
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIds) {
     this.activityIds = activityIds;
   }
 
-  @CamundaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
   public void setActivityInstanceIdIn(String[] activityInstanceIds) {
     this.activityInstanceIds = activityInstanceIds;
   }
 
-  @CamundaQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
   public void setExecutionIdIn(String[] executionIds) {
     this.executionIds = executionIds;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
   public void setPriorityHigherThanOrEquals(Long priorityHigherThanOrEquals) {
     this.priorityHigherThanOrEquals = priorityHigherThanOrEquals;
   }
 
-  @CamundaQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
   public void setPriorityLowerThanOrEquals(Long priorityLowerThanOrEquals) {
     this.priorityLowerThanOrEquals = priorityLowerThanOrEquals;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringArrayConverter.class)
   public void setTenantIdIn(String[] tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value="creationLog", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="creationLog", converter = BooleanConverter.class)
   public void setCreationLog(Boolean creationLog) {
     this.creationLog = creationLog;
   }
 
-  @CamundaQueryParam(value="failureLog", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="failureLog", converter = BooleanConverter.class)
   public void setFailureLog(Boolean failureLog) {
     this.failureLog = failureLog;
   }
 
-  @CamundaQueryParam(value="successLog", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="successLog", converter = BooleanConverter.class)
   public void setSuccessLog(Boolean successLog) {
     this.successLog = successLog;
   }
 
-  @CamundaQueryParam(value="deletionLog", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="deletionLog", converter = BooleanConverter.class)
   public void setDeletionLog(Boolean deletionLog) {
     this.deletionLog = deletionLog;
   }

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.finos.flowave.bpm.engine.rest.dto.runtime.FilterDto;
 import org.finos.flowave.bpm.engine.rest.dto.task.TaskQueryDto;
-import org.finos.flowave.bpm.run.CamundaBpmRun;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { FlowaveBpmRun.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = { "test-default-task-filter" }, inheritProfiles = true)
 public class DefaultTaskFilterTest extends AbstractRestTest{
 

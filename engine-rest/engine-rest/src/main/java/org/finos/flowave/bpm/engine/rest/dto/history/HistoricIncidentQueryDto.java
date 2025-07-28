@@ -28,7 +28,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricIncidentQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -113,127 +113,127 @@ public class HistoricIncidentQueryDto extends AbstractQueryDto<HistoricIncidentQ
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("incidentId")
+  @FlowaveQueryParam("incidentId")
   public void setIncidentId(String incidentId) {
     this.incidentId = incidentId;
   }
 
-  @CamundaQueryParam("incidentType")
+  @FlowaveQueryParam("incidentType")
   public void setIncidentType(String incidentType) {
     this.incidentType = incidentType;
   }
 
-  @CamundaQueryParam("incidentMessage")
+  @FlowaveQueryParam("incidentMessage")
   public void setIncidentMessage(String incidentMessage) {
     this.incidentMessage = incidentMessage;
   }
 
-  @CamundaQueryParam("incidentMessageLike")
+  @FlowaveQueryParam("incidentMessageLike")
   public void setIncidentMessageLike(String incidentMessageLike) {
     this.incidentMessageLike = incidentMessageLike;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam(value = "processDefinitionKeyIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "processDefinitionKeyIn", converter = StringArrayConverter.class)
   public void setProcessDefinitionKeyIn(String[] processDefinitionKeyIn) {
     this.processDefinitionKeyIn = processDefinitionKeyIn;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
 
-  @CamundaQueryParam(value="createTimeBefore", converter= DateConverter.class)
+  @FlowaveQueryParam(value="createTimeBefore", converter= DateConverter.class)
   public void setCreateTimeBefore(Date createTimeBefore) {
     this.createTimeBefore = createTimeBefore;
   }
 
-  @CamundaQueryParam(value="createTimeAfter", converter= DateConverter.class)
+  @FlowaveQueryParam(value="createTimeAfter", converter= DateConverter.class)
   public void setCreateTimeAfter(Date createTimeAfter) {
     this.createTimeAfter = createTimeAfter;
   }
 
-  @CamundaQueryParam(value="endTimeBefore", converter= DateConverter.class)
+  @FlowaveQueryParam(value="endTimeBefore", converter= DateConverter.class)
   public void setEndTimeBefore(Date endTimeBefore) {
     this.endTimeBefore = endTimeBefore;
   }
 
-  @CamundaQueryParam(value="endTimeAfter", converter= DateConverter.class)
+  @FlowaveQueryParam(value="endTimeAfter", converter= DateConverter.class)
   public void setEndTimeAfter(Date endTimeAfter) {
     this.endTimeAfter = endTimeAfter;
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
-  @CamundaQueryParam("failedActivityId")
+  @FlowaveQueryParam("failedActivityId")
   public void setFailedActivityId(String activityId) {
     this.failedActivityId = activityId;
   }
 
-  @CamundaQueryParam("causeIncidentId")
+  @FlowaveQueryParam("causeIncidentId")
   public void setCauseIncidentId(String causeIncidentId) {
     this.causeIncidentId = causeIncidentId;
   }
 
-  @CamundaQueryParam("rootCauseIncidentId")
+  @FlowaveQueryParam("rootCauseIncidentId")
   public void setRootCauseIncidentId(String rootCauseIncidentId) {
     this.rootCauseIncidentId = rootCauseIncidentId;
   }
 
-  @CamundaQueryParam("configuration")
+  @FlowaveQueryParam("configuration")
   public void setConfiguration(String configuration) {
     this.configuration = configuration;
   }
 
-  @CamundaQueryParam("historyConfiguration")
+  @FlowaveQueryParam("historyConfiguration")
   public void setHistoryConfiguration(String historyConfiguration) {
     this.historyConfiguration = historyConfiguration;
   }
 
-  @CamundaQueryParam(value = "open", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "open", converter = BooleanConverter.class)
   public void setOpen(Boolean open) {
     this.open = open;
   }
 
-  @CamundaQueryParam(value = "resolved", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "resolved", converter = BooleanConverter.class)
   public void setResolved(Boolean resolved) {
     this.resolved = resolved;
   }
 
-  @CamundaQueryParam(value = "deleted", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "deleted", converter = BooleanConverter.class)
   public void setDeleted(Boolean deleted) {
     this.deleted = deleted;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "jobDefinitionIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "jobDefinitionIdIn", converter = StringListConverter.class)
   public void setJobDefinitionIdIn(List<String> jobDefinitionIds) {
     this.jobDefinitionIds = jobDefinitionIds;
   }

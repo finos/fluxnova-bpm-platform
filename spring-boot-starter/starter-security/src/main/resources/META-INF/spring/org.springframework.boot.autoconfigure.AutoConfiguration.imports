@@ -1,2 +1,2 @@
-org.finos.flowave.bpm.spring.boot.starter.security.oauth2.CamundaBpmSpringSecurityDisableAutoConfiguration
-org.finos.flowave.bpm.spring.boot.starter.security.oauth2.CamundaSpringSecurityOAuth2AutoConfiguration
+org.finos.flowave.bpm.spring.boot.starter.security.oauth2.FlowaveBpmSpringSecurityDisableAutoConfiguration
+org.finos.flowave.bpm.spring.boot.starter.security.oauth2.FlowaveSpringSecurityOAuth2AutoConfiguration

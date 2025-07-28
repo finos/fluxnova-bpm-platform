@@ -18,10 +18,10 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
 import org.finos.flowave.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaHistoryConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveHistoryConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class DefaultHistoryConfiguration extends AbstractCamundaConfiguration implements CamundaHistoryConfiguration {
+public class DefaultHistoryConfiguration extends AbstractFlowaveConfiguration implements FlowaveHistoryConfiguration {
 
   @Autowired(required = false)
   protected HistoryEventHandler historyEventHandler;

@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringRunner;
   webEnvironment = WebEnvironment.RANDOM_PORT
 )
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public class TelemetryPaIT extends AbstractCamundaAutoConfigurationIT {
+public class TelemetryPaIT extends AbstractFlowaveAutoConfigurationIT {
 
   @Test
   public void shouldSubmitApplicationServerData() {

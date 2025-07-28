@@ -83,7 +83,7 @@ import org.finos.flowave.bpm.engine.identity.Tenant;
 import org.finos.flowave.bpm.engine.identity.User;
 import org.finos.flowave.bpm.engine.impl.TaskQueryImpl;
 import org.finos.flowave.bpm.engine.impl.calendar.DateTimeUtil;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.impl.identity.Authentication;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.MetricIntervalEntity;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.ResourceEntity;
@@ -1128,7 +1128,7 @@ public abstract class MockProvider {
     TaskFormData mockFormData = mock(TaskFormData.class);
     when(mockFormData.getDeploymentId()).thenReturn(EXAMPLE_DEPLOYMENT_ID);
 
-    CamundaFormRefImpl formRef = new CamundaFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
+    FlowaveFormRefImpl formRef = new FlowaveFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
     formRef.setVersion(EXAMPLE_FORM_REF_VERSION);
     when(mockFormData.getCamundaFormRef()).thenReturn(formRef);
 
@@ -1279,7 +1279,7 @@ public abstract class MockProvider {
     StartFormData mockFormData = mock(StartFormData.class);
     when(mockFormData.getDeploymentId()).thenReturn(EXAMPLE_DEPLOYMENT_ID);
 
-    CamundaFormRefImpl formRef = new CamundaFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
+    FlowaveFormRefImpl formRef = new FlowaveFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
     formRef.setVersion(EXAMPLE_FORM_REF_VERSION);
     when(mockFormData.getCamundaFormRef()).thenReturn(formRef);
 

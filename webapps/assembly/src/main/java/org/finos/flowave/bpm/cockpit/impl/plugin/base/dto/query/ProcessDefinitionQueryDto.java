@@ -25,7 +25,7 @@ import org.finos.flowave.bpm.cockpit.impl.plugin.base.dto.ProcessDefinitionDto;
 import org.finos.flowave.bpm.cockpit.rest.dto.AbstractRestQueryParametersDto;
 import org.finos.flowave.bpm.engine.impl.QueryVariableValue;
 import org.finos.flowave.bpm.engine.impl.variable.serializer.VariableSerializers;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.ConditionQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.VariableQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -57,7 +57,7 @@ public class ProcessDefinitionQueryDto extends AbstractRestQueryParametersDto<Pr
     return parentProcessDefinitionId;
   }
 
-  @CamundaQueryParam(value="parentProcessDefinitionId")
+  @FlowaveQueryParam(value="parentProcessDefinitionId")
   public void setParentProcessDefinitionId(String parentProcessDefinitionId) {
     this.parentProcessDefinitionId = parentProcessDefinitionId;
   }
@@ -66,7 +66,7 @@ public class ProcessDefinitionQueryDto extends AbstractRestQueryParametersDto<Pr
     return superProcessDefinitionId;
   }
 
-  @CamundaQueryParam(value="superProcessDefinitionId")
+  @FlowaveQueryParam(value="superProcessDefinitionId")
   public void setSuperProcessDefinitionId(String superProcessDefinitionId) {
     this.superProcessDefinitionId = superProcessDefinitionId;
   }
@@ -75,7 +75,7 @@ public class ProcessDefinitionQueryDto extends AbstractRestQueryParametersDto<Pr
     return activityIdIn;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIdIn) {
     this.activityIdIn = activityIdIn;
   }
@@ -84,12 +84,12 @@ public class ProcessDefinitionQueryDto extends AbstractRestQueryParametersDto<Pr
     return businessKey;
   }
 
-  @CamundaQueryParam(value="businessKey")
+  @FlowaveQueryParam(value="businessKey")
   public void setBusinessKey(String businessKey) {
     this.businessKey = businessKey;
   }
 
-  @CamundaQueryParam(value = "variables", converter = VariableListConverter.class)
+  @FlowaveQueryParam(value = "variables", converter = VariableListConverter.class)
   public void setVariables(List<VariableQueryParameterDto> variables) {
     this.variables = variables;
   }

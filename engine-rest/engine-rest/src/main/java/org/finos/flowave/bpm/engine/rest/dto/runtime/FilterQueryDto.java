@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.filter.FilterQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -62,27 +62,27 @@ public class FilterQueryDto extends AbstractQueryDto<FilterQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("filterId")
+  @FlowaveQueryParam("filterId")
   public void setFilterId(String filterId) {
     this.filterId = filterId;
   }
 
-  @CamundaQueryParam("resourceType")
+  @FlowaveQueryParam("resourceType")
   public void setResourceType(String resourceType) {
     this.resourceType = resourceType;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String name) {
     this.name = name;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String nameLike) {
     this.nameLike = nameLike;
   }
 
-  @CamundaQueryParam("owner")
+  @FlowaveQueryParam("owner")
   public void setOwner(String owner) {
     this.owner = owner;
   }

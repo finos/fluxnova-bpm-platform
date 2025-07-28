@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Defines common query operations, such as sorting options and validation.
- * Also allows to access its setter methods based on {@link CamundaQueryParam} annotations which is
+ * Also allows to access its setter methods based on {@link FlowaveQueryParam} annotations which is
  * used for processing Http query parameters.
  *
  * @author Thorben Lindhauer
@@ -69,7 +69,7 @@ public abstract class AbstractQueryDto<T extends Query<?, ?>>  extends AbstractS
   }
 
 
-  @CamundaQueryParam("sortBy")
+  @FlowaveQueryParam("sortBy")
   public void setSortBy(String sortBy) {
     if (!isValidSortByValue(sortBy)) {
       throw new InvalidRequestException(Status.BAD_REQUEST, "sortBy parameter has invalid value: " + sortBy);
@@ -77,7 +77,7 @@ public abstract class AbstractQueryDto<T extends Query<?, ?>>  extends AbstractS
     this.sortBy = sortBy;
   }
 
-  @CamundaQueryParam("sortOrder")
+  @FlowaveQueryParam("sortOrder")
   public void setSortOrder(String sortOrder) {
     if (!VALID_SORT_ORDER_VALUES.contains(sortOrder)) {
       throw new InvalidRequestException(Status.BAD_REQUEST, "sortOrder parameter has invalid value: " + sortOrder);

@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.finos.flowave.bpm.engine.identity.User;
 
 import static java.util.Objects.requireNonNull;
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 
 public class AdminUserProperty implements User {

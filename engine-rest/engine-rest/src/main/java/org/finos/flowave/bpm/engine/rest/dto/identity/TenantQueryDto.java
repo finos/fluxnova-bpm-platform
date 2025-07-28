@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.identity.TenantQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,32 +57,32 @@ public class TenantQueryDto extends AbstractQueryDto<TenantQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("id")
+  @FlowaveQueryParam("id")
   public void setId(String id) {
     this.id = id;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String name) {
     this.name = name;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String nameLike) {
     this.nameLike = nameLike;
   }
 
-  @CamundaQueryParam("userMember")
+  @FlowaveQueryParam("userMember")
   public void setUserMember(String userId) {
     this.userId = userId;
   }
 
-  @CamundaQueryParam("groupMember")
+  @FlowaveQueryParam("groupMember")
   public void setGroupMember(String groupId) {
     this.groupId = groupId;
   }
 
-  @CamundaQueryParam(value = "includingGroupsOfUser", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includingGroupsOfUser", converter = BooleanConverter.class)
   public void setIncludingGroupsOfUser(Boolean includingGroupsOfUser) {
     this.includingGroupsOfUser = includingGroupsOfUser;
   }

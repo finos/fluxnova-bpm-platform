@@ -24,7 +24,7 @@ import java.util.Collection;
 
 import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
-import org.finos.flowave.bpm.model.bpmn.CamundaExtensionsTest;
+import org.finos.flowave.bpm.model.bpmn.FlowaveExtensionsTest;
 import org.finos.flowave.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.finos.flowave.bpm.model.bpmn.impl.instance.ProcessImpl;
 import org.finos.flowave.bpm.model.bpmn.instance.ExtensionElements;
@@ -33,7 +33,7 @@ import org.junit.Test;
 /**
  * Test to check the interoperability when changing elements and attributes with
  * the {@link BpmnModelConstants#ACTIVITI_NS}. In contrast to
- * {@link CamundaExtensionsTest} this test uses directly the get*Ns() methods to
+ * {@link FlowaveExtensionsTest} this test uses directly the get*Ns() methods to
  * check the expected value.
  *
  * @author Ronny Bräunlich
@@ -43,22 +43,22 @@ public class CompatabilityTest {
 
   @Test
   public void modifyingElementWithActivitiNsKeepsIt() {
-    BpmnModelInstance modelInstance = Bpmn.readModelFromStream(CamundaExtensionsTest.class.getResourceAsStream("CamundaExtensionsCompatabilityTest.xml"));
+    BpmnModelInstance modelInstance = Bpmn.readModelFromStream(FlowaveExtensionsTest.class.getResourceAsStream("CamundaExtensionsCompatabilityTest.xml"));
     ProcessImpl process = modelInstance.getModelElementById(PROCESS_ID);
     ExtensionElements extensionElements = process.getExtensionElements();
-    Collection<CamundaExecutionListener> listeners = extensionElements.getChildElementsByType(CamundaExecutionListener.class);
+    Collection<FlowaveExecutionListener> listeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     String listenerClass = "org.foo.Bar";
-    for (CamundaExecutionListener listener : listeners) {
+    for (FlowaveExecutionListener listener : listeners) {
       listener.setCamundaClass(listenerClass);
     }
-    for (CamundaExecutionListener listener : listeners) {
+    for (FlowaveExecutionListener listener : listeners) {
       assertThat(listener.getAttributeValueNs(BpmnModelConstants.ACTIVITI_NS, "class"), is(listenerClass));
     }
   }
 
   @Test
   public void modifyingAttributeWithActivitiNsKeepsIt() {
-    BpmnModelInstance modelInstance = Bpmn.readModelFromStream(CamundaExtensionsTest.class.getResourceAsStream("CamundaExtensionsCompatabilityTest.xml"));
+    BpmnModelInstance modelInstance = Bpmn.readModelFromStream(FlowaveExtensionsTest.class.getResourceAsStream("CamundaExtensionsCompatabilityTest.xml"));
     ProcessImpl process = modelInstance.getModelElementById(PROCESS_ID);
     String priority = "9000";
     process.setCamundaJobPriority(priority);

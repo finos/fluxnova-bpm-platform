@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.engine.impl.form.handler;
 
 import org.finos.flowave.bpm.engine.delegate.Expression;
 import org.finos.flowave.bpm.engine.form.StartFormData;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.impl.form.FormDefinition;
 import org.finos.flowave.bpm.engine.impl.form.StartFormDataImpl;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.ExecutionEntity;
@@ -43,7 +43,7 @@ public class DefaultStartFormHandler extends DefaultFormHandler implements Start
     if (formKey != null) {
       startFormData.setFormKey(formKey.getExpressionText());
     } else if (camundaFormDefinitionKey != null && camundaFormDefinitionBinding != null) {
-      CamundaFormRefImpl ref = new CamundaFormRefImpl(camundaFormDefinitionKey.getExpressionText(), camundaFormDefinitionBinding);
+      FlowaveFormRefImpl ref = new FlowaveFormRefImpl(camundaFormDefinitionKey.getExpressionText(), camundaFormDefinitionBinding);
       if (camundaFormDefinitionBinding.equals(FORM_REF_BINDING_VERSION) && camundaFormDefinitionVersion != null) {
         ref.setVersion(Integer.parseInt(camundaFormDefinitionVersion.getExpressionText()));
       }

@@ -170,11 +170,11 @@ import org.finos.flowave.bpm.engine.impl.event.EventHandlerImpl;
 import org.finos.flowave.bpm.engine.impl.event.EventType;
 import org.finos.flowave.bpm.engine.impl.event.SignalEventHandler;
 import org.finos.flowave.bpm.engine.impl.externaltask.DefaultExternalTaskPriorityProvider;
-import org.finos.flowave.bpm.engine.impl.form.deployer.CamundaFormDefinitionDeployer;
+import org.finos.flowave.bpm.engine.impl.form.deployer.FlowaveFormDefinitionDeployer;
 import org.finos.flowave.bpm.engine.impl.form.engine.FormEngine;
 import org.finos.flowave.bpm.engine.impl.form.engine.HtmlFormEngine;
 import org.finos.flowave.bpm.engine.impl.form.engine.JuelFormEngine;
-import org.finos.flowave.bpm.engine.impl.form.entity.CamundaFormDefinitionManager;
+import org.finos.flowave.bpm.engine.impl.form.entity.FlowaveFormDefinitionManager;
 import org.finos.flowave.bpm.engine.impl.form.type.AbstractFormFieldType;
 import org.finos.flowave.bpm.engine.impl.form.type.BooleanFormType;
 import org.finos.flowave.bpm.engine.impl.form.type.DateFormType;
@@ -338,7 +338,7 @@ import org.finos.flowave.bpm.engine.impl.runtime.DefaultCorrelationHandler;
 import org.finos.flowave.bpm.engine.impl.runtime.DefaultDeserializationTypeValidator;
 import org.finos.flowave.bpm.engine.impl.scripting.ScriptFactory;
 import org.finos.flowave.bpm.engine.impl.scripting.engine.BeansResolverFactory;
-import org.finos.flowave.bpm.engine.impl.scripting.engine.CamundaScriptEngineManager;
+import org.finos.flowave.bpm.engine.impl.scripting.engine.FlowaveScriptEngineManager;
 import org.finos.flowave.bpm.engine.impl.scripting.engine.DefaultScriptEngineResolver;
 import org.finos.flowave.bpm.engine.impl.scripting.engine.ResolverFactory;
 import org.finos.flowave.bpm.engine.impl.scripting.engine.ScriptBindingsFactory;
@@ -1983,7 +1983,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       addSessionFactory(new GenericManagerFactory(DecisionRequirementsDefinitionManager.class));
       addSessionFactory(new GenericManagerFactory(HistoricDecisionInstanceManager.class));
 
-      addSessionFactory(new GenericManagerFactory(CamundaFormDefinitionManager.class));
+      addSessionFactory(new GenericManagerFactory(FlowaveFormDefinitionManager.class));
 
       addSessionFactory(new GenericManagerFactory(OptimizeManager.class));
 
@@ -2204,8 +2204,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return defaultListeners;
   }
 
-  protected CamundaFormDefinitionDeployer getCamundaFormDeployer() {
-    CamundaFormDefinitionDeployer deployer = new CamundaFormDefinitionDeployer();
+  protected FlowaveFormDefinitionDeployer getCamundaFormDeployer() {
+    FlowaveFormDefinitionDeployer deployer = new FlowaveFormDefinitionDeployer();
     deployer.setIdGenerator(idGenerator);
     return deployer;
   }
@@ -2605,7 +2605,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       resolverFactories.add(new BeansResolverFactory());
     }
     if (scriptEngineResolver == null) {
-      scriptEngineResolver = new DefaultScriptEngineResolver(new CamundaScriptEngineManager());
+      scriptEngineResolver = new DefaultScriptEngineResolver(new FlowaveScriptEngineManager());
     }
     if (scriptingEngines == null) {
       scriptingEngines = new ScriptingEngines(new ScriptBindingsFactory(resolverFactories), scriptEngineResolver);

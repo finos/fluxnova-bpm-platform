@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response.Status;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricVariableInstanceQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -78,92 +78,92 @@ public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricV
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam("caseInstanceId")
+  @FlowaveQueryParam("caseInstanceId")
   public void setCaseInstanceId(String caseInstanceId) {
     this.caseInstanceId = caseInstanceId;
   }
 
-  @CamundaQueryParam("variableName")
+  @FlowaveQueryParam("variableName")
   public void setVariableName(String variableName) {
     this.variableName = variableName;
   }
 
-  @CamundaQueryParam("variableNameLike")
+  @FlowaveQueryParam("variableNameLike")
   public void setVariableNameLike(String variableNameLike) {
     this.variableNameLike = variableNameLike;
   }
 
-  @CamundaQueryParam("variableValue")
+  @FlowaveQueryParam("variableValue")
   public void setVariableValue(Object variableValue) {
     this.variableValue = variableValue;
   }
 
-  @CamundaQueryParam(value="variableTypeIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="variableTypeIn", converter = StringArrayConverter.class)
   public void setVariableTypeIn(String[] variableTypeIn) {
     this.variableTypeIn = variableTypeIn;
   }
 
-  @CamundaQueryParam(value="variableValuesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="variableValuesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableValuesIgnoreCase(Boolean variableValuesIgnoreCase) {
     this.variableValuesIgnoreCase = variableValuesIgnoreCase;
   }
 
-  @CamundaQueryParam(value="variableNamesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="variableNamesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableNamesIgnoreCase(Boolean variableNamesIgnoreCase) {
     this.variableNamesIgnoreCase = variableNamesIgnoreCase;
   }
 
-  @CamundaQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
   public void setExecutionIdIn(String[] executionIdIn) {
     this.executionIdIn = executionIdIn;
   }
 
-  @CamundaQueryParam(value="taskIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="taskIdIn", converter = StringArrayConverter.class)
   public void setTaskIdIn(String[] taskIdIn) {
     this.taskIdIn = taskIdIn;
   }
 
-  @CamundaQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
   public void setProcessInstanceIdIn(String[] processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
   public void setActivityInstanceIdIn(String[] activityInstanceIdIn) {
     this.activityInstanceIdIn = activityInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="caseExecutionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="caseExecutionIdIn", converter = StringArrayConverter.class)
   public void setCaseExecutionIdIn(String[] caseExecutionIdIn) {
     this.caseExecutionIdIn = caseExecutionIdIn;
   }
 
-  @CamundaQueryParam(value="caseActivityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="caseActivityIdIn", converter = StringArrayConverter.class)
   public void setCaseActivityIdIn(String[] caseActivityIdIn) {
     this.caseActivityIdIn = caseActivityIdIn;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
@@ -172,12 +172,12 @@ public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricV
     return includeDeleted;
   }
 
-  @CamundaQueryParam(value = "includeDeleted", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeDeleted", converter = BooleanConverter.class)
   public void setIncludeDeleted(boolean includeDeleted) {
     this.includeDeleted = includeDeleted;
   }
 
-  @CamundaQueryParam(value = "variableNameIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "variableNameIn", converter = StringArrayConverter.class)
   public void setVariableNameIn(String[] variableNameIn) {
     this.variableNameIn = variableNameIn;
   }

@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.engine.impl.externaltask;
 
 import org.finos.flowave.bpm.engine.ProcessEngineException;
 import org.finos.flowave.bpm.engine.impl.ProcessEngineLogger;
-import org.finos.flowave.bpm.engine.impl.bpmn.parser.CamundaErrorEventDefinition;
+import org.finos.flowave.bpm.engine.impl.bpmn.parser.FlowaveErrorEventDefinition;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.ExecutionEntity;
 
 /**
@@ -49,7 +49,7 @@ public class ExternalTaskLogger extends ProcessEngineLogger {
    * @param errorEventDefinition the definition whose expression failed
    * @param exception the exception that was caught
    */
-  public void errorEventDefinitionEvaluationException(String taskId, CamundaErrorEventDefinition errorEventDefinition, Exception exception) {
+  public void errorEventDefinitionEvaluationException(String taskId, FlowaveErrorEventDefinition errorEventDefinition, Exception exception) {
     logDebug("002", "Evaluation of error event definition's expression {} on external task {} failed and will be considered as 'false'. "
         + "Received exception: {}", errorEventDefinition.getExpression(), taskId, exception.getMessage());
   }

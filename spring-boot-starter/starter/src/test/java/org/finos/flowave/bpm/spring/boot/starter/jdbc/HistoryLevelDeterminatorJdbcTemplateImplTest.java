@@ -28,7 +28,7 @@ import org.finos.flowave.bpm.engine.ProcessEngineConfiguration;
 import org.finos.flowave.bpm.engine.impl.history.HistoryLevel;
 import org.finos.flowave.bpm.engine.impl.history.HistoryLevelAudit;
 import org.finos.flowave.bpm.engine.impl.history.event.HistoryEventType;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,16 +43,16 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
   @Mock
   private JdbcTemplate jdbcTemplate;
 
-  private CamundaBpmProperties camundaBpmProperties;
+  private FlowaveBpmProperties camundaBpmProperties;
 
   @Before
   public void before() {
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
   }
 
   @Test
   public void afterPropertiesSetTest1() throws Exception {
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
     determinator.setJdbcTemplate(jdbcTemplate);
     determinator.setCamundaBpmProperties(camundaBpmProperties);
@@ -62,7 +62,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
 
   @Test
   public void afterPropertiesSetTest2() throws Exception {
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
     final String historyLevelDefault = "defaultValue";
     camundaBpmProperties.setHistoryLevelDefault(historyLevelDefault);
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();

@@ -10,12 +10,12 @@ REST_PATH=$BASEDIR/rest/
 EXAMPLE_PATH=$BASEDIR/example
 PID_PATH=$BASEDIR/run.pid
 OPTIONS_HELP="Options:
-  --webapps    - Enables the Camunda Platform Webapps
-  --oauth2     - Enables the Camunda Platform Spring Security OAuth2 integration
+  --webapps    - Enables the Flowave Platform Webapps
+  --oauth2     - Enables the Flowave Platform Spring Security OAuth2 integration
   --rest       - Enables the REST API
   --example    - Enables the example application
   --production - Applies the production.yaml configuration file
-  --detached   - Starts Camunda Run as a detached process
+  --detached   - Starts Flowave Run as a detached process
 "
 
 # set environment parameters
@@ -44,7 +44,7 @@ if [ "$1" = "start" ] ; then
   JAVA_VERSION=$("$JAVA" -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^0\./s///' | cut -d'.' -f1)
   echo Java version is $("$JAVA" -version 2>&1 | head -1 | cut -d'"' -f2)
   if [[ "$JAVA_VERSION" -lt "$EXPECTED_JAVA_VERSION" ]]; then
-    echo You must use at least JDK 17 to start Camunda Platform Run.
+    echo You must use at least JDK 17 to start Flowave Platform Run.
     exit 1
   fi
 
@@ -77,7 +77,7 @@ if [ "$1" = "start" ] ; then
                      ;;
       # the background flag shouldn't influence the optional component flags
       --detached )   detachProcess=true
-                     echo Camunda Run will start in the background. Use the shutdown.sh script to stop it
+                     echo Flowave Run will start in the background. Use the shutdown.sh script to stop it
                      ;;
       --help )       printf "%s" "$OPTIONS_HELP"
                      exit 0
@@ -108,36 +108,36 @@ if [ "$1" = "start" ] ; then
   # start the application
   if [ "$detachProcess" = "true" ]; then
 
-    # check if a Camunda Run instance is already in operation
+    # check if a Flowave Run instance is already in operation
     if [ -s "$PID_PATH" ]; then
       echo "
-A Camunda Run instance is already in operation (process id $(cat $PID_PATH)).
+A Flowave Run instance is already in operation (process id $(cat $PID_PATH)).
 
 Please stop it or remove the file $PID_PATH."
       exit 1
     fi
 
-    # start Camunda Run detached
-    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/camunda-bpm-run-core.jar" --spring.config.location=file:"$configuration" &
+    # start Flowave Run detached
+    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/flowave-bpm-run-core.jar" --spring.config.location=file:"$configuration" &
     # store the process id
     echo $! > "$PID_PATH"
 
   else
-    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/camunda-bpm-run-core.jar" --spring.config.location=file:"$configuration"
+    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/flowave-bpm-run-core.jar" --spring.config.location=file:"$configuration"
   fi
 
 elif [ "$1" = "stop" ] ; then
 
   if [ -s "$PID_PATH" ]; then
-    # stop Camunda Run if the process is still running
+    # stop Flowave Run if the process is still running
     kill $(cat "$PID_PATH")
 
     # remove process ID file
     rm "$PID_PATH"
 
-    echo "Camunda Run is shutting down."
+    echo "Flowave Run is shutting down."
   else
-    echo "There is no instance of Camunda Run to shut down."
+    echo "There is no instance of Flowave Run to shut down."
     exit 1
   fi
 

@@ -69,7 +69,7 @@ public abstract class AbstractReportDto<T extends Report> extends AbstractSearch
     return reportType;
   }
 
-  @CamundaQueryParam("reportType")
+  @FlowaveQueryParam("reportType")
   public void setReportType(String reportType) {
     if (!VALID_REPORT_TYPE_VALUES.contains(reportType)) {
       throw new InvalidRequestException(Response.Status.BAD_REQUEST, "reportType parameter has invalid value: " + reportType);
@@ -77,7 +77,7 @@ public abstract class AbstractReportDto<T extends Report> extends AbstractSearch
     this.reportType = reportType;
   }
 
-  @CamundaQueryParam(value = "periodUnit", converter = PeriodUnitConverter.class)
+  @FlowaveQueryParam(value = "periodUnit", converter = PeriodUnitConverter.class)
   public void setPeriodUnit(PeriodUnit periodUnit) {
     this.periodUnit = periodUnit;
   }

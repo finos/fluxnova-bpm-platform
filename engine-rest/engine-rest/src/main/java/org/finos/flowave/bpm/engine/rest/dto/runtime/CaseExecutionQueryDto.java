@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.VariableQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -80,77 +80,77 @@ public class CaseExecutionQueryDto extends AbstractQueryDto<CaseExecutionQuery> 
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("caseExecutionId")
+  @FlowaveQueryParam("caseExecutionId")
   public void setCaseExecutionId(String caseExecutionId) {
     this.caseExecutionId = caseExecutionId;
   }
 
-  @CamundaQueryParam("caseDefinitionKey")
+  @FlowaveQueryParam("caseDefinitionKey")
   public void setCaseDefinitionKey(String caseDefinitionKey) {
     this.caseDefinitionKey = caseDefinitionKey;
   }
 
-  @CamundaQueryParam("caseDefinitionId")
+  @FlowaveQueryParam("caseDefinitionId")
   public void setCaseDefinitionId(String caseDefinitionId) {
     this.caseDefinitionId = caseDefinitionId;
   }
 
-  @CamundaQueryParam("caseInstanceId")
+  @FlowaveQueryParam("caseInstanceId")
   public void setCaseInstanceId(String caseInstanceId) {
     this.caseInstanceId = caseInstanceId;
   }
 
-  @CamundaQueryParam("businessKey")
+  @FlowaveQueryParam("businessKey")
   public void setBusinessKey(String businessKey) {
     this.businessKey = businessKey;
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value="required", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="required", converter = BooleanConverter.class)
   public void setRequired(Boolean required) {
     this.required = required;
   }
 
-  @CamundaQueryParam(value="enabled", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="enabled", converter = BooleanConverter.class)
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }
 
-  @CamundaQueryParam(value="active", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="active", converter = BooleanConverter.class)
   public void setActive(Boolean active) {
     this.active = active;
   }
 
-  @CamundaQueryParam(value="disabled", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="disabled", converter = BooleanConverter.class)
   public void setDisabled(Boolean disabled) {
     this.disabled = disabled;
   }
 
-  @CamundaQueryParam(value = "variables", converter = VariableListConverter.class)
+  @FlowaveQueryParam(value = "variables", converter = VariableListConverter.class)
   public void setVariables(List<VariableQueryParameterDto> variables) {
     this.variables = variables;
   }
 
-  @CamundaQueryParam(value = "variableNamesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "variableNamesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableNamesIgnoreCase(Boolean variableNamesIgnoreCase) {
     this.variableNamesIgnoreCase = variableNamesIgnoreCase;
   }
 
-  @CamundaQueryParam(value = "variableValuesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "variableValuesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableValuesIgnoreCase(Boolean variableValuesIgnoreCase) {
     this.variableValuesIgnoreCase = variableValuesIgnoreCase;
   }
 
-  @CamundaQueryParam(value = "caseInstanceVariables", converter = VariableListConverter.class)
+  @FlowaveQueryParam(value = "caseInstanceVariables", converter = VariableListConverter.class)
   public void setCaseInstanceVariables(List<VariableQueryParameterDto> caseInstanceVariables) {
     this.caseInstanceVariables = caseInstanceVariables;
   }

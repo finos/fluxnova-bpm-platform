@@ -29,7 +29,7 @@ import org.finos.flowave.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.flowave.bpm.model.cmmn.CmmnModelInstance;
 import org.finos.flowave.bpm.model.cmmn.instance.CmmnModelElementInstance;
 import org.finos.flowave.bpm.model.cmmn.instance.ExtensionElements;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaCaseExecutionListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveCaseExecutionListener;
 
 public abstract class AbstractExecutionListenerSpec {
 
@@ -50,7 +50,7 @@ public abstract class AbstractExecutionListenerSpec {
 
   public void addListenerToElement(CmmnModelInstance modelInstance, CmmnModelElementInstance modelElement) {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, modelElement, null, ExtensionElements.class);
-    CamundaCaseExecutionListener caseExecutionListener = SpecUtil.createElement(modelInstance, extensionElements, null, CamundaCaseExecutionListener.class);
+    FlowaveCaseExecutionListener caseExecutionListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveCaseExecutionListener.class);
 
     if (!ANY_EVENT.equals(eventNameToRegisterOn)) {
       caseExecutionListener.setCamundaEvent(eventNameToRegisterOn);
@@ -63,7 +63,7 @@ public abstract class AbstractExecutionListenerSpec {
     }
   }
 
-  protected abstract void configureCaseExecutionListener(CmmnModelInstance modelInstance, CamundaCaseExecutionListener listener);
+  protected abstract void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener);
 
   public void verify(CmmnActivity activity) {
 

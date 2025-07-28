@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.model.bpmn.builder;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.ErrorEventDefinition;
 import org.finos.flowave.bpm.model.bpmn.instance.ServiceTask;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaErrorEventDefinition;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveErrorEventDefinition;
 
 /**
  * @author Sebastian Menski
@@ -153,9 +153,9 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    *
    * @return the error event definition builder object
    */
-  public CamundaErrorEventDefinitionBuilder camundaErrorEventDefinition() {
-    ErrorEventDefinition camundaErrorEventDefinition = createInstance(CamundaErrorEventDefinition.class);
+  public FlowaveErrorEventDefinitionBuilder camundaErrorEventDefinition() {
+    ErrorEventDefinition camundaErrorEventDefinition = createInstance(FlowaveErrorEventDefinition.class);
     addExtensionElement(camundaErrorEventDefinition);
-    return new CamundaErrorEventDefinitionBuilder(modelInstance, camundaErrorEventDefinition);
+    return new FlowaveErrorEventDefinitionBuilder(modelInstance, camundaErrorEventDefinition);
   }
 }

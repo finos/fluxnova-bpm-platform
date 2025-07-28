@@ -19,14 +19,14 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 import javax.sql.DataSource;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaDatasourceConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveDatasourceConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.property.DatabaseProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.StringUtils;
 
-public class DefaultDatasourceConfiguration extends AbstractCamundaConfiguration implements CamundaDatasourceConfiguration {
+public class DefaultDatasourceConfiguration extends AbstractFlowaveConfiguration implements FlowaveDatasourceConfiguration {
 
   @Autowired
   protected PlatformTransactionManager transactionManager;

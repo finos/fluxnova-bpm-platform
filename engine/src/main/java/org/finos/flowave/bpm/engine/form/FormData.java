@@ -34,20 +34,20 @@ public interface FormData {
    * which is the template for the form.  But users are free to
    * use this property differently.
    *
-   * A form can be referenced either through a form key or through a {@link CamundaFormRef}.
+   * A form can be referenced either through a form key or through a {@link FlowaveFormRef}.
    *
    */
   String getFormKey();
 
   /**
-   * User-defined reference to a form. A {@link CamundaFormRef} can specify any
+   * User-defined reference to a form. A {@link FlowaveFormRef} can specify any
    * Camunda Form deployed to the engine with any deployment. It is also possible
    * to specify a specific version of a deployed form.
    *
-   * A form can be referenced either through a form key or through a {@link CamundaFormRef}.
+   * A form can be referenced either through a form key or through a {@link FlowaveFormRef}.
    *
    */
-  CamundaFormRef getCamundaFormRef();
+  FlowaveFormRef getCamundaFormRef();
 
   /** The deployment id of the process definition to which this form is related
    *  */

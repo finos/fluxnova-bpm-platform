@@ -21,7 +21,7 @@ import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-import org.finos.flowave.bpm.engine.rest.impl.CamundaRestResources;
+import org.finos.flowave.bpm.engine.rest.impl.FlowaveRestResources;
 import org.finos.flowave.bpm.engine.rest.impl.NamedProcessEngineRestServiceImpl;
 
 /**
@@ -39,7 +39,7 @@ public class EngineRestApplication extends Application {
     classes.add(NamedProcessEngineRestServiceImpl.class);
 
     // mandatory
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(FlowaveRestResources.getConfigurationClasses());
 
     return classes;
   }

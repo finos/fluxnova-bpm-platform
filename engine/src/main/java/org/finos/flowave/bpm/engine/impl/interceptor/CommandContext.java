@@ -48,7 +48,7 @@ import org.finos.flowave.bpm.engine.impl.db.entitymanager.DbEntityManager;
 import org.finos.flowave.bpm.engine.impl.db.sql.DbSqlSession;
 import org.finos.flowave.bpm.engine.impl.dmn.entity.repository.DecisionDefinitionManager;
 import org.finos.flowave.bpm.engine.impl.dmn.entity.repository.DecisionRequirementsDefinitionManager;
-import org.finos.flowave.bpm.engine.impl.form.entity.CamundaFormDefinitionManager;
+import org.finos.flowave.bpm.engine.impl.form.entity.FlowaveFormDefinitionManager;
 import org.finos.flowave.bpm.engine.impl.history.event.HistoricDecisionInstanceManager;
 import org.finos.flowave.bpm.engine.impl.identity.Authentication;
 import org.finos.flowave.bpm.engine.impl.identity.ReadOnlyIdentityProvider;
@@ -468,8 +468,8 @@ public class CommandContext {
     return getSession(SchemaLogManager.class);
   }
 
-  public CamundaFormDefinitionManager getCamundaFormDefinitionManager() {
-    return getSession(CamundaFormDefinitionManager.class);
+  public FlowaveFormDefinitionManager getCamundaFormDefinitionManager() {
+    return getSession(FlowaveFormDefinitionManager.class);
   }
 
   // CMMN /////////////////////////////////////////////////////////////////////

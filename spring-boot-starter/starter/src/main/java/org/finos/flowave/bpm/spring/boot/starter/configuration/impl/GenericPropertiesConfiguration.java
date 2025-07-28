@@ -33,7 +33,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.util.CollectionUtils;
 
 @Order(Ordering.DEFAULT_ORDER - 1)
-public class GenericPropertiesConfiguration extends AbstractCamundaConfiguration {
+public class GenericPropertiesConfiguration extends AbstractFlowaveConfiguration {
 
   protected static final SpringBootProcessEngineLogger LOG = SpringBootProcessEngineLogger.LOG;
 

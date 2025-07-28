@@ -25,7 +25,7 @@ import org.finos.flowave.bpm.engine.authorization.Resources;
 import org.finos.flowave.bpm.engine.identity.Group;
 import org.finos.flowave.bpm.engine.identity.User;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.AuthorizationEntity;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.impl.AbstractCamundaConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.impl.AbstractFlowaveConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.property.AdminUserProperty;
 import org.springframework.beans.BeanUtils;
 
@@ -39,7 +39,7 @@ import static org.finos.flowave.bpm.engine.authorization.Authorization.AUTH_TYPE
 import static org.finos.flowave.bpm.engine.authorization.Groups.CAMUNDA_ADMIN;
 import static org.finos.flowave.bpm.engine.authorization.Permissions.ALL;
 
-public class CreateAdminUserConfiguration extends AbstractCamundaConfiguration {
+public class CreateAdminUserConfiguration extends AbstractFlowaveConfiguration {
 
   private User adminUser;
 

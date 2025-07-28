@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.spring.boot.starter.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 @ConfigurationProperties("management")
 public class ManagementProperties {
@@ -46,19 +46,19 @@ public class ManagementProperties {
 
   public static class Health {
 
-    private Camunda camunda = new Camunda();
+    private Flowave camunda = new Flowave();
 
     /**
      * @return the camunda
      */
-    public Camunda getCamunda() {
+    public Flowave getCamunda() {
       return camunda;
     }
 
     /**
      * @param camunda the camunda to set
      */
-    public void setCamunda(Camunda camunda) {
+    public void setCamunda(Flowave camunda) {
       this.camunda = camunda;
     }
 
@@ -69,7 +69,7 @@ public class ManagementProperties {
         .toString();
     }
 
-    public class Camunda {
+    public class Flowave {
       private boolean enabled = true;
 
       /**

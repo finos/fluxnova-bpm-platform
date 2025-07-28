@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.engine.rest.impl.application;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
-import org.finos.flowave.bpm.engine.rest.impl.CamundaRestResources;
+import org.finos.flowave.bpm.engine.rest.impl.FlowaveRestResources;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,8 +41,8 @@ public class DefaultApplication extends Application {
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<Class<?>>();
 
-    classes.addAll(CamundaRestResources.getResourceClasses());
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(FlowaveRestResources.getResourceClasses());
+    classes.addAll(FlowaveRestResources.getConfigurationClasses());
 
     return classes;
   }

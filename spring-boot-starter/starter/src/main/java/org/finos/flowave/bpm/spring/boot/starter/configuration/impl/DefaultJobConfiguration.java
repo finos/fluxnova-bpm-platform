@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
-import static org.finos.flowave.bpm.spring.boot.starter.util.CamundaSpringBootUtil.join;
+import static org.finos.flowave.bpm.spring.boot.starter.util.FlowaveSpringBootUtil.join;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +26,9 @@ import org.finos.flowave.bpm.engine.impl.jobexecutor.JobHandler;
 import org.finos.flowave.bpm.engine.impl.jobexecutor.NotifyAcquisitionRejectedJobsHandler;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.flowave.bpm.engine.spring.components.jobexecutor.SpringJobExecutor;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaJobConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveJobConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.event.JobExecutorStartingEventListener;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.property.JobExecutionProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +42,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 /**
  * Prepares JobExecutor and registers all known custom JobHandlers.
  */
-public class DefaultJobConfiguration extends AbstractCamundaConfiguration implements CamundaJobConfiguration {
+public class DefaultJobConfiguration extends AbstractFlowaveConfiguration implements FlowaveJobConfiguration {
 
   @Autowired
   protected JobExecutor jobExecutor;
@@ -80,7 +80,7 @@ public class DefaultJobConfiguration extends AbstractCamundaConfiguration implem
     @ConditionalOnMissingBean(name = CAMUNDA_TASK_EXECUTOR_QUALIFIER)
     @ConditionalOnProperty(prefix = "flowave.bpm.job-execution", name = "enabled", havingValue = "true",
         matchIfMissing = true)
-    public static TaskExecutor camundaTaskExecutor(CamundaBpmProperties properties) {
+    public static TaskExecutor camundaTaskExecutor(FlowaveBpmProperties properties) {
       int corePoolSize = properties.getJobExecution().getCorePoolSize();
       int maxPoolSize = properties.getJobExecution().getMaxPoolSize();
       int queueCapacity = properties.getJobExecution().getQueueCapacity();
@@ -101,7 +101,7 @@ public class DefaultJobConfiguration extends AbstractCamundaConfiguration implem
     @Bean
     @ConditionalOnMissingBean(JobExecutor.class)
     @ConditionalOnProperty(prefix = "flowave.bpm.job-execution", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public static JobExecutor jobExecutor(@Qualifier(CAMUNDA_TASK_EXECUTOR_QUALIFIER) final TaskExecutor taskExecutor, CamundaBpmProperties properties) {
+    public static JobExecutor jobExecutor(@Qualifier(CAMUNDA_TASK_EXECUTOR_QUALIFIER) final TaskExecutor taskExecutor, FlowaveBpmProperties properties) {
       final SpringJobExecutor springJobExecutor = new SpringJobExecutor();
       springJobExecutor.setTaskExecutor(taskExecutor);
       springJobExecutor.setRejectedJobsHandler(new NotifyAcquisitionRejectedJobsHandler());

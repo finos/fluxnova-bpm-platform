@@ -31,13 +31,13 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
 public class SpringBootSpinProcessEnginePlugin extends SpinProcessEnginePlugin {
 
   @Autowired
-  protected Optional<CamundaJacksonFormatConfiguratorJSR310> dataFormatConfiguratorJsr310;
+  protected Optional<FlowaveJacksonFormatConfiguratorJSR310> dataFormatConfiguratorJsr310;
 
   @Autowired
-  protected Optional<CamundaJacksonFormatConfiguratorParameterNames> dataFormatConfiguratorParameterNames;
+  protected Optional<FlowaveJacksonFormatConfiguratorParameterNames> dataFormatConfiguratorParameterNames;
 
   @Autowired
-  protected Optional<CamundaJacksonFormatConfiguratorJdk8> dataFormatConfiguratorJdk8;
+  protected Optional<FlowaveJacksonFormatConfiguratorJdk8> dataFormatConfiguratorJdk8;
 
   @Override
   public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {

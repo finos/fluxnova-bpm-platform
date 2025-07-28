@@ -22,7 +22,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import org.finos.flowave.bpm.engine.rest.impl.CamundaRestResources;
+import org.finos.flowave.bpm.engine.rest.impl.FlowaveRestResources;
 
 /**
  * @author Thorben Lindhauer
@@ -35,8 +35,8 @@ public class JaxrsApplication extends Application {
   public Set<Class<?>> getClasses() {
     Set<Class<?>> classes = new HashSet<Class<?>>();
 
-    classes.addAll(CamundaRestResources.getResourceClasses());
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(FlowaveRestResources.getResourceClasses());
+    classes.addAll(FlowaveRestResources.getConfigurationClasses());
 
     return classes;
   }

@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.spring.boot.starter.property;
 
 import org.apache.commons.lang3.BooleanUtils;
 
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 /**
  * Properties controlling spring eventing.

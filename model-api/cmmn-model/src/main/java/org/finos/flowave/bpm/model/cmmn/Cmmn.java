@@ -113,17 +113,17 @@ import org.finos.flowave.bpm.model.cmmn.impl.instance.TimerExpressionImpl;
 import org.finos.flowave.bpm.model.cmmn.impl.instance.TransformationExpressionImpl;
 import org.finos.flowave.bpm.model.cmmn.impl.instance.UserEventImpl;
 import org.finos.flowave.bpm.model.cmmn.impl.instance.UserEventListenerImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaCaseExecutionListenerImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaExpressionImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaFieldImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaInImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaOutImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaScriptImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaStringImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaTaskListenerImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaVariableListenerImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaVariableOnPartImpl;
-import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.CamundaVariableTransitionEventImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveCaseExecutionListenerImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveExpressionImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveFieldImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveInImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveOutImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveScriptImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveStringImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveTaskListenerImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveVariableListenerImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveVariableOnPartImpl;
+import org.finos.flowave.bpm.model.cmmn.impl.instance.flowave.FlowaveVariableTransitionEventImpl;
 import org.finos.flowave.bpm.model.xml.Model;
 import org.finos.flowave.bpm.model.xml.ModelBuilder;
 import org.finos.flowave.bpm.model.xml.ModelException;
@@ -385,17 +385,17 @@ public class Cmmn {
     UserEventListenerImpl.registerType(modelBuilder);
 
     /** camunda extensions */
-    CamundaCaseExecutionListenerImpl.registerType(modelBuilder);
-    CamundaExpressionImpl.registerType(modelBuilder);
-    CamundaFieldImpl.registerType(modelBuilder);
-    CamundaInImpl.registerType(modelBuilder);
-    CamundaOutImpl.registerType(modelBuilder);
-    CamundaScriptImpl.registerType(modelBuilder);
-    CamundaStringImpl.registerType(modelBuilder);
-    CamundaTaskListenerImpl.registerType(modelBuilder);
-    CamundaVariableListenerImpl.registerType(modelBuilder);
-    CamundaVariableOnPartImpl.registerType(modelBuilder);
-    CamundaVariableTransitionEventImpl.registerType(modelBuilder);
+    FlowaveCaseExecutionListenerImpl.registerType(modelBuilder);
+    FlowaveExpressionImpl.registerType(modelBuilder);
+    FlowaveFieldImpl.registerType(modelBuilder);
+    FlowaveInImpl.registerType(modelBuilder);
+    FlowaveOutImpl.registerType(modelBuilder);
+    FlowaveScriptImpl.registerType(modelBuilder);
+    FlowaveStringImpl.registerType(modelBuilder);
+    FlowaveTaskListenerImpl.registerType(modelBuilder);
+    FlowaveVariableListenerImpl.registerType(modelBuilder);
+    FlowaveVariableOnPartImpl.registerType(modelBuilder);
+    FlowaveVariableTransitionEventImpl.registerType(modelBuilder);
   }
 
   /**

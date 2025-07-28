@@ -26,8 +26,8 @@ import org.finos.flowave.bpm.engine.impl.core.variable.mapping.value.ParameterVa
 import org.finos.flowave.bpm.engine.impl.el.ExpressionManager;
 import org.finos.flowave.bpm.model.cmmn.instance.CmmnElement;
 import org.finos.flowave.bpm.model.cmmn.instance.PlanItemDefinition;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaOut;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveOut;
 
 /**
  * @author Roman Smirnov
@@ -55,9 +55,9 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
   protected void initializeInputParameter(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, CallableElement callableElement) {
     ExpressionManager expressionManager = context.getExpressionManager();
 
-    List<CamundaIn> inputs = getInputs(element);
+    List<FlowaveIn> inputs = getInputs(element);
 
-    for (CamundaIn input : inputs) {
+    for (FlowaveIn input : inputs) {
 
       // businessKey
       String businessKey = input.getCamundaBusinessKey();
@@ -100,9 +100,9 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
   protected void initializeOutputParameter(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, CallableElement callableElement) {
     ExpressionManager expressionManager = context.getExpressionManager();
 
-    List<CamundaOut> outputs = getOutputs(element);
+    List<FlowaveOut> outputs = getOutputs(element);
 
-    for (CamundaOut output : outputs) {
+    for (FlowaveOut output : outputs) {
 
       // create new parameter
       CallableElementParameter parameter = new CallableElementParameter();
@@ -131,13 +131,13 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
     }
   }
 
-  protected List<CamundaIn> getInputs(CmmnElement element) {
+  protected List<FlowaveIn> getInputs(CmmnElement element) {
     PlanItemDefinition definition = getDefinition(element);
-    return queryExtensionElementsByClass(definition, CamundaIn.class);
+    return queryExtensionElementsByClass(definition, FlowaveIn.class);
   }
 
-  protected List<CamundaOut> getOutputs(CmmnElement element) {
+  protected List<FlowaveOut> getOutputs(CmmnElement element) {
     PlanItemDefinition definition = getDefinition(element);
-    return queryExtensionElementsByClass(definition, CamundaOut.class);
+    return queryExtensionElementsByClass(definition, FlowaveOut.class);
   }
 }

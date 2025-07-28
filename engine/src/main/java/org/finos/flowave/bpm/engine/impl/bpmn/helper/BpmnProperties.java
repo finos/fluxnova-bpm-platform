@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.ConditionalEventDefinition;
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.ErrorEventDefinition;
-import org.finos.flowave.bpm.engine.impl.bpmn.parser.CamundaErrorEventDefinition;
+import org.finos.flowave.bpm.engine.impl.bpmn.parser.FlowaveErrorEventDefinition;
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.EscalationEventDefinition;
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.EventSubscriptionDeclaration;
 import org.finos.flowave.bpm.engine.impl.core.model.Properties;
@@ -78,5 +78,5 @@ public class BpmnProperties {
 
   public static final PropertyKey<Map<String, String>> EXTENSION_PROPERTIES = new PropertyKey<>("extensionProperties");
 
-  public static final PropertyListKey<CamundaErrorEventDefinition> CAMUNDA_ERROR_EVENT_DEFINITION = new PropertyListKey<>("camundaErrorEventDefinition");
+  public static final PropertyListKey<FlowaveErrorEventDefinition> CAMUNDA_ERROR_EVENT_DEFINITION = new PropertyListKey<>("camundaErrorEventDefinition");
 }

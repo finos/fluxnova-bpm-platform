@@ -22,9 +22,9 @@ import java.util.Set;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.finos.flowave.bpm.engine.impl.diagnostics.CamundaIntegration;
+import org.finos.flowave.bpm.engine.impl.diagnostics.FlowaveIntegration;
 import org.finos.flowave.bpm.engine.impl.telemetry.dto.TelemetryDataImpl;
-import org.finos.flowave.bpm.run.CamundaBpmRun;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class })
+@SpringBootTest(classes = { FlowaveBpmRun.class })
 public class TelemetryDataTest {
 
   @Autowired
@@ -49,6 +49,6 @@ public class TelemetryDataTest {
     TelemetryDataImpl telemetryData = processEngineConfiguration.getTelemetryData();
     Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
     assertThat(camundaIntegration)
-      .containsExactlyInAnyOrder(CamundaIntegration.CAMUNDA_BPM_RUN, CamundaIntegration.SPRING_BOOT_STARTER);
+      .containsExactlyInAnyOrder(FlowaveIntegration.CAMUNDA_BPM_RUN, FlowaveIntegration.SPRING_BOOT_STARTER);
   }
 }

@@ -21,7 +21,7 @@ import java.util.Set;
 import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.spi.Bean;
 
-import org.finos.flowave.bpm.engine.cdi.compat.CamundaTaskForm;
+import org.finos.flowave.bpm.engine.cdi.compat.FlowaveTaskForm;
 import org.finos.flowave.bpm.engine.cdi.compat.FoxTaskForm;
 import org.finos.flowave.bpm.engine.cdi.jsf.TaskForm;
 import org.finos.flowave.bpm.engine.cdi.test.CdiProcessEngineTestCase;
@@ -55,7 +55,7 @@ public class TaskFormTest extends CdiProcessEngineTestCase {
       Assert.fail("Injection of FoxTaskForm is ambiguous.");
     }
 
-    Set<Bean<?>> camundaTaskForm = beanManager.getBeans(CamundaTaskForm.class);
+    Set<Bean<?>> camundaTaskForm = beanManager.getBeans(FlowaveTaskForm.class);
     try {
       Bean<? extends Object> bean = beanManager.resolve(camundaTaskForm);
       Assert.assertNotNull(bean);

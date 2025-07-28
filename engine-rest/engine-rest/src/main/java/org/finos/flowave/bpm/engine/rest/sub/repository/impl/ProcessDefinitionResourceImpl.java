@@ -29,7 +29,7 @@ import org.finos.flowave.bpm.engine.RuntimeService;
 import org.finos.flowave.bpm.engine.batch.Batch;
 import org.finos.flowave.bpm.engine.exception.NotFoundException;
 import org.finos.flowave.bpm.engine.exception.NullValueException;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.form.StartFormData;
 import org.finos.flowave.bpm.engine.impl.form.validator.FormFieldValidationException;
 import org.finos.flowave.bpm.engine.impl.util.IoUtil;
@@ -462,7 +462,7 @@ public class ProcessDefinitionResourceImpl implements ProcessDefinitionResource 
 
   protected String getStartFormMediaType(String processDefinitionId) {
     String formKey = engine.getFormService().getStartFormKey(processDefinitionId);
-    CamundaFormRef camundaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getCamundaFormRef();
     if(formKey != null) {
       return ContentTypeUtil.getFormContentType(formKey);
     } else if(camundaFormRef != null) {

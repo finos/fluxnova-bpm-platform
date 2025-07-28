@@ -41,7 +41,7 @@ import org.finos.flowave.bpm.engine.delegate.Expression;
 import org.finos.flowave.bpm.engine.delegate.TaskListener;
 import org.finos.flowave.bpm.engine.exception.NotFoundException;
 import org.finos.flowave.bpm.engine.exception.NullValueException;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.history.UserOperationLogEntry;
 import org.finos.flowave.bpm.engine.impl.ProcessEngineLogger;
 import org.finos.flowave.bpm.engine.impl.bpmn.helper.BpmnExceptionHandler;
@@ -65,7 +65,7 @@ import org.finos.flowave.bpm.engine.impl.db.EnginePersistenceLogger;
 import org.finos.flowave.bpm.engine.impl.db.HasDbReferences;
 import org.finos.flowave.bpm.engine.impl.db.HasDbRevision;
 import org.finos.flowave.bpm.engine.impl.db.entitymanager.DbEntityManager;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.impl.history.event.HistoryEventTypes;
 import org.finos.flowave.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.flowave.bpm.engine.impl.interceptor.CommandContextListener;
@@ -161,7 +161,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
   protected String eventName;
   protected boolean isFormKeyInitialized = false;
   protected String formKey;
-  protected CamundaFormRef camundaFormRef;
+  protected FlowaveFormRef camundaFormRef;
   protected boolean attachmentExists;
   protected boolean commentExists;
 
@@ -1452,7 +1452,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
           if (formRef != null && formRefBinding != null) {
             String formRefValue = (String) formRef.getValue(this);
             if (formRefValue != null) {
-              CamundaFormRefImpl camFormRef = new CamundaFormRefImpl(formRefValue, formRefBinding);
+              FlowaveFormRefImpl camFormRef = new FlowaveFormRefImpl(formRefValue, formRefBinding);
               if (formRefBinding.equals(FORM_REF_BINDING_VERSION) && formRefVersion != null) {
                 String formRefVersionValue = (String) formRefVersion.getValue(this);
                 camFormRef.setVersion(Integer.parseInt(formRefVersionValue));
@@ -1478,7 +1478,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
   }
 
   @Override
-  public CamundaFormRef getCamundaFormRef() {
+  public FlowaveFormRef getCamundaFormRef() {
     if(!isFormKeyInitialized) {
       throw LOG.uninitializedFormKeyException();
     }
