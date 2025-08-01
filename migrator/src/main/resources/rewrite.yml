@@ -4,6 +4,16 @@ name: camundaToFlowave
 displayName: Helping migration from Camunda to Flowave
 recipeList:
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+      oldGroupId: org.camunda.bpm
+      oldArtifactId: camunda-engine
+      newGroupId: org.finos.flowave.bpm
+      newArtifactId: flowave-engine
+      newVersion: 1.0.0
+  - org.openrewrite.text.FindAndReplace:
+      find: "xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\""
+      replace: " xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\" xmlns:flowave=\"http://flowave.org/schema/1.0/bpmn\" "
+      filePattern: '**/*.xml'
+  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm.assert
       oldArtifactId: camunda-bpm-assert
       newGroupId: org.finos.flowave.bpm.assert

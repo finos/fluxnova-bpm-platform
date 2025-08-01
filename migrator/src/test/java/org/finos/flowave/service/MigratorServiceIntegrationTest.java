@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -133,6 +134,15 @@ class MigratorServiceIntegrationTest {
 
         assertTrue(bpmnContent.contains("mycamunda:initiator=\"end\""));
         assertTrue(bpmnContent.contains("camundaprocess:initiator=\"end\""));
+
+        //Verify the addition of the Flowave XML namespace without removing the existing Camunda namespace.
+        List<String> expectedNamespaces = List.of(
+            "xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\"",
+            "xmlns:flowave=\"http://flowave.org/schema/1.0/bpmn\""
+        );
+        for (String ns : expectedNamespaces) {
+            assertTrue(bpmnContent.contains(ns));
+        }
 
         // Verify rewrite.yml was deleted
         assertFalse(Files.exists(Path.of(projectLocation + "rewrite.yml")), "rewrite.yml should be deleted");
