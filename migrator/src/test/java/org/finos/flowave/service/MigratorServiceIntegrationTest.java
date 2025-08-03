@@ -98,6 +98,10 @@ class MigratorServiceIntegrationTest {
                 <?xml version="1.0" encoding="UTF-8"?>
                 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                                  modeler:executionPlatform="Camunda Platform"
+                                  xmlns:modeler="http://camunda.org/schema/modeler/1.0"
+                                  modeler:executionPlatformVersion="7.24.0"
+                                  exporter="Camunda Modeler"
                                   targetNamespace="http://camunda.org/examples">
                   <bpmn:process id="exampleProcess" name="Example Process" isExecutable="true">
                     <bpmn:startEvent id="StartEvent_1" camunda:initiator="starter" />
@@ -138,11 +142,17 @@ class MigratorServiceIntegrationTest {
         //Verify the addition of the Flowave XML namespace without removing the existing Camunda namespace.
         List<String> expectedNamespaces = List.of(
             "xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\"",
-            "xmlns:flowave=\"http://flowave.org/schema/1.0/bpmn\""
+            "xmlns:flowave=\"http://flowave.finos.org/schema/1.0/bpmn\"",
+            "xmlns:modeler=\"http://flowave.finos.org/schema/modeler/1.0\""
         );
         for (String ns : expectedNamespaces) {
             assertTrue(bpmnContent.contains(ns));
         }
+
+        //verify few namespace related info
+        assertTrue(bpmnContent.contains("modeler:executionPlatform=\"Flowave Platform\""));
+        assertTrue(bpmnContent.contains("modeler:executionPlatformVersion=\"1.0.0\""));
+        assertTrue(bpmnContent.contains("exporter=\"Flowave Modeler\""));
 
         // Verify rewrite.yml was deleted
         assertFalse(Files.exists(Path.of(projectLocation + "rewrite.yml")), "rewrite.yml should be deleted");

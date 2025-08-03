@@ -11,8 +11,28 @@ recipeList:
       newVersion: 1.0.0
   - org.openrewrite.text.FindAndReplace:
       find: "xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\""
-      replace: " xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\" xmlns:flowave=\"http://flowave.org/schema/1.0/bpmn\" "
+      replace: " xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\" xmlns:flowave=\"http://flowave.finos.org/schema/1.0/bpmn\" "
       filePattern: '**/*.xml'
+  - org.openrewrite.text.FindAndReplace:
+        find: "xmlns:modeler=\"http://camunda.org/schema/modeler/1.0\""
+        replace: " xmlns:modeler=\"http://flowave.finos.org/schema/modeler/1.0\" "
+        filePattern: '**/*.xml'
+  - org.openrewrite.text.FindAndReplace:
+        find: "namespace=\"http://camunda.org/schema/1.0/dmn\""
+        replace: " namespace=\"http://flowave.finos.org/schema/1.0/dmn\" "
+        filePattern: '**/*.xml'
+  - org.openrewrite.text.FindAndReplace:
+        find: "modeler:executionPlatform=\"Camunda Platform\""
+        replace: " modeler:executionPlatform=\"Flowave Platform\" "
+        filePattern: '**/*.xml'
+  - org.openrewrite.text.FindAndReplace:
+        find: "modeler:executionPlatformVersion=\"7.24.0\""
+        replace: " modeler:executionPlatformVersion=\"1.0.0\" "
+        filePattern: '**/*.xml'
+  - org.openrewrite.text.FindAndReplace:
+        find: "exporter=\"Camunda Modeler\""
+        replace: " exporter=\"Flowave Modeler\" "
+        filePattern: '**/*.xml'
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm.assert
       oldArtifactId: camunda-bpm-assert
