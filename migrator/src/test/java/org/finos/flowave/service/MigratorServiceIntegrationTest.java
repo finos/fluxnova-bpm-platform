@@ -94,7 +94,7 @@ class MigratorServiceIntegrationTest {
         // Create a BPMN file
         Path resourcesDir = Path.of(projectLocation + "src/main/resources");
         Files.createDirectories(resourcesDir);
-        String bpmnContent = """
+        String modelContent = """
                 <?xml version="1.0" encoding="UTF-8"?>
                 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
@@ -110,7 +110,7 @@ class MigratorServiceIntegrationTest {
                   </bpmn:process>
                 </bpmn:definitions>
                 """;
-        Files.writeString(resourcesDir.resolve("process.bpmn"), bpmnContent);
+        Files.writeString(resourcesDir.resolve("process.bpmn"), modelContent);
     }
 
     private void verifyMigrationResults() throws IOException, MavenInvocationException {
@@ -132,12 +132,11 @@ class MigratorServiceIntegrationTest {
         Path bpmnFile = Path.of(projectLocation + "src/main/resources/process.bpmn");
         assertTrue(Files.exists(bpmnFile), "BPMN file should exist");
 
-        String bpmnContent = Files.readString(bpmnFile);
-        assertTrue(bpmnContent.contains("flowave:initiator=\"starter\""));
-        assertFalse(bpmnContent.contains("camunda:initiator=\"starter\""));
+        String modeContent = Files.readString(bpmnFile);
 
-        assertTrue(bpmnContent.contains("mycamunda:initiator=\"end\""));
-        assertTrue(bpmnContent.contains("camundaprocess:initiator=\"end\""));
+        assertTrue(modeContent.contains("camunda:initiator=\"starter\""));
+        assertTrue(modeContent.contains("mycamunda:initiator=\"end\""));
+        assertTrue(modeContent.contains("camundaprocess:initiator=\"end\""));
 
         //Verify the addition of the Flowave XML namespace without removing the existing Camunda namespace.
         List<String> expectedNamespaces = List.of(
@@ -146,13 +145,13 @@ class MigratorServiceIntegrationTest {
             "xmlns:modeler=\"http://flowave.finos.org/schema/modeler/1.0\""
         );
         for (String ns : expectedNamespaces) {
-            assertTrue(bpmnContent.contains(ns));
+            assertTrue(modeContent.contains(ns));
         }
 
         //verify few namespace related info
-        assertTrue(bpmnContent.contains("modeler:executionPlatform=\"Flowave Platform\""));
-        assertTrue(bpmnContent.contains("modeler:executionPlatformVersion=\"1.0.0\""));
-        assertTrue(bpmnContent.contains("exporter=\"Flowave Modeler\""));
+        assertTrue(modeContent.contains("modeler:executionPlatform=\"Flowave Platform\""));
+        assertTrue(modeContent.contains("modeler:executionPlatformVersion=\"1.0.0\""));
+        assertTrue(modeContent.contains("exporter=\"Flowave Modeler\""));
 
         // Verify rewrite.yml was deleted
         assertFalse(Files.exists(Path.of(projectLocation + "rewrite.yml")), "rewrite.yml should be deleted");

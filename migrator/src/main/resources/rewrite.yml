@@ -670,7 +670,3 @@ recipeList:
       attributeName: xmlns
       newValue: "http://www.flowave.org/schema/1.0/ProcessApplication"
       oldValue: "http://www.camunda.org/schema/1.0/ProcessApplication"
-  - org.openrewrite.text.FindAndReplace:
-      find: " camunda:"
-      replace: " flowave:"
-      filePattern: '**/*.xml'
