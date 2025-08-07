@@ -39,6 +39,8 @@ Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
   - [flowave-docs-manual/pulls](https://github.com/finos/flowave-docs-manual/pulls)
   - [flowave-release-parent/pulls](https://github.com/finos/flowave-release-parent/pulls)
   - [flowave-bpm-release-parent/pulls](https://github.com/finos/flowave-bpm-release-parent/pulls)
+  - [flowave-docs-theme/pulls](https://github.com/finos/flowave-docs-theme)
+  - [flwave-website/pulls](https://github.com/finos/flowave-website)
 - [ ] Agenda item 2
 - [ ] ...
 - [ ] AOB & Adjourn (5mins)
