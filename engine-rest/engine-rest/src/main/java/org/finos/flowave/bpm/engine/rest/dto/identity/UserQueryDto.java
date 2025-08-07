@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.identity.UserQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,57 +70,57 @@ public class UserQueryDto extends AbstractQueryDto<UserQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("id")
+  @FlowaveQueryParam("id")
   public void setId(String userId) {
     this.id = userId;
   }
 
-  @CamundaQueryParam(value = "idIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "idIn", converter = StringArrayConverter.class)
   public void setIdIn(String[] ids) {
     this.idIn = ids;
   }
 
-  @CamundaQueryParam("firstName")
+  @FlowaveQueryParam("firstName")
   public void setFirstName(String userFirstName) {
     this.firstName = userFirstName;
   }
 
-  @CamundaQueryParam("firstNameLike")
+  @FlowaveQueryParam("firstNameLike")
   public void setFirstNameLike(String userFirstNameLike) {
     this.firstNameLike = userFirstNameLike;
   }
 
-  @CamundaQueryParam("lastName")
+  @FlowaveQueryParam("lastName")
   public void setLastName(String userLastName) {
     this.lastName = userLastName;
   }
 
-  @CamundaQueryParam("lastNameLike")
+  @FlowaveQueryParam("lastNameLike")
   public void setLastNameLike(String userLastNameLike) {
     this.lastNameLike = userLastNameLike;
   }
 
-  @CamundaQueryParam("email")
+  @FlowaveQueryParam("email")
   public void setEmail(String userEmail) {
     this.email = userEmail;
   }
 
-  @CamundaQueryParam("emailLike")
+  @FlowaveQueryParam("emailLike")
   public void setEmailLike(String userEmailLike) {
     this.emailLike = userEmailLike;
   }
 
-  @CamundaQueryParam("memberOfGroup")
+  @FlowaveQueryParam("memberOfGroup")
   public void setMemberOfGroup(String memberOfGroup) {
     this.memberOfGroup = memberOfGroup;
   }
 
-  @CamundaQueryParam("potentialStarter")
+  @FlowaveQueryParam("potentialStarter")
   public void setPotentialStarter(String potentialStarter) {
     this.potentialStarter = potentialStarter;
   }
 
-  @CamundaQueryParam("memberOfTenant")
+  @FlowaveQueryParam("memberOfTenant")
   public void setMemberOfTenant(String tenantId) {
     this.tenantId = tenantId;
   }

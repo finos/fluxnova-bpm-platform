@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CustomHistoryEventHandlersIT extends AbstractCamundaAutoConfigurationIT {
+public class CustomHistoryEventHandlersIT extends AbstractFlowaveAutoConfigurationIT {
 
   @Test
   public void shouldUsePublishHistoryEventHandler() {

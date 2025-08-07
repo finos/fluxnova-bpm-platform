@@ -18,8 +18,8 @@ package org.finos.flowave.bpm.model.bpmn.builder;
 
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.CallActivity;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOut;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOut;
 
 /**
  * @author Sebastian Menski
@@ -162,7 +162,7 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   public B camundaInBusinessKey(String businessKey) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
     param.setCamundaBusinessKey(businessKey);
     addExtensionElement(param);
     return myself;
@@ -176,7 +176,7 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   public B camundaIn(String source, String target) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
     param.setCamundaSource(source);
     param.setCamundaTarget(target);
     addExtensionElement(param);
@@ -191,7 +191,7 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   public B camundaOut(String source, String target) {
-    CamundaOut param = modelInstance.newInstance(CamundaOut.class);
+    FlowaveOut param = modelInstance.newInstance(FlowaveOut.class);
     param.setCamundaSource(source);
     param.setCamundaTarget(target);
     addExtensionElement(param);

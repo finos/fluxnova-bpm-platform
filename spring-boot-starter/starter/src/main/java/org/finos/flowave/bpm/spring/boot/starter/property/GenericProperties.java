@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.spring.boot.starter.property;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 public class GenericProperties {
 

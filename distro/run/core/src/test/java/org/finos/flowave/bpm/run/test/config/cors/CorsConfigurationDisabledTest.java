@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.finos.flowave.bpm.run.property.CamundaBpmRunCorsProperty;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunCorsProperty;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -40,7 +40,7 @@ import org.springframework.test.context.TestPropertySource;
  * @see https://jira.camunda.com/browse/CAM-11290
  */
 @ActiveProfiles(profiles = { "test-cors-enabled" }, inheritProfiles = true)
-@TestPropertySource(properties = { CamundaBpmRunCorsProperty.PREFIX + ".enabled=false" })
+@TestPropertySource(properties = { FlowaveBpmRunCorsProperty.PREFIX + ".enabled=false" })
 public class CorsConfigurationDisabledTest extends AbstractRestTest {
 
   @Test

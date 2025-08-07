@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.id;
 
 import org.finos.flowave.bpm.engine.impl.cfg.IdGenerator;
 import org.finos.flowave.bpm.engine.impl.persistence.StrongUuidGenerator;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -35,7 +35,7 @@ public class IdGeneratorConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(IdGenerator.class)
-  @ConditionalOnProperty(prefix = CamundaBpmProperties.PREFIX, name = PROPERTY_NAME, havingValue = STRONG, matchIfMissing = true)
+  @ConditionalOnProperty(prefix = FlowaveBpmProperties.PREFIX, name = PROPERTY_NAME, havingValue = STRONG, matchIfMissing = true)
   public IdGenerator strongUuidGenerator() {
     return new StrongUuidGenerator();
   }
@@ -43,7 +43,7 @@ public class IdGeneratorConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(IdGenerator.class)
-  @ConditionalOnProperty(prefix = CamundaBpmProperties.PREFIX, name = PROPERTY_NAME, havingValue = PREFIXED)
+  @ConditionalOnProperty(prefix = FlowaveBpmProperties.PREFIX, name = PROPERTY_NAME, havingValue = PREFIXED)
   public IdGenerator prefixedUuidGenerator(@Value("${spring.application.name}") String applicationName) {
     return new PrefixedUuidGenerator(applicationName);
   }

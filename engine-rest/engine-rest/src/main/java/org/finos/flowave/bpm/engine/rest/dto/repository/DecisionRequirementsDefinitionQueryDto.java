@@ -27,7 +27,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.repository.DecisionRequirementsDefinitionQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.IntegerConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -82,82 +82,82 @@ public class DecisionRequirementsDefinitionQueryDto extends AbstractQueryDto<Dec
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("decisionRequirementsDefinitionId")
+  @FlowaveQueryParam("decisionRequirementsDefinitionId")
   public void setDecisionRequirementsDefinitionId(String decisionRequirementsDefinitionId) {
     this.decisionRequirementsDefinitionId = decisionRequirementsDefinitionId;
   }
 
-  @CamundaQueryParam(value = "decisionRequirementsDefinitionIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "decisionRequirementsDefinitionIdIn", converter = StringListConverter.class)
   public void setDecisionRequirementsDefinitionIdIn(List<String> decisionRequirementsDefinitionIdIn) {
     this.decisionRequirementsDefinitionIdIn = decisionRequirementsDefinitionIdIn;
   }
 
-  @CamundaQueryParam("category")
+  @FlowaveQueryParam("category")
   public void setCategory(String category) {
     this.category = category;
   }
 
-  @CamundaQueryParam("categoryLike")
+  @FlowaveQueryParam("categoryLike")
   public void setCategoryLike(String categoryLike) {
     this.categoryLike = categoryLike;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String name) {
     this.name = name;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String nameLike) {
     this.nameLike = nameLike;
   }
 
-  @CamundaQueryParam("deploymentId")
+  @FlowaveQueryParam("deploymentId")
   public void setDeploymentId(String deploymentId) {
     this.deploymentId = deploymentId;
   }
 
-  @CamundaQueryParam("key")
+  @FlowaveQueryParam("key")
   public void setKey(String key) {
     this.key = key;
   }
 
-  @CamundaQueryParam("keyLike")
+  @FlowaveQueryParam("keyLike")
   public void setKeyLike(String keyLike) {
     this.keyLike = keyLike;
   }
 
-  @CamundaQueryParam("resourceName")
+  @FlowaveQueryParam("resourceName")
   public void setResourceName(String resourceName) {
     this.resourceName = resourceName;
   }
 
-  @CamundaQueryParam("resourceNameLike")
+  @FlowaveQueryParam("resourceNameLike")
   public void setResourceNameLike(String resourceNameLike) {
     this.resourceNameLike = resourceNameLike;
   }
 
-  @CamundaQueryParam(value = "version", converter = IntegerConverter.class)
+  @FlowaveQueryParam(value = "version", converter = IntegerConverter.class)
   public void setVersion(Integer version) {
     this.version = version;
   }
 
-  @CamundaQueryParam(value = "latestVersion", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "latestVersion", converter = BooleanConverter.class)
   public void setLatestVersion(Boolean latestVersion) {
     this.latestVersion = latestVersion;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "includeDecisionRequirementsDefinitionsWithoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeDecisionRequirementsDefinitionsWithoutTenantId", converter = BooleanConverter.class)
   public void setIncludeDecisionRequirementsDefinitionsWithoutTenantId(Boolean includeDefinitionsWithoutTenantId) {
     this.includeDefinitionsWithoutTenantId = includeDefinitionsWithoutTenantId;
   }

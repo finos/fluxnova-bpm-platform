@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.run.test.config.rest;
 
-import org.finos.flowave.bpm.run.property.CamundaBpmRunRestProperties;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunRestProperties;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@TestPropertySource(properties = { CamundaBpmRunRestProperties.PREFIX + ".disable-wadl=false" })
+@TestPropertySource(properties = { FlowaveBpmRunRestProperties.PREFIX + ".disable-wadl=false" })
 public class WadlEnabledTest extends AbstractRestTest {
 
   @Test

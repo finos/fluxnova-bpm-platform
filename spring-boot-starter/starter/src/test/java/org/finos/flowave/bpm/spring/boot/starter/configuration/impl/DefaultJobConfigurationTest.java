@@ -29,7 +29,7 @@ import org.finos.flowave.bpm.engine.impl.jobexecutor.JobHandler;
 import org.finos.flowave.bpm.engine.impl.jobexecutor.NotifyAcquisitionRejectedJobsHandler;
 import org.finos.flowave.bpm.engine.impl.jobexecutor.RejectedJobsHandler;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +49,7 @@ public class DefaultJobConfigurationTest {
 
   private final SpringProcessEngineConfiguration processEngineConfiguration = new SpringProcessEngineConfiguration();
   private final DefaultJobConfiguration jobConfiguration = new DefaultJobConfiguration();
-  private final CamundaBpmProperties properties = new CamundaBpmProperties();
+  private final FlowaveBpmProperties properties = new FlowaveBpmProperties();
 
   @Autowired
   JobExecutor jobExecutor;

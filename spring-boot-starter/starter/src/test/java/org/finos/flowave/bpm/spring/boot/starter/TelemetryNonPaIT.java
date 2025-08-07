@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Set;
 
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.finos.flowave.bpm.engine.impl.diagnostics.CamundaIntegration;
+import org.finos.flowave.bpm.engine.impl.diagnostics.FlowaveIntegration;
 import org.finos.flowave.bpm.engine.impl.diagnostics.DiagnosticsRegistry;
 import org.finos.flowave.bpm.engine.impl.telemetry.dto.ApplicationServerImpl;
 import org.finos.flowave.bpm.engine.impl.telemetry.dto.TelemetryDataImpl;
@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringRunner;
   classes = {TestApplication.class},
   webEnvironment = WebEnvironment.RANDOM_PORT
 )
-public class TelemetryNonPaIT extends AbstractCamundaAutoConfigurationIT {
+public class TelemetryNonPaIT extends AbstractFlowaveAutoConfigurationIT {
 
   @Test
   public void shouldSubmitApplicationServerData() {
@@ -59,7 +59,7 @@ public class TelemetryNonPaIT extends AbstractCamundaAutoConfigurationIT {
     TelemetryDataImpl telemetryData = processEngineConfiguration.getTelemetryData();
     Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
     assertThat(camundaIntegration.size()).isOne();
-    assertThat(camundaIntegration).containsExactly(CamundaIntegration.SPRING_BOOT_STARTER);
+    assertThat(camundaIntegration).containsExactly(FlowaveIntegration.SPRING_BOOT_STARTER);
   }
 
 }

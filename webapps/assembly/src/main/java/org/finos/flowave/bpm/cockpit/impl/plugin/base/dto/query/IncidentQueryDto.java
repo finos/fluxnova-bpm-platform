@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.finos.flowave.bpm.cockpit.impl.plugin.base.dto.IncidentDto;
 import org.finos.flowave.bpm.cockpit.rest.dto.AbstractRestQueryParametersDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 
 /**
@@ -78,7 +78,7 @@ public class IncidentQueryDto extends AbstractRestQueryParametersDto<IncidentDto
     return processDefinitionIdIn;
   }
 
-  @CamundaQueryParam(value="processDefinitionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="processDefinitionIdIn", converter = StringArrayConverter.class)
   public void setProcessDefinitionIdIn(String[] processDefinitionIdIn) {
     this.processDefinitionIdIn = processDefinitionIdIn;
   }
@@ -87,7 +87,7 @@ public class IncidentQueryDto extends AbstractRestQueryParametersDto<IncidentDto
     return processInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
   public void setProcessInstanceIdIn(String[] processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
   }
@@ -96,7 +96,7 @@ public class IncidentQueryDto extends AbstractRestQueryParametersDto<IncidentDto
     return activityIdIn;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIdIn) {
     this.activityIdIn = activityIdIn;
   }

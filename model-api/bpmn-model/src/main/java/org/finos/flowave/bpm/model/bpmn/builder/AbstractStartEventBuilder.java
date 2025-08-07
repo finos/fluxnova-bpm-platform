@@ -21,8 +21,8 @@ import org.finos.flowave.bpm.model.bpmn.instance.CompensateEventDefinition;
 import org.finos.flowave.bpm.model.bpmn.instance.ErrorEventDefinition;
 import org.finos.flowave.bpm.model.bpmn.instance.EscalationEventDefinition;
 import org.finos.flowave.bpm.model.bpmn.instance.StartEvent;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFormData;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFormField;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFormData;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFormField;
 
 /**
  * @author Sebastian Menski
@@ -133,10 +133,10 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    *
    * @return the builder object
    */
-  public CamundaStartEventFormFieldBuilder camundaFormField() {
-    CamundaFormData camundaFormData = getCreateSingleExtensionElement(CamundaFormData.class);
-    CamundaFormField camundaFormField = createChild(camundaFormData, CamundaFormField.class);
-    return new CamundaStartEventFormFieldBuilder(modelInstance, element, camundaFormField);
+  public FlowaveStartEventFormFieldBuilder camundaFormField() {
+    FlowaveFormData camundaFormData = getCreateSingleExtensionElement(FlowaveFormData.class);
+    FlowaveFormField camundaFormField = createChild(camundaFormData, FlowaveFormField.class);
+    return new FlowaveStartEventFormFieldBuilder(modelInstance, element, camundaFormField);
   }
 
   /**

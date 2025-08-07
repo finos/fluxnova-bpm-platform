@@ -41,7 +41,7 @@ import org.finos.flowave.bpm.model.cmmn.instance.OnPart;
 import org.finos.flowave.bpm.model.cmmn.instance.PlanItem;
 import org.finos.flowave.bpm.model.cmmn.instance.PlanItemOnPart;
 import org.finos.flowave.bpm.model.cmmn.instance.Sentry;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaVariableOnPart;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveVariableOnPart;
 import org.finos.flowave.bpm.model.xml.instance.ModelElementInstance;
 
 /**
@@ -57,7 +57,7 @@ public class SentryHandler extends CmmnElementHandler<Sentry, CmmnSentryDeclarat
     String id = element.getId();
     Collection<OnPart> onParts = element.getOnParts();
     IfPart ifPart = element.getIfPart();
-    List<CamundaVariableOnPart> variableOnParts = queryExtensionElementsByClass(element, CamundaVariableOnPart.class);
+    List<FlowaveVariableOnPart> variableOnParts = queryExtensionElementsByClass(element, FlowaveVariableOnPart.class);
 
     if ((ifPart == null || ifPart.getConditions().isEmpty()) && variableOnParts.isEmpty()) {
 
@@ -184,13 +184,13 @@ public class SentryHandler extends CmmnElementHandler<Sentry, CmmnSentryDeclarat
   }
 
   protected void initializeVariableOnParts(CmmnElement element, CmmnSentryDeclaration sentryDeclaration, 
-    CmmnHandlerContext context, List<CamundaVariableOnPart> variableOnParts) {
-    for(CamundaVariableOnPart variableOnPart: variableOnParts) {
+    CmmnHandlerContext context, List<FlowaveVariableOnPart> variableOnParts) {
+    for(FlowaveVariableOnPart variableOnPart: variableOnParts) {
       initializeVariableOnPart(variableOnPart, sentryDeclaration, context);
     }
   }
 
-  protected void initializeVariableOnPart(CamundaVariableOnPart variableOnPart, CmmnSentryDeclaration sentryDeclaration, CmmnHandlerContext context) {
+  protected void initializeVariableOnPart(FlowaveVariableOnPart variableOnPart, CmmnSentryDeclaration sentryDeclaration, CmmnHandlerContext context) {
     VariableTransition variableTransition;
 
     try {

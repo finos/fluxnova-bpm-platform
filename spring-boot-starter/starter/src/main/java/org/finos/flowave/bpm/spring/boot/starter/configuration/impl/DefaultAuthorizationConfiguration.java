@@ -18,9 +18,9 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.property.AuthorizationProperty;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaAuthorizationConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveAuthorizationConfiguration;
 
-public class DefaultAuthorizationConfiguration extends AbstractCamundaConfiguration implements CamundaAuthorizationConfiguration {
+public class DefaultAuthorizationConfiguration extends AbstractFlowaveConfiguration implements FlowaveAuthorizationConfiguration {
 
   @Override
   public void preInit(final SpringProcessEngineConfiguration configuration) {

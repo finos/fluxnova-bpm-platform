@@ -22,7 +22,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.finos.flowave.bpm.engine.BadUserRequestException;
 import org.finos.flowave.bpm.engine.ProcessEngine;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.flowave.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.flowave.bpm.engine.rest.CaseInstanceRestService;
@@ -87,7 +87,7 @@ public class HalTask extends HalResource<HalTask> {
   private String caseDefinitionId;
   private boolean suspended;
   private String formKey;
-  private CamundaFormRef camundaFormRef;
+  private FlowaveFormRef camundaFormRef;
   private String tenantId;
 
   public static HalTask generate(Task task, ProcessEngine engine) {
@@ -228,7 +228,7 @@ public class HalTask extends HalResource<HalTask> {
     return formKey;
   }
 
-  public CamundaFormRef getCamundaFormRef() {
+  public FlowaveFormRef getCamundaFormRef() {
     return camundaFormRef;
   }
 

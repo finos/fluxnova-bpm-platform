@@ -68,7 +68,7 @@ import org.finos.flowave.bpm.model.cmmn.instance.PlanItemControl;
 import org.finos.flowave.bpm.model.cmmn.instance.RepetitionRule;
 import org.finos.flowave.bpm.model.cmmn.instance.RequiredRule;
 import org.finos.flowave.bpm.model.cmmn.instance.Sentry;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaTaskListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveTaskListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -527,7 +527,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCreateTaskListenerByClass() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_CREATE;
@@ -563,7 +563,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCreateTaskListenerByDelegateExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_CREATE;
@@ -599,7 +599,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCreateTaskListenerByExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_CREATE;
@@ -634,7 +634,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCompleteTaskListenerByClass() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_COMPLETE;
@@ -670,7 +670,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCompleteTaskListenerByDelegateExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_COMPLETE;
@@ -706,7 +706,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testCompleteTaskListenerByExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_COMPLETE;
@@ -741,7 +741,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testAssignmentTaskListenerByClass() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
@@ -777,7 +777,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testAssignmentTaskListenerByDelegateExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
@@ -813,7 +813,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testAssignmentTaskListenerByExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
@@ -848,7 +848,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testUpdateTaskListenerByClass() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_UPDATE;
@@ -884,7 +884,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testUpdateTaskListenerByDelegateExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_UPDATE;
@@ -920,7 +920,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testUpdateTaskListenerByExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_UPDATE;
@@ -955,7 +955,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testDeleteTaskListenerByClass() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_DELETE;
@@ -991,7 +991,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testDeleteTaskListenerByDelegateExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_DELETE;
@@ -1027,7 +1027,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testDeleteTaskListenerByExpression() {
     // given:
     ExtensionElements extensionElements = addExtensionElements(humanTask);
-    CamundaTaskListener taskListener = createElement(extensionElements, null, CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = createElement(extensionElements, null, FlowaveTaskListener.class);
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_DELETE;

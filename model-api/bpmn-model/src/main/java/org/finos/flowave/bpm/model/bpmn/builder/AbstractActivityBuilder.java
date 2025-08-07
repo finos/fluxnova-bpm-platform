@@ -25,9 +25,9 @@ import org.finos.flowave.bpm.model.bpmn.instance.Activity;
 import org.finos.flowave.bpm.model.bpmn.instance.BoundaryEvent;
 import org.finos.flowave.bpm.model.bpmn.instance.MultiInstanceLoopCharacteristics;
 import org.finos.flowave.bpm.model.bpmn.instance.bpmndi.BpmnShape;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputOutput;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputParameter;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOutputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputOutput;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOutputParameter;
 import org.finos.flowave.bpm.model.bpmn.instance.dc.Bounds;
 
 /**
@@ -69,9 +69,9 @@ public abstract class AbstractActivityBuilder<B extends AbstractActivityBuilder<
    * @return the builder object
    */
   public B camundaInputParameter(String name, String value) {
-    CamundaInputOutput camundaInputOutput = getCreateSingleExtensionElement(CamundaInputOutput.class);
+    FlowaveInputOutput camundaInputOutput = getCreateSingleExtensionElement(FlowaveInputOutput.class);
 
-    CamundaInputParameter camundaInputParameter = createChild(camundaInputOutput, CamundaInputParameter.class);
+    FlowaveInputParameter camundaInputParameter = createChild(camundaInputOutput, FlowaveInputParameter.class);
     camundaInputParameter.setCamundaName(name);
     camundaInputParameter.setTextContent(value);
 
@@ -87,9 +87,9 @@ public abstract class AbstractActivityBuilder<B extends AbstractActivityBuilder<
    * @return the builder object
    */
   public B camundaOutputParameter(String name, String value) {
-    CamundaInputOutput camundaInputOutput = getCreateSingleExtensionElement(CamundaInputOutput.class);
+    FlowaveInputOutput camundaInputOutput = getCreateSingleExtensionElement(FlowaveInputOutput.class);
 
-    CamundaOutputParameter camundaOutputParameter = createChild(camundaInputOutput, CamundaOutputParameter.class);
+    FlowaveOutputParameter camundaOutputParameter = createChild(camundaInputOutput, FlowaveOutputParameter.class);
     camundaOutputParameter.setCamundaName(name);
     camundaOutputParameter.setTextContent(value);
 

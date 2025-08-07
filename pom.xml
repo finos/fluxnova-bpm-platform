@@ -50,7 +50,7 @@
           <skip>false</skip>
         </configuration>
       </plugin>
-      <plugin>
+<!--  <plugin>
         <groupId>org.openrewrite.maven</groupId>
         <artifactId>rewrite-maven-plugin</artifactId>
         <version>6.2.3</version>
@@ -61,6 +61,23 @@
           </activeRecipes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.openrewrite.maven</groupId>
+        <artifactId>rewrite-maven-plugin</artifactId>
+        <version>6.4.0</version>
+        <configuration>
+          <activeRecipes>
+            <recipe>com.yourorg.UpdateClassNameAndRefsAll</recipe>
+          </activeRecipes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.yourorg</groupId>
+            <artifactId>iteration3-recipe</artifactId>
+            <version>1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin> -->
     </plugins>
   </build>
 

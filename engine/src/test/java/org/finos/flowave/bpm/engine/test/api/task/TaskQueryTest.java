@@ -61,7 +61,7 @@ import org.finos.flowave.bpm.engine.ProcessEngineConfiguration;
 import org.finos.flowave.bpm.engine.ProcessEngineException;
 import org.finos.flowave.bpm.engine.exception.NullValueException;
 import org.finos.flowave.bpm.engine.filter.Filter;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.impl.TaskQueryImpl;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.flowave.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
@@ -5169,7 +5169,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
         .singleResult();
 
     // then the form key is present
-    CamundaFormRef camundaFormRef = task.getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = task.getCamundaFormRef();
     assertThat(camundaFormRef.getKey()).isEqualTo("myForm");
     assertThat(camundaFormRef.getBinding()).isEqualTo("latest");
     assertThat(camundaFormRef.getVersion()).isNull();
@@ -5532,7 +5532,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
 
     Task taskWithFormKey = withFormKeys.get(0);
-    CamundaFormRef camundaFormRefWithFormKey = taskWithFormKey.getCamundaFormRef();
+    FlowaveFormRef camundaFormRefWithFormKey = taskWithFormKey.getCamundaFormRef();
 
     assertThat(camundaFormRefWithFormKey).isNotNull();
     assertThat(camundaFormRefWithFormKey.getKey()).isEqualTo("key");

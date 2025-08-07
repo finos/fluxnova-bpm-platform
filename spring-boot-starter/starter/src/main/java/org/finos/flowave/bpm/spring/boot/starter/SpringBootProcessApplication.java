@@ -32,10 +32,10 @@ import org.finos.flowave.bpm.container.RuntimeContainerDelegate;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.flowave.bpm.engine.spring.application.SpringProcessApplication;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaDeploymentConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveDeploymentConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.event.PostDeployEvent;
 import org.finos.flowave.bpm.spring.boot.starter.event.PreUndeployEvent;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -50,8 +50,8 @@ import org.springframework.web.context.ServletContextAware;
 public class SpringBootProcessApplication extends SpringProcessApplication {
 
   @Bean
-  public static CamundaDeploymentConfiguration deploymentConfiguration() {
-    return new CamundaDeploymentConfiguration() {
+  public static FlowaveDeploymentConfiguration deploymentConfiguration() {
+    return new FlowaveDeploymentConfiguration() {
       @Override
       public Set<Resource> getDeploymentResources() {
         return Collections.emptySet();
@@ -75,7 +75,7 @@ public class SpringBootProcessApplication extends SpringProcessApplication {
   protected String contextPath = "/";
 
   @Autowired
-  protected CamundaBpmProperties camundaBpmProperties;
+  protected FlowaveBpmProperties camundaBpmProperties;
 
   @Autowired
   protected ProcessEngine processEngine;
@@ -90,7 +90,7 @@ public class SpringBootProcessApplication extends SpringProcessApplication {
       .ifPresent(this::setBeanName);
 
     if (camundaBpmProperties.getGenerateUniqueProcessApplicationName()) {
-      setBeanName(CamundaBpmProperties.getUniqueName(CamundaBpmProperties.UNIQUE_APPLICATION_NAME_PREFIX));
+      setBeanName(FlowaveBpmProperties.getUniqueName(FlowaveBpmProperties.UNIQUE_APPLICATION_NAME_PREFIX));
     }
 
     String processEngineName = processEngine.getName();

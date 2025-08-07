@@ -18,13 +18,13 @@ package org.finos.flowave.bpm.spring.boot.starter.property;
 
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
-import static org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties.joinOn;
+import static org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties.joinOn;
 
 public class WebappProperty {
 
   public static final String DEFAULT_APP_PATH = "/camunda";
 
-  public static final String PREFIX = CamundaBpmProperties.PREFIX + ".webapp";
+  public static final String PREFIX = FlowaveBpmProperties.PREFIX + ".webapp";
 
   protected boolean indexRedirectEnabled = true;
 

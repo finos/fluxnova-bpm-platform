@@ -26,7 +26,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
 import org.finos.flowave.bpm.engine.runtime.EventSubscriptionQuery;
@@ -67,7 +67,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return eventSubscriptionId;
   }
 
-  @CamundaQueryParam("eventSubscriptionId")
+  @FlowaveQueryParam("eventSubscriptionId")
   public void setEventSubscriptionId(String eventSubscriptionId) {
     this.eventSubscriptionId = eventSubscriptionId;
   }
@@ -76,7 +76,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return eventName;
   }
 
-  @CamundaQueryParam("eventName")
+  @FlowaveQueryParam("eventName")
   public void setEventName(String eventName) {
     this.eventName = eventName;
   }
@@ -85,7 +85,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return eventType;
   }
 
-  @CamundaQueryParam("eventType")
+  @FlowaveQueryParam("eventType")
   public void setEventType(String eventType) {
     this.eventType = eventType;
   }
@@ -94,7 +94,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return executionId;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
@@ -103,7 +103,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return processInstanceId;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
@@ -112,7 +112,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return activityId;
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
@@ -121,7 +121,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return tenantIdIn;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIdIn) {
     this.tenantIdIn = tenantIdIn;
   }
@@ -130,7 +130,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
@@ -139,7 +139,7 @@ public class EventSubscriptionQueryDto extends AbstractQueryDto<EventSubscriptio
     return includeEventSubscriptionsWithoutTenantId;
   }
 
-  @CamundaQueryParam(value = "includeEventSubscriptionsWithoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeEventSubscriptionsWithoutTenantId", converter = BooleanConverter.class)
   public void setIncludeEventSubscriptionsWithoutTenantId(Boolean includeEventSubscriptionsWithoutTenantId) {
     this.includeEventSubscriptionsWithoutTenantId = includeEventSubscriptionsWithoutTenantId;
   }

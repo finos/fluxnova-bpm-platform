@@ -18,9 +18,9 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.id;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.impl.cfg.IdGenerator;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.test.nonpa.TestApplication;
-import org.finos.flowave.bpm.spring.boot.starter.util.CamundaSpringBootUtil;
+import org.finos.flowave.bpm.spring.boot.starter.util.FlowaveSpringBootUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class PrefixedUuidGeneratorIT {
   private IdGenerator idGenerator;
 
   @Autowired
-  private CamundaBpmProperties properties;
+  private FlowaveBpmProperties properties;
 
   @Autowired
   private ProcessEngine processEngine;
@@ -54,7 +54,7 @@ public class PrefixedUuidGeneratorIT {
 
   @Test
   public void configured_idGenerator_is_uuid() throws Exception {
-    final IdGenerator idGenerator = CamundaSpringBootUtil.get(processEngine).getIdGenerator();
+    final IdGenerator idGenerator = FlowaveSpringBootUtil.get(processEngine).getIdGenerator();
 
     assertThat(idGenerator).isOfAnyClassIn(PrefixedUuidGenerator.class);
   }

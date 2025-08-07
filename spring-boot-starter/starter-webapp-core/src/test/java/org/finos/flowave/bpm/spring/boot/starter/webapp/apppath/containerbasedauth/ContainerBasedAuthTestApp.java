@@ -16,13 +16,13 @@
  */
 package org.finos.flowave.bpm.spring.boot.starter.webapp.apppath.containerbasedauth;
 
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(CamundaBpmProperties.class)
+@EnableConfigurationProperties(FlowaveBpmProperties.class)
 public class ContainerBasedAuthTestApp {
 
   public static void main(String[] args) {

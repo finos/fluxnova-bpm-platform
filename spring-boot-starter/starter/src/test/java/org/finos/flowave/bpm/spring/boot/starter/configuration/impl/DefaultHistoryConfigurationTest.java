@@ -26,7 +26,7 @@ import java.util.List;
 import org.finos.flowave.bpm.engine.impl.history.HistoryLevel;
 import org.finos.flowave.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,13 +40,13 @@ public class DefaultHistoryConfigurationTest {
   @Mock
   private SpringProcessEngineConfiguration springProcessEngineConfiguration;
 
-  private CamundaBpmProperties camundaBpmProperties;
+  private FlowaveBpmProperties camundaBpmProperties;
 
   private DefaultHistoryConfiguration defaultHistoryConfiguration;
 
   @Before
   public void before() {
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
     defaultHistoryConfiguration = new DefaultHistoryConfiguration();
     defaultHistoryConfiguration.camundaBpmProperties = camundaBpmProperties;
   }

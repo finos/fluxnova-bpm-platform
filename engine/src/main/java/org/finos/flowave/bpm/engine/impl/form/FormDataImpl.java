@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.form.FormData;
 import org.finos.flowave.bpm.engine.form.FormField;
 import org.finos.flowave.bpm.engine.form.FormProperty;
@@ -34,7 +34,7 @@ public abstract class FormDataImpl implements FormData, Serializable {
   private static final long serialVersionUID = 1L;
 
   protected String formKey;
-  protected CamundaFormRef camundaFormRef;
+  protected FlowaveFormRef camundaFormRef;
   protected String deploymentId;
   protected List<FormProperty> formProperties = new ArrayList<>();
 
@@ -50,11 +50,11 @@ public abstract class FormDataImpl implements FormData, Serializable {
     this.formKey = formKey;
   }
 
-  public CamundaFormRef getCamundaFormRef() {
+  public FlowaveFormRef getCamundaFormRef() {
     return camundaFormRef;
   }
 
-  public void setCamundaFormRef(CamundaFormRef camundaFormRef) {
+  public void setCamundaFormRef(FlowaveFormRef camundaFormRef) {
     this.camundaFormRef = camundaFormRef;
   }
 

@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.identity.GroupQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,37 +64,37 @@ public class GroupQueryDto extends AbstractQueryDto<GroupQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("id")
+  @FlowaveQueryParam("id")
   public void setId(String groupId) {
     this.id = groupId;
   }
 
-  @CamundaQueryParam(value = "idIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "idIn", converter = StringArrayConverter.class)
   public void setIdIn(String[] groupIds) {
     this.ids = groupIds;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String groupName) {
     this.name = groupName;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String groupNameLike) {
     this.nameLike = groupNameLike;
   }
 
-  @CamundaQueryParam("type")
+  @FlowaveQueryParam("type")
   public void setType(String groupType) {
     this.type = groupType;
   }
 
-  @CamundaQueryParam("member")
+  @FlowaveQueryParam("member")
   public void setMember(String member) {
     this.member = member;
   }
 
-  @CamundaQueryParam("memberOfTenant")
+  @FlowaveQueryParam("memberOfTenant")
   public void setMemberOfTenant(String tenantId) {
     this.tenantId = tenantId;
   }

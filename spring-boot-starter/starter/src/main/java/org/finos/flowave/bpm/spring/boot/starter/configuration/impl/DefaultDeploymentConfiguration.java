@@ -17,7 +17,7 @@
 package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaDeploymentConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveDeploymentConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Collections.EMPTY_SET;
 
-public class DefaultDeploymentConfiguration extends AbstractCamundaConfiguration implements CamundaDeploymentConfiguration {
+public class DefaultDeploymentConfiguration extends AbstractFlowaveConfiguration implements FlowaveDeploymentConfiguration {
   private final Logger logger = LoggerFactory.getLogger(DefaultDeploymentConfiguration.class);
 
   @Override

@@ -16,8 +16,8 @@
  */
 package org.finos.flowave.bpm.run.test.config.deploy;
 
-import org.finos.flowave.bpm.run.CamundaBpmRunProcessEngineConfiguration;
-import org.finos.flowave.bpm.run.property.CamundaBpmRunDeploymentProperties;
+import org.finos.flowave.bpm.run.FlowaveBpmRunProcessEngineConfiguration;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunDeploymentProperties;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@TestPropertySource(properties = { CamundaBpmRunDeploymentProperties.PREFIX + ".deploy-changed-only=false" })
+@TestPropertySource(properties = { FlowaveBpmRunDeploymentProperties.PREFIX + ".deploy-changed-only=false" })
 public class DeployChangedOnlyDisabledTest extends AbstractRestTest {
 
   @Autowired
-  private CamundaBpmRunProcessEngineConfiguration engineConfig;
+  private FlowaveBpmRunProcessEngineConfiguration engineConfig;
 
   @Test
   public void shouldEnableDeployChangedOnlyOnCamundaRunProperty() {

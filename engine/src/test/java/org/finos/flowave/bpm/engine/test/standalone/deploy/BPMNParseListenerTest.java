@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.finos.flowave.bpm.engine.FormService;
 import org.finos.flowave.bpm.engine.RepositoryService;
 import org.finos.flowave.bpm.engine.RuntimeService;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.form.TaskFormData;
 import org.finos.flowave.bpm.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.finos.flowave.bpm.engine.impl.bpmn.parser.AbstractBpmnParseListener;
@@ -214,7 +214,7 @@ public class BPMNParseListenerTest {
 
     FormService formService = engineRule.getFormService();
     TaskFormData formData = formService.getTaskFormData(task.getId());
-    CamundaFormRef formRef = formData.getCamundaFormRef();
+    FlowaveFormRef formRef = formData.getCamundaFormRef();
     assertThat(formRef.getKey()).isEqualTo(modifiedFormRef);
     assertThat(formRef.getBinding()).isEqualTo(modifiedFormRefBinding);
     assertThat(formRef.getVersion()).isEqualTo(modifiedFormRefVersion);

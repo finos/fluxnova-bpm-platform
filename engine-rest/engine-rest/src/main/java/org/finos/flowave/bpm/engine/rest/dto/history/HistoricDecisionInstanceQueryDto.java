@@ -28,7 +28,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricDecisionInstanceQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -89,147 +89,147 @@ public class HistoricDecisionInstanceQueryDto extends AbstractQueryDto<HistoricD
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("decisionInstanceId")
+  @FlowaveQueryParam("decisionInstanceId")
   public void setDecisionInstanceId(String decisionInstanceId) {
     this.decisionInstanceId = decisionInstanceId;
   }
 
-  @CamundaQueryParam(value = "decisionInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "decisionInstanceIdIn", converter = StringArrayConverter.class)
   public void setDecisionInstanceIdIn(String[] decisionInstanceIdIn) {
     this.decisionInstanceIdIn = decisionInstanceIdIn;
   }
 
-  @CamundaQueryParam("decisionDefinitionId")
+  @FlowaveQueryParam("decisionDefinitionId")
   public void setDecisionDefinitionId(String decisionDefinitionId) {
     this.decisionDefinitionId = decisionDefinitionId;
   }
 
-  @CamundaQueryParam(value = "decisionDefinitionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "decisionDefinitionIdIn", converter = StringArrayConverter.class)
   public void setDecisionDefinitionIdIn(String[] decisionDefinitionIdIn) {
     this.decisionDefinitionIdIn = decisionDefinitionIdIn;
   }
 
-  @CamundaQueryParam("decisionDefinitionKey")
+  @FlowaveQueryParam("decisionDefinitionKey")
   public void setDecisionDefinitionKey(String decisionDefinitionKey) {
     this.decisionDefinitionKey = decisionDefinitionKey;
   }
 
-  @CamundaQueryParam(value = "decisionDefinitionKeyIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "decisionDefinitionKeyIn", converter = StringArrayConverter.class)
   public void setDecisionDefinitionKeyIn(String[] decisionDefinitionKeyIn) {
     this.decisionDefinitionKeyIn = decisionDefinitionKeyIn;
   }
 
-  @CamundaQueryParam("decisionDefinitionName")
+  @FlowaveQueryParam("decisionDefinitionName")
   public void setDecisionDefinitionName(String decisionDefinitionName) {
     this.decisionDefinitionName = decisionDefinitionName;
   }
 
-  @CamundaQueryParam("decisionDefinitionNameLike")
+  @FlowaveQueryParam("decisionDefinitionNameLike")
   public void setDecisionDefinitionNameLike(String decisionDefinitionNameLike) {
     this.decisionDefinitionNameLike = decisionDefinitionNameLike;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("caseDefinitionId")
+  @FlowaveQueryParam("caseDefinitionId")
   public void setCaseDefinitionId(String caseDefinitionId) {
     this.caseDefinitionId = caseDefinitionId;
   }
 
-  @CamundaQueryParam("caseDefinitionKey")
+  @FlowaveQueryParam("caseDefinitionKey")
   public void setCaseDefinitionKey(String caseDefinitionKey) {
     this.caseDefinitionKey = caseDefinitionKey;
   }
 
-  @CamundaQueryParam("caseInstanceId")
+  @FlowaveQueryParam("caseInstanceId")
   public void setCaseInstanceId(String caseInstanceId) {
     this.caseInstanceId = caseInstanceId;
   }
 
-  @CamundaQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityIdIn", converter = StringArrayConverter.class)
   public void setActivityIdIn(String[] activityIdIn) {
     this.activityIdIn = activityIdIn;
   }
 
-  @CamundaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
   public void setActivityInstanceIdIn(String[] activityInstanceIdIn) {
     this.activityInstanceIdIn = activityInstanceIdIn;
   }
 
-  @CamundaQueryParam(value = "evaluatedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "evaluatedBefore", converter = DateConverter.class)
   public void setEvaluatedBefore(Date evaluatedBefore) {
     this.evaluatedBefore = evaluatedBefore;
   }
 
-  @CamundaQueryParam(value = "evaluatedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "evaluatedAfter", converter = DateConverter.class)
   public void setEvaluatedAfter(Date evaluatedAfter) {
     this.evaluatedAfter = evaluatedAfter;
   }
 
-  @CamundaQueryParam(value = "userId")
+  @FlowaveQueryParam(value = "userId")
   public void setUserId(String userId) {
     this.userId = userId;
   }
 
-  @CamundaQueryParam(value = "includeInputs", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeInputs", converter = BooleanConverter.class)
   public void setIncludeInputs(Boolean includeInputs) {
     this.includeInputs = includeInputs;
   }
 
-  @CamundaQueryParam(value = "includeOutputs", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeOutputs", converter = BooleanConverter.class)
   public void setIncludeOutputs(Boolean includeOutputs) {
     this.includeOutputs = includeOutputs;
   }
 
-  @CamundaQueryParam(value = "disableBinaryFetching", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "disableBinaryFetching", converter = BooleanConverter.class)
   public void setDisableBinaryFetching(Boolean disableBinaryFetching) {
     this.disableBinaryFetching = disableBinaryFetching;
   }
 
-  @CamundaQueryParam(value = "disableCustomObjectDeserialization", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "disableCustomObjectDeserialization", converter = BooleanConverter.class)
   public void setDisableCustomObjectDeserialization(Boolean disableCustomObjectDeserialization) {
     this.disableCustomObjectDeserialization = disableCustomObjectDeserialization;
   }
 
-  @CamundaQueryParam(value = "rootDecisionInstanceId")
+  @FlowaveQueryParam(value = "rootDecisionInstanceId")
   public void setRootDecisionInstanceId(String rootDecisionInstanceId) {
     this.rootDecisionInstanceId = rootDecisionInstanceId;
   }
 
-  @CamundaQueryParam(value = "rootDecisionInstancesOnly", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "rootDecisionInstancesOnly", converter = BooleanConverter.class)
   public void setRootDecisionInstancesOnly(Boolean rootDecisionInstancesOnly) {
     this.rootDecisionInstancesOnly = rootDecisionInstancesOnly;
   }
 
-  @CamundaQueryParam(value = "decisionRequirementsDefinitionId")
+  @FlowaveQueryParam(value = "decisionRequirementsDefinitionId")
   public void setDecisionRequirementsDefinitionId(String decisionRequirementsDefinitionId) {
     this.decisionRequirementsDefinitionId = decisionRequirementsDefinitionId;
   }
 
-  @CamundaQueryParam(value = "decisionRequirementsDefinitionKey")
+  @FlowaveQueryParam(value = "decisionRequirementsDefinitionKey")
   public void setDecisionRequirementsDefinitionKey(String decisionRequirementsDefinitionKey) {
     this.decisionRequirementsDefinitionKey = decisionRequirementsDefinitionKey;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }

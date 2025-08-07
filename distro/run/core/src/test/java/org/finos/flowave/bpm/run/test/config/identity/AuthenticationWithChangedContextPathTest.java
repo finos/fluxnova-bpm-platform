@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.run.test.config.identity;
 
-import org.finos.flowave.bpm.run.property.CamundaBpmRunAuthenticationProperties;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunAuthenticationProperties;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     "test-auth-enabled"
 })
 @TestPropertySource(properties = {
-    CamundaBpmRunAuthenticationProperties.PREFIX + "=basic"
+    FlowaveBpmRunAuthenticationProperties.PREFIX + "=basic"
 })
 public class AuthenticationWithChangedContextPathTest extends AbstractRestTest {
 

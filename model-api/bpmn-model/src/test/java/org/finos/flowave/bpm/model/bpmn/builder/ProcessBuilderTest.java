@@ -110,17 +110,17 @@ import org.finos.flowave.bpm.model.bpmn.instance.TimeDuration;
 import org.finos.flowave.bpm.model.bpmn.instance.TimerEventDefinition;
 import org.finos.flowave.bpm.model.bpmn.instance.Transaction;
 import org.finos.flowave.bpm.model.bpmn.instance.UserTask;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaErrorEventDefinition;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFailedJobRetryTimeCycle;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFormData;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaFormField;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputOutput;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaInputParameter;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOut;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOutputParameter;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaTaskListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveErrorEventDefinition;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFailedJobRetryTimeCycle;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFormData;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveFormField;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputOutput;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveInputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOut;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOutputParameter;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveTaskListener;
 import org.finos.flowave.bpm.model.xml.Model;
 import org.finos.flowave.bpm.model.xml.instance.ModelElementInstance;
 import org.finos.flowave.bpm.model.xml.type.ModelElementType;
@@ -651,9 +651,9 @@ public class ProcessBuilderTest {
 
     ServiceTask externalTask = modelInstance.getModelElementById(EXTERNAL_TASK_ID);
     ExtensionElements extensionElements = externalTask.getExtensionElements();
-    Collection<CamundaErrorEventDefinition> errorEventDefinitions = extensionElements.getChildElementsByType(CamundaErrorEventDefinition.class);
+    Collection<FlowaveErrorEventDefinition> errorEventDefinitions = extensionElements.getChildElementsByType(FlowaveErrorEventDefinition.class);
     assertThat(errorEventDefinitions).hasSize(1);
-    CamundaErrorEventDefinition camundaErrorEventDefinition = errorEventDefinitions.iterator().next();
+    FlowaveErrorEventDefinition camundaErrorEventDefinition = errorEventDefinitions.iterator().next();
     assertThat(camundaErrorEventDefinition).isNotNull();
     assertThat(camundaErrorEventDefinition.getId()).isEqualTo("id");
     assertThat(camundaErrorEventDefinition.getCamundaExpression()).isEqualTo("expression");
@@ -967,11 +967,11 @@ public class ProcessBuilderTest {
     assertThat(callActivity.getCamundaCaseTenantId()).isEqualTo("t2");
     assertThat(callActivity.isCamundaExclusive()).isFalse();
 
-    CamundaIn camundaIn = (CamundaIn) callActivity.getExtensionElements().getUniqueChildElementByType(CamundaIn.class);
+    FlowaveIn camundaIn = (FlowaveIn) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveIn.class);
     assertThat(camundaIn.getCamundaSource()).isEqualTo("in-source");
     assertThat(camundaIn.getCamundaTarget()).isEqualTo("in-target");
 
-    CamundaOut camundaOut = (CamundaOut) callActivity.getExtensionElements().getUniqueChildElementByType(CamundaOut.class);
+    FlowaveOut camundaOut = (FlowaveOut) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveOut.class);
     assertThat(camundaOut.getCamundaSource()).isEqualTo("out-source");
     assertThat(camundaOut.getCamundaTarget()).isEqualTo("out-target");
 
@@ -990,7 +990,7 @@ public class ProcessBuilderTest {
       .done();
 
     CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
-    CamundaIn camundaIn = (CamundaIn) callActivity.getExtensionElements().getUniqueChildElementByType(CamundaIn.class);
+    FlowaveIn camundaIn = (FlowaveIn) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveIn.class);
     assertThat(camundaIn.getCamundaBusinessKey()).isEqualTo("business-key");
   }
 
@@ -1668,11 +1668,11 @@ public class ProcessBuilderTest {
 
     assertThat(signalEventDefinition.getSignal().getName()).isEqualTo("signal");
 
-    List<CamundaIn> camundaInParams = signalEventDefinition.getExtensionElements().getElementsQuery().filterByType(CamundaIn.class).list();
+    List<FlowaveIn> camundaInParams = signalEventDefinition.getExtensionElements().getElementsQuery().filterByType(FlowaveIn.class).list();
     assertThat(camundaInParams.size()).isEqualTo(4);
 
     int paramCounter = 0;
-    for (CamundaIn inParam : camundaInParams) {
+    for (FlowaveIn inParam : camundaInParams) {
       if (inParam.getCamundaVariables() != null) {
         assertThat(inParam.getCamundaVariables()).isEqualTo("all");
         if (inParam.getCamundaLocal()) {
@@ -1707,7 +1707,7 @@ public class ProcessBuilderTest {
 
     SignalEventDefinition signalEventDefinition = assertAndGetSingleEventDefinition("throw", SignalEventDefinition.class);
 
-    List<CamundaIn> camundaInParams = signalEventDefinition.getExtensionElements().getElementsQuery().filterByType(CamundaIn.class).list();
+    List<FlowaveIn> camundaInParams = signalEventDefinition.getExtensionElements().getElementsQuery().filterByType(FlowaveIn.class).list();
     assertThat(camundaInParams.size()).isEqualTo(1);
 
     assertThat(camundaInParams.get(0).getCamundaVariables()).isEqualTo("all");
@@ -1790,10 +1790,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -1809,10 +1809,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
     assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -1828,10 +1828,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -1847,10 +1847,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -1866,10 +1866,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -1894,10 +1894,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -1922,10 +1922,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -1950,10 +1950,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -1978,10 +1978,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2006,10 +2006,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2034,10 +2034,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2062,10 +2062,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2090,10 +2090,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2118,10 +2118,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2146,10 +2146,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2174,10 +2174,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaTaskListener> taskListeners = extensionElements.getChildElementsByType(CamundaTaskListener.class);
+    Collection<FlowaveTaskListener> taskListeners = extensionElements.getChildElementsByType(FlowaveTaskListener.class);
     assertThat(taskListeners).hasSize(1);
 
-    CamundaTaskListener taskListener = taskListeners.iterator().next();
+    FlowaveTaskListener taskListener = taskListeners.iterator().next();
     assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
     assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
 
@@ -2202,10 +2202,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaExecutionListener> executionListeners = extensionElements.getChildElementsByType(CamundaExecutionListener.class);
+    Collection<FlowaveExecutionListener> executionListeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     assertThat(executionListeners).hasSize(1);
 
-    CamundaExecutionListener executionListener = executionListeners.iterator().next();
+    FlowaveExecutionListener executionListener = executionListeners.iterator().next();
     assertThat(executionListener.getCamundaClass()).isEqualTo("aClass");
     assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -2221,10 +2221,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaExecutionListener> executionListeners = extensionElements.getChildElementsByType(CamundaExecutionListener.class);
+    Collection<FlowaveExecutionListener> executionListeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     assertThat(executionListeners).hasSize(1);
 
-    CamundaExecutionListener executionListener = executionListeners.iterator().next();
+    FlowaveExecutionListener executionListener = executionListeners.iterator().next();
     assertThat(executionListener.getCamundaClass()).isEqualTo(this.getClass().getName());
     assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -2240,10 +2240,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaExecutionListener> executionListeners = extensionElements.getChildElementsByType(CamundaExecutionListener.class);
+    Collection<FlowaveExecutionListener> executionListeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     assertThat(executionListeners).hasSize(1);
 
-    CamundaExecutionListener executionListener = executionListeners.iterator().next();
+    FlowaveExecutionListener executionListener = executionListeners.iterator().next();
     assertThat(executionListener.getCamundaExpression()).isEqualTo("anExpression");
     assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -2259,10 +2259,10 @@ public class ProcessBuilderTest {
 
     UserTask userTask = modelInstance.getModelElementById("task");
     ExtensionElements extensionElements = userTask.getExtensionElements();
-    Collection<CamundaExecutionListener> executionListeners = extensionElements.getChildElementsByType(CamundaExecutionListener.class);
+    Collection<FlowaveExecutionListener> executionListeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     assertThat(executionListeners).hasSize(1);
 
-    CamundaExecutionListener executionListener = executionListeners.iterator().next();
+    FlowaveExecutionListener executionListener = executionListeners.iterator().next();
     assertThat(executionListener.getCamundaDelegateExpression()).isEqualTo("aDelegateExpression");
     assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
   }
@@ -3460,13 +3460,13 @@ public class ProcessBuilderTest {
   }
 
   protected void assertCamundaInputOutputParameter(BaseElement element) {
-    CamundaInputOutput camundaInputOutput = element.getExtensionElements().getElementsQuery().filterByType(CamundaInputOutput.class).singleResult();
+    FlowaveInputOutput camundaInputOutput = element.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult();
     assertThat(camundaInputOutput).isNotNull();
 
-    List<CamundaInputParameter> camundaInputParameters = new ArrayList<>(camundaInputOutput.getCamundaInputParameters());
+    List<FlowaveInputParameter> camundaInputParameters = new ArrayList<>(camundaInputOutput.getCamundaInputParameters());
     assertThat(camundaInputParameters).hasSize(2);
 
-    CamundaInputParameter camundaInputParameter = camundaInputParameters.get(0);
+    FlowaveInputParameter camundaInputParameter = camundaInputParameters.get(0);
     assertThat(camundaInputParameter.getCamundaName()).isEqualTo("foo");
     assertThat(camundaInputParameter.getTextContent()).isEqualTo("bar");
 
@@ -3474,10 +3474,10 @@ public class ProcessBuilderTest {
     assertThat(camundaInputParameter.getCamundaName()).isEqualTo("yoo");
     assertThat(camundaInputParameter.getTextContent()).isEqualTo("hoo");
 
-    List<CamundaOutputParameter> camundaOutputParameters = new ArrayList<>(camundaInputOutput.getCamundaOutputParameters());
+    List<FlowaveOutputParameter> camundaOutputParameters = new ArrayList<>(camundaInputOutput.getCamundaOutputParameters());
     assertThat(camundaOutputParameters).hasSize(2);
 
-    CamundaOutputParameter camundaOutputParameter = camundaOutputParameters.get(0);
+    FlowaveOutputParameter camundaOutputParameter = camundaOutputParameters.get(0);
     assertThat(camundaOutputParameter.getCamundaName()).isEqualTo("one");
     assertThat(camundaOutputParameter.getTextContent()).isEqualTo("two");
 
@@ -3524,13 +3524,13 @@ public class ProcessBuilderTest {
   protected void assertCamundaFormField(BaseElement element) {
     assertThat(element.getExtensionElements()).isNotNull();
 
-    CamundaFormData camundaFormData = element.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
+    FlowaveFormData camundaFormData = element.getExtensionElements().getElementsQuery().filterByType(FlowaveFormData.class).singleResult();
     assertThat(camundaFormData).isNotNull();
 
-    List<CamundaFormField> camundaFormFields = new ArrayList<>(camundaFormData.getCamundaFormFields());
+    List<FlowaveFormField> camundaFormFields = new ArrayList<>(camundaFormData.getCamundaFormFields());
     assertThat(camundaFormFields).hasSize(2);
 
-    CamundaFormField camundaFormField = camundaFormFields.get(0);
+    FlowaveFormField camundaFormField = camundaFormFields.get(0);
     assertThat(camundaFormField.getCamundaId()).isEqualTo("myFormField_1");
     assertThat(camundaFormField.getCamundaLabel()).isEqualTo("Form Field One");
     assertThat(camundaFormField.getCamundaType()).isEqualTo("string");
@@ -3547,7 +3547,7 @@ public class ProcessBuilderTest {
   protected void assertCamundaFailedJobRetryTimeCycle(BaseElement element) {
     assertThat(element.getExtensionElements()).isNotNull();
 
-    CamundaFailedJobRetryTimeCycle camundaFailedJobRetryTimeCycle = element.getExtensionElements().getElementsQuery().filterByType(CamundaFailedJobRetryTimeCycle.class).singleResult();
+    FlowaveFailedJobRetryTimeCycle camundaFailedJobRetryTimeCycle = element.getExtensionElements().getElementsQuery().filterByType(FlowaveFailedJobRetryTimeCycle.class).singleResult();
     assertThat(camundaFailedJobRetryTimeCycle).isNotNull();
     assertThat(camundaFailedJobRetryTimeCycle.getTextContent()).isEqualTo(FAILED_JOB_RETRY_TIME_CYCLE);
   }

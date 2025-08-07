@@ -21,7 +21,7 @@ import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.HistoricTaskInstanceReport;
 import org.finos.flowave.bpm.engine.history.HistoricTaskInstanceReportResult;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractReportDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.exception.InvalidRequestException;
 
@@ -61,17 +61,17 @@ public class HistoricTaskInstanceReportQueryDto extends AbstractReportDto<Histor
     return groupby;
   }
 
-  @CamundaQueryParam(value = "completedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "completedAfter", converter = DateConverter.class)
   public void setCompletedAfter(Date completedAfter) {
     this.completedAfter = completedAfter;
   }
 
-  @CamundaQueryParam(value = "completedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "completedBefore", converter = DateConverter.class)
   public void setCompletedBefore(Date completedBefore) {
     this.completedBefore = completedBefore;
   }
 
-  @CamundaQueryParam("groupBy")
+  @FlowaveQueryParam("groupBy")
   public void setGroupBy(String groupby) {
     this.groupby = groupby;
   }

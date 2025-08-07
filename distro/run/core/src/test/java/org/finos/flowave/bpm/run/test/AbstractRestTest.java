@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.run.test;
 
 import java.util.Collections;
 
-import org.finos.flowave.bpm.run.CamundaBpmRun;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
 import org.finos.flowave.bpm.run.test.util.LoggingInterceptor;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = { FlowaveBpmRun.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = { "test-auth-disabled" })
 public abstract class AbstractRestTest {
 

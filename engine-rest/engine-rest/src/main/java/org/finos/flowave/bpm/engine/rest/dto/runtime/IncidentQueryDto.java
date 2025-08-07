@@ -25,7 +25,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -93,87 +93,87 @@ public class IncidentQueryDto extends AbstractQueryDto<IncidentQuery>{
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("incidentId")
+  @FlowaveQueryParam("incidentId")
   public void setIncidentId(String incidentId) {
     this.incidentId = incidentId;
   }
 
-  @CamundaQueryParam("incidentType")
+  @FlowaveQueryParam("incidentType")
   public void setIncidentType(String incidentType) {
     this.incidentType = incidentType;
   }
 
-  @CamundaQueryParam("incidentMessage")
+  @FlowaveQueryParam("incidentMessage")
   public void setIncidentMessage(String incidentMessage) {
     this.incidentMessage = incidentMessage;
   }
 
-  @CamundaQueryParam("incidentMessageLike")
+  @FlowaveQueryParam("incidentMessageLike")
   public void setIncidentMessageLike(String incidentMessageLike) {
     this.incidentMessageLike = incidentMessageLike;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam(value = "processDefinitionKeyIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "processDefinitionKeyIn", converter = StringArrayConverter.class)
   public void setProcessDefinitionKeyIn(String[] processDefinitionKeyIn) {
     this.processDefinitionKeyIn = processDefinitionKeyIn;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
 
-  @CamundaQueryParam(value="incidentTimestampAfter", converter= DateConverter.class)
+  @FlowaveQueryParam(value="incidentTimestampAfter", converter= DateConverter.class)
   public void setIncidentTimestampAfter(Date incidentTimestampAfter) {
     this.incidentTimestampAfter = incidentTimestampAfter;
   }
 
-  @CamundaQueryParam(value="incidentTimestampBefore", converter= DateConverter.class)
+  @FlowaveQueryParam(value="incidentTimestampBefore", converter= DateConverter.class)
   public void setIncidentTimestampBefore(Date incidentTimestampBefore) {
     this.incidentTimestampBefore = incidentTimestampBefore;
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
-  @CamundaQueryParam("failedActivityId")
+  @FlowaveQueryParam("failedActivityId")
   public void setFailedActivityId(String activityId) {
     this.failedActivityId = activityId;
   }
 
-  @CamundaQueryParam("causeIncidentId")
+  @FlowaveQueryParam("causeIncidentId")
   public void setCauseIncidentId(String causeIncidentId) {
     this.causeIncidentId = causeIncidentId;
   }
 
-  @CamundaQueryParam("rootCauseIncidentId")
+  @FlowaveQueryParam("rootCauseIncidentId")
   public void setRootCauseIncidentId(String rootCauseIncidentId) {
     this.rootCauseIncidentId = rootCauseIncidentId;
   }
 
-  @CamundaQueryParam("configuration")
+  @FlowaveQueryParam("configuration")
   public void setConfiguration(String configuration) {
     this.configuration = configuration;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "jobDefinitionIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "jobDefinitionIdIn", converter = StringListConverter.class)
   public void setJobDefinitionIdIn(List<String> jobDefinitionIds) {
     this.jobDefinitionIds = jobDefinitionIds;
   }

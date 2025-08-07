@@ -28,8 +28,8 @@ import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.builder.CallActivityBuilder;
 import org.finos.flowave.bpm.model.bpmn.instance.CallActivity;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOut;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOut;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -72,13 +72,13 @@ public class MultiInstanceVariablesTest {
   }
 
   protected void addAllOut(BpmnModelInstance modelInstance, CallActivityBuilder callActivityBuilder) {
-    CamundaOut camundaOut = modelInstance.newInstance(CamundaOut.class);
+    FlowaveOut camundaOut = modelInstance.newInstance(FlowaveOut.class);
     camundaOut.setCamundaVariables(ALL);
     callActivityBuilder.addExtensionElement(camundaOut);
   }
 
   protected void addAllIn(BpmnModelInstance modelInstance, CallActivityBuilder callActivityBuilder) {
-    CamundaIn camundaIn = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn camundaIn = modelInstance.newInstance(FlowaveIn.class);
     camundaIn.setCamundaVariables(ALL);
     callActivityBuilder.addExtensionElement(camundaIn);
   }

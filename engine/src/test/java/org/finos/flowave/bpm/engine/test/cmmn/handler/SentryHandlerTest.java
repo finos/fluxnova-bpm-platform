@@ -46,8 +46,8 @@ import org.finos.flowave.bpm.model.cmmn.instance.PlanItemOnPart;
 import org.finos.flowave.bpm.model.cmmn.instance.PlanItemTransitionStandardEvent;
 import org.finos.flowave.bpm.model.cmmn.instance.Sentry;
 import org.finos.flowave.bpm.model.cmmn.instance.Task;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaVariableOnPart;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaVariableTransitionEvent;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveVariableOnPart;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveVariableTransitionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,7 +59,7 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
 
   protected Sentry sentry;
   protected PlanItemOnPart onPart;
-  protected CamundaVariableOnPart variableOnPart;
+  protected FlowaveVariableOnPart variableOnPart;
   protected Task task;
   protected PlanItem planItem;
   protected ExtensionElements extensionElements;
@@ -251,8 +251,8 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformWithVariableOnPart() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     variableOnPart.setVariableEvent(VariableTransition.create);
     variableOnPart.setVariableName("aVariable");
 
@@ -275,13 +275,13 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformWithMultipleVariableOnPart() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     variableOnPart.setVariableEvent(VariableTransition.create);
     variableOnPart.setVariableName("aVariable");
 
-    CamundaVariableOnPart additionalVariableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(additionalVariableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart additionalVariableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(additionalVariableOnPart, null, FlowaveVariableTransitionEvent.class);
     additionalVariableOnPart.setVariableEvent(VariableTransition.update);
     additionalVariableOnPart.setVariableName("bVariable");
 
@@ -300,13 +300,13 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformWithSameVariableOnPartTwice() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     variableOnPart.setVariableEvent(VariableTransition.create);
     variableOnPart.setVariableName("aVariable");
 
-    CamundaVariableOnPart additionalVariableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(additionalVariableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart additionalVariableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(additionalVariableOnPart, null, FlowaveVariableTransitionEvent.class);
     additionalVariableOnPart.setVariableEvent(VariableTransition.create);
     additionalVariableOnPart.setVariableName("aVariable");
 
@@ -325,7 +325,7 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformShouldFailWithMissingVariableEvent() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
     variableOnPart.setVariableName("aVariable");
 
     // when/then
@@ -338,8 +338,8 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformShouldFailWithInvalidVariableEvent() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    CamundaVariableTransitionEvent transitionEvent = createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    FlowaveVariableTransitionEvent transitionEvent = createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     transitionEvent.setTextContent("invalid");
     variableOnPart.setVariableName("aVariable");
 
@@ -353,10 +353,10 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformWithMultipleVariableEvent() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    CamundaVariableTransitionEvent transitionEvent = createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    FlowaveVariableTransitionEvent transitionEvent = createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     transitionEvent.setTextContent("create");
-    CamundaVariableTransitionEvent additionalTransitionEvent = createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableTransitionEvent additionalTransitionEvent = createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     additionalTransitionEvent.setTextContent("delete");
     variableOnPart.setVariableName("aVariable");
 
@@ -379,8 +379,8 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   public void sentryTransformShouldFailWithMissingVariableName() {
     // given
     ExtensionElements extensionElements = createElement(sentry, "extensionElements", ExtensionElements.class);
-    CamundaVariableOnPart variableOnPart = createElement(extensionElements, null, CamundaVariableOnPart.class);
-    createElement(variableOnPart, null, CamundaVariableTransitionEvent.class);
+    FlowaveVariableOnPart variableOnPart = createElement(extensionElements, null, FlowaveVariableOnPart.class);
+    createElement(variableOnPart, null, FlowaveVariableTransitionEvent.class);
     variableOnPart.setVariableEvent(VariableTransition.create);
 
     // when/then

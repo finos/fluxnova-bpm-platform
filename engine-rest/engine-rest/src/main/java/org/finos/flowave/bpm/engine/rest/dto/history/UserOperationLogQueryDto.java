@@ -24,7 +24,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.history.UserOperationLogQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
 
@@ -156,117 +156,117 @@ public class UserOperationLogQueryDto extends AbstractQueryDto<UserOperationLogQ
     }
   }
 
-  @CamundaQueryParam("deploymentId")
+  @FlowaveQueryParam("deploymentId")
   public void setDeploymentId(String deploymentId) {
     this.deploymentId = deploymentId;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
 
-  @CamundaQueryParam("caseDefinitionId")
+  @FlowaveQueryParam("caseDefinitionId")
   public void setCaseDefinitionId(String caseDefinitionId) {
     this.caseDefinitionId = caseDefinitionId;
   }
 
-  @CamundaQueryParam("caseInstanceId")
+  @FlowaveQueryParam("caseInstanceId")
   public void setCaseInstanceId(String caseInstanceId) {
     this.caseInstanceId = caseInstanceId;
   }
 
-  @CamundaQueryParam("caseExecutionId")
+  @FlowaveQueryParam("caseExecutionId")
   public void setCaseExecutionId(String caseExecutionId) {
     this.caseExecutionId = caseExecutionId;
   }
 
-  @CamundaQueryParam("taskId")
+  @FlowaveQueryParam("taskId")
   public void setTaskId(String taskId) {
     this.taskId = taskId;
   }
 
-  @CamundaQueryParam("jobId")
+  @FlowaveQueryParam("jobId")
   public void setJobId(String jobId) {
     this.jobId = jobId;
   }
 
-  @CamundaQueryParam("jobDefinitionId")
+  @FlowaveQueryParam("jobDefinitionId")
   public void setJobDefinitionId(String jobDefinitionId) {
     this.jobDefinitionId = jobDefinitionId;
   }
 
-  @CamundaQueryParam("batchId")
+  @FlowaveQueryParam("batchId")
   public void setBatchId(String batchId) {
     this.batchId = batchId;
   }
 
-  @CamundaQueryParam("userId")
+  @FlowaveQueryParam("userId")
   public void setUserId(String userId) {
     this.userId = userId;
   }
 
-  @CamundaQueryParam("operationId")
+  @FlowaveQueryParam("operationId")
   public void setOperationId(String operationId) {
     this.operationId = operationId;
   }
   
-  @CamundaQueryParam("externalTaskId")
+  @FlowaveQueryParam("externalTaskId")
   public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 
-  @CamundaQueryParam("operationType")
+  @FlowaveQueryParam("operationType")
   public void setOperationType(String operationType) {
     this.operationType = operationType;
   }
 
-  @CamundaQueryParam("entityType")
+  @FlowaveQueryParam("entityType")
   public void setEntityType(String entityType) {
     this.entityType = entityType;
   }
 
-  @CamundaQueryParam(value = "entityTypeIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "entityTypeIn", converter = StringArrayConverter.class)
   public void setEntityTypeIn(String[] entityTypes) {
     this.entityTypes = entityTypes;
   }
   
-  @CamundaQueryParam("category")
+  @FlowaveQueryParam("category")
   public void setcategory(String category) {
     this.category = category;
   }
 
-  @CamundaQueryParam(value = "categoryIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value = "categoryIn", converter = StringArrayConverter.class)
   public void setCategoryIn(String[] categories) {
     this.categories = categories;
   }
   
-  @CamundaQueryParam("property")
+  @FlowaveQueryParam("property")
   public void setProperty(String property) {
     this.property = property;
   }
 
-  @CamundaQueryParam(value = "afterTimestamp", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "afterTimestamp", converter = DateConverter.class)
   public void setAfterTimestamp(Date after) {
     this.afterTimestamp = after;
   }
 
-  @CamundaQueryParam(value = "beforeTimestamp", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "beforeTimestamp", converter = DateConverter.class)
   public void setBeforeTimestamp(Date before) {
     this.beforeTimestamp = before;
   }

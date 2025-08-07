@@ -33,8 +33,8 @@ import org.finos.flowave.bpm.engine.test.cmmn.handler.specification.SpecUtil;
 import org.finos.flowave.bpm.model.cmmn.instance.CaseTask;
 import org.finos.flowave.bpm.model.cmmn.instance.ExtensionElements;
 import org.finos.flowave.bpm.model.cmmn.instance.PlanItem;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaField;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaVariableListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveField;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveVariableListener;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,8 +60,8 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
   @Test
   public void testClassDelegateHandling() {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
-    CamundaVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, CamundaVariableListener.class);
-    CamundaField field = SpecUtil.createElement(modelInstance, variableListener, null, CamundaField.class);
+    FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
+    FlowaveField field = SpecUtil.createElement(modelInstance, variableListener, null, FlowaveField.class);
     field.setCamundaName("fieldName");
     field.setCamundaStringValue("a string value");
 
@@ -89,7 +89,7 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
   @Test
   public void testDelegateExpressionDelegateHandling() {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
-    CamundaVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, CamundaVariableListener.class);
+    FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
     variableListener.setCamundaDelegateExpression("${expression}");
     variableListener.setCamundaEvent(CaseVariableListener.CREATE);
 
@@ -109,7 +109,7 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
   @Test
   public void testExpressionDelegateHandling() {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
-    CamundaVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, CamundaVariableListener.class);
+    FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
     variableListener.setCamundaExpression("${expression}");
     variableListener.setCamundaEvent(CaseVariableListener.CREATE);
 

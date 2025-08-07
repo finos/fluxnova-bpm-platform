@@ -29,7 +29,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.batch.BatchStatisticsQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -65,52 +65,52 @@ public class BatchStatisticsQueryDto extends AbstractQueryDto<BatchStatisticsQue
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("batchId")
+  @FlowaveQueryParam("batchId")
   public void setBatchId(String batchId) {
     this.batchId = batchId;
   }
 
-  @CamundaQueryParam("type")
+  @FlowaveQueryParam("type")
   public void setType(String type) {
     this.type = type;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value="suspended", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="suspended", converter = BooleanConverter.class)
   public void setSuspended(Boolean suspended) {
     this.suspended = suspended;
   }
 
-  @CamundaQueryParam(value="createdBy")
+  @FlowaveQueryParam(value="createdBy")
   public void setCreateUserId(String userId) {
     this.userId = userId;
   }
 
-  @CamundaQueryParam(value = "startedBefore", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "startedBefore", converter = DateConverter.class)
   public void setStartedBefore(Date startedBefore) {
     this.startedBefore = startedBefore;
   }
 
-  @CamundaQueryParam(value = "startedAfter", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "startedAfter", converter = DateConverter.class)
   public void setStartedAfter(Date startedAfter) {
     this.startedAfter = startedAfter;
   }
 
-  @CamundaQueryParam(value = "withFailures", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withFailures", converter = BooleanConverter.class)
   public void setWithFailures(final Boolean withFailures) {
     this.withFailures = withFailures;
   }
 
-  @CamundaQueryParam(value = "withoutFailures", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutFailures", converter = BooleanConverter.class)
   public void setWithoutFailures(final Boolean withoutFailures) {
     this.withoutFailures = withoutFailures;
   }

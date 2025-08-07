@@ -30,7 +30,7 @@ import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.filter.Filter;
 import org.finos.flowave.bpm.engine.filter.FilterQuery;
 import org.finos.flowave.bpm.engine.test.ProcessEngineRule;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.test.helper.StandaloneInMemoryTestConfiguration;
 import org.finos.flowave.bpm.spring.boot.starter.util.SpringBootProcessEngineLogger;
 import org.finos.flowave.commons.testing.ProcessEngineLoggingRule;
@@ -43,7 +43,7 @@ import java.util.List;
 
 public class CreateFilterConfigurationTest {
 
-  private final CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+  private final FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
 
   {
     camundaBpmProperties.getFilter().setCreate("All");
@@ -74,7 +74,7 @@ public class CreateFilterConfigurationTest {
   @Test
   public void fail_if_not_configured_onInit() throws Exception {
     thrown.expect(IllegalStateException.class);
-    CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+    FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
     final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
     ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
     configuration.init();
@@ -84,7 +84,7 @@ public class CreateFilterConfigurationTest {
   public void fail_if_not_configured_onExecution() throws Exception {
     thrown.expect(NullPointerException.class);
 
-    CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+    FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
     camundaBpmProperties.getFilter().setCreate("All");
     final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
     ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
@@ -96,7 +96,7 @@ public class CreateFilterConfigurationTest {
 
   @Test
   public void do_not_create_when_already_exist() throws Exception {
-    CamundaBpmProperties camundaBpmProperties = new CamundaBpmProperties();
+    FlowaveBpmProperties camundaBpmProperties = new FlowaveBpmProperties();
     camundaBpmProperties.getFilter().setCreate("All");
     final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
     ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);

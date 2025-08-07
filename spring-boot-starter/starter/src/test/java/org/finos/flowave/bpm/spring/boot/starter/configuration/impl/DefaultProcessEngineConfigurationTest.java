@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.finos.flowave.bpm.engine.ProcessEngines;
 import org.finos.flowave.bpm.engine.impl.cfg.IdGenerator;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -32,7 +32,7 @@ public class DefaultProcessEngineConfigurationTest {
 
   private final DefaultProcessEngineConfiguration instance = new DefaultProcessEngineConfiguration();
   private final SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
-  private final CamundaBpmProperties properties = new CamundaBpmProperties();
+  private final FlowaveBpmProperties properties = new FlowaveBpmProperties();
 
   @Before
   public void setUp() throws Exception {

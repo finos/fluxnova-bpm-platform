@@ -20,11 +20,11 @@ import java.io.InputStream;
 import org.finos.flowave.bpm.engine.BadUserRequestException;
 import org.finos.flowave.bpm.engine.exception.DeploymentResourceNotFoundException;
 import org.finos.flowave.bpm.engine.exception.NotFoundException;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 import org.finos.flowave.bpm.engine.form.FormData;
 import org.finos.flowave.bpm.engine.impl.interceptor.Command;
 import org.finos.flowave.bpm.engine.impl.interceptor.CommandContext;
-import org.finos.flowave.bpm.engine.repository.CamundaFormDefinition;
+import org.finos.flowave.bpm.engine.repository.FlowaveFormDefinition;
 
 /**
  *
@@ -49,7 +49,7 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
 
     final FormData formData = getFormData();
     String formKey = formData.getFormKey();
-    CamundaFormRef camundaFormRef = formData.getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = formData.getCamundaFormRef();
 
     if (formKey != null) {
       return getResourceForFormKey(formData, formKey);
@@ -78,10 +78,10 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
     return getDeploymentResource(formData.getDeploymentId(), resourceName);
   }
 
-  protected InputStream getResourceForCamundaFormRef(CamundaFormRef camundaFormRef,
+  protected InputStream getResourceForCamundaFormRef(FlowaveFormRef camundaFormRef,
       String deploymentId) {
-    CamundaFormDefinition definition = commandContext.runWithoutAuthorization(
-        new GetCamundaFormDefinitionCmd(camundaFormRef, deploymentId));
+    FlowaveFormDefinition definition = commandContext.runWithoutAuthorization(
+        new GetFlowaveFormDefinitionCmd(camundaFormRef, deploymentId));
 
     if (definition == null) {
       throw new NotFoundException("No Camunda Form Definition was found for Camunda Form Ref: " + camundaFormRef);

@@ -47,7 +47,7 @@ import org.finos.flowave.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.UserTask;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaTaskListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveTaskListener;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -937,7 +937,7 @@ public class MigrationUserTaskTest {
   }
 
   protected static void addTaskListener(BpmnModelInstance targetModel, String activityId, String event, String className) {
-    CamundaTaskListener taskListener = targetModel.newInstance(CamundaTaskListener.class);
+    FlowaveTaskListener taskListener = targetModel.newInstance(FlowaveTaskListener.class);
     taskListener.setCamundaClass(className);
     taskListener.setCamundaEvent(event);
 

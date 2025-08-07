@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.rest.beans;
 
-import org.finos.flowave.bpm.engine.rest.impl.CamundaRestResources;
+import org.finos.flowave.bpm.engine.rest.impl.FlowaveRestResources;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -31,10 +31,10 @@ public class CustomRestApplication extends Application {
     Set<Class<?>> classes = new HashSet<>();
 
     // add all camunda engine rest resources (or just add those that you actually need).
-    classes.addAll(CamundaRestResources.getResourceClasses());
+    classes.addAll(FlowaveRestResources.getResourceClasses());
 
     // mandatory
-    classes.addAll(CamundaRestResources.getConfigurationClasses());
+    classes.addAll(FlowaveRestResources.getConfigurationClasses());
 
     return classes;
   }

@@ -25,8 +25,8 @@ import org.finos.flowave.bpm.engine.delegate.DelegateListener;
 import org.finos.flowave.bpm.engine.impl.cmmn.listener.ScriptCaseExecutionListener;
 import org.finos.flowave.bpm.engine.impl.scripting.ExecutableScript;
 import org.finos.flowave.bpm.model.cmmn.CmmnModelInstance;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaCaseExecutionListener;
-import org.finos.flowave.bpm.model.cmmn.instance.flowave.CamundaScript;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveCaseExecutionListener;
+import org.finos.flowave.bpm.model.cmmn.instance.flowave.FlowaveScript;
 
 public class ScriptExecutionListenerSpec extends AbstractExecutionListenerSpec {
 
@@ -37,8 +37,8 @@ public class ScriptExecutionListenerSpec extends AbstractExecutionListenerSpec {
     super(eventName);
   }
 
-  protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, CamundaCaseExecutionListener listener) {
-    CamundaScript script = SpecUtil.createElement(modelInstance, listener, null, CamundaScript.class);
+  protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
+    FlowaveScript script = SpecUtil.createElement(modelInstance, listener, null, FlowaveScript.class);
     String scriptValue = "${myScript}";
     script.setCamundaScriptFormat(SCRIPT_FORMAT);
     script.setTextContent(scriptValue);

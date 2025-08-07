@@ -23,7 +23,7 @@ import java.util.List;
 import org.finos.flowave.bpm.engine.impl.cfg.CompositeProcessEnginePlugin;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEnginePlugin;
-import org.finos.flowave.bpm.run.CamundaBpmRun;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
 import org.finos.flowave.bpm.spring.boot.starter.spin.SpringBootSpinProcessEnginePlugin;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class })
+@SpringBootTest(classes = { FlowaveBpmRun.class })
 @ActiveProfiles(profiles = { "test-new-plugins", "test-plugins-config-override" }, inheritProfiles = true)
 public class ProcessEnginePluginsConfigurationOverrideTest {
 

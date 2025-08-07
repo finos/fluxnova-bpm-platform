@@ -23,8 +23,8 @@ import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEnginePlugin;
 
-import static org.finos.flowave.bpm.spring.boot.starter.util.CamundaSpringBootUtil.processEngineImpl;
-import static org.finos.flowave.bpm.spring.boot.starter.util.CamundaSpringBootUtil.springProcessEngineConfiguration;
+import static org.finos.flowave.bpm.spring.boot.starter.util.FlowaveSpringBootUtil.processEngineImpl;
+import static org.finos.flowave.bpm.spring.boot.starter.util.FlowaveSpringBootUtil.springProcessEngineConfiguration;
 
 /**
  * Convenience class that specializes {@link AbstractProcessEnginePlugin} to

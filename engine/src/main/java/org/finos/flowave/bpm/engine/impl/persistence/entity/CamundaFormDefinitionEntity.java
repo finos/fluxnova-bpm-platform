@@ -20,9 +20,9 @@ import java.io.Serializable;
 import org.finos.flowave.bpm.engine.impl.db.DbEntity;
 import org.finos.flowave.bpm.engine.impl.db.HasDbRevision;
 import org.finos.flowave.bpm.engine.impl.repository.ResourceDefinitionEntity;
-import org.finos.flowave.bpm.engine.repository.CamundaFormDefinition;
+import org.finos.flowave.bpm.engine.repository.FlowaveFormDefinition;
 
-public class CamundaFormDefinitionEntity implements CamundaFormDefinition,
+public class CamundaFormDefinitionEntity implements FlowaveFormDefinition,
     ResourceDefinitionEntity<CamundaFormDefinitionEntity>, DbEntity, HasDbRevision, Serializable {
 
   private static final long serialVersionUID = 1L;

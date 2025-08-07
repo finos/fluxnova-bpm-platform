@@ -30,7 +30,7 @@ import javax.ws.rs.core.Response.Status;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.impl.util.CollectionUtil;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.ConditionQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.ConditionListConverter;
@@ -104,132 +104,132 @@ public class JobQueryDto extends AbstractQueryDto<JobQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("activityId")
+  @FlowaveQueryParam("activityId")
   public void setActivityId(String activityId) {
     this.activityId = activityId;
   }
 
-  @CamundaQueryParam("failedActivityId")
+  @FlowaveQueryParam("failedActivityId")
   public void setFailedActivityId(String activityId) {
     this.failedActivityId = activityId;
   }
 
-  @CamundaQueryParam("jobId")
+  @FlowaveQueryParam("jobId")
   public void setJobId(String jobId) {
     this.jobId = jobId;
   }
 
-  @CamundaQueryParam(value = "jobIds", converter = StringSetConverter.class)
+  @FlowaveQueryParam(value = "jobIds", converter = StringSetConverter.class)
   public void setJobIds(Set<String> jobIds) {
     this.jobIds = jobIds;
   }
 
-  @CamundaQueryParam("executionId")
+  @FlowaveQueryParam("executionId")
   public void setExecutionId(String executionId) {
     this.executionId = executionId;
   }
 
-  @CamundaQueryParam("processInstanceId")
+  @FlowaveQueryParam("processInstanceId")
   public void setProcessInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
   }
 
-  @CamundaQueryParam(value = "processInstanceIds", converter = StringSetConverter.class)
+  @FlowaveQueryParam(value = "processInstanceIds", converter = StringSetConverter.class)
   public void setProcessInstanceIds(Set<String> processInstanceIds) {
     this.processInstanceIds = processInstanceIds;
   }
 
-  @CamundaQueryParam("processDefinitionId")
+  @FlowaveQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
   }
 
-  @CamundaQueryParam("processDefinitionKey")
+  @FlowaveQueryParam("processDefinitionKey")
   public void setProcessDefinitionKey(String processDefinitionKey) {
     this.processDefinitionKey = processDefinitionKey;
   }
 
-  @CamundaQueryParam(value="withRetriesLeft", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="withRetriesLeft", converter = BooleanConverter.class)
   public void setWithRetriesLeft(Boolean withRetriesLeft) {
     this.withRetriesLeft = withRetriesLeft;
   }
 
-  @CamundaQueryParam(value="executable", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="executable", converter = BooleanConverter.class)
   public void setExecutable(Boolean executable) {
     this.executable = executable;
   }
 
-  @CamundaQueryParam(value="timers", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="timers", converter = BooleanConverter.class)
   public void setTimers(Boolean timers) {
     this.timers = timers;
   }
 
-  @CamundaQueryParam(value="withException", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="withException", converter = BooleanConverter.class)
   public void setWithException(Boolean withException) {
     this.withException = withException;
   }
 
-  @CamundaQueryParam(value="messages", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="messages", converter = BooleanConverter.class)
   public void setMessages(Boolean messages) {
     this.messages = messages;
   }
 
-  @CamundaQueryParam("exceptionMessage")
+  @FlowaveQueryParam("exceptionMessage")
   public void setExceptionMessage(String exceptionMessage) {
     this.exceptionMessage = exceptionMessage;
   }
 
-  @CamundaQueryParam(value = "dueDates", converter = ConditionListConverter.class)
+  @FlowaveQueryParam(value = "dueDates", converter = ConditionListConverter.class)
   public void setDueDates(List<ConditionQueryParameterDto> dueDates) {
     this.dueDates = dueDates;
   }
 
-  @CamundaQueryParam(value = "createTimes", converter = ConditionListConverter.class)
+  @FlowaveQueryParam(value = "createTimes", converter = ConditionListConverter.class)
   public void setCreateTimes(List<ConditionQueryParameterDto> createTimes) {
     this.createTimes = createTimes;
   }
 
-  @CamundaQueryParam(value="noRetriesLeft", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="noRetriesLeft", converter = BooleanConverter.class)
   public void setNoRetriesLeft(Boolean noRetriesLeft) {
     this.noRetriesLeft = noRetriesLeft;
   }
 
-  @CamundaQueryParam(value="active", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="active", converter = BooleanConverter.class)
   public void setActive(Boolean active) {
     this.active = active;
   }
 
-  @CamundaQueryParam(value="suspended", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value="suspended", converter = BooleanConverter.class)
   public void setSuspended(Boolean suspended) {
     this.suspended = suspended;
   }
 
-  @CamundaQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
   public void setPriorityHigherThanOrEquals(Long priorityHigherThanOrEquals) {
     this.priorityHigherThanOrEquals = priorityHigherThanOrEquals;
   }
 
-  @CamundaQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
+  @FlowaveQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
   public void setPriorityLowerThanOrEquals(Long priorityLowerThanOrEquals) {
     this.priorityLowerThanOrEquals = priorityLowerThanOrEquals;
   }
 
-  @CamundaQueryParam("jobDefinitionId")
+  @FlowaveQueryParam("jobDefinitionId")
   public void setJobDefinitionId(String jobDefinitionId) {
     this.jobDefinitionId = jobDefinitionId;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "includeJobsWithoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeJobsWithoutTenantId", converter = BooleanConverter.class)
   public void setIncludeJobsWithoutTenantId(Boolean includeJobsWithoutTenantId) {
     this.includeJobsWithoutTenantId = includeJobsWithoutTenantId;
   }

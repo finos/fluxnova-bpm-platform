@@ -21,8 +21,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.Date;
 
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.task.DelegationState;
 import org.finos.flowave.bpm.engine.task.Task;
 
@@ -48,7 +48,7 @@ public class MockTaskBuilder {
   private String caseInstanceId;
   private String caseExecutionId;
   private String formKey;
-  private CamundaFormRef camundaFormRef;
+  private FlowaveFormRef camundaFormRef;
   private String tenantId;
   private boolean hasAttachment;
 
@@ -159,7 +159,7 @@ public class MockTaskBuilder {
   }
 
   public MockTaskBuilder camundaFormRef(String key, String binding, Integer version) {
-    CamundaFormRefImpl camundaFormRef = new CamundaFormRefImpl(key, binding);
+    FlowaveFormRefImpl camundaFormRef = new FlowaveFormRefImpl(key, binding);
     camundaFormRef.setVersion(version);
     this.camundaFormRef = camundaFormRef;
     return this;

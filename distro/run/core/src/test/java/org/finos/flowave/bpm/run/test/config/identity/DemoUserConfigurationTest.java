@@ -25,8 +25,8 @@ import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.identity.User;
 import org.finos.flowave.bpm.engine.identity.UserQuery;
 import org.finos.flowave.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin;
-import org.finos.flowave.bpm.run.CamundaBpmRun;
-import org.finos.flowave.bpm.run.property.CamundaBpmRunLdapProperties;
+import org.finos.flowave.bpm.run.FlowaveBpmRun;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunLdapProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +38,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { CamundaBpmRun.class })
+@SpringBootTest(classes = { FlowaveBpmRun.class })
 @ActiveProfiles(profiles = { "test-auth-disabled", "test-demo-user" })
 public class DemoUserConfigurationTest {
 
@@ -47,7 +47,7 @@ public class DemoUserConfigurationTest {
   IdentityService identityService;
 
   @Autowired(required = false)
-  CamundaBpmRunLdapProperties props;
+  FlowaveBpmRunLdapProperties props;
 
   @Autowired(required = false)
   LdapIdentityProviderPlugin ldapPlugin;

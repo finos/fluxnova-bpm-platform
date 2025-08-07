@@ -21,7 +21,7 @@ import java.util.Date;
 import org.finos.flowave.bpm.engine.BadUserRequestException;
 import org.finos.flowave.bpm.engine.TaskService;
 import org.finos.flowave.bpm.engine.delegate.TaskListener;
-import org.finos.flowave.bpm.engine.form.CamundaFormRef;
+import org.finos.flowave.bpm.engine.form.FlowaveFormRef;
 
 
 
@@ -169,7 +169,7 @@ public interface Task {
    * @return the reference key, binding type and version (if type is {@code version})
    * @throws BadUserRequestException in case the form key is not initialized.
    */
-  CamundaFormRef getCamundaFormRef();
+  FlowaveFormRef getCamundaFormRef();
 
   /**
    * Returns the task's tenant id or null in case this task does not belong to a tenant.

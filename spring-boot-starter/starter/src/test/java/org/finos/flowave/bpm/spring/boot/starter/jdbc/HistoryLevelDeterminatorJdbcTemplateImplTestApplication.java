@@ -18,8 +18,8 @@ package org.finos.flowave.bpm.spring.boot.starter.jdbc;
 
 import javax.sql.DataSource;
 
-import org.finos.flowave.bpm.spring.boot.starter.CamundaBpmAutoConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.FlowaveBpmAutoConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,12 +27,12 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
-@EnableAutoConfiguration(exclude = CamundaBpmAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = FlowaveBpmAutoConfiguration.class)
 public class HistoryLevelDeterminatorJdbcTemplateImplTestApplication {
 
   @Bean
-  public CamundaBpmProperties camundaBpmProperties() {
-    return new CamundaBpmProperties();
+  public FlowaveBpmProperties camundaBpmProperties() {
+    return new FlowaveBpmProperties();
   }
 
   @Bean
@@ -49,7 +49,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTestApplication {
   }
 
   @Bean
-  public HistoryLevelDeterminator historyLevelDeterminator(JdbcTemplate jdbcTemplate, CamundaBpmProperties camundaBpmProperties) {
+  public HistoryLevelDeterminator historyLevelDeterminator(JdbcTemplate jdbcTemplate, FlowaveBpmProperties camundaBpmProperties) {
     return HistoryLevelDeterminatorJdbcTemplateImpl.createHistoryLevelDeterminator(camundaBpmProperties, jdbcTemplate);
   }
 }

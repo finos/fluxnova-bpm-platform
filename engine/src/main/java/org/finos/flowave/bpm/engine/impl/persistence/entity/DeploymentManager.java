@@ -27,7 +27,7 @@ import org.finos.flowave.bpm.engine.impl.cmd.DeleteProcessDefinitionsByIdsCmd;
 import org.finos.flowave.bpm.engine.impl.context.Context;
 import org.finos.flowave.bpm.engine.impl.dmn.entity.repository.DecisionDefinitionManager;
 import org.finos.flowave.bpm.engine.impl.dmn.entity.repository.DecisionRequirementsDefinitionManager;
-import org.finos.flowave.bpm.engine.impl.form.entity.CamundaFormDefinitionManager;
+import org.finos.flowave.bpm.engine.impl.form.entity.FlowaveFormDefinitionManager;
 import org.finos.flowave.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.flowave.bpm.engine.impl.persistence.AbstractManager;
 import org.finos.flowave.bpm.engine.impl.persistence.deploy.cache.DeploymentCache;
@@ -214,7 +214,7 @@ public class DeploymentManager extends AbstractManager {
   }
 
   protected void deleteCamundaFormDefinitionDeployment(String deploymentId) {
-    CamundaFormDefinitionManager manager = getCamundaFormDefinitionManager();
+    FlowaveFormDefinitionManager manager = getCamundaFormDefinitionManager();
 
     List<CamundaFormDefinitionEntity> camundaFormDefinitions = manager.findDefinitionsByDeploymentId(deploymentId);
 

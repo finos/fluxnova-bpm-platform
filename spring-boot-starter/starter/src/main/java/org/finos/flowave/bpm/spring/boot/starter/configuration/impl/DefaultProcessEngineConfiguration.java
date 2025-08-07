@@ -19,14 +19,14 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 import org.finos.flowave.bpm.engine.ProcessEngines;
 import org.finos.flowave.bpm.engine.impl.cfg.IdGenerator;
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.configuration.CamundaProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.configuration.FlowaveProcessEngineConfiguration;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
-public class DefaultProcessEngineConfiguration extends AbstractCamundaConfiguration implements CamundaProcessEngineConfiguration {
+public class DefaultProcessEngineConfiguration extends AbstractFlowaveConfiguration implements FlowaveProcessEngineConfiguration {
 
   @Autowired
   private Optional<IdGenerator> idGenerator;
@@ -62,7 +62,7 @@ public class DefaultProcessEngineConfiguration extends AbstractCamundaConfigurat
           throw new RuntimeException(String.format("A unique processEngineName cannot be generated "
             + "if a custom processEngineName is already set: %s", processEngineName));
         }
-        processEngineName = CamundaBpmProperties.getUniqueName(camundaBpmProperties.UNIQUE_ENGINE_NAME_PREFIX);
+        processEngineName = FlowaveBpmProperties.getUniqueName(camundaBpmProperties.UNIQUE_ENGINE_NAME_PREFIX);
       }
 
       configuration.setProcessEngineName(processEngineName);

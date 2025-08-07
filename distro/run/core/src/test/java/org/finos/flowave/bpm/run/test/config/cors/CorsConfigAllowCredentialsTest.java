@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.finos.flowave.bpm.run.property.CamundaBpmRunCorsProperty;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunCorsProperty;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -40,8 +40,8 @@ import org.springframework.test.context.TestPropertySource;
  */
 @ActiveProfiles(profiles = { "test-cors-enabled" }, inheritProfiles = true)
 @TestPropertySource(properties = {
-    CamundaBpmRunCorsProperty.PREFIX + ".allowed-origins=http://other.origin:8081",
-    CamundaBpmRunCorsProperty.PREFIX + ".allow-credentials=true"})
+    FlowaveBpmRunCorsProperty.PREFIX + ".allowed-origins=http://other.origin:8081",
+    FlowaveBpmRunCorsProperty.PREFIX + ".allow-credentials=true"})
 public class CorsConfigAllowCredentialsTest extends AbstractRestTest {
 
   @Test

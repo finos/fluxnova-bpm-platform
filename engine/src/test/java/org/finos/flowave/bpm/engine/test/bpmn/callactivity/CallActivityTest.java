@@ -53,8 +53,8 @@ import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.builder.CallActivityBuilder;
 import org.finos.flowave.bpm.model.bpmn.instance.CallActivity;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaIn;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaOut;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveIn;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveOut;
 import org.junit.Test;
 
 /**
@@ -469,7 +469,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
     CallActivityBuilder callActivityBuilder = ((CallActivity) modelInstance.getModelElementById("callActivity")).builder();
 
     // create camunda:in with source but without target
-    CamundaIn camundaIn = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn camundaIn = modelInstance.newInstance(FlowaveIn.class);
     camundaIn.setCamundaSource("superVariable");
     callActivityBuilder.addExtensionElement(camundaIn);
 
@@ -478,7 +478,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
     camundaIn.setCamundaTarget("subVariable");
 
     // create camunda:in with sourceExpression but without target
-    camundaIn = modelInstance.newInstance(CamundaIn.class);
+    camundaIn = modelInstance.newInstance(FlowaveIn.class);
     camundaIn.setCamundaSourceExpression("${x+5}");
     callActivityBuilder.addExtensionElement(camundaIn);
 
@@ -487,7 +487,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
     camundaIn.setCamundaTarget("subVariable2");
 
     // create camunda:out with source but without target
-    CamundaOut camundaOut = modelInstance.newInstance(CamundaOut.class);
+    FlowaveOut camundaOut = modelInstance.newInstance(FlowaveOut.class);
     camundaOut.setCamundaSource("subVariable");
     callActivityBuilder.addExtensionElement(camundaOut);
 
@@ -496,7 +496,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
     camundaOut.setCamundaTarget("superVariable");
 
     // create camunda:out with sourceExpression but without target
-    camundaOut = modelInstance.newInstance(CamundaOut.class);
+    camundaOut = modelInstance.newInstance(FlowaveOut.class);
     camundaOut.setCamundaSourceExpression("${y+1}");
     callActivityBuilder.addExtensionElement(camundaOut);
 

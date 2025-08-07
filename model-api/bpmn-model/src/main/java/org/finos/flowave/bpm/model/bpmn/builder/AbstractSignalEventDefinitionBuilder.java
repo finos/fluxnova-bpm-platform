@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.model.bpmn.builder;
 
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.SignalEventDefinition;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaIn;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveIn;
 
 /**
  * @author Nikola Koevski
@@ -38,7 +38,7 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @return the builder object
    */
   public B camundaInSourceTarget(String source, String target) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
     param.setCamundaSource(source);
     param.setCamundaTarget(target);
@@ -57,7 +57,7 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @return the builder object
    */
   public B camundaInSourceExpressionTarget(String sourceExpression, String target) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
     param.setCamundaSourceExpression(sourceExpression);
     param.setCamundaTarget(target);
@@ -75,7 +75,7 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @return the builder object
    */
   public B camundaInBusinessKey(String businessKey) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
     param.setCamundaBusinessKey(businessKey);
 
@@ -93,7 +93,7 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @return the builder object
    */
   public B camundaInAllVariables(String variables, boolean local) {
-    CamundaIn param = modelInstance.newInstance(CamundaIn.class);
+    FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
     param.setCamundaVariables(variables);
 

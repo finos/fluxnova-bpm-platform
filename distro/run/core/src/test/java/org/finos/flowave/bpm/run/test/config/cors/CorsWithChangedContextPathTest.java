@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.bpm.run.test.config.cors;
 
-import org.finos.flowave.bpm.run.property.CamundaBpmRunCorsProperty;
+import org.finos.flowave.bpm.run.property.FlowaveBpmRunCorsProperty;
 import org.finos.flowave.bpm.run.test.AbstractRestTest;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
     "test-changed-rest-context-path"
 })
 @TestPropertySource(properties = {
-    CamundaBpmRunCorsProperty.PREFIX + ".allowed-origins=http://other.origin:8081"
+    FlowaveBpmRunCorsProperty.PREFIX + ".allowed-origins=http://other.origin:8081"
 })
 /*
  * The purpose of the test is to check if the path of the CORS filter can be changed.

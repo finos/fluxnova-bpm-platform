@@ -106,7 +106,7 @@ import org.finos.flowave.bpm.engine.identity.UserQuery;
 import org.finos.flowave.bpm.engine.impl.calendar.DateTimeUtil;
 import org.finos.flowave.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.flowave.bpm.engine.impl.digest._apacheCommonsCodec.Base64;
-import org.finos.flowave.bpm.engine.impl.form.CamundaFormRefImpl;
+import org.finos.flowave.bpm.engine.impl.form.FlowaveFormRefImpl;
 import org.finos.flowave.bpm.engine.impl.form.validator.FormFieldValidationException;
 import org.finos.flowave.bpm.engine.impl.util.IoUtil;
 import org.finos.flowave.bpm.engine.repository.CaseDefinition;
@@ -3400,7 +3400,7 @@ public class TaskRestServiceInteractionTest extends
     InputStream deployedFormMock = new ByteArrayInputStream("{\"id\":\"myForm\"}".getBytes());
     when(formServiceMock.getDeployedTaskForm(anyString())).thenReturn(deployedFormMock);
     when(mockTask.getFormKey()).thenReturn(null);
-    when(mockTask.getCamundaFormRef()).thenReturn(new CamundaFormRefImpl("myForm", "latest"));
+    when(mockTask.getCamundaFormRef()).thenReturn(new FlowaveFormRefImpl("myForm", "latest"));
 
     given()
       .pathParam("id", MockProvider.EXAMPLE_TASK_ID)

@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.VariableQueryParameterDto;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringArrayConverter;
@@ -76,72 +76,72 @@ public class VariableInstanceQueryDto extends AbstractQueryDto<VariableInstanceQ
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("variableName")
+  @FlowaveQueryParam("variableName")
   public void setVariableName(String variableName) {
     this.variableName = variableName;
   }
 
-  @CamundaQueryParam("variableNameLike")
+  @FlowaveQueryParam("variableNameLike")
   public void setVariableNameLike(String variableNameLike) {
     this.variableNameLike = variableNameLike;
   }
 
-  @CamundaQueryParam(value = "variableValues", converter = VariableListConverter.class)
+  @FlowaveQueryParam(value = "variableValues", converter = VariableListConverter.class)
   public void setVariableValues(List<VariableQueryParameterDto> variableValues) {
     this.variableValues = variableValues;
   }
 
-  @CamundaQueryParam(value = "variableNamesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "variableNamesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableNamesIgnoreCase(Boolean variableNamesIgnoreCase) {
     this.variableNamesIgnoreCase = variableNamesIgnoreCase;
   }
 
-  @CamundaQueryParam(value = "variableValuesIgnoreCase", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "variableValuesIgnoreCase", converter = BooleanConverter.class)
   public void setVariableValuesIgnoreCase(Boolean variableValuesIgnoreCase) {
     this.variableValuesIgnoreCase = variableValuesIgnoreCase;
   }
 
-  @CamundaQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="executionIdIn", converter = StringArrayConverter.class)
   public void setExecutionIdIn(String[] executionIdIn) {
     this.executionIdIn = executionIdIn;
   }
 
-  @CamundaQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
   public void setProcessInstanceIdIn(String[] processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="caseExecutionIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="caseExecutionIdIn", converter = StringArrayConverter.class)
   public void setCaseExecutionIdIn(String[] caseExecutionIdIn) {
     this.caseExecutionIdIn = caseExecutionIdIn;
   }
 
-  @CamundaQueryParam(value="caseInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="caseInstanceIdIn", converter = StringArrayConverter.class)
   public void setCaseInstanceIdIn(String[] caseInstanceIdIn) {
     this.caseInstanceIdIn = caseInstanceIdIn;
   }
 
-  @CamundaQueryParam(value="taskIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="taskIdIn", converter = StringArrayConverter.class)
   public void setTaskIdIn(String[] taskIdIn) {
     this.taskIdIn = taskIdIn;
   }
 
-  @CamundaQueryParam(value="batchIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="batchIdIn", converter = StringArrayConverter.class)
   public void setBatchIdIn(String[] batchIdIn) {
     this.batchIdIn = batchIdIn;
   }
 
-  @CamundaQueryParam(value="variableScopeIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="variableScopeIdIn", converter = StringArrayConverter.class)
   public void setVariableScopeIdIn(String[] variableScopeIdIn) {
     this.variableScopeIdIn = variableScopeIdIn;
   }
 
-  @CamundaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
+  @FlowaveQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
   public void setActivityInstanceIdIn(String[] activityInstanceIdIn) {
     this.activityInstanceIdIn = activityInstanceIdIn;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }

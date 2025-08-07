@@ -125,13 +125,6 @@ module.exports = (_env, argv = {}) => {
             'css-loader',
             {
               loader: 'less-loader',
-              options: {
-                lessOptions: {
-                  globalVars: {
-                    'ce-banner-height': eeBuild ? '0' : '20px'
-                  }
-                }
-              }
             }
           ]
         },

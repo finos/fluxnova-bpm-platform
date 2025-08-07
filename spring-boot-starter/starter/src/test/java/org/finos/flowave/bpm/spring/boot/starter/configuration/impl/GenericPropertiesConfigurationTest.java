@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.spring.boot.starter.configuration.impl;
 import static org.junit.Assert.assertEquals;
 
 import org.finos.flowave.bpm.engine.spring.SpringProcessEngineConfiguration;
-import org.finos.flowave.bpm.spring.boot.starter.property.CamundaBpmProperties;
+import org.finos.flowave.bpm.spring.boot.starter.property.FlowaveBpmProperties;
 import org.finos.flowave.bpm.spring.boot.starter.util.SpringBootStarterException;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,13 +28,13 @@ public class GenericPropertiesConfigurationTest {
 
   private SpringProcessEngineConfiguration processEngineConfiguration;
   private GenericPropertiesConfiguration genericPropertiesConfiguration;
-  private CamundaBpmProperties camundaBpmProperties;
+  private FlowaveBpmProperties camundaBpmProperties;
 
   @Before
   public void init() {
     processEngineConfiguration = new SpringProcessEngineConfiguration();
     genericPropertiesConfiguration = new GenericPropertiesConfiguration();
-    camundaBpmProperties = new CamundaBpmProperties();
+    camundaBpmProperties = new FlowaveBpmProperties();
     genericPropertiesConfiguration.camundaBpmProperties = camundaBpmProperties;
   }
 

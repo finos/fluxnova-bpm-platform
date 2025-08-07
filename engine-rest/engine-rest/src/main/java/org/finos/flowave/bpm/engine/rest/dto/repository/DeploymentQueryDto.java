@@ -29,7 +29,7 @@ import javax.ws.rs.core.Response.Status;
 import org.finos.flowave.bpm.engine.ProcessEngine;
 import org.finos.flowave.bpm.engine.repository.DeploymentQuery;
 import org.finos.flowave.bpm.engine.rest.dto.AbstractQueryDto;
-import org.finos.flowave.bpm.engine.rest.dto.CamundaQueryParam;
+import org.finos.flowave.bpm.engine.rest.dto.FlowaveQueryParam;
 import org.finos.flowave.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.flowave.bpm.engine.rest.dto.converter.StringListConverter;
@@ -71,52 +71,52 @@ public class DeploymentQueryDto extends AbstractQueryDto<DeploymentQuery> {
     super(objectMapper, queryParameters);
   }
 
-  @CamundaQueryParam("id")
+  @FlowaveQueryParam("id")
   public void setId(String id) {
     this.id = id;
   }
 
-  @CamundaQueryParam("name")
+  @FlowaveQueryParam("name")
   public void setName(String name) {
     this.name = name;
   }
 
-  @CamundaQueryParam("nameLike")
+  @FlowaveQueryParam("nameLike")
   public void setNameLike(String nameLike) {
     this.nameLike = nameLike;
   }
 
-  @CamundaQueryParam("source")
+  @FlowaveQueryParam("source")
   public void setSource(String source) {
     this.source = source;
   }
 
-  @CamundaQueryParam(value = "withoutSource", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutSource", converter = BooleanConverter.class)
   public void setWithoutSource(Boolean withoutSource) {
     this.withoutSource = withoutSource;
   }
 
-  @CamundaQueryParam(value = "before", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "before", converter = DateConverter.class)
   public void setDeploymentBefore(Date deploymentBefore) {
     this.before = deploymentBefore;
   }
 
-  @CamundaQueryParam(value = "after", converter = DateConverter.class)
+  @FlowaveQueryParam(value = "after", converter = DateConverter.class)
   public void setDeploymentAfter(Date deploymentAfter) {
     this.after = deploymentAfter;
   }
 
-  @CamundaQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
+  @FlowaveQueryParam(value = "tenantIdIn", converter = StringListConverter.class)
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
 
-  @CamundaQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "withoutTenantId", converter = BooleanConverter.class)
   public void setWithoutTenantId(Boolean withoutTenantId) {
     this.withoutTenantId = withoutTenantId;
   }
 
-  @CamundaQueryParam(value = "includeDeploymentsWithoutTenantId", converter = BooleanConverter.class)
+  @FlowaveQueryParam(value = "includeDeploymentsWithoutTenantId", converter = BooleanConverter.class)
   public void setIncludeDeploymentsWithoutTenantId(Boolean includeDeploymentsWithoutTenantId) {
     this.includeDeploymentsWithoutTenantId = includeDeploymentsWithoutTenantId;
   }

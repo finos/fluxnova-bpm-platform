@@ -38,7 +38,7 @@ import org.finos.flowave.bpm.engine.variable.Variables;
 import org.finos.flowave.bpm.model.bpmn.Bpmn;
 import org.finos.flowave.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.flowave.bpm.model.bpmn.instance.SequenceFlow;
-import org.finos.flowave.bpm.model.bpmn.instance.flowave.CamundaExecutionListener;
+import org.finos.flowave.bpm.model.bpmn.instance.flowave.FlowaveExecutionListener;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -238,7 +238,7 @@ public class TargetVariableScopeTest {
       .endEvent()
       .done();
 
-    CamundaExecutionListener listener = modelInstance.newInstance(CamundaExecutionListener.class);
+    FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
     listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
     listener.setCamundaClass(ExecutionListener.class.getName());
     modelInstance.<SequenceFlow>getModelElementById("sequenceFlow").builder().addExtensionElement(listener);
