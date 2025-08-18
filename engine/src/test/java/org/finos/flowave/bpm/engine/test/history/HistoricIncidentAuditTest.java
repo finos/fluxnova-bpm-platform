@@ -73,7 +73,7 @@ public class HistoricIncidentAuditTest {
   public void shouldNotQueryForHistoricJobLogWhenSettingJobToZeroRetries() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("process")
-    .startEvent().camundaAsyncAfter().endEvent().done();
+    .startEvent().flowaveAsyncAfter().endEvent().done();
 
     testRule.deploy(modelInstance);
 
@@ -98,7 +98,7 @@ public class HistoricIncidentAuditTest {
   public void shouldNotQueryForHistoricJobLogWhenSettingExternalTaskToZeroRetries() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("process")
-    .startEvent().serviceTask().camundaExternalTask("topic").endEvent().done();
+    .startEvent().serviceTask().flowaveExternalTask("topic").endEvent().done();
 
     testRule.deploy(modelInstance);
 

@@ -68,11 +68,11 @@ public abstract class AbstractActivityBuilder<B extends AbstractActivityBuilder<
    * @param value the value of the input parameter
    * @return the builder object
    */
-  public B camundaInputParameter(String name, String value) {
+  public B flowaveInputParameter(String name, String value) {
     FlowaveInputOutput camundaInputOutput = getCreateSingleExtensionElement(FlowaveInputOutput.class);
 
     FlowaveInputParameter camundaInputParameter = createChild(camundaInputOutput, FlowaveInputParameter.class);
-    camundaInputParameter.setCamundaName(name);
+    camundaInputParameter.setFlowaveName(name);
     camundaInputParameter.setTextContent(value);
 
     return myself;
@@ -86,11 +86,11 @@ public abstract class AbstractActivityBuilder<B extends AbstractActivityBuilder<
    * @param value the value of the output parameter
    * @return the builder object
    */
-  public B camundaOutputParameter(String name, String value) {
+  public B flowaveOutputParameter(String name, String value) {
     FlowaveInputOutput camundaInputOutput = getCreateSingleExtensionElement(FlowaveInputOutput.class);
 
     FlowaveOutputParameter camundaOutputParameter = createChild(camundaInputOutput, FlowaveOutputParameter.class);
-    camundaOutputParameter.setCamundaName(name);
+    camundaOutputParameter.setFlowaveName(name);
     camundaOutputParameter.setTextContent(value);
 
     return myself;

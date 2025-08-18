@@ -78,7 +78,7 @@ public class SampleFlowaveRestApplicationIT {
   }
 
   @Test
-  public void multipartFileUploadCamundaRestIsWorking() throws Exception {
+  public void multipartFileUploadFlowaveRestIsWorking() throws Exception {
     final String variableName = "testvariable";
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("TestProcess");
     LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();

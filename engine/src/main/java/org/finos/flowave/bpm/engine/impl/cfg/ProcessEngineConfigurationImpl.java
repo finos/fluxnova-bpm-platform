@@ -2151,7 +2151,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     BpmnDeployer bpmnDeployer = getBpmnDeployer();
     defaultDeployers.add(bpmnDeployer);
 
-    defaultDeployers.add(getCamundaFormDeployer());
+    defaultDeployers.add(getFlowaveFormDeployer());
 
     if (isCmmnEnabled()) {
       CmmnDeployer cmmnDeployer = getCmmnDeployer();
@@ -2204,7 +2204,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return defaultListeners;
   }
 
-  protected FlowaveFormDefinitionDeployer getCamundaFormDeployer() {
+  protected FlowaveFormDefinitionDeployer getFlowaveFormDeployer() {
     FlowaveFormDefinitionDeployer deployer = new FlowaveFormDefinitionDeployer();
     deployer.setIdGenerator(idGenerator);
     return deployer;
@@ -2895,9 +2895,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     InternalsImpl internals = new InternalsImpl(database, diagnosticsRegistry.getApplicationServer(), diagnosticsRegistry.getLicenseKey(), jdk);
     internals.setDataCollectionStartDate(ClockUtil.getCurrentTime());
 
-    String camundaIntegration = diagnosticsRegistry.getCamundaIntegration();
+    String camundaIntegration = diagnosticsRegistry.getFlowaveIntegration();
     if (camundaIntegration != null && !camundaIntegration.isEmpty()) {
-      internals.getCamundaIntegration().add(camundaIntegration);
+      internals.getFlowaveIntegration().add(camundaIntegration);
     }
 
     ProcessEngineDetails engineInfo = ParseUtil
@@ -4112,12 +4112,12 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return formValidators;
   }
 
-  public ProcessEngineConfigurationImpl setDisableStrictCamundaFormParsing(boolean disableStrictCamundaFormParsing) {
+  public ProcessEngineConfigurationImpl setDisableStrictFlowaveFormParsing(boolean disableStrictCamundaFormParsing) {
     this.disableStrictCamundaFormParsing = disableStrictCamundaFormParsing;
     return this;
   }
 
-  public boolean isDisableStrictCamundaFormParsing() {
+  public boolean isDisableStrictFlowaveFormParsing() {
     return disableStrictCamundaFormParsing;
   }
 

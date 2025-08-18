@@ -52,7 +52,7 @@ public class SchemaLogManager extends AbstractManager {
 
   private boolean isAuthorized() {
     try {
-      getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadSchemaLog);
+      getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadSchemaLog);
       return true;
     } catch (AuthorizationException e) {
       return false;

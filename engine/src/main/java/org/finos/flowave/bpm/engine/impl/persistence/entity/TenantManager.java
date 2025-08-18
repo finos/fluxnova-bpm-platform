@@ -78,7 +78,7 @@ public class TenantManager extends AbstractManager {
     return Context.getProcessEngineConfiguration().isTenantCheckEnabled()
         && Context.getCommandContext().isTenantCheckEnabled()
         && getCurrentAuthentication() != null
-        && !getAuthorizationManager().isCamundaAdmin(getCurrentAuthentication());
+        && !getAuthorizationManager().isFlowaveAdmin(getCurrentAuthentication());
   }
 
 }

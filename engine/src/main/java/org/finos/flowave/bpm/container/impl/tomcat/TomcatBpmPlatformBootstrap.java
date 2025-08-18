@@ -82,7 +82,7 @@ public class TomcatBpmPlatformBootstrap implements LifecycleListener {
       .addStep(new PlatformXmlStartProcessEnginesStep())
       .execute();
 
-    LOG.camundaBpmPlatformSuccessfullyStarted(server.getServerInfo());
+    LOG.flowaveBpmPlatformSuccessfullyStarted(server.getServerInfo());
 
   }
 
@@ -100,7 +100,7 @@ public class TomcatBpmPlatformBootstrap implements LifecycleListener {
       .addStep(new UnregisterBpmPlatformPluginsStep())
       .execute();
 
-    LOG.camundaBpmPlatformStopped(server.getServerInfo());
+    LOG.flowaveBpmPlatformStopped(server.getServerInfo());
   }
 
 }

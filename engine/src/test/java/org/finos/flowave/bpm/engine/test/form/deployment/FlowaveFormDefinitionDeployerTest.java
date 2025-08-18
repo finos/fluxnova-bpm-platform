@@ -73,7 +73,7 @@ public class FlowaveFormDefinitionDeployerTest {
   }
 
   @Test
-  public void shouldDeployProcessWithCamundaFormDefinition() {
+  public void shouldDeployProcessWithFlowaveFormDefinition() {
     String deploymentId = testRule.deploy(bpmnResource, SIMPLE_FORM).getId();
 
     // there should only be one deployment
@@ -81,7 +81,7 @@ public class FlowaveFormDefinitionDeployerTest {
     assertThat(deploymentCount).isEqualTo(1);
 
     // there should only be one CamundaFormDefinition
-    List<FlowaveFormDefinition> definitions = FlowaveFormUtils.findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = FlowaveFormUtils.findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(1);
     assertThat(definitions.get(0).getDeploymentId()).isEqualTo(deploymentId);
   }

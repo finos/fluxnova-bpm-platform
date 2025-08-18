@@ -44,8 +44,8 @@ public class LocalVariableIT {
   private static final BpmnModelInstance EXTERNAL_TASK_PROCESS = Bpmn.createExecutableProcess()
       .startEvent("startEvent")
         .serviceTask()
-          .camundaExternalTask(EXTERNAL_TASK_TOPIC_FOO)
-          .camundaInputParameter(LOCAL_VARIABLE_NAME, LOCAL_VARIABLE_VALUE.getValue())
+          .flowaveExternalTask(EXTERNAL_TASK_TOPIC_FOO)
+          .flowaveInputParameter(LOCAL_VARIABLE_NAME, LOCAL_VARIABLE_VALUE.getValue())
       .endEvent("endEvent")
       .done();
 

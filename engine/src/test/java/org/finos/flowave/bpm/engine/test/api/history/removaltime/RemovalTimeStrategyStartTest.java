@@ -100,20 +100,20 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
   protected final String CALLED_PROCESS_KEY = "calledProcess";
 
   protected final BpmnModelInstance CALLED_PROCESS = Bpmn.createExecutableProcess(CALLED_PROCESS_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent()
       .userTask("userTask")
       .name("userTask")
-      .camundaCandidateUsers("foo")
+      .flowaveCandidateUsers("foo")
       .serviceTask()
-      .camundaAsyncBefore()
-      .camundaClass(FailingDelegate.class.getName())
+      .flowaveAsyncBefore()
+      .flowaveClass(FailingDelegate.class.getName())
       .endEvent()
       .done();
 
   protected final String CALLING_PROCESS_KEY = "callingProcess";
   protected final BpmnModelInstance CALLING_PROCESS = Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-    .camundaHistoryTimeToLive(5)
+    .flowaveHistoryTimeToLive(5)
     .startEvent()
       .callActivity()
         .calledElement(CALLED_PROCESS_KEY)
@@ -130,10 +130,10 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("dish-decision")
+          .flowaveDecisionRef("dish-decision")
       .endEvent().done());
 
     // when
@@ -194,10 +194,10 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("dish-decision")
+          .flowaveDecisionRef("dish-decision")
       .endEvent().done());
 
     // when
@@ -293,10 +293,10 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("dish-decision")
+          .flowaveDecisionRef("dish-decision")
       .endEvent().done());
 
     // when
@@ -330,10 +330,10 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
       .businessRuleTask()
-      .camundaDecisionRef("dish-decision")
+      .flowaveDecisionRef("dish-decision")
       .endEvent().done());
 
     // when
@@ -971,11 +971,11 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
 
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("anExternalTaskTopic")
+        .serviceTask().flowaveExternalTask("anExternalTaskTopic")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .callActivity()
           .calledElement("calledProcess")
@@ -1090,11 +1090,11 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
 
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("anExternalTaskTopic")
+        .serviceTask().flowaveExternalTask("anExternalTaskTopic")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .callActivity()
           .calledElement("calledProcess")
@@ -1664,11 +1664,11 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
 
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("aTopicName")
+        .serviceTask().flowaveExternalTask("aTopicName")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
         .callActivity()
           .calledElement("calledProcess")
@@ -1707,9 +1707,9 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when
@@ -1778,9 +1778,9 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when
@@ -1848,9 +1848,9 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     ClockUtil.setCurrentTime(START_DATE);
 
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
-      .camundaHistoryTimeToLive(5)
+      .flowaveHistoryTimeToLive(5)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when
@@ -1997,7 +1997,7 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
       .startEvent()
       .userTask()
-        .camundaExecutionListenerClass("end", FailingExecutionListener.class)
+        .flowaveExecutionListenerClass("end", FailingExecutionListener.class)
       .endEvent()
       .done());
 

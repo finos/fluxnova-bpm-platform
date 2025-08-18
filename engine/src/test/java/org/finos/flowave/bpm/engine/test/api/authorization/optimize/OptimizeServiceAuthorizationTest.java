@@ -375,8 +375,8 @@ public class OptimizeServiceAuthorizationTest {
     bpmnModelInstance = Bpmn.createExecutableProcess(FAILING_PROCESS)
       .startEvent("start")
       .serviceTask("task")
-        .camundaAsyncBefore()
-        .camundaClass(FailingDelegate.class.getName())
+        .flowaveAsyncBefore()
+        .flowaveClass(FailingDelegate.class.getName())
       .endEvent("end")
       .done();
     deploymentBuilder.addModelInstance("failingProcess1-" + ".bpmn", bpmnModelInstance);

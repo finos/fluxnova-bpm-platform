@@ -102,7 +102,7 @@ public interface Internals {
    * Used Camunda integrations (e.g, Spring boot starter, Camunda Platform Run,
    * WildFly/JBoss subsystem or Camunda EJB service).
    */
-  public Set<String> getCamundaIntegration();
+  public Set<String> getFlowaveIntegration();
 
   /**
    * Webapps enabled in the Camunda installation (e.g., cockpit, admin,

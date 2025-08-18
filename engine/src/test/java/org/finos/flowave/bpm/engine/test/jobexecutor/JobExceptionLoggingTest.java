@@ -123,8 +123,8 @@ public class JobExceptionLoggingTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("failingDelegate")
         .startEvent()
         .serviceTask()
-          .camundaClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
-          .camundaAsyncBefore()
+          .flowaveClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
+          .flowaveAsyncBefore()
         .done();
     testRule.deploy(modelInstance);
 
@@ -157,7 +157,7 @@ public class JobExceptionLoggingTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("failingDelegate")
         .startEvent()
         .serviceTask()
-          .camundaClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
+          .flowaveClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
         .done();
     testRule.deploy(modelInstance);
 

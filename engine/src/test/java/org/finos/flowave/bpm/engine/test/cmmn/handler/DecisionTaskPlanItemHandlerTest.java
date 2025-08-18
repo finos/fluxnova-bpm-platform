@@ -546,7 +546,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 
@@ -568,7 +568,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 
@@ -709,7 +709,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testBinding() {
     // given:
     CallableElementBinding caseBinding = CallableElementBinding.LATEST;
-    decisionTask.setCamundaDecisionBinding(caseBinding.getValue());
+    decisionTask.setFlowaveDecisionBinding(caseBinding.getValue());
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -727,7 +727,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testVersionConstant() {
     // given:
     String caseVersion = "2";
-    decisionTask.setCamundaDecisionVersion(caseVersion);
+    decisionTask.setFlowaveDecisionVersion(caseVersion);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -747,7 +747,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testVersionExpression() {
     // given:
     String caseVersion = "${aVersion}";
-    decisionTask.setCamundaDecisionVersion(caseVersion);
+    decisionTask.setFlowaveDecisionVersion(caseVersion);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -767,7 +767,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   @Test
   public void testResultVariable() {
     // given:
-    decisionTask.setCamundaResultVariable("aResultVariable");
+    decisionTask.setFlowaveResultVariable("aResultVariable");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -793,7 +793,7 @@ public class DecisionTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   @Test
   public void testMapDecisionResult() {
     // given:
-    decisionTask.setCamundaMapDecisionResult("singleResult");
+    decisionTask.setFlowaveMapDecisionResult("singleResult");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);

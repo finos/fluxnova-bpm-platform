@@ -60,7 +60,7 @@ public class DefaultDatasourceConfigurationTest {
   }
 
   @Test
-  public void camundaTransactionManagerTest() {
+  public void flowaveTransactionManagerTest() {
     defaultDatasourceConfiguration.dataSource = mock(DataSource.class);
     PlatformTransactionManager camundaTransactionManager = mock(PlatformTransactionManager.class);
     defaultDatasourceConfiguration.camundaTransactionManager = camundaTransactionManager;
@@ -77,7 +77,7 @@ public class DefaultDatasourceConfigurationTest {
   }
 
   @Test
-  public void camundaDataSourceTest() {
+  public void flowaveDataSourceTest() {
     DataSource camundaDatasourceMock = mock(DataSource.class);
     defaultDatasourceConfiguration.camundaDataSource = camundaDatasourceMock;
     defaultDatasourceConfiguration.dataSource = mock(DataSource.class);

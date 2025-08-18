@@ -249,9 +249,9 @@ public class RuntimeByteArrayTest {
     return Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask("failing")
-      .camundaAsyncAfter()
-      .camundaAsyncBefore()
-      .camundaClass(FailingDelegate.class)
+      .flowaveAsyncAfter()
+      .flowaveAsyncBefore()
+      .flowaveClass(FailingDelegate.class)
       .endEvent()
       .done();
   }

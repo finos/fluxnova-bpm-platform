@@ -108,7 +108,7 @@ public class GetRunningHistoricTaskInstancesForOptimizeTest {
       .startEvent("startEvent")
       .userTask("userTask")
         .name("task")
-        .camundaAssignee(userId)
+        .flowaveAssignee(userId)
       .endEvent("endEvent")
       .done();
     testHelper.deploy(simpleDefinition);

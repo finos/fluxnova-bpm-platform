@@ -36,8 +36,8 @@ public interface RepetitionRule extends CmmnElement {
 
   /** Camunda extensions */
 
-  String getCamundaRepeatOnStandardEvent();
+  String getFlowaveRepeatOnStandardEvent();
 
-  void setCamundaRepeatOnStandardEvent(String standardEvent);
+  void setFlowaveRepeatOnStandardEvent(String standardEvent);
 
 }

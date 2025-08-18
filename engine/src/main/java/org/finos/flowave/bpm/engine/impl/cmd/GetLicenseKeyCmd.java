@@ -28,7 +28,7 @@ public class GetLicenseKeyCmd extends LicenseCmd implements Command<String> {
 
   @Override
   public String execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadLicenseKey);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadLicenseKey);
 
     // case I: license is stored as BLOB
     ResourceEntity licenseResource = commandContext.getResourceManager().findLicenseKeyResource();

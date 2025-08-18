@@ -42,7 +42,7 @@ public class DeletePropertyCmd implements Command<Object> {
   }
 
   public Object execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkDeleteProperty);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkDeleteProperty);
 
     final PropertyManager propertyManager = commandContext.getPropertyManager();
 

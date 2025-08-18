@@ -49,7 +49,7 @@ public class FlowaveBpmWebappAutoConfiguration implements WebMvcConfigurer {
 
 
   @Bean
-  public FlowaveBpmWebappInitializer camundaBpmWebappInitializer() {
+  public FlowaveBpmWebappInitializer flowaveBpmWebappInitializer() {
     return new FlowaveBpmWebappInitializer(properties);
   }
 

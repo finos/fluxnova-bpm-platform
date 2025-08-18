@@ -25,12 +25,12 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveScript extends BpmnModelElementInstance {
 
-  String getCamundaScriptFormat();
+  String getFlowaveScriptFormat();
 
-  void setCamundaScriptFormat(String camundaScriptFormat);
+  void setFlowaveScriptFormat(String camundaScriptFormat);
 
-  String getCamundaResource();
+  String getFlowaveResource();
 
-  void setCamundaResource(String camundaResource);
+  void setFlowaveResource(String camundaResource);
 
 }

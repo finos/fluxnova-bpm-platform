@@ -398,7 +398,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaClass(SetVariableDelegate.class.getName())
+                                                    .flowaveClass(SetVariableDelegate.class.getName())
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, true);
 
@@ -425,7 +425,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaClass(SetVariableDelegate.class.getName())
+                                                    .flowaveClass(SetVariableDelegate.class.getName())
                                                   .userTask()
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, false);
@@ -453,7 +453,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .userTask().name(TASK_BEFORE_CONDITION)
-      .serviceTask(TASK_WITH_CONDITION_ID).camundaClass(SetVariableDelegate.class.getName())
+      .serviceTask(TASK_WITH_CONDITION_ID).flowaveClass(SetVariableDelegate.class.getName())
       .endEvent().done();
 
     modelInstance = modify(modelInstance)
@@ -488,7 +488,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .startEvent()
       .userTask().name(TASK_BEFORE_CONDITION)
       .serviceTask(TASK_WITH_CONDITION_ID)
-      .camundaClass(SetVariableDelegate.class.getName())
+      .flowaveClass(SetVariableDelegate.class.getName())
       .userTask()
       .endEvent().done();
 
@@ -523,8 +523,8 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
-                                                    .camundaExpression(TRUE_CONDITION)
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveExpression(TRUE_CONDITION)
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, true);
 
@@ -549,8 +549,8 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
-                                                    .camundaExpression(TRUE_CONDITION)
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveExpression(TRUE_CONDITION)
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, false);
@@ -577,7 +577,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, true);
 
@@ -604,7 +604,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, false);
@@ -632,7 +632,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask().name(TASK_BEFORE_CONDITION)
                                                   .subProcess(SUB_PROCESS_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
                                                     .embeddedSubProcess()
                                                     .startEvent()
                                                     .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -667,7 +667,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask().name(TASK_BEFORE_CONDITION)
                                                   .subProcess(SUB_PROCESS_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
                                                     .embeddedSubProcess()
                                                     .startEvent()
                                                     .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -701,7 +701,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .startEvent()
       .userTask().name(TASK_BEFORE_CONDITION)
       .subProcess(SUB_PROCESS_ID)
-      .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+      .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
       .embeddedSubProcess()
       .startEvent()
       .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -735,7 +735,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .startEvent()
       .userTask().name(TASK_BEFORE_CONDITION)
       .subProcess(SUB_PROCESS_ID)
-      .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+      .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
       .embeddedSubProcess()
       .startEvent()
       .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -769,7 +769,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
                                                   .endEvent()
                                                   .done();
@@ -798,7 +798,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask(TASK_WITH_CONDITION_ID).name(TASK_WITH_CONDITION)
                                                   .endEvent()
                                                   .done();
@@ -827,7 +827,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask(TASK_WITH_CONDITION_ID).name(TASK_WITH_CONDITION)
                                                   .endEvent()
                                                   .done();
@@ -856,7 +856,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask(TASK_WITH_CONDITION_ID)
                                                     .name(TASK_WITH_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
                                                   .endEvent()
                                                   .done();
@@ -889,7 +889,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .callActivity(TASK_WITH_CONDITION_ID)
                                                     .calledElement(DELEGATED_PROCESS_KEY)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
                                                   .endEvent()
                                                   .done();
@@ -922,7 +922,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .callActivity(TASK_WITH_CONDITION_ID)
                                                     .calledElement(DELEGATED_PROCESS_KEY)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
                                                   .endEvent()
                                                   .done();
@@ -955,7 +955,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaOut(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveOut(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -988,7 +988,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaOut(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveOut(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -1022,7 +1022,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaIn(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveIn(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -1055,7 +1055,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaIn(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveIn(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -1085,7 +1085,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .userTask(TASK_WITH_CONDITION_ID).name(TASK_WITH_CONDITION)
-                                                    .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+                                                    .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
                                                   .endEvent()
                                                   .done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, true);
@@ -1114,7 +1114,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .userTask(TASK_WITH_CONDITION_ID).name(TASK_WITH_CONDITION)
-                                                    .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+                                                    .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
                                                   .endEvent()
                                                   .done();
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, false);
@@ -1147,8 +1147,8 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .endEvent()
                                                   .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, true);
 
@@ -1180,8 +1180,8 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .endEvent()
                                                   .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalBoundaryEventProcess(modelInstance, TASK_WITH_CONDITION_ID, false);
 
@@ -1208,7 +1208,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .startEvent()
                                                   .userTask(TASK_WITH_CONDITION_ID)
                                                     .name(TASK_WITH_CONDITION)
-                                                    .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
+                                                    .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
                                                   .userTask().name(AFTER_TASK)
                                                   .endEvent()
                                                   .done();
@@ -1237,7 +1237,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                 .startEvent()
                                                 .userTask(TASK_WITH_CONDITION_ID)
                                                   .name(TASK_WITH_CONDITION)
-                                                  .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
+                                                  .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
                                                 .userTask().name(AFTER_TASK)
                                                 .endEvent()
                                                 .done();
@@ -1477,7 +1477,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()
@@ -1513,7 +1513,7 @@ public class BoundaryConditionalEventTest extends AbstractConditionalEventTestCa
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()

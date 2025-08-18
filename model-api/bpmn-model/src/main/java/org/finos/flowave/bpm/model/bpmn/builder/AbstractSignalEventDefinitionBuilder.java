@@ -37,11 +37,11 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @param target the name of the variable in the signal-catching process instance
    * @return the builder object
    */
-  public B camundaInSourceTarget(String source, String target) {
+  public B flowaveInSourceTarget(String source, String target) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
-    param.setCamundaSource(source);
-    param.setCamundaTarget(target);
+    param.setFlowaveSource(source);
+    param.setFlowaveTarget(target);
 
     addExtensionElement(param);
 
@@ -56,11 +56,11 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @param target the name of the variable in the signal-catching process instance
    * @return the builder object
    */
-  public B camundaInSourceExpressionTarget(String sourceExpression, String target) {
+  public B flowaveInSourceExpressionTarget(String sourceExpression, String target) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
-    param.setCamundaSourceExpression(sourceExpression);
-    param.setCamundaTarget(target);
+    param.setFlowaveSourceExpression(sourceExpression);
+    param.setFlowaveTarget(target);
 
     addExtensionElement(param);
 
@@ -74,10 +74,10 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @param businessKey the business key string or expression of the signal-throwing process instance
    * @return the builder object
    */
-  public B camundaInBusinessKey(String businessKey) {
+  public B flowaveInBusinessKey(String businessKey) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
-    param.setCamundaBusinessKey(businessKey);
+    param.setFlowaveBusinessKey(businessKey);
 
     addExtensionElement(param);
 
@@ -92,13 +92,13 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @param local a Boolean flag to declare that only the local variables should be passed
    * @return the builder object
    */
-  public B camundaInAllVariables(String variables, boolean local) {
+  public B flowaveInAllVariables(String variables, boolean local) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
 
-    param.setCamundaVariables(variables);
+    param.setFlowaveVariables(variables);
 
     if (local) {
-      param.setCamundaLocal(local);
+      param.setFlowaveLocal(local);
     }
 
     addExtensionElement(param);
@@ -113,7 +113,7 @@ public abstract class AbstractSignalEventDefinitionBuilder<B extends AbstractSig
    * @param variables a String flag to declare that all of the signal-throwing process-instance variables should be passed
    * @return the builder object
    */
-  public B camundaInAllVariables(String variables) {
-    return camundaInAllVariables(variables, false);
+  public B flowaveInAllVariables(String variables) {
+    return flowaveInAllVariables(variables, false);
   }
 }

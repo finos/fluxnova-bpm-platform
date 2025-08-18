@@ -40,7 +40,7 @@ public class MultiTenancyJobSuspensionStateTest {
 
   protected static final BpmnModelInstance PROCESS = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
       .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .endEvent()
       .done();
 

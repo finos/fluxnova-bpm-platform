@@ -96,7 +96,7 @@ public class DeleteProcessDefinitionTest {
   protected static final BpmnModelInstance IO_MAPPING_PROCESS = Bpmn.createExecutableProcess(IO_MAPPING_PROCESS_KEY)
     .startEvent()
     .userTask()
-      .camundaOutputParameter("inputParameter", "${notExistentVariable}")
+      .flowaveOutputParameter("inputParameter", "${notExistentVariable}")
     .endEvent()
     .done();
 
@@ -573,7 +573,7 @@ public class DeleteProcessDefinitionTest {
       Bpmn.createExecutableProcess("processOne")
         .startEvent()
         .userTask()
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
         .endEvent()
         .done(),
       Bpmn.createExecutableProcess("processTwo")

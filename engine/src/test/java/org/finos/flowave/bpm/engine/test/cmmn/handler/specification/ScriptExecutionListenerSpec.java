@@ -40,7 +40,7 @@ public class ScriptExecutionListenerSpec extends AbstractExecutionListenerSpec {
   protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
     FlowaveScript script = SpecUtil.createElement(modelInstance, listener, null, FlowaveScript.class);
     String scriptValue = "${myScript}";
-    script.setCamundaScriptFormat(SCRIPT_FORMAT);
+    script.setFlowaveScriptFormat(SCRIPT_FORMAT);
     script.setTextContent(scriptValue);
   }
 

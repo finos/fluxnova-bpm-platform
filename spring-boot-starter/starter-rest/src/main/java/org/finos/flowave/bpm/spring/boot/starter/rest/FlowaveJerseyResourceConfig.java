@@ -30,11 +30,11 @@ public class FlowaveJerseyResourceConfig extends ResourceConfig implements Initi
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    registerCamundaRestResources();
+    registerFlowaveRestResources();
     registerAdditionalResources();
   }
 
-  protected void registerCamundaRestResources() {
+  protected void registerFlowaveRestResources() {
     log.info("Configuring camunda rest api.");
 
     this.registerClasses(FlowaveRestResources.getResourceClasses());

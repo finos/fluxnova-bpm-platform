@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.engine.test.api.form;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.entry;
-import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllCamundaFormDefinitionEntities;
+import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllFlowaveFormDefinitionEntities;
 import static org.finos.flowave.bpm.engine.variable.Variables.booleanValue;
 import static org.finos.flowave.bpm.engine.variable.Variables.createVariables;
 import static org.finos.flowave.bpm.engine.variable.Variables.objectValue;
@@ -664,10 +664,10 @@ public class FormServiceTest {
   public void testSubmitStartFormWithExecutionListenerOnStartEvent() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, VariablesRecordingListener.class)
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, VariablesRecordingListener.class)
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, VariablesRecordingListener.class)
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, VariablesRecordingListener.class)
         .endEvent()
         .done();
 
@@ -692,8 +692,8 @@ public class FormServiceTest {
   public void testSubmitStartFormWithAsyncStartEvent() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
-        .camundaHistoryTimeToLive(180)
-        .startEvent().camundaAsyncBefore()
+        .flowaveHistoryTimeToLive(180)
+        .startEvent().flowaveAsyncBefore()
         .endEvent()
         .done();
 
@@ -720,9 +720,9 @@ public class FormServiceTest {
   public void testSubmitStartFormWithAsyncStartEventExecuteJob() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess()
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .userTask()
         .endEvent()
         .done();
@@ -1182,7 +1182,7 @@ public class FormServiceTest {
   {
     // given
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .subProcess()
         .embeddedSubProcess()
@@ -1465,7 +1465,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/start.html",
       "org/finos/flowave/bpm/engine/test/api/form/task.html" })
   @Test
-  public void testGetDeployedCamundaStartForm() {
+  public void testGetDeployedFlowaveStartForm() {
     // given
     String procDefId = repositoryService.createProcessDefinitionQuery().singleResult().getId();
 
@@ -1549,7 +1549,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/start.html",
       "org/finos/flowave/bpm/engine/test/api/form/task.html" })
   @Test
-  public void testGetDeployedCamundaTaskForm() {
+  public void testGetDeployedFlowaveTaskForm() {
     // given
     runtimeService.startProcessInstanceByKey("FormsProcess");
     String taskId = taskService.createTaskQuery().singleResult().getId();
@@ -1663,7 +1663,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/FormServiceTest.shouldSubmitStartFormUsingFormKeyAndCamundaFormDefinition.bpmn",
       "org/finos/flowave/bpm/engine/test/api/form/start.form" })
   @Test
-  public void shouldSubmitStartFormUsingFormKeyAndCamundaFormDefinition() {
+  public void shouldSubmitStartFormUsingFormKeyAndFlowaveFormDefinition() {
     // given
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
         .processDefinitionKey("CamundaStartFormProcess").singleResult();
@@ -1674,7 +1674,7 @@ public class FormServiceTest {
 
     // then
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(1);
-    assertThat(findAllCamundaFormDefinitionEntities(processEngineConfiguration)).hasSize(1);
+    assertThat(findAllFlowaveFormDefinitionEntities(processEngineConfiguration)).hasSize(1);
     assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(0);
     assertThat(historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(1);
   }
@@ -1683,7 +1683,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/FormServiceTest.shouldSubmitTaskFormUsingFormKeyAndCamundaFormDefinition.bpmn",
   "org/finos/flowave/bpm/engine/test/api/form/task.form" })
   @Test
-  public void shouldSubmitTaskFormUsingFormKeyAndCamundaFormDefinition() {
+  public void shouldSubmitTaskFormUsingFormKeyAndFlowaveFormDefinition() {
     // given
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("CamundaTaskFormProcess");
 
@@ -1693,7 +1693,7 @@ public class FormServiceTest {
 
     // then
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(1);
-    assertThat(findAllCamundaFormDefinitionEntities(processEngineConfiguration)).hasSize(1);
+    assertThat(findAllFlowaveFormDefinitionEntities(processEngineConfiguration)).hasSize(1);
     assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(0);
     assertThat(historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstance.getId()).list()).hasSize(1);
     assertThat(taskService.createTaskQuery().list()).hasSize(0);
@@ -1703,7 +1703,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/FormServiceTest.shouldSubmitStartFormUsingFormRefAndCamundaFormDefinition.bpmn",
   "org/finos/flowave/bpm/engine/test/api/form/start.form" })
   @Test
-  public void shouldSubmitStartFormUsingFormRefAndCamundaFormDefinition() {
+  public void shouldSubmitStartFormUsingFormRefAndFlowaveFormDefinition() {
     // given
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
         .processDefinitionKey("CamundaStartFormProcess").singleResult();
@@ -1724,7 +1724,7 @@ public class FormServiceTest {
       "org/finos/flowave/bpm/engine/test/api/form/FormServiceTest.shouldSubmitTaskFormUsingFormRefAndCamundaFormDefinition.bpmn",
   "org/finos/flowave/bpm/engine/test/api/form/task.form" })
   @Test
-  public void shouldSubmitTaskFormUsingFormRefAndCamundaFormDefinition() {
+  public void shouldSubmitTaskFormUsingFormRefAndFlowaveFormDefinition() {
     // given
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("CamundaTaskFormProcess");
 

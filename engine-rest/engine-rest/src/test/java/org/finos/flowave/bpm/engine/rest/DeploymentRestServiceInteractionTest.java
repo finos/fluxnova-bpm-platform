@@ -950,8 +950,8 @@ public class DeploymentRestServiceInteractionTest extends AbstractRestServiceTes
   }
 
   @Test
-  public void testGetDeploymentCamundaFormResourceData() {
-    Resource resource = MockProvider.createMockDeploymentCamundaFormResource();
+  public void testGetDeploymentFlowaveFormResourceData() {
+    Resource resource = MockProvider.createMockDeploymentFlowaveFormResource();
 
     List<Resource> resources = new ArrayList<>();
     resources.add(resource);

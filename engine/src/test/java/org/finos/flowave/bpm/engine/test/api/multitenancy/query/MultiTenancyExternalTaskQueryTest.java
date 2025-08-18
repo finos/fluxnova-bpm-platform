@@ -41,8 +41,8 @@ public class MultiTenancyExternalTaskQueryTest extends PluggableProcessEngineTes
     BpmnModelInstance process = Bpmn.createExecutableProcess()
       .startEvent()
       .serviceTask()
-        .camundaType("external")
-        .camundaTopic("test")
+        .flowaveType("external")
+        .flowaveTopic("test")
       .endEvent()
     .done();
 

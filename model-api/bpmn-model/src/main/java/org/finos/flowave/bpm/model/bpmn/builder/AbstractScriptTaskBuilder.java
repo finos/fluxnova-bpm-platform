@@ -65,8 +65,8 @@ public abstract class AbstractScriptTaskBuilder<B extends AbstractScriptTaskBuil
    * @param camundaResultVariable  the result variable to set
    * @return the builder object
    */
-  public B camundaResultVariable(String camundaResultVariable) {
-    element.setCamundaResultVariable(camundaResultVariable);
+  public B flowaveResultVariable(String camundaResultVariable) {
+    element.setFlowaveResultVariable(camundaResultVariable);
     return myself;
   }
 
@@ -76,8 +76,8 @@ public abstract class AbstractScriptTaskBuilder<B extends AbstractScriptTaskBuil
    * @param camundaResource  the resource to set
    * @return the builder object
    */
-  public B camundaResource(String camundaResource) {
-    element.setCamundaResource(camundaResource);
+  public B flowaveResource(String camundaResource) {
+    element.setFlowaveResource(camundaResource);
     return myself;
   }
 

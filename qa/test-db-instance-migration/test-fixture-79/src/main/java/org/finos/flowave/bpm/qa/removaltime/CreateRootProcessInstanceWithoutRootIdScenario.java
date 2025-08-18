@@ -33,7 +33,7 @@ public class CreateRootProcessInstanceWithoutRootIdScenario {
 
         engine.getRepositoryService().createDeployment()
           .addModelInstance("process.bpmn", Bpmn.createExecutableProcess("process")
-              .camundaHistoryTimeToLive(180)
+              .flowaveHistoryTimeToLive(180)
             .startEvent()
             .userTask()
             .endEvent().done())
@@ -41,7 +41,7 @@ public class CreateRootProcessInstanceWithoutRootIdScenario {
 
         engine.getRepositoryService().createDeployment()
           .addModelInstance("rootProcess.bpmn", Bpmn.createExecutableProcess("rootProcess")
-              .camundaHistoryTimeToLive(180)
+              .flowaveHistoryTimeToLive(180)
             .startEvent()
             .callActivity()
               .calledElement("process")

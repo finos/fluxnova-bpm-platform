@@ -145,8 +145,8 @@ public class DecisionImpl extends DrgElementImpl implements Decision {
 
   // camunda extensions
   @Override
-  public Integer getCamundaHistoryTimeToLive() {
-    String ttl = getCamundaHistoryTimeToLiveString();
+  public Integer getFlowaveHistoryTimeToLive() {
+    String ttl = getFlowaveHistoryTimeToLiveString();
 
     if (ttl != null) {
       return Integer.valueOf(ttl);
@@ -155,17 +155,17 @@ public class DecisionImpl extends DrgElementImpl implements Decision {
   }
 
   @Override
-  public void setCamundaHistoryTimeToLive(Integer historyTimeToLive) {
-    setCamundaHistoryTimeToLiveString(String.valueOf(historyTimeToLive));
+  public void setFlowaveHistoryTimeToLive(Integer historyTimeToLive) {
+    setFlowaveHistoryTimeToLiveString(String.valueOf(historyTimeToLive));
   }
 
   @Override
-  public String getCamundaHistoryTimeToLiveString() {
+  public String getFlowaveHistoryTimeToLiveString() {
     return camundaHistoryTimeToLiveAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaHistoryTimeToLiveString(String historyTimeToLive) {
+  public void setFlowaveHistoryTimeToLiveString(String historyTimeToLive) {
     camundaHistoryTimeToLiveAttribute.setValue(this, historyTimeToLive);
   }
 

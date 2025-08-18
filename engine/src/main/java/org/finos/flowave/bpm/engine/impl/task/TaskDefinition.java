@@ -202,16 +202,16 @@ public class TaskDefinition {
     this.formDefinition.setFormKey(formKey);
   }
 
-  public Expression getCamundaFormDefinitionKey() {
-    return formDefinition.getCamundaFormDefinitionKey();
+  public Expression getFlowaveFormDefinitionKey() {
+    return formDefinition.getFlowaveFormDefinitionKey();
   }
 
-  public String getCamundaFormDefinitionBinding() {
-    return formDefinition.getCamundaFormDefinitionBinding();
+  public String getFlowaveFormDefinitionBinding() {
+    return formDefinition.getFlowaveFormDefinitionBinding();
   }
 
-  public Expression getCamundaFormDefinitionVersion() {
-    return formDefinition.getCamundaFormDefinitionVersion();
+  public Expression getFlowaveFormDefinitionVersion() {
+    return formDefinition.getFlowaveFormDefinitionVersion();
   }
 
   // helper methods ///////////////////////////////////////////////////////////

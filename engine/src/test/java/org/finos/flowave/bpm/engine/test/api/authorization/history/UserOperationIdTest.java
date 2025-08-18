@@ -173,7 +173,7 @@ public class UserOperationIdTest {
         .startEvent()
         .userTask()
         .serviceTask()
-          .camundaExpression("${execution.setVariable('foo', 'bar')}")
+          .flowaveExpression("${execution.setVariable('foo', 'bar')}")
         .endEvent()
         .done();
     testRule.deploy(bpmnModelInstance);

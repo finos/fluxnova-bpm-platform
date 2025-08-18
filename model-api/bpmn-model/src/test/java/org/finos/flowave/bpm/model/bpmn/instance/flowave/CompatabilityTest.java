@@ -49,7 +49,7 @@ public class CompatabilityTest {
     Collection<FlowaveExecutionListener> listeners = extensionElements.getChildElementsByType(FlowaveExecutionListener.class);
     String listenerClass = "org.foo.Bar";
     for (FlowaveExecutionListener listener : listeners) {
-      listener.setCamundaClass(listenerClass);
+      listener.setFlowaveClass(listenerClass);
     }
     for (FlowaveExecutionListener listener : listeners) {
       assertThat(listener.getAttributeValueNs(BpmnModelConstants.ACTIVITI_NS, "class"), is(listenerClass));
@@ -61,17 +61,17 @@ public class CompatabilityTest {
     BpmnModelInstance modelInstance = Bpmn.readModelFromStream(FlowaveExtensionsTest.class.getResourceAsStream("CamundaExtensionsCompatabilityTest.xml"));
     ProcessImpl process = modelInstance.getModelElementById(PROCESS_ID);
     String priority = "9000";
-    process.setCamundaJobPriority(priority);
-    process.setCamundaTaskPriority(priority);
+    process.setFlowaveJobPriority(priority);
+    process.setFlowaveTaskPriority(priority);
     Integer historyTimeToLive = 10;
-    process.setCamundaHistoryTimeToLive(historyTimeToLive);
-    process.setCamundaIsStartableInTasklist(false);
-    process.setCamundaVersionTag("v1.0.0");
+    process.setFlowaveHistoryTimeToLive(historyTimeToLive);
+    process.setFlowaveIsStartableInTasklist(false);
+    process.setFlowaveVersionTag("v1.0.0");
     assertThat(process.getAttributeValueNs(BpmnModelConstants.ACTIVITI_NS, "jobPriority"), is(priority));
     assertThat(process.getAttributeValueNs(BpmnModelConstants.ACTIVITI_NS, "taskPriority"), is(priority));
     assertThat(process.getAttributeValueNs(BpmnModelConstants.ACTIVITI_NS, "historyTimeToLive"), is(historyTimeToLive.toString()));
-    assertThat(process.isCamundaStartableInTasklist(), is(false));
-    assertThat(process.getCamundaVersionTag(), is("v1.0.0"));
+    assertThat(process.isFlowaveStartableInTasklist(), is(false));
+    assertThat(process.getFlowaveVersionTag(), is("v1.0.0"));
   }
 
 }

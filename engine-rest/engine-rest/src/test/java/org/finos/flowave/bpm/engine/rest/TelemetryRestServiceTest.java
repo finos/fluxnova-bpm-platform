@@ -152,7 +152,7 @@ public class TelemetryRestServiceTest extends AbstractRestServiceTest {
     when(product.getInternals()).thenReturn(internals);
 
     when(internals.getApplicationServer()).thenReturn(mock(ApplicationServer.class));
-    when(internals.getCamundaIntegration()).thenReturn(new HashSet<>());
+    when(internals.getFlowaveIntegration()).thenReturn(new HashSet<>());
     when(internals.getCommands()).thenReturn(new HashMap<>());
     when(internals.getDatabase()).thenReturn(mock(Database.class));
     when(internals.getJdk()).thenReturn(mock(Jdk.class));

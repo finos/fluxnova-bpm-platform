@@ -34,7 +34,7 @@ Or register the extension from the builder:
 ```java
     @RegisterExtension
     ProcessEngineExtension extension = ProcessEngineExtension.builder()
-      .configurationResource("audithistory.camunda.cfg.xml")
+      .configurationResource("audithistory.flowave.cfg.xml")
       .build();
 ```
 
@@ -49,7 +49,7 @@ If you don't want to create a configuration file, you can add a process engine, 
 ```java
     public ProcessEngine myProcessEngine = ProcessEngineConfiguration
         .createStandaloneInMemProcessEngineConfiguration()
-        .setJdbcUrl("jdbc:h2:mem:camunda;DB_CLOSE_DELAY=1000")
+        .setJdbcUrl("jdbc:h2:mem:flowave;DB_CLOSE_DELAY=1000")
         .buildProcessEngine();
     
     @RegisterExtension

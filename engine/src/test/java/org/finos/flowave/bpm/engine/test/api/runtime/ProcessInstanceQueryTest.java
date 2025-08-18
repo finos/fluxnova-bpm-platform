@@ -2080,14 +2080,14 @@ public class ProcessInstanceQueryTest {
   public void testQueryByAsyncBeforeActivityId() {
     // given
     ProcessDefinition testProcess = testHelper.deployAndGetDefinition(ProcessModels.newModel()
-      .startEvent("start").camundaAsyncBefore()
-      .subProcess("subProcess").camundaAsyncBefore()
+      .startEvent("start").flowaveAsyncBefore()
+      .subProcess("subProcess").flowaveAsyncBefore()
       .embeddedSubProcess()
         .startEvent()
-        .serviceTask("task").camundaAsyncBefore().camundaExpression("${true}")
+        .serviceTask("task").flowaveAsyncBefore().flowaveExpression("${true}")
         .endEvent()
       .subProcessDone()
-      .endEvent("end").camundaAsyncBefore()
+      .endEvent("end").flowaveAsyncBefore()
       .done()
     );
 
@@ -2121,14 +2121,14 @@ public class ProcessInstanceQueryTest {
   public void testQueryByAsyncAfterActivityId() {
     // given
     ProcessDefinition testProcess = testHelper.deployAndGetDefinition(ProcessModels.newModel()
-      .startEvent("start").camundaAsyncAfter()
-      .subProcess("subProcess").camundaAsyncAfter()
+      .startEvent("start").flowaveAsyncAfter()
+      .subProcess("subProcess").flowaveAsyncAfter()
       .embeddedSubProcess()
         .startEvent()
-        .serviceTask("task").camundaAsyncAfter().camundaExpression("${true}")
+        .serviceTask("task").flowaveAsyncAfter().flowaveExpression("${true}")
         .endEvent()
       .subProcessDone()
-      .endEvent("end").camundaAsyncAfter()
+      .endEvent("end").flowaveAsyncAfter()
       .done()
     );
 

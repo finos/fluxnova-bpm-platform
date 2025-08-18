@@ -29,31 +29,31 @@ public class AsyncProcessModels {
   public static final BpmnModelInstance ASYNC_BEFORE_USER_TASK_PROCESS =
     modify(ProcessModels.ONE_TASK_PROCESS)
       .activityBuilder("userTask")
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
     .done();
 
   public static final BpmnModelInstance ASYNC_BEFORE_SUBPROCESS_USER_TASK_PROCESS =
     modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("userTask")
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
     .done();
 
   public static final BpmnModelInstance ASYNC_BEFORE_START_EVENT_PROCESS =
     modify(ProcessModels.ONE_TASK_PROCESS)
       .flowNodeBuilder("startEvent")
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
     .done();
 
   public static final BpmnModelInstance ASYNC_BEFORE_SUBPROCESS_START_EVENT_PROCESS =
     modify(ProcessModels.SUBPROCESS_PROCESS)
       .flowNodeBuilder("subProcessStart")
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
     .done();
 
   public static final BpmnModelInstance ASYNC_AFTER_USER_TASK_PROCESS =
     modify(ProcessModels.TWO_TASKS_PROCESS)
       .activityBuilder("userTask1")
-      .camundaAsyncAfter()
+      .flowaveAsyncAfter()
     .done();
 
   public static final BpmnModelInstance ASYNC_AFTER_SUBPROCESS_USER_TASK_PROCESS =
@@ -63,7 +63,7 @@ public class AsyncProcessModels {
         .embeddedSubProcess()
         .startEvent()
         .userTask("userTask1")
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
       .subProcessDone()
     .userTask("userTask2")
     .endEvent()

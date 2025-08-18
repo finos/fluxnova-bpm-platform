@@ -55,11 +55,11 @@ public class FlowaveEntryImpl extends FlowaveGenericValueElementImpl implements 
     super(instanceContext);
   }
 
-  public String getCamundaKey() {
+  public String getFlowaveKey() {
     return camundaKeyAttribute.getValue(this);
   }
 
-  public void setCamundaKey(String camundaKey) {
+  public void setFlowaveKey(String camundaKey) {
     camundaKeyAttribute.setValue(this, camundaKey);
   }
 

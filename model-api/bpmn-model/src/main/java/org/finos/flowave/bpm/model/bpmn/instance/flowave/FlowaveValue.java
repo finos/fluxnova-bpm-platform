@@ -25,11 +25,11 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveValue extends BpmnModelElementInstance {
 
-  String getCamundaId();
+  String getFlowaveId();
 
-  void setCamundaId(String camundaId);
+  void setFlowaveId(String camundaId);
 
-  String getCamundaName();
+  String getFlowaveName();
 
-  void setCamundaName(String camundaName);
+  void setFlowaveName(String camundaName);
 }

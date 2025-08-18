@@ -58,7 +58,7 @@ public class FormDto {
 
     if (formData != null) {
       dto.key = formData.getFormKey();
-      dto.camundaFormRef = formData.getCamundaFormRef();
+      dto.camundaFormRef = formData.getFlowaveFormRef();
     }
 
     return dto;

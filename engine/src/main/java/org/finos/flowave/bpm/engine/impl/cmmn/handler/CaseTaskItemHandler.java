@@ -45,19 +45,19 @@ public class CaseTaskItemHandler extends ProcessOrCaseTaskItemHandler {
   protected String getBinding(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     CaseTask definition = getDefinition(element);
 
-    return definition.getCamundaCaseBinding();
+    return definition.getFlowaveCaseBinding();
   }
 
   protected String getVersion(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     CaseTask definition = getDefinition(element);
 
-    return definition.getCamundaCaseVersion();
+    return definition.getFlowaveCaseVersion();
   }
 
   protected String getTenantId(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     CaseTask definition = getDefinition(element);
 
-    return definition.getCamundaCaseTenantId();
+    return definition.getFlowaveCaseTenantId();
   }
 
 }

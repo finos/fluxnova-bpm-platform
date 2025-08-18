@@ -752,7 +752,7 @@ public class ManagementServiceImpl extends ServiceImpl implements ManagementServ
 
     @Override
     public String execute(CommandContext commandContext) {
-      commandContext.getAuthorizationManager().checkCamundaAdmin();
+      commandContext.getAuthorizationManager().checkFlowaveAdmin();
       DbSqlSessionFactory dbSqlSessionFactory = (DbSqlSessionFactory) commandContext.getSessionFactories().get(DbSqlSession.class);
       DbSqlSession dbSqlSession = dbSqlSessionFactory.openSession(connection, catalog, schema);
       commandContext.getSessions().put(DbSqlSession.class, dbSqlSession);
@@ -767,7 +767,7 @@ public class ManagementServiceImpl extends ServiceImpl implements ManagementServ
 
     @Override
     public Set<String> execute(CommandContext commandContext) {
-      commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadRegisteredDeployments);
+      commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadRegisteredDeployments);
       Set<String> registeredDeployments = Context.getProcessEngineConfiguration().getRegisteredDeployments();
       return new HashSet<>(registeredDeployments);
     }

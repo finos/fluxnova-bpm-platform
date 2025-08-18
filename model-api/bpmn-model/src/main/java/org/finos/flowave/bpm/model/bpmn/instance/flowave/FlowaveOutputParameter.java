@@ -25,8 +25,8 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveOutputParameter extends BpmnModelElementInstance, FlowaveGenericValueElement {
 
-  String getCamundaName();
+  String getFlowaveName();
 
-  void setCamundaName(String camundaName);
+  void setFlowaveName(String camundaName);
 
 }

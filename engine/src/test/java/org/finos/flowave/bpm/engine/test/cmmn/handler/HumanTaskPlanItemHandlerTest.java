@@ -317,7 +317,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionDueDateExpression() {
     // given
     String aDueDate = "aDueDate";
-    humanTask.setCamundaDueDate(aDueDate);
+    humanTask.setFlowaveDueDate(aDueDate);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -335,7 +335,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionFollowUpDateExpression() {
     // given
     String aFollowUpDate = "aFollowDate";
-    humanTask.setCamundaFollowUpDate(aFollowUpDate);
+    humanTask.setFlowaveFollowUpDate(aFollowUpDate);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -353,7 +353,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionPriorityExpression() {
     // given
     String aPriority = "aPriority";
-    humanTask.setCamundaPriority(aPriority);
+    humanTask.setFlowavePriority(aPriority);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -391,7 +391,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionAssigneeExpression() {
     // given
     String aPriority = "aPriority";
-    humanTask.setCamundaPriority(aPriority);
+    humanTask.setFlowavePriority(aPriority);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -409,7 +409,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionCandidateUsers() {
     // given
     String aCandidateUsers = "mary,john,peter";
-    humanTask.setCamundaCandidateUsers(aCandidateUsers);
+    humanTask.setFlowaveCandidateUsers(aCandidateUsers);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -439,7 +439,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionCandidateGroups() {
     // given
     String aCandidateGroups = "accounting,management,backoffice";
-    humanTask.setCamundaCandidateGroups(aCandidateGroups);
+    humanTask.setFlowaveCandidateGroups(aCandidateGroups);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -469,7 +469,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testTaskDefinitionFormKey() {
     // given
     String aFormKey = "aFormKey";
-    humanTask.setCamundaFormKey(aFormKey);
+    humanTask.setFlowaveFormKey(aFormKey);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -531,8 +531,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_CREATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaClass(className);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveClass(className);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -567,8 +567,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_CREATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaDelegateExpression(delegateExpression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveDelegateExpression(delegateExpression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -603,8 +603,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_CREATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaExpression(expression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveExpression(expression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -638,8 +638,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_COMPLETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaClass(className);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveClass(className);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -674,8 +674,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_COMPLETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaDelegateExpression(delegateExpression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveDelegateExpression(delegateExpression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -710,8 +710,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_COMPLETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaExpression(expression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveExpression(expression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -745,8 +745,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaClass(className);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveClass(className);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -781,8 +781,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaDelegateExpression(delegateExpression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveDelegateExpression(delegateExpression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -817,8 +817,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_ASSIGNMENT;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaExpression(expression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveExpression(expression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -852,8 +852,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_UPDATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaClass(className);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveClass(className);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -888,8 +888,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_UPDATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaDelegateExpression(delegateExpression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveDelegateExpression(delegateExpression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -924,8 +924,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_UPDATE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaExpression(expression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveExpression(expression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -959,8 +959,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String className = "org.camunda.bpm.test.tasklistener.ABC";
     String event = TaskListener.EVENTNAME_DELETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaClass(className);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveClass(className);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -995,8 +995,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String delegateExpression = "${myDelegateExpression}";
     String event = TaskListener.EVENTNAME_DELETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaDelegateExpression(delegateExpression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveDelegateExpression(delegateExpression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -1031,8 +1031,8 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
 
     String expression = "${myExpression}";
     String event = TaskListener.EVENTNAME_DELETE;
-    taskListener.setCamundaEvent(event);
-    taskListener.setCamundaExpression(expression);
+    taskListener.setFlowaveEvent(event);
+    taskListener.setFlowaveExpression(expression);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -1428,7 +1428,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 
@@ -1450,7 +1450,7 @@ public class HumanTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 

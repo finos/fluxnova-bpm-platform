@@ -55,7 +55,7 @@ public class FlowaveFormDefinitionDeployer extends AbstractDefinitionDeployer<Ca
       return Collections.singletonList(definition);
     } catch (Exception e) {
       // form could not be parsed, throw exception if strict parsing is not disabled
-      if (!getCommandContext().getProcessEngineConfiguration().isDisableStrictCamundaFormParsing()) {
+      if (!getCommandContext().getProcessEngineConfiguration().isDisableStrictFlowaveFormParsing()) {
         throw LOG.exceptionDuringFormParsing(e.getMessage(), resource.getName());
       }
       return Collections.emptyList();
@@ -64,25 +64,25 @@ public class FlowaveFormDefinitionDeployer extends AbstractDefinitionDeployer<Ca
 
   @Override
   protected CamundaFormDefinitionEntity findDefinitionByDeploymentAndKey(String deploymentId, String definitionKey) {
-    return getCommandContext().getCamundaFormDefinitionManager().findDefinitionByDeploymentAndKey(deploymentId,
+    return getCommandContext().getFlowaveFormDefinitionManager().findDefinitionByDeploymentAndKey(deploymentId,
         definitionKey);
   }
 
   @Override
   protected CamundaFormDefinitionEntity findLatestDefinitionByKeyAndTenantId(String definitionKey, String tenantId) {
-    return getCommandContext().getCamundaFormDefinitionManager().findLatestDefinitionByKeyAndTenantId(definitionKey,
+    return getCommandContext().getFlowaveFormDefinitionManager().findLatestDefinitionByKeyAndTenantId(definitionKey,
         tenantId);
   }
 
   @Override
   protected void persistDefinition(CamundaFormDefinitionEntity definition) {
-    getCommandContext().getCamundaFormDefinitionManager().insert(definition);
+    getCommandContext().getFlowaveFormDefinitionManager().insert(definition);
   }
 
   @Override
   protected void addDefinitionToDeploymentCache(DeploymentCache deploymentCache,
       CamundaFormDefinitionEntity definition) {
-    deploymentCache.addCamundaFormDefinition(definition);
+    deploymentCache.addFlowaveFormDefinition(definition);
   }
 
 }

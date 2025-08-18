@@ -60,7 +60,7 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
     for (FlowaveIn input : inputs) {
 
       // businessKey
-      String businessKey = input.getCamundaBusinessKey();
+      String businessKey = input.getFlowaveBusinessKey();
       if (businessKey != null && !businessKey.isEmpty()) {
         ParameterValueProvider businessKeyValueProvider = createParameterValueProvider(businessKey, expressionManager);
         callableElement.setBusinessKeyValueProvider(businessKeyValueProvider);
@@ -70,28 +70,28 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
         CallableElementParameter parameter = new CallableElementParameter();
         callableElement.addInput(parameter);
 
-        if (input.getCamundaLocal()) {
+        if (input.getFlowaveLocal()) {
           parameter.setReadLocal(true);
         }
 
         // all variables
-        String variables = input.getCamundaVariables();
+        String variables = input.getFlowaveVariables();
         if ("all".equals(variables)) {
           parameter.setAllVariables(true);
           continue;
         }
 
         // source/sourceExpression
-        String source = input.getCamundaSource();
+        String source = input.getFlowaveSource();
         if (source == null || source.isEmpty()) {
-          source = input.getCamundaSourceExpression();
+          source = input.getFlowaveSourceExpression();
         }
 
         ParameterValueProvider sourceValueProvider = createParameterValueProvider(source, expressionManager);
         parameter.setSourceValueProvider(sourceValueProvider);
 
         // target
-        String target = input.getCamundaTarget();
+        String target = input.getFlowaveTarget();
         parameter.setTarget(target);
       }
     }
@@ -109,23 +109,23 @@ public abstract class ProcessOrCaseTaskItemHandler extends CallingTaskItemHandle
       callableElement.addOutput(parameter);
 
       // all variables
-      String variables = output.getCamundaVariables();
+      String variables = output.getFlowaveVariables();
       if ("all".equals(variables)) {
         parameter.setAllVariables(true);
         continue;
       }
 
       // source/sourceExpression
-      String source = output.getCamundaSource();
+      String source = output.getFlowaveSource();
       if (source == null || source.isEmpty()) {
-        source = output.getCamundaSourceExpression();
+        source = output.getFlowaveSourceExpression();
       }
 
       ParameterValueProvider sourceValueProvider = createParameterValueProvider(source, expressionManager);
       parameter.setSourceValueProvider(sourceValueProvider);
 
       // target
-      String target = output.getCamundaTarget();
+      String target = output.getFlowaveTarget();
       parameter.setTarget(target);
 
     }

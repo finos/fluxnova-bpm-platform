@@ -158,7 +158,7 @@ public class MockTaskBuilder {
     return this;
   }
 
-  public MockTaskBuilder camundaFormRef(String key, String binding, Integer version) {
+  public MockTaskBuilder flowaveFormRef(String key, String binding, Integer version) {
     FlowaveFormRefImpl camundaFormRef = new FlowaveFormRefImpl(key, binding);
     camundaFormRef.setVersion(version);
     this.camundaFormRef = camundaFormRef;
@@ -207,7 +207,7 @@ public class MockTaskBuilder {
     when(mockTask.getCaseInstanceId()).thenReturn(caseInstanceId);
     when(mockTask.getCaseExecutionId()).thenReturn(caseExecutionId);
     when(mockTask.getFormKey()).thenReturn(formKey);
-    when(mockTask.getCamundaFormRef()).thenReturn(camundaFormRef);
+    when(mockTask.getFlowaveFormRef()).thenReturn(camundaFormRef);
     when(mockTask.getTenantId()).thenReturn(tenantId);
     when(mockTask.getTaskState()).thenReturn(taskState);
     when(mockTask.hasAttachment()).thenReturn(hasAttachment);

@@ -329,7 +329,7 @@ public class SetVariablesMigrationTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(
         modify(ProcessModels.ONE_TASK_PROCESS)
             .activityBuilder(USER_TASK_ID)
-              .camundaExecutionListenerClass("end", ReadTransientVariableExecutionListener.class)
+              .flowaveExecutionListenerClass("end", ReadTransientVariableExecutionListener.class)
             .done()
         );
     ProcessDefinition targetProcessDefinition =

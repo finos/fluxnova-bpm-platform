@@ -135,7 +135,7 @@ public class BPMNParseListenerTest {
 
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
       .startEvent()
-        .userTask("task").camundaFormKey(originalFormKey)
+        .userTask("task").flowaveFormKey(originalFormKey)
       .endEvent()
       .done();
 
@@ -181,8 +181,8 @@ public class BPMNParseListenerTest {
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
           .userTask("task")
-            .camundaFormRef(originalFormRef)
-            .camundaFormRefBinding(originalFormRefBinding)
+            .flowaveFormRef(originalFormRef)
+            .flowaveFormRefBinding(originalFormRefBinding)
           .endEvent()
         .done();
 
@@ -196,12 +196,12 @@ public class BPMNParseListenerTest {
         ExpressionManager expressionManager = new JuelExpressionManager();
 
         Expression formRefExpression = expressionManager.createExpression(modifiedFormRef);
-        formDefinition.setCamundaFormDefinitionKey(formRefExpression);
+        formDefinition.setFlowaveFormDefinitionKey(formRefExpression);
 
-        formDefinition.setCamundaFormDefinitionBinding(modifiedFormRefBinding);
+        formDefinition.setFlowaveFormDefinitionBinding(modifiedFormRefBinding);
 
         Expression formVersionExpression = expressionManager.createExpression(modifiedFormRefVersion.toString());
-        formDefinition.setCamundaFormDefinitionVersion(formVersionExpression);
+        formDefinition.setFlowaveFormDefinitionVersion(formVersionExpression);
       }
     };
 
@@ -214,7 +214,7 @@ public class BPMNParseListenerTest {
 
     FormService formService = engineRule.getFormService();
     TaskFormData formData = formService.getTaskFormData(task.getId());
-    FlowaveFormRef formRef = formData.getCamundaFormRef();
+    FlowaveFormRef formRef = formData.getFlowaveFormRef();
     assertThat(formRef.getKey()).isEqualTo(modifiedFormRef);
     assertThat(formRef.getBinding()).isEqualTo(modifiedFormRefBinding);
     assertThat(formRef.getVersion()).isEqualTo(modifiedFormRefVersion);

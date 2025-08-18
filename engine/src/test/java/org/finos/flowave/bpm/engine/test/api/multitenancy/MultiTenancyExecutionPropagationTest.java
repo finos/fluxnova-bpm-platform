@@ -172,8 +172,8 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .serviceTask()
-          .camundaClass(SetVariableTask.class.getName())
-          .camundaAsyncAfter()
+          .flowaveClass(SetVariableTask.class.getName())
+          .flowaveAsyncAfter()
         .endEvent()
       .done());
 
@@ -191,7 +191,7 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .userTask()
-          .camundaAsyncAfter()
+          .flowaveAsyncAfter()
         .endEvent()
       .done());
 
@@ -330,7 +330,7 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .userTask()
-          .camundaAsyncBefore()
+          .flowaveAsyncBefore()
         .endEvent()
       .done());
 
@@ -349,8 +349,8 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .serviceTask()
-          .camundaExpression("${failing}")
-          .camundaAsyncBefore()
+          .flowaveExpression("${failing}")
+          .flowaveAsyncBefore()
         .endEvent()
         .done());
 
@@ -371,7 +371,7 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
         .startEvent()
           .timerWithDuration("PT1M")
          .serviceTask()
-           .camundaExpression("${failing}")
+           .flowaveExpression("${failing}")
          .endEvent()
          .done());
 
@@ -389,8 +389,8 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .serviceTask()
-          .camundaType("external")
-          .camundaTopic("test")
+          .flowaveType("external")
+          .flowaveTopic("test")
         .endEvent()
       .done());
 
@@ -412,8 +412,8 @@ public class MultiTenancyExecutionPropagationTest extends PluggableProcessEngine
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .serviceTask()
-          .camundaType("external")
-          .camundaTopic("test")
+          .flowaveType("external")
+          .flowaveTopic("test")
         .endEvent()
       .done());
 

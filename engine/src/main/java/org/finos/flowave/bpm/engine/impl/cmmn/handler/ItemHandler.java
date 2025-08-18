@@ -335,7 +335,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
       activity.setProperty(PROPERTY_REPETITION_RULE, caseRule);
 
       List<String> events = Arrays.asList(TERMINATE, COMPLETE);
-      String repeatOnStandardEvent = repetitionRule.getCamundaRepeatOnStandardEvent();
+      String repeatOnStandardEvent = repetitionRule.getFlowaveRepeatOnStandardEvent();
       if (repeatOnStandardEvent != null && !repeatOnStandardEvent.isEmpty()) {
         events = Arrays.asList(repeatOnStandardEvent);
       }
@@ -365,7 +365,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
     for (FlowaveCaseExecutionListener listener : listeners) {
       CaseExecutionListener caseExecutionListener = initializeCaseExecutionListener(element, activity, context, listener);
 
-      String eventName = listener.getCamundaEvent();
+      String eventName = listener.getFlowaveEvent();
       if(eventName != null) {
         activity.addListener(eventName, caseExecutionListener);
 
@@ -378,17 +378,17 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected CaseExecutionListener initializeCaseExecutionListener(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveCaseExecutionListener listener) {
-    Collection<FlowaveField> fields = listener.getCamundaFields();
+    Collection<FlowaveField> fields = listener.getFlowaveFields();
     List<FieldDeclaration> fieldDeclarations = initializeFieldDeclarations(element, activity, context, fields);
 
     ExpressionManager expressionManager = context.getExpressionManager();
 
     CaseExecutionListener caseExecutionListener = null;
 
-    String className = listener.getCamundaClass();
-    String expression = listener.getCamundaExpression();
-    String delegateExpression = listener.getCamundaDelegateExpression();
-    FlowaveScript scriptElement = listener.getCamundaScript();
+    String className = listener.getFlowaveClass();
+    String expression = listener.getFlowaveExpression();
+    String delegateExpression = listener.getFlowaveDelegateExpression();
+    FlowaveScript scriptElement = listener.getFlowaveScript();
 
     if (className != null) {
       caseExecutionListener = new ClassDelegateCaseExecutionListener(className, fieldDeclarations);
@@ -419,7 +419,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
     for (FlowaveVariableListener listener : listeners) {
       CaseVariableListener variableListener = initializeVariableListener(element, activity, context, listener);
 
-      String eventName = listener.getCamundaEvent();
+      String eventName = listener.getFlowaveEvent();
       if(eventName != null) {
         activity.addVariableListener(eventName, variableListener);
 
@@ -432,15 +432,15 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected CaseVariableListener initializeVariableListener(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveVariableListener listener) {
-    Collection<FlowaveField> fields = listener.getCamundaFields();
+    Collection<FlowaveField> fields = listener.getFlowaveFields();
     List<FieldDeclaration> fieldDeclarations = initializeFieldDeclarations(element, activity, context, fields);
 
     ExpressionManager expressionManager = context.getExpressionManager();
 
-    String className = listener.getCamundaClass();
-    String expression = listener.getCamundaExpression();
-    String delegateExpression = listener.getCamundaDelegateExpression();
-    FlowaveScript scriptElement = listener.getCamundaScript();
+    String className = listener.getFlowaveClass();
+    String expression = listener.getFlowaveExpression();
+    String delegateExpression = listener.getFlowaveDelegateExpression();
+    FlowaveScript scriptElement = listener.getFlowaveScript();
 
     CaseVariableListener variableListener = null;
     if (className != null) {
@@ -465,8 +465,8 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected ExecutableScript initializeScript(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveScript script) {
-    String language = script.getCamundaScriptFormat();
-    String resource = script.getCamundaResource();
+    String language = script.getFlowaveScriptFormat();
+    String resource = script.getFlowaveResource();
     String source = script.getTextContent();
 
     if (language == null) {
@@ -494,7 +494,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected FieldDeclaration initializeFieldDeclaration(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveField field) {
-    String name = field.getCamundaName();
+    String name = field.getFlowaveName();
     String type = Expression.class.getName();
 
     Object value = getFixedValue(field);
@@ -508,7 +508,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected FixedValue getFixedValue(FlowaveField field) {
-    FlowaveString strg = field.getCamundaString();
+    FlowaveString strg = field.getFlowaveString();
 
     String value = null;
     if (strg != null) {
@@ -516,7 +516,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
     }
 
     if (value == null) {
-      value = field.getCamundaStringValue();
+      value = field.getFlowaveStringValue();
     }
 
     if (value != null) {
@@ -527,7 +527,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
   }
 
   protected Expression getExpressionValue(FlowaveField field, ExpressionManager expressionManager) {
-    FlowaveExpression expression = field.getCamundaExpressionChild();
+    FlowaveExpression expression = field.getFlowaveExpressionChild();
 
     String value = null;
     if (expression != null) {
@@ -536,7 +536,7 @@ public abstract class ItemHandler extends CmmnElementHandler<CmmnElement, CmmnAc
     }
 
     if (value == null) {
-      value = field.getCamundaExpression();
+      value = field.getFlowaveExpression();
     }
 
     if (value != null) {

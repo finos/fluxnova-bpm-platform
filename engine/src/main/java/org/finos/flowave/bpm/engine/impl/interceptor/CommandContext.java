@@ -468,7 +468,7 @@ public class CommandContext {
     return getSession(SchemaLogManager.class);
   }
 
-  public FlowaveFormDefinitionManager getCamundaFormDefinitionManager() {
+  public FlowaveFormDefinitionManager getFlowaveFormDefinitionManager() {
     return getSession(FlowaveFormDefinitionManager.class);
   }
 

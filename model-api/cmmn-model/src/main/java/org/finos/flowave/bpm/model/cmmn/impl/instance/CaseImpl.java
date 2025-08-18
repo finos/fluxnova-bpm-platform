@@ -106,16 +106,16 @@ public class CaseImpl extends CmmnElementImpl implements Case {
     caseFileModelChild.setChild(this, caseFileModel);
   }
 
-  public Integer getCamundaHistoryTimeToLive() {
-    String ttl = getCamundaHistoryTimeToLiveString();
+  public Integer getFlowaveHistoryTimeToLive() {
+    String ttl = getFlowaveHistoryTimeToLiveString();
     if (ttl != null) {
       return Integer.parseInt(ttl);
     }
     return null;
   }
 
-  public void setCamundaHistoryTimeToLive(Integer historyTimeToLive) {
-    setCamundaHistoryTimeToLiveString(String.valueOf(historyTimeToLive));
+  public void setFlowaveHistoryTimeToLive(Integer historyTimeToLive) {
+    setFlowaveHistoryTimeToLiveString(String.valueOf(historyTimeToLive));
   }
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -159,12 +159,12 @@ public class CaseImpl extends CmmnElementImpl implements Case {
   }
 
   @Override
-  public String getCamundaHistoryTimeToLiveString() {
+  public String getFlowaveHistoryTimeToLiveString() {
     return camundaHistoryTimeToLive.getValue(this);
   }
 
   @Override
-  public void setCamundaHistoryTimeToLiveString(String historyTimeToLive) {
+  public void setFlowaveHistoryTimeToLiveString(String historyTimeToLive) {
     camundaHistoryTimeToLive.setValue(this, historyTimeToLive);
   }
 

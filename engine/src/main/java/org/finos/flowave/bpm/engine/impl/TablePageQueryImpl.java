@@ -72,7 +72,7 @@ public class TablePageQueryImpl extends ListQueryParameterObject implements Tabl
   }
 
   public TablePage execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdmin();
+    commandContext.getAuthorizationManager().checkFlowaveAdmin();
     return commandContext
       .getTableDataManager()
       .getTablePage(this);

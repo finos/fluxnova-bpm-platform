@@ -37,10 +37,10 @@ public class SignalEventDefinitionTest extends AbstractEventDefinitionTest {
   public void getEventDefinition() {
     SignalEventDefinition eventDefinition = eventDefinitionQuery.filterByType(SignalEventDefinition.class).singleResult();
     assertThat(eventDefinition).isNotNull();
-    assertThat(eventDefinition.isCamundaAsync()).isFalse();
+    assertThat(eventDefinition.isFlowaveAsync()).isFalse();
 
-    eventDefinition.setCamundaAsync(true);
-    assertThat(eventDefinition.isCamundaAsync()).isTrue();
+    eventDefinition.setFlowaveAsync(true);
+    assertThat(eventDefinition.isFlowaveAsync()).isTrue();
 
     Signal signal = eventDefinition.getSignal();
     assertThat(signal).isNotNull();

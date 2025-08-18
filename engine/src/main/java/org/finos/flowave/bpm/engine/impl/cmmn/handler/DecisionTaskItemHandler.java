@@ -45,14 +45,14 @@ public class DecisionTaskItemHandler extends CallingTaskItemHandler {
   protected void initializeResultVariable(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     DecisionTask decisionTask = getDefinition(element);
     DmnDecisionTaskActivityBehavior behavior = getActivityBehavior(activity);
-    String resultVariable = decisionTask.getCamundaResultVariable();
+    String resultVariable = decisionTask.getFlowaveResultVariable();
     behavior.setResultVariable(resultVariable);
   }
 
   protected void initializeDecisionTableResultMapper(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     DecisionTask decisionTask = getDefinition(element);
     DmnDecisionTaskActivityBehavior behavior = getActivityBehavior(activity);
-    String mapper = decisionTask.getCamundaMapDecisionResult();
+    String mapper = decisionTask.getFlowaveMapDecisionResult();
     DecisionResultMapper decisionResultMapper = getDecisionResultMapperForName(mapper);
     behavior.setDecisionTableResultMapper(decisionResultMapper);
   }
@@ -85,17 +85,17 @@ public class DecisionTaskItemHandler extends CallingTaskItemHandler {
 
   protected String getBinding(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     DecisionTask definition = getDefinition(element);
-    return definition.getCamundaDecisionBinding();
+    return definition.getFlowaveDecisionBinding();
   }
 
   protected String getVersion(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     DecisionTask definition = getDefinition(element);
-    return definition.getCamundaDecisionVersion();
+    return definition.getFlowaveDecisionVersion();
   }
 
   protected String getTenantId(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     DecisionTask definition = getDefinition(element);
-    return definition.getCamundaDecisionTenantId();
+    return definition.getFlowaveDecisionTenantId();
   }
 
 

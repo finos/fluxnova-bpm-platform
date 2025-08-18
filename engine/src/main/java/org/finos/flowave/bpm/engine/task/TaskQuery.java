@@ -911,7 +911,7 @@ public interface TaskQuery extends Query<TaskQuery, Task> {
 
   /**
    * If called, the form keys and form references of the fetched tasks are initialized and
-   * {@link Task#getFormKey()} and {@link Task#getCamundaFormRef()} will return a value (in
+   * {@link Task#getFormKey()} and {@link Task#getFlowaveFormRef()} will return a value (in
    * case the task has is linked to a form).
    *
    * @return the query itself

@@ -63,8 +63,8 @@ public class TransactionListenerThreadContextTest {
   public void testTxListenersInvokeAsync() {
     BpmnModelInstance process = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
-        .camundaAsyncBefore()
-        .camundaAsyncAfter()
+        .flowaveAsyncBefore()
+        .flowaveAsyncAfter()
       .endEvent()
       .done();
 

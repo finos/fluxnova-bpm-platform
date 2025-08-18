@@ -51,8 +51,8 @@ public class VersionedDeploymentHandler implements DeploymentHandler {
 
     if (isBpmnResource(newResource)) {
 
-      Integer existingVersion = parseCamundaVersionTag(existingResource);
-      Integer newVersion = parseCamundaVersionTag(newResource);
+      Integer existingVersion = parseFlowaveVersionTag(existingResource);
+      Integer newVersion = parseFlowaveVersionTag(newResource);
       if (this.candidateVersionTag == null) {
         this.candidateProcessDefinitionKey = parseProcessDefinitionKey(newResource);
         this.candidateVersionTag = String.valueOf(newVersion);
@@ -126,15 +126,15 @@ public class VersionedDeploymentHandler implements DeploymentHandler {
     return deploymentIds;
   }
 
-  protected Integer parseCamundaVersionTag(Resource resource) {
+  protected Integer parseFlowaveVersionTag(Resource resource) {
     BpmnModelInstance model = Bpmn
         .readModelFromStream(new ByteArrayInputStream(resource.getBytes()));
 
     Process process = model.getDefinitions().getChildElementsByType(Process.class)
         .iterator().next();
 
-    return process.getCamundaVersionTag() != null ?
-        Integer.parseInt(process.getCamundaVersionTag()) :
+    return process.getFlowaveVersionTag() != null ?
+        Integer.parseInt(process.getFlowaveVersionTag()) :
         0;
   }
 

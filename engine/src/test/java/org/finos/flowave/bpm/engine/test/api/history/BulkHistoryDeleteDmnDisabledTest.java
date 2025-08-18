@@ -67,7 +67,7 @@ public class BulkHistoryDeleteDmnDisabledTest {
   @Test
   public void bulkHistoryDeleteWithDisabledDmn() {
     BpmnModelInstance model = Bpmn.createExecutableProcess("someProcess")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask("userTask")
         .endEvent()

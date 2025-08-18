@@ -281,7 +281,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testBinding() {
     // given:
     CallableElementBinding caseBinding = CallableElementBinding.LATEST;
-    caseTask.setCamundaCaseBinding(caseBinding.getValue());
+    caseTask.setFlowaveCaseBinding(caseBinding.getValue());
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -299,7 +299,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testVersionConstant() {
     // given:
     String caseVersion = "2";
-    caseTask.setCamundaCaseVersion(caseVersion);
+    caseTask.setFlowaveCaseVersion(caseVersion);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -319,7 +319,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
   public void testVersionExpression() {
     // given:
     String caseVersion = "${aVersion}";
-    caseTask.setCamundaCaseVersion(caseVersion);
+    caseTask.setFlowaveCaseVersion(caseVersion);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -342,7 +342,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String businessKey = "myBusinessKey";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn businessKeyElement = createElement(extensionElements, null, FlowaveIn.class);
-    businessKeyElement.setCamundaBusinessKey(businessKey);
+    businessKeyElement.setFlowaveBusinessKey(businessKey);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -364,7 +364,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String businessKey = "${myBusinessKey}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn businessKeyElement = createElement(extensionElements, null, FlowaveIn.class);
-    businessKeyElement.setCamundaBusinessKey(businessKey);
+    businessKeyElement.setFlowaveBusinessKey(businessKey);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -386,11 +386,11 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn variablesElement = createElement(extensionElements, null, FlowaveIn.class);
-    variablesElement.setCamundaVariables("all");
+    variablesElement.setFlowaveVariables("all");
     FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
-    sourceElement.setCamundaSource("a");
+    sourceElement.setFlowaveSource("a");
     FlowaveIn sourceExpressionElement = createElement(extensionElements, null, FlowaveIn.class);
-    sourceExpressionElement.setCamundaSourceExpression("${b}");
+    sourceExpressionElement.setFlowaveSourceExpression("${b}");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -411,7 +411,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn variablesElement = createElement(extensionElements, null, FlowaveIn.class);
-    variablesElement.setCamundaVariables("all");
+    variablesElement.setFlowaveVariables("all");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -432,7 +432,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String source = "a";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
-    sourceElement.setCamundaSource(source);
+    sourceElement.setFlowaveSource(source);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -458,7 +458,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String source = "${a}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
-    sourceElement.setCamundaSourceExpression(source);
+    sourceElement.setFlowaveSourceExpression(source);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -485,7 +485,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String target = "b";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveIn sourceElement = createElement(extensionElements, null, FlowaveIn.class);
-    sourceElement.setCamundaTarget(target);
+    sourceElement.setFlowaveTarget(target);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -506,11 +506,11 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveOut variablesElement = createElement(extensionElements, null, FlowaveOut.class);
-    variablesElement.setCamundaVariables("all");
+    variablesElement.setFlowaveVariables("all");
     FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
-    sourceElement.setCamundaSource("a");
+    sourceElement.setFlowaveSource("a");
     FlowaveOut sourceExpressionElement = createElement(extensionElements, null, FlowaveOut.class);
-    sourceExpressionElement.setCamundaSourceExpression("${b}");
+    sourceExpressionElement.setFlowaveSourceExpression("${b}");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -531,7 +531,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     // given:
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveOut variablesElement = createElement(extensionElements, null, FlowaveOut.class);
-    variablesElement.setCamundaVariables("all");
+    variablesElement.setFlowaveVariables("all");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -552,7 +552,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String source = "a";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
-    sourceElement.setCamundaSource(source);
+    sourceElement.setFlowaveSource(source);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -578,7 +578,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String source = "${a}";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
-    sourceElement.setCamundaSourceExpression(source);
+    sourceElement.setFlowaveSourceExpression(source);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -605,7 +605,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     String target = "b";
     ExtensionElements extensionElements = addExtensionElements(caseTask);
     FlowaveOut sourceElement = createElement(extensionElements, null, FlowaveOut.class);
-    sourceElement.setCamundaTarget(target);
+    sourceElement.setFlowaveTarget(target);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -951,7 +951,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 
@@ -973,7 +973,7 @@ public class CaseTaskPlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 

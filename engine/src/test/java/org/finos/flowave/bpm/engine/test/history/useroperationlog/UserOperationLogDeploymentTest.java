@@ -508,7 +508,7 @@ public class UserOperationLogDeploymentTest extends AbstractUserOperationLogTest
     return Bpmn.createExecutableProcess(key)
       .startEvent()
       .serviceTask()
-        .camundaExpression("${true}")
+        .flowaveExpression("${true}")
       .endEvent()
     .done();
   }

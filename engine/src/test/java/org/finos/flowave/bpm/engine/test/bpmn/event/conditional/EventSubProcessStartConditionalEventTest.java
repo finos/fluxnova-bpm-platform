@@ -242,7 +242,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask()
-                                                    .camundaClass(SetVariableDelegate.class.getName())
+                                                    .flowaveClass(SetVariableDelegate.class.getName())
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, true);
 
@@ -270,7 +270,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask()
-                                                    .camundaClass(SetVariableDelegate.class.getName())
+                                                    .flowaveClass(SetVariableDelegate.class.getName())
                                                   .userTask()
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, false);
@@ -300,7 +300,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .userTask().name(TASK_BEFORE_CONDITION)
-      .serviceTask().camundaClass(SetVariableDelegate.class.getName())
+      .serviceTask().flowaveClass(SetVariableDelegate.class.getName())
       .endEvent().done();
 
     modelInstance = modify(modelInstance)
@@ -337,7 +337,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent().userTask().name(TASK_BEFORE_CONDITION)
       .serviceTask()
-      .camundaClass(SetVariableDelegate.class.getName())
+      .flowaveClass(SetVariableDelegate.class.getName())
       .userTask()
       .endEvent().done();
 
@@ -379,8 +379,8 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
-                                                    .camundaExpression(TRUE_CONDITION)
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveExpression(TRUE_CONDITION)
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, true);
@@ -408,8 +408,8 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
-                                                    .camundaExpression(TRUE_CONDITION)
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveExpression(TRUE_CONDITION)
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, false);
@@ -437,7 +437,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaExpression("${execution.setVariable(\"variable\", 1)}")
+                                                    .flowaveExpression("${execution.setVariable(\"variable\", 1)}")
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, true);
@@ -464,7 +464,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .serviceTask(TASK_WITH_CONDITION_ID)
-                                                    .camundaExpression("${execution.setVariable(\"variable\", 1)}")
+                                                    .flowaveExpression("${execution.setVariable(\"variable\", 1)}")
                                                   .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                   .endEvent().done();
      deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, false);
@@ -492,7 +492,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .subProcess(SUB_PROCESS_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
                                                     .embeddedSubProcess()
                                                     .startEvent("startSubProcess")
                                                     .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -524,7 +524,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
     final BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
                                                   .startEvent().userTask().name(TASK_BEFORE_CONDITION)
                                                   .subProcess(SUB_PROCESS_ID)
-                                                    .camundaInputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveInputParameter(VARIABLE_NAME, "1")
                                                     .embeddedSubProcess()
                                                     .startEvent()
                                                     .userTask().name(TASK_IN_SUB_PROCESS_ID)
@@ -558,7 +558,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .startEvent()
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask()
                                                   .endEvent()
                                                   .done();
@@ -587,7 +587,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .startEvent()
                                                   .userTask(TASK_BEFORE_CONDITION_ID)
                                                     .name(TASK_BEFORE_CONDITION)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask()
                                                   .endEvent()
                                                   .done();
@@ -621,7 +621,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .callActivity(TASK_WITH_CONDITION_ID)
                                                     .calledElement(DELEGATED_PROCESS_KEY)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask()
                                                   .endEvent()
                                                   .done();
@@ -654,7 +654,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                     .name(TASK_BEFORE_CONDITION)
                                                   .callActivity(TASK_WITH_CONDITION_ID)
                                                     .calledElement(DELEGATED_PROCESS_KEY)
-                                                    .camundaOutputParameter(VARIABLE_NAME, "1")
+                                                    .flowaveOutputParameter(VARIABLE_NAME, "1")
                                                   .userTask()
                                                   .endEvent()
                                                   .done();
@@ -689,7 +689,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaOut(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveOut(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -722,7 +722,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaOut(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveOut(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -758,7 +758,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaIn(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveIn(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -791,7 +791,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .name(TASK_BEFORE_CONDITION)
       .callActivity(TASK_WITH_CONDITION_ID)
       .calledElement(DELEGATED_PROCESS_KEY)
-      .camundaIn(VARIABLE_NAME, VARIABLE_NAME)
+      .flowaveIn(VARIABLE_NAME, VARIABLE_NAME)
       .userTask().name(TASK_AFTER_OUTPUT_MAPPING)
       .endEvent()
       .done();
@@ -889,7 +889,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()
@@ -925,7 +925,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()
@@ -962,7 +962,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()
@@ -998,7 +998,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
                                                   .embeddedSubProcess()
                                                     .startEvent()
                                                     .serviceTask()
-                                                    .camundaExpression(EXPR_SET_VARIABLE)
+                                                    .flowaveExpression(EXPR_SET_VARIABLE)
                                                     .userTask().name(TASK_AFTER_SERVICE_TASK)
                                                     .endEvent()
                                                   .subProcessDone()
@@ -1255,7 +1255,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .startEvent()
       .userTask(TASK_WITH_CONDITION_ID).name(TASK_WITH_CONDITION)
       .serviceTask()
-      .camundaClass(SetVariableDelegate.class.getName())
+      .flowaveClass(SetVariableDelegate.class.getName())
       .endEvent()
       .done();
 
@@ -1269,7 +1269,7 @@ public class EventSubProcessStartConditionalEventTest extends AbstractConditiona
       .condition(CONDITION_EXPR)
       .conditionalEventDefinitionDone()
       .serviceTask()
-      .camundaClass(LoopDelegate.class.getName())
+      .flowaveClass(LoopDelegate.class.getName())
       .userTask().name(TASK_AFTER_CONDITION)
       .endEvent().done();
 

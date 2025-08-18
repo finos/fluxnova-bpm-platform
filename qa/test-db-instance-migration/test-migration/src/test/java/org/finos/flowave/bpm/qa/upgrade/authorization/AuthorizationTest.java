@@ -61,7 +61,7 @@ public class AuthorizationTest {
   }
 
   @Test
-  public void testDefaultAuthorizationQueryForCamundaAdminOnUpgrade() {
+  public void testDefaultAuthorizationQueryForFlowaveAdminOnUpgrade() {
 
     processEngineConfiguration.setAuthorizationEnabled(true);
 
@@ -87,7 +87,7 @@ public class AuthorizationTest {
   // Update: Upgrading to 1.4.190 did not help, still failing
   @Test
   @RequiredDatabase(excludes = DbSqlSessionFactory.H2)
-  public void testDefaultAuthorizationForCamundaAdminOnUpgrade() {
+  public void testDefaultAuthorizationForFlowaveAdminOnUpgrade() {
 
     processEngineConfiguration.setAuthorizationEnabled(true);
     assertEquals(true,authorizationService.isUserAuthorized(null, Collections.singletonList(Groups.CAMUNDA_ADMIN), Permissions.ALL, Resources.TENANT));

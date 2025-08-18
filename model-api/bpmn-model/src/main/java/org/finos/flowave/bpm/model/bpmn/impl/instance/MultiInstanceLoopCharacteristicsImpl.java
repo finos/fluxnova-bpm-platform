@@ -250,43 +250,43 @@ public class MultiInstanceLoopCharacteristicsImpl extends LoopCharacteristicsImp
     noneBehaviorEventRefAttribute.setReferenceTargetElement(this, noneBehaviorEventRef);
   }
 
-  public boolean isCamundaAsyncBefore() {
+  public boolean isFlowaveAsyncBefore() {
     return camundaAsyncBefore.getValue(this);
   }
 
-  public void setCamundaAsyncBefore(boolean isCamundaAsyncBefore) {
+  public void setFlowaveAsyncBefore(boolean isCamundaAsyncBefore) {
     camundaAsyncBefore.setValue(this, isCamundaAsyncBefore);
   }
 
-  public boolean isCamundaAsyncAfter() {
+  public boolean isFlowaveAsyncAfter() {
     return camundaAsyncAfter.getValue(this);
   }
 
-  public void setCamundaAsyncAfter(boolean isCamundaAsyncAfter) {
+  public void setFlowaveAsyncAfter(boolean isCamundaAsyncAfter) {
     camundaAsyncAfter.setValue(this, isCamundaAsyncAfter);
   }
 
-  public boolean isCamundaExclusive() {
+  public boolean isFlowaveExclusive() {
     return camundaExclusive.getValue(this);
   }
 
-  public void setCamundaExclusive(boolean isCamundaExclusive) {
+  public void setFlowaveExclusive(boolean isCamundaExclusive) {
     camundaExclusive.setValue(this, isCamundaExclusive);
   }
 
-  public String getCamundaCollection() {
+  public String getFlowaveCollection() {
     return camundaCollection.getValue(this);
   }
 
-  public void setCamundaCollection(String expression) {
+  public void setFlowaveCollection(String expression) {
     camundaCollection.setValue(this, expression);
   }
 
-  public String getCamundaElementVariable() {
+  public String getFlowaveElementVariable() {
     return camundaElementVariable.getValue(this);
   }
 
-  public void setCamundaElementVariable(String variableName) {
+  public void setFlowaveElementVariable(String variableName) {
     camundaElementVariable.setValue(this, variableName);
   }
 }

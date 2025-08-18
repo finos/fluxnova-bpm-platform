@@ -5159,7 +5159,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
   @Test
   @Deployment
-  public void testInitializeFormKeysCamundaFormRef() {
+  public void testInitializeFormKeysFlowaveFormRef() {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("formRefProcess");
 
     // if initializeFormKeys
@@ -5169,7 +5169,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
         .singleResult();
 
     // then the form key is present
-    FlowaveFormRef camundaFormRef = task.getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = task.getFlowaveFormRef();
     assertThat(camundaFormRef.getKey()).isEqualTo("myForm");
     assertThat(camundaFormRef.getBinding()).isEqualTo("latest");
     assertThat(camundaFormRef.getVersion()).isNull();
@@ -5180,7 +5180,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
         .singleResult();
 
     assertThatThrownBy(() -> {
-      task2.getCamundaFormRef();
+      task2.getFlowaveFormRef();
     }).isInstanceOf(BadUserRequestException.class)
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
   }
@@ -5375,10 +5375,10 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
   @Test
   public void testQueryWithCandidateUsers() {
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
       .userTask()
-        .camundaCandidateUsers("anna")
+        .flowaveCandidateUsers("anna")
       .endEvent()
       .done();
 
@@ -5396,10 +5396,10 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
   @Test
   public void testQueryWithoutCandidateUsers() {
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
       .userTask()
-        .camundaCandidateGroups("sales")
+        .flowaveCandidateGroups("sales")
       .endEvent()
       .done();
 
@@ -5417,10 +5417,10 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
   @Test
   public void testQueryAssignedTasksWithCandidateUsers() {
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
       .userTask()
-        .camundaCandidateGroups("sales")
+        .flowaveCandidateGroups("sales")
       .endEvent()
       .done();
 
@@ -5442,10 +5442,10 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
   @Test
   public void testQueryAssignedTasksWithoutCandidateUsers() {
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
       .userTask()
-        .camundaCandidateGroups("sales")
+        .flowaveCandidateGroups("sales")
       .endEvent()
       .done();
 
@@ -5513,7 +5513,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
   @Deployment(resources = "org/finos/flowave/bpm/engine/test/api/task/TaskQueryTest.shouldContainCamundaFormRefIfInitialized.bpmn")
   @Test
-  public void shouldContainCamundaFormRefIfInitialized() {
+  public void shouldContainFlowaveFormRefIfInitialized() {
     // given
     String processInstanceId = runtimeService.startProcessInstanceByKey("oneTaskFormRefVersion").getId();
 
@@ -5527,12 +5527,12 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
     Task taskWithoutFormKey = withoutFormKeys.get(0);
     assertThatThrownBy(() -> {
-      taskWithoutFormKey.getCamundaFormRef();
+      taskWithoutFormKey.getFlowaveFormRef();
     }).isInstanceOf(BadUserRequestException.class)
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
 
     Task taskWithFormKey = withFormKeys.get(0);
-    FlowaveFormRef camundaFormRefWithFormKey = taskWithFormKey.getCamundaFormRef();
+    FlowaveFormRef camundaFormRefWithFormKey = taskWithFormKey.getFlowaveFormRef();
 
     assertThat(camundaFormRefWithFormKey).isNotNull();
     assertThat(camundaFormRefWithFormKey.getKey()).isEqualTo("key");

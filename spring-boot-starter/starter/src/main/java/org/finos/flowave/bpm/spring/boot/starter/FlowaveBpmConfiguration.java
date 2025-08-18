@@ -79,32 +79,32 @@ public class FlowaveBpmConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(DefaultProcessEngineConfiguration.class)
-  public static FlowaveProcessEngineConfiguration camundaProcessEngineConfiguration() {
+  public static FlowaveProcessEngineConfiguration flowaveProcessEngineConfiguration() {
     return new DefaultProcessEngineConfiguration();
   }
 
   @Bean
   @ConditionalOnMissingBean(FlowaveDatasourceConfiguration.class)
-  public static FlowaveDatasourceConfiguration camundaDatasourceConfiguration() {
+  public static FlowaveDatasourceConfiguration flowaveDatasourceConfiguration() {
     return new DefaultDatasourceConfiguration();
   }
 
   @Bean
   @ConditionalOnMissingBean(FlowaveJobConfiguration.class)
   @ConditionalOnProperty(prefix = "flowave.bpm.job-execution", name = "enabled", havingValue = "true", matchIfMissing = true)
-  public static FlowaveJobConfiguration camundaJobConfiguration() {
+  public static FlowaveJobConfiguration flowaveJobConfiguration() {
     return new DefaultJobConfiguration();
   }
 
   @Bean
   @ConditionalOnMissingBean(FlowaveHistoryConfiguration.class)
-  public static FlowaveHistoryConfiguration camundaHistoryConfiguration() {
+  public static FlowaveHistoryConfiguration flowaveHistoryConfiguration() {
     return new DefaultHistoryConfiguration();
   }
 
   @Bean
   @ConditionalOnMissingBean(FlowaveMetricsConfiguration.class)
-  public static FlowaveMetricsConfiguration camundaMetricsConfiguration() {
+  public static FlowaveMetricsConfiguration flowaveMetricsConfiguration() {
     return new DefaultMetricsConfiguration();
   }
 
@@ -136,13 +136,13 @@ public class FlowaveBpmConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(FlowaveAuthorizationConfiguration.class)
-  public static FlowaveAuthorizationConfiguration camundaAuthorizationConfiguration() {
+  public static FlowaveAuthorizationConfiguration flowaveAuthorizationConfiguration() {
     return new DefaultAuthorizationConfiguration();
   }
 
   @Bean
   @ConditionalOnMissingBean(FlowaveDeploymentConfiguration.class)
-  public static FlowaveDeploymentConfiguration camundaDeploymentConfiguration() {
+  public static FlowaveDeploymentConfiguration flowaveDeploymentConfiguration() {
     return new DefaultDeploymentConfiguration();
   }
 
@@ -175,7 +175,7 @@ public class FlowaveBpmConfiguration {
   }
 
   @Bean
-  public FlowaveIntegrationDeterminator camundaIntegrationDeterminator() {
+  public FlowaveIntegrationDeterminator flowaveIntegrationDeterminator() {
     return new FlowaveIntegrationDeterminator();
   }
 }

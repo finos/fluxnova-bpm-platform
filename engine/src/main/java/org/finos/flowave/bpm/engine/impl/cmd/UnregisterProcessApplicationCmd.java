@@ -49,7 +49,7 @@ public class UnregisterProcessApplicationCmd implements Command<Void> {
       throw new ProcessEngineException("Deployment Ids cannot be null.");
     }
 
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkUnregisterProcessApplication);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkUnregisterProcessApplication);
 
     Context.getProcessEngineConfiguration()
       .getProcessApplicationManager()

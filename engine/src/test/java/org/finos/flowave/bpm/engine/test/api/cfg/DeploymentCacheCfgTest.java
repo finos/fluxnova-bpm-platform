@@ -358,13 +358,13 @@ public class DeploymentCacheCfgTest {
 
   protected BpmnModelInstance createModel(String suffix) {
     BpmnModelInstance bpmnModel = Bpmn.createExecutableProcess("Process" + suffix)
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent("startEvent")
         .userTask().name("User Task")
         .endEvent("endEvent")
         .done();
     org.finos.flowave.bpm.model.bpmn.instance.Process model = bpmnModel.getModelElementById("Process" + suffix);
-    model.setCamundaCandidateStarterUsers("demo" + suffix);
+    model.setFlowaveCandidateStarterUsers("demo" + suffix);
     return bpmnModel;
   }
 

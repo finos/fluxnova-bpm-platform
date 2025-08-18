@@ -121,7 +121,7 @@ public class DeploymentManager extends AbstractManager {
     deleteDecisionDeployment(deploymentId, cascade);
     deleteDecisionRequirementDeployment(deploymentId);
 
-    deleteCamundaFormDefinitionDeployment(deploymentId);
+    deleteFlowaveFormDefinitionDeployment(deploymentId);
 
     getResourceManager().deleteResourcesByDeploymentId(deploymentId);
 
@@ -213,19 +213,19 @@ public class DeploymentManager extends AbstractManager {
     }
   }
 
-  protected void deleteCamundaFormDefinitionDeployment(String deploymentId) {
-    FlowaveFormDefinitionManager manager = getCamundaFormDefinitionManager();
+  protected void deleteFlowaveFormDefinitionDeployment(String deploymentId) {
+    FlowaveFormDefinitionManager manager = getFlowaveFormDefinitionManager();
 
     List<CamundaFormDefinitionEntity> camundaFormDefinitions = manager.findDefinitionsByDeploymentId(deploymentId);
 
     // delete definitions from db
-    manager.deleteCamundaFormDefinitionsByDeploymentId(deploymentId);
+    manager.deleteFlowaveFormDefinitionsByDeploymentId(deploymentId);
 
     // delete definitions from deployment cache
     ProcessEngineConfigurationImpl processEngineConfiguration = Context.getProcessEngineConfiguration();
     DeploymentCache deploymentCache = processEngineConfiguration.getDeploymentCache();
     for (CamundaFormDefinitionEntity camundaFormDefinition : camundaFormDefinitions) {
-      deploymentCache.removeCamundaFormDefinition(camundaFormDefinition.getId());
+      deploymentCache.removeFlowaveFormDefinition(camundaFormDefinition.getId());
     }
   }
 

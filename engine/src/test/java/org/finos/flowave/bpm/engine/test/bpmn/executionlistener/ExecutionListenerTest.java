@@ -361,10 +361,10 @@ public class ExecutionListenerTest {
           .parallelGateway("fork")
           .userTask("userTask1")
           .serviceTask("sendTask")
-            .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, SendMessageDelegate.class.getName())
-            .camundaExpression("${true}")
+            .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, SendMessageDelegate.class.getName())
+            .flowaveExpression("${true}")
           .endEvent("endEvent")
-            .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+            .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
           .moveToLastGateway()
           .userTask("userTask2")
           .boundaryEvent("boundaryEvent")
@@ -389,7 +389,7 @@ public class ExecutionListenerTest {
 
   public static final BpmnModelInstance PROCESS_SERVICE_TASK_WITH_TWO_EXECUTION_START_LISTENER = modify(PROCESS_SERVICE_TASK_WITH_EXECUTION_START_LISTENER)
           .activityBuilder("sendTask")
-          .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+          .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
           .done();
 
   @Test
@@ -410,21 +410,21 @@ public class ExecutionListenerTest {
           .startEvent()
           .userTask("userTask")
           .serviceTask("sendTask")
-            .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, SendMessageDelegate.class.getName())
-            .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
-            .camundaExpression("${true}")
+            .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, SendMessageDelegate.class.getName())
+            .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+            .flowaveExpression("${true}")
           .endEvent("endEvent")
-            .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+            .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
           .done())
           .addSubProcessTo(PROCESS_KEY)
             .triggerByEvent()
             .embeddedSubProcess()
             .startEvent("startSubProcess")
               .interrupting(false)
-              .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+              .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
               .message(MESSAGE)
             .userTask("subProcessTask")
-              .camundaExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
+              .flowaveExecutionListenerClass(RecorderExecutionListener.EVENTNAME_START, RecorderExecutionListener.class.getName())
             .endEvent("endSubProcess")
           .done();
 
@@ -460,8 +460,8 @@ public class ExecutionListenerTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("conditionalProcessKey")
       .startEvent()
       .userTask()
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, SetVariableDelegate.class.getName())
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, RecorderExecutionListener.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, SetVariableDelegate.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, RecorderExecutionListener.class.getName())
       .endEvent()
       .done();
 
@@ -729,8 +729,8 @@ public class ExecutionListenerTest {
         .done();
 
     FlowaveExecutionListener listener = model.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(ThrowBPMNErrorDelegate.class.getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(ThrowBPMNErrorDelegate.class.getName());
     model.<SequenceFlow>getModelElementById("flow1").builder().addExtensionElement(listener);
 
     processBuilder.eventSubProcess()
@@ -755,7 +755,7 @@ public class ExecutionListenerTest {
     ProcessBuilder processBuilder = Bpmn.createExecutableProcess(PROCESS_KEY);
     BpmnModelInstance model = processBuilder
         .startEvent()
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
         .userTask("afterListener")
         .endEvent()
         .done();
@@ -782,7 +782,7 @@ public class ExecutionListenerTest {
         .subProcess("sub")
           .embeddedSubProcess()
             .startEvent("inSub")
-            .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+            .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
             .userTask("afterListener")
             .endEvent()
           .subProcessDone()
@@ -813,8 +813,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExpression("${true}")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
         .done();
 
     processBuilder.eventSubProcess()
@@ -848,8 +848,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExpression("${true}")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
         .boundaryEvent()
         .error(ERROR_CODE)
         .userTask("afterCatch")
@@ -874,8 +874,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExpression("${true}")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
         .boundaryEvent()
         .error(ERROR_CODE)
         .userTask("afterCatch")
@@ -903,8 +903,8 @@ public class ExecutionListenerTest {
           .embeddedSubProcess()
             .startEvent("inSub")
             .serviceTask("throw")
-              .camundaExpression("${true}")
-              .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
+              .flowaveExpression("${true}")
+              .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
         .boundaryEvent()
         .error(ERROR_CODE)
         .userTask("afterCatch")
@@ -935,8 +935,8 @@ public class ExecutionListenerTest {
           .embeddedSubProcess()
             .startEvent("inSub")
             .serviceTask("throw")
-              .camundaExpression("${true}")
-              .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+              .flowaveExpression("${true}")
+              .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
         .boundaryEvent()
         .error(ERROR_CODE)
         .userTask("afterCatch")
@@ -964,9 +964,9 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, SetsVariableDelegate.class.getName())
-          .camundaExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, SetsVariableDelegate.class.getName())
+          .flowaveExpression("${true}")
         .boundaryEvent("errorEvent")
         .error(ERROR_CODE)
         .userTask("afterCatch")
@@ -997,8 +997,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
-          .camundaExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
         .userTask("afterService")
         .done();
     ProcessBuilder processBuilder = Bpmn.createExecutableProcess(PROCESS_KEY);
@@ -1035,8 +1035,8 @@ public class ExecutionListenerTest {
         .parallelGateway("fork")
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
-          .camundaExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
         .userTask("afterService")
         .endEvent()
         .moveToLastGateway()
@@ -1068,8 +1068,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, "${myListener.notify(execution)}")
-          .camundaExpression("${true}")
+          .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, "${myListener.notify(execution)}")
+          .flowaveExpression("${true}")
         .userTask("afterService")
         .endEvent()
         .done();
@@ -1110,8 +1110,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExpression("${true}")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
         .endEvent()
         .done();
 
@@ -1141,8 +1141,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExpression("${true}")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExpression("${true}")
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
         .endEvent()
         .done();
 
@@ -1174,7 +1174,7 @@ public class ExecutionListenerTest {
           .embeddedSubProcess()
             .startEvent("inSub")
             .userTask("taskWithListener")
-            .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
+            .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ThrowBPMNErrorDelegate.class.getName())
             .boundaryEvent("errorEvent")
             .error(ERROR_CODE)
             .userTask("afterCatch")
@@ -1214,11 +1214,11 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .subProcess("sub")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ThrowBPMNErrorDelegate.class.getName())
           .embeddedSubProcess()
           .startEvent("inSub")
           .serviceTask("throw")
-            .camundaExpression("${true}")
+            .flowaveExpression("${true}")
           .boundaryEvent("errorEvent1")
           .error(ERROR_CODE)
           .subProcessDone()
@@ -1257,8 +1257,8 @@ public class ExecutionListenerTest {
         .endEvent();
 
     FlowaveExecutionListener listener = model.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_START);
-    listener.setCamundaClass(ThrowBPMNErrorDelegate.class.getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_START);
+    listener.setFlowaveClass(ThrowBPMNErrorDelegate.class.getName());
     model.<org.finos.flowave.bpm.model.bpmn.instance.Process>getModelElementById(PROCESS_KEY).builder().addExtensionElement(listener);
 
     testRule.deploy(model);
@@ -1289,8 +1289,8 @@ public class ExecutionListenerTest {
         .endEvent();
 
     FlowaveExecutionListener listener = model.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_END);
-    listener.setCamundaClass(ThrowBPMNErrorDelegate.class.getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_END);
+    listener.setFlowaveClass(ThrowBPMNErrorDelegate.class.getName());
     model.<org.finos.flowave.bpm.model.bpmn.instance.Process>getModelElementById(PROCESS_KEY).builder().addExtensionElement(listener);
 
     testRule.deploy(model);
@@ -1318,8 +1318,8 @@ public class ExecutionListenerTest {
           .startEvent()
           .userTask("userTask1")
           .serviceTask("throw")
-            .camundaExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
-            .camundaExpression("${true}")
+            .flowaveExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
+            .flowaveExpression("${true}")
           .boundaryEvent("errorEvent")
           .error(catchException ? RUNTIME_EXCEPTION.getClass().getName() : ERROR_CODE)
           .userTask("afterCatch")
@@ -1342,8 +1342,8 @@ public class ExecutionListenerTest {
             .embeddedSubProcess()
             .startEvent("inSub")
             .serviceTask("throw")
-              .camundaExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
-              .camundaExpression("${true}")
+              .flowaveExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
+              .flowaveExpression("${true}")
               .userTask("afterService")
               .endEvent()
             .subProcessDone()
@@ -1367,8 +1367,8 @@ public class ExecutionListenerTest {
         .startEvent()
         .userTask("userTask1")
         .serviceTask("throw")
-          .camundaExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
-          .camundaExpression("${true}")
+          .flowaveExecutionListenerClass(eventName, throwException ? ThrowRuntimeExceptionDelegate.class : ThrowBPMNErrorDelegate.class)
+          .flowaveExpression("${true}")
         .userTask("afterService")
         .endEvent()
         .done();

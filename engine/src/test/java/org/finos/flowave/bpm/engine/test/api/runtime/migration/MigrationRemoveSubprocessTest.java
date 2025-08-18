@@ -430,7 +430,7 @@ public class MigrationRemoveSubprocessTest {
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, DelegateExecutionListener.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, DelegateExecutionListener.class.getName())
       .done()
     );
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
@@ -462,7 +462,7 @@ public class MigrationRemoveSubprocessTest {
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, DelegateExecutionListener.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, DelegateExecutionListener.class.getName())
       .done()
     );
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
@@ -493,7 +493,7 @@ public class MigrationRemoveSubprocessTest {
     // given
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaOutputParameter("foo", "bar")
+      .flowaveOutputParameter("foo", "bar")
       .done());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
 
@@ -523,7 +523,7 @@ public class MigrationRemoveSubprocessTest {
     // given
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaOutputParameter("foo", "bar")
+      .flowaveOutputParameter("foo", "bar")
       .done());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
 

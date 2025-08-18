@@ -196,9 +196,9 @@ public class MigrationUserTaskTest {
     // given
     BpmnModelInstance model = ModifiableBpmnModelInstance.modify(ProcessModels.PARALLEL_GATEWAY_PROCESS)
         .activityBuilder("userTask1")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .moveToActivity("userTask2")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .done();
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(model);
@@ -938,8 +938,8 @@ public class MigrationUserTaskTest {
 
   protected static void addTaskListener(BpmnModelInstance targetModel, String activityId, String event, String className) {
     FlowaveTaskListener taskListener = targetModel.newInstance(FlowaveTaskListener.class);
-    taskListener.setCamundaClass(className);
-    taskListener.setCamundaEvent(event);
+    taskListener.setFlowaveClass(className);
+    taskListener.setFlowaveEvent(event);
 
     UserTask task = targetModel.getModelElementById(activityId);
     task.builder().addExtensionElement(taskListener);

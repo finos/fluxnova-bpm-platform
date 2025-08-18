@@ -79,27 +79,27 @@ public class CaseTaskImpl extends TaskImpl implements CaseTask {
     return parameterMappingCollection.get(this);
   }
 
-  public String getCamundaCaseBinding() {
+  public String getFlowaveCaseBinding() {
     return camundaCaseBindingAttribute.getValue(this);
   }
 
-  public void setCamundaCaseBinding(String camundaCaseBinding) {
+  public void setFlowaveCaseBinding(String camundaCaseBinding) {
     camundaCaseBindingAttribute.setValue(this, camundaCaseBinding);
   }
 
-  public String getCamundaCaseVersion() {
+  public String getFlowaveCaseVersion() {
     return camundaCaseVersionAttribute.getValue(this);
   }
 
-  public void setCamundaCaseVersion(String camundaCaseVersion) {
+  public void setFlowaveCaseVersion(String camundaCaseVersion) {
     camundaCaseVersionAttribute.setValue(this, camundaCaseVersion);
   }
 
-  public String getCamundaCaseTenantId() {
+  public String getFlowaveCaseTenantId() {
     return camundaCaseTenantIdAttribute.getValue(this);
   }
 
-  public void setCamundaCaseTenantId(String camundaCaseTenantId) {
+  public void setFlowaveCaseTenantId(String camundaCaseTenantId) {
     camundaCaseTenantIdAttribute.setValue(this, camundaCaseTenantId);
   }
 

@@ -32,7 +32,7 @@ public class FlowaveBpmVersionTest {
 
   protected static String currentVersion;
 
-  public static FlowaveBpmVersion camundaBpmVersion(final String version) {
+  public static FlowaveBpmVersion flowaveBpmVersion(final String version) {
     final Package pkg = mock(Package.class);
     when(pkg.getImplementationVersion()).thenReturn(version);
     return new FlowaveBpmVersion(pkg);
@@ -59,11 +59,11 @@ public class FlowaveBpmVersionTest {
 
   @Test
   public void isEnterprise_true() throws Exception {
-    assertThat(camundaBpmVersion("7.6.0-alpha3-ee").isEnterprise()).isTrue();
+    assertThat(flowaveBpmVersion("7.6.0-alpha3-ee").isEnterprise()).isTrue();
   }
 
   @Test
   public void isEnterprise_false() throws Exception {
-    assertThat(camundaBpmVersion("7.6.0-alpha3").isEnterprise()).isFalse();
+    assertThat(flowaveBpmVersion("7.6.0-alpha3").isEnterprise()).isFalse();
   }
 }

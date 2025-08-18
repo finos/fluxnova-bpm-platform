@@ -60,8 +60,8 @@ public class JobDefinitionFunctionalTest {
   protected static final BpmnModelInstance SIMPLE_ASYNC_PROCESS = Bpmn.createExecutableProcess("simpleAsyncProcess")
       .startEvent()
       .serviceTask()
-        .camundaExpression("${true}")
-        .camundaAsyncBefore()
+        .flowaveExpression("${true}")
+        .flowaveAsyncBefore()
       .endEvent()
       .done();
 
@@ -130,11 +130,11 @@ public class JobDefinitionFunctionalTest {
     testRule.deploy(Bpmn.createExecutableProcess("testProcess")
         .startEvent()
         .serviceTask("task1")
-          .camundaExpression("${true}")
-          .camundaAsyncBefore()
+          .flowaveExpression("${true}")
+          .flowaveAsyncBefore()
         .serviceTask("task2")
-          .camundaExpression("${true}")
-          .camundaAsyncBefore()
+          .flowaveExpression("${true}")
+          .flowaveAsyncBefore()
         .endEvent()
         .done());
 

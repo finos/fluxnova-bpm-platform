@@ -66,7 +66,7 @@ public class MultiTenancyJobCmdsTenantCheckTest {
        .boundaryEvent("timerEvent")
          .timerWithDuration("PT4H")
            .serviceTask()
-           .camundaExpression("${failing}")
+           .flowaveExpression("${failing}")
     .endEvent()
     .done();
 

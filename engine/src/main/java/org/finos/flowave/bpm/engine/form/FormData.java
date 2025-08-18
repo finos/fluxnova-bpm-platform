@@ -47,7 +47,7 @@ public interface FormData {
    * A form can be referenced either through a form key or through a {@link FlowaveFormRef}.
    *
    */
-  FlowaveFormRef getCamundaFormRef();
+  FlowaveFormRef getFlowaveFormRef();
 
   /** The deployment id of the process definition to which this form is related
    *  */

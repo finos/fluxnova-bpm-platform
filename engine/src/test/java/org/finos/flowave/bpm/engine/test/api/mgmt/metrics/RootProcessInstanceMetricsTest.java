@@ -40,17 +40,17 @@ public class RootProcessInstanceMetricsTest extends AbstractMetricsTest {
 
   protected static final String BASE_INSTANCE_KEY = "baseProcess";
   protected static final BpmnModelInstance BASE_INSTANCE = Bpmn.createExecutableProcess(BASE_INSTANCE_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent()
       .endEvent()
       .done();
 
   protected static final String CALLED_DMN_INSTANCE_KEY = "calledDMNProcess";
   protected static final BpmnModelInstance CALLED_DMN_INSTANCE = Bpmn.createExecutableProcess(CALLED_DMN_INSTANCE_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef("decision")
+        .flowaveDecisionRef("decision")
       .endEvent()
       .done();
 
@@ -136,7 +136,7 @@ public class RootProcessInstanceMetricsTest extends AbstractMetricsTest {
 
   protected BpmnModelInstance getCallingInstance(String calledInstanceKey, Map variables) {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CALLING_INSTANCE_KEY)
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .callActivity("calledProcess")
           .calledElement(calledInstanceKey)
@@ -147,7 +147,7 @@ public class RootProcessInstanceMetricsTest extends AbstractMetricsTest {
     CallActivity callActivity = modelInstance.getModelElementById("calledProcess");
     variables.keySet()
         .iterator()
-        .forEachRemaining(name -> callActivity.builder().camundaIn((String) name, (String) name));
+        .forEachRemaining(name -> callActivity.builder().flowaveIn((String) name, (String) name));
 
     return modelInstance;
   }

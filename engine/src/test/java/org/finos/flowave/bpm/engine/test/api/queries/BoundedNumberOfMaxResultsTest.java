@@ -75,7 +75,7 @@ public class BoundedNumberOfMaxResultsTest {
   protected BpmnModelInstance externalTaskProcess = Bpmn.createExecutableProcess("process")
       .startEvent()
       .serviceTask()
-        .camundaExternalTask("aTopicName")
+        .flowaveExternalTask("aTopicName")
       .endEvent()
       .done();
 
@@ -856,7 +856,7 @@ public class BoundedNumberOfMaxResultsTest {
     BpmnModelInstance process = Bpmn.createExecutableProcess("process")
         .startEvent("startEvent")
         .serviceTask()
-          .camundaClass(BoundedNumberOfMaxResultsDelegate.class)
+          .flowaveClass(BoundedNumberOfMaxResultsDelegate.class)
         .endEvent()
         .done();
 

@@ -40,7 +40,7 @@ public class UnlockUserCmd implements Command<Object>, Serializable {
 
   @Override
   public Object execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdmin();
+    commandContext.getAuthorizationManager().checkFlowaveAdmin();
 
     IdentityOperationResult operationResult = commandContext.getWritableIdentityProvider().unlockUser(userId);
 

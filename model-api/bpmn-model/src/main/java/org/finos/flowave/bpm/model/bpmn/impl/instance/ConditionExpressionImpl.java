@@ -75,11 +75,11 @@ public class ConditionExpressionImpl extends FormalExpressionImpl implements Con
     typeAttribute.setValue(this, type);
   }
 
-  public String getCamundaResource() {
+  public String getFlowaveResource() {
     return camundaResourceAttribute.getValue(this);
   }
 
-  public void setCamundaResource(String camundaResource) {
+  public void setFlowaveResource(String camundaResource) {
     camundaResourceAttribute.setValue(this, camundaResource);
   }
 

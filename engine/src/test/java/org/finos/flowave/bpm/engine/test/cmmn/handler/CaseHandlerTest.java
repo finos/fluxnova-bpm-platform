@@ -136,7 +136,7 @@ public class CaseHandlerTest extends CmmnElementHandlerTest {
   public void testHistoryTimeToLive() {
     // given: a caseDefinition
     Integer historyTimeToLive = 6;
-    caseDefinition.setCamundaHistoryTimeToLive(historyTimeToLive);
+    caseDefinition.setFlowaveHistoryTimeToLive(historyTimeToLive);
 
     // when
     CaseDefinitionEntity activity = (CaseDefinitionEntity) handler.handleElement(caseDefinition, context);
@@ -149,7 +149,7 @@ public class CaseHandlerTest extends CmmnElementHandlerTest {
   public void testHistoryTimeToLiveNegative() {
     // given: a caseDefinition
     Integer historyTimeToLive = -6;
-    caseDefinition.setCamundaHistoryTimeToLive(historyTimeToLive);
+    caseDefinition.setFlowaveHistoryTimeToLive(historyTimeToLive);
 
     try {
       // when

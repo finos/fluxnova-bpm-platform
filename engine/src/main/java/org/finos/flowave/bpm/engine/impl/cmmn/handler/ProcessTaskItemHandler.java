@@ -45,19 +45,19 @@ public class ProcessTaskItemHandler extends ProcessOrCaseTaskItemHandler {
   protected String getBinding(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     ProcessTask definition = getDefinition(element);
 
-    return definition.getCamundaProcessBinding();
+    return definition.getFlowaveProcessBinding();
   }
 
   protected String getVersion(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     ProcessTask definition = getDefinition(element);
 
-    return definition.getCamundaProcessVersion();
+    return definition.getFlowaveProcessVersion();
   }
 
   protected String getTenantId(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context) {
     ProcessTask definition = getDefinition(element);
 
-    return definition.getCamundaProcessTenantId();
+    return definition.getFlowaveProcessTenantId();
   }
 
 }

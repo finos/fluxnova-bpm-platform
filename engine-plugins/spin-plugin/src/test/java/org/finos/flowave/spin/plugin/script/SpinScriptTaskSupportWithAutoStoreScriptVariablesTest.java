@@ -159,7 +159,7 @@ public class SpinScriptTaskSupportWithAutoStoreScriptVariablesTest extends Plugg
       .userTask()
       .scriptTask()
         .scriptFormat(scriptFormat)
-        .camundaResource("deployment://testScript.txt")
+        .flowaveResource("deployment://testScript.txt")
       .userTask()
       .endEvent()
     .done();

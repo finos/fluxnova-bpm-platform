@@ -176,283 +176,283 @@ public class FlowaveExtensionsTest {
 
   @Test
   public void testAssignee() {
-    assertThat(userTask.getCamundaAssignee()).isEqualTo(TEST_STRING_XML);
-    userTask.setCamundaAssignee(TEST_STRING_API);
-    assertThat(userTask.getCamundaAssignee()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getFlowaveAssignee()).isEqualTo(TEST_STRING_XML);
+    userTask.setFlowaveAssignee(TEST_STRING_API);
+    assertThat(userTask.getFlowaveAssignee()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testAsync() {
-    assertThat(startEvent.isCamundaAsync()).isFalse();
-    assertThat(userTask.isCamundaAsync()).isTrue();
-    assertThat(parallelGateway.isCamundaAsync()).isTrue();
+    assertThat(startEvent.isFlowaveAsync()).isFalse();
+    assertThat(userTask.isFlowaveAsync()).isTrue();
+    assertThat(parallelGateway.isFlowaveAsync()).isTrue();
 
-    startEvent.setCamundaAsync(true);
-    userTask.setCamundaAsync(false);
-    parallelGateway.setCamundaAsync(false);
+    startEvent.setFlowaveAsync(true);
+    userTask.setFlowaveAsync(false);
+    parallelGateway.setFlowaveAsync(false);
 
-    assertThat(startEvent.isCamundaAsync()).isTrue();
-    assertThat(userTask.isCamundaAsync()).isFalse();
-    assertThat(parallelGateway.isCamundaAsync()).isFalse();
+    assertThat(startEvent.isFlowaveAsync()).isTrue();
+    assertThat(userTask.isFlowaveAsync()).isFalse();
+    assertThat(parallelGateway.isFlowaveAsync()).isFalse();
   }
 
   @Test
   public void testAsyncBefore() {
-    assertThat(startEvent.isCamundaAsyncBefore()).isTrue();
-    assertThat(endEvent.isCamundaAsyncBefore()).isTrue();
-    assertThat(userTask.isCamundaAsyncBefore()).isTrue();
-    assertThat(parallelGateway.isCamundaAsyncBefore()).isTrue();
+    assertThat(startEvent.isFlowaveAsyncBefore()).isTrue();
+    assertThat(endEvent.isFlowaveAsyncBefore()).isTrue();
+    assertThat(userTask.isFlowaveAsyncBefore()).isTrue();
+    assertThat(parallelGateway.isFlowaveAsyncBefore()).isTrue();
 
-    startEvent.setCamundaAsyncBefore(false);
-    endEvent.setCamundaAsyncBefore(false);
-    userTask.setCamundaAsyncBefore(false);
-    parallelGateway.setCamundaAsyncBefore(false);
+    startEvent.setFlowaveAsyncBefore(false);
+    endEvent.setFlowaveAsyncBefore(false);
+    userTask.setFlowaveAsyncBefore(false);
+    parallelGateway.setFlowaveAsyncBefore(false);
 
-    assertThat(startEvent.isCamundaAsyncBefore()).isFalse();
-    assertThat(endEvent.isCamundaAsyncBefore()).isFalse();
-    assertThat(userTask.isCamundaAsyncBefore()).isFalse();
-    assertThat(parallelGateway.isCamundaAsyncBefore()).isFalse();
+    assertThat(startEvent.isFlowaveAsyncBefore()).isFalse();
+    assertThat(endEvent.isFlowaveAsyncBefore()).isFalse();
+    assertThat(userTask.isFlowaveAsyncBefore()).isFalse();
+    assertThat(parallelGateway.isFlowaveAsyncBefore()).isFalse();
   }
 
   @Test
   public void testAsyncAfter() {
-    assertThat(startEvent.isCamundaAsyncAfter()).isTrue();
-    assertThat(endEvent.isCamundaAsyncAfter()).isTrue();
-    assertThat(userTask.isCamundaAsyncAfter()).isTrue();
-    assertThat(parallelGateway.isCamundaAsyncAfter()).isTrue();
+    assertThat(startEvent.isFlowaveAsyncAfter()).isTrue();
+    assertThat(endEvent.isFlowaveAsyncAfter()).isTrue();
+    assertThat(userTask.isFlowaveAsyncAfter()).isTrue();
+    assertThat(parallelGateway.isFlowaveAsyncAfter()).isTrue();
 
-    startEvent.setCamundaAsyncAfter(false);
-    endEvent.setCamundaAsyncAfter(false);
-    userTask.setCamundaAsyncAfter(false);
-    parallelGateway.setCamundaAsyncAfter(false);
+    startEvent.setFlowaveAsyncAfter(false);
+    endEvent.setFlowaveAsyncAfter(false);
+    userTask.setFlowaveAsyncAfter(false);
+    parallelGateway.setFlowaveAsyncAfter(false);
 
-    assertThat(startEvent.isCamundaAsyncAfter()).isFalse();
-    assertThat(endEvent.isCamundaAsyncAfter()).isFalse();
-    assertThat(userTask.isCamundaAsyncAfter()).isFalse();
-    assertThat(parallelGateway.isCamundaAsyncAfter()).isFalse();
+    assertThat(startEvent.isFlowaveAsyncAfter()).isFalse();
+    assertThat(endEvent.isFlowaveAsyncAfter()).isFalse();
+    assertThat(userTask.isFlowaveAsyncAfter()).isFalse();
+    assertThat(parallelGateway.isFlowaveAsyncAfter()).isFalse();
   }
 
   @Test
   public void testFlowNodeJobPriority() {
-    assertThat(startEvent.getCamundaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
-    assertThat(endEvent.getCamundaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
-    assertThat(userTask.getCamundaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
-    assertThat(parallelGateway.getCamundaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
+    assertThat(startEvent.getFlowaveJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
+    assertThat(endEvent.getFlowaveJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
+    assertThat(userTask.getFlowaveJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
+    assertThat(parallelGateway.getFlowaveJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
   }
 
   @Test
   public void testProcessJobPriority() {
-    assertThat(process.getCamundaJobPriority()).isEqualTo(TEST_PROCESS_JOB_PRIORITY);
+    assertThat(process.getFlowaveJobPriority()).isEqualTo(TEST_PROCESS_JOB_PRIORITY);
   }
 
   @Test
   public void testProcessTaskPriority() {
-    assertThat(process.getCamundaTaskPriority()).isEqualTo(TEST_PROCESS_TASK_PRIORITY);
+    assertThat(process.getFlowaveTaskPriority()).isEqualTo(TEST_PROCESS_TASK_PRIORITY);
   }
 
   @Test
   public void testHistoryTimeToLive() {
-    assertThat(process.getCamundaHistoryTimeToLive()).isEqualTo(TEST_HISTORY_TIME_TO_LIVE);
+    assertThat(process.getFlowaveHistoryTimeToLive()).isEqualTo(TEST_HISTORY_TIME_TO_LIVE);
   }
 
   @Test
   public void testIsStartableInTasklist() {
-    assertThat(process.isCamundaStartableInTasklist()).isEqualTo(false);
+    assertThat(process.isFlowaveStartableInTasklist()).isEqualTo(false);
   }
 
   @Test
   public void testVersionTag() {
-    assertThat(process.getCamundaVersionTag()).isEqualTo("v1.0.0");
+    assertThat(process.getFlowaveVersionTag()).isEqualTo("v1.0.0");
   }
 
   @Test
   public void testServiceTaskPriority() {
-    assertThat(serviceTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(serviceTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
   @Test
   public void testCalledElementBinding() {
-    assertThat(callActivity.getCamundaCalledElementBinding()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCalledElementBinding(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCalledElementBinding()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementBinding()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCalledElementBinding(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementBinding()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCalledElementVersion() {
-    assertThat(callActivity.getCamundaCalledElementVersion()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCalledElementVersion(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCalledElementVersion()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementVersion()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCalledElementVersion(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementVersion()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCalledElementVersionTag() {
-    assertThat(callActivity.getCamundaCalledElementVersionTag()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCalledElementVersionTag(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCalledElementVersionTag()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementVersionTag()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCalledElementVersionTag(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementVersionTag()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCalledElementTenantId() {
-    assertThat(callActivity.getCamundaCalledElementTenantId()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCalledElementTenantId(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCalledElementTenantId()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementTenantId()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCalledElementTenantId(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCalledElementTenantId()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCaseRef() {
-    assertThat(callActivity.getCamundaCaseRef()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCaseRef(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCaseRef()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseRef()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCaseRef(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseRef()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCaseBinding() {
-    assertThat(callActivity.getCamundaCaseBinding()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCaseBinding(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCaseBinding()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseBinding()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCaseBinding(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseBinding()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCaseVersion() {
-    assertThat(callActivity.getCamundaCaseVersion()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCaseVersion(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCaseVersion()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseVersion()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCaseVersion(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseVersion()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testCaseTenantId() {
-    assertThat(callActivity.getCamundaCaseTenantId()).isEqualTo(TEST_STRING_XML);
-    callActivity.setCamundaCaseTenantId(TEST_STRING_API);
-    assertThat(callActivity.getCamundaCaseTenantId()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseTenantId()).isEqualTo(TEST_STRING_XML);
+    callActivity.setFlowaveCaseTenantId(TEST_STRING_API);
+    assertThat(callActivity.getFlowaveCaseTenantId()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testDecisionRef() {
-    assertThat(businessRuleTask.getCamundaDecisionRef()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaDecisionRef(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaDecisionRef()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRef()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveDecisionRef(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRef()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testDecisionRefBinding() {
-    assertThat(businessRuleTask.getCamundaDecisionRefBinding()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaDecisionRefBinding(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaDecisionRefBinding()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefBinding()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveDecisionRefBinding(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefBinding()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testDecisionRefVersion() {
-    assertThat(businessRuleTask.getCamundaDecisionRefVersion()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaDecisionRefVersion(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaDecisionRefVersion()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersion()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveDecisionRefVersion(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersion()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testDecisionRefVersionTag() {
-    assertThat(businessRuleTask.getCamundaDecisionRefVersionTag()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaDecisionRefVersionTag(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaDecisionRefVersionTag()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersionTag()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveDecisionRefVersionTag(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersionTag()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testDecisionRefTenantId() {
-    assertThat(businessRuleTask.getCamundaDecisionRefTenantId()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaDecisionRefTenantId(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaDecisionRefTenantId()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefTenantId()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveDecisionRefTenantId(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveDecisionRefTenantId()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testMapDecisionResult() {
-    assertThat(businessRuleTask.getCamundaMapDecisionResult()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaMapDecisionResult(TEST_STRING_API);
-    assertThat(businessRuleTask.getCamundaMapDecisionResult()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveMapDecisionResult()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveMapDecisionResult(TEST_STRING_API);
+    assertThat(businessRuleTask.getFlowaveMapDecisionResult()).isEqualTo(TEST_STRING_API);
   }
 
 
   @Test
   public void testTaskPriority() {
-    assertThat(businessRuleTask.getCamundaTaskPriority()).isEqualTo(TEST_STRING_XML);
-    businessRuleTask.setCamundaTaskPriority(TEST_SERVICE_TASK_PRIORITY);
-    assertThat(businessRuleTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(businessRuleTask.getFlowaveTaskPriority()).isEqualTo(TEST_STRING_XML);
+    businessRuleTask.setFlowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(businessRuleTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
   @Test
   public void testCandidateGroups() {
-    assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_XML);
-    assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
-    userTask.setCamundaCandidateGroups(TEST_GROUPS_API);
-    assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_API);
-    assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
-    userTask.setCamundaCandidateGroupsList(TEST_GROUPS_LIST_XML);
-    assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_XML);
-    assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
+    assertThat(userTask.getFlowaveCandidateGroups()).isEqualTo(TEST_GROUPS_XML);
+    assertThat(userTask.getFlowaveCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
+    userTask.setFlowaveCandidateGroups(TEST_GROUPS_API);
+    assertThat(userTask.getFlowaveCandidateGroups()).isEqualTo(TEST_GROUPS_API);
+    assertThat(userTask.getFlowaveCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
+    userTask.setFlowaveCandidateGroupsList(TEST_GROUPS_LIST_XML);
+    assertThat(userTask.getFlowaveCandidateGroups()).isEqualTo(TEST_GROUPS_XML);
+    assertThat(userTask.getFlowaveCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
   }
 
   @Test
   public void testCandidateStarterGroups() {
-    assertThat(process.getCamundaCandidateStarterGroups()).isEqualTo(TEST_GROUPS_XML);
-    assertThat(process.getCamundaCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
-    process.setCamundaCandidateStarterGroups(TEST_GROUPS_API);
-    assertThat(process.getCamundaCandidateStarterGroups()).isEqualTo(TEST_GROUPS_API);
-    assertThat(process.getCamundaCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_API);
-    process.setCamundaCandidateStarterGroupsList(TEST_GROUPS_LIST_XML);
-    assertThat(process.getCamundaCandidateStarterGroups()).isEqualTo(TEST_GROUPS_XML);
-    assertThat(process.getCamundaCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
+    assertThat(process.getFlowaveCandidateStarterGroups()).isEqualTo(TEST_GROUPS_XML);
+    assertThat(process.getFlowaveCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
+    process.setFlowaveCandidateStarterGroups(TEST_GROUPS_API);
+    assertThat(process.getFlowaveCandidateStarterGroups()).isEqualTo(TEST_GROUPS_API);
+    assertThat(process.getFlowaveCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_API);
+    process.setFlowaveCandidateStarterGroupsList(TEST_GROUPS_LIST_XML);
+    assertThat(process.getFlowaveCandidateStarterGroups()).isEqualTo(TEST_GROUPS_XML);
+    assertThat(process.getFlowaveCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
   }
 
   @Test
   public void testCandidateStarterUsers() {
-    assertThat(process.getCamundaCandidateStarterUsers()).isEqualTo(TEST_USERS_XML);
-    assertThat(process.getCamundaCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
-    process.setCamundaCandidateStarterUsers(TEST_USERS_API);
-    assertThat(process.getCamundaCandidateStarterUsers()).isEqualTo(TEST_USERS_API);
-    assertThat(process.getCamundaCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_API);
-    process.setCamundaCandidateStarterUsersList(TEST_USERS_LIST_XML);
-    assertThat(process.getCamundaCandidateStarterUsers()).isEqualTo(TEST_USERS_XML);
-    assertThat(process.getCamundaCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
+    assertThat(process.getFlowaveCandidateStarterUsers()).isEqualTo(TEST_USERS_XML);
+    assertThat(process.getFlowaveCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
+    process.setFlowaveCandidateStarterUsers(TEST_USERS_API);
+    assertThat(process.getFlowaveCandidateStarterUsers()).isEqualTo(TEST_USERS_API);
+    assertThat(process.getFlowaveCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_API);
+    process.setFlowaveCandidateStarterUsersList(TEST_USERS_LIST_XML);
+    assertThat(process.getFlowaveCandidateStarterUsers()).isEqualTo(TEST_USERS_XML);
+    assertThat(process.getFlowaveCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
   }
 
   @Test
   public void testCandidateUsers() {
-    assertThat(userTask.getCamundaCandidateUsers()).isEqualTo(TEST_USERS_XML);
-    assertThat(userTask.getCamundaCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
-    userTask.setCamundaCandidateUsers(TEST_USERS_API);
-    assertThat(userTask.getCamundaCandidateUsers()).isEqualTo(TEST_USERS_API);
-    assertThat(userTask.getCamundaCandidateUsersList()).containsAll(TEST_USERS_LIST_API);
-    userTask.setCamundaCandidateUsersList(TEST_USERS_LIST_XML);
-    assertThat(userTask.getCamundaCandidateUsers()).isEqualTo(TEST_USERS_XML);
-    assertThat(userTask.getCamundaCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
+    assertThat(userTask.getFlowaveCandidateUsers()).isEqualTo(TEST_USERS_XML);
+    assertThat(userTask.getFlowaveCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
+    userTask.setFlowaveCandidateUsers(TEST_USERS_API);
+    assertThat(userTask.getFlowaveCandidateUsers()).isEqualTo(TEST_USERS_API);
+    assertThat(userTask.getFlowaveCandidateUsersList()).containsAll(TEST_USERS_LIST_API);
+    userTask.setFlowaveCandidateUsersList(TEST_USERS_LIST_XML);
+    assertThat(userTask.getFlowaveCandidateUsers()).isEqualTo(TEST_USERS_XML);
+    assertThat(userTask.getFlowaveCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
   }
 
   @Test
   public void testClass() {
-    assertThat(serviceTask.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
-    assertThat(messageEventDefinition.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
+    assertThat(serviceTask.getFlowaveClass()).isEqualTo(TEST_CLASS_XML);
+    assertThat(messageEventDefinition.getFlowaveClass()).isEqualTo(TEST_CLASS_XML);
 
-    serviceTask.setCamundaClass(TEST_CLASS_API);
-    messageEventDefinition.setCamundaClass(TEST_CLASS_API);
+    serviceTask.setFlowaveClass(TEST_CLASS_API);
+    messageEventDefinition.setFlowaveClass(TEST_CLASS_API);
 
-    assertThat(serviceTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(messageEventDefinition.getCamundaClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(serviceTask.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(messageEventDefinition.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
   }
 
   @Test
   public void testDelegateExpression() {
-    assertThat(serviceTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
-    assertThat(messageEventDefinition.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
+    assertThat(serviceTask.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
+    assertThat(messageEventDefinition.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
 
-    serviceTask.setCamundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
-    messageEventDefinition.setCamundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
+    serviceTask.setFlowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
+    messageEventDefinition.setFlowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
 
-    assertThat(serviceTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(messageEventDefinition.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(serviceTask.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(messageEventDefinition.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
   }
 
   @Test
   public void testDueDate() {
-    assertThat(userTask.getCamundaDueDate()).isEqualTo(TEST_DUE_DATE_XML);
-    userTask.setCamundaDueDate(TEST_DUE_DATE_API);
-    assertThat(userTask.getCamundaDueDate()).isEqualTo(TEST_DUE_DATE_API);
+    assertThat(userTask.getFlowaveDueDate()).isEqualTo(TEST_DUE_DATE_XML);
+    userTask.setFlowaveDueDate(TEST_DUE_DATE_API);
+    assertThat(userTask.getFlowaveDueDate()).isEqualTo(TEST_DUE_DATE_API);
   }
 
   @Test
@@ -469,113 +469,113 @@ public class FlowaveExtensionsTest {
 
   @Test
   public void testErrorMessage() {
-    assertThat(error.getCamundaErrorMessage()).isEqualTo(TEST_STRING_XML);
-    error.setCamundaErrorMessage(TEST_STRING_API);
-    assertThat(error.getCamundaErrorMessage()).isEqualTo(TEST_STRING_API);
+    assertThat(error.getFlowaveErrorMessage()).isEqualTo(TEST_STRING_XML);
+    error.setFlowaveErrorMessage(TEST_STRING_API);
+    assertThat(error.getFlowaveErrorMessage()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testExclusive() {
-    assertThat(startEvent.isCamundaExclusive()).isTrue();
-    assertThat(userTask.isCamundaExclusive()).isFalse();
-    userTask.setCamundaExclusive(true);
-    assertThat(userTask.isCamundaExclusive()).isTrue();
-    assertThat(parallelGateway.isCamundaExclusive()).isTrue();
-    parallelGateway.setCamundaExclusive(false);
-    assertThat(parallelGateway.isCamundaExclusive()).isFalse();
+    assertThat(startEvent.isFlowaveExclusive()).isTrue();
+    assertThat(userTask.isFlowaveExclusive()).isFalse();
+    userTask.setFlowaveExclusive(true);
+    assertThat(userTask.isFlowaveExclusive()).isTrue();
+    assertThat(parallelGateway.isFlowaveExclusive()).isTrue();
+    parallelGateway.setFlowaveExclusive(false);
+    assertThat(parallelGateway.isFlowaveExclusive()).isFalse();
 
-    assertThat(callActivity.isCamundaExclusive()).isFalse();
-    callActivity.setCamundaExclusive(true);
-    assertThat(callActivity.isCamundaExclusive()).isTrue();
+    assertThat(callActivity.isFlowaveExclusive()).isFalse();
+    callActivity.setFlowaveExclusive(true);
+    assertThat(callActivity.isFlowaveExclusive()).isTrue();
   }
 
   @Test
   public void testExpression() {
-    assertThat(serviceTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(messageEventDefinition.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    serviceTask.setCamundaExpression(TEST_EXPRESSION_API);
-    messageEventDefinition.setCamundaExpression(TEST_EXPRESSION_API);
-    assertThat(serviceTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(messageEventDefinition.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(serviceTask.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(messageEventDefinition.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    serviceTask.setFlowaveExpression(TEST_EXPRESSION_API);
+    messageEventDefinition.setFlowaveExpression(TEST_EXPRESSION_API);
+    assertThat(serviceTask.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(messageEventDefinition.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
   }
 
   @Test
   public void testFormHandlerClass() {
-    assertThat(startEvent.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
-    assertThat(userTask.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
-    startEvent.setCamundaFormHandlerClass(TEST_CLASS_API);
-    userTask.setCamundaFormHandlerClass(TEST_CLASS_API);
-    assertThat(startEvent.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(userTask.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(startEvent.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
+    assertThat(userTask.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
+    startEvent.setFlowaveFormHandlerClass(TEST_CLASS_API);
+    userTask.setFlowaveFormHandlerClass(TEST_CLASS_API);
+    assertThat(startEvent.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(userTask.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_API);
   }
 
   @Test
   public void testFormKey() {
-    assertThat(startEvent.getCamundaFormKey()).isEqualTo(TEST_STRING_XML);
-    assertThat(userTask.getCamundaFormKey()).isEqualTo(TEST_STRING_XML);
-    startEvent.setCamundaFormKey(TEST_STRING_API);
-    userTask.setCamundaFormKey(TEST_STRING_API);
-    assertThat(startEvent.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
-    assertThat(userTask.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(startEvent.getFlowaveFormKey()).isEqualTo(TEST_STRING_XML);
+    assertThat(userTask.getFlowaveFormKey()).isEqualTo(TEST_STRING_XML);
+    startEvent.setFlowaveFormKey(TEST_STRING_API);
+    userTask.setFlowaveFormKey(TEST_STRING_API);
+    assertThat(startEvent.getFlowaveFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getFlowaveFormKey()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testInitiator() {
-    assertThat(startEvent.getCamundaInitiator()).isEqualTo(TEST_STRING_XML);
-    startEvent.setCamundaInitiator(TEST_STRING_API);
-    assertThat(startEvent.getCamundaInitiator()).isEqualTo(TEST_STRING_API);
+    assertThat(startEvent.getFlowaveInitiator()).isEqualTo(TEST_STRING_XML);
+    startEvent.setFlowaveInitiator(TEST_STRING_API);
+    assertThat(startEvent.getFlowaveInitiator()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testPriority() {
-    assertThat(userTask.getCamundaPriority()).isEqualTo(TEST_PRIORITY_XML);
-    userTask.setCamundaPriority(TEST_PRIORITY_API);
-    assertThat(userTask.getCamundaPriority()).isEqualTo(TEST_PRIORITY_API);
+    assertThat(userTask.getFlowavePriority()).isEqualTo(TEST_PRIORITY_XML);
+    userTask.setFlowavePriority(TEST_PRIORITY_API);
+    assertThat(userTask.getFlowavePriority()).isEqualTo(TEST_PRIORITY_API);
   }
 
   @Test
   public void testResultVariable() {
-    assertThat(serviceTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_XML);
-    assertThat(messageEventDefinition.getCamundaResultVariable()).isEqualTo(TEST_STRING_XML);
-    serviceTask.setCamundaResultVariable(TEST_STRING_API);
-    messageEventDefinition.setCamundaResultVariable(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
-    assertThat(messageEventDefinition.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveResultVariable()).isEqualTo(TEST_STRING_XML);
+    assertThat(messageEventDefinition.getFlowaveResultVariable()).isEqualTo(TEST_STRING_XML);
+    serviceTask.setFlowaveResultVariable(TEST_STRING_API);
+    messageEventDefinition.setFlowaveResultVariable(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(messageEventDefinition.getFlowaveResultVariable()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testType() {
-    assertThat(serviceTask.getCamundaType()).isEqualTo(TEST_TYPE_XML);
-    assertThat(messageEventDefinition.getCamundaType()).isEqualTo(TEST_STRING_XML);
-    serviceTask.setCamundaType(TEST_TYPE_API);
-    messageEventDefinition.setCamundaType(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaType()).isEqualTo(TEST_TYPE_API);
-    assertThat(messageEventDefinition.getCamundaType()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveType()).isEqualTo(TEST_TYPE_XML);
+    assertThat(messageEventDefinition.getFlowaveType()).isEqualTo(TEST_STRING_XML);
+    serviceTask.setFlowaveType(TEST_TYPE_API);
+    messageEventDefinition.setFlowaveType(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveType()).isEqualTo(TEST_TYPE_API);
+    assertThat(messageEventDefinition.getFlowaveType()).isEqualTo(TEST_STRING_API);
 
   }
 
   @Test
   public void testTopic() {
-    assertThat(serviceTask.getCamundaTopic()).isEqualTo(TEST_STRING_XML);
-    assertThat(messageEventDefinition.getCamundaTopic()).isEqualTo(TEST_STRING_XML);
-    serviceTask.setCamundaTopic(TEST_TYPE_API);
-    messageEventDefinition.setCamundaTopic(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaTopic()).isEqualTo(TEST_TYPE_API);
-    assertThat(messageEventDefinition.getCamundaTopic()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveTopic()).isEqualTo(TEST_STRING_XML);
+    assertThat(messageEventDefinition.getFlowaveTopic()).isEqualTo(TEST_STRING_XML);
+    serviceTask.setFlowaveTopic(TEST_TYPE_API);
+    messageEventDefinition.setFlowaveTopic(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveTopic()).isEqualTo(TEST_TYPE_API);
+    assertThat(messageEventDefinition.getFlowaveTopic()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testVariableMappingClass() {
-    assertThat(callActivity.getCamundaVariableMappingClass()).isEqualTo(TEST_CLASS_XML);
-    callActivity.setCamundaVariableMappingClass(TEST_CLASS_API);
-    assertThat(callActivity.getCamundaVariableMappingClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(callActivity.getFlowaveVariableMappingClass()).isEqualTo(TEST_CLASS_XML);
+    callActivity.setFlowaveVariableMappingClass(TEST_CLASS_API);
+    assertThat(callActivity.getFlowaveVariableMappingClass()).isEqualTo(TEST_CLASS_API);
   }
 
   @Test
   public void testVariableMappingDelegateExpression() {
-    assertThat(callActivity.getCamundaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
-    callActivity.setCamundaVariableMappingDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(callActivity.getCamundaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(callActivity.getFlowaveVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
+    callActivity.setFlowaveVariableMappingDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(callActivity.getFlowaveVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
   }
 
   @Test
@@ -583,43 +583,43 @@ public class FlowaveExtensionsTest {
     FlowaveExecutionListener processListener = process.getExtensionElements().getElementsQuery().filterByType(FlowaveExecutionListener.class).singleResult();
     FlowaveExecutionListener startEventListener = startEvent.getExtensionElements().getElementsQuery().filterByType(FlowaveExecutionListener.class).singleResult();
     FlowaveExecutionListener serviceTaskListener = serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveExecutionListener.class).singleResult();
-    assertThat(processListener.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
-    assertThat(processListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
-    assertThat(startEventListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(startEventListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
-    assertThat(serviceTaskListener.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
-    assertThat(serviceTaskListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
-    processListener.setCamundaClass(TEST_CLASS_API);
-    processListener.setCamundaEvent(TEST_EXECUTION_EVENT_API);
-    startEventListener.setCamundaExpression(TEST_EXPRESSION_API);
-    startEventListener.setCamundaEvent(TEST_EXECUTION_EVENT_API);
-    serviceTaskListener.setCamundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
-    serviceTaskListener.setCamundaEvent(TEST_EXECUTION_EVENT_API);
-    assertThat(processListener.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(processListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
-    assertThat(startEventListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(startEventListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
-    assertThat(serviceTaskListener.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(serviceTaskListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
+    assertThat(processListener.getFlowaveClass()).isEqualTo(TEST_CLASS_XML);
+    assertThat(processListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
+    assertThat(startEventListener.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(startEventListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
+    assertThat(serviceTaskListener.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
+    assertThat(serviceTaskListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
+    processListener.setFlowaveClass(TEST_CLASS_API);
+    processListener.setFlowaveEvent(TEST_EXECUTION_EVENT_API);
+    startEventListener.setFlowaveExpression(TEST_EXPRESSION_API);
+    startEventListener.setFlowaveEvent(TEST_EXECUTION_EVENT_API);
+    serviceTaskListener.setFlowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
+    serviceTaskListener.setFlowaveEvent(TEST_EXECUTION_EVENT_API);
+    assertThat(processListener.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(processListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
+    assertThat(startEventListener.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(startEventListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
+    assertThat(serviceTaskListener.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(serviceTaskListener.getFlowaveEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
   }
 
   @Test
-  public void testCamundaScriptExecutionListener() {
+  public void testFlowaveScriptExecutionListener() {
     FlowaveExecutionListener sequenceFlowListener = sequenceFlow.getExtensionElements().getElementsQuery().filterByType(FlowaveExecutionListener.class).singleResult();
 
-    FlowaveScript script = sequenceFlowListener.getCamundaScript();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("groovy");
-    assertThat(script.getCamundaResource()).isNull();
+    FlowaveScript script = sequenceFlowListener.getFlowaveScript();
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("groovy");
+    assertThat(script.getFlowaveResource()).isNull();
     assertThat(script.getTextContent()).isEqualTo("println 'Hello World'");
 
     FlowaveScript newScript = modelInstance.newInstance(FlowaveScript.class);
-    newScript.setCamundaScriptFormat("groovy");
-    newScript.setCamundaResource("test.groovy");
-    sequenceFlowListener.setCamundaScript(newScript);
+    newScript.setFlowaveScriptFormat("groovy");
+    newScript.setFlowaveResource("test.groovy");
+    sequenceFlowListener.setFlowaveScript(newScript);
 
-    script = sequenceFlowListener.getCamundaScript();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("groovy");
-    assertThat(script.getCamundaResource()).isEqualTo("test.groovy");
+    script = sequenceFlowListener.getFlowaveScript();
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("groovy");
+    assertThat(script.getFlowaveResource()).isEqualTo("test.groovy");
     assertThat(script.getTextContent()).isEmpty();
   }
 
@@ -634,144 +634,144 @@ public class FlowaveExtensionsTest {
   @Test
   public void testFieldExtension() {
     FlowaveField field = sendTask.getExtensionElements().getElementsQuery().filterByType(FlowaveField.class).singleResult();
-    assertThat(field.getCamundaName()).isEqualTo(TEST_STRING_XML);
-    assertThat(field.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(field.getCamundaStringValue()).isEqualTo(TEST_STRING_XML);
-    assertThat(field.getCamundaExpressionChild().getTextContent()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(field.getCamundaString().getTextContent()).isEqualTo(TEST_STRING_XML);
-    field.setCamundaName(TEST_STRING_API);
-    field.setCamundaExpression(TEST_EXPRESSION_API);
-    field.setCamundaStringValue(TEST_STRING_API);
-    field.getCamundaExpressionChild().setTextContent(TEST_EXPRESSION_API);
-    field.getCamundaString().setTextContent(TEST_STRING_API);
-    assertThat(field.getCamundaName()).isEqualTo(TEST_STRING_API);
-    assertThat(field.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(field.getCamundaStringValue()).isEqualTo(TEST_STRING_API);
-    assertThat(field.getCamundaExpressionChild().getTextContent()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(field.getCamundaString().getTextContent()).isEqualTo(TEST_STRING_API);
+    assertThat(field.getFlowaveName()).isEqualTo(TEST_STRING_XML);
+    assertThat(field.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(field.getFlowaveStringValue()).isEqualTo(TEST_STRING_XML);
+    assertThat(field.getFlowaveExpressionChild().getTextContent()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(field.getFlowaveString().getTextContent()).isEqualTo(TEST_STRING_XML);
+    field.setFlowaveName(TEST_STRING_API);
+    field.setFlowaveExpression(TEST_EXPRESSION_API);
+    field.setFlowaveStringValue(TEST_STRING_API);
+    field.getFlowaveExpressionChild().setTextContent(TEST_EXPRESSION_API);
+    field.getFlowaveString().setTextContent(TEST_STRING_API);
+    assertThat(field.getFlowaveName()).isEqualTo(TEST_STRING_API);
+    assertThat(field.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(field.getFlowaveStringValue()).isEqualTo(TEST_STRING_API);
+    assertThat(field.getFlowaveExpressionChild().getTextContent()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(field.getFlowaveString().getTextContent()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testFormData() {
     FlowaveFormData formData = userTask.getExtensionElements().getElementsQuery().filterByType(FlowaveFormData.class).singleResult();
-    FlowaveFormField formField = formData.getCamundaFormFields().iterator().next();
-    assertThat(formField.getCamundaId()).isEqualTo(TEST_STRING_XML);
-    assertThat(formField.getCamundaLabel()).isEqualTo(TEST_STRING_XML);
-    assertThat(formField.getCamundaType()).isEqualTo(TEST_STRING_XML);
-    assertThat(formField.getCamundaDatePattern()).isEqualTo(TEST_STRING_XML);
-    assertThat(formField.getCamundaDefaultValue()).isEqualTo(TEST_STRING_XML);
-    formField.setCamundaId(TEST_STRING_API);
-    formField.setCamundaLabel(TEST_STRING_API);
-    formField.setCamundaType(TEST_STRING_API);
-    formField.setCamundaDatePattern(TEST_STRING_API);
-    formField.setCamundaDefaultValue(TEST_STRING_API);
-    assertThat(formField.getCamundaId()).isEqualTo(TEST_STRING_API);
-    assertThat(formField.getCamundaLabel()).isEqualTo(TEST_STRING_API);
-    assertThat(formField.getCamundaType()).isEqualTo(TEST_STRING_API);
-    assertThat(formField.getCamundaDatePattern()).isEqualTo(TEST_STRING_API);
-    assertThat(formField.getCamundaDefaultValue()).isEqualTo(TEST_STRING_API);
+    FlowaveFormField formField = formData.getFlowaveFormFields().iterator().next();
+    assertThat(formField.getFlowaveId()).isEqualTo(TEST_STRING_XML);
+    assertThat(formField.getFlowaveLabel()).isEqualTo(TEST_STRING_XML);
+    assertThat(formField.getFlowaveType()).isEqualTo(TEST_STRING_XML);
+    assertThat(formField.getFlowaveDatePattern()).isEqualTo(TEST_STRING_XML);
+    assertThat(formField.getFlowaveDefaultValue()).isEqualTo(TEST_STRING_XML);
+    formField.setFlowaveId(TEST_STRING_API);
+    formField.setFlowaveLabel(TEST_STRING_API);
+    formField.setFlowaveType(TEST_STRING_API);
+    formField.setFlowaveDatePattern(TEST_STRING_API);
+    formField.setFlowaveDefaultValue(TEST_STRING_API);
+    assertThat(formField.getFlowaveId()).isEqualTo(TEST_STRING_API);
+    assertThat(formField.getFlowaveLabel()).isEqualTo(TEST_STRING_API);
+    assertThat(formField.getFlowaveType()).isEqualTo(TEST_STRING_API);
+    assertThat(formField.getFlowaveDatePattern()).isEqualTo(TEST_STRING_API);
+    assertThat(formField.getFlowaveDefaultValue()).isEqualTo(TEST_STRING_API);
 
-    FlowaveProperty property = formField.getCamundaProperties().getCamundaProperties().iterator().next();
-    assertThat(property.getCamundaId()).isEqualTo(TEST_STRING_XML);
-    assertThat(property.getCamundaValue()).isEqualTo(TEST_STRING_XML);
-    property.setCamundaId(TEST_STRING_API);
-    property.setCamundaValue(TEST_STRING_API);
-    assertThat(property.getCamundaId()).isEqualTo(TEST_STRING_API);
-    assertThat(property.getCamundaValue()).isEqualTo(TEST_STRING_API);
+    FlowaveProperty property = formField.getFlowaveProperties().getFlowaveProperties().iterator().next();
+    assertThat(property.getFlowaveId()).isEqualTo(TEST_STRING_XML);
+    assertThat(property.getFlowaveValue()).isEqualTo(TEST_STRING_XML);
+    property.setFlowaveId(TEST_STRING_API);
+    property.setFlowaveValue(TEST_STRING_API);
+    assertThat(property.getFlowaveId()).isEqualTo(TEST_STRING_API);
+    assertThat(property.getFlowaveValue()).isEqualTo(TEST_STRING_API);
 
-    FlowaveConstraint constraint = formField.getCamundaValidation().getCamundaConstraints().iterator().next();
-    assertThat(constraint.getCamundaName()).isEqualTo(TEST_STRING_XML);
-    assertThat(constraint.getCamundaConfig()).isEqualTo(TEST_STRING_XML);
-    constraint.setCamundaName(TEST_STRING_API);
-    constraint.setCamundaConfig(TEST_STRING_API);
-    assertThat(constraint.getCamundaName()).isEqualTo(TEST_STRING_API);
-    assertThat(constraint.getCamundaConfig()).isEqualTo(TEST_STRING_API);
+    FlowaveConstraint constraint = formField.getFlowaveValidation().getFlowaveConstraints().iterator().next();
+    assertThat(constraint.getFlowaveName()).isEqualTo(TEST_STRING_XML);
+    assertThat(constraint.getFlowaveConfig()).isEqualTo(TEST_STRING_XML);
+    constraint.setFlowaveName(TEST_STRING_API);
+    constraint.setFlowaveConfig(TEST_STRING_API);
+    assertThat(constraint.getFlowaveName()).isEqualTo(TEST_STRING_API);
+    assertThat(constraint.getFlowaveConfig()).isEqualTo(TEST_STRING_API);
 
-    FlowaveValue value = formField.getCamundaValues().iterator().next();
-    assertThat(value.getCamundaId()).isEqualTo(TEST_STRING_XML);
-    assertThat(value.getCamundaName()).isEqualTo(TEST_STRING_XML);
-    value.setCamundaId(TEST_STRING_API);
-    value.setCamundaName(TEST_STRING_API);
-    assertThat(value.getCamundaId()).isEqualTo(TEST_STRING_API);
-    assertThat(value.getCamundaName()).isEqualTo(TEST_STRING_API);
+    FlowaveValue value = formField.getFlowaveValues().iterator().next();
+    assertThat(value.getFlowaveId()).isEqualTo(TEST_STRING_XML);
+    assertThat(value.getFlowaveName()).isEqualTo(TEST_STRING_XML);
+    value.setFlowaveId(TEST_STRING_API);
+    value.setFlowaveName(TEST_STRING_API);
+    assertThat(value.getFlowaveId()).isEqualTo(TEST_STRING_API);
+    assertThat(value.getFlowaveName()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testFormProperty() {
     FlowaveFormProperty formProperty = startEvent.getExtensionElements().getElementsQuery().filterByType(FlowaveFormProperty.class).singleResult();
-    assertThat(formProperty.getCamundaId()).isEqualTo(TEST_STRING_XML);
-    assertThat(formProperty.getCamundaName()).isEqualTo(TEST_STRING_XML);
-    assertThat(formProperty.getCamundaType()).isEqualTo(TEST_STRING_XML);
-    assertThat(formProperty.isCamundaRequired()).isFalse();
-    assertThat(formProperty.isCamundaReadable()).isTrue();
-    assertThat(formProperty.isCamundaWriteable()).isTrue();
-    assertThat(formProperty.getCamundaVariable()).isEqualTo(TEST_STRING_XML);
-    assertThat(formProperty.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(formProperty.getCamundaDatePattern()).isEqualTo(TEST_STRING_XML);
-    assertThat(formProperty.getCamundaDefault()).isEqualTo(TEST_STRING_XML);
-    formProperty.setCamundaId(TEST_STRING_API);
-    formProperty.setCamundaName(TEST_STRING_API);
-    formProperty.setCamundaType(TEST_STRING_API);
-    formProperty.setCamundaRequired(true);
-    formProperty.setCamundaReadable(false);
-    formProperty.setCamundaWriteable(false);
-    formProperty.setCamundaVariable(TEST_STRING_API);
-    formProperty.setCamundaExpression(TEST_EXPRESSION_API);
-    formProperty.setCamundaDatePattern(TEST_STRING_API);
-    formProperty.setCamundaDefault(TEST_STRING_API);
-    assertThat(formProperty.getCamundaId()).isEqualTo(TEST_STRING_API);
-    assertThat(formProperty.getCamundaName()).isEqualTo(TEST_STRING_API);
-    assertThat(formProperty.getCamundaType()).isEqualTo(TEST_STRING_API);
-    assertThat(formProperty.isCamundaRequired()).isTrue();
-    assertThat(formProperty.isCamundaReadable()).isFalse();
-    assertThat(formProperty.isCamundaWriteable()).isFalse();
-    assertThat(formProperty.getCamundaVariable()).isEqualTo(TEST_STRING_API);
-    assertThat(formProperty.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(formProperty.getCamundaDatePattern()).isEqualTo(TEST_STRING_API);
-    assertThat(formProperty.getCamundaDefault()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveId()).isEqualTo(TEST_STRING_XML);
+    assertThat(formProperty.getFlowaveName()).isEqualTo(TEST_STRING_XML);
+    assertThat(formProperty.getFlowaveType()).isEqualTo(TEST_STRING_XML);
+    assertThat(formProperty.isFlowaveRequired()).isFalse();
+    assertThat(formProperty.isFlowaveReadable()).isTrue();
+    assertThat(formProperty.isFlowaveWriteable()).isTrue();
+    assertThat(formProperty.getFlowaveVariable()).isEqualTo(TEST_STRING_XML);
+    assertThat(formProperty.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(formProperty.getFlowaveDatePattern()).isEqualTo(TEST_STRING_XML);
+    assertThat(formProperty.getFlowaveDefault()).isEqualTo(TEST_STRING_XML);
+    formProperty.setFlowaveId(TEST_STRING_API);
+    formProperty.setFlowaveName(TEST_STRING_API);
+    formProperty.setFlowaveType(TEST_STRING_API);
+    formProperty.setFlowaveRequired(true);
+    formProperty.setFlowaveReadable(false);
+    formProperty.setFlowaveWriteable(false);
+    formProperty.setFlowaveVariable(TEST_STRING_API);
+    formProperty.setFlowaveExpression(TEST_EXPRESSION_API);
+    formProperty.setFlowaveDatePattern(TEST_STRING_API);
+    formProperty.setFlowaveDefault(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveId()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveName()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveType()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.isFlowaveRequired()).isTrue();
+    assertThat(formProperty.isFlowaveReadable()).isFalse();
+    assertThat(formProperty.isFlowaveWriteable()).isFalse();
+    assertThat(formProperty.getFlowaveVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(formProperty.getFlowaveDatePattern()).isEqualTo(TEST_STRING_API);
+    assertThat(formProperty.getFlowaveDefault()).isEqualTo(TEST_STRING_API);
   }
 
   @Test
   public void testInExtension() {
     FlowaveIn in = callActivity.getExtensionElements().getElementsQuery().filterByType(FlowaveIn.class).singleResult();
-    assertThat(in.getCamundaSource()).isEqualTo(TEST_STRING_XML);
-    assertThat(in.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(in.getCamundaVariables()).isEqualTo(TEST_STRING_XML);
-    assertThat(in.getCamundaTarget()).isEqualTo(TEST_STRING_XML);
-    assertThat(in.getCamundaBusinessKey()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(in.getCamundaLocal()).isTrue();
-    in.setCamundaSource(TEST_STRING_API);
-    in.setCamundaSourceExpression(TEST_EXPRESSION_API);
-    in.setCamundaVariables(TEST_STRING_API);
-    in.setCamundaTarget(TEST_STRING_API);
-    in.setCamundaBusinessKey(TEST_EXPRESSION_API);
-    in.setCamundaLocal(false);
-    assertThat(in.getCamundaSource()).isEqualTo(TEST_STRING_API);
-    assertThat(in.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(in.getCamundaVariables()).isEqualTo(TEST_STRING_API);
-    assertThat(in.getCamundaTarget()).isEqualTo(TEST_STRING_API);
-    assertThat(in.getCamundaBusinessKey()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(in.getCamundaLocal()).isFalse();
+    assertThat(in.getFlowaveSource()).isEqualTo(TEST_STRING_XML);
+    assertThat(in.getFlowaveSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(in.getFlowaveVariables()).isEqualTo(TEST_STRING_XML);
+    assertThat(in.getFlowaveTarget()).isEqualTo(TEST_STRING_XML);
+    assertThat(in.getFlowaveBusinessKey()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(in.getFlowaveLocal()).isTrue();
+    in.setFlowaveSource(TEST_STRING_API);
+    in.setFlowaveSourceExpression(TEST_EXPRESSION_API);
+    in.setFlowaveVariables(TEST_STRING_API);
+    in.setFlowaveTarget(TEST_STRING_API);
+    in.setFlowaveBusinessKey(TEST_EXPRESSION_API);
+    in.setFlowaveLocal(false);
+    assertThat(in.getFlowaveSource()).isEqualTo(TEST_STRING_API);
+    assertThat(in.getFlowaveSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(in.getFlowaveVariables()).isEqualTo(TEST_STRING_API);
+    assertThat(in.getFlowaveTarget()).isEqualTo(TEST_STRING_API);
+    assertThat(in.getFlowaveBusinessKey()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(in.getFlowaveLocal()).isFalse();
   }
 
   @Test
   public void testOutExtension() {
     FlowaveOut out = callActivity.getExtensionElements().getElementsQuery().filterByType(FlowaveOut.class).singleResult();
-    assertThat(out.getCamundaSource()).isEqualTo(TEST_STRING_XML);
-    assertThat(out.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(out.getCamundaVariables()).isEqualTo(TEST_STRING_XML);
-    assertThat(out.getCamundaTarget()).isEqualTo(TEST_STRING_XML);
-    assertThat(out.getCamundaLocal()).isTrue();
-    out.setCamundaSource(TEST_STRING_API);
-    out.setCamundaSourceExpression(TEST_EXPRESSION_API);
-    out.setCamundaVariables(TEST_STRING_API);
-    out.setCamundaTarget(TEST_STRING_API);
-    out.setCamundaLocal(false);
-    assertThat(out.getCamundaSource()).isEqualTo(TEST_STRING_API);
-    assertThat(out.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(out.getCamundaVariables()).isEqualTo(TEST_STRING_API);
-    assertThat(out.getCamundaTarget()).isEqualTo(TEST_STRING_API);
-    assertThat(out.getCamundaLocal()).isFalse();
+    assertThat(out.getFlowaveSource()).isEqualTo(TEST_STRING_XML);
+    assertThat(out.getFlowaveSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(out.getFlowaveVariables()).isEqualTo(TEST_STRING_XML);
+    assertThat(out.getFlowaveTarget()).isEqualTo(TEST_STRING_XML);
+    assertThat(out.getFlowaveLocal()).isTrue();
+    out.setFlowaveSource(TEST_STRING_API);
+    out.setFlowaveSourceExpression(TEST_EXPRESSION_API);
+    out.setFlowaveVariables(TEST_STRING_API);
+    out.setFlowaveTarget(TEST_STRING_API);
+    out.setFlowaveLocal(false);
+    assertThat(out.getFlowaveSource()).isEqualTo(TEST_STRING_API);
+    assertThat(out.getFlowaveSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(out.getFlowaveVariables()).isEqualTo(TEST_STRING_API);
+    assertThat(out.getFlowaveTarget()).isEqualTo(TEST_STRING_API);
+    assertThat(out.getFlowaveLocal()).isFalse();
   }
 
   @Test
@@ -786,22 +786,22 @@ public class FlowaveExtensionsTest {
   @Test
   public void testTaskListener() {
     FlowaveTaskListener taskListener = userTask.getExtensionElements().getElementsQuery().filterByType(FlowaveTaskListener.class).list().get(0);
-    assertThat(taskListener.getCamundaEvent()).isEqualTo(TEST_TASK_EVENT_XML);
-    assertThat(taskListener.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
-    assertThat(taskListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
-    taskListener.setCamundaEvent(TEST_TASK_EVENT_API);
-    taskListener.setCamundaClass(TEST_CLASS_API);
-    taskListener.setCamundaExpression(TEST_EXPRESSION_API);
-    taskListener.setCamundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(taskListener.getCamundaEvent()).isEqualTo(TEST_TASK_EVENT_API);
-    assertThat(taskListener.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(taskListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo(TEST_TASK_EVENT_XML);
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(TEST_CLASS_XML);
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_XML);
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
+    taskListener.setFlowaveEvent(TEST_TASK_EVENT_API);
+    taskListener.setFlowaveClass(TEST_CLASS_API);
+    taskListener.setFlowaveExpression(TEST_EXPRESSION_API);
+    taskListener.setFlowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo(TEST_TASK_EVENT_API);
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
 
-    FlowaveField field = taskListener.getCamundaFields().iterator().next();
-    assertThat(field.getCamundaName()).isEqualTo(TEST_STRING_XML);
-    assertThat(field.getCamundaString().getTextContent()).isEqualTo(TEST_STRING_XML);
+    FlowaveField field = taskListener.getFlowaveFields().iterator().next();
+    assertThat(field.getFlowaveName()).isEqualTo(TEST_STRING_XML);
+    assertThat(field.getFlowaveString().getTextContent()).isEqualTo(TEST_STRING_XML);
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -814,170 +814,170 @@ public class FlowaveExtensionsTest {
   }
 
   @Test
-  public void testCamundaScriptTaskListener() {
+  public void testFlowaveScriptTaskListener() {
     FlowaveTaskListener taskListener = userTask.getExtensionElements().getElementsQuery().filterByType(FlowaveTaskListener.class).list().get(1);
 
-    FlowaveScript script = taskListener.getCamundaScript();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("groovy");
-    assertThat(script.getCamundaResource()).isEqualTo("test.groovy");
+    FlowaveScript script = taskListener.getFlowaveScript();
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("groovy");
+    assertThat(script.getFlowaveResource()).isEqualTo("test.groovy");
     assertThat(script.getTextContent()).isEmpty();
 
     FlowaveScript newScript = modelInstance.newInstance(FlowaveScript.class);
-    newScript.setCamundaScriptFormat("groovy");
+    newScript.setFlowaveScriptFormat("groovy");
     newScript.setTextContent("println 'Hello World'");
-    taskListener.setCamundaScript(newScript);
+    taskListener.setFlowaveScript(newScript);
 
-    script = taskListener.getCamundaScript();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("groovy");
-    assertThat(script.getCamundaResource()).isNull();
+    script = taskListener.getFlowaveScript();
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("groovy");
+    assertThat(script.getFlowaveResource()).isNull();
     assertThat(script.getTextContent()).isEqualTo("println 'Hello World'");
   }
 
   @Test
-  public void testCamundaModelerProperties() {
+  public void testFlowaveModelerProperties() {
     FlowaveProperties camundaProperties = endEvent.getExtensionElements().getElementsQuery().filterByType(FlowaveProperties.class).singleResult();
     assertThat(camundaProperties).isNotNull();
-    assertThat(camundaProperties.getCamundaProperties()).hasSize(2);
+    assertThat(camundaProperties.getFlowaveProperties()).hasSize(2);
 
-    for (FlowaveProperty camundaProperty : camundaProperties.getCamundaProperties()) {
-      assertThat(camundaProperty.getCamundaId()).isNull();
-      assertThat(camundaProperty.getCamundaName()).startsWith("name");
-      assertThat(camundaProperty.getCamundaValue()).startsWith("value");
+    for (FlowaveProperty camundaProperty : camundaProperties.getFlowaveProperties()) {
+      assertThat(camundaProperty.getFlowaveId()).isNull();
+      assertThat(camundaProperty.getFlowaveName()).startsWith("name");
+      assertThat(camundaProperty.getFlowaveValue()).startsWith("value");
     }
   }
 
   @Test
-  public void testGetNonExistingCamundaCandidateUsers() {
+  public void testGetNonExistingFlowaveCandidateUsers() {
     userTask.removeAttributeNs(namespace, "candidateUsers");
-    assertThat(userTask.getCamundaCandidateUsers()).isNull();
-    assertThat(userTask.getCamundaCandidateUsersList()).isEmpty();
+    assertThat(userTask.getFlowaveCandidateUsers()).isNull();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isEmpty();
   }
 
   @Test
-  public void testSetNullCamundaCandidateUsers() {
-    assertThat(userTask.getCamundaCandidateUsers()).isNotEmpty();
-    assertThat(userTask.getCamundaCandidateUsersList()).isNotEmpty();
-    userTask.setCamundaCandidateUsers(null);
-    assertThat(userTask.getCamundaCandidateUsers()).isNull();
-    assertThat(userTask.getCamundaCandidateUsersList()).isEmpty();
+  public void testSetNullFlowaveCandidateUsers() {
+    assertThat(userTask.getFlowaveCandidateUsers()).isNotEmpty();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isNotEmpty();
+    userTask.setFlowaveCandidateUsers(null);
+    assertThat(userTask.getFlowaveCandidateUsers()).isNull();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isEmpty();
   }
 
   @Test
-  public void testEmptyCamundaCandidateUsers() {
-    assertThat(userTask.getCamundaCandidateUsers()).isNotEmpty();
-    assertThat(userTask.getCamundaCandidateUsersList()).isNotEmpty();
-    userTask.setCamundaCandidateUsers("");
-    assertThat(userTask.getCamundaCandidateUsers()).isNull();
-    assertThat(userTask.getCamundaCandidateUsersList()).isEmpty();
+  public void testEmptyFlowaveCandidateUsers() {
+    assertThat(userTask.getFlowaveCandidateUsers()).isNotEmpty();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isNotEmpty();
+    userTask.setFlowaveCandidateUsers("");
+    assertThat(userTask.getFlowaveCandidateUsers()).isNull();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isEmpty();
   }
 
   @Test
-  public void testSetNullCamundaCandidateUsersList() {
-    assertThat(userTask.getCamundaCandidateUsers()).isNotEmpty();
-    assertThat(userTask.getCamundaCandidateUsersList()).isNotEmpty();
-    userTask.setCamundaCandidateUsersList(null);
-    assertThat(userTask.getCamundaCandidateUsers()).isNull();
-    assertThat(userTask.getCamundaCandidateUsersList()).isEmpty();
+  public void testSetNullFlowaveCandidateUsersList() {
+    assertThat(userTask.getFlowaveCandidateUsers()).isNotEmpty();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isNotEmpty();
+    userTask.setFlowaveCandidateUsersList(null);
+    assertThat(userTask.getFlowaveCandidateUsers()).isNull();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isEmpty();
   }
 
   @Test
-  public void testEmptyCamundaCandidateUsersList() {
-    assertThat(userTask.getCamundaCandidateUsers()).isNotEmpty();
-    assertThat(userTask.getCamundaCandidateUsersList()).isNotEmpty();
-    userTask.setCamundaCandidateUsersList(Collections.<String>emptyList());
-    assertThat(userTask.getCamundaCandidateUsers()).isNull();
-    assertThat(userTask.getCamundaCandidateUsersList()).isEmpty();
+  public void testEmptyFlowaveCandidateUsersList() {
+    assertThat(userTask.getFlowaveCandidateUsers()).isNotEmpty();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isNotEmpty();
+    userTask.setFlowaveCandidateUsersList(Collections.<String>emptyList());
+    assertThat(userTask.getFlowaveCandidateUsers()).isNull();
+    assertThat(userTask.getFlowaveCandidateUsersList()).isEmpty();
   }
 
   @Test
   public void testScriptResource() {
     assertThat(scriptTask.getScriptFormat()).isEqualTo("groovy");
-    assertThat(scriptTask.getCamundaResource()).isEqualTo("test.groovy");
+    assertThat(scriptTask.getFlowaveResource()).isEqualTo("test.groovy");
   }
 
   @Test
-  public void testCamundaConnector() {
+  public void testFlowaveConnector() {
     FlowaveConnector camundaConnector = serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveConnector.class).singleResult();
     assertThat(camundaConnector).isNotNull();
 
-    FlowaveConnectorId camundaConnectorId = camundaConnector.getCamundaConnectorId();
+    FlowaveConnectorId camundaConnectorId = camundaConnector.getFlowaveConnectorId();
     assertThat(camundaConnectorId).isNotNull();
     assertThat(camundaConnectorId.getTextContent()).isEqualTo("soap-http-connector");
 
-    FlowaveInputOutput camundaInputOutput = camundaConnector.getCamundaInputOutput();
+    FlowaveInputOutput camundaInputOutput = camundaConnector.getFlowaveInputOutput();
 
-    Collection<FlowaveInputParameter> inputParameters = camundaInputOutput.getCamundaInputParameters();
+    Collection<FlowaveInputParameter> inputParameters = camundaInputOutput.getFlowaveInputParameters();
     assertThat(inputParameters).hasSize(1);
 
     FlowaveInputParameter inputParameter = inputParameters.iterator().next();
-    assertThat(inputParameter.getCamundaName()).isEqualTo("endpointUrl");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("endpointUrl");
     assertThat(inputParameter.getTextContent()).isEqualTo("http://example.com/webservice");
 
-    Collection<FlowaveOutputParameter> outputParameters = camundaInputOutput.getCamundaOutputParameters();
+    Collection<FlowaveOutputParameter> outputParameters = camundaInputOutput.getFlowaveOutputParameters();
     assertThat(outputParameters).hasSize(1);
 
     FlowaveOutputParameter outputParameter = outputParameters.iterator().next();
-    assertThat(outputParameter.getCamundaName()).isEqualTo("result");
+    assertThat(outputParameter.getFlowaveName()).isEqualTo("result");
     assertThat(outputParameter.getTextContent()).isEqualTo("output");
   }
 
   @Test
-  public void testCamundaInputOutput() {
+  public void testFlowaveInputOutput() {
     FlowaveInputOutput camundaInputOutput = serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult();
     assertThat(camundaInputOutput).isNotNull();
-    assertThat(camundaInputOutput.getCamundaInputParameters()).hasSize(6);
-    assertThat(camundaInputOutput.getCamundaOutputParameters()).hasSize(1);
+    assertThat(camundaInputOutput.getFlowaveInputParameters()).hasSize(6);
+    assertThat(camundaInputOutput.getFlowaveOutputParameters()).hasSize(1);
   }
 
   @Test
-  public void testCamundaInputParameter() {
+  public void testFlowaveInputParameter() {
     // find existing
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeConstant");
 
     // modify existing
-    inputParameter.setCamundaName("hello");
+    inputParameter.setFlowaveName("hello");
     inputParameter.setTextContent("world");
     inputParameter = findInputParameterByName(serviceTask, "hello");
     assertThat(inputParameter.getTextContent()).isEqualTo("world");
 
     // add new one
     inputParameter = modelInstance.newInstance(FlowaveInputParameter.class);
-    inputParameter.setCamundaName("abc");
+    inputParameter.setFlowaveName("abc");
     inputParameter.setTextContent("def");
     serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult()
       .addChildElement(inputParameter);
 
     // search for new one
     inputParameter = findInputParameterByName(serviceTask, "abc");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("abc");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("abc");
     assertThat(inputParameter.getTextContent()).isEqualTo("def");
   }
 
   @Test
-  public void testCamundaNullInputParameter() {
+  public void testFlowaveNullInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeNull");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeNull");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeNull");
     assertThat(inputParameter.getTextContent()).isEmpty();
   }
 
   @Test
-  public void testCamundaConstantInputParameter() {
+  public void testFlowaveConstantInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeConstant");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeConstant");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeConstant");
     assertThat(inputParameter.getTextContent()).isEqualTo("foo");
   }
 
   @Test
-  public void testCamundaExpressionInputParameter() {
+  public void testFlowaveExpressionInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeExpression");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeExpression");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeExpression");
     assertThat(inputParameter.getTextContent()).isEqualTo("${1 + 1}");
   }
 
   @Test
-  public void testCamundaListInputParameter() {
+  public void testFlowaveListInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeList");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeList");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeList");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
     assertThat(inputParameter.getUniqueChildElementByNameNs(CAMUNDA_NS, "list")).isNotNull();
 
@@ -1049,38 +1049,38 @@ public class FlowaveExtensionsTest {
   }
 
   @Test
-  public void testCamundaMapInputParameter() {
+  public void testFlowaveMapInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeMap");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeMap");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeMap");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
     assertThat(inputParameter.getUniqueChildElementByNameNs(CAMUNDA_NS, "map")).isNotNull();
 
     FlowaveMap map = inputParameter.getValue();
-    assertThat(map.getCamundaEntries()).hasSize(2);
-    for (FlowaveEntry entry : map.getCamundaEntries()) {
-      if (entry.getCamundaKey().equals("foo")) {
+    assertThat(map.getFlowaveEntries()).hasSize(2);
+    for (FlowaveEntry entry : map.getFlowaveEntries()) {
+      if (entry.getFlowaveKey().equals("foo")) {
         assertThat(entry.getTextContent()).isEqualTo("bar");
       }
       else {
-        assertThat(entry.getCamundaKey()).isEqualTo("hello");
+        assertThat(entry.getFlowaveKey()).isEqualTo("hello");
         assertThat(entry.getTextContent()).isEqualTo("world");
       }
     }
 
     map = modelInstance.newInstance(FlowaveMap.class);
     FlowaveEntry entry = modelInstance.newInstance(FlowaveEntry.class);
-    entry.setCamundaKey("test");
+    entry.setFlowaveKey("test");
     entry.setTextContent("value");
-    map.getCamundaEntries().add(entry);
+    map.getFlowaveEntries().add(entry);
 
     inputParameter.setValue(map);
     map = inputParameter.getValue();
-    assertThat(map.getCamundaEntries()).hasSize(1);
-    entry = map.getCamundaEntries().iterator().next();
-    assertThat(entry.getCamundaKey()).isEqualTo("test");
+    assertThat(map.getFlowaveEntries()).hasSize(1);
+    entry = map.getFlowaveEntries().iterator().next();
+    assertThat(entry.getFlowaveKey()).isEqualTo("test");
     assertThat(entry.getTextContent()).isEqualTo("value");
 
-    Collection<FlowaveEntry> entries = map.getCamundaEntries();
+    Collection<FlowaveEntry> entries = map.getFlowaveEntries();
     entries.add(modelInstance.newInstance(FlowaveEntry.class));
     assertThat(entries).hasSize(2);
 
@@ -1089,27 +1089,27 @@ public class FlowaveExtensionsTest {
   }
 
   @Test
-  public void testCamundaScriptInputParameter() {
+  public void testFlowaveScriptInputParameter() {
     FlowaveInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeScript");
-    assertThat(inputParameter.getCamundaName()).isEqualTo("shouldBeScript");
+    assertThat(inputParameter.getFlowaveName()).isEqualTo("shouldBeScript");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
     assertThat(inputParameter.getUniqueChildElementByNameNs(CAMUNDA_NS, "script")).isNotNull();
     assertThat(inputParameter.getUniqueChildElementByType(FlowaveScript.class)).isNotNull();
 
     FlowaveScript script = inputParameter.getValue();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("groovy");
-    assertThat(script.getCamundaResource()).isNull();
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("groovy");
+    assertThat(script.getFlowaveResource()).isNull();
     assertThat(script.getTextContent()).isEqualTo("1 + 1");
 
     script = modelInstance.newInstance(FlowaveScript.class);
-    script.setCamundaScriptFormat("python");
-    script.setCamundaResource("script.py");
+    script.setFlowaveScriptFormat("python");
+    script.setFlowaveResource("script.py");
 
     inputParameter.setValue(script);
 
     script = inputParameter.getValue();
-    assertThat(script.getCamundaScriptFormat()).isEqualTo("python");
-    assertThat(script.getCamundaResource()).isEqualTo("script.py");
+    assertThat(script.getFlowaveScriptFormat()).isEqualTo("python");
+    assertThat(script.getFlowaveResource()).isEqualTo("script.py");
     assertThat(script.getTextContent()).isEmpty();
 
     inputParameter.removeValue();
@@ -1117,11 +1117,11 @@ public class FlowaveExtensionsTest {
   }
 
   @Test
-  public void testCamundaNestedOutputParameter() {
-    FlowaveOutputParameter camundaOutputParameter = serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult().getCamundaOutputParameters().iterator().next();
+  public void testFlowaveNestedOutputParameter() {
+    FlowaveOutputParameter camundaOutputParameter = serviceTask.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult().getFlowaveOutputParameters().iterator().next();
 
     assertThat(camundaOutputParameter).isNotNull();
-    assertThat(camundaOutputParameter.getCamundaName()).isEqualTo("nested");
+    assertThat(camundaOutputParameter.getFlowaveName()).isEqualTo("nested");
     FlowaveList list = camundaOutputParameter.getValue();
     assertThat(list).isNotNull();
     assertThat(list.getValues()).hasSize(2);
@@ -1138,13 +1138,13 @@ public class FlowaveExtensionsTest {
     // nested map
     FlowaveMap nestedMap = (FlowaveMap) iterator.next().getUniqueChildElementByType(FlowaveMap.class);
     assertThat(nestedMap).isNotNull();
-    assertThat(nestedMap.getCamundaEntries()).hasSize(2);
-    Iterator<FlowaveEntry> mapIterator = nestedMap.getCamundaEntries().iterator();
+    assertThat(nestedMap.getFlowaveEntries()).hasSize(2);
+    Iterator<FlowaveEntry> mapIterator = nestedMap.getFlowaveEntries().iterator();
 
     // nested list in nested map
     FlowaveEntry nestedListEntry = mapIterator.next();
     assertThat(nestedListEntry).isNotNull();
-    assertThat(nestedListEntry.getCamundaKey()).isEqualTo("list");
+    assertThat(nestedListEntry.getFlowaveKey()).isEqualTo("list");
     FlowaveList nestedNestedList = nestedListEntry.getValue();
     for (BpmnModelElementInstance value : nestedNestedList.getValues()) {
       assertThat(value.getTextContent()).isEqualTo("map");
@@ -1153,18 +1153,18 @@ public class FlowaveExtensionsTest {
     // nested map in nested map
     FlowaveEntry nestedMapEntry = mapIterator.next();
     assertThat(nestedMapEntry).isNotNull();
-    assertThat(nestedMapEntry.getCamundaKey()).isEqualTo("map");
+    assertThat(nestedMapEntry.getFlowaveKey()).isEqualTo("map");
     FlowaveMap nestedNestedMap = nestedMapEntry.getValue();
-    FlowaveEntry entry = nestedNestedMap.getCamundaEntries().iterator().next();
-    assertThat(entry.getCamundaKey()).isEqualTo("so");
+    FlowaveEntry entry = nestedNestedMap.getFlowaveEntries().iterator().next();
+    assertThat(entry.getFlowaveKey()).isEqualTo("so");
     assertThat(entry.getTextContent()).isEqualTo("nested");
   }
 
   protected FlowaveInputParameter findInputParameterByName(BaseElement baseElement, String name) {
     Collection<FlowaveInputParameter> camundaInputParameters = baseElement.getExtensionElements().getElementsQuery()
-      .filterByType(FlowaveInputOutput.class).singleResult().getCamundaInputParameters();
+      .filterByType(FlowaveInputOutput.class).singleResult().getFlowaveInputParameters();
     for (FlowaveInputParameter camundaInputParameter : camundaInputParameters) {
-      if (camundaInputParameter.getCamundaName().equals(name)) {
+      if (camundaInputParameter.getFlowaveName().equals(name)) {
         return camundaInputParameter;
       }
     }

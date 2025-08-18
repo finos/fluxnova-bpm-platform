@@ -65,11 +65,11 @@ public class FlowaveInputOutputImpl extends BpmnModelElementInstanceImpl impleme
     super(instanceContext);
   }
 
-  public Collection<FlowaveInputParameter> getCamundaInputParameters() {
+  public Collection<FlowaveInputParameter> getFlowaveInputParameters() {
     return camundaInputParameterCollection.get(this);
   }
 
-  public Collection<FlowaveOutputParameter> getCamundaOutputParameters() {
+  public Collection<FlowaveOutputParameter> getFlowaveOutputParameters() {
     return camundaOutputParameterCollection.get(this);
   }
 }

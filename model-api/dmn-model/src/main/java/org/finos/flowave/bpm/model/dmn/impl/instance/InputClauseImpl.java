@@ -63,12 +63,12 @@ public class InputClauseImpl extends DmnElementImpl implements InputClause {
 
   // camunda extensions
 
-  public String getCamundaInputVariable() {
+  public String getFlowaveInputVariable() {
     return camundaInputVariableAttribute.getValue(this);
   }
 
 
-  public void setCamundaInputVariable(String inputVariable) {
+  public void setFlowaveInputVariable(String inputVariable) {
     camundaInputVariableAttribute.setValue(this, inputVariable);
   }
 

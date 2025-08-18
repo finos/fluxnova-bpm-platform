@@ -50,8 +50,8 @@ public class TaskListenerProcessEngineServicesAccessTest extends AbstractProcess
     UserTask task = modelInstance.newInstance(UserTask.class);
     task.setId("userTask");
     FlowaveTaskListener executionListener = modelInstance.newInstance(FlowaveTaskListener.class);
-    executionListener.setCamundaEvent(TaskListener.EVENTNAME_CREATE);
-    executionListener.setCamundaClass(delegateClass.getName());
+    executionListener.setFlowaveEvent(TaskListener.EVENTNAME_CREATE);
+    executionListener.setFlowaveClass(delegateClass.getName());
     task.builder().addExtensionElement(executionListener);
     return task;
   }

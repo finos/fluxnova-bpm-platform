@@ -60,7 +60,7 @@ public class NestedExecutionAPIInvocationTest {
       .startEvent()
       .userTask("waitState")
       .serviceTask("startProcess")
-        .camundaClass(NestedProcessStartDelegate.class.getName())
+        .flowaveClass(NestedProcessStartDelegate.class.getName())
       .endEvent()
       .done();
 
@@ -68,7 +68,7 @@ public class NestedExecutionAPIInvocationTest {
     .startEvent()
     .userTask("waitState")
     .serviceTask("startProcess")
-      .camundaClass(StartProcessOnAnotherEngineDelegate.class.getName())
+      .flowaveClass(StartProcessOnAnotherEngineDelegate.class.getName())
     .endEvent()
     .done();
 

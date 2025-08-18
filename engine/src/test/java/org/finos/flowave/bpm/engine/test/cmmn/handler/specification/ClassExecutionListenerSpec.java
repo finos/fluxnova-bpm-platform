@@ -38,7 +38,7 @@ public class ClassExecutionListenerSpec extends AbstractExecutionListenerSpec {
   }
 
   protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
-    listener.setCamundaClass(CLASS_NAME);
+    listener.setFlowaveClass(CLASS_NAME);
   }
 
   public void verifyListener(DelegateListener<? extends BaseDelegateExecution> listener) {

@@ -169,7 +169,7 @@ public interface Task {
    * @return the reference key, binding type and version (if type is {@code version})
    * @throws BadUserRequestException in case the form key is not initialized.
    */
-  FlowaveFormRef getCamundaFormRef();
+  FlowaveFormRef getFlowaveFormRef();
 
   /**
    * Returns the task's tenant id or null in case this task does not belong to a tenant.

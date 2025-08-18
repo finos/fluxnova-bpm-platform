@@ -76,7 +76,7 @@ public class TaskImpl extends ActivityImpl implements Task {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public boolean isCamundaAsync() {
+  public boolean isFlowaveAsync() {
     return camundaAsyncAttribute.getValue(this);
   }
 
@@ -84,7 +84,7 @@ public class TaskImpl extends ActivityImpl implements Task {
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  public void setCamundaAsync(boolean isCamundaAsync) {
+  public void setFlowaveAsync(boolean isCamundaAsync) {
     camundaAsyncAttribute.setValue(this, isCamundaAsync);
   }
 

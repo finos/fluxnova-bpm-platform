@@ -53,7 +53,7 @@ public class ModifyVariableInSameTransactionTest {
         .startEvent()
         .userTask("userTask")
         .serviceTask("service")
-          .camundaClass(DeleteAndInsertVariableDelegate.class)
+          .flowaveClass(DeleteAndInsertVariableDelegate.class)
         .userTask("userTask1")
         .endEvent()
         .done();
@@ -80,7 +80,7 @@ public class ModifyVariableInSameTransactionTest {
         .startEvent()
         .userTask("userTask")
         .serviceTask("service")
-          .camundaClass(DeleteAndInsertVariableDelegate.class)
+          .flowaveClass(DeleteAndInsertVariableDelegate.class)
         .userTask("userTask1")
         .endEvent()
         .done();
@@ -107,7 +107,7 @@ public class ModifyVariableInSameTransactionTest {
         .startEvent()
         .userTask("userTask")
         .serviceTask("service")
-          .camundaClass(InsertDeleteInsertVariableDelegate.class)
+          .flowaveClass(InsertDeleteInsertVariableDelegate.class)
         .userTask("userTask1")
         .endEvent()
         .done();

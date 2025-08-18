@@ -174,7 +174,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     protected static final String ROOT_PROCESS_KEY = "rootProcess";
 
     ProcessBuilder builder = Bpmn.createExecutableProcess(PROCESS_KEY)
-        .camundaHistoryTimeToLiveString(null);
+        .flowaveHistoryTimeToLiveString(null);
 
     StartEventBuilder startEventBuilder = builder.startEvent();
     ProcessBuilder rootProcessBuilder = null;
@@ -187,7 +187,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     }
 
     public TestProcessBuilder async() {
-      startEventBuilder.camundaAsyncBefore();
+      startEventBuilder.flowaveAsyncBefore();
 
       return this;
     }
@@ -195,14 +195,14 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     public TestProcessBuilder ruleTask(String ref) {
       startEventBuilder
         .businessRuleTask()
-        .camundaDecisionRef(ref);
+        .flowaveDecisionRef(ref);
 
       return this;
     }
 
     public TestProcessBuilder call() {
       rootProcessBuilder = Bpmn.createExecutableProcess(ROOT_PROCESS_KEY)
-          .camundaHistoryTimeToLiveString(null);
+          .flowaveHistoryTimeToLiveString(null);
 
       callActivityBuilder = rootProcessBuilder
         .startEvent()
@@ -214,7 +214,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
 
     public TestProcessBuilder passVars(String... vars) {
       for (String variable : vars) {
-        callActivityBuilder.camundaIn(variable, variable);
+        callActivityBuilder.flowaveIn(variable, variable);
       }
 
       callActivityBuilder.endEvent();
@@ -226,7 +226,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
       startEventBuilder
         .userTask("userTask")
         .name("userTask")
-        .camundaAssignee("anAssignee");
+        .flowaveAssignee("anAssignee");
 
       return this;
     }
@@ -243,7 +243,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     public TestProcessBuilder externalTask() {
       startEventBuilder
         .serviceTask()
-        .camundaExternalTask("aTopicName");
+        .flowaveExternalTask("aTopicName");
 
       return this;
     }
@@ -251,7 +251,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     public TestProcessBuilder serviceTask() {
       startEventBuilder
         .serviceTask()
-        .camundaExpression("${true}");
+        .flowaveExpression("${true}");
 
       return this;
     }
@@ -259,7 +259,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     public TestProcessBuilder failingCustomListener() {
       startEventBuilder
         .userTask()
-        .camundaExecutionListenerClass("end", FailingExecutionListener.class);
+        .flowaveExecutionListenerClass("end", FailingExecutionListener.class);
 
       return this;
     }
@@ -267,9 +267,9 @@ public class BatchSetRemovalTimeRule extends BatchRule {
     public TestProcessBuilder deploy() {
       if (ttl != null) {
         if (rootProcessBuilder != null) {
-          rootProcessBuilder.camundaHistoryTimeToLive(ttl);
+          rootProcessBuilder.flowaveHistoryTimeToLive(ttl);
         } else {
-          builder.camundaHistoryTimeToLive(ttl);
+          builder.flowaveHistoryTimeToLive(ttl);
         }
       }
 

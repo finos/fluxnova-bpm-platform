@@ -83,7 +83,7 @@ public class MultiTenancyHistoricIdentityLinkLogQueryTest {
     // create sample identity link
     BpmnModelInstance oneTaskProcess = Bpmn.createExecutableProcess("testProcess")
     .startEvent()
-    .userTask("task").camundaCandidateUsers(A_USER_ID)
+    .userTask("task").flowaveCandidateUsers(A_USER_ID)
     .endEvent()
     .done();
 

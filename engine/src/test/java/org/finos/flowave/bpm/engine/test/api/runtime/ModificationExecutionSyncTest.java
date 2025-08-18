@@ -398,7 +398,7 @@ public class ModificationExecutionSyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -423,7 +423,7 @@ public class ModificationExecutionSyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -448,7 +448,7 @@ public class ModificationExecutionSyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -475,7 +475,7 @@ public class ModificationExecutionSyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();

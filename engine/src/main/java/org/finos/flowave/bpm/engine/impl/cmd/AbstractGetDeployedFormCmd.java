@@ -49,12 +49,12 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
 
     final FormData formData = getFormData();
     String formKey = formData.getFormKey();
-    FlowaveFormRef camundaFormRef = formData.getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = formData.getFlowaveFormRef();
 
     if (formKey != null) {
       return getResourceForFormKey(formData, formKey);
     } else if(camundaFormRef != null && camundaFormRef.getKey() != null) {
-      return getResourceForCamundaFormRef(camundaFormRef, formData.getDeploymentId());
+      return getResourceForFlowaveFormRef(camundaFormRef, formData.getDeploymentId());
     } else {
       throw new BadUserRequestException("One of the attributes 'formKey' and 'camunda:formRef' must be supplied but none were set.");
     }
@@ -78,7 +78,7 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
     return getDeploymentResource(formData.getDeploymentId(), resourceName);
   }
 
-  protected InputStream getResourceForCamundaFormRef(FlowaveFormRef camundaFormRef,
+  protected InputStream getResourceForFlowaveFormRef(FlowaveFormRef camundaFormRef,
       String deploymentId) {
     FlowaveFormDefinition definition = commandContext.runWithoutAuthorization(
         new GetFlowaveFormDefinitionCmd(camundaFormRef, deploymentId));

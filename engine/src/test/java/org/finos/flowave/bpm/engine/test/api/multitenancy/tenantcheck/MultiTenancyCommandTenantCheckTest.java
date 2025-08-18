@@ -114,7 +114,7 @@ public class MultiTenancyCommandTenantCheckTest {
   }
 
   @Test
-  public void disableTenantCheckForCamundaAdmin() {
+  public void disableTenantCheckForFlowaveAdmin() {
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 
     processEngineConfiguration.getCommandExecutorTxRequired().execute(new Command<Void>() {

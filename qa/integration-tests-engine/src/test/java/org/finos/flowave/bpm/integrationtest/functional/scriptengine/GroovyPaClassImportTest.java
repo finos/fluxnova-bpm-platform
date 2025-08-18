@@ -54,7 +54,7 @@ public class GroovyPaClassImportTest extends AbstractFoxPlatformIntegrationTest 
 
   protected static StringAsset createScriptTaskProcess(String scriptFormat, String scriptText, String pdk) {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(pdk)
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
       .scriptTask()
         .scriptFormat(scriptFormat)

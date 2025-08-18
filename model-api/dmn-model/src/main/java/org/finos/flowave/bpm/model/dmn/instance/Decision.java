@@ -57,14 +57,14 @@ public interface Decision extends DrgElement {
   // camunda extensions
   
   @Deprecated
-  Integer getCamundaHistoryTimeToLive();
+  Integer getFlowaveHistoryTimeToLive();
 
   @Deprecated
-  void setCamundaHistoryTimeToLive(Integer historyTimeToLive);
+  void setFlowaveHistoryTimeToLive(Integer historyTimeToLive);
 
-  String getCamundaHistoryTimeToLiveString();
+  String getFlowaveHistoryTimeToLiveString();
   
-  void setCamundaHistoryTimeToLiveString(String historyTimeToLive);
+  void setFlowaveHistoryTimeToLiveString(String historyTimeToLive);
   
   String getVersionTag();
 

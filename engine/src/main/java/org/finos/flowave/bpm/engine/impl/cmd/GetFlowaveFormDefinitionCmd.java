@@ -40,7 +40,7 @@ public class GetFlowaveFormDefinitionCmd implements Command<FlowaveFormDefinitio
     String binding = camundaFormRef.getBinding();
     String key = camundaFormRef.getKey();
     CamundaFormDefinitionEntity definition = null;
-    FlowaveFormDefinitionManager manager = commandContext.getCamundaFormDefinitionManager();
+    FlowaveFormDefinitionManager manager = commandContext.getFlowaveFormDefinitionManager();
     if (binding.equals(DefaultFormHandler.FORM_REF_BINDING_DEPLOYMENT)) {
       definition = manager.findDefinitionByDeploymentAndKey(deploymentId, key);
     } else if (binding.equals(DefaultFormHandler.FORM_REF_BINDING_LATEST)) {

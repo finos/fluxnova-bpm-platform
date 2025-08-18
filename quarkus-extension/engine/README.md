@@ -8,7 +8,7 @@ the following dependency into your `pom.xml` file.
   <dependency>
     <groupId>org.finos.flowave.bpm.quarkus</groupId>
     <artifactId>flowave-bpm-quarkus-engine</artifactId>
-    <version>${version.camunda}</version><!-- place Camunda version here -->
+    <version>${version.flowave}</version><!-- place Flowave version here -->
   </dependency>
 </dependency>
 ```

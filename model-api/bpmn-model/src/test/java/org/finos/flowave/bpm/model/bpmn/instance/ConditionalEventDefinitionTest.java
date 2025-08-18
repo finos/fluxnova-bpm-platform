@@ -47,8 +47,8 @@ public class ConditionalEventDefinitionTest extends AbstractEventDefinitionTest 
   public void getEventDefinition() {
     ConditionalEventDefinition eventDefinition = eventDefinitionQuery.filterByType(ConditionalEventDefinition.class).singleResult();
     assertThat(eventDefinition).isNotNull();
-    assertThat(eventDefinition.getCamundaVariableEvents()).isNull();
-    assertThat(eventDefinition.getCamundaVariableName()).isNull();
+    assertThat(eventDefinition.getFlowaveVariableEvents()).isNull();
+    assertThat(eventDefinition.getFlowaveVariableName()).isNull();
     Expression condition = eventDefinition.getCondition();
     assertThat(condition).isNotNull();
     assertThat(condition.getTextContent()).isEqualTo("${test}");

@@ -72,7 +72,7 @@ public class ProcessInstanceModificationInTransactionTest {
       .startEvent()
       .intermediateCatchEvent("TimerEvent")
         .timerWithDate("${calculateTimerDate.execute(execution)}")
-        .camundaExecutionListenerDelegateExpression("end", "${deleteVariableListener}")
+        .flowaveExecutionListenerDelegateExpression("end", "${deleteVariableListener}")
       .endEvent()
       .done();
 

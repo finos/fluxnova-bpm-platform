@@ -70,10 +70,10 @@ public class HistoryCleanupSchedulerJobLogTest extends AbstractHistoryCleanupSch
 
   protected final String PROCESS_KEY = "process";
   protected final BpmnModelInstance PROCESS = Bpmn.createExecutableProcess(PROCESS_KEY)
-    .camundaHistoryTimeToLive(5)
+    .flowaveHistoryTimeToLive(5)
     .startEvent()
       .scriptTask()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .scriptFormat("groovy")
         .scriptText("if(execution.getIncidents().size() == 0) throw new RuntimeException(\"I'm supposed to fail!\")")
       .userTask("userTask")

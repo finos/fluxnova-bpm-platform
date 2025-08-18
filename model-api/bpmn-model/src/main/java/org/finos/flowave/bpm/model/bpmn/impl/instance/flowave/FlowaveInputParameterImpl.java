@@ -57,11 +57,11 @@ public class FlowaveInputParameterImpl extends FlowaveGenericValueElementImpl im
     super(instanceContext);
   }
 
-  public String getCamundaName() {
+  public String getFlowaveName() {
     return camundaNameAttribute.getValue(this);
   }
 
-  public void setCamundaName(String camundaName) {
+  public void setFlowaveName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
   }
 

@@ -123,7 +123,7 @@ public abstract class AbstractManager implements Session {
     return getSession(DecisionRequirementsDefinitionManager.class);
   }
 
-  protected FlowaveFormDefinitionManager getCamundaFormDefinitionManager() {
+  protected FlowaveFormDefinitionManager getFlowaveFormDefinitionManager() {
     return getSession(FlowaveFormDefinitionManager.class);
   }
 

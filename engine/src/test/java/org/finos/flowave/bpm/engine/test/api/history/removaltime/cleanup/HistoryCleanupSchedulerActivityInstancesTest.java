@@ -70,7 +70,7 @@ public class HistoryCleanupSchedulerActivityInstancesTest extends AbstractHistor
 
   protected final String PROCESS_KEY = "process";
   protected final BpmnModelInstance PROCESS = Bpmn.createExecutableProcess(PROCESS_KEY)
-    .camundaHistoryTimeToLive(5)
+    .flowaveHistoryTimeToLive(5)
     .startEvent()
       .userTask("userTask").name("userTask")
     .endEvent().done();

@@ -38,35 +38,35 @@ public interface StartEvent extends CatchEvent {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  boolean isCamundaAsync();
+  boolean isFlowaveAsync();
 
   /**
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  void setCamundaAsync(boolean isCamundaAsync);
+  void setFlowaveAsync(boolean isCamundaAsync);
 
-  String getCamundaFormHandlerClass();
+  String getFlowaveFormHandlerClass();
 
-  void setCamundaFormHandlerClass(String camundaFormHandlerClass);
+  void setFlowaveFormHandlerClass(String camundaFormHandlerClass);
 
-  String getCamundaFormKey();
+  String getFlowaveFormKey();
 
-  void setCamundaFormKey(String camundaFormKey);
+  void setFlowaveFormKey(String camundaFormKey);
 
-  String getCamundaFormRef();
+  String getFlowaveFormRef();
 
-  void setCamundaFormRef(String camundaFormRef);
+  void setFlowaveFormRef(String camundaFormRef);
 
-  String getCamundaFormRefBinding();
+  String getFlowaveFormRefBinding();
 
-  void setCamundaFormRefBinding(String camundaFormRefBinding);
+  void setFlowaveFormRefBinding(String camundaFormRefBinding);
 
-  String getCamundaFormRefVersion();
+  String getFlowaveFormRefVersion();
 
-  void setCamundaFormRefVersion(String camundaFormRefVersion);
+  void setFlowaveFormRefVersion(String camundaFormRefVersion);
 
-  String getCamundaInitiator();
+  String getFlowaveInitiator();
 
-  void setCamundaInitiator(String camundaInitiator);
+  void setFlowaveInitiator(String camundaInitiator);
 }

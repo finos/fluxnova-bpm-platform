@@ -529,7 +529,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   // register process application ///////////////////////////////////
 
   @Test
-  public void shouldRegisterProcessApplicationAsCamundaAdmin() {
+  public void shouldRegisterProcessApplicationAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -592,7 +592,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
 
   // unregister process application ///////////////////////////////////
   @Test
-  public void shouldUnregisterProcessApplicationAsCamundaAdmin() {
+  public void shouldUnregisterProcessApplicationAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -658,7 +658,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   // get process application for deployment ///////////////////////////////////
 
   @Test
-  public void shouldGetProcessApplicationForDeploymentAsCamundaAdmin() {
+  public void shouldGetProcessApplicationForDeploymentAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -724,7 +724,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   // get registered deployments ///////////////////////////////////
 
   @Test
-  public void shouldGetRegisteredDeploymentsAsCamundaAdmin() {
+  public void shouldGetRegisteredDeploymentsAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -781,7 +781,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   // register deployment for job executor ///////////////////////////////////
 
   @Test
-  public void shouldRegisterDeploymentAsCamundaAdmin() {
+  public void shouldRegisterDeploymentAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -841,7 +841,7 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   // unregister deployment for job executor ///////////////////////////////////
 
   @Test
-  public void shouldUnregisterDeploymentAsCamundaAdmin() {
+  public void shouldUnregisterDeploymentAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 

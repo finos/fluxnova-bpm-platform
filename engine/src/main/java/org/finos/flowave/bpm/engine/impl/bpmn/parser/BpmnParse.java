@@ -16,9 +16,9 @@
  */
 package org.finos.flowave.bpm.engine.impl.bpmn.parser;
 
-import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.findCamundaExtensionElement;
-import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseCamundaExtensionProperties;
-import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseCamundaScript;
+import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.findFlowaveExtensionElement;
+import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseFlowaveExtensionProperties;
+import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseFlowaveScript;
 import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseInputOutput;
 import static org.finos.flowave.bpm.engine.impl.util.ClassDelegateUtil.instantiateDelegate;
 
@@ -2557,9 +2557,9 @@ public class BpmnParse extends Parse {
 
     ParameterValueProvider topicNameProvider = parseTopic(serviceTaskElement, PROPERTYNAME_EXTERNAL_TASK_TOPIC);
     ParameterValueProvider priorityProvider = parsePriority(serviceTaskElement, PROPERTYNAME_TASK_PRIORITY);
-    Map<String, String> properties = parseCamundaExtensionProperties(camundaPropertiesElement);
+    Map<String, String> properties = parseFlowaveExtensionProperties(camundaPropertiesElement);
     activity.getProperties().set(BpmnProperties.EXTENSION_PROPERTIES, properties);
-    List<FlowaveErrorEventDefinition> camundaErrorEventDefinitions = parseCamundaErrorEventDefinitions(activity, serviceTaskElement);
+    List<FlowaveErrorEventDefinition> camundaErrorEventDefinitions = parseFlowaveErrorEventDefinitions(activity, serviceTaskElement);
     activity.getProperties().set(BpmnProperties.CAMUNDA_ERROR_EVENT_DEFINITION, camundaErrorEventDefinitions);
     activity.setActivityBehavior(new ExternalTaskActivityBehavior(topicNameProvider, priorityProvider));
   }
@@ -2859,7 +2859,7 @@ public class BpmnParse extends Parse {
     }
 
     if(formRefAttribute != null) {
-      formDefinition.setCamundaFormDefinitionKey(expressionManager.createExpression(formRefAttribute));
+      formDefinition.setFlowaveFormDefinitionKey(expressionManager.createExpression(formRefAttribute));
 
       String formRefBindingAttribute = flowNodeElement.attributeNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "formRefBinding");
 
@@ -2870,7 +2870,7 @@ public class BpmnParse extends Parse {
 
 
       if(formRefBindingAttribute != null) {
-        formDefinition.setCamundaFormDefinitionBinding(formRefBindingAttribute);
+        formDefinition.setFlowaveFormDefinitionBinding(formRefBindingAttribute);
       }
 
       if(DefaultTaskFormHandler.FORM_REF_BINDING_VERSION.equals(formRefBindingAttribute)) {
@@ -2879,7 +2879,7 @@ public class BpmnParse extends Parse {
         Expression camundaFormDefinitionVersion = expressionManager.createExpression(formRefVersionAttribute);
 
         if(formRefVersionAttribute != null) {
-          formDefinition.setCamundaFormDefinitionVersion(camundaFormDefinitionVersion);
+          formDefinition.setFlowaveFormDefinitionVersion(camundaFormDefinitionVersion);
         }
       }
     }
@@ -3079,7 +3079,7 @@ public class BpmnParse extends Parse {
       taskListener = new DelegateExpressionTaskListener(expressionManager.createExpression(delegateExpression), parseFieldDeclarations(taskListenerElement));
     } else if (scriptElement != null) {
       try {
-        ExecutableScript executableScript = parseCamundaScript(scriptElement);
+        ExecutableScript executableScript = parseFlowaveScript(scriptElement);
         if (executableScript != null) {
           taskListener = new ScriptTaskListener(executableScript);
         }
@@ -3362,7 +3362,7 @@ public class BpmnParse extends Parse {
 
   }
 
-  public List<FlowaveErrorEventDefinition> parseCamundaErrorEventDefinitions(ActivityImpl activity, Element scopeElement) {
+  public List<FlowaveErrorEventDefinition> parseFlowaveErrorEventDefinitions(ActivityImpl activity, Element scopeElement) {
     List<FlowaveErrorEventDefinition> errorEventDefinitions = new ArrayList<>();
     Element extensionElements = scopeElement.element("extensionElements");
     if (extensionElements != null) {
@@ -4509,7 +4509,7 @@ public class BpmnParse extends Parse {
       }
     } else if (scriptElement != null) {
       try {
-        ExecutableScript executableScript = parseCamundaScript(scriptElement);
+        ExecutableScript executableScript = parseFlowaveScript(scriptElement);
         if (executableScript != null) {
           executionListener = new ScriptExecutionListener(executableScript);
         }
@@ -4861,7 +4861,7 @@ public class BpmnParse extends Parse {
   }
 
   protected void ensureNoIoMappingDefined(Element element) {
-    Element inputOutput = findCamundaExtensionElement(element, "inputOutput");
+    Element inputOutput = findFlowaveExtensionElement(element, "inputOutput");
     if (inputOutput != null) {
       addError("camunda:inputOutput mapping unsupported for element type '" + element.getTagName() + "'.", element);
     }

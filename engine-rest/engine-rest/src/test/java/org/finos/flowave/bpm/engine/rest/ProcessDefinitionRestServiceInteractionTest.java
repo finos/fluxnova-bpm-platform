@@ -414,7 +414,7 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
   }
 
   @Test
-  public void testGetStartForm_shouldReturnCamundaFormRef() {
+  public void testGetStartForm_shouldReturnFlowaveFormRef() {
     StartFormData mockStartFormData = MockProvider.createMockStartFormDataUsingFormRef();
     when(formServiceMock.getStartFormData(anyString())).thenReturn(mockStartFormData);
 

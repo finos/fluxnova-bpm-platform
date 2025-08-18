@@ -164,7 +164,7 @@ public class MigrationBoundaryEventsTest {
     BpmnModelInstance sourceProcess = modify(ProcessModels.ONE_TASK_PROCESS)
       .userTaskBuilder(USER_TASK_ID)
       .boundaryEvent(BOUNDARY_ID).timerWithDate(TIMER_DATE)
-      .serviceTask("failingTask").camundaClass(FailingDelegate.class.getName())
+      .serviceTask("failingTask").flowaveClass(FailingDelegate.class.getName())
       .endEvent()
       .done();
     BpmnModelInstance targetProcess = modify(sourceProcess)

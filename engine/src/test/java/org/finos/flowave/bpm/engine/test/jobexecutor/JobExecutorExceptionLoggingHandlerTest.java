@@ -66,8 +66,8 @@ public class JobExecutorExceptionLoggingHandlerTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("failingDelegate")
         .startEvent()
         .serviceTask()
-          .camundaClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
-          .camundaAsyncBefore()
+          .flowaveClass("org.finos.flowave.bpm.engine.test.jobexecutor.FailingDelegate")
+          .flowaveAsyncBefore()
         .done();
     testRule.deploy(modelInstance);
 

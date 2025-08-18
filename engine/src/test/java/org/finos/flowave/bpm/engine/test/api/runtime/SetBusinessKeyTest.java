@@ -65,7 +65,7 @@ public class SetBusinessKeyTest {
       Bpmn.createExecutableProcess(PROCESS_KEY)
       .startEvent("startEvent")
       .serviceTask()
-        .camundaClass(SetBusinessKeyDelegate.class)
+        .flowaveClass(SetBusinessKeyDelegate.class)
       .userTask("userTask2")
       .endEvent("endEvent")
       .done();
@@ -74,8 +74,8 @@ public class SetBusinessKeyTest {
       Bpmn.createExecutableProcess(PROCESS_KEY)
       .startEvent("startEvent")
       .serviceTask()
-        .camundaAsyncBefore()
-        .camundaClass(SetBusinessKeyDelegate.class)
+        .flowaveAsyncBefore()
+        .flowaveClass(SetBusinessKeyDelegate.class)
       .userTask("userTask2")
       .endEvent("endEvent")
       .done();
@@ -333,7 +333,7 @@ public class SetBusinessKeyTest {
     return Bpmn.createExecutableProcess(PROCESS_KEY)
     .startEvent("startEvent")
     .userTask("userTask1").name("User task")
-      .camundaExecutionListenerExpression(listener,
+      .flowaveExecutionListenerExpression(listener,
             "${execution.setProcessBusinessKey(execution.getVariable(\"" + BUSINESS_KEY_VARIABLE + "\"))}")
     .userTask("userTask2")
     .endEvent("endEvent")
@@ -344,7 +344,7 @@ public class SetBusinessKeyTest {
     return Bpmn.createExecutableProcess(PROCESS_KEY)
     .startEvent("startEvent")
     .userTask("userTask1").name("User task")
-      .camundaTaskListenerClass(listener, SetBusinessKeyListener.class)
+      .flowaveTaskListenerClass(listener, SetBusinessKeyListener.class)
     .userTask("userTask2")
     .endEvent("endEvent")
     .done();

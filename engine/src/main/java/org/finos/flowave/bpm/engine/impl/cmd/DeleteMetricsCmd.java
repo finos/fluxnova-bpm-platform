@@ -44,7 +44,7 @@ public class DeleteMetricsCmd implements Command<Void>, Serializable {
   }
 
   public Void execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkDeleteMetrics);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkDeleteMetrics);
 
     writeUserOperationLog(commandContext);
 

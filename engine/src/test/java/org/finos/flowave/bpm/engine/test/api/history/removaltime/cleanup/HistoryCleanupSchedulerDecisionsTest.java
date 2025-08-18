@@ -70,10 +70,10 @@ public class HistoryCleanupSchedulerDecisionsTest extends AbstractHistoryCleanup
 
   protected final String CALLING_PROCESS_CALLS_DMN_KEY = "callingProcessCallsDmn";
   protected final BpmnModelInstance CALLING_PROCESS_CALLS_DMN = Bpmn.createExecutableProcess(CALLING_PROCESS_CALLS_DMN_KEY)
-    .camundaHistoryTimeToLive(5)
+    .flowaveHistoryTimeToLive(5)
     .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef("dish-decision")
+        .flowaveDecisionRef("dish-decision")
         .multiInstance()
           .sequential()
           .cardinality("5")

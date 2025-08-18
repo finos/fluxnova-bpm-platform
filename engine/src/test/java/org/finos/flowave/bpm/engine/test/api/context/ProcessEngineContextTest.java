@@ -44,7 +44,7 @@ public class ProcessEngineContextTest {
 
   protected static final String SIMPLE_PROCESS_KEY = "simple_process";
   protected static final BpmnModelInstance SIMPLE_PROCESS = Bpmn.createExecutableProcess(SIMPLE_PROCESS_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent()
       .userTask("simpleUserTask")
       .endEvent()

@@ -56,7 +56,7 @@ public class MessageEventDefinitionTest extends AbstractEventDefinitionTest {
     assertThat(eventDefinition).isNotNull();
     assertThat(eventDefinition.getMessage().getId()).isEqualTo("message");
     assertThat(eventDefinition.getOperation()).isNull();
-    assertThat(eventDefinition.getCamundaTaskPriority()).isEqualTo("5");
+    assertThat(eventDefinition.getFlowaveTaskPriority()).isEqualTo("5");
   }
 
 }

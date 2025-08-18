@@ -79,8 +79,8 @@ public class MultiTenancySharedProcessDefinitionStatisticsQueryTest {
   protected static final BpmnModelInstance failingProcess = Bpmn.createExecutableProcess(FAILED_JOBS_PROCESS_DEFINITION_KEY)
     .startEvent()
     .serviceTask()
-      .camundaClass("org.finos.flowave.bpm.engine.test.api.multitenancy.FailingDelegate")
-      .camundaAsyncBefore()
+      .flowaveClass("org.finos.flowave.bpm.engine.test.api.multitenancy.FailingDelegate")
+      .flowaveAsyncBefore()
     .done();
 
 

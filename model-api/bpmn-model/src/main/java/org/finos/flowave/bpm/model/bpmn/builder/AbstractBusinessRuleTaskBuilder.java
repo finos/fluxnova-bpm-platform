@@ -48,8 +48,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @return the builder object
    */
   @SuppressWarnings("rawtypes")
-  public B camundaClass(Class camundaClass) {
-    return camundaClass(camundaClass.getName());
+  public B flowaveClass(Class camundaClass) {
+    return flowaveClass(camundaClass.getName());
   }
 
   /**
@@ -58,8 +58,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaClass  the class name to set
    * @return the builder object
    */
-  public B camundaClass(String fullQualifiedClassName) {
-    element.setCamundaClass(fullQualifiedClassName);
+  public B flowaveClass(String fullQualifiedClassName) {
+    element.setFlowaveClass(fullQualifiedClassName);
     return myself;
   }
 
@@ -69,8 +69,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaExpression  the delegateExpression to set
    * @return the builder object
    */
-  public B camundaDelegateExpression(String camundaExpression) {
-    element.setCamundaDelegateExpression(camundaExpression);
+  public B flowaveDelegateExpression(String camundaExpression) {
+    element.setFlowaveDelegateExpression(camundaExpression);
     return myself;
   }
 
@@ -80,8 +80,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaExpression  the expression to set
    * @return the builder object
    */
-  public B camundaExpression(String camundaExpression) {
-    element.setCamundaExpression(camundaExpression);
+  public B flowaveExpression(String camundaExpression) {
+    element.setFlowaveExpression(camundaExpression);
     return myself;
   }
 
@@ -91,20 +91,20 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaResultVariable  the name of the process variable
    * @return the builder object
    */
-  public B camundaResultVariable(String camundaResultVariable) {
-    element.setCamundaResultVariable(camundaResultVariable);
+  public B flowaveResultVariable(String camundaResultVariable) {
+    element.setFlowaveResultVariable(camundaResultVariable);
     return myself;
   }
 
   /**
    * Sets the camunda topic attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    * @param camundaTopic the topic to set
    * @return the builder object
    */
-  public B camundaTopic(String camundaTopic) {
-    element.setCamundaTopic(camundaTopic);
+  public B flowaveTopic(String camundaTopic) {
+    element.setFlowaveTopic(camundaTopic);
     return myself;
   }
 
@@ -114,8 +114,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaType  the type of the service task
    * @return the builder object
    */
-  public B camundaType(String camundaType) {
-    element.setCamundaType(camundaType);
+  public B flowaveType(String camundaType) {
+    element.setFlowaveType(camundaType);
     return myself;
   }
 
@@ -125,8 +125,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaDecisionRef the decisionRef to set
    * @return the builder object
    */
-  public B camundaDecisionRef(String camundaDecisionRef) {
-    element.setCamundaDecisionRef(camundaDecisionRef);
+  public B flowaveDecisionRef(String camundaDecisionRef) {
+    element.setFlowaveDecisionRef(camundaDecisionRef);
     return myself;
   }
 
@@ -136,8 +136,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaDecisionRefBinding the decisionRefBinding to set
    * @return the builder object
    */
-  public B camundaDecisionRefBinding(String camundaDecisionRefBinding) {
-    element.setCamundaDecisionRefBinding(camundaDecisionRefBinding);
+  public B flowaveDecisionRefBinding(String camundaDecisionRefBinding) {
+    element.setFlowaveDecisionRefBinding(camundaDecisionRefBinding);
     return myself;
   }
 
@@ -147,8 +147,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaDecisionRefVersion the decisionRefVersion to set
    * @return the builder object
    */
-  public B camundaDecisionRefVersion(String camundaDecisionRefVersion) {
-    element.setCamundaDecisionRefVersion(camundaDecisionRefVersion);
+  public B flowaveDecisionRefVersion(String camundaDecisionRefVersion) {
+    element.setFlowaveDecisionRefVersion(camundaDecisionRefVersion);
     return myself;
   }
 
@@ -158,8 +158,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaDecisionRefVersionTag the decisionRefVersionTag to set
    * @return the builder object
    */
-  public B camundaDecisionRefVersionTag(String camundaDecisionRefVersionTag) {
-    element.setCamundaDecisionRefVersionTag(camundaDecisionRefVersionTag);
+  public B flowaveDecisionRefVersionTag(String camundaDecisionRefVersionTag) {
+    element.setFlowaveDecisionRefVersionTag(camundaDecisionRefVersionTag);
     return myself;
   }
 
@@ -169,8 +169,8 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param decisionRefTenantId the decisionRefTenantId to set
    * @return the builder object
    */
-  public B camundaDecisionRefTenantId(String decisionRefTenantId) {
-    element.setCamundaDecisionRefTenantId(decisionRefTenantId);
+  public B flowaveDecisionRefTenantId(String decisionRefTenantId) {
+    element.setFlowaveDecisionRefTenantId(decisionRefTenantId);
     return myself;
   }
 
@@ -180,21 +180,21 @@ public abstract class AbstractBusinessRuleTaskBuilder<B extends AbstractBusiness
    * @param camundaMapDecisionResult the mapper for the decision result to set
    * @return the builder object
    */
-  public B camundaMapDecisionResult(String camundaMapDecisionResult) {
-    element.setCamundaMapDecisionResult(camundaMapDecisionResult);
+  public B flowaveMapDecisionResult(String camundaMapDecisionResult) {
+    element.setFlowaveMapDecisionResult(camundaMapDecisionResult);
     return myself;
   }
 
   /**
    * Sets the camunda task priority attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    *
    * @param taskPriority the priority for the external task
    * @return the builder object
    */
-  public B camundaTaskPriority(String taskPriority) {
-    element.setCamundaTaskPriority(taskPriority);
+  public B flowaveTaskPriority(String taskPriority) {
+    element.setFlowaveTaskPriority(taskPriority);
     return myself;
   }
 }

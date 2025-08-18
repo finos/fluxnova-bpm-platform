@@ -194,7 +194,7 @@ public class HistoricProcessInstanceStateTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
         //add wait state
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
         .scriptTask()
         .scriptText("throw new RuntimeException()")
         .scriptFormat("groovy")

@@ -56,23 +56,23 @@ public class FlowaveExtensionsTest {
   }
 
   @Test
-  public void testCamundaClauseOutput() {
+  public void testFlowaveClauseOutput() {
     Input input = modelInstance.getModelElementById("input");
-    assertThat(input.getCamundaInputVariable()).isEqualTo("myVariable");
-    input.setCamundaInputVariable("foo");
-    assertThat(input.getCamundaInputVariable()).isEqualTo("foo");
+    assertThat(input.getFlowaveInputVariable()).isEqualTo("myVariable");
+    input.setFlowaveInputVariable("foo");
+    assertThat(input.getFlowaveInputVariable()).isEqualTo("foo");
   }
 
   @Test
-  public void testCamundaHistoryTimeToLive() {
+  public void testFlowaveHistoryTimeToLive() {
     Decision decision = modelInstance.getModelElementById("decision");
-    assertThat(decision.getCamundaHistoryTimeToLive()).isEqualTo(5);
-    decision.setCamundaHistoryTimeToLive(6);
-    assertThat(decision.getCamundaHistoryTimeToLive()).isEqualTo(6);
+    assertThat(decision.getFlowaveHistoryTimeToLive()).isEqualTo(5);
+    decision.setFlowaveHistoryTimeToLive(6);
+    assertThat(decision.getFlowaveHistoryTimeToLive()).isEqualTo(6);
   }
 
   @Test
-  public void testCamundaVersionTag() {
+  public void testFlowaveVersionTag() {
     Decision decision = modelInstance.getModelElementById("decision");
     assertThat(decision.getVersionTag()).isEqualTo("1.0.0");
     decision.setVersionTag("1.1.0");

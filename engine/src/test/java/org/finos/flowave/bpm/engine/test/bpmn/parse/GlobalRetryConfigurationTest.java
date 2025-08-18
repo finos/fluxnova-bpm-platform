@@ -125,8 +125,8 @@ public class GlobalRetryConfigurationTest {
       Bpmn.createExecutableProcess("testProcess2")
         .startEvent()
         .serviceTask()
-          .camundaClass(FAILING_CLASS)
-          .camundaAsyncBefore()
+          .flowaveClass(FAILING_CLASS)
+          .flowaveAsyncBefore()
         .endEvent()
       .done());
 
@@ -161,10 +161,10 @@ public class GlobalRetryConfigurationTest {
   public void testRetryOnAsyncStartEvent() throws Exception {
     BpmnModelInstance bpmnModelInstance = Bpmn.createExecutableProcess("process")
         .startEvent()
-          .camundaAsyncBefore()
-          .camundaFailedJobRetryTimeCycle("R5/PT5M")
+          .flowaveAsyncBefore()
+          .flowaveFailedJobRetryTimeCycle("R5/PT5M")
         .serviceTask()
-          .camundaClass("bar")
+          .flowaveClass("bar")
         .endEvent()
         .done();
 
@@ -199,10 +199,10 @@ public class GlobalRetryConfigurationTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
           .intermediateThrowEvent(FAILING_EVENT)
-            .camundaAsyncBefore(true)
+            .flowaveAsyncBefore(true)
             .signal("start")
           .serviceTask()
-            .camundaClass(FAILING_CLASS)
+            .flowaveClass(FAILING_CLASS)
         .endEvent()
         .done();
     return modelInstance;
@@ -212,8 +212,8 @@ public class GlobalRetryConfigurationTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
         .serviceTask()
-          .camundaClass(FAILING_CLASS)
-          .camundaAsyncBefore()
+          .flowaveClass(FAILING_CLASS)
+          .flowaveAsyncBefore()
         .endEvent()
         .done();
     return modelInstance;
@@ -223,9 +223,9 @@ public class GlobalRetryConfigurationTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
         .serviceTask()
-          .camundaClass(FAILING_CLASS)
-          .camundaAsyncBefore()
-          .camundaFailedJobRetryTimeCycle("R10/PT5M")
+          .flowaveClass(FAILING_CLASS)
+          .flowaveAsyncBefore()
+          .flowaveFailedJobRetryTimeCycle("R10/PT5M")
         .endEvent()
         .done();
     return modelInstance;
@@ -235,8 +235,8 @@ public class GlobalRetryConfigurationTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
         .businessRuleTask()
-          .camundaClass(FAILING_CLASS)
-          .camundaAsyncBefore()
+          .flowaveClass(FAILING_CLASS)
+          .flowaveAsyncBefore()
         .endEvent()
         .done();
     return modelInstance;
@@ -248,7 +248,7 @@ public class GlobalRetryConfigurationTest {
       .scriptTask()
         .scriptFormat("groovy")
         .scriptText("x = 5 / 0")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .userTask()
       .endEvent()
     .done();
@@ -262,8 +262,8 @@ public class GlobalRetryConfigurationTest {
         .embeddedSubProcess()
           .startEvent()
           .serviceTask()
-            .camundaClass(FAILING_CLASS)
-            .camundaAsyncBefore()
+            .flowaveClass(FAILING_CLASS)
+            .flowaveAsyncBefore()
           .endEvent()
       .subProcessDone()
       .endEvent()

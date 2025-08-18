@@ -131,7 +131,7 @@ public class IncidentRestServiceTenantCheckTest extends AbstractCockpitPluginTes
   }
 
   @Test
-  public void queryIncidentsByProcessInstanceIdsWithCamundaAdmin() {
+  public void queryIncidentsByProcessInstanceIdsWithFlowaveAdmin() {
 
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 

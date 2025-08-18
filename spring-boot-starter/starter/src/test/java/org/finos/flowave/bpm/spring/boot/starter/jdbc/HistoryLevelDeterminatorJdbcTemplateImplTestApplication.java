@@ -31,7 +31,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 public class HistoryLevelDeterminatorJdbcTemplateImplTestApplication {
 
   @Bean
-  public FlowaveBpmProperties camundaBpmProperties() {
+  public FlowaveBpmProperties flowaveBpmProperties() {
     return new FlowaveBpmProperties();
   }
 

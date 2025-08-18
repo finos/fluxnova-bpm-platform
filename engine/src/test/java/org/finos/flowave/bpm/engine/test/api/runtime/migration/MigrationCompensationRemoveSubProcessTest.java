@@ -348,7 +348,7 @@ public class MigrationCompensationRemoveSubProcessTest {
     // given
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(CompensationModels.COMPENSATION_ONE_TASK_SUBPROCESS_MODEL)
         .activityBuilder("subProcess")
-        .camundaExecutionListenerClass(
+        .flowaveExecutionListenerClass(
             ExecutionListener.EVENTNAME_END,
             RecorderExecutionListener.class.getName())
         .done());
@@ -375,7 +375,7 @@ public class MigrationCompensationRemoveSubProcessTest {
     // given
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(CompensationModels.COMPENSATION_ONE_TASK_SUBPROCESS_MODEL)
       .activityBuilder("subProcess")
-        .camundaOutputParameter("foo", "${bar}")
+        .flowaveOutputParameter("foo", "${bar}")
       .done());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(CompensationModels.ONE_COMPENSATION_TASK_MODEL);
 

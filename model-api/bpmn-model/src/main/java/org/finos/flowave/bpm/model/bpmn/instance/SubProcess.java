@@ -45,11 +45,11 @@ public interface SubProcess extends Activity {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  boolean isCamundaAsync();
+  boolean isFlowaveAsync();
 
   /**
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  void setCamundaAsync(boolean isCamundaAsync);
+  void setFlowaveAsync(boolean isCamundaAsync);
 }

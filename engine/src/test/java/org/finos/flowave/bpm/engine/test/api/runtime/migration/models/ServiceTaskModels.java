@@ -29,7 +29,7 @@ public class ServiceTaskModels {
     return ProcessModels.newModel()
       .startEvent()
       .serviceTask("serviceTask")
-        .camundaClass(className)
+        .flowaveClass(className)
       .endEvent()
       .done();
   }

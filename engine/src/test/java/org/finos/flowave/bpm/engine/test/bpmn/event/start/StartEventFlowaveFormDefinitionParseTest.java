@@ -73,51 +73,51 @@ private ProcessDefinitionEntity getProcessDefinition() {
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionVersionBinding() {
+  public void shouldParseFlowaveFormDefinitionVersionBinding() {
     // given a deployed process with a StartEvent containing a Camunda Form definition with version binding
     // then
     FormDefinition startFormDefinition = getStartFormDefinition();
 
-    assertThat(startFormDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(startFormDefinition.getCamundaFormDefinitionBinding()).isEqualTo("version");
-    assertThat(startFormDefinition.getCamundaFormDefinitionVersion().getExpressionText()).isEqualTo("1");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("version");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionVersion().getExpressionText()).isEqualTo("1");
   }
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionLatestBinding() {
+  public void shouldParseFlowaveFormDefinitionLatestBinding() {
     // given a deployed process with a StartEvent containing a Camunda Form definition with latest binding
     // then
     FormDefinition startFormDefinition = getStartFormDefinition();
 
-    assertThat(startFormDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(startFormDefinition.getCamundaFormDefinitionBinding()).isEqualTo("latest");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("latest");
   }
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionMultipleStartEvents() {
+  public void shouldParseFlowaveFormDefinitionMultipleStartEvents() {
     // given a deployed process with a StartEvent containing a Camunda Form definition with latest binding and another StartEvent inside a subprocess
     // then
     FormDefinition startFormDefinition = getStartFormDefinition();
 
-    assertThat(startFormDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(startFormDefinition.getCamundaFormDefinitionBinding()).isEqualTo("latest");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("latest");
   }
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionDeploymentBinding() {
+  public void shouldParseFlowaveFormDefinitionDeploymentBinding() {
     // given a deployed process with a StartEvent containing a Camunda Form definition with deployment binding
     // then
     FormDefinition startFormDefinition = getStartFormDefinition();
 
-    assertThat(startFormDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(startFormDefinition.getCamundaFormDefinitionBinding()).isEqualTo("deployment");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(startFormDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("deployment");
   }
 
   @Test
-  public void shouldNotParseCamundaFormDefinitionUnsupportedBinding() {
+  public void shouldNotParseFlowaveFormDefinitionUnsupportedBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with unsupported binding
     String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "shouldNotParseCamundaFormDefinitionUnsupportedBinding");
 
@@ -127,7 +127,7 @@ private ProcessDefinitionEntity getProcessDefinition() {
       .hasMessageContaining("Invalid element definition: value for formRefBinding attribute has to be one of [deployment, latest, version] but was unsupported");
   }
 
-  public void shouldNotParseCamundaFormDefinitionAndFormKey() {
+  public void shouldNotParseFlowaveFormDefinitionAndFormKey() {
     // given a deployed process with a UserTask containing a Camunda Form definition and formKey
     String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "shouldNotParseCamundaFormDefinitionAndFormKey");
 

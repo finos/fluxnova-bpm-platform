@@ -79,64 +79,64 @@ public class FlowNodeTest extends BpmnModelElementInstanceTest {
   }
 
   @Test
-    public void testCamundaAsyncBefore() {
+    public void testFlowaveAsyncBefore() {
     Task task = modelInstance.newInstance(Task.class);
-    assertThat(task.isCamundaAsyncBefore()).isFalse();
+    assertThat(task.isFlowaveAsyncBefore()).isFalse();
 
-    task.setCamundaAsyncBefore(true);
-    assertThat(task.isCamundaAsyncBefore()).isTrue();
+    task.setFlowaveAsyncBefore(true);
+    assertThat(task.isFlowaveAsyncBefore()).isTrue();
   }
 
   @Test
-  public void testCamundaAsyncAfter() {
+  public void testFlowaveAsyncAfter() {
     Task task = modelInstance.newInstance(Task.class);
-    assertThat(task.isCamundaAsyncAfter()).isFalse();
+    assertThat(task.isFlowaveAsyncAfter()).isFalse();
 
-    task.setCamundaAsyncAfter(true);
-    assertThat(task.isCamundaAsyncAfter()).isTrue();
+    task.setFlowaveAsyncAfter(true);
+    assertThat(task.isFlowaveAsyncAfter()).isTrue();
   }
 
   @Test
-  public void testCamundaAsyncAfterAndBefore() {
+  public void testFlowaveAsyncAfterAndBefore() {
     Task task = modelInstance.newInstance(Task.class);
 
-    assertThat(task.isCamundaAsyncAfter()).isFalse();
-    assertThat(task.isCamundaAsyncBefore()).isFalse();
+    assertThat(task.isFlowaveAsyncAfter()).isFalse();
+    assertThat(task.isFlowaveAsyncBefore()).isFalse();
 
-    task.setCamundaAsyncBefore(true);
+    task.setFlowaveAsyncBefore(true);
 
-    assertThat(task.isCamundaAsyncAfter()).isFalse();
-    assertThat(task.isCamundaAsyncBefore()).isTrue();
+    assertThat(task.isFlowaveAsyncAfter()).isFalse();
+    assertThat(task.isFlowaveAsyncBefore()).isTrue();
 
-    task.setCamundaAsyncAfter(true);
+    task.setFlowaveAsyncAfter(true);
 
-    assertThat(task.isCamundaAsyncAfter()).isTrue();
-    assertThat(task.isCamundaAsyncBefore()).isTrue();
+    assertThat(task.isFlowaveAsyncAfter()).isTrue();
+    assertThat(task.isFlowaveAsyncBefore()).isTrue();
 
-    task.setCamundaAsyncBefore(false);
+    task.setFlowaveAsyncBefore(false);
 
-    assertThat(task.isCamundaAsyncAfter()).isTrue();
-    assertThat(task.isCamundaAsyncBefore()).isFalse();
+    assertThat(task.isFlowaveAsyncAfter()).isTrue();
+    assertThat(task.isFlowaveAsyncBefore()).isFalse();
   }
 
   @Test
-  public void testCamundaExclusive() {
+  public void testFlowaveExclusive() {
     Task task = modelInstance.newInstance(Task.class);
 
-    assertThat(task.isCamundaExclusive()).isTrue();
+    assertThat(task.isFlowaveExclusive()).isTrue();
 
-    task.setCamundaExclusive(false);
+    task.setFlowaveExclusive(false);
 
-    assertThat(task.isCamundaExclusive()).isFalse();
+    assertThat(task.isFlowaveExclusive()).isFalse();
   }
 
   @Test
-  public void testCamundaJobPriority() {
+  public void testFlowaveJobPriority() {
     Task task = modelInstance.newInstance(Task.class);
-    assertThat(task.getCamundaJobPriority()).isNull();
+    assertThat(task.getFlowaveJobPriority()).isNull();
 
-    task.setCamundaJobPriority("15");
+    task.setFlowaveJobPriority("15");
 
-    assertThat(task.getCamundaJobPriority()).isEqualTo("15");
+    assertThat(task.getFlowaveJobPriority()).isEqualTo("15");
   }
 }

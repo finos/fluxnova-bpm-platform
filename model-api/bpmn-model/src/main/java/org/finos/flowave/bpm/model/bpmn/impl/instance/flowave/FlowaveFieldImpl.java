@@ -79,43 +79,43 @@ public class FlowaveFieldImpl extends BpmnModelElementInstanceImpl implements Fl
     super(instanceContext);
   }
 
-  public String getCamundaName() {
+  public String getFlowaveName() {
     return camundaNameAttribute.getValue(this);
   }
 
-  public void setCamundaName(String camundaName) {
+  public void setFlowaveName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
   }
 
-  public String getCamundaExpression() {
+  public String getFlowaveExpression() {
     return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaExpression(String camundaExpression) {
+  public void setFlowaveExpression(String camundaExpression) {
     camundaExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getCamundaStringValue() {
+  public String getFlowaveStringValue() {
     return camundaStringValueAttribute.getValue(this);
   }
 
-  public void setCamundaStringValue(String camundaStringValue) {
+  public void setFlowaveStringValue(String camundaStringValue) {
     camundaStringValueAttribute.setValue(this, camundaStringValue);
   }
 
-  public FlowaveString getCamundaString() {
+  public FlowaveString getFlowaveString() {
     return camundaStringChild.getChild(this);
   }
 
-  public void setCamundaString(FlowaveString camundaString) {
+  public void setFlowaveString(FlowaveString camundaString) {
     camundaStringChild.setChild(this, camundaString);
   }
 
-  public FlowaveExpression getCamundaExpressionChild() {
+  public FlowaveExpression getFlowaveExpressionChild() {
     return camundaExpressionChild.getChild(this);
   }
 
-  public void setCamundaExpressionChild(FlowaveExpression camundaExpression) {
+  public void setFlowaveExpressionChild(FlowaveExpression camundaExpression) {
     camundaExpressionChild.setChild(this, camundaExpression);
   }
 }

@@ -27,46 +27,46 @@ import java.util.Collection;
  */
 public interface FlowaveFormProperty extends BpmnModelElementInstance {
 
-  String getCamundaId();
+  String getFlowaveId();
 
-  void setCamundaId(String camundaId);
+  void setFlowaveId(String camundaId);
 
-  String getCamundaName();
+  String getFlowaveName();
 
-  void setCamundaName(String camundaName);
+  void setFlowaveName(String camundaName);
 
-  String getCamundaType();
+  String getFlowaveType();
 
-  void setCamundaType(String camundaType);
+  void setFlowaveType(String camundaType);
 
-  boolean isCamundaRequired();
+  boolean isFlowaveRequired();
 
-  void setCamundaRequired(boolean isCamundaRequired);
+  void setFlowaveRequired(boolean isCamundaRequired);
 
-  boolean isCamundaReadable();
+  boolean isFlowaveReadable();
 
-  void setCamundaReadable(boolean isCamundaReadable);
+  void setFlowaveReadable(boolean isCamundaReadable);
 
-  boolean isCamundaWriteable();
+  boolean isFlowaveWriteable();
 
-  void setCamundaWriteable(boolean isCamundaWriteable);
+  void setFlowaveWriteable(boolean isCamundaWriteable);
 
-  String getCamundaVariable();
+  String getFlowaveVariable();
 
-  void setCamundaVariable(String camundaVariable);
+  void setFlowaveVariable(String camundaVariable);
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 
-  String getCamundaDatePattern();
+  String getFlowaveDatePattern();
 
-  void setCamundaDatePattern(String camundaDatePattern);
+  void setFlowaveDatePattern(String camundaDatePattern);
 
-  String getCamundaDefault();
+  String getFlowaveDefault();
 
-  void setCamundaDefault(String camundaDefault);
+  void setFlowaveDefault(String camundaDefault);
 
-  Collection<FlowaveValue> getCamundaValues();
+  Collection<FlowaveValue> getFlowaveValues();
 
 }

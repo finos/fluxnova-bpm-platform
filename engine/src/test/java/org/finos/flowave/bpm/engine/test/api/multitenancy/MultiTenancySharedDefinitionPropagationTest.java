@@ -87,7 +87,7 @@ public class MultiTenancySharedDefinitionPropagationTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
       .startEvent()
       .userTask()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .endEvent()
     .done());
 

@@ -1198,7 +1198,7 @@ public class ModificationExecutionAsyncTest {
     DelegateEvent.clearEvents();
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
         .activityBuilder("user2")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
         .done()
       );
 
@@ -1232,7 +1232,7 @@ public class ModificationExecutionAsyncTest {
     DelegateEvent.clearEvents();
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
         .activityBuilder("user2")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
         .done());
 
     ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId());
@@ -1258,7 +1258,7 @@ public class ModificationExecutionAsyncTest {
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
       .activityBuilder("user1")
-      .camundaInputParameter("foo", "bar")
+      .flowaveInputParameter("foo", "bar")
       .done()
     );
 
@@ -1291,7 +1291,7 @@ public class ModificationExecutionAsyncTest {
 
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
         .activityBuilder("user2")
-        .camundaInputParameter("foo", "bar")
+        .flowaveInputParameter("foo", "bar")
         .done());
 
 
@@ -1318,7 +1318,7 @@ public class ModificationExecutionAsyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -1346,7 +1346,7 @@ public class ModificationExecutionAsyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -1374,7 +1374,7 @@ public class ModificationExecutionAsyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();
@@ -1404,7 +1404,7 @@ public class ModificationExecutionAsyncTest {
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
-        .serviceTask("ser").camundaExpression("${true}")
+        .serviceTask("ser").flowaveExpression("${true}")
         .userTask("user")
         .endEvent("end")
         .done();

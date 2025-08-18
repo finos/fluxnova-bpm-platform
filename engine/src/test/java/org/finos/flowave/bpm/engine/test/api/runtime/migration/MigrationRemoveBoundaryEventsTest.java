@@ -842,7 +842,7 @@ public class MigrationRemoveBoundaryEventsTest {
     BpmnModelInstance sourceProcess = modify(ProcessModels.ONE_TASK_PROCESS)
       .userTaskBuilder("userTask")
       .boundaryEvent("boundary").timerWithDate(TIMER_DATE)
-      .serviceTask("failingTask").camundaClass("org.finos.flowave.bpm.engine.test.api.runtime.FailingDelegate")
+      .serviceTask("failingTask").flowaveClass("org.finos.flowave.bpm.engine.test.api.runtime.FailingDelegate")
       .endEvent()
       .done();
     BpmnModelInstance targetProcess = modify(sourceProcess)

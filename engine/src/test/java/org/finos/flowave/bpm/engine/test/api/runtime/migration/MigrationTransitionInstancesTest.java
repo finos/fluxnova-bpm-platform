@@ -251,8 +251,8 @@ public class MigrationTransitionInstancesTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("Process")
         .startEvent()
-        .serviceTask("serviceTask").camundaExpression("${true}")
-        .userTask("userTask").camundaAsyncBefore()
+        .serviceTask("serviceTask").flowaveExpression("${true}")
+        .userTask("userTask").flowaveAsyncBefore()
         .endEvent()
         .done();
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(model);
@@ -284,8 +284,8 @@ public class MigrationTransitionInstancesTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("Process")
         .startEvent()
-        .serviceTask("serviceTask").camundaExpression("${true}")
-        .userTask("userTask").camundaAsyncBefore()
+        .serviceTask("serviceTask").flowaveExpression("${true}")
+        .userTask("userTask").flowaveAsyncBefore()
         .endEvent()
         .done();
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(modify(model).removeFlowNode("serviceTask"));
@@ -933,7 +933,7 @@ public class MigrationTransitionInstancesTest {
     // given
     BpmnModelInstance model = modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaAsyncBefore(true)
+      .flowaveAsyncBefore(true)
       .done();
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(model);
@@ -1013,7 +1013,7 @@ public class MigrationTransitionInstancesTest {
     // given
     BpmnModelInstance model = modify(EventSubProcessModels.COMPENSATE_EVENT_SUBPROCESS_PROCESS)
         .flowNodeBuilder("eventSubProcessStart")
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
         .done();
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(model);
@@ -1045,7 +1045,7 @@ public class MigrationTransitionInstancesTest {
   public void testMigrateAsyncAfterBoundaryEventWithChangedEventScope() {
     BpmnModelInstance sourceProcess = modify(ProcessModels.PARALLEL_GATEWAY_PROCESS)
       .activityBuilder("userTask1")
-        .boundaryEvent("boundary").message("Message").camundaAsyncAfter()
+        .boundaryEvent("boundary").message("Message").flowaveAsyncAfter()
         .userTask("afterBoundaryTask")
         .endEvent()
       .done();
@@ -1076,8 +1076,8 @@ public class MigrationTransitionInstancesTest {
     BpmnModelInstance model = ProcessModels.newModel()
       .startEvent()
       .serviceTask("serviceTask")
-      .camundaAsyncBefore()
-      .camundaClass(AlwaysFailingDelegate.class.getName())
+      .flowaveAsyncBefore()
+      .flowaveClass(AlwaysFailingDelegate.class.getName())
       .endEvent()
       .done();
 

@@ -51,7 +51,7 @@ public final class BpmnParseUtil {
    * @param extensionElementName the name of the extension element to find
    * @return the extension element or null if not found
    */
-  public static Element findCamundaExtensionElement(Element element, String extensionElementName) {
+  public static Element findFlowaveExtensionElement(Element element, String extensionElementName) {
     Element extensionElements = element.element("extensionElements");
     if(extensionElements != null) {
       return extensionElements.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, extensionElementName);
@@ -71,8 +71,8 @@ public final class BpmnParseUtil {
     Element inputOutputElement = element.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "inputOutput");
     if(inputOutputElement != null) {
       IoMapping ioMapping = new IoMapping();
-      parseCamundaInputParameters(inputOutputElement, ioMapping);
-      parseCamundaOutputParameters(inputOutputElement, ioMapping);
+      parseFlowaveInputParameters(inputOutputElement, ioMapping);
+      parseFlowaveOutputParameters(inputOutputElement, ioMapping);
       return ioMapping;
     }
     return null;
@@ -86,7 +86,7 @@ public final class BpmnParseUtil {
    * @param ioMapping the input output mapping to add input parameters to
    * @throws BpmnParseException if a input parameter element is malformed
    */
-  public static void parseCamundaInputParameters(Element inputOutputElement, IoMapping ioMapping) {
+  public static void parseFlowaveInputParameters(Element inputOutputElement, IoMapping ioMapping) {
     List<Element> inputParameters = inputOutputElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "inputParameter");
     for (Element inputParameterElement : inputParameters) {
       parseInputParameterElement(inputParameterElement, ioMapping);
@@ -101,7 +101,7 @@ public final class BpmnParseUtil {
    * @param ioMapping the input output mapping to add input parameters to
    * @throws BpmnParseException if a output parameter element is malformed
    */
-  public static void parseCamundaOutputParameters(Element inputOutputElement, IoMapping ioMapping) {
+  public static void parseFlowaveOutputParameters(Element inputOutputElement, IoMapping ioMapping) {
     List<Element> outputParameters = inputOutputElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "outputParameter");
     for (Element outputParameterElement : outputParameters) {
       parseOutputParameterElement(outputParameterElement, ioMapping);
@@ -194,7 +194,7 @@ public final class BpmnParseUtil {
 
     // SCRIPT
     if("script".equals(parameterElement.getTagName())) {
-      ExecutableScript executableScript = parseCamundaScript(parameterElement);
+      ExecutableScript executableScript = parseFlowaveScript(parameterElement);
       if (executableScript != null) {
         return new ScriptValueProvider(executableScript);
       }
@@ -221,7 +221,7 @@ public final class BpmnParseUtil {
    * @return the generated executable script
    * @throws BpmnParseException if the a attribute is missing or the script cannot be processed
    */
-  public static ExecutableScript parseCamundaScript(Element scriptElement) {
+  public static ExecutableScript parseFlowaveScript(Element scriptElement) {
     String scriptLanguage = scriptElement.attribute("scriptFormat");
     if (scriptLanguage == null || scriptLanguage.isEmpty()) {
       throw new BpmnParseException("Missing attribute 'scriptFormat' for 'script' element", scriptElement);
@@ -239,8 +239,8 @@ public final class BpmnParseUtil {
   }
 
 
-  public static Map<String, String> parseCamundaExtensionProperties(Element element){
-    Element propertiesElement = findCamundaExtensionElement(element, "properties");
+  public static Map<String, String> parseFlowaveExtensionProperties(Element element){
+    Element propertiesElement = findFlowaveExtensionElement(element, "properties");
     if(propertiesElement != null) {
       List<Element> properties = propertiesElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "property");
       Map<String, String> propertiesMap = new HashMap<>();

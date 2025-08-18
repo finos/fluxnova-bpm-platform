@@ -125,61 +125,61 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   /** camunda extensions */
 
-  public String getCamundaClass() {
+  public String getFlowaveClass() {
     return camundaClassAttribute.getValue(this);
   }
 
-  public void setCamundaClass(String camundaClass) {
+  public void setFlowaveClass(String camundaClass) {
     camundaClassAttribute.setValue(this, camundaClass);
   }
 
-  public String getCamundaDelegateExpression() {
+  public String getFlowaveDelegateExpression() {
     return camundaDelegateExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaDelegateExpression(String camundaExpression) {
+  public void setFlowaveDelegateExpression(String camundaExpression) {
     camundaDelegateExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getCamundaExpression() {
+  public String getFlowaveExpression() {
     return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaExpression(String camundaExpression) {
+  public void setFlowaveExpression(String camundaExpression) {
     camundaExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getCamundaResultVariable() {
+  public String getFlowaveResultVariable() {
     return camundaResultVariableAttribute.getValue(this);
   }
 
-  public void setCamundaResultVariable(String camundaResultVariable) {
+  public void setFlowaveResultVariable(String camundaResultVariable) {
     camundaResultVariableAttribute.setValue(this, camundaResultVariable);
   }
 
-  public String getCamundaTopic() {
+  public String getFlowaveTopic() {
     return camundaTopicAttribute.getValue(this);
   }
 
-  public void setCamundaTopic(String camundaTopic) {
+  public void setFlowaveTopic(String camundaTopic) {
     camundaTopicAttribute.setValue(this, camundaTopic);
   }
 
-  public String getCamundaType() {
+  public String getFlowaveType() {
     return camundaTypeAttribute.getValue(this);
   }
 
-  public void setCamundaType(String camundaType) {
+  public void setFlowaveType(String camundaType) {
     camundaTypeAttribute.setValue(this, camundaType);
   }
   
   @Override
-  public String getCamundaTaskPriority() {
+  public String getFlowaveTaskPriority() {
     return camundaTaskPriorityAttribute.getValue(this);    
   }
 
   @Override
-  public void setCamundaTaskPriority(String taskPriority) {
+  public void setFlowaveTaskPriority(String taskPriority) {
     camundaTaskPriorityAttribute.setValue(this, taskPriority);
   }
 }

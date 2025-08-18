@@ -100,9 +100,9 @@ public class TargetVariableScopeTest {
             .startEvent()
               .callActivity()
                 .calledElement("Process_StuffDoer")
-                .camundaVariableMappingClass("org.finos.flowave.bpm.engine.test.api.variables.scope.SetVariableMappingDelegate")
+                .flowaveVariableMappingClass("org.finos.flowave.bpm.engine.test.api.variables.scope.SetVariableMappingDelegate")
               .serviceTask()
-                .camundaClass("org.finos.flowave.bpm.engine.test.api.variables.scope.AssertVariableScopeDelegate")
+                .flowaveClass("org.finos.flowave.bpm.engine.test.api.variables.scope.AssertVariableScopeDelegate")
             .endEvent()
           .subProcessDone()
         .endEvent()
@@ -111,8 +111,8 @@ public class TargetVariableScopeTest {
         .activityBuilder("SubProcess_1")
         .multiInstance()
         .parallel()
-        .camundaCollection("orderIds")
-        .camundaElementVariable("orderId")
+        .flowaveCollection("orderIds")
+        .flowaveElementVariable("orderId")
         .done();
 
     ProcessDefinition processDefinition = testHelper.deployAndGetDefinition(instance);
@@ -131,9 +131,9 @@ public class TargetVariableScopeTest {
               .startEvent()
               .callActivity()
                 .calledElement("Process_StuffDoer")
-                .camundaVariableMappingClass("org.finos.flowave.bpm.engine.test.api.variables.scope.SetVariableToChildMappingDelegate")
+                .flowaveVariableMappingClass("org.finos.flowave.bpm.engine.test.api.variables.scope.SetVariableToChildMappingDelegate")
               .serviceTask()
-                .camundaClass("org.finos.flowave.bpm.engine.test.api.variables.scope.AssertVariableScopeDelegate")
+                .flowaveClass("org.finos.flowave.bpm.engine.test.api.variables.scope.AssertVariableScopeDelegate")
               .endEvent()
             .subProcessDone()
           .moveToLastGateway()
@@ -149,8 +149,8 @@ public class TargetVariableScopeTest {
         .activityBuilder("SubProcess_1")
         .multiInstance()
         .parallel()
-        .camundaCollection("orderIds")
-        .camundaElementVariable("orderId")
+        .flowaveCollection("orderIds")
+        .flowaveElementVariable("orderId")
         .done();
 
     ProcessDefinition processDefinition = testHelper.deployAndGetDefinition(instance);
@@ -201,7 +201,7 @@ public class TargetVariableScopeTest {
       .startEvent()
       .serviceTask()
         .id("activityId")
-        .camundaClass(JavaDelegate.class)
+        .flowaveClass(JavaDelegate.class)
       .endEvent()
       .done());
 
@@ -212,7 +212,7 @@ public class TargetVariableScopeTest {
   public void testSetLocalScopeWithExecutionListenerStart() {
     testHelper.deploy(Bpmn.createExecutableProcess("process")
       .startEvent().id("activityId")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ExecutionListener.class)
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ExecutionListener.class)
       .endEvent()
       .done());
 
@@ -224,7 +224,7 @@ public class TargetVariableScopeTest {
     testHelper.deploy(Bpmn.createExecutableProcess("process")
       .startEvent()
       .endEvent().id("activityId")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ExecutionListener.class)
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ExecutionListener.class)
       .done());
 
     engineRule.getRuntimeService().startProcessInstanceByKey("process");
@@ -239,8 +239,8 @@ public class TargetVariableScopeTest {
       .done();
 
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(ExecutionListener.class.getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(ExecutionListener.class.getName());
     modelInstance.<SequenceFlow>getModelElementById("sequenceFlow").builder().addExtensionElement(listener);
 
     testHelper.deploy(modelInstance);
@@ -252,7 +252,7 @@ public class TargetVariableScopeTest {
     testHelper.deploy(Bpmn.createExecutableProcess("process")
       .startEvent()
       .userTask().id("activityId")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, TaskListener.class)
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, TaskListener.class)
       .endEvent()
       .done());
 
@@ -266,7 +266,7 @@ public class TargetVariableScopeTest {
       .subProcess().embeddedSubProcess()
         .startEvent()
           .serviceTask().id("activityId")
-            .camundaClass(JavaDelegate.class)
+            .flowaveClass(JavaDelegate.class)
         .endEvent()
       .subProcessDone()
       .endEvent()
@@ -281,7 +281,7 @@ public class TargetVariableScopeTest {
       .startEvent()
       .subProcess().embeddedSubProcess()
         .startEvent().id("activityId")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, ExecutionListener.class)
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, ExecutionListener.class)
         .endEvent()
       .subProcessDone()
       .endEvent()
@@ -297,7 +297,7 @@ public class TargetVariableScopeTest {
       .subProcess().embeddedSubProcess()
         .startEvent()
         .endEvent().id("activityId")
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ExecutionListener.class)
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ExecutionListener.class)
       .subProcessDone()
       .endEvent()
       .done());
@@ -312,7 +312,7 @@ public class TargetVariableScopeTest {
       .subProcess().embeddedSubProcess()
         .startEvent()
         .userTask().id("activityId")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, TaskListener.class)
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, TaskListener.class)
         .endEvent()
       .subProcessDone()
       .endEvent()

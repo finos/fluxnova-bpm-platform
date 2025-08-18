@@ -59,12 +59,12 @@ public class MessageCorrelationByLocalVariablesTest {
           .subProcess("SubProcess_1").embeddedSubProcess()
           .startEvent()
             .receiveTask("MessageReceiver_1").message(TEST_MESSAGE_NAME)
-              .camundaInputParameter("localVar", "${loopVar}")
-              .camundaInputParameter("constVar", "someValue")   //to test array of parameters
+              .flowaveInputParameter("localVar", "${loopVar}")
+              .flowaveInputParameter("constVar", "someValue")   //to test array of parameters
             .userTask("UserTask_1")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     testHelper.deploy(model);
@@ -100,11 +100,11 @@ public class MessageCorrelationByLocalVariablesTest {
           .subProcess("SubProcess_1").embeddedSubProcess()
           .startEvent()
             .intermediateCatchEvent("MessageReceiver_1").message(TEST_MESSAGE_NAME)
-              .camundaInputParameter("localVar", "${loopVar}")
+              .flowaveInputParameter("localVar", "${loopVar}")
             .userTask("UserTask_1")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     testHelper.deploy(model);
@@ -137,13 +137,13 @@ public class MessageCorrelationByLocalVariablesTest {
           .subProcess("SubProcess_1").embeddedSubProcess()
           .startEvent()
             .userTask("UserTask_1")
-              .camundaInputParameter("localVar", "${loopVar}")
-              .camundaInputParameter("constVar", "someValue")   //to test array of parameters
+              .flowaveInputParameter("localVar", "${loopVar}")
+              .flowaveInputParameter("constVar", "someValue")   //to test array of parameters
               .boundaryEvent("MessageReceiver_1").message(TEST_MESSAGE_NAME)
             .userTask("UserTask_2")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     testHelper.deploy(model);
@@ -184,12 +184,12 @@ public class MessageCorrelationByLocalVariablesTest {
             .userTask("UserTask_1")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     model = modify(model).activityBuilder("MessageReceiver_1")
-        .camundaInputParameter("localVar", "${loopVar}")
-        .camundaInputParameter("constVar", "someValue")   //to test array of parameters
+        .flowaveInputParameter("localVar", "${loopVar}")
+        .flowaveInputParameter("constVar", "someValue")   //to test array of parameters
         .done();
 
     testHelper.deploy(model);
@@ -237,12 +237,12 @@ public class MessageCorrelationByLocalVariablesTest {
           .subProcess("SubProcess_1").embeddedSubProcess()
           .startEvent()
             .receiveTask("MessageReceiver_1").message(TEST_MESSAGE_NAME)
-              .camundaInputParameter("localVar", "${loopVar}")
-              .camundaInputParameter("constVar", "someValue")   //to test array of parameters
+              .flowaveInputParameter("localVar", "${loopVar}")
+              .flowaveInputParameter("constVar", "someValue")   //to test array of parameters
             .userTask("UserTask_1")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     testHelper.deploy(model);
@@ -274,12 +274,12 @@ public class MessageCorrelationByLocalVariablesTest {
           .subProcess("SubProcess_1").embeddedSubProcess()
           .startEvent()
             .receiveTask("MessageReceiver_1").message(TEST_MESSAGE_NAME)
-              .camundaInputParameter("localVar", "${loopVar}")
-              .camundaInputParameter("constVar", "someValue")   //to test array of parameters
+              .flowaveInputParameter("localVar", "${loopVar}")
+              .flowaveInputParameter("constVar", "someValue")   //to test array of parameters
             .userTask("UserTask_1")
           .endEvent()
           .subProcessDone()
-          .multiInstance().camundaCollection("${vars}").camundaElementVariable("loopVar").multiInstanceDone()
+          .multiInstance().flowaveCollection("${vars}").flowaveElementVariable("loopVar").multiInstanceDone()
         .endEvent().done();
 
     testHelper.deploy(model);

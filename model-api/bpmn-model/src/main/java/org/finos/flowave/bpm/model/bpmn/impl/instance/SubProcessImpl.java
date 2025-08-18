@@ -115,7 +115,7 @@ public class SubProcessImpl extends ActivityImpl implements SubProcess {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public boolean isCamundaAsync() {
+  public boolean isFlowaveAsync() {
     return camundaAsyncAttribute.getValue(this);
   }
 
@@ -123,7 +123,7 @@ public class SubProcessImpl extends ActivityImpl implements SubProcess {
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  public void setCamundaAsync(boolean isCamundaAsync) {
+  public void setFlowaveAsync(boolean isCamundaAsync) {
     camundaAsyncAttribute.setValue(this, isCamundaAsync);
   }
 

@@ -85,8 +85,8 @@ public class ConcurrentJobExecutorTest {
   protected static final BpmnModelInstance SIMPLE_ASYNC_PROCESS = Bpmn.createExecutableProcess("simpleAsyncProcess")
       .startEvent()
       .serviceTask()
-        .camundaExpression("${true}")
-        .camundaAsyncBefore()
+        .flowaveExpression("${true}")
+        .flowaveAsyncBefore()
       .endEvent()
       .done();
 
@@ -120,8 +120,8 @@ public class ConcurrentJobExecutorTest {
             .createExecutableProcess("process")
               .startEvent()
               .serviceTask("task")
-                .camundaAsyncBefore()
-                .camundaExpression("${true}")
+                .flowaveAsyncBefore()
+                .flowaveExpression("${true}")
               .endEvent()
             .done());
     runtimeService.startProcessInstanceByKey("process");
@@ -146,8 +146,8 @@ public class ConcurrentJobExecutorTest {
         .createExecutableProcess("process")
           .startEvent()
           .serviceTask("task")
-            .camundaAsyncBefore()
-            .camundaExpression("${true}")
+            .flowaveAsyncBefore()
+            .flowaveExpression("${true}")
           .endEvent()
         .done());
     runtimeService.startProcessInstanceByKey("process");

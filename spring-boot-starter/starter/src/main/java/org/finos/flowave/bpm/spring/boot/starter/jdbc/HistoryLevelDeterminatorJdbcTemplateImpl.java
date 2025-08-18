@@ -37,7 +37,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImpl implements HistoryLevelDet
 
   public static HistoryLevelDeterminator createHistoryLevelDeterminator(FlowaveBpmProperties camundaBpmProperties, JdbcTemplate jdbcTemplate) {
     final HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.setJdbcTemplate(jdbcTemplate);
     return determinator;
   }
@@ -81,11 +81,11 @@ public class HistoryLevelDeterminatorJdbcTemplateImpl implements HistoryLevelDet
     this.ignoreDataAccessException = ignoreDataAccessException;
   }
 
-  public FlowaveBpmProperties getCamundaBpmProperties() {
+  public FlowaveBpmProperties getFlowaveBpmProperties() {
     return camundaBpmProperties;
   }
 
-  public void setCamundaBpmProperties(FlowaveBpmProperties camundaBpmProperties) {
+  public void setFlowaveBpmProperties(FlowaveBpmProperties camundaBpmProperties) {
     this.camundaBpmProperties = camundaBpmProperties;
   }
 

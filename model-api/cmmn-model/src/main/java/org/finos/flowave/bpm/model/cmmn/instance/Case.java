@@ -48,12 +48,12 @@ public interface Case extends CmmnElement {
   void setCaseFileModel(CaseFileModel caseFileModel);
 
   @Deprecated
-  Integer getCamundaHistoryTimeToLive();
+  Integer getFlowaveHistoryTimeToLive();
 
   @Deprecated
-  void setCamundaHistoryTimeToLive(Integer historyTimeToLive);
+  void setFlowaveHistoryTimeToLive(Integer historyTimeToLive);
 
-  String getCamundaHistoryTimeToLiveString();
+  String getFlowaveHistoryTimeToLiveString();
 
-  void setCamundaHistoryTimeToLiveString(String historyTimeToLive);
+  void setFlowaveHistoryTimeToLiveString(String historyTimeToLive);
 }

@@ -59,13 +59,13 @@ public class FlowaveFormDefinitionStrictParseTest {
 
   @After
   public void reset() {
-    processEngineConfiguration.setDisableStrictCamundaFormParsing(false);
+    processEngineConfiguration.setDisableStrictFlowaveFormParsing(false);
   }
 
   @Test
   public void shouldParseAnyFormFile_strictParsingDisabled() {
     // given
-    processEngineConfiguration.setDisableStrictCamundaFormParsing(true);
+    processEngineConfiguration.setDisableStrictFlowaveFormParsing(true);
 
     // when
     testRule.deploy(FORM);
@@ -89,7 +89,7 @@ public class FlowaveFormDefinitionStrictParseTest {
   @Test
   public void shouldNotParseAnyFormFile_strictParsingEnabled() {
     // given
-    processEngineConfiguration.setDisableStrictCamundaFormParsing(false);
+    processEngineConfiguration.setDisableStrictFlowaveFormParsing(false);
 
     // then deployment fails with an exception
     assertThatThrownBy(() -> {

@@ -62,10 +62,10 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
     FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
     FlowaveField field = SpecUtil.createElement(modelInstance, variableListener, null, FlowaveField.class);
-    field.setCamundaName("fieldName");
-    field.setCamundaStringValue("a string value");
+    field.setFlowaveName("fieldName");
+    field.setFlowaveStringValue("a string value");
 
-    variableListener.setCamundaClass("a.class.Name");
+    variableListener.setFlowaveClass("a.class.Name");
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -90,8 +90,8 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
   public void testDelegateExpressionDelegateHandling() {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
     FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
-    variableListener.setCamundaDelegateExpression("${expression}");
-    variableListener.setCamundaEvent(CaseVariableListener.CREATE);
+    variableListener.setFlowaveDelegateExpression("${expression}");
+    variableListener.setFlowaveEvent(CaseVariableListener.CREATE);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);
@@ -110,8 +110,8 @@ public class CaseVariableListenerHandlerTest extends CmmnElementHandlerTest {
   public void testExpressionDelegateHandling() {
     ExtensionElements extensionElements = SpecUtil.createElement(modelInstance, caseTask, null, ExtensionElements.class);
     FlowaveVariableListener variableListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveVariableListener.class);
-    variableListener.setCamundaExpression("${expression}");
-    variableListener.setCamundaEvent(CaseVariableListener.CREATE);
+    variableListener.setFlowaveExpression("${expression}");
+    variableListener.setFlowaveEvent(CaseVariableListener.CREATE);
 
     // when
     CmmnActivity activity = handler.handleElement(planItem, context);

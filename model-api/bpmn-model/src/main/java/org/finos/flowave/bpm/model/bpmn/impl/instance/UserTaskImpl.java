@@ -164,111 +164,111 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
 
   /** camunda extensions */
 
-  public String getCamundaAssignee() {
+  public String getFlowaveAssignee() {
     return camundaAssigneeAttribute.getValue(this);
   }
 
-  public void setCamundaAssignee(String camundaAssignee) {
+  public void setFlowaveAssignee(String camundaAssignee) {
     camundaAssigneeAttribute.setValue(this, camundaAssignee);
   }
 
-  public String getCamundaCandidateGroups() {
+  public String getFlowaveCandidateGroups() {
     return camundaCandidateGroupsAttribute.getValue(this);
   }
 
-  public void setCamundaCandidateGroups(String camundaCandidateGroups) {
+  public void setFlowaveCandidateGroups(String camundaCandidateGroups) {
     camundaCandidateGroupsAttribute.setValue(this, camundaCandidateGroups);
   }
 
-  public List<String> getCamundaCandidateGroupsList() {
+  public List<String> getFlowaveCandidateGroupsList() {
     String candidateGroups = camundaCandidateGroupsAttribute.getValue(this);
     return StringUtil.splitCommaSeparatedList(candidateGroups);
   }
 
-  public void setCamundaCandidateGroupsList(List<String> camundaCandidateGroupsList) {
+  public void setFlowaveCandidateGroupsList(List<String> camundaCandidateGroupsList) {
     String candidateGroups = StringUtil.joinCommaSeparatedList(camundaCandidateGroupsList);
     camundaCandidateGroupsAttribute.setValue(this, candidateGroups);
   }
 
-  public String getCamundaCandidateUsers() {
+  public String getFlowaveCandidateUsers() {
     return camundaCandidateUsersAttribute.getValue(this);
   }
 
-  public void setCamundaCandidateUsers(String camundaCandidateUsers) {
+  public void setFlowaveCandidateUsers(String camundaCandidateUsers) {
     camundaCandidateUsersAttribute.setValue(this, camundaCandidateUsers);
   }
 
-  public List<String> getCamundaCandidateUsersList() {
+  public List<String> getFlowaveCandidateUsersList() {
     String candidateUsers = camundaCandidateUsersAttribute.getValue(this);
     return StringUtil.splitCommaSeparatedList(candidateUsers);
   }
 
-  public void setCamundaCandidateUsersList(List<String> camundaCandidateUsersList) {
+  public void setFlowaveCandidateUsersList(List<String> camundaCandidateUsersList) {
     String candidateUsers = StringUtil.joinCommaSeparatedList(camundaCandidateUsersList);
     camundaCandidateUsersAttribute.setValue(this, candidateUsers);
   }
 
-  public String getCamundaDueDate() {
+  public String getFlowaveDueDate() {
     return camundaDueDateAttribute.getValue(this);
   }
 
-  public void setCamundaDueDate(String camundaDueDate) {
+  public void setFlowaveDueDate(String camundaDueDate) {
     camundaDueDateAttribute.setValue(this, camundaDueDate);
   }
 
-  public String getCamundaFollowUpDate() {
+  public String getFlowaveFollowUpDate() {
     return camundaFollowUpDateAttribute.getValue(this);
   }
 
-  public void setCamundaFollowUpDate(String camundaFollowUpDate) {
+  public void setFlowaveFollowUpDate(String camundaFollowUpDate) {
     camundaFollowUpDateAttribute.setValue(this, camundaFollowUpDate);
   }
 
-  public String getCamundaFormHandlerClass() {
+  public String getFlowaveFormHandlerClass() {
     return camundaFormHandlerClassAttribute.getValue(this);
   }
 
-  public void setCamundaFormHandlerClass(String camundaFormHandlerClass) {
+  public void setFlowaveFormHandlerClass(String camundaFormHandlerClass) {
     camundaFormHandlerClassAttribute.setValue(this, camundaFormHandlerClass);
   }
 
-  public String getCamundaFormKey() {
+  public String getFlowaveFormKey() {
     return camundaFormKeyAttribute.getValue(this);
   }
 
-  public void setCamundaFormKey(String camundaFormKey) {
+  public void setFlowaveFormKey(String camundaFormKey) {
     camundaFormKeyAttribute.setValue(this, camundaFormKey);
   }
 
-  public String getCamundaFormRef() {
+  public String getFlowaveFormRef() {
     return camundaFormRefAttribute.getValue(this);
   }
 
-  public void setCamundaFormRef(String camundaFormRef) {
+  public void setFlowaveFormRef(String camundaFormRef) {
     camundaFormRefAttribute.setValue(this, camundaFormRef);
   }
 
-  public String getCamundaFormRefBinding() {
+  public String getFlowaveFormRefBinding() {
     return camundaFormRefBindingAttribute.getValue(this);
   }
 
-  public void setCamundaFormRefBinding(String camundaFormRefBinding) {
+  public void setFlowaveFormRefBinding(String camundaFormRefBinding) {
     camundaFormRefBindingAttribute.setValue(this, camundaFormRefBinding);
   }
 
-  public String getCamundaFormRefVersion() {
+  public String getFlowaveFormRefVersion() {
     return camundaFormRefVersionAttribute.getValue(this);
   }
 
-  public void setCamundaFormRefVersion(String camundaFormRefVersion) {
+  public void setFlowaveFormRefVersion(String camundaFormRefVersion) {
     camundaFormRefVersionAttribute.setValue(this, camundaFormRefVersion);
   }
 
-  public String getCamundaPriority() {
+  public String getFlowavePriority() {
     return camundaPriorityAttribute.getValue(this);
   }
 
-  public void setCamundaPriority(String camundaPriority) {
+  public void setFlowavePriority(String camundaPriority) {
     camundaPriorityAttribute.setValue(this, camundaPriority);
   }
 }

@@ -50,8 +50,8 @@ public class MultiTenancyProcessInstanceSuspensionStateTest {
         .userTask()
       .moveToLastGateway()
         .sendTask()
-          .camundaType("external")
-          .camundaTopic("test")
+          .flowaveType("external")
+          .flowaveTopic("test")
         .boundaryEvent()
           .timerWithDuration("PT1M")
       .done();

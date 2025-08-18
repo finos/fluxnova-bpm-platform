@@ -125,7 +125,7 @@ public class HalTask extends HalResource<HalTask> {
     dto.tenantId = task.getTenantId();
     try {
       dto.formKey = task.getFormKey();
-      dto.camundaFormRef = task.getCamundaFormRef();
+      dto.camundaFormRef = task.getFlowaveFormRef();
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
@@ -228,7 +228,7 @@ public class HalTask extends HalResource<HalTask> {
     return formKey;
   }
 
-  public FlowaveFormRef getCamundaFormRef() {
+  public FlowaveFormRef getFlowaveFormRef() {
     return camundaFormRef;
   }
 

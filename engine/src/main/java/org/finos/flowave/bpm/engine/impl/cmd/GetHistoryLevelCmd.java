@@ -27,7 +27,7 @@ import org.finos.flowave.bpm.engine.impl.interceptor.CommandContext;
 public class GetHistoryLevelCmd implements Command<Integer> {
 
   public Integer execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadHistoryLevel);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadHistoryLevel);
     return Context.getProcessEngineConfiguration().getHistoryLevel().getId();
   }
 

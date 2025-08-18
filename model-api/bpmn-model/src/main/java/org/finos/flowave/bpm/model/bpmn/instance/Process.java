@@ -71,45 +71,45 @@ public interface Process extends CallableElement {
 
   /** camunda extensions */
 
-  String getCamundaCandidateStarterGroups();
+  String getFlowaveCandidateStarterGroups();
 
-  void setCamundaCandidateStarterGroups(String camundaCandidateStarterGroups);
+  void setFlowaveCandidateStarterGroups(String camundaCandidateStarterGroups);
 
-  List<String> getCamundaCandidateStarterGroupsList();
+  List<String> getFlowaveCandidateStarterGroupsList();
 
-  void setCamundaCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList);
+  void setFlowaveCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList);
 
-  String getCamundaCandidateStarterUsers();
+  String getFlowaveCandidateStarterUsers();
 
-  void setCamundaCandidateStarterUsers(String camundaCandidateStarterUsers);
+  void setFlowaveCandidateStarterUsers(String camundaCandidateStarterUsers);
 
-  List<String> getCamundaCandidateStarterUsersList();
+  List<String> getFlowaveCandidateStarterUsersList();
 
-  void setCamundaCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList);
+  void setFlowaveCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList);
 
-  String getCamundaJobPriority();
+  String getFlowaveJobPriority();
 
-  void setCamundaJobPriority(String jobPriority);
+  void setFlowaveJobPriority(String jobPriority);
 
-  String getCamundaTaskPriority();
+  String getFlowaveTaskPriority();
 
-  void setCamundaTaskPriority(String taskPriority);
-
-  @Deprecated
-  Integer getCamundaHistoryTimeToLive();
+  void setFlowaveTaskPriority(String taskPriority);
 
   @Deprecated
-  void setCamundaHistoryTimeToLive(Integer historyTimeToLive);
+  Integer getFlowaveHistoryTimeToLive();
 
-  String getCamundaHistoryTimeToLiveString();
+  @Deprecated
+  void setFlowaveHistoryTimeToLive(Integer historyTimeToLive);
 
-  void setCamundaHistoryTimeToLiveString(String historyTimeToLive);
+  String getFlowaveHistoryTimeToLiveString();
 
-  Boolean isCamundaStartableInTasklist();
+  void setFlowaveHistoryTimeToLiveString(String historyTimeToLive);
 
-  void setCamundaIsStartableInTasklist(Boolean isStartableInTasklist);
+  Boolean isFlowaveStartableInTasklist();
 
-  String getCamundaVersionTag();
+  void setFlowaveIsStartableInTasklist(Boolean isStartableInTasklist);
 
-  void setCamundaVersionTag(String versionTag);
+  String getFlowaveVersionTag();
+
+  void setFlowaveVersionTag(String versionTag);
 }

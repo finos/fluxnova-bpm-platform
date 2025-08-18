@@ -57,15 +57,15 @@ public class CreateAndResolveIncidentTest {
   public static final BpmnModelInstance ASYNC_TASK_PROCESS = Bpmn.createExecutableProcess("process")
       .startEvent("start")
       .serviceTask("task")
-        .camundaAsyncBefore()
-        .camundaExpression("${true}")
+        .flowaveAsyncBefore()
+        .flowaveExpression("${true}")
       .endEvent("end")
       .done();
 
   public static final BpmnModelInstance EXTERNAL_TASK_PROCESS = Bpmn.createExecutableProcess("process")
       .startEvent("start")
       .serviceTask("task")
-        .camundaExternalTask("topic")
+        .flowaveExternalTask("topic")
       .endEvent("end")
       .done();
 

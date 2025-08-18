@@ -93,7 +93,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(ReadTransientVariablesOfAllTypesDelegate.class.getName())
+        .flowaveClass(ReadTransientVariablesOfAllTypesDelegate.class.getName())
       .userTask("user")
       .endEvent()
       .done();
@@ -130,7 +130,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(ReadTransientVariablesOfAllTypesDelegate.class.getName())
+        .flowaveClass(ReadTransientVariablesOfAllTypesDelegate.class.getName())
       .userTask("user")
       .endEvent()
       .done();
@@ -165,7 +165,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance simpleInstanceWithListener = Bpmn.createExecutableProcess("Process")
         .startEvent()
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadTransientVariableExecutionListener.class)
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadTransientVariableExecutionListener.class)
         .userTask()
         .endEvent()
         .done();
@@ -188,7 +188,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance simpleInstanceWithListener = Bpmn.createExecutableProcess("Process")
         .startEvent()
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadTransientVariableExecutionListener.class)
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadTransientVariableExecutionListener.class)
         .userTask()
         .endEvent()
         .done();
@@ -214,7 +214,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess(CONDITIONAL_PROCESS_KEY)
         .startEvent()
         .serviceTask()
-        .camundaClass(SetVariableTransientDelegate.class.getName())
+        .flowaveClass(SetVariableTransientDelegate.class.getName())
         .intermediateCatchEvent(CONDITION_ID)
         .conditionalEventDefinition()
         .condition(VAR_CONDITION)
@@ -245,7 +245,7 @@ public class TransientVariableTest {
           .intermediateCatchEvent()
           .conditionalEventDefinition()
           .condition(VAR_CONDITION)
-          .camundaVariableEvents(Arrays.asList("create", "update"))
+          .flowaveVariableEvents(Arrays.asList("create", "update"))
           .conditionalEventDefinitionDone()
           .userTask()
           .name("taskAfter")
@@ -253,7 +253,7 @@ public class TransientVariableTest {
           .moveToNode("parallel")
           .userTask("taskBefore")
           .serviceTask()
-          .camundaClass(SetVariableTransientDelegate.class.getName())
+          .flowaveClass(SetVariableTransientDelegate.class.getName())
           .endEvent()
           .done();
 
@@ -382,7 +382,7 @@ public class TransientVariableTest {
       .signal("signal")
     .scriptTask("scriptTask")
       .scriptFormat("javascript")
-      .camundaResultVariable("abc")
+      .flowaveResultVariable("abc")
       .scriptText("execution.setVariable('abc', foo);")
     .endEvent()
     .done();
@@ -408,7 +408,7 @@ public class TransientVariableTest {
         .message("message")
       .scriptTask("scriptTask")
         .scriptFormat("javascript")
-        .camundaResultVariable("abc")
+        .flowaveResultVariable("abc")
         .scriptText("execution.setVariable('abc', foo);")
       .endEvent()
       .done();
@@ -438,7 +438,7 @@ public class TransientVariableTest {
         .message("message")
       .scriptTask("scriptTask")
         .scriptFormat("javascript")
-        .camundaResultVariable("abc")
+        .flowaveResultVariable("abc")
         .scriptText("execution.setVariable('abc', blob);")
       .endEvent()
       .done();
@@ -469,13 +469,13 @@ public class TransientVariableTest {
       .parallelGateway()
       .scriptTask()
         .scriptFormat("javascript")
-        .camundaResultVariable("abc")
+        .flowaveResultVariable("abc")
         .scriptText("execution.setVariableLocal('abc', foo);")
       .endEvent()
       .moveToLastGateway()
       .scriptTask()
         .scriptFormat("javascript")
-        .camundaResultVariable("abc")
+        .flowaveResultVariable("abc")
         .scriptText("execution.setVariableLocal('abc', foo);")
       .endEvent()
       .done();
@@ -516,7 +516,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(ChangeVariableTransientDelegate.class.getName())
+        .flowaveClass(ChangeVariableTransientDelegate.class.getName())
       .userTask("user")
       .endEvent()
       .done();
@@ -545,7 +545,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(SwitchTransientVariableDelegate.class.getName())
+        .flowaveClass(SwitchTransientVariableDelegate.class.getName())
       .userTask("user")
       .endEvent()
       .done();
@@ -570,7 +570,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(SwitchTransientVariableDelegate.class.getName())
+        .flowaveClass(SwitchTransientVariableDelegate.class.getName())
       .userTask("user")
       .endEvent()
       .done();
@@ -595,7 +595,7 @@ public class TransientVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .serviceTask()
-        .camundaClass(SetTransientLocalVariableDelegate.class)
+        .flowaveClass(SetTransientLocalVariableDelegate.class)
       .endEvent()
       .done();
 
@@ -619,7 +619,7 @@ public class TransientVariableTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcess")
       .startEvent()
       .serviceTask()
-        .camundaClass(ReadTypedTransientVariableDelegate.class)
+        .flowaveClass(ReadTypedTransientVariableDelegate.class)
       .userTask()
       .endEvent()
       .done();
@@ -640,7 +640,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaClass(SetTransientLocalVariableDelegate.class)
+        .serviceTask().flowaveClass(SetTransientLocalVariableDelegate.class)
         .userTask()
         .endEvent()
         .done();
@@ -664,7 +664,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaClass(RemoveAndSetVariableDelegate.class)
+        .serviceTask().flowaveClass(RemoveAndSetVariableDelegate.class)
         .userTask()
         .endEvent()
         .done();
@@ -685,7 +685,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaClass(RemoveAndSetVariableDelegate.class)
+        .serviceTask().flowaveClass(RemoveAndSetVariableDelegate.class)
         .userTask()
         .endEvent()
         .done();
@@ -706,7 +706,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaClass(RemoveAndSetVariableDelegate.class)
+        .serviceTask().flowaveClass(RemoveAndSetVariableDelegate.class)
         .userTask()
         .endEvent()
         .done();
@@ -725,7 +725,7 @@ public class TransientVariableTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaClass(RemoveAndSetVariableDelegate.class)
+        .serviceTask().flowaveClass(RemoveAndSetVariableDelegate.class)
         .userTask()
         .endEvent()
         .done();

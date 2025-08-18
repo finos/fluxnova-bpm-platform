@@ -24,24 +24,24 @@ import org.finos.flowave.bpm.model.cmmn.instance.CmmnModelElementInstance;
  */
 public interface FlowaveField extends CmmnModelElementInstance {
 
-  String getCamundaName();
+  String getFlowaveName();
 
-  void setCamundaName(String camundaName);
+  void setFlowaveName(String camundaName);
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 
-  String getCamundaStringValue();
+  String getFlowaveStringValue();
 
-  void setCamundaStringValue(String camundaStringValue);
+  void setFlowaveStringValue(String camundaStringValue);
 
-  FlowaveString getCamundaString();
+  FlowaveString getFlowaveString();
 
-  void setCamundaString(FlowaveString camundaString);
+  void setFlowaveString(FlowaveString camundaString);
 
-  FlowaveExpression getCamundaExpressionChild();
+  FlowaveExpression getFlowaveExpressionChild();
 
-  void setCamundaExpressionChild(FlowaveExpression camundaExpression);
+  void setFlowaveExpressionChild(FlowaveExpression camundaExpression);
 
 }

@@ -486,8 +486,8 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
     deployment(Bpmn.createExecutableProcess("spin-xml-issue")
         .startEvent()
         .serviceTask()
-          .camundaExpression("${XML(\"<result/>\").append(xmlInput.xPath(\"//cosigner/*\").elementList()).toString()}")
-          .camundaResultVariable("output")
+          .flowaveExpression("${XML(\"<result/>\").append(xmlInput.xPath(\"//cosigner/*\").elementList()).toString()}")
+          .flowaveResultVariable("output")
         .userTask()
         .endEvent()
         .done());

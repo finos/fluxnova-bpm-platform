@@ -153,7 +153,7 @@ public class ExceptionBuiltinCodesTest {
         .startEvent()
         .callActivity()
           .calledElement("called")
-          .camundaInBusinessKey("sub-process")
+          .flowaveInBusinessKey("sub-process")
         .endEvent()
         .done();
 

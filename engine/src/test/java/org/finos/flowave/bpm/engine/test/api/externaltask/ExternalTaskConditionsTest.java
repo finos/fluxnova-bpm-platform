@@ -50,7 +50,7 @@ public class ExternalTaskConditionsTest {
   private final BpmnModelInstance testProcess = Bpmn.createExecutableProcess("theProcess")
     .startEvent()
     .serviceTask("theTask")
-        .camundaExternalTask("theTopic")
+        .flowaveExternalTask("theTopic")
     .done();
 
   @Before

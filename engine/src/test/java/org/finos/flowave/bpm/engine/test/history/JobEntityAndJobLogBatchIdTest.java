@@ -366,7 +366,7 @@ public class JobEntityAndJobLogBatchIdTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
-        .serviceTask().camundaExternalTask("topic")
+        .serviceTask().flowaveExternalTask("topic")
         .endEvent()
         .done());
     runtimeService.startProcessInstanceByKey("process");

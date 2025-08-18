@@ -200,13 +200,13 @@ public class MigrationPlanGenerationTest {
   @Test
   public void testMapEqualUnsupportedAsyncBeforeActivities() {
     BpmnModelInstance testModel = modify(ProcessModels.UNSUPPORTED_ACTIVITIES)
-      .flowNodeBuilder("startEvent").camundaAsyncBefore()
-      .moveToNode("decisionTask").camundaAsyncBefore()
-      .moveToNode("throwEvent").camundaAsyncAfter()
-      .moveToNode("serviceTask").camundaAsyncBefore()
-      .moveToNode("sendTask").camundaAsyncBefore()
-      .moveToNode("scriptTask").camundaAsyncBefore()
-      .moveToNode("endEvent").camundaAsyncBefore()
+      .flowNodeBuilder("startEvent").flowaveAsyncBefore()
+      .moveToNode("decisionTask").flowaveAsyncBefore()
+      .moveToNode("throwEvent").flowaveAsyncAfter()
+      .moveToNode("serviceTask").flowaveAsyncBefore()
+      .moveToNode("sendTask").flowaveAsyncBefore()
+      .moveToNode("scriptTask").flowaveAsyncBefore()
+      .moveToNode("endEvent").flowaveAsyncBefore()
       .done();
 
     assertGeneratedMigrationPlan(testModel, testModel)
@@ -224,13 +224,13 @@ public class MigrationPlanGenerationTest {
   @Test
   public void testMapEqualUnsupportedAsyncAfterActivities() {
     BpmnModelInstance testModel = modify(ProcessModels.UNSUPPORTED_ACTIVITIES)
-      .flowNodeBuilder("startEvent").camundaAsyncAfter()
-      .moveToNode("decisionTask").camundaAsyncAfter()
-      .moveToNode("throwEvent").camundaAsyncAfter()
-      .moveToNode("serviceTask").camundaAsyncAfter()
-      .moveToNode("sendTask").camundaAsyncAfter()
-      .moveToNode("scriptTask").camundaAsyncAfter()
-      .moveToNode("endEvent").camundaAsyncAfter()
+      .flowNodeBuilder("startEvent").flowaveAsyncAfter()
+      .moveToNode("decisionTask").flowaveAsyncAfter()
+      .moveToNode("throwEvent").flowaveAsyncAfter()
+      .moveToNode("serviceTask").flowaveAsyncAfter()
+      .moveToNode("sendTask").flowaveAsyncAfter()
+      .moveToNode("scriptTask").flowaveAsyncAfter()
+      .moveToNode("endEvent").flowaveAsyncAfter()
       .done();
 
     assertGeneratedMigrationPlan(testModel, testModel)
@@ -796,8 +796,8 @@ public class MigrationPlanGenerationTest {
     BpmnModelInstance targetModel = ProcessModels.newModel()
       .startEvent()
       .sendTask("externalTask")
-        .camundaType("external")
-        .camundaTopic("foo")
+        .flowaveType("external")
+        .flowaveTopic("foo")
       .endEvent()
       .done();
 

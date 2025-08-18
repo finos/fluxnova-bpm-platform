@@ -80,11 +80,11 @@ public class DefaultDatasourceConfiguration extends AbstractFlowaveConfiguration
     this.transactionManager = transactionManager;
   }
 
-  public PlatformTransactionManager getCamundaTransactionManager() {
+  public PlatformTransactionManager getFlowaveTransactionManager() {
     return camundaTransactionManager;
   }
 
-  public void setCamundaTransactionManager(PlatformTransactionManager camundaTransactionManager) {
+  public void setFlowaveTransactionManager(PlatformTransactionManager camundaTransactionManager) {
     this.camundaTransactionManager = camundaTransactionManager;
   }
 
@@ -96,11 +96,11 @@ public class DefaultDatasourceConfiguration extends AbstractFlowaveConfiguration
     this.dataSource = dataSource;
   }
 
-  public DataSource getCamundaDataSource() {
+  public DataSource getFlowaveDataSource() {
     return camundaDataSource;
   }
 
-  public void setCamundaDataSource(DataSource camundaDataSource) {
+  public void setFlowaveDataSource(DataSource camundaDataSource) {
     this.camundaDataSource = camundaDataSource;
   }
 

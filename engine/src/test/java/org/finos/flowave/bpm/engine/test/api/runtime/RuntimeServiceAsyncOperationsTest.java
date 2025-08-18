@@ -342,7 +342,7 @@ public class RuntimeServiceAsyncOperationsTest extends AbstractAsyncOperationsTe
     BpmnModelInstance instance = ProcessModels.newModel(ONE_TASK_PROCESS)
         .startEvent()
         .userTask()
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
         .endEvent()
         .done();
 
@@ -482,7 +482,7 @@ public class RuntimeServiceAsyncOperationsTest extends AbstractAsyncOperationsTe
     BpmnModelInstance instance = ProcessModels.newModel(ONE_TASK_PROCESS)
         .startEvent()
         .userTask()
-          .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
+          .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, IncrementCounterListener.class.getName())
         .endEvent()
         .done();
 

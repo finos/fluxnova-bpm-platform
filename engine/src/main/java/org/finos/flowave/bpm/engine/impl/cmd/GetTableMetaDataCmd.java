@@ -41,7 +41,7 @@ public class GetTableMetaDataCmd implements Command<TableMetaData>, Serializable
   public TableMetaData execute(CommandContext commandContext) {
     ensureNotNull("tableName", tableName);
 
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadTableMetaData);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadTableMetaData);
 
     return commandContext
       .getTableDataManager()

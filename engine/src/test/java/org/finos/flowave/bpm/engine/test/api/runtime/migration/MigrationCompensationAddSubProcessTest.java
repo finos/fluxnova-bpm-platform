@@ -234,7 +234,7 @@ public class MigrationCompensationAddSubProcessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(CompensationModels.ONE_COMPENSATION_TASK_MODEL);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(CompensationModels.COMPENSATION_ONE_TASK_SUBPROCESS_MODEL)
       .activityBuilder("subProcess")
-        .camundaExecutionListenerExpression(
+        .flowaveExecutionListenerExpression(
             ExecutionListener.EVENTNAME_START,
             "${execution.setVariable('foo', 'bar')}")
       .done());
@@ -261,7 +261,7 @@ public class MigrationCompensationAddSubProcessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(CompensationModels.ONE_COMPENSATION_TASK_MODEL);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(CompensationModels.COMPENSATION_ONE_TASK_SUBPROCESS_MODEL)
       .activityBuilder("subProcess")
-        .camundaInputParameter("foo", "bar")
+        .flowaveInputParameter("foo", "bar")
       .done());
 
     MigrationPlan migrationPlan = rule.getRuntimeService().createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())

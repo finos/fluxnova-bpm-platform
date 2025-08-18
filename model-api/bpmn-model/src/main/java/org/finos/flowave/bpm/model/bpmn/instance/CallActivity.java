@@ -37,52 +37,52 @@ public interface CallActivity extends Activity {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  boolean isCamundaAsync();
+  boolean isFlowaveAsync();
 
   /**
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  void setCamundaAsync(boolean isCamundaAsync);
+  void setFlowaveAsync(boolean isCamundaAsync);
 
-  String getCamundaCalledElementBinding();
+  String getFlowaveCalledElementBinding();
 
-  void setCamundaCalledElementBinding(String camundaCalledElementBinding);
+  void setFlowaveCalledElementBinding(String camundaCalledElementBinding);
 
-  String getCamundaCalledElementVersion();
+  String getFlowaveCalledElementVersion();
 
-  void setCamundaCalledElementVersion(String camundaCalledElementVersion);
+  void setFlowaveCalledElementVersion(String camundaCalledElementVersion);
 
-  String getCamundaCalledElementVersionTag();
+  String getFlowaveCalledElementVersionTag();
 
-  void setCamundaCalledElementVersionTag(String camundaCalledElementVersionTag);
+  void setFlowaveCalledElementVersionTag(String camundaCalledElementVersionTag);
 
-  String getCamundaCaseRef();
+  String getFlowaveCaseRef();
 
-  void setCamundaCaseRef(String camundaCaseRef);
+  void setFlowaveCaseRef(String camundaCaseRef);
 
-  String getCamundaCaseBinding();
+  String getFlowaveCaseBinding();
 
-  void setCamundaCaseBinding(String camundaCaseBinding);
+  void setFlowaveCaseBinding(String camundaCaseBinding);
 
-  String getCamundaCaseVersion();
+  String getFlowaveCaseVersion();
 
-  void setCamundaCaseVersion(String camundaCaseVersion);
+  void setFlowaveCaseVersion(String camundaCaseVersion);
 
-  String getCamundaCalledElementTenantId();
+  String getFlowaveCalledElementTenantId();
 
-  void setCamundaCalledElementTenantId(String tenantId);
+  void setFlowaveCalledElementTenantId(String tenantId);
 
-  String getCamundaCaseTenantId();
+  String getFlowaveCaseTenantId();
 
-  void setCamundaCaseTenantId(String tenantId);
+  void setFlowaveCaseTenantId(String tenantId);
 
-  String getCamundaVariableMappingClass();
+  String getFlowaveVariableMappingClass();
 
-  void setCamundaVariableMappingClass(String camundaClass);
+  void setFlowaveVariableMappingClass(String camundaClass);
 
-  String getCamundaVariableMappingDelegateExpression();
+  String getFlowaveVariableMappingDelegateExpression();
 
-  void setCamundaVariableMappingDelegateExpression(String camundaExpression);
+  void setFlowaveVariableMappingDelegateExpression(String camundaExpression);
 
 }

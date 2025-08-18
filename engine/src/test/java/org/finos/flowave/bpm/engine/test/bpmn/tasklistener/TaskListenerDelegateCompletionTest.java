@@ -79,7 +79,7 @@ public class TaskListenerDelegateCompletionTest {
     return Bpmn.createExecutableProcess(TASK_LISTENER_PROCESS)
         .startEvent()
           .userTask(ACTIVITY_ID)
-          .camundaTaskListenerClass(eventName,COMPLETE_LISTENER)
+          .flowaveTaskListenerClass(eventName,COMPLETE_LISTENER)
         .endEvent()
         .done();
   }

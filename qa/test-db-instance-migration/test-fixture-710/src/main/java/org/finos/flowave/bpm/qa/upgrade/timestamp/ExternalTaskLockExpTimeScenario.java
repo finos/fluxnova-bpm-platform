@@ -35,10 +35,10 @@ public class ExternalTaskLockExpTimeScenario extends AbstractTimestampMigrationS
 
   protected static final String PROCESS_DEFINITION_KEY = "oneExtTaskForLockExpTimeTestProcess";
   protected static final BpmnModelInstance EXT_TASK_MODEL  = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent("start")
     .serviceTask("extTask")
-      .camundaExternalTask(TOPIC_NAME)
+      .flowaveExternalTask(TOPIC_NAME)
     .endEvent("end")
     .done();
 

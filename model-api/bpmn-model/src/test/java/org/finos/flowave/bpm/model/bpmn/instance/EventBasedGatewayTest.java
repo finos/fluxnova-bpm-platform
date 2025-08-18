@@ -48,7 +48,7 @@ public class EventBasedGatewayTest extends AbstractGatewayTest<EventBasedGateway
   public void shouldFailSetAsyncAfterToEventBasedGateway() {
     // fetching should fail
     try {
-      gateway.isCamundaAsyncAfter();
+      gateway.isFlowaveAsyncAfter();
       fail("Expected: UnsupportedOperationException");
     } catch(UnsupportedOperationException ex) {
       // True
@@ -56,7 +56,7 @@ public class EventBasedGatewayTest extends AbstractGatewayTest<EventBasedGateway
 
     // set the attribute should fail to!
     try {
-      gateway.setCamundaAsyncAfter(false);
+      gateway.setFlowaveAsyncAfter(false);
       fail("Expected: UnsupportedOperationException");
     } catch(UnsupportedOperationException ex) {
       // True

@@ -1,12 +1,12 @@
-= camunda BPMN model API
+= flowave BPMN model API  ** Needs To Be Reviewed **
 
-The camunda BPMN model API is a simple, lightweight Java library for parsing, creating and editing BPMN 2.0 XML files. It is licensed under the Apache 2.0 license.
+The flowave BPMN model API is a simple, lightweight Java library for parsing, creating and editing BPMN 2.0 XML files. It is licensed under the Apache 2.0 license.
 
 [NOTE]
 ====
-camunda BPMN model can be used standalone, independenly of Camunda Platform / process engine.
+flowave BPMN model can be used standalone, independenly of Flowave Platform / process engine.
 ====
-
+ /** Needs To Be Reviewed **
 * Web Site: https://camunda.com/
 * User Guide: link:http://docs.camunda.org/latest/guides/user-guide/#bpmn-model-api[http://docs.camunda.org]
 * Examples: link:https://github.com/camunda/camunda-bpm-examples/tree/master/bpmn-model-api[https://github.com/camunda/camunda-bpm-examples]
@@ -19,7 +19,7 @@ camunda BPMN model can be used standalone, independenly of Camunda Platform / pr
 
 To easily create simple BPMN 2.0 processes we provide the fluent builder API. It supports most BPMN 2.0
 elements and allows you to set attributes and add some child elements. The following process is deployable
-and can be executed by the Camunda Platform.
+and can be executed by the Flowave Platform.
 
 [source,java]
 ----
@@ -29,16 +29,16 @@ BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("processId")
   .endEvent()
   .done();
 ----
-
+ /** Needs To Be Reviewed **
 For more complex examples see the link:https://docs.camunda.org/manual/latest/user-guide/model-api/bpmn-model-api/fluent-builder-api/[docs],
-the tests in link:src/test/java/org/camunda/bpm/model/bpmn/builder/ProcessBuilderTest.java[ProcessBuilderTest.java] or this
+the tests in link:src/test/java/org/finos/flowave/bpm/model/bpmn/builder/ProcessBuilderTest.java[ProcessBuilderTest.java] or this   ** Needs To Be Reviewed **
 link:https://github.com/camunda/camunda-bpm-examples/tree/master/bpmn-model-api/generate-process-fluent-api[example].
 
 === Create an empty BPMN model
 
 You can easily create a new empty BPMN model.
 
-[source,java]
+[source,java]  ** Needs To Be Reviewed **
 ----
 BpmnModelInstance modelInstance = Bpmn.createEmptyModel();
 Definitions definitions = modelInstance.newInstance(Definitions.class);
@@ -63,7 +63,7 @@ However, not all elements supported by the model are exposed through fluent
 builders and the fluent api may not be the appropriate API style for all usecases.
 In such cases, the full API can be used for creating a process model.
 The following code creates a simple Process as a jUnit4 test using the full API:
-link:src/test/java/org/camunda/bpm/model/bpmn/CreateModelTest.java[CreateModelTest.java].
+link:src/test/java/org/finos/flowave/bpm/model/bpmn/CreateModelTest.java[CreateModelTest.java].
 
 === Find elements inside the model
 
@@ -106,16 +106,16 @@ Bpmn.writeModelToFile(file, modelInstance);
 
 == FAQ
 
-=== What is BPMN 2.0?
+=== What is BPMN 2.0?   ** Needs To Be Reviewed **
 
 Read the https://camunda.com/bpmn/[BPMN 2.0 Tutorial on camunda.com].
 
 === Which Java (JRE) Version is required?
 
-Java JRE 1.8+ is required. We test camunda BPMN model API on Oracle and IBM JVMs.
+Java JRE 1.8+ is required. We test flowave BPMN model API on Oracle and IBM JVMs.
 
 === Does this API support all BPMN 2.0 Elements?
 
 No, but support is already quite extensive. See
-link:src/main/java/org/camunda/bpm/model/bpmn/instance[org.camunda.bpm.model.bpmn.instance]
+link:src/main/java/org/finos/flowave/bpm/model/bpmn/instance[org.finos.flowave.bpm.model.bpmn.instance]
 for a list of currently supported elements.

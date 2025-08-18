@@ -19,7 +19,7 @@ package org.finos.flowave.bpm.engine.test.api.form;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllCamundaFormDefinitionEntities;
+import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllFlowaveFormDefinitionEntities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -103,7 +103,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -126,7 +126,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -149,7 +149,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -172,7 +172,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -194,7 +194,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
 
@@ -218,7 +218,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
 
@@ -244,7 +244,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
 
@@ -272,7 +272,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -298,7 +298,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     Task task = taskService.createTaskQuery().singleResult();
     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
     InputStream deployedForm = formService.getDeployedTaskForm(task.getId());
@@ -325,7 +325,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
     InputStream deployedForm = formService.getDeployedStartForm(processDefinition.getId());
 
@@ -345,7 +345,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
     InputStream deployedForm = formService.getDeployedStartForm(processDefinition.getId());
 
@@ -365,7 +365,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
     InputStream deployedForm = formService.getDeployedStartForm(processDefinition.getId());
 
@@ -385,7 +385,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
     InputStream deployedForm = formService.getDeployedStartForm(processDefinition.getId());
 
@@ -404,7 +404,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
 
     // then
@@ -425,7 +425,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
 
     // then
@@ -448,7 +448,7 @@ public class RetrieveFlowaveFormRefTest {
 
     // when
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().singleResult();
 
     // then
@@ -464,7 +464,7 @@ public class RetrieveFlowaveFormRefTest {
   /* HELPER METHODS */
 
   private void assertTaskFormData(TaskFormData taskFormData, String expectedKey, String expectedBinding, Integer expectedVersion) {
-    FlowaveFormRef camundaFormRef = taskFormData.getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = taskFormData.getFlowaveFormRef();
     assertThat(camundaFormRef.getKey()).isEqualTo(expectedKey);
     assertThat(camundaFormRef.getBinding()).isEqualTo(expectedBinding);
     assertThat(camundaFormRef.getVersion()).isEqualTo(expectedVersion);

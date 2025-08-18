@@ -25,8 +25,8 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveEntry extends BpmnModelElementInstance, FlowaveGenericValueElement {
 
-  String getCamundaKey();
+  String getFlowaveKey();
 
-  void setCamundaKey(String camundaKey);
+  void setFlowaveKey(String camundaKey);
 
 }

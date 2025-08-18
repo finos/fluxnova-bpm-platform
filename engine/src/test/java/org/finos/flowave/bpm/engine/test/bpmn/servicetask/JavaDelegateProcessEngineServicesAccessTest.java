@@ -48,7 +48,7 @@ public class JavaDelegateProcessEngineServicesAccessTest extends AbstractProcess
   protected Task createModelAccessTask(BpmnModelInstance modelInstance, Class<?> delegateClass) {
     ServiceTask serviceTask = modelInstance.newInstance(ServiceTask.class);
     serviceTask.setId("serviceTask");
-    serviceTask.setCamundaClass(delegateClass.getName());
+    serviceTask.setFlowaveClass(delegateClass.getName());
     return serviceTask;
   }
 

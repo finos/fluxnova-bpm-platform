@@ -51,8 +51,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync() {
-    element.setCamundaAsyncBefore(true);
+  public B flowaveAsync() {
+    element.setFlowaveAsyncBefore(true);
     return myself;
   }
 
@@ -65,8 +65,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync(boolean isCamundaAsync) {
-    element.setCamundaAsyncBefore(isCamundaAsync);
+  public B flowaveAsync(boolean isCamundaAsync) {
+    element.setFlowaveAsyncBefore(isCamundaAsync);
     return myself;
   }
 
@@ -76,8 +76,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCalledElementBinding  the element binding to use
    * @return the builder object
    */
-  public B camundaCalledElementBinding(String camundaCalledElementBinding) {
-    element.setCamundaCalledElementBinding(camundaCalledElementBinding);
+  public B flowaveCalledElementBinding(String camundaCalledElementBinding) {
+    element.setFlowaveCalledElementBinding(camundaCalledElementBinding);
     return myself;
   }
 
@@ -87,8 +87,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCalledElementVersion  the element version to use
    * @return the builder object
    */
-  public B camundaCalledElementVersion(String camundaCalledElementVersion) {
-    element.setCamundaCalledElementVersion(camundaCalledElementVersion);
+  public B flowaveCalledElementVersion(String camundaCalledElementVersion) {
+    element.setFlowaveCalledElementVersion(camundaCalledElementVersion);
     return myself;
   }
 
@@ -98,8 +98,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCalledElementVersionTag  the element version to use
    * @return the builder object
    */
-  public B camundaCalledElementVersionTag(String camundaCalledElementVersionTag) {
-    element.setCamundaCalledElementVersionTag(camundaCalledElementVersionTag);
+  public B flowaveCalledElementVersionTag(String camundaCalledElementVersionTag) {
+    element.setFlowaveCalledElementVersionTag(camundaCalledElementVersionTag);
     return myself;
   }
 
@@ -108,8 +108,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCalledElementTenantId the called element tenant id
    * @return the builder object
    */
-  public B camundaCalledElementTenantId(String camundaCalledElementTenantId) {
-    element.setCamundaCalledElementTenantId(camundaCalledElementTenantId);
+  public B flowaveCalledElementTenantId(String camundaCalledElementTenantId) {
+    element.setFlowaveCalledElementTenantId(camundaCalledElementTenantId);
     return myself;
   }
 
@@ -119,8 +119,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param caseRef the case to call
    * @return the builder object
    */
-  public B camundaCaseRef(String caseRef) {
-    element.setCamundaCaseRef(caseRef);
+  public B flowaveCaseRef(String caseRef) {
+    element.setFlowaveCaseRef(caseRef);
     return myself;
   }
 
@@ -130,8 +130,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCaseBinding  the case binding to use
    * @return the builder object
    */
-  public B camundaCaseBinding(String camundaCaseBinding) {
-    element.setCamundaCaseBinding(camundaCaseBinding);
+  public B flowaveCaseBinding(String camundaCaseBinding) {
+    element.setFlowaveCaseBinding(camundaCaseBinding);
     return myself;
   }
 
@@ -141,8 +141,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaCaseVersion  the case version to use
    * @return the builder object
    */
-  public B camundaCaseVersion(String camundaCaseVersion) {
-    element.setCamundaCaseVersion(camundaCaseVersion);
+  public B flowaveCaseVersion(String camundaCaseVersion) {
+    element.setFlowaveCaseVersion(camundaCaseVersion);
     return myself;
   }
 
@@ -151,8 +151,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param tenantId the tenant id to set
    * @return the builder object
    */
-  public B camundaCaseTenantId(String tenantId) {
-    element.setCamundaCaseTenantId(tenantId);
+  public B flowaveCaseTenantId(String tenantId) {
+    element.setFlowaveCaseTenantId(tenantId);
     return myself;
   }
 
@@ -161,9 +161,9 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param businessKey the business key to set
    * @return the builder object
    */
-  public B camundaInBusinessKey(String businessKey) {
+  public B flowaveInBusinessKey(String businessKey) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
-    param.setCamundaBusinessKey(businessKey);
+    param.setFlowaveBusinessKey(businessKey);
     addExtensionElement(param);
     return myself;
   }
@@ -175,10 +175,10 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param target the name of the variable in the sub process instance
    * @return the builder object
    */
-  public B camundaIn(String source, String target) {
+  public B flowaveIn(String source, String target) {
     FlowaveIn param = modelInstance.newInstance(FlowaveIn.class);
-    param.setCamundaSource(source);
-    param.setCamundaTarget(target);
+    param.setFlowaveSource(source);
+    param.setFlowaveTarget(target);
     addExtensionElement(param);
     return myself;
   }
@@ -190,10 +190,10 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param target the name of the variable in the super process instance
    * @return the builder object
    */
-  public B camundaOut(String source, String target) {
+  public B flowaveOut(String source, String target) {
     FlowaveOut param = modelInstance.newInstance(FlowaveOut.class);
-    param.setCamundaSource(source);
-    param.setCamundaTarget(target);
+    param.setFlowaveSource(source);
+    param.setFlowaveTarget(target);
     addExtensionElement(param);
     return myself;
   }
@@ -207,8 +207,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return                              the builder object
    */
   @SuppressWarnings("rawtypes")
-  public B camundaVariableMappingClass(Class camundaVariableMappingClass) {
-    return camundaVariableMappingClass(camundaVariableMappingClass.getName());
+  public B flowaveVariableMappingClass(Class camundaVariableMappingClass) {
+    return flowaveVariableMappingClass(camundaVariableMappingClass.getName());
   }
 
   /**
@@ -219,8 +219,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaVariableMappingClass                  the class name to set
    * @return                              the builder object
    */
-  public B camundaVariableMappingClass(String fullQualifiedClassName) {
-    element.setCamundaVariableMappingClass(fullQualifiedClassName);
+  public B flowaveVariableMappingClass(String fullQualifiedClassName) {
+    element.setFlowaveVariableMappingClass(fullQualifiedClassName);
     return myself;
   }
 
@@ -232,8 +232,8 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @param camundaVariableMappingDelegateExpression     the expression which references a delegate object
    * @return                              the builder object
    */
-  public B camundaVariableMappingDelegateExpression(String camundaVariableMappingDelegateExpression) {
-    element.setCamundaVariableMappingDelegateExpression(camundaVariableMappingDelegateExpression);
+  public B flowaveVariableMappingDelegateExpression(String camundaVariableMappingDelegateExpression) {
+    element.setFlowaveVariableMappingDelegateExpression(camundaVariableMappingDelegateExpression);
     return myself;
   }
 }

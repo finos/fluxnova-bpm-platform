@@ -79,13 +79,13 @@ public class HistoryTimeToLiveParser {
   }
 
   public Integer parse(Case caseElement, String definitionKey, boolean skipEnforceTtl) {
-    String historyTimeToLiveString = caseElement.getCamundaHistoryTimeToLiveString();
+    String historyTimeToLiveString = caseElement.getFlowaveHistoryTimeToLiveString();
 
     return parseAndValidate(historyTimeToLiveString, definitionKey, skipEnforceTtl);
   }
 
   public Integer parse(Decision decision, String definitionKey, boolean skipEnforceTtl) {
-    String historyTimeToLiveString = decision.getCamundaHistoryTimeToLiveString();
+    String historyTimeToLiveString = decision.getFlowaveHistoryTimeToLiveString();
 
     return parseAndValidate(historyTimeToLiveString, definitionKey, skipEnforceTtl);
   }

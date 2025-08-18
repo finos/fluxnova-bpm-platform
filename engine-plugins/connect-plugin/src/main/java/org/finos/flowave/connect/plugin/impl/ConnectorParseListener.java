@@ -16,7 +16,7 @@
  */
 package org.finos.flowave.connect.plugin.impl;
 
-import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.findCamundaExtensionElement;
+import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.findFlowaveExtensionElement;
 import static org.finos.flowave.bpm.engine.impl.bpmn.parser.BpmnParseUtil.parseInputOutput;
 
 import org.finos.flowave.bpm.engine.BpmnParseException;
@@ -63,7 +63,7 @@ public class ConnectorParseListener extends AbstractBpmnParseListener {
   }
 
   protected void parseConnectorElement(Element serviceTaskElement, ScopeImpl scope, ActivityImpl activity) {
-    Element connectorDefinition = findCamundaExtensionElement(serviceTaskElement, "connector");
+    Element connectorDefinition = findFlowaveExtensionElement(serviceTaskElement, "connector");
     if (connectorDefinition != null) {
       Element connectorIdElement = connectorDefinition.element("connectorId");
 

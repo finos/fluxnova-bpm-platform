@@ -27,25 +27,25 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveExecutionListener extends BpmnModelElementInstance {
 
-  String getCamundaEvent();
+  String getFlowaveEvent();
 
-  void setCamundaEvent(String camundaEvent);
+  void setFlowaveEvent(String camundaEvent);
 
-  String getCamundaClass();
+  String getFlowaveClass();
 
-  void setCamundaClass(String camundaClass);
+  void setFlowaveClass(String camundaClass);
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 
-  String getCamundaDelegateExpression();
+  String getFlowaveDelegateExpression();
 
-  void setCamundaDelegateExpression(String camundaDelegateExpression);
+  void setFlowaveDelegateExpression(String camundaDelegateExpression);
 
-  Collection<FlowaveField> getCamundaFields();
+  Collection<FlowaveField> getFlowaveFields();
 
-  FlowaveScript getCamundaScript();
+  FlowaveScript getFlowaveScript();
 
-  void setCamundaScript(FlowaveScript camundaScript);
+  void setFlowaveScript(FlowaveScript camundaScript);
 }

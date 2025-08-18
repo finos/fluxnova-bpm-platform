@@ -30,7 +30,7 @@ public class FlowaveFormDefinitionCache extends ResourceDefinitionCache<CamundaF
 
   @Override
   protected AbstractResourceDefinitionManager<CamundaFormDefinitionEntity> getManager() {
-    return Context.getCommandContext().getCamundaFormDefinitionManager();
+    return Context.getCommandContext().getFlowaveFormDefinitionManager();
   }
 
   @Override

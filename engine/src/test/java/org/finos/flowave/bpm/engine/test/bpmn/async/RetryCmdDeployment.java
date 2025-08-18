@@ -43,11 +43,11 @@ public class RetryCmdDeployment {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
           .intermediateThrowEvent(FAILING_EVENT)
-            .camundaAsyncBefore(true)
-            .camundaFailedJobRetryTimeCycle(SCHEDULE)
+            .flowaveAsyncBefore(true)
+            .flowaveFailedJobRetryTimeCycle(SCHEDULE)
             .signal(MESSAGE)
           .serviceTask()
-            .camundaClass(FailingDelegate.class.getName())
+            .flowaveClass(FailingDelegate.class.getName())
         .endEvent()
         .done();
     return modelInstance;
@@ -57,11 +57,11 @@ public class RetryCmdDeployment {
     return Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
           .intermediateThrowEvent(FAILING_EVENT)
-            .camundaAsyncBefore(true)
-              .camundaFailedJobRetryTimeCycle(SCHEDULE)
+            .flowaveAsyncBefore(true)
+              .flowaveFailedJobRetryTimeCycle(SCHEDULE)
               .message(MESSAGE)
             .serviceTask()
-              .camundaClass(FailingDelegate.class.getName())
+              .flowaveClass(FailingDelegate.class.getName())
         .done();
   }
 
@@ -69,11 +69,11 @@ public class RetryCmdDeployment {
     return Bpmn.createExecutableProcess(PROCESS_ID)
         .startEvent()
           .intermediateThrowEvent(FAILING_EVENT)
-            .camundaAsyncBefore(true)
-            .camundaFailedJobRetryTimeCycle(SCHEDULE)
+            .flowaveAsyncBefore(true)
+            .flowaveFailedJobRetryTimeCycle(SCHEDULE)
             .escalation(MESSAGE)
           .serviceTask()
-            .camundaClass(FailingDelegate.class.getName())
+            .flowaveClass(FailingDelegate.class.getName())
         .endEvent()
         .done();
   }
@@ -88,12 +88,12 @@ public class RetryCmdDeployment {
               .endEvent()
           .subProcessDone()
           .intermediateThrowEvent(FAILING_EVENT)
-            .camundaAsyncBefore(true)
-            .camundaFailedJobRetryTimeCycle(SCHEDULE)
+            .flowaveAsyncBefore(true)
+            .flowaveFailedJobRetryTimeCycle(SCHEDULE)
             .compensateEventDefinition()
             .compensateEventDefinitionDone()
           .serviceTask()
-          .camundaClass(FailingDelegate.class.getName())
+          .flowaveClass(FailingDelegate.class.getName())
         .endEvent()
         .done();
   }

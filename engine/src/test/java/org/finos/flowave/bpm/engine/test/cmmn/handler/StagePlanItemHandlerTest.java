@@ -571,7 +571,7 @@ public class StagePlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 
@@ -593,7 +593,7 @@ public class StagePlanItemHandlerTest extends CmmnElementHandlerTest {
     ConditionExpression expression = createElement(repetitionRule, "Expression_1", ConditionExpression.class);
     expression.setText("${true}");
 
-    repetitionRule.setCamundaRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
+    repetitionRule.setFlowaveRepeatOnStandardEvent(CaseExecutionListener.DISABLE);
 
     Cmmn.validateModel(modelInstance);
 

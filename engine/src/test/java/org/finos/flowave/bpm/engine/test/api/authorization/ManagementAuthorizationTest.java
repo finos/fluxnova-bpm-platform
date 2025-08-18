@@ -60,7 +60,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get table count //////////////////////////////////////////////
 
   @Test
-  public void shouldGetTableCountAsCamundaAdmin() {
+  public void shouldGetTableCountAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -111,7 +111,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get table name //////////////////////////////////////////////
 
   @Test
-  public void shouldGetTableNameAsCamundaAdmin() {
+  public void shouldGetTableNameAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
     String tablePrefix = processEngineConfiguration.getDatabaseTablePrefix();
@@ -165,7 +165,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get table meta data //////////////////////////////////////////////
 
   @Test
-  public void shouldGetTableMetaDataAsCamundaAdmin() {
+  public void shouldGetTableMetaDataAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -229,7 +229,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   }
 
   @Test
-  public void shouldPerformTablePageQueryAsCamundaAdmin() {
+  public void shouldPerformTablePageQueryAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
     String tablePrefix = processEngineConfiguration.getDatabaseTablePrefix();
@@ -244,7 +244,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get history level /////////////////////////////////
 
   @Test
-  public void shouldGetHistoryLevelAsCamundaAdmin() {
+  public void shouldGetHistoryLevelAsFlowaveAdmin() {
     //given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -309,7 +309,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
 
 
   @Test
-  public void shouldGetPropertiesAsCamundaAdmin() {
+  public void shouldGetPropertiesAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -373,7 +373,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // set properties ///////////////////////////
 
   @Test
-  public void shouldSetPropertyAsCamundaAdmin() {
+  public void shouldSetPropertyAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -427,7 +427,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // delete properties ///////////////////////////
 
   @Test
-  public void shouldDeletePropertyAsCamundaAdmin() {
+  public void shouldDeletePropertyAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
     managementService.setProperty(DUMMY_VALUE, DUMMY_PROPERTY);
@@ -499,7 +499,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get telemetry data /////////////////////////////////////
 
   @Test
-  public void shouldGetTelemetryDataAsCamundaAdmin() {
+  public void shouldGetTelemetryDataAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -551,7 +551,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // get license key /////////////////////////////////////
 
   @Test
-  public void shouldGetLicenseKeyAsCamundaAdmin() {
+  public void shouldGetLicenseKeyAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
     managementService.setLicenseKey("testLicenseKey");
@@ -608,7 +608,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // set license key /////////////////////////////////////
 
   @Test
-  public void shouldSetLicenseKeyAsCamundaAdmin() {
+  public void shouldSetLicenseKeyAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -661,7 +661,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // delete license key //////////////////////////////////
 
   @Test
-  public void shouldDeleteLicenseKeyAsCamundaAdmin() {
+  public void shouldDeleteLicenseKeyAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
     managementService.setLicenseKey("testLicenseKey");
@@ -720,7 +720,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // delete metrics //////////////////////////////////////
 
   @Test
-  public void shouldDeleteMetricsAsCamundaAdmin() {
+  public void shouldDeleteMetricsAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -777,7 +777,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // delete task metrics /////////////////////////////////
 
   @Test
-  public void shouldDeleteTaskMetricsAsCamundaAdmin() {
+  public void shouldDeleteTaskMetricsAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -831,7 +831,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // query schema log list //////////////////////////////////////////
 
   @Test
-  public void shouldExecuteSchemaLogListAsCamundaAdmin() {
+  public void shouldExecuteSchemaLogListAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 
@@ -881,7 +881,7 @@ public class ManagementAuthorizationTest extends AuthorizationTest {
   // query schema log count //////////////////////////////////////////
 
   @Test
-  public void shouldExecuteSchemaLogCountAsCamundaAdmin() {
+  public void shouldExecuteSchemaLogCountAsFlowaveAdmin() {
     // given
     identityService.setAuthentication(userId, Collections.singletonList(Groups.CAMUNDA_ADMIN));
 

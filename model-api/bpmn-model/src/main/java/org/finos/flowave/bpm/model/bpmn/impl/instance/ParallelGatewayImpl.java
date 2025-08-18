@@ -72,7 +72,7 @@ public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway 
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public boolean isCamundaAsync() {
+  public boolean isFlowaveAsync() {
     return camundaAsyncAttribute.getValue(this);
   }
 
@@ -80,7 +80,7 @@ public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway 
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  public void setCamundaAsync(boolean isCamundaAsync) {
+  public void setFlowaveAsync(boolean isCamundaAsync) {
     camundaAsyncAttribute.setValue(this, isCamundaAsync);
   }
 

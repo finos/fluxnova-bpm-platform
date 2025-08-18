@@ -969,7 +969,7 @@ public class IdentityServiceTest {
   }
 
   @Test
-  public void testCamundaAdminId() {
+  public void testFlowaveAdminId() {
     String camundaAdminID = "flowave-admin";
     try {
       identityService.newUser(camundaAdminID);

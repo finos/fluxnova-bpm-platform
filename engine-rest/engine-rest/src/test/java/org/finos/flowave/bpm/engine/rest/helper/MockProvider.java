@@ -1023,7 +1023,7 @@ public abstract class MockProvider {
   public static final InternalsImpl EXAMPLE_TELEMETRY_INTERNALS = new InternalsImpl(EXAMPLE_TELEMETRY_DATABASE,
       EXAMPLE_TELEMETRY_SERVER, EXAMPLE_TELEMETRY_LICENSE, EXAMPLE_TELEMETRY_JDK);
   static {
-    EXAMPLE_TELEMETRY_INTERNALS.setCamundaIntegration(
+    EXAMPLE_TELEMETRY_INTERNALS.setFlowaveIntegration(
         Stream.of("spring-boot-starter", "camunda-bpm-run").collect(Collectors.toCollection(HashSet::new)));
     EXAMPLE_TELEMETRY_INTERNALS
         .setWebapps(Stream.of("cockpit", "admin").collect(Collectors.toCollection(HashSet::new)));
@@ -1034,7 +1034,7 @@ public abstract class MockProvider {
         .of(new Object[][] { { "process-instances", 936L }, { "flow-node-instances", 6125L },
             { "decision-instances", 140L }, { "executed-decision-elements", 732L } })
         .collect(Collectors.toMap(data -> (String) data[0], data -> new MetricImpl((Long) data[1]))));
-    EXAMPLE_TELEMETRY_INTERNALS.setCamundaIntegration(Collections.singleton("spring-boot"));
+    EXAMPLE_TELEMETRY_INTERNALS.setFlowaveIntegration(Collections.singleton("spring-boot"));
     EXAMPLE_TELEMETRY_INTERNALS.setWebapps(Collections.singleton("cockpit"));
     EXAMPLE_TELEMETRY_INTERNALS.setDataCollectionStartDate(DateTimeUtil.parseDate(EXAMPLE_TELEMETRY_DATA_COLLECTION_START_DATE));
   }
@@ -1065,7 +1065,7 @@ public abstract class MockProvider {
       .caseInstanceId(EXAMPLE_CASE_INSTANCE_ID)
       .caseExecutionId(EXAMPLE_CASE_EXECUTION_ID)
       .formKey(EXAMPLE_FORM_KEY)
-      .camundaFormRef(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING, EXAMPLE_FORM_REF_VERSION)
+      .flowaveFormRef(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING, EXAMPLE_FORM_REF_VERSION)
       .tenantId(EXAMPLE_TENANT_ID)
       .taskState(EXAMPLE_HISTORIC_TASK_STATE)
       .tenantId(EXAMPLE_TENANT_ID)
@@ -1130,7 +1130,7 @@ public abstract class MockProvider {
 
     FlowaveFormRefImpl formRef = new FlowaveFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
     formRef.setVersion(EXAMPLE_FORM_REF_VERSION);
-    when(mockFormData.getCamundaFormRef()).thenReturn(formRef);
+    when(mockFormData.getFlowaveFormRef()).thenReturn(formRef);
 
     return mockFormData;
   }
@@ -1281,7 +1281,7 @@ public abstract class MockProvider {
 
     FlowaveFormRefImpl formRef = new FlowaveFormRefImpl(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING);
     formRef.setVersion(EXAMPLE_FORM_REF_VERSION);
-    when(mockFormData.getCamundaFormRef()).thenReturn(formRef);
+    when(mockFormData.getFlowaveFormRef()).thenReturn(formRef);
 
     return mockFormData;
   }
@@ -1776,7 +1776,7 @@ public abstract class MockProvider {
     return mockResource;
   }
 
-  public static Resource createMockDeploymentCamundaFormResource() {
+  public static Resource createMockDeploymentFlowaveFormResource() {
     Resource mockResource = mock(ResourceEntity.class);
     when(mockResource.getId()).thenReturn(EXAMPLE_DEPLOYMENT_CAMFORM_RESOURCE_ID);
     when(mockResource.getName()).thenReturn(EXAMPLE_DEPLOYMENT_CAMFORM_RESOURCE_NAME);

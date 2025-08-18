@@ -65,19 +65,19 @@ public class FlowaveConnectorImpl extends BpmnModelElementInstanceImpl implement
     super(instanceContext);
   }
 
-  public FlowaveConnectorId getCamundaConnectorId() {
+  public FlowaveConnectorId getFlowaveConnectorId() {
     return camundaConnectorIdChild.getChild(this);
   }
 
-  public void setCamundaConnectorId(FlowaveConnectorId camundaConnectorId) {
+  public void setFlowaveConnectorId(FlowaveConnectorId camundaConnectorId) {
     camundaConnectorIdChild.setChild(this, camundaConnectorId);
   }
 
-  public FlowaveInputOutput getCamundaInputOutput() {
+  public FlowaveInputOutput getFlowaveInputOutput() {
     return camundaInputOutputChild.getChild(this);
   }
 
-  public void setCamundaInputOutput(FlowaveInputOutput camundaInputOutput) {
+  public void setFlowaveInputOutput(FlowaveInputOutput camundaInputOutput) {
     camundaInputOutputChild.setChild(this, camundaInputOutput);
   }
 

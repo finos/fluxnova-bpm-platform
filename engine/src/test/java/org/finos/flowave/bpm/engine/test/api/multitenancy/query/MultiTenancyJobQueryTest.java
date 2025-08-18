@@ -41,7 +41,7 @@ public class MultiTenancyJobQueryTest extends PluggableProcessEngineTest {
     BpmnModelInstance asyncTaskProcess = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
       .userTask()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .endEvent()
     .done();
 

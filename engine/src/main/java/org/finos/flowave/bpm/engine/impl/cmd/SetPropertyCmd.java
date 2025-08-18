@@ -43,7 +43,7 @@ public class SetPropertyCmd implements Command<Object> {
   }
 
   public Object execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkSetProperty);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkSetProperty);
 
     final PropertyManager propertyManager = commandContext.getPropertyManager();
 

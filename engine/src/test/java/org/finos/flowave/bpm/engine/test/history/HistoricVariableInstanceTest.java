@@ -1049,7 +1049,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
   public void testImplicitVariableUpdateAndScopeDestroyedInOneTransaction() {
    testRule.deploy(Bpmn.createExecutableProcess("process1")
       .startEvent("start")
-      .serviceTask("task1").camundaExpression("${var.setValue(\"newValue\")}")
+      .serviceTask("task1").flowaveExpression("${var.setValue(\"newValue\")}")
       .endEvent("end")
       .done());
 
@@ -1937,14 +1937,14 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity()
         .calledElement("subProcess")
-        .camundaIn("executionListenerCounter","executionListenerCounter")
+        .flowaveIn("executionListenerCounter","executionListenerCounter")
         .endEvent()
         .done();
 
     BpmnModelInstance subProcess = Bpmn.createExecutableProcess("subProcess")
         .startEvent()
-        .camundaAsyncBefore()
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, "org.finos.flowave.bpm.engine.test.history.SubProcessActivityStartListener")
+        .flowaveAsyncBefore()
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, "org.finos.flowave.bpm.engine.test.history.SubProcessActivityStartListener")
         .endEvent()
         .done();
     org.finos.flowave.bpm.engine.repository.Deployment deployment = repositoryService.createDeployment()
@@ -1966,8 +1966,8 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
     //given
     BpmnModelInstance subProcess = Bpmn.createExecutableProcess("process")
       .startEvent()
-      .camundaAsyncBefore()
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, SubProcessActivityStartListener.class.getName())
+      .flowaveAsyncBefore()
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, SubProcessActivityStartListener.class.getName())
       .endEvent()
       .done();
 
@@ -1989,8 +1989,8 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
     //given
     BpmnModelInstance subProcess = Bpmn.createExecutableProcess("process")
       .startEvent()
-      .camundaAsyncBefore()
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, SubProcessActivityStartListener.class.getName())
+      .flowaveAsyncBefore()
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, SubProcessActivityStartListener.class.getName())
       .endEvent()
       .done();
 
@@ -2117,7 +2117,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
     // given a process definition with asynchronous start event
    testRule.deploy(Bpmn.createExecutableProcess("testProcess")
       .startEvent()
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
       .endEvent()
       .done());
 
@@ -2156,7 +2156,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
     // given a process definition with asynchronous start event
    testRule.deploy(Bpmn.createExecutableProcess("testProcess")
       .startEvent()
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
       .endEvent()
       .done());
 

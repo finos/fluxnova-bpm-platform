@@ -38,7 +38,7 @@ public class GetTableNameCmd implements Command<String>, Serializable {
   public String execute(CommandContext commandContext) {
     ensureNotNull("entityClass", entityClass);
 
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadTableName);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadTableName);
 
     return commandContext
       .getTableDataManager()

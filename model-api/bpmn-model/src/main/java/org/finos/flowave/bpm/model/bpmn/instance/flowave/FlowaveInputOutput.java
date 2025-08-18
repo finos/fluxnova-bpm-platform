@@ -26,8 +26,8 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveInputOutput extends BpmnModelElementInstance {
 
-  Collection<FlowaveInputParameter> getCamundaInputParameters();
+  Collection<FlowaveInputParameter> getFlowaveInputParameters();
 
-  Collection<FlowaveOutputParameter> getCamundaOutputParameters();
+  Collection<FlowaveOutputParameter> getFlowaveOutputParameters();
 
 }

@@ -145,7 +145,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   protected void initializeTaskDefinitionFormKey(CmmnElement element, TaskDefinition taskDefinition, CmmnHandlerContext context) {
     HumanTask definition = getDefinition(element);
 
-    String formKey = definition.getCamundaFormKey();
+    String formKey = definition.getFlowaveFormKey();
     if (formKey != null) {
       ExpressionManager expressionManager = context.getExpressionManager();
       Expression formKeyExpression = expressionManager.createExpression(formKey);
@@ -161,7 +161,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     if (performer != null) {
       assignee = performer.getName();
     } else {
-      assignee = definition.getCamundaAssignee();
+      assignee = definition.getFlowaveAssignee();
     }
 
     if (assignee != null) {
@@ -175,7 +175,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     HumanTask definition = getDefinition(element);
     ExpressionManager expressionManager = context.getExpressionManager();
 
-    List<String> candidateUsers = definition.getCamundaCandidateUsersList();
+    List<String> candidateUsers = definition.getFlowaveCandidateUsersList();
     for (String candidateUser : candidateUsers) {
       Expression candidateUserExpression = expressionManager.createExpression(candidateUser);
       taskDefinition.addCandidateUserIdExpression(candidateUserExpression);
@@ -186,7 +186,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     HumanTask definition = getDefinition(element);
     ExpressionManager expressionManager = context.getExpressionManager();
 
-    List<String> candidateGroups = definition.getCamundaCandidateGroupsList();
+    List<String> candidateGroups = definition.getFlowaveCandidateGroupsList();
     for (String candidateGroup : candidateGroups) {
       Expression candidateGroupExpression = expressionManager.createExpression(candidateGroup);
       taskDefinition.addCandidateGroupIdExpression(candidateGroupExpression);
@@ -196,7 +196,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   protected void initializeTaskDefinitionDueDate(CmmnElement element, TaskDefinition taskDefinition, CmmnHandlerContext context) {
     HumanTask definition = getDefinition(element);
 
-    String dueDate = definition.getCamundaDueDate();
+    String dueDate = definition.getFlowaveDueDate();
     if (dueDate != null) {
       ExpressionManager expressionManager = context.getExpressionManager();
       Expression dueDateExpression = expressionManager.createExpression(dueDate);
@@ -207,7 +207,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   protected void initializeTaskDefinitionFollowUpDate(CmmnElement element, TaskDefinition taskDefinition, CmmnHandlerContext context) {
     HumanTask definition = getDefinition(element);
 
-    String followUpDate = definition.getCamundaFollowUpDate();
+    String followUpDate = definition.getFlowaveFollowUpDate();
     if (followUpDate != null) {
       ExpressionManager expressionManager = context.getExpressionManager();
       Expression followUpDateExpression = expressionManager.createExpression(followUpDate);
@@ -218,7 +218,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   protected void initializeTaskDefinitionPriority(CmmnElement element, TaskDefinition taskDefinition, CmmnHandlerContext context) {
     HumanTask definition = getDefinition(element);
 
-    String priority = definition.getCamundaPriority();
+    String priority = definition.getFlowavePriority();
     if (priority != null) {
       ExpressionManager expressionManager = context.getExpressionManager();
       Expression priorityExpression = expressionManager.createExpression(priority);
@@ -251,7 +251,7 @@ public class HumanTaskItemHandler extends TaskItemHandler {
     for (FlowaveTaskListener listener : listeners) {
       TaskListener taskListener = initializeTaskListener(element, activity, context, listener);
 
-      String eventName = listener.getCamundaEvent();
+      String eventName = listener.getFlowaveEvent();
       if (eventName != null) {
         taskDefinition.addTaskListener(eventName, taskListener);
 
@@ -266,17 +266,17 @@ public class HumanTaskItemHandler extends TaskItemHandler {
   }
 
   protected TaskListener initializeTaskListener(CmmnElement element, CmmnActivity activity, CmmnHandlerContext context, FlowaveTaskListener listener) {
-    Collection<FlowaveField> fields = listener.getCamundaFields();
+    Collection<FlowaveField> fields = listener.getFlowaveFields();
     List<FieldDeclaration> fieldDeclarations = initializeFieldDeclarations(element, activity, context, fields);
 
     ExpressionManager expressionManager = context.getExpressionManager();
 
     TaskListener taskListener = null;
 
-    String className = listener.getCamundaClass();
-    String expression = listener.getCamundaExpression();
-    String delegateExpression = listener.getCamundaDelegateExpression();
-    FlowaveScript scriptElement = listener.getCamundaScript();
+    String className = listener.getFlowaveClass();
+    String expression = listener.getFlowaveExpression();
+    String delegateExpression = listener.getFlowaveDelegateExpression();
+    FlowaveScript scriptElement = listener.getFlowaveScript();
 
     if (className != null) {
       taskListener = new ClassDelegateTaskListener(className, fieldDeclarations);

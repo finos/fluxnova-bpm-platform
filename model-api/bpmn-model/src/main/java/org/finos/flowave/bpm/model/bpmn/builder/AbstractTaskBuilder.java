@@ -44,8 +44,8 @@ public abstract class AbstractTaskBuilder<B extends AbstractTaskBuilder<B, E>, E
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync() {
-    element.setCamundaAsyncBefore(true);
+  public B flowaveAsync() {
+    element.setFlowaveAsyncBefore(true);
     return myself;
   }
 
@@ -58,8 +58,8 @@ public abstract class AbstractTaskBuilder<B extends AbstractTaskBuilder<B, E>, E
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync(boolean isCamundaAsync) {
-    element.setCamundaAsyncBefore(isCamundaAsync);
+  public B flowaveAsync(boolean isCamundaAsync) {
+    element.setFlowaveAsyncBefore(isCamundaAsync);
     return myself;
   }
 

@@ -279,10 +279,10 @@ public class TaskIdentityLinksTest extends PluggableProcessEngineTest {
   public void testAssigneeGetIdentityLinksInCompleteListener() {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask("task1")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_COMPLETE, GetIdentityLinksTaskListener.class.getName())
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_COMPLETE, GetIdentityLinksTaskListener.class.getName())
         .userTask("task2")
         .endEvent()
         .done();
@@ -310,10 +310,10 @@ public class TaskIdentityLinksTest extends PluggableProcessEngineTest {
   public void testOwnerGetIdentityLinksInCompleteListener() {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask("task1")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_COMPLETE, GetIdentityLinksTaskListener.class.getName())
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_COMPLETE, GetIdentityLinksTaskListener.class.getName())
         .userTask("task2")
         .endEvent()
         .done();

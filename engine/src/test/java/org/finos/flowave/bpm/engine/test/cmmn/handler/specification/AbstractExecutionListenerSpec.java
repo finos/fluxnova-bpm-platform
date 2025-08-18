@@ -53,7 +53,7 @@ public abstract class AbstractExecutionListenerSpec {
     FlowaveCaseExecutionListener caseExecutionListener = SpecUtil.createElement(modelInstance, extensionElements, null, FlowaveCaseExecutionListener.class);
 
     if (!ANY_EVENT.equals(eventNameToRegisterOn)) {
-      caseExecutionListener.setCamundaEvent(eventNameToRegisterOn);
+      caseExecutionListener.setFlowaveEvent(eventNameToRegisterOn);
     }
 
     configureCaseExecutionListener(modelInstance, caseExecutionListener);

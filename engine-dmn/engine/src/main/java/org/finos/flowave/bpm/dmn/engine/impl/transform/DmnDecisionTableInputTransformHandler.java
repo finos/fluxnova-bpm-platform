@@ -32,7 +32,7 @@ public class DmnDecisionTableInputTransformHandler implements DmnElementTransfor
 
     decisionTableInput.setId(input.getId());
     decisionTableInput.setName(input.getLabel());
-    decisionTableInput.setInputVariable(input.getCamundaInputVariable());
+    decisionTableInput.setInputVariable(input.getFlowaveInputVariable());
 
     return decisionTableInput;
   }

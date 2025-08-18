@@ -82,10 +82,10 @@ public class MultiTenancyHistoricDetailFormPropertyQueryTest {
     BpmnModelInstance oneTaskProcess = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
       .userTask("userTask")
-        .camundaFormField()
-          .camundaId("myFormField")
-          .camundaType("string")
-          .camundaFormFieldDone()
+        .flowaveFormField()
+          .flowaveId("myFormField")
+          .flowaveType("string")
+          .flowaveFormFieldDone()
       .endEvent()
     .done();
 

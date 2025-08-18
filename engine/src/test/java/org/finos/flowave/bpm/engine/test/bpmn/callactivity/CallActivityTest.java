@@ -470,39 +470,39 @@ public class CallActivityTest extends PluggableProcessEngineTest {
 
     // create camunda:in with source but without target
     FlowaveIn camundaIn = modelInstance.newInstance(FlowaveIn.class);
-    camundaIn.setCamundaSource("superVariable");
+    camundaIn.setFlowaveSource("superVariable");
     callActivityBuilder.addExtensionElement(camundaIn);
 
     deployAndExpectException(modelInstance);
     // set target
-    camundaIn.setCamundaTarget("subVariable");
+    camundaIn.setFlowaveTarget("subVariable");
 
     // create camunda:in with sourceExpression but without target
     camundaIn = modelInstance.newInstance(FlowaveIn.class);
-    camundaIn.setCamundaSourceExpression("${x+5}");
+    camundaIn.setFlowaveSourceExpression("${x+5}");
     callActivityBuilder.addExtensionElement(camundaIn);
 
     deployAndExpectException(modelInstance);
     // set target
-    camundaIn.setCamundaTarget("subVariable2");
+    camundaIn.setFlowaveTarget("subVariable2");
 
     // create camunda:out with source but without target
     FlowaveOut camundaOut = modelInstance.newInstance(FlowaveOut.class);
-    camundaOut.setCamundaSource("subVariable");
+    camundaOut.setFlowaveSource("subVariable");
     callActivityBuilder.addExtensionElement(camundaOut);
 
     deployAndExpectException(modelInstance);
     // set target
-    camundaOut.setCamundaTarget("superVariable");
+    camundaOut.setFlowaveTarget("superVariable");
 
     // create camunda:out with sourceExpression but without target
     camundaOut = modelInstance.newInstance(FlowaveOut.class);
-    camundaOut.setCamundaSourceExpression("${y+1}");
+    camundaOut.setFlowaveSourceExpression("${y+1}");
     callActivityBuilder.addExtensionElement(camundaOut);
 
     deployAndExpectException(modelInstance);
     // set target
-    camundaOut.setCamundaTarget("superVariable2");
+    camundaOut.setFlowaveTarget("superVariable2");
 
     try {
       String deploymentId = repositoryService.createDeployment().addModelInstance("process.bpmn", modelInstance).deploy().getId();
@@ -1577,7 +1577,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity("callActivity")
         .calledElement("subProcess")
-        .camundaCalledElementBinding("versionTag")
+        .flowaveCalledElementBinding("versionTag")
         .endEvent()
         .done();
 
@@ -1843,7 +1843,7 @@ public class CallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("simpleSubProcess")
       .startEvent()
       .serviceTask()
-      .camundaClass(AssertTransientVariableDelegate.class)
+      .flowaveClass(AssertTransientVariableDelegate.class)
       .userTask()
       .endEvent()
       .done();
@@ -1872,9 +1872,9 @@ public class CallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
       .calledElement("oneTaskProcess")
-      .camundaOut("var", "var")
+      .flowaveOut("var", "var")
       .serviceTask()
-      .camundaClass(AssertTransientVariableDelegate.class)
+      .flowaveClass(AssertTransientVariableDelegate.class)
       .userTask()
       .endEvent()
       .done();
@@ -1916,8 +1916,8 @@ public class CallActivityTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity("callActivity")
         .calledElement("subProcess")
-        .camundaCalledElementBinding("versionTag")
-        .camundaCalledElementVersionTag(versionTag)
+        .flowaveCalledElementBinding("versionTag")
+        .flowaveCalledElementVersionTag(versionTag)
         .endEvent()
         .done();
   }

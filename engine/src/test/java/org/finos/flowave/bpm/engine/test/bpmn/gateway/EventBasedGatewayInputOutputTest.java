@@ -40,13 +40,13 @@ public class EventBasedGatewayInputOutputTest extends PluggableProcessEngineTest
       .startEvent()
       .eventBasedGateway()
       .intermediateCatchEvent("conditionalEvent")
-        .camundaOutputParameter("eventOutput", "foo")
+        .flowaveOutputParameter("eventOutput", "foo")
         .conditionalEventDefinition()
         .condition("${moveOn}")
         .conditionalEventDefinitionDone()
       .serviceTask("inputParameterTask")
-        .camundaInputParameter("variable1", "testValue")
-        .camundaClass(VariableLogDelegate.class)
+        .flowaveInputParameter("variable1", "testValue")
+        .flowaveClass(VariableLogDelegate.class)
       .endEvent()
       .done();
 

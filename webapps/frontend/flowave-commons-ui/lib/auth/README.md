@@ -27,7 +27,7 @@ require.config({
   // http://requirejs.org/docs/api.html#packages
   packages: [
     {
-      name: 'flowave-commons-ui/util',
+      name: 'flowave-commons-ui/util'
       main: 'index'
     },
     {
@@ -183,16 +183,16 @@ The service emits events. An events default action may be suppressed by calling 
 
 ### Directives
 
-Use the directives `fw-if-logged-in` and `fw-if-logged-out` to conditionally show elements based on whether the user is logged in.
+Use the directives `cam-if-logged-in` and `cam-if-logged-out` to conditionally show elements based on whether the user is logged in.
 
 ```xml
 <h1>Overview</h1>
 
-<div fw-if-logged-in>
+<div cam-if-logged-in>
   <div user-dashboard></div>
 </div>
 
-<div fw-if-logged-out>
+<div cam-if-logged-out>
   <a>Login to access your dashboard</a>
 </div>
 ```

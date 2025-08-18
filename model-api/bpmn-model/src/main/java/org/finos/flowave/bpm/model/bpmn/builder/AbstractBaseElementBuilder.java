@@ -195,7 +195,7 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     Error error = createChild(definitions, Error.class);
     error.setErrorCode(errorCode);
     if(errorMessage != null && !errorMessage.equals("")) {
-      error.setCamundaErrorMessage(errorMessage);
+      error.setFlowaveErrorMessage(errorMessage);
     }
     
     return error;

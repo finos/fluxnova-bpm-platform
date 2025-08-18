@@ -41,7 +41,7 @@ public class DeleteLicenseKeyCmd extends LicenseCmd implements Command<Object> {
 
   @Override
   public Object execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkDeleteLicenseKey);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkDeleteLicenseKey);
 
     final ResourceManager resourceManager = commandContext.getResourceManager();
     final PropertyManager propertyManager = commandContext.getPropertyManager();

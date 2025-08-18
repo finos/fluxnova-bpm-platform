@@ -25,12 +25,12 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveConstraint extends BpmnModelElementInstance {
 
-  String getCamundaName();
+  String getFlowaveName();
 
-  void setCamundaName(String camundaName);
+  void setFlowaveName(String camundaName);
 
-  String getCamundaConfig();
+  String getFlowaveConfig();
 
-  void setCamundaConfig(String camundaConfig);
+  void setFlowaveConfig(String camundaConfig);
 
 }

@@ -193,7 +193,7 @@ public class ProcessBuilderTest {
         .iterator()
         .next();
 
-    assertThat(process.getCamundaHistoryTimeToLiveString())
+    assertThat(process.getFlowaveHistoryTimeToLiveString())
         .isEqualTo("P180D");
   }
 
@@ -205,19 +205,19 @@ public class ProcessBuilderTest {
         .iterator()
         .next();
 
-    assertThat(process.getCamundaHistoryTimeToLiveString())
+    assertThat(process.getFlowaveHistoryTimeToLiveString())
         .isEqualTo("P180D");
   }
 
   @Test
   public void shouldHaveNullHTTLValueOnCreateProcessWithSkipHTTL() {
-    modelInstance = Bpmn.createProcess().camundaHistoryTimeToLive(null).done();
+    modelInstance = Bpmn.createProcess().flowaveHistoryTimeToLive(null).done();
 
     var process = (Process) modelInstance.getModelElementsByType(processType)
         .iterator()
         .next();
 
-    assertThat(process.getCamundaHistoryTimeToLiveString())
+    assertThat(process.getFlowaveHistoryTimeToLiveString())
         .isNull();
   }
 
@@ -227,17 +227,17 @@ public class ProcessBuilderTest {
 
     var process = (Process) modelInstance.getModelElementById(PROCESS_ID);
 
-    assertThat(process.getCamundaHistoryTimeToLiveString())
+    assertThat(process.getFlowaveHistoryTimeToLiveString())
         .isEqualTo("P180D");
   }
 
   @Test
   public void shouldHaveNullHTTLValueOnCreateProcessIdWithSkipHTTL(){
-    modelInstance = Bpmn.createProcess(PROCESS_ID).camundaHistoryTimeToLive(null).done();
+    modelInstance = Bpmn.createProcess(PROCESS_ID).flowaveHistoryTimeToLive(null).done();
 
     var process = (Process) modelInstance.getModelElementById(PROCESS_ID);
 
-    assertThat(process.getCamundaHistoryTimeToLiveString())
+    assertThat(process.getFlowaveHistoryTimeToLiveString())
         .isNull();
   }
 
@@ -551,34 +551,34 @@ public class ProcessBuilderTest {
       .executable()
       .startEvent()
         .name("Invoice received")
-        .camundaFormKey("embedded:app:forms/start-form.html")
+        .flowaveFormKey("embedded:app:forms/start-form.html")
       .userTask()
         .name("Assign Approver")
-        .camundaFormKey("embedded:app:forms/assign-approver.html")
-        .camundaAssignee("demo")
+        .flowaveFormKey("embedded:app:forms/assign-approver.html")
+        .flowaveAssignee("demo")
       .userTask("approveInvoice")
         .name("Approve Invoice")
-        .camundaFormKey("embedded:app:forms/approve-invoice.html")
-        .camundaAssignee("${approver}")
+        .flowaveFormKey("embedded:app:forms/approve-invoice.html")
+        .flowaveAssignee("${approver}")
       .exclusiveGateway()
         .name("Invoice approved?")
         .gatewayDirection(GatewayDirection.Diverging)
       .condition("yes", "${approved}")
       .userTask()
         .name("Prepare Bank Transfer")
-        .camundaFormKey("embedded:app:forms/prepare-bank-transfer.html")
-        .camundaCandidateGroups("accounting")
+        .flowaveFormKey("embedded:app:forms/prepare-bank-transfer.html")
+        .flowaveCandidateGroups("accounting")
       .serviceTask()
         .name("Archive Invoice")
-        .camundaClass("org.finos.flowave.bpm.example.invoice.service.ArchiveInvoiceService" )
+        .flowaveClass("org.finos.flowave.bpm.example.invoice.service.ArchiveInvoiceService" )
       .endEvent()
         .name("Invoice processed")
       .moveToLastGateway()
       .condition("no", "${!approved}")
       .userTask()
         .name("Review Invoice")
-        .camundaFormKey("embedded:app:forms/review-invoice.html" )
-        .camundaAssignee("demo")
+        .flowaveFormKey("embedded:app:forms/review-invoice.html" )
+        .flowaveAssignee("demo")
        .exclusiveGateway()
         .name("Review successful?")
         .gatewayDirection(GatewayDirection.Diverging)
@@ -592,23 +592,23 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testProcessCamundaExtensions() {
+  public void testProcessFlowaveExtensions() {
     modelInstance = Bpmn.createProcess(PROCESS_ID)
-      .camundaJobPriority("${somePriority}")
-      .camundaTaskPriority(TEST_PROCESS_TASK_PRIORITY)
-      .camundaHistoryTimeToLive(TEST_HISTORY_TIME_TO_LIVE)
-      .camundaStartableInTasklist(TEST_STARTABLE_IN_TASKLIST)
-      .camundaVersionTag(TEST_VERSION_TAG)
+      .flowaveJobPriority("${somePriority}")
+      .flowaveTaskPriority(TEST_PROCESS_TASK_PRIORITY)
+      .flowaveHistoryTimeToLive(TEST_HISTORY_TIME_TO_LIVE)
+      .flowaveStartableInTasklist(TEST_STARTABLE_IN_TASKLIST)
+      .flowaveVersionTag(TEST_VERSION_TAG)
       .startEvent()
       .endEvent()
       .done();
 
     Process process = modelInstance.getModelElementById(PROCESS_ID);
-    assertThat(process.getCamundaJobPriority()).isEqualTo("${somePriority}");
-    assertThat(process.getCamundaTaskPriority()).isEqualTo(TEST_PROCESS_TASK_PRIORITY);
-    assertThat(process.getCamundaHistoryTimeToLive()).isEqualTo(TEST_HISTORY_TIME_TO_LIVE);
-    assertThat(process.isCamundaStartableInTasklist()).isEqualTo(TEST_STARTABLE_IN_TASKLIST);
-    assertThat(process.getCamundaVersionTag()).isEqualTo(TEST_VERSION_TAG);
+    assertThat(process.getFlowaveJobPriority()).isEqualTo("${somePriority}");
+    assertThat(process.getFlowaveTaskPriority()).isEqualTo(TEST_PROCESS_TASK_PRIORITY);
+    assertThat(process.getFlowaveHistoryTimeToLive()).isEqualTo(TEST_HISTORY_TIME_TO_LIVE);
+    assertThat(process.isFlowaveStartableInTasklist()).isEqualTo(TEST_STARTABLE_IN_TASKLIST);
+    assertThat(process.getFlowaveVersionTag()).isEqualTo(TEST_VERSION_TAG);
   }
 
   @Test
@@ -619,30 +619,30 @@ public class ProcessBuilderTest {
       .done();
 
     Process process = modelInstance.getModelElementById(PROCESS_ID);
-    assertThat(process.isCamundaStartableInTasklist()).isEqualTo(true);
+    assertThat(process.isFlowaveStartableInTasklist()).isEqualTo(true);
   }
 
   @Test
-  public void testTaskCamundaExternalTask() {
+  public void testTaskFlowaveExternalTask() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
         .serviceTask(EXTERNAL_TASK_ID)
-          .camundaExternalTask(TEST_EXTERNAL_TASK_TOPIC)
+          .flowaveExternalTask(TEST_EXTERNAL_TASK_TOPIC)
         .endEvent()
         .done();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(EXTERNAL_TASK_ID);
-    assertThat(serviceTask.getCamundaType()).isEqualTo("external");
-    assertThat(serviceTask.getCamundaTopic()).isEqualTo(TEST_EXTERNAL_TASK_TOPIC);
+    assertThat(serviceTask.getFlowaveType()).isEqualTo("external");
+    assertThat(serviceTask.getFlowaveTopic()).isEqualTo(TEST_EXTERNAL_TASK_TOPIC);
   }
 
   @Test
-  public void testTaskCamundaExternalTaskErrorEventDefinition() {
+  public void testTaskFlowaveExternalTaskErrorEventDefinition() {
     modelInstance = Bpmn.createProcess()
     .startEvent()
     .serviceTask(EXTERNAL_TASK_ID)
-    .camundaExternalTask(TEST_EXTERNAL_TASK_TOPIC)
-      .camundaErrorEventDefinition().id("id").error("myErrorCode", "errorMessage").expression("expression").errorEventDefinitionDone()
+    .flowaveExternalTask(TEST_EXTERNAL_TASK_TOPIC)
+      .flowaveErrorEventDefinition().id("id").error("myErrorCode", "errorMessage").expression("expression").errorEventDefinitionDone()
     .endEvent()
     .moveToActivity(EXTERNAL_TASK_ID)
     .boundaryEvent("boundary").error("myErrorCode", "errorMessage")
@@ -656,248 +656,248 @@ public class ProcessBuilderTest {
     FlowaveErrorEventDefinition camundaErrorEventDefinition = errorEventDefinitions.iterator().next();
     assertThat(camundaErrorEventDefinition).isNotNull();
     assertThat(camundaErrorEventDefinition.getId()).isEqualTo("id");
-    assertThat(camundaErrorEventDefinition.getCamundaExpression()).isEqualTo("expression");
+    assertThat(camundaErrorEventDefinition.getFlowaveExpression()).isEqualTo("expression");
     assertErrorEventDefinition("boundary", "myErrorCode", "errorMessage");
   }
 
   @Test
-  public void testTaskCamundaExtensions() {
+  public void testTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .serviceTask(TASK_ID)
-        .camundaAsyncBefore()
-        .notCamundaExclusive()
-        .camundaJobPriority("${somePriority}")
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveAsyncBefore()
+        .notFlowaveExclusive()
+        .flowaveJobPriority("${somePriority}")
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(serviceTask.isCamundaAsyncBefore()).isTrue();
-    assertThat(serviceTask.isCamundaExclusive()).isFalse();
-    assertThat(serviceTask.getCamundaJobPriority()).isEqualTo("${somePriority}");
-    assertThat(serviceTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(serviceTask.isFlowaveAsyncBefore()).isTrue();
+    assertThat(serviceTask.isFlowaveExclusive()).isFalse();
+    assertThat(serviceTask.getFlowaveJobPriority()).isEqualTo("${somePriority}");
+    assertThat(serviceTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
 
-    assertCamundaFailedJobRetryTimeCycle(serviceTask);
+    assertFlowaveFailedJobRetryTimeCycle(serviceTask);
   }
 
   @Test
-  public void testServiceTaskCamundaExtensions() {
+  public void testServiceTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .serviceTask(TASK_ID)
-        .camundaClass(TEST_CLASS_API)
-        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
-        .camundaExpression(TEST_EXPRESSION_API)
-        .camundaResultVariable(TEST_STRING_API)
-        .camundaTopic(TEST_STRING_API)
-        .camundaType(TEST_STRING_API)
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveClass(TEST_CLASS_API)
+        .flowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .flowaveExpression(TEST_EXPRESSION_API)
+        .flowaveResultVariable(TEST_STRING_API)
+        .flowaveTopic(TEST_STRING_API)
+        .flowaveType(TEST_STRING_API)
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .done();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(serviceTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(serviceTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(serviceTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(serviceTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaTopic()).isEqualTo(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaType()).isEqualTo(TEST_STRING_API);
-    assertThat(serviceTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(serviceTask.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(serviceTask.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(serviceTask.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(serviceTask.getFlowaveResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveTopic()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveType()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
 
-    assertCamundaFailedJobRetryTimeCycle(serviceTask);
+    assertFlowaveFailedJobRetryTimeCycle(serviceTask);
   }
 
   @Test
-  public void testServiceTaskCamundaClass() {
+  public void testServiceTaskFlowaveClass() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .serviceTask(TASK_ID)
-        .camundaClass(getClass().getName())
+        .flowaveClass(getClass().getName())
       .done();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(serviceTask.getCamundaClass()).isEqualTo(getClass().getName());
+    assertThat(serviceTask.getFlowaveClass()).isEqualTo(getClass().getName());
   }
 
 
   @Test
-  public void testSendTaskCamundaExtensions() {
+  public void testSendTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .sendTask(TASK_ID)
-        .camundaClass(TEST_CLASS_API)
-        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
-        .camundaExpression(TEST_EXPRESSION_API)
-        .camundaResultVariable(TEST_STRING_API)
-        .camundaTopic(TEST_STRING_API)
-        .camundaType(TEST_STRING_API)
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveClass(TEST_CLASS_API)
+        .flowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .flowaveExpression(TEST_EXPRESSION_API)
+        .flowaveResultVariable(TEST_STRING_API)
+        .flowaveTopic(TEST_STRING_API)
+        .flowaveType(TEST_STRING_API)
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     SendTask sendTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(sendTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(sendTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(sendTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(sendTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
-    assertThat(sendTask.getCamundaTopic()).isEqualTo(TEST_STRING_API);
-    assertThat(sendTask.getCamundaType()).isEqualTo(TEST_STRING_API);
-    assertThat(sendTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(sendTask.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(sendTask.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(sendTask.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(sendTask.getFlowaveResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(sendTask.getFlowaveTopic()).isEqualTo(TEST_STRING_API);
+    assertThat(sendTask.getFlowaveType()).isEqualTo(TEST_STRING_API);
+    assertThat(sendTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
 
-    assertCamundaFailedJobRetryTimeCycle(sendTask);
+    assertFlowaveFailedJobRetryTimeCycle(sendTask);
   }
 
   @Test
-  public void testSendTaskCamundaClass() {
+  public void testSendTaskFlowaveClass() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .sendTask(TASK_ID)
-        .camundaClass(this.getClass())
+        .flowaveClass(this.getClass())
       .endEvent()
       .done();
 
     SendTask sendTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(sendTask.getCamundaClass()).isEqualTo(this.getClass().getName());
+    assertThat(sendTask.getFlowaveClass()).isEqualTo(this.getClass().getName());
   }
 
   @Test
-  public void testUserTaskCamundaExtensions() {
+  public void testUserTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask(TASK_ID)
-        .camundaAssignee(TEST_STRING_API)
-        .camundaCandidateGroups(TEST_GROUPS_API)
-        .camundaCandidateUsers(TEST_USERS_LIST_API)
-        .camundaDueDate(TEST_DUE_DATE_API)
-        .camundaFollowUpDate(TEST_FOLLOW_UP_DATE_API)
-        .camundaFormHandlerClass(TEST_CLASS_API)
-        .camundaFormKey(TEST_STRING_API)
-        .camundaFormRef(FORM_ID)
-        .camundaFormRefBinding(TEST_STRING_FORM_REF_BINDING)
-        .camundaFormRefVersion(TEST_STRING_FORM_REF_VERSION)
-        .camundaPriority(TEST_PRIORITY_API)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveAssignee(TEST_STRING_API)
+        .flowaveCandidateGroups(TEST_GROUPS_API)
+        .flowaveCandidateUsers(TEST_USERS_LIST_API)
+        .flowaveDueDate(TEST_DUE_DATE_API)
+        .flowaveFollowUpDate(TEST_FOLLOW_UP_DATE_API)
+        .flowaveFormHandlerClass(TEST_CLASS_API)
+        .flowaveFormKey(TEST_STRING_API)
+        .flowaveFormRef(FORM_ID)
+        .flowaveFormRefBinding(TEST_STRING_FORM_REF_BINDING)
+        .flowaveFormRefVersion(TEST_STRING_FORM_REF_VERSION)
+        .flowavePriority(TEST_PRIORITY_API)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     UserTask userTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(userTask.getCamundaAssignee()).isEqualTo(TEST_STRING_API);
-    assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_API);
-    assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
-    assertThat(userTask.getCamundaCandidateUsers()).isEqualTo(TEST_USERS_API);
-    assertThat(userTask.getCamundaCandidateUsersList()).containsAll(TEST_USERS_LIST_API);
-    assertThat(userTask.getCamundaDueDate()).isEqualTo(TEST_DUE_DATE_API);
-    assertThat(userTask.getCamundaFollowUpDate()).isEqualTo(TEST_FOLLOW_UP_DATE_API);
-    assertThat(userTask.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(userTask.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
-    assertThat(userTask.getCamundaFormRef()).isEqualTo(FORM_ID);
-    assertThat(userTask.getCamundaFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
-    assertThat(userTask.getCamundaFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
-    assertThat(userTask.getCamundaPriority()).isEqualTo(TEST_PRIORITY_API);
+    assertThat(userTask.getFlowaveAssignee()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getFlowaveCandidateGroups()).isEqualTo(TEST_GROUPS_API);
+    assertThat(userTask.getFlowaveCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
+    assertThat(userTask.getFlowaveCandidateUsers()).isEqualTo(TEST_USERS_API);
+    assertThat(userTask.getFlowaveCandidateUsersList()).containsAll(TEST_USERS_LIST_API);
+    assertThat(userTask.getFlowaveDueDate()).isEqualTo(TEST_DUE_DATE_API);
+    assertThat(userTask.getFlowaveFollowUpDate()).isEqualTo(TEST_FOLLOW_UP_DATE_API);
+    assertThat(userTask.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(userTask.getFlowaveFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getFlowaveFormRef()).isEqualTo(FORM_ID);
+    assertThat(userTask.getFlowaveFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
+    assertThat(userTask.getFlowaveFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
+    assertThat(userTask.getFlowavePriority()).isEqualTo(TEST_PRIORITY_API);
 
-    assertCamundaFailedJobRetryTimeCycle(userTask);
+    assertFlowaveFailedJobRetryTimeCycle(userTask);
   }
 
   @Test
-  public void testBusinessRuleTaskCamundaExtensions() {
+  public void testBusinessRuleTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .businessRuleTask(TASK_ID)
-        .camundaClass(TEST_CLASS_API)
-        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
-        .camundaExpression(TEST_EXPRESSION_API)
-        .camundaResultVariable("resultVar")
-        .camundaTopic("topic")
-        .camundaType("type")
-        .camundaDecisionRef("decisionRef")
-        .camundaDecisionRefBinding("latest")
-        .camundaDecisionRefVersion("7")
-        .camundaDecisionRefVersionTag("0.1.0")
-        .camundaDecisionRefTenantId("tenantId")
-        .camundaMapDecisionResult("singleEntry")
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveClass(TEST_CLASS_API)
+        .flowaveDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .flowaveExpression(TEST_EXPRESSION_API)
+        .flowaveResultVariable("resultVar")
+        .flowaveTopic("topic")
+        .flowaveType("type")
+        .flowaveDecisionRef("decisionRef")
+        .flowaveDecisionRefBinding("latest")
+        .flowaveDecisionRefVersion("7")
+        .flowaveDecisionRefVersionTag("0.1.0")
+        .flowaveDecisionRefTenantId("tenantId")
+        .flowaveMapDecisionResult("singleEntry")
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     BusinessRuleTask businessRuleTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(businessRuleTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(businessRuleTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertThat(businessRuleTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
-    assertThat(businessRuleTask.getCamundaResultVariable()).isEqualTo("resultVar");
-    assertThat(businessRuleTask.getCamundaTopic()).isEqualTo("topic");
-    assertThat(businessRuleTask.getCamundaType()).isEqualTo("type");
-    assertThat(businessRuleTask.getCamundaDecisionRef()).isEqualTo("decisionRef");
-    assertThat(businessRuleTask.getCamundaDecisionRefBinding()).isEqualTo("latest");
-    assertThat(businessRuleTask.getCamundaDecisionRefVersion()).isEqualTo("7");
-    assertThat(businessRuleTask.getCamundaDecisionRefVersionTag()).isEqualTo("0.1.0");
-    assertThat(businessRuleTask.getCamundaDecisionRefTenantId()).isEqualTo("tenantId");
-    assertThat(businessRuleTask.getCamundaMapDecisionResult()).isEqualTo("singleEntry");
-    assertThat(businessRuleTask.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(businessRuleTask.getFlowaveClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(businessRuleTask.getFlowaveDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(businessRuleTask.getFlowaveExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(businessRuleTask.getFlowaveResultVariable()).isEqualTo("resultVar");
+    assertThat(businessRuleTask.getFlowaveTopic()).isEqualTo("topic");
+    assertThat(businessRuleTask.getFlowaveType()).isEqualTo("type");
+    assertThat(businessRuleTask.getFlowaveDecisionRef()).isEqualTo("decisionRef");
+    assertThat(businessRuleTask.getFlowaveDecisionRefBinding()).isEqualTo("latest");
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersion()).isEqualTo("7");
+    assertThat(businessRuleTask.getFlowaveDecisionRefVersionTag()).isEqualTo("0.1.0");
+    assertThat(businessRuleTask.getFlowaveDecisionRefTenantId()).isEqualTo("tenantId");
+    assertThat(businessRuleTask.getFlowaveMapDecisionResult()).isEqualTo("singleEntry");
+    assertThat(businessRuleTask.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
 
-    assertCamundaFailedJobRetryTimeCycle(businessRuleTask);
+    assertFlowaveFailedJobRetryTimeCycle(businessRuleTask);
   }
 
   @Test
-  public void testBusinessRuleTaskCamundaClass() {
+  public void testBusinessRuleTaskFlowaveClass() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .businessRuleTask(TASK_ID)
-        .camundaClass(Bpmn.class)
+        .flowaveClass(Bpmn.class)
       .endEvent()
       .done();
 
     BusinessRuleTask businessRuleTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(businessRuleTask.getCamundaClass()).isEqualTo("org.finos.flowave.bpm.model.bpmn.Bpmn");
+    assertThat(businessRuleTask.getFlowaveClass()).isEqualTo("org.finos.flowave.bpm.model.bpmn.Bpmn");
   }
 
   @Test
-  public void testScriptTaskCamundaExtensions() {
+  public void testScriptTaskFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .scriptTask(TASK_ID)
-        .camundaResultVariable(TEST_STRING_API)
-        .camundaResource(TEST_STRING_API)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveResultVariable(TEST_STRING_API)
+        .flowaveResource(TEST_STRING_API)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     ScriptTask scriptTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(scriptTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
-    assertThat(scriptTask.getCamundaResource()).isEqualTo(TEST_STRING_API);
+    assertThat(scriptTask.getFlowaveResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(scriptTask.getFlowaveResource()).isEqualTo(TEST_STRING_API);
 
-    assertCamundaFailedJobRetryTimeCycle(scriptTask);
+    assertFlowaveFailedJobRetryTimeCycle(scriptTask);
   }
 
   @Test
-  public void testStartEventCamundaExtensions() {
+  public void testStartEventFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent(START_EVENT_ID)
-        .camundaAsyncBefore()
-        .notCamundaExclusive()
-        .camundaFormHandlerClass(TEST_CLASS_API)
-        .camundaFormKey(TEST_STRING_API)
-        .camundaFormRef(FORM_ID)
-        .camundaFormRefBinding(TEST_STRING_FORM_REF_BINDING)
-        .camundaFormRefVersion(TEST_STRING_FORM_REF_VERSION)
-        .camundaInitiator(TEST_STRING_API)
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveAsyncBefore()
+        .notFlowaveExclusive()
+        .flowaveFormHandlerClass(TEST_CLASS_API)
+        .flowaveFormKey(TEST_STRING_API)
+        .flowaveFormRef(FORM_ID)
+        .flowaveFormRefBinding(TEST_STRING_FORM_REF_BINDING)
+        .flowaveFormRefVersion(TEST_STRING_FORM_REF_VERSION)
+        .flowaveInitiator(TEST_STRING_API)
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .done();
 
     StartEvent startEvent = modelInstance.getModelElementById(START_EVENT_ID);
-    assertThat(startEvent.isCamundaAsyncBefore()).isTrue();
-    assertThat(startEvent.isCamundaExclusive()).isFalse();
-    assertThat(startEvent.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(startEvent.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
-    assertThat(startEvent.getCamundaFormRef()).isEqualTo(FORM_ID);
-    assertThat(startEvent.getCamundaFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
-    assertThat(startEvent.getCamundaFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
-    assertThat(startEvent.getCamundaInitiator()).isEqualTo(TEST_STRING_API);
+    assertThat(startEvent.isFlowaveAsyncBefore()).isTrue();
+    assertThat(startEvent.isFlowaveExclusive()).isFalse();
+    assertThat(startEvent.getFlowaveFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(startEvent.getFlowaveFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(startEvent.getFlowaveFormRef()).isEqualTo(FORM_ID);
+    assertThat(startEvent.getFlowaveFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
+    assertThat(startEvent.getFlowaveFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
+    assertThat(startEvent.getFlowaveInitiator()).isEqualTo(TEST_STRING_API);
 
-    assertCamundaFailedJobRetryTimeCycle(startEvent);
+    assertFlowaveFailedJobRetryTimeCycle(startEvent);
   }
 
   @Test
@@ -931,80 +931,80 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCallActivityCamundaExtension() {
+  public void testCallActivityFlowaveExtension() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .callActivity(CALL_ACTIVITY_ID)
         .calledElement(TEST_STRING_API)
-        .camundaAsyncBefore()
-        .camundaCalledElementBinding("version")
-        .camundaCalledElementVersion("1.0")
-        .camundaCalledElementVersionTag("ver-1.0")
-        .camundaCalledElementTenantId("t1")
-        .camundaCaseRef("case")
-        .camundaCaseBinding("deployment")
-        .camundaCaseVersion("2")
-        .camundaCaseTenantId("t2")
-        .camundaIn("in-source", "in-target")
-        .camundaOut("out-source", "out-target")
-        .camundaVariableMappingClass(TEST_CLASS_API)
-        .camundaVariableMappingDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
-        .notCamundaExclusive()
-        .camundaFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
+        .flowaveAsyncBefore()
+        .flowaveCalledElementBinding("version")
+        .flowaveCalledElementVersion("1.0")
+        .flowaveCalledElementVersionTag("ver-1.0")
+        .flowaveCalledElementTenantId("t1")
+        .flowaveCaseRef("case")
+        .flowaveCaseBinding("deployment")
+        .flowaveCaseVersion("2")
+        .flowaveCaseTenantId("t2")
+        .flowaveIn("in-source", "in-target")
+        .flowaveOut("out-source", "out-target")
+        .flowaveVariableMappingClass(TEST_CLASS_API)
+        .flowaveVariableMappingDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .notFlowaveExclusive()
+        .flowaveFailedJobRetryTimeCycle(FAILED_JOB_RETRY_TIME_CYCLE)
       .endEvent()
       .done();
 
     CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
     assertThat(callActivity.getCalledElement()).isEqualTo(TEST_STRING_API);
-    assertThat(callActivity.isCamundaAsyncBefore()).isTrue();
-    assertThat(callActivity.getCamundaCalledElementBinding()).isEqualTo("version");
-    assertThat(callActivity.getCamundaCalledElementVersion()).isEqualTo("1.0");
-    assertThat(callActivity.getCamundaCalledElementVersionTag()).isEqualTo("ver-1.0");
-    assertThat(callActivity.getCamundaCalledElementTenantId()).isEqualTo("t1");
-    assertThat(callActivity.getCamundaCaseRef()).isEqualTo("case");
-    assertThat(callActivity.getCamundaCaseBinding()).isEqualTo("deployment");
-    assertThat(callActivity.getCamundaCaseVersion()).isEqualTo("2");
-    assertThat(callActivity.getCamundaCaseTenantId()).isEqualTo("t2");
-    assertThat(callActivity.isCamundaExclusive()).isFalse();
+    assertThat(callActivity.isFlowaveAsyncBefore()).isTrue();
+    assertThat(callActivity.getFlowaveCalledElementBinding()).isEqualTo("version");
+    assertThat(callActivity.getFlowaveCalledElementVersion()).isEqualTo("1.0");
+    assertThat(callActivity.getFlowaveCalledElementVersionTag()).isEqualTo("ver-1.0");
+    assertThat(callActivity.getFlowaveCalledElementTenantId()).isEqualTo("t1");
+    assertThat(callActivity.getFlowaveCaseRef()).isEqualTo("case");
+    assertThat(callActivity.getFlowaveCaseBinding()).isEqualTo("deployment");
+    assertThat(callActivity.getFlowaveCaseVersion()).isEqualTo("2");
+    assertThat(callActivity.getFlowaveCaseTenantId()).isEqualTo("t2");
+    assertThat(callActivity.isFlowaveExclusive()).isFalse();
 
     FlowaveIn camundaIn = (FlowaveIn) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveIn.class);
-    assertThat(camundaIn.getCamundaSource()).isEqualTo("in-source");
-    assertThat(camundaIn.getCamundaTarget()).isEqualTo("in-target");
+    assertThat(camundaIn.getFlowaveSource()).isEqualTo("in-source");
+    assertThat(camundaIn.getFlowaveTarget()).isEqualTo("in-target");
 
     FlowaveOut camundaOut = (FlowaveOut) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveOut.class);
-    assertThat(camundaOut.getCamundaSource()).isEqualTo("out-source");
-    assertThat(camundaOut.getCamundaTarget()).isEqualTo("out-target");
+    assertThat(camundaOut.getFlowaveSource()).isEqualTo("out-source");
+    assertThat(camundaOut.getFlowaveTarget()).isEqualTo("out-target");
 
-    assertThat(callActivity.getCamundaVariableMappingClass()).isEqualTo(TEST_CLASS_API);
-    assertThat(callActivity.getCamundaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
-    assertCamundaFailedJobRetryTimeCycle(callActivity);
+    assertThat(callActivity.getFlowaveVariableMappingClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(callActivity.getFlowaveVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertFlowaveFailedJobRetryTimeCycle(callActivity);
   }
 
   @Test
-  public void testCallActivityCamundaBusinessKey() {
+  public void testCallActivityFlowaveBusinessKey() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .callActivity(CALL_ACTIVITY_ID)
-        .camundaInBusinessKey("business-key")
+        .flowaveInBusinessKey("business-key")
       .endEvent()
       .done();
 
     CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
     FlowaveIn camundaIn = (FlowaveIn) callActivity.getExtensionElements().getUniqueChildElementByType(FlowaveIn.class);
-    assertThat(camundaIn.getCamundaBusinessKey()).isEqualTo("business-key");
+    assertThat(camundaIn.getFlowaveBusinessKey()).isEqualTo("business-key");
   }
 
   @Test
-  public void testCallActivityCamundaVariableMappingClass() {
+  public void testCallActivityFlowaveVariableMappingClass() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .callActivity(CALL_ACTIVITY_ID)
-        .camundaVariableMappingClass(this.getClass())
+        .flowaveVariableMappingClass(this.getClass())
       .endEvent()
       .done();
 
     CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
-    assertThat(callActivity.getCamundaVariableMappingClass()).isEqualTo(this.getClass().getName());
+    assertThat(callActivity.getFlowaveVariableMappingClass()).isEqualTo(this.getClass().getName());
   }
 
   @Test
@@ -1012,7 +1012,7 @@ public class ProcessBuilderTest {
     BpmnModelInstance modelInstance = Bpmn.createProcess()
       .startEvent()
       .subProcess(SUB_PROCESS_ID)
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .embeddedSubProcess()
           .startEvent()
           .userTask()
@@ -1024,8 +1024,8 @@ public class ProcessBuilderTest {
 
     SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID);
     ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
-    assertThat(subProcess.isCamundaAsyncBefore()).isTrue();
-    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.isFlowaveAsyncBefore()).isTrue();
+    assertThat(subProcess.isFlowaveExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(1);
     assertThat(subProcess.getFlowElements()).hasSize(5);
@@ -1044,15 +1044,15 @@ public class ProcessBuilderTest {
     SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID);
 
     subProcess.builder()
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
       .embeddedSubProcess()
         .startEvent()
         .userTask()
         .endEvent();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
-    assertThat(subProcess.isCamundaAsyncBefore()).isTrue();
-    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.isFlowaveAsyncBefore()).isTrue();
+    assertThat(subProcess.isFlowaveExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(1);
     assertThat(subProcess.getFlowElements()).hasSize(5);
@@ -1064,13 +1064,13 @@ public class ProcessBuilderTest {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .subProcess(SUB_PROCESS_ID + 1)
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .embeddedSubProcess()
           .startEvent()
           .userTask()
           .subProcess(SUB_PROCESS_ID + 2)
-            .camundaAsyncBefore()
-            .notCamundaExclusive()
+            .flowaveAsyncBefore()
+            .notFlowaveExclusive()
             .embeddedSubProcess()
               .startEvent()
               .userTask()
@@ -1085,8 +1085,8 @@ public class ProcessBuilderTest {
 
     SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID + 1);
     ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID + 2);
-    assertThat(subProcess.isCamundaAsyncBefore()).isTrue();
-    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.isFlowaveAsyncBefore()).isTrue();
+    assertThat(subProcess.isFlowaveExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(2);
     assertThat(subProcess.getChildElementsByType(SubProcess.class)).hasSize(1);
@@ -1095,8 +1095,8 @@ public class ProcessBuilderTest {
 
     SubProcess nestedSubProcess = modelInstance.getModelElementById(SUB_PROCESS_ID + 2);
     ServiceTask nestedServiceTask = modelInstance.getModelElementById(SERVICE_TASK_ID + 1);
-    assertThat(nestedSubProcess.isCamundaAsyncBefore()).isTrue();
-    assertThat(nestedSubProcess.isCamundaExclusive()).isFalse();
+    assertThat(nestedSubProcess.isFlowaveAsyncBefore()).isTrue();
+    assertThat(nestedSubProcess.isFlowaveExclusive()).isFalse();
     assertThat(nestedSubProcess.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(nestedSubProcess.getChildElementsByType(Task.class)).hasSize(1);
     assertThat(nestedSubProcess.getFlowElements()).hasSize(5);
@@ -1123,7 +1123,7 @@ public class ProcessBuilderTest {
     BpmnModelInstance modelInstance = Bpmn.createProcess()
       .startEvent()
       .transaction(TRANSACTION_ID)
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .method(TransactionMethod.Image)
         .embeddedSubProcess()
           .startEvent()
@@ -1136,8 +1136,8 @@ public class ProcessBuilderTest {
 
     Transaction transaction = modelInstance.getModelElementById(TRANSACTION_ID);
     ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
-    assertThat(transaction.isCamundaAsyncBefore()).isTrue();
-    assertThat(transaction.isCamundaExclusive()).isTrue();
+    assertThat(transaction.isFlowaveAsyncBefore()).isTrue();
+    assertThat(transaction.isFlowaveExclusive()).isTrue();
     assertThat(transaction.getMethod()).isEqualTo(TransactionMethod.Image);
     assertThat(transaction.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(transaction.getChildElementsByType(Task.class)).hasSize(1);
@@ -1157,15 +1157,15 @@ public class ProcessBuilderTest {
     Transaction transaction = modelInstance.getModelElementById(TRANSACTION_ID);
 
     transaction.builder()
-      .camundaAsyncBefore()
+      .flowaveAsyncBefore()
       .embeddedSubProcess()
         .startEvent()
         .userTask()
         .endEvent();
 
     ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
-    assertThat(transaction.isCamundaAsyncBefore()).isTrue();
-    assertThat(transaction.isCamundaExclusive()).isTrue();
+    assertThat(transaction.isFlowaveAsyncBefore()).isTrue();
+    assertThat(transaction.isFlowaveExclusive()).isTrue();
     assertThat(transaction.getChildElementsByType(Event.class)).hasSize(2);
     assertThat(transaction.getChildElementsByType(Task.class)).hasSize(1);
     assertThat(transaction.getFlowElements()).hasSize(5);
@@ -1193,7 +1193,7 @@ public class ProcessBuilderTest {
       modelInstance = Bpmn.createProcess()
         .startEvent()
         .eventBasedGateway()
-          .camundaAsyncAfter()
+          .flowaveAsyncAfter()
         .done();
 
       fail("Expected UnsupportedOperationException");
@@ -1205,7 +1205,7 @@ public class ProcessBuilderTest {
       modelInstance = Bpmn.createProcess()
         .startEvent()
         .eventBasedGateway()
-          .camundaAsyncAfter(true)
+          .flowaveAsyncAfter(true)
         .endEvent()
         .done();
       fail("Expected UnsupportedOperationException");
@@ -1397,15 +1397,15 @@ public class ProcessBuilderTest {
       .messageEventDefinition()
         .id("messageEventDefinition")
         .message("message")
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
-        .camundaType("external")
-        .camundaTopic("TOPIC")
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveType("external")
+        .flowaveTopic("TOPIC")
       .done();
 
     MessageEventDefinition event = modelInstance.getModelElementById("messageEventDefinition");
-    assertThat(event.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
-    assertThat(event.getCamundaTopic()).isEqualTo("TOPIC");
-    assertThat(event.getCamundaType()).isEqualTo("external");
+    assertThat(event.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(event.getFlowaveTopic()).isEqualTo("TOPIC");
+    assertThat(event.getFlowaveType()).isEqualTo("external");
     assertThat(event.getMessage().getName()).isEqualTo("message");
   }
 
@@ -1415,11 +1415,11 @@ public class ProcessBuilderTest {
       .startEvent()
       .intermediateThrowEvent("throw1")
       .messageEventDefinition("messageEventDefinition")
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
       .done();
 
     MessageEventDefinition event = modelInstance.getModelElementById("messageEventDefinition");
-    assertThat(event.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(event.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
   @Test
@@ -1428,11 +1428,11 @@ public class ProcessBuilderTest {
       .startEvent()
       .endEvent("end")
       .messageEventDefinition("messageEventDefinition")
-        .camundaTaskPriority(TEST_SERVICE_TASK_PRIORITY)
+        .flowaveTaskPriority(TEST_SERVICE_TASK_PRIORITY)
       .done();
 
     MessageEventDefinition event = modelInstance.getModelElementById("messageEventDefinition");
-    assertThat(event.getCamundaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
+    assertThat(event.getFlowaveTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
   @Test
@@ -1655,10 +1655,10 @@ public class ProcessBuilderTest {
       .startEvent()
       .intermediateThrowEvent("throw")
         .signalEventDefinition("signal")
-          .camundaInSourceTarget("source", "target1")
-          .camundaInSourceExpressionTarget("${'sourceExpression'}", "target2")
-          .camundaInAllVariables("all", true)
-          .camundaInBusinessKey("aBusinessKey")
+          .flowaveInSourceTarget("source", "target1")
+          .flowaveInSourceExpressionTarget("${'sourceExpression'}", "target2")
+          .flowaveInAllVariables("all", true)
+          .flowaveInBusinessKey("aBusinessKey")
           .throwEventDefinitionDone()
       .endEvent()
       .done();
@@ -1673,21 +1673,21 @@ public class ProcessBuilderTest {
 
     int paramCounter = 0;
     for (FlowaveIn inParam : camundaInParams) {
-      if (inParam.getCamundaVariables() != null) {
-        assertThat(inParam.getCamundaVariables()).isEqualTo("all");
-        if (inParam.getCamundaLocal()) {
+      if (inParam.getFlowaveVariables() != null) {
+        assertThat(inParam.getFlowaveVariables()).isEqualTo("all");
+        if (inParam.getFlowaveLocal()) {
           paramCounter++;
         }
-      } else if (inParam.getCamundaBusinessKey() != null) {
-        assertThat(inParam.getCamundaBusinessKey()).isEqualTo("aBusinessKey");
+      } else if (inParam.getFlowaveBusinessKey() != null) {
+        assertThat(inParam.getFlowaveBusinessKey()).isEqualTo("aBusinessKey");
         paramCounter++;
-      } else if (inParam.getCamundaSourceExpression() != null) {
-        assertThat(inParam.getCamundaSourceExpression()).isEqualTo("${'sourceExpression'}");
-        assertThat(inParam.getCamundaTarget()).isEqualTo("target2");
+      } else if (inParam.getFlowaveSourceExpression() != null) {
+        assertThat(inParam.getFlowaveSourceExpression()).isEqualTo("${'sourceExpression'}");
+        assertThat(inParam.getFlowaveTarget()).isEqualTo("target2");
         paramCounter++;
-      } else if (inParam.getCamundaSource() != null) {
-        assertThat(inParam.getCamundaSource()).isEqualTo("source");
-        assertThat(inParam.getCamundaTarget()).isEqualTo("target1");
+      } else if (inParam.getFlowaveSource() != null) {
+        assertThat(inParam.getFlowaveSource()).isEqualTo("source");
+        assertThat(inParam.getFlowaveTarget()).isEqualTo("target1");
         paramCounter++;
       }
     }
@@ -1700,7 +1700,7 @@ public class ProcessBuilderTest {
       .startEvent()
       .intermediateThrowEvent("throw")
         .signalEventDefinition("signal")
-          .camundaInAllVariables("all")
+          .flowaveInAllVariables("all")
           .throwEventDefinitionDone()
       .endEvent()
       .done();
@@ -1710,7 +1710,7 @@ public class ProcessBuilderTest {
     List<FlowaveIn> camundaInParams = signalEventDefinition.getExtensionElements().getElementsQuery().filterByType(FlowaveIn.class).list();
     assertThat(camundaInParams.size()).isEqualTo(1);
 
-    assertThat(camundaInParams.get(0).getCamundaVariables()).isEqualTo("all");
+    assertThat(camundaInParams.get(0).getFlowaveVariables()).isEqualTo("all");
   }
 
   @Test
@@ -1780,11 +1780,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTaskListenerByClassName() {
+  public void testFlowaveTaskListenerByClassName() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClass("start", "aClass")
+            .flowaveTaskListenerClass("start", "aClass")
         .endEvent()
         .done();
 
@@ -1794,16 +1794,16 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo("aClass");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaTaskListenerByClass() {
+  public void testFlowaveTaskListenerByClass() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClass("start", this.getClass())
+            .flowaveTaskListenerClass("start", this.getClass())
         .endEvent()
         .done();
 
@@ -1813,16 +1813,16 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(this.getClass().getName());
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaTaskListenerByExpression() {
+  public void testFlowaveTaskListenerByExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerExpression("start", "anExpression")
+            .flowaveTaskListenerExpression("start", "anExpression")
         .endEvent()
         .done();
 
@@ -1832,16 +1832,16 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo("anExpression");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaTaskListenerByDelegateExpression() {
+  public void testFlowaveTaskListenerByDelegateExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerDelegateExpression("start", "aDelegate")
+            .flowaveTaskListenerDelegateExpression("start", "aDelegate")
         .endEvent()
         .done();
 
@@ -1851,16 +1851,16 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo("aDelegate");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaTimeoutCycleTaskListenerByClassName() {
+  public void testFlowaveTimeoutCycleTaskListenerByClassName() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithCycle("timeout-1", "aClass", "R/PT1H")
+            .flowaveTaskListenerClassTimeoutWithCycle("timeout-1", "aClass", "R/PT1H")
         .endEvent()
         .done();
 
@@ -1870,8 +1870,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo("aClass");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -1884,11 +1884,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDateTaskListenerByClassName() {
+  public void testFlowaveTimeoutDateTaskListenerByClassName() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithDate("timeout-1", "aClass", "2019-09-09T12:12:12")
+            .flowaveTaskListenerClassTimeoutWithDate("timeout-1", "aClass", "2019-09-09T12:12:12")
         .endEvent()
         .done();
 
@@ -1898,8 +1898,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo("aClass");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -1912,11 +1912,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDurationTaskListenerByClassName() {
+  public void testFlowaveTimeoutDurationTaskListenerByClassName() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithDuration("timeout-1", "aClass", "PT1H")
+            .flowaveTaskListenerClassTimeoutWithDuration("timeout-1", "aClass", "PT1H")
         .endEvent()
         .done();
 
@@ -1926,8 +1926,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo("aClass");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo("aClass");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -1940,11 +1940,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDurationTaskListenerByClass() {
+  public void testFlowaveTimeoutDurationTaskListenerByClass() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithDuration("timeout-1", this.getClass(), "PT1H")
+            .flowaveTaskListenerClassTimeoutWithDuration("timeout-1", this.getClass(), "PT1H")
         .endEvent()
         .done();
 
@@ -1954,8 +1954,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(this.getClass().getName());
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -1968,11 +1968,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutCycleTaskListenerByClass() {
+  public void testFlowaveTimeoutCycleTaskListenerByClass() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithCycle("timeout-1", this.getClass(), "R/PT1H")
+            .flowaveTaskListenerClassTimeoutWithCycle("timeout-1", this.getClass(), "R/PT1H")
         .endEvent()
         .done();
 
@@ -1982,8 +1982,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(this.getClass().getName());
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -1996,11 +1996,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDateTaskListenerByClass() {
+  public void testFlowaveTimeoutDateTaskListenerByClass() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerClassTimeoutWithDate("timeout-1", this.getClass(), "2019-09-09T12:12:12")
+            .flowaveTaskListenerClassTimeoutWithDate("timeout-1", this.getClass(), "2019-09-09T12:12:12")
         .endEvent()
         .done();
 
@@ -2010,8 +2010,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaClass()).isEqualTo(this.getClass().getName());
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveClass()).isEqualTo(this.getClass().getName());
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2024,11 +2024,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutCycleTaskListenerByExpression() {
+  public void testFlowaveTimeoutCycleTaskListenerByExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerExpressionTimeoutWithCycle("timeout-1", "anExpression", "R/PT1H")
+            .flowaveTaskListenerExpressionTimeoutWithCycle("timeout-1", "anExpression", "R/PT1H")
         .endEvent()
         .done();
 
@@ -2038,8 +2038,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo("anExpression");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2052,11 +2052,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDateTaskListenerByExpression() {
+  public void testFlowaveTimeoutDateTaskListenerByExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerExpressionTimeoutWithDate("timeout-1", "anExpression", "2019-09-09T12:12:12")
+            .flowaveTaskListenerExpressionTimeoutWithDate("timeout-1", "anExpression", "2019-09-09T12:12:12")
         .endEvent()
         .done();
 
@@ -2066,8 +2066,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo("anExpression");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2080,11 +2080,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDurationTaskListenerByExpression() {
+  public void testFlowaveTimeoutDurationTaskListenerByExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerExpressionTimeoutWithDuration("timeout-1", "anExpression", "PT1H")
+            .flowaveTaskListenerExpressionTimeoutWithDuration("timeout-1", "anExpression", "PT1H")
         .endEvent()
         .done();
 
@@ -2094,8 +2094,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaExpression()).isEqualTo("anExpression");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveExpression()).isEqualTo("anExpression");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2108,11 +2108,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutCycleTaskListenerByDelegateExpression() {
+  public void testFlowaveTimeoutCycleTaskListenerByDelegateExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerDelegateExpressionTimeoutWithCycle("timeout-1", "aDelegate", "R/PT1H")
+            .flowaveTaskListenerDelegateExpressionTimeoutWithCycle("timeout-1", "aDelegate", "R/PT1H")
         .endEvent()
         .done();
 
@@ -2122,8 +2122,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo("aDelegate");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2136,11 +2136,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDateTaskListenerByDelegateExpression() {
+  public void testFlowaveTimeoutDateTaskListenerByDelegateExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerDelegateExpressionTimeoutWithDate("timeout-1", "aDelegate", "2019-09-09T12:12:12")
+            .flowaveTaskListenerDelegateExpressionTimeoutWithDate("timeout-1", "aDelegate", "2019-09-09T12:12:12")
         .endEvent()
         .done();
 
@@ -2150,8 +2150,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo("aDelegate");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2164,11 +2164,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaTimeoutDurationTaskListenerByDelegateExpression() {
+  public void testFlowaveTimeoutDurationTaskListenerByDelegateExpression() {
     modelInstance = Bpmn.createProcess()
         .startEvent()
           .userTask("task")
-            .camundaTaskListenerDelegateExpressionTimeoutWithDuration("timeout-1", "aDelegate", "PT1H")
+            .flowaveTaskListenerDelegateExpressionTimeoutWithDuration("timeout-1", "aDelegate", "PT1H")
         .endEvent()
         .done();
 
@@ -2178,8 +2178,8 @@ public class ProcessBuilderTest {
     assertThat(taskListeners).hasSize(1);
 
     FlowaveTaskListener taskListener = taskListeners.iterator().next();
-    assertThat(taskListener.getCamundaDelegateExpression()).isEqualTo("aDelegate");
-    assertThat(taskListener.getCamundaEvent()).isEqualTo("timeout");
+    assertThat(taskListener.getFlowaveDelegateExpression()).isEqualTo("aDelegate");
+    assertThat(taskListener.getFlowaveEvent()).isEqualTo("timeout");
 
     Collection<TimerEventDefinition> timeouts = taskListener.getTimeouts();
     assertThat(timeouts.size()).isEqualTo(1);
@@ -2192,11 +2192,11 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCamundaExecutionListenerByClassName() {
+  public void testFlowaveExecutionListenerByClassName() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-      .camundaExecutionListenerClass("start", "aClass")
+      .flowaveExecutionListenerClass("start", "aClass")
       .endEvent()
       .done();
 
@@ -2206,16 +2206,16 @@ public class ProcessBuilderTest {
     assertThat(executionListeners).hasSize(1);
 
     FlowaveExecutionListener executionListener = executionListeners.iterator().next();
-    assertThat(executionListener.getCamundaClass()).isEqualTo("aClass");
-    assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(executionListener.getFlowaveClass()).isEqualTo("aClass");
+    assertThat(executionListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaExecutionListenerByClass() {
+  public void testFlowaveExecutionListenerByClass() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-      .camundaExecutionListenerClass("start", this.getClass())
+      .flowaveExecutionListenerClass("start", this.getClass())
       .endEvent()
       .done();
 
@@ -2225,16 +2225,16 @@ public class ProcessBuilderTest {
     assertThat(executionListeners).hasSize(1);
 
     FlowaveExecutionListener executionListener = executionListeners.iterator().next();
-    assertThat(executionListener.getCamundaClass()).isEqualTo(this.getClass().getName());
-    assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(executionListener.getFlowaveClass()).isEqualTo(this.getClass().getName());
+    assertThat(executionListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaExecutionListenerByExpression() {
+  public void testFlowaveExecutionListenerByExpression() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-      .camundaExecutionListenerExpression("start", "anExpression")
+      .flowaveExecutionListenerExpression("start", "anExpression")
       .endEvent()
       .done();
 
@@ -2244,16 +2244,16 @@ public class ProcessBuilderTest {
     assertThat(executionListeners).hasSize(1);
 
     FlowaveExecutionListener executionListener = executionListeners.iterator().next();
-    assertThat(executionListener.getCamundaExpression()).isEqualTo("anExpression");
-    assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(executionListener.getFlowaveExpression()).isEqualTo("anExpression");
+    assertThat(executionListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
-  public void testCamundaExecutionListenerByDelegateExpression() {
+  public void testFlowaveExecutionListenerByDelegateExpression() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-      .camundaExecutionListenerDelegateExpression("start", "aDelegateExpression")
+      .flowaveExecutionListenerDelegateExpression("start", "aDelegateExpression")
       .endEvent()
       .done();
 
@@ -2263,8 +2263,8 @@ public class ProcessBuilderTest {
     assertThat(executionListeners).hasSize(1);
 
     FlowaveExecutionListener executionListener = executionListeners.iterator().next();
-    assertThat(executionListener.getCamundaDelegateExpression()).isEqualTo("aDelegateExpression");
-    assertThat(executionListener.getCamundaEvent()).isEqualTo("start");
+    assertThat(executionListener.getFlowaveDelegateExpression()).isEqualTo("aDelegateExpression");
+    assertThat(executionListener.getFlowaveEvent()).isEqualTo("start");
   }
 
   @Test
@@ -2276,8 +2276,8 @@ public class ProcessBuilderTest {
           .sequential()
           .cardinality("card")
           .completionCondition("compl")
-          .camundaCollection("coll")
-          .camundaElementVariable("element")
+          .flowaveCollection("coll")
+          .flowaveElementVariable("element")
         .multiInstanceDone()
       .endEvent()
       .done();
@@ -2292,8 +2292,8 @@ public class ProcessBuilderTest {
     assertThat(miCharacteristic.isSequential()).isTrue();
     assertThat(miCharacteristic.getLoopCardinality().getTextContent()).isEqualTo("card");
     assertThat(miCharacteristic.getCompletionCondition().getTextContent()).isEqualTo("compl");
-    assertThat(miCharacteristic.getCamundaCollection()).isEqualTo("coll");
-    assertThat(miCharacteristic.getCamundaElementVariable()).isEqualTo("element");
+    assertThat(miCharacteristic.getFlowaveCollection()).isEqualTo("coll");
+    assertThat(miCharacteristic.getFlowaveElementVariable()).isEqualTo("element");
 
   }
 
@@ -2319,19 +2319,19 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testTaskWithCamundaInputOutput() {
+  public void testTaskWithFlowaveInputOutput() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-        .camundaInputParameter("foo", "bar")
-        .camundaInputParameter("yoo", "hoo")
-        .camundaOutputParameter("one", "two")
-        .camundaOutputParameter("three", "four")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveInputParameter("yoo", "hoo")
+        .flowaveOutputParameter("one", "two")
+        .flowaveOutputParameter("three", "four")
       .endEvent()
       .done();
 
     UserTask task = modelInstance.getModelElementById("task");
-    assertCamundaInputOutputParameter(task);
+    assertFlowaveInputOutputParameter(task);
   }
 
   @Test
@@ -2340,7 +2340,7 @@ public class ProcessBuilderTest {
             .startEvent()
             .userTask("task")
             .multiInstance()
-            .camundaAsyncBefore()
+            .flowaveAsyncBefore()
             .parallel()
             .multiInstanceDone()
             .endEvent()
@@ -2354,8 +2354,8 @@ public class ProcessBuilderTest {
 
     MultiInstanceLoopCharacteristics miCharacteristic = miCharacteristics.iterator().next();
     assertThat(miCharacteristic.isSequential()).isFalse();
-    assertThat(miCharacteristic.isCamundaAsyncAfter()).isFalse();
-    assertThat(miCharacteristic.isCamundaAsyncBefore()).isTrue();
+    assertThat(miCharacteristic.isFlowaveAsyncAfter()).isFalse();
+    assertThat(miCharacteristic.isFlowaveAsyncBefore()).isTrue();
   }
 
   @Test
@@ -2364,7 +2364,7 @@ public class ProcessBuilderTest {
             .startEvent()
             .userTask("task")
             .multiInstance()
-            .camundaAsyncAfter()
+            .flowaveAsyncAfter()
             .parallel()
             .multiInstanceDone()
             .endEvent()
@@ -2378,55 +2378,55 @@ public class ProcessBuilderTest {
 
     MultiInstanceLoopCharacteristics miCharacteristic = miCharacteristics.iterator().next();
     assertThat(miCharacteristic.isSequential()).isFalse();
-    assertThat(miCharacteristic.isCamundaAsyncAfter()).isTrue();
-    assertThat(miCharacteristic.isCamundaAsyncBefore()).isFalse();
+    assertThat(miCharacteristic.isFlowaveAsyncAfter()).isTrue();
+    assertThat(miCharacteristic.isFlowaveAsyncBefore()).isFalse();
   }
 
   @Test
-  public void testTaskWithCamundaInputOutputWithExistingExtensionElements() {
+  public void testTaskWithFlowaveInputOutputWithExistingExtensionElements() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-        .camundaExecutionListenerExpression("end", "${true}")
-        .camundaInputParameter("foo", "bar")
-        .camundaInputParameter("yoo", "hoo")
-        .camundaOutputParameter("one", "two")
-        .camundaOutputParameter("three", "four")
+        .flowaveExecutionListenerExpression("end", "${true}")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveInputParameter("yoo", "hoo")
+        .flowaveOutputParameter("one", "two")
+        .flowaveOutputParameter("three", "four")
       .endEvent()
       .done();
 
     UserTask task = modelInstance.getModelElementById("task");
-    assertCamundaInputOutputParameter(task);
+    assertFlowaveInputOutputParameter(task);
   }
 
   @Test
-  public void testTaskWithCamundaInputOutputWithExistingCamundaInputOutput() {
+  public void testTaskWithFlowaveInputOutputWithExistingFlowaveInputOutput() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask("task")
-        .camundaInputParameter("foo", "bar")
-        .camundaOutputParameter("one", "two")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveOutputParameter("one", "two")
       .endEvent()
       .done();
 
     UserTask task = modelInstance.getModelElementById("task");
 
     task.builder()
-      .camundaInputParameter("yoo", "hoo")
-      .camundaOutputParameter("three", "four");
+      .flowaveInputParameter("yoo", "hoo")
+      .flowaveOutputParameter("three", "four");
 
-    assertCamundaInputOutputParameter(task);
+    assertFlowaveInputOutputParameter(task);
   }
 
   @Test
-  public void testSubProcessWithCamundaInputOutput() {
+  public void testSubProcessWithFlowaveInputOutput() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .subProcess("subProcess")
-        .camundaInputParameter("foo", "bar")
-        .camundaInputParameter("yoo", "hoo")
-        .camundaOutputParameter("one", "two")
-        .camundaOutputParameter("three", "four")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveInputParameter("yoo", "hoo")
+        .flowaveOutputParameter("one", "two")
+        .flowaveOutputParameter("three", "four")
         .embeddedSubProcess()
           .startEvent()
           .endEvent()
@@ -2435,19 +2435,19 @@ public class ProcessBuilderTest {
       .done();
 
     SubProcess subProcess = modelInstance.getModelElementById("subProcess");
-    assertCamundaInputOutputParameter(subProcess);
+    assertFlowaveInputOutputParameter(subProcess);
   }
 
   @Test
-  public void testSubProcessWithCamundaInputOutputWithExistingExtensionElements() {
+  public void testSubProcessWithFlowaveInputOutputWithExistingExtensionElements() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .subProcess("subProcess")
-        .camundaExecutionListenerExpression("end", "${true}")
-        .camundaInputParameter("foo", "bar")
-        .camundaInputParameter("yoo", "hoo")
-        .camundaOutputParameter("one", "two")
-        .camundaOutputParameter("three", "four")
+        .flowaveExecutionListenerExpression("end", "${true}")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveInputParameter("yoo", "hoo")
+        .flowaveOutputParameter("one", "two")
+        .flowaveOutputParameter("three", "four")
         .embeddedSubProcess()
           .startEvent()
           .endEvent()
@@ -2456,16 +2456,16 @@ public class ProcessBuilderTest {
       .done();
 
     SubProcess subProcess = modelInstance.getModelElementById("subProcess");
-    assertCamundaInputOutputParameter(subProcess);
+    assertFlowaveInputOutputParameter(subProcess);
   }
 
   @Test
-  public void testSubProcessWithCamundaInputOutputWithExistingCamundaInputOutput() {
+  public void testSubProcessWithFlowaveInputOutputWithExistingFlowaveInputOutput() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .subProcess("subProcess")
-        .camundaInputParameter("foo", "bar")
-        .camundaOutputParameter("one", "two")
+        .flowaveInputParameter("foo", "bar")
+        .flowaveOutputParameter("one", "two")
         .embeddedSubProcess()
           .startEvent()
           .endEvent()
@@ -2476,10 +2476,10 @@ public class ProcessBuilderTest {
     SubProcess subProcess = modelInstance.getModelElementById("subProcess");
 
     subProcess.builder()
-      .camundaInputParameter("yoo", "hoo")
-      .camundaOutputParameter("three", "four");
+      .flowaveInputParameter("yoo", "hoo")
+      .flowaveOutputParameter("three", "four");
 
-    assertCamundaInputOutputParameter(subProcess);
+    assertFlowaveInputOutputParameter(subProcess);
   }
 
   @Test
@@ -3029,111 +3029,111 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testUserTaskCamundaFormField() {
+  public void testUserTaskFlowaveFormField() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask(TASK_ID)
-        .camundaFormField()
-          .camundaId("myFormField_1")
-          .camundaLabel("Form Field One")
-          .camundaType("string")
-          .camundaDefaultValue("myDefaultVal_1")
-         .camundaFormFieldDone()
-        .camundaFormField()
-          .camundaId("myFormField_2")
-          .camundaLabel("Form Field Two")
-          .camundaType("integer")
-          .camundaDefaultValue("myDefaultVal_2")
-         .camundaFormFieldDone()
+        .flowaveFormField()
+          .flowaveId("myFormField_1")
+          .flowaveLabel("Form Field One")
+          .flowaveType("string")
+          .flowaveDefaultValue("myDefaultVal_1")
+         .flowaveFormFieldDone()
+        .flowaveFormField()
+          .flowaveId("myFormField_2")
+          .flowaveLabel("Form Field Two")
+          .flowaveType("integer")
+          .flowaveDefaultValue("myDefaultVal_2")
+         .flowaveFormFieldDone()
       .endEvent()
       .done();
 
     UserTask userTask = modelInstance.getModelElementById(TASK_ID);
-    assertCamundaFormField(userTask);
+    assertFlowaveFormField(userTask);
   }
 
   @Test
-  public void testUserTaskCamundaFormFieldWithExistingCamundaFormData() {
+  public void testUserTaskFlowaveFormFieldWithExistingFlowaveFormData() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask(TASK_ID)
-        .camundaFormField()
-          .camundaId("myFormField_1")
-          .camundaLabel("Form Field One")
-          .camundaType("string")
-          .camundaDefaultValue("myDefaultVal_1")
-         .camundaFormFieldDone()
+        .flowaveFormField()
+          .flowaveId("myFormField_1")
+          .flowaveLabel("Form Field One")
+          .flowaveType("string")
+          .flowaveDefaultValue("myDefaultVal_1")
+         .flowaveFormFieldDone()
       .endEvent()
       .done();
 
     UserTask userTask = modelInstance.getModelElementById(TASK_ID);
 
     userTask.builder()
-      .camundaFormField()
-        .camundaId("myFormField_2")
-        .camundaLabel("Form Field Two")
-        .camundaType("integer")
-        .camundaDefaultValue("myDefaultVal_2")
-       .camundaFormFieldDone();
+      .flowaveFormField()
+        .flowaveId("myFormField_2")
+        .flowaveLabel("Form Field Two")
+        .flowaveType("integer")
+        .flowaveDefaultValue("myDefaultVal_2")
+       .flowaveFormFieldDone();
 
-    assertCamundaFormField(userTask);
+    assertFlowaveFormField(userTask);
   }
 
   @Test
-  public void testStartEventCamundaFormField() {
+  public void testStartEventFlowaveFormField() {
     modelInstance = Bpmn.createProcess()
       .startEvent(START_EVENT_ID)
-        .camundaFormField()
-          .camundaId("myFormField_1")
-          .camundaLabel("Form Field One")
-          .camundaType("string")
-          .camundaDefaultValue("myDefaultVal_1")
-         .camundaFormFieldDone()
-         .camundaFormField()
-         .camundaId("myFormField_2")
-          .camundaLabel("Form Field Two")
-          .camundaType("integer")
-          .camundaDefaultValue("myDefaultVal_2")
-         .camundaFormFieldDone()
+        .flowaveFormField()
+          .flowaveId("myFormField_1")
+          .flowaveLabel("Form Field One")
+          .flowaveType("string")
+          .flowaveDefaultValue("myDefaultVal_1")
+         .flowaveFormFieldDone()
+         .flowaveFormField()
+         .flowaveId("myFormField_2")
+          .flowaveLabel("Form Field Two")
+          .flowaveType("integer")
+          .flowaveDefaultValue("myDefaultVal_2")
+         .flowaveFormFieldDone()
       .endEvent()
       .done();
 
     StartEvent startEvent = modelInstance.getModelElementById(START_EVENT_ID);
-    assertCamundaFormField(startEvent);
+    assertFlowaveFormField(startEvent);
   }
 
   @Test
-  public void testUserTaskCamundaFormRef() {
+  public void testUserTaskFlowaveFormRef() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .userTask(TASK_ID)
-        .camundaFormRef(FORM_ID)
-        .camundaFormRefBinding(TEST_STRING_FORM_REF_BINDING)
-        .camundaFormRefVersion(TEST_STRING_FORM_REF_VERSION)
+        .flowaveFormRef(FORM_ID)
+        .flowaveFormRefBinding(TEST_STRING_FORM_REF_BINDING)
+        .flowaveFormRefVersion(TEST_STRING_FORM_REF_VERSION)
       .endEvent()
       .done();
 
     UserTask userTask = modelInstance.getModelElementById(TASK_ID);
-    assertThat(userTask.getCamundaFormRef()).isEqualTo(FORM_ID);
-    assertThat(userTask.getCamundaFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
-    assertThat(userTask.getCamundaFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
+    assertThat(userTask.getFlowaveFormRef()).isEqualTo(FORM_ID);
+    assertThat(userTask.getFlowaveFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
+    assertThat(userTask.getFlowaveFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
   }
 
   @Test
-  public void testStartEventCamundaFormRef() {
+  public void testStartEventFlowaveFormRef() {
     modelInstance = Bpmn.createProcess()
         .startEvent(START_EVENT_ID)
-          .camundaFormRef(FORM_ID)
-          .camundaFormRefBinding(TEST_STRING_FORM_REF_BINDING)
-          .camundaFormRefVersion(TEST_STRING_FORM_REF_VERSION)
+          .flowaveFormRef(FORM_ID)
+          .flowaveFormRefBinding(TEST_STRING_FORM_REF_BINDING)
+          .flowaveFormRefVersion(TEST_STRING_FORM_REF_VERSION)
         .userTask()
         .endEvent()
         .done();
 
     StartEvent startEvent = modelInstance.getModelElementById(START_EVENT_ID);
-    assertThat(startEvent.getCamundaFormRef()).isEqualTo(FORM_ID);
-    assertThat(startEvent.getCamundaFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
-    assertThat(startEvent.getCamundaFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
+    assertThat(startEvent.getFlowaveFormRef()).isEqualTo(FORM_ID);
+    assertThat(startEvent.getFlowaveFormRefBinding()).isEqualTo(TEST_STRING_FORM_REF_BINDING);
+    assertThat(startEvent.getFlowaveFormRefVersion()).isEqualTo(TEST_STRING_FORM_REF_VERSION);
   }
 
   @Test
@@ -3295,23 +3295,23 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testConditionalEventDefinitionCamundaExtensions() {
+  public void testConditionalEventDefinitionFlowaveExtensions() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .intermediateCatchEvent()
       .conditionalEventDefinition(CONDITION_ID)
         .condition(TEST_CONDITION)
-        .camundaVariableEvents(TEST_CONDITIONAL_VARIABLE_EVENTS)
-        .camundaVariableEvents(TEST_CONDITIONAL_VARIABLE_EVENTS_LIST)
-        .camundaVariableName(TEST_CONDITIONAL_VARIABLE_NAME)
+        .flowaveVariableEvents(TEST_CONDITIONAL_VARIABLE_EVENTS)
+        .flowaveVariableEvents(TEST_CONDITIONAL_VARIABLE_EVENTS_LIST)
+        .flowaveVariableName(TEST_CONDITIONAL_VARIABLE_NAME)
       .conditionalEventDefinitionDone()
       .endEvent()
       .done();
 
     ConditionalEventDefinition conditionalEventDef = modelInstance.getModelElementById(CONDITION_ID);
-    assertThat(conditionalEventDef.getCamundaVariableEvents()).isEqualTo(TEST_CONDITIONAL_VARIABLE_EVENTS);
-    assertThat(conditionalEventDef.getCamundaVariableEventsList()).containsAll(TEST_CONDITIONAL_VARIABLE_EVENTS_LIST);
-    assertThat(conditionalEventDef.getCamundaVariableName()).isEqualTo(TEST_CONDITIONAL_VARIABLE_NAME);
+    assertThat(conditionalEventDef.getFlowaveVariableEvents()).isEqualTo(TEST_CONDITIONAL_VARIABLE_EVENTS);
+    assertThat(conditionalEventDef.getFlowaveVariableEventsList()).containsAll(TEST_CONDITIONAL_VARIABLE_EVENTS_LIST);
+    assertThat(conditionalEventDef.getFlowaveVariableName()).isEqualTo(TEST_CONDITIONAL_VARIABLE_NAME);
   }
 
   @Test
@@ -3420,7 +3420,7 @@ public class ProcessBuilderTest {
     Error error = errorEventDefinition.getError();
     assertThat(error).isNotNull();
     assertThat(error.getErrorCode()).isEqualTo(errorCode);
-    assertThat(error.getCamundaErrorMessage()).isEqualTo(errorMessage);
+    assertThat(error.getFlowaveErrorMessage()).isEqualTo(errorMessage);
 
     return error;
   }
@@ -3429,10 +3429,10 @@ public class ProcessBuilderTest {
     ErrorEventDefinition errorEventDefinition = assertAndGetSingleEventDefinition(elementId, ErrorEventDefinition.class);
     assertThat(errorEventDefinition).isNotNull();
     if(errorCodeVariable != null) {
-      assertThat(errorEventDefinition.getCamundaErrorCodeVariable()).isEqualTo(errorCodeVariable);
+      assertThat(errorEventDefinition.getFlowaveErrorCodeVariable()).isEqualTo(errorCodeVariable);
     }
     if(errorMessageVariable != null) {
-      assertThat(errorEventDefinition.getCamundaErrorMessageVariable()).isEqualTo(errorMessageVariable);
+      assertThat(errorEventDefinition.getFlowaveErrorMessageVariable()).isEqualTo(errorMessageVariable);
     }
   }
 
@@ -3459,30 +3459,30 @@ public class ProcessBuilderTest {
     assertAndGetSingleEventDefinition(elementId, CompensateEventDefinition.class);
   }
 
-  protected void assertCamundaInputOutputParameter(BaseElement element) {
+  protected void assertFlowaveInputOutputParameter(BaseElement element) {
     FlowaveInputOutput camundaInputOutput = element.getExtensionElements().getElementsQuery().filterByType(FlowaveInputOutput.class).singleResult();
     assertThat(camundaInputOutput).isNotNull();
 
-    List<FlowaveInputParameter> camundaInputParameters = new ArrayList<>(camundaInputOutput.getCamundaInputParameters());
+    List<FlowaveInputParameter> camundaInputParameters = new ArrayList<>(camundaInputOutput.getFlowaveInputParameters());
     assertThat(camundaInputParameters).hasSize(2);
 
     FlowaveInputParameter camundaInputParameter = camundaInputParameters.get(0);
-    assertThat(camundaInputParameter.getCamundaName()).isEqualTo("foo");
+    assertThat(camundaInputParameter.getFlowaveName()).isEqualTo("foo");
     assertThat(camundaInputParameter.getTextContent()).isEqualTo("bar");
 
     camundaInputParameter = camundaInputParameters.get(1);
-    assertThat(camundaInputParameter.getCamundaName()).isEqualTo("yoo");
+    assertThat(camundaInputParameter.getFlowaveName()).isEqualTo("yoo");
     assertThat(camundaInputParameter.getTextContent()).isEqualTo("hoo");
 
-    List<FlowaveOutputParameter> camundaOutputParameters = new ArrayList<>(camundaInputOutput.getCamundaOutputParameters());
+    List<FlowaveOutputParameter> camundaOutputParameters = new ArrayList<>(camundaInputOutput.getFlowaveOutputParameters());
     assertThat(camundaOutputParameters).hasSize(2);
 
     FlowaveOutputParameter camundaOutputParameter = camundaOutputParameters.get(0);
-    assertThat(camundaOutputParameter.getCamundaName()).isEqualTo("one");
+    assertThat(camundaOutputParameter.getFlowaveName()).isEqualTo("one");
     assertThat(camundaOutputParameter.getTextContent()).isEqualTo("two");
 
     camundaOutputParameter = camundaOutputParameters.get(1);
-    assertThat(camundaOutputParameter.getCamundaName()).isEqualTo("three");
+    assertThat(camundaOutputParameter.getFlowaveName()).isEqualTo("three");
     assertThat(camundaOutputParameter.getTextContent()).isEqualTo("four");
   }
 
@@ -3521,30 +3521,30 @@ public class ProcessBuilderTest {
     return (T) eventDefinition;
   }
 
-  protected void assertCamundaFormField(BaseElement element) {
+  protected void assertFlowaveFormField(BaseElement element) {
     assertThat(element.getExtensionElements()).isNotNull();
 
     FlowaveFormData camundaFormData = element.getExtensionElements().getElementsQuery().filterByType(FlowaveFormData.class).singleResult();
     assertThat(camundaFormData).isNotNull();
 
-    List<FlowaveFormField> camundaFormFields = new ArrayList<>(camundaFormData.getCamundaFormFields());
+    List<FlowaveFormField> camundaFormFields = new ArrayList<>(camundaFormData.getFlowaveFormFields());
     assertThat(camundaFormFields).hasSize(2);
 
     FlowaveFormField camundaFormField = camundaFormFields.get(0);
-    assertThat(camundaFormField.getCamundaId()).isEqualTo("myFormField_1");
-    assertThat(camundaFormField.getCamundaLabel()).isEqualTo("Form Field One");
-    assertThat(camundaFormField.getCamundaType()).isEqualTo("string");
-    assertThat(camundaFormField.getCamundaDefaultValue()).isEqualTo("myDefaultVal_1");
+    assertThat(camundaFormField.getFlowaveId()).isEqualTo("myFormField_1");
+    assertThat(camundaFormField.getFlowaveLabel()).isEqualTo("Form Field One");
+    assertThat(camundaFormField.getFlowaveType()).isEqualTo("string");
+    assertThat(camundaFormField.getFlowaveDefaultValue()).isEqualTo("myDefaultVal_1");
 
     camundaFormField = camundaFormFields.get(1);
-    assertThat(camundaFormField.getCamundaId()).isEqualTo("myFormField_2");
-    assertThat(camundaFormField.getCamundaLabel()).isEqualTo("Form Field Two");
-    assertThat(camundaFormField.getCamundaType()).isEqualTo("integer");
-    assertThat(camundaFormField.getCamundaDefaultValue()).isEqualTo("myDefaultVal_2");
+    assertThat(camundaFormField.getFlowaveId()).isEqualTo("myFormField_2");
+    assertThat(camundaFormField.getFlowaveLabel()).isEqualTo("Form Field Two");
+    assertThat(camundaFormField.getFlowaveType()).isEqualTo("integer");
+    assertThat(camundaFormField.getFlowaveDefaultValue()).isEqualTo("myDefaultVal_2");
 
   }
 
-  protected void assertCamundaFailedJobRetryTimeCycle(BaseElement element) {
+  protected void assertFlowaveFailedJobRetryTimeCycle(BaseElement element) {
     assertThat(element.getExtensionElements()).isNotNull();
 
     FlowaveFailedJobRetryTimeCycle camundaFailedJobRetryTimeCycle = element.getExtensionElements().getElementsQuery().filterByType(FlowaveFailedJobRetryTimeCycle.class).singleResult();

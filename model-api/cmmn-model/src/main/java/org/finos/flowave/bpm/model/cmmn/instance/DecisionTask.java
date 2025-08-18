@@ -36,24 +36,24 @@ public interface DecisionTask extends Task {
 
   /** Camunda extensions */
 
-  String getCamundaResultVariable();
+  String getFlowaveResultVariable();
 
-  void setCamundaResultVariable(String camundaResultVariable);
+  void setFlowaveResultVariable(String camundaResultVariable);
 
-  String getCamundaDecisionBinding();
+  String getFlowaveDecisionBinding();
 
-  void setCamundaDecisionBinding(String camundaDecisionBinding);
+  void setFlowaveDecisionBinding(String camundaDecisionBinding);
 
-  String getCamundaDecisionVersion();
+  String getFlowaveDecisionVersion();
 
-  void setCamundaDecisionVersion(String camundaDecisionVersion);
+  void setFlowaveDecisionVersion(String camundaDecisionVersion);
 
-  String getCamundaDecisionTenantId();
+  String getFlowaveDecisionTenantId();
 
-  void setCamundaDecisionTenantId(String camundaDecisionTenantId);
+  void setFlowaveDecisionTenantId(String camundaDecisionTenantId);
 
-  String getCamundaMapDecisionResult();
+  String getFlowaveMapDecisionResult();
 
-  void setCamundaMapDecisionResult(String camundaMapDecisionResult);
+  void setFlowaveMapDecisionResult(String camundaMapDecisionResult);
 
 }

@@ -61,7 +61,7 @@ public class FlowaveValidationImpl extends BpmnModelElementInstanceImpl implemen
     super(instanceContext);
   }
 
-  public Collection<FlowaveConstraint> getCamundaConstraints() {
+  public Collection<FlowaveConstraint> getFlowaveConstraints() {
     return camundaConstraintCollection.get(this);
   }
 }

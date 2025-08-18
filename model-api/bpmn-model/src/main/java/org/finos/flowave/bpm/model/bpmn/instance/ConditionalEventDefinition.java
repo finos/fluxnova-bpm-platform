@@ -29,16 +29,16 @@ public interface ConditionalEventDefinition extends EventDefinition {
 
   void setCondition(Condition condition);
 
-  String getCamundaVariableName();
+  String getFlowaveVariableName();
 
-  void setCamundaVariableName(String variableName);
+  void setFlowaveVariableName(String variableName);
 
-  String getCamundaVariableEvents();
+  String getFlowaveVariableEvents();
 
-  void setCamundaVariableEvents(String variableEvent);
+  void setFlowaveVariableEvents(String variableEvent);
 
-  List<String> getCamundaVariableEventsList();
+  List<String> getFlowaveVariableEventsList();
 
-  void setCamundaVariableEventsList(List<String> variableEventsList);
+  void setFlowaveVariableEventsList(List<String> variableEventsList);
 
 }

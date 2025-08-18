@@ -51,14 +51,14 @@ public class ManagementProperties {
     /**
      * @return the camunda
      */
-    public Flowave getCamunda() {
+    public Flowave getFlowave() {
       return camunda;
     }
 
     /**
      * @param camunda the camunda to set
      */
-    public void setCamunda(Flowave camunda) {
+    public void setFlowave(Flowave camunda) {
       this.camunda = camunda;
     }
 

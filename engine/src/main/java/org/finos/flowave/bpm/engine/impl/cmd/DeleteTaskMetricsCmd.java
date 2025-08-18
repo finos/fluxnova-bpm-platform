@@ -38,7 +38,7 @@ public class DeleteTaskMetricsCmd implements Command<Void>, Serializable {
   }
 
   public Void execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkDeleteTaskMetrics);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkDeleteTaskMetrics);
 
     writeUserOperationLog(commandContext);
     commandContext.getMeterLogManager().deleteTaskMetricsByTimestamp(timestamp);

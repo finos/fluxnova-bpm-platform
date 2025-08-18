@@ -31,21 +31,21 @@ The webapps above are relying on 2 libraries:
 #### Plugins
 
 Parts of the web applications can be extended using plugins.
-
+** Needs To Be Reviewed **
 See [plugin development guide](http://docs.camunda.org/latest/real-life/how-to/#cockpit-how-to-develop-a-cockpit-plugin) for details.
 
 #### Translations
 
 English and german translations are located in the `ui/<app>/client/locales` folders.  
-Translations for other languages are available in the [flowave-7-webapp-translations](https://github.com/camunda-community-hub/camunda-7-webapp-translations) repository.
+Translations for other languages are available in the ** Needs To Be Reviewed ** [camunda-7-webapp-translations](https://github.com/camunda-community-hub/camunda-7-webapp-translations) repository.
 
 ### Libraries
 
-#### [flowave-bpm-sdk-js](https://github.com/finos/flowave-bpm-platform/tree/master/webapps/frontend/flowave-bpm-sdk-js)
+#### [flowave-bpm-sdk-js](https://github.com/finos/flowave-bpm-platform/tree/main/webapps/frontend/flowave-bpm-sdk-js)
 
 Has tools to work with the REST API and forms (included transitively via flowave-commons-ui).
 
-#### [flowave-commons-ui](https://github.com/finos/flowave-bpm-platform/tree/master/webapps/frontend/flowave-commons-ui)
+#### [flowave-commons-ui](https://github.com/finos/flowave-bpm-platform/tree/main/webapps/frontend/flowave-commons-ui)
 
 Contains resources like images, [`.less`](http://lesscss.org) stylesheets as well as some [angular.js](http://angularjs.org) modules.
 
@@ -56,8 +56,8 @@ You need [node.js](http://nodejs.org) >= 17 and npm.
 ### Setup
 
 #### Adjusting Maven Settings
-
-See https://github.com/finos/flowave-bpm-platform/blob/master/CONTRIBUTING.md#build-from-source
+** Needs To Be Reviewed - build-from-source **
+See https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md#build-from-source
 
 #### Using Webpack
 
@@ -95,17 +95,17 @@ npm run start
 #### Extended Support libraries from HeroDevs
 
 ##### AngularJS
-Since December 31, 2021, AngularJS is no longer officially supported by the original maintainers (Google). We replaced the official AngularJS libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the AngularJS libraries from HeroDevs in our Community Edition releases from 7.18.0-alpha2 on.
+Since December 31, 2021, AngularJS is no longer officially supported by the original maintainers (Google). We replaced the official AngularJS libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the AngularJS libraries from HeroDevs in our Community Edition releases from 7.18.0-alpha2 on.   ** Needs To Be Reviewed **
 
 **Heads-up:** If you build the Webapps from source code, the build includes the no longer maintained AngularJS libraries in version 1.8.2 unless you have access to the HeroDevs registry and configure it as shown below.
 
 ##### Bootstrap
-Since December 31, 2021, the legacy Bootstrap 3 library is no longer officially supported by the original maintainers (twbs Bootstrap). We replaced the official Bootstrap 3 libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the Bootstrap 3 libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.
+Since December 31, 2021, the legacy Bootstrap 3 library is no longer officially supported by the original maintainers (twbs Bootstrap). We replaced the official Bootstrap 3 libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the Bootstrap 3 libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.  ** Needs To Be Reviewed **
 
 **Heads-up:** If you build the Webapps from source code, the build includes the no longer maintained Bootstrap 3 libraries in version 3.4.1 unless you have access to the HeroDevs registry and configure it as shown below.
 
 #### angular-ui-bootstrap
-The angular-ui-bootstrap project is no longer being maintained. We replaced the official angular-ui-bootstrap libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the angular-ui-bootstrap libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.
+The angular-ui-bootstrap project is no longer being maintained. We replaced the official angular-ui-bootstrap libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the angular-ui-bootstrap libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.   ** Needs To Be Reviewed **
 
 **Heads-up:** If you build the Webapps from source code, the build includes the no longer maintained angular-ui-bootstrap libraries in version 2.5.6 unless you have access to the HeroDevs registry and configure it as shown below.
 
@@ -115,7 +115,7 @@ Since 2024-01-15 the angular-translate project has been archived. We replaced th
 **Heads-up:** If you build the Webapps from source code, the build includes the no longer maintained angular-translate libraries in version 2.19.0 unless you have access to the HeroDevs registry and configure it as shown below.
 
 #### angular-moment
-The angular-moment project has been archived on Nov 30, 2021. We replaced the official angular-moment libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the angular-moment libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.
+The angular-moment project has been archived on Nov 30, 2021. We replaced the official angular-moment libraries with the ones from [HeroDevs](https://www.herodevs.com/) to ensure that our used libraries stay secure and supported. We include the angular-moment libraries from HeroDevs in our Community Edition releases from 7.23.0-alpha2 on.   ** Needs To Be Reviewed **
 
 **Heads-up:** If you build the Webapps from source code, the build includes the no longer maintained angular-moment libraries in version 1.3.0 unless you have access to the HeroDevs registry and configure it as shown below.
 
@@ -148,12 +148,12 @@ The supported browsers are:
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/master/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 ## Help and support
-
-* [Documentation](http://docs.flowave.finos.org/manual/latest/)
+** Needs To Be Reviewed **
+* [Documentation](http://docs.camunda.org/manual/latest/)
 * [Forum](https://forum.camunda.org)
 * [Stackoverflow](https://stackoverflow.com/questions/tagged/camunda)
 

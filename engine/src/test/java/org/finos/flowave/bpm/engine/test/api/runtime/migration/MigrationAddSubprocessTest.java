@@ -515,7 +515,7 @@ public class MigrationAddSubprocessTest {
 
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
       .done()
     );
 
@@ -546,7 +546,7 @@ public class MigrationAddSubprocessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, DelegateExecutionListener.class.getName())
       .done()
     );
 
@@ -577,7 +577,7 @@ public class MigrationAddSubprocessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaInputParameter("foo", "bar")
+      .flowaveInputParameter("foo", "bar")
       .done()
     );
 
@@ -611,7 +611,7 @@ public class MigrationAddSubprocessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
       .activityBuilder("subProcess")
-      .camundaInputParameter("foo", "bar")
+      .flowaveInputParameter("foo", "bar")
       .done()
     );
 
@@ -666,16 +666,16 @@ public class MigrationAddSubprocessTest {
         .<UserTask>getModelElementById("userTask").builder()
         .multiInstance()
           .parallel()
-          .camundaCollection("collectionVar")
-          .camundaElementVariable("elementVar")
+          .flowaveCollection("collectionVar")
+          .flowaveElementVariable("elementVar")
         .done());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(
       modify(ProcessModels.SUBPROCESS_PROCESS)
         .<UserTask>getModelElementById("userTask").builder()
         .multiInstance()
           .parallel()
-          .camundaCollection("collectionVar")
-          .camundaElementVariable("elementVar")
+          .flowaveCollection("collectionVar")
+          .flowaveElementVariable("elementVar")
         .done());
 
     MigrationPlan migrationPlan = rule.getRuntimeService()
@@ -907,7 +907,7 @@ public class MigrationAddSubprocessTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
         .activityBuilder("subProcess")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .done());
 
     MigrationPlan migrationPlan = rule.getRuntimeService()

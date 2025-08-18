@@ -27,20 +27,20 @@ import org.finos.flowave.bpm.model.cmmn.instance.CmmnModelElementInstance;
  */
 public interface FlowaveOut extends CmmnModelElementInstance {
 
-  String getCamundaSource();
+  String getFlowaveSource();
 
-  void setCamundaSource(String camundaSource);
+  void setFlowaveSource(String camundaSource);
 
-  String getCamundaSourceExpression();
+  String getFlowaveSourceExpression();
 
-  void setCamundaSourceExpression(String camundaSourceExpression);
+  void setFlowaveSourceExpression(String camundaSourceExpression);
 
-  String getCamundaVariables();
+  String getFlowaveVariables();
 
-  void setCamundaVariables(String camundaVariables);
+  void setFlowaveVariables(String camundaVariables);
 
-  String getCamundaTarget();
+  String getFlowaveTarget();
 
-  void setCamundaTarget(String camundaTarget);
+  void setFlowaveTarget(String camundaTarget);
 
 }

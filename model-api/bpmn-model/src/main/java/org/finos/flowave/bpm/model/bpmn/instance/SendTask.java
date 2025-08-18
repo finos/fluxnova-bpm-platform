@@ -41,31 +41,31 @@ public interface SendTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaClass();
+  String getFlowaveClass();
 
-  void setCamundaClass(String camundaClass);
+  void setFlowaveClass(String camundaClass);
 
-  String getCamundaDelegateExpression();
+  String getFlowaveDelegateExpression();
 
-  void setCamundaDelegateExpression(String camundaExpression);
+  void setFlowaveDelegateExpression(String camundaExpression);
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 
-  String getCamundaResultVariable();
+  String getFlowaveResultVariable();
 
-  void setCamundaResultVariable(String camundaResultVariable);
+  void setFlowaveResultVariable(String camundaResultVariable);
 
-  String getCamundaType();
+  String getFlowaveType();
 
-  void setCamundaType(String camundaType);
+  void setFlowaveType(String camundaType);
 
-  String getCamundaTopic();
+  String getFlowaveTopic();
 
-  void setCamundaTopic(String camundaTopic);
+  void setFlowaveTopic(String camundaTopic);
   
-  String getCamundaTaskPriority();
+  String getFlowaveTaskPriority();
   
-  void setCamundaTaskPriority(String taskPriority);
+  void setFlowaveTaskPriority(String taskPriority);
 }

@@ -27,6 +27,6 @@ import java.util.Collection;
  */
 public interface FlowaveProperties extends BpmnModelElementInstance {
 
-  Collection<FlowaveProperty> getCamundaProperties();
+  Collection<FlowaveProperty> getFlowaveProperties();
 
 }

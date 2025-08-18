@@ -59,7 +59,7 @@ public class FlowaveBpmRunProcessEngineConfiguration extends SpringProcessEngine
   @Override
   protected void initTelemetryData() {
     super.initTelemetryData();
-    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
+    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getFlowaveIntegration();
     camundaIntegration.add(FlowaveIntegration.CAMUNDA_BPM_RUN);
   }
 

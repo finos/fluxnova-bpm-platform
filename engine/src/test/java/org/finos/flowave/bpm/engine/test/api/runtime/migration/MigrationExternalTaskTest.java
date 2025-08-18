@@ -160,8 +160,8 @@ public class MigrationExternalTaskTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ExternalTaskModels.ONE_EXTERNAL_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(modify(ExternalTaskModels.ONE_EXTERNAL_TASK_PROCESS)
         .serviceTaskBuilder("externalTask")
-        .camundaTopic("new" + ExternalTaskModels.TOPIC)
-        .camundaTaskPriority(Integer.toString(ExternalTaskModels.PRIORITY * 2))
+        .flowaveTopic("new" + ExternalTaskModels.TOPIC)
+        .flowaveTaskPriority(Integer.toString(ExternalTaskModels.PRIORITY * 2))
         .done());
 
     MigrationPlan migrationPlan = rule.getRuntimeService()
@@ -188,9 +188,9 @@ public class MigrationExternalTaskTest {
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.newModel()
         .startEvent()
         .businessRuleTask("externalBusinessRuleTask")
-          .camundaType(ExternalTaskModels.EXTERNAL_TASK_TYPE)
-          .camundaTopic(ExternalTaskModels.TOPIC)
-          .camundaTaskPriority(ExternalTaskModels.PRIORITY.toString())
+          .flowaveType(ExternalTaskModels.EXTERNAL_TASK_TYPE)
+          .flowaveTopic(ExternalTaskModels.TOPIC)
+          .flowaveTaskPriority(ExternalTaskModels.PRIORITY.toString())
         .endEvent()
         .done());
 

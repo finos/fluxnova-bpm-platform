@@ -75,14 +75,14 @@ public class DecisionMetricsTest extends AbstractMetricsTest {
   @Test
   public void testBusinessRuleTask() {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("testProcess")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .businessRuleTask("task")
         .endEvent()
         .done();
 
     BusinessRuleTask task = modelInstance.getModelElementById("task");
-    task.setCamundaDecisionRef("decision");
+    task.setFlowaveDecisionRef("decision");
 
     testRule.deploy(repositoryService.createDeployment()
         .addModelInstance("process.bpmn", modelInstance)

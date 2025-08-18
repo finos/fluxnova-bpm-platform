@@ -58,17 +58,17 @@ public class FieldSpec {
 
   public void addFieldToListenerElement(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listenerElement) {
     FlowaveField field = SpecUtil.createElement(modelInstance, listenerElement, null, FlowaveField.class);
-    field.setCamundaName(fieldName);
+    field.setFlowaveName(fieldName);
 
     if (expression != null) {
-      field.setCamundaExpression(expression);
+      field.setFlowaveExpression(expression);
 
     } else if (childExpression != null) {
       FlowaveExpression fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, FlowaveExpression.class);
       fieldExpressionChild.setTextContent(childExpression);
 
     } else if (stringValue != null) {
-      field.setCamundaStringValue(stringValue);
+      field.setFlowaveStringValue(stringValue);
 
     } else if (childStringValue != null) {
       FlowaveString fieldExpressionChild = SpecUtil.createElement(modelInstance, field, null, FlowaveString.class);

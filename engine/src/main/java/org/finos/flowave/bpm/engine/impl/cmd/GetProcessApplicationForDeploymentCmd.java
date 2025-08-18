@@ -35,7 +35,7 @@ public class GetProcessApplicationForDeploymentCmd implements Command<String> {
   }
 
   public String execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadProcessApplicationForDeployment);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadProcessApplicationForDeployment);
 
     ProcessApplicationReference reference = Context.getProcessEngineConfiguration()
       .getProcessApplicationManager()

@@ -40,7 +40,7 @@ public class MultiTenancyDelegateExecutionTest extends PluggableProcessEngineTes
     testRule.deployForTenant("tenant1", Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
       .startEvent()
       .serviceTask()
-        .camundaClass(AssertingJavaDelegate.class.getName())
+        .flowaveClass(AssertingJavaDelegate.class.getName())
       .endEvent()
     .done());
 
@@ -56,12 +56,12 @@ public class MultiTenancyDelegateExecutionTest extends PluggableProcessEngineTes
       .startEvent()
       .parallelGateway("fork")
         .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .parallelGateway("join")
         .endEvent()
         .moveToNode("fork")
           .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
           .connectTo("join")
           .done());
 
@@ -78,7 +78,7 @@ public class MultiTenancyDelegateExecutionTest extends PluggableProcessEngineTes
           .embeddedSubProcess()
             .startEvent()
             .serviceTask()
-              .camundaClass(AssertingJavaDelegate.class.getName())
+              .flowaveClass(AssertingJavaDelegate.class.getName())
             .endEvent()
         .subProcessDone()
         .endEvent()

@@ -41,7 +41,7 @@ public abstract class AbstractErrorEventDefinitionBuilder<B extends AbstractErro
    * Sets the error code variable attribute.
    */
   public B errorCodeVariable(String errorCodeVariable) {
-    element.setCamundaErrorCodeVariable(errorCodeVariable);
+    element.setFlowaveErrorCodeVariable(errorCodeVariable);
     return myself;
   }
 
@@ -49,7 +49,7 @@ public abstract class AbstractErrorEventDefinitionBuilder<B extends AbstractErro
    * Sets the error message variable attribute.
    */
   public B errorMessageVariable(String errorMessageVariable) {
-    element.setCamundaErrorMessageVariable(errorMessageVariable);
+    element.setFlowaveErrorMessageVariable(errorMessageVariable);
     return myself;
   }
 

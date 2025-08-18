@@ -27,6 +27,6 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveMap extends BpmnModelElementInstance {
 
-  Collection<FlowaveEntry> getCamundaEntries();
+  Collection<FlowaveEntry> getFlowaveEntries();
   
 }

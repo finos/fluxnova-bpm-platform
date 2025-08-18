@@ -36,16 +36,16 @@ public interface CaseTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaCaseBinding();
+  String getFlowaveCaseBinding();
 
-  void setCamundaCaseBinding(String camundaCaseBinding);
+  void setFlowaveCaseBinding(String camundaCaseBinding);
 
-  String getCamundaCaseVersion();
+  String getFlowaveCaseVersion();
 
-  void setCamundaCaseVersion(String camundaCaseVersion);
+  void setFlowaveCaseVersion(String camundaCaseVersion);
 
-  String getCamundaCaseTenantId();
+  String getFlowaveCaseTenantId();
 
-  void setCamundaCaseTenantId(String camundaCaseTenantId);
+  void setFlowaveCaseTenantId(String camundaCaseTenantId);
 
 }

@@ -3416,8 +3416,8 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
         Bpmn.createExecutableProcess("process")
         .startEvent("startEvent")
         .serviceTask("externalTask")
-          .camundaType("external")
-          .camundaTopic(TOPIC_NAME)
+          .flowaveType("external")
+          .flowaveTopic(TOPIC_NAME)
         .endEvent("endEvent")
         .done();
 
@@ -3900,8 +3900,8 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
   public void testCompleteWithLocalVariables() {
     // given
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process").startEvent().serviceTask("externalTask")
-        .camundaType("external").camundaTopic("foo").camundaTaskPriority("100")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadLocalVariableListenerImpl.class)
+        .flowaveType("external").flowaveTopic("foo").flowaveTaskPriority("100")
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadLocalVariableListenerImpl.class)
         .userTask("user").endEvent().done();
 
    testRule.deploy(instance);
@@ -3931,8 +3931,8 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
   public void testCompleteWithNonLocalVariables() {
     // given
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process").startEvent().serviceTask("externalTask")
-        .camundaType("external").camundaTopic("foo").camundaTaskPriority("100")
-        .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadLocalVariableListenerImpl.class)
+        .flowaveType("external").flowaveTopic("foo").flowaveTaskPriority("100")
+        .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, ReadLocalVariableListenerImpl.class)
         .userTask("user").endEvent().done();
 
    testRule.deploy(instance);

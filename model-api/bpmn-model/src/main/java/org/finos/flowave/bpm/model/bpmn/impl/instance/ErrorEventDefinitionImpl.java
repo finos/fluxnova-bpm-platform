@@ -84,22 +84,22 @@ public class ErrorEventDefinitionImpl extends EventDefinitionImpl implements Err
   }
 
   @Override
-  public void setCamundaErrorCodeVariable(String camundaErrorCodeVariable) {
+  public void setFlowaveErrorCodeVariable(String camundaErrorCodeVariable) {
     camundaErrorCodeVariableAttribute.setValue(this, camundaErrorCodeVariable);
   }
 
   @Override
-  public String getCamundaErrorCodeVariable() {
+  public String getFlowaveErrorCodeVariable() {
     return camundaErrorCodeVariableAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaErrorMessageVariable(String camundaErrorMessageVariable) {
+  public void setFlowaveErrorMessageVariable(String camundaErrorMessageVariable) {
     camundaErrorMessageVariableAttribute.setValue(this, camundaErrorMessageVariable);
   }
 
   @Override
-  public String getCamundaErrorMessageVariable() {
+  public String getFlowaveErrorMessageVariable() {
     return camundaErrorMessageVariableAttribute.getValue(this);
   }
 }

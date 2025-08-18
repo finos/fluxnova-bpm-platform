@@ -60,8 +60,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
     return myself;
   }
 
-  public B camundaJobPriority(String jobPriority) {
-    element.setCamundaJobPriority(jobPriority);
+  public B flowaveJobPriority(String jobPriority) {
+    element.setFlowaveJobPriority(jobPriority);
     return myself;
   }
 
@@ -73,8 +73,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
    * @param taskPriority the task priority which should used for the external tasks
    * @return the builder object
    */
-  public B camundaTaskPriority(String taskPriority) {
-    element.setCamundaTaskPriority(taskPriority);
+  public B flowaveTaskPriority(String taskPriority) {
+    element.setFlowaveTaskPriority(taskPriority);
     return myself;
   }
 
@@ -84,8 +84,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
    * @param historyTimeToLive value for history time to live, must be either null or non-negative integer.
    * @return the builder object
    */
-  public B camundaHistoryTimeToLive(Integer historyTimeToLive) {
-    element.setCamundaHistoryTimeToLive(historyTimeToLive);
+  public B flowaveHistoryTimeToLive(Integer historyTimeToLive) {
+    element.setFlowaveHistoryTimeToLive(historyTimeToLive);
     return myself;
   }
 
@@ -95,8 +95,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
    * @param historyTimeToLive string value of history time to live, can be null or a valid ISO-8601 value.
    * @return the builder object
    */
-  public B camundaHistoryTimeToLiveString(String historyTimeToLive) {
-    element.setCamundaHistoryTimeToLiveString(historyTimeToLive);
+  public B flowaveHistoryTimeToLiveString(String historyTimeToLive) {
+    element.setFlowaveHistoryTimeToLiveString(historyTimeToLive);
     return myself;
   }
 
@@ -106,8 +106,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
    * @param isStartableInTasklist default value is true
    * @return the builder object
    */
-  public B camundaStartableInTasklist(Boolean isStartableInTasklist) {
-    element.setCamundaIsStartableInTasklist(isStartableInTasklist);
+  public B flowaveStartableInTasklist(Boolean isStartableInTasklist) {
+    element.setFlowaveIsStartableInTasklist(isStartableInTasklist);
     return myself;
   }
 
@@ -117,8 +117,8 @@ public abstract class AbstractProcessBuilder<B extends AbstractProcessBuilder<B>
    * @param versionTag the version of the process definition
    * @return the builder object
    */
-  public B camundaVersionTag(String versionTag) {
-    element.setCamundaVersionTag(versionTag);
+  public B flowaveVersionTag(String versionTag) {
+    element.setFlowaveVersionTag(versionTag);
     return myself;
   }
 }

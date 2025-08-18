@@ -44,11 +44,11 @@ import org.junit.runner.RunWith;
 public class ClassloadingByJobPriorityTest extends AbstractFoxPlatformIntegrationTest {
 
   protected static final BpmnModelInstance process = Bpmn.createExecutableProcess("asyncTaskProcess")
-                                                         .camundaHistoryTimeToLive(180)
+                                                         .flowaveHistoryTimeToLive(180)
                                                          .startEvent()
                                                          .serviceTask()
-                                                           .camundaExpression("${true}")
-                                                           .camundaAsyncBefore()
+                                                           .flowaveExpression("${true}")
+                                                           .flowaveAsyncBefore()
                                                          .endEvent()
                                                          .done();
 

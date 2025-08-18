@@ -108,7 +108,7 @@ public class FlowaveEngineRecorder {
     return new RuntimeValue<>(processEngine);
   }
 
-  public void fireCamundaEngineStartEvent() {
+  public void fireFlowaveEngineStartEvent() {
     Arc.container().beanManager()
         .getEvent()
         .select(FlowaveEngineStartupEvent.class)

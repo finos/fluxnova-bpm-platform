@@ -37,7 +37,7 @@ public class DelegateExpressionExecutionListenerSpec extends AbstractExecutionLi
   }
 
   protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
-    listener.setCamundaDelegateExpression(DELEGATE_EXPRESSION);
+    listener.setFlowaveDelegateExpression(DELEGATE_EXPRESSION);
   }
 
   public void verifyListener(DelegateListener<? extends BaseDelegateExecution> listener) {

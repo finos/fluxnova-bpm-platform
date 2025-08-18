@@ -50,7 +50,7 @@ public class RegisterProcessApplicationCmd implements Command<ProcessApplication
   }
 
   public ProcessApplicationRegistration execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkRegisterProcessApplication);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkRegisterProcessApplication);
 
     final ProcessEngineConfigurationImpl processEngineConfiguration = Context.getProcessEngineConfiguration();
     final ProcessApplicationManager processApplicationManager = processEngineConfiguration.getProcessApplicationManager();

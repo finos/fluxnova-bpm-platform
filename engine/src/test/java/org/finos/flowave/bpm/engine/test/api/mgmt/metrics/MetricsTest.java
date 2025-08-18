@@ -75,7 +75,7 @@ public class MetricsTest {
     //clean up before start
     clearMetrics();
     TEST_RULE.deploy(Bpmn.createExecutableProcess("testProcess")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .manualTask()
         .endEvent()
@@ -110,7 +110,7 @@ public class MetricsTest {
   public void testEndMetricWithWaitState() {
     //given
     TEST_RULE.deploy(Bpmn.createExecutableProcess("userProcess")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask("Task")
         .endEvent()

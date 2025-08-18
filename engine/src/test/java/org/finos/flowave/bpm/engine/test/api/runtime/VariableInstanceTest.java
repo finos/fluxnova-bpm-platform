@@ -166,7 +166,7 @@ public class VariableInstanceTest extends PluggableProcessEngineTest {
     public void shouldNotDeleteByteArrayWhenTypeDoesNotChange() {
         // given a process with a MySerializable variable type
         deployProcess(Bpmn.createExecutableProcess("testProcess")
-                .startEvent().camundaAsyncAfter()
+                .startEvent().flowaveAsyncAfter()
                 .scriptTask()
                 .scriptFormat("groovy")
                 .scriptText("println 'var ' + myVar")
@@ -217,7 +217,7 @@ public class VariableInstanceTest extends PluggableProcessEngineTest {
     public void shouldDeleteByteArrayOnNullifyOfExistingNonNullVariable() {
         // given a process with a MySerializable variable type with a null value
         deployProcess(Bpmn.createExecutableProcess("testProcess")
-                .startEvent().camundaAsyncAfter()
+                .startEvent().flowaveAsyncAfter()
                 .scriptTask()
                 .scriptFormat("groovy")
                 .scriptText("println 'var ' + myVar")
@@ -268,7 +268,7 @@ public class VariableInstanceTest extends PluggableProcessEngineTest {
     public void shouldDeleteByteArrayOnUpdateOfExistingNullVariable() {
         // given a process with a MySerializable variable type with a null value
         deployProcess(Bpmn.createExecutableProcess("testProcess")
-                .startEvent().camundaAsyncAfter()
+                .startEvent().flowaveAsyncAfter()
                 .scriptTask()
                 .scriptFormat("groovy")
                 .scriptText("println 'var ' + myVar")

@@ -373,7 +373,7 @@ public class Bpmn {
     bpmnDiagram.addChildElement(bpmnPlane);
     definitions.addChildElement(bpmnDiagram);
 
-    return process.builder().camundaHistoryTimeToLiveString(DEFAULT_HISTORY_TIME_TO_LIVE);
+    return process.builder().flowaveHistoryTimeToLiveString(DEFAULT_HISTORY_TIME_TO_LIVE);
   }
 
   public static ProcessBuilder createProcess(String processId) {

@@ -70,9 +70,9 @@ public class ConditionalSequenceFlowTest {
 
   @Test
   public void shouldHaveResource() {
-    assertThat(conditionExpression1.getCamundaResource()).isNull();
-    assertThat(conditionExpression2.getCamundaResource()).isNull();
-    assertThat(conditionExpression3.getCamundaResource()).isEqualTo("test.groovy");
+    assertThat(conditionExpression1.getFlowaveResource()).isNull();
+    assertThat(conditionExpression2.getFlowaveResource()).isNull();
+    assertThat(conditionExpression3.getFlowaveResource()).isEqualTo("test.groovy");
   }
 
 }

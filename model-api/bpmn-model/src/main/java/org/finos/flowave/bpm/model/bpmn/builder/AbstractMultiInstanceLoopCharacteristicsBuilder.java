@@ -85,8 +85,8 @@ public class AbstractMultiInstanceLoopCharacteristicsBuilder<B extends AbstractM
    * @param expression the collection expression
    * @return the builder object
    */
-  public B camundaCollection(String expression) {
-    element.setCamundaCollection(expression);
+  public B flowaveCollection(String expression) {
+    element.setFlowaveCollection(expression);
 
     return myself;
   }
@@ -97,8 +97,8 @@ public class AbstractMultiInstanceLoopCharacteristicsBuilder<B extends AbstractM
    * @param variableName the name of the element variable
    * @return the builder object
    */
-  public B camundaElementVariable(String variableName) {
-    element.setCamundaElementVariable(variableName);
+  public B flowaveElementVariable(String variableName) {
+    element.setFlowaveElementVariable(variableName);
 
     return myself;
   }
@@ -108,8 +108,8 @@ public class AbstractMultiInstanceLoopCharacteristicsBuilder<B extends AbstractM
    *
    * @return  the builder object
    */
-  public B camundaAsyncBefore() {
-    element.setCamundaAsyncBefore(true);
+  public B flowaveAsyncBefore() {
+    element.setFlowaveAsyncBefore(true);
     return myself;
   }
 
@@ -118,8 +118,8 @@ public class AbstractMultiInstanceLoopCharacteristicsBuilder<B extends AbstractM
    *
    * @return  the builder object
    */
-  public B camundaAsyncAfter() {
-    element.setCamundaAsyncAfter(true);
+  public B flowaveAsyncAfter() {
+    element.setFlowaveAsyncAfter(true);
     return myself;
   }
 

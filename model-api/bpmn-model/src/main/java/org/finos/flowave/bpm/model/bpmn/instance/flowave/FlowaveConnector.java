@@ -25,12 +25,12 @@ import org.finos.flowave.bpm.model.bpmn.instance.BpmnModelElementInstance;
  */
 public interface FlowaveConnector extends BpmnModelElementInstance {
 
-  FlowaveConnectorId getCamundaConnectorId();
+  FlowaveConnectorId getFlowaveConnectorId();
 
-  void setCamundaConnectorId(FlowaveConnectorId camundaConnectorId);
+  void setFlowaveConnectorId(FlowaveConnectorId camundaConnectorId);
  
-  FlowaveInputOutput getCamundaInputOutput();
+  FlowaveInputOutput getFlowaveInputOutput();
   
-  void setCamundaInputOutput(FlowaveInputOutput camundaInputOutput);
+  void setFlowaveInputOutput(FlowaveInputOutput camundaInputOutput);
   
 }

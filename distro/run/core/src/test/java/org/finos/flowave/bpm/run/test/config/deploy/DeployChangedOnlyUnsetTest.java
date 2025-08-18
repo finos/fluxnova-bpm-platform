@@ -29,7 +29,7 @@ public class DeployChangedOnlyUnsetTest extends AbstractRestTest {
   private FlowaveBpmRunProcessEngineConfiguration engineConfig;
 
   @Test
-  public void shouldEnableDeployChangedOnlyOnCamundaRunProperty() {
+  public void shouldEnableDeployChangedOnlyOnFlowaveRunProperty() {
     assertThat(engineConfig.isDeployChangedOnly()).isEqualTo(true);
   }
 }

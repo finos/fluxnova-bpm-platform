@@ -289,7 +289,7 @@ public class HistoryTimeToLiveDeploymentTest {
   protected void deployProcessDefinitions() {
     testRule.deploy(
       Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(365)
+        .flowaveHistoryTimeToLive(365)
         .startEvent()
         .userTask()
         .endEvent()

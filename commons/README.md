@@ -1,15 +1,17 @@
 # flowave commons
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.commons/camunda-commons-bom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.commons/camunda-commons-bom)
+ ** Needs To Be Reviewed **
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.camunda.commons/camunda-commons-bom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.camunda.commons/camunda-commons-bom)
 
 
 flowave commons is a collection of shared libraries used by flowave open source projects.
 
 ## List of libraries
 
-* [camunda commons logging][logging]
-* [camunda commons utils][utils]
-* [camunda-bpm-platform][typed-values]
+* [flowave commons logging][logging]
+* [flowave commons utils][utils]
+* [flowave-bpm-platform][typed-values]
 
 
 ## Getting started
@@ -36,7 +38,7 @@ Now you can reference individual commons projects:
 ```xml
 <dependency>
   <groupId>org.finos.flowave.commons</groupId>
-  <artifactId>camunda-commons-logging</artifactId>
+  <artifactId>flowave-commons-logging</artifactId>
 </dependency>
 ```
 
@@ -48,7 +50,7 @@ Java JRE 11+ is required.
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/camunda/camunda-bpm-platform/blob/master/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 ## License:

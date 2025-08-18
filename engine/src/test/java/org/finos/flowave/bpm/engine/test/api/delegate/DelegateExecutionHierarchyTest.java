@@ -49,7 +49,7 @@ public class DelegateExecutionHierarchyTest extends PluggableProcessEngineTest {
    testRule.deploy(Bpmn.createExecutableProcess("testProcess")
       .startEvent()
       .serviceTask()
-        .camundaClass(AssertingJavaDelegate.class.getName())
+        .flowaveClass(AssertingJavaDelegate.class.getName())
       .endEvent()
     .done());
 
@@ -73,12 +73,12 @@ public class DelegateExecutionHierarchyTest extends PluggableProcessEngineTest {
       .startEvent()
       .parallelGateway("fork")
         .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .parallelGateway("join")
         .endEvent()
         .moveToNode("fork")
           .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
           .connectTo("join")
           .done());
 
@@ -103,7 +103,7 @@ public class DelegateExecutionHierarchyTest extends PluggableProcessEngineTest {
           .embeddedSubProcess()
             .startEvent()
             .serviceTask()
-              .camundaClass(AssertingJavaDelegate.class.getName())
+              .flowaveClass(AssertingJavaDelegate.class.getName())
             .endEvent()
         .subProcessDone()
         .endEvent()
@@ -134,7 +134,7 @@ public class DelegateExecutionHierarchyTest extends PluggableProcessEngineTest {
       Bpmn.createExecutableProcess("testProcess2")
         .startEvent()
         .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .endEvent()
       .done());
 

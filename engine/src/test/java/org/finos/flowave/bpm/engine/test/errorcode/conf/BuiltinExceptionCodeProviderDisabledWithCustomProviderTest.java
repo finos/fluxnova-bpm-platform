@@ -133,7 +133,7 @@ public class BuiltinExceptionCodeProviderDisabledWithCustomProviderTest {
     BpmnModelInstance myProcess = Bpmn.createExecutableProcess("foo")
         .startEvent()
         .serviceTask()
-          .camundaClass(FailingJavaDelegateWithErrorCode.class)
+          .flowaveClass(FailingJavaDelegateWithErrorCode.class)
         .endEvent()
         .done();
 
@@ -156,7 +156,7 @@ public class BuiltinExceptionCodeProviderDisabledWithCustomProviderTest {
     BpmnModelInstance myProcess = Bpmn.createExecutableProcess("foo")
         .startEvent()
         .serviceTask()
-          .camundaClass(FailingJavaDelegateWithErrorCode.class)
+          .flowaveClass(FailingJavaDelegateWithErrorCode.class)
         .endEvent()
         .done();
 

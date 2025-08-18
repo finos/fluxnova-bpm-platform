@@ -1,7 +1,7 @@
 # Vendor
 
 The scripts located in this directory are dependencies of the
-[flowave-commons-ui](http://github.com/camunda/camunda-commons-ui)
+[flowave-commons-ui](https://github.com/finos/flowave-bpm-platform/tree/main/webapps/frontend/flowave-commons-ui)
 and were downloaded manually.
 
 
@@ -30,7 +30,7 @@ License: [MIT](https://raw.githubusercontent.com/jquery/jquery-ui/master/LICENSE
 
 
 ## AngularJS Bootstrap
-
+** Section Needs To Be Reviewed **
 Version: 0.11.2
 Source: Custom build from [forked ui-bootstrap](//github.com/camunda-third-party/bootstrap). To rebuild:
 ```sh

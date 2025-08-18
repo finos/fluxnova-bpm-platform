@@ -55,13 +55,13 @@ public class ServiceTaskTest extends BpmnModelElementInstanceTest {
   
   
   @Test
-  public void testCamundaTaskPriority() {
+  public void testFlowaveTaskPriority() {
     //given
     ServiceTask service = modelInstance.newInstance(ServiceTask.class);    
-    assertThat(service.getCamundaTaskPriority()).isNull();
+    assertThat(service.getFlowaveTaskPriority()).isNull();
     //when
-    service.setCamundaTaskPriority(BpmnTestConstants.TEST_PROCESS_TASK_PRIORITY);
+    service.setFlowaveTaskPriority(BpmnTestConstants.TEST_PROCESS_TASK_PRIORITY);
     //then
-    assertThat(service.getCamundaTaskPriority()).isEqualTo(BpmnTestConstants.TEST_PROCESS_TASK_PRIORITY);    
+    assertThat(service.getFlowaveTaskPriority()).isEqualTo(BpmnTestConstants.TEST_PROCESS_TASK_PRIORITY);    
   }
 }

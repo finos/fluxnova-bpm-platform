@@ -81,7 +81,7 @@ public class AutoDeploymentIT {
     bpmnFile.createNewFile();
 
     BpmnModelInstance model = Bpmn.createExecutableProcess(processDefinitionId)
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .endEvent()
         .done();

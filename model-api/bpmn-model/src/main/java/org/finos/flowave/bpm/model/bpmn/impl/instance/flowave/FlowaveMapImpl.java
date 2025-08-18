@@ -61,7 +61,7 @@ public class FlowaveMapImpl extends BpmnModelElementInstanceImpl implements Flow
     super(instanceContext);
   }
 
-  public Collection<FlowaveEntry> getCamundaEntries() {
+  public Collection<FlowaveEntry> getFlowaveEntries() {
     return camundaEntryCollection.get(this);
   }
 

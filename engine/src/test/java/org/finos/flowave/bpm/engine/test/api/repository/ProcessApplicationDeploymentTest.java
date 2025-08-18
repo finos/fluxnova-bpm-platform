@@ -326,9 +326,9 @@ public class ProcessApplicationDeploymentTest {
   public void testDuplicateFilteringDefaultBehavior() {
     // given
     BpmnModelInstance oldModel = Bpmn.createExecutableProcess("versionedProcess")
-      .camundaVersionTag("3").done();
+      .flowaveVersionTag("3").done();
     BpmnModelInstance newModel = Bpmn.createExecutableProcess("versionedProcess")
-      .camundaVersionTag("1").done();
+      .flowaveVersionTag("1").done();
 
     testRule.deploy(repositoryService.createDeployment(processApplication.getReference())
       .enableDuplicateFiltering(true)
@@ -351,9 +351,9 @@ public class ProcessApplicationDeploymentTest {
     // given
     processEngineConfiguration.setDeploymentHandlerFactory( customDeploymentHandlerFactory);
     BpmnModelInstance oldModel = Bpmn.createExecutableProcess("versionedProcess")
-      .camundaVersionTag("1").startEvent().done();
+      .flowaveVersionTag("1").startEvent().done();
     BpmnModelInstance newModel = Bpmn.createExecutableProcess("versionedProcess")
-      .camundaVersionTag("3").startEvent().done();
+      .flowaveVersionTag("3").startEvent().done();
 
     Deployment deployment1 = testRule.deploy(
         repositoryService
@@ -500,11 +500,11 @@ public class ProcessApplicationDeploymentTest {
     // given
     processEngineConfiguration.setDeploymentHandlerFactory(customDeploymentHandlerFactory);
     BpmnModelInstance oldModel = Bpmn.createExecutableProcess("process")
-        .camundaVersionTag("1")
+        .flowaveVersionTag("1")
         .startEvent()
         .done();
     BpmnModelInstance newModel = Bpmn.createExecutableProcess("process")
-        .camundaVersionTag("3")
+        .flowaveVersionTag("3")
         .startEvent()
         .done();
 
@@ -611,9 +611,9 @@ public class ProcessApplicationDeploymentTest {
   public void testProcessApplicationDeploymentResumePreviousVersionsByDeploymentNameCustomBehavior() {
     // given
     BpmnModelInstance oldProcess =
-        Bpmn.createExecutableProcess("process").camundaVersionTag("1").startEvent().done();
+        Bpmn.createExecutableProcess("process").flowaveVersionTag("1").startEvent().done();
     BpmnModelInstance newProcess =
-        Bpmn.createExecutableProcess("process").camundaVersionTag("2").startEvent().done();
+        Bpmn.createExecutableProcess("process").flowaveVersionTag("2").startEvent().done();
 
     // set custom deployment handler
     processEngineConfiguration.setDeploymentHandlerFactory(customDeploymentHandlerFactory);

@@ -53,7 +53,7 @@ public class CallActivityModels {
     return ProcessModels.newModel()
         .startEvent()
         .callActivity("callActivity")
-          .camundaCaseRef(caseCaseKey)
+          .flowaveCaseRef(caseCaseKey)
         .userTask("userTask")
         .endEvent()
         .done();
@@ -64,7 +64,7 @@ public class CallActivityModels {
         .startEvent()
         .callActivity()
           .calledElement("${NextProcess}")
-          .camundaIn("NextProcess", "NextProcess")
+          .flowaveIn("NextProcess", "NextProcess")
         .endEvent()
         .done();
   }
@@ -72,10 +72,10 @@ public class CallActivityModels {
   public static BpmnModelInstance oneBpmnCallActivityProcessAsExpressionAsync(int processNumber){
     return ProcessModels.newModel(processNumber)
         .startEvent()
-          .camundaAsyncBefore(true)
+          .flowaveAsyncBefore(true)
         .callActivity()
           .calledElement("${NextProcess}")
-          .camundaIn("NextProcess", "NextProcess")
+          .flowaveIn("NextProcess", "NextProcess")
         .endEvent()
         .done();
   }
@@ -85,8 +85,8 @@ public class CallActivityModels {
         .startEvent()
         .callActivity()
           .calledElement("Process"+calledProcessNumber)
-          .camundaInputParameter("NextProcess", "Process"+(processNumber+1))
-          .camundaIn("NextProcess", "NextProcess")
+          .flowaveInputParameter("NextProcess", "Process"+(processNumber+1))
+          .flowaveIn("NextProcess", "NextProcess")
         .endEvent()
         .done();
   }

@@ -1446,9 +1446,9 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
           this.formKey = (String) formKey.getValue(this);
         } else {
           // initialize form reference
-          Expression formRef = taskDefinition.getCamundaFormDefinitionKey();
-          String formRefBinding = taskDefinition.getCamundaFormDefinitionBinding();
-          Expression formRefVersion = taskDefinition.getCamundaFormDefinitionVersion();
+          Expression formRef = taskDefinition.getFlowaveFormDefinitionKey();
+          String formRefBinding = taskDefinition.getFlowaveFormDefinitionBinding();
+          Expression formRefVersion = taskDefinition.getFlowaveFormDefinitionVersion();
           if (formRef != null && formRefBinding != null) {
             String formRefValue = (String) formRef.getValue(this);
             if (formRefValue != null) {
@@ -1478,7 +1478,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
   }
 
   @Override
-  public FlowaveFormRef getCamundaFormRef() {
+  public FlowaveFormRef getFlowaveFormRef() {
     if(!isFormKeyInitialized) {
       throw LOG.uninitializedFormKeyException();
     }

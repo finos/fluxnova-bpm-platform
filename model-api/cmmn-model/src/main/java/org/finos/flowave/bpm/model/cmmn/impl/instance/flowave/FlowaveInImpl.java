@@ -87,51 +87,51 @@ public class FlowaveInImpl extends CmmnModelElementInstanceImpl implements Flowa
     super(instanceContext);
   }
 
-  public String getCamundaSource() {
+  public String getFlowaveSource() {
     return camundaSourceAttribute.getValue(this);
   }
 
-  public void setCamundaSource(String camundaSource) {
+  public void setFlowaveSource(String camundaSource) {
     camundaSourceAttribute.setValue(this, camundaSource);
   }
 
-  public String getCamundaSourceExpression() {
+  public String getFlowaveSourceExpression() {
     return camundaSourceExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaSourceExpression(String camundaSourceExpression) {
+  public void setFlowaveSourceExpression(String camundaSourceExpression) {
     camundaSourceExpressionAttribute.setValue(this, camundaSourceExpression);
   }
 
-  public String getCamundaVariables() {
+  public String getFlowaveVariables() {
     return camundaVariablesAttribute.getValue(this);
   }
 
-  public void setCamundaVariables(String camundaVariables) {
+  public void setFlowaveVariables(String camundaVariables) {
     camundaVariablesAttribute.setValue(this, camundaVariables);
   }
 
-  public String getCamundaTarget() {
+  public String getFlowaveTarget() {
     return camundaTargetAttribute.getValue(this);
   }
 
-  public void setCamundaTarget(String camundaTarget) {
+  public void setFlowaveTarget(String camundaTarget) {
     camundaTargetAttribute.setValue(this, camundaTarget);
   }
 
-  public String getCamundaBusinessKey() {
+  public String getFlowaveBusinessKey() {
     return camundaBusinessKeyAttribute.getValue(this);
   }
 
-  public void setCamundaBusinessKey(String camundaBusinessKey) {
+  public void setFlowaveBusinessKey(String camundaBusinessKey) {
     camundaBusinessKeyAttribute.setValue(this, camundaBusinessKey);
   }
 
-  public boolean getCamundaLocal() {
+  public boolean getFlowaveLocal() {
     return camundaLocalAttribute.getValue(this);
   }
 
-  public void setCamundaLocal(boolean local) {
+  public void setFlowaveLocal(boolean local) {
     camundaLocalAttribute.setValue(this, local);
   }
 

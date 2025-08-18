@@ -300,7 +300,7 @@ public class ModifiableBpmnModelInstance implements BpmnModelInstance {
     Activity activity = modelInstance.getModelElementById(activityId);
 
     MultiInstanceLoopCharacteristics miCharacteristics = (MultiInstanceLoopCharacteristics) activity.getUniqueChildElementByType(MultiInstanceLoopCharacteristics.class);
-    miCharacteristics.setCamundaAsyncBefore(true);
+    miCharacteristics.setFlowaveAsyncBefore(true);
 
     return this;
   }
@@ -309,7 +309,7 @@ public class ModifiableBpmnModelInstance implements BpmnModelInstance {
     Activity activity = modelInstance.getModelElementById(activityId);
 
     MultiInstanceLoopCharacteristics miCharacteristics = (MultiInstanceLoopCharacteristics) activity.getUniqueChildElementByType(MultiInstanceLoopCharacteristics.class);
-    miCharacteristics.setCamundaAsyncAfter(true);
+    miCharacteristics.setFlowaveAsyncAfter(true);
 
     return this;
   }

@@ -18,7 +18,7 @@ package org.finos.flowave.bpm.engine.test.form.deployment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllCamundaFormDefinitionEntities;
+import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.findAllFlowaveFormDefinitionEntities;
 import static org.finos.flowave.bpm.engine.test.util.FlowaveFormUtils.writeTempFormFile;
 
 import java.io.File;
@@ -84,7 +84,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(2);
 
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(2);
     assertThat(definitions).extracting("version").containsExactlyInAnyOrder(1, 2);
     assertThat(definitions).extracting("deploymentId").containsExactlyInAnyOrder(deployments.stream().map(Deployment::getId).toArray());
@@ -101,7 +101,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(1);
 
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(1);
     FlowaveFormDefinition definition = definitions.get(0);
     assertThat(definition.getVersion()).isEqualTo(1);
@@ -120,7 +120,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(2);
 
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(1);
     FlowaveFormDefinition definition = definitions.get(0);
     assertThat(definition.getVersion()).isEqualTo(1);
@@ -138,7 +138,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(2);
 
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(2);
     assertThat(definitions).extracting("version").containsExactly(1, 1);
     assertThat(definitions).extracting("deploymentId").containsExactlyInAnyOrder(deployments.stream().map(Deployment::getId).toArray());
@@ -155,7 +155,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     assertThat(deployments).hasSize(1);
     String deploymentId = deployments.get(0).getId();
 
-    List<FlowaveFormDefinition> definitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> definitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(2);
     assertThat(definitions).extracting("version").containsExactly(1, 1);
     assertThat(definitions).extracting("deploymentId").containsExactly(deploymentId, deploymentId);
@@ -175,7 +175,7 @@ public class FlowaveFormDefinitionDeploymentTest {
   public void shouldDeleteFormDefinitionWhenDeletingDeployment() {
     // given
     Deployment deployment = createDeploymentBuilder(true).addClasspathResource(SIMPLE_FORM).addClasspathResource(COMPLEX_FORM).deploy();
-    List<FlowaveFormDefinition> formDefinitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> formDefinitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
 
     // when
@@ -187,7 +187,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     assertThat(deployments).hasSize(1);
 
     // after deletion of deployment
-    assertThat(findAllCamundaFormDefinitionEntities(processEngineConfiguration)).hasSize(0);
+    assertThat(findAllFlowaveFormDefinitionEntities(processEngineConfiguration)).hasSize(0);
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(0);
   }
 
@@ -207,7 +207,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(2);
     assertThat(deployments).extracting("tenantId").containsExactly(null, null);
-    List<FlowaveFormDefinition> formDefinitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> formDefinitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(formDefinitions).extracting("version").containsExactlyInAnyOrder(1, 2);
     assertThat(formDefinitions).extracting("resourceName").containsExactly(fileName, fileName);
     assertThat(formDefinitions).extracting("deploymentId").containsExactlyInAnyOrder(deployments.stream().map(Deployment::getId).toArray());
@@ -230,7 +230,7 @@ public class FlowaveFormDefinitionDeploymentTest {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     assertThat(deployments).hasSize(2);
     assertThat(deployments).extracting("tenantId").containsExactly("tenant1", "tenant1");
-    List<FlowaveFormDefinition> formDefinitions = findAllCamundaFormDefinitionEntities(processEngineConfiguration);
+    List<FlowaveFormDefinition> formDefinitions = findAllFlowaveFormDefinitionEntities(processEngineConfiguration);
     assertThat(formDefinitions).extracting("version").containsExactlyInAnyOrder(1, 2);
     assertThat(formDefinitions).extracting("resourceName").containsExactly(fileName, fileName);
     assertThat(formDefinitions).extracting("deploymentId").containsExactlyInAnyOrder(deployments.stream().map(Deployment::getId).toArray());

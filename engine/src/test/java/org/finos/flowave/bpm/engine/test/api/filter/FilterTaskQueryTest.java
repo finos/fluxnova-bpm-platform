@@ -508,7 +508,7 @@ public class FilterTaskQueryTest extends PluggableProcessEngineTest {
 
   protected void createDeploymentWithBusinessKey(String aBusinessKey) {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
         .endEvent()

@@ -30,15 +30,19 @@ Found a bug in the code or have a feature that you would like to see in the futu
 
 Please try to create high quality issues:
 
-* Give enough context so that a person who doesn't know your project can understand your request
-* Be concise, only add what's needed to understand the core of the request
-* If you raise a bug report, describe the steps to reproduce the problem
-* Specify your environment (e.g. flowave version, flowave modules you use, ...)
-* Provide code. For a bug report, create a test that reproduces the problem. For feature requests, create mockup code that shows how the feature might look like. 
+Try to apply our best practices for creating issues:
+
+* Create a high-quality issue:
+  * Give enough context so that a person who doesn't know your project can understand your request
+  * Be concise, only add what's needed to understand the core of the request
+  * If you raise a bug report, describe the steps to reproduce the problem
+  * Specify your environment (e.g. Flowave version, Flowave modules you use, ...)
+  * Provide code. For a bug report, create a test that reproduces the problem. For feature requests, create mockup code that shows how the feature might look like. Fork our [unit test Github template](https://github.com/camunda/camunda-engine-unittest) to get started quickly.** Needs To Be Reviewed **
 
 ## Contribute code
 
 You can contribute code that fixes bugs and/or implements features. Here is how it works:
+
 
 1. Select an issue that you would like to work on. Have a look at [our Project Board](https://github.com/orgs/finos/projects/116) or the issues lists for the individual projects, e.g.  [Flowave-BPM-Platform Issues](https://github.com/finos/flowave-bpm-platform/issues) if you need inspiration. Be aware that some of the issues need good knowledge of the surrounding code.
 1. [Create a fork of the project](https://github.com/finos/flowave-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes.
@@ -51,8 +55,7 @@ You can contribute code that fixes bugs and/or implements features. Here is how 
 We manage issues for the multiple Flowave projects through [our Project Board](https://github.com/orgs/finos/projects/116).
 You can find the full list of FINOS hosted Flowave projects [here](https://github.com/finos/?q=flowave&type=all&language=&sort=).
 
-
-We use [labels](https://github.com/camunda/camunda-bpm-platform/labels) to mark and group our issues for easier browsing. We define the following label prefixes:
+We use [labels](https://github.com/finos/flowave-bpm-platform/labels) to mark and group our issues for easier browsing. We define the following label prefixes:  ** labels arent in Flowave. Needs To Be Reviewed **
 
 * `bot:` labels that control a github app, workflow, ...
 * `ci:` labels that control the CI for a pull request
@@ -283,14 +286,15 @@ A pull request can be submitted as follows:
 1. [Fork the Flowave repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) you are contributing to
 1. Commit and push your changes to a branch in your fork
 1. [Submit a Pull Request to the Flowave repository](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). As the *base* branch (the one that you contribute to), select `main`. This should also be the default in the Github UI.
+
 1. In the pull request description, reference the github issue that your pull request addresses.
 
 # Contribution checklist
 
 Before submitting your pull request for code review, please go through the following checklist:
-
+** Wiki Pages are missing. Needs To Be Reviewed **
 1. Is your code formatted according to our code style guidelines?
-    * Java: Please check our [Java Code Style Guidelines](https://github.com/camunda/camunda-bpm-platform/wiki/Coding-Style-Java). You can also import [our template and settings files](https://github.com/camunda/camunda-bpm-platform/tree/master/settings) into your IDE before you start coding.
+    * Java: Please check our [Java Code Style Guidelines](https://github.com/camunda/camunda-bpm-platform/wiki/Coding-Style-Java). You can also import [our template and settings files](https://github.com/finos/flowave-bpm-platform/tree/master/settings) into your IDE before you start coding.
     * Javascript: Your code is automatically formatted whenever you commit.
 1. Is your code covered by unit tests?
     * Ask us if you are not sure where to write the tests or what kind of tests you should write.
@@ -327,7 +331,7 @@ feat(engine): Support BPEL
 related to #123
 ```
 
-Have a look at the [commit history](https://github.com/camunda/camunda-bpm-platform/commits/master) for real-life examples.
+Have a look at the [commit history](https://github.com/finos/flowave-bpm-platform/commits/master) for real-life examples.
 
 
 ## \<type\>
@@ -344,7 +348,7 @@ One of the following:
  
 ## \<scope\>
 
-The scope is the module that is changed by the commit. E.g. `engine` in the case of https://github.com/camunda/camunda-bpm-platform/tree/master/engine.
+The scope is the module that is changed by the commit. E.g. `engine` in the case of https://github.com/finos/flowave-bpm-platform/commits/master/engine.
 
 ## \<subject\>
 
@@ -364,7 +368,7 @@ look like `related to <ticket>, closes #<pr_number>` such as `related to CAM-123
 
 # License headers (see issue) [https://github.com/finos/flowave-bpm-platform/issues/141]
 
-Every source file in an open-source repository needs to contain the following license header at  the top, formatted as a code comment:
+Every source file in an open-source repository needs to contain the following license header at  the top, formatted as a code comment: ** License. Needs To Be Reviewed **
 
 ```
 Copyright Camunda Services GmbH and/or licensed to Camunda Services GmbH
@@ -383,7 +387,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-The header can be added manually (check other files). If you use our [IDE settings](https://github.com/camunda/camunda-bpm-platform/tree/master/settings), it will be generated automatically when you create new `.java` files. You can also add it by running `mvn clean install -Plicense-header-check` in the module that you have changed. This command also re-formats any incorrectly formatted license header.
+The header can be added manually (check other files). If you use our [IDE settings](https://github.com/finos/flowave-bpm-platform/tree/master/settings), it will be generated automatically when you create new `.java` files. You can also add it by running `mvn clean install -Plicense-header-check` in the module that you have changed. This command also re-formats any incorrectly formatted license header.
 
 Contributions that do not contain valid license headers cannot be merged.
 
@@ -395,7 +399,7 @@ Note that due to other responsibilities (our own implementation tasks, releases)
 
 During review we will provide you with feedback and help to get your contribution merge-ready. However, before requesting a review, please go through our [contribution checklist](#contribution-checklist).
 
-Once your code is merged, it will be shipped in the next alpha and minor releases. We usually build alpha releases once a month and minor releases once every six months. If you are curious about the exact next minor release date, check our [release announcements](https://docs.camunda.org/enterprise/announcement/) page.
+Once your code is merged, it will be shipped in the next alpha and minor releases. We usually build alpha releases once a month and minor releases once every six months. If you are curious about the exact next minor release date, check our [release announcements](https://docs.camunda.org/enterprise/announcement/) page. ** Needs To Be Reviewed **
 
 # Changes to this Document
 

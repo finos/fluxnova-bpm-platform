@@ -20,7 +20,7 @@ import org.finos.flowave.bpm.model.bpmn.instance.ErrorEventDefinition;
 
 public interface FlowaveErrorEventDefinition extends ErrorEventDefinition {
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 }

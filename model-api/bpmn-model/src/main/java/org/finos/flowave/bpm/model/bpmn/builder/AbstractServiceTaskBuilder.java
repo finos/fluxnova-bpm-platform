@@ -50,8 +50,8 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @return the builder object
    */
   @SuppressWarnings("rawtypes")
-  public B camundaClass(Class camundaClass) {
-    return camundaClass(camundaClass.getName());
+  public B flowaveClass(Class camundaClass) {
+    return flowaveClass(camundaClass.getName());
   }
 
   /**
@@ -60,8 +60,8 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @param camundaClass  the class name to set
    * @return the builder object
    */
-  public B camundaClass(String fullQualifiedClassName) {
-    element.setCamundaClass(fullQualifiedClassName);
+  public B flowaveClass(String fullQualifiedClassName) {
+    element.setFlowaveClass(fullQualifiedClassName);
     return myself;
   }
 
@@ -71,8 +71,8 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @param camundaExpression  the delegateExpression to set
    * @return the builder object
    */
-  public B camundaDelegateExpression(String camundaExpression) {
-    element.setCamundaDelegateExpression(camundaExpression);
+  public B flowaveDelegateExpression(String camundaExpression) {
+    element.setFlowaveDelegateExpression(camundaExpression);
     return myself;
   }
 
@@ -82,8 +82,8 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @param camundaExpression  the expression to set
    * @return the builder object
    */
-  public B camundaExpression(String camundaExpression) {
-    element.setCamundaExpression(camundaExpression);
+  public B flowaveExpression(String camundaExpression) {
+    element.setFlowaveExpression(camundaExpression);
     return myself;
   }
 
@@ -93,20 +93,20 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @param camundaResultVariable  the name of the process variable
    * @return the builder object
    */
-  public B camundaResultVariable(String camundaResultVariable) {
-    element.setCamundaResultVariable(camundaResultVariable);
+  public B flowaveResultVariable(String camundaResultVariable) {
+    element.setFlowaveResultVariable(camundaResultVariable);
     return myself;
   }
 
   /**
    * Sets the camunda topic attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    * @param camundaTopic the topic to set
    * @return the build object
    */
-  public B camundaTopic(String camundaTopic) {
-    element.setCamundaTopic(camundaTopic);
+  public B flowaveTopic(String camundaTopic) {
+    element.setFlowaveTopic(camundaTopic);
     return myself;
   }
 
@@ -116,44 +116,44 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
    * @param camundaType  the type of the service task
    * @return the builder object
    */
-  public B camundaType(String camundaType) {
-    element.setCamundaType(camundaType);
+  public B flowaveType(String camundaType) {
+    element.setFlowaveType(camundaType);
     return myself;
   }
 
   /**
    * Sets the camunda topic attribute and the camunda type attribute to the
-   * value <code>external</code. Reduces two calls to {@link #camundaType(String)} and {@link #camundaTopic(String)}.
+   * value <code>external</code. Reduces two calls to {@link #flowaveType(String)} and {@link #flowaveTopic(String)}.
    *
    * @param camundaTopic the topic to set
    * @return the build object
    */
-  public B camundaExternalTask(String camundaTopic) {
-    this.camundaType("external");
-    this.camundaTopic(camundaTopic);
+  public B flowaveExternalTask(String camundaTopic) {
+    this.flowaveType("external");
+    this.flowaveTopic(camundaTopic);
     return myself;
   }
 
   /**
    * Sets the camunda task priority attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    *
    * @param taskPriority the priority for the external task
    * @return the builder object
    */
-  public B camundaTaskPriority(String taskPriority) {
-    element.setCamundaTaskPriority(taskPriority);
+  public B flowaveTaskPriority(String taskPriority) {
+    element.setFlowaveTaskPriority(taskPriority);
     return myself;
   }
 
   /**
    * Creates an error event definition for this service task and returns a builder for the error event definition.
-   * This is only meaningful when the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * This is only meaningful when the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    * @return the error event definition builder object
    */
-  public FlowaveErrorEventDefinitionBuilder camundaErrorEventDefinition() {
+  public FlowaveErrorEventDefinitionBuilder flowaveErrorEventDefinition() {
     ErrorEventDefinition camundaErrorEventDefinition = createInstance(FlowaveErrorEventDefinition.class);
     addExtensionElement(camundaErrorEventDefinition);
     return new FlowaveErrorEventDefinitionBuilder(modelInstance, camundaErrorEventDefinition);

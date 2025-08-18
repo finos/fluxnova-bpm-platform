@@ -77,27 +77,27 @@ public class ProcessTaskImpl extends TaskImpl implements ProcessTask {
     return parameterMappingCollection.get(this);
   }
 
-  public String getCamundaProcessBinding() {
+  public String getFlowaveProcessBinding() {
     return camundaProcessBindingAttribute.getValue(this);
   }
 
-  public void setCamundaProcessBinding(String camundaProcessBinding) {
+  public void setFlowaveProcessBinding(String camundaProcessBinding) {
     camundaProcessBindingAttribute.setValue(this, camundaProcessBinding);
   }
 
-  public String getCamundaProcessVersion() {
+  public String getFlowaveProcessVersion() {
     return camundaProcessVersionAttribute.getValue(this);
   }
 
-  public void setCamundaProcessVersion(String camundaProcessVersion) {
+  public void setFlowaveProcessVersion(String camundaProcessVersion) {
     camundaProcessVersionAttribute.setValue(this, camundaProcessVersion);
   }
 
-  public String getCamundaProcessTenantId() {
+  public String getFlowaveProcessTenantId() {
     return camundaProcessTenantIdAttribute.getValue(this);
   }
 
-  public void setCamundaProcessTenantId(String camundaProcessTenantId) {
+  public void setFlowaveProcessTenantId(String camundaProcessTenantId) {
     camundaProcessTenantIdAttribute.setValue(this, camundaProcessTenantId);
   }
 

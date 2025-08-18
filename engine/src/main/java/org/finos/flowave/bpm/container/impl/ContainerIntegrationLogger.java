@@ -343,13 +343,13 @@ public class ContainerIntegrationLogger extends ProcessEngineLogger {
         "'{} is not a valid Camunda Platform configuration resource location.", bpmPlatformFileLocation), e);
   }
 
-  public void camundaBpmPlatformSuccessfullyStarted(String serverInfo) {
+  public void flowaveBpmPlatformSuccessfullyStarted(String serverInfo) {
     logInfo(
         "048",
         "Camunda Platform sucessfully started at '{}'.", serverInfo);
   }
 
-  public void camundaBpmPlatformStopped(String serverInfo) {
+  public void flowaveBpmPlatformStopped(String serverInfo) {
     logInfo(
         "049",
         "Camunda Platform stopped at '{}'", serverInfo);

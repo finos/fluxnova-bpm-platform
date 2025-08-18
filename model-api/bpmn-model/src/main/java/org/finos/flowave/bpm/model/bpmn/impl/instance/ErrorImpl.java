@@ -86,11 +86,11 @@ public class ErrorImpl extends RootElementImpl implements Error {
     errorCodeAttribute.setValue(this, errorCode);
   }
 
-  public String getCamundaErrorMessage() {
+  public String getFlowaveErrorMessage() {
     return camundaErrorMessageAttribute.getValue(this);
   }
 
-  public void setCamundaErrorMessage(String camundaErrorMessage) {
+  public void setFlowaveErrorMessage(String camundaErrorMessage) {
     camundaErrorMessageAttribute.setValue(this, camundaErrorMessage);
   }
 

@@ -114,87 +114,87 @@ public class FlowaveFormPropertyImpl extends BpmnModelElementInstanceImpl implem
     super(instanceContext);
   }
 
-  public String getCamundaId() {
+  public String getFlowaveId() {
     return camundaIdAttribute.getValue(this);
   }
 
-  public void setCamundaId(String camundaId) {
+  public void setFlowaveId(String camundaId) {
     camundaIdAttribute.setValue(this, camundaId);
   }
 
-  public String getCamundaName() {
+  public String getFlowaveName() {
     return camundaNameAttribute.getValue(this);
   }
 
-  public void setCamundaName(String camundaName) {
+  public void setFlowaveName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
   }
 
-  public String getCamundaType() {
+  public String getFlowaveType() {
     return camundaTypeAttribute.getValue(this);
   }
 
-  public void setCamundaType(String camundaType) {
+  public void setFlowaveType(String camundaType) {
     camundaTypeAttribute.setValue(this, camundaType);
   }
 
-  public boolean isCamundaRequired() {
+  public boolean isFlowaveRequired() {
     return camundaRequiredAttribute.getValue(this);
   }
 
-  public void setCamundaRequired(boolean isCamundaRequired) {
+  public void setFlowaveRequired(boolean isCamundaRequired) {
     camundaRequiredAttribute.setValue(this, isCamundaRequired);
   }
 
-  public boolean isCamundaReadable() {
+  public boolean isFlowaveReadable() {
     return camundaReadableAttribute.getValue(this);
   }
 
-  public void setCamundaReadable(boolean isCamundaReadable) {
+  public void setFlowaveReadable(boolean isCamundaReadable) {
     camundaReadableAttribute.setValue(this, isCamundaReadable);
   }
 
-  public boolean isCamundaWriteable() {
+  public boolean isFlowaveWriteable() {
     return camundaWriteableAttribute.getValue(this);
   }
 
-  public void setCamundaWriteable(boolean isCamundaWriteable) {
+  public void setFlowaveWriteable(boolean isCamundaWriteable) {
     camundaWriteableAttribute.setValue(this, isCamundaWriteable);
   }
 
-  public String getCamundaVariable() {
+  public String getFlowaveVariable() {
     return camundaVariableAttribute.getValue(this);
   }
 
-  public void setCamundaVariable(String camundaVariable) {
+  public void setFlowaveVariable(String camundaVariable) {
     camundaVariableAttribute.setValue(this, camundaVariable);
   }
 
-  public String getCamundaExpression() {
+  public String getFlowaveExpression() {
     return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaExpression(String camundaExpression) {
+  public void setFlowaveExpression(String camundaExpression) {
     camundaExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getCamundaDatePattern() {
+  public String getFlowaveDatePattern() {
     return camundaDatePatternAttribute.getValue(this);
   }
 
-  public void setCamundaDatePattern(String camundaDatePattern) {
+  public void setFlowaveDatePattern(String camundaDatePattern) {
     camundaDatePatternAttribute.setValue(this, camundaDatePattern);
   }
 
-  public String getCamundaDefault() {
+  public String getFlowaveDefault() {
     return camundaDefaultAttribute.getValue(this);
   }
 
-  public void setCamundaDefault(String camundaDefault) {
+  public void setFlowaveDefault(String camundaDefault) {
     camundaDefaultAttribute.setValue(this, camundaDefault);
   }
 
-  public Collection<FlowaveValue> getCamundaValues() {
+  public Collection<FlowaveValue> getFlowaveValues() {
     return camundaValueCollection.get(this);
   }
 }

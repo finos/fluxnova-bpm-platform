@@ -36,7 +36,7 @@ public class GetPropertiesCmd implements Command<Map<String, String>>, Serializa
 
   @SuppressWarnings("unchecked")
   public Map<String, String> execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadProperties);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadProperties);
 
     List<PropertyEntity> propertyEntities = commandContext
       .getDbEntityManager()

@@ -92,7 +92,7 @@ public class SpinFunctionsTest extends PluggableProcessEngineTestCase {
     BpmnModelInstance bpmnModelInstance = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
       .serviceTask()
-        .camundaExpression("${ execution.setVariable('customer', "
+        .flowaveExpression("${ execution.setVariable('customer', "
                                 + "S(xmlVar).xPath('/customers/customer').element().toString()"
                              +")}")
       .receiveTask("wait")

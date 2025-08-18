@@ -84,7 +84,7 @@ public class FlowaveBpmAutoConfiguration {
   }
 
   @Bean
-  public FlowaveBpmVersion camundaBpmVersion() {
+  public FlowaveBpmVersion flowaveBpmVersion() {
     return new FlowaveBpmVersion();
   }
 

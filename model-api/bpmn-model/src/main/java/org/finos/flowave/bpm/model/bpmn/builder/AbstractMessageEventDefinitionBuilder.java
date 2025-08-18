@@ -49,13 +49,13 @@ public abstract class AbstractMessageEventDefinitionBuilder<B extends AbstractMe
 
   /**
    * Sets the camunda topic attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    * @param camundaTopic the topic to set
    * @return the builder object
    */
-  public B camundaTopic(String camundaTopic) {
-    element.setCamundaTopic(camundaTopic);
+  public B flowaveTopic(String camundaTopic) {
+    element.setFlowaveTopic(camundaTopic);
     return myself;
   }
 
@@ -65,21 +65,21 @@ public abstract class AbstractMessageEventDefinitionBuilder<B extends AbstractMe
    * @param camundaType  the type of the service task
    * @return the builder object
    */
-  public B camundaType(String camundaType) {
-    element.setCamundaType(camundaType);
+  public B flowaveType(String camundaType) {
+    element.setFlowaveType(camundaType);
     return myself;
   }
 
   /**
    * Sets the camunda task priority attribute. This is only meaningful when
-   * the {@link #camundaType(String)} attribute has the value <code>external</code>.
+   * the {@link #flowaveType(String)} attribute has the value <code>external</code>.
    *
    *
    * @param taskPriority the priority for the external task
    * @return the builder object
    */
-  public B camundaTaskPriority(String taskPriority) {
-    element.setCamundaTaskPriority(taskPriority);
+  public B flowaveTaskPriority(String taskPriority) {
+    element.setFlowaveTaskPriority(taskPriority);
     return myself;
   }
 

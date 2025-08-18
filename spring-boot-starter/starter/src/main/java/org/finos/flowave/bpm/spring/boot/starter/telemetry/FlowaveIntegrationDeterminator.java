@@ -35,7 +35,7 @@ public class FlowaveIntegrationDeterminator implements InitializingBean {
   public void afterPropertiesSet() throws Exception {
     ProcessEngineConfigurationImpl configuration = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
 
-    Set<String> camundaIntegration = configuration.getTelemetryData().getProduct().getInternals().getCamundaIntegration();
+    Set<String> camundaIntegration = configuration.getTelemetryData().getProduct().getInternals().getFlowaveIntegration();
     camundaIntegration.add(FlowaveIntegration.SPRING_BOOT_STARTER);
   }
 

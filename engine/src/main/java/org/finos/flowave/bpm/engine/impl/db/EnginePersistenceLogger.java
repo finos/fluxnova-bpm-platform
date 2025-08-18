@@ -316,11 +316,11 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
       exceptionMessage("028", "Illegal value '{}' for userId for GLOBAL authorization. Must be '{}'", id, expected));
   }
 
-  public AuthorizationException requiredCamundaAdmin() {
-    return requiredCamundaAdminOrPermissionException(null);
+  public AuthorizationException requiredFlowaveAdmin() {
+    return requiredFlowaveAdminOrPermissionException(null);
   }
 
-  public AuthorizationException requiredCamundaAdminOrPermissionException(List<MissingAuthorization> missingAuthorizations) {
+  public AuthorizationException requiredFlowaveAdminOrPermissionException(List<MissingAuthorization> missingAuthorizations) {
     String exceptionCode = "029";
     StringBuilder sb = new StringBuilder();
     sb.append("Required admin authenticated group or user");
@@ -789,7 +789,7 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
       taskId);
   }
 
-  public ProcessEngineException multipleTenantsForCamundaFormDefinitionKeyException(String camundaFormDefinitionKey) {
+  public ProcessEngineException multipleTenantsForFlowaveFormDefinitionKeyException(String camundaFormDefinitionKey) {
     return new ProcessEngineException(exceptionMessage(
         "109",
         "Cannot resolve a unique Camunda Form definition for key '{}' because it exists for multiple tenants.",

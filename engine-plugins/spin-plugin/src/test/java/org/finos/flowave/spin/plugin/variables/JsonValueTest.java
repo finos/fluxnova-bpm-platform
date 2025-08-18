@@ -255,7 +255,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcess")
       .startEvent()
       .serviceTask()
-        .camundaClass(JsonDelegate.class)
+        .flowaveClass(JsonDelegate.class)
       .userTask()
       .endEvent()
       .done();

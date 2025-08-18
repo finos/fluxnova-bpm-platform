@@ -75,35 +75,35 @@ public class FlowaveOutImpl extends CmmnModelElementInstanceImpl implements Flow
     super(instanceContext);
   }
 
-  public String getCamundaSource() {
+  public String getFlowaveSource() {
     return camundaSourceAttribute.getValue(this);
   }
 
-  public void setCamundaSource(String camundaSource) {
+  public void setFlowaveSource(String camundaSource) {
     camundaSourceAttribute.setValue(this, camundaSource);
   }
 
-  public String getCamundaSourceExpression() {
+  public String getFlowaveSourceExpression() {
     return camundaSourceExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaSourceExpression(String camundaSourceExpression) {
+  public void setFlowaveSourceExpression(String camundaSourceExpression) {
     camundaSourceExpressionAttribute.setValue(this, camundaSourceExpression);
   }
 
-  public String getCamundaVariables() {
+  public String getFlowaveVariables() {
     return camundaVariablesAttribute.getValue(this);
   }
 
-  public void setCamundaVariables(String camundaVariables) {
+  public void setFlowaveVariables(String camundaVariables) {
     camundaVariablesAttribute.setValue(this, camundaVariables);
   }
 
-  public String getCamundaTarget() {
+  public String getFlowaveTarget() {
     return camundaTargetAttribute.getValue(this);
   }
 
-  public void setCamundaTarget(String camundaTarget) {
+  public void setFlowaveTarget(String camundaTarget) {
     camundaTargetAttribute.setValue(this, camundaTarget);
   }
 

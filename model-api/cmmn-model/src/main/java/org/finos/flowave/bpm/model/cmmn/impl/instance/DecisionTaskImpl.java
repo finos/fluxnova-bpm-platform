@@ -83,45 +83,45 @@ public class DecisionTaskImpl extends TaskImpl implements DecisionTask {
     decisionRefExpressionChild.setChild(this, decisionExpression);
   }
 
-  public String getCamundaResultVariable() {
+  public String getFlowaveResultVariable() {
     return camundaResultVariableAttribute.getValue(this);
   }
 
-  public void setCamundaResultVariable(String camundaResultVariable) {
+  public void setFlowaveResultVariable(String camundaResultVariable) {
     camundaResultVariableAttribute.setValue(this, camundaResultVariable);
   }
 
-  public String getCamundaDecisionBinding() {
+  public String getFlowaveDecisionBinding() {
     return camundaDecisionBindingAttribute.getValue(this);
   }
 
-  public void setCamundaDecisionBinding(String camundaDecisionBinding) {
+  public void setFlowaveDecisionBinding(String camundaDecisionBinding) {
     camundaDecisionBindingAttribute.setValue(this, camundaDecisionBinding);
   }
 
-  public String getCamundaDecisionVersion() {
+  public String getFlowaveDecisionVersion() {
     return camundaDecisionVersionAttribute.getValue(this);
   }
 
-  public void setCamundaDecisionVersion(String camundaDecisionVersion) {
+  public void setFlowaveDecisionVersion(String camundaDecisionVersion) {
     camundaDecisionVersionAttribute.setValue(this, camundaDecisionVersion);
   }
 
-  public String getCamundaDecisionTenantId() {
+  public String getFlowaveDecisionTenantId() {
     return camundaDecisionTenantIdAttribute.getValue(this);
   }
 
-  public void setCamundaDecisionTenantId(String camundaDecisionTenantId) {
+  public void setFlowaveDecisionTenantId(String camundaDecisionTenantId) {
     camundaDecisionTenantIdAttribute.setValue(this, camundaDecisionTenantId);
   }
 
   @Override
-  public String getCamundaMapDecisionResult() {
+  public String getFlowaveMapDecisionResult() {
     return camundaMapDecisionResultAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaMapDecisionResult(String camundaMapDecisionResult) {
+  public void setFlowaveMapDecisionResult(String camundaMapDecisionResult) {
     camundaMapDecisionResultAttribute.setValue(this, camundaMapDecisionResult);
   }
 

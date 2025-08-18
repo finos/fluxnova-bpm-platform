@@ -75,8 +75,8 @@ public class TenantIdProviderTest {
   protected static final BpmnModelInstance TASK_PROCESS = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY).startEvent().userTask().done();
   protected static final BpmnModelInstance FAILING_PROCESS = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY).startEvent()
       .serviceTask()
-        .camundaClass("org.finos.flowave.bpm.engine.test.api.multitenancy.FailingDelegate")
-        .camundaAsyncBefore()
+        .flowaveClass("org.finos.flowave.bpm.engine.test.api.multitenancy.FailingDelegate")
+        .flowaveAsyncBefore()
       .done();
 
   protected static final String DMN_FILE = "org/finos/flowave/bpm/engine/test/api/multitenancy/simpleDecisionTable.dmn";
@@ -342,7 +342,7 @@ public class TenantIdProviderTest {
     TestTenantIdProvider.delegate = tenantIdProvider;
 
     testRule.deploy(Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY).startEvent().done(),
-        Bpmn.createExecutableProcess("superProcess").startEvent().callActivity().calledElement(PROCESS_DEFINITION_KEY).camundaIn("varName", "varName").done());
+        Bpmn.createExecutableProcess("superProcess").startEvent().callActivity().calledElement(PROCESS_DEFINITION_KEY).flowaveIn("varName", "varName").done());
 
     // if a process instance is started
     engineRule.getRuntimeService().startProcessInstanceByKey("superProcess", Variables.createVariables().putValue("varName", true));
@@ -643,7 +643,7 @@ public class TenantIdProviderTest {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
       .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef(DECISION_DEFINITION_KEY)
+        .flowaveDecisionRef(DECISION_DEFINITION_KEY)
       .endEvent()
       .done();
 
@@ -668,7 +668,7 @@ public class TenantIdProviderTest {
         Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
           .startEvent()
           .businessRuleTask()
-            .camundaDecisionRef(DECISION_DEFINITION_KEY)
+            .flowaveDecisionRef(DECISION_DEFINITION_KEY)
           .endEvent()
         .done(),
         DMN_FILE);
@@ -689,8 +689,8 @@ public class TenantIdProviderTest {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef(DECISION_DEFINITION_KEY)
-        .camundaAsyncAfter()
+          .flowaveDecisionRef(DECISION_DEFINITION_KEY)
+        .flowaveAsyncAfter()
         .endEvent()
         .done();
 
@@ -717,8 +717,8 @@ public class TenantIdProviderTest {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef(DECISION_DEFINITION_KEY)
-        .camundaAsyncAfter()
+          .flowaveDecisionRef(DECISION_DEFINITION_KEY)
+        .flowaveAsyncAfter()
         .endEvent()
         .done();
 
@@ -742,8 +742,8 @@ public class TenantIdProviderTest {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef(DECISION_DEFINITION_KEY)
-        .camundaAsyncAfter()
+          .flowaveDecisionRef(DECISION_DEFINITION_KEY)
+        .flowaveAsyncAfter()
         .endEvent()
         .done();
 
@@ -1038,7 +1038,7 @@ public class TenantIdProviderTest {
     TestTenantIdProvider.delegate = tenantIdProvider;
 
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
-        .startEvent().camundaFormKey("embedded:app:forms/FORM_NAME.htmls")
+        .startEvent().flowaveFormKey("embedded:app:forms/FORM_NAME.htmls")
         .userTask("UserTask")
         .endEvent()
         .done();

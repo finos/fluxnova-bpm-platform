@@ -98,7 +98,7 @@ public class SetupResource {
     userRestServiceImpl.createUser(user);
 
     // crate the camunda admin group
-    ensureCamundaAdminGroupExists(processEngine);
+    ensureFlowaveAdminGroupExists(processEngine);
 
     // create group membership (add new user to admin group)
     processEngine.getIdentityService()
@@ -115,7 +115,7 @@ public class SetupResource {
     }
   }
 
-  protected void ensureCamundaAdminGroupExists(ProcessEngine processEngine) {
+  protected void ensureFlowaveAdminGroupExists(ProcessEngine processEngine) {
 
     final IdentityService identityService = processEngine.getIdentityService();
     final AuthorizationService authorizationService = processEngine.getAuthorizationService();

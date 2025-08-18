@@ -256,63 +256,63 @@ public class ProcessImpl extends CallableElementImpl implements Process {
 
   /** camunda extensions */
 
-  public String getCamundaCandidateStarterGroups() {
+  public String getFlowaveCandidateStarterGroups() {
     return camundaCandidateStarterGroupsAttribute.getValue(this);
   }
 
-  public void setCamundaCandidateStarterGroups(String camundaCandidateStarterGroups) {
+  public void setFlowaveCandidateStarterGroups(String camundaCandidateStarterGroups) {
     camundaCandidateStarterGroupsAttribute.setValue(this, camundaCandidateStarterGroups);
   }
 
-  public List<String> getCamundaCandidateStarterGroupsList() {
+  public List<String> getFlowaveCandidateStarterGroupsList() {
     String groupsString = camundaCandidateStarterGroupsAttribute.getValue(this);
     return StringUtil.splitCommaSeparatedList(groupsString);
   }
 
-  public void setCamundaCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList) {
+  public void setFlowaveCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList) {
     String candidateStarterGroups = StringUtil.joinCommaSeparatedList(camundaCandidateStarterGroupsList);
     camundaCandidateStarterGroupsAttribute.setValue(this, candidateStarterGroups);
   }
 
-  public String getCamundaCandidateStarterUsers() {
+  public String getFlowaveCandidateStarterUsers() {
     return camundaCandidateStarterUsersAttribute.getValue(this);
   }
 
-  public void setCamundaCandidateStarterUsers(String camundaCandidateStarterUsers) {
+  public void setFlowaveCandidateStarterUsers(String camundaCandidateStarterUsers) {
     camundaCandidateStarterUsersAttribute.setValue(this, camundaCandidateStarterUsers);
   }
 
-  public List<String> getCamundaCandidateStarterUsersList() {
+  public List<String> getFlowaveCandidateStarterUsersList() {
     String candidateStarterUsers = camundaCandidateStarterUsersAttribute.getValue(this);
     return StringUtil.splitCommaSeparatedList(candidateStarterUsers);
   }
 
-  public void setCamundaCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList) {
+  public void setFlowaveCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList) {
     String candidateStarterUsers = StringUtil.joinCommaSeparatedList(camundaCandidateStarterUsersList);
     camundaCandidateStarterUsersAttribute.setValue(this, candidateStarterUsers);
   }
 
-  public String getCamundaJobPriority() {
+  public String getFlowaveJobPriority() {
     return camundaJobPriorityAttribute.getValue(this);
   }
 
-  public void setCamundaJobPriority(String jobPriority) {
+  public void setFlowaveJobPriority(String jobPriority) {
     camundaJobPriorityAttribute.setValue(this, jobPriority);
   }
 
   @Override
-  public String getCamundaTaskPriority() {
+  public String getFlowaveTaskPriority() {
     return camundaTaskPriorityAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaTaskPriority(String taskPriority) {
+  public void setFlowaveTaskPriority(String taskPriority) {
     camundaTaskPriorityAttribute.setValue(this, taskPriority);
   }
 
   @Override
-  public Integer getCamundaHistoryTimeToLive() {
-    String ttl = getCamundaHistoryTimeToLiveString();
+  public Integer getFlowaveHistoryTimeToLive() {
+    String ttl = getFlowaveHistoryTimeToLiveString();
     if (ttl != null) {
       return Integer.parseInt(ttl);
     }
@@ -320,18 +320,18 @@ public class ProcessImpl extends CallableElementImpl implements Process {
   }
 
   @Override
-  public void setCamundaHistoryTimeToLive(Integer historyTimeToLive) {
+  public void setFlowaveHistoryTimeToLive(Integer historyTimeToLive) {
     var value = historyTimeToLive == null ? null : String.valueOf(historyTimeToLive);
-    setCamundaHistoryTimeToLiveString(value);
+    setFlowaveHistoryTimeToLiveString(value);
   }
 
   @Override
-  public String getCamundaHistoryTimeToLiveString() {
+  public String getFlowaveHistoryTimeToLiveString() {
     return camundaHistoryTimeToLiveAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaHistoryTimeToLiveString(String historyTimeToLive) {
+  public void setFlowaveHistoryTimeToLiveString(String historyTimeToLive) {
     if (historyTimeToLive == null) {
       camundaHistoryTimeToLiveAttribute.removeAttribute(this);
     } else {
@@ -340,22 +340,22 @@ public class ProcessImpl extends CallableElementImpl implements Process {
   }
 
   @Override
-  public Boolean isCamundaStartableInTasklist() {
+  public Boolean isFlowaveStartableInTasklist() {
     return camundaIsStartableInTasklistAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaIsStartableInTasklist(Boolean isStartableInTasklist) {
+  public void setFlowaveIsStartableInTasklist(Boolean isStartableInTasklist) {
     camundaIsStartableInTasklistAttribute.setValue(this, isStartableInTasklist);
   }
 
   @Override
-  public String getCamundaVersionTag() {
+  public String getFlowaveVersionTag() {
     return camundaVersionTagAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaVersionTag(String versionTag) {
+  public void setFlowaveVersionTag(String versionTag) {
     camundaVersionTagAttribute.setValue(this, versionTag);
   }
 }

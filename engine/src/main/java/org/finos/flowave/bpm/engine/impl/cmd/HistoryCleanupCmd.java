@@ -66,7 +66,7 @@ public class HistoryCleanupCmd implements Command<Job> {
     }
 
     AuthorizationManager authorizationManager = context.getAuthorizationManager();
-    authorizationManager.checkCamundaAdmin();
+    authorizationManager.checkFlowaveAdmin();
 
     //validate
     if (!willBeScheduled()) {

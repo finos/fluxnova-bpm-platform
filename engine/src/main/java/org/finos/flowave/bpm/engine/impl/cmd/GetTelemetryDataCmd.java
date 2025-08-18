@@ -30,7 +30,7 @@ public class GetTelemetryDataCmd implements Command<TelemetryDataImpl> {
 
   @Override
   public TelemetryDataImpl execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadDiagnosticsData);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadDiagnosticsData);
 
     configuration = commandContext.getProcessEngineConfiguration();
 

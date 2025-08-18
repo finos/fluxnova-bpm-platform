@@ -47,7 +47,7 @@ public class SetVariablesAsyncTest extends AbstractFoxPlatformIntegrationTest {
 
   public static BpmnModelInstance oneTaskProcess(String key) {
     return Bpmn.createExecutableProcess(key)
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
       .startEvent()
       .userTask("userTask")
       .endEvent()

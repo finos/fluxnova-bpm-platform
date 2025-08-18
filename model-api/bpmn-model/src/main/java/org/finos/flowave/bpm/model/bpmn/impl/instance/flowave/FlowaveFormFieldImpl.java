@@ -97,63 +97,63 @@ public class FlowaveFormFieldImpl extends BpmnModelElementInstanceImpl implement
     super(instanceContext);
   }
 
-  public String getCamundaId() {
+  public String getFlowaveId() {
     return camundaIdAttribute.getValue(this);
   }
 
-  public void setCamundaId(String camundaId) {
+  public void setFlowaveId(String camundaId) {
     camundaIdAttribute.setValue(this, camundaId);
   }
 
-  public String getCamundaLabel() {
+  public String getFlowaveLabel() {
     return camundaLabelAttribute.getValue(this);
   }
 
-  public void setCamundaLabel(String camundaLabel) {
+  public void setFlowaveLabel(String camundaLabel) {
     camundaLabelAttribute.setValue(this, camundaLabel);
   }
 
-  public String getCamundaType() {
+  public String getFlowaveType() {
     return camundaTypeAttribute.getValue(this);
   }
 
-  public void setCamundaType(String camundaType) {
+  public void setFlowaveType(String camundaType) {
     camundaTypeAttribute.setValue(this, camundaType);
   }
 
-  public String getCamundaDatePattern() {
+  public String getFlowaveDatePattern() {
     return camundaDatePatternAttribute.getValue(this);
   }
 
-  public void setCamundaDatePattern(String camundaDatePattern) {
+  public void setFlowaveDatePattern(String camundaDatePattern) {
     camundaDatePatternAttribute.setValue(this, camundaDatePattern);
   }
 
-  public String getCamundaDefaultValue() {
+  public String getFlowaveDefaultValue() {
     return camundaDefaultValueAttribute.getValue(this);
   }
 
-  public void setCamundaDefaultValue(String camundaDefaultValue) {
+  public void setFlowaveDefaultValue(String camundaDefaultValue) {
     camundaDefaultValueAttribute.setValue(this, camundaDefaultValue);
   }
 
-  public FlowaveProperties getCamundaProperties() {
+  public FlowaveProperties getFlowaveProperties() {
     return camundaPropertiesChild.getChild(this);
   }
 
-  public void setCamundaProperties(FlowaveProperties camundaProperties) {
+  public void setFlowaveProperties(FlowaveProperties camundaProperties) {
     camundaPropertiesChild.setChild(this, camundaProperties);
   }
 
-  public FlowaveValidation getCamundaValidation() {
+  public FlowaveValidation getFlowaveValidation() {
     return camundaValidationChild.getChild(this);
   }
 
-  public void setCamundaValidation(FlowaveValidation camundaValidation) {
+  public void setFlowaveValidation(FlowaveValidation camundaValidation) {
     camundaValidationChild.setChild(this, camundaValidation);
   }
 
-  public Collection<FlowaveValue> getCamundaValues() {
+  public Collection<FlowaveValue> getFlowaveValues() {
     return camundaValueCollection.get(this);
   }
 }

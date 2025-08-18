@@ -80,7 +80,7 @@ public class DefaultJobConfiguration extends AbstractFlowaveConfiguration implem
     @ConditionalOnMissingBean(name = CAMUNDA_TASK_EXECUTOR_QUALIFIER)
     @ConditionalOnProperty(prefix = "flowave.bpm.job-execution", name = "enabled", havingValue = "true",
         matchIfMissing = true)
-    public static TaskExecutor camundaTaskExecutor(FlowaveBpmProperties properties) {
+    public static TaskExecutor flowaveTaskExecutor(FlowaveBpmProperties properties) {
       int corePoolSize = properties.getJobExecution().getCorePoolSize();
       int maxPoolSize = properties.getJobExecution().getMaxPoolSize();
       int queueCapacity = properties.getJobExecution().getQueueCapacity();

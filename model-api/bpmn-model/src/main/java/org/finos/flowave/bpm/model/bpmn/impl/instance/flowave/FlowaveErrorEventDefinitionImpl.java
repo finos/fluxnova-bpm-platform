@@ -51,11 +51,11 @@ public class FlowaveErrorEventDefinitionImpl extends ErrorEventDefinitionImpl im
     super(instanceContext);
   }
 
-  public String getCamundaExpression() {
+  public String getFlowaveExpression() {
     return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaExpression(String camundaExpression) {
+  public void setFlowaveExpression(String camundaExpression) {
     camundaExpressionAttribute.setValue(this, camundaExpression);
   }
 }

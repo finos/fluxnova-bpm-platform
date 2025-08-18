@@ -61,7 +61,7 @@ public class FlowavePropertiesImpl extends BpmnModelElementInstanceImpl implemen
     super(instanceContext);
   }
 
-  public Collection<FlowaveProperty> getCamundaProperties() {
+  public Collection<FlowaveProperty> getFlowaveProperties() {
     return camundaPropertyCollection.get(this);
   }
 }

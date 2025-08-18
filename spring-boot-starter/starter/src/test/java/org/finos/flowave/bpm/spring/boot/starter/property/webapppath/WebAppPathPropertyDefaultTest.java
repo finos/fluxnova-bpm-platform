@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WebAppPathPropertyDefaultTest extends ParsePropertiesHelper {
 
   @Test
-  public void shouldDefaultToCamundaPrefix() {
+  public void shouldDefaultToFlowavePrefix() {
     // given
 
     // when

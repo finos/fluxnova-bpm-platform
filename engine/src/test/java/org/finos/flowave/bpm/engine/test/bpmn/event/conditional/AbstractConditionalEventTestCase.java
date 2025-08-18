@@ -82,7 +82,7 @@ public abstract class AbstractConditionalEventTestCase {
   protected static final BpmnModelInstance DELEGATED_PROCESS = Bpmn.createExecutableProcess(DELEGATED_PROCESS_KEY)
     .startEvent()
     .serviceTask()
-    .camundaExpression(EXPR_SET_VARIABLE)
+    .flowaveExpression(EXPR_SET_VARIABLE)
     .endEvent()
     .done();
   protected static final String TASK_AFTER_OUTPUT_MAPPING = "afterOutputMapping";

@@ -128,7 +128,7 @@ public class ProcessDefinitionRestServiceTenantCheckTest extends AbstractCockpit
   }
 
   @Test
-  public void queryStatisticsWithCamundaAdmin() {
+  public void queryStatisticsWithFlowaveAdmin() {
     // given
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 
@@ -213,7 +213,7 @@ public class ProcessDefinitionRestServiceTenantCheckTest extends AbstractCockpit
   }
 
   @Test
-  public void getStatisticsCountWithCamundaAdmin() {
+  public void getStatisticsCountWithFlowaveAdmin() {
     // given
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 

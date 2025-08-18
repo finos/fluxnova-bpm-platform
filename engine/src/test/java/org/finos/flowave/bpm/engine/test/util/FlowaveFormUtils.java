@@ -29,7 +29,7 @@ import org.junit.rules.TemporaryFolder;
 
 public class FlowaveFormUtils {
 
-  public static List<FlowaveFormDefinition> findAllCamundaFormDefinitionEntities(ProcessEngineConfigurationImpl config) {
+  public static List<FlowaveFormDefinition> findAllFlowaveFormDefinitionEntities(ProcessEngineConfigurationImpl config) {
     return config.getCommandExecutorTxRequired()
         .execute(new FindFlowaveFormDefinitionsCmd());
   }

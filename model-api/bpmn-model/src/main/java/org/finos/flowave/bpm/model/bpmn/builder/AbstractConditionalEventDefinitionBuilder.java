@@ -54,8 +54,8 @@ public class AbstractConditionalEventDefinitionBuilder<B extends AbstractConditi
    * @param variableName the variable on which the condition should be evaluated
    * @return the builder object
    */
-  public B camundaVariableName(String variableName) {
-    element.setCamundaVariableName(variableName);
+  public B flowaveVariableName(String variableName) {
+    element.setFlowaveVariableName(variableName);
     return myself;
   }
 
@@ -66,8 +66,8 @@ public class AbstractConditionalEventDefinitionBuilder<B extends AbstractConditi
    * @param variableEvents the events on which the condition should be evaluated
    * @return the builder object
    */
-  public B camundaVariableEvents(String variableEvents) {
-    element.setCamundaVariableEvents(variableEvents);
+  public B flowaveVariableEvents(String variableEvents) {
+    element.setFlowaveVariableEvents(variableEvents);
     return myself;
   }
 
@@ -78,8 +78,8 @@ public class AbstractConditionalEventDefinitionBuilder<B extends AbstractConditi
    * @param variableEvents the events on which the condition should be evaluated
    * @return the builder object
    */
-  public B camundaVariableEvents(List<String> variableEvents) {
-    element.setCamundaVariableEventsList(variableEvents);
+  public B flowaveVariableEvents(List<String> variableEvents) {
+    element.setFlowaveVariableEventsList(variableEvents);
     return myself;
   }
 

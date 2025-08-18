@@ -152,7 +152,7 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public boolean isCamundaAsync() {
+  public boolean isFlowaveAsync() {
     return camundaAsyncAttribute.getValue(this);
   }
 
@@ -160,91 +160,91 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
    * @deprecated use setCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public void setCamundaAsync(boolean isCamundaAsync) {
+  public void setFlowaveAsync(boolean isCamundaAsync) {
     camundaAsyncAttribute.setValue(this, isCamundaAsync);
   }
 
-  public String getCamundaCalledElementBinding() {
+  public String getFlowaveCalledElementBinding() {
     return camundaCalledElementBindingAttribute.getValue(this);
   }
 
-  public void setCamundaCalledElementBinding(String camundaCalledElementBinding) {
+  public void setFlowaveCalledElementBinding(String camundaCalledElementBinding) {
     camundaCalledElementBindingAttribute.setValue(this, camundaCalledElementBinding);
   }
 
-  public String getCamundaCalledElementVersion() {
+  public String getFlowaveCalledElementVersion() {
     return camundaCalledElementVersionAttribute.getValue(this);
   }
 
-  public void setCamundaCalledElementVersion(String camundaCalledElementVersion) {
+  public void setFlowaveCalledElementVersion(String camundaCalledElementVersion) {
     camundaCalledElementVersionAttribute.setValue(this, camundaCalledElementVersion);
   }
 
-  public String getCamundaCalledElementVersionTag() {
+  public String getFlowaveCalledElementVersionTag() {
     return camundaCalledElementVersionTagAttribute.getValue(this);
   }
 
-  public void setCamundaCalledElementVersionTag(String camundaCalledElementVersionTag) {
+  public void setFlowaveCalledElementVersionTag(String camundaCalledElementVersionTag) {
     camundaCalledElementVersionTagAttribute.setValue(this, camundaCalledElementVersionTag);
   }
 
-  public String getCamundaCaseRef() {
+  public String getFlowaveCaseRef() {
     return camundaCaseRefAttribute.getValue(this);
   }
 
-  public void setCamundaCaseRef(String camundaCaseRef) {
+  public void setFlowaveCaseRef(String camundaCaseRef) {
     camundaCaseRefAttribute.setValue(this, camundaCaseRef);
   }
 
-  public String getCamundaCaseBinding() {
+  public String getFlowaveCaseBinding() {
     return camundaCaseBindingAttribute.getValue(this);
   }
 
-  public void setCamundaCaseBinding(String camundaCaseBinding) {
+  public void setFlowaveCaseBinding(String camundaCaseBinding) {
     camundaCaseBindingAttribute.setValue(this, camundaCaseBinding);
   }
 
-  public String getCamundaCaseVersion() {
+  public String getFlowaveCaseVersion() {
     return camundaCaseVersionAttribute.getValue(this);
   }
 
-  public void setCamundaCaseVersion(String camundaCaseVersion) {
+  public void setFlowaveCaseVersion(String camundaCaseVersion) {
     camundaCaseVersionAttribute.setValue(this, camundaCaseVersion);
   }
 
-  public String getCamundaCalledElementTenantId() {
+  public String getFlowaveCalledElementTenantId() {
     return camundaCalledElementTenantIdAttribute.getValue(this);
   }
 
-  public void setCamundaCalledElementTenantId(String tenantId) {
+  public void setFlowaveCalledElementTenantId(String tenantId) {
     camundaCalledElementTenantIdAttribute.setValue(this, tenantId);
   }
 
-  public String getCamundaCaseTenantId() {
+  public String getFlowaveCaseTenantId() {
     return camundaCaseTenantIdAttribute.getValue(this);
   }
 
-  public void setCamundaCaseTenantId(String tenantId) {
+  public void setFlowaveCaseTenantId(String tenantId) {
     camundaCaseTenantIdAttribute.setValue(this, tenantId);
   }
 
   @Override
-  public String getCamundaVariableMappingClass() {
+  public String getFlowaveVariableMappingClass() {
     return camundaVariableMappingClassAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaVariableMappingClass(String camundaClass) {
+  public void setFlowaveVariableMappingClass(String camundaClass) {
     camundaVariableMappingClassAttribute.setValue(this, camundaClass);
   }
 
   @Override
-  public String getCamundaVariableMappingDelegateExpression() {
+  public String getFlowaveVariableMappingDelegateExpression() {
     return camundaVariableMappingDelegateExpressionAttribute.getValue(this);
   }
 
   @Override
-  public void setCamundaVariableMappingDelegateExpression(String camundaExpression) {
+  public void setFlowaveVariableMappingDelegateExpression(String camundaExpression) {
     camundaVariableMappingDelegateExpressionAttribute.setValue(this, camundaExpression);
   }
 }

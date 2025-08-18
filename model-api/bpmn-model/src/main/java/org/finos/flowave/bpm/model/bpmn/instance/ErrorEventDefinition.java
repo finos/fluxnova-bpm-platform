@@ -27,11 +27,11 @@ public interface ErrorEventDefinition extends EventDefinition {
 
   void setError(Error error);
 
-  void setCamundaErrorCodeVariable(String camundaErrorCodeVariable);
+  void setFlowaveErrorCodeVariable(String camundaErrorCodeVariable);
   
-  String getCamundaErrorCodeVariable();
+  String getFlowaveErrorCodeVariable();
 
-  void setCamundaErrorMessageVariable(String camundaErrorCauseVariable);
+  void setFlowaveErrorMessageVariable(String camundaErrorCauseVariable);
   
-  String getCamundaErrorMessageVariable();
+  String getFlowaveErrorMessageVariable();
 }

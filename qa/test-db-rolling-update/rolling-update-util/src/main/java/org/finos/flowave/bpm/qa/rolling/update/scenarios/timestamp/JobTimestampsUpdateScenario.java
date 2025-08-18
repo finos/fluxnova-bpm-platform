@@ -41,7 +41,7 @@ public class JobTimestampsUpdateScenario extends AbstractTimestampUpdateScenario
   protected static final String PROCESS_DEFINITION_KEY = "jobTimestampsUpdateTestProcess";
 
   protected static final BpmnModelInstance SINGLE_JOB_MODEL = Bpmn.createExecutableProcess(PROCESS_DEFINITION_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent("start")
       .intermediateCatchEvent("catch")
       .timerWithDate(SDF.format(TIMESTAMP))

@@ -626,7 +626,7 @@ public class MigrationVariablesTest {
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(
         modify(ProcessModels.PARALLEL_TASK_AND_SUBPROCESS_PROCESS)
         .activityBuilder("subProcess")
-        .camundaInputParameter("foo", "subProcessValue")
+        .flowaveInputParameter("foo", "subProcessValue")
         .done());
 
     MigrationPlan migrationPlan = rule.getRuntimeService().createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())
@@ -666,7 +666,7 @@ public class MigrationVariablesTest {
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(ProcessModels.PARALLEL_GATEWAY_PROCESS);
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(
         modify(ProcessModels.PARALLEL_GATEWAY_SUBPROCESS_PROCESS)
-          .activityBuilder("subProcess").camundaInputParameter("foo", "inputOutputValue").done()
+          .activityBuilder("subProcess").flowaveInputParameter("foo", "inputOutputValue").done()
       );
 
     MigrationPlan migrationPlan = rule.getRuntimeService().createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())

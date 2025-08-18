@@ -54,7 +54,7 @@ public class ProcessInstanceModificationVariableTest {
     BpmnModelInstance instance = Bpmn.createExecutableProcess("Process")
       .startEvent()
       .userTask("userTask")
-        .camundaTaskListenerClass("create", "org.finos.flowave.bpm.engine.test.api.runtime.util.CreateLocalVariableEventListener")
+        .flowaveTaskListenerClass("create", "org.finos.flowave.bpm.engine.test.api.runtime.util.CreateLocalVariableEventListener")
       .endEvent()
       .done();
 

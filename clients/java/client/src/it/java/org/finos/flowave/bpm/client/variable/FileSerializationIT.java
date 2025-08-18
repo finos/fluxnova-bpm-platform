@@ -128,11 +128,11 @@ public class FileSerializationIT {
         Bpmn.createExecutableProcess("process")
         .startEvent("startEvent")
         .serviceTask("serviceTaskFoo")
-          .camundaExternalTask(EXTERNAL_TASK_TOPIC_FOO)
+          .flowaveExternalTask(EXTERNAL_TASK_TOPIC_FOO)
             // create the local file variable with the same content but different name
-          .camundaInputParameter(LOCAL_VARIABLE_NAME_FILE, "${execution.getVariableTyped('fileVariable')}")
+          .flowaveInputParameter(LOCAL_VARIABLE_NAME_FILE, "${execution.getVariableTyped('fileVariable')}")
         .serviceTask("serviceTaskBar")
-          .camundaExternalTask(EXTERNAL_TASK_TOPIC_BAR)
+          .flowaveExternalTask(EXTERNAL_TASK_TOPIC_BAR)
         .endEvent("endEvent")
         .done()
     ).get(0);
@@ -216,11 +216,11 @@ public class FileSerializationIT {
         Bpmn.createExecutableProcess("process")
         .startEvent("startEvent")
         .serviceTask("serviceTaskFoo")
-          .camundaExternalTask(EXTERNAL_TASK_TOPIC_FOO)
+          .flowaveExternalTask(EXTERNAL_TASK_TOPIC_FOO)
             // create the local file variable with the same content but different name
-          .camundaInputParameter(LOCAL_VARIABLE_NAME_FILE, "${execution.getVariableTyped('fileVariable')}")
+          .flowaveInputParameter(LOCAL_VARIABLE_NAME_FILE, "${execution.getVariableTyped('fileVariable')}")
         .serviceTask("serviceTaskBar")
-          .camundaExternalTask(EXTERNAL_TASK_TOPIC_BAR)
+          .flowaveExternalTask(EXTERNAL_TASK_TOPIC_BAR)
         .endEvent("endEvent")
         .done()
     ).get(0);

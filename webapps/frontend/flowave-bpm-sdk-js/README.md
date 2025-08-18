@@ -1,6 +1,6 @@
 # flowave-bpm-sdk-js
 
-Javascript client library for [Camunda Platform](https://github.com/finos/flowave-bpm-platform)
+Javascript client library for [Flowave Platform](https://github.com/finos/flowave-bpm-platform)
 
 ## Install using bower
 
@@ -10,7 +10,7 @@ bower install flowave-bpm-sdk-js --save
 
 ## Documentation
 
-See https://docs.camunda.org/manual/latest/reference/embedded-forms/
+** Needs To Be Reviewed ** See https://docs.camunda.org/manual/latest/reference/embedded-forms/
 
 ## Development
 
@@ -49,7 +49,7 @@ grunt watch:mochacli
 
 ### Issues
 
-https://app.camunda.com/jira/browse/CAM/component/12351
+** Needs To Be Reviewed ** https://app.camunda.com/jira/browse/CAM/component/12351
 
 ## Releasing
 
@@ -61,11 +61,11 @@ To create a release:
 grunt publish:release --setversion='myReleaseVersion'
 ```
 
-This will update the version, commit and tag it, then publish it to [bower-flowave-bpm-sdk-js](https://github.com/camunda/bower-flowave-bpm-sdk-js)
+This will update the version, commit and tag it, then publish it to [bower-flowave-bpm-sdk-js] ** Needs To Be Reviewed ** (https://github.com/camunda/bower-camunda-bpm-sdk-js)
 
 ### Snapshot
 
-To create a snapshot release which just builds current head and publishes it to [bower-flowave-bpm-sdk-js](https://github.com/camunda/bower-flowave-bpm-sdk-js) on a branch named the current version:
+To create a snapshot release which just builds current head and publishes it to [bower-flowave-bpm-sdk-js] ** Needs To Be Reviewed ** (https://github.com/camunda/bower-camunda-bpm-sdk-js) on a branch named the current version:
 
 ```sh
 grunt publish:snapshot
@@ -86,7 +86,7 @@ grunt publish:version --setversion='myNewVersion'
 
 ### Examples
 
-* [standalone usage](https://github.com/finos/flowave-bpm-examples/tree/master/sdk-js)
+* [standalone usage] ** Needs To Be Reviewed ** (https://github.com/camunda/camunda-bpm-examples/tree/master/sdk-js)
 
 ### Contributing
 
@@ -96,7 +96,7 @@ You are __more than welcome__ to take part on the development of this project!
 
 Clone the repository, add, fix or improve and send us a pull request.
 But please take care about the commit messages, [our conventions can be found
-here](https://github.com/finos/flowave-bpm-platform/blob/master/CONTRIBUTING.md).
+here](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md).
 
 #### Coding style guide
 

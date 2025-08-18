@@ -54,8 +54,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaAssignee  the assignee to set
    * @return the builder object
    */
-  public B camundaAssignee(String camundaAssignee) {
-    element.setCamundaAssignee(camundaAssignee);
+  public B flowaveAssignee(String camundaAssignee) {
+    element.setFlowaveAssignee(camundaAssignee);
     return myself;
   }
 
@@ -65,8 +65,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaCandidateGroups  the candidate groups to set
    * @return the builder object
    */
-  public B camundaCandidateGroups(String camundaCandidateGroups) {
-    element.setCamundaCandidateGroups(camundaCandidateGroups);
+  public B flowaveCandidateGroups(String camundaCandidateGroups) {
+    element.setFlowaveCandidateGroups(camundaCandidateGroups);
     return myself;
   }
 
@@ -76,8 +76,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaCandidateGroups  the candidate groups to set
    * @return the builder object
    */
-  public B camundaCandidateGroups(List<String> camundaCandidateGroups) {
-    element.setCamundaCandidateGroupsList(camundaCandidateGroups);
+  public B flowaveCandidateGroups(List<String> camundaCandidateGroups) {
+    element.setFlowaveCandidateGroupsList(camundaCandidateGroups);
     return myself;
   }
 
@@ -87,8 +87,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaCandidateUsers  the candidate users to set
    * @return the builder object
    */
-  public B camundaCandidateUsers(String camundaCandidateUsers) {
-    element.setCamundaCandidateUsers(camundaCandidateUsers);
+  public B flowaveCandidateUsers(String camundaCandidateUsers) {
+    element.setFlowaveCandidateUsers(camundaCandidateUsers);
     return myself;
   }
 
@@ -98,8 +98,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaCandidateUsers  the candidate users to set
    * @return the builder object
    */
-  public B camundaCandidateUsers(List<String> camundaCandidateUsers) {
-    element.setCamundaCandidateUsersList(camundaCandidateUsers);
+  public B flowaveCandidateUsers(List<String> camundaCandidateUsers) {
+    element.setFlowaveCandidateUsersList(camundaCandidateUsers);
     return myself;
   }
 
@@ -109,8 +109,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaDueDate  the due date of the user task
    * @return the builder object
    */
-  public B camundaDueDate(String camundaDueDate) {
-    element.setCamundaDueDate(camundaDueDate);
+  public B flowaveDueDate(String camundaDueDate) {
+    element.setFlowaveDueDate(camundaDueDate);
     return myself;
   }
 
@@ -120,8 +120,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFollowUpDate  the follow up date of the user task
    * @return the builder object
    */
-  public B camundaFollowUpDate(String camundaFollowUpDate) {
-    element.setCamundaFollowUpDate(camundaFollowUpDate);
+  public B flowaveFollowUpDate(String camundaFollowUpDate) {
+    element.setFlowaveFollowUpDate(camundaFollowUpDate);
     return myself;
   }
 
@@ -132,8 +132,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @return the builder object
    */
   @SuppressWarnings("rawtypes")
-  public B camundaFormHandlerClass(Class camundaFormHandlerClass) {
-    return camundaFormHandlerClass(camundaFormHandlerClass.getName());
+  public B flowaveFormHandlerClass(Class camundaFormHandlerClass) {
+    return flowaveFormHandlerClass(camundaFormHandlerClass.getName());
   }
 
   /**
@@ -142,8 +142,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFormHandlerClass  the class name of the form handler
    * @return the builder object
    */
-  public B camundaFormHandlerClass(String fullQualifiedClassName) {
-    element.setCamundaFormHandlerClass(fullQualifiedClassName);
+  public B flowaveFormHandlerClass(String fullQualifiedClassName) {
+    element.setFlowaveFormHandlerClass(fullQualifiedClassName);
     return myself;
   }
 
@@ -153,8 +153,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFormKey  the form key to set
    * @return the builder object
    */
-  public B camundaFormKey(String camundaFormKey) {
-    element.setCamundaFormKey(camundaFormKey);
+  public B flowaveFormKey(String camundaFormKey) {
+    element.setFlowaveFormKey(camundaFormKey);
     return myself;
   }
 
@@ -164,8 +164,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFormRef the form ref to set
    * @return the builder object
    */
-  public B camundaFormRef(String camundaFormRef) {
-    element.setCamundaFormRef(camundaFormRef);
+  public B flowaveFormRef(String camundaFormRef) {
+    element.setFlowaveFormRef(camundaFormRef);
     return myself;
   }
 
@@ -175,8 +175,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFormRef the form ref binding to set
    * @return the builder object
    */
-  public B camundaFormRefBinding(String camundaFormRefBinding) {
-    element.setCamundaFormRefBinding(camundaFormRefBinding);
+  public B flowaveFormRefBinding(String camundaFormRefBinding) {
+    element.setFlowaveFormRefBinding(camundaFormRefBinding);
     return myself;
   }
 
@@ -186,8 +186,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaFormRef the form ref version to set
    * @return the builder object
    */
-  public B camundaFormRefVersion(String camundaFormRefVersion) {
-    element.setCamundaFormRefVersion(camundaFormRefVersion);
+  public B flowaveFormRefVersion(String camundaFormRefVersion) {
+    element.setFlowaveFormRefVersion(camundaFormRefVersion);
     return myself;
   }
 
@@ -197,8 +197,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param camundaPriority  the priority of the user task
    * @return the builder object
    */
-  public B camundaPriority(String camundaPriority) {
-    element.setCamundaPriority(camundaPriority);
+  public B flowavePriority(String camundaPriority) {
+    element.setFlowavePriority(camundaPriority);
     return myself;
   }
 
@@ -207,7 +207,7 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    *
    * @return the builder object
    */
-  public FlowaveUserTaskFormFieldBuilder camundaFormField() {
+  public FlowaveUserTaskFormFieldBuilder flowaveFormField() {
     FlowaveFormData camundaFormData = getCreateSingleExtensionElement(FlowaveFormData.class);
     FlowaveFormField camundaFormField = createChild(camundaFormData, FlowaveFormField.class);
     return new FlowaveUserTaskFormFieldBuilder(modelInstance, element, camundaFormField);
@@ -221,8 +221,8 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @return the builder object
    */
   @SuppressWarnings("rawtypes")
-  public B camundaTaskListenerClass(String eventName, Class listenerClass) {
-    return camundaTaskListenerClass(eventName, listenerClass.getName());
+  public B flowaveTaskListenerClass(String eventName, Class listenerClass) {
+    return flowaveTaskListenerClass(eventName, listenerClass.getName());
   }
 
   /**
@@ -232,30 +232,30 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
    * @param fullQualifiedClassName - a string representing a class
    * @return the builder object
    */
-  public B camundaTaskListenerClass(String eventName, String fullQualifiedClassName) {
+  public B flowaveTaskListenerClass(String eventName, String fullQualifiedClassName) {
     FlowaveTaskListener executionListener = createInstance(FlowaveTaskListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaClass(fullQualifiedClassName);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveClass(fullQualifiedClassName);
 
     addExtensionElement(executionListener);
 
     return myself;
   }
 
-  public B camundaTaskListenerExpression(String eventName, String expression) {
+  public B flowaveTaskListenerExpression(String eventName, String expression) {
     FlowaveTaskListener executionListener = createInstance(FlowaveTaskListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaExpression(expression);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveExpression(expression);
 
     addExtensionElement(executionListener);
 
     return myself;
   }
 
-  public B camundaTaskListenerDelegateExpression(String eventName, String delegateExpression) {
+  public B flowaveTaskListenerDelegateExpression(String eventName, String delegateExpression) {
     FlowaveTaskListener executionListener = createInstance(FlowaveTaskListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaDelegateExpression(delegateExpression);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveDelegateExpression(delegateExpression);
 
     addExtensionElement(executionListener);
 
@@ -263,78 +263,78 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
   }
 
   @SuppressWarnings("rawtypes")
-  public B camundaTaskListenerClassTimeoutWithCycle(String id, Class listenerClass, String timerCycle) {
-    return camundaTaskListenerClassTimeoutWithCycle(id, listenerClass.getName(), timerCycle);
+  public B flowaveTaskListenerClassTimeoutWithCycle(String id, Class listenerClass, String timerCycle) {
+    return flowaveTaskListenerClassTimeoutWithCycle(id, listenerClass.getName(), timerCycle);
   }
 
   @SuppressWarnings("rawtypes")
-  public B camundaTaskListenerClassTimeoutWithDate(String id, Class listenerClass, String timerDate) {
-    return camundaTaskListenerClassTimeoutWithDate(id, listenerClass.getName(), timerDate);
+  public B flowaveTaskListenerClassTimeoutWithDate(String id, Class listenerClass, String timerDate) {
+    return flowaveTaskListenerClassTimeoutWithDate(id, listenerClass.getName(), timerDate);
   }
 
   @SuppressWarnings("rawtypes")
-  public B camundaTaskListenerClassTimeoutWithDuration(String id, Class listenerClass, String timerDuration) {
-    return camundaTaskListenerClassTimeoutWithDuration(id, listenerClass.getName(), timerDuration);
+  public B flowaveTaskListenerClassTimeoutWithDuration(String id, Class listenerClass, String timerDuration) {
+    return flowaveTaskListenerClassTimeoutWithDuration(id, listenerClass.getName(), timerDuration);
   }
 
-  public B camundaTaskListenerClassTimeoutWithCycle(String id, String fullQualifiedClassName, String timerCycle) {
-    return createCamundaTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeCycle(timerCycle));
+  public B flowaveTaskListenerClassTimeoutWithCycle(String id, String fullQualifiedClassName, String timerCycle) {
+    return createFlowaveTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeCycle(timerCycle));
   }
 
-  public B camundaTaskListenerClassTimeoutWithDate(String id, String fullQualifiedClassName, String timerDate) {
-    return createCamundaTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeDate(timerDate));
+  public B flowaveTaskListenerClassTimeoutWithDate(String id, String fullQualifiedClassName, String timerDate) {
+    return createFlowaveTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeDate(timerDate));
   }
 
-  public B camundaTaskListenerClassTimeoutWithDuration(String id, String fullQualifiedClassName, String timerDuration) {
-    return createCamundaTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeDuration(timerDuration));
+  public B flowaveTaskListenerClassTimeoutWithDuration(String id, String fullQualifiedClassName, String timerDuration) {
+    return createFlowaveTaskListenerClassTimeout(id, fullQualifiedClassName, createTimeDuration(timerDuration));
   }
 
-  public B camundaTaskListenerExpressionTimeoutWithCycle(String id, String expression, String timerCycle) {
-    return createCamundaTaskListenerExpressionTimeout(id, expression, createTimeCycle(timerCycle));
+  public B flowaveTaskListenerExpressionTimeoutWithCycle(String id, String expression, String timerCycle) {
+    return createFlowaveTaskListenerExpressionTimeout(id, expression, createTimeCycle(timerCycle));
   }
 
-  public B camundaTaskListenerExpressionTimeoutWithDate(String id, String expression, String timerDate) {
-    return createCamundaTaskListenerExpressionTimeout(id, expression, createTimeDate(timerDate));
+  public B flowaveTaskListenerExpressionTimeoutWithDate(String id, String expression, String timerDate) {
+    return createFlowaveTaskListenerExpressionTimeout(id, expression, createTimeDate(timerDate));
   }
 
-  public B camundaTaskListenerExpressionTimeoutWithDuration(String id, String expression, String timerDuration) {
-    return createCamundaTaskListenerExpressionTimeout(id, expression, createTimeDuration(timerDuration));
+  public B flowaveTaskListenerExpressionTimeoutWithDuration(String id, String expression, String timerDuration) {
+    return createFlowaveTaskListenerExpressionTimeout(id, expression, createTimeDuration(timerDuration));
   }
 
-  public B camundaTaskListenerDelegateExpressionTimeoutWithCycle(String id, String delegateExpression, String timerCycle) {
-    return createCamundaTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeCycle(timerCycle));
+  public B flowaveTaskListenerDelegateExpressionTimeoutWithCycle(String id, String delegateExpression, String timerCycle) {
+    return createFlowaveTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeCycle(timerCycle));
   }
 
-  public B camundaTaskListenerDelegateExpressionTimeoutWithDate(String id, String delegateExpression, String timerDate) {
-    return createCamundaTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeDate(timerDate));
+  public B flowaveTaskListenerDelegateExpressionTimeoutWithDate(String id, String delegateExpression, String timerDate) {
+    return createFlowaveTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeDate(timerDate));
   }
 
-  public B camundaTaskListenerDelegateExpressionTimeoutWithDuration(String id, String delegateExpression, String timerDuration) {
-    return createCamundaTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeDuration(timerDuration));
+  public B flowaveTaskListenerDelegateExpressionTimeoutWithDuration(String id, String delegateExpression, String timerDuration) {
+    return createFlowaveTaskListenerDelegateExpressionTimeout(id, delegateExpression, createTimeDuration(timerDuration));
   }
 
-  protected B createCamundaTaskListenerClassTimeout(String id, String fullQualifiedClassName, TimerEventDefinition timerDefinition) {
-    FlowaveTaskListener executionListener = createCamundaTaskListenerTimeout(id, timerDefinition);
-    executionListener.setCamundaClass(fullQualifiedClassName);
+  protected B createFlowaveTaskListenerClassTimeout(String id, String fullQualifiedClassName, TimerEventDefinition timerDefinition) {
+    FlowaveTaskListener executionListener = createFlowaveTaskListenerTimeout(id, timerDefinition);
+    executionListener.setFlowaveClass(fullQualifiedClassName);
     return myself;
   }
 
-  protected B createCamundaTaskListenerExpressionTimeout(String id, String expression, TimerEventDefinition timerDefinition) {
-    FlowaveTaskListener executionListener = createCamundaTaskListenerTimeout(id, timerDefinition);
-    executionListener.setCamundaExpression(expression);
+  protected B createFlowaveTaskListenerExpressionTimeout(String id, String expression, TimerEventDefinition timerDefinition) {
+    FlowaveTaskListener executionListener = createFlowaveTaskListenerTimeout(id, timerDefinition);
+    executionListener.setFlowaveExpression(expression);
     return myself;
   }
 
-  protected B createCamundaTaskListenerDelegateExpressionTimeout(String id, String delegateExpression, TimerEventDefinition timerDefinition) {
-    FlowaveTaskListener executionListener = createCamundaTaskListenerTimeout(id, timerDefinition);
-    executionListener.setCamundaDelegateExpression(delegateExpression);
+  protected B createFlowaveTaskListenerDelegateExpressionTimeout(String id, String delegateExpression, TimerEventDefinition timerDefinition) {
+    FlowaveTaskListener executionListener = createFlowaveTaskListenerTimeout(id, timerDefinition);
+    executionListener.setFlowaveDelegateExpression(delegateExpression);
     return myself;
   }
 
-  protected FlowaveTaskListener createCamundaTaskListenerTimeout(String id, TimerEventDefinition timerDefinition) {
+  protected FlowaveTaskListener createFlowaveTaskListenerTimeout(String id, TimerEventDefinition timerDefinition) {
     FlowaveTaskListener executionListener = createInstance(FlowaveTaskListener.class);
     executionListener.setAttributeValue(BpmnModelConstants.BPMN_ATTRIBUTE_ID, id, true);
-    executionListener.setCamundaEvent("timeout");
+    executionListener.setFlowaveEvent("timeout");
     executionListener.addChildElement(timerDefinition);
     addExtensionElement(executionListener);
     return executionListener;

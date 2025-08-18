@@ -55,7 +55,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     camundaBpmProperties = new FlowaveBpmProperties();
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
     determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
     assertEquals(ProcessEngineConfiguration.HISTORY_FULL, determinator.defaultHistoryLevel);
   }
@@ -67,7 +67,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     camundaBpmProperties.setHistoryLevelDefault(historyLevelDefault);
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
     determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
     assertEquals(historyLevelDefault, determinator.defaultHistoryLevel);
   }
@@ -87,7 +87,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
   @Test(expected = IllegalArgumentException.class)
   public void afterPropertiesSetTest5() throws Exception {
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
   }
 
@@ -97,7 +97,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     final String defaultHistoryLevel = "test";
     determinator.setDefaultHistoryLevel(defaultHistoryLevel);
     determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
     HistoryLevel historyLevel = new HistoryLevelAudit();
     when(jdbcTemplate.queryForObject(determinator.getSql(), Integer.class)).thenReturn(historyLevel.getId());
@@ -111,7 +111,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     final String defaultHistoryLevel = "test";
     determinator.setDefaultHistoryLevel(defaultHistoryLevel);
     determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
     when(jdbcTemplate.queryForObject(determinator.getSql(), Integer.class)).thenThrow(new DataRetrievalFailureException(""));
     String determineHistoryLevel = determinator.determineHistoryLevel();
@@ -126,7 +126,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     final String defaultHistoryLevel = "test";
     determinator.setDefaultHistoryLevel(defaultHistoryLevel);
     determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     determinator.afterPropertiesSet();
     when(jdbcTemplate.queryForObject(determinator.getSql(), Integer.class)).thenThrow(new DataRetrievalFailureException(""));
     determinator.determineHistoryLevel();
@@ -135,7 +135,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
   @Test
   public void getSqlTest() {
     HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setCamundaBpmProperties(camundaBpmProperties);
+    determinator.setFlowaveBpmProperties(camundaBpmProperties);
     assertEquals("SELECT VALUE_ FROM ACT_GE_PROPERTY WHERE NAME_='historyLevel'", determinator.getSql());
     camundaBpmProperties.getDatabase().setTablePrefix("TEST_");
     assertEquals("SELECT VALUE_ FROM TEST_ACT_GE_PROPERTY WHERE NAME_='historyLevel'", determinator.getSql());

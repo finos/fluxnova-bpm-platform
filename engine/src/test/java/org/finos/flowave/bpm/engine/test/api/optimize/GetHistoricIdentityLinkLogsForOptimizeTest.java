@@ -215,7 +215,7 @@ public class GetHistoricIdentityLinkLogsForOptimizeTest {
     BpmnModelInstance simpleDefinition = Bpmn.createExecutableProcess("process")
       .startEvent()
       .userTask("userTask")
-        .camundaAssignee(userId)
+        .flowaveAssignee(userId)
       .endEvent()
       .done();
     testHelper.deploy(simpleDefinition);

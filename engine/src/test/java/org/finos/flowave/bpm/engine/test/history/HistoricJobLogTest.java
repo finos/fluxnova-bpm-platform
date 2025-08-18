@@ -1347,8 +1347,8 @@ public class HistoricJobLogTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
       .manualTask()
-      .camundaAsyncBefore()
-      .camundaAsyncAfter()
+      .flowaveAsyncBefore()
+      .flowaveAsyncAfter()
       .endEvent()
       .done();
 

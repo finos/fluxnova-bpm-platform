@@ -117,7 +117,7 @@ public class ProcessDefinitionResourceTenantCheckTest extends AbstractCockpitPlu
   }
 
   @Test
-  public void calledProcessDefinitionByParentProcessDefinitionIdWithCamundaAdmin() {
+  public void calledProcessDefinitionByParentProcessDefinitionIdWithFlowaveAdmin() {
 
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 

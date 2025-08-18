@@ -63,7 +63,7 @@ public class FlowaveBpmRunConfiguration {
   }
 
   @Bean
-  public FlowaveBpmRunDeploymentConfiguration camundaDeploymentConfiguration(@Value("${camunda.deploymentDir:#{null}}") String deploymentDir) {
+  public FlowaveBpmRunDeploymentConfiguration flowaveDeploymentConfiguration(@Value("${camunda.deploymentDir:#{null}}") String deploymentDir) {
     return new FlowaveBpmRunDeploymentConfiguration(deploymentDir);
   }
 

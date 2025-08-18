@@ -2,6 +2,7 @@
 ==================
 
 Lightweight Execution Engine for DMN (Decision Model and Notation) written in Java.
+** Needs To Be Reviewed **
 
 <p>
   <a href="http://camunda.org/">Home</a> |
@@ -19,7 +20,7 @@ Add the following Maven Coordinates to your project:
 <dependency>
   <groupId>org.finos.flowave.bpm.dmn</groupId>
   <artifactId>flowave-engine-dmn</artifactId>
-  <version>${version.camunda}</version>
+  <version>${version.flowave}</version>
 </dependency>
 ```
 
@@ -55,7 +56,7 @@ Add the following Maven Coordinates to your project:
 <dependency>
   <groupId>org.finos.flowave.bpm</groupId>
   <artifactId>flowave-engine</artifactId>
-  <version>${version.camunda}</versions>
+  <version>${version.flowave}</versions>
 </dependency>
 <dependency>
   <groupId>com.h2database</groupId>
@@ -65,7 +66,7 @@ Add the following Maven Coordinates to your project:
 </dependency>
 ```
 
-Next, reference a DMN decision from a BPMN Business Rule Task:
+Next, reference a DMN decision from a BPMN Business Rule Task:** Needs To Be Reviewed **
 
 ```xml
 <bpmn:businessRuleTask id="assignApprover"

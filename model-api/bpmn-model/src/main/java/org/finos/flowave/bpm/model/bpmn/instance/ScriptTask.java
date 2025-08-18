@@ -37,12 +37,12 @@ public interface ScriptTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaResultVariable();
+  String getFlowaveResultVariable();
 
-  void setCamundaResultVariable(String camundaResultVariable);
+  void setFlowaveResultVariable(String camundaResultVariable);
 
-  String getCamundaResource();
+  String getFlowaveResource();
 
-  void setCamundaResource(String camundaResource);
+  void setFlowaveResource(String camundaResource);
 
 }

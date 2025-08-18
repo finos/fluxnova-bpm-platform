@@ -60,19 +60,19 @@ public class FlowaveConstraintImpl extends BpmnModelElementInstanceImpl implemen
     super(instanceContext);
   }
 
-  public String getCamundaName() {
+  public String getFlowaveName() {
     return camundaNameAttribute.getValue(this);
   }
 
-  public void setCamundaName(String camundaName) {
+  public void setFlowaveName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
   }
 
-  public String getCamundaConfig() {
+  public String getFlowaveConfig() {
     return camundaConfigAttribute.getValue(this);
   }
 
-  public void setCamundaConfig(String camundaConfig) {
+  public void setFlowaveConfig(String camundaConfig) {
     camundaConfigAttribute.setValue(this, camundaConfig);
   }
 }

@@ -49,9 +49,9 @@ public class MultiTenancyHistoricJobLogQueryTest {
   protected static final BpmnModelInstance BPMN = Bpmn.createExecutableProcess("failingProcess")
       .startEvent()
       .serviceTask()
-        .camundaExpression("${failing}")
-        .camundaAsyncBefore()
-        .camundaFailedJobRetryTimeCycle("R1/PT1M")
+        .flowaveExpression("${failing}")
+        .flowaveAsyncBefore()
+        .flowaveFailedJobRetryTimeCycle("R1/PT1M")
       .endEvent()
       .done();
 

@@ -462,7 +462,7 @@ public class ProcessDefinitionResourceImpl implements ProcessDefinitionResource 
 
   protected String getStartFormMediaType(String processDefinitionId) {
     String formKey = engine.getFormService().getStartFormKey(processDefinitionId);
-    FlowaveFormRef camundaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getCamundaFormRef();
+    FlowaveFormRef camundaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getFlowaveFormRef();
     if(formKey != null) {
       return ContentTypeUtil.getFormContentType(formKey);
     } else if(camundaFormRef != null) {

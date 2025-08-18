@@ -137,15 +137,15 @@ public class DeploymentCache {
 
   // CAMUNDA FORM DEFINITION ////////////////////////////////////////////////////////////////////////
 
-  public void addCamundaFormDefinition(CamundaFormDefinitionEntity camundaFormDefinition) {
+  public void addFlowaveFormDefinition(CamundaFormDefinitionEntity camundaFormDefinition) {
     camundaFormDefinitionCache.addDefinition(camundaFormDefinition);
   }
 
-  public void removeCamundaFormDefinition(String camundaFormDefinitionId) {
+  public void removeFlowaveFormDefinition(String camundaFormDefinitionId) {
     camundaFormDefinitionCache.removeDefinitionFromCache(camundaFormDefinitionId);
   }
 
-  public void discardCamundaFormDefinitionCache() {
+  public void discardFlowaveFormDefinitionCache() {
     camundaFormDefinitionCache.clear();
   }
 

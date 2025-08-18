@@ -122,7 +122,7 @@ public class FlowaveEngineProcessor {
   @BuildStep
   @Record(RUNTIME_INIT)
   protected void deployProcessEngineResources(FlowaveEngineRecorder recorder) {
-    recorder.fireCamundaEngineStartEvent();
+    recorder.fireFlowaveEngineStartEvent();
   }
 
   @BuildStep

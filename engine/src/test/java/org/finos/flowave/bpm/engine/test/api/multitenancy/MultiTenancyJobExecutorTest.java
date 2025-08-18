@@ -54,7 +54,7 @@ public class MultiTenancyJobExecutorTest {
         .startEvent()
           .timerWithDuration("PT1M")
         .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .userTask()
         .endEvent()
       .done());
@@ -74,7 +74,7 @@ public class MultiTenancyJobExecutorTest {
         .intermediateCatchEvent()
           .timerWithDuration("PT1M")
         .serviceTask()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .endEvent()
       .done());
 
@@ -92,8 +92,8 @@ public class MultiTenancyJobExecutorTest {
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess("process")
         .startEvent()
         .serviceTask()
-          .camundaAsyncBefore()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveAsyncBefore()
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .endEvent()
       .done());
 
@@ -110,8 +110,8 @@ public class MultiTenancyJobExecutorTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
         .serviceTask()
-          .camundaAsyncBefore()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveAsyncBefore()
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .endEvent()
       .done());
 
@@ -128,8 +128,8 @@ public class MultiTenancyJobExecutorTest {
     testRule.deployForTenant(TENANT_ID, Bpmn.createExecutableProcess("process")
         .startEvent()
         .serviceTask()
-          .camundaAsyncBefore()
-          .camundaClass(AssertingJavaDelegate.class.getName())
+          .flowaveAsyncBefore()
+          .flowaveClass(AssertingJavaDelegate.class.getName())
         .endEvent()
       .done());
 

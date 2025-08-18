@@ -176,7 +176,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .name(TASK_BEFORE_CONDITION)
       .userTask(TASK_WITH_CONDITION_ID)
         .name(TASK_WITH_CONDITION)
-        .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+        .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
       .endEvent(END_EVENT_ID)
       .done();
     modelInstance = specifier.specifyConditionalProcess(modelInstance, true);
@@ -206,7 +206,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .userTask(TASK_BEFORE_CONDITION_ID)
         .name(TASK_BEFORE_CONDITION)
       .userTask(TASK_WITH_CONDITION_ID)
-        .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
+        .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE)
         .name(TASK_WITH_CONDITION)
       .endEvent(END_EVENT_ID)
       .done();
@@ -240,8 +240,8 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, true);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -275,8 +275,8 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, false);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -309,12 +309,12 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .sequenceFlowId(FLOW_ID)
       .userTask(TASK_WITH_CONDITION_ID)
         .name(TASK_WITH_CONDITION)
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, true);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -345,12 +345,12 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .sequenceFlowId(FLOW_ID)
       .userTask(TASK_WITH_CONDITION_ID)
         .name(TASK_WITH_CONDITION)
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, false);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -391,7 +391,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
         .name(TASK_BEFORE_CONDITION)
-        .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
+        .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
       .userTask(TASK_WITH_CONDITION_ID)
         .name(TASK_WITH_CONDITION)
       .endEvent(END_EVENT_ID)
@@ -420,7 +420,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
         .name(TASK_BEFORE_CONDITION)
-        .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
+        .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE)
       .userTask(TASK_WITH_CONDITION_ID)
         .name(TASK_WITH_CONDITION)
       .endEvent(END_EVENT_ID)
@@ -459,8 +459,8 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE_ON_PARENT);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE_ON_PARENT);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, true);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -499,8 +499,8 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
       .endEvent(END_EVENT_ID)
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaExpression(EXPR_SET_VARIABLE_ON_PARENT);
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveExpression(EXPR_SET_VARIABLE_ON_PARENT);
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     modelInstance = specifier.specifyConditionalProcess(modelInstance, false);
     engine.manageDeployment(repositoryService.createDeployment().addModelInstance(CONDITIONAL_MODEL, modelInstance).deploy());
@@ -533,7 +533,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
           .name(TASK_BEFORE_CONDITION)
         .userTask(TASK_WITH_CONDITION_ID)
           .name(TASK_WITH_CONDITION)
-          .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE_ON_PARENT)
+          .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE_ON_PARENT)
         .endEvent()
       .subProcessDone()
       .endEvent(END_EVENT_ID)
@@ -569,7 +569,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
           .name(TASK_BEFORE_CONDITION)
         .userTask(TASK_WITH_CONDITION_ID)
           .name(TASK_WITH_CONDITION)
-          .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE_ON_PARENT)
+          .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_START, EXPR_SET_VARIABLE_ON_PARENT)
         .endEvent()
       .subProcessDone()
       .endEvent(END_EVENT_ID)
@@ -603,7 +603,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .startEvent()
         .userTask(TASK_BEFORE_CONDITION_ID)
           .name(TASK_BEFORE_CONDITION)
-          .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE_ON_PARENT)
+          .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE_ON_PARENT)
         .userTask(TASK_WITH_CONDITION_ID)
           .name(TASK_WITH_CONDITION)
         .endEvent()
@@ -639,7 +639,7 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         .startEvent()
         .userTask(TASK_BEFORE_CONDITION_ID)
           .name(TASK_BEFORE_CONDITION)
-          .camundaExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE_ON_PARENT)
+          .flowaveExecutionListenerExpression(ExecutionListener.EVENTNAME_END, EXPR_SET_VARIABLE_ON_PARENT)
         .userTask(TASK_WITH_CONDITION_ID)
           .name(TASK_WITH_CONDITION)
         .endEvent()

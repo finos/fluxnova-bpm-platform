@@ -40,7 +40,7 @@ public class UnregisterDeploymentCmd implements Command<Void> {
   }
 
   public Void execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkUnregisterDeployment);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkUnregisterDeployment);
     Context.getProcessEngineConfiguration().getRegisteredDeployments().removeAll(deploymentIds);
     return null;
   }

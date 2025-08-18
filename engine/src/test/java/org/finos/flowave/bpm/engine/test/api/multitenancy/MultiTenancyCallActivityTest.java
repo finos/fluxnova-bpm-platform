@@ -49,7 +49,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("deployment")
+        .flowaveCalledElementBinding("deployment")
       .endEvent()
       .done();
 
@@ -71,7 +71,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("latest")
+        .flowaveCalledElementBinding("latest")
       .endEvent()
       .done();
 
@@ -93,7 +93,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("latest")
+        .flowaveCalledElementBinding("latest")
       .endEvent()
       .done();
 
@@ -120,8 +120,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("version")
-        .camundaCalledElementVersion("1")
+        .flowaveCalledElementBinding("version")
+        .flowaveCalledElementVersion("1")
       .endEvent()
       .done();
 
@@ -163,7 +163,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("deployment")
+        .flowaveCalledElementBinding("deployment")
       .endEvent()
       .done();
 
@@ -188,7 +188,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("latest")
+        .flowaveCalledElementBinding("latest")
       .endEvent()
       .done();
 
@@ -213,8 +213,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
       .startEvent()
       .callActivity()
         .calledElement("subProcess")
-        .camundaCalledElementBinding("version")
-        .camundaCalledElementVersion("2")
+        .flowaveCalledElementBinding("version")
+        .flowaveCalledElementVersion("2")
       .endEvent()
       .done();
 
@@ -259,8 +259,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-        .camundaCaseRef("Case_1")
-        .camundaCaseBinding("deployment")
+        .flowaveCaseRef("Case_1")
+        .flowaveCaseBinding("deployment")
       .endEvent()
       .done();
 
@@ -281,8 +281,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-        .camundaCaseRef("Case_1")
-        .camundaCaseBinding("latest")
+        .flowaveCaseRef("Case_1")
+        .flowaveCaseBinding("latest")
       .endEvent()
       .done();
 
@@ -303,8 +303,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
         .startEvent()
         .callActivity()
-          .camundaCaseRef("Case_1")
-          .camundaCaseBinding("latest")
+          .flowaveCaseRef("Case_1")
+          .flowaveCaseBinding("latest")
         .endEvent()
         .done();
 
@@ -330,9 +330,9 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-        .camundaCaseRef("Case_1")
-        .camundaCaseBinding("version")
-        .camundaCaseVersion("1")
+        .flowaveCaseRef("Case_1")
+        .flowaveCaseBinding("version")
+        .flowaveCaseVersion("1")
       .endEvent()
       .done();
 
@@ -353,8 +353,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
         .startEvent()
         .callActivity()
-          .camundaCaseRef("Case_1")
-          .camundaCaseBinding("deployment")
+          .flowaveCaseRef("Case_1")
+          .flowaveCaseBinding("deployment")
         .endEvent()
         .done();
 
@@ -378,8 +378,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
         .startEvent()
         .callActivity()
-          .camundaCaseRef("Case_1")
-          .camundaCaseBinding("latest")
+          .flowaveCaseRef("Case_1")
+          .flowaveCaseBinding("latest")
         .endEvent()
         .done();
 
@@ -403,9 +403,9 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
         .startEvent()
         .callActivity()
-          .camundaCaseRef("Case_1")
-          .camundaCaseBinding("version")
-          .camundaCaseVersion("2")
+          .flowaveCaseRef("Case_1")
+          .flowaveCaseBinding("version")
+          .flowaveCaseVersion("2")
         .endEvent()
         .done();
 
@@ -432,7 +432,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity()
           .calledElement("subProcess")
-          .camundaCalledElementTenantId(TENANT_ONE)
+          .flowaveCalledElementTenantId(TENANT_ONE)
         .endEvent()
         .done();
 
@@ -452,7 +452,7 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity()
           .calledElement("subProcess")
-          .camundaCalledElementTenantId("${'"+TENANT_ONE+"'}")
+          .flowaveCalledElementTenantId("${'"+TENANT_ONE+"'}")
         .endEvent()
         .done();
 
@@ -471,8 +471,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-        .camundaCaseRef("Case_1")
-        .camundaCaseTenantId(TENANT_ONE)
+        .flowaveCaseRef("Case_1")
+        .flowaveCaseTenantId(TENANT_ONE)
       .endEvent()
       .done();
 
@@ -492,8 +492,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-        .camundaCaseRef("Case_1")
-        .camundaCaseTenantId("${'"+TENANT_ONE+"'}")
+        .flowaveCaseRef("Case_1")
+        .flowaveCaseTenantId("${'"+TENANT_ONE+"'}")
       .endEvent()
       .done();
 
@@ -512,8 +512,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
     BpmnModelInstance callingProcess = Bpmn.createExecutableProcess("callingProcess")
       .startEvent()
       .callActivity()
-      .camundaCaseRef("Case_1")
-      .camundaCaseTenantId("tenant${'1'}")
+      .flowaveCaseRef("Case_1")
+      .flowaveCaseTenantId("tenant${'1'}")
       .endEvent()
       .done();
 
@@ -533,8 +533,8 @@ public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
         .startEvent()
         .callActivity()
           .calledElement("subProcess")
-          .camundaCalledElementBinding("versionTag")
-          .camundaCalledElementVersionTag(versionTagValue)
+          .flowaveCalledElementBinding("versionTag")
+          .flowaveCalledElementVersionTag(versionTagValue)
         .endEvent()
         .done();
   }

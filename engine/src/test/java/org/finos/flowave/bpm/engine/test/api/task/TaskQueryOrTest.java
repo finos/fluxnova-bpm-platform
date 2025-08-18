@@ -604,7 +604,7 @@ public class TaskQueryOrTest {
   public void shouldReturnTasksWithProcessVariableValueNotLikeOrEquals() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("process")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
         .endEvent()
@@ -633,10 +633,10 @@ public class TaskQueryOrTest {
   public void shouldInitializeFormKeys() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
-        .camundaFormKey("aFormKey")
+        .flowaveFormKey("aFormKey")
         .endEvent()
         .done();
 
@@ -649,10 +649,10 @@ public class TaskQueryOrTest {
       .startProcessInstanceByKey("aProcessDefinition");
 
     BpmnModelInstance anotherProcessDefinition = Bpmn.createExecutableProcess("anotherProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
-          .camundaFormKey("anotherFormKey")
+          .flowaveFormKey("anotherFormKey")
       .endEvent()
       .done();
 
@@ -683,7 +683,7 @@ public class TaskQueryOrTest {
   public void shouldReturnTasksWithProcessDefinitionNameOrProcessDefinitionKey() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .name("process1")
       .startEvent()
         .userTask()
@@ -698,7 +698,7 @@ public class TaskQueryOrTest {
     runtimeService.startProcessInstanceByKey("aProcessDefinition");
 
     BpmnModelInstance anotherProcessDefinition = Bpmn.createExecutableProcess("anotherProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()
@@ -727,7 +727,7 @@ public class TaskQueryOrTest {
   public void shouldReturnTasksWithProcessInstanceBusinessKeyOrProcessInstanceBusinessKeyLike() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()
@@ -742,7 +742,7 @@ public class TaskQueryOrTest {
       .startProcessInstanceByKey("aProcessDefinition", "aBusinessKey");
 
     BpmnModelInstance anotherProcessDefinition = Bpmn.createExecutableProcess("anotherProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()
@@ -772,7 +772,7 @@ public class TaskQueryOrTest {
   public void shouldReturnTasksWithProcessInstanceBusinessKeyOrProcessInstanceBusinessKeyLikeAndAssignee() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()
@@ -790,7 +790,7 @@ public class TaskQueryOrTest {
     .startProcessInstanceByKey("aProcessDefinition", "aBusinessKey");
 
     BpmnModelInstance anotherProcessDefinition = Bpmn.createExecutableProcess("anotherProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()
@@ -829,7 +829,7 @@ public class TaskQueryOrTest {
   public void shouldReturnTasksWithProcessInstanceBusinessKeyOrProcessInstanceBusinessKeyLikeOrStandaloneAssignee() {
     // given
     BpmnModelInstance aProcessDefinition = Bpmn.createExecutableProcess("aProcessDefinition")
-        .camundaHistoryTimeToLive(180)
+        .flowaveHistoryTimeToLive(180)
         .startEvent()
         .userTask()
       .endEvent()

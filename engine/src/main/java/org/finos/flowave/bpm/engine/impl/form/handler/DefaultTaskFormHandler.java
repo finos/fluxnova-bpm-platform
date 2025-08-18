@@ -37,9 +37,9 @@ public class DefaultTaskFormHandler extends DefaultFormHandler implements TaskFo
 
     FormDefinition formDefinition = taskDefinition.getFormDefinition();
     Expression formKey = formDefinition.getFormKey();
-    Expression camundaFormDefinitionKey = formDefinition.getCamundaFormDefinitionKey();
-    String camundaFormDefinitionBinding = formDefinition.getCamundaFormDefinitionBinding();
-    Expression camundaFormDefinitionVersion = formDefinition.getCamundaFormDefinitionVersion();
+    Expression camundaFormDefinitionKey = formDefinition.getFlowaveFormDefinitionKey();
+    String camundaFormDefinitionBinding = formDefinition.getFlowaveFormDefinitionBinding();
+    Expression camundaFormDefinitionVersion = formDefinition.getFlowaveFormDefinitionVersion();
 
     if (formKey != null) {
       Object formValue = formKey.getValue(task);
@@ -56,7 +56,7 @@ public class DefaultTaskFormHandler extends DefaultFormHandler implements TaskFo
             ref.setVersion(Integer.parseInt((String)formRefVersionValue));
           }
         }
-        taskFormData.setCamundaFormRef(ref);
+        taskFormData.setFlowaveFormRef(ref);
       }
     }
 

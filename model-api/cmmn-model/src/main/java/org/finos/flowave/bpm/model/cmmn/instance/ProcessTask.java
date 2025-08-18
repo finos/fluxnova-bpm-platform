@@ -36,16 +36,16 @@ public interface ProcessTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaProcessBinding();
+  String getFlowaveProcessBinding();
 
-  void setCamundaProcessBinding(String camundaProcessBinding);
+  void setFlowaveProcessBinding(String camundaProcessBinding);
 
-  String getCamundaProcessVersion();
+  String getFlowaveProcessVersion();
 
-  void setCamundaProcessVersion(String camundaProcessVersion);
+  void setFlowaveProcessVersion(String camundaProcessVersion);
 
-  String getCamundaProcessTenantId();
+  String getFlowaveProcessTenantId();
 
-  void setCamundaProcessTenantId(String camundaProcessTenantId);
+  void setFlowaveProcessTenantId(String camundaProcessTenantId);
 
 }

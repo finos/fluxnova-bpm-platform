@@ -33,56 +33,56 @@ public interface BusinessRuleTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaClass();
+  String getFlowaveClass();
 
-  void setCamundaClass(String camundaClass);
+  void setFlowaveClass(String camundaClass);
 
-  String getCamundaDelegateExpression();
+  String getFlowaveDelegateExpression();
 
-  void setCamundaDelegateExpression(String camundaExpression);
+  void setFlowaveDelegateExpression(String camundaExpression);
 
-  String getCamundaExpression();
+  String getFlowaveExpression();
 
-  void setCamundaExpression(String camundaExpression);
+  void setFlowaveExpression(String camundaExpression);
 
-  String getCamundaResultVariable();
+  String getFlowaveResultVariable();
 
-  void setCamundaResultVariable(String camundaResultVariable);
+  void setFlowaveResultVariable(String camundaResultVariable);
 
-  String getCamundaType();
+  String getFlowaveType();
 
-  void setCamundaType(String camundaType);
+  void setFlowaveType(String camundaType);
 
-  String getCamundaTopic();
+  String getFlowaveTopic();
 
-  void setCamundaTopic(String camundaTopic);
+  void setFlowaveTopic(String camundaTopic);
 
-  String getCamundaDecisionRef();
+  String getFlowaveDecisionRef();
 
-  void setCamundaDecisionRef(String camundaDecisionRef);
+  void setFlowaveDecisionRef(String camundaDecisionRef);
 
-  String getCamundaDecisionRefBinding();
+  String getFlowaveDecisionRefBinding();
 
-  void setCamundaDecisionRefBinding(String camundaDecisionRefBinding);
+  void setFlowaveDecisionRefBinding(String camundaDecisionRefBinding);
 
-  String getCamundaDecisionRefVersion();
+  String getFlowaveDecisionRefVersion();
 
-  void setCamundaDecisionRefVersion(String camundaDecisionRefVersion);
+  void setFlowaveDecisionRefVersion(String camundaDecisionRefVersion);
 
-  String getCamundaDecisionRefVersionTag();
+  String getFlowaveDecisionRefVersionTag();
 
-  void setCamundaDecisionRefVersionTag(String camundaDecisionRefVersionTag);
+  void setFlowaveDecisionRefVersionTag(String camundaDecisionRefVersionTag);
 
-  String getCamundaDecisionRefTenantId();
+  String getFlowaveDecisionRefTenantId();
 
-  void setCamundaDecisionRefTenantId(String tenantId);
+  void setFlowaveDecisionRefTenantId(String tenantId);
 
-  String getCamundaMapDecisionResult();
+  String getFlowaveMapDecisionResult();
 
-  void setCamundaMapDecisionResult(String camundaMapDecisionResult);
+  void setFlowaveMapDecisionResult(String camundaMapDecisionResult);
 
-  String getCamundaTaskPriority();
+  String getFlowaveTaskPriority();
 
-  void setCamundaTaskPriority(String taskPriority);
+  void setFlowaveTaskPriority(String taskPriority);
 
 }

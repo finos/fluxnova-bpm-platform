@@ -110,7 +110,7 @@ public class FlowaveBpmRunRestConfiguration {
   }
 
   @Bean
-  public FlowaveJerseyResourceConfig camundaRunJerseyResourceConfig() {
+  public FlowaveJerseyResourceConfig flowaveRunJerseyResourceConfig() {
     FlowaveJerseyResourceConfig camundaJerseyResourceConfig = new FlowaveJerseyResourceConfig();
     camundaJerseyResourceConfig.setProperties(Collections.singletonMap("jersey.config.server.wadl.disableWadl", camundaBpmRunProperties.getRest().isDisableWadl()));
     return camundaJerseyResourceConfig;

@@ -73,13 +73,13 @@ public class MultiInstanceVariablesTest {
 
   protected void addAllOut(BpmnModelInstance modelInstance, CallActivityBuilder callActivityBuilder) {
     FlowaveOut camundaOut = modelInstance.newInstance(FlowaveOut.class);
-    camundaOut.setCamundaVariables(ALL);
+    camundaOut.setFlowaveVariables(ALL);
     callActivityBuilder.addExtensionElement(camundaOut);
   }
 
   protected void addAllIn(BpmnModelInstance modelInstance, CallActivityBuilder callActivityBuilder) {
     FlowaveIn camundaIn = modelInstance.newInstance(FlowaveIn.class);
-    camundaIn.setCamundaVariables(ALL);
+    camundaIn.setFlowaveVariables(ALL);
     callActivityBuilder.addExtensionElement(camundaIn);
   }
 

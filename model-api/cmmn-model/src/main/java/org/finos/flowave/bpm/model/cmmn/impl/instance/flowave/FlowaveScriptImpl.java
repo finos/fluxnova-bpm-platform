@@ -62,19 +62,19 @@ public class FlowaveScriptImpl extends CmmnModelElementInstanceImpl implements F
     super(instanceContext);
   }
 
-  public String getCamundaScriptFormat() {
+  public String getFlowaveScriptFormat() {
     return camundaScriptFormatAttribute.getValue(this);
   }
 
-  public void setCamundaScriptFormat(String scriptFormat) {
+  public void setFlowaveScriptFormat(String scriptFormat) {
     camundaScriptFormatAttribute.setValue(this, scriptFormat);
   }
 
-  public String getCamundaResource() {
+  public String getFlowaveResource() {
     return camundaResourceAttribute.getValue(this);
   }
 
-  public void setCamundaResoure(String resource) {
+  public void setFlowaveResoure(String resource) {
     camundaResourceAttribute.setValue(this, resource);
   }
 

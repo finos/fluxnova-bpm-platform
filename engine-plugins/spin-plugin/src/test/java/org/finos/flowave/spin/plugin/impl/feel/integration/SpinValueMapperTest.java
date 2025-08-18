@@ -60,7 +60,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinJSONObjectAsContext() {
+  public void shouldMapFlowaveSpinJSONObjectAsContext() {
     // given
     Map<String, Val> map = new HashMap<>();
     map.put("customer", new ValString("Kermit"));
@@ -76,7 +76,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinJSONarrayAsList() {
+  public void shouldMapFlowaveSpinJSONarrayAsList() {
     // given
     List<Val> list = Arrays.asList(new ValString("Kermit"), new ValString("Waldo"));
     ValList feelList = (ValList) valueMapper.toVal(list);
@@ -91,7 +91,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapNestedCamundaSpinJSONObjectAsContext() {
+  public void shouldMapNestedFlowaveSpinJSONObjectAsContext() {
 
     // given
     Map<String, Val> nestedMap = new HashMap<>();
@@ -117,7 +117,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithAttributes() {
+  public void shouldMapFlowaveSpinXMLObjectWithAttributes() {
     // given
     Map<String, Val> xmlInnerMap = new HashMap();
     xmlInnerMap.put("@name", new ValString("Kermit"));
@@ -136,7 +136,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithChildObject() {
+  public void shouldMapFlowaveSpinXMLObjectWithChildObject() {
     // given
     Map<String, Val> xmlAttrMap = new HashMap();
     xmlAttrMap.put("@city", new ValString("Berlin"));
@@ -159,7 +159,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithListOfChildObjects() {
+  public void shouldMapFlowaveSpinXMLObjectWithListOfChildObjects() {
     // given
     SpinXmlElement xml = Spin.XML("<data>" +
                                           "<customer name=\"Kermit\" language=\"en\" />" +
@@ -196,7 +196,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithContent() {
+  public void shouldMapFlowaveSpinXMLObjectWithContent() {
     // given
     SpinXmlElement xml = Spin.XML("<customer>Kermit</customer>");
 
@@ -216,7 +216,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithoutContent() {
+  public void shouldMapFlowaveSpinXMLObjectWithoutContent() {
     // given
     SpinXmlElement xml = Spin.XML("<customer />");
     ValContext context = (ValContext) valueMapper
@@ -230,7 +230,7 @@ public class SpinValueMapperTest {
   }
 
   @Test
-  public void shouldMapCamundaSpinXMLObjectWithPrefix() {
+  public void shouldMapFlowaveSpinXMLObjectWithPrefix() {
     // given
     SpinXmlElement xml = Spin.XML("<data xmlns:p=\"http://www.example.org\">" +
                                           "<p:customer p:name=\"Kermit\" language=\"en\" />" +

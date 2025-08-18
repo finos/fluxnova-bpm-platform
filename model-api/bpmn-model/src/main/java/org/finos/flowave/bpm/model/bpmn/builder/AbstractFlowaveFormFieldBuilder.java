@@ -41,8 +41,8 @@ public class AbstractFlowaveFormFieldBuilder<P, B extends AbstractFlowaveFormFie
    * @param id the form field id
    * @return  the builder object
    */
-  public B camundaId(String id) {
-    element.setCamundaId(id);
+  public B flowaveId(String id) {
+    element.setFlowaveId(id);
     return myself;
   }
 
@@ -52,8 +52,8 @@ public class AbstractFlowaveFormFieldBuilder<P, B extends AbstractFlowaveFormFie
    * @param label the form field label
    * @return  the builder object
    */
-  public B camundaLabel(String label) {
-    element.setCamundaLabel(label);;
+  public B flowaveLabel(String label) {
+    element.setFlowaveLabel(label);;
     return myself;
   }
 
@@ -63,8 +63,8 @@ public class AbstractFlowaveFormFieldBuilder<P, B extends AbstractFlowaveFormFie
    * @param type the form field type
    * @return the builder object
    */
-  public B camundaType(String type) {
-    element.setCamundaType(type);
+  public B flowaveType(String type) {
+    element.setFlowaveType(type);
     return myself;
   }
 
@@ -74,8 +74,8 @@ public class AbstractFlowaveFormFieldBuilder<P, B extends AbstractFlowaveFormFie
    * @param defaultValue the form field default value
    * @return the builder object
    */
-  public B camundaDefaultValue(String defaultValue) {
-    element.setCamundaDefaultValue(defaultValue);
+  public B flowaveDefaultValue(String defaultValue) {
+    element.setFlowaveDefaultValue(defaultValue);
     return myself;
   }
 
@@ -85,7 +85,7 @@ public class AbstractFlowaveFormFieldBuilder<P, B extends AbstractFlowaveFormFie
    * @return the parent activity builder
    */
   @SuppressWarnings({ "unchecked" })
-  public P camundaFormFieldDone() {
+  public P flowaveFormFieldDone() {
     return (P) parent.builder();
   }
 }

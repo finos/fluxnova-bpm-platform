@@ -115,7 +115,7 @@ public class ProcessInstanceResourceTenantCheckTest extends AbstractCockpitPlugi
   }
 
   @Test
-  public void getCalledProcessInstancesByParentProcessInstanceIdWithCamundaAdmin() {
+  public void getCalledProcessInstancesByParentProcessInstanceIdWithFlowaveAdmin() {
 
     identityService.setAuthentication("user", Collections.singletonList(Groups.CAMUNDA_ADMIN), null);
 

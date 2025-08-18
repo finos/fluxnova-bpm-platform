@@ -92,7 +92,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
         Bpmn.createExecutableProcess("startToEnd")
             .startEvent()
             .userTask()
-            .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
+            .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
             .name("userTask")
             .endEvent().done();
 
@@ -112,10 +112,10 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
         Bpmn.createExecutableProcess("startToEnd")
             .startEvent()
             .userTask()
-            .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
+            .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
             .name("userTask")
-            .camundaCandidateUsers(Arrays.asList(new String[]{"users1", "user2"}))
-            .camundaCandidateGroups(Arrays.asList(new String[]{"group1", "group2"}))
+            .flowaveCandidateUsers(Arrays.asList(new String[]{"users1", "user2"}))
+            .flowaveCandidateGroups(Arrays.asList(new String[]{"group1", "group2"}))
             .endEvent().done();
 
     testRule.deploy(modelInstance);
@@ -138,7 +138,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     final BpmnModelInstance instance = Bpmn.createExecutableProcess("mainProc")
                                            .startEvent()
                                            .userTask("mainTask")
-                                           .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
+                                           .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, CompletingTaskListener.class.getName())
                                            .callActivity().calledElement("subProc")
                                            .endEvent()
                                            .done();
@@ -229,8 +229,8 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     BpmnModelInstance calledProcess = Bpmn.createExecutableProcess("called")
                                           .startEvent()
                                           .userTask()
-                                          .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, RecorderTaskListener.class.getName())
-                                          .camundaTaskListenerClass(TaskListener.EVENTNAME_DELETE, RecorderTaskListener.class.getName())
+                                          .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, RecorderTaskListener.class.getName())
+                                          .flowaveTaskListenerClass(TaskListener.EVENTNAME_DELETE, RecorderTaskListener.class.getName())
                                           .endEvent()
                                           .done();
 
@@ -257,7 +257,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     BpmnModelInstance callActivityProcess = Bpmn.createExecutableProcess("calling")
                                                 .startEvent()
                                                 .callActivity()
-                                                .camundaIn("foo", "foo")
+                                                .flowaveIn("foo", "foo")
                                                 .calledElement("called")
                                                 .endEvent()
                                                 .done();
@@ -265,7 +265,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     BpmnModelInstance calledProcess = Bpmn.createExecutableProcess("called")
                                           .startEvent()
                                           .userTask()
-                                          .camundaTaskListenerClass(TaskListener.EVENTNAME_DELETE, VariablesCollectingListener.class.getName())
+                                          .flowaveTaskListenerClass(TaskListener.EVENTNAME_DELETE, VariablesCollectingListener.class.getName())
                                           .endEvent()
                                           .done();
 
@@ -725,11 +725,11 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("process")
       .startEvent()
       .userTask("task")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_UPDATE, RecorderTaskListener.class)
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_UPDATE, RecorderTaskListener.class)
       .boundaryEvent()
         .condition("${triggerBoundaryEvent}")
       .userTask("afterBoundaryEvent")
-        .camundaTaskListenerClass(TaskListener.EVENTNAME_CREATE, RecorderTaskListener.class)
+        .flowaveTaskListenerClass(TaskListener.EVENTNAME_CREATE, RecorderTaskListener.class)
       .endEvent()
       .moveToActivity("task")
       .endEvent()

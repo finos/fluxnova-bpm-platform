@@ -148,7 +148,7 @@ public class InternalsDto {
     other.getMetrics().forEach((name, metric) -> dto.metrics.put(name, new MetricDto(metric.getCount())));
 
     dto.setWebapps(other.getWebapps());
-    dto.setCamundaIntegration(other.getCamundaIntegration());
+    dto.setCamundaIntegration(other.getFlowaveIntegration());
 
     return dto;
   }

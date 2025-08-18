@@ -335,8 +335,8 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *          boolean value to set
    * @return the builder object
    */
-  public B camundaAsyncBefore(boolean asyncBefore) {
-    element.setCamundaAsyncBefore(asyncBefore);
+  public B flowaveAsyncBefore(boolean asyncBefore) {
+    element.setFlowaveAsyncBefore(asyncBefore);
     return myself;
   }
 
@@ -345,8 +345,8 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *
    * @return the builder object
    */
-  public B camundaAsyncBefore() {
-    element.setCamundaAsyncBefore(true);
+  public B flowaveAsyncBefore() {
+    element.setFlowaveAsyncBefore(true);
     return myself;
   }
 
@@ -357,8 +357,8 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *          boolean value to set
    * @return the builder object
    */
-  public B camundaAsyncAfter(boolean asyncAfter) {
-    element.setCamundaAsyncAfter(asyncAfter);
+  public B flowaveAsyncAfter(boolean asyncAfter) {
+    element.setFlowaveAsyncAfter(asyncAfter);
     return myself;
   }
 
@@ -367,8 +367,8 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *
    * @return the builder object
    */
-  public B camundaAsyncAfter() {
-    element.setCamundaAsyncAfter(true);
+  public B flowaveAsyncAfter() {
+    element.setFlowaveAsyncAfter(true);
     return myself;
   }
 
@@ -377,8 +377,8 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *
    * @return the builder object
    */
-  public B notCamundaExclusive() {
-    element.setCamundaExclusive(false);
+  public B notFlowaveExclusive() {
+    element.setFlowaveExclusive(false);
     return myself;
   }
 
@@ -389,13 +389,13 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *          boolean value to set
    * @return the builder object
    */
-  public B camundaExclusive(boolean exclusive) {
-    element.setCamundaExclusive(exclusive);
+  public B flowaveExclusive(boolean exclusive) {
+    element.setFlowaveExclusive(exclusive);
     return myself;
   }
 
-  public B camundaJobPriority(String jobPriority) {
-    element.setCamundaJobPriority(jobPriority);
+  public B flowaveJobPriority(String jobPriority) {
+    element.setFlowaveJobPriority(jobPriority);
     return myself;
   }
 
@@ -406,7 +406,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
    *          the retry time cycle value to set
    * @return the builder object
    */
-  public B camundaFailedJobRetryTimeCycle(String retryTimeCycle) {
+  public B flowaveFailedJobRetryTimeCycle(String retryTimeCycle) {
     FlowaveFailedJobRetryTimeCycle failedJobRetryTimeCycle = createInstance(FlowaveFailedJobRetryTimeCycle.class);
     failedJobRetryTimeCycle.setTextContent(retryTimeCycle);
 
@@ -416,34 +416,34 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   @SuppressWarnings("rawtypes")
-  public B camundaExecutionListenerClass(String eventName, Class listenerClass) {
-    return camundaExecutionListenerClass(eventName, listenerClass.getName());
+  public B flowaveExecutionListenerClass(String eventName, Class listenerClass) {
+    return flowaveExecutionListenerClass(eventName, listenerClass.getName());
   }
 
-  public B camundaExecutionListenerClass(String eventName, String fullQualifiedClassName) {
+  public B flowaveExecutionListenerClass(String eventName, String fullQualifiedClassName) {
     FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaClass(fullQualifiedClassName);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveClass(fullQualifiedClassName);
 
     addExtensionElement(executionListener);
 
     return myself;
   }
 
-  public B camundaExecutionListenerExpression(String eventName, String expression) {
+  public B flowaveExecutionListenerExpression(String eventName, String expression) {
     FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaExpression(expression);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveExpression(expression);
 
     addExtensionElement(executionListener);
 
     return myself;
   }
 
-  public B camundaExecutionListenerDelegateExpression(String eventName, String delegateExpression) {
+  public B flowaveExecutionListenerDelegateExpression(String eventName, String delegateExpression) {
     FlowaveExecutionListener executionListener = createInstance(FlowaveExecutionListener.class);
-    executionListener.setCamundaEvent(eventName);
-    executionListener.setCamundaDelegateExpression(delegateExpression);
+    executionListener.setFlowaveEvent(eventName);
+    executionListener.setFlowaveDelegateExpression(delegateExpression);
 
     addExtensionElement(executionListener);
 

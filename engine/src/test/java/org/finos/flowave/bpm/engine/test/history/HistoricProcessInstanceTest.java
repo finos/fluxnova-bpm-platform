@@ -1448,7 +1448,7 @@ public class HistoricProcessInstanceTest {
     // given
     BpmnModelInstance asyncModel = Bpmn.createExecutableProcess("async")
         .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .endEvent()
         .done();
     deployment(asyncModel);
@@ -1488,7 +1488,7 @@ public class HistoricProcessInstanceTest {
     // given
     BpmnModelInstance asyncModel = Bpmn.createExecutableProcess("async")
         .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .endEvent()
         .done();
     deployment(asyncModel);
@@ -1528,7 +1528,7 @@ public class HistoricProcessInstanceTest {
     // given
     BpmnModelInstance asyncModel = Bpmn.createExecutableProcess("async")
         .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .endEvent()
         .done();
     deployment(asyncModel);
@@ -1576,7 +1576,7 @@ public class HistoricProcessInstanceTest {
     // given
     BpmnModelInstance asyncModel = Bpmn.createExecutableProcess("async")
         .startEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .endEvent()
         .done();
     deployment(asyncModel);
@@ -1761,18 +1761,18 @@ public class HistoricProcessInstanceTest {
     // given
     ProcessDefinition testProcess = testHelper.deployAndGetDefinition(ProcessModels.newModel()
         .startEvent("start")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .subProcess("subProcess")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .embeddedSubProcess()
         .startEvent()
         .serviceTask("task")
-        .camundaAsyncBefore()
-        .camundaExpression("${true}")
+        .flowaveAsyncBefore()
+        .flowaveExpression("${true}")
         .endEvent()
         .subProcessDone()
         .endEvent("end")
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .done());
 
     // when
@@ -1806,18 +1806,18 @@ public class HistoricProcessInstanceTest {
     // given
     ProcessDefinition testProcess = testHelper.deployAndGetDefinition(ProcessModels.newModel()
         .startEvent("start")
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
         .subProcess("subProcess")
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
         .embeddedSubProcess()
         .startEvent()
         .serviceTask("task")
-        .camundaAsyncAfter()
-        .camundaExpression("${true}")
+        .flowaveAsyncAfter()
+        .flowaveExpression("${true}")
         .endEvent()
         .subProcessDone()
         .endEvent("end")
-        .camundaAsyncAfter()
+        .flowaveAsyncAfter()
         .done());
 
     // when
@@ -2146,12 +2146,12 @@ public class HistoricProcessInstanceTest {
     testHelper.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
         .serviceTask("theTask")
-        .camundaAsyncBefore()
-        .camundaClass(ChangeVariablesDelegate.class)
+        .flowaveAsyncBefore()
+        .flowaveClass(ChangeVariablesDelegate.class)
         .serviceTask("theTask2")
-        .camundaClass(ChangeVariablesDelegate.class)
+        .flowaveClass(ChangeVariablesDelegate.class)
         .serviceTask("theTask3")
-        .camundaClass(FailingDelegate.class)
+        .flowaveClass(FailingDelegate.class)
         .endEvent()
         .done());
 

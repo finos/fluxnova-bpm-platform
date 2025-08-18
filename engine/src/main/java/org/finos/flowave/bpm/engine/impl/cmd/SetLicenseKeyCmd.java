@@ -39,7 +39,7 @@ public class SetLicenseKeyCmd extends LicenseCmd implements Command<Object> {
   public Object execute(CommandContext commandContext) {
     EnsureUtil.ensureNotNull("licenseKey", licenseKey);
 
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkSetLicenseKey);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkSetLicenseKey);
 
     final ResourceManager resourceManager = commandContext.getResourceManager();
     ResourceEntity key = resourceManager.findLicenseKeyResource();

@@ -1,5 +1,6 @@
 # Flowave External Task Client (Java)
 
+** Needs To Be Reviewed **
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.bpm/camunda-external-task-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.bpm/camunda-external-task-client)
 
@@ -7,8 +8,9 @@
 
 The **Flowave External Task Client (Java)** allows to set up remote Service Tasks for your workflow.
 
-* [Quick Start](https://docs.camunda.org/get-started/quick-start/)
-* [Documentation](https://docs.camunda.org/manual/develop/user-guide/ext-client/)
+** Needs To Be Reviewed - Docs and example location **
+* [Quick Start](https://docs.flowave.org/get-started/quick-start/)
+* [Documentation](https://docs.flowave.org/manual/develop/user-guide/ext-client/)
 * [Examples](https://github.com/camunda/camunda-bpm-examples/tree/master/clients/java)
 
 ## Features
@@ -24,8 +26,8 @@ The **Flowave External Task Client (Java)** allows to set up remote Service Task
 * The topic subscription can be configured with the fluent api of the [TopicSubscriptionBuilder](client/src/main/java/org/finos/flowave/bpm/client/topic/TopicSubscriptionBuilder.java).
 
 ## Prerequisites
-* Java (supported version by the used Camunda Platform 7)
-* Camunda Platform 7
+* Java (supported version by the used Flowave Platform 7)
+* Flowave Platform 7
 
 ## Maven coordinates
 The following Maven coordinate needs to be added to the projects `pom.xml`:
@@ -39,7 +41,7 @@ The following Maven coordinate needs to be added to the projects `pom.xml`:
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/camunda/camunda-bpm-platform/blob/master/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/master/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 ## License

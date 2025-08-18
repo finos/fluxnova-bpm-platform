@@ -119,7 +119,7 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
       .userTask(TASK_WITH_CONDITION_ID)
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
       .endEvent()
       .done();
     deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, specifier.getCondition(), true);
@@ -148,7 +148,7 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
       .userTask(TASK_WITH_CONDITION_ID)
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
       .name(TASK_WITH_CONDITION)
       .endEvent()
       .done();
@@ -179,8 +179,8 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .endEvent()
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(specifier.getDelegateClass().getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(specifier.getDelegateClass().getName());
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, specifier.getCondition(), true);
 
@@ -212,8 +212,8 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .endEvent()
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(specifier.getDelegateClass().getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(specifier.getDelegateClass().getName());
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, specifier.getCondition(), false);
 
@@ -242,12 +242,12 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
       .sequenceFlowId(FLOW_ID)
-      .userTask(TASK_WITH_CONDITION_ID).camundaAsyncBefore()
+      .userTask(TASK_WITH_CONDITION_ID).flowaveAsyncBefore()
       .endEvent()
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(specifier.getDelegateClass().getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(specifier.getDelegateClass().getName());
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, specifier.getCondition(), true);
 
@@ -275,12 +275,12 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
       .sequenceFlowId(FLOW_ID)
-      .userTask(TASK_WITH_CONDITION_ID).camundaAsyncBefore()
+      .userTask(TASK_WITH_CONDITION_ID).flowaveAsyncBefore()
       .endEvent()
       .done();
     FlowaveExecutionListener listener = modelInstance.newInstance(FlowaveExecutionListener.class);
-    listener.setCamundaEvent(ExecutionListener.EVENTNAME_TAKE);
-    listener.setCamundaClass(specifier.getDelegateClass().getName());
+    listener.setFlowaveEvent(ExecutionListener.EVENTNAME_TAKE);
+    listener.setFlowaveClass(specifier.getDelegateClass().getName());
     modelInstance.<SequenceFlow>getModelElementById(FLOW_ID).builder().addExtensionElement(listener);
     deployConditionalEventSubProcess(modelInstance, CONDITIONAL_EVENT_PROCESS_KEY, specifier.getCondition(), false);
 
@@ -321,7 +321,7 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .startEvent()
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
       .userTask(TASK_WITH_CONDITION_ID)
       .endEvent()
       .done();
@@ -348,7 +348,7 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .startEvent()
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
       .userTask(TASK_WITH_CONDITION_ID)
       .name(TASK_WITH_CONDITION)
       .endEvent()
@@ -376,8 +376,8 @@ public class TriggerConditionalEventFromDelegationCodeTest extends AbstractCondi
       .startEvent()
       .userTask(TASK_BEFORE_CONDITION_ID)
       .name(TASK_BEFORE_CONDITION)
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
-      .camundaExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_START, specifier.getDelegateClass().getName())
+      .flowaveExecutionListenerClass(ExecutionListener.EVENTNAME_END, specifier.getDelegateClass().getName())
       .userTask(TASK_WITH_CONDITION_ID)
       .endEvent()
       .done();

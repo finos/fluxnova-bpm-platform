@@ -1,4 +1,4 @@
-camunda-cmmn-model
+flowave-cmmn-model
 ==================
 
 CMMN model API written in Java.

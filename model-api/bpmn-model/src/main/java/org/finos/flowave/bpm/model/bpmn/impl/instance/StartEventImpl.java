@@ -118,7 +118,7 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
    * @deprecated use isCamundaAsyncBefore() instead.
    */
   @Deprecated
-  public boolean isCamundaAsync() {
+  public boolean isFlowaveAsync() {
     return camundaAsyncAttribute.getValue(this);
   }
 
@@ -126,56 +126,56 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
    * @deprecated use setCamundaAsyncBefore(isCamundaAsyncBefore) instead.
    */
   @Deprecated
-  public void setCamundaAsync(boolean isCamundaAsync) {
+  public void setFlowaveAsync(boolean isCamundaAsync) {
     camundaAsyncAttribute.setValue(this, isCamundaAsync);
   }
 
-  public String getCamundaFormHandlerClass() {
+  public String getFlowaveFormHandlerClass() {
     return camundaFormHandlerClassAttribute.getValue(this);
   }
 
-  public void setCamundaFormHandlerClass(String camundaFormHandlerClass) {
+  public void setFlowaveFormHandlerClass(String camundaFormHandlerClass) {
     camundaFormHandlerClassAttribute.setValue(this, camundaFormHandlerClass);
   }
 
-  public String getCamundaFormKey() {
+  public String getFlowaveFormKey() {
     return camundaFormKeyAttribute.getValue(this);
   }
 
-  public void setCamundaFormKey(String camundaFormKey) {
+  public void setFlowaveFormKey(String camundaFormKey) {
     camundaFormKeyAttribute.setValue(this, camundaFormKey);
   }
 
 
-  public String getCamundaFormRef() {
+  public String getFlowaveFormRef() {
     return camundaFormRefAttribute.getValue(this);
   }
 
-  public void setCamundaFormRef(String camundaFormRef) {
+  public void setFlowaveFormRef(String camundaFormRef) {
     camundaFormRefAttribute.setValue(this, camundaFormRef);
   }
 
-  public String getCamundaFormRefBinding() {
+  public String getFlowaveFormRefBinding() {
     return camundaFormRefBindingAttribute.getValue(this);
   }
 
-  public void setCamundaFormRefBinding(String camundaFormRefBinding) {
+  public void setFlowaveFormRefBinding(String camundaFormRefBinding) {
     camundaFormRefBindingAttribute.setValue(this, camundaFormRefBinding);
   }
 
-  public String getCamundaFormRefVersion() {
+  public String getFlowaveFormRefVersion() {
     return camundaFormRefVersionAttribute.getValue(this);
   }
 
-  public void setCamundaFormRefVersion(String camundaFormRefVersion) {
+  public void setFlowaveFormRefVersion(String camundaFormRefVersion) {
     camundaFormRefVersionAttribute.setValue(this, camundaFormRefVersion);
   }
 
-  public String getCamundaInitiator() {
+  public String getFlowaveInitiator() {
     return camundaInitiatorAttribute.getValue(this);
   }
 
-  public void setCamundaInitiator(String camundaInitiator) {
+  public void setFlowaveInitiator(String camundaInitiator) {
     camundaInitiatorAttribute.setValue(this, camundaInitiator);
   }
 }

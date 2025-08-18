@@ -65,27 +65,27 @@ public class FlowavePropertyImpl extends BpmnModelElementInstanceImpl implements
     super(instanceContext);
   }
 
-  public String getCamundaId() {
+  public String getFlowaveId() {
     return camundaIdAttribute.getValue(this);
   }
 
-  public void setCamundaId(String camundaId) {
+  public void setFlowaveId(String camundaId) {
     camundaIdAttribute.setValue(this, camundaId);
   }
 
-  public String getCamundaName() {
+  public String getFlowaveName() {
     return camundaNameAttribute.getValue(this);
   }
 
-  public void setCamundaName(String camundaName) {
+  public void setFlowaveName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
   }
 
-  public String getCamundaValue() {
+  public String getFlowaveValue() {
     return camundaValueAttribute.getValue(this);
   }
 
-  public void setCamundaValue(String camundaValue) {
+  public void setFlowaveValue(String camundaValue) {
     camundaValueAttribute.setValue(this, camundaValue);
   }
 }

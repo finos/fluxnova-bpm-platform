@@ -45,7 +45,7 @@ public class FlowaveFormDefinitionManager extends AbstractManager
       return camundaFormDefinitions.iterator().next();
 
     } else {
-      throw LOG.multipleTenantsForCamundaFormDefinitionKeyException(key);
+      throw LOG.multipleTenantsForFlowaveFormDefinitionKeyException(key);
     }
   }
 
@@ -112,7 +112,7 @@ public class FlowaveFormDefinitionManager extends AbstractManager
         "Currently finding Camunda Form definition by version tag and tenant is not implemented.");
   }
 
-  public void deleteCamundaFormDefinitionsByDeploymentId(String deploymentId) {
+  public void deleteFlowaveFormDefinitionsByDeploymentId(String deploymentId) {
     getDbEntityManager().delete(CamundaFormDefinitionEntity.class, "deleteCamundaFormDefinitionsByDeploymentId",
         deploymentId);
   }

@@ -41,13 +41,13 @@ public class TelemetryDataTest {
   ProcessEngine engine;
 
   @Test
-  public void shouldAddCamundaIntegration() {
+  public void shouldAddFlowaveIntegration() {
     // given
     ProcessEngineConfigurationImpl processEngineConfiguration = (ProcessEngineConfigurationImpl) engine.getProcessEngineConfiguration();
 
     // then
     TelemetryDataImpl telemetryData = processEngineConfiguration.getTelemetryData();
-    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
+    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getFlowaveIntegration();
     assertThat(camundaIntegration)
       .containsExactlyInAnyOrder(FlowaveIntegration.CAMUNDA_BPM_RUN, FlowaveIntegration.SPRING_BOOT_STARTER);
   }

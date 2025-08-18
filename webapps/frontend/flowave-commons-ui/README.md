@@ -26,7 +26,7 @@ Common frontend / UI resources, widgets and libraries for the [Flowave web appli
 
 ### Widgets
 
-Widgets are reusable components which should be easy to integrate in the [Camunda webapp][webapp] and your own projects.
+Widgets are reusable components which should be easy to integrate in the [Flowave webapp][webapp] and your own projects.
 
 #### Usage
 
@@ -35,22 +35,23 @@ In those examples, we use uncompiled versions of the library and its dependencie
 
 
 #### Available widgets
+** Needs To Be Reviewed **
 
-- `fw-widget-bpmn-viewer`
-- `fw-widget-cmmn-viewer`
-- `fw-widget-dmn-viewer`
-- `fw-widget-debug`
-- `fw-widget-footer`
-- `fw-widget-header`
-- `fw-widget-inline-field`
-- `fw-widget-loader`
-- `fw-widget-chart-line`
-- `fw-widget-search`
-- `fw-widget-search-pill`
-- `fw-widget-variable`
-- `fw-widget-variables-table`
-- `fw-widget-clipboard`
-- `fw-widget-var-template`
+- `cam-widget-bpmn-viewer`
+- `cam-widget-cmmn-viewer`
+- `cam-widget-dmn-viewer`
+- `cam-widget-debug`
+- `cam-widget-footer`
+- `cam-widget-header`
+- `cam-widget-inline-field`
+- `cam-widget-loader`
+- `cam-widget-chart-line`
+- `cam-widget-search`
+- `cam-widget-search-pill`
+- `cam-widget-variable`
+- `cam-widget-variables-table`
+- `cam-widget-clipboard`
+- `cam-widget-var-template`
 
 #### Developing the widgets
 
@@ -76,7 +77,7 @@ You can also run the tests on a single widget like that:
 ```
 TESTED=variable nodemon -w lib/widgets/ --exec "protractor ./test/protractor.conf.js"
 ```
-This will only run the `fw-widget-variable` tests.
+This will only run the `cam-widget-variable` tests.
 
 ## grunt connect keep alive web server
 ```
@@ -117,10 +118,10 @@ The source files in this repository are made available under the [Apache License
 
 
 ## Authors
-
+** Needs To Be Reviewed **
  - [Daniel _meyerdan_ Meyer](https://github.com/meyerdan) - [@meyerdan](http://twitter.com/meyerdan)
  - [Valentin _zeropaper_ Vago](https://github.com/zeropaper) - [@zeropaper](http://twitter.com/zeropaper)
  - [Nico _Nikku_ Rehwaldt](https://github.com/nikku) - [@nrehwaldt](http://twitter.com/nrehwaldt)
  - [Sebastian Stamm](https://github.com/SebastianStamm) - [@seb_stamm](https://twitter.com/seb_stamm)
 
-[webapp]: https://github.com/finos/flowave-bpm-platform/tree/master/webapps
+[webapp]: https://github.com/finos/flowave-bpm-platform/tree/main/webapps

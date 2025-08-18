@@ -82,7 +82,7 @@ public class OnlyDispatchVariableEventOnExistingConditionsTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .serviceTask()
-      .camundaClass(CheckDelayedVariablesDelegate.class.getName())
+      .flowaveClass(CheckDelayedVariablesDelegate.class.getName())
       .intermediateCatchEvent()
       .conditionalEventDefinition()
         .condition("${var==1}")
@@ -106,7 +106,7 @@ public class OnlyDispatchVariableEventOnExistingConditionsTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .serviceTask()
-      .camundaClass(CheckDelayedVariablesDelegate.class.getName())
+      .flowaveClass(CheckDelayedVariablesDelegate.class.getName())
       .userTask(TASK_WITH_CONDITION_ID)
       .endEvent()
       .done();
@@ -135,7 +135,7 @@ public class OnlyDispatchVariableEventOnExistingConditionsTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .serviceTask()
-      .camundaClass(CheckDelayedVariablesDelegate.class.getName())
+      .flowaveClass(CheckDelayedVariablesDelegate.class.getName())
       .userTask()
       .endEvent()
       .done();
@@ -166,7 +166,7 @@ public class OnlyDispatchVariableEventOnExistingConditionsTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent()
       .serviceTask()
-      .camundaClass(CheckNoDelayedVariablesDelegate.class.getName())
+      .flowaveClass(CheckNoDelayedVariablesDelegate.class.getName())
       .userTask()
       .endEvent()
       .done();

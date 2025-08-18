@@ -61,7 +61,7 @@ public class FlowaveFormDataImpl extends BpmnModelElementInstanceImpl implements
     super(instanceContext);
   }
 
-  public Collection<FlowaveFormField> getCamundaFormFields() {
+  public Collection<FlowaveFormField> getFlowaveFormFields() {
     return camundaFormFieldCollection.get(this);
   }
 }

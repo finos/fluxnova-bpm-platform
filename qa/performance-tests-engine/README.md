@@ -33,7 +33,7 @@ Running the Sql Statement Log will produce the following folders in the `target/
 * `results/` - containing the results of the individual test runs in raw JSON format.
 
 The Html Report gives you an aggregated overview of the execution times in milliseconds:
-
+** Needs To Be Reviewed **
 ![Benchmark Screenshot][1]
 
 The raw JSON result files are located in the `target/results/` folder and provide the numbers collected for each pass.
@@ -64,14 +64,16 @@ You could collect your benchmarks over a longer time if you pass the absolute fi
 of a csv file as a commandline parameter. Here you are able to compare different runs in different
 configurations over a long period. If you choose a file outside of your target directory, it won't be deleted
 for the next run.
+** Needs To Be Reviewed **
 
 ```Shell
 mvn clean install -Pbenchmark,h2 \ 
-                  -DlongTermBenchmarkResultFile=C:\\Arbeit\\camunda\\performanceTests\\longtermResults.csv
+                  -DlongTermBenchmarkResultFile=C:\\Arbeit\\flowave\\performanceTests\\longtermResults.csv
 ```
 
 The results file may look like this:
 
+** Needs To Be Reviewed **
 ![LongTermBenchmarkResult Screenshot][3]
 
 This feature works only in the benchmark profile.  
@@ -96,15 +98,14 @@ Running the Sql Statement Log will produce the following folders in the `target/
 * `reports/` - containing an aggregated report for all tests run in both HTML and JSON format.
 * `results/` - containing the results of the individual test runs in raw JSON format.
 
-The Html Report gives you an aggregated overview over the INSERT / UPDATE / DELETE / SELECT statements executed by each test:
-
+The Html Report gives you an aggregated overview over the INSERT / UPDATE / DELETE / SELECT statements executed by each test:** Needs To Be Reviewed **
 ![Statement log Screenshot][2]
 
 The raw JSON result files allow you to inspect the database communication between the process engine and the database on a fine grained level:
 
 ```json
 {
-    "testName": "org.finos.flowave.bpm.qa.performance.engine.bpmn.SequencePerformanceTest.asyncSequence1Step",
+    "testName": "org..finos.flowave.bpm.qa.performance.engine.bpmn.SequencePerformanceTest.asyncSequence1Step",
     "configuration": {
         "numberOfThreads": 1,
         "numberOfRuns": 1,
@@ -185,7 +186,7 @@ The raw JSON result files allow you to inspect the activity execution on a fine 
     "historyLevel" : "full",
     "watchActivities" : [ "start", "timer", "end" ],
     "startTime" : 1430124594459,
-    "platform" : "camunda BPM"
+    "platform" : "flowave BPM"
   },
   "passResults" : [ {
     "duration" : 15627,
@@ -248,7 +249,7 @@ Example for command line parameters:
 ```Shell
 mvn clean install -Pbenchmark,mysql \
                   -Ddatabase.driver=com.mysql.jdbc.Driver \
-                  -Ddatabase.url=jdbc:mysql://localhost:3306:camunda \
+                  -Ddatabase.url=jdbc:mysql://localhost:3306:flowave \
                   -Ddatabase.username=oscar \
                   -Ddatabase.password=s3cret \
 ```

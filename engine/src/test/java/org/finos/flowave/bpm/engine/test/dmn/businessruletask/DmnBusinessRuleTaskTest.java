@@ -59,13 +59,13 @@ public class DmnBusinessRuleTaskTest {
   public static final BpmnModelInstance BPMN_VERSION_TAG_BINDING = Bpmn.createExecutableProcess("process")
               .startEvent()
               .businessRuleTask()
-                    .camundaDecisionRef("decision")
-                    .camundaDecisionRefBinding("versionTag")
-                    .camundaDecisionRefVersionTag("0.0.2")
-                    .camundaMapDecisionResult("singleEntry")
-                    .camundaResultVariable("result")
+                    .flowaveDecisionRef("decision")
+                    .flowaveDecisionRefBinding("versionTag")
+                    .flowaveDecisionRefVersionTag("0.0.2")
+                    .flowaveMapDecisionResult("singleEntry")
+                    .flowaveResultVariable("result")
               .endEvent()
-                    .camundaAsyncBefore()
+                    .flowaveAsyncBefore()
               .done();
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
@@ -176,13 +176,13 @@ public class DmnBusinessRuleTaskTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("decision")
-          .camundaDecisionRefBinding("versionTag")
-          .camundaDecisionRefVersionTag("${versionTagExpr}")
-          .camundaMapDecisionResult("singleEntry")
-          .camundaResultVariable("result")
+          .flowaveDecisionRef("decision")
+          .flowaveDecisionRefBinding("versionTag")
+          .flowaveDecisionRefVersionTag("${versionTagExpr}")
+          .flowaveMapDecisionResult("singleEntry")
+          .flowaveResultVariable("result")
         .endEvent()
-          .camundaAsyncBefore()
+          .flowaveAsyncBefore()
         .done());
 
     // when
@@ -201,12 +201,12 @@ public class DmnBusinessRuleTaskTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("process")
         .startEvent()
         .businessRuleTask()
-        .camundaDecisionRef("testDecision")
-        .camundaDecisionRefBinding("versionTag")
-        .camundaMapDecisionResult("singleEntry")
-        .camundaResultVariable("result")
+        .flowaveDecisionRef("testDecision")
+        .flowaveDecisionRefBinding("versionTag")
+        .flowaveMapDecisionResult("singleEntry")
+        .flowaveResultVariable("result")
         .endEvent()
-        .camundaAsyncBefore()
+        .flowaveAsyncBefore()
         .done();
 
     // when/then
@@ -255,11 +255,11 @@ public class DmnBusinessRuleTaskTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("decisionLiteralExpression")
-          .camundaResultVariable("result")
-          .camundaMapDecisionResult("singleEntry")
+          .flowaveDecisionRef("decisionLiteralExpression")
+          .flowaveResultVariable("result")
+          .flowaveMapDecisionResult("singleEntry")
         .endEvent()
-          .camundaAsyncBefore()
+          .flowaveAsyncBefore()
         .done());
 
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("process", Variables.createVariables()
@@ -275,11 +275,11 @@ public class DmnBusinessRuleTaskTest {
     testRule.deploy(Bpmn.createExecutableProcess("process")
         .startEvent()
         .businessRuleTask()
-          .camundaDecisionRef("dish-decision")
-          .camundaResultVariable("result")
-          .camundaMapDecisionResult("singleEntry")
+          .flowaveDecisionRef("dish-decision")
+          .flowaveResultVariable("result")
+          .flowaveMapDecisionResult("singleEntry")
         .endEvent()
-          .camundaAsyncBefore()
+          .flowaveAsyncBefore()
         .done());
 
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("process", Variables.createVariables()

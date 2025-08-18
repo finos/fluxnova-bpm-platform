@@ -583,7 +583,7 @@ public class TaskRestServiceInteractionTest extends
   }
 
   @Test
-  public void testGetTaskshouldContainCamundaFormRef() {
+  public void testGetTaskshouldContainFlowaveFormRef() {
     given().pathParam("id", MockProvider.EXAMPLE_TASK_ID)
       .header("accept", MediaType.APPLICATION_JSON)
       .then().expect()
@@ -3400,7 +3400,7 @@ public class TaskRestServiceInteractionTest extends
     InputStream deployedFormMock = new ByteArrayInputStream("{\"id\":\"myForm\"}".getBytes());
     when(formServiceMock.getDeployedTaskForm(anyString())).thenReturn(deployedFormMock);
     when(mockTask.getFormKey()).thenReturn(null);
-    when(mockTask.getCamundaFormRef()).thenReturn(new FlowaveFormRefImpl("myForm", "latest"));
+    when(mockTask.getFlowaveFormRef()).thenReturn(new FlowaveFormRefImpl("myForm", "latest"));
 
     given()
       .pathParam("id", MockProvider.EXAMPLE_TASK_ID)

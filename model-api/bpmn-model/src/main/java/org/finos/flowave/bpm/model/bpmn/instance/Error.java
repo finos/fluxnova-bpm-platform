@@ -31,9 +31,9 @@ public interface Error extends RootElement {
 
   void setErrorCode(String errorCode);
 
-  String getCamundaErrorMessage();
+  String getFlowaveErrorMessage();
 
-  void setCamundaErrorMessage(String camundaErrorMessage);
+  void setFlowaveErrorMessage(String camundaErrorMessage);
 
   ItemDefinition getStructure();
 

@@ -51,13 +51,13 @@ public class TelemetryNonPaIT extends AbstractFlowaveAutoConfigurationIT {
   }
 
   @Test
-  public void shouldAddCamundaIntegration() {
+  public void shouldAddFlowaveIntegration() {
     // given default configuration
     ProcessEngineConfigurationImpl processEngineConfiguration = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
 
     // then
     TelemetryDataImpl telemetryData = processEngineConfiguration.getTelemetryData();
-    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getCamundaIntegration();
+    Set<String> camundaIntegration = telemetryData.getProduct().getInternals().getFlowaveIntegration();
     assertThat(camundaIntegration.size()).isOne();
     assertThat(camundaIntegration).containsExactly(FlowaveIntegration.SPRING_BOOT_STARTER);
   }

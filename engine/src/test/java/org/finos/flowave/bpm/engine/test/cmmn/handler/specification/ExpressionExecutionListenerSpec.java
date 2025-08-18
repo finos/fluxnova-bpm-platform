@@ -34,7 +34,7 @@ public class ExpressionExecutionListenerSpec extends AbstractExecutionListenerSp
   }
 
   protected void configureCaseExecutionListener(CmmnModelInstance modelInstance, FlowaveCaseExecutionListener listener) {
-    listener.setCamundaExpression(EXPRESSION);
+    listener.setFlowaveExpression(EXPRESSION);
 
   }
 

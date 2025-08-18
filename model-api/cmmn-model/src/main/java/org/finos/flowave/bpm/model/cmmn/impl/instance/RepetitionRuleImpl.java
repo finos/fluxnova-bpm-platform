@@ -77,11 +77,11 @@ public class RepetitionRuleImpl extends CmmnElementImpl implements RepetitionRul
     conditionChild.setChild(this, condition);
   }
 
-  public String getCamundaRepeatOnStandardEvent() {
+  public String getFlowaveRepeatOnStandardEvent() {
     return camundaRepeatOnStandardEventAttribute.getValue(this);
   }
 
-  public void setCamundaRepeatOnStandardEvent(String standardEvent) {
+  public void setFlowaveRepeatOnStandardEvent(String standardEvent) {
     camundaRepeatOnStandardEventAttribute.setValue(this, standardEvent);
   }
 

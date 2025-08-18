@@ -36,9 +36,9 @@ public class DefaultStartFormHandler extends DefaultFormHandler implements Start
 
     FormDefinition startFormDefinition = processDefinition.getStartFormDefinition();
     Expression formKey = startFormDefinition.getFormKey();
-    Expression camundaFormDefinitionKey = startFormDefinition.getCamundaFormDefinitionKey();
-    String camundaFormDefinitionBinding = startFormDefinition.getCamundaFormDefinitionBinding();
-    Expression camundaFormDefinitionVersion = startFormDefinition.getCamundaFormDefinitionVersion();
+    Expression camundaFormDefinitionKey = startFormDefinition.getFlowaveFormDefinitionKey();
+    String camundaFormDefinitionBinding = startFormDefinition.getFlowaveFormDefinitionBinding();
+    Expression camundaFormDefinitionVersion = startFormDefinition.getFlowaveFormDefinitionVersion();
 
     if (formKey != null) {
       startFormData.setFormKey(formKey.getExpressionText());
@@ -47,7 +47,7 @@ public class DefaultStartFormHandler extends DefaultFormHandler implements Start
       if (camundaFormDefinitionBinding.equals(FORM_REF_BINDING_VERSION) && camundaFormDefinitionVersion != null) {
         ref.setVersion(Integer.parseInt(camundaFormDefinitionVersion.getExpressionText()));
       }
-      startFormData.setCamundaFormRef(ref);
+      startFormData.setFlowaveFormRef(ref);
     }
 
     startFormData.setDeploymentId(deploymentId);

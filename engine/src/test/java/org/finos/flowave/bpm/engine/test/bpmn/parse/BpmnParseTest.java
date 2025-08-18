@@ -562,7 +562,7 @@ public class BpmnParseTest {
 
   @Test
   @Deployment
-  public void testParseDefinitionWithCamundaNamespace(){
+  public void testParseDefinitionWithFlowaveNamespace(){
 
   }
 
@@ -798,7 +798,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaInSourceThrowsError() {
+  public void testNoFlowaveInSourceThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testNoCamundaInSourceThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -814,7 +814,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaInSourceShouldWithoutValidation() {
+  public void testNoFlowaveInSourceShouldWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -826,7 +826,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaInSourceThrowsError() {
+  public void testEmptyFlowaveInSourceThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testEmptyCamundaInSourceThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -842,7 +842,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaInSourceWithoutValidation() {
+  public void testEmptyFlowaveInSourceWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -854,7 +854,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaInTargetThrowsError() {
+  public void testNoFlowaveInTargetThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testNoCamundaInTargetThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -866,7 +866,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaInTargetWithoutValidation() {
+  public void testNoFlowaveInTargetWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -882,7 +882,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaInTargetThrowsError() {
+  public void testEmptyFlowaveInTargetThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testEmptyCamundaInTargetThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -894,7 +894,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaInTargetWithoutValidation() {
+  public void testEmptyFlowaveInTargetWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -906,7 +906,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaOutSourceThrowsError() {
+  public void testNoFlowaveOutSourceThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testNoCamundaOutSourceThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -922,7 +922,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaOutSourceWithoutValidation() {
+  public void testNoFlowaveOutSourceWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -934,7 +934,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaOutSourceThrowsError() {
+  public void testEmptyFlowaveOutSourceThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testEmptyCamundaOutSourceThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -950,7 +950,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaOutSourceWithoutValidation() {
+  public void testEmptyFlowaveOutSourceWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -962,7 +962,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaOutTargetThrowsError() {
+  public void testNoFlowaveOutTargetThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testNoCamundaOutTargetThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -974,7 +974,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testNoCamundaOutTargetWithoutValidation() {
+  public void testNoFlowaveOutTargetWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 
@@ -990,7 +990,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaOutTargetThrowsError() {
+  public void testEmptyFlowaveOutTargetThrowsError() {
     try {
       String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "testEmptyCamundaOutTargetThrowsError");
       repositoryService.createDeployment().name(resource).addClasspathResource(resource).deploy();
@@ -1002,7 +1002,7 @@ public class BpmnParseTest {
   }
 
   @Test
-  public void testEmptyCamundaOutTargetWithoutValidation() {
+  public void testEmptyFlowaveOutTargetWithoutValidation() {
     try {
       processEngineConfiguration.setDisableStrictCallActivityValidation(true);
 

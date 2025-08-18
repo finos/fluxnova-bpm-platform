@@ -41,18 +41,18 @@ public class ExclusiveOverProcessHierarchiesScenario {
 
         // given
         var subModel = Bpmn.createExecutableProcess("subProcess_7.20")
-                .camundaHistoryTimeToLive(180)
+                .flowaveHistoryTimeToLive(180)
                 .startEvent()
                 .scriptTask("scriptTask")
-                .camundaAsyncBefore()
-                .camundaExclusive(true)
+                .flowaveAsyncBefore()
+                .flowaveExclusive(true)
                 .scriptFormat("javascript")
                 .scriptText("print(execution.getJobs())")
                 .endEvent()
                 .done();
 
         var rootModel = Bpmn.createExecutableProcess("rootProcess_7.20")
-                .camundaHistoryTimeToLive(180)
+                .flowaveHistoryTimeToLive(180)
                 .startEvent()
                 .callActivity("callActivity")
                 .calledElement("subProcess_7.20")

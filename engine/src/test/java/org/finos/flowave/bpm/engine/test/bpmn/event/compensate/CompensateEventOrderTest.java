@@ -57,13 +57,13 @@ public class CompensateEventOrderTest {
     BpmnModelInstance model = Bpmn.createExecutableProcess("Process_1")
         .startEvent()
           .serviceTask("serviceTask1")
-            .camundaClass(IncreaseCurrentTimeServiceTask.class.getName())
+            .flowaveClass(IncreaseCurrentTimeServiceTask.class.getName())
             .boundaryEvent("compensationBoundary1")
             .compensateEventDefinition()
             .compensateEventDefinitionDone()
           .moveToActivity("serviceTask1")
           .serviceTask("serviceTask2")
-            .camundaClass(IncreaseCurrentTimeServiceTask.class.getName())
+            .flowaveClass(IncreaseCurrentTimeServiceTask.class.getName())
             .boundaryEvent("compensationBoundary2")
             .compensateEventDefinition()
             .compensateEventDefinitionDone()
@@ -116,7 +116,7 @@ public class CompensateEventOrderTest {
     ServiceTask compensationHandler = modelInstance.newInstance(ServiceTask.class);
     compensationHandler.setId(compensationHandlerId);
     compensationHandler.setForCompensation(true);
-    compensationHandler.setCamundaClass(IncreaseCurrentTimeServiceTask.class.getName());
+    compensationHandler.setFlowaveClass(IncreaseCurrentTimeServiceTask.class.getName());
     scope.addChildElement(compensationHandler);
 
     Association association = modelInstance.newInstance(Association.class);

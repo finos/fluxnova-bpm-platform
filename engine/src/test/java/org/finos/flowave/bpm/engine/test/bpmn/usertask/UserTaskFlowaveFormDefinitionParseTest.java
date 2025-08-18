@@ -75,80 +75,80 @@ public class UserTaskFlowaveFormDefinitionParseTest {
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionVersionBinding() {
+  public void shouldParseFlowaveFormDefinitionVersionBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with version binding
     // then
     TaskDefinition taskDefinition = findUserTaskDefinition("UserTask");
     FormDefinition formDefinition = taskDefinition.getFormDefinition();
 
-    assertThat(taskDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(formDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(taskDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(formDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
 
-    assertThat(taskDefinition.getCamundaFormDefinitionBinding()).isEqualTo("version");
-    assertThat(formDefinition.getCamundaFormDefinitionBinding()).isEqualTo("version");
+    assertThat(taskDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("version");
+    assertThat(formDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("version");
 
-    assertThat(taskDefinition.getCamundaFormDefinitionVersion().getExpressionText()).isEqualTo("1");
-    assertThat(formDefinition.getCamundaFormDefinitionVersion().getExpressionText()).isEqualTo("1");
+    assertThat(taskDefinition.getFlowaveFormDefinitionVersion().getExpressionText()).isEqualTo("1");
+    assertThat(formDefinition.getFlowaveFormDefinitionVersion().getExpressionText()).isEqualTo("1");
   }
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionLatestBinding() {
+  public void shouldParseFlowaveFormDefinitionLatestBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with latest binding
     // then
     TaskDefinition taskDefinition = findUserTaskDefinition("UserTask");
     FormDefinition formDefinition = taskDefinition.getFormDefinition();
 
-    assertThat(taskDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(formDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(taskDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(formDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
 
-    assertThat(taskDefinition.getCamundaFormDefinitionBinding()).isEqualTo("latest");
-    assertThat(formDefinition.getCamundaFormDefinitionBinding()).isEqualTo("latest");
+    assertThat(taskDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("latest");
+    assertThat(formDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("latest");
   }
 
   @Test
   @Deployment
-  public void shouldParseCamundaFormDefinitionDeploymentBinding() {
+  public void shouldParseFlowaveFormDefinitionDeploymentBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with deployment binding
     // then
     TaskDefinition taskDefinition = findUserTaskDefinition("UserTask");
     FormDefinition formDefinition = taskDefinition.getFormDefinition();
 
-    assertThat(taskDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
-    assertThat(formDefinition.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(taskDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
+    assertThat(formDefinition.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId");
 
-    assertThat(taskDefinition.getCamundaFormDefinitionBinding()).isEqualTo("deployment");
-    assertThat(formDefinition.getCamundaFormDefinitionBinding()).isEqualTo("deployment");
+    assertThat(taskDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("deployment");
+    assertThat(formDefinition.getFlowaveFormDefinitionBinding()).isEqualTo("deployment");
   }
 
   @Test
   @Deployment
-  public void shouldParseTwoUserTasksWithCamundaFormDefinition() {
+  public void shouldParseTwoUserTasksWithFlowaveFormDefinition() {
     // given a deployed process with two UserTask containing a Camunda Form definition with deployment binding
     // then
     TaskDefinition taskDefinition1 = findUserTaskDefinition("UserTask_1");
     FormDefinition formDefinition1 = taskDefinition1.getFormDefinition();
 
-    assertThat(taskDefinition1.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId_1");
-    assertThat(formDefinition1.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId_1");
+    assertThat(taskDefinition1.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId_1");
+    assertThat(formDefinition1.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId_1");
 
-    assertThat(taskDefinition1.getCamundaFormDefinitionBinding()).isEqualTo("deployment");
-    assertThat(formDefinition1.getCamundaFormDefinitionBinding()).isEqualTo("deployment");
+    assertThat(taskDefinition1.getFlowaveFormDefinitionBinding()).isEqualTo("deployment");
+    assertThat(formDefinition1.getFlowaveFormDefinitionBinding()).isEqualTo("deployment");
 
     TaskDefinition taskDefinition2 = findUserTaskDefinition("UserTask_2");
     FormDefinition formDefinition2 = taskDefinition2.getFormDefinition();
-    assertThat(taskDefinition2.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId_2");
-    assertThat(formDefinition2.getCamundaFormDefinitionKey().getExpressionText()).isEqualTo("formId_2");
+    assertThat(taskDefinition2.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId_2");
+    assertThat(formDefinition2.getFlowaveFormDefinitionKey().getExpressionText()).isEqualTo("formId_2");
 
-    assertThat(taskDefinition2.getCamundaFormDefinitionBinding()).isEqualTo("version");
-    assertThat(formDefinition2.getCamundaFormDefinitionBinding()).isEqualTo("version");
+    assertThat(taskDefinition2.getFlowaveFormDefinitionBinding()).isEqualTo("version");
+    assertThat(formDefinition2.getFlowaveFormDefinitionBinding()).isEqualTo("version");
 
-    assertThat(taskDefinition2.getCamundaFormDefinitionVersion().getExpressionText()).isEqualTo("2");
-    assertThat(formDefinition2.getCamundaFormDefinitionVersion().getExpressionText()).isEqualTo("2");
+    assertThat(taskDefinition2.getFlowaveFormDefinitionVersion().getExpressionText()).isEqualTo("2");
+    assertThat(formDefinition2.getFlowaveFormDefinitionVersion().getExpressionText()).isEqualTo("2");
   }
 
   @Test
-  public void shouldNotParseCamundaFormDefinitionUnsupportedBinding() {
+  public void shouldNotParseFlowaveFormDefinitionUnsupportedBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with unsupported binding
     String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "shouldNotParseCamundaFormDefinitionUnsupportedBinding");
 
@@ -159,7 +159,7 @@ public class UserTaskFlowaveFormDefinitionParseTest {
   }
 
   @Test
-  public void shouldNotParseCamundaFormDefinitionAndFormKey() {
+  public void shouldNotParseFlowaveFormDefinitionAndFormKey() {
     // given a deployed process with a UserTask containing a Camunda Form definition and formKey
     String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "shouldNotParseCamundaFormDefinitionAndFormKey");
 

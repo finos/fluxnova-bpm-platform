@@ -89,47 +89,47 @@ public class FlowaveVariableListenerImpl extends CmmnModelElementInstanceImpl im
   public FlowaveVariableListenerImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
-  public String getCamundaEvent() {
+  public String getFlowaveEvent() {
     return camundaEventAttribute.getValue(this);
   }
 
-  public void setCamundaEvent(String camundaEvent) {
+  public void setFlowaveEvent(String camundaEvent) {
     camundaEventAttribute.setValue(this, camundaEvent);
   }
 
-  public String getCamundaClass() {
+  public String getFlowaveClass() {
     return camundaClassAttribute.getValue(this);
   }
 
-  public void setCamundaClass(String camundaClass) {
+  public void setFlowaveClass(String camundaClass) {
     camundaClassAttribute.setValue(this, camundaClass);
   }
 
-  public String getCamundaExpression() {
+  public String getFlowaveExpression() {
     return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaExpression(String camundaExpression) {
+  public void setFlowaveExpression(String camundaExpression) {
     camundaExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getCamundaDelegateExpression() {
+  public String getFlowaveDelegateExpression() {
     return camundaDelegateExpressionAttribute.getValue(this);
   }
 
-  public void setCamundaDelegateExpression(String camundaDelegateExpression) {
+  public void setFlowaveDelegateExpression(String camundaDelegateExpression) {
     camundaDelegateExpressionAttribute.setValue(this, camundaDelegateExpression);
   }
 
-  public FlowaveScript getCamundaScript() {
+  public FlowaveScript getFlowaveScript() {
     return camundaScriptChild.getChild(this);
   }
 
-  public void setCamundaScript(FlowaveScript camundaScript) {
+  public void setFlowaveScript(FlowaveScript camundaScript) {
     camundaScriptChild.setChild(this, camundaScript);
   }
 
-  public Collection<FlowaveField> getCamundaFields() {
+  public Collection<FlowaveField> getFlowaveFields() {
     return camundaFieldCollection.get(this);
   }
 

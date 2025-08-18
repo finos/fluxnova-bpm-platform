@@ -43,8 +43,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync() {
-    element.setCamundaAsyncBefore(true);
+  public B flowaveAsync() {
+    element.setFlowaveAsyncBefore(true);
     return myself;
   }
 
@@ -57,8 +57,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @return the builder object
    */
   @Deprecated
-  public B camundaAsync(boolean isCamundaAsync) {
-    element.setCamundaAsyncBefore(isCamundaAsync);
+  public B flowaveAsync(boolean isCamundaAsync) {
+    element.setFlowaveAsyncBefore(isCamundaAsync);
     return myself;
   }
 
@@ -68,8 +68,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaFormHandlerClass  the class name of the form handler
    * @return the builder object
    */
-  public B camundaFormHandlerClass(String camundaFormHandlerClass) {
-    element.setCamundaFormHandlerClass(camundaFormHandlerClass);
+  public B flowaveFormHandlerClass(String camundaFormHandlerClass) {
+    element.setFlowaveFormHandlerClass(camundaFormHandlerClass);
     return myself;
   }
 
@@ -79,8 +79,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaFormKey  the form key to set
    * @return the builder object
    */
-  public B camundaFormKey(String camundaFormKey) {
-    element.setCamundaFormKey(camundaFormKey);
+  public B flowaveFormKey(String camundaFormKey) {
+    element.setFlowaveFormKey(camundaFormKey);
     return myself;
   }
 
@@ -90,8 +90,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaFormRef the form ref to set
    * @return the builder object
    */
-  public B camundaFormRef(String camundaFormRef) {
-    element.setCamundaFormRef(camundaFormRef);
+  public B flowaveFormRef(String camundaFormRef) {
+    element.setFlowaveFormRef(camundaFormRef);
     return myself;
   }
 
@@ -101,8 +101,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaFormRef the form ref binding to set
    * @return the builder object
    */
-  public B camundaFormRefBinding(String camundaFormRefBinding) {
-    element.setCamundaFormRefBinding(camundaFormRefBinding);
+  public B flowaveFormRefBinding(String camundaFormRefBinding) {
+    element.setFlowaveFormRefBinding(camundaFormRefBinding);
     return myself;
   }
 
@@ -112,8 +112,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaFormRef the form ref version to set
    * @return the builder object
    */
-  public B camundaFormRefVersion(String camundaFormRefVersion) {
-    element.setCamundaFormRefVersion(camundaFormRefVersion);
+  public B flowaveFormRefVersion(String camundaFormRefVersion) {
+    element.setFlowaveFormRefVersion(camundaFormRefVersion);
     return myself;
   }
 
@@ -123,8 +123,8 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    * @param camundaInitiator  the initiator to set
    * @return the builder object
    */
-  public B camundaInitiator(String camundaInitiator) {
-    element.setCamundaInitiator(camundaInitiator);
+  public B flowaveInitiator(String camundaInitiator) {
+    element.setFlowaveInitiator(camundaInitiator);
     return myself;
   }
 
@@ -133,7 +133,7 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
    *
    * @return the builder object
    */
-  public FlowaveStartEventFormFieldBuilder camundaFormField() {
+  public FlowaveStartEventFormFieldBuilder flowaveFormField() {
     FlowaveFormData camundaFormData = getCreateSingleExtensionElement(FlowaveFormData.class);
     FlowaveFormField camundaFormField = createChild(camundaFormData, FlowaveFormField.class);
     return new FlowaveStartEventFormFieldBuilder(modelInstance, element, camundaFormField);

@@ -197,7 +197,7 @@ public class UserTaskBpmnModelExecutionContextTest {
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(PROCESS_ID)
       .startEvent()
       .userTask(USER_TASK_ID)
-        .camundaTaskListenerClass(eventName, ModelExecutionContextTaskListener.class)
+        .flowaveTaskListenerClass(eventName, ModelExecutionContextTaskListener.class)
       .endEvent()
       .done();
 

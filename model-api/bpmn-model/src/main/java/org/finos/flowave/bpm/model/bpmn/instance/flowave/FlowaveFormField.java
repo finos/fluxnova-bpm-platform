@@ -27,34 +27,34 @@ import java.util.Collection;
  */
 public interface FlowaveFormField extends BpmnModelElementInstance {
 
-  String getCamundaId();
+  String getFlowaveId();
 
-  void setCamundaId(String camundaId);
+  void setFlowaveId(String camundaId);
 
-  String getCamundaLabel();
+  String getFlowaveLabel();
 
-  void setCamundaLabel(String camundaLabel);
+  void setFlowaveLabel(String camundaLabel);
 
-  String getCamundaType();
+  String getFlowaveType();
 
-  void setCamundaType(String camundaType);
+  void setFlowaveType(String camundaType);
 
-  String getCamundaDatePattern();
+  String getFlowaveDatePattern();
 
-  void setCamundaDatePattern(String camundaDatePattern);
+  void setFlowaveDatePattern(String camundaDatePattern);
 
-  String getCamundaDefaultValue();
+  String getFlowaveDefaultValue();
 
-  void setCamundaDefaultValue(String camundaDefaultValue);
+  void setFlowaveDefaultValue(String camundaDefaultValue);
 
-  FlowaveProperties getCamundaProperties();
+  FlowaveProperties getFlowaveProperties();
 
-  void setCamundaProperties(FlowaveProperties camundaProperties);
+  void setFlowaveProperties(FlowaveProperties camundaProperties);
 
-  FlowaveValidation getCamundaValidation();
+  FlowaveValidation getFlowaveValidation();
 
-  void setCamundaValidation(FlowaveValidation camundaValidation);
+  void setFlowaveValidation(FlowaveValidation camundaValidation);
 
-  Collection<FlowaveValue> getCamundaValues();
+  Collection<FlowaveValue> getFlowaveValues();
 
 }

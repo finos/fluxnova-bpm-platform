@@ -212,7 +212,7 @@ public class MultiTenancyTaskServiceTest extends PluggableProcessEngineTest {
     // given
     BpmnModelInstance oneTaskProcess = Bpmn.createExecutableProcess("testProcess")
     .startEvent()
-    .userTask("task").camundaCandidateUsers("aUserId")
+    .userTask("task").flowaveCandidateUsers("aUserId")
     .endEvent()
     .done();
 
@@ -238,7 +238,7 @@ public class MultiTenancyTaskServiceTest extends PluggableProcessEngineTest {
     // given
     BpmnModelInstance oneTaskProcess = Bpmn.createExecutableProcess("testProcess")
     .startEvent()
-    .userTask("task").camundaCandidateGroups("aGroupId")
+    .userTask("task").flowaveCandidateGroups("aGroupId")
     .endEvent()
     .done();
 

@@ -27,6 +27,6 @@ import java.util.Collection;
  */
 public interface FlowaveFormData extends BpmnModelElementInstance {
 
-  Collection<FlowaveFormField> getCamundaFormFields();
+  Collection<FlowaveFormField> getFlowaveFormFields();
 
 }

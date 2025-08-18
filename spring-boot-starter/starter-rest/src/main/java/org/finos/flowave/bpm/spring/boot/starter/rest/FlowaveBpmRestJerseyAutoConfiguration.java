@@ -41,7 +41,7 @@ public class FlowaveBpmRestJerseyAutoConfiguration {
   }
 
   @Bean
-  public FlowaveBpmRestInitializer camundaBpmRestInitializer(JerseyApplicationPath applicationPath) {
+  public FlowaveBpmRestInitializer flowaveBpmRestInitializer(JerseyApplicationPath applicationPath) {
     return new FlowaveBpmRestInitializer(applicationPath);
   }
 }

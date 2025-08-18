@@ -32,7 +32,7 @@ public class GetTableCountCmd implements Command<Map<String,Long>>, Serializable
   private static final long serialVersionUID = 1L;
 
   public Map<String,Long> execute(CommandContext commandContext) {
-    commandContext.getAuthorizationManager().checkCamundaAdminOrPermission(CommandChecker::checkReadTableCount);
+    commandContext.getAuthorizationManager().checkFlowaveAdminOrPermission(CommandChecker::checkReadTableCount);
 
     return commandContext
       .getTableDataManager()

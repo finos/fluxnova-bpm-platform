@@ -78,13 +78,13 @@ public class AbstractCockpitPluginResource extends AbstractAppPluginResource<Coc
   protected boolean isTenantCheckEnabled() {
     return getProcessEngine().getProcessEngineConfiguration().isTenantCheckEnabled()
         && getCurrentAuthentication() != null
-        && !isCamundaAdmin(getCurrentAuthentication());
+        && !isFlowaveAdmin(getCurrentAuthentication());
   }
 
   /**
    * Return <code>true</code> if the given authentication is part of the admin groups or admin users
    */
-  protected boolean isCamundaAdmin(Authentication authentication) {
+  protected boolean isFlowaveAdmin(Authentication authentication) {
     ProcessEngineConfigurationImpl engineConfiguration =
         (ProcessEngineConfigurationImpl) getProcessEngine().getProcessEngineConfiguration();
     List<String> groupIds = authentication.getGroupIds();

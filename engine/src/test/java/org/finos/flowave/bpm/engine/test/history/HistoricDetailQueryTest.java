@@ -921,8 +921,8 @@ public class HistoricDetailQueryTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .camundaAsyncBefore()
-        .camundaExecutionListenerClass("start", AsyncListener.class)
+        .flowaveAsyncBefore()
+        .flowaveExecutionListenerClass("start", AsyncListener.class)
         .userTask()
         .endEvent()
         .done();
@@ -962,8 +962,8 @@ public class HistoricDetailQueryTest {
     // given
     BpmnModelInstance model = Bpmn.createExecutableProcess("process")
         .startEvent()
-        .camundaAsyncBefore()
-        .camundaExecutionListenerClass("end", AsyncListener.class)
+        .flowaveAsyncBefore()
+        .flowaveExecutionListenerClass("end", AsyncListener.class)
         .userTask()
         .endEvent()
         .done();

@@ -49,10 +49,10 @@ public class FlowaveInputParameterTest extends BpmnModelElementInstanceTest {
   public void testIntputParameterScriptChildAssignment() {
     try {
       FlowaveInputParameter inputParamElement = modelInstance.newInstance(FlowaveInputParameter.class);
-      inputParamElement.setCamundaName("aVariable");
+      inputParamElement.setFlowaveName("aVariable");
 
       FlowaveScript scriptElement = modelInstance.newInstance(FlowaveScript.class);
-      scriptElement.setCamundaScriptFormat("juel");
+      scriptElement.setFlowaveScriptFormat("juel");
       scriptElement.setTextContent("${'a script'}");
 
       inputParamElement.addChildElement(scriptElement);
@@ -66,7 +66,7 @@ public class FlowaveInputParameterTest extends BpmnModelElementInstanceTest {
   public void testInputParameterListChildAssignment() {
     try {
       FlowaveInputParameter inputParamElement = modelInstance.newInstance(FlowaveInputParameter.class);
-      inputParamElement.setCamundaName("aVariable");
+      inputParamElement.setFlowaveName("aVariable");
 
       FlowaveList listElement = modelInstance.newInstance(FlowaveList.class);
 
@@ -81,7 +81,7 @@ public class FlowaveInputParameterTest extends BpmnModelElementInstanceTest {
   public void testInputParameterMapChildAssignment() {
     try {
       FlowaveInputParameter inputParamElement = modelInstance.newInstance(FlowaveInputParameter.class);
-      inputParamElement.setCamundaName("aVariable");
+      inputParamElement.setFlowaveName("aVariable");
 
       FlowaveMap listElement = modelInstance.newInstance(FlowaveMap.class);
 

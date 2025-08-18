@@ -72,14 +72,14 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
   protected final String CALLED_PROCESS_KEY = "calledProcess";
 
   protected final BpmnModelInstance CALLED_PROCESS = Bpmn.createExecutableProcess(CALLED_PROCESS_KEY)
-      .camundaHistoryTimeToLive(180)
+      .flowaveHistoryTimeToLive(180)
       .startEvent()
       .userTask("userTask")
       .name("userTask")
-      .camundaAssignee("foo")
+      .flowaveAssignee("foo")
       .serviceTask()
-      .camundaAsyncBefore()
-      .camundaClass(FailingDelegate.class.getName())
+      .flowaveAsyncBefore()
+      .flowaveClass(FailingDelegate.class.getName())
       .endEvent()
       .done();
 
@@ -99,7 +99,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
     .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef("dish-decision")
+        .flowaveDecisionRef("dish-decision")
     .endEvent().done());
 
     // when
@@ -128,7 +128,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
     .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef("dish-decision")
+        .flowaveDecisionRef("dish-decision")
     .endEvent().done());
 
     // when
@@ -188,7 +188,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
     .startEvent()
       .businessRuleTask()
-        .camundaDecisionRef("dish-decision")
+        .flowaveDecisionRef("dish-decision")
     .endEvent().done());
 
     // when
@@ -457,7 +457,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("anExternalTaskTopic")
+        .serviceTask().flowaveExternalTask("anExternalTaskTopic")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
@@ -561,7 +561,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("anExternalTaskTopic")
+        .serviceTask().flowaveExternalTask("anExternalTaskTopic")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
@@ -1073,7 +1073,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess("calledProcess")
       .startEvent()
-        .serviceTask().camundaExternalTask("aTopicName")
+        .serviceTask().flowaveExternalTask("aTopicName")
       .endEvent().done());
 
     testRule.deploy(Bpmn.createExecutableProcess("callingProcess")
@@ -1112,7 +1112,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when
@@ -1144,7 +1144,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when
@@ -1174,7 +1174,7 @@ public class HistoricRootProcessInstanceTest extends AbstractRemovalTimeTest {
     // given
     testRule.deploy(Bpmn.createExecutableProcess(CALLING_PROCESS_KEY)
       .startEvent()
-        .businessRuleTask().camundaDecisionRef("testDecision")
+        .businessRuleTask().flowaveDecisionRef("testDecision")
       .endEvent().done());
 
     // when

@@ -32,22 +32,22 @@ public class FormDefinition {
   public void setFormKey(Expression formKey) {
     this.formKey = formKey;
   }
-  public Expression getCamundaFormDefinitionKey() {
+  public Expression getFlowaveFormDefinitionKey() {
     return camundaFormDefinitionKey;
   }
-  public void setCamundaFormDefinitionKey(Expression camundaFormDefinitionKey) {
+  public void setFlowaveFormDefinitionKey(Expression camundaFormDefinitionKey) {
     this.camundaFormDefinitionKey = camundaFormDefinitionKey;
   }
-  public String getCamundaFormDefinitionBinding() {
+  public String getFlowaveFormDefinitionBinding() {
     return camundaFormDefinitionBinding;
   }
-  public void setCamundaFormDefinitionBinding(String camundaFormDefinitionBinding) {
+  public void setFlowaveFormDefinitionBinding(String camundaFormDefinitionBinding) {
     this.camundaFormDefinitionBinding = camundaFormDefinitionBinding;
   }
-  public Expression getCamundaFormDefinitionVersion() {
+  public Expression getFlowaveFormDefinitionVersion() {
     return camundaFormDefinitionVersion;
   }
-  public void setCamundaFormDefinitionVersion(Expression camundaFormDefinitionVersion) {
+  public void setFlowaveFormDefinitionVersion(Expression camundaFormDefinitionVersion) {
     this.camundaFormDefinitionVersion = camundaFormDefinitionVersion;
   }
 }

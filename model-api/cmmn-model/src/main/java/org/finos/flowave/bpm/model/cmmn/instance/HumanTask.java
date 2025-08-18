@@ -38,40 +38,40 @@ public interface HumanTask extends Task {
 
   /** camunda extensions */
 
-  String getCamundaAssignee();
+  String getFlowaveAssignee();
 
-  void setCamundaAssignee(String camundaAssignee);
+  void setFlowaveAssignee(String camundaAssignee);
 
-  String getCamundaCandidateGroups();
+  String getFlowaveCandidateGroups();
 
-  void setCamundaCandidateGroups(String camundaCandidateGroups);
+  void setFlowaveCandidateGroups(String camundaCandidateGroups);
 
-  List<String> getCamundaCandidateGroupsList();
+  List<String> getFlowaveCandidateGroupsList();
 
-  void setCamundaCandidateGroupsList(List<String> camundaCandidateGroupsList);
+  void setFlowaveCandidateGroupsList(List<String> camundaCandidateGroupsList);
 
-  String getCamundaCandidateUsers();
+  String getFlowaveCandidateUsers();
 
-  void setCamundaCandidateUsers(String camundaCandidateUsers);
+  void setFlowaveCandidateUsers(String camundaCandidateUsers);
 
-  List<String> getCamundaCandidateUsersList();
+  List<String> getFlowaveCandidateUsersList();
 
-  void setCamundaCandidateUsersList(List<String> camundaCandidateUsersList);
+  void setFlowaveCandidateUsersList(List<String> camundaCandidateUsersList);
 
-  String getCamundaDueDate();
+  String getFlowaveDueDate();
 
-  void setCamundaDueDate(String camundaDueDate);
+  void setFlowaveDueDate(String camundaDueDate);
 
-  String getCamundaFollowUpDate();
+  String getFlowaveFollowUpDate();
 
-  void setCamundaFollowUpDate(String camundaFollowUpDate);
+  void setFlowaveFollowUpDate(String camundaFollowUpDate);
 
-  String getCamundaFormKey();
+  String getFlowaveFormKey();
 
-  void setCamundaFormKey(String camundaFormKey);
+  void setFlowaveFormKey(String camundaFormKey);
 
-  String getCamundaPriority();
+  String getFlowavePriority();
 
-  void setCamundaPriority(String camundaPriority);
+  void setFlowavePriority(String camundaPriority);
 
 }

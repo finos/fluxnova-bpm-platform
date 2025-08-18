@@ -27,6 +27,6 @@ import java.util.Collection;
  */
 public interface FlowaveValidation extends BpmnModelElementInstance {
 
-  Collection<FlowaveConstraint> getCamundaConstraints();
+  Collection<FlowaveConstraint> getFlowaveConstraints();
 
 }

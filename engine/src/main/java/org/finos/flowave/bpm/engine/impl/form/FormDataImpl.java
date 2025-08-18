@@ -50,11 +50,11 @@ public abstract class FormDataImpl implements FormData, Serializable {
     this.formKey = formKey;
   }
 
-  public FlowaveFormRef getCamundaFormRef() {
+  public FlowaveFormRef getFlowaveFormRef() {
     return camundaFormRef;
   }
 
-  public void setCamundaFormRef(FlowaveFormRef camundaFormRef) {
+  public void setFlowaveFormRef(FlowaveFormRef camundaFormRef) {
     this.camundaFormRef = camundaFormRef;
   }
 

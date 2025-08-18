@@ -82,8 +82,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaClass  the class name to set
    * @return the builder object
    */
-  public B camundaClass(Class delegateClass) {
-    return camundaClass(delegateClass.getName());
+  public B flowaveClass(Class delegateClass) {
+    return flowaveClass(delegateClass.getName());
   }
 
   /**
@@ -92,8 +92,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaClass  the class name to set
    * @return the builder object
    */
-  public B camundaClass(String fullQualifiedClassName) {
-    element.setCamundaClass(fullQualifiedClassName);
+  public B flowaveClass(String fullQualifiedClassName) {
+    element.setFlowaveClass(fullQualifiedClassName);
     return myself;
   }
 
@@ -103,8 +103,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaExpression  the delegateExpression to set
    * @return the builder object
    */
-  public B camundaDelegateExpression(String camundaExpression) {
-    element.setCamundaDelegateExpression(camundaExpression);
+  public B flowaveDelegateExpression(String camundaExpression) {
+    element.setFlowaveDelegateExpression(camundaExpression);
     return myself;
   }
 
@@ -114,8 +114,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaExpression  the expression to set
    * @return the builder object
    */
-  public B camundaExpression(String camundaExpression) {
-    element.setCamundaExpression(camundaExpression);
+  public B flowaveExpression(String camundaExpression) {
+    element.setFlowaveExpression(camundaExpression);
     return myself;
   }
 
@@ -125,8 +125,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaResultVariable  the name of the process variable
    * @return the builder object
    */
-  public B camundaResultVariable(String camundaResultVariable) {
-    element.setCamundaResultVariable(camundaResultVariable);
+  public B flowaveResultVariable(String camundaResultVariable) {
+    element.setFlowaveResultVariable(camundaResultVariable);
     return myself;
   }
 
@@ -136,8 +136,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaTopic  the topic to set
    * @return the builder object
    */
-  public B camundaTopic(String camundaTopic) {
-    element.setCamundaTopic(camundaTopic);
+  public B flowaveTopic(String camundaTopic) {
+    element.setFlowaveTopic(camundaTopic);
     return myself;
   }
 
@@ -147,8 +147,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param camundaType  the type of the service task
    * @return the builder object
    */
-  public B camundaType(String camundaType) {
-    element.setCamundaType(camundaType);
+  public B flowaveType(String camundaType) {
+    element.setFlowaveType(camundaType);
     return myself;
   }
 
@@ -160,8 +160,8 @@ public abstract class AbstractSendTaskBuilder<B extends AbstractSendTaskBuilder<
    * @param taskPriority the task priority which should used for the external tasks
    * @return the builder object
    */
-  public B camundaTaskPriority(String taskPriority) {
-    element.setCamundaTaskPriority(taskPriority);
+  public B flowaveTaskPriority(String taskPriority) {
+    element.setFlowaveTaskPriority(taskPriority);
     return myself;
   }
 }

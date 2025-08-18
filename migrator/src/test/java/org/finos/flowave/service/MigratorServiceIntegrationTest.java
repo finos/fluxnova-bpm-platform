@@ -30,7 +30,7 @@ class MigratorServiceIntegrationTest {
     }
 
     @Test
-    void testStartMethodReplacesOrgCamundaWithOrgFlowave() throws IOException, XmlPullParserException, MavenInvocationException {
+    void testStartMethodReplacesOrgFlowaveWithOrgFlowave() throws IOException, XmlPullParserException, MavenInvocationException {
         // Create a mock project structure
         createMockProjectStructure();
 

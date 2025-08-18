@@ -503,17 +503,17 @@ public class AuthorizationManager extends AbstractManager {
    *
    * @throws AuthorizationException
    */
-  public void checkCamundaAdmin() {
+  public void checkFlowaveAdmin() {
     final Authentication currentAuthentication = getCurrentAuthentication();
 
     if (isAuthorizationEnabled() && getCommandContext().isAuthorizationCheckEnabled()
-        && currentAuthentication != null && !isCamundaAdmin(currentAuthentication)) {
+        && currentAuthentication != null && !isFlowaveAdmin(currentAuthentication)) {
 
-      throw LOG.requiredCamundaAdmin();
+      throw LOG.requiredFlowaveAdmin();
     }
   }
 
-  public void checkCamundaAdminOrPermission(Consumer<CommandChecker> permissionCheck) {
+  public void checkFlowaveAdminOrPermission(Consumer<CommandChecker> permissionCheck) {
     if (isAuthorizationEnabled() && getCommandContext().isAuthorizationCheckEnabled()) {
 
       AuthorizationException authorizationException = null;
@@ -528,7 +528,7 @@ public class AuthorizationManager extends AbstractManager {
       }
 
       try {
-        checkCamundaAdmin();
+        checkFlowaveAdmin();
       } catch (AuthorizationException e) {
         adminException = e;
       }
@@ -536,7 +536,7 @@ public class AuthorizationManager extends AbstractManager {
       if (authorizationException != null && adminException != null) {
         // throw combined exception
         List<MissingAuthorization> info = authorizationException.getMissingAuthorizations();
-        throw LOG.requiredCamundaAdminOrPermissionException(info);
+        throw LOG.requiredFlowaveAdminOrPermissionException(info);
       }
     }
   }
@@ -547,7 +547,7 @@ public class AuthorizationManager extends AbstractManager {
    * @return <code>true</code> if the given authentication contains the group
    *         {@link Groups#CAMUNDA_ADMIN} or the user
    */
-  public boolean isCamundaAdmin(Authentication authentication) {
+  public boolean isFlowaveAdmin(Authentication authentication) {
     List<String> groupIds = authentication.getGroupIds();
     if (groupIds != null) {
       CommandContext commandContext = Context.getCommandContext();

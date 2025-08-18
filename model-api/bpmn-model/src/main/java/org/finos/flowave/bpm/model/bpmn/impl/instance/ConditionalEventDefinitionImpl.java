@@ -92,33 +92,33 @@ public class ConditionalEventDefinitionImpl extends EventDefinitionImpl implemen
   }
 
   @Override
-  public String getCamundaVariableName() {
+  public String getFlowaveVariableName() {
     return camundaVariableName.getValue(this);
   }
 
   @Override
-  public void setCamundaVariableName(String variableName) {
+  public void setFlowaveVariableName(String variableName) {
     camundaVariableName.setValue(this, variableName);
   }
 
   @Override
-  public String getCamundaVariableEvents() {
+  public String getFlowaveVariableEvents() {
     return camundaVariableEvents.getValue(this);
   }
 
   @Override
-  public void setCamundaVariableEvents(String variableEvents) {
+  public void setFlowaveVariableEvents(String variableEvents) {
     camundaVariableEvents.setValue(this, variableEvents);
   }
 
   @Override
-  public List<String> getCamundaVariableEventsList() {
+  public List<String> getFlowaveVariableEventsList() {
     String variableEvents = camundaVariableEvents.getValue(this);
     return StringUtil.splitCommaSeparatedList(variableEvents);
   }
 
   @Override
-  public void setCamundaVariableEventsList(List<String> variableEventsList) {
+  public void setFlowaveVariableEventsList(List<String> variableEventsList) {
     String variableEvents = StringUtil.joinCommaSeparatedList(variableEventsList);
     camundaVariableEvents.setValue(this, variableEvents);
   }
