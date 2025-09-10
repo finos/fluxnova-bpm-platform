@@ -76,7 +76,7 @@ if [ "$1" = "start" ] ; then
                      productionChosen=true
                      ;;
       # the background flag shouldn't influence the optional component flags
-      --detached )   detachProcess=true
+      --detached )   detachProcess=false
                      echo Flowave Run will start in the background. Use the shutdown.sh script to stop it
                      ;;
       --help )       printf "%s" "$OPTIONS_HELP"
@@ -117,8 +117,8 @@ Please stop it or remove the file $PID_PATH."
       exit 1
     fi
 
-    # start Flowave Run detached
-    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/flowave-bpm-run-core.jar" --spring.config.location=file:"$configuration" &
+    # start Flowave Run
+    "$JAVA" -Dloader.path="$classPath" -Dcamunda.deploymentDir="$DEPLOYMENT_DIR" $JAVA_OPTS -jar "$BASEDIR/flowave-bpm-run-core.jar" --spring.config.location=file:"$configuration"
     # store the process id
     echo $! > "$PID_PATH"
 

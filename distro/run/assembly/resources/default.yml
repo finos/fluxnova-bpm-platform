@@ -23,7 +23,7 @@ flowave.bpm:
 
 # datasource configuration is required
 spring.datasource:
-  url: jdbc:h2:./camunda-h2-default/process-engine;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
+  url: jdbc:h2:./flowave-h2-default/process-engine;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
   driver-class-name: org.h2.Driver
   username: sa
   password: sa

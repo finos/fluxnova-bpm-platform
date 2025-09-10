@@ -1,0 +1,30 @@
+name: "Build and Publish Docker Image"
+description: "Build and publish a Docker image to GitHub Container Registry"
+runs:
+  using: "composite"
+  steps:
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ env.GH_TOKEN }}
+
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          ghcr.io/${{ github.repository }}
+        tags: |
+          type=semver,pattern={{version}}
+          0.0.1-SNAPSHOT
+
+    - name: Build/push container image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
