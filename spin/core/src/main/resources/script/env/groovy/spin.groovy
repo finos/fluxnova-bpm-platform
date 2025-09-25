@@ -18,4 +18,4 @@
 /*
  * Bind the Spin S(...) function to the variable S.
  */
-S = org.finos.flowave.spin.Spin.&S
+S = org.finos.fluxnova.spin.Spin.&S

@@ -18,7 +18,7 @@
       <useTransitiveDependencies>true</useTransitiveDependencies>
       <useTransitiveFiltering>true</useTransitiveFiltering>
       <includes>
-        <include>org.finos.flowave.bpm:flowave-engine-rest-core-jakarta:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-core-jakarta:jar</include>
       </includes>
     </dependencySet>
 
@@ -41,8 +41,8 @@
 
       </includes>
       <excludes>
-        <exclude>org.finos.flowave.bpm:flowave-engine-rest-core-jakarta:jar:tests</exclude>
-        <exclude>org.finos.flowave.bpm:flowave-engine-rest-core-jakarta:jar:sources</exclude>
+        <exclude>org.finos.fluxnova.bpm:fluxnova-engine-rest-core-jakarta:jar:tests</exclude>
+        <exclude>org.finos.fluxnova.bpm:fluxnova-engine-rest-core-jakarta:jar:sources</exclude>
       </excludes>
 
     </dependencySet>
@@ -50,7 +50,7 @@
     <dependencySet>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>org.finos.flowave.bpm:flowave-engine-rest-jakarta:war:*</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-jakarta:war:*</include>
       </includes>
       <unpack>true</unpack>
       <unpackOptions>

@@ -18,12 +18,12 @@ package my.own.custom.spring.boot.project;
 
 import jakarta.ws.rs.ApplicationPath;
 
-import org.finos.flowave.bpm.spring.boot.starter.rest.FlowaveJerseyResourceConfig;
+import org.finos.fluxnova.bpm.spring.boot.starter.rest.FluxnovaJerseyResourceConfig;
 import org.springframework.stereotype.Component;
 
 @Component
 @ApplicationPath("/engine-rest")
-public class JerseyConfig extends FlowaveJerseyResourceConfig {
+public class JerseyConfig extends FluxnovaJerseyResourceConfig {
 
   @Override
   protected void registerAdditionalResources() {

@@ -30,7 +30,7 @@ module.exports = [
         '$scope',
         '$q',
         'Views',
-        'fwAPI',
+        'fxnAPI',
         'dataDepend',
         'search',
         'Notifications',
@@ -39,7 +39,7 @@ module.exports = [
           $scope,
           $q,
           Views,
-          fwAPI,
+          fxnAPI,
           dataDepend,
           search,
           Notifications,
@@ -47,8 +47,8 @@ module.exports = [
         ) {
           var tasksPluginData = dataDepend.create($scope);
 
-          var HistoryResource = fwAPI.resource('history'),
-            TaskReportResource = fwAPI.resource('task-report');
+          var HistoryResource = fxnAPI.resource('history'),
+            TaskReportResource = fxnAPI.resource('task-report');
 
           $scope.taskStatistics = [
             {
@@ -180,7 +180,7 @@ module.exports = [
               // Filter falsy values
               groupIds = groupIds.filter(Boolean);
 
-              return fwAPI
+              return fxnAPI
                 .resource('group')
                 .list({
                   idIn: groupIds,

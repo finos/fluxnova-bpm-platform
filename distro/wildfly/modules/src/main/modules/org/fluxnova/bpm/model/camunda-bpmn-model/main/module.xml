@@ -1,0 +1,13 @@
+<module xmlns="urn:jboss:module:1.0" name="org.camunda.bpm.model.fluxnova-bpmn-model">
+  <resources>
+    <resource-root path="fluxnova-bpmn-model-@project.version@.jar" />
+  </resources>
+
+  <dependencies>
+
+    <module name="java.base" />
+    <module name="java.xml" />
+    <module name="org.finos.fluxnova.bpm.model.fluxnova-xml-model" />
+
+  </dependencies>
+</module>

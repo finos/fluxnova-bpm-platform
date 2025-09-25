@@ -17,8 +17,8 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
-var fwCommon = require('ui/common/scripts/module/index');
+var angular = require('fluxnova-commons-ui/vendor/angular');
+var fxnCommon = require('ui/common/scripts/module/index');
 
 var externalTasks = require('./services/external-tasks');
 
@@ -27,7 +27,7 @@ var ProcessInstanceRuntimeTabController = require('./controllers/process-instanc
 var viewConfig = require('./view-provider.config');
 
 var ngModule = angular.module('cockpit.plugin.process-instance-runtime-tab', [
-  fwCommon.name
+  fxnCommon.name
 ]);
 
 ngModule.factory('externalTasks', externalTasks);

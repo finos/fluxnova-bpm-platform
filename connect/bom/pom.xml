@@ -1,45 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- HEADS-UP: Do not use camunda-parent as parent,
+  <!-- HEADS-UP: Do not use fluxnova-parent as parent,
   it would introduce a cyclic dependency to this bom -->
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.finos.flowave.connect</groupId>
-  <artifactId>flowave-connect-bom</artifactId>
+  <groupId>org.finos.fluxnova.connect</groupId>
+  <artifactId>fluxnova-connect-bom</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Flowave Platform - connect - bom</name>
+  <name>Fluxnova Platform - connect - bom</name>
   <packaging>pom</packaging>
 
   <dependencyManagement>
     <dependencies>
 
       <dependency>
-        <groupId>org.finos.flowave.connect</groupId>
-        <artifactId>flowave-connect-core</artifactId>
+        <groupId>org.finos.fluxnova.connect</groupId>
+        <artifactId>fluxnova-connect-core</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.connect</groupId>
-        <artifactId>flowave-connect-http-client</artifactId>
+        <groupId>org.finos.fluxnova.connect</groupId>
+        <artifactId>fluxnova-connect-http-client</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.connect</groupId>
-        <artifactId>flowave-connect-soap-http-client</artifactId>
+        <groupId>org.finos.fluxnova.connect</groupId>
+        <artifactId>fluxnova-connect-soap-http-client</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.connect</groupId>
-        <artifactId>flowave-connect-connectors-all</artifactId>
+        <groupId>org.finos.fluxnova.connect</groupId>
+        <artifactId>fluxnova-connect-connectors-all</artifactId>
         <version>${project.version}</version>
       </dependency>
 

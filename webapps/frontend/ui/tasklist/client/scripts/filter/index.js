@@ -24,45 +24,48 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   /* directives */
-  fwTasklistFilters = require('./directives/fw-tasklist-filters'),
-  fwTasklistFilterModalForm = require('./directives/fw-tasklist-filter-modal-form'),
-  fwTasklistFilterModalFormGeneral = require('./directives/fw-tasklist-filter-modal-form-general'),
-  fwTasklistFilterModalFormCriteria = require('./directives/fw-tasklist-filter-modal-form-criteria'),
-  fwTasklistFilterModalFormVariable = require('./directives/fw-tasklist-filter-modal-form-variable'),
-  fwTasklistFilterModalFormPermission = require('./directives/fw-tasklist-filter-modal-form-permission'),
+  fxnTasklistFilters = require('./directives/fxn-tasklist-filters'),
+  fxnTasklistFilterModalForm = require('./directives/fxn-tasklist-filter-modal-form'),
+  fxnTasklistFilterModalFormGeneral = require('./directives/fxn-tasklist-filter-modal-form-general'),
+  fxnTasklistFilterModalFormCriteria = require('./directives/fxn-tasklist-filter-modal-form-criteria'),
+  fxnTasklistFilterModalFormVariable = require('./directives/fxn-tasklist-filter-modal-form-variable'),
+  fxnTasklistFilterModalFormPermission = require('./directives/fxn-tasklist-filter-modal-form-permission'),
   /* controllers */
-  fwTasklistFiltersCtrl = require('./controllers/fw-tasklist-filters-ctrl'),
+  fxnTasklistFiltersCtrl = require('./controllers/fxn-tasklist-filters-ctrl'),
   /* modals */
-  fwTasklistFilterModal = require('./modals/fw-tasklist-filter-modal');
+  fxnTasklistFilterModal = require('./modals/fxn-tasklist-filter-modal');
 
-var filterModule = angular.module('cam.tasklist.filter', ['ui.bootstrap']);
+var filterModule = angular.module('fxn.tasklist.filter', ['ui.bootstrap']);
 
 /* directives */
-filterModule.directive('fwTasklistFilters', fwTasklistFilters);
-filterModule.directive('fwTasklistFilterModalForm', fwTasklistFilterModalForm);
+filterModule.directive('fxnTasklistFilters', fxnTasklistFilters);
 filterModule.directive(
-  'fwTasklistFilterModalFormGeneral',
-  fwTasklistFilterModalFormGeneral
+  'fxnTasklistFilterModalForm',
+  fxnTasklistFilterModalForm
 );
 filterModule.directive(
-  'fwTasklistFilterModalFormCriteria',
-  fwTasklistFilterModalFormCriteria
+  'fxnTasklistFilterModalFormGeneral',
+  fxnTasklistFilterModalFormGeneral
 );
 filterModule.directive(
-  'fwTasklistFilterModalFormVariable',
-  fwTasklistFilterModalFormVariable
+  'fxnTasklistFilterModalFormCriteria',
+  fxnTasklistFilterModalFormCriteria
 );
 filterModule.directive(
-  'fwTasklistFilterModalFormPermission',
-  fwTasklistFilterModalFormPermission
+  'fxnTasklistFilterModalFormVariable',
+  fxnTasklistFilterModalFormVariable
+);
+filterModule.directive(
+  'fxnTasklistFilterModalFormPermission',
+  fxnTasklistFilterModalFormPermission
 );
 
 /* controllers */
-filterModule.controller('fwFiltersCtrl', fwTasklistFiltersCtrl);
+filterModule.controller('fxnFiltersCtrl', fxnTasklistFiltersCtrl);
 
 /* modals */
-filterModule.controller('fwFilterModalCtrl', fwTasklistFilterModal);
+filterModule.controller('fxnFilterModalCtrl', fxnTasklistFilterModal);
 
 module.exports = filterModule;

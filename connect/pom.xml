@@ -2,15 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-parent</artifactId>
     <relativePath>../parent</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.connect</groupId>
-  <artifactId>flowave-connect-root</artifactId>
-  <name>Flowave Platform - connect - root</name>
+  <groupId>org.finos.fluxnova.connect</groupId>
+  <artifactId>fluxnova-connect-root</artifactId>
+  <name>Fluxnova Platform - connect - root</name>
   <inceptionYear>2014</inceptionYear>
   <packaging>pom</packaging>
 
@@ -91,7 +91,7 @@
           <configuration>
             <instructions>
               <Export-Package>
-                org.finos.flowave.connect*
+                org.finos.fluxnova.connect*
               </Export-Package>
             </instructions>
           </configuration>

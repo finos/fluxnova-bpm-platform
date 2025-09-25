@@ -19,14 +19,14 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var angular = require('../../../../../fluxnova-commons-ui/vendor/angular');
 var drdCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common get', function() {
+describe('fxn-common get', function() {
   var get;
 
   beforeEach(module(drdCommon.name));

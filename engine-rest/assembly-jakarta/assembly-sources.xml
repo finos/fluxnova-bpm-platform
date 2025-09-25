@@ -16,7 +16,7 @@
       <unpack>true</unpack>
       <scope>provided</scope>
       <includes>
-        <include>org.finos.flowave.bpm:flowave-engine-rest-core-jakarta:jar:sources:*</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-core-jakarta:jar:sources:*</include>
       </includes>
     </dependencySet>
   </dependencySets>

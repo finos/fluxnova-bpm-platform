@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
     <artifactId>qa-webapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>qa-webapp-ce-runtime</artifactId>
-  <name>Flowave Platform - Spring Boot Starter - QA - Webapps Runtime</name>
+  <name>Fluxnova Platform - Spring Boot Starter - QA - Webapps Runtime</name>
 
   <properties>
     <version.jersey-json>1.15</version.jersey-json>
@@ -33,27 +33,27 @@
 
         <!-- Web Applications -->
         <dependency>
-          <groupId>org.finos.flowave.bpm.springboot</groupId>
-          <artifactId>flowave-bpm-spring-boot-starter-webapp</artifactId>
+          <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+          <artifactId>fluxnova-bpm-spring-boot-starter-webapp</artifactId>
           <version>${project.version}</version>
         </dependency>
 
         <!-- REST API -->
         <dependency>
-          <groupId>org.finos.flowave.bpm.springboot</groupId>
-          <artifactId>flowave-bpm-spring-boot-starter-rest</artifactId>
+          <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+          <artifactId>fluxnova-bpm-spring-boot-starter-rest</artifactId>
           <version>${project.version}</version>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-integration-tests-webapps</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-integration-tests-webapps</artifactId>
           <version>${project.version}</version>
           <scope>test</scope>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm.springboot.project</groupId>
+          <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
           <artifactId>qa-webapp-invoice-example</artifactId>
           <version>${project.version}</version>
         </dependency>
@@ -150,7 +150,7 @@
             <version>3.0.0-M3</version>
             <configuration>
               <dependenciesToScan>
-                <dependency>org.finos.flowave.bpm.qa:flowave-qa-integration-tests-webapps</dependency>
+                <dependency>org.finos.fluxnova.bpm.qa:fluxnova-qa-integration-tests-webapps</dependency>
               </dependenciesToScan>
               <skipTests>false</skipTests>
             </configuration>

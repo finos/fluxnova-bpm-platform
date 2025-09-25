@@ -17,11 +17,11 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  fwHeaderViewsCtrl = require('./controllers/fw-header-views-ctrl');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  fxnHeaderViewsCtrl = require('./controllers/fxn-header-views-ctrl');
 
-var navigationModule = angular.module('cam.cockpit.navigation', []);
+var navigationModule = angular.module('fxn.cockpit.navigation', []);
 
-navigationModule.controller('fwHeaderViewsCtrl', fwHeaderViewsCtrl);
+navigationModule.controller('fxnHeaderViewsCtrl', fxnHeaderViewsCtrl);
 
 module.exports = navigationModule;

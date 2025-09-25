@@ -2,21 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-example-plugin</artifactId>
-  <name>Flowave Platform - Run - QA - Example Plugin</name>
+  <artifactId>fluxnova-bpm-run-example-plugin</artifactId>
+  <name>Fluxnova Platform - Run - QA - Example Plugin</name>
   <packaging>jar</packaging>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.webapp</groupId>
-      <artifactId>flowave-webapp-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+      <artifactId>fluxnova-webapp-jakarta</artifactId>
       <classifier>classes</classifier>
     </dependency>
 

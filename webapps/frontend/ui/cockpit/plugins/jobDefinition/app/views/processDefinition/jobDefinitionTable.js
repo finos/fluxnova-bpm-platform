@@ -27,9 +27,9 @@ var Controller = [
   'Views',
   '$translate',
   'localConf',
-  'fwAPI',
+  'fxnAPI',
   'search',
-  function($scope, Views, $translate, localConf, fwAPI, search) {
+  function($scope, Views, $translate, localConf, fxnAPI, search) {
     // prettier-ignore
     $scope.headColumns = [
       { class: 'state',         request: 'suspended'     , sortable: true, content: $translate.instant('PLUGIN_JOBDEFINITION_STATE')},
@@ -68,7 +68,7 @@ var Controller = [
     var jobDefinitions,
       bpmnElements = [];
 
-    var JobProvider = fwAPI.resource('job-definition');
+    var JobProvider = fxnAPI.resource('job-definition');
 
     $scope.pages = {
       total: 0,

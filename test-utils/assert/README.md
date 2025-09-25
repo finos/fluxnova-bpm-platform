@@ -24,7 +24,7 @@ Flowave Platform Assert works with multiple Java versions (1.8+). All of this is
 
 ```xml  
 <dependency>
-    <groupId>org.finos.flowave.bpm</groupId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>flowave-bpm-assert</artifactId>
     <version>${flowave.platform.version}</version>
     <scope>test</scope>
@@ -40,7 +40,7 @@ Please note that if you use [Spring Boot](https://spring.io/projects/spring-boot
 Create your test case just as described in the ** Needs To Be Reviewed ** [Flowave Platform Testing Guide](https://docs.camunda.org/manual/latest/user-guide/testing/) and add Flowave Platform Assert by statically importing it in your test class:
 
 ```groovy  
-import static org.finos.flowave.bpm.engine.test.assertions.ProcessEngineTests.*;
+import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*;
 ```
 
 3. Start using the assertions in your test methods
@@ -57,7 +57,7 @@ assertThat(processInstance).isStarted()
 In case you want to combine Flowave Platform Assert with the assertions provided by AssertJ, your imports should look like this:
 ```groovy  
 import static org.assertj.core.api.Assertions.*;
-import static org.finos.flowave.bpm.engine.test.assertions.ProcessEngineTests.*;
+import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*;
 ```
 
 ## Credits

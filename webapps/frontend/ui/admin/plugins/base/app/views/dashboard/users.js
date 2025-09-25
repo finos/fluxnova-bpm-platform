@@ -29,9 +29,9 @@ module.exports = [
       pagePath: '#/users',
       controller: [
         '$scope',
-        'fwAPI',
-        function($scope, fwAPI) {
-          var service = fwAPI.resource('user');
+        'fxnAPI',
+        function($scope, fxnAPI) {
+          var service = fxnAPI.resource('user');
 
           $scope.access = {};
 

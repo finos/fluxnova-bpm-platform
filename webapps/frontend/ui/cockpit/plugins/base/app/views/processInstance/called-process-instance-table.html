@@ -1,8 +1,8 @@
-<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
-<div fw-widget-loader
+<!-- # CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
+<div fxn-widget-loader
      loading-state="{{ loadingState }}"
      text-empty="{{ 'PLUGIN_CALLED_PROCESS_NO_PROCESS_INSTANCES' | translate }}">
-  <table class="called-process-instance fw-table">
+  <table class="called-process-instance fxn-table">
 
     <thead sortable-table-head
            head-columns="headColumns"
@@ -19,14 +19,14 @@
           </div>
         </td>
         <td class="called-process-instance"
-            fw-widget-clipboard="calledProcessInstance.id">
+            fxn-widget-clipboard="calledProcessInstance.id">
           <a href="#/process-instance/{{ calledProcessInstance.id }}/runtime">
             {{ calledProcessInstance.id }}
           </a>
         </td>
 
         <td class="process-definition"
-            fw-widget-clipboard="calledProcessInstance.processDefinitionId">
+            fxn-widget-clipboard="calledProcessInstance.processDefinitionId">
           <a href="#/process-definition/{{ calledProcessInstance.processDefinitionId }}/runtime?parentProcessDefinitionId={{ processInstance.definitionId }}">
             {{ calledProcessInstance.processDefinitionLabel}}
           </a>
@@ -34,7 +34,7 @@
 
         <td class="activity">
           <span ng-if="!!calledProcessInstance.instance"
-                fw-widget-clipboard="calledProcessInstance.instance.id">
+                fxn-widget-clipboard="calledProcessInstance.instance.id">
             <a ng-href="#/process-instance/{{ processInstance.id }}/runtime?tab=called-process-instances-tab&{{ getSearchQueryForSearchType(calledProcessInstance.instance.id) }}">
               {{ calledProcessInstance.instance.name }}
             </a>
@@ -42,11 +42,11 @@
         </td>
 
         <td class="business-key"
-            fw-widget-clipboard="calledProcessInstance.businessKey">
+            fxn-widget-clipboard="calledProcessInstance.businessKey">
           {{ calledProcessInstance.businessKey }}
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->
+<!-- / CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/called-process-instance-table.html -->

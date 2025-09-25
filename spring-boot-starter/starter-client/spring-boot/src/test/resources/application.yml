@@ -11,5 +11,5 @@ camunda:
           process-definition-key: proc-def-key
 logging:
   level:
-    org.finos.flowave.bpm.client: debug
+    org.finos.fluxnova.bpm.client: debug
       

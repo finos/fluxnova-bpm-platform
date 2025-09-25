@@ -6,7 +6,7 @@
     </layout>
   </appender>
   
-  <logger name="org.finos.flowave" level="info" />
+  <logger name="org.finos.fluxnova" level="info" />
   
   <root level="info">
     <appender-ref ref="STDOUT" />

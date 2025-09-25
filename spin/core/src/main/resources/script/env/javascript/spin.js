@@ -18,4 +18,4 @@
 /**
  * Bind the Spin S function to the variable S.
  */
-var S = Java.type('org.finos.flowave.spin.Spin').S;
+var S = Java.type('org.finos.fluxnova.spin.Spin').S;

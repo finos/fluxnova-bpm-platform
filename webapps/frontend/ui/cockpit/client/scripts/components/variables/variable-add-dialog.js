@@ -28,7 +28,7 @@ var Controller = [
   'Uri',
   'fixDate',
   '$translate',
-  'fwAPI',
+  'fxnAPI',
   'resolved',
   function(
     $modalInstance,
@@ -37,7 +37,7 @@ var Controller = [
     Uri,
     fixDate,
     $translate,
-    fwAPI,
+    fxnAPI,
     resolved
   ) {
     $scope.isProcessInstance = resolved.type === 'PROCESS_INSTANCE';
@@ -69,8 +69,8 @@ var Controller = [
       SUCCESS = 'SUCCESS',
       FAIL = 'FAIL';
 
-    var processInstance = fwAPI.resource('process-instance');
-    var caseInstance = fwAPI.resource('case-instance');
+    var processInstance = fxnAPI.resource('process-instance');
+    var caseInstance = fxnAPI.resource('case-instance');
 
     $scope.$on('$routeChangeStart', function() {
       $modalInstance.close($scope.status);

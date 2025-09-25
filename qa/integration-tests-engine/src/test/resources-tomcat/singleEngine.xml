@@ -4,7 +4,7 @@
 
   <process-engine name="engine1">
     <job-acquisition>default</job-acquisition>
-    <configuration>org.finos.flowave.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration</configuration>
+    <configuration>org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration</configuration>
     <properties>
       <property name="history">full</property>
       <property name="databaseType">h2</property>

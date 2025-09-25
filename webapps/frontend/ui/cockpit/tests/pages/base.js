@@ -25,7 +25,7 @@ module.exports = Page.extend({
   },
 
   navbar: function() {
-    return element(by.css('[fw-widget-header]'));
+    return element(by.css('[fxn-widget-header]'));
   },
 
   navbarItems: function() {

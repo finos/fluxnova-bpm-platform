@@ -20,10 +20,10 @@
 var Base = require('./../base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/tasklist/default/#/',
+  url: '/fluxnova/app/tasklist/default/#/',
 
   header: function() {
-    return element(by.css('[fw-widget-header]'));
+    return element(by.css('[fxn-widget-header]'));
   },
 
   accountDropdown: function() {

@@ -1,4 +1,4 @@
-flowave.bpm.run.ldap:
+fluxnova.bpm.run.ldap:
   enabled: true
   server-url: http://foo.bar
   manager-dn: managerdn

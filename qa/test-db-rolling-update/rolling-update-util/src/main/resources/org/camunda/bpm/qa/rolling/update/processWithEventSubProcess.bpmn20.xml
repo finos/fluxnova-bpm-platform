@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.2.1">
-  <bpmn:error id="rollingExceptionId" name="rollingExceptionName" errorCode="org.finos.flowave.bpm.qa.upgrade.BuisnessError" />
+  <bpmn:error id="rollingExceptionId" name="rollingExceptionName" errorCode="org.finos.fluxnova.bpm.qa.upgrade.BuisnessError" />
   <bpmn:process id="processWithEventSubProcess" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>SequenceFlow_1y9nv9h</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1y9nv9h" sourceRef="StartEvent_1" targetRef="Task_0glkwh9" />
-    <bpmn:serviceTask id="Task_0glkwh9" name="ServiceTask" camunda:asyncBefore="true" camunda:class="org.finos.flowave.bpm.qa.upgrade.FailingDelegate">
+    <bpmn:serviceTask id="Task_0glkwh9" name="ServiceTask" camunda:asyncBefore="true" camunda:class="org.finos.fluxnova.bpm.qa.upgrade.FailingDelegate">
       <bpmn:incoming>SequenceFlow_1y9nv9h</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1utfnh4</bpmn:outgoing>
     </bpmn:serviceTask>

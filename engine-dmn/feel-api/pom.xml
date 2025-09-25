@@ -3,20 +3,20 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.dmn</groupId>
-    <artifactId>flowave-engine-dmn-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+    <artifactId>fluxnova-engine-dmn-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-engine-feel-api</artifactId>
-  <name>flowave DMN - engine FEEL - API</name>
+  <artifactId>fluxnova-engine-feel-api</artifactId>
+  <name>fluxnova DMN - engine FEEL - API</name>
   <properties>
-    <camunda.artifact>org.finos.flowave.bpm.dmn.feel.impl</camunda.artifact>
+    <camunda.artifact>org.finos.fluxnova.bpm.dmn.feel.impl</camunda.artifact>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-typed-values</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-typed-values</artifactId>
     </dependency>
   </dependencies>
 
@@ -60,7 +60,7 @@
               <comparisonVersion>${camunda.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
-                <exclude>org/finos/flowave/bpm/dmn/feel/impl/**</exclude>
+                <exclude>org/finos/fluxnova/bpm/dmn/feel/impl/**</exclude>
               </excludes>
             </configuration>
             <executions>

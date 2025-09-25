@@ -22,7 +22,7 @@ var groupTemplate = require('./create-group-membership.html?raw');
 var tenantTemplate = require('./create-tenant-user-membership.html?raw');
 var confirmationTemplate = require('./generic-confirmation.html?raw');
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = [
   '$routeProvider',
@@ -33,7 +33,7 @@ module.exports = [
         '$scope',
         'page',
         '$routeParams',
-        'fwAPI',
+        'fxnAPI',
         'Notifications',
         '$location',
         '$uibModal',
@@ -47,7 +47,7 @@ module.exports = [
           $scope,
           page,
           $routeParams,
-          fwAPI,
+          fxnAPI,
           Notifications,
           $location,
           $modal,
@@ -58,9 +58,9 @@ module.exports = [
           $http,
           Uri
         ) {
-          var GroupResource = fwAPI.resource('group'),
-            TenantResource = fwAPI.resource('tenant'),
-            UserResource = fwAPI.resource('user');
+          var GroupResource = fxnAPI.resource('group'),
+            TenantResource = fxnAPI.resource('tenant'),
+            UserResource = fxnAPI.resource('user');
 
           var refreshBreadcrumbs = function() {
             page.breadcrumbsClear();

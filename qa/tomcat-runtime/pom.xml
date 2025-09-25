@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa-tomcat-runtime</artifactId>
+  <artifactId>fluxnova-qa-tomcat-runtime</artifactId>
   <packaging>pom</packaging>
 
-  <name>Flowave Platform - QA Tomcat Test Runtime</name>
+  <name>Fluxnova Platform - QA Tomcat Test Runtime</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -18,8 +18,8 @@
         Make sure it comes after assembly in the build.
         Leave scope test, otherwise libs from pom will be copied into Tomcat's lib folder
       -->
-      <groupId>org.finos.flowave.bpm.tomcat</groupId>
-      <artifactId>flowave-tomcat-assembly</artifactId>
+      <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+      <artifactId>fluxnova-tomcat-assembly</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>test</scope>
@@ -54,8 +54,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa</groupId>
-      <artifactId>flowave-qa-ensure-clean-db</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa</groupId>
+      <artifactId>fluxnova-qa-ensure-clean-db</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
@@ -87,8 +87,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.tomcat</groupId>
-                      <artifactId>flowave-tomcat-assembly</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+                      <artifactId>fluxnova-tomcat-assembly</artifactId>
                       <version>${project.version}</version>
                       <type>tar.gz</type>
                       <overWrite>true</overWrite>

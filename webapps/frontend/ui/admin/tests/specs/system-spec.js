@@ -35,7 +35,7 @@ describe('Admin system Spec with normal user', function() {
 
   it('should not show system navbar item for normal user', function() {
     // when
-    systemPage.authentication.userLogin('ringo', 'cam123');
+    systemPage.authentication.userLogin('ringo', 'fxn123');
 
     // then
     expect(systemPage.checkNavbarItem('System').isPresent()).to.eventually.be

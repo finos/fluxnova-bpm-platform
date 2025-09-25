@@ -16,16 +16,16 @@
  */
 
 var $ = (window.jQuery = window.$ = require('jquery'));
-var commons = require('flowave-commons-ui/lib');
-var sdk = require('flowave-bpm-sdk-js/lib/angularjs/index');
+var commons = require('fluxnova-commons-ui/lib');
+var sdk = require('fluxnova-bpm-sdk-js/lib/angularjs/index');
 var dataDepend = require('angular-data-depend');
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 window.angular = angular;
 window.jquery = $;
-window['flowave-commons-ui'] = commons;
-window['flowave-bpm-sdk-js'] = sdk;
+window['fluxnova-commons-ui'] = commons;
+window['fluxnova-bpm-sdk-js'] = sdk;
 window['angular-data-depend'] = dataDepend;
-window['moment'] = require('flowave-commons-ui/vendor/moment');
+window['moment'] = require('fluxnova-commons-ui/vendor/moment');
 window['events'] = require('events');
-window['fw-common'] = require('../scripts/module');
+window['fxn-common'] = require('../scripts/module');

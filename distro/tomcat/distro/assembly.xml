@@ -14,7 +14,7 @@
     <dependencySet>
       <unpack>true</unpack>
       <includes>
-        <include>org.finos.flowave.bpm.tomcat:flowave-tomcat-assembly</include>
+        <include>org.finos.fluxnova.bpm.tomcat:fluxnova-tomcat-assembly</include>
       </includes>
       <outputDirectory />
     </dependencySet>
@@ -28,13 +28,13 @@
         </excludes>
       </unpackOptions>
       <includes>
-        <include>org.finos.flowave.bpm.distro:flowave-sql-scripts:jar:*</include>
+        <include>org.finos.fluxnova.bpm.distro:fluxnova-sql-scripts:jar:*</include>
       </includes>
     </dependencySet>
 
     <dependencySet>
         <includes>
-            <include>org.finos.flowave.bpm:flowave-engine-rest-jakarta:war:*</include>
+            <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-jakarta:war:*</include>
         </includes>
         <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/engine-rest</outputDirectory>
         <unpack>true</unpack>
@@ -42,7 +42,7 @@
 
     <dependencySet>
         <includes>
-            <include>org.finos.flowave.bpm.webapp:flowave-webapp-tomcat-jakarta:war:*</include>
+            <include>org.finos.fluxnova.bpm.webapp:fluxnova-webapp-tomcat-jakarta:war:*</include>
         </includes>
         <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/camunda</outputDirectory>
         <unpack>true</unpack>
@@ -50,9 +50,9 @@
 
     <dependencySet>
         <includes>
-            <include>org.finos.flowave.bpm.example:flowave-example-invoice-jakarta:war:*</include>
+            <include>org.finos.fluxnova.bpm.example:fluxnova-example-invoice-jakarta:war:*</include>
         </includes>
-        <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/camunda-invoice</outputDirectory>
+        <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/fluxnova-invoice</outputDirectory>
         <unpack>true</unpack>
     </dependencySet>
 
@@ -60,8 +60,8 @@
 
   <fileSets>
     <fileSet>
-      <directory>../../camunda-welcome</directory>
-      <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/camunda-welcome</outputDirectory>
+      <directory>../../fluxnova-welcome</directory>
+      <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/fluxnova-welcome</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>

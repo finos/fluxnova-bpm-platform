@@ -17,20 +17,20 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  fwNavbarActionStartProcessPlugin = require('./plugins/action/fw-tasklist-navbar-action-start-process-plugin'),
-  fwProcessStartModalCtrl = require('./plugins/action/modals/fw-tasklist-process-start-modal');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  fxnNavbarActionStartProcessPlugin = require('./plugins/action/fxn-tasklist-navbar-action-start-process-plugin'),
+  fxnProcessStartModalCtrl = require('./plugins/action/modals/fxn-tasklist-process-start-modal');
 
-var processModule = angular.module('cam.tasklist.process', [
-  'cam.tasklist.client',
-  'cam.tasklist.form',
+var processModule = angular.module('fxn.tasklist.process', [
+  'fxn.tasklist.client',
+  'fxn.tasklist.form',
   'ui.bootstrap'
 ]);
 
 /* action plugins */
-processModule.config(fwNavbarActionStartProcessPlugin);
+processModule.config(fxnNavbarActionStartProcessPlugin);
 
 /* action plugin controller */
-processModule.controller('fwProcessStartModalCtrl', fwProcessStartModalCtrl);
+processModule.controller('fxnProcessStartModalCtrl', fxnProcessStartModalCtrl);
 
 module.exports = processModule;

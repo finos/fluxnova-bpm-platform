@@ -4,31 +4,31 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
     <artifactId>qa-plugins-spin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>qa-plugins-spin-dataformat-all</artifactId>
-  <name>Flowave Platform - Spring Boot Starter - QA - Plugins - Spin All</name>
+  <name>Fluxnova Platform - Spring Boot Starter - QA - Plugins - Spin All</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.springboot.project</groupId>
+      <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
       <artifactId>qa-plugins-spin-dataformat-json-jackson</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>org.finos.flowave.spin</groupId>
-          <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+          <groupId>org.finos.fluxnova.spin</groupId>
+          <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-all</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-all</artifactId>
     </dependency>
 
     <dependency>

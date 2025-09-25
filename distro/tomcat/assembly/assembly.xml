@@ -14,7 +14,7 @@
    <dependencySet>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include>org.finos.flowave.bpm:license-book:zip</include>
+        <include>org.finos.fluxnova.bpm:license-book:zip</include>
       </includes>
       <unpack>true</unpack>
     </dependencySet>
@@ -36,8 +36,8 @@
 
         <include>com.h2database:h2:jar</include>
 
-        <include>org.finos.flowave.bpm:flowave-engine:jar</include>
-        <include>org.finos.flowave.bpm.identity:flowave-identity-ldap:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine:jar</include>
+        <include>org.finos.fluxnova.bpm.identity:fluxnova-identity-ldap:jar</include>
 
         <include>org.mybatis:mybatis:jar:*</include>
         <include>com.fasterxml.uuid:java-uuid-generator:jar:*</include>
@@ -58,20 +58,20 @@
         <include>org.slf4j:slf4j-api:jar:*</include>
         <include>org.slf4j:slf4j-jdk14:jar:*</include>
 
-        <include>org.finos.flowave.bpm:flowave-engine-plugin-*:jar</include>
-        <include>org.finos.flowave.spin:flowave-spin-core*:jar</include>
-        <include>org.finos.flowave.spin:flowave-spin-dataformat-all*:jar</include>
-        <include>org.finos.flowave.connect:*:jar</include>
-        <include>org.finos.flowave.commons:*:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-plugin-*:jar</include>
+        <include>org.finos.fluxnova.spin:fluxnova-spin-core*:jar</include>
+        <include>org.finos.fluxnova.spin:fluxnova-spin-dataformat-all*:jar</include>
+        <include>org.finos.fluxnova.connect:*:jar</include>
+        <include>org.finos.fluxnova.commons:*:jar</include>
 
-        <include>org.finos.flowave.bpm.model:*:jar</include>
-        <include>org.finos.flowave.bpm.dmn:*:jar</include>
-        <include>org.finos.flowave.bpm.juel:*:jar</include>
+        <include>org.finos.fluxnova.bpm.model:*:jar</include>
+        <include>org.finos.fluxnova.bpm.dmn:*:jar</include>
+        <include>org.finos.fluxnova.bpm.juel:*:jar</include>
 
-        <include>org.finos.flowave.feel:*:jar</include>
+        <include>org.finos.fluxnova.feel:*:jar</include>
 
         <include>org.freemarker:*:jar</include>
-        <include>org.finos.flowave.template-engines:*:jar</include>
+        <include>org.finos.fluxnova.template-engines:*:jar</include>
       </includes>
     </dependencySet>
 
@@ -81,8 +81,8 @@
 
         <include>com.h2database:h2:jar</include>
 
-        <include>org.finos.flowave.bpm:flowave-engine:jar</include>
-        <include>org.finos.flowave.bpm.identity:flowave-identity-ldap:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine:jar</include>
+        <include>org.finos.fluxnova.bpm.identity:fluxnova-identity-ldap:jar</include>
 
         <include>org.mybatis:mybatis:jar:*</include>
         <include>com.fasterxml.uuid:java-uuid-generator:jar:*</include>
@@ -102,21 +102,21 @@
         <include>org.slf4j:slf4j-api:jar:*</include>
         <include>org.slf4j:slf4j-jdk14:jar:*</include>
 
-        <include>org.finos.flowave.bpm:flowave-engine-plugin-*:jar</include>
-        <include>org.finos.flowave.spin:flowave-spin-core*:jar</include>
-        <include>org.finos.flowave.spin:flowave-spin-dataformat-all*:jar</include>
-        <include>org.finos.flowave.connect:*:jar</include>
-        <include>org.finos.flowave.commons:*:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-plugin-*:jar</include>
+        <include>org.finos.fluxnova.spin:fluxnova-spin-core*:jar</include>
+        <include>org.finos.fluxnova.spin:fluxnova-spin-dataformat-all*:jar</include>
+        <include>org.finos.fluxnova.connect:*:jar</include>
+        <include>org.finos.fluxnova.commons:*:jar</include>
 
-        <include>org.finos.flowave.bpm.model:*:jar</include>
+        <include>org.finos.fluxnova.bpm.model:*:jar</include>
 
-        <include>org.finos.flowave.bpm.dmn:*:jar</include>
-        <include>org.finos.flowave.bpm.juel:*:jar</include>
+        <include>org.finos.fluxnova.bpm.dmn:*:jar</include>
+        <include>org.finos.fluxnova.bpm.juel:*:jar</include>
 
-        <include>org.finos.flowave.feel:*:jar</include>
+        <include>org.finos.fluxnova.feel:*:jar</include>
 
         <include>org.freemarker:*:jar</include>
-        <include>org.finos.flowave.template-engines:*:jar</include>
+        <include>org.finos.fluxnova.template-engines:*:jar</include>
       </includes>
     </dependencySet>
   </dependencySets>

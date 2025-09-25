@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.finos.flowave.bpm.javaee</groupId>
-  <artifactId>flowave-jobexecutor-rar</artifactId>
+  <groupId>org.finos.fluxnova.bpm.javaee</groupId>
+  <artifactId>fluxnova-jobexecutor-rar</artifactId>
   <packaging>rar</packaging>
-  <name>Flowave Platform - Job Executor RAR</name>
+  <name>Fluxnova Platform - Job Executor RAR</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-parent</artifactId>
     <relativePath>../../parent</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -15,8 +15,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -26,8 +26,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm.javaee</groupId>
-      <artifactId>flowave-jobexecutor-ra</artifactId>
+      <groupId>org.finos.fluxnova.bpm.javaee</groupId>
+      <artifactId>fluxnova-jobexecutor-ra</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

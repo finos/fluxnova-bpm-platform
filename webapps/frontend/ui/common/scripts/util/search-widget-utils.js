@@ -17,8 +17,8 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
-var moment = require('flowave-commons-ui/vendor/moment');
+var angular = require('fluxnova-commons-ui/vendor/angular');
+var moment = require('fluxnova-commons-ui/vendor/moment');
 var includes = require('./includes');
 
 module.exports = {

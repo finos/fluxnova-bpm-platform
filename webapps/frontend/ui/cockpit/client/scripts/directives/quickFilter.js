@@ -25,7 +25,7 @@
   @author Valentin Vago <valentin.vago@camunda.com>
 
   @example
-    <div fw-quick-filter
+    <div fxn-quick-filter
          state-filter
          name-filter
          holder-selector=".instance-tree"

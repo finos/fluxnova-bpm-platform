@@ -17,16 +17,16 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
-var debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
+var angular = require('fluxnova-commons-ui/vendor/angular');
+var debouncePromiseFactory = require('fluxnova-bpm-sdk-js').utils
   .debouncePromiseFactory;
 var debouncePromise = debouncePromiseFactory();
 
 module.exports = [
-  'fwAPI',
+  'fxnAPI',
   'createListQueryFunction',
-  function(fwAPI, createListQueryFunction) {
-    var externalTasks = fwAPI.resource('external-task');
+  function(fxnAPI, createListQueryFunction) {
+    var externalTasks = fxnAPI.resource('external-task');
     var getExternalTasks = createListQueryFunction(
       externalTasks.count.bind(externalTasks),
       externalTasks.list.bind(externalTasks)

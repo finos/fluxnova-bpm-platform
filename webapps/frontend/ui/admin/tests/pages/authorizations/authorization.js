@@ -20,5 +20,5 @@
 var Page = require('./authorizations-base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/admin/default/#/authorization?resource=4'
+  url: '/fluxnova/app/admin/default/#/authorization?resource=4'
 });

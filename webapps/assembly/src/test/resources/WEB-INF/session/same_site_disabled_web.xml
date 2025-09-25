@@ -4,11 +4,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-  <display-name>Camunda Platform webapp</display-name>
+  <display-name>Fluxnova Platform webapp</display-name>
 
   <filter>
     <filter-name>SessionCookieFilter</filter-name>
-    <filter-class>org.finos.flowave.bpm.webapp.impl.security.filter.SessionCookieFilter</filter-class>
+    <filter-class>org.finos.fluxnova.bpm.webapp.impl.security.filter.SessionCookieFilter</filter-class>
     <init-param>
       <param-name>enableSameSiteCookie</param-name>
       <param-value>false</param-value>

@@ -2,7 +2,7 @@
 # The provided links to documentation guides for each property will give more information about the purpose of each property.
 # security guide: https://docs.camunda.org/manual/latest/user-guide/security/
 
-flowave.bpm:
+fluxnova.bpm:
 # https://docs.camunda.org/manual/latest/user-guide/security/#http-header-security-in-webapps
 # https://docs.camunda.org/manual/latest/webapps/shared-options/header-security/
   webapp:
@@ -37,7 +37,7 @@ flowave.bpm:
 #    ldap:
 #      enabled: true
 #      server-url: ldaps://localhost:4334
-#      administrator-group-name: flowave-admin
+#      administrator-group-name: fluxnova-admin
 #      accept-untrusted-certificates: false
 #      manager-dn: uid=jonny,ou=office-berlin,o=camunda,c=org
 #      manager-password: s3cr3t

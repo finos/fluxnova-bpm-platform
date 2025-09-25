@@ -1,4 +1,4 @@
-<!-- # CE - Flowave-cockpit-ui/client/scripts/pages/decision-definition.html -->
+<!-- # CE - Fluxnova-cockpit-ui/client/scripts/pages/decision-definition.html -->
 <div class="ctn-fixed-view decision-page-layout">
   <div class="ctn-content-container"
        ctn-collapsable-parent="sidebar">
@@ -16,7 +16,7 @@
 
     <!-- sidebar -->
     <div class="ctn-column ctn-sidebar ctn-scroll"
-         fw-hover-area
+         fxn-hover-area
          ctn-collapsable="left">
       <dl class="process-information">
         <dt>{{ 'DECISION_DEFINITION_DEFINITION_VERSION' | translate }}</dt>
@@ -57,14 +57,14 @@
         <dd class="version-tag"
             ng-if="!decisionDefinition.versionTag"><span class="null-value">{{ 'DECISION_DEFINITION_NULL' | translate }}</span></dd>
 
-        <dt fw-widget-clipboard="decisionDefinition.id"
-            fw-hoverable-title="definition-id">{{ 'DECISION_DEFINITION_DEFINITION_ID' | translate }}</dt>
-        <dd fw-hover-trigger="definition-id">{{ decisionDefinition.id }}</dd>
+        <dt fxn-widget-clipboard="decisionDefinition.id"
+            fxn-hoverable-title="definition-id">{{ 'DECISION_DEFINITION_DEFINITION_ID' | translate }}</dt>
+        <dd fxn-hover-trigger="definition-id">{{ decisionDefinition.id }}</dd>
 
-        <dt fw-widget-clipboard="decisionDefinition.key"
-            fw-hoverable-title="definition-key">{{ 'DECISION_DEFINITION_DEFINITION_KEY' | translate }}</dt>
+        <dt fxn-widget-clipboard="decisionDefinition.key"
+            fxn-hoverable-title="definition-key">{{ 'DECISION_DEFINITION_DEFINITION_KEY' | translate }}</dt>
         <dd class="definition-key"
-            fw-hover-trigger="definition-key">{{ decisionDefinition.key }}</dd>
+            fxn-hover-trigger="definition-key">{{ decisionDefinition.key }}</dd>
 
         <dt>{{ 'DECISION_DEFINITION_DEFINITION_NAME' | translate }}</dt>
         <dd class="definition-name"
@@ -73,37 +73,37 @@
             ng-if="!decisionDefinition.name || decisionDefinition.name === decisionDefinition.key"><span class="null-value">null</span></dd>
 
 
-        <dt fw-widget-clipboard="decisionDefinition.historyTimeToLive"
-            fw-hoverable-title="history-time-to-live">
+        <dt fxn-widget-clipboard="decisionDefinition.historyTimeToLive"
+            fxn-hoverable-title="history-time-to-live">
             {{ 'DECISION_DEFINITION_HISTORY_TIME_TO_LIVE' | translate }}
         </dt>
-        <dd class="history-time-to-live" fw-hover-trigger="history-time-to-live">
+        <dd class="history-time-to-live" fxn-hover-trigger="history-time-to-live">
           <span time-to-live="decisionDefinition" resource="decision-definition"></span>
         </dd>
 
         <dt ng-if="decisionDefinition.tenantId"
-            fw-widget-clipboard="decisionDefinition.tenantId"
-            fw-hoverable-title="tenant-id">{{ 'DECISION_DEFINITION_TENANT_ID' | translate }}</dt>
+            fxn-widget-clipboard="decisionDefinition.tenantId"
+            fxn-hoverable-title="tenant-id">{{ 'DECISION_DEFINITION_TENANT_ID' | translate }}</dt>
         <dd class="tenant-id"
             ng-if="decisionDefinition.tenantId"
-            fw-hover-trigger="tenant-id">{{ decisionDefinition.tenantId }}</dd>
+            fxn-hover-trigger="tenant-id">{{ decisionDefinition.tenantId }}</dd>
         <dt ng-if="!decisionDefinition.tenantId">{{ 'DECISION_DEFINITION_TENANT_ID' | translate }}</dt>
         <dd class="tenant-id"
             ng-if="!decisionDefinition.tenantId"><span class="null-value">null</span></dd>
 
-        <dt fw-widget-clipboard="decisionDefinition.deploymentId"
-            fw-hoverable-title="deployment-id">{{ 'DECISION_DEFINITION_DEPLOYMENT_ID' | translate }}</dt>
+        <dt fxn-widget-clipboard="decisionDefinition.deploymentId"
+            fxn-hoverable-title="deployment-id">{{ 'DECISION_DEFINITION_DEPLOYMENT_ID' | translate }}</dt>
         <dd class="deployment-id"
-            fw-hover-trigger="deployment-id">
+            fxn-hover-trigger="deployment-id">
           <a ng-href="{{ getDeploymentUrl() }}">{{ decisionDefinition.deploymentId }}</a>
         </dd>
 
         <dt ng-if="decisionDefinition.decisionRequirementsDefinitionId"
-            fw-widget-clipboard="decisionDefinition.decisionRequirementsDefinitionId"
-            fw-hoverable-title="drd">{{ 'DECISION_DEFINITION_DECISION_REQUIREMENTS_DEFINITION' | translate }}</dt>
+            fxn-widget-clipboard="decisionDefinition.decisionRequirementsDefinitionId"
+            fxn-hoverable-title="drd">{{ 'DECISION_DEFINITION_DECISION_REQUIREMENTS_DEFINITION' | translate }}</dt>
         <dd class="super-case-instance-id"
             ng-if="decisionDefinition.decisionRequirementsDefinitionId"
-            fw-hover-trigger="drd">
+            fxn-hover-trigger="drd">
           <a ng-if="hasDrdPlugin"
              ng-href="#/decision-requirement/{{decisionDefinition.decisionRequirementsDefinitionId}}/history">
             {{ decisionDefinition.decisionRequirementsDefinitionId }}
@@ -171,4 +171,4 @@
   </div>
 
 </div><!-- end .ctn-fixed-view -->
-<!-- / CE - flowave-cockpit-ui/client/scripts/pages/decision-definition.html -->
+<!-- / CE - fluxnova-cockpit-ui/client/scripts/pages/decision-definition.html -->

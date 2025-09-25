@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.spin</groupId>
-    <artifactId>flowave-spin-root</artifactId>
+    <groupId>org.finos.fluxnova.spin</groupId>
+    <artifactId>fluxnova-spin-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-spin-dataformat-xml-dom-jakarta</artifactId>
-  <name>flowave Spin - DOM XML data format Jakarta</name>
+  <artifactId>fluxnova-spin-dataformat-xml-dom-jakarta</artifactId>
+  <name>fluxnova Spin - DOM XML data format Jakarta</name>
 
   <properties>
     <jaxb-runtime.version>4.0.1</jaxb-runtime.version>
@@ -16,18 +16,18 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-core</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-logging</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-logging</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-utils</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-utils</artifactId>
     </dependency>
 
     <dependency>
@@ -111,8 +111,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-core</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-core</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>

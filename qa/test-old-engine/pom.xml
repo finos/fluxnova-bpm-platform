@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-old-engine</artifactId>
+  <artifactId>fluxnova-qa-old-engine</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - test new schema with old engine</name>
+  <name>Fluxnova Platform - QA - test new schema with old engine</name>
 
   <properties>
     <camunda.old.engine.version>7.22.0</camunda.old.engine.version>
@@ -77,8 +77,8 @@
       <dependencyManagement>
         <dependencies>
           <dependency>
-            <groupId>org.finos.flowave.bpm</groupId>
-            <artifactId>flowave-bom</artifactId>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-bom</artifactId>
             <!-- Cannot use variables due to bug in Maven Release Plugin -->
             <version>7.22.0</version>
             <scope>import</scope>
@@ -174,15 +174,15 @@
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm.distro</groupId>
-          <artifactId>flowave-sql-scripts</artifactId>
+          <groupId>org.finos.fluxnova.bpm.distro</groupId>
+          <artifactId>fluxnova-sql-scripts</artifactId>
           <version>${project.version}</version>
           <type>test-jar</type>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
           <scope>test</scope>
         </dependency>
         <dependency>
@@ -206,8 +206,8 @@
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.commons</groupId>
-          <artifactId>flowave-commons-testing</artifactId>
+          <groupId>org.finos.fluxnova.commons</groupId>
+          <artifactId>fluxnova-commons-testing</artifactId>
           <scope>test</scope>
         </dependency>
 
@@ -268,8 +268,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm</groupId>
-                      <artifactId>flowave-engine</artifactId>
+                      <groupId>org.finos.fluxnova.bpm</groupId>
+                      <artifactId>fluxnova-engine</artifactId>
                       <version>${camunda.old.engine.version}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/test-classes</outputDirectory>
@@ -288,8 +288,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>${project.version}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
@@ -391,7 +391,7 @@
                 <exclude>**/ManagementServiceTableCountTest.java</exclude>
 
                 <!-- The test is not relevant in `old-engine` setup since the feature has been removed -->
-                <!-- See https://github.com/camunda/camunda-bpm-platform/pull/4544#discussion_r1728748399 -->
+                <!-- See https://github.com/camunda/fluxnova-bpm-platform/pull/4544#discussion_r1728748399 -->
                 <exclude>**/ConcurrentTelemetryConfigurationTest.java</exclude>
 
                 <!-- The test is not relevant in `old-engine` setup and lacks necessary resource files -->

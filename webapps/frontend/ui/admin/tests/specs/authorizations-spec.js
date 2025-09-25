@@ -87,7 +87,7 @@ describe('Admin Authorizations Spec', function() {
 
     it('should not show authorization navbar item for normal user', function() {
       // when
-      authorizationsPage.authentication.userLogin('ringo', 'cam123');
+      authorizationsPage.authentication.userLogin('ringo', 'fxn123');
 
       // then
       expect(authorizationsPage.checkNavbarItem('Authorizations').isPresent())
@@ -699,7 +699,7 @@ describe('Admin Authorizations Spec', function() {
       ).to.eventually.eql(0);
     });
 
-    // skiped due to #fw-6037
+    // skiped due to #cam-6037
     it.skip('can be created in an empty list', function() {
       // when
       authorizationsPage

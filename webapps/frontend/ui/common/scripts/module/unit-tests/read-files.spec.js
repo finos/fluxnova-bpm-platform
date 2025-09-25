@@ -20,21 +20,21 @@
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var angular = require('../../../../../flowave-commons-ui/vendor/angular');
-var fwCommon = require('../index');
+var angular = require('../../../../../fluxnova-commons-ui/vendor/angular');
+var fxnCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common readFiles', function() {
+describe('fxn-common readFiles', function() {
   var $rootScope;
   var readAsText;
   var reader;
   var $window;
   var readFiles;
 
-  beforeEach(module(fwCommon.name));
+  beforeEach(module(fxnCommon.name));
 
   beforeEach(
     module(function($provide) {

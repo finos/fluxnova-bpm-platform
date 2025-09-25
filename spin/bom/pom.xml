@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- HEADS-UP: Do not use flowave-parent as parent,
+  <!-- HEADS-UP: Do not use fluxnova-parent as parent,
   it would introduce a cyclic dependency to this bom -->
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.finos.flowave.spin</groupId>
-  <artifactId>flowave-spin-bom</artifactId>
-  <name>flowave spin - bom</name>
+  <groupId>org.finos.fluxnova.spin</groupId>
+  <artifactId>fluxnova-spin-bom</artifactId>
+  <name>fluxnova spin - bom</name>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -20,31 +20,31 @@
     <dependencies>
 
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-core</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-core</artifactId>
         <version>${project.version}</version>
       </dependency>
       
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-core</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-core</artifactId>
         <type>test-jar</type>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-dataformat-all</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-dataformat-all</artifactId>
         <version>${project.version}</version>
-        <!-- Excluding dependencies that are shaded in flowave-spin-dataformat-all -->
+        <!-- Excluding dependencies that are shaded in fluxnova-spin-dataformat-all -->
         <exclusions>
           <exclusion>
-            <groupId>org.finos.flowave.spin</groupId>
-            <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+            <groupId>org.finos.fluxnova.spin</groupId>
+            <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
           </exclusion>
           <exclusion>
-            <groupId>org.finos.flowave.spin</groupId>
-            <artifactId>flowave-spin-dataformat-xml-dom</artifactId>
+            <groupId>org.finos.fluxnova.spin</groupId>
+            <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
           </exclusion>
           <exclusion>
             <groupId>jakarta.xml.bind</groupId>
@@ -58,20 +58,20 @@
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-dataformat-xml-dom</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.finos.flowave.spin</groupId>
-        <artifactId>flowave-spin-dataformat-xml-dom-jakarta</artifactId>
+        <groupId>org.finos.fluxnova.spin</groupId>
+        <artifactId>fluxnova-spin-dataformat-xml-dom-jakarta</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

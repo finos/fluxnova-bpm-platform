@@ -2,19 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.commons</groupId>
-    <artifactId>flowave-commons-root</artifactId>
+    <groupId>org.finos.fluxnova.commons</groupId>
+    <artifactId>fluxnova-commons-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-commons-utils</artifactId>
-  <name>flowave Commons - Utils</name>
+  <artifactId>fluxnova-commons-utils</artifactId>
+  <name>fluxnova Commons - Utils</name>
   <packaging>jar</packaging>
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-logging</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-logging</artifactId>
       <version>${project.version}</version>
     </dependency>
 

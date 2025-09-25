@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.finos.flowave.bpm.jboss</groupId>
-    <artifactId>flowave-jboss</artifactId>
+    <groupId>org.finos.fluxnova.bpm.jboss</groupId>
+    <artifactId>fluxnova-jboss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.finos.flowave.bpm.webapp</groupId>
-  <name>Flowave Platform - webapp - JBoss</name>
-  <artifactId>flowave-webapp-jboss</artifactId>
+  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+  <name>Fluxnova Platform - webapp - JBoss</name>
+  <artifactId>fluxnova-webapp-jboss</artifactId>
   <packaging>war</packaging>
   
   <properties>
@@ -22,8 +22,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm.webapp</groupId>
-      <artifactId>flowave-webapp</artifactId>
+      <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+      <artifactId>fluxnova-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
       <scope>runtime</scope>
@@ -31,7 +31,7 @@
   </dependencies>
 
   <build>
-    <finalName>camunda-webapp</finalName>
+    <finalName>fluxnova-webapp</finalName>
 
     <plugins>
       <plugin>
@@ -41,7 +41,7 @@
           <archive>
             <manifestEntries>
               <!-- module dependencies for deployment on JBoss/WildFly -->
-              <Dependencies>org.finos.flowave.bpm.flowave-engine,org.finos.flowave.bpm.dmn.flowave-engine-dmn,org.finos.flowave.bpm.model.flowave-bpmn-model,org.finos.flowave.bpm.model.flowave-cmmn-model,org.finos.flowave.bpm.model.flowave-dmn-model,org.finos.flowave.bpm.model.flowave-xml-model,org.finos.flowave.commons.flowave-commons-logging,org.finos.flowave.spin.flowave-spin-core,org.finos.flowave.bpm.juel.flowave-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
+              <Dependencies>org.finos.fluxnova.bpm.fluxnova-engine,org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn,org.finos.fluxnova.bpm.model.fluxnova-bpmn-model,org.finos.fluxnova.bpm.model.fluxnova-cmmn-model,org.finos.fluxnova.bpm.model.fluxnova-dmn-model,org.finos.fluxnova.bpm.model.fluxnova-xml-model,org.finos.fluxnova.commons.fluxnova-commons-logging,org.finos.fluxnova.spin.fluxnova-spin-core,org.finos.fluxnova.bpm.juel.fluxnova-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
             </manifestEntries>
           </archive>          
         </configuration>

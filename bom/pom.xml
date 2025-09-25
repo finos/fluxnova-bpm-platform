@@ -3,19 +3,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
-  <artifactId>flowave-bom-root</artifactId>
+  <artifactId>fluxnova-bom-root</artifactId>
   <packaging>pom</packaging>
-  <name>Flowave Platform - Bom Root</name>
+  <name>Fluxnova Platform - Bom Root</name>
 
   <modules>
-    <module>camunda-only-bom</module>
-    <module>camunda-bom</module>
+    <module>fluxnova-only-bom</module>
+    <module>fluxnova-bom</module>
   </modules>
 
 </project>

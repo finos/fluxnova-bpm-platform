@@ -2,12 +2,12 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>Flowave Platform - engine</name>
-  <artifactId>flowave-engine</artifactId>
+  <name>Fluxnova Platform - engine</name>
+  <artifactId>fluxnova-engine</artifactId>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -16,8 +16,8 @@
     <dependencies>
 
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -44,26 +44,26 @@
 
   <dependencies>
 
-    <!-- flowave dependencies -->
+    <!-- fluxnova dependencies -->
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.model</groupId>
-      <artifactId>flowave-bpmn-model</artifactId>
+      <groupId>org.finos.fluxnova.bpm.model</groupId>
+      <artifactId>fluxnova-bpmn-model</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.model</groupId>
-      <artifactId>flowave-cmmn-model</artifactId>
+      <groupId>org.finos.fluxnova.bpm.model</groupId>
+      <artifactId>fluxnova-cmmn-model</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.juel</groupId>
-      <artifactId>flowave-juel</artifactId>
+      <groupId>org.finos.fluxnova.bpm.juel</groupId>
+      <artifactId>fluxnova-juel</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.dmn</groupId>
-      <artifactId>flowave-engine-dmn</artifactId>
+      <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+      <artifactId>fluxnova-engine-dmn</artifactId>
       <exclusions>
         <!-- these exclusions are needed when building with Maven >= 3.3
           see CAM-11822 for details -->
@@ -87,13 +87,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-logging</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-logging</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-typed-values</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-typed-values</artifactId>
     </dependency>
 
     <dependency>
@@ -242,14 +242,14 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-testing</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-testing</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-test-utils-testcontainers</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-test-utils-testcontainers</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -328,8 +328,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bpm-archunit</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-archunit</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -357,7 +357,7 @@
     <skip-third-party-bom>true</skip-third-party-bom>
 
     <camunda.artifact>
-      org.finos.flowave.bpm
+      org.finos.fluxnova.bpm
     </camunda.artifact>
     <camunda.osgi.export.pkg>
       !${camunda.artifact}.engine.variable.*,
@@ -397,7 +397,7 @@
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
-          <include>org/finos/flowave/bpm/engine/product-info.properties</include>
+          <include>org/finos/fluxnova/bpm/engine/product-info.properties</include>
         </includes>
       </resource>
     </resources>
@@ -434,7 +434,7 @@
             <exclude>%regex[.*(${test.excludes}).*Test.*.class]</exclude>
           </excludes>
           <dependenciesToScan>
-            <dependency>org.finos.flowave.bpm:flowave-bpm-archunit</dependency>
+            <dependency>org.finos.fluxnova.bpm:fluxnova-bpm-archunit</dependency>
           </dependenciesToScan>
         </configuration>
       </plugin>
@@ -478,11 +478,11 @@
           <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
           <artifactSet>
             <excludes>
-              <exclude>org.finos.flowave.bpm.model:*</exclude>
-              <exclude>org.finos.flowave.bpm.dmn:*</exclude>
-              <exclude>org.finos.flowave.bpm.juel:*</exclude>
-              <exclude>org.finos.flowave.commons:*</exclude>
-              <exclude>org.finos.flowave.feel:*</exclude>
+              <exclude>org.finos.fluxnova.bpm.model:*</exclude>
+              <exclude>org.finos.fluxnova.bpm.dmn:*</exclude>
+              <exclude>org.finos.fluxnova.bpm.juel:*</exclude>
+              <exclude>org.finos.fluxnova.commons:*</exclude>
+              <exclude>org.finos.fluxnova.feel:*</exclude>
 
               <exclude>org.springframework:*</exclude>
               <exclude>org.slf4j:*</exclude>
@@ -495,7 +495,7 @@
           <relocations>
             <relocation>
               <pattern>com.google.gson</pattern>
-              <shadedPattern>flowavejar.impl.com.google.gson</shadedPattern>
+              <shadedPattern>fluxnovajar.impl.com.google.gson</shadedPattern>
             </relocation>
           </relocations>
           <transformers>
@@ -518,9 +518,9 @@
               <target>
 
                 <!-- copy all upgrade scripts after 7.15 -->
-                <mkdir dir="target/classes/org/finos/flowave/bpm/engine/db/liquibase/upgrade" />
-                <copy todir="target/classes/org/finos/flowave/bpm/engine/db/liquibase/upgrade">
-                  <fileset dir="target/classes/org/finos/flowave/bpm/engine/db/upgrade" excludes="*_6.*_*,*_7.0_*,*_7.1_*,*_7.2_*,*_7.3_*,*_7.4_*,*_7.5_*,*_7.6_*,*_7.7_*, *_7.8_*,*_7.9_*,*_7.10_*,*_7.11_*,*_7.12_*,*_7.13_*,*_7.14_*,*_7.15_*" />
+                <mkdir dir="target/classes/org/finos/fluxnova/bpm/engine/db/liquibase/upgrade" />
+                <copy todir="target/classes/org/finos/fluxnova/bpm/engine/db/liquibase/upgrade">
+                  <fileset dir="target/classes/org/finos/fluxnova/bpm/engine/db/upgrade" excludes="*_6.*_*,*_7.0_*,*_7.1_*,*_7.2_*,*_7.3_*,*_7.4_*,*_7.5_*,*_7.6_*,*_7.7_*, *_7.8_*,*_7.9_*,*_7.10_*,*_7.11_*,*_7.12_*,*_7.13_*,*_7.14_*,*_7.15_*" />
                 </copy>
 
               </target>
@@ -612,7 +612,7 @@
               </execution>
             </executions>
             <configuration>
-              <mainClass>org.finos.flowave.bpm.engine.impl.db.DbSchemaDrop</mainClass>
+              <mainClass>org.finos.fluxnova.bpm.engine.impl.db.DbSchemaDrop</mainClass>
               <classpathScope>test</classpathScope>
               <cleanupDaemonThreads>false</cleanupDaemonThreads>
             </configuration>
@@ -713,9 +713,9 @@
               <comparisonVersion>${camunda.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
-                <exclude>org/finos/flowave/bpm/*/impl/**</exclude>
-                <exclude>org/finos/flowave/bpm/engine/test/ProcessEngineRule</exclude>
-                <exclude>flowavejar/**/*</exclude>
+                <exclude>org/finos/fluxnova/bpm/*/impl/**</exclude>
+                <exclude>org/finos/fluxnova/bpm/engine/test/ProcessEngineRule</exclude>
+                <exclude>fluxnovajar/**/*</exclude>
               </excludes>
             </configuration>
             <executions>
@@ -753,28 +753,28 @@
       <id>check-plugins</id>
       <dependencies>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-plugin-spin</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-plugin-spin</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.spin</groupId>
-          <artifactId>flowave-spin-dataformat-all</artifactId>
+          <groupId>org.finos.fluxnova.spin</groupId>
+          <artifactId>fluxnova-spin-dataformat-all</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-plugin-connect</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-plugin-connect</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.connect</groupId>
-          <artifactId>flowave-connect-connectors-all</artifactId>
+          <groupId>org.finos.fluxnova.connect</groupId>
+          <artifactId>fluxnova-connect-connectors-all</artifactId>
           <exclusions>
             <exclusion>
-              <groupId>org.finos.flowave.connect</groupId>
-              <artifactId>flowave-connect-http-client</artifactId>
+              <groupId>org.finos.fluxnova.connect</groupId>
+              <artifactId>fluxnova-connect-http-client</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>org.finos.flowave.connect</groupId>
-              <artifactId>flowave-connect-soap-http-client</artifactId>
+              <groupId>org.finos.fluxnova.connect</groupId>
+              <artifactId>fluxnova-connect-soap-http-client</artifactId>
             </exclusion>
           </exclusions>
         </dependency>
@@ -785,7 +785,7 @@
             <artifactId>maven-antrun-plugin</artifactId>
             <executions>
               <execution>
-                <id>copy-camunda-cfg</id>
+                <id>copy-fluxnova-cfg</id>
                 <phase>process-test-classes</phase>
                 <goals>
                   <goal>run</goal>

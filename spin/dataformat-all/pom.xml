@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.spin</groupId>
-    <artifactId>flowave-spin-root</artifactId>
+    <groupId>org.finos.fluxnova.spin</groupId>
+    <artifactId>fluxnova-spin-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-spin-dataformat-all</artifactId>
-  <name>flowave Spin - all dataformats in one</name>
+  <artifactId>fluxnova-spin-dataformat-all</artifactId>
+  <name>fluxnova Spin - all dataformats in one</name>
 
   <properties>
     <!-- We shade artifacts into the jar, so we need to generate 
@@ -21,13 +21,13 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-xml-dom</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
     </dependency>
 
     <dependency>
@@ -60,8 +60,8 @@
               <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
               <artifactSet>
                 <excludes>
-                  <exclude>org.finos.flowave.commons:*</exclude>
-                  <exclude>org.finos.flowave.spin:flowave-spin-core</exclude>
+                  <exclude>org.finos.fluxnova.commons:*</exclude>
+                  <exclude>org.finos.fluxnova.spin:fluxnova-spin-core</exclude>
                   <exclude>org.slf4j:*</exclude>
                 </excludes>
               </artifactSet>
@@ -136,7 +136,7 @@
         <configuration>
           <includeDependencySources>true</includeDependencySources>
           <includeTransitiveDependencySources>true</includeTransitiveDependencySources>
-          <dependencySourceIncludes><include>org.finos.flowave.spin:*</include></dependencySourceIncludes>
+          <dependencySourceIncludes><include>org.finos.fluxnova.spin:*</include></dependencySourceIncludes>
           <additionalDependencies>
            <additionalDependency>
              <groupId>junit</groupId>
@@ -164,8 +164,8 @@
               !net.minidev.json*,
               !org.codehaus.jackson*,
               org.slf4j,
-              org.finos.flowave.commons.utils,
-              org.finos.flowave.commons.logging,
+              org.finos.fluxnova.commons.utils,
+              org.finos.fluxnova.commons.logging,
               *
             </Import-Package>
             <Bundle-ClassPath>.</Bundle-ClassPath>

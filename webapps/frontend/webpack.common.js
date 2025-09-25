@@ -34,10 +34,10 @@ module.exports = (_env, argv = {}) => {
   return {
     entry: {
       /* Cockpit */
-      'app/cockpit/flowave-cockpit-bootstrap': {
+      'app/cockpit/fluxnova-cockpit-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/cockpit/client/scripts/flowave-cockpit-bootstrap.js'
+          'ui/cockpit/client/scripts/fluxnova-cockpit-bootstrap.js'
         )
       },
       'plugin/cockpit/app/plugin': {
@@ -45,10 +45,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Tasklist */
-      'app/tasklist/flowave-tasklist-bootstrap': {
+      'app/tasklist/fluxnova-tasklist-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/tasklist/client/scripts/flowave-tasklist-bootstrap.js'
+          'ui/tasklist/client/scripts/fluxnova-tasklist-bootstrap.js'
         )
       },
       'plugin/tasklist/app/plugin': {
@@ -56,10 +56,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Admin */
-      'app/admin/flowave-admin-bootstrap': {
+      'app/admin/fluxnova-admin-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/admin/client/scripts/flowave-admin-bootstrap.js'
+          'ui/admin/client/scripts/fluxnova-admin-bootstrap.js'
         )
       },
       'plugin/admin/app/plugin': {
@@ -67,10 +67,10 @@ module.exports = (_env, argv = {}) => {
       },
 
       /* Welcome */
-      'app/welcome/flowave-welcome-bootstrap': {
+      'app/welcome/fluxnova-welcome-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/welcome/client/scripts/flowave-welcome-bootstrap.js'
+          'ui/welcome/client/scripts/fluxnova-welcome-bootstrap.js'
         )
       }
     },
@@ -90,10 +90,10 @@ module.exports = (_env, argv = {}) => {
       },
       extensions: ['.js', '.less'],
       alias: {
-        'flowave-commons-ui': path.resolve(__dirname, 'flowave-commons-ui'),
+        'fluxnova-commons-ui': path.resolve(__dirname, 'fluxnova-commons-ui'),
         ui: path.resolve(__dirname, 'ui'),
-        'flowave-bpm-sdk-js': path.resolve(__dirname, 'flowave-bpm-sdk-js'),
-        'fw-common': path.resolve(__dirname, 'ui/common/scripts/module'),
+        'fluxnova-bpm-sdk-js': path.resolve(__dirname, 'fluxnova-bpm-sdk-js'),
+        'fxn-common': path.resolve(__dirname, 'ui/common/scripts/module'),
         jquery: path.resolve(__dirname, 'node_modules/jquery'),
         'core-js': path.resolve(__dirname, 'node_modules/core-js'),
         angular: path.resolve(__dirname, 'node_modules/angular'), // avoid loading angular twice
@@ -142,8 +142,8 @@ module.exports = (_env, argv = {}) => {
         appName: 'cockpit',
         template: path.resolve(__dirname, 'ui/cockpit/client/scripts/index.html'),
         filename: 'app/cockpit/index.html',
-        chunks: ['app/cockpit/flowave-cockpit-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
+        chunks: ['app/cockpit/fluxnova-cockpit-bootstrap'],
+        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -153,8 +153,8 @@ module.exports = (_env, argv = {}) => {
         appName: 'tasklist',
         template: path.resolve(__dirname, 'ui/tasklist/client/index.html'),
         filename: 'app/tasklist/index.html',
-        chunks: ['app/tasklist/flowave-tasklist-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
+        chunks: ['app/tasklist/fluxnova-tasklist-bootstrap'],
+        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -164,8 +164,8 @@ module.exports = (_env, argv = {}) => {
         appName: 'admin',
         template: path.resolve(__dirname, 'ui/admin/client/scripts/index.html'),
         filename: 'app/admin/index.html',
-        chunks: ['app/admin/flowave-admin-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
+        chunks: ['app/admin/fluxnova-admin-bootstrap'],
+        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -175,8 +175,8 @@ module.exports = (_env, argv = {}) => {
         appName: 'welcome',
         template: path.resolve(__dirname, 'ui/welcome/client/scripts/index.html'),
         filename: 'app/welcome/index.html',
-        chunks: ['app/welcome/flowave-welcome-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/flowave-favicon.ico'),
+        chunks: ['app/welcome/fluxnova-welcome-bootstrap'],
+        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -210,13 +210,13 @@ module.exports = (_env, argv = {}) => {
         ]
       }),
       new webpack.DefinePlugin({
-        CAMUNDA_VERSION: `'${version}'`,
-        CAMUNDA_EDITION: eeBuild ? '"EE"' : '"CE"',
+        FLUXNOVA_VERSION: `'${version}'`,
+        FLUXNOVA_EDITION: eeBuild ? '"EE"' : '"CE"',
         DEV_MODE: devMode,
         _import: 'function(filePath) { return import(filePath) }' // dynamic import workaround
       }),
       new webpack.ProvidePlugin({
-        CAMUNDA_EDITION: eeBuild ? '"EE"' : '"CE"',
+        FLUXNOVA_EDITION: eeBuild ? '"EE"' : '"CE"',
         DEV_MODE: devMode
       }),
       new ESLintPlugin()

@@ -28,7 +28,7 @@ module.exports = [
   '$timeout',
   '$translate',
   'processData',
-  'fwAPI',
+  'fxnAPI',
   function(
     $scope,
     $q,
@@ -38,7 +38,7 @@ module.exports = [
     $timeout,
     $translate,
     processData,
-    fwAPI
+    fxnAPI
   ) {
     var jobDefinitions = [];
 
@@ -48,7 +48,7 @@ module.exports = [
       function(processDefinition, bpmnElements) {
         // Load Job Definitions
         function fetchDefinitions(firstResult) {
-          fwAPI
+          fxnAPI
             .resource('job-definition')
             .list({
               processDefinitionId: processDefinition.id,

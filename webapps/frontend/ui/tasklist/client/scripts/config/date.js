@@ -17,9 +17,9 @@
 
 'use strict';
 module.exports = [
-  'fwDateFormatProvider',
+  'fxnDateFormatProvider',
   'configurationProvider',
-  function(fwDateFormatProvider, configurationProvider) {
+  function(fxnDateFormatProvider, configurationProvider) {
     var dateProperties = [
       'monthName',
       'day',
@@ -29,7 +29,7 @@ module.exports = [
       'short'
     ];
     for (var i = 0; i < dateProperties.length; i++) {
-      fwDateFormatProvider.setDateFormat(
+      fxnDateFormatProvider.setDateFormat(
         configurationProvider.getDateFormat(dateProperties[i]),
         dateProperties[i]
       );

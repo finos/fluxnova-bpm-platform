@@ -17,10 +17,10 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   userProfilePlugin = require('./profile/user-profile');
 
-var pluginModule = angular.module('cam.welcome.plugins', []);
+var pluginModule = angular.module('fxn.welcome.plugins', []);
 
 /* front-end only plugins */
 pluginModule.config(userProfilePlugin);

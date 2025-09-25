@@ -17,7 +17,7 @@ Flowave Migration is the process of converting a Camunda-based workflow applicat
 
 **What the migration DOES include:**
 
-- Renaming packages from org.camunda.* to org.finos.flowave.*
+- Renaming packages from org.camunda.* to org.finos.fluxnova.*
 - Updating import statements across all Java files
 - Converting BPMN file extensions to be compatible with Flowave
 - Updating Maven dependencies to replace Camunda dependencies with Flowave equivalents

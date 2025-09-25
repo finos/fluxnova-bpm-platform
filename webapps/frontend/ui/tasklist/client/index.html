@@ -4,14 +4,14 @@
   <meta http-equiv="X-UA-Compatible"
         content="IE=edge"/>
 
-  <title>Flowave Tasklist</title>
+  <title>Fluxnova Tasklist</title>
 
   <meta charset="utf-8"/>
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0"/>
 
   <meta name="description"
-        content="Flowave Tasklist"/>
+        content="Fluxnova Tasklist"/>
   <meta name="author"
         content="FINOS"/>
 
@@ -31,8 +31,8 @@
         href="<%= htmlWebpackPlugin.options.appRoot %>/app/tasklist/styles/user-styles.css?bust=<%= htmlWebpackPlugin.options.version %>">
 </head>
 
-<body ng-controller="fwTasklistAppCtrl">
-<div fw-widget-header
+<body ng-controller="fxnTasklistAppCtrl">
+<div fxn-widget-header
      authentication="authentication"
      user-name="userFullName"
      current-app="tasklist"
@@ -40,8 +40,8 @@
      sign-out="{{ 'SIGN_OUT_ACTION' | translate }}"
      my-profile="{{ 'MY_PROFILE' | translate }}"
      ng-cloak>
-  <ul fw-if-logged-in
-      ng-controller="fwHeaderViewsCtrl">
+  <ul fxn-if-logged-in
+      ng-controller="fxnHeaderViewsCtrl">
     <li ng-repeat="actionProvider in navbarActions"
         ng-class="actionProvider.id">
       <view ng-cloak
@@ -71,7 +71,7 @@
 
 
 <!-- # page-footer -->
-<footer fw-widget-footer
+<footer fxn-widget-footer
         version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
 

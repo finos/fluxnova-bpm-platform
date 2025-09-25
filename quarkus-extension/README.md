@@ -15,7 +15,7 @@ We also provide some useful examples at our
 ```xml
 <dependency>
   <dependency>
-    <groupId>org.finos.flowave.bpm.quarkus</groupId>
+    <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
     <artifactId>flowave-bpm-quarkus-engine</artifactId>
     <version>${version.flowave}</version><!-- place Flowave version here -->
   </dependency>
@@ -69,14 +69,14 @@ quarkus.flowave.datasource=my-datasource
 Caused by: java.lang.VerifyError: Bad type on operand stack
 Exception Details:
 Location:
-org/flowave/bpm/engine/impl/el/JuelExpressionManager.<init>(Ljava/util/Map;)V @28: putfield
+org/fluxnova/bpm/engine/impl/el/JuelExpressionManager.<init>(Ljava/util/Map;)V @28: putfield
 Reason:
-Type 'org/flowave/bpm/impl/juel/ExpressionFactoryImpl' (current frame, stack[1]) is not assignable to 'org/flowave/bpm/impl/juel/jakarta/el/ExpressionFactory'
+Type 'org/fluxnova/bpm/impl/juel/ExpressionFactoryImpl' (current frame, stack[1]) is not assignable to 'org/fluxnova/bpm/impl/juel/jakarta/el/ExpressionFactory'
 Current Frame:
 bci: @28
 flags: { }
-locals: { 'org/flowave/bpm/engine/impl/el/JuelExpressionManager', 'java/util/Map' }
-stack: { 'org/flowave/bpm/engine/impl/el/JuelExpressionManager', 'org/flowave/bpm/impl/juel/ExpressionFactoryImpl' }
+locals: { 'org/fluxnova/bpm/engine/impl/el/JuelExpressionManager', 'java/util/Map' }
+stack: { 'org/fluxnova/bpm/engine/impl/el/JuelExpressionManager', 'org/fluxnova/bpm/impl/juel/ExpressionFactoryImpl' }
 Bytecode:
 0000000: 2ab7 0007 2abb 000c 59b7 000e b500 0f2a
 0000010: 03b5 0013 2abb 0017 59b7 0019 b500 1a2a

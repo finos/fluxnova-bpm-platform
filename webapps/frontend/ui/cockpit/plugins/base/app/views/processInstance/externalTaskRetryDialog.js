@@ -21,7 +21,7 @@ module.exports = [
   '$scope',
   '$location',
   'Notifications',
-  'fwAPI',
+  'fxnAPI',
   '$uibModalInstance',
   'incident',
   '$translate',
@@ -29,7 +29,7 @@ module.exports = [
     $scope,
     $location,
     Notifications,
-    fwAPI,
+    fxnAPI,
     $modalInstance,
     incident,
     $translate
@@ -38,7 +38,7 @@ module.exports = [
       PERFORM = 'performing',
       FAILED = 'failed';
 
-    var ExternalTask = fwAPI.resource('external-task');
+    var ExternalTask = fxnAPI.resource('external-task');
 
     $scope.$on('$routeChangeStart', function() {
       $modalInstance.close($scope.status);

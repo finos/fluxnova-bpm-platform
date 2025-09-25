@@ -1,3 +1,3 @@
-org.finos.flowave.impl.test.utils.testcontainers.CamundaPostgreSQLContainerProvider
-org.finos.flowave.impl.test.utils.testcontainers.CamundaMySqlContainerProvider
-org.finos.flowave.impl.test.utils.testcontainers.CamundaMSSQLContainerProvider
+org.finos.fluxnova.impl.test.utils.testcontainers.CamundaPostgreSQLContainerProvider
+org.finos.fluxnova.impl.test.utils.testcontainers.CamundaMySqlContainerProvider
+org.finos.fluxnova.impl.test.utils.testcontainers.CamundaMSSQLContainerProvider

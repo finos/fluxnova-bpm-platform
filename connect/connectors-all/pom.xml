@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.connect</groupId>
-    <artifactId>flowave-connect-root</artifactId>
+    <groupId>org.finos.fluxnova.connect</groupId>
+    <artifactId>fluxnova-connect-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-connect-connectors-all</artifactId>
-  <name>Flowave Platform - connect - all connectors in one</name>
+  <artifactId>fluxnova-connect-connectors-all</artifactId>
+  <name>Fluxnova Platform - connect - all connectors in one</name>
 
   <properties>
     <!-- We shade artifacts into the jar, so we need to generate 
@@ -19,13 +19,13 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-http-client</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-http-client</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-soap-http-client</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-soap-http-client</artifactId>
     </dependency>
 
   </dependencies>
@@ -47,8 +47,8 @@
               <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
               <artifactSet>
                 <excludes>
-                  <exclude>org.finos.flowave.commons:*</exclude>
-                  <exclude>org.finos.flowave.connect:camunda-connect-core</exclude>
+                  <exclude>org.finos.fluxnova.commons:*</exclude>
+                  <exclude>org.finos.fluxnova.connect:fluxnova-connect-core</exclude>
                   <exclude>org.slf4j:*</exclude>
                 </excludes>
               </artifactSet>
@@ -73,7 +73,7 @@
           <includeDependencySources>true</includeDependencySources>
           <includeTransitiveDependencySources>true</includeTransitiveDependencySources>
           <dependencySourceIncludes>
-            <include>org.finos.flowave.connect:*</include>
+            <include>org.finos.fluxnova.connect:*</include>
           </dependencySourceIncludes>
         </configuration>
       </plugin>
@@ -86,7 +86,7 @@
             <Import-Package>
               !connectjar*,
               javax.*;resolution:=optional,
-              org.finos.flowave.commons.logging
+              org.finos.fluxnova.commons.logging
             </Import-Package>
             <Bundle-ClassPath>.</Bundle-ClassPath>
             <Embed-Dependency>*;inline=true</Embed-Dependency>

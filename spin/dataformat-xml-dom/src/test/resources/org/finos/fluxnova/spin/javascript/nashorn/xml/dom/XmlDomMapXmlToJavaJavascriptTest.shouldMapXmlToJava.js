@@ -1,0 +1,1 @@
+order = S(input, "application/xml").mapTo("org.finos.fluxnova.spin.xml.mapping.Order");

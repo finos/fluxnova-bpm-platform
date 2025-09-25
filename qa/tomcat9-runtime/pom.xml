@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa-tomcat9-runtime</artifactId>
+  <artifactId>fluxnova-qa-tomcat9-runtime</artifactId>
   <packaging>pom</packaging>
 
-  <name>Flowave Platform - QA Tomcat 9 Test Runtime</name>
+  <name>Fluxnova Platform - QA Tomcat 9 Test Runtime</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -36,8 +36,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa</groupId>
-      <artifactId>flowave-qa-ensure-clean-db</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa</groupId>
+      <artifactId>fluxnova-qa-ensure-clean-db</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
@@ -112,8 +112,8 @@
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
           <exclusions>
             <exclusion>
               <groupId>org.springframework</groupId>
@@ -127,53 +127,53 @@
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm.identity</groupId>
-          <artifactId>flowave-identity-ldap</artifactId>
+          <groupId>org.finos.fluxnova.bpm.identity</groupId>
+          <artifactId>fluxnova-identity-ldap</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.spin</groupId>
-          <artifactId>flowave-spin-core</artifactId>
+          <groupId>org.finos.fluxnova.spin</groupId>
+          <artifactId>fluxnova-spin-core</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-plugin-spin</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-plugin-spin</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.spin</groupId>
-          <artifactId>flowave-spin-dataformat-all</artifactId>
+          <groupId>org.finos.fluxnova.spin</groupId>
+          <artifactId>fluxnova-spin-dataformat-all</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.connect</groupId>
-          <artifactId>flowave-connect-core</artifactId>
+          <groupId>org.finos.fluxnova.connect</groupId>
+          <artifactId>fluxnova-connect-core</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-plugin-connect</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-plugin-connect</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.connect</groupId>
-          <artifactId>flowave-connect-connectors-all</artifactId>
+          <groupId>org.finos.fluxnova.connect</groupId>
+          <artifactId>fluxnova-connect-connectors-all</artifactId>
           <exclusions>
             <exclusion>
-              <groupId>org.finos.flowave.connect</groupId>
-              <artifactId>flowave-connect-http-client</artifactId>
+              <groupId>org.finos.fluxnova.connect</groupId>
+              <artifactId>fluxnova-connect-http-client</artifactId>
             </exclusion>
             <exclusion>
-              <groupId>org.finos.flowave.connect</groupId>
-              <artifactId>flowave-connect-soap-http-client</artifactId>
+              <groupId>org.finos.fluxnova.connect</groupId>
+              <artifactId>fluxnova-connect-soap-http-client</artifactId>
             </exclusion>
           </exclusions>
         </dependency>
 
         <dependency>
-          <groupId>org.finos.flowave.template-engines</groupId>
-          <artifactId>flowave-template-engines-freemarker</artifactId>
+          <groupId>org.finos.fluxnova.template-engines</groupId>
+          <artifactId>fluxnova-template-engines-freemarker</artifactId>
         </dependency>
 
         <dependency>
@@ -194,7 +194,7 @@
         <!-- The order of declaration of the plugin executions is important to preserve the correct build sequence of
              a) packing b) unpacking the server c) copy libs so that the properties are resolved correctly. -->
         <plugins>
-          <!-- Produces the camunda-qa-tomcat9.tar.gz -->
+          <!-- Produces the fluxnova-qa-tomcat9.tar.gz -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
@@ -214,7 +214,7 @@
                   <outputDirectory>target/</outputDirectory>
                   <workDirectory>target/assembly/work</workDirectory>
                   <tarLongFileMode>gnu</tarLongFileMode>
-                  <finalName>camunda-qa-tomcat9</finalName>
+                  <finalName>fluxnova-qa-tomcat9</finalName>
                 </configuration>
               </execution>
             </executions>
@@ -231,7 +231,7 @@
                 <phase>generate-resources</phase>
                 <configuration>
                   <target>
-                    <untar src="${project.build.directory}/camunda-qa-tomcat9.tar.gz" dest="${project.build.directory}/" compression="gzip" />
+                    <untar src="${project.build.directory}/fluxnova-qa-tomcat9.tar.gz" dest="${project.build.directory}/" compression="gzip" />
                   </target>
                 </configuration>
                 <goals>

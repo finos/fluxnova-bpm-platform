@@ -21,18 +21,18 @@ var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
 var angular = require('angular');
-var fwCommon = require('../index');
+var fxnCommon = require('../index');
 
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common createIsSearchQueryChangedFunction', function() {
+describe('fxn-common createIsSearchQueryChangedFunction', function() {
   var search;
   var createIsSearchQueryChangedFunction;
 
-  beforeEach(module(fwCommon.name));
+  beforeEach(module(fxnCommon.name));
 
   beforeEach(
     module(function($provide) {

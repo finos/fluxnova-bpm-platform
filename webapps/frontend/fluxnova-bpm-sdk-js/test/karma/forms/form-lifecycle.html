@@ -1,0 +1,47 @@
+<form fxn-form role="form">
+
+  <input fxn-variable-name="stringVar"
+         fxn-variable-type="String"
+         type="text"
+         class="form-control"
+         id="stringVar">
+
+  <input type="text"
+         class="form-control"
+         id="customField">
+
+  <script fxn-script type="text/form-script">
+
+    var variableManager = fxnForm.variableManager;
+    var formElement = fxnForm.formElement;
+
+    fxnForm.on('form-loaded', function() {
+
+      // declare a new variable
+      variableManager.createVariable({
+        'name': 'customVar',
+        'type': 'String',
+        'value': 'someValue'
+      });
+
+    });
+
+    fxnForm.on('variables-fetched', function() {
+
+      $('#customField', formElement)
+        .val(variableManager.variableValue('customVar'));
+
+    });
+
+    fxnForm.on('submit', function(evt) {
+
+      // prevent submit if value of form field was not changed
+      if($('#customField', formElement).val() == 'someValue') {
+        evt.submitPrevented = true;
+      }
+
+    });
+
+  </script>
+
+</form>

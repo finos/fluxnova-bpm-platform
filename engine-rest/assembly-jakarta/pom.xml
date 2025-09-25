@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>flowave-engine-rest-jakarta</artifactId>
-  <name>Flowave Platform - engine - REST - Assembly Jakarta</name>
+  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+  <name>Fluxnova Platform - engine - REST - Assembly Jakarta</name>
   <packaging>war</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-engine-rest-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-engine-rest-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -45,23 +45,23 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-core-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <!-- dependencies only used for assemblies should be scope provided -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-core-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
       <version>${project.version}</version>
       <classifier>sources</classifier>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-core-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>provided</scope>
@@ -107,13 +107,13 @@
               <archive>
                 <manifestEntries>
                   <!-- module dependencies for deployment on wildfly  -->
-                  <Dependencies>org.finos.flowave.bpm.flowave-engine,org.finos.flowave.bpm.dmn.flowave-engine-dmn,org.finos.flowave.commons.flowave-commons-logging,org.finos.flowave.spin.flowave-spin-core,org.finos.flowave.bpm.juel.flowave-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
+                  <Dependencies>org.finos.fluxnova.bpm.fluxnova-engine,org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn,org.finos.fluxnova.commons.fluxnova-commons-logging,org.finos.fluxnova.spin.fluxnova-spin-core,org.finos.fluxnova.bpm.juel.fluxnova-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
                 </manifestEntries>
               </archive>
               <descriptors>
                 <descriptor>assembly-war-wildfly.xml</descriptor>
               </descriptors>
-              <finalName>camunda-engine-rest-jakarta-${project.version}</finalName>
+              <finalName>fluxnova-engine-rest-jakarta-${project.version}</finalName>
               <attach>true</attach>
               <classifier>wildfly</classifier>
               <outputDirectory>target/</outputDirectory>
@@ -131,7 +131,7 @@
               <descriptors>
                 <descriptor>assembly-war-tomcat.xml</descriptor>
               </descriptors>
-              <finalName>camunda-engine-rest-jakarta-${project.version}</finalName>
+              <finalName>fluxnova-engine-rest-jakarta-${project.version}</finalName>
               <attach>true</attach>
               <classifier>tomcat</classifier>
               <outputDirectory>target/</outputDirectory>
@@ -149,7 +149,7 @@
               <descriptors>
                 <descriptor>assembly-classes.xml</descriptor>
               </descriptors>
-              <finalName>camunda-engine-rest-jakarta-${project.version}</finalName>
+              <finalName>fluxnova-engine-rest-jakarta-${project.version}</finalName>
               <attach>true</attach>
               <outputDirectory>target/</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>
@@ -166,7 +166,7 @@
               <descriptors>
                 <descriptor>assembly-sources.xml</descriptor>
               </descriptors>
-              <finalName>camunda-engine-rest-jakarta-${project.version}</finalName>
+              <finalName>fluxnova-engine-rest-jakarta-${project.version}</finalName>
               <attach>true</attach>
               <outputDirectory>target/</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>
@@ -183,7 +183,7 @@
               <descriptors>
                 <descriptor>assembly-tests.xml</descriptor>
               </descriptors>
-              <finalName>camunda-engine-rest-jakarta-${project.version}</finalName>
+              <finalName>fluxnova-engine-rest-jakarta-${project.version}</finalName>
               <attach>true</attach>
               <outputDirectory>target/</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>

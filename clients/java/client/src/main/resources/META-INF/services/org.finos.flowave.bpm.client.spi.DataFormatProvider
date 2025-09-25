@@ -1,3 +1,0 @@
-org.finos.flowave.bpm.client.variable.impl.format.json.JacksonJsonDataFormatProvider
-org.finos.flowave.bpm.client.variable.impl.format.serializable.SerializableDataFormatProvider
-org.finos.flowave.bpm.client.variable.impl.format.xml.DomXmlDataFormatProvider

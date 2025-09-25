@@ -1,0 +1,11 @@
+<module xmlns="urn:jboss:module:1.0" name="org.camunda.connect.fluxnova-connect-core">
+  <resources>
+    <resource-root path="fluxnova-connect-core-@project.version@.jar" />
+  </resources>
+
+  <dependencies>
+    <module name="javax.api"/>
+    <module name="org.camunda.commons.fluxnova-commons-logging" />
+    <module name="org.camunda.commons.fluxnova-commons-utils" />
+  </dependencies>
+</module>

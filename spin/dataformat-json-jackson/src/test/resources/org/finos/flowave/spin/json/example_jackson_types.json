@@ -1,9 +1,0 @@
-{
-  "amount": 2000,
-  "customer": {
-    "name": "Kermit",
-    "contractStartDate": 20130505,
-    "@class": "org.finos.flowave.spin.json.mapping.RegularCustomer"
-  },
-  "@class": "org.finos.flowave.spin.json.mapping.Invoice"
-}

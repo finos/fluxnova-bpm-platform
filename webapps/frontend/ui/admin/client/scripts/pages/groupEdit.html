@@ -1,4 +1,4 @@
-<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
+<!-- # CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
 <section ng-cloak>
   <aside>
     <ul>
@@ -33,7 +33,7 @@
     <form ng-show="show('group')"
           class="form-horizontal"
           name="editGroupForm"
-          fw-widget-loader
+          fxn-widget-loader
           loading-state="{{ groupLoadingState }}">
       <div class="h4">{{ 'GROUP_EDIT_GROUP_DETAILS' | translate }}</div>
 
@@ -106,12 +106,12 @@
              translate-values="{ group: group.name }">
         </div>
 
-        <div fw-widget-loader
+        <div fxn-widget-loader
              loading-state="{{ tenantLoadingState }}"
              text-empty="{{ translate('GROUP_EDIT_MESSAGE_GROUP', { group: group.name }) }}">
-          <table class="fw-table"
+          <table class="fxn-table"
                  ng-hide="tenantList.length == 0">
-            <thead fw-sortable-table-header
+            <thead fxn-sortable-table-header
                    default-sort-by="id"
                    default-sort-order="asc"
                    sorting-id="admin-sorting-groups-tenants"
@@ -119,10 +119,10 @@
                    on-sort-initialized="onTenantsSortingChanged(sorting)">
             <tr>
               <th class="tenant-id"
-                  fw-sortable-table-column
+                  fxn-sortable-table-column
                   sort-by-property="id">{{ 'GROUP_EDIT_TENANT_ID' | translate }}</th>
               <th class="tenant-name"
-                  fw-sortable-table-column
+                  fxn-sortable-table-column
                   sort-by-property="name">{{ 'GROUP_EDIT_TENANT_NAME' | translate }}</th>
               <th class="action">
                 {{ 'GROUP_EDIT_ACTION' | translate }}
@@ -167,22 +167,22 @@
     <div ng-show="show('users')">
       <div class="h3">{{ 'GROUP_EDIT_GROUP_USERS' | translate }}</div>
 
-      <div fw-widget-loader
+      <div fxn-widget-loader
            loading-state="{{ userLoadingState }}"
            text-empty="{{ translate('GROUP_EDIT_MESSAGE_USERS', {group: group.name}) }}">
-        <table class="fw-table">
-          <thead fw-sortable-table-header
+        <table class="fxn-table">
+          <thead fxn-sortable-table-header
                  default-sort-by="userId"
                  default-sort-order="asc"
                  sorting-id="admin-sorting-groups-users"
                  on-sort-change="onUsersSortingChanged(sorting)"
                  on-sort-initialized="onUsersSortingInitialized(sorting)">
             <tr ng-if="canSortUserEntries">
-              <th fw-sortable-table-column
+              <th fxn-sortable-table-column
                   sort-by-property="userId">{{ 'USERS_ID' | translate }}</th>
-              <th fw-sortable-table-column
+              <th fxn-sortable-table-column
                   sort-by-property="firstName">{{ 'USERS_FIRSTNAME' | translate }}</th>
-              <th fw-sortable-table-column
+              <th fxn-sortable-table-column
                   sort-by-property="lastName">{{ 'USERS_LASTNAME' | translate }}</th>
             </tr>
             <tr ng-if="!canSortUserEntries">
@@ -200,7 +200,7 @@
             </tr>
           </tbody>
         </table>
-      </div><!-- /fw-widget-loader -->
+      </div><!-- /fxn-widget-loader -->
 
       <ul uib-pagination ng-if="groupUserPages.total > groupUserPages.size"
                   class="pagination-sm"
@@ -222,4 +222,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->
+<!-- / CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/groupEdit.html -->

@@ -16,23 +16,23 @@
  */
 
 'use strict';
-var angular = require('flowave-commons-ui/vendor/angular'),
-  FwSDK = require('flowave-bpm-sdk-js/lib/angularjs/index');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  FxnSDK = require('fluxnova-bpm-sdk-js/lib/angularjs/index');
 
-var apiModule = angular.module('cam.tasklist.client', []);
+var apiModule = angular.module('fxn.tasklist.client', []);
 
-apiModule.value('HttpClient', FwSDK.Client);
+apiModule.value('HttpClient', FxnSDK.Client);
 
-apiModule.value('FwForm', FwSDK.Form);
+apiModule.value('FxnForm', FxnSDK.Form);
 
-apiModule.factory('fwAPI', [
-  'fwAPIHttpClient',
+apiModule.factory('fxnAPI', [
+  'fxnAPIHttpClient',
   '$window',
   'Uri',
-  function(fwAPIHttpClient, $window, Uri) {
+  function(fxnAPIHttpClient, $window, Uri) {
     var conf = {
       apiUri: 'engine-rest/api/engine',
-      HttpClient: fwAPIHttpClient,
+      HttpClient: fxnAPIHttpClient,
       engine: Uri.appUri(':engine')
     };
     if ($window.tasklistConf) {
@@ -41,7 +41,7 @@ apiModule.factory('fwAPI', [
       }
     }
 
-    return new FwSDK.Client(conf);
+    return new FxnSDK.Client(conf);
   }
 ]);
 

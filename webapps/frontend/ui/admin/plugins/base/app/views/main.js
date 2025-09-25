@@ -21,7 +21,7 @@
 'use strict';
 
 var angular = require('angular'),
-  fwCommon = require('fw-common'),
+  fxnCommon = require('fxn-common'),
   // dashboard
   dashboardUsers = require('./dashboard/users'),
   dashboardGroups = require('./dashboard/groups'),
@@ -29,7 +29,7 @@ var angular = require('angular'),
   dashboardAuthorizations = require('./dashboard/authorizations'),
   dashboardSystem = require('./dashboard/system');
 
-var ngModule = angular.module('cockpit.plugin.base.views', [fwCommon.name]);
+var ngModule = angular.module('cockpit.plugin.base.views', [fxnCommon.name]);
 
 ngModule.config(dashboardUsers);
 ngModule.config(dashboardGroups);

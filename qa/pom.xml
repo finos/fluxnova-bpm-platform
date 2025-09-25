@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa</artifactId>
-  <groupId>org.finos.flowave.bpm.qa</groupId>
+  <artifactId>fluxnova-qa</artifactId>
+  <groupId>org.finos.fluxnova.bpm.qa</groupId>
 
   <packaging>pom</packaging>
-  <name>Flowave Platform - QA</name>
+  <name>Fluxnova Platform - QA</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -52,8 +52,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>

@@ -2,19 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.model</groupId>
-    <artifactId>flowave-model-apis</artifactId>
+    <groupId>org.finos.fluxnova.bpm.model</groupId>
+    <artifactId>fluxnova-model-apis</artifactId>
     <relativePath>../</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-bpmn-model</artifactId>
+  <artifactId>fluxnova-bpmn-model</artifactId>
   <packaging>jar</packaging>
 
-  <name>Flowave Platform - BPMN Model API</name>
+  <name>Fluxnova Platform - BPMN Model API</name>
   <inceptionYear>2014</inceptionYear>
   <properties>
-    <camunda.artifact>org.finos.flowave.bpm.model.bpmn</camunda.artifact>
+    <camunda.artifact>org.finos.fluxnova.bpm.model.bpmn</camunda.artifact>
     <camunda.osgi.export>
       !org.camunda.bpm.model.bpmn.schema,
       ${camunda.osgi.export.pkg};${camunda.osgi.version};-noimport:=true
@@ -23,8 +23,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.model</groupId>
-      <artifactId>flowave-xml-model</artifactId>
+      <groupId>org.finos.fluxnova.bpm.model</groupId>
+      <artifactId>fluxnova-xml-model</artifactId>
     </dependency>
 
     <dependency>
@@ -40,8 +40,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bpm-archunit</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-archunit</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -73,7 +73,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <dependenciesToScan>
-            <dependency>org.finos.flowave.bpm:flowave-bpm-archunit</dependency>
+            <dependency>org.finos.fluxnova.bpm:fluxnova-bpm-archunit</dependency>
           </dependenciesToScan>
         </configuration>
       </plugin>
@@ -96,7 +96,7 @@
               <comparisonVersion>${camunda.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
-                <exclude>org/finos/flowave/bpm/model/bpmn/impl/**</exclude>
+                <exclude>org/finos/fluxnova/bpm/model/bpmn/impl/**</exclude>
               </excludes>
             </configuration>
             <executions>

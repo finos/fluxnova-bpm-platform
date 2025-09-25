@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>flowave-engine-rest-core-jakarta</artifactId>
-  <name>Flowave Platform - engine - REST Jakarta</name>
+  <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
+  <name>Fluxnova Platform - engine - REST Jakarta</name>
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-engine-rest-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -102,8 +102,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -114,8 +114,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-logging</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-logging</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -124,16 +124,16 @@
       BOMs must be installed before this module is built
     -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bom</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bom</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-core-internal-dependencies</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-core-internal-dependencies</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>test</scope>
@@ -191,8 +191,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-testing</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-testing</artifactId>
       <scope>test</scope>
     </dependency>
 

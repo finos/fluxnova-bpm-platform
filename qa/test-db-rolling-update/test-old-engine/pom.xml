@@ -2,21 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-rolling-update</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-rolling-update</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
 
-  <artifactId>flowave-qa-db-test-old-engine</artifactId>
+  <artifactId>fluxnova-qa-db-test-old-engine</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - rolling update - test old engine</name>
+  <name>Fluxnova Platform - QA - upgrade - rolling update - test old engine</name>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>7.22.0</version>
         <scope>import</scope>
         <type>pom</type>
@@ -26,13 +26,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-db-rolling-update-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-db-rolling-update-util</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -105,8 +105,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>${project.version}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>

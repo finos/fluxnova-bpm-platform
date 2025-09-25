@@ -1,20 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa-integration-tests-webapps-shared-engine</artifactId>
-  <name>Flowave Platform - QA Integration Tests - Webapps Shared Engine</name>
+  <artifactId>fluxnova-qa-integration-tests-webapps-shared-engine</artifactId>
+  <name>Fluxnova Platform - QA Integration Tests - Webapps Shared Engine</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa-integration-tests-webapps-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa-integration-tests-webapps-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa</groupId>
-      <artifactId>flowave-qa-integration-tests-webapps</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa</groupId>
+      <artifactId>fluxnova-qa-integration-tests-webapps</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -30,29 +30,29 @@
       <dependencies>
         <dependency>
           <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-wildfly-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-wildfly-runtime</artifactId>
           <version>${project.version}</version>
           <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.webapp</groupId>
-          <artifactId>flowave-webapp-wildfly</artifactId>
+          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+          <artifactId>fluxnova-webapp-wildfly</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-rest-jakarta</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
           <version>${project.version}</version>
           <classifier>wildfly</classifier>
           <scope>test</scope>
           <type>war</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.example</groupId>
-          <artifactId>flowave-example-invoice-jakarta</artifactId>
+          <groupId>org.finos.fluxnova.bpm.example</groupId>
+          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
           <version>${project.version}</version>
           <scope>test</scope>
           <type>war</type>
@@ -99,23 +99,23 @@
               </configuration>
               <deployables>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.example</groupId>
-                  <artifactId>flowave-example-invoice-jakarta</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.example</groupId>
+                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/user/demo/profile</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm</groupId>
-                  <artifactId>flowave-engine-rest-jakarta</artifactId>
+                  <groupId>org.finos.fluxnova.bpm</groupId>
+                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
                   <classifier>wildfly</classifier>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/process-definition</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.webapp</groupId>
-                  <artifactId>flowave-webapp-wildfly</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+                  <artifactId>fluxnova-webapp-wildfly</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/camunda</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
@@ -146,29 +146,29 @@
       <dependencies>
         <dependency>
           <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-wildfly26-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-wildfly26-runtime</artifactId>
           <version>${project.version}</version>
           <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.webapp</groupId>
-          <artifactId>flowave-webapp-jboss</artifactId>
+          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+          <artifactId>fluxnova-webapp-jboss</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-rest</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-rest</artifactId>
           <version>${project.version}</version>
           <classifier>wildfly</classifier>
           <scope>test</scope>
           <type>war</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
           <scope>test</scope>
           <exclusions>
             <exclusion>
@@ -219,23 +219,23 @@
               </configuration>
               <deployables>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.example</groupId>
-                  <artifactId>flowave-example-invoice</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.example</groupId>
+                  <artifactId>fluxnova-example-invoice</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/user/demo/profile</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm</groupId>
-                  <artifactId>flowave-engine-rest</artifactId>
+                  <groupId>org.finos.fluxnova.bpm</groupId>
+                  <artifactId>fluxnova-engine-rest</artifactId>
                   <classifier>wildfly</classifier>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/process-definition</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.webapp</groupId>
-                  <artifactId>flowave-webapp-jboss</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+                  <artifactId>fluxnova-webapp-jboss</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/camunda</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
@@ -266,21 +266,21 @@
       <dependencies>
         <dependency>
           <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-tomcat9-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-tomcat9-runtime</artifactId>
           <version>${project.version}</version>
           <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.webapp</groupId>
-          <artifactId>flowave-webapp-tomcat</artifactId>
+          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+          <artifactId>fluxnova-webapp-tomcat</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-rest</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-rest</artifactId>
           <scope>test</scope>
           <type>war</type>
           <classifier>tomcat</classifier>
@@ -328,8 +328,8 @@
               </configuration>
               <deployables>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm</groupId>
-                  <artifactId>flowave-engine-rest</artifactId>
+                  <groupId>org.finos.fluxnova.bpm</groupId>
+                  <artifactId>fluxnova-engine-rest</artifactId>
                   <type>war</type>
                   <classifier>tomcat</classifier>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/engine-rest/engine/default/process-definition</pingURL>
@@ -339,8 +339,8 @@
                   </properties>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.webapp</groupId>
-                  <artifactId>flowave-webapp-tomcat</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+                  <artifactId>fluxnova-webapp-tomcat</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/camunda</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
@@ -349,8 +349,8 @@
                   </properties>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.example</groupId>
-                  <artifactId>flowave-example-invoice</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.example</groupId>
+                  <artifactId>fluxnova-example-invoice</artifactId>
                   <type>war</type>
                   <properties>
                     <context>invoice</context>
@@ -372,29 +372,29 @@
       <dependencies>
         <dependency>
           <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-tomcat-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-tomcat-runtime</artifactId>
           <version>${project.version}</version>
           <type>pom</type>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.webapp</groupId>
-          <artifactId>flowave-webapp-tomcat-jakarta</artifactId>
+          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+          <artifactId>fluxnova-webapp-tomcat-jakarta</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine-rest-jakarta</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
           <classifier>tomcat</classifier>
         </dependency>
         <dependency>
-          <groupId>org.finos.flowave.bpm.example</groupId>
-          <artifactId>flowave-example-invoice-jakarta</artifactId>
+          <groupId>org.finos.fluxnova.bpm.example</groupId>
+          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
@@ -441,8 +441,8 @@
               </configuration>
               <deployables>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm</groupId>
-                  <artifactId>flowave-engine-rest-jakarta</artifactId>
+                  <groupId>org.finos.fluxnova.bpm</groupId>
+                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
                   <type>war</type>
                   <classifier>tomcat</classifier>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/engine-rest/engine/default/process-definition</pingURL>
@@ -452,8 +452,8 @@
                   </properties>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.webapp</groupId>
-                  <artifactId>flowave-webapp-tomcat-jakarta</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+                  <artifactId>fluxnova-webapp-tomcat-jakarta</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/camunda</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
@@ -462,8 +462,8 @@
                   </properties>
                 </deployable>
                 <deployable>
-                  <groupId>org.finos.flowave.bpm.example</groupId>
-                  <artifactId>flowave-example-invoice-jakarta</artifactId>
+                  <groupId>org.finos.fluxnova.bpm.example</groupId>
+                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
                   <type>war</type>
                   <properties>
                     <context>invoice</context>
@@ -503,7 +503,7 @@
             <configuration>
               <redirectTestOutputToFile>true</redirectTestOutputToFile>
               <dependenciesToScan>
-                <dependency>org.finos.flowave.bpm.qa:flowave-qa-integration-tests-webapps</dependency>
+                <dependency>org.finos.fluxnova.bpm.qa:fluxnova-qa-integration-tests-webapps</dependency>
               </dependenciesToScan>
               <systemPropertyVariables>
                 <selenium.screenshot.directory>${project.build.directory}/selenium-screenshots</selenium.screenshot.directory>
@@ -532,8 +532,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm</groupId>
-                      <artifactId>flowave-engine</artifactId>
+                      <groupId>org.finos.fluxnova.bpm</groupId>
+                      <artifactId>fluxnova-engine</artifactId>
                       <outputDirectory>${project.build.directory}/sql-scripts/engine</outputDirectory>
                       <overWrite>true</overWrite>
                     </artifactItem>
@@ -555,13 +555,13 @@
                 <configuration>
                   <srcFiles>
                     <!-- try dropping the DB if it exists. -->
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.decision.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.case.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.identity.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.decision.history.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.case.history.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.decision.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.case.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.identity.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.decision.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.case.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.history.sql</srcFile>
                   </srcFiles>
                   <autocommit>true</autocommit>
                   <onError>continue</onError>
@@ -591,7 +591,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <dependenciesToScan>
-                <dependency>org.finos.flowave.bpm.qa:flowave-qa-integration-tests-webapps</dependency>
+                <dependency>org.finos.fluxnova.bpm.qa:fluxnova-qa-integration-tests-webapps</dependency>
               </dependenciesToScan>
               <skipTests>false</skipTests>
               <includes>

@@ -13,8 +13,8 @@
                  name="inputLongVar"
                  class="form-control"
                  placeholder="e.g. 123"
-                 fw-variable-type="Long"
-                 fw-variable-name="longVar" />
+                 fxn-variable-type="Long"
+                 fxn-variable-name="longVar" />
         </div>
 
         <label class="control-label col-md-4"
@@ -25,14 +25,14 @@
                  name="customerNumber"
                  class="form-control"
                  placeholder="e.g. 11513"
-                 fw-variable-type="Integer"
-                 fw-variable-name="customerNumber" />
+                 fxn-variable-type="Integer"
+                 fxn-variable-name="customerNumber" />
         </div>
       </div>
-      <script fw-script type="text/form-script">
-          var variableManager = camForm.variableManager;
+      <script fxn-script type="text/form-script">
+          var variableManager = fxnForm.variableManager;
 
-          camForm.on('submit', function(evt) {
+          fxnForm.on('submit', function(evt) {
             // create history
             variableManager.createVariable({
               name: 'history',

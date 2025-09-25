@@ -2,29 +2,29 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave</groupId>
-    <artifactId>flowave-bpm-release-parent</artifactId>
+    <groupId>org.finos.fluxnova</groupId>
+    <artifactId>fluxnova-bpm-release-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
     <relativePath />
   </parent>
 
-  <groupId>org.finos.flowave.bpm</groupId>
-  <artifactId>flowave-root</artifactId>
+  <groupId>org.finos.fluxnova.bpm</groupId>
+  <artifactId>fluxnova-root</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Flowave Platform - Root Pom</name>
+  <name>Fluxnova Platform - Root Pom</name>
   <inceptionYear>2013</inceptionYear>
 
   <description>
     This pom defines the modules that make up the build.
-    The parent pom for all Flowave Platform projects can be found in the parent directory relative to this file.
+    The parent pom for all Fluxnova Platform projects can be found in the parent directory relative to this file.
   </description>
 
   <properties>
     <license.includeTransitiveDependencies>false</license.includeTransitiveDependencies>
 
-    <!-- These properties are used in both the BOM as well as flowave-parent and subprojects -->
+    <!-- These properties are used in both the BOM as well as fluxnova-parent and subprojects -->
     <version.mybatis>3.5.15</version.mybatis>
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
@@ -50,14 +50,17 @@
           <skip>false</skip>
         </configuration>
       </plugin>
-<!--  <plugin>
+      <!--<plugin>
         <groupId>org.openrewrite.maven</groupId>
         <artifactId>rewrite-maven-plugin</artifactId>
         <version>6.2.3</version>
         <configuration>
           <exportDatatables>true</exportDatatables>
           <activeRecipes>
-            <recipe>flowaveToFinosFlowave</recipe>
+            <recipe>ReplaceFluxnovaInGroupId</recipe>
+            <recipe>ReplaceFluxnovaInGroupId2</recipe>
+            <recipe>ReplaceFluxnovaArtifactIdWithFluxnova</recipe>
+            <recipe>fluxnovaToFinosFluxnova</recipe>
           </activeRecipes>
         </configuration>
       </plugin>
@@ -73,11 +76,11 @@
         <dependencies>
           <dependency>
             <groupId>com.yourorg</groupId>
-            <artifactId>iteration3-recipe</artifactId>
+            <artifactId>finos-Java-class-recipes</artifactId>
             <version>1.0</version>
           </dependency>
         </dependencies>
-      </plugin> -->
+      </plugin>-->
     </plugins>
   </build>
 
@@ -184,8 +187,8 @@
                 <additionalJOption>--ignore-source-errors</additionalJOption>
                 <additionalJOption>--allow-script-in-comments</additionalJOption>
               </additionalJOptions>
-              <doctitle>Flowave Platform Javadocs ${project.version}</doctitle>
-              <windowtitle>Flowave Platform Javadocs ${project.version}</windowtitle>
+              <doctitle>Fluxnova Platform Javadocs ${project.version}</doctitle>
+              <windowtitle>Fluxnova Platform Javadocs ${project.version}</windowtitle>
             </configuration>
           </plugin>
         </plugins>
@@ -355,29 +358,29 @@
 
   <repositories>
     <repository>
-      <id>flowave-bpm-platform</id>
-      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+      <id>fluxnova-bpm-platform</id>
+      <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </repository>
     <repository>
-      <id>flowave-feel-scala</id>
-      <url>https://maven.pkg.github.com/finos/flowave-feel-scala</url>
+      <id>fluxnova-feel-scala</id>
+      <url>https://maven.pkg.github.com/finos/fluxnova-feel-scala</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </repository>
     <repository>
-      <id>flowave-bpm-release-parent</id>
-      <url>https://maven.pkg.github.com/finos/flowave-bpm-release-parent</url>
+      <id>fluxnova-bpm-release-parent</id>
+      <url>https://maven.pkg.github.com/finos/fluxnova-bpm-release-parent</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </repository>
     <repository>
-      <id>flowave-release-parent</id>
-      <url>https://maven.pkg.github.com/finos/flowave-release-parent</url>
+      <id>fluxnova-release-parent</id>
+      <url>https://maven.pkg.github.com/finos/fluxnova-release-parent</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -400,14 +403,14 @@
 
   <distributionManagement>
     <repository>
-      <id>flowave-bpm-platform</id>
-      <name>GitHub Flowave Maven Packages</name>
-      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+      <id>fluxnova-bpm-platform</id>
+      <name>GitHub Fluxnova Maven Packages</name>
+      <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
     </repository>
     <snapshotRepository>
-      <id>flowave-bpm-platform</id>
-      <name>GitHub Flowave Maven Packages</name>
-      <url>https://maven.pkg.github.com/finos/flowave-bpm-platform</url>
+      <id>fluxnova-bpm-platform</id>
+      <name>GitHub Fluxnova Maven Packages</name>
+      <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
     </snapshotRepository>
   </distributionManagement>
 

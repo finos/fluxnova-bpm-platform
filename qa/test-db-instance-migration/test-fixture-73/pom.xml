@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-instance-migration</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-instance-migration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-upgrade-test-fixture-73</artifactId>
+  <artifactId>fluxnova-qa-upgrade-test-fixture-73</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - instance migration - test fixture - 7.3.0</name>
+  <name>Fluxnova Platform - QA - upgrade - instance migration - test fixture - 7.3.0</name>
 
   <!-- Due to https://issues.apache.org/jira/browse/MRELEASE-799 the release test fails when
      the version is managed in a property. Thus we use explicit versions everywhere. -->
@@ -23,8 +23,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>7.3.0</version>
         <scope>import</scope>
         <type>pom</type>
@@ -34,13 +34,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-upgrade-scenario-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-upgrade-scenario-util</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -109,8 +109,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>7.3.0</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
@@ -184,7 +184,7 @@
                     <srcFile>${project.build.directory}/scripts-current/sql/upgrade/${database.type}_engine_${camunda.previous.majorVersion}.${camunda.previous.minorVersion}_to_${camunda.current.majorVersion}.${camunda.current.minorVersion}.sql</srcFile>
                     <srcFile>${project.build.directory}/scripts-current/sql/upgrade/${database.type}_identity_${camunda.previous.majorVersion}.${camunda.previous.minorVersion}_to_${camunda.current.majorVersion}.${camunda.current.minorVersion}.sql</srcFile>
                     <!-- delete global grant authorizations created with the engine script -->
-                    <srcFile>src/main/resources/org/finos/flowave/bpm/qa/upgrade/alldb_engine_delete_global_auth.sql</srcFile>
+                    <srcFile>src/main/resources/org/finos/fluxnova/bpm/qa/upgrade/alldb_engine_delete_global_auth.sql</srcFile>
                   </srcFiles>
                 </configuration>
               </execution>
@@ -209,7 +209,7 @@
                 </goals>
                 <phase>process-test-classes</phase>
                 <configuration>
-                  <mainClass>org.finos.flowave.bpm.qa.upgrade.TestFixture</mainClass>
+                  <mainClass>org.finos.fluxnova.bpm.qa.upgrade.TestFixture</mainClass>
                 </configuration>
               </execution>
             </executions>

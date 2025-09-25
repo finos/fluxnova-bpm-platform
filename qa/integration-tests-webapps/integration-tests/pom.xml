@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa-integration-tests-webapps</artifactId>
-  <name>Flowave Platform - QA Integration Tests - Webapps ITs</name>
+  <artifactId>fluxnova-qa-integration-tests-webapps</artifactId>
+  <name>Fluxnova Platform - QA Integration Tests - Webapps ITs</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa-integration-tests-webapps-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa-integration-tests-webapps-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
@@ -43,13 +43,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest</artifactId>
       <type>jar</type>
       <classifier>classes</classifier>
       <scope>provided</scope>

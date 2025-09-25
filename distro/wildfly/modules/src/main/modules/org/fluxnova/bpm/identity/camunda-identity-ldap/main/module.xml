@@ -1,0 +1,16 @@
+<module xmlns="urn:jboss:module:1.0" name="org.camunda.bpm.identity.fluxnova-identity-ldap">
+  <resources>
+    <resource-root path="fluxnova-identity-ldap-@project.version@.jar" />
+  </resources>
+
+  <dependencies>
+
+    <module name="sun.jdk" />
+
+    <module name="java.base" />
+    <module name="java.naming" />
+    <module name="org.finos.fluxnova.bpm.fluxnova-engine" />
+    <module name="org.camunda.commons.fluxnova-commons-logging" />
+
+  </dependencies>
+</module>

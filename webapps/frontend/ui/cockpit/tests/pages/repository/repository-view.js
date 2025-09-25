@@ -20,7 +20,7 @@
 var Page = require('../base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/cockpit/default/#/repository',
+  url: '/fluxnova/app/cockpit/default/#/repository',
 
   tabContent: function() {
     return element(by.css('.ctn-tabbed-content .tab-content'));

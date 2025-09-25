@@ -2,19 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.connect</groupId>
-    <artifactId>flowave-connect-root</artifactId>
+    <groupId>org.finos.fluxnova.connect</groupId>
+    <artifactId>fluxnova-connect-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-connect-soap-http-client</artifactId>
-  <name>Flowave Platform - connect - soap http client</name>
+  <artifactId>fluxnova-connect-soap-http-client</artifactId>
+  <name>Fluxnova Platform - connect - soap http client</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-http-client</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-http-client</artifactId>
     </dependency>
 
     <dependency>

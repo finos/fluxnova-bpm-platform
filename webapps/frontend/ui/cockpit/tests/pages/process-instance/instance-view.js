@@ -20,7 +20,7 @@
 var Base = require('./../base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/cockpit/default/#/process-instance/:instance/runtime',
+  url: '/fluxnova/app/cockpit/default/#/process-instance/:instance/runtime',
 
   pageHeader: function() {
     return element(by.binding('{{ processInstance.id }}'));
@@ -62,7 +62,7 @@ module.exports = Base.extend({
 
   isInstanceSuspended: function() {
     return element(
-      by.css('.fw-breadcrumb .active .badge-suspended')
+      by.css('.fxn-breadcrumb .active .badge-suspended')
     ).isPresent();
   },
 

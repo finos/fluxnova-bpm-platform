@@ -6,7 +6,7 @@
   <persistence-unit name="activiti-jpa-pu">
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     
-    <class>org.finos.flowave.bpm.qa.upgrade.variables.FieldAccessJPAEntity</class>
+    <class>org.finos.fluxnova.bpm.qa.upgrade.variables.FieldAccessJPAEntity</class>
 
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>

@@ -55,7 +55,7 @@ var Configuration = function PluginConfiguration(ViewsProvider) {
                   angular.extend({}, $scope.filter)
                 );
                 $rootScope.$broadcast(
-                  'fw-common:fw-searchable:query-force-change'
+                  'fxn-common:fxn-searchable:query-force-change'
                 );
               }
             })

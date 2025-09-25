@@ -17,17 +17,17 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   reportsView = require('./controllers/reports-view-ctrl'),
   reportsPlugin = require('./directives/reports-plugin'),
   reportsType = require('./directives/reports-type');
 
-var reportsModule = angular.module('cam.cockpit.reports', []);
+var reportsModule = angular.module('fxn.cockpit.reports', []);
 
 reportsModule.config(reportsView);
 
 /* directives */
-reportsModule.directive('fwReportsPlugin', reportsPlugin);
-reportsModule.directive('fwReportsType', reportsType);
+reportsModule.directive('fxnReportsPlugin', reportsPlugin);
+reportsModule.directive('fxnReportsType', reportsType);
 
 module.exports = reportsModule;

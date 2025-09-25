@@ -20,14 +20,14 @@
 var chai = require('chai');
 var expect = chai.expect;
 var sinon = require('sinon');
-var angular = require('../../../../../flowave-commons-ui/vendor/angular');
-var fwCommon = require('../index');
+var angular = require('../../../../../fluxnova-commons-ui/vendor/angular');
+var fxnCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common getDeploymentUrl', function() {
+describe('fxn-common getDeploymentUrl', function() {
   var searchParams;
   var $location;
   var url;
@@ -36,7 +36,7 @@ describe('fw-common getDeploymentUrl', function() {
   var deployment;
   var resource;
 
-  beforeEach(module(fwCommon.name));
+  beforeEach(module(fxnCommon.name));
 
   beforeEach(
     module(function($provide) {

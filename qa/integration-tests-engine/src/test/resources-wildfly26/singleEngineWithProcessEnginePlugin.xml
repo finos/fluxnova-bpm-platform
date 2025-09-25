@@ -14,7 +14,7 @@
 
     <plugins>
       <plugin>
-        <class>org.finos.flowave.bpm.integrationtest.deployment.war.beans.GroovyProcessEnginePlugin</class>
+        <class>org.finos.fluxnova.bpm.integrationtest.deployment.war.beans.GroovyProcessEnginePlugin</class>
       </plugin>
     </plugins>
   </process-engine>

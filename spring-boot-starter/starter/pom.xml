@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
-    <artifactId>flowave-bpm-spring-boot-starter-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
+    <artifactId>fluxnova-bpm-spring-boot-starter-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.bpm.springboot</groupId>
-  <artifactId>flowave-bpm-spring-boot-starter</artifactId>
-  <name>Flowave Platform - Spring Boot Starter</name>
+  <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+  <artifactId>fluxnova-bpm-spring-boot-starter</artifactId>
+  <name>Fluxnova Platform - Spring Boot Starter</name>
 
   <dependencyManagement>
     <dependencies>
@@ -24,11 +24,11 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-spring-6</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-spring-6</artifactId>
     </dependency>
 
-    <!-- Spring dependencies required by flowave-engine-spring -->
+    <!-- Spring dependencies required by fluxnova-engine-spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -47,20 +47,20 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-plugin-spin</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-plugin-spin</artifactId>
       <optional>true</optional>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
       <optional>true</optional>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-plugin-connect</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-plugin-connect</artifactId>
       <optional>true</optional>
     </dependency>
 
@@ -112,14 +112,14 @@
     </dependency>
 
     <dependency>
-      <artifactId>flowave-bpm-spring-boot-starter-test</artifactId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-test</artifactId>
       <groupId>${project.groupId}</groupId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-testing</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-testing</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

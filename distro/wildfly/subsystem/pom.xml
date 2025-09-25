@@ -2,21 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.wildfly</groupId>
-    <artifactId>flowave-wildfly</artifactId>
+    <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
+    <artifactId>fluxnova-wildfly</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-wildfly-subsystem</artifactId>
+  <artifactId>fluxnova-wildfly-subsystem</artifactId>
   <packaging>jar</packaging>
 
-  <name>Flowave Platform - Wildfly Subsystem</name>
+  <name>Fluxnova Platform - Wildfly Subsystem</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.springframework</groupId>

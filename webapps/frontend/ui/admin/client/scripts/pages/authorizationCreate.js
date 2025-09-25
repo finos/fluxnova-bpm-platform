@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -25,10 +25,10 @@ module.exports = [
   '$location',
   'Uri',
   'Notifications',
-  'fwAPI',
+  'fxnAPI',
   '$translate',
-  function($scope, $q, $location, Uri, Notifications, fwAPI, $translate) {
-    var AuthorizationResource = fwAPI.resource('authorization');
+  function($scope, $q, $location, Uri, Notifications, fxnAPI, $translate) {
+    var AuthorizationResource = fxnAPI.resource('authorization');
 
     $scope.addNewAuthorization = function() {
       $scope.authorizations.push({

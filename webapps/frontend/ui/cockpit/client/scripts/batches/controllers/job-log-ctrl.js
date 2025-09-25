@@ -17,12 +17,12 @@
 
 module.exports = [
   '$scope',
-  'fwAPI',
+  'fxnAPI',
   'job',
   '$translate',
   'localConf',
   'Uri',
-  function($scope, fwAPI, job, $translate, localConf, Uri) {
+  function($scope, fxnAPI, job, $translate, localConf, Uri) {
     $scope.loadingState = 'LOADING';
 
     // prettier-ignore
@@ -72,7 +72,7 @@ module.exports = [
     var updateView = ($scope.updateView = function() {
       $scope.loadingState = 'LOADING';
 
-      fwAPI
+      fxnAPI
         .resource('history')
         .jobLogList({
           jobId: job.id,
@@ -89,7 +89,7 @@ module.exports = [
         });
     });
 
-    fwAPI
+    fxnAPI
       .resource('history')
       .jobLogCount({jobId: job.id})
       .then(res => {

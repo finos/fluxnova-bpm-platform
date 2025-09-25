@@ -22,5 +22,5 @@ var Page = require('./system-base');
 var groupsSection = element(by.id('groups'));
 
 module.exports = Page.extend({
-  url: '/flowave/app/admin/default/#/system?section=system-settings-general'
+  url: '/fluxnova/app/admin/default/#/system?section=system-settings-general'
 });

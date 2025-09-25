@@ -17,11 +17,11 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   userProfile = require('./user-profile'),
   customLinks = require('./custom-links');
 
-var directivesModule = angular.module('cam.welcome.directives', []);
+var directivesModule = angular.module('fxn.welcome.directives', []);
 
 directivesModule.directive('userProfile', userProfile);
 directivesModule.directive('customLinks', customLinks);

@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-parent</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-parent</artifactId>
         <relativePath>../parent</relativePath>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.finos.flowave</groupId>
-    <artifactId>flowave-migrator</artifactId>
-    <name>Flowave Platform - Migrator</name>
+    <groupId>org.finos.fluxnova</groupId>
+    <artifactId>fluxnova-migrator</artifactId>
+    <name>Fluxnova Platform - Migrator</name>
 
     <properties>
         <!-- Maven Dependencies -->
@@ -97,7 +97,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.finos.flowave.Migrator</mainClass>
+                                    <mainClass>org.finos.fluxnova.Migrator</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

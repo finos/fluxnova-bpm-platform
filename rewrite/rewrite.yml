@@ -1,39 +1,39 @@
-type: specs.openrewrite.org/v1beta/recipe
-name: ReplaceCamundaInGroupId
-displayName: Replace 'camunda' with 'flowave' in groupId
-description: Updates the camunda word in group ID in all pom.xml file.
-
-recipeList:
-  - org.openrewrite.xml.ChangeTagValue:
-      filePattern: "**/pom.xml"
-      elementName: //groupId
-      oldValue: org\.camunda\.(.*)
-      newValue: org.finos.flowave.$1
-      regex: true
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: ReplaceCamundaInGroupId2
-displayName: Replace org.camunda with org.finos.flowave
-description: Replaces the groupId org.camunda with org.finos.flowave in pom.xml files.
-
-recipeList:
-  - org.openrewrite.xml.ChangeTagValue:
-      filePattern: "**/pom.xml"
-      elementName: //groupId
-      oldValue: org.camunda
-      newValue: org.finos.flowave
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: ReplaceCamundaInArtifactId
-displayName: Replace 'camunda' with 'flowave' in artifactId
-description: Updates the artifact ID in all pom.xml file.
-
-recipeList:
-  - org.openrewrite.xml.ChangeTagValue:
-      filePattern: "**/pom.xml"
-      elementName: //artifactId
-      oldValue: camunda-(.*)
-      newValue: flowave-$1
-      regex: true
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceCamundaInGroupId
+#displayName: Replace 'camunda' with 'flowave' in groupId
+#description: Updates the camunda word in group ID in all pom.xml file.
+#
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //groupId
+#      oldValue: org\.camunda\.(.*)
+#      newValue: org.finos.fluxnova.$1
+#      regex: true
+#
+#---
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceCamundaInGroupId2
+#displayName: Replace org.camunda with org.finos.fluxnova
+#description: Replaces the groupId org.camunda with org.finos.fluxnova in pom.xml files.
+#
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //groupId
+#      oldValue: org.camunda
+#      newValue: org.finos.fluxnova
+#
+#---
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceCamundaInArtifactId
+#displayName: Replace 'camunda' with 'flowave' in artifactId
+#description: Updates the artifact ID in all pom.xml file.
+#
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //artifactId
+#      oldValue: camunda-(.*)
+#      newValue: flowave-$1
+#      regex: true

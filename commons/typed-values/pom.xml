@@ -2,13 +2,13 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.finos.flowave.commons</groupId>
-  <artifactId>flowave-commons-typed-values</artifactId>
-  <name>flowave Commons - Typed Values</name>
+  <groupId>org.finos.fluxnova.commons</groupId>
+  <artifactId>fluxnova-commons-typed-values</artifactId>
+  <name>fluxnova Commons - Typed Values</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -16,8 +16,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -25,7 +25,7 @@
     </dependencies>
   </dependencyManagement>
   <properties>
-    <camunda.artifact>org.finos.flowave.bpm.engine.variable</camunda.artifact>
+    <camunda.artifact>org.finos.fluxnova.bpm.engine.variable</camunda.artifact>
     <camunda.osgi.import.additional>
       !javax.activation
     </camunda.osgi.import.additional>
@@ -33,8 +33,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-utils</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-utils</artifactId>
     </dependency>
 
     <dependency>
@@ -57,8 +57,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bpm-archunit</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-archunit</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -74,7 +74,7 @@
           <comparisonVersion>${camunda.version.old}</comparisonVersion>
           <logResults>true</logResults>
           <excludes>
-            <exclude>org/finos/flowave/bpm/engine/impl/**</exclude>
+            <exclude>org/finos/fluxnova/bpm/engine/impl/**</exclude>
           </excludes>
         </configuration>
         <executions>
@@ -91,11 +91,11 @@
               <ignored>
                 <difference>
                   <differenceType>8001</differenceType>
-                  <className>flowavejar/com/sun/activation/**/*</className>
+                  <className>fluxnovajar/com/sun/activation/**/*</className>
                 </difference>
                 <difference>
                   <differenceType>8001</differenceType>
-                  <className>flowavejar/javax/activation/**/*</className>
+                  <className>fluxnovajar/javax/activation/**/*</className>
                 </difference>
               </ignored>
             </configuration>
@@ -133,11 +133,11 @@
               <relocations>
                 <relocation>
                   <pattern>com.sun.activation</pattern>
-                  <shadedPattern>flowavejar.com.sun.activation</shadedPattern>
+                  <shadedPattern>fluxnovajar.com.sun.activation</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>javax.activation</pattern>
-                  <shadedPattern>flowavejar.javax.activation</shadedPattern>
+                  <shadedPattern>fluxnovajar.javax.activation</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>
@@ -167,7 +167,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <dependenciesToScan>
-            <dependency>org.finos.flowave.bpm:camunda-bpm-archunit</dependency>
+            <dependency>org.finos.fluxnova.bpm:fluxnova-bpm-archunit</dependency>
           </dependenciesToScan>
         </configuration>
       </plugin>

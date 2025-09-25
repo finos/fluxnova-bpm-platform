@@ -36,7 +36,7 @@ Given the following XML document as `String` or `InputStream`:
 It can directly be worked on with Spin:
 
 ```java
-import static org.finos.flowave.spin.Spin.*;
+import static org.finos.fluxnova.spin.Spin.*;
 
 // get id of first customer
 XML( xmlInput ).childElements("customer")

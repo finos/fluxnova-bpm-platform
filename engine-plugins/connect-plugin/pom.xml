@@ -2,31 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
-    <artifactId>flowave-engine-plugins</artifactId>
-    <groupId>org.finos.flowave.bpm</groupId>
+    <artifactId>fluxnova-engine-plugins</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-engine-plugin-connect</artifactId>
-  <name>Flowave Platform - engine plugins - connect</name>
+  <artifactId>fluxnova-engine-plugin-connect</artifactId>
+  <name>Fluxnova Platform - engine plugins - connect</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-core</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-http-client</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-http-client</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-soap-http-client</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-soap-http-client</artifactId>
       <scope>test</scope>
     </dependency>
 

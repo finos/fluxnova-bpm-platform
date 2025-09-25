@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-qa-integration-tests-engine-jakarta</artifactId>
-  <name>Flowave Platform - QA Integration Tests - Engine - Jakarta</name>
+  <artifactId>fluxnova-qa-integration-tests-engine-jakarta</artifactId>
+  <name>Fluxnova Platform - QA Integration Tests - Engine - Jakarta</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
@@ -149,27 +149,27 @@
     <!-- CDI engine & Client -->
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.javaee</groupId>
-      <artifactId>flowave-ejb-client-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.javaee</groupId>
+      <artifactId>fluxnova-ejb-client-jakarta</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-cdi-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>flowave-engine</artifactId>
-          <groupId>org.finos.flowave.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
         </exclusion>
       </exclusions>
     </dependency>
 
-    <!-- flowave -->
+    <!-- fluxnova -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -180,8 +180,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.dmn</groupId>
-      <artifactId>flowave-engine-dmn</artifactId>
+      <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+      <artifactId>fluxnova-engine-dmn</artifactId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -200,26 +200,26 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-spring-6</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-spring-6</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>flowave-engine</artifactId>
-          <groupId>org.finos.flowave.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
         </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-core</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
     </dependency>
 
     <dependency>
@@ -232,28 +232,28 @@
       BOM must be installed before this module is built
     -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bom</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bom</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-core-internal-dependencies</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-core-internal-dependencies</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-core</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-core</artifactId>
     </dependency>
 
     <!-- explicit Spring dependencies for applications
-      that pack flowave-engine-spring -->
+      that pack fluxnova-engine-spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -300,9 +300,9 @@
             <configuration>
               <forceCreation>true</forceCreation>
               <excludes>
-                <exclude>org/finos/flowave/bpm/integrationtest/util/TestConstants*</exclude>
-                <exclude>org/finos/flowave/bpm/integrationtest/util/TestContainer*</exclude>
-                <exclude>org/finos/flowave/bpm/integrationtest/util/TestProcessApplication*</exclude>
+                <exclude>org/finos/fluxnova/bpm/integrationtest/util/TestConstants*</exclude>
+                <exclude>org/finos/fluxnova/bpm/integrationtest/util/TestContainer*</exclude>
+                <exclude>org/finos/fluxnova/bpm/integrationtest/util/TestProcessApplication*</exclude>
               </excludes>
             </configuration>
           </execution>
@@ -579,8 +579,8 @@
       <dependencyManagement>
         <dependencies>
           <dependency>
-            <groupId>org.finos.flowave.bpm</groupId>
-            <artifactId>flowave-core-internal-dependencies</artifactId>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-core-internal-dependencies</artifactId>
             <version>${project.version}</version>
             <scope>import</scope>
             <type>pom</type>
@@ -591,8 +591,8 @@
       <dependencies>
         <dependency>
           <!-- make sure this comes after runtime in the reactor build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-tomcat-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-tomcat-runtime</artifactId>
           <version>${project.version}</version>
           <scope>provided</scope>
           <type>pom</type>
@@ -696,7 +696,7 @@
                 <exclude>**/ManagedJobExecutorTest.java</exclude>
 
                 <!-- TODO Please delete the following exclusions after the Tomcat 10 issue with Arquillian -->
-                <!-- See Relevant issue: https://github.com/camunda/camunda-bpm-platform/issues/4434 -->
+                <!-- See Relevant issue: https://github.com/camunda/fluxnova-bpm-platform/issues/4434 -->
                 <exclude>**/CallActivityContextSwitchTest.java</exclude>
                 <exclude>**/CdiBeanCallActivityResolutionTest.java</exclude>
 
@@ -715,8 +715,8 @@
       <dependencies>
         <dependency>
           <!-- make sure this comes after runtime in the reactor build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-wildfly-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-wildfly-runtime</artifactId>
           <version>${project.version}</version>
           <scope>provided</scope>
           <type>pom</type>
@@ -790,7 +790,7 @@
                 <exclude>**/TestWarDeploymentWithProcessEnginePlugin.exclude</exclude>
 
                 <exclude>**/SpringServletPATimerStartEventExpressionTest.java</exclude>
-                <!-- https://github.com/camunda/camunda-bpm-platform/issues/5037-->
+                <!-- https://github.com/camunda/fluxnova-bpm-platform/issues/5037-->
                 <exclude>**/FeelEngineTest.java</exclude>
               </excludes>
               <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
@@ -805,8 +805,8 @@
       <dependencies>
         <dependency>
           <!-- make sure this comes after runtime in the reactor build -->
-          <groupId>org.finos.flowave.bpm.qa</groupId>
-          <artifactId>flowave-qa-wildfly-runtime</artifactId>
+          <groupId>org.finos.fluxnova.bpm.qa</groupId>
+          <artifactId>fluxnova-qa-wildfly-runtime</artifactId>
           <version>${project.version}</version>
           <scope>provided</scope>
           <type>pom</type>
@@ -913,7 +913,7 @@
                 <!-- CAM-1778 -->
                 <exludes>**/TestWarDeploymentWithProcessEnginePlugin.java</exludes>
 
-                <!-- https://github.com/camunda/camunda-bpm-platform/issues/5037 -->
+                <!-- https://github.com/camunda/fluxnova-bpm-platform/issues/5037 -->
                 <exclude>**/FeelEngineTest.java</exclude>
                 <exclude>**/SpringServletPATimerStartEventExpressionTest.java</exclude>
               </excludes>
@@ -1011,8 +1011,8 @@
       <id>clean-db</id>
       <dependencies>
         <dependency>
-          <groupId>org.finos.flowave.bpm</groupId>
-          <artifactId>flowave-engine</artifactId>
+          <groupId>org.finos.fluxnova.bpm</groupId>
+          <artifactId>fluxnova-engine</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
@@ -1031,8 +1031,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm</groupId>
-                      <artifactId>flowave-engine</artifactId>
+                      <groupId>org.finos.fluxnova.bpm</groupId>
+                      <artifactId>fluxnova-engine</artifactId>
                       <outputDirectory>${project.build.directory}/sql-scripts/engine</outputDirectory>
                       <overWrite>true</overWrite>
                     </artifactItem>
@@ -1054,13 +1054,13 @@
                 <configuration>
                   <srcFiles>
                     <!-- try dropping the DB if it exists. -->
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.decision.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.case.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.engine.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.identity.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.decision.history.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.case.history.sql</srcFile>
-                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/flowave/bpm/engine/db/drop/activiti.${database.type}.drop.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.decision.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.case.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.engine.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.identity.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.decision.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.case.history.sql</srcFile>
+                    <srcFile>${project.build.directory}/sql-scripts/engine/org/finos/fluxnova/bpm/engine/db/drop/activiti.${database.type}.drop.history.sql</srcFile>
                   </srcFiles>
                   <autocommit>true</autocommit>
                   <onError>continue</onError>

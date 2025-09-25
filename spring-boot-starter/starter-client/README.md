@@ -11,7 +11,7 @@ You need this dependency to get started:
 
 ```xml
 <dependency>
-  <groupId>org.finos.flowave.bpm.springboot</groupId>
+  <groupId>org.finos.fluxnova.bpm.springboot</groupId>
   <artifactId>flowave-bpm-spring-boot-starter-external-task-client</artifactId>
   <version>...</version>
 </dependency>
@@ -53,7 +53,7 @@ You can also use the basic Spring integration without the Spring Boot Starter:
 
 ```xml
 <dependency>
-  <groupId>org.finos.flowave.bpm</groupId>
+  <groupId>org.finos.fluxnova.bpm</groupId>
   <artifactId>flowave-external-task-client-spring</artifactId>
   <version>...</version>
 </dependency>

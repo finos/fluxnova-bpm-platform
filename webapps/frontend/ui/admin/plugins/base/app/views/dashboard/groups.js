@@ -29,9 +29,9 @@ module.exports = [
       pagePath: '#/groups',
       controller: [
         '$scope',
-        'fwAPI',
-        function($scope, fwAPI) {
-          var service = fwAPI.resource('group');
+        'fxnAPI',
+        function($scope, fxnAPI) {
+          var service = fxnAPI.resource('group');
 
           $scope.access = {};
 

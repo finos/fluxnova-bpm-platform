@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.finos.flowave.bpm.quarkus</groupId>
-    <artifactId>flowave-bpm-quarkus-engine-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
+    <artifactId>fluxnova-bpm-quarkus-engine-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-bpm-quarkus-engine-qa</artifactId>
-  <name>Flowave Platform - Quarkus Extension - Engine - CDI QA</name>
+  <artifactId>fluxnova-bpm-quarkus-engine-qa</artifactId>
+  <name>Fluxnova Platform - Quarkus Extension - Engine - CDI QA</name>
 
   <properties>
     <arquillian.version>1.7.0.Final</arquillian.version>
@@ -25,8 +25,8 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -52,7 +52,7 @@
           </systemPropertyVariables>
 
           <dependenciesToScan>
-            <dependency>org.finos.flowave.bpm:flowave-engine-cdi-jakarta</dependency>
+            <dependency>org.finos.fluxnova.bpm:fluxnova-engine-cdi-jakarta</dependency>
           </dependenciesToScan>
 
           <excludes>
@@ -61,7 +61,7 @@
 
             <!-- See ProgrammaticBeanLookupTest in quarkus-extension/engine/deployment module -->
             <exclude>**/ProgrammaticBeanLookupTest.java</exclude>
-            <!-- See https://github.com/camunda/camunda-bpm-platform/issues/3419 -->
+            <!-- See https://github.com/camunda/fluxnova-bpm-platform/issues/3419 -->
             <exclude>**/TaskFormTest.java</exclude>
           </excludes>
         </configuration>
@@ -70,17 +70,17 @@
   </build>
 
   <dependencies>
-    <!-- Flowave dependencies -->
+    <!-- Fluxnova dependencies -->
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.quarkus</groupId>
-      <artifactId>flowave-bpm-quarkus-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
+      <artifactId>fluxnova-bpm-quarkus-engine</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-cdi-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <classifier>tests-quarkus</classifier>

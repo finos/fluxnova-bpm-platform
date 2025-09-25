@@ -2,16 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-spring-compatibility-root</artifactId>
+  <artifactId>fluxnova-spring-compatibility-root</artifactId>
 
   <packaging>pom</packaging>
-  <name>Flowave Platform - engine - Spring - Root</name>
+  <name>Fluxnova Platform - engine - Spring - Root</name>
 
   <modules>
     <module>core</module>

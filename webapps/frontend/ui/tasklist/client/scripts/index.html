@@ -1,9 +1,9 @@
 <div class="three-cols-layout-columns"
-     ng-controller="fwLayoutCtrl">
+     ng-controller="fxnLayoutCtrl">
 
   <!-- # filters column -->
   <section class="column column-left task-filters"
-           ng-controller="fwFiltersCtrl">
+           ng-controller="fxnFiltersCtrl">
     <header class="three-cols-layout-cell top">
       <button class="btn btn-link"
               ng-show="userCanCreateFilter"
@@ -20,7 +20,7 @@
     </header>
 
     <div class="three-cols-layout-cell content">
-      <div fw-tasklist-filters
+      <div fxn-tasklist-filters
            filters-data="filtersData"
            open-modal="openModal"
            user-can-create-filter="userCanCreateFilter"></div>
@@ -34,7 +34,7 @@
 
   <!-- # list column -->
   <section class="column column-center tasks-list"
-           ng-controller="fwListCtrl">
+           ng-controller="fxnListCtrl">
     <header class="three-cols-layout-cell top">
       <view ng-repeat="tasklistHeaderPlugin in tasklistHeaderPlugins"
             provider="tasklistHeaderPlugin"
@@ -52,7 +52,7 @@
             provider="tasklistPlugin"
             vars="tasklistVars"></view>
 
-      <div fw-tasks
+      <div fxn-tasks
            tasklist-data="tasklistData"></div>
     </div>
   </section>
@@ -64,7 +64,7 @@
 
   <!-- # task column -->
   <section class="column column-right task-details"
-           ng-controller="fwTaskActionCtrl">
+           ng-controller="fxnTaskActionCtrl">
     <header class="three-cols-layout-cell top">
       <button ng-click="toggleRegion($event)"
               data-region="task"
@@ -91,7 +91,7 @@
     </header>
 
     <div class="three-cols-layout-cell content">
-      <div fw-tasklist-task
+      <div fxn-tasklist-task
            tasklist-data="tasklistData"></div>
     </div>
   </section>

@@ -19,7 +19,7 @@
 
 var Page = require('../../../common/tests/pages/page');
 
-var navigationSection = element(by.css('[fw-widget-header]'));
+var navigationSection = element(by.css('[fxn-widget-header]'));
 
 module.exports = Page.extend({
   selectNavbarItem: function(navbarItem) {

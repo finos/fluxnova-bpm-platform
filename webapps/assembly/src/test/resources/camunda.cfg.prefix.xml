@@ -4,11 +4,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="dbSchemaPrefixTestHelper" class="org.finos.flowave.bpm.engine.test.util.DbSchemaPrefixTestHelper" />
+  <bean id="dbSchemaPrefixTestHelper" class="org.finos.fluxnova.bpm.engine.test.util.DbSchemaPrefixTestHelper" />
 
-  <bean id="idGenerator" class="org.finos.flowave.bpm.engine.impl.persistence.StrongUuidGenerator" />
+  <bean id="idGenerator" class="org.finos.fluxnova.bpm.engine.impl.persistence.StrongUuidGenerator" />
 
-  <bean id="processEngineConfiguration" class="org.finos.flowave.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration" depends-on="dbSchemaPrefixTestHelper">
+  <bean id="processEngineConfiguration" class="org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration" depends-on="dbSchemaPrefixTestHelper">
 
     <property name="jdbcUrl" value="jdbc:h2:mem:DatabaseTablePrefixTest;DB_CLOSE_DELAY=1000;" />
     <property name="jdbcDriver" value="org.h2.Driver" />

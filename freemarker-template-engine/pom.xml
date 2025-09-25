@@ -2,17 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-parent</artifactId>
     <relativePath>../parent</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.template-engines</groupId>
-  <artifactId>flowave-template-engines-freemarker</artifactId>
+  <groupId>org.finos.fluxnova.template-engines</groupId>
+  <artifactId>fluxnova-template-engines-freemarker</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <name>flowave template engine jsr223 freemarker</name>
+  <name>fluxnova template engine jsr223 freemarker</name>
 
   <inceptionYear>2014</inceptionYear>
 
@@ -59,7 +59,7 @@
         <version>${maven-bundle-plugin.version}</version>
         <configuration>
           <instructions>
-            <Export-Package>org.finos.flowave.templateengines*</Export-Package>
+            <Export-Package>org.finos.fluxnova.templateengines*</Export-Package>
           </instructions>
         </configuration>
         <executions>

@@ -17,9 +17,9 @@
   <!-- wiremock logger -->
   <logger name="org.mortbay.log" level="info" />
 
-  <logger name="org.finos.flowave" level="info" />
+  <logger name="org.finos.fluxnova" level="info" />
 
-  <logger name="org.finos.flowave.bpm.engine.test." level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.test." level="debug" />
 
   <!-- Ignore Testcontainers debug logs -->
   <logger name="org.testcontainers" level="info" />

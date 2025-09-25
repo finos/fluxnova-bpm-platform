@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   transform = require('./transform'),
   variables = require('./variables'),
   breadcrumbTrails = require('./breadcrumbTrails'),
@@ -25,13 +25,13 @@ var angular = require('flowave-commons-ui/vendor/angular'),
   variableUtils = require('./variable-utils'),
   routeUtil = require('./../../../../common/scripts/services/routeUtil'),
   page = require('./../../../../common/scripts/services/page'),
-  fwAPI = require('./../../../../common/scripts/services/fw-api'),
+  fxnAPI = require('./../../../../common/scripts/services/fxn-api'),
   hasPlugin = require('./../../../../common/scripts/services/has-plugin'),
-  localConf = require('flowave-commons-ui/lib/services/fw-local-configuration'),
+  localConf = require('fluxnova-commons-ui/lib/services/fxn-local-configuration'),
   typeUtils = require('./../../../../common/scripts/services/typeUtils'),
   escapeHtml = require('./escapeHtml');
 
-var servicesModule = angular.module('cam.cockpit.services', []);
+var servicesModule = angular.module('fxn.cockpit.services', []);
 
 servicesModule.factory('Transform', transform);
 servicesModule.factory('Variables', variables);
@@ -40,7 +40,7 @@ servicesModule.factory('breadcrumbTrails', breadcrumbTrails);
 servicesModule.factory('queryMaxResults', queryMaxResults);
 servicesModule.factory('varUtils', variableUtils);
 servicesModule.factory('routeUtil', routeUtil);
-servicesModule.factory('fwAPI', fwAPI);
+servicesModule.factory('fxnAPI', fxnAPI);
 servicesModule.factory('hasPlugin', hasPlugin);
 servicesModule.factory('localConf', localConf);
 servicesModule.factory('typeUtils', typeUtils);

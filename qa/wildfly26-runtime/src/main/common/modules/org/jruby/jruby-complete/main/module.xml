@@ -6,6 +6,6 @@
   <dependencies>
     <module name="javax.api" />
     <module name="sun.jdk" />
-    <module name="org.finos.flowave.spin.camunda-spin-core" />
+    <module name="org.finos.fluxnova.spin.fluxnova-spin-core" />
   </dependencies>
 </module>

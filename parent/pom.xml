@@ -2,19 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
-  <artifactId>flowave-parent</artifactId>
-  <name>Flowave Platform - Parent Pom</name>
+  <artifactId>fluxnova-parent</artifactId>
+  <name>Fluxnova Platform - Parent Pom</name>
   <inceptionYear>2013</inceptionYear>
   <packaging>pom</packaging>
 
   <description>
-    This pom is the parent of all Flowave Platform projects
+    This pom is the parent of all Fluxnova Platform projects
   </description>
 
   <properties>
@@ -121,8 +121,8 @@
     <dependencies>
 
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>
@@ -295,8 +295,8 @@
             <rules>
               <jakartaDefaults>true</jakartaDefaults>
               <renames>
-                <rename>jar:file:${org.finos.flowave.bpm:flowave-engine:jar}!/META-INF/jakarta-renames.properties</rename>
-                <rename>jar:file:${org.finos.flowave.bpm:flowave-engine:jar}!/META-INF/camunda-renames.properties</rename>
+                <rename>jar:file:${org.finos.fluxnova.bpm:fluxnova-engine:jar}!/META-INF/jakarta-renames.properties</rename>
+                <rename>jar:file:${org.finos.fluxnova.bpm:fluxnova-engine:jar}!/META-INF/fluxnova-renames.properties</rename>
               </renames>
             </rules>
             <classifier>jakarta</classifier>
@@ -317,7 +317,7 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
           <configuration>
-            <!-- https://github.com/camunda/camunda-bpm-platform/issues/3996 -->
+            <!-- https://github.com/camunda/fluxnova-bpm-platform/issues/3996 -->
             <wait>750</wait>
           </configuration>
         </plugin>

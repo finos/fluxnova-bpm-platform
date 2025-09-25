@@ -17,27 +17,27 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  fwTasklistForm = require('./directives/fw-tasklist-form'),
-  fwTasklistFormGeneric = require('./directives/fw-tasklist-form-generic'),
-  fwTasklistFormGenericVariables = require('./directives/fw-tasklist-form-generic-variables'),
-  fwTasklistFormEmbedded = require('./directives/fw-tasklist-form-embedded'),
-  fwTasklistFormExternal = require('./directives/fw-tasklist-form-external'),
-  fwTasklistFormCamunda = require('./directives/fw-tasklist-form-flowave'),
-  fwTasklistUniqueValue = require('./directives/fw-tasklist-unique-value');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  fxnTasklistForm = require('./directives/fxn-tasklist-form'),
+  fxnTasklistFormGeneric = require('./directives/fxn-tasklist-form-generic'),
+  fxnTasklistFormGenericVariables = require('./directives/fxn-tasklist-form-generic-variables'),
+  fxnTasklistFormEmbedded = require('./directives/fxn-tasklist-form-embedded'),
+  fxnTasklistFormExternal = require('./directives/fxn-tasklist-form-external'),
+  fxnTasklistFormFluxnova = require('./directives/fxn-tasklist-form-fluxnova'),
+  fxnTasklistUniqueValue = require('./directives/fxn-tasklist-unique-value');
 
-var formModule = angular.module('cam.tasklist.form', ['ui.bootstrap']);
+var formModule = angular.module('fxn.tasklist.form', ['ui.bootstrap']);
 
-formModule.directive('fwTasklistForm', fwTasklistForm);
-formModule.directive('fwTasklistFormGeneric', fwTasklistFormGeneric);
+formModule.directive('fxnTasklistForm', fxnTasklistForm);
+formModule.directive('fxnTasklistFormGeneric', fxnTasklistFormGeneric);
 formModule.directive(
-  'fwTasklistFormGenericVariables',
-  fwTasklistFormGenericVariables
+  'fxnTasklistFormGenericVariables',
+  fxnTasklistFormGenericVariables
 );
-formModule.directive('fwTasklistFormEmbedded', fwTasklistFormEmbedded);
-formModule.directive('fwTasklistFormExternal', fwTasklistFormExternal);
-formModule.directive('fwTasklistFormCamunda', fwTasklistFormCamunda);
+formModule.directive('fxnTasklistFormEmbedded', fxnTasklistFormEmbedded);
+formModule.directive('fxnTasklistFormExternal', fxnTasklistFormExternal);
+formModule.directive('fxnTasklistFormFluxnova', fxnTasklistFormFluxnova);
 
-formModule.directive('fwUniqueValue', fwTasklistUniqueValue);
+formModule.directive('fxnUniqueValue', fxnTasklistUniqueValue);
 
 module.exports = formModule;

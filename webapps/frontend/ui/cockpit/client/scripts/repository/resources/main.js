@@ -17,12 +17,12 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  fwCockpitResources = require('./directives/fw-cockpit-resources');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  fxnCockpitResources = require('./directives/fxn-cockpit-resources');
 
-var resourcesModule = angular.module('cam.cockpit.repository.resources', []);
+var resourcesModule = angular.module('fxn.cockpit.repository.resources', []);
 
 /* directives */
-resourcesModule.directive('fwResources', fwCockpitResources);
+resourcesModule.directive('fxnResources', fxnCockpitResources);
 
 module.exports = resourcesModule;

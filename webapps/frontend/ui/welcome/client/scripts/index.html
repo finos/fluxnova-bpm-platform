@@ -4,14 +4,14 @@
     <meta http-equiv="X-UA-Compatible"
           content="IE=edge" />
 
-    <title>Flowave Welcome</title>
+    <title>Fluxnova Welcome</title>
 
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
 
     <meta name="description"
-          content="Flowave Welcome" />
+          content="Fluxnova Welcome" />
     <meta name="author"
           content="FINOS" />
 
@@ -34,7 +34,7 @@
           welcome-api="$APP_ROOT/api/welcome/"
           engine-api="$APP_ROOT/api/engine/"
           app-root="$APP_ROOT"
-          fw-exclude-plugins="welcome.dashboard:process-definition-tiles" />
+          fxn-exclude-plugins="welcome.dashboard:process-definition-tiles" />
     -->
     <%= htmlWebpackPlugin.tags.headTags %>
 
@@ -44,7 +44,7 @@
   </head>
   <body ng-controller="WelcomePage as welcomePage">
     <!-- navigation -->
-    <div fw-widget-header
+    <div fxn-widget-header
          authentication="authentication"
          user-name="userFullName"
          current-app="welcome"
@@ -68,7 +68,7 @@
     </div>
 
     <!-- footer -->
-    <footer fw-widget-footer
+    <footer fxn-widget-footer
             version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
     <script type="text/javascript" $CSP_NONCE>

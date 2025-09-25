@@ -152,9 +152,9 @@ describe('Admin Groups Spec', function() {
       // then
       testHelper.expectStringEqual(
         groupsPage.editGroup.pageHeader(),
-        'Flowave BPM Administrators'
+        'Fluxnova BPM Administrators'
       );
-      groupsPage.editGroup.isActive({group: 'flowave-admin'});
+      groupsPage.editGroup.isActive({group: 'fluxnova-admin'});
       expect(
         groupsPage.editGroup.updateGroupButton().isEnabled()
       ).to.eventually.eql(false);
@@ -168,7 +168,7 @@ describe('Admin Groups Spec', function() {
       // then
       testHelper.expectStringEqual(
         groupsPage.editGroup.pageHeader(),
-        'Flowave BPM Administrators'
+        'Fluxnova BPM Administrators'
       );
     });
 
@@ -198,9 +198,9 @@ describe('Admin Groups Spec', function() {
       groupsPage.editGroup.selectUserNavbarItem('Tenants');
 
       // then
-      groupsPage.editGroupTenants.isActive({group: 'flowave-admin'});
+      groupsPage.editGroupTenants.isActive({group: 'fluxnova-admin'});
       expect(groupsPage.editGroupTenants.subHeader()).to.eventually.eql(
-        "Flowave BPM Administrators's" + ' ' + 'Tenants'
+        "Fluxnova BPM Administrators's" + ' ' + 'Tenants'
       );
       expect(
         groupsPage.editGroupTenants.tenantList().count()
@@ -242,7 +242,7 @@ describe('Admin Groups Spec', function() {
       groupsPage.editGroup.selectUserNavbarItem('Tenants');
 
       // then
-      groupsPage.editGroupTenants.isActive({group: 'flowave-admin'});
+      groupsPage.editGroupTenants.isActive({group: 'fluxnova-admin'});
       expect(
         groupsPage.editGroupTenants.tenantList().count()
       ).to.eventually.eql(1);

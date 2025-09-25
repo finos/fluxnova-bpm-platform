@@ -2,59 +2,59 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.wildfly</groupId>
-    <artifactId>flowave-wildfly</artifactId>
+    <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
+    <artifactId>fluxnova-wildfly</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-bpm-wildfly</artifactId>
+  <artifactId>fluxnova-bpm-wildfly</artifactId>
   <packaging>pom</packaging>
 
-  <name>Flowave Platform - Wildfly Distro</name>
+  <name>Fluxnova Platform - Wildfly Distro</name>
 
   <dependencies>
     <dependency>
       <!-- this dependency is to make sure that we are executed after the
         integration tests have passed in the reactor -->
-      <groupId>org.finos.flowave.bpm.qa</groupId>
-      <artifactId>flowave-qa</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa</groupId>
+      <artifactId>fluxnova-qa</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.wildfly</groupId>
-      <artifactId>flowave-wildfly-assembly</artifactId>
+      <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
+      <artifactId>fluxnova-wildfly-assembly</artifactId>
       <version>${project.version}</version>
       <type>tar.gz</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.distro</groupId>
-      <artifactId>flowave-sql-scripts</artifactId>
+      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+      <artifactId>fluxnova-sql-scripts</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-jakarta</artifactId>
       <version>${project.version}</version>
       <classifier>wildfly</classifier>
       <type>war</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.webapp</groupId>
-      <artifactId>flowave-webapp-wildfly</artifactId>
+      <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+      <artifactId>fluxnova-webapp-wildfly</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.example</groupId>
-      <artifactId>flowave-example-invoice-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.example</groupId>
+      <artifactId>fluxnova-example-invoice-jakarta</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
@@ -78,7 +78,7 @@
               <descriptors>
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
-              <finalName>camunda-bpm-wildfly-${project.version}</finalName>
+              <finalName>fluxnova-bpm-wildfly-${project.version}</finalName>
               <attach>true</attach>
               <appendAssemblyId>false</appendAssemblyId>
               <outputDirectory>target/</outputDirectory>

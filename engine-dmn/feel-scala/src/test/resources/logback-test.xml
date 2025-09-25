@@ -8,7 +8,7 @@
     </encoder>
   </appender>
 
-  <logger name="org.finos.flowave.feel.FeelEngine" level="debug" />
+  <logger name="org.finos.fluxnova.feel.FeelEngine" level="debug" />
 
   <root level="debug">
     <appender-ref ref="STDOUT" />

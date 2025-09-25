@@ -19,16 +19,16 @@
 
 var template = require('./decision-instance.html?raw');
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   routeUtil = require('../../../../common/scripts/util/routeUtil');
 
 require('angular-data-depend');
 
-var fwCommons = require('flowave-commons-ui/lib');
+var fxnCommons = require('fluxnova-commons-ui/lib');
 
-var ngModule = angular.module('cam.cockpit.pages.decisionInstance', [
+var ngModule = angular.module('fxn.cockpit.pages.decisionInstance', [
   'dataDepend',
-  fwCommons.name
+  fxnCommons.name
 ]);
 
 var Controller = [
@@ -37,7 +37,7 @@ var Controller = [
   '$q',
   'dataDepend',
   'page',
-  'fwAPI',
+  'fxnAPI',
   'decisionInstance',
   'Views',
   'search',
@@ -48,7 +48,7 @@ var Controller = [
     $q,
     dataDepend,
     page,
-    fwAPI,
+    fxnAPI,
     decisionInstance,
     Views,
     search,
@@ -62,7 +62,7 @@ var Controller = [
 
     // utilities ///////////////////////
 
-    var decisionDefinitionService = fwAPI.resource('decision-definition');
+    var decisionDefinitionService = fxnAPI.resource('decision-definition');
 
     $scope.hasCasePlugin = false;
     try {
@@ -310,15 +310,15 @@ var RouteConfig = [
       resolve: {
         decisionInstance: [
           'ResourceResolver',
-          'fwAPI',
+          'fxnAPI',
           '$q',
-          function(ResourceResolver, fwAPI, $q) {
+          function(ResourceResolver, fxnAPI, $q) {
             return ResourceResolver.getByRouteParam('id', {
               name: 'decision instance',
               resolve: function(id) {
                 var deferred = $q.defer();
 
-                var historyService = fwAPI.resource('history');
+                var historyService = fxnAPI.resource('history');
 
                 historyService.decisionInstance(
                   {

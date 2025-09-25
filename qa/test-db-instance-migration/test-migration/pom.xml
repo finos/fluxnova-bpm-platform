@@ -2,34 +2,34 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-instance-migration</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-instance-migration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-upgrade-test-migration</artifactId>
+  <artifactId>fluxnova-qa-upgrade-test-migration</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - instance migration - test</name>
+  <name>Fluxnova Platform - QA - upgrade - instance migration - test</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-plugin-spin</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-plugin-spin</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-upgrade-scenario-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-upgrade-scenario-util</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -118,8 +118,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>${project.version}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
@@ -142,7 +142,7 @@
                   <goal>dropAll</goal>
                 </goals>
                 <configuration>
-                  <changeLogFile>camunda-changelog.xml</changeLogFile>
+                  <changeLogFile>fluxnova-changelog.xml</changeLogFile>
                   <changeLogDirectory>${project.build.directory}/scripts-current/sql/liquibase/</changeLogDirectory>
                 </configuration>
               </execution>
@@ -181,8 +181,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>${project.version}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
@@ -205,7 +205,7 @@
                   <goal>dropAll</goal>
                 </goals>
                 <configuration>
-                  <changeLogFile>camunda-changelog.xml</changeLogFile>
+                  <changeLogFile>fluxnova-changelog.xml</changeLogFile>
                   <changeLogDirectory>${project.build.directory}/scripts-current/sql/liquibase/</changeLogDirectory>
                 </configuration>
               </execution>

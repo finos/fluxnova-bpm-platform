@@ -1,5 +1,5 @@
-<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
-<div fw-searchable-area
+<!-- # CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
+<div fxn-searchable-area
      config="searchConfig"
      array-types="['activityIdIn']"
      variable-types="['variables']"
@@ -8,7 +8,7 @@
      text-empty="{{'PLUGIN_PROCESS_INSTANCE_NO_PROCESS' | translate}}"
      storage-group="'PDI'">
 
-  <table class="process-instances fw-table">
+  <table class="process-instances fxn-table">
 
     <thead sortable-table-head
            head-columns="headColumns"
@@ -31,7 +31,7 @@
         </td>
 
         <td class="instance-id"
-            fw-widget-clipboard="processInstance.id">
+            fxn-widget-clipboard="processInstance.id">
           <a ng-href="{{ getProcessInstanceUrl(processInstance) }}"
              title="{{ processInstance.id }}">
             {{ processInstance.id }}
@@ -39,13 +39,13 @@
         </td>
 
         <td class="start-time"
-            fw-widget-clipboard="processInstance.startTime | fwDate">
-          {{ processInstance.startTime | fwDate }}
+            fxn-widget-clipboard="processInstance.startTime | fxnDate">
+          {{ processInstance.startTime | fxnDate }}
         </td>
 
         <td class="business-key"
             ng-if="processInstance.businessKey"
-            fw-widget-clipboard="processInstance.businessKey">
+            fxn-widget-clipboard="processInstance.businessKey">
           {{ processInstance.businessKey }}
         </td>
         <td class="business-key"
@@ -55,4 +55,4 @@
   </table>
 </div>
 
-<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->
+<!-- / CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processDefinition/process-instance-table.html -->

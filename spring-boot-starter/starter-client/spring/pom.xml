@@ -2,15 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
-    <artifactId>flowave-bpm-spring-boot-starter-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
+    <artifactId>fluxnova-bpm-spring-boot-starter-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.finos.flowave.bpm</groupId>
-  <artifactId>flowave-external-task-client-spring</artifactId>
-  <name>Flowave Platform - Spring Boot Starter - Client - Spring</name>
+  <groupId>org.finos.fluxnova.bpm</groupId>
+  <artifactId>fluxnova-external-task-client-spring</artifactId>
+  <name>Fluxnova Platform - Spring Boot Starter - Client - Spring</name>
 
   <dependencies>
     <dependency>
@@ -20,8 +20,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-external-task-client</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-external-task-client</artifactId>
       <version>${project.version}</version>
     </dependency>
 

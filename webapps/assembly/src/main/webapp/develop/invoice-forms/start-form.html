@@ -10,15 +10,15 @@
     <div class="col-md-8">
       <input type="file"
              id="invoiceDocumentUpload"
-             fw-variable-name="invoiceDocument"
-             fw-variable-type="File"
-             fw-max-filesize="10000000"
+             fxn-variable-name="invoiceDocument"
+             fxn-variable-type="File"
+             fxn-max-filesize="10000000"
              class="form-control"/>
       <div class="help-block">This field is required</div>
     </div>
   </div>
 
-  <script fw-script type="text/form-script">
+  <script fxn-script type="text/form-script">
     var fileUpload = $('#invoiceDocumentUpload');
     var fileUploadHelpBlock = $('.help-block', fileUpload.parent());
 
@@ -33,7 +33,7 @@
       flagFileUpload();
     });
 
-    camForm.on('submit', function(evt) {
+    fxnForm.on('submit', function(evt) {
       var hasFile = flagFileUpload();
 
       // prevent submit if user has not provided a file
@@ -46,8 +46,8 @@
     <label class="control-label col-md-4"
            for="creditor">Creditor</label>
     <div class="col-md-8">
-      <input fw-variable-name="creditor"
-             fw-variable-type="String"
+      <input fxn-variable-name="creditor"
+             fxn-variable-type="String"
              id="creditor"
              class="form-control"
              type="text"
@@ -63,8 +63,8 @@
     <label class="control-label col-md-4"
            for="amount">Amount</label>
     <div class="col-md-8">
-      <input fw-variable-name="amount"
-             fw-variable-type="Double"
+      <input fxn-variable-name="amount"
+             fxn-variable-type="Double"
              id="amount"
              name="amount"
              class="form-control"
@@ -74,7 +74,7 @@
         (e.g. &quot;30.00&quot;)
       </div>
 
-      <p ng-show="invoiceForm.amount.$error.camVariableType">
+      <p ng-show="invoiceForm.amount.$error.fxnVariableType">
         Note: Input must be a 'Double'.
       </p>
 
@@ -86,8 +86,8 @@
     <label class="control-label col-md-4"
            for="amount">Invoice Category</label>
     <div class="col-md-8">
-      <select fw-variable-name="invoiceCategory"
-              fw-variable-type="String"
+      <select fxn-variable-name="invoiceCategory"
+              fxn-variable-type="String"
               class="form-control">
         <option>Travel Expenses</option>
         <option>Misc</option>
@@ -101,8 +101,8 @@
     <label class="control-label col-md-4"
            for="invoiceNumber">Invoice Number</label>
     <div class="col-md-8">
-      <input fw-variable-name="invoiceNumber"
-             fw-variable-type="String"
+      <input fxn-variable-name="invoiceNumber"
+             fxn-variable-type="String"
              id="invoiceNumber"
              class="form-control"
              type="text"

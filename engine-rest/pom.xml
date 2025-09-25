@@ -2,16 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-engine-rest-root</artifactId>
+  <artifactId>fluxnova-engine-rest-root</artifactId>
 
   <packaging>pom</packaging>
-  <name>Flowave Platform - engine - REST - Root</name>
+  <name>Fluxnova Platform - engine - REST - Root</name>
 
   <properties>
     <version.rest-assured>4.5.0</version.rest-assured>
@@ -33,8 +33,8 @@
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>

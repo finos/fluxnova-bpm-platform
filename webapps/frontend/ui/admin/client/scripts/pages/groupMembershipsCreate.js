@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -25,7 +25,7 @@ module.exports = [
   '$location',
   'Uri',
   'Notifications',
-  'fwAPI',
+  'fxnAPI',
   '$uibModalInstance',
   'member',
   'memberId',
@@ -37,14 +37,14 @@ module.exports = [
     $location,
     Uri,
     Notifications,
-    fwAPI,
+    fxnAPI,
     $modalInstance,
     member,
     memberId,
     idList,
     $translate
   ) {
-    var GroupResource = fwAPI.resource('group');
+    var GroupResource = fxnAPI.resource('group');
 
     var BEFORE_CREATE = 'beforeCreate',
       PERFORM_CREATE = 'performCancel',

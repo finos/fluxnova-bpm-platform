@@ -17,40 +17,40 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   /* controller */
-  fwCockpitDeploymentsCtrl = require('./controllers/fw-cockpit-deployments-ctrl'),
+  fxnCockpitDeploymentsCtrl = require('./controllers/fxn-cockpit-deployments-ctrl'),
   /* directives */
-  fwCockpitDeployments = require('./directives/fw-cockpit-deployments'),
-  fwCockpitDeployment = require('./directives/fw-cockpit-deployment'),
-  fwCockpitDeploymentsSortingChoices = require('./directives/fw-cockpit-deployments-sorting-choices'),
+  fxnCockpitDeployments = require('./directives/fxn-cockpit-deployments'),
+  fxnCockpitDeployment = require('./directives/fxn-cockpit-deployment'),
+  fxnCockpitDeploymentsSortingChoices = require('./directives/fxn-cockpit-deployments-sorting-choices'),
   /* plugins */
-  fwCockpitDeleteDeploymentPlugin = require('./plugins/actions/delete/fw-cockpit-delete-deployment-plugin'),
+  fxnCockpitDeleteDeploymentPlugin = require('./plugins/actions/delete/fxn-cockpit-delete-deployment-plugin'),
   /* modals */
-  fwCockpitDeleteDeploymentModalCtrl = require('./plugins/actions/delete/modals/fw-cockpit-delete-deployment-modal-ctrl');
+  fxnCockpitDeleteDeploymentModalCtrl = require('./plugins/actions/delete/modals/fxn-cockpit-delete-deployment-modal-ctrl');
 
-var deploymentsModule = angular.module('cam.cockpit.repository.deployments', [
+var deploymentsModule = angular.module('fxn.cockpit.repository.deployments', [
   'ui.bootstrap'
 ]);
 
 /* controllers */
-deploymentsModule.controller('fwDeploymentsCtrl', fwCockpitDeploymentsCtrl);
+deploymentsModule.controller('fxnDeploymentsCtrl', fxnCockpitDeploymentsCtrl);
 
 /* directives */
-deploymentsModule.directive('fwDeployments', fwCockpitDeployments);
-deploymentsModule.directive('fwDeployment', fwCockpitDeployment);
+deploymentsModule.directive('fxnDeployments', fxnCockpitDeployments);
+deploymentsModule.directive('fxnDeployment', fxnCockpitDeployment);
 deploymentsModule.directive(
-  'fwDeploymentsSortingChoices',
-  fwCockpitDeploymentsSortingChoices
+  'fxnDeploymentsSortingChoices',
+  fxnCockpitDeploymentsSortingChoices
 );
 
 /* plugins */
-deploymentsModule.config(fwCockpitDeleteDeploymentPlugin);
+deploymentsModule.config(fxnCockpitDeleteDeploymentPlugin);
 
 /* modals */
 deploymentsModule.controller(
-  'fwDeleteDeploymentModalCtrl',
-  fwCockpitDeleteDeploymentModalCtrl
+  'fxnDeleteDeploymentModalCtrl',
+  fxnCockpitDeleteDeploymentModalCtrl
 );
 
 module.exports = deploymentsModule;

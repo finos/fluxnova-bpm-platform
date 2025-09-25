@@ -17,19 +17,19 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 require('angular-data-depend');
-require('flowave-commons-ui/lib/index');
+require('fluxnova-commons-ui/lib/index');
 
 var routes = require('./config/routes'),
-  fwCockpitRepositoryViewCtrl = require('./controllers/fw-cockpit-repository-view-ctrl'),
+  fxnCockpitRepositoryViewCtrl = require('./controllers/fxn-cockpit-repository-view-ctrl'),
   deploymentsModule = require('./deployments/main'),
   resourcesModule = require('./resources/main'),
   resourceDetailsModule = require('./resource/main');
 
 var ngDeps = [
-  'cam.commons',
+  'fxn.commons',
   'dataDepend',
   'ngRoute',
   deploymentsModule.name,
@@ -37,13 +37,13 @@ var ngDeps = [
   resourceDetailsModule.name
 ];
 
-var deploymentModule = angular.module('cam.cockpit.repository', ngDeps);
+var deploymentModule = angular.module('fxn.cockpit.repository', ngDeps);
 
 deploymentModule.config(routes);
 
 deploymentModule.controller(
-  'fwCockpitRepositoryViewCtrl',
-  fwCockpitRepositoryViewCtrl
+  'fxnCockpitRepositoryViewCtrl',
+  fxnCockpitRepositoryViewCtrl
 );
 
 module.exports = deploymentModule;

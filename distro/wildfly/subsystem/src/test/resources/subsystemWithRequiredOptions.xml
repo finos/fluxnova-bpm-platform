@@ -2,7 +2,7 @@
   <process-engines>
     <process-engine name="default">
       <datasource>java:jboss/datasources/ExampleDS</datasource>
-      <configuration>org.finos.flowave.bpm.container.impl.jboss.config.ManagedJtaProcessEngineConfiguration</configuration>
+      <configuration>org.finos.fluxnova.bpm.container.impl.jboss.config.ManagedJtaProcessEngineConfiguration</configuration>
     </process-engine>
   </process-engines>
   <job-executor>

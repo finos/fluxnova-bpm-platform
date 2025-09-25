@@ -2,15 +2,15 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.finos.flowave.bpm.model</groupId>
-  <artifactId>flowave-model-apis</artifactId>
+  <groupId>org.finos.fluxnova.bpm.model</groupId>
+  <artifactId>fluxnova-model-apis</artifactId>
 
-  <name>flowave Model APIs</name>
+  <name>fluxnova Model APIs</name>
   <packaging>pom</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -18,8 +18,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>

@@ -60,13 +60,13 @@ Page.prototype.isActive = function(params) {
 };
 
 Page.prototype.navigateToWebapp = function(appName) {
-  browser.get('flowave/app/' + appName.toLowerCase() + '/');
+  browser.get('fluxnova/app/' + appName.toLowerCase() + '/');
   browser.driver
     .manage()
     .window()
     .maximize();
 
-  expect(this.navbarBrand().getText()).to.eventually.eql('Flowave ' + appName);
+  expect(this.navbarBrand().getText()).to.eventually.eql('Fluxnova ' + appName);
 };
 
 Page.prototype.navbarBrand = function() {
@@ -111,12 +111,12 @@ Page.prototype.notification = function(item) {
 };
 
 Page.prototype.logout = function() {
-  element(by.css('[fw-widget-header] .account')).click();
-  element(by.css('[fw-widget-header] [ng-click="logout()"]')).click();
+  element(by.css('[fxn-widget-header] .account')).click();
+  element(by.css('[fxn-widget-header] [ng-click="logout()"]')).click();
 };
 
 Page.prototype.loggedInUser = function() {
-  return element(by.css('[fw-widget-header] .account')).getText();
+  return element(by.css('[fxn-widget-header] .account')).getText();
 };
 
 Page.prototype.findElementIndexInRepeater = function(
@@ -155,7 +155,7 @@ Page.prototype.findElementIndexInRepeater = function(
 };
 
 Page.prototype.headerWidget = function() {
-  return element(by.css('[fw-widget-header]'));
+  return element(by.css('[fxn-widget-header]'));
 };
 
 Page.prototype.hamburgerButton = function() {

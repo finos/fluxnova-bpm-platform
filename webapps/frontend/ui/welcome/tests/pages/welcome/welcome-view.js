@@ -20,7 +20,7 @@
 var Base = require('./../base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/welcome/default/#/welcome',
+  url: '/fluxnova/app/welcome/default/#/welcome',
 
   webappLinks: function() {
     return element(by.css('.webapps'));

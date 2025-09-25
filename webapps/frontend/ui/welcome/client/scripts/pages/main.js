@@ -17,10 +17,10 @@
 
 'use strict';
 /* jshint browserify: true */
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   welcome = require('./welcome');
 
-var pagesModule = angular.module('cam.welcome.pages', []);
+var pagesModule = angular.module('fxn.welcome.pages', []);
 
 pagesModule.config(welcome);
 

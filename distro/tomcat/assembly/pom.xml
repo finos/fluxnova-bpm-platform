@@ -2,16 +2,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <description>
-    Assembles the Flowave Platform and makes it ready for qa.
+    Assembles the Fluxnova Platform and makes it ready for qa.
     The assembly is installed to maven later in the reactor, if the integration tests pass sucessfully
   </description>
 
-  <artifactId>flowave-tomcat-assembly</artifactId>
+  <artifactId>fluxnova-tomcat-assembly</artifactId>
   <packaging>pom</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.tomcat</groupId>
-    <artifactId>flowave-tomcat</artifactId>
+    <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+    <artifactId>fluxnova-tomcat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
@@ -19,7 +19,7 @@
     <skip-third-party-bom>true</skip-third-party-bom>
   </properties>
 
-  <name>Flowave Platform - tomcat Assembly</name>
+  <name>Fluxnova Platform - tomcat Assembly</name>
 
   <dependencies>
     <dependency>
@@ -83,8 +83,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -98,67 +98,67 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-cdi-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.identity</groupId>
-      <artifactId>flowave-identity-ldap</artifactId>
+      <groupId>org.finos.fluxnova.bpm.identity</groupId>
+      <artifactId>fluxnova-identity-ldap</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-core</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-plugin-spin</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-plugin-spin</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-all</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-all</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-core</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-plugin-connect</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-plugin-connect</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.connect</groupId>
-      <artifactId>flowave-connect-connectors-all</artifactId>
+      <groupId>org.finos.fluxnova.connect</groupId>
+      <artifactId>fluxnova-connect-connectors-all</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>org.finos.flowave.connect</groupId>
-          <artifactId>flowave-connect-http-client</artifactId>
+          <groupId>org.finos.fluxnova.connect</groupId>
+          <artifactId>fluxnova-connect-http-client</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.finos.flowave.connect</groupId>
-          <artifactId>flowave-connect-soap-http-client</artifactId>
+          <groupId>org.finos.fluxnova.connect</groupId>
+          <artifactId>fluxnova-connect-soap-http-client</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>license-book</artifactId>
       <version>${project.version}</version>
       <type>zip</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.template-engines</groupId>
-      <artifactId>flowave-template-engines-freemarker</artifactId>
+      <groupId>org.finos.fluxnova.template-engines</groupId>
+      <artifactId>fluxnova-template-engines-freemarker</artifactId>
     </dependency>
 
     <dependency>

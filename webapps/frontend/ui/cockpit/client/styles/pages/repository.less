@@ -22,7 +22,7 @@
   .three-cols-layout(250px, 250px * 1.618);
 }
 
-[fw-resource-wrapper] {
+[fxn-resource-wrapper] {
   max-height: 100%;
 
   header {
@@ -70,15 +70,15 @@
     overflow: auto;
   }
 
-  [fw-widget-bpmn-viewer],
-  [fw-widget-cmmn-viewer],
-  [fw-widget-dmn-viewer] {
+  [fxn-widget-bpmn-viewer],
+  [fxn-widget-cmmn-viewer],
+  [fxn-widget-dmn-viewer] {
     height: 400px;
     overflow: auto;
   }
 
   .cmmn-resource {
-    > [fw-source] {
+    > [fxn-source] {
       overflow: auto;
     }
 
@@ -188,11 +188,11 @@
   }
 
   .column-left {
-    .three-cols-layout-cell.top [fw-deployments-sorting-choices] {
+    .three-cols-layout-cell.top [fxn-deployments-sorting-choices] {
       float: left;
     }
 
-    [fw-widget-search] {
+    [fxn-widget-search] {
       margin: 0 (@grid-gutter-width * 0.5) (@grid-gutter-width * 0.5)
         (@grid-gutter-width * 0.5);
     }

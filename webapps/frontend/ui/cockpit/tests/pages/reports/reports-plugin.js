@@ -21,6 +21,6 @@ var Page = require('./reports-view');
 
 module.exports = Page.extend({
   pluginObject: function() {
-    return element(by.css('[fw-reports-plugin]'));
+    return element(by.css('[fxn-reports-plugin]'));
   }
 });

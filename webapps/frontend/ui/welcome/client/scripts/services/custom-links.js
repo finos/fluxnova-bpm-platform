@@ -19,7 +19,7 @@
 var _links = [
   {
     label: 'DOCUMENTATION',
-    href: 'https://docs.flowave.finos.org/manual/latest/webapps/',
+    href: 'https://docs.fluxnova.finos.org/manual/latest/webapps/',
     description: 'DOCUMENTATION_DESCRIPTION'
   }
 ];
@@ -27,8 +27,8 @@ var _links = [
 module.exports = [
   '$window',
   function($window) {
-    return $window.fwWelcomeConf && $window.fwWelcomeConf.links
-      ? $window.fwWelcomeConf.links
+    return $window.fxnWelcomeConf && $window.fxnWelcomeConf.links
+      ? $window.fxnWelcomeConf.links
       : _links;
   }
 ];

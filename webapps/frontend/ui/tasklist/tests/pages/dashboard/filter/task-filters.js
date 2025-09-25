@@ -21,7 +21,7 @@ var Page = require('./../dashboard-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[fw-tasklist-filters]'));
+    return element(by.css('[fxn-tasklist-filters]'));
   },
 
   filterList: function() {

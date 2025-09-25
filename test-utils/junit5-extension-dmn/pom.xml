@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.finos.flowave.bpm.dmn</groupId>
-  <artifactId>flowave-dmn-junit5</artifactId>
+  <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+  <artifactId>fluxnova-dmn-junit5</artifactId>
   <packaging>jar</packaging>
 
-  <name>Flowave DMN - JUnit 5 Extension</name>
+  <name>Fluxnova DMN - JUnit 5 Extension</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../../database</relativePath>
   </parent>
@@ -20,8 +20,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -54,8 +54,8 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.bpm.dmn</groupId>
-      <artifactId>flowave-engine-dmn</artifactId>
+      <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+      <artifactId>fluxnova-engine-dmn</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

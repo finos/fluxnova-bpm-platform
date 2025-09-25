@@ -24,13 +24,13 @@
       <useTransitiveFiltering>true</useTransitiveFiltering>
       <scope>provided</scope>
       <includes>
-        <include>org.finos.flowave.bpm:flowave-engine-rest-core:jar</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-core:jar</include>
         <include>org.glassfish.jersey.containers:jersey-container-servlet:*</include>
         <include>org.glassfish.jersey.inject:jersey-hk2:*</include>
       </includes>
       <excludes>
-        <exclude>org.finos.flowave.bpm:flowave-engine-rest-core:jar:tests</exclude>
-        <exclude>org.finos.flowave.bpm:flowave-engine-rest-core:jar:sources</exclude>
+        <exclude>org.finos.fluxnova.bpm:fluxnova-engine-rest-core:jar:tests</exclude>
+        <exclude>org.finos.fluxnova.bpm:fluxnova-engine-rest-core:jar:sources</exclude>
       </excludes>
     </dependencySet>
 
@@ -43,7 +43,7 @@
         </excludes>
       </unpackOptions>
       <includes>
-        <include>org.finos.flowave.bpm:flowave-engine-rest:war:*</include>
+        <include>org.finos.fluxnova.bpm:fluxnova-engine-rest:war:*</include>
       </includes>
     </dependencySet>
   </dependencySets>

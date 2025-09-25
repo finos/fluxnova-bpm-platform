@@ -22,7 +22,7 @@
         <sequenceFlow sourceRef="innerSubProcessStart" targetRef="innerSubProcessTask" />
         <userTask id="innerSubProcessTask" />
         <sequenceFlow sourceRef="innerSubProcessTask" targetRef="throwErrorServiceTask" />
-        <serviceTask id="throwErrorServiceTask" camunda:class="org.finos.flowave.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
+        <serviceTask id="throwErrorServiceTask" camunda:class="org.finos.fluxnova.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
         <sequenceFlow sourceRef="throwErrorServiceTask" targetRef="innerSubProcessEnd" />
         <endEvent id="innerSubProcessEnd" />
       </subProcess>

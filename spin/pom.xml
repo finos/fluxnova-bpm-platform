@@ -2,15 +2,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-parent</artifactId>
     <relativePath>../parent</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.spin</groupId>
-  <artifactId>flowave-spin-root</artifactId>
-  <name>flowave Spin - root</name>
+  <groupId>org.finos.fluxnova.spin</groupId>
+  <artifactId>fluxnova-spin-root</artifactId>
+  <name>fluxnova Spin - root</name>
   <inceptionYear>2014</inceptionYear>
   <packaging>pom</packaging>
 
@@ -36,8 +36,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -146,7 +146,7 @@
           <version>3.5.0</version>
           <configuration>
             <instructions>
-              <Export-Package>org.finos.flowave.spin*</Export-Package>
+              <Export-Package>org.finos.fluxnova.spin*</Export-Package>
             </instructions>
           </configuration>
         </plugin>

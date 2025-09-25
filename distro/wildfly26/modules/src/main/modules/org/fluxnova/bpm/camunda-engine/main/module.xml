@@ -1,0 +1,41 @@
+<module xmlns="urn:jboss:module:1.0" name="org.camunda.bpm.fluxnova-engine">
+  <resources>
+    <resource-root path="fluxnova-engine-@project.version@.jar" />
+  </resources>
+
+  <dependencies>
+
+    <module name="javax.api" />
+    <module name="javax.transaction.api"/>
+    <module name="javax.enterprise.api" />
+    <module name="javax.inject.api" />
+    <module name="javax.ejb.api" />
+    <module name="javax.xml.bind.api" />
+    <module name="javax.servlet.api" />
+
+    <module name="org.jboss.vfs" />
+
+    <module name="org.mybatis.mybatis" />
+    <module name="com.fasterxml.uuid.java-uuid-generator"/>
+    <module name="org.joda.time" slot="2.1" />
+    <module name="org.apache.groovy.groovy-all" services="import"/>
+    <module name="org.graalvm.js.js-scriptengine" services="import"/>
+
+    <module name="sun.jdk" services="import"/>
+
+    <module name="org.finos.fluxnova.bpm.model.fluxnova-xml-model" />
+    <module name="org.finos.fluxnova.bpm.model.fluxnova-bpmn-model" />
+    <module name="org.finos.fluxnova.bpm.model.fluxnova-cmmn-model" />
+    <module name="org.finos.fluxnova.bpm.model.fluxnova-dmn-model" />
+
+    <module name="org.camunda.commons.fluxnova-commons-logging" />
+    <module name="org.camunda.commons.fluxnova-commons-utils" />
+    <module name="org.camunda.commons.fluxnova-commons-typed-values" export="true" />
+    <module name="org.camunda.template-engines.fluxnova-template-engines-freemarker" services="import" />
+    <module name="org.camunda.spin.fluxnova-spin-core" services="import"/>
+
+    <module name="org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn" />
+    <module name="org.finos.fluxnova.bpm.juel.fluxnova-juel" services="import"/>
+
+  </dependencies>
+</module>

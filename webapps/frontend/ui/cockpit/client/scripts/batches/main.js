@@ -17,16 +17,16 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 require('angular-data-depend');
-require('flowave-commons-ui/lib/index');
+require('fluxnova-commons-ui/lib/index');
 
 var routes = require('./config/routes');
 
-var ngDeps = ['cam.commons', 'dataDepend', 'ngRoute'];
+var ngDeps = ['fxn.commons', 'dataDepend', 'ngRoute'];
 
-var batchModule = angular.module('cam.cockpit.batch', ngDeps);
+var batchModule = angular.module('fxn.cockpit.batch', ngDeps);
 
 batchModule.config(routes);
 

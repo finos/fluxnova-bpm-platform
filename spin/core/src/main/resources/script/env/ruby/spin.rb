@@ -16,6 +16,6 @@ limitations under the License.
 
 # expose Spin's S(...) function globally
 def S(*args)
-  org.finos.flowave.spin.Spin.S(*args)
+  org.finos.fluxnova.spin.Spin.S(*args)
 end
 

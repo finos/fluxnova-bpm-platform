@@ -1,0 +1,46 @@
+<form fxn-form role="form" name="form">
+
+  <input fxn-variable-name="stringVar"
+    fxn-variable-type="String"
+    type="text"
+    name="stringVar"
+    ng-model="modelProperty"
+    min-length="5"
+    max-length="10">
+
+  <input fxn-variable-name="autoBindVar"
+    fxn-variable-type="String"
+    type="text">
+
+  <p>
+  {{modelProperty}}
+  </p>
+
+  <input fxn-variable-name="integerVar"
+    fxn-variable-type="Integer"
+    type="text"
+    name="integerVar"
+    ng-model="integerProperty">
+
+  <script fxn-script type="text/form-script">
+
+    // scope must be defined
+    if(typeof $scope !== 'object') {
+      throw Error('Expecting "$scope" to be defined');
+    }
+
+    // inject must be available
+    if(typeof inject !== 'function') {
+      throw Error('Expecting "inject" to be defined');
+    }
+
+    fxnForm.on('variables-applied', function() {
+      if(!$scope.modelProperty) {
+        throw Error('Expecting "$scope.modelProperty" to be defined');
+      }
+    });
+
+  </script>
+
+</form>
+

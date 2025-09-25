@@ -31,7 +31,7 @@ module.exports = [
       controller: [
         '$scope',
         'Views',
-        'fwAPI',
+        'fxnAPI',
         'localConf',
         '$translate',
         '$location',
@@ -40,14 +40,14 @@ module.exports = [
         function(
           $scope,
           Views,
-          fwAPI,
+          fxnAPI,
           localConf,
           $translate,
           $location,
           search,
           PluginProcessDefinitionResource
         ) {
-          var processDefinitionService = fwAPI.resource('process-definition');
+          var processDefinitionService = fxnAPI.resource('process-definition');
 
           $scope.searchId = 'pdSearch';
           $scope.paginationId = 'pdPage';

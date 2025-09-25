@@ -16,33 +16,33 @@
 
   <logger name="org.camunda" level="info" />
 
-  <logger name="org.finos.flowave.bpm.engine.test" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.test" level="debug" />
 
 <!--
-  <logger name="org.finos.flowave.bpm.engine.impl.persistence.entity" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.history" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.persistence.entity" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.history" level="debug" />
 
-  <logger name="org.finos.flowave.bpm.engine.bpmn.parser" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.bpmn.behavior" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.bpmn.parser" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.bpmn.behavior" level="debug" />
 
-  <logger name="org.finos.flowave.bpm.engine.cmmn.transformer" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.cmmn.behavior" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.cmmn.operation" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.cmmn.transformer" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.cmmn.behavior" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.cmmn.operation" level="debug" />
 
-  <logger name="org.finos.flowave.bpm.engine.cmd" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.persistence" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.tx" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.cfg" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.jobexecutor" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.context" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.core" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.pvm" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.cmd" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.persistence" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.tx" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.cfg" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.jobexecutor" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.context" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.core" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.pvm" level="debug" />
 
-  <logger name="org.finos.flowave.bpm.engine.metrics" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.util" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.metrics" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.util" level="debug" />
 
-  <logger name="org.finos.flowave.bpm.application" level="debug" />
-  <logger name="org.finos.flowave.bpm.container" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.application" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.container" level="debug" />
 -->
 
   <root level="debug">

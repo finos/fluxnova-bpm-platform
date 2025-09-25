@@ -76,7 +76,7 @@ module.exports = function(ngModule) {
   ngModule.controller('UserTaskController', [
     '$scope',
     'search',
-    'fwAPI',
+    'fxnAPI',
     'TaskResource',
     'Notifications',
     '$uibModal',
@@ -86,7 +86,7 @@ module.exports = function(ngModule) {
     function(
       $scope,
       search,
-      fwAPI,
+      fxnAPI,
       TaskResource,
       Notifications,
       $modal,
@@ -113,7 +113,7 @@ module.exports = function(ngModule) {
       var filter = null;
       var executionIdToInstanceMap = null;
 
-      var Task = fwAPI.resource('task');
+      var Task = fxnAPI.resource('task');
 
       var sorting = ($scope.sorting = loadLocal({
         sortBy: 'created',
@@ -405,7 +405,7 @@ module.exports = function(ngModule) {
 
   ngModule.controller('IdentityLinksController', [
     '$uibModalInstance',
-    'fwAPI',
+    'fxnAPI',
     '$scope',
     'Notifications',
     'userTask',
@@ -413,14 +413,14 @@ module.exports = function(ngModule) {
     'decorator',
     function(
       $modalInstance,
-      fwAPI,
+      fxnAPI,
       $scope,
       Notifications,
       userTask,
       identityLinks,
       decorator
     ) {
-      var Task = fwAPI.resource('task');
+      var Task = fxnAPI.resource('task');
 
       $scope.identityLinks = identityLinks;
       $scope.decorator = decorator;

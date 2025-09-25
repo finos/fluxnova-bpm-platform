@@ -1,4 +1,4 @@
-<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groups.html -->
+<!-- # CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/groups.html -->
 <section ng-cloak>
   <!-- <aside></aside> -->
   <div class="section-content">
@@ -15,7 +15,7 @@
       </div>
     </header>
 
-    <div fw-searchable-area
+    <div fxn-searchable-area
          config="searchConfig"
          on-search-change="onSearchChange(query, pages)"
          loading-state="loadingState"
@@ -23,8 +23,8 @@
          toolips="translations"
          storage-group="'ANG'"
          blocked="blocked">
-      <table class="fw-table group">
-        <thead fw-sortable-table-header
+      <table class="fxn-table group">
+        <thead fxn-sortable-table-header
                default-sort-by="id"
                default-sort-order="asc"
                sorting-id="admin-sorting-groups"
@@ -32,15 +32,15 @@
                on-sort-initialized="onSortInitialized(sorting)">
           <tr>
             <th class="group-id"
-                fw-sortable-table-column
+                fxn-sortable-table-column
                 sort-by-property="id">{{ 'GROUPS_GROUP_ID' | translate }}
             </th>
             <th class="group-name"
-                fw-sortable-table-column
+                fxn-sortable-table-column
                 sort-by-property="name">{{ 'GROUPS_GROUP_NAME' | translate }}
             </th>
             <th class="group-type"
-                fw-sortable-table-column
+                fxn-sortable-table-column
                 sort-by-property="type">{{ 'GROUPS_GROUP_TYPE' | translate }}
             </th>
             <th class="action">{{ 'GROUPS_ACTION' | translate }}</th>
@@ -70,4 +70,4 @@
     </div>
   </div>
 </section>
-<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/groups.html -->
+<!-- / CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/groups.html -->

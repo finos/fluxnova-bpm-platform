@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-var angular = require('flowave-commons-ui/vendor/angular');
-var createFwApiMock = require('./create-fw-api-mock');
+var angular = require('fluxnova-commons-ui/vendor/angular');
+var createFxnApiMock = require('./create-fxn-api-mock');
 var ViewsProvider = require('./views-provider-mock');
 var $routeProvider = require('./route-provider-mock');
 var localConfMock = require('./local-conf-mock');
 
 var ngModule = angular.module('common-tests-module', []);
 
-ngModule.value('fwAPI', createFwApiMock());
+ngModule.value('fxnAPI', createFxnApiMock());
 ngModule.provider('Views', function() {
   return ViewsProvider;
 });

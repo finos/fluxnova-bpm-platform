@@ -14,7 +14,7 @@
   <fileSets>
     <fileSet>
       <directory>${project.build.directory}/sql</directory>
-      <outputDirectory>/flowave-sql-scripts-${project.version}/</outputDirectory>
+      <outputDirectory>/fluxnova-sql-scripts-${project.version}/</outputDirectory>
     </fileSet>     
   </fileSets>
   

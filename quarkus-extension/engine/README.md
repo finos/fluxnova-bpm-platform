@@ -6,7 +6,7 @@ the following dependency into your `pom.xml` file.
 ```xml
 <dependency>
   <dependency>
-    <groupId>org.finos.flowave.bpm.quarkus</groupId>
+    <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
     <artifactId>flowave-bpm-quarkus-engine</artifactId>
     <version>${version.flowave}</version><!-- place Flowave version here -->
   </dependency>

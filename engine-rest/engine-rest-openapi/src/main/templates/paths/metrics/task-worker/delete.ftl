@@ -28,7 +28,7 @@
         code = "403"
         dto = "ExceptionDto"
         last = true
-        desc = "If the user who performs the operation is not a <b>flowave-admin</b> user." />
+        desc = "If the user who performs the operation is not a <b>fluxnova-admin</b> user." />
 
   }
 }

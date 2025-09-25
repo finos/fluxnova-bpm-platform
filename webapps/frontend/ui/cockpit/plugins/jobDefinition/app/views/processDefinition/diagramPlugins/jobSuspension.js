@@ -33,8 +33,8 @@ module.exports = [
           'control',
           'processData',
           'processDiagram',
-          'fwAPI',
-          function($scope, control, processData, processDiagram, fwAPI) {
+          'fxnAPI',
+          function($scope, control, processData, processDiagram, fxnAPI) {
             var viewer = control.getViewer();
             var overlays = viewer.get('overlays');
             var elementRegistry = viewer.get('elementRegistry');
@@ -55,7 +55,7 @@ module.exports = [
 
               if (!processDefinition) return;
 
-              fwAPI
+              fxnAPI
                 .resource('job-definition')
                 .list({
                   processDefinitionId: processDefinition.id,

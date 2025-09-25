@@ -19,7 +19,7 @@
 
 var template = require('./dashboard.html?raw');
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 var isArray = angular.isArray;
 
 var Controller = [

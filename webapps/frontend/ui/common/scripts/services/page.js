@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 /**
  * A service to manage a page page.
@@ -32,15 +32,15 @@ var angular = require('flowave-commons-ui/vendor/angular');
 module.exports = [
   '$rootScope',
   '$location',
-  'fwAPI',
-  function($rootScope, $location, fwAPI) {
+  'fxnAPI',
+  function($rootScope, $location, fxnAPI) {
     var page = {
-      title: 'Flowave',
+      title: 'Fluxnova',
       breadcrumbs: []
     };
 
     var headTitle = angular.element(document.querySelector('head title'));
-    var originalTitle = headTitle[0].textContent || 'Flowave Cockpit';
+    var originalTitle = headTitle[0].textContent || 'Fluxnova Cockpit';
 
     // add a listener to the $rootScope to propagate the changes in the page title
     // sure... we could put that in the titleSet() function
@@ -59,7 +59,7 @@ module.exports = [
         return;
       }
 
-      var userService = fwAPI.resource('user');
+      var userService = fxnAPI.resource('user');
       userService.profile(auth.name, function(err, info) {
         if (err) {
           $rootScope.userFullName = null;

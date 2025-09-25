@@ -49,12 +49,12 @@ module.exports = function(config) {
             expose: {
               angular: 'angular',
               jquery: 'jquery',
-              'flowave-commons-ui': 'flowave-commons-ui',
-              'flowave-bpm-sdk-js': 'flowave-bpm-sdk-js',
+              'fluxnova-commons-ui': 'fluxnova-commons-ui',
+              'fluxnova-bpm-sdk-js': 'fluxnova-bpm-sdk-js',
               'angular-data-depend': 'angular-data-depend',
               moment: 'moment',
               events: 'events',
-              'fw-common': 'fw-common'
+              'fxn-common': 'fxn-common'
             }
           }
         ]

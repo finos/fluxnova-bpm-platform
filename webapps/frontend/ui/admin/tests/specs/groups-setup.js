@@ -59,7 +59,7 @@ var fragment3 = combine(
     createEntities(function(idx) {
       return {
         id: 'user' + idx,
-        password: 'cam123',
+        password: 'fxn123',
         firstName: 'abc',
         lastName: 'def'
       };
@@ -90,7 +90,7 @@ module.exports = {
       },
       {
         id: 'ringo',
-        password: 'cam123',
+        password: 'fxn123',
         firstName: 'Ringo',
         lastName: 'Starr',
         email: 'ringo.starr@the-beatles.com'

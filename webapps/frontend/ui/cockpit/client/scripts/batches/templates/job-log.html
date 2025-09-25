@@ -3,11 +3,11 @@
 </div>
 
 <div class="batch-job-log-modal modal-body">
-  <div fw-widget-loader
+  <div fxn-widget-loader
        loading-state="{{ loadingState }}"
        text-empty="{{ 'PLGN_BATCH_NO_JOB_LOGS' | translate }}"
        text-error="{{ 'PLGN_BATCH_NO_JOB_ERROR' | translate }}">
-    <table class="fw-table fw-fixed-layout">
+    <table class="fxn-table fxn-fixed-layout">
     <thead sortable-table-head
             head-columns="headColumns"
             on-sort-change="onSortChange(sortObj)"
@@ -39,22 +39,22 @@
         </td>
 
         <td class="timestamp"
-            fw-widget-clipboard="log.timestamp | fwDate">
-          {{ log.timestamp | fwDate }}
+            fxn-widget-clipboard="log.timestamp | fxnDate">
+          {{ log.timestamp | fxnDate }}
         </td>
 
         <td class="job"
-            fw-widget-clipboard="log.jobId">
+            fxn-widget-clipboard="log.jobId">
           {{ log.jobId }}
         </td>
 
         <td class="type"
-            fw-widget-clipboard="log.jobDefinitionType">
+            fxn-widget-clipboard="log.jobDefinitionType">
           {{ log.jobDefinitionType }}
         </td>
 
         <td class="configuration"
-            fw-widget-clipboard="log.jobDefinitionConfiguration">
+            fxn-widget-clipboard="log.jobDefinitionConfiguration">
           {{ log.jobDefinitionConfiguration }}
         </td>
 
@@ -63,7 +63,7 @@
         </td>
 
         <td class="hostname"
-            fw-widget-clipboard="log.hostname">
+            fxn-widget-clipboard="log.hostname">
           {{ log.hostname }}
         </td>
 

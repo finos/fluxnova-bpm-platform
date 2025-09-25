@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-qa</artifactId>
-  <name>Flowave Platform - Run - QA</name>
+  <artifactId>fluxnova-bpm-run-qa</artifactId>
+  <name>Fluxnova Platform - Run - QA</name>
   <packaging>pom</packaging>
 
   <properties>
@@ -86,7 +86,7 @@
       </modules>
     </profile>
     <profile>
-      <id>integration-test-camunda-run</id>
+      <id>integration-test-fluxnova-run</id>
       <modules>
         <module>example-plugin</module>
         <module>integration-tests</module>

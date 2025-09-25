@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <groupId>org.finos.flowave.bpm.tomcat</groupId>
-    <artifactId>flowave-tomcat</artifactId>
+    <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+    <artifactId>fluxnova-tomcat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <name>Flowave Platform - webapp - Tomcat - Jakarta</name>
-  <groupId>org.finos.flowave.bpm.webapp</groupId>
-  <artifactId>flowave-webapp-tomcat-jakarta</artifactId>
+  <name>Fluxnova Platform - webapp - Tomcat - Jakarta</name>
+  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+  <artifactId>fluxnova-webapp-tomcat-jakarta</artifactId>
   <packaging>war</packaging>
   
   <properties>
@@ -21,8 +21,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.webapp</groupId>
-      <artifactId>flowave-webapp-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+      <artifactId>fluxnova-webapp-jakarta</artifactId>
       <version>${project.version}</version>
       <type>war</type>
       <scope>runtime</scope>
@@ -36,7 +36,7 @@
   </dependencies>
 
   <build>
-    <finalName>camunda-webapp</finalName>
+    <finalName>fluxnova-webapp</finalName>
 
     <plugins>
       <plugin>

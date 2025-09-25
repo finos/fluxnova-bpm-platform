@@ -28,7 +28,7 @@
         <sequenceFlow sourceRef="fork" targetRef="eventSubProcessTask1" />
         <userTask id="eventSubProcessTask1" />
         <sequenceFlow sourceRef="eventSubProcessTask1" targetRef="throwErrorServiceTask" />
-        <serviceTask id="throwErrorServiceTask" camunda:class="org.finos.flowave.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
+        <serviceTask id="throwErrorServiceTask" camunda:class="org.finos.fluxnova.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
         <sequenceFlow sourceRef="throwErrorServiceTask" targetRef="join" />
 
         <sequenceFlow sourceRef="fork" targetRef="eventSubProcessTask2" />

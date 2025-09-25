@@ -23,7 +23,7 @@ This will ensure that your project uses all commons libraries in the same versio
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
+      <groupId>org.finos.fluxnova.commons</groupId>
       <artifactId>flowave-commons-bom</artifactId>
       <version>${version}</version>
       <type>pom</type>
@@ -37,7 +37,7 @@ Now you can reference individual commons projects:
 
 ```xml
 <dependency>
-  <groupId>org.finos.flowave.commons</groupId>
+  <groupId>org.finos.fluxnova.commons</groupId>
   <artifactId>flowave-commons-logging</artifactId>
 </dependency>
 ```

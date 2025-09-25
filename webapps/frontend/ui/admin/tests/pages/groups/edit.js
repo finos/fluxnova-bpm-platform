@@ -20,7 +20,7 @@
 var Page = require('./../base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/admin/default/#/groups/:group?tab=group',
+  url: '/fluxnova/app/admin/default/#/groups/:group?tab=group',
 
   updateGroupButton: function() {
     return element(by.css('[ng-click="updateGroup()"]'));

@@ -20,7 +20,7 @@
 var Page = require('./../base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/admin/default/#/tenants/:tenant?tab=tenant',
+  url: '/fluxnova/app/admin/default/#/tenants/:tenant?tab=tenant',
 
   updateTenantButton: function() {
     return element(by.css('[ng-click="updateTenant()"]'));

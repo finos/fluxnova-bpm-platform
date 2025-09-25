@@ -17,7 +17,7 @@
 
 /*
   DEPRECATION WARNING:
-  this directive should not be used anymore, see fw-widget-variable instead
+  this directive should not be used anymore, see fxn-widget-variable instead
 */
 
 'use strict';

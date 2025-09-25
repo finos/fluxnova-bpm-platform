@@ -31,7 +31,7 @@
   <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   
-  <Listener className="org.finos.flowave.bpm.container.impl.tomcat.TomcatBpmPlatformBootstrap" />
+  <Listener className="org.finos.fluxnova.bpm.container.impl.tomcat.TomcatBpmPlatformBootstrap" />
   
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
@@ -68,15 +68,15 @@
               minIdle="5"
               maxIdle="20" />
               
-    <Resource name="global/camunda-bpm-platform/process-engine/ProcessEngineService!org.finos.flowave.bpm.ProcessEngineService" auth="Container"
-              type="org.finos.flowave.bpm.ProcessEngineService"
+    <Resource name="global/fluxnova-bpm-platform/process-engine/ProcessEngineService!org.finos.fluxnova.bpm.ProcessEngineService" auth="Container"
+              type="org.finos.fluxnova.bpm.ProcessEngineService"
               description="Camunda Platform Process Engine Service"
-              factory="org.finos.flowave.bpm.container.impl.jndi.ProcessEngineServiceObjectFactory" />
+              factory="org.finos.fluxnova.bpm.container.impl.jndi.ProcessEngineServiceObjectFactory" />
               
-    <Resource name="global/camunda-bpm-platform/process-engine/ProcessApplicationService!org.finos.flowave.bpm.ProcessApplicationService" auth="Container"
-              type="org.finos.flowave.bpm.ProcessApplicationService"
+    <Resource name="global/fluxnova-bpm-platform/process-engine/ProcessApplicationService!org.finos.fluxnova.bpm.ProcessApplicationService" auth="Container"
+              type="org.finos.fluxnova.bpm.ProcessApplicationService"
               description="Camunda Platform Process Application Service"
-              factory="org.finos.flowave.bpm.container.impl.jndi.ProcessApplicationServiceObjectFactory" />              
+              factory="org.finos.fluxnova.bpm.container.impl.jndi.ProcessApplicationServiceObjectFactory" />              
               
   </GlobalNamingResources>
 

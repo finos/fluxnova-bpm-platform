@@ -1,0 +1,2 @@
+org.finos.fluxnova.connect.dummy.DummyConnectorProvider
+org.finos.fluxnova.connect.dummy.MyHttpConnectorProvider

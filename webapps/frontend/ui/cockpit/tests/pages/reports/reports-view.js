@@ -20,10 +20,10 @@
 var Page = require('./../base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/cockpit/default/#/reports',
+  url: '/fluxnova/app/cockpit/default/#/reports',
 
   reportsType: function() {
-    return element(by.css('[fw-reports-type]'));
+    return element(by.css('[fxn-reports-type]'));
   },
 
   noReportsAvailableHint: function() {

@@ -1,2 +1,2 @@
-org.finos.flowave.bpm.spring.boot.starter.security.oauth2.FlowaveBpmSpringSecurityDisableAutoConfiguration
-org.finos.flowave.bpm.spring.boot.starter.security.oauth2.FlowaveSpringSecurityOAuth2AutoConfiguration
+org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.FluxnovaBpmSpringSecurityDisableAutoConfiguration
+org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.FluxnovaSpringSecurityOAuth2AutoConfiguration

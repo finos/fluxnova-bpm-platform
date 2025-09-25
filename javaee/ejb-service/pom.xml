@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.finos.flowave.bpm.javaee</groupId>
-  <artifactId>flowave-ejb-service</artifactId>
+  <groupId>org.finos.fluxnova.bpm.javaee</groupId>
+  <artifactId>fluxnova-ejb-service</artifactId>
   <packaging>ejb</packaging>
 
-  <name>Flowave Platform - EJB Service</name>
+  <name>Fluxnova Platform - EJB Service</name>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -17,8 +17,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -28,14 +28,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.javaee</groupId>
-      <artifactId>flowave-jobexecutor-ra</artifactId>
+      <groupId>org.finos.fluxnova.bpm.javaee</groupId>
+      <artifactId>fluxnova-jobexecutor-ra</artifactId>
       <scope>provided</scope>
       <version>${project.version}</version>
     </dependency>

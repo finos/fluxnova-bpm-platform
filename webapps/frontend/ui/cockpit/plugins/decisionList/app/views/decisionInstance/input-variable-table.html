@@ -1,17 +1,17 @@
-<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionInstance/input-variable-table.html -->
+<!-- # CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionInstance/input-variable-table.html -->
 <!-- <div ng-repeat="variable in variables"
-     fw-widget-variable
-     fw-variable="variable"
+     fxn-widget-variable
+     fxn-variable="variable"
      display="true">
 </div> -->
 
-<div fw-widget-loader loading-state="{{loadingState}}" text-empty="{{ 'PLUGIN_DECISION_LIS_NO_INPUT_TEXT' | translate }}">
-  <div fw-widget-variables-table
-       fw-editable="[]"
-       fw-variables="variables"
+<div fxn-widget-loader loading-state="{{loadingState}}" text-empty="{{ 'PLUGIN_DECISION_LIS_NO_INPUT_TEXT' | translate }}">
+  <div fxn-widget-variables-table
+       fxn-editable="[]"
+       fxn-variables="variables"
        default-sort = "sortObj"
        on-sort-change="onSortChange(sortObj)"
-       fw-headers="headColumns"></div>
+       fxn-headers="headColumns"></div>
 </div>
 
-<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionInstance/input-variable-table.html -->
+<!-- / CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/decisionList/app/views/decisionInstance/input-variable-table.html -->

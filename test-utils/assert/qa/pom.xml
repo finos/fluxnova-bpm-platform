@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>flowave-bpm-assert-qa</artifactId>
+  <artifactId>fluxnova-bpm-assert-qa</artifactId>
   <packaging>jar</packaging>
   
-  <name>Flowave Platform - QA - Assert</name>
+  <name>Fluxnova Platform - QA - Assert</name>
   
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-bpm-assert-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-bpm-assert-root</artifactId>
     <relativePath>../</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -29,21 +29,21 @@
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- managed by flowave internal dependencies -->
+    <!-- managed by fluxnova internal dependencies -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bpm-junit5</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-junit5</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-bpm-assert</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-assert</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>

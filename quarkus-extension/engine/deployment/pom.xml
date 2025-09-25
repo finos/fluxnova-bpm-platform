@@ -4,21 +4,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.quarkus</groupId>
-    <artifactId>flowave-bpm-quarkus-engine-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
+    <artifactId>fluxnova-bpm-quarkus-engine-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-bpm-quarkus-engine-deployment</artifactId>
+  <artifactId>fluxnova-bpm-quarkus-engine-deployment</artifactId>
 
-  <name>Flowave Platform - Quarkus Extension - Engine - Deployment</name>
+  <name>Fluxnova Platform - Quarkus Extension - Engine - Deployment</name>
 
   <dependencies>
 
-    <!-- flowave dependencies -->
+    <!-- fluxnova dependencies -->
     <dependency>
-      <groupId>org.finos.flowave.bpm.quarkus</groupId>
-      <artifactId>flowave-bpm-quarkus-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
+      <artifactId>fluxnova-bpm-quarkus-engine</artifactId>
       <version>${project.version}</version>
     </dependency>
 

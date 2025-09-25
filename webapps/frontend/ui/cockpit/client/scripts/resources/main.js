@@ -17,9 +17,9 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
-require('flowave-commons-ui/lib/util/index');
+require('fluxnova-commons-ui/lib/util/index');
 
 var processDefinitionResource = require('./processDefinitionResource'),
   incidentResource = require('./incidentResource'),
@@ -29,7 +29,7 @@ var processDefinitionResource = require('./processDefinitionResource'),
   taskResource = require('./taskResource'),
   jobDefinitionResource = require('./jobDefinitionResource');
 
-var resourcesModule = angular.module('cam.cockpit.resources', []);
+var resourcesModule = angular.module('fxn.cockpit.resources', []);
 
 resourcesModule.factory('ProcessDefinitionResource', processDefinitionResource);
 resourcesModule.factory('IncidentResource', incidentResource);

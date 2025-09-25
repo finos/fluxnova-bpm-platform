@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
-    <artifactId>flowave-engine-rest-root</artifactId>
-    <groupId>org.finos.flowave.bpm</groupId>
+    <artifactId>fluxnova-engine-rest-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>docs</artifactId>
-  <name>Flowave Platform - engine - REST - Docs</name>
+  <name>Fluxnova Platform - engine - REST - Docs</name>
   <packaging>pom</packaging>
 
   <properties>
@@ -17,8 +17,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-openapi</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-openapi</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -38,8 +38,8 @@
             <configuration>
               <artifactItems>
                 <artifactItem>
-                  <groupId>org.finos.flowave.bpm</groupId>
-                  <artifactId>flowave-engine-rest-openapi</artifactId>
+                  <groupId>org.finos.fluxnova.bpm</groupId>
+                  <artifactId>fluxnova-engine-rest-openapi</artifactId>
                   <version>${project.version}</version>
                   <type>jar</type>
                 </artifactItem>

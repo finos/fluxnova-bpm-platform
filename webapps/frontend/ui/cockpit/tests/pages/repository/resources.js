@@ -21,7 +21,7 @@ var Page = require('./repository-view');
 
 module.exports = Page.extend({
   formElement: function() {
-    return element(by.css('[fw-resources]'));
+    return element(by.css('[fxn-resources]'));
   },
 
   resourceList: function() {
@@ -49,7 +49,7 @@ module.exports = Page.extend({
         .element(by.css('a'))
         .click();
       self.waitForElementToBeVisible(
-        element(by.css('[fw-resource-meta] .name'))
+        element(by.css('[fxn-resource-meta] .name'))
       );
     }
 

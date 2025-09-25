@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   dashboard = require('./dashboard'),
   processes = require('./processes'),
   decisions = require('./decisions'),
@@ -27,7 +27,7 @@ var angular = require('flowave-commons-ui/vendor/angular'),
   decisionDefinitionModule = require('./decisionDefinition'),
   decisionInstanceModule = require('./decisionInstance');
 
-var pagesModule = angular.module('cam.cockpit.pages', [
+var pagesModule = angular.module('fxn.cockpit.pages', [
   processDefinitionModule.name,
   processInstanceModule.name,
   decisionDefinitionModule.name,

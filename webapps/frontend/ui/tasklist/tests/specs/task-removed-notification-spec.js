@@ -56,7 +56,7 @@ describe.skip('Task Removal Notification Spec', function() {
           };
           xhr.open(
             'POST',
-            '/flowave/api/engine/engine/default/task/1/submit-form',
+            '/fluxnova/api/engine/engine/default/task/1/submit-form',
             true
           );
           xhr.setRequestHeader('Content-Type', 'application/json');

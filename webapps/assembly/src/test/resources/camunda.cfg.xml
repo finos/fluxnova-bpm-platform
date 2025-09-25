@@ -5,9 +5,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-  <bean id="idGenerator" class="org.finos.flowave.bpm.engine.impl.persistence.StrongUuidGenerator" />
+  <bean id="idGenerator" class="org.finos.fluxnova.bpm.engine.impl.persistence.StrongUuidGenerator" />
 
-  <bean id="processEngineConfiguration" class="org.finos.flowave.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+  <bean id="processEngineConfiguration" class="org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
 
     <property name="jdbcUrl" value="${database.url}" />
     <property name="jdbcDriver" value="${database.driver}" />

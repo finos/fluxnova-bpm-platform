@@ -20,14 +20,14 @@
 var template = require('./tenantEdit.html?raw');
 var confirmationTemplate = require('./generic-confirmation.html?raw');
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 var Controller = [
   '$scope',
   'page',
   '$routeParams',
   'search',
-  'fwAPI',
+  'fxnAPI',
   'Notifications',
   '$location',
   '$uibModal',
@@ -38,16 +38,16 @@ var Controller = [
     pageService,
     $routeParams,
     search,
-    fwAPI,
+    fxnAPI,
     Notifications,
     $location,
     $modal,
     unescape,
     $translate
   ) {
-    var TenantResource = fwAPI.resource('tenant'),
-      GroupResource = fwAPI.resource('group'),
-      UserResource = fwAPI.resource('user');
+    var TenantResource = fxnAPI.resource('tenant'),
+      GroupResource = fxnAPI.resource('group'),
+      UserResource = fxnAPI.resource('user');
 
     $scope.$root.showBreadcrumbs = true;
 

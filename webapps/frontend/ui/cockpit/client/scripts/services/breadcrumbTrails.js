@@ -38,7 +38,7 @@ module.exports = [
 
         // ... and fetch its process definition
         ProcessDefinitionResource.get({
-          // TODO: fw-2017 API definition cleanup
+          // TODO: cam-2017 API definition cleanup
           id:
             superProcessInstance.processDefinitionId ||
             superProcessInstance.definitionId

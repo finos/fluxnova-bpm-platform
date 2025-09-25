@@ -20,7 +20,7 @@
 var Base = require('./../base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/admin/default/#/tenant-create',
+  url: '/fluxnova/app/admin/default/#/tenant-create',
 
   newTenantIdInput: function(inputValue) {
     var inputField = element(by.model('tenant.id'));

@@ -1,22 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-bpm-tomcat</artifactId>
+  <artifactId>fluxnova-bpm-tomcat</artifactId>
   <packaging>pom</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.tomcat</groupId>
-    <artifactId>flowave-tomcat</artifactId>
+    <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+    <artifactId>fluxnova-tomcat</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <name>Flowave Platform - tomcat Distro</name>
+  <name>Fluxnova Platform - tomcat Distro</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.distro</groupId>
-      <artifactId>flowave-sql-scripts</artifactId>
+      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+      <artifactId>fluxnova-sql-scripts</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
     </dependency>
@@ -24,30 +24,30 @@
     <!-- Tomcat 10 dependencies -->
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.tomcat</groupId>
-      <artifactId>flowave-tomcat-assembly</artifactId>
+      <groupId>org.finos.fluxnova.bpm.tomcat</groupId>
+      <artifactId>fluxnova-tomcat-assembly</artifactId>
       <version>${project.version}</version>
       <type>tar.gz</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.webapp</groupId>
-      <artifactId>flowave-webapp-tomcat-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.webapp</groupId>
+      <artifactId>fluxnova-webapp-tomcat-jakarta</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-jakarta</artifactId>
       <version>${project.version}</version>
       <classifier>tomcat</classifier>
       <type>war</type>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.example</groupId>
-      <artifactId>flowave-example-invoice-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm.example</groupId>
+      <artifactId>fluxnova-example-invoice-jakarta</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
@@ -70,7 +70,7 @@
               <descriptors>
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
-              <finalName>flowave-bpm-tomcat-${project.version}</finalName>
+              <finalName>fluxnova-bpm-tomcat-${project.version}</finalName>
               <attach>true</attach>
               <appendAssemblyId>false</appendAssemblyId>
               <outputDirectory>target/</outputDirectory>

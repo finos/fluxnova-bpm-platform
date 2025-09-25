@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-assembly</artifactId>
-  <name>Flowave Platform - Run - Assembly</name>
+  <artifactId>fluxnova-bpm-run-assembly</artifactId>
+  <name>Fluxnova Platform - Run - Assembly</name>
   <packaging>pom</packaging>
   
   <properties>
@@ -36,8 +36,8 @@
   <dependencies>
     <!-- make sure the assembly runs after the REST module -->
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run-modules-rest</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run-modules-rest</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <exclusions>
@@ -51,8 +51,8 @@
 
     <!-- make sure this runs after the oauth2 module -->
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run-modules-oauth2</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run-modules-oauth2</artifactId>
       <version>${project.version}</version>
       <type>pom</type>
       <exclusions>
@@ -65,8 +65,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run-modules-example-invoice</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run-modules-example-invoice</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
       <exclusions>
@@ -79,8 +79,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run-core</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run-core</artifactId>
       <version>${project.version}</version>
       <exclusions>
         <!-- we consume an uberjar that contains all of its dependencies -->
@@ -92,7 +92,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>license-book</artifactId>
       <version>${project.version}</version>
       <type>zip</type>

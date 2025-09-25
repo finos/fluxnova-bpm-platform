@@ -4,8 +4,8 @@
        version="4.0" bean-discovery-mode="all">
 
   <interceptors>
-    <class>org.finos.flowave.bpm.engine.cdi.impl.annotation.CompleteTaskInterceptor</class>
-    <class>org.finos.flowave.bpm.engine.cdi.impl.annotation.StartProcessInterceptor</class>
+    <class>org.finos.fluxnova.bpm.engine.cdi.impl.annotation.CompleteTaskInterceptor</class>
+    <class>org.finos.fluxnova.bpm.engine.cdi.impl.annotation.StartProcessInterceptor</class>
   </interceptors>
 
 </beans>

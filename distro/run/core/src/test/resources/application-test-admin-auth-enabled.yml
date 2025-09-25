@@ -1,4 +1,4 @@
-flowave.bpm.run.admin-auth:
+fluxnova.bpm.run.admin-auth:
   enabled: true
   authorization-enabled: true
   administrator-group-name: admins

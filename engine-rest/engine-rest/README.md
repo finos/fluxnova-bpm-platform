@@ -19,5 +19,5 @@ Writing Tests
 
 For a test case that tests the implementation of a JAX-RS resource, do the following:
 
-* Subclass `org.finos.flowave.bpm.engine.rest.AbstractRestServiceTest`
-* Declare an instance of `org.finos.flowave.bpm.engine.rest.util.container.TestContainerRule` as a JUnit `@ClassRule`
+* Subclass `org.finos.fluxnova.bpm.engine.rest.AbstractRestServiceTest`
+* Declare an instance of `org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule` as a JUnit `@ClassRule`

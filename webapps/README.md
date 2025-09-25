@@ -1,22 +1,22 @@
-# Flowave Webapp
+# Fluxnova Webapp
 
-This is the Flowave Platform web application source.
+This is the Fluxnova Platform web application source.
 Clean, package and install it via [Maven](https://maven.apache.org/).
 
 ## Structure of this project
 
 The structure is as follows:
 
-* `assembly` - Java sources and tests for the Flowave web application based on `javax` namespace.
-* `assembly-jakarta` - Java sources and tests for the Flowave web application based on `jakarta` namespace.
+* `assembly` - Java sources and tests for the Fluxnova web application based on `javax` namespace.
+* `assembly-jakarta` - Java sources and tests for the Fluxnova web application based on `jakarta` namespace.
   * This module is created from the `assembly` module via code transformation.
-* `frontend` - HTML, CSS and Javascript sources as well as Plugins and tests for the Flowave webapplications Cockpit, Tasklist and Admin.
+* `frontend` - HTML, CSS and Javascript sources as well as Plugins and tests for the Fluxnova webapplications Cockpit, Tasklist and Admin.
 
 ## FRONTEND
 
 ### UI
 
-There are 3 web applications available for the Flowave Platform :
+There are 3 web applications available for the Fluxnova Platform :
 
 * __cockpit__: an administration interface for processes and decisions
 * __tasklist__: provides an interface to process user tasks
@@ -24,8 +24,8 @@ There are 3 web applications available for the Flowave Platform :
 
 The webapps above are relying on 2 libraries:
 
-* __flowave-bpm-sdk-js__: provides tools for developers who want interact with the platform using Javascript
-* __flowave-commons-ui__: is a set of shared scripts, templates and assets, used in the different webapps
+* __fluxnova-bpm-sdk-js__: provides tools for developers who want interact with the platform using Javascript
+* __fluxnova-commons-ui__: is a set of shared scripts, templates and assets, used in the different webapps
 
 
 #### Plugins
@@ -41,11 +41,11 @@ Translations for other languages are available in the ** Needs To Be Reviewed **
 
 ### Libraries
 
-#### [flowave-bpm-sdk-js](https://github.com/finos/flowave-bpm-platform/tree/main/webapps/frontend/flowave-bpm-sdk-js)
+#### [fluxnova-bpm-sdk-js](https://github.com/finos/fluxnova-bpm-platform/tree/main/webapps/frontend/fluxnova-bpm-sdk-js)
 
-Has tools to work with the REST API and forms (included transitively via flowave-commons-ui).
+Has tools to work with the REST API and forms (included transitively via fluxnova-commons-ui).
 
-#### [flowave-commons-ui](https://github.com/finos/flowave-bpm-platform/tree/main/webapps/frontend/flowave-commons-ui)
+#### [fluxnova-commons-ui](https://github.com/finos/fluxnova-bpm-platform/tree/main/webapps/frontend/fluxnova-commons-ui)
 
 Contains resources like images, [`.less`](http://lesscss.org) stylesheets as well as some [angular.js](http://angularjs.org) modules.
 
@@ -57,7 +57,7 @@ You need [node.js](http://nodejs.org) >= 17 and npm.
 
 #### Adjusting Maven Settings
 ** Needs To Be Reviewed - build-from-source **
-See https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md#build-from-source
+See https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md#build-from-source
 
 #### Using Webpack
 
@@ -65,8 +65,8 @@ Build the web apps using Webpack:
 
 ```sh
 # cd <path to your workspace>
-git clone git@github.com:finos/flowave-bpm-platform.git
-cd flowave-bpm-platform/webapps/frontend
+git clone git@github.com:finos/fluxnova-bpm-platform.git
+cd fluxnova-bpm-platform/webapps/frontend
 npm install
 npm start
 ```
@@ -74,7 +74,7 @@ npm start
 To start the server in development mode, call
 
 ```sh
-cd flowave-bpm-platform/webapps/assembly
+cd fluxnova-bpm-platform/webapps/assembly
 mvn jetty:run -Pdevelop
 ```
 
@@ -87,7 +87,7 @@ You can now start developing using the `npm run start` command in the frontend d
 In order to run the Jakarta Webapps start Jetty the same way from the `assembly-jakarta` folder
 
 ```sh
-cd flowave-bpm-platform/webapps/assembly
+cd fluxnova-bpm-platform/webapps/assembly
 mvn jetty:run -Pdevelop
 npm run start
 ```
@@ -148,7 +148,7 @@ The supported browsers are:
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 ## Help and support

@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-modules</artifactId>
-  <name>Flowave Platform - Run - Modules</name>
+  <artifactId>fluxnova-bpm-run-modules</artifactId>
+  <name>Fluxnova Platform - Run - Modules</name>
   <packaging>pom</packaging>
 
   <!-- define provided dependencies that will already be present in the Spring 
@@ -18,8 +18,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm.springboot</groupId>
-        <artifactId>flowave-bpm-spring-boot-starter</artifactId>
+        <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+        <artifactId>fluxnova-bpm-spring-boot-starter</artifactId>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -83,8 +83,8 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-engine-rest-core</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-engine-rest-core</artifactId>
         <scope>provided</scope>
       </dependency>
     </dependencies>

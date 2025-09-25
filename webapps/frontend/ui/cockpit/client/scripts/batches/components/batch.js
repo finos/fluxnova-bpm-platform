@@ -21,8 +21,8 @@ var events = require('./events');
 
 var PAGE_SIZE = 10;
 
-var Batch = function(fwAPI, localConf, configuration) {
-  this._sdk = fwAPI;
+var Batch = function(fxnAPI, localConf, configuration) {
+  this._sdk = fxnAPI;
   this._localConf = localConf;
   this.shouldLoadHistory = configuration.getBatchOperationAutoLoadEnded();
 

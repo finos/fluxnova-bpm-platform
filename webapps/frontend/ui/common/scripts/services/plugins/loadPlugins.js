@@ -17,7 +17,7 @@
 
 const appRoot = document.querySelector('base').getAttribute('app-root');
 
-const camundaPlugins = [
+const fluxnovaPlugins = [
   'admin-plugin-adminPlugins',
   'admin-plugin-adminEE',
   'cockpit-plugin-cockpitPlugins',
@@ -42,18 +42,18 @@ module.exports = async function loadPlugins(config, appName) {
 
   const JARScripts = window.PLUGIN_PACKAGES.filter(
     el =>
-      !camundaPlugins.includes(el.name) &&
+      !fluxnovaPlugins.includes(el.name) &&
       !el.name.startsWith(`${appName}-plugin-legacy`)
   ).map(el => {
-    addCssSource(`${el.location}/plugin.css?bust=${CAMUNDA_VERSION}`); // eslint-disable-line
-    return `${el.location}/${el.main}?bust=${CAMUNDA_VERSION}`; // eslint-disable-line
+    addCssSource(`${el.location}/plugin.css?bust=${FLUXNOVA_VERSION}`); // eslint-disable-line
+    return `${el.location}/${el.main}?bust=${FLUXNOVA_VERSION}`; // eslint-disable-line
   });
 
   const baseImportPath = `${appRoot}/app/${appName}/`;
   const fetchers = customScripts.map(url =>
     // eslint-disable-next-line
     _import(
-      baseImportPath + withSuffix(url, '.js') + `?bust=${CAMUNDA_VERSION}` // eslint-disable-line
+      baseImportPath + withSuffix(url, '.js') + `?bust=${FLUXNOVA_VERSION}` // eslint-disable-line
     ).catch(
       e => console.error(e) // eslint-disable-line
     )

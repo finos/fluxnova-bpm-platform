@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-modules</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-modules</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-modules-rest</artifactId>
-  <name>Flowave Platform - Run - Module REST</name>
+  <artifactId>fluxnova-bpm-run-modules-rest</artifactId>
+  <name>Fluxnova Platform - Run - Module REST</name>
   <packaging>pom</packaging>
   
   <properties>
@@ -23,8 +23,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.springboot</groupId>
-      <artifactId>flowave-bpm-spring-boot-starter-rest</artifactId>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-rest</artifactId>
     </dependency>
 
   </dependencies>

@@ -23,5 +23,5 @@ if [[ -z "${SPRING_DATASOURCE_URL:-}" && -n "${DB_URL:-}" ]]; then
   export SPRING_DATASOURCE_URL="${DB_URL}"
 fi
 
-CMD="/flowave/start.sh"
+CMD="/fluxnova/start.sh"
 exec sh $CMD

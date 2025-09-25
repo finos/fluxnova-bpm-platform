@@ -17,35 +17,35 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   /* controllers */
-  fwResourceDetailsCtrl = require('./controllers/fw-cockpit-resource-details-ctrl'),
+  fxnResourceDetailsCtrl = require('./controllers/fxn-cockpit-resource-details-ctrl'),
   /* directives */
-  fwCockpitResourceWrapper = require('./directives/fw-cockpit-resource-wrapper'),
-  fwCockpitResourceMeta = require('./directives/fw-cockpit-resource-meta'),
-  fwCockpitResourceContent = require('./directives/fw-cockpit-resource-content'),
-  fwCockpitHtmlSource = require('./directives/fw-cockpit-html-source'),
-  fwCockpitSource = require('./directives/fw-cockpit-source'),
-  fwCockpitForm = require('./directives/fw-cockpit-form'),
+  fxnCockpitResourceWrapper = require('./directives/fxn-cockpit-resource-wrapper'),
+  fxnCockpitResourceMeta = require('./directives/fxn-cockpit-resource-meta'),
+  fxnCockpitResourceContent = require('./directives/fxn-cockpit-resource-content'),
+  fxnCockpitHtmlSource = require('./directives/fxn-cockpit-html-source'),
+  fxnCockpitSource = require('./directives/fxn-cockpit-source'),
+  fxnCockpitForm = require('./directives/fxn-cockpit-form'),
   /* plugins */
-  fwCockpitDefinitionsPlugin = require('./plugins/details/definitions/fw-cockpit-definitions-plugin'),
-  fwCockpitResourceDownloadPlugin = require('./plugins/actions/download/fw-cockpit-resource-action-download-plugin');
+  fxnCockpitDefinitionsPlugin = require('./plugins/details/definitions/fxn-cockpit-definitions-plugin'),
+  fxnCockpitResourceDownloadPlugin = require('./plugins/actions/download/fxn-cockpit-resource-action-download-plugin');
 
-var resourceModule = angular.module('cam.cockpit.repository.resource', []);
+var resourceModule = angular.module('fxn.cockpit.repository.resource', []);
 
 /* controllers */
-resourceModule.controller('fwResourceDetailsCtrl', fwResourceDetailsCtrl);
+resourceModule.controller('fxnResourceDetailsCtrl', fxnResourceDetailsCtrl);
 
 /* directives */
-resourceModule.directive('fwResourceWrapper', fwCockpitResourceWrapper);
-resourceModule.directive('fwResourceMeta', fwCockpitResourceMeta);
-resourceModule.directive('fwResourceContent', fwCockpitResourceContent);
-resourceModule.directive('fwForm', fwCockpitForm);
-resourceModule.directive('fwSource', fwCockpitSource);
-resourceModule.directive('fwHtmlSource', fwCockpitHtmlSource);
+resourceModule.directive('fxnResourceWrapper', fxnCockpitResourceWrapper);
+resourceModule.directive('fxnResourceMeta', fxnCockpitResourceMeta);
+resourceModule.directive('fxnResourceContent', fxnCockpitResourceContent);
+resourceModule.directive('fxnForm', fxnCockpitForm);
+resourceModule.directive('fxnSource', fxnCockpitSource);
+resourceModule.directive('fxnHtmlSource', fxnCockpitHtmlSource);
 
 /* plugins */
-resourceModule.config(fwCockpitDefinitionsPlugin);
-resourceModule.config(fwCockpitResourceDownloadPlugin);
+resourceModule.config(fxnCockpitDefinitionsPlugin);
+resourceModule.config(fxnCockpitResourceDownloadPlugin);
 
 module.exports = resourceModule;

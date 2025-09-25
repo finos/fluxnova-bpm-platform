@@ -17,18 +17,18 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  fwLayoutCtrl = require('./controllers/fw-layout-ctrl'),
-  fwHeaderViewsCtrl = require('./controllers/fw-header-views-ctrl');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  fxnLayoutCtrl = require('./controllers/fxn-layout-ctrl'),
+  fxnHeaderViewsCtrl = require('./controllers/fxn-header-views-ctrl');
 
-require('flowave-commons-ui/lib/util/index');
+require('fluxnova-commons-ui/lib/util/index');
 
-var navigationModule = angular.module('cam.tasklist.navigation', [
-  require('flowave-commons-ui/lib/util/index').name,
+var navigationModule = angular.module('fxn.tasklist.navigation', [
+  require('fluxnova-commons-ui/lib/util/index').name,
   'ui.bootstrap'
 ]);
 
-navigationModule.controller('fwHeaderViewsCtrl', fwHeaderViewsCtrl);
-navigationModule.controller('fwLayoutCtrl', fwLayoutCtrl);
+navigationModule.controller('fxnHeaderViewsCtrl', fxnHeaderViewsCtrl);
+navigationModule.controller('fxnLayoutCtrl', fxnLayoutCtrl);
 
 module.exports = navigationModule;

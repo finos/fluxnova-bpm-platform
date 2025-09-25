@@ -17,10 +17,10 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 require('angular-route');
-require('flowave-commons-ui');
+require('fluxnova-commons-ui');
 
 var authorizations = require('./authorizations'),
   authorizationCreate = require('./authorizationCreate'),
@@ -43,7 +43,7 @@ var authorizations = require('./authorizations'),
   executionMetrics = require('./execution-metrics'),
   diagnostics = require('./diagnostics');
 
-var ngModule = angular.module('cam.admin.pages', ['ngRoute', 'cam.commons']);
+var ngModule = angular.module('fxn.admin.pages', ['ngRoute', 'fxn.commons']);
 
 ngModule.config(authorizations);
 ngModule.controller('AuthorizationCreateController', authorizationCreate);

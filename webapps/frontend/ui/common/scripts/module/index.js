@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 // Services
 var isModuleAvailable = require('./services/is-module-available');
@@ -35,24 +35,24 @@ var get = require('./services/get');
 var pluginApi = require('../services/plugins/getApiAttributes');
 
 // Components
-var fwToolbar = require('./components/fw-toolbar');
-var fwPagination = require('./components/fw-pagination');
-var fwSearchableArea = require('./components/fw-searchable-area');
-var fwTabs = require('./components/fw-tabs');
+var fxnToolbar = require('./components/fxn-toolbar');
+var fxnPagination = require('./components/fxn-pagination');
+var fxnSearchableArea = require('./components/fxn-searchable-area');
+var fxnTabs = require('./components/fxn-tabs');
 
 // Directives
-var fwHoverArea = require('./directives/fw-hover-area');
-var fwHoverTrigger = require('./directives/fw-hover-trigger');
-var fwHoverableTitle = require('./directives/fw-hoverable-title');
-var fwFile = require('./directives/fw-file');
-var fwSortableTableHeader = require('./directives/fw-sortable-table-header');
-var fwSortableTableColumn = require('./directives/fw-sortable-table-column');
+var fxnHoverArea = require('./directives/fxn-hover-area');
+var fxnHoverTrigger = require('./directives/fxn-hover-trigger');
+var fxnHoverableTitle = require('./directives/fxn-hoverable-title');
+var fxnFile = require('./directives/fxn-file');
+var fxnSortableTableHeader = require('./directives/fxn-sortable-table-header');
+var fxnSortableTableColumn = require('./directives/fxn-sortable-table-column');
 
 // Controllers
 var HoverAreaController = require('./controllers/hover-area');
-var FwPaginationController = require('./controllers/fw-pagination');
-var FwTabsController = require('./controllers/fw-tabs');
-var FwPaginationSearchIntegrationController = require('./controllers/fw-pagination-search-integration');
+var FxnPaginationController = require('./controllers/fxn-pagination');
+var FxnTabsController = require('./controllers/fxn-tabs');
+var FxnPaginationSearchIntegrationController = require('./controllers/fxn-pagination-search-integration');
 
 // Values
 var routeUtil = require('../util/routeUtil');
@@ -62,7 +62,7 @@ var searchWidgetUtils = require('../util/search-widget-utils');
 // Optional Modules
 var externalTasksCommon = require('./external-tasks-common');
 
-var ngModule = angular.module('fw-common', [externalTasksCommon.name]);
+var ngModule = angular.module('fxn-common', [externalTasksCommon.name]);
 
 // Services
 ngModule.factory('isModuleAvailable', isModuleAvailable);
@@ -86,26 +86,26 @@ ngModule.factory('get', get);
 ngModule.factory('getPluginApiAttributes', () => pluginApi);
 
 // Components
-ngModule.directive('fwToolbar', fwToolbar);
-ngModule.directive('fwPagination', fwPagination);
-ngModule.directive('fwSearchableArea', fwSearchableArea);
-ngModule.directive('fwTabs', fwTabs);
+ngModule.directive('fxnToolbar', fxnToolbar);
+ngModule.directive('fxnPagination', fxnPagination);
+ngModule.directive('fxnSearchableArea', fxnSearchableArea);
+ngModule.directive('fxnTabs', fxnTabs);
 
 // Directives
-ngModule.directive('fwHoverArea', fwHoverArea);
-ngModule.directive('fwHoverTrigger', fwHoverTrigger);
-ngModule.directive('fwHoverableTitle', fwHoverableTitle);
-ngModule.directive('fwFile', fwFile);
-ngModule.directive('fwSortableTableHeader', fwSortableTableHeader);
-ngModule.directive('fwSortableTableColumn', fwSortableTableColumn);
+ngModule.directive('fxnHoverArea', fxnHoverArea);
+ngModule.directive('fxnHoverTrigger', fxnHoverTrigger);
+ngModule.directive('fxnHoverableTitle', fxnHoverableTitle);
+ngModule.directive('fxnFile', fxnFile);
+ngModule.directive('fxnSortableTableHeader', fxnSortableTableHeader);
+ngModule.directive('fxnSortableTableColumn', fxnSortableTableColumn);
 
 // Controllers
 ngModule.controller('HoverAreaController', HoverAreaController);
-ngModule.controller('FwPaginationController', FwPaginationController);
-ngModule.controller('FwTabsController', FwTabsController);
+ngModule.controller('FxnPaginationController', FxnPaginationController);
+ngModule.controller('FxnTabsController', FxnTabsController);
 ngModule.controller(
-  'FwPaginationSearchIntegrationController',
-  FwPaginationSearchIntegrationController
+  'FxnPaginationSearchIntegrationController',
+  FxnPaginationSearchIntegrationController
 );
 
 // Values

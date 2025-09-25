@@ -3,16 +3,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../../database</relativePath>
   </parent>
 
-  <groupId>org.finos.flowave.bpm.run</groupId>
-  <artifactId>flowave-bpm-run-root</artifactId>
-  <name>Flowave Platform - Run - Root</name>
-  <description>This is the root of Flowave Platform Run</description>
+  <groupId>org.finos.fluxnova.bpm.run</groupId>
+  <artifactId>fluxnova-bpm-run-root</artifactId>
+  <name>Fluxnova Platform - Run - Root</name>
+  <description>This is the root of Fluxnova Platform Run</description>
   <packaging>pom</packaging>
 
   <dependencyManagement>
@@ -106,7 +106,7 @@
       </modules>
     </profile>
     <profile>
-      <id>integration-test-camunda-run</id>
+      <id>integration-test-fluxnova-run</id>
       <modules>
         <module>qa</module>
       </modules>

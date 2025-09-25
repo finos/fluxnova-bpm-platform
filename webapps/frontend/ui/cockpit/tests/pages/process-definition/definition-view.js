@@ -20,7 +20,7 @@
 var Base = require('./../base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/cockpit/default/#/process-definition/:process/runtime',
+  url: '/fluxnova/app/cockpit/default/#/process-definition/:process/runtime',
 
   pageHeader: function() {
     return element(by.binding('processDefinition.key'));
@@ -36,7 +36,7 @@ module.exports = Base.extend({
 
   isDefinitionSuspended: function() {
     return element(
-      by.css('.fw-breadcrumb .active .badge-suspended')
+      by.css('.fxn-breadcrumb .active .badge-suspended')
     ).isPresent();
   },
 

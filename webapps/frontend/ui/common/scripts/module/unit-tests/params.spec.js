@@ -19,17 +19,17 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../flowave-commons-ui/vendor/angular');
-var fwCommon = require('../index');
+var angular = require('../../../../../fluxnova-commons-ui/vendor/angular');
+var fxnCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common params', function() {
+describe('fxn-common params', function() {
   var params;
 
-  beforeEach(module(fwCommon.name));
+  beforeEach(module(fxnCommon.name));
 
   beforeEach(inject(function(_params_) {
     params = _params_;

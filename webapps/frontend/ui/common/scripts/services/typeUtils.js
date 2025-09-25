@@ -17,7 +17,7 @@
 
 'use strict';
 
-var typeUtils = require('flowave-bpm-sdk-js').utils.typeUtils;
+var typeUtils = require('fluxnova-bpm-sdk-js').utils.typeUtils;
 
 module.exports = function() {
   return typeUtils;

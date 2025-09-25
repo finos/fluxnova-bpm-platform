@@ -3,25 +3,25 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
-    <artifactId>flowave-bpm-spring-boot-starter-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
+    <artifactId>fluxnova-bpm-spring-boot-starter-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.bpm.springboot</groupId>
-  <artifactId>flowave-bpm-spring-boot-starter-rest</artifactId>
-  <name>Flowave Platform - Spring Boot Starter - Rest</name>
+  <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+  <artifactId>fluxnova-bpm-spring-boot-starter-rest</artifactId>
+  <name>Fluxnova Platform - Spring Boot Starter - Rest</name>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>flowave-bpm-spring-boot-starter</artifactId>
+      <artifactId>fluxnova-bpm-spring-boot-starter</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine-rest-core-jakarta</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -43,7 +43,7 @@
     </dependency>
 
     <dependency>
-      <artifactId>flowave-bpm-spring-boot-starter-test</artifactId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-test</artifactId>
       <groupId>${project.groupId}</groupId>
       <version>${project.version}</version>
       <scope>test</scope>

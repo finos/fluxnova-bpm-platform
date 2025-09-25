@@ -17,7 +17,7 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = [
   '$scope',
@@ -26,7 +26,7 @@ module.exports = [
   'search',
   'Uri',
   'Notifications',
-  'fwAPI',
+  'fxnAPI',
   '$uibModalInstance',
   'member',
   'memberId',
@@ -39,7 +39,7 @@ module.exports = [
     search,
     Uri,
     Notifications,
-    fwAPI,
+    fxnAPI,
     $modalInstance,
     member,
     memberId,
@@ -109,7 +109,7 @@ module.exports = [
       search.updateSilently({modalPage: !page || page == 1 ? null : page});
     };
 
-    var TenantResource = fwAPI.resource('tenant');
+    var TenantResource = fxnAPI.resource('tenant');
 
     var BEFORE_CREATE = 'beforeCreate',
       PERFORM_CREATE = 'performCancel',

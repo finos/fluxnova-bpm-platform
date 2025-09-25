@@ -2,19 +2,19 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.model</groupId>
-    <artifactId>flowave-model-apis</artifactId>
+    <groupId>org.finos.fluxnova.bpm.model</groupId>
+    <artifactId>fluxnova-model-apis</artifactId>
     <relativePath>../</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-xml-model</artifactId>
+  <artifactId>fluxnova-xml-model</artifactId>
   <packaging>jar</packaging>
 
-  <name>Flowave Platform - Xml Model API</name>
+  <name>Fluxnova Platform - Xml Model API</name>
   <inceptionYear>2014</inceptionYear>
   <properties>
-    <camunda.artifact>org.finos.flowave.bpm.model.xml</camunda.artifact>
+    <camunda.artifact>org.finos.fluxnova.bpm.model.xml</camunda.artifact>
     <camunda.osgi.import.additional>
       org.assertj.*;resolution:=optional,
       org.junit.*;resolution:=optional
@@ -76,7 +76,7 @@
               <comparisonVersion>${camunda.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
-                <exclude>org/finos/flowave/bpm/model/xml/impl/**</exclude>
+                <exclude>org/finos/fluxnova/bpm/model/xml/impl/**</exclude>
               </excludes>
             </configuration>
             <executions>

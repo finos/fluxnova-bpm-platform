@@ -40,7 +40,7 @@ var fragment1 = combine(
     },
     {
       id: 'ringo',
-      password: 'cam123',
+      password: 'fxn123',
       firstName: 'Ringo',
       lastName: 'Starr',
       email: 'ringo.starr@the-beatles.com'
@@ -98,7 +98,7 @@ var userBatch = [];
 for (var i = 0; i < 45; i++) {
   userBatch.push({
     id: 'user' + i,
-    password: 'cam123',
+    password: 'fxn123',
     firstName: 'abc',
     lastName: 'def'
   });

@@ -109,7 +109,7 @@ The raw JSON result files allow you to inspect the database communication betwee
     "configuration": {
         "numberOfThreads": 1,
         "numberOfRuns": 1,
-        "testWatchers": "org.finos.flowave.bpm.qa.performance.engine.sql.statementlog.StatementLogPerfTestWatcher"
+        "testWatchers": "org.finos.fluxnova.bpm.qa.performance.engine.sql.statementlog.StatementLogPerfTestWatcher"
     },
     "duration": 20,
     "stepResults": [

@@ -20,7 +20,7 @@
 const template = require('./time-to-live-dialog.html?raw');
 
 const Controller = [
-  'fwAPI',
+  'fxnAPI',
   '$uibModalInstance',
   '$scope',
   'Notifications',
@@ -28,7 +28,7 @@ const Controller = [
   '$location',
   'hasPlugin',
   function(
-    fwAPI,
+    fxnAPI,
     $modalInstance,
     $scope,
     Notifications,
@@ -36,7 +36,7 @@ const Controller = [
     $location,
     hasPlugin
   ) {
-    const resource = fwAPI.resource($scope.resource);
+    const resource = fxnAPI.resource($scope.resource);
     const hasBatchOperationPlugin = hasPlugin(
       'cockpit.navigation',
       'batch_operation'

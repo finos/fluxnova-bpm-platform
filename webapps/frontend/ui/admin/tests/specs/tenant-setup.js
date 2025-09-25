@@ -69,7 +69,7 @@ var userPagerSetup = combine(
     createEntities(function(idx) {
       return {
         id: 'user' + idx,
-        password: 'cam123',
+        password: 'fxn123',
         firstName: 'abc',
         lastName: 'def'
       };
@@ -143,7 +143,7 @@ var pagingSetup = combine(
   operation('user', 'create', [
     {
       id: 'user',
-      password: 'cam123',
+      password: 'fxn123',
       firstName: 'abc',
       lastName: 'def'
     }

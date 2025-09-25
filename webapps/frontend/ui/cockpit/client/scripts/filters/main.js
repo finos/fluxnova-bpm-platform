@@ -17,12 +17,12 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   shorten = require('./shorten'),
-  abbreviateNumber = require('flowave-commons-ui/lib/filter/abbreviateNumber'),
+  abbreviateNumber = require('fluxnova-commons-ui/lib/filter/abbreviateNumber'),
   duration = require('./duration');
 
-var filtersModule = angular.module('cam.cockpit.filters', []);
+var filtersModule = angular.module('fxn.cockpit.filters', []);
 
 filtersModule.filter('shorten', shorten);
 filtersModule.filter('abbreviateNumber', abbreviateNumber);

@@ -19,14 +19,14 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var angular = require('../../../../../flowave-commons-ui/vendor/angular');
+var angular = require('../../../../../fluxnova-commons-ui/vendor/angular');
 var drdCommon = require('../index');
 require('angular-mocks');
 
 var module = angular.mock.module;
 var inject = angular.mock.inject;
 
-describe('fw-common exposeScopeProperties service', function() {
+describe('fxn-common exposeScopeProperties service', function() {
   var exposeScopeProperties;
   var $scope;
   var target;

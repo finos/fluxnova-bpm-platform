@@ -2,21 +2,21 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa</groupId>
-    <artifactId>flowave-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa</groupId>
+    <artifactId>fluxnova-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-  <artifactId>flowave-qa-upgrade-scenario-util</artifactId>
+  <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+  <artifactId>fluxnova-qa-upgrade-scenario-util</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - scenario util</name>
+  <name>Fluxnova Platform - QA - upgrade - scenario util</name>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>7.2.0</version>
         <scope>import</scope>
         <type>pom</type>
@@ -27,8 +27,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
     </dependency>
 

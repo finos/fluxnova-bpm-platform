@@ -2,24 +2,24 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.connect</groupId>
-    <artifactId>flowave-connect-root</artifactId>
+    <groupId>org.finos.fluxnova.connect</groupId>
+    <artifactId>fluxnova-connect-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-connect-core</artifactId>
-  <name>Flowave Platform - connect - core</name>
+  <artifactId>fluxnova-connect-core</artifactId>
+  <name>Fluxnova Platform - connect - core</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-logging</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-logging</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-utils</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-utils</artifactId>
     </dependency>
 
     <dependency>

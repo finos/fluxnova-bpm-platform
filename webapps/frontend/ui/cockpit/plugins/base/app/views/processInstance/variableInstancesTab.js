@@ -36,7 +36,7 @@ module.exports = function(ngModule) {
     'Notifications',
     '$uibModal',
     '$q',
-    'fwAPI',
+    'fxnAPI',
     'fixDate',
     'unfixDate',
     '$translate',
@@ -51,7 +51,7 @@ module.exports = function(ngModule) {
       Notifications,
       $modal,
       $q,
-      fwAPI,
+      fxnAPI,
       fixDate,
       unfixDate,
       $translate,
@@ -64,9 +64,9 @@ module.exports = function(ngModule) {
         variableInstanceIdexceptionMessageMap,
         variableCopies;
 
-      var executionService = fwAPI.resource('execution'),
-        taskService = fwAPI.resource('task'),
-        variableService = fwAPI.resource('variable');
+      var executionService = fxnAPI.resource('execution'),
+        taskService = fxnAPI.resource('task'),
+        variableService = fxnAPI.resource('variable');
 
       // Table header
       // prettier-ignore
@@ -228,7 +228,7 @@ module.exports = function(ngModule) {
 
             controller: inspectTemplate.controller,
 
-            windowClass: 'fw-widget-variable-dialog',
+            windowClass: 'fxn-widget-variable-dialog',
 
             resolve: {
               basePath: function() {

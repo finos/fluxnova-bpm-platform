@@ -190,7 +190,7 @@ to access these packages securely.
 
 ### Viewing Packages
 
-- Go to the [Packages](https://github.com/orgs/finos/packages?q=org.flowave&tab=packages&q=org.finos.flowave) section of the repository on GitHub to view published artifacts.
+- Go to the [Packages](https://github.com/orgs/finos/packages?q=org.flowave&tab=packages&q=org.finos.fluxnova) section of the repository on GitHub to view published artifacts.
 - These packages can be used as dependencies in other projects via GitHub Packages.
 
 

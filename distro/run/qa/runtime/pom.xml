@@ -3,26 +3,26 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.run</groupId>
-    <artifactId>flowave-bpm-run-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.run</groupId>
+    <artifactId>fluxnova-bpm-run-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <artifactId>flowave-bpm-run-qa-runtime</artifactId>
-  <name>Flowave Platform - Run - QA - Runtime</name>
+  <artifactId>fluxnova-bpm-run-qa-runtime</artifactId>
+  <name>Fluxnova Platform - Run - QA - Runtime</name>
   <packaging>jar</packaging>
   
   <properties>
-    <run-home>${project.build.directory}/run/camunda-bpm-run-distro</run-home>
+    <run-home>${project.build.directory}/run/fluxnova-bpm-run-distro</run-home>
     <example-plugin-home>${project.build.directory}/run/example-plugin</example-plugin-home>
   </properties>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run</artifactId>
       <version>${project.version}</version>
       <type>zip</type>
       <scope>test</scope>
@@ -37,8 +37,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.run</groupId>
-      <artifactId>flowave-bpm-run-qa-integration-tests</artifactId>
+      <groupId>org.finos.fluxnova.bpm.run</groupId>
+      <artifactId>fluxnova-bpm-run-qa-integration-tests</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
       <classifier>tests</classifier>
@@ -91,14 +91,14 @@
 
     <!-- Webapps -->
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa</groupId>
-      <artifactId>flowave-qa-integration-tests-webapps</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa</groupId>
+      <artifactId>fluxnova-qa-integration-tests-webapps</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.model</groupId>
-      <artifactId>flowave-bpmn-model</artifactId>
+      <groupId>org.finos.fluxnova.bpm.model</groupId>
+      <artifactId>fluxnova-bpmn-model</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -137,7 +137,7 @@
 
   <profiles>
     <profile>
-      <id>integration-test-camunda-run</id>
+      <id>integration-test-fluxnova-run</id>
       <build>
         <plugins>
           <plugin>
@@ -147,7 +147,7 @@
             <configuration>
               <redirectTestOutputToFile>true</redirectTestOutputToFile>
               <dependenciesToScan>
-                <dependenciesToScan>org.finos.flowave.bpm.run:flowave-bpm-run-qa-integration-tests</dependenciesToScan>
+                <dependenciesToScan>org.finos.fluxnova.bpm.run:fluxnova-bpm-run-qa-integration-tests</dependenciesToScan>
               </dependenciesToScan>
               <systemPropertyVariables>
                 <camunda.run.home>${run-home}</camunda.run.home>
@@ -175,7 +175,7 @@
                 </goals>
                 <phase>generate-test-resources</phase>
                 <configuration>
-                  <includeArtifactIds>flowave-bpm-run</includeArtifactIds>
+                  <includeArtifactIds>fluxnova-bpm-run</includeArtifactIds>
                   <overWriteSnapshots>true</overWriteSnapshots>
                   <excludeTransitive>true</excludeTransitive>
                   <outputDirectory>${run-home}</outputDirectory>
@@ -195,7 +195,7 @@
                 </goals>
                 <phase>generate-test-resources</phase>
                 <configuration>
-                  <artifact>org.finos.flowave.bpm.run:flowave-bpm-run-example-plugin:${project.version}</artifact>
+                  <artifact>org.finos.fluxnova.bpm.run:fluxnova-bpm-run-example-plugin:${project.version}</artifact>
                   <overWriteSnapshots>true</overWriteSnapshots>
                   <stripVersion>true</stripVersion>
                   <outputDirectory>${example-plugin-home}</outputDirectory>

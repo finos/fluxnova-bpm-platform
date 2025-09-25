@@ -1,24 +1,62 @@
-type: specs.openrewrite.org/v1beta/recipe
-name: flowaveToFinosFlowave
-displayName: Rename org.finos.flowave.* to org.finos.flowave.*
-recipeList:
-    - org.openrewrite.java.ChangePackage:
-          oldPackageName: org.finos.flowave
-          newPackageName: org.finos.flowave
-          recursive: true
-    - org.openrewrite.text.FindAndReplace:
-          find: "org.finos.flowave"
-          replace: "org.finos.flowave"
-          filePattern: '**/*.java'
-    - org.openrewrite.text.FindAndReplace:
-          find: "org.finos.flowave"
-          replace: "org.finos.flowave"
-          filePattern: '**/*.xml'
-    - org.openrewrite.text.FindAndReplace:
-          find: "org.finos.flowave"
-          replace: "org.finos.flowave"
-          filePattern: '**/*.properties'
-    - org.openrewrite.text.FindAndReplace:
-          find: "org.finos.flowave"
-          replace: "org.finos.flowave"
-          filePattern: '**/*.yml'
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceFluxnovaInGroupId
+#displayName: Replace 'flowave' with 'fluxnova' in groupId
+#description: Updates the flowave word in group ID in all pom.xml file.
+#
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //groupId
+#      oldValue: org\.finos\.flowave\.(.*)
+#      newValue: org.finos.fluxnova.$1
+#      regex: true
+#
+#---
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceFluxnovaInGroupId2
+#displayName: Replace org.finos.fluxnova with org.finos.fluxnova
+#description: Replaces the groupId org.finos.fluxnova with org.finos.fluxnova in pom.xml files.
+#
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //groupId
+#      oldValue: org.finos.flowave
+#      newValue: org.finos.fluxnova
+#---
+#type: specs.openrewrite.org/v1beta/recipe
+#name: ReplaceFlowaveArtifactIdWithFluxnova
+#recipeList:
+#  - org.openrewrite.xml.ChangeTagValue:
+#      filePattern: "**/pom.xml"
+#      elementName: //artifactId
+#      oldValue: flowave\-(.*)
+#      newValue: fluxnova-$1
+#      regex: true
+#
+#---
+#
+#type: specs.openrewrite.org/v1beta/recipe
+#name: flowaveToFinosFluxnova
+#displayName: Rename org.finos.fluxnova.* to org.finos.fluxnova.*
+#recipeList:
+#  - org.openrewrite.java.ChangePackage:
+#      oldPackageName: org.finos.flowave
+#      newPackageName: org.finos.fluxnova
+#      recursive: true
+#  - org.openrewrite.text.FindAndReplace:
+#      find: "org.finos.flowave"
+#      replace: "org.finos.fluxnova"
+#      filePattern: '**/*.java'
+#  - org.openrewrite.text.FindAndReplace:
+#      find: "org.finos.flowave"
+#      replace: "org.finos.fluxnova"
+#      filePattern: '**/*.xml'
+#  - org.openrewrite.text.FindAndReplace:
+#      find: "org.finos.flowave"
+#      replace: "org.finos.fluxnova"
+#      filePattern: '**/*.properties'
+#  - org.openrewrite.text.FindAndReplace:
+#      find: "org.finos.flowave"
+#      replace: "org.finos.fluxnova"
+#      filePattern: '**/*.yml'

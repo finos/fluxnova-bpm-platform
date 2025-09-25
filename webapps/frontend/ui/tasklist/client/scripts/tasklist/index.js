@@ -17,23 +17,23 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   /* controller */
-  fwTasklistListCtrl = require('./controller/fw-tasklist-list-ctrl'),
+  fxnTasklistListCtrl = require('./controller/fxn-tasklist-list-ctrl'),
   /* directives */
-  fwTasklistTasks = require('./directives/fw-tasklist-tasks'),
+  fxnTasklistTasks = require('./directives/fxn-tasklist-tasks'),
   /* plugins */
-  fwTasklistSearchPlugin = require('./plugins/fw-tasklist-search-plugin');
+  fxnTasklistSearchPlugin = require('./plugins/fxn-tasklist-search-plugin');
 
-var ngModule = angular.module('cam.tasklist.tasklist', ['ui.bootstrap']);
+var ngModule = angular.module('fxn.tasklist.tasklist', ['ui.bootstrap']);
 
 /* controller */
-ngModule.controller('fwListCtrl', fwTasklistListCtrl);
+ngModule.controller('fxnListCtrl', fxnTasklistListCtrl);
 
 /* directives */
-ngModule.directive('fwTasks', fwTasklistTasks);
+ngModule.directive('fxnTasks', fxnTasklistTasks);
 
 /* plugins */
-ngModule.config(fwTasklistSearchPlugin);
+ngModule.config(fxnTasklistSearchPlugin);
 
 module.exports = ngModule;

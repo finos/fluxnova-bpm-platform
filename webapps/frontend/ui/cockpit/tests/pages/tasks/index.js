@@ -22,7 +22,7 @@ var OpenTasksStatisticsPage = require('./open-tasks-statistics');
 var AuthenticationPage = require('../../../../common/tests/pages/authentication');
 
 var Page = Base.extend({
-  url: '/flowave/app/cockpit/default/#/tasks',
+  url: '/fluxnova/app/cockpit/default/#/tasks',
 
   pluginList: function() {
     return element.all(by.css('.dashboard'));

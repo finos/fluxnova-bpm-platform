@@ -12,7 +12,7 @@
       <extensionElements>
         <camunda:executionListener
             event="end"
-            class="org.finos.flowave.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
+            class="org.finos.fluxnova.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate" />
       </extensionElements>
       <multiInstanceLoopCharacteristics isSequential="true">
         <loopCardinality>3</loopCardinality>

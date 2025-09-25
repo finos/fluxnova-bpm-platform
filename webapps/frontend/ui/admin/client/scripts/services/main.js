@@ -17,18 +17,18 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
   routeUtil = require('./../../../../common/scripts/services/routeUtil'),
   page = require('./../../../../common/scripts/services/page'),
-  fwAPI = require('./../../../../common/scripts/services/fw-api'),
-  localConf = require('flowave-commons-ui/lib/services/fw-local-configuration');
+  fxnAPI = require('./../../../../common/scripts/services/fxn-api'),
+  localConf = require('fluxnova-commons-ui/lib/services/fxn-local-configuration');
 
 var servicesModule = (module.exports = angular.module(
-  'cam.admin.services',
+  'fxn.admin.services',
   []
 ));
 
 servicesModule.service('page', page);
 servicesModule.factory('routeUtil', routeUtil);
-servicesModule.factory('fwAPI', fwAPI);
+servicesModule.factory('fxnAPI', fxnAPI);
 servicesModule.factory('localConf', localConf);

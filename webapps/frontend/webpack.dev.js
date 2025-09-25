@@ -31,18 +31,18 @@ module.exports = (_env, argv = {}) => {
 
   const addEngines = engines => {
     return engines.reduce((acc, engine) => {
-      acc[`/flowave/app/*/${engine}/`] = {
+      acc[`/fluxnova/app/*/${engine}/`] = {
         target: 'http://localhost:8081/',
         pathRewrite: path => {
-          return path.replace(`/${engine}`, '').replace('/flowave', '');
+          return path.replace(`/${engine}`, '').replace('/fluxnova', '');
         }
       };
-      acc[`/flowave/app/*/${engine}/setup/`] = {
+      acc[`/fluxnova/app/*/${engine}/setup/`] = {
         target: 'http://localhost:8081/',
         pathRewrite: path => {
           return path
             .replace(`/${engine}`, '')
-            .replace('/flowave', '')
+            .replace('/fluxnova', '')
             .replace('/setup', '');
         }
       };
@@ -67,33 +67,33 @@ module.exports = (_env, argv = {}) => {
       https: false,
       proxy: {
         '/api': {
-          target: 'http://localhost:8080/flowave/api',
+          target: 'http://localhost:8080/fluxnova/api',
           logLevel: 'debug',
           pathRewrite: {
             '^/api': ''
           }
         },
-        '/flowave-welcome': {
+        '/fluxnova-welcome': {
           target: 'http://localhost:8080/',
           logLevel: 'debug'
         },
         ...addEngines(['default', 'engine2', 'engine3']),
-        '/flowave/*': {
+        '/fluxnova/*': {
           target: 'http://localhost:8081/',
           logLevel: 'debug',
           pathRewrite: path => {
-            return path.replace('/flowave', '');
+            return path.replace('/fluxnova', '');
           }
         },
-        '/flowave/api/*': {
+        '/fluxnova/api/*': {
           target: 'http://localhost:8081/',
           logLevel: 'debug',
           pathRewrite: path => {
-            return path.replace('/flowave', '');
+            return path.replace('/fluxnova', '');
           }
         }
       },
-      open: ['/flowave/app/cockpit/default/']
+      open: ['/fluxnova/app/cockpit/default/']
     }
   };
 
@@ -140,9 +140,9 @@ module.exports = (_env, argv = {}) => {
       const options = plugin.options;
       plugin.options = {
         ...options,
-        publicPath: '/flowave',
-        appRoot: '/flowave',
-        appBase: `/flowave/app/${options['appName']}/{ENGINE}/`,
+        publicPath: '/fluxnova',
+        appRoot: '/fluxnova',
+        appBase: `/fluxnova/app/${options['appName']}/{ENGINE}/`,
         pluginDeps: getPluginDeps(options['appName']),
         pluginPackages: getPluginPackages(options['appName'])
       };

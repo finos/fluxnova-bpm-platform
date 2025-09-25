@@ -20,7 +20,7 @@
 var Page = require('./system-base');
 
 module.exports = Page.extend({
-  url: '/flowave/app/admin/default/#/system?section=system-settings-metrics',
+  url: '/fluxnova/app/admin/default/#/system?section=system-settings-metrics',
 
   flowNodesResult: function() {
     return element(by.binding('metrics.flowNodes')).getText();

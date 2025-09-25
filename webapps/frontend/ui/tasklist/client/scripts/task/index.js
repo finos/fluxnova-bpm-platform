@@ -17,32 +17,32 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  taskDirective = require('./directives/fw-tasklist-task'),
-  taskMetaDirective = require('./directives/fw-tasklist-task-meta'),
-  fwTaskActionCtrl = require('./controller/fw-tasklist-task-action-ctrl'),
-  fwTaskGroupsCtrl = require('./controller/fw-tasklist-task-groups-ctrl'),
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  taskDirective = require('./directives/fxn-tasklist-task'),
+  taskMetaDirective = require('./directives/fxn-tasklist-task-meta'),
+  fxnTaskActionCtrl = require('./controller/fxn-tasklist-task-action-ctrl'),
+  fxnTaskGroupsCtrl = require('./controller/fxn-tasklist-task-groups-ctrl'),
   /* detail plugins */
-  fwTaskDetailFormPlugin = require('./plugins/detail/fw-tasklist-task-detail-form-plugin'),
-  fwTaskDetailHistoryPlugin = require('./plugins/detail/fw-tasklist-task-detail-history-plugin'),
-  fwTaskDetailDiagramPlugin = require('./plugins/detail/fw-tasklist-task-detail-diagram-plugin'),
-  fwTaskDetailDescriptionPlugin = require('./plugins/detail/fw-tasklist-task-detail-description-plugin'),
+  fxnTaskDetailFormPlugin = require('./plugins/detail/fxn-tasklist-task-detail-form-plugin'),
+  fxnTaskDetailHistoryPlugin = require('./plugins/detail/fxn-tasklist-task-detail-history-plugin'),
+  fxnTaskDetailDiagramPlugin = require('./plugins/detail/fxn-tasklist-task-detail-diagram-plugin'),
+  fxnTaskDetailDescriptionPlugin = require('./plugins/detail/fxn-tasklist-task-detail-description-plugin'),
   /* action plugins */
-  fwTaskActionCommentPlugin = require('./plugins/action/fw-tasklist-task-action-comment-plugin'),
+  fxnTaskActionCommentPlugin = require('./plugins/action/fxn-tasklist-task-action-comment-plugin'),
   /* action plugin controller */
-  fwCommentCreateModalCtrl = require('./plugins/action/modals/fw-tasklist-comment-form'),
+  fxnCommentCreateModalCtrl = require('./plugins/action/modals/fxn-tasklist-comment-form'),
   /* modals */
-  fwGroupEditModalCtrl = require('./modals/fw-tasklist-groups-modal'),
+  fxnGroupEditModalCtrl = require('./modals/fxn-tasklist-groups-modal'),
   /* API */
   apiClient = require('../api/index');
 
 require('angular-ui-bootstrap');
 require('angular-moment');
 
-var taskModule = angular.module('cam.tasklist.task', [
+var taskModule = angular.module('fxn.tasklist.task', [
   apiClient.name,
   'ui.bootstrap',
-  'cam.tasklist.form',
+  'fxn.tasklist.form',
   'angularMoment'
 ]);
 
@@ -54,25 +54,25 @@ var taskModule = angular.module('cam.tasklist.task', [
  * @memberof cam.tasklist
  */
 
-taskModule.directive('fwTasklistTask', taskDirective);
+taskModule.directive('fxnTasklistTask', taskDirective);
 
-taskModule.directive('fwTasklistTaskMeta', taskMetaDirective);
+taskModule.directive('fxnTasklistTaskMeta', taskMetaDirective);
 
-taskModule.controller('fwTaskActionCtrl', fwTaskActionCtrl);
-taskModule.controller('fwTaskGroupsCtrl', fwTaskGroupsCtrl);
+taskModule.controller('fxnTaskActionCtrl', fxnTaskActionCtrl);
+taskModule.controller('fxnTaskGroupsCtrl', fxnTaskGroupsCtrl);
 
 /* detail plugins */
-taskModule.config(fwTaskDetailFormPlugin);
-taskModule.config(fwTaskDetailHistoryPlugin);
-taskModule.config(fwTaskDetailDiagramPlugin);
-taskModule.config(fwTaskDetailDescriptionPlugin);
+taskModule.config(fxnTaskDetailFormPlugin);
+taskModule.config(fxnTaskDetailHistoryPlugin);
+taskModule.config(fxnTaskDetailDiagramPlugin);
+taskModule.config(fxnTaskDetailDescriptionPlugin);
 
 /* action plugins */
-taskModule.config(fwTaskActionCommentPlugin);
+taskModule.config(fxnTaskActionCommentPlugin);
 
 /* action plugin controller */
-taskModule.controller('fwCommentCreateModalCtrl', fwCommentCreateModalCtrl);
+taskModule.controller('fxnCommentCreateModalCtrl', fxnCommentCreateModalCtrl);
 
-taskModule.controller('fwGroupEditModalCtrl', fwGroupEditModalCtrl);
+taskModule.controller('fxnGroupEditModalCtrl', fxnGroupEditModalCtrl);
 
 module.exports = taskModule;

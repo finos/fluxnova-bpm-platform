@@ -20,10 +20,10 @@
 var angular = require('angular');
 var testModule = require('../../../../unit-tests/tests-module');
 var externalTasksModule = require('../index');
-var fwCommon = require('../../index');
+var fxnCommon = require('../../index');
 
-module.exports = angular.module('fw-common.external-tasks-common.tests', [
+module.exports = angular.module('fxn-common.external-tasks-common.tests', [
   testModule.name,
   externalTasksModule.name,
-  fwCommon.name
+  fxnCommon.name
 ]);

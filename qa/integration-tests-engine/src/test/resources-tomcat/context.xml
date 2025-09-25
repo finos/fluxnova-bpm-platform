@@ -6,12 +6,12 @@
       factory="org.jboss.weld.resources.ManagerObjectFactory"/>
       
    <ResourceLink name="ProcessEngineService"
-            global="global/camunda-bpm-platform/process-engine/ProcessEngineService!org.finos.flowave.bpm.ProcessEngineService"
-            type="org.finos.flowave.bpm.ProcessEngineService" />
+            global="global/fluxnova-bpm-platform/process-engine/ProcessEngineService!org.finos.fluxnova.bpm.ProcessEngineService"
+            type="org.finos.fluxnova.bpm.ProcessEngineService" />
             
    <ResourceLink name="ProcessApplicationService"
-            global="global/camunda-bpm-platform/process-engine/ProcessApplicationService!org.finos.flowave.bpm.ProcessApplicationService"
-            type="org.finos.flowave.bpm.ProcessApplicationService" />
+            global="global/fluxnova-bpm-platform/process-engine/ProcessApplicationService!org.finos.fluxnova.bpm.ProcessApplicationService"
+            type="org.finos.fluxnova.bpm.ProcessApplicationService" />
             
    <ResourceLink name="ProcessEngineDataSource" global="jdbc/ProcessEngine" type="javax.sql.DataSource"/>
             

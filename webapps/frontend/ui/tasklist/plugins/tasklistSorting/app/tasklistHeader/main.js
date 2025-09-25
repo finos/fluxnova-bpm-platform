@@ -18,18 +18,18 @@
 'use strict';
 
 var angular = require('angular'),
-  fwTasklistSortingChoices = require('./fw-tasklist-sorting-choices'),
-  fwTasklistSortingDropdown = require('./fw-tasklist-sorting-dropdown'),
-  fwTasklistSortingInputs = require('./fw-tasklist-sorting-inputs'),
+  fxnTasklistSortingChoices = require('./fxn-tasklist-sorting-choices'),
+  fxnTasklistSortingDropdown = require('./fxn-tasklist-sorting-dropdown'),
+  fxnTasklistSortingInputs = require('./fxn-tasklist-sorting-inputs'),
   tasklistSortingPlugin = require('./tasklist-sorting');
 
 var ngModule = angular.module(
   'tasklist.plugin.tasklistSorting.tasklistHeader',
   []
 );
-ngModule.directive('fwSortingChoices', fwTasklistSortingChoices);
-ngModule.directive('fwSortingDropdown', fwTasklistSortingDropdown);
-ngModule.directive('fwSortingInputs', fwTasklistSortingInputs);
+ngModule.directive('fxnSortingChoices', fxnTasklistSortingChoices);
+ngModule.directive('fxnSortingDropdown', fxnTasklistSortingDropdown);
+ngModule.directive('fxnSortingInputs', fxnTasklistSortingInputs);
 
 ngModule.config(tasklistSortingPlugin);
 

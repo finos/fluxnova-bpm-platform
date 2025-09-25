@@ -18,13 +18,13 @@
 'use strict';
 
 var template = require('./user-profile.html?raw');
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = [
-  'fwAPI',
+  'fxnAPI',
   'Notifications',
   '$translate',
-  function(fwAPI, Notifications, $translate) {
+  function(fxnAPI, Notifications, $translate) {
     return {
       restrict: 'A',
 
@@ -60,7 +60,7 @@ module.exports = [
           total: 0
         });
 
-        var groupResource = fwAPI.resource('group');
+        var groupResource = fxnAPI.resource('group');
 
         groupResource.count({member: $scope.user.id}).then(function(res) {
           groupPages.total = res.count;
@@ -84,7 +84,7 @@ module.exports = [
 
         $scope.loadGroups();
 
-        var userResource = fwAPI.resource('user');
+        var userResource = fxnAPI.resource('user');
         userResource.profile(
           {
             id: $scope.user.id

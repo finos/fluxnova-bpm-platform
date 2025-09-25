@@ -19,7 +19,7 @@
 
 var Table = require('./../../table');
 
-var Variable = require('flowave-commons-ui/lib/widgets/variables-table/test/fw-widget-variables-table.page')
+var Variable = require('fluxnova-commons-ui/lib/widgets/variables-table/test/fxn-widget-variables-table.page')
   .Variable;
 
 module.exports = Table.extend({

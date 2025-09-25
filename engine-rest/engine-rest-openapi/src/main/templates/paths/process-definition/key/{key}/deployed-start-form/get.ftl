@@ -35,8 +35,8 @@
                                     <label class=\\"control-label col-md-4\\"
                                            for=\\"creditor\\">Creditor</label>
                                     <div class=\\"col-md-8\\">
-                                      <input fw-variable-name=\\"creditor\\"
-                                             fw-variable-type=\\"String\\"
+                                      <input fxn-variable-name=\\"creditor\\"
+                                             fxn-variable-type=\\"String\\"
                                              id=\\"creditor\\"
                                              class=\\"form-control\\"
                                              type=\\"text\\"

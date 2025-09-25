@@ -10,7 +10,7 @@
     <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
     <init-param>
       <param-name>javax.ws.rs.Application</param-name>
-      <param-value>org.finos.flowave.bpm.engine.rest.util.container.JaxrsApplication</param-value>
+      <param-value>org.finos.fluxnova.bpm.engine.rest.util.container.JaxrsApplication</param-value>
     </init-param>
   </servlet>
 
@@ -20,11 +20,11 @@
   </servlet-mapping>
 
   <listener>
-    <listener-class>org.finos.flowave.bpm.engine.rest.CustomJacksonDateFormatListener</listener-class>
+    <listener-class>org.finos.fluxnova.bpm.engine.rest.CustomJacksonDateFormatListener</listener-class>
   </listener>
 
   <context-param>
-    <param-name>org.finos.flowave.bpm.engine.rest.jackson.dateFormat</param-name>
+    <param-name>org.finos.fluxnova.bpm.engine.rest.jackson.dateFormat</param-name>
     <param-value>yyyy-MM-dd'T'HH:mm:ss</param-value>
   </context-param>
 

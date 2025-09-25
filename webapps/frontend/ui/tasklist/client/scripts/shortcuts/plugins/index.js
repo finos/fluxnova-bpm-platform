@@ -17,10 +17,10 @@
 
 'use strict';
 
-var angular = require('flowave-commons-ui/vendor/angular'),
-  plugin = require('./action/fw-tasklist-shortcut-help-plugin');
+var angular = require('fluxnova-commons-ui/vendor/angular'),
+  plugin = require('./action/fxn-tasklist-shortcut-help-plugin');
 
-var shortcutModule = angular.module('cam.tasklist.shortcuts', []);
+var shortcutModule = angular.module('fxn.tasklist.shortcuts', []);
 
 /* action plugins */
 shortcutModule.config(plugin);

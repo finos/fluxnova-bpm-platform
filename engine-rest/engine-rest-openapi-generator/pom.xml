@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>flowave-engine-rest-openapi-generator</artifactId>
-  <name>Flowave Platform - engine - REST - OpenAPI (JSON Generator)</name>
+  <artifactId>fluxnova-engine-rest-openapi-generator</artifactId>
+  <name>Fluxnova Platform - engine - REST - OpenAPI (JSON Generator)</name>
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-engine-rest-root</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>

@@ -3,12 +3,12 @@ body.dashboard {
   padding-top: 70px;
 }
 
-[fw-widget-header] .btn-primary,
-[fw-widget-header] .btn-primary:hover {
+[fxn-widget-header] .btn-primary,
+[fxn-widget-header] .btn-primary:hover {
   font-size: 14px;
   color: #fff;
 }
-[fw-widget-header] .row {
+[fxn-widget-header] .row {
   display: flex;
   align-items: center;
 }

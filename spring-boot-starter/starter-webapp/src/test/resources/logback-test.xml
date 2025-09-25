@@ -4,5 +4,5 @@
   <logger name="org.springframework" level="info"/>
   <logger name="org.hibernate" level="info"/>
   <logger name="org.camunda" level="info"/>
-  <logger name="org.finos.flowave.bpm.engine.persistence" level="warn" />
+  <logger name="org.finos.fluxnova.bpm.engine.persistence" level="warn" />
 </configuration>

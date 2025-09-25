@@ -12,21 +12,21 @@ ARG MYSQL_VERSION
 ENV SPRING_H2_CONSOLE_ENABLED=true
 ENV SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS=true
 
-WORKDIR /flowave
+WORKDIR /fluxnova
 
 # Install packages
 RUN yum install -y jq curl shadow-utils unzip
 
 # Expose port
 EXPOSE 8080
-# Create user and provide access to flowave folder
-RUN groupadd -g 4001 flowave_group && adduser -G flowave_group -u 4001 -m -d /flowave flowave_user
+# Create user and provide access to fluxnova folder
+RUN groupadd -g 4001 fluxnova_group && adduser -G fluxnova_group -u 4001 -m -d /fluxnova fluxnova_user
 
 # Unzip application
-COPY distro/run/distro/target/flowave-bpm-run-*.zip /flowave/
-RUN unzip flowave-bpm-run-*.zip
+COPY distro/run/distro/target/fluxnova-bpm-run-*.zip /fluxnova/
+RUN unzip fluxnova-bpm-run-*.zip
 
-COPY docker-script.sh /flowave/docker-script.sh
+COPY docker-script.sh /fluxnova/docker-script.sh
 
 # Download PostgreSQL JDBC driver if version specified
 RUN if [ -n "$POSTGRESQL_VERSION" ]; then \
@@ -40,7 +40,7 @@ RUN if [ -n "$MYSQL_VERSION" ]; then \
       mv mysql-connector.jar configuration/userlib/; \
    fi
 
-RUN chown -R flowave_user:flowave_group /flowave
+RUN chown -R fluxnova_user:fluxnova_group /fluxnova
 
 USER 4001
 

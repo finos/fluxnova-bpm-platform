@@ -47,7 +47,7 @@ describe('Admin admin-user Spec', function() {
     usersPage.adminUserSetup.passwordRepeatInput('admin123');
     usersPage.adminUserSetup.userFirstNameInput('Über');
     usersPage.adminUserSetup.userLastNameInput('Admin');
-    usersPage.adminUserSetup.userEmailInput('uea@camundo.org');
+    usersPage.adminUserSetup.userEmailInput('uea@fluxnova.org');
 
     usersPage.adminUserSetup.createNewAdminButton().click();
 

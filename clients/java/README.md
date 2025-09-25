@@ -2,7 +2,7 @@
 
 ** Needs To Be Reviewed **
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.bpm/camunda-external-task-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.finos.flowave.bpm/camunda-external-task-client)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.finos.fluxnova.bpm/camunda-external-task-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.finos.fluxnova.bpm/camunda-external-task-client)
 
 > Are you looking for the Spring Boot External Task Client? This way please: [Spring Boot External Task Client](../../spring-boot-starter/starter-client)
 
@@ -22,8 +22,8 @@ The **Flowave External Task Client (Java)** allows to set up remote Service Task
 
 
 ## Configuration options
-* The client can be configured with the fluent api of the [ExternalTaskClientBuilder](client/src/main/java/org/finos/flowave/bpm/client/ExternalTaskClientBuilder.java).
-* The topic subscription can be configured with the fluent api of the [TopicSubscriptionBuilder](client/src/main/java/org/finos/flowave/bpm/client/topic/TopicSubscriptionBuilder.java).
+* The client can be configured with the fluent api of the [ExternalTaskClientBuilder](client/src/main/java/org/finos/fluxnova/bpm/client/ExternalTaskClientBuilder.java).
+* The topic subscription can be configured with the fluent api of the [TopicSubscriptionBuilder](client/src/main/java/org/finos/fluxnova/bpm/client/topic/TopicSubscriptionBuilder.java).
 
 ## Prerequisites
 * Java (supported version by the used Flowave Platform 7)
@@ -33,7 +33,7 @@ The **Flowave External Task Client (Java)** allows to set up remote Service Task
 The following Maven coordinate needs to be added to the projects `pom.xml`:
 ```xml
 <dependency>
-  <groupId>org.finos.flowave.bpm</groupId>
+  <groupId>org.finos.fluxnova.bpm</groupId>
   <artifactId>flowave-external-task-client</artifactId>
   <version>${version}</version>
 </dependency>

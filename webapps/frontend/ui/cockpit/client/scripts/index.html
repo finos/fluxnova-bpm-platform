@@ -4,14 +4,14 @@
     <meta http-equiv="X-UA-Compatible"
           content="IE=edge" />
 
-    <title>Flowave Cockpit</title>
+    <title>Fluxnova Cockpit</title>
 
     <meta charset="utf-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
 
     <meta name="description"
-          content="Flowave Cockpit" />
+          content="Fluxnova Cockpit" />
     <meta name="author"
           content="FINOS 2025" />
 
@@ -34,7 +34,7 @@
           welcome-api="$APP_ROOT/api/welcome/"
           engine-api="$APP_ROOT/api/engine/"
           app-root="$APP_ROOT"
-          fw-exclude-plugins="cockpit.dashboard:process-definition-tiles" />
+          fxn-exclude-plugins="cockpit.dashboard:process-definition-tiles" />
     -->
 
     <%= htmlWebpackPlugin.tags.headTags %>
@@ -45,7 +45,7 @@
   </head>
   <body>
     <!-- navigation -->
-    <div fw-widget-header
+    <div fxn-widget-header
          class="Header"
          authentication="authentication"
          user-name="userFullName"
@@ -53,8 +53,8 @@
          ng-cloak
          sign-out="{{ 'SIGN_OUT_ACTION' | translate }}"
          my-profile="{{ 'MY_PROFILE' | translate }}">
-      <ul fw-if-logged-in
-          ng-controller="fwHeaderViewsCtrl">
+      <ul fxn-if-logged-in
+          ng-controller="fxnHeaderViewsCtrl">
         <li ng-repeat="actionProvider in menuActions"
             ng-if="actionProvider.accessible"
             ng-class="activeClass(actionProvider)">
@@ -82,7 +82,7 @@
       <div class="ctn-wrapper">
         <div ng-if="showBreadcrumbs"
              ng-cloak
-             fw-breadcrumbs-panel
+             fxn-breadcrumbs-panel
              divider="&raquo;"
              class="breadcrumbs-panel"></div>
 
@@ -99,11 +99,11 @@
     </div>
 
     <!-- footer -->
-    <footer fw-widget-footer
+    <footer fxn-widget-footer
             version="v<%= htmlWebpackPlugin.options.version %>"></footer>
 
     <script type="application/javascript" $CSP_NONCE>
-        window.fwCockpitConf = {};
+        window.fxnCockpitConf = {};
 
         window.PLUGIN_DEPENDENCIES = <%= htmlWebpackPlugin.options.pluginDeps %> || [];
         window.PLUGIN_PACKAGES = <%= htmlWebpackPlugin.options.pluginPackages %> || [];

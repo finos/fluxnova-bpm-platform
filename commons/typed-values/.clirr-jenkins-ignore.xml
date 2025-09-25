@@ -13,10 +13,10 @@
   </difference>
   <difference>
     <differenceType>8001</differenceType>
-    <className>flowavejar/com/sun/activation/**/*</className>
+    <className>fluxnovajar/com/sun/activation/**/*</className>
   </difference>
   <difference>
     <differenceType>8001</differenceType>
-    <className>flowavejar/javax/activation/**/*</className>
+    <className>fluxnovajar/javax/activation/**/*</className>
   </difference>
 </differences>

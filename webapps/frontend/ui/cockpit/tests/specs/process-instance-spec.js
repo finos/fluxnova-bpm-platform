@@ -20,7 +20,7 @@
 
 var testHelper = require('../../../common/tests/test-helper');
 var setupFile = require('./process-setup');
-var FwSDK = require('flowave-bpm-sdk-js');
+var FxnSDK = require('fluxnova-bpm-sdk-js');
 
 var dashboardPage = require('../pages/dashboard');
 var processesPage = require('../pages/processes');
@@ -421,16 +421,16 @@ describe.skip('Cockpit Process Instance Spec', function() {
     });
   });
 
-  // fw-5846
+  // cam-5846
   describe('Retry external task incident', function() {
     before(function(done) {
       return testHelper(setupFile.setup4, function() {
-        var fwClient = new FwSDK.Client({
+        var fxnClient = new FxnSDK.Client({
           mock: false,
           apiUri: 'http://localhost:8080/engine-rest'
         });
 
-        var ExternalTask = fwClient.resource('external-task');
+        var ExternalTask = fxnClient.resource('external-task');
         ExternalTask.fetchAndLock(
           {
             workerId: 'myWorker',

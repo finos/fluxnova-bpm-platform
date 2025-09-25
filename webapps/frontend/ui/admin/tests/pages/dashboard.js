@@ -21,7 +21,7 @@ var Page = require('./base');
 var AuthenticationPage = require('../../../common/tests/pages/authentication');
 
 var DashboardPage = Page.extend({
-  url: '/flowave/app/admin/default/#/',
+  url: '/fluxnova/app/admin/default/#/',
 
   section: function(name) {
     return element(by.css('[data-plugin-id="' + name + '"]'));

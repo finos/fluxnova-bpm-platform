@@ -259,7 +259,7 @@ You can run Flowave in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    sh start-flowave.sh
    ```
-4. Access the Flowave Cockpit at [http://localhost:8080/flowave/app/cockpit/default/#/dashboard](http://localhost:8080/flowave/app/cockpit/default/#/dashboard)
+4. Access the Flowave Cockpit at [http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard](http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard)
 
 ### Running the Spring Boot Version
 
@@ -275,7 +275,7 @@ You can run Flowave in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    sh start.sh
    ```
-4. Access the Flowave Cockpit at [http://localhost:8080/flowave/app/cockpit/default/#/dashboard](http://localhost:8080/flowave/app/cockpit/default/#/dashboard)
+4. Access the Flowave Cockpit at [http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard](http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard)
 
 # Create a pull request
 

@@ -1,4 +1,4 @@
-<!-- # CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
+<!-- # CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
 <div class="modal-header">
   <h3>{{ 'GROUP_MEMBERSHIP_GROUP_SELECT_GROUPS' | translate }}</h3>
 </div>
@@ -6,9 +6,9 @@
 <div class="create-group-membership modal-body">
   <div notifications-panel></div>
 
-  <table class="fw-table group"
+  <table class="fxn-table group"
          ng-hide="status !== 'beforeCreate' || availableGroups.length == 0">
-    <thead fw-sortable-table-header
+    <thead fxn-sortable-table-header
            default-sort-by="id"
            default-sort-order="asc"
            sorting-id="admin-sorting-users-edit-groups"
@@ -17,13 +17,13 @@
       <tr>
         <th class="select"></th>
         <th class="group-id"
-            fw-sortable-table-column
+            fxn-sortable-table-column
             sort-by-property="id">{{ 'GROUP_MEMBERSHIP_GROUP_GROUP_ID' | translate }}</th>
         <th class="group-name"
-            fw-sortable-table-column
+            fxn-sortable-table-column
             sort-by-property="name">{{ 'GROUP_MEMBERSHIP_GROUP_GROUP_NAME' | translate }}</th>
         <th class="group-type"
-            fw-sortable-table-column
+            fxn-sortable-table-column
             sort-by-property="type">{{ 'GROUP_MEMBERSHIP_GROUP_GROUP_TYPE' | translate }}</th>
       </tr>
     </thead>
@@ -102,4 +102,4 @@
     {{ 'GROUP_MEMBERSHIP_GROUP_ADD_GROUPS' | translate }}
   </button>
 </div>
-<!-- / CE - flowave-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->
+<!-- / CE - fluxnova-bpm-webapp/ui/admin/client/scripts/pages/create-group-membership.html -->

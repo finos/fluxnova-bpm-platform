@@ -2,20 +2,20 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-rolling-update</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-rolling-update</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-db-create-old-engine</artifactId>
+  <artifactId>fluxnova-qa-db-create-old-engine</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - rolling update - create old engine</name>
+  <name>Fluxnova Platform - QA - upgrade - rolling update - create old engine</name>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>7.22.0</version>
         <scope>import</scope>
         <type>pom</type>
@@ -25,13 +25,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-db-rolling-update-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-db-rolling-update-util</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -73,7 +73,7 @@
                 </goals>
                 <phase>process-test-classes</phase>
                 <configuration>
-                  <mainClass>org.finos.flowave.bpm.qa.rolling.update.CreateOldEngineMain</mainClass>
+                  <mainClass>org.finos.fluxnova.bpm.qa.rolling.update.CreateOldEngineMain</mainClass>
                   <includePluginDependencies>false</includePluginDependencies>
                 </configuration>
               </execution>

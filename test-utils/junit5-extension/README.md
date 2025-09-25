@@ -9,7 +9,7 @@ Add the dependency to your pom.xml
 
 ```xml
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>flowave-bpm-junit5</artifactId>
       <version>7.17.0</version>
       <scope>test</scope>

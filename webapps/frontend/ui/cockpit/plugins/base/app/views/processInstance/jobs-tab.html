@@ -1,10 +1,10 @@
-<!-- # CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
+<!-- # CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
 
-<div fw-widget-loader
+<div fxn-widget-loader
 loading-state="{{ loadingState }}"
 text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
 
-  <table class="jobs-tab fw-table">
+  <table class="jobs-tab fxn-table">
 
     <thead sortable-table-head
       head-columns="headColumns"
@@ -15,14 +15,14 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
     <tbody>
       <tr ng-repeat="job in jobs">
         <td class="id">
-            <span fw-widget-clipboard="job.id">{{job.id}}</span>
+            <span fxn-widget-clipboard="job.id">{{job.id}}</span>
         </td>
         <td class="date">
-            <span ng-if="job.dueDate" fw-widget-clipboard="job.dueDate | fwDate">{{job.dueDate | fwDate}}</span>
+            <span ng-if="job.dueDate" fxn-widget-clipboard="job.dueDate | fxnDate">{{job.dueDate | fxnDate}}</span>
             <span ng-if="!job.dueDate" class="null-value">null</span>
         </td>
         <td>
-            <span fw-widget-clipboard="job.createTime | fwDate">{{job.createTime | fwDate}}</span>
+            <span fxn-widget-clipboard="job.createTime | fxnDate">{{job.createTime | fxnDate}}</span>
         </td>
         <td>
           {{job.retries}}
@@ -34,7 +34,7 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
         </td>
         <td>
           <span ng-if="job.failedActivityId"
-          fw-widget-clipboard="job.failedActivityId">
+          fxn-widget-clipboard="job.failedActivityId">
             {{ job.failedActivityName }}
           </span>
         </td>
@@ -68,6 +68,6 @@ text-empty="{{ 'PLUGIN_JOBS_NO_JOBS' | translate }}">
     </tbody>
   </table>
 
-  <div fw-pagination="onPaginationChange(pages)" total="pages.total"></div>
+  <div fxn-pagination="onPaginationChange(pages)" total="pages.total"></div>
 </div>
-<!-- / CE - flowave-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->
+<!-- / CE - fluxnova-bpm-webapp/webapp/src/main/resources-plugin/base/app/views/processInstance/jobs-tab.html -->

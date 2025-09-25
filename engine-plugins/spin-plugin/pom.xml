@@ -2,45 +2,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
-    <artifactId>flowave-engine-plugins</artifactId>
-    <groupId>org.finos.flowave.bpm</groupId>
+    <artifactId>fluxnova-engine-plugins</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>flowave-engine-plugin-spin</artifactId>
-  <name>Flowave Platform - engine plugins - spin</name>
+  <artifactId>fluxnova-engine-plugin-spin</artifactId>
+  <name>Fluxnova Platform - engine plugins - spin</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-core</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.dmn</groupId>
-      <artifactId>flowave-engine-feel-scala</artifactId>
+      <groupId>org.finos.fluxnova.bpm.dmn</groupId>
+      <artifactId>fluxnova-engine-feel-scala</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
       <classifier>tests</classifier>
       <scope>test</scope>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-json-jackson</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.spin</groupId>
-      <artifactId>flowave-spin-dataformat-xml-dom</artifactId>
+      <groupId>org.finos.fluxnova.spin</groupId>
+      <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -87,8 +87,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.model</groupId>
-      <artifactId>flowave-bpmn-model</artifactId>
+      <groupId>org.finos.fluxnova.bpm.model</groupId>
+      <artifactId>fluxnova-bpmn-model</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -123,8 +123,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.commons</groupId>
-      <artifactId>flowave-commons-testing</artifactId>
+      <groupId>org.finos.fluxnova.commons</groupId>
+      <artifactId>fluxnova-commons-testing</artifactId>
       <scope>test</scope>
     </dependency>
 

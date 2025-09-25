@@ -2,23 +2,23 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-database-settings</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../../database</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <groupId>org.finos.flowave.bpm.jboss</groupId>
-  <artifactId>flowave-jboss</artifactId>
+  <groupId>org.finos.fluxnova.bpm.jboss</groupId>
+  <artifactId>fluxnova-jboss</artifactId>
   <packaging>pom</packaging>
 
-  <name>Flowave Platform - JBoss</name>
+  <name>Fluxnova Platform - JBoss</name>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-core-internal-dependencies</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-core-internal-dependencies</artifactId>
         <version>${project.version}</version>
         <scope>import</scope>
         <type>pom</type>

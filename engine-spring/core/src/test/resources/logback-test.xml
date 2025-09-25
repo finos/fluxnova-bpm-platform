@@ -12,13 +12,13 @@
   <logger name="javax.activation" level="info" />
   <logger name="org.springframework" level="info" />
 
-  <logger name="org.finos.flowave" level="info" />
-  <logger name="org.finos.flowave.bpm.engine.impl.bpmn" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.impl.cfg" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.impl.cmd" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.impl.jobexecutor" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.impl.pvm" level="debug" />
-  <logger name="org.finos.flowave.bpm.engine.spring" level="debug" />
+  <logger name="org.finos.fluxnova" level="info" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.bpmn" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.cfg" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.cmd" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.jobexecutor" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.impl.pvm" level="debug" />
+  <logger name="org.finos.fluxnova.bpm.engine.spring" level="debug" />
   
   <root level="debug">
     <appender-ref ref="STDOUT" />

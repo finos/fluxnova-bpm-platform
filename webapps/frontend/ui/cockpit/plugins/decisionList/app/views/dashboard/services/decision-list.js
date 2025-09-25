@@ -19,10 +19,10 @@
 
 module.exports = [
   '$q',
-  'fwAPI',
-  function($q, fwAPI) {
-    var decisionDefinitionService = fwAPI.resource('decision-definition');
-    var drdService = fwAPI.resource('drd');
+  'fxnAPI',
+  function($q, fxnAPI) {
+    var decisionDefinitionService = fxnAPI.resource('decision-definition');
+    var drdService = fxnAPI.resource('drd');
 
     var drds, decisions;
 

@@ -20,7 +20,7 @@
 var Base = require('./new-base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/admin/default/#/user-create',
+  url: '/fluxnova/app/admin/default/#/user-create',
 
   createNewUserButton: function() {
     return element(by.css('[ng-click="createUser()"]'));

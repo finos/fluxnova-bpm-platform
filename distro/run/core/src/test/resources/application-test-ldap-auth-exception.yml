@@ -1,2 +1,2 @@
-flowave.bpm.run.ldap:
+fluxnova.bpm.run.ldap:
   password-check-catch-authentication-exception: false

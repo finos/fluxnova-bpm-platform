@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-instance-migration</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-instance-migration</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-upgrade-test-fixture-72</artifactId>
+  <artifactId>fluxnova-qa-upgrade-test-fixture-72</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - instance migration - test fixture - 7.2.0</name>
+  <name>Fluxnova Platform - QA - upgrade - instance migration - test fixture - 7.2.0</name>
 
   <properties>
   <!-- Due to https://issues.apache.org/jira/browse/MRELEASE-799 the release test fails when
@@ -22,8 +22,8 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.bpm</groupId>
-        <artifactId>flowave-bom</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
         <version>7.2.0</version>
         <scope>import</scope>
         <type>pom</type>
@@ -35,13 +35,13 @@
     <!-- NOTE: this pulls transitive dependencies of version ${project.version} in unless
       you declare them to be ${camunda.version.current} here -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-upgrade-scenario-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-upgrade-scenario-util</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -84,7 +84,7 @@
                 </goals>
                 <phase>process-test-classes</phase>
                 <configuration>
-                  <mainClass>org.finos.flowave.bpm.qa.upgrade.TestFixture</mainClass>
+                  <mainClass>org.finos.fluxnova.bpm.qa.upgrade.TestFixture</mainClass>
                 </configuration>
               </execution>
             </executions>

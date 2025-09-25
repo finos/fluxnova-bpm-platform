@@ -20,9 +20,9 @@
 var template = require('./groups.html?raw');
 var searchConfig = require('./groups-search-plugin-config.json');
 
-var angular = require('flowave-commons-ui/vendor/angular');
+var angular = require('fluxnova-commons-ui/vendor/angular');
 
-var debouncePromiseFactory = require('flowave-bpm-sdk-js').utils
+var debouncePromiseFactory = require('fluxnova-bpm-sdk-js').utils
   .debouncePromiseFactory;
 var debounceQuery = debouncePromiseFactory();
 var debounceCount = debouncePromiseFactory();

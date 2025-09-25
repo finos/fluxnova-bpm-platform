@@ -19,9 +19,9 @@ package my.own.custom.spring.boot.project;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 
-import org.finos.flowave.bpm.engine.RuntimeService;
-import org.finos.flowave.bpm.engine.rest.dto.runtime.ProcessInstanceDto;
-import org.finos.flowave.bpm.engine.runtime.ProcessInstance;
+import org.finos.fluxnova.bpm.engine.RuntimeService;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceDto;
+import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -16,8 +16,8 @@
  */
 
 'use strict';
-var moment = require('flowave-commons-ui/vendor/moment'),
-  angular = require('flowave-commons-ui/vendor/angular');
+var moment = require('fluxnova-commons-ui/vendor/moment'),
+  angular = require('fluxnova-commons-ui/vendor/angular');
 
 module.exports = function(ngModule, appRoot, appName) {
   ngModule.factory('sanitizeMissingTranslationKey', [
@@ -66,7 +66,7 @@ module.exports = function(ngModule, appRoot, appName) {
               url: [options.prefix, options.key, options.suffix].join(''),
               method: 'GET',
               // Use `now` instead of `window.bust` to update translations without rebuilding the app
-              params: {bust: CAMUNDA_VERSION} // eslint-disable-line
+              params: {bust: FLUXNOVA_VERSION} // eslint-disable-line
             },
             options.$http
           )

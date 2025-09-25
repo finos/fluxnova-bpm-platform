@@ -2,14 +2,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-    <artifactId>flowave-qa-db-rolling-update</artifactId>
+    <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+    <artifactId>fluxnova-qa-db-rolling-update</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-qa-db-create-new-engine</artifactId>
+  <artifactId>fluxnova-qa-db-create-new-engine</artifactId>
   <packaging>jar</packaging>
-  <name>Flowave Platform - QA - upgrade - rolling update - create new engine</name>
+  <name>Fluxnova Platform - QA - upgrade - rolling update - create new engine</name>
 
   <properties>
     <camunda.version.current>${project.version}</camunda.version.current>
@@ -20,13 +20,13 @@
     <!-- NOTE: this pulls transitive dependencies of version ${project.version} in unless
       you declare them to be ${camunda.version.current} here -->
     <dependency>
-      <groupId>org.finos.flowave.bpm</groupId>
-      <artifactId>flowave-engine</artifactId>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-engine</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.qa.upgrade</groupId>
-      <artifactId>flowave-qa-db-rolling-update-util</artifactId>
+      <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+      <artifactId>fluxnova-qa-db-rolling-update-util</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
@@ -102,8 +102,8 @@
                 <configuration>
                   <artifactItems>
                     <artifactItem>
-                      <groupId>org.finos.flowave.bpm.distro</groupId>
-                      <artifactId>flowave-sql-scripts</artifactId>
+                      <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                      <artifactId>fluxnova-sql-scripts</artifactId>
                       <version>${camunda.version.current}</version>
                       <type>test-jar</type>
                       <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
@@ -212,7 +212,7 @@
                 </goals>
                 <phase>process-test-classes</phase>
                 <configuration>
-                  <mainClass>org.finos.flowave.bpm.qa.rolling.update.TestNewEngineMain</mainClass>
+                  <mainClass>org.finos.fluxnova.bpm.qa.rolling.update.TestNewEngineMain</mainClass>
                   <includePluginDependencies>false</includePluginDependencies>
                 </configuration>
               </execution>

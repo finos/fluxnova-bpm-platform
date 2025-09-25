@@ -15,28 +15,28 @@
     <dependencySet>
       <outputDirectory>internal/</outputDirectory>
       <includes>
-        <include>org.finos.flowave.bpm.run:flowave-bpm-run-core</include>
+        <include>org.finos.fluxnova.bpm.run:fluxnova-bpm-run-core</include>
       </includes>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
     </dependencySet>
     <dependencySet>
       <outputDirectory>internal/oauth2/</outputDirectory>
       <includes>
-        <include>org.finos.flowave.bpm.run:flowave-bpm-run-modules-oauth2</include>
+        <include>org.finos.fluxnova.bpm.run:fluxnova-bpm-run-modules-oauth2</include>
       </includes>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
     </dependencySet>
     <dependencySet>
       <outputDirectory>internal/example/</outputDirectory>
       <includes>
-        <include>org.finos.flowave.bpm.run:flowave-bpm-run-modules-example-invoice</include>
+        <include>org.finos.fluxnova.bpm.run:fluxnova-bpm-run-modules-example-invoice</include>
       </includes>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
     </dependencySet>
     <dependencySet>
       <outputDirectory />
       <includes>
-        <include>org.finos.flowave.bpm:license-book:zip</include>
+        <include>org.finos.fluxnova.bpm:license-book:zip</include>
       </includes>
       <unpack>true</unpack>
     </dependencySet>

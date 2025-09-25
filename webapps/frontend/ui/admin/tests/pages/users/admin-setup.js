@@ -20,7 +20,7 @@
 var Base = require('./new-base');
 
 module.exports = Base.extend({
-  url: '/flowave/app/admin/default/setup/#/setup',
+  url: '/fluxnova/app/admin/default/setup/#/setup',
 
   createNewAdminButton: function() {
     return element(by.css('.btn.btn-primary'));

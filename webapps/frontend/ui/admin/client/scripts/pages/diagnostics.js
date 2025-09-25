@@ -21,11 +21,11 @@ var template = require('./diagnostics.html?raw');
 
 var Controller = [
   '$scope',
-  'fwAPI',
+  'fxnAPI',
   'Notifications',
   '$translate',
-  function($scope, fwAPI, Notifications, $translate) {
-    var telemetryResource = fwAPI.resource('telemetry');
+  function($scope, fxnAPI, Notifications, $translate) {
+    var telemetryResource = fxnAPI.resource('telemetry');
 
     telemetryResource.fetchData(function(err, res) {
       if (err) {

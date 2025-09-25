@@ -8,7 +8,7 @@ SET WEBAPPS_PATH=%BASEDIR%webapps
 SET OAUTH2_PATH=%BASEDIR%oauth2
 SET REST_PATH=%BASEDIR%rest
 SET EXAMPLE_PATH=%BASEDIR%example
-SET APPNAME=Flowave Run
+SET APPNAME=Fluxnova Run
 
 IF [%~1]==[start] GOTO Startup
 IF [%~1]==[stop] GOTO Stop
@@ -50,7 +50,7 @@ SET JAVA_VERSION=%JAVA_VERSION:"=%
 ECHO Java version is %JAVA_VERSION%
 FOR /f "delims=. tokens=1" %%v in ("%JAVA_VERSION%") do (
   IF %%v LSS %EXPECTED_JAVA_VERSION% (
-    ECHO You must use at least JDK 17 to start Flowave Platform Run.
+    ECHO You must use at least JDK 17 to start Fluxnova Platform Run.
     GOTO :EOF
   )
 )
@@ -136,10 +136,12 @@ ECHO classpath: %classPath%
 REM start the application
 IF [%detachProcess%]==[true] (
   REM in the background
-  start "%APPNAME%" "%JAVA%" -Dloader.path="%classPath%" -Dcamunda.deploymentDir="%DEPLOYMENTDIR%" %JAVA_OPTS% -jar "%BASEDIR%flowave-bpm-run-core.jar" --spring.config.location=file:"%configuration%"
+  start "%APPNAME%" "%JAVA%" -Dloader.path="%classPath%" -Dcamunda.deploymentDir="%DEPLOYMENTDIR%" %JAVA_OPTS% -jar
+  "%BASEDIR%fluxnova-bpm-run-core.jar" --spring.config.location=file:"%configuration%"
 
 ) ELSE (
-  call "%JAVA%" -Dloader.path="%classPath%" -Dcamunda.deploymentDir="%DEPLOYMENTDIR%" %JAVA_OPTS% -jar "%BASEDIR%flowave-bpm-run-core.jar" --spring.config.location=file:"%configuration%"
+  call "%JAVA%" -Dloader.path="%classPath%" -Dcamunda.deploymentDir="%DEPLOYMENTDIR%" %JAVA_OPTS% -jar
+  "%BASEDIR%fluxnova-bpm-run-core.jar" --spring.config.location=file:"%configuration%"
 )
 
 GOTO End
@@ -148,8 +150,8 @@ GOTO End
 REM remove argument
 SHIFT
 
-REM shut down Flowave Run
-ECHO Flowave Run is shutting down.
+REM shut down Fluxnova Run
+ECHO Fluxnova Run is shutting down.
 TASKKILL /FI "WINDOWTITLE eq %APPNAME%"
 
 GOTO End
@@ -158,11 +160,11 @@ GOTO End
 ECHO Usage: run.bat [start^|stop] (options...)
 :ArgsHelp
 ECHO Options:
-ECHO   --webapps    - Enables the Flowave Platform Webapps
-ECHO   --oauth2     - Enables the Flowave Platform Spring Security OAuth2 integration
+ECHO   --webapps    - Enables the Fluxnova Platform Webapps
+ECHO   --oauth2     - Enables the Fluxnova Platform Spring Security OAuth2 integration
 ECHO   --rest       - Enables the REST API
 ECHO   --example    - Enables the example application
 ECHO   --production - Applies the production.yaml configuration file
-ECHO   --detached   - Starts Flowave Run as a detached process
+ECHO   --detached   - Starts Fluxnova Run as a detached process
 
 :End

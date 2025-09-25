@@ -4,26 +4,26 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm.springboot.project</groupId>
-    <artifactId>flowave-bpm-spring-boot-starter-qa</artifactId>
+    <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
+    <artifactId>fluxnova-bpm-spring-boot-starter-qa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>qa-simple</artifactId>
-  <name>Flowave Platform - Spring Boot Starter - QA - Simple</name>
+  <name>Fluxnova Platform - Spring Boot Starter - QA - Simple</name>
 
   <dependencies>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.springboot</groupId>
-      <artifactId>flowave-bpm-spring-boot-starter</artifactId>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.finos.flowave.bpm.springboot</groupId>
-      <artifactId>flowave-bpm-spring-boot-starter-test</artifactId>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-test</artifactId>
       <version>${project.version}</version>
     </dependency>
 

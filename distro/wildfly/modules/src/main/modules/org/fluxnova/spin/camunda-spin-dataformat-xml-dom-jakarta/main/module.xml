@@ -1,0 +1,16 @@
+<module xmlns="urn:jboss:module:1.0" name="org.camunda.spin.fluxnova-spin-dataformat-xml-dom-jakarta">
+  <resources>
+    <resource-root path="fluxnova-spin-dataformat-xml-dom-jakarta-@project.version@.jar" />
+  </resources>
+
+  <dependencies>
+    <module name="java.base" />
+    <module name="java.desktop" />
+    <module name="jakarta.xml.bind.api"/>
+    <module name="org.camunda.spin.fluxnova-spin-core" />
+    <module name="org.camunda.commons.fluxnova-commons-logging" />
+    <module name="org.camunda.commons.fluxnova-commons-utils" />
+    <module name="org.camunda.commons.fluxnova-commons-typed-values" />
+  </dependencies>
+
+</module>

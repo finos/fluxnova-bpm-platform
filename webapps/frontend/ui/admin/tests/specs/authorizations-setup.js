@@ -32,7 +32,7 @@ var fragment1 = combine(
     },
     {
       id: 'ringo',
-      password: 'cam123',
+      password: 'fxn123',
       firstName: 'Ringo',
       lastName: 'Starr',
       email: 'ringo.starr@the-beatles.com'

@@ -18,8 +18,8 @@
 'use strict';
 var angular = require('angular');
 
-var fwTasklistVariables = require('./directives/fw-tasklist-variables');
-var fwTasklistVariablesDetailsModalCtrl = require('./modals/fw-tasklist-variables-detail-modal');
+var fxnTasklistVariables = require('./directives/fxn-tasklist-variables');
+var fxnTasklistVariablesDetailsModalCtrl = require('./modals/fxn-tasklist-variables-detail-modal');
 
 var ngModule = angular.module('tasklist.plugin.tasklistCard.variables', [
   'ui.bootstrap',
@@ -32,7 +32,7 @@ var tasklistCardVariablesPlugin = [
     ViewsProvider.registerDefaultView('tasklist.card', {
       id: 'tasklist-card-variables',
       template:
-        '<div fw-tasklist-variables ' +
+        '<div fxn-tasklist-variables ' +
         'filter-properties="filterProperties" ' +
         'variables="task._embedded.variable" ' +
         'class="row variables"></div>',
@@ -43,10 +43,10 @@ var tasklistCardVariablesPlugin = [
 ];
 
 ngModule.config(tasklistCardVariablesPlugin);
-ngModule.directive('fwTasklistVariables', fwTasklistVariables);
+ngModule.directive('fxnTasklistVariables', fxnTasklistVariables);
 ngModule.controller(
-  'fwTasklistVariablesDetailsModalCtrl',
-  fwTasklistVariablesDetailsModalCtrl
+  'fxnTasklistVariablesDetailsModalCtrl',
+  fxnTasklistVariablesDetailsModalCtrl
 );
 
 module.exports = ngModule;

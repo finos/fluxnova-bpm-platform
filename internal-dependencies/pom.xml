@@ -3,22 +3,22 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.finos.flowave.bpm</groupId>
-    <artifactId>flowave-parent</artifactId>
+    <groupId>org.finos.fluxnova.bpm</groupId>
+    <artifactId>fluxnova-parent</artifactId>
     <relativePath>../parent</relativePath>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flowave-core-internal-dependencies</artifactId>
+  <artifactId>fluxnova-core-internal-dependencies</artifactId>
   <packaging>pom</packaging>
-  <name>Flowave Platform - Core - Internal Dependencies</name>
+  <name>Fluxnova Platform - Core - Internal Dependencies</name>
 
-  <description>Flowave Platform core internal bill of material for dependencies</description>
+  <description>Fluxnova Platform core internal bill of material for dependencies</description>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.finos.flowave.feel</groupId>
+        <groupId>org.finos.fluxnova.feel</groupId>
         <artifactId>feel-engine</artifactId>
         <version>${version.feel-scala}</version>
         <classifier>scala-shaded</classifier>
@@ -42,7 +42,7 @@
           When building with Java 11 or higher, Hikari has a dependency to SLF4j
           2.0.0-alpha1 instead. We are therefore excluding this dependency here
           and assume that it comes from other dependencies where it is used
-          (for example flowave-commons-logging). -->
+          (for example fluxnova-commons-logging). -->
           <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
