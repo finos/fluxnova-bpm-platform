@@ -1,0 +1,46 @@
+name: "Publish to Maven Central"
+
+env:
+  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
+  CI_GPG_PASSPHRASE: ${{ secrets.CI_GPG_PASSPHRASE }}
+  CI_GPG_PRIVATE_KEY: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+
+on:
+  push:
+    branches:
+      - 'release/*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  publish-central:
+    name: Publish to Maven Central
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          server-username: CI_DEPLOY_USERNAME
+          server-password: CI_DEPLOY_PASSWORD
+          gpg-private-key: CI_GPG_PRIVATE_KEY
+          gpg-passphrase: CI_GPG_PASSPHRASE
+
+      - name: Import GPG key
+        uses: ./.github/actions/import-gpg-key
+
+      - name: Configure git
+        uses: ./.github/actions/configure-git
+
+      - name: Download deps and plugins
+        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
+
+      #TODO: Remove -DdryRun=true for actual deployment
+      - name: Release to Maven Central
+        run: |
+          mvn -B release:prepare release:perform -DdryRun=true -Prelease -s ./settings.xml

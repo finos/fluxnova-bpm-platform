@@ -21,5 +21,10 @@
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.GH_TOKEN}</password>
         </server>
+        <server>
+            <id>central</id>
+            <username>${env.CI_DEPLOY_USERNAME}</username>
+            <password>${env.CI_DEPLOY_PASSWORD}</password>  <!-- TODO: better to use token here, find out more -->
+        </server>
     </servers>
 </settings>

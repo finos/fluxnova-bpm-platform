@@ -1,0 +1,11 @@
+name: "Import GPG key"
+description: "Imports GPG key for Maven signing"
+runs:
+  using: "composite"
+  steps:
+    - name: Import GPG key
+      shell: bash
+      run: |
+        echo "$CI_GPG_PRIVATE_KEY" | gpg --batch --import
+        echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+        echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf

@@ -21,6 +21,29 @@
     The parent pom for all Fluxnova Platform projects can be found in the parent directory relative to this file.
   </description>
 
+  <url>https://github.com/finos/fluxnova-bpm-platform</url>
+
+  <organization>
+    <name>FINOS</name>
+    <url>https://finos.org</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>finos.org</id>
+      <name>Fluxnova Community</name>
+      <organization>finos.org</organization>
+      <organizationUrl>https://fluxnova.finos.org</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/finos/fluxnova-bpm-platform.git</connection>
+    <developerConnection>scm:git:https://github.com/finos/fluxnova-bpm-platform.git</developerConnection>
+    <url>https://github.com/finos/fluxnova-bpm-platform</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <license.includeTransitiveDependencies>false</license.includeTransitiveDependencies>
 
@@ -29,6 +52,9 @@
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
     <version.feel-scala>0.0.1-SNAPSHOT</version.feel-scala>
+    <publish.server.id>central</publish.server.id>
+    <release.goals>install org.sonatype.central:central-publishing-maven-plugin:0.7.0:publish</release.goals>
+    <skip.source.attach>false</skip.source.attach>
   </properties>
 
   <build>
@@ -50,37 +76,37 @@
           <skip>false</skip>
         </configuration>
       </plugin>
-      <!--<plugin>
-        <groupId>org.openrewrite.maven</groupId>
-        <artifactId>rewrite-maven-plugin</artifactId>
-        <version>6.2.3</version>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>3.1.1</version>
         <configuration>
-          <exportDatatables>true</exportDatatables>
-          <activeRecipes>
-            <recipe>ReplaceFluxnovaInGroupId</recipe>
-            <recipe>ReplaceFluxnovaInGroupId2</recipe>
-            <recipe>ReplaceFluxnovaArtifactIdWithFluxnova</recipe>
-            <recipe>fluxnovaToFinosFluxnova</recipe>
-          </activeRecipes>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>${release.goals}</goals>
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.openrewrite.maven</groupId>
-        <artifactId>rewrite-maven-plugin</artifactId>
-        <version>6.4.0</version>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.7.0</version>
+        <extensions>true</extensions>
         <configuration>
-          <activeRecipes>
-            <recipe>com.yourorg.UpdateClassNameAndRefsAll</recipe>
-          </activeRecipes>
+          <publishingServerId>${publish.server.id}</publishingServerId>
+          <autoPublish>true</autoPublish>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.yourorg</groupId>
-            <artifactId>finos-Java-class-recipes</artifactId>
-            <version>1.0</version>
-          </dependency>
-        </dependencies>
-      </plugin>-->
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.7</version>
+        <configuration>
+          <useAgent>false</useAgent>
+          <gpgArguments>
+            <arg>--digest-algo=SHA512</arg>
+          </gpgArguments>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -342,6 +368,55 @@
       </modules>
     </profile>
 
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-release-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- Same as attach-sources profile -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <configuration>
+              <skipSource>${skip.source.attach}</skipSource>
+            </configuration>
+            <executions>
+              <execution>
+                <id>release-attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>license-header-check</id>
       <build>
