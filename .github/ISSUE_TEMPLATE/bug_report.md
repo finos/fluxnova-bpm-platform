@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a case where the FluxNova product is not working as expected
+about: Report a case where the Fluxnova product is not working as expected
 title: ''
 labels: type:bug
 assignees: 
