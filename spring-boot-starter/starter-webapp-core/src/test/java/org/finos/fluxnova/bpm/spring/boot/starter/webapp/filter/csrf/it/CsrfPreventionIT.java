@@ -47,7 +47,7 @@ public class CsrfPreventionIT {
 
   @Test
   public void shouldSetCookieWebapp() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/app/tasklist/default");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/app/tasklist/default");
 
     String xsrfCookieValue = httpClientRule.getXsrfCookie();
     String xsrfTokenHeader = httpClientRule.getXsrfTokenHeader();
@@ -61,7 +61,7 @@ public class CsrfPreventionIT {
 
   @Test
   public void shouldSetCookieWebappRest() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/api/engine/engine/");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/api/engine/engine/");
 
     String xsrfCookieValue = httpClientRule.getXsrfCookie();
     String xsrfTokenHeader = httpClientRule.getXsrfTokenHeader();
@@ -79,7 +79,7 @@ public class CsrfPreventionIT {
 
     // when
     URLConnection urlConnection = httpClientRule.performPostRequest("http://localhost:" + port +
-            "/camunda/api/admin/auth/user/default/login/welcome", "Content-Type",
+            "/fluxnova/api/admin/auth/user/default/login/welcome", "Content-Type",
         "application/x-www-form-urlencoded");
 
     try {

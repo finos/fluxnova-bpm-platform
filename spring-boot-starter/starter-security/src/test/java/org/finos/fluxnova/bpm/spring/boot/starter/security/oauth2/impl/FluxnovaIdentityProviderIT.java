@@ -133,7 +133,7 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
     createAuthorizedClient(authenticationToken, registrations, authorizedClientService);
 
     // when calling webapp api
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON)
             .with(authentication(authenticationToken)))
         .andDo(MockMvcResultHandlers.print())
@@ -156,7 +156,7 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
     createAuthorizedClient(authenticationToken, registrations, authorizedClientService);
 
     // when calling webapp api
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON)
             .with(authentication(authenticationToken)))
         .andDo(MockMvcResultHandlers.print())

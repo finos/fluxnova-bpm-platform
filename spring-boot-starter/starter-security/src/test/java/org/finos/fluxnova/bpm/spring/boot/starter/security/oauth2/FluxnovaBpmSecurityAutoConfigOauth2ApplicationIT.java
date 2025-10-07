@@ -92,7 +92,7 @@ public class FluxnovaBpmSecurityAutoConfigOauth2ApplicationIT extends AbstractSp
     // given no authentication
 
     // when
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON))
         .andDo(MockMvcResultHandlers.print())
         // then oauth2 redirection occurs
@@ -108,7 +108,7 @@ public class FluxnovaBpmSecurityAutoConfigOauth2ApplicationIT extends AbstractSp
     createAuthorizedClient(authenticationToken, registrations, authorizedClientService);
 
     // when
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON)
             .with(authentication(authenticationToken)))
         // then call is successful
@@ -124,7 +124,7 @@ public class FluxnovaBpmSecurityAutoConfigOauth2ApplicationIT extends AbstractSp
     createAuthorizedClient(authenticationToken, registrations, authorizedClientService);
 
     // when
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON)
             .with(authentication(authenticationToken)))
         // then authorization fails and redirection occurs
@@ -147,7 +147,7 @@ public class FluxnovaBpmSecurityAutoConfigOauth2ApplicationIT extends AbstractSp
     createAuthorizedClient(authenticationToken, registrations, authorizedClientService);
 
     // when
-    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/camunda/api/engine/engine/default/user")
+    mockMvc.perform(MockMvcRequestBuilders.get(baseUrl + "/fluxnova/api/engine/engine/default/user")
             .accept(MediaType.APPLICATION_JSON)
             .with(authentication(authenticationToken)))
         // then call is successful

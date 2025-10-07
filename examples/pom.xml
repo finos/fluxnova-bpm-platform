@@ -80,7 +80,7 @@
           <version>${version.jetty}</version>
           <configuration>
             <webAppConfig>
-              <contextPath>/camunda</contextPath>
+              <contextPath>/fluxnova</contextPath>
               <resourceBases>
                 <resourceBase>${project.basedir}/src/main/webapp</resourceBase>
                 <resourceBase>${project.basedir}/src/develop/webapp</resourceBase>

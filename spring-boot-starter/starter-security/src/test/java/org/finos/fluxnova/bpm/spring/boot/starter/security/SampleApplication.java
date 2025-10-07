@@ -34,7 +34,7 @@ public class SampleApplication {
   }
 
   @RestController
-  @RequestMapping("/camunda/api/engine/engine")
+  @RequestMapping("/fluxnova/api/engine/engine")
   public static class TestController {
 
     @GetMapping("/{username}/user")

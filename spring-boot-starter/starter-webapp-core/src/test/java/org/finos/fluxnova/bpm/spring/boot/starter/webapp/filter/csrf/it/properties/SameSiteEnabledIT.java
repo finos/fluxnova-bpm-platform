@@ -46,7 +46,7 @@ public class SameSiteEnabledIT {
 
   @Test
   public void shouldEnableSameSiteCookie() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/app/tasklist/default");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/app/tasklist/default");
 
     String xsrfCookieValue = httpClientRule.getXsrfCookie();
     String xsrfTokenHeader = httpClientRule.getXsrfTokenHeader();

@@ -21,7 +21,7 @@
     <version.chromedriver>112.0.5615.49</version.chromedriver>
 
     <http.port>58080</http.port>
-    <http.ctx-path.webapp>camunda/</http.ctx-path.webapp>
+    <http.ctx-path.webapp>fluxnova/</http.ctx-path.webapp>
     <http.ctx-path.rest>engine-rest/</http.ctx-path.rest>
   </properties>
 

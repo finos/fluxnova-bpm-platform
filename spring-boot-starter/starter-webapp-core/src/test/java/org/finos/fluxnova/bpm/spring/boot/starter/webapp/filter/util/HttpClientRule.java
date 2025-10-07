@@ -35,7 +35,7 @@ public class HttpClientRule extends ExternalResource {
 
   public static final String PORT_PLACEHOLDER_WEBAPP_URL = "{PORT}";
   public static final String WEBAPP_URL = "http://localhost:" + PORT_PLACEHOLDER_WEBAPP_URL +
-      "/camunda/app/tasklist/default";
+      "/fluxnova/app/tasklist/default";
 
   protected Integer port = null;
   protected HttpURLConnection connection = null;

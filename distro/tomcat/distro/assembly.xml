@@ -44,7 +44,7 @@
         <includes>
             <include>org.finos.fluxnova.bpm.webapp:fluxnova-webapp-tomcat-jakarta:war:*</include>
         </includes>
-        <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/camunda</outputDirectory>
+        <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/fluxnova</outputDirectory>
         <unpack>true</unpack>
     </dependencySet>
 

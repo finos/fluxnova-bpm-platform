@@ -23,7 +23,7 @@
 
     <redirect.test.output>true</redirect.test.output>
 
-    <http.ctx-path.webapp>camunda/</http.ctx-path.webapp>
+    <http.ctx-path.webapp>fluxnova/</http.ctx-path.webapp>
     <http.ctx-path.rest>engine-rest/</http.ctx-path.rest>
 
     <version.chromedriver>112.0.5615.49</version.chromedriver>
