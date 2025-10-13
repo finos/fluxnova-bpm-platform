@@ -159,7 +159,7 @@ class MigratorServiceIntegrationTest {
         assertTrue(javaContent.contains("package org.workflow.example;"));
         assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.engine.ProcessEngine;"));
         assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.engine.RuntimeService;"));
-        assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.model.bpmn.builder.FlowaveErrorEventDefinitionBuilder;"));
+        assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.model.bpmn.builder.FluxnovaErrorEventDefinitionBuilder;"));
         assertFalse(javaContent.contains("org.camunda"));
 
         // Verify BPMN file was converted back from XML

@@ -1,4 +1,4 @@
-# Flowave-migrator
+# Fluxnova-migrator
 
 ## Table of Contents
 - [Overview](#overview)
@@ -10,18 +10,18 @@
 - [Extending the Migrator](#extending-the-migrator)
 
 ## Overview
-The Flowave-migrator is a tool designed to automate the migration from Camunda to Flowave.
+The Fluxnova-migrator is a tool designed to automate the migration from Camunda to Fluxnova.
 
-### What is Flowave Migration?
-Flowave Migration is the process of converting a Camunda-based workflow application to use the Flowave framework.
+### What is Fluxnova Migration?
+Fluxnova Migration is the process of converting a Camunda-based workflow application to use the Fluxnova framework.
 
 **What the migration DOES include:**
 
 - Renaming packages from org.camunda.* to org.finos.fluxnova.*
 - Updating import statements across all Java files
-- Converting BPMN file extensions to be compatible with Flowave
-- Updating Maven dependencies to replace Camunda dependencies with Flowave equivalents
-- Modifying configuration files to use Flowave-specific settings
+- Converting BPMN file extensions to be compatible with Fluxnova
+- Updating Maven dependencies to replace Camunda dependencies with Fluxnova equivalents
+- Modifying configuration files to use Fluxnova-specific settings
 
 **What the migration does NOT include:**
 
@@ -29,10 +29,10 @@ Flowave Migration is the process of converting a Camunda-based workflow applicat
 - Changing the functional behavior of your workflows
 
 ## Implementation
-The Flowave-migrator uses [OpenRewrite](https://docs.openrewrite.org/), a refactoring tool that applies recipes to transform source code.
+The Fluxnova-migrator uses [OpenRewrite](https://docs.openrewrite.org/), a refactoring tool that applies recipes to transform source code.
 
 ### Migration Recipe
-The core of the migration is defined in the [rewrite.yml](src/main/resources/rewrite.yml) file, which contains the recipe for transforming Camunda code to Flowave. The recipe includes:
+The core of the migration is defined in the [rewrite.yml](src/main/resources/rewrite.yml) file, which contains the recipe for transforming Camunda code to Fluxnova. The recipe includes:
 
 - Package renaming patterns
 - Import statement transformations
@@ -55,19 +55,19 @@ The target project must be a valid Maven project with a pom.xml file
 
 ## Method 2: Using the JAR File
 1. Download the JAR file from the artifactory
-2. Run the migrator with your target project location and versions as an argument `java -jar flowave-migrator-1.0-SNAPSHOT.jar "/path/to/your/project" "0.0.1-SNAPSHOT" "1.0.0"`
+2. Run the migrator with your target project location and versions as an argument `java -jar fluxnova-migrator-1.0-SNAPSHOT.jar "/path/to/your/project" "0.0.1-SNAPSHOT" "1.0.0"`
 
 ## Method 3: Using Docker
 1. Find the docker file in the Migrator module
-2. Build the image using `docker build -t flowave-migrator .`
-3. Run the image using `docker run --rm -v "C:\path\to\your\project:/data" flowave-migrator /data 0.0.1-SNAPSHOT 1.0.0`
+2. Build the image using `docker build -t fluxnova-migrator .`
+3. Run the image using `docker run --rm -v "C:\path\to\your\project:/data" fluxnova-migrator /data 0.0.1-SNAPSHOT 1.0.0`
 
 **Important Notes:**
 
 - The path to your project should be enclosed in quotes, especially if it contains spaces
 - Use the appropriate path format for your operating system (e.g., "C:\project\location" for Windows)
 - Verify that the migration was successful by checking for the log message:
-`[INFO] Using active recipe(s) [camundaToFlowave]`
+`[INFO] Using active recipe(s) [camundaToFluxnova]`
 - While using docker please make sure target project should build successfully inside the docker.
   This may not work for projects which use organization specific libraries. We may need to amend `settings.xml` 
   of maven inside docker image.
