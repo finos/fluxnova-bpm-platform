@@ -50,7 +50,7 @@ In contrast to other vendor BPM platforms, Fluxnova strives to be highly integra
 
 ### Highly Integrable
 
-Out of the box, Fluxnova Platform 1.0.0 ** Needs To Be Reviewed ** provides infrastructure-level integration with Java EE Application Servers and Servlet Containers.
+Out of the box, Fluxnova provides infrastructure-level integration with Java EE Application Servers and Servlet Containers.
 
 ### Embeddable
 
