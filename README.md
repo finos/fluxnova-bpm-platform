@@ -42,13 +42,12 @@ Fluxnova Platform provides a rich set of components centered around the BPM life
 
 #### And there's more...
 
-- [bpmn.io](https://bpmn.io/) - Toolkits for BPMN, CMMN, and DMN in JavaScript (rendering, modeling)
-** Needs To Be Reviewed **
+- [bpmn.io](https://bpmn.io/) - Toolkits for BPMN, CMMN, and DMN in JavaScript (rendering, modelling)
 - [Community Extensions](https://docs.camunda.org/manual/7.5/introduction/extensions/) - Extensions on top of Fluxnova Platform 1.0.0 ** Needs To Be Reviewed ** provided and maintained by our great open source community
 
 ## A Framework
 
-In contrast to other vendor BPM platforms, Fluxnova Platform 1.0.0 ** Needs To Be Reviewed ** strives to be highly integrable and embeddable. We seek to deliver a great experience to developers that want to use BPM technology in their projects.
+In contrast to other vendor BPM platforms, Fluxnova strives to be highly integrable and embeddable. We seek to deliver a great experience to developers that want to use BPM technology in their projects.
 
 ### Highly Integrable
 
