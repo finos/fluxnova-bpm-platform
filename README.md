@@ -18,7 +18,7 @@ Fluxnova is a flexible framework for workflow and process automation. Its core i
 
 ## Components
 
-Fluxnova Platform 1.0.0 ** Needs To Be Reviewed ** provides a rich set of components centered around the BPM lifecycle.
+Fluxnova Platform provides a rich set of components centered around the BPM lifecycle.
 
 #### Process Implementation and Execution
 
