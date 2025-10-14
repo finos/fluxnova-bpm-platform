@@ -1,4 +1,4 @@
-# camunda-bpm-spring-boot-starter
+# fluxnova-bpm-spring-boot-starter
 
 [cols="a,a,a,a"]
 ,====
@@ -12,7 +12,7 @@ image::https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.springbo
 image::https://www.openhub.net/p/camunda-bpm-spring-boot-starter/widgets/project_thin_badge.gif[link="https://www.openhub.net/p/camunda-bpm-spring-boot-starter"]
 ,====
 
-This project provides Spring Boot starters that allow you to integrate the Flowave Platform into your Spring Boot applications.
+This project provides Spring Boot starters that allow you to integrate the Fluxnova Platform into your Spring Boot applications.
  /** Needs To Be Reviewed **
 Please check out the https://docs.camunda.org/manual/develop/user-guide/spring-boot-integration/[Documentation],
 the https://docs.camunda.org/get-started/spring-boot/[Getting Started Guide] and
@@ -46,8 +46,8 @@ Before version 2.2.0, the project existed as a community extension. Therefore th
 #### Migration hints from < 1.3.0 to >= 1.3.0
 
 [IMPORTANT]
-We have decided to refactor the configuration mechanism. Especially, we removed the  `org.finos.fluxnova.bpm.spring.boot.starter.configuration.FlowaveConfiguration` interface. For now, each configuration is a `org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin`. With this it is possible to hook into `preInit`, `postInit` and `postProcessEngineBuild`, which supports more complex situations.
-If you have implemented a `FlowaveConfiguration`, you have to switch to `ProcessEnginePlugin` (and its `preInit` method). You can also extend your configuration from `org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl.AbstractFlowaveConfiguration` to avoid a cast to `SpringProcessEngineConfiguration`.
+We have decided to refactor the configuration mechanism. Especially, we removed the  `org.finos.fluxnova.bpm.spring.boot.starter.configuration.FluxnovaConfiguration` interface. For now, each configuration is a `org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin`. With this it is possible to hook into `preInit`, `postInit` and `postProcessEngineBuild`, which supports more complex situations.
+If you have implemented a `FluxnovaConfiguration`, you have to switch to `ProcessEnginePlugin` (and its `preInit` method). You can also extend your configuration from `org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl.AbstractFluxnovaConfiguration` to avoid a cast to `SpringProcessEngineConfiguration`.
 
 ### 1.2.1
  /** Needs To Be Reviewed - this is now in platform codebase**
@@ -56,13 +56,13 @@ If you have implemented a `FlowaveConfiguration`, you have to switch to `Process
 
 ## Credits
  /** Needs To Be Reviewed**
-The Flowave Spring Boot Starter project used to be the community extension, created and supported by
+The Fluxnova Spring Boot Starter project used to be the community extension, created and supported by
 
 *  _https://github.com/osteinhauer[Oliver Steinhauer]_
 *  _https://github.com/jangalinski[Jan Galinski]_
 *  _https://github.com/hawky-4s-[Christian Lipphardt]_
 
-Starting from version 2.3.0 it was adopted as part of the Flowave Platform.
+Starting from version 2.3.0 it was adopted as part of the Fluxnova Platform.
 
 ## License
 

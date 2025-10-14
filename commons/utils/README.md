@@ -1,3 +1,3 @@
-#flowave commons Utils
+#fluxnova commons Utils
 
-This project provides some generic util classes which are use in several flowave projects.
+This project provides some generic util classes which are use in several fluxnova projects.

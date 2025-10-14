@@ -1,6 +1,6 @@
-# Flowave Platform Assert
+# Fluxnova Platform Assert
 
-**Flowave Platform Assert** makes it easy to assert the status of your BPMN processes and CMMN cases when driving them forward in your typical unit test methods. Simply write code like
+**Fluxnova Platform Assert** makes it easy to assert the status of your BPMN processes and CMMN cases when driving them forward in your typical unit test methods. Simply write code like
 
 ```groovy
 assertThat(instance).isWaitingAt("UserTask_InformCustomer");
@@ -15,8 +15,8 @@ complete(task(instance), withVariables("approved", true));
 
 ## Compatibility
 
-Flowave Platform Assert works with the corresponding version of Flowave Platform ** Needs To Be Reviewed ** (i.e., Camunda Platform Assert 7.17.0 is compatible to Camunda Platform 7.17.0). The compatibility between earlier versions are as shown [in the documentation](https://docs.camunda.org/manual/latest/user-guide/testing/#assertions-version-compatibility).
-Flowave Platform Assert works with multiple Java versions (1.8+). All of this is continuously verified by executing around 500 test cases. 
+Fluxnova Platform Assert works with the corresponding version of Fluxnova Platform ** Needs To Be Reviewed ** (i.e., Camunda Platform Assert 7.17.0 is compatible to Camunda Platform 7.17.0). The compatibility between earlier versions are as shown [in the documentation](https://docs.camunda.org/manual/latest/user-guide/testing/#assertions-version-compatibility).
+Fluxnova Platform Assert works with multiple Java versions (1.8+). All of this is continuously verified by executing around 500 test cases. 
 
 ## Get started
 
@@ -25,19 +25,19 @@ Flowave Platform Assert works with multiple Java versions (1.8+). All of this is
 ```xml  
 <dependency>
     <groupId>org.finos.fluxnova.bpm</groupId>
-    <artifactId>flowave-bpm-assert</artifactId>
-    <version>${flowave.platform.version}</version>
+    <artifactId>fluxnova-bpm-assert</artifactId>
+    <version>${fluxnova.platform.version}</version>
     <scope>test</scope>
 </dependency>
 ```
 
 Additionally, [AssertJ](https://assertj.github.io/doc/) needs to be provided as a dependency with a version that is compatible with the one documented in the ** Needs To Be Reviewed ** [compatibility matrix](https://docs.camunda.org/manual/latest/user-guide/testing/#assertions-version-compatibility).
 
-Please note that if you use [Spring Boot](https://spring.io/projects/spring-boot) or the [Flowave Spring Boot Starter] ** Needs To Be Reviewed ** (https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/) in your project, AssertJ is already included in your project's setup.
+Please note that if you use [Spring Boot](https://spring.io/projects/spring-boot) or the [Fluxnova Spring Boot Starter] ** Needs To Be Reviewed ** (https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/) in your project, AssertJ is already included in your project's setup.
 
 2. Add a static import to your test class
 
-Create your test case just as described in the ** Needs To Be Reviewed ** [Flowave Platform Testing Guide](https://docs.camunda.org/manual/latest/user-guide/testing/) and add Flowave Platform Assert by statically importing it in your test class:
+Create your test case just as described in the ** Needs To Be Reviewed ** [Fluxnova Platform Testing Guide](https://docs.camunda.org/manual/latest/user-guide/testing/) and add Fluxnova Platform Assert by statically importing it in your test class:
 
 ```groovy  
 import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*;
@@ -45,7 +45,7 @@ import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*
 
 3. Start using the assertions in your test methods
 
-You now have access to all the Flowave Platform assertions. Assuming you want to assert that your process instance is actually started, waiting at a specific user task and that task should yet be unassigned, but waiting to be assigned to a user of a specific group, just write:
+You now have access to all the Fluxnova Platform assertions. Assuming you want to assert that your process instance is actually started, waiting at a specific user task and that task should yet be unassigned, but waiting to be assigned to a user of a specific group, just write:
 
 ```groovy
 assertThat(processInstance).isStarted()
@@ -54,7 +54,7 @@ assertThat(processInstance).isStarted()
     .isNotAssigned();
 ```
 
-In case you want to combine Flowave Platform Assert with the assertions provided by AssertJ, your imports should look like this:
+In case you want to combine Fluxnova Platform Assert with the assertions provided by AssertJ, your imports should look like this:
 ```groovy  
 import static org.assertj.core.api.Assertions.*;
 import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*;
@@ -62,7 +62,7 @@ import static org.finos.fluxnova.bpm.engine.test.assertions.ProcessEngineTests.*
 
 ## Credits
 
-The Flowave Platform Assert project used to be the community extension, created and supported by
+The Fluxnova Platform Assert project used to be the community extension, created and supported by
 ** Needs To Be Reviewed **
 <img src="http://camunda.github.io/camunda-bpm-assert/resources/images/community-award.png" align="right" width="76">
 
@@ -78,5 +78,5 @@ The Flowave Platform Assert project used to be the community extension, created 
 ** Needs To Be Reviewed **
 In 2014, the library won the **Camunda Platform Community Award**.
 ** Needs To Be Reviewed **
-Starting from version 3.0.0 it was adopted as part of the Flowave Platform.
-Starting from version 7.17.0 it was merged into the Flowave Platform main repository.
+Starting from version 3.0.0 it was adopted as part of the Fluxnova Platform.
+Starting from version 7.17.0 it was merged into the Fluxnova Platform main repository.

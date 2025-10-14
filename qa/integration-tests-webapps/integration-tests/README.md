@@ -1,6 +1,6 @@
 # Webapp Integration Tests
 
-This file contains integration tests for the flowave webapps.
+This file contains integration tests for the fluxnova webapps.
 
 
 ## Running protractor JS Integration Tests

@@ -1,4 +1,4 @@
-#flowave commons Logging
+#fluxnova commons Logging
 
 This project provides a minimalistic base for writing loggers that produce consistent log and
 exception messages.
@@ -48,7 +48,7 @@ com.myapp.user - MYAPP-01001 Created user with id '992112'
 
 ## Log messages
 
-A flowave log message looks like this:
+A fluxnova log message looks like this:
 
 ```
 PROJ-20023 The attribute with the name 'invalidId' was not found in the element with id 'elementId' returning an empty string.

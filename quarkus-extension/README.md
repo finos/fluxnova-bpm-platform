@@ -1,12 +1,12 @@
-# Flowave Platform Quarkus Extensions
+# Fluxnova Platform Quarkus Extensions
 
 ** Needs To Be Reviewed **
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.quarkus/camunda-bpm-quarkus-engine/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.camunda.bpm.quarkus/camunda-bpm-quarkus-engine) [![camunda manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.camunda.org/manual/develop/user-guide/quarkus-integration/)
 
-This sub-project provides Flowave Platform Quarkus Extensions that allow you to add behavior to your Quarkus 
+This sub-project provides Fluxnova Platform Quarkus Extensions that allow you to add behavior to your Quarkus 
 application by adding dependencies to the classpath.
 
-You can find the documentation on the Flowave Platform Quarkus Extensions 
+You can find the documentation on the Fluxnova Platform Quarkus Extensions 
 [here](https://docs.camunda.org/manual/develop/user-guide/quarkus-integration/).
 
 We also provide some useful examples at our 
@@ -16,36 +16,36 @@ We also provide some useful examples at our
 <dependency>
   <dependency>
     <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
-    <artifactId>flowave-bpm-quarkus-engine</artifactId>
-    <version>${version.flowave}</version><!-- place Flowave version here -->
+    <artifactId>fluxnova-bpm-quarkus-engine</artifactId>
+    <version>${version.fluxnova}</version><!-- place Fluxnova version here -->
   </dependency>
 </dependency>
 ```
 
-To configure a Flowave Platform Quarkus extension, you can use an `application.properties` file. It
+To configure a Fluxnova Platform Quarkus extension, you can use an `application.properties` file. It
 can look like the following:
 
 ```properties
 # process engine configuration
-quarkus.flowave.generic-config.cmmn-enabled=false
-quarkus.flowave.generic-config.dmn-enabled=false
-quarkus.flowave.generic-config.history=none
+quarkus.fluxnova.generic-config.cmmn-enabled=false
+quarkus.fluxnova.generic-config.dmn-enabled=false
+quarkus.fluxnova.generic-config.history=none
 
 # job executor configuration
-quarkus.flowave.job-executor.thread-pool.max-pool-size=12
-quarkus.flowave.job-executor.thread-pool.queue-size=5
-quarkus.flowave.job-executor.generic-config.max-jobs-per-acquisition=5
-quarkus.flowave.job-executor.generic-config.lock-time-in-millis=500000
-quarkus.flowave.job-executor.generic-config.wait-time-in-millis=7000
-quarkus.flowave.job-executor.generic-config.max-wait=65000
-quarkus.flowave.job-executor.generic-config.backoff-time-in-millis=5
+quarkus.fluxnova.job-executor.thread-pool.max-pool-size=12
+quarkus.fluxnova.job-executor.thread-pool.queue-size=5
+quarkus.fluxnova.job-executor.generic-config.max-jobs-per-acquisition=5
+quarkus.fluxnova.job-executor.generic-config.lock-time-in-millis=500000
+quarkus.fluxnova.job-executor.generic-config.wait-time-in-millis=7000
+quarkus.fluxnova.job-executor.generic-config.max-wait=65000
+quarkus.fluxnova.job-executor.generic-config.backoff-time-in-millis=5
 
 # custom data source configuration and selection
 quarkus.datasource.my-datasource.db-kind=h2
-quarkus.datasource.my-datasource.username=flowave
-quarkus.datasource.my-datasource.password=flowave
-quarkus.datasource.my-datasource.jdbc.url=jdbc:h2:mem:flowave;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
-quarkus.flowave.datasource=my-datasource
+quarkus.datasource.my-datasource.username=fluxnova
+quarkus.datasource.my-datasource.password=fluxnova
+quarkus.datasource.my-datasource.jdbc.url=jdbc:h2:mem:fluxnova;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
+quarkus.fluxnova.datasource=my-datasource
 ```
 
 ### Local Build

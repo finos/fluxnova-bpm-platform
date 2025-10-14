@@ -1,7 +1,7 @@
 ---
-name: Flowave Maintainers Meeting
-about: Agenda and Minutes for Flowave Maintainer Meeting
-title: 'Flowave Maintainers Meeting - dd/mm/yyyy'
+name: Fluxnova Maintainers Meeting
+about: Agenda and Minutes for Fluxnova Maintainer Meeting
+title: 'Fluxnova Maintainers Meeting - dd/mm/yyyy'
 labels: Maintainers Meeting
 type: Meeting
 
@@ -27,20 +27,20 @@ Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 
  ## Tracking Attendance
 
- **Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Flowave project meetings.  Please do this at the start of the meeting.
+ **Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Fluxnova project meetings.  Please do this at the start of the meeting.
 
 ## Agenda
 - [ ] Convene & roll call, review meeting notices (5mins)
 - [ ] Review action items from previous meeting (5mins)
 - [ ] Check review status of open PRs on each repo
-  - [flowave-bpm-platform/pulls](https://github.com/finos/flowave-bpm-platform/pulls)
-  - [flowave-feel-scala/pulls](https://github.com/finos/flowave-feel-scala/pulls)
-  - [flowave-modeler/pulls](https://github.com/finos/flowave-modeler/pulls)
-  - [flowave-docs-manual/pulls](https://github.com/finos/flowave-docs-manual/pulls)
-  - [flowave-release-parent/pulls](https://github.com/finos/flowave-release-parent/pulls)
-  - [flowave-bpm-release-parent/pulls](https://github.com/finos/flowave-bpm-release-parent/pulls)
-  - [flowave-docs-theme/pulls](https://github.com/finos/flowave-docs-theme)
-  - [flwave-website/pulls](https://github.com/finos/flowave-website)
+  - [fluxnova-bpm-platform/pulls](https://github.com/finos/fluxnova-bpm-platform/pulls)
+  - [fluxnova-feel-scala/pulls](https://github.com/finos/fluxnova-feel-scala/pulls)
+  - [fluxnova-modeler/pulls](https://github.com/finos/fluxnova-modeler/pulls)
+  - [fluxnova-docs-manual/pulls](https://github.com/finos/fluxnova-docs-manual/pulls)
+  - [fluxnova-release-parent/pulls](https://github.com/finos/fluxnova-release-parent/pulls)
+  - [fluxnova-bpm-release-parent/pulls](https://github.com/finos/fluxnova-bpm-release-parent/pulls)
+  - [fluxnova-docs-theme/pulls](https://github.com/finos/fluxnova-docs-theme)
+  - [fluxnova-website/pulls](https://github.com/finos/fluxnova-website)
 - [ ] Agenda item 2
 - [ ] ...
 - [ ] AOB & Adjourn (5mins)

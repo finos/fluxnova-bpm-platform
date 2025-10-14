@@ -7,7 +7,7 @@ needs the database SQL scripts. These script
 should been build before.
 
 ```
-cd flowave-bpm-platform/distro/sql-script
+cd fluxnova-bpm-platform/distro/sql-script
 mvn clean install
 ```
 

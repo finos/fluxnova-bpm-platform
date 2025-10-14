@@ -1,4 +1,4 @@
-# Flowave External Task Client (Java)
+# Fluxnova External Task Client (Java)
 
 ** Needs To Be Reviewed **
 
@@ -6,11 +6,11 @@
 
 > Are you looking for the Spring Boot External Task Client? This way please: [Spring Boot External Task Client](../../spring-boot-starter/starter-client)
 
-The **Flowave External Task Client (Java)** allows to set up remote Service Tasks for your workflow.
+The **Fluxnova External Task Client (Java)** allows to set up remote Service Tasks for your workflow.
 
 ** Needs To Be Reviewed - Docs and example location **
-* [Quick Start](https://docs.flowave.org/get-started/quick-start/)
-* [Documentation](https://docs.flowave.org/manual/develop/user-guide/ext-client/)
+* [Quick Start](https://docs.fluxnova.finos.org/get-started/quick-start/)
+* [Documentation](https://docs.fluxnova.finos.org/manual/develop/user-guide/ext-client/)
 * [Examples](https://github.com/camunda/camunda-bpm-examples/tree/master/clients/java)
 
 ## Features
@@ -26,22 +26,22 @@ The **Flowave External Task Client (Java)** allows to set up remote Service Task
 * The topic subscription can be configured with the fluent api of the [TopicSubscriptionBuilder](client/src/main/java/org/finos/fluxnova/bpm/client/topic/TopicSubscriptionBuilder.java).
 
 ## Prerequisites
-* Java (supported version by the used Flowave Platform 7)
-* Flowave Platform 7
+* Java (supported version by the used Fluxnova Platform 1.0.0)
+* Fluxnova Platform 1.0.0
 
 ## Maven coordinates
 The following Maven coordinate needs to be added to the projects `pom.xml`:
 ```xml
 <dependency>
   <groupId>org.finos.fluxnova.bpm</groupId>
-  <artifactId>flowave-external-task-client</artifactId>
+  <artifactId>fluxnova-external-task-client</artifactId>
   <version>${version}</version>
 </dependency>
 ```
 
 ## Contributing
 
-Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/master/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 ## License
