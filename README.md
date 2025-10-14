@@ -40,10 +40,9 @@ Fluxnova Platform provides a rich set of components centered around the BPM life
 
 - Fluxnova Tasklist - Web application for managing and completing user tasks in the context of processes.
 
-#### And there's more...
+#### And there's more
 
-- [bpmn.io](https://bpmn.io/) - Toolkits for BPMN, CMMN, and DMN in JavaScript (rendering, modelling)
-- [Community Extensions](https://docs.camunda.org/manual/7.5/introduction/extensions/) - Extensions on top of Fluxnova Platform 1.0.0 ** Needs To Be Reviewed ** provided and maintained by our great open source community
+- [bpmn.io](https://bpmn.io/) - Toolkits for BPMN, CMMN, and DMN in JavaScript (rendering, modeling)
 
 ## A Framework
 
