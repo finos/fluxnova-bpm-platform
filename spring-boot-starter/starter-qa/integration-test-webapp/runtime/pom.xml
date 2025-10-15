@@ -18,7 +18,9 @@
     <version.jaxb-api>2.3.1</version.jaxb-api>
     <version.jersey-apache-client>1.15</version.jersey-apache-client>
     <version.junit>4.12</version.junit>
-    <version.chromedriver>112.0.5615.49</version.chromedriver>
+    <version.chromedriver>141.0.7390.54</version.chromedriver>
+
+    <host.chromedriver>https://storage.googleapis.com/chrome-for-testing-public</host.chromedriver>
 
     <http.port>58080</http.port>
     <http.ctx-path.webapp>fluxnova/</http.ctx-path.webapp>
@@ -191,10 +193,10 @@
                   <goal>wget</goal>
                 </goals>
                 <configuration>
-                  <url>https://chromedriver.storage.googleapis.com/${version.chromedriver}/chromedriver_${os.type}.zip</url>
+                  <url>${host.chromedriver}/${version.chromedriver}/${os.type}/chromedriver-${os.type}.zip</url>
                   <outputFileName>chromedriver.zip</outputFileName>
                   <unpack>true</unpack>
-                  <outputDirectory>${project.build.directory}/chromedriver</outputDirectory>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
                 </configuration>
               </execution>
             </executions>

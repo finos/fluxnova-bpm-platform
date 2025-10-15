@@ -106,7 +106,7 @@ public class ComponentAvailabilityIT {
     if (webappsAvailable) {
       response.then()
         .statusCode(200)
-        .body("html.head.title", equalTo("Camunda Welcome"));
+        .body("html.head.title", equalTo("Fluxnova Welcome"));
     } else {
       response.then()
         .statusCode(404);
