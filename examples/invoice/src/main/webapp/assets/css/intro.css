@@ -3,6 +3,10 @@ body.dashboard {
   padding-top: 70px;
 }
 
+a.navbar-brand {
+    line-height: unset !important;
+}
+
 [fxn-widget-header] .btn-primary,
 [fxn-widget-header] .btn-primary:hover {
   font-size: 14px;
@@ -14,8 +18,10 @@ body.dashboard {
 }
 
 .navbar-brand .logo {
-  margin-right: 5px;
-  fill: #666;
+    margin-right: 10px;
+    float: left;
+    width: 26px;
+    height: 26px;
 }
 
 section .inner {
