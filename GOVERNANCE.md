@@ -1,12 +1,12 @@
 # Governance
 
-This document describes the governance of the FINOS Flowave project. The project is also governed by the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/antitrust-policy/), and the FINOS [IP Policy]( https://community.finos.org/governance-docs/IP-policy.pdf), [Code of Conduct](https://community.finos.org/docs/governance/code-of-conduct), [Collaborative Principles](https://community.finos.org/docs/governance/collaborative-principles/), and [Meeting Procedures](https://community.finos.org/docs/governance/meeting-procedures/).
+This document describes the governance of the FINOS Fluxnova project. The project is also governed by the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/antitrust-policy/), and the FINOS [IP Policy]( https://community.finos.org/governance-docs/IP-policy.pdf), [Code of Conduct](https://community.finos.org/docs/governance/code-of-conduct), [Collaborative Principles](https://community.finos.org/docs/governance/collaborative-principles/), and [Meeting Procedures](https://community.finos.org/docs/governance/meeting-procedures/).
 
-Please also see our [contribution guidelines] (https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md)
+Please also see our [contribution guidelines] (https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md)
 
 ## Roles
 
-Flowave is a meritocratic, consensus-based community project, in so far that is possible, decision-making is done based on user consensus following open discussion on our Working Groups and issue list. No major decisions about the project’s direction, bug fixes, or features should be made in private without community involvement and participation. Discussions must begin at the earliest possible point on a topic; the community’s participation is vital during the entire decision-making process.
+Fluxnova is a meritocratic, consensus-based community project, in so far that is possible, decision-making is done based on user consensus following open discussion on our Working Groups and issue list. No major decisions about the project’s direction, bug fixes, or features should be made in private without community involvement and participation. Discussions must begin at the earliest possible point on a topic; the community’s participation is vital during the entire decision-making process.
 
 ### Contributors
 
@@ -19,7 +19,7 @@ Contributors must be covered under a Contributor License Agreement (CLA) with FI
 
 ### Maintainers
 
-A Maintainer is a Contributor who, based on sustained contributions and community trust is granted write access to the Flowave repositories. Maintainers are responsible for:
+A Maintainer is a Contributor who, based on sustained contributions and community trust is granted write access to the Fluxnova repositories. Maintainers are responsible for:
 
 - Reviewing and merging pull requests
 - Managing GitHub issues and labels
@@ -40,7 +40,7 @@ The Lead Maintainer is elected by majority vote of the Maintainers.
 
 ## Maintainer Lifecycle
 
-Flowave encourages community driven stewardship. The following practices ensure the Maintainer group remains active, representative and aligned with project goals:
+Fluxnova encourages community driven stewardship. The following practices ensure the Maintainer group remains active, representative and aligned with project goals:
 
 - Appointment: Any contributor with a sustained track record may be nominated or may apply to become a Maintainer. Approval requires the consensus of the maintainers see [Decision Making Process](#decision-making-process).
 - Annual Review: The list of Maintainers is reviewed annually. The next review and refresh will occur in Q1 2026, unless otherwise agreed by the Working Group. While the annual review serves as a structured checkpoint, new maintainers may be added at any point throughout the year. Proposed additions must first seek consensus amongst existing maintainers, and where consensus cannot be reached, the voting mechanism described in [Decision Making Process](#decision-making-process) will apply.
@@ -61,11 +61,11 @@ Offboarding:
 
 ## Contribution Guidelines
 
-Contributions must abide by the contribution guidelines set out in [CONTRIBUTING.md](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md) 
+Contributions must abide by the contribution guidelines set out in [CONTRIBUTING.md](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) 
 
 ## Decision Making Process
 
-Flowave follows a consensus- based decision-making model:
+Fluxnova follows a consensus- based decision-making model:
 
 - Preferred: All relevant Maintainer agree
 - Acceptable: Majority agrees, no strong objections
@@ -94,7 +94,7 @@ Voting may be required but not limited to:
 
 ## Working Group Structure
 
-Flowave operates two standing Working Groups, to streamline both technical collaboration and strategic oversight. Additional working groups may be formed, from time to time, to work on specific topics.
+Fluxnova operates two standing Working Groups, to streamline both technical collaboration and strategic oversight. Additional working groups may be formed, from time to time, to work on specific topics.
 
 ### Maintainers Working Group
 
@@ -132,11 +132,11 @@ Chair Responsibilities:
 
 ## Community Participation
 
-Flowave follows consensus-based decision-making process, the guiding principles for participation include:
+Fluxnova follows consensus-based decision-making process, the guiding principles for participation include:
 
 ### Openness
 
-Participation is open to all who are materially affected by Flowave’s direction. There are no financial barriers or affiliation requirements to contribute.
+Participation is open to all who are materially affected by Fluxnova’s direction. There are no financial barriers or affiliation requirements to contribute.
 
 ### Lack of Dominance
 

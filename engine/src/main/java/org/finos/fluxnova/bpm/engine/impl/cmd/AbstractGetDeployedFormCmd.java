@@ -34,9 +34,9 @@ import org.finos.fluxnova.bpm.engine.repository.FluxnovaFormDefinition;
 public abstract class AbstractGetDeployedFormCmd implements Command<InputStream> {
 
   protected static String EMBEDDED_KEY = "embedded:";
-  protected static String CAMUNDA_FORMS_KEY = "fluxnova-forms:";
+  protected static String FLUXNOVA_FORMS_KEY = "fluxnova-forms:";
   protected static int EMBEDDED_KEY_LENGTH = EMBEDDED_KEY.length();
-  protected static int CAMUNDA_FORMS_KEY_LENGTH = CAMUNDA_FORMS_KEY.length();
+  protected static int FLUXNOVA_FORMS_KEY_LENGTH = FLUXNOVA_FORMS_KEY.length();
 
   protected static String DEPLOYMENT_KEY = "deployment:";
   protected static int DEPLOYMENT_KEY_LENGTH = DEPLOYMENT_KEY.length();
@@ -49,12 +49,12 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
 
     final FormData formData = getFormData();
     String formKey = formData.getFormKey();
-    FluxnovaFormRef camundaFormRef = formData.getFluxnovaFormRef();
+    FluxnovaFormRef fluxnovaFormRef = formData.getFluxnovaFormRef();
 
     if (formKey != null) {
       return getResourceForFormKey(formData, formKey);
-    } else if(camundaFormRef != null && camundaFormRef.getKey() != null) {
-      return getResourceForFluxnovaFormRef(camundaFormRef, formData.getDeploymentId());
+    } else if(fluxnovaFormRef != null && fluxnovaFormRef.getKey() != null) {
+      return getResourceForFluxnovaFormRef(fluxnovaFormRef, formData.getDeploymentId());
     } else {
       throw new BadUserRequestException("One of the attributes 'formKey' and 'camunda:formRef' must be supplied but none were set.");
     }
@@ -65,8 +65,8 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
 
     if (resourceName.startsWith(EMBEDDED_KEY)) {
       resourceName = resourceName.substring(EMBEDDED_KEY_LENGTH, resourceName.length());
-    } else if (resourceName.startsWith(CAMUNDA_FORMS_KEY)) {
-      resourceName = resourceName.substring(CAMUNDA_FORMS_KEY_LENGTH, resourceName.length());
+    } else if (resourceName.startsWith(FLUXNOVA_FORMS_KEY)) {
+      resourceName = resourceName.substring(FLUXNOVA_FORMS_KEY_LENGTH, resourceName.length());
     }
 
     if (!resourceName.startsWith(DEPLOYMENT_KEY)) {
@@ -78,13 +78,13 @@ public abstract class AbstractGetDeployedFormCmd implements Command<InputStream>
     return getDeploymentResource(formData.getDeploymentId(), resourceName);
   }
 
-  protected InputStream getResourceForFluxnovaFormRef(FluxnovaFormRef camundaFormRef,
+  protected InputStream getResourceForFluxnovaFormRef(FluxnovaFormRef fluxnovaFormRef,
       String deploymentId) {
     FluxnovaFormDefinition definition = commandContext.runWithoutAuthorization(
-        new GetFluxnovaFormDefinitionCmd(camundaFormRef, deploymentId));
+        new GetFluxnovaFormDefinitionCmd(fluxnovaFormRef, deploymentId));
 
     if (definition == null) {
-      throw new NotFoundException("No Camunda Form Definition was found for Camunda Form Ref: " + camundaFormRef);
+      throw new NotFoundException("No Fluxnova Form Definition was found for Fluxnova Form Ref: " + fluxnovaFormRef);
     }
 
     return getDeploymentResource(definition.getDeploymentId(), definition.getResourceName());

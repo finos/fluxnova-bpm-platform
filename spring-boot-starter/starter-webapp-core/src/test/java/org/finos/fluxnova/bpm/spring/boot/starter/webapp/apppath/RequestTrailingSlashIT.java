@@ -51,7 +51,7 @@ public class RequestTrailingSlashIT {
 
     // when calling different paths with and without trailing slashes
     for (String path : REDIRECT_PATHS) {
-      String url = "http://localhost:" + port + "/camunda" + path;
+      String url = "http://localhost:" + port + "/fluxnova" + path;
       responses.add(client.getForEntity(url, String.class));
       responses.add(client.getForEntity(url + "/", String.class));
     }

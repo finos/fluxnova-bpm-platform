@@ -214,10 +214,10 @@
                   <goal>wget</goal>
                 </goals>
                 <configuration>
-                  <url>https://chromedriver.storage.googleapis.com/${version.chromedriver}/chromedriver_${os.type}.zip</url>
+                  <url>${host.chromedriver}/${version.chromedriver}/${os.type}/chromedriver-${os.type}.zip</url>
                   <outputFileName>chromedriver.zip</outputFileName>
                   <unpack>true</unpack>
-                  <outputDirectory>${project.build.directory}/chromedriver</outputDirectory>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
                 </configuration>
               </execution>
             </executions>
@@ -226,10 +226,11 @@
       </build>
     </profile>
     <profile>
-      <id>windows</id>
+      <id>windows32</id>
       <activation>
         <os>
           <family>windows</family>
+          <arch>x32</arch>
         </os>
       </activation>
       <properties>
@@ -237,14 +238,39 @@
       </properties>
     </profile>
     <profile>
-      <id>mac</id>
+      <id>windows64</id>
       <activation>
         <os>
-          <family>mac</family>
+          <family>windows</family>
+          <arch>amd64</arch>
         </os>
       </activation>
       <properties>
-        <os.type>mac64</os.type>
+        <os.type>win64</os.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>mac-x64</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <properties>
+        <os.type>mac-x64</os.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>mac-arm64</id>
+      <activation>
+        <os>
+          <family>mac</family>
+          <arch>aarch64</arch>
+        </os>
+      </activation>
+      <properties>
+        <os.type>mac-arm64</os.type>
       </properties>
     </profile>
   </profiles>

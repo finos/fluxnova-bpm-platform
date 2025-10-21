@@ -1,4 +1,4 @@
-flowave-spin   ** Needs To Be Reviewed **
+fluxnova-spin   ** Needs To Be Reviewed **
 ============
 
 <p>
@@ -72,7 +72,7 @@ Element e = XML( xmlSource ).childElement("customer").unwrap();
 
 # Contributing
 
-Have a look at our [contribution guide](https://github.com/finos/flowave-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
+Have a look at our [contribution guide](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
 # License:

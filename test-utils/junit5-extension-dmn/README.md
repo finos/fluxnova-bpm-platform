@@ -1,4 +1,4 @@
-# Flowave Platform DMN JUnit 5
+# Fluxnova Platform DMN JUnit 5
 
 JUnit 5 extension that allows you to inject a DMN engine into your test.
 
@@ -10,7 +10,7 @@ Add the dependency to your pom.xml
 ```xml
     <dependency>
       <groupId>org.finos.fluxnova.bpm.dmn</groupId>
-      <artifactId>flowave-dmn-junit5</artifactId>
+      <artifactId>fluxnova-dmn-junit5</artifactId>
       <version>7.20.0</version>
       <scope>test</scope>
     </dependency>

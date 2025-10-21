@@ -22,13 +22,13 @@ import static org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmPro
 
 public class WebappProperty {
 
-  public static final String DEFAULT_APP_PATH = "/camunda";
+  public static final String DEFAULT_APP_PATH = "/fluxnova";
 
   public static final String PREFIX = FluxnovaBpmProperties.PREFIX + ".webapp";
 
   protected boolean indexRedirectEnabled = true;
 
-  protected String webjarClasspath = "/META-INF/resources/webjars/camunda";
+  protected String webjarClasspath = "/META-INF/resources/webjars/fluxnova";
 
   protected String securityConfigFile = "/securityFilterRules.json";
 

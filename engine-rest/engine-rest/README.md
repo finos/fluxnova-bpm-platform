@@ -1,7 +1,7 @@
 REST API
 ========
 
-A JAX-RS-based REST API for Flowave Platform.
+A JAX-RS-based REST API for Fluxnova Platform.
 
 Running Tests
 -------------

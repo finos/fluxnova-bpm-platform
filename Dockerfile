@@ -8,10 +8,6 @@ ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
 ARG POSTGRESQL_VERSION
 ARG MYSQL_VERSION
 
-# Additional Spring/Management properties as env variables
-ENV SPRING_H2_CONSOLE_ENABLED=true
-ENV SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS=true
-
 WORKDIR /fluxnova
 
 # Install packages

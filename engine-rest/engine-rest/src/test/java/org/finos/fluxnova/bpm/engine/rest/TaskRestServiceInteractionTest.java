@@ -577,7 +577,7 @@ public class TaskRestServiceInteractionTest extends
       .header("accept", MediaType.APPLICATION_JSON)
       .then().expect().statusCode(Status.OK.getStatusCode())
       .body("key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
-      .body("camundaFormRef", nullValue())
+      .body("fluxnovaFormRef", nullValue())
       .body("contextPath", equalTo(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH))
       .when().get(TASK_FORM_URL);
   }
@@ -588,9 +588,9 @@ public class TaskRestServiceInteractionTest extends
       .header("accept", MediaType.APPLICATION_JSON)
       .then().expect()
         .statusCode(Status.OK.getStatusCode())
-        .body("camundaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
-        .body("camundaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
-        .body("camundaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
+        .body("fluxnovaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
+        .body("fluxnovaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
+        .body("fluxnovaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
         .body("key", nullValue())
       .when().get(SINGLE_TASK_URL);
   }
@@ -619,9 +619,9 @@ public class TaskRestServiceInteractionTest extends
      .header("accept", MediaType.APPLICATION_JSON)
      .then().expect()
        .statusCode(Status.OK.getStatusCode())
-       .body("camundaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
-       .body("camundaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
-       .body("camundaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
+       .body("fluxnovaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
+       .body("fluxnovaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
+       .body("fluxnovaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
        .body("key", nullValue())
        .body("contextPath", equalTo(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH))
      .when().get(TASK_FORM_URL);

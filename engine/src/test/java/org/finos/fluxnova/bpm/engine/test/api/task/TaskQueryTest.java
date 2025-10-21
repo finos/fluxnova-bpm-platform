@@ -5169,10 +5169,10 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
         .singleResult();
 
     // then the form key is present
-    FluxnovaFormRef camundaFormRef = task.getFluxnovaFormRef();
-    assertThat(camundaFormRef.getKey()).isEqualTo("myForm");
-    assertThat(camundaFormRef.getBinding()).isEqualTo("latest");
-    assertThat(camundaFormRef.getVersion()).isNull();
+    FluxnovaFormRef fluxnovaFormRef = task.getFluxnovaFormRef();
+    assertThat(fluxnovaFormRef.getKey()).isEqualTo("myForm");
+    assertThat(fluxnovaFormRef.getBinding()).isEqualTo("latest");
+    assertThat(fluxnovaFormRef.getVersion()).isNull();
 
     // if NOT initializeFormKeys
     Task task2 = taskService.createTaskQuery()
@@ -5532,12 +5532,12 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
 
     Task taskWithFormKey = withFormKeys.get(0);
-    FluxnovaFormRef camundaFormRefWithFormKey = taskWithFormKey.getFluxnovaFormRef();
+    FluxnovaFormRef fluxnovaFormRefWithFormKey = taskWithFormKey.getFluxnovaFormRef();
 
-    assertThat(camundaFormRefWithFormKey).isNotNull();
-    assertThat(camundaFormRefWithFormKey.getKey()).isEqualTo("key");
-    assertThat(camundaFormRefWithFormKey.getBinding()).isEqualTo("version");
-    assertThat(camundaFormRefWithFormKey.getVersion()).isEqualTo(3);
+    assertThat(fluxnovaFormRefWithFormKey).isNotNull();
+    assertThat(fluxnovaFormRefWithFormKey.getKey()).isEqualTo("key");
+    assertThat(fluxnovaFormRefWithFormKey.getBinding()).isEqualTo("version");
+    assertThat(fluxnovaFormRefWithFormKey.getVersion()).isEqualTo(3);
   }
 
   @Test

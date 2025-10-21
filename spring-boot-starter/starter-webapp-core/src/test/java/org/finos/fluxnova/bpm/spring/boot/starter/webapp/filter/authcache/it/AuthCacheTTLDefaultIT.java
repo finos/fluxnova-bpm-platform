@@ -63,7 +63,7 @@ public class AuthCacheTTLDefaultIT {
   @Test
   public void shouldRemoveCache() {
     // given
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/app/welcome/default");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/app/welcome/default");
 
     Map<String, String> headers = new HashMap<>();
     headers.put("X-XSRF-TOKEN", httpClientRule.getHeaderXsrfToken());
@@ -71,7 +71,7 @@ public class AuthCacheTTLDefaultIT {
     headers.put("Content-Type", "application/x-www-form-urlencoded");
     headers.put("Accept", "application/json");
     httpClientRule.performPostRequest("http://localhost:" + port +
-        "/camunda/api/admin/auth/user/default/login/welcome", headers, "username=demo&password=demo");
+        "/fluxnova/api/admin/auth/user/default/login/welcome", headers, "username=demo&password=demo");
 
     headers = new HashMap<>();
     headers.put("Cookie", httpClientRule.getSessionCookieValue());
@@ -100,7 +100,7 @@ public class AuthCacheTTLDefaultIT {
 
   protected void doGetRequestToProfileEndpoint(Map<String, String> headers) {
     String baseUrl = "http://localhost:" + port;
-    String profileEndpointPath = "/camunda/api/engine/engine/default/user/demo/profile";
+    String profileEndpointPath = "/fluxnova/api/engine/engine/default/user/demo/profile";
     httpClientRule.performRequest( baseUrl + profileEndpointPath, headers);
   }
 

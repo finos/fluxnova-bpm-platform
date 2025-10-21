@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Service class responsible for migrating Camunda projects to Flowave.
+ * Service class responsible for migrating Camunda projects to Fluxnova.
  * This class handles the entire migration process including:
  * - Adding and removing OpenRewrite plugins and dependencies
  * - Converting BPMN files to XML and back
@@ -35,7 +35,7 @@ public class MigratorService {
      * Constructs a new MigratorService with the specified project location.
      *
      * @param projectLocation The file system path to the project being migrated
-     * @param targetVersion The target Flowave version to migrate to
+     * @param targetVersion The target Fluxnova version to migrate to
      */
     public MigratorService(String projectLocation, String targetVersion, String modelerVersion) {
         this.projectLocation = projectLocation;
@@ -129,7 +129,7 @@ public class MigratorService {
         Xpp3Dom activeRecipes = new Xpp3Dom("activeRecipes");
 
         String[] recipes = {
-                "camundaToFlowave"
+                "camundaToFluxnova"
         };
 
         for (String recipe : recipes) {

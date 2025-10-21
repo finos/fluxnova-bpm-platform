@@ -41,13 +41,13 @@ class FaviconResourceResolverTest {
   @Test
   void shouldStripPathExceptLastSegment() throws IOException {
     // given
-    String resourcePath = "/camunda/favicon.ico";
+    String resourcePath = "/fluxnova/favicon.ico";
     String lastSegment = "/favicon.ico";
     Resource expectedFavicon = Mockito.mock(Resource.class);
 
-    when(location.getURL()).thenReturn(new URL("file:///camunda/"));
+    when(location.getURL()).thenReturn(new URL("file:///fluxnova/"));
     when(location.createRelative(lastSegment)).thenReturn(expectedFavicon);
-    when(expectedFavicon.getURL()).thenReturn(new URL("file:///camunda/favicon.ico"));
+    when(expectedFavicon.getURL()).thenReturn(new URL("file:///fluxnova/favicon.ico"));
     when(expectedFavicon.isReadable()).thenReturn(true);
 
     // when

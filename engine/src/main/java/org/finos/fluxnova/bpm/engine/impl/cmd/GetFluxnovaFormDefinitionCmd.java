@@ -27,18 +27,18 @@ import org.finos.fluxnova.bpm.engine.repository.FluxnovaFormDefinition;
 
 public class GetFluxnovaFormDefinitionCmd implements Command<FluxnovaFormDefinition> {
 
-  protected FluxnovaFormRef camundaFormRef;
+  protected FluxnovaFormRef fluxnovaFormRef;
   protected String deploymentId;
 
-  public GetFluxnovaFormDefinitionCmd(FluxnovaFormRef camundaFormRef, String deploymentId) {
-    this.camundaFormRef = camundaFormRef;
+  public GetFluxnovaFormDefinitionCmd(FluxnovaFormRef fluxnovaFormRef, String deploymentId) {
+    this.fluxnovaFormRef = fluxnovaFormRef;
     this.deploymentId = deploymentId;
   }
 
   @Override
   public FluxnovaFormDefinition execute(CommandContext commandContext) {
-    String binding = camundaFormRef.getBinding();
-    String key = camundaFormRef.getKey();
+    String binding = fluxnovaFormRef.getBinding();
+    String key = fluxnovaFormRef.getKey();
     CamundaFormDefinitionEntity definition = null;
     FluxnovaFormDefinitionManager manager = commandContext.getFluxnovaFormDefinitionManager();
     if (binding.equals(DefaultFormHandler.FORM_REF_BINDING_DEPLOYMENT)) {
@@ -46,9 +46,9 @@ public class GetFluxnovaFormDefinitionCmd implements Command<FluxnovaFormDefinit
     } else if (binding.equals(DefaultFormHandler.FORM_REF_BINDING_LATEST)) {
       definition = manager.findLatestDefinitionByKey(key);
     } else if (binding.equals(DefaultFormHandler.FORM_REF_BINDING_VERSION)) {
-      definition = manager.findDefinitionByKeyVersionAndTenantId(key, camundaFormRef.getVersion(), null);
+      definition = manager.findDefinitionByKeyVersionAndTenantId(key, fluxnovaFormRef.getVersion(), null);
     } else {
-      throw new BadUserRequestException("Unsupported binding type for camundaFormRef. Expected to be one of "
+      throw new BadUserRequestException("Unsupported binding type for fluxnovaFormRef. Expected to be one of "
           + DefaultFormHandler.ALLOWED_FORM_REF_BINDINGS + " but was:" + binding);
     }
 

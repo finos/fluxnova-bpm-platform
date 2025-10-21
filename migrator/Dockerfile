@@ -7,7 +7,7 @@ ENV M2_HOME=/usr/share/maven
 WORKDIR /app
 
 # Copy the compiled Java class to the working directory
-COPY target/flowave-migrator*.jar /app/flowave-migrator.jar
+COPY target/fluxnova-migrator*.jar /app/fluxnova-migrator.jar
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/flowave-migrator.jar"]
+ENTRYPOINT ["java", "-jar", "/app/fluxnova-migrator.jar"]

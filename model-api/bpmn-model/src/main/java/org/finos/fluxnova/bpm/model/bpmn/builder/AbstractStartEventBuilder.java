@@ -87,33 +87,33 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
   /**
    * Sets the camunda form ref attribute.
    *
-   * @param camundaFormRef the form ref to set
+   * @param fluxnovaFormRef the form ref to set
    * @return the builder object
    */
-  public B fluxnovaFormRef(String camundaFormRef) {
-    element.setFluxnovaFormRef(camundaFormRef);
+  public B fluxnovaFormRef(String fluxnovaFormRef) {
+    element.setFluxnovaFormRef(fluxnovaFormRef);
     return myself;
   }
 
   /**
    * Sets the camunda form ref binding attribute.
    *
-   * @param camundaFormRef the form ref binding to set
+   * @param fluxnovaFormRefBinding the form ref binding to set
    * @return the builder object
    */
-  public B fluxnovaFormRefBinding(String camundaFormRefBinding) {
-    element.setFluxnovaFormRefBinding(camundaFormRefBinding);
+  public B fluxnovaFormRefBinding(String fluxnovaFormRefBinding) {
+    element.setFluxnovaFormRefBinding(fluxnovaFormRefBinding);
     return myself;
   }
 
   /**
    * Sets the camunda form ref version attribute.
    *
-   * @param camundaFormRef the form ref version to set
+   * @param fluxnovaFormRefVersion the form ref version to set
    * @return the builder object
    */
-  public B fluxnovaFormRefVersion(String camundaFormRefVersion) {
-    element.setFluxnovaFormRefVersion(camundaFormRefVersion);
+  public B fluxnovaFormRefVersion(String fluxnovaFormRefVersion) {
+    element.setFluxnovaFormRefVersion(fluxnovaFormRefVersion);
     return myself;
   }
 

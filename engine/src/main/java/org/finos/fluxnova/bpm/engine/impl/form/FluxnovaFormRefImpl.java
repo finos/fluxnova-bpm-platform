@@ -55,6 +55,6 @@ public class FluxnovaFormRefImpl implements FluxnovaFormRef {
 
   @Override
   public String toString() {
-    return "CamundaFormRefImpl [key=" + key + ", binding=" + binding + ", version=" + version + "]";
+    return "FluxnovaFormRefImpl [key=" + key + ", binding=" + binding + ", version=" + version + "]";
   }
 }

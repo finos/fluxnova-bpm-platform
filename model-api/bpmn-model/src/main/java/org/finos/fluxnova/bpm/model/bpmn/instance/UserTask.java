@@ -76,15 +76,15 @@ public interface UserTask extends Task {
 
   String getFluxnovaFormRef();
 
-  void setFluxnovaFormRef(String camundaFormRef);
+  void setFluxnovaFormRef(String fluxnovaFormRef);
 
   String getFluxnovaFormRefBinding();
 
-  void setFluxnovaFormRefBinding(String camundaFormRefBinding);
+  void setFluxnovaFormRefBinding(String fluxnovaFormRefBinding);
 
   String getFluxnovaFormRefVersion();
 
-  void setFluxnovaFormRefVersion(String camundaFormRefVersion);
+  void setFluxnovaFormRefVersion(String fluxnovaFormRefVersion);
 
   String getFluxnovaPriority();
 

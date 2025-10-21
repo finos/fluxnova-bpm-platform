@@ -1,4 +1,4 @@
-flowave-xml-model
+fluxnova-xml-model
 ==================
 
 XML model API written in Java.

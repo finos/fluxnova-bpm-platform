@@ -87,7 +87,7 @@ public class HalTask extends HalResource<HalTask> {
   private String caseDefinitionId;
   private boolean suspended;
   private String formKey;
-  private FluxnovaFormRef camundaFormRef;
+  private FluxnovaFormRef fluxnovaFormRef;
   private String tenantId;
 
   public static HalTask generate(Task task, ProcessEngine engine) {
@@ -125,7 +125,7 @@ public class HalTask extends HalResource<HalTask> {
     dto.tenantId = task.getTenantId();
     try {
       dto.formKey = task.getFormKey();
-      dto.camundaFormRef = task.getFluxnovaFormRef();
+      dto.fluxnovaFormRef = task.getFluxnovaFormRef();
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
@@ -229,7 +229,7 @@ public class HalTask extends HalResource<HalTask> {
   }
 
   public FluxnovaFormRef getFluxnovaFormRef() {
-    return camundaFormRef;
+    return fluxnovaFormRef;
   }
 
   public String getTenantId() {

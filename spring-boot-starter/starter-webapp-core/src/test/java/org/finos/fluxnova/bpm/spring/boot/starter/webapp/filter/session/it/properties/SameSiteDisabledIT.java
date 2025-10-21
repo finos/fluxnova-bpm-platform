@@ -45,7 +45,7 @@ public class SameSiteDisabledIT {
 
   @Test
   public void shouldDisableSameSiteCookie() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/app/tasklist/default");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/app/tasklist/default");
 
     String sessionCookieValue = httpClientRule.getSessionCookie();
 

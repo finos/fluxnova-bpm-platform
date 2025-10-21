@@ -207,7 +207,7 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedTaskForm(task.getId());
     }).isInstanceOf(NotFoundException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   @Test
@@ -231,7 +231,7 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedTaskForm(task.getId());
     }).isInstanceOf(NotFoundException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   @Test
@@ -257,7 +257,7 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedTaskForm(task.getId());
     }).isInstanceOf(NotFoundException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   @Test
@@ -414,7 +414,7 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedStartForm(processDefinition.getId());
     }).isInstanceOf(BadUserRequestException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   @Test
@@ -435,7 +435,7 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedStartForm(processDefinition.getId());
     }).isInstanceOf(BadUserRequestException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   @Test
@@ -458,16 +458,16 @@ public class RetrieveFluxnovaFormRefTest {
     assertThatThrownBy(() -> {
       formService.getDeployedStartForm(processDefinition.getId());
     }).isInstanceOf(BadUserRequestException.class)
-    .hasMessageContaining("No Camunda Form Definition was found for Camunda Form Ref");
+    .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
   /* HELPER METHODS */
 
   private void assertTaskFormData(TaskFormData taskFormData, String expectedKey, String expectedBinding, Integer expectedVersion) {
-    FluxnovaFormRef camundaFormRef = taskFormData.getFluxnovaFormRef();
-    assertThat(camundaFormRef.getKey()).isEqualTo(expectedKey);
-    assertThat(camundaFormRef.getBinding()).isEqualTo(expectedBinding);
-    assertThat(camundaFormRef.getVersion()).isEqualTo(expectedVersion);
+    FluxnovaFormRef fluxnovaFormRef = taskFormData.getFluxnovaFormRef();
+    assertThat(fluxnovaFormRef.getKey()).isEqualTo(expectedKey);
+    assertThat(fluxnovaFormRef.getBinding()).isEqualTo(expectedBinding);
+    assertThat(fluxnovaFormRef.getVersion()).isEqualTo(expectedVersion);
     assertThat(taskFormData.getFormKey()).isNull();
   }
 

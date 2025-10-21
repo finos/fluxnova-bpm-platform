@@ -34,7 +34,7 @@ public abstract class FormDataImpl implements FormData, Serializable {
   private static final long serialVersionUID = 1L;
 
   protected String formKey;
-  protected FluxnovaFormRef camundaFormRef;
+  protected FluxnovaFormRef fluxnovaFormRef;
   protected String deploymentId;
   protected List<FormProperty> formProperties = new ArrayList<>();
 
@@ -51,11 +51,11 @@ public abstract class FormDataImpl implements FormData, Serializable {
   }
 
   public FluxnovaFormRef getFluxnovaFormRef() {
-    return camundaFormRef;
+    return fluxnovaFormRef;
   }
 
-  public void setFluxnovaFormRef(FluxnovaFormRef camundaFormRef) {
-    this.camundaFormRef = camundaFormRef;
+  public void setFluxnovaFormRef(FluxnovaFormRef fluxnovaFormRef) {
+    this.fluxnovaFormRef = fluxnovaFormRef;
   }
 
   public String getDeploymentId() {

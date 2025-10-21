@@ -7,11 +7,11 @@ import org.finos.fluxnova.service.MigratorService;
 import java.io.*;
 
 /**
- * Main entry point for the Flowave migration tool.
- * This class provides a command-line interface for migrating Camunda projects to Flowave.
+ * Main entry point for the Fluxnova migration tool.
+ * This class provides a command-line interface for migrating Camunda projects to Fluxnova.
  * It delegates the actual migration work to the {@link MigratorService} class.
  * 
- * <p>Usage: java -jar flowave-migrator.jar "/path/to/project"</p>
+ * <p>Usage: java -jar fluxnova-migrator.jar "/path/to/project"</p>
  */
 public class Migrator {
     
@@ -26,17 +26,17 @@ public class Migrator {
      */
     public static void main(String[] args) throws IOException, XmlPullParserException, MavenInvocationException {
         if(args.length != 3) {
-            System.out.println("Usage: java Migrator <project-root-folder> <target-flowave-version> <modeler-version>");
+            System.out.println("Usage: java Migrator <project-root-folder> <target-fluxnova-version> <modeler-version>");
             System.out.println("Example: java Migrator /path/to/project 0.0.1 1.0.0");
         } else {
             String projectPath = args[0];
             String targetVersion = args[1];
             String modelerVersion = args[2];
-            System.out.println(String.format("Migration from Camunda to Flowave %s (Modeler %s) started on project %s", 
+            System.out.println(String.format("Migration from Camunda to Fluxnova %s (Modeler %s) started on project %s", 
                 targetVersion, modelerVersion, projectPath));
             MigratorService migratorService = new MigratorService(projectPath, targetVersion, modelerVersion);
             migratorService.start();
-            System.out.println("Migrating from Camunda to Flowave ended");
+            System.out.println("Migrating from Camunda to Fluxnova ended");
         }
     }
 }

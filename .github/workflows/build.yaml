@@ -52,6 +52,7 @@ jobs:
         uses: ./.github/actions/build-deploy
 
       - name: Build and publish Docker image
+        if: github.ref == 'refs/heads/main'
         uses: ./.github/actions/build-publish-image
 
   unit-test:

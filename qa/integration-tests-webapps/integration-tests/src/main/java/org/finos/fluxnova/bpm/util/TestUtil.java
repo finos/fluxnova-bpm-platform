@@ -69,7 +69,7 @@ public class TestUtil {
     profile.setLastName(lastName);
     user.setProfile(profile);
 
-    WebResource webResource = client.resource(testProperties.getApplicationPath("/camunda/api/admin/setup/default/user/create"));
+    WebResource webResource = client.resource(testProperties.getApplicationPath("/fluxnova/api/admin/setup/default/user/create"));
     ClientResponse clientResponse = webResource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(ClientResponse.class, user);
     try {
       if (clientResponse.getStatus() != Response.Status.NO_CONTENT.getStatusCode()) {

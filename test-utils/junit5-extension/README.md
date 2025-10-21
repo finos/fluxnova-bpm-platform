@@ -1,4 +1,4 @@
-# Flowave Platform JUnit 5
+# Fluxnova Platform JUnit 5
 
 JUnit 5 extension that allows you to inject a process engine into your test.
 
@@ -10,7 +10,7 @@ Add the dependency to your pom.xml
 ```xml
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>flowave-bpm-junit5</artifactId>
+      <artifactId>fluxnova-bpm-junit5</artifactId>
       <version>7.17.0</version>
       <scope>test</scope>
     </dependency>
@@ -34,7 +34,7 @@ Or register the extension from the builder:
 ```java
     @RegisterExtension
     ProcessEngineExtension extension = ProcessEngineExtension.builder()
-      .configurationResource("audithistory.flowave.cfg.xml")
+      .configurationResource("audithistory.fluxnova.cfg.xml")
       .build();
 ```
 
@@ -49,7 +49,7 @@ If you don't want to create a configuration file, you can add a process engine, 
 ```java
     public ProcessEngine myProcessEngine = ProcessEngineConfiguration
         .createStandaloneInMemProcessEngineConfiguration()
-        .setJdbcUrl("jdbc:h2:mem:flowave;DB_CLOSE_DELAY=1000")
+        .setJdbcUrl("jdbc:h2:mem:fluxnova;DB_CLOSE_DELAY=1000")
         .buildProcessEngine();
     
     @RegisterExtension

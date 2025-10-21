@@ -106,7 +106,7 @@ class MigratorServiceTest {
 
         Xpp3Dom[] recipeNodes = activeRecipes.getChildren("recipe");
         assertEquals(1, recipeNodes.length);
-        assertEquals("camundaToFlowave", recipeNodes[0].getValue());
+        assertEquals("camundaToFluxnova", recipeNodes[0].getValue());
     }
 
     @Test

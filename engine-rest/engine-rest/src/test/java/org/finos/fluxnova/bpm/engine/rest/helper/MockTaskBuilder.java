@@ -48,7 +48,7 @@ public class MockTaskBuilder {
   private String caseInstanceId;
   private String caseExecutionId;
   private String formKey;
-  private FluxnovaFormRef camundaFormRef;
+  private FluxnovaFormRef fluxnovaFormRef;
   private String tenantId;
   private boolean hasAttachment;
 
@@ -159,9 +159,9 @@ public class MockTaskBuilder {
   }
 
   public MockTaskBuilder fluxnovaFormRef(String key, String binding, Integer version) {
-    FluxnovaFormRefImpl camundaFormRef = new FluxnovaFormRefImpl(key, binding);
-    camundaFormRef.setVersion(version);
-    this.camundaFormRef = camundaFormRef;
+    FluxnovaFormRefImpl fluxnovaFormRef = new FluxnovaFormRefImpl(key, binding);
+    fluxnovaFormRef.setVersion(version);
+    this.fluxnovaFormRef = fluxnovaFormRef;
     return this;
   }
 
@@ -207,7 +207,7 @@ public class MockTaskBuilder {
     when(mockTask.getCaseInstanceId()).thenReturn(caseInstanceId);
     when(mockTask.getCaseExecutionId()).thenReturn(caseExecutionId);
     when(mockTask.getFormKey()).thenReturn(formKey);
-    when(mockTask.getFluxnovaFormRef()).thenReturn(camundaFormRef);
+    when(mockTask.getFluxnovaFormRef()).thenReturn(fluxnovaFormRef);
     when(mockTask.getTenantId()).thenReturn(tenantId);
     when(mockTask.getTaskState()).thenReturn(taskState);
     when(mockTask.hasAttachment()).thenReturn(hasAttachment);

@@ -35,6 +35,12 @@ You can select multiple testsuites but only a single database and a single runti
 mvn clean install -Pengine-integration,webapps-integration,tomcat,postgresql
 ```
 
+You can also specify the chromedriver version and host location to use for the webapps-integration tests. Example:
+
+```
+mvn clean install -Pwebapps-integration,tomcat,h2 -Dversion.chromedriver=114.0.5735.90 -Dhost.chromedriver=https://storage.googleapis.com/chrome-for-testing-public
+```
+
 There is a special profile for Wildfly Application Server:
 
 * Domain mode: `mvn clean install -Pengine-integration,h2,wildfly-domain`

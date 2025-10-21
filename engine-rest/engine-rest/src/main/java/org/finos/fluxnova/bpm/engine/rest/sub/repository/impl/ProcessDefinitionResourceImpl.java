@@ -325,7 +325,7 @@ public class ProcessDefinitionResourceImpl implements ProcessDefinitionResource 
       throw new InvalidRequestException(Status.BAD_REQUEST, e, "Cannot get start form data for process definition " + processDefinitionId);
     }
     FormDto dto = FormDto.fromFormData(formData);
-    if((dto.getKey() == null || dto.getKey().isEmpty()) && dto.getCamundaFormRef() == null) {
+    if((dto.getKey() == null || dto.getKey().isEmpty()) && dto.getFluxnovaFormRef() == null) {
       if(formData != null && formData.getFormFields() != null && !formData.getFormFields().isEmpty()) {
         dto.setKey("embedded:engine://engine/:engine/process-definition/"+processDefinitionId+"/rendered-form");
       }
@@ -462,11 +462,11 @@ public class ProcessDefinitionResourceImpl implements ProcessDefinitionResource 
 
   protected String getStartFormMediaType(String processDefinitionId) {
     String formKey = engine.getFormService().getStartFormKey(processDefinitionId);
-    FluxnovaFormRef camundaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getFluxnovaFormRef();
+    FluxnovaFormRef fluxnovaFormRef = engine.getFormService().getStartFormData(processDefinitionId).getFluxnovaFormRef();
     if(formKey != null) {
       return ContentTypeUtil.getFormContentType(formKey);
-    } else if(camundaFormRef != null) {
-      return ContentTypeUtil.getFormContentType(camundaFormRef);
+    } else if(fluxnovaFormRef != null) {
+      return ContentTypeUtil.getFormContentType(fluxnovaFormRef);
     }
     return MediaType.APPLICATION_XHTML_XML;
   }

@@ -47,7 +47,7 @@ public class TaskDto {
   private String caseDefinitionId;
   private boolean suspended;
   private String formKey;
-  private FluxnovaFormRef camundaFormRef;
+  private FluxnovaFormRef fluxnovaFormRef;
   private String tenantId;
   /**
    * Returns task State of task
@@ -86,7 +86,7 @@ public class TaskDto {
     this.taskState = task.getTaskState();
     try {
       this.formKey = task.getFormKey();
-      this.camundaFormRef = task.getFluxnovaFormRef();
+      this.fluxnovaFormRef = task.getFluxnovaFormRef();
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
@@ -224,8 +224,8 @@ public class TaskDto {
     return formKey;
   }
 
-  public FluxnovaFormRef getCamundaFormRef() {
-    return camundaFormRef;
+  public FluxnovaFormRef getFluxnovaFormRef() {
+    return fluxnovaFormRef;
   }
 
   public String getTenantId() {
@@ -274,7 +274,7 @@ public class TaskDto {
 
     try {
       dto.formKey = task.getFormKey();
-      dto.camundaFormRef = task.getFluxnovaFormRef();
+      dto.fluxnovaFormRef = task.getFluxnovaFormRef();
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)

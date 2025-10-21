@@ -43,7 +43,7 @@ public class WebappTest {
   @Test
   public void testEeResourceNotAvailable() {
     ResponseEntity<String> response =
-        testRestTemplate.getForEntity("/camunda/plugin/adminEE/app/plugin.js", String.class);
+        testRestTemplate.getForEntity("/fluxnova/plugin/adminEE/app/plugin.js", String.class);
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
   }
@@ -51,7 +51,7 @@ public class WebappTest {
   @Test
   public void testAdminEndpointAvailable() {
     ResponseEntity<String> response =
-        testRestTemplate.getForEntity("/camunda/app/admin/", String.class);
+        testRestTemplate.getForEntity("/fluxnova/app/admin/", String.class);
 
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
   }

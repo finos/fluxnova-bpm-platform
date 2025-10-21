@@ -1,6 +1,6 @@
-#flowave commons Testing
+#fluxnova commons Testing
 
-This project provides utility classes for Testing that are used in several Flowave projects
+This project provides utility classes for Testing that are used in several Fluxnova projects
 
 ## Usage of the `ProcessEngineLoggingRule` class
 

@@ -161,7 +161,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
   protected String eventName;
   protected boolean isFormKeyInitialized = false;
   protected String formKey;
-  protected FluxnovaFormRef camundaFormRef;
+  protected FluxnovaFormRef fluxnovaFormRef;
   protected boolean attachmentExists;
   protected boolean commentExists;
 
@@ -1452,12 +1452,12 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
           if (formRef != null && formRefBinding != null) {
             String formRefValue = (String) formRef.getValue(this);
             if (formRefValue != null) {
-              FluxnovaFormRefImpl camFormRef = new FluxnovaFormRefImpl(formRefValue, formRefBinding);
+              FluxnovaFormRefImpl fxnFormRef = new FluxnovaFormRefImpl(formRefValue, formRefBinding);
               if (formRefBinding.equals(FORM_REF_BINDING_VERSION) && formRefVersion != null) {
                 String formRefVersionValue = (String) formRefVersion.getValue(this);
-                camFormRef.setVersion(Integer.parseInt(formRefVersionValue));
+                fxnFormRef.setVersion(Integer.parseInt(formRefVersionValue));
               }
-              this.camundaFormRef = camFormRef;
+              this.fluxnovaFormRef = fxnFormRef;
             }
           }
         }
@@ -1482,7 +1482,7 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
     if(!isFormKeyInitialized) {
       throw LOG.uninitializedFormKeyException();
     }
-    return camundaFormRef;
+    return fluxnovaFormRef;
   }
 
   public void setProcessDefinitionId(String processDefinitionId) {

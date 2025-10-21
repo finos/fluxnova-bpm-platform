@@ -121,10 +121,10 @@
         desc = "If not `null`, the form key for the task." />
 
     <@lib.property
-        name = "camundaFormRef"
+        name = "fluxnovaFormRef"
         type = "ref"
-        dto = "CamundaFormRef"
-        desc = "A reference to a specific version of a Camunda Form."/>
+        dto = "FluxnovaFormRef"
+        desc = "A reference to a specific version of a Fluxnova Form."/>
 
     <@lib.property
         name = "tenantId"

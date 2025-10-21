@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = { FilterTestApp.class},
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = {
-        "fluxnova.bpm.webapp.application-path=/camunda",
+        "fluxnova.bpm.webapp.application-path=/fluxnova",
         "fluxnova.bpm.webapp.index-redirect-enabled=true",
         "fluxnova.bpm.admin-user.id=admin" })
 @DirtiesContext
@@ -49,10 +49,10 @@ public class ResourceLoadingProcessEnginesAppPathFluxnovaIndexRedirectTest {
   public void shouldRedirectRequestToTasklist_contextRoot() {
     // when
     // send GET request to /camunda
-    HttpURLConnection con = rule.performRequest("http://localhost:" + port + "/camunda");
+    HttpURLConnection con = rule.performRequest("http://localhost:" + port + "/fluxnova");
 
     // then
     // the request should have been redirected to Tasklist
-    assertThat(con.getURL().toString()).isEqualTo("http://localhost:" + port + "/camunda/app/tasklist/default/");
+    assertThat(con.getURL().toString()).isEqualTo("http://localhost:" + port + "/fluxnova/app/tasklist/default/");
   }
 }

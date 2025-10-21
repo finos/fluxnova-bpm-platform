@@ -31,7 +31,7 @@ public class WebAppPathPropertyDefaultTest extends ParsePropertiesHelper {
     String applicationPath = webapp.getApplicationPath();
 
     // then
-    assertThat(applicationPath).isEqualTo("/camunda");
+    assertThat(applicationPath).isEqualTo("/fluxnova");
   }
 
 }

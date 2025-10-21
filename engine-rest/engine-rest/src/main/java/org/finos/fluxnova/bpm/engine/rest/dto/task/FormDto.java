@@ -26,7 +26,7 @@ import org.finos.fluxnova.bpm.engine.form.FormData;
 public class FormDto {
 
   private String key;
-  private FluxnovaFormRef camundaFormRef;
+  private FluxnovaFormRef fluxnovaFormRef;
   private String contextPath;
 
   public void setKey(String form) {
@@ -37,12 +37,12 @@ public class FormDto {
     return key;
   }
 
-  public FluxnovaFormRef getCamundaFormRef() {
-    return camundaFormRef;
+  public FluxnovaFormRef getFluxnovaFormRef() {
+    return fluxnovaFormRef;
   }
 
-  public void setCamundaFormRef(FluxnovaFormRef camundaFormRef) {
-    this.camundaFormRef = camundaFormRef;
+  public void setFluxnovaFormRef(FluxnovaFormRef fluxnovaFormRef) {
+    this.fluxnovaFormRef = fluxnovaFormRef;
   }
 
   public void setContextPath(String contextPath) {
@@ -58,7 +58,7 @@ public class FormDto {
 
     if (formData != null) {
       dto.key = formData.getFormKey();
-      dto.camundaFormRef = formData.getFluxnovaFormRef();
+      dto.fluxnovaFormRef = formData.getFluxnovaFormRef();
     }
 
     return dto;

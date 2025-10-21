@@ -42,7 +42,7 @@ public class SessionCookieIT {
 
   @Test
   public void shouldSetCookieWebapp() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/app/tasklist/default");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/app/tasklist/default");
 
     String sessionCookieValue = httpClientRule.getSessionCookie();
 
@@ -51,7 +51,7 @@ public class SessionCookieIT {
 
   @Test
   public void shouldSetCookieWebappRest() {
-    httpClientRule.performRequest("http://localhost:" + port + "/camunda/api/engine/engine/");
+    httpClientRule.performRequest("http://localhost:" + port + "/fluxnova/api/engine/engine/");
 
     String sessionCookieValue = httpClientRule.getSessionCookie();
 

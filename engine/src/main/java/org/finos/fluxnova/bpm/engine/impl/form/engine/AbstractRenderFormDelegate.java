@@ -106,7 +106,7 @@ public abstract class AbstractRenderFormDelegate {
   protected static final String ERROR_EXPRESSION = FORM_ELEMENT_SELECTOR + ".$error";
   protected static final String DATE_ERROR_EXPRESSION = ERROR_EXPRESSION + ".date";
   protected static final String REQUIRED_ERROR_EXPRESSION = ERROR_EXPRESSION + ".required";
-  protected static final String TYPE_ERROR_EXPRESSION = ERROR_EXPRESSION + ".camVariableType";
+  protected static final String TYPE_ERROR_EXPRESSION = ERROR_EXPRESSION + ".fxnVariableType";
 
   /* JavaScript snippets */
   protected static final String DATE_FIELD_OPENED_ATTRIBUTE = "dateFieldOpened%s";

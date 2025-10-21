@@ -102,11 +102,11 @@ public class ComponentAvailabilityIT {
 
   @Test
   public void shouldFindWelcomeApp() {
-    Response response = when().get(container.getBaseUrl() + "/camunda/app/welcome/default");
+    Response response = when().get(container.getBaseUrl() + "/fluxnova/app/welcome/default");
     if (webappsAvailable) {
       response.then()
         .statusCode(200)
-        .body("html.head.title", equalTo("Camunda Welcome"));
+        .body("html.head.title", equalTo("Fluxnova Welcome"));
     } else {
       response.then()
         .statusCode(404);

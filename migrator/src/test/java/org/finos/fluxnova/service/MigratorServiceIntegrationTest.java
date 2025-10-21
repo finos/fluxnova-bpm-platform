@@ -120,7 +120,7 @@ class MigratorServiceIntegrationTest {
         // Create a DMN file
         String dmnContent = """
             <?xml version="1.0" encoding="UTF-8"?>
-            <dmn:definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+            <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
                         xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
                         xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
                         xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
@@ -139,7 +139,7 @@ class MigratorServiceIntegrationTest {
                 <output id="Output_1" label="Output" name="output" typeRef="string" />
                 </decisionTable>
             </decision>
-            </dmn:definitions>
+            </definitions>
             """;
         Files.writeString(resourcesDir.resolve("decision.dmn"), dmnContent);
     }
@@ -159,7 +159,7 @@ class MigratorServiceIntegrationTest {
         assertTrue(javaContent.contains("package org.workflow.example;"));
         assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.engine.ProcessEngine;"));
         assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.engine.RuntimeService;"));
-        assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.model.bpmn.builder.FlowaveErrorEventDefinitionBuilder;"));
+        assertTrue(javaContent.contains("import org.finos.fluxnova.bpm.model.bpmn.builder.FluxnovaErrorEventDefinitionBuilder;"));
         assertFalse(javaContent.contains("org.camunda"));
 
         // Verify BPMN file was converted back from XML
@@ -195,13 +195,13 @@ class MigratorServiceIntegrationTest {
             "DMN should contain Fluxnova Modeler as exporter");
         assertTrue(dmnContent.contains("exporterVersion=\""+ modelerVersion +"\""),
             "DMN should contain updated exporter version");
-        
+
         // Verify old Camunda references are removed from DMN
-        assertFalse(dmnContent.contains("namespace=\"http://camunda.org/schema/1.0/dmn\""), 
+        assertFalse(dmnContent.contains("namespace=\"http://camunda.org/schema/1.0/dmn\""),
             "DMN should not contain old Camunda namespace");
-        assertFalse(dmnContent.contains("exporter=\"Camunda Modeler\""), 
+        assertFalse(dmnContent.contains("exporter=\"Camunda Modeler\""),
             "DMN should not contain Camunda Modeler as exporter");
-        assertFalse(dmnContent.contains("exporterVersion=\"4.5.0\""), 
+        assertFalse(dmnContent.contains("exporterVersion=\"4.5.0\""),
             "DMN should not contain old Camunda exporter version");
 
         // Verify rewrite.yml was deleted

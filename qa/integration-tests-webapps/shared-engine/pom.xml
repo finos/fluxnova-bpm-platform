@@ -117,7 +117,7 @@
                   <groupId>org.finos.fluxnova.bpm.webapp</groupId>
                   <artifactId>fluxnova-webapp-wildfly</artifactId>
                   <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/camunda</pingURL>
+                  <pingURL>http://localhost:${jboss.http.port}/fluxnova</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
               </deployables>
@@ -237,7 +237,7 @@
                   <groupId>org.finos.fluxnova.bpm.webapp</groupId>
                   <artifactId>fluxnova-webapp-jboss</artifactId>
                   <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/camunda</pingURL>
+                  <pingURL>http://localhost:${jboss.http.port}/fluxnova</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
               </deployables>
@@ -342,10 +342,10 @@
                   <groupId>org.finos.fluxnova.bpm.webapp</groupId>
                   <artifactId>fluxnova-webapp-tomcat</artifactId>
                   <type>war</type>
-                  <pingURL>http://localhost:${tomcat.connector.http.port}/camunda</pingURL>
+                  <pingURL>http://localhost:${tomcat.connector.http.port}/fluxnova</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                   <properties>
-                    <context>camunda</context>
+                    <context>fluxnova</context>
                   </properties>
                 </deployable>
                 <deployable>
@@ -455,10 +455,10 @@
                   <groupId>org.finos.fluxnova.bpm.webapp</groupId>
                   <artifactId>fluxnova-webapp-tomcat-jakarta</artifactId>
                   <type>war</type>
-                  <pingURL>http://localhost:${tomcat.connector.http.port}/camunda</pingURL>
+                  <pingURL>http://localhost:${tomcat.connector.http.port}/fluxnova</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                   <properties>
-                    <context>camunda</context>
+                    <context>fluxnova</context>
                   </properties>
                 </deployable>
                 <deployable>

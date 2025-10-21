@@ -68,9 +68,9 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
   protected static Attribute<String> camundaFollowUpDateAttribute;
   protected static Attribute<String> camundaFormHandlerClassAttribute;
   protected static Attribute<String> camundaFormKeyAttribute;
-  protected static Attribute<String> camundaFormRefAttribute;
-  protected static Attribute<String> camundaFormRefBindingAttribute;
-  protected static Attribute<String> camundaFormRefVersionAttribute;
+  protected static Attribute<String> fluxnovaFormRefAttribute;
+  protected static Attribute<String> fluxnovaFormRefBindingAttribute;
+  protected static Attribute<String> fluxnovaFormRefVersionAttribute;
   protected static Attribute<String> camundaPriorityAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -122,15 +122,15 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
       .namespace(CAMUNDA_NS)
       .build();
 
-    camundaFormRefAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF)
+    fluxnovaFormRefAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF)
         .namespace(CAMUNDA_NS)
         .build();
 
-    camundaFormRefBindingAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF_BINDING)
+    fluxnovaFormRefBindingAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF_BINDING)
         .namespace(CAMUNDA_NS)
         .build();
 
-    camundaFormRefVersionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF_VERSION)
+    fluxnovaFormRefVersionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_REF_VERSION)
         .namespace(CAMUNDA_NS)
         .build();
 
@@ -241,27 +241,27 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
   }
 
   public String getFluxnovaFormRef() {
-    return camundaFormRefAttribute.getValue(this);
+    return fluxnovaFormRefAttribute.getValue(this);
   }
 
-  public void setFluxnovaFormRef(String camundaFormRef) {
-    camundaFormRefAttribute.setValue(this, camundaFormRef);
+  public void setFluxnovaFormRef(String fluxnovaFormRef) {
+    fluxnovaFormRefAttribute.setValue(this, fluxnovaFormRef);
   }
 
   public String getFluxnovaFormRefBinding() {
-    return camundaFormRefBindingAttribute.getValue(this);
+    return fluxnovaFormRefBindingAttribute.getValue(this);
   }
 
-  public void setFluxnovaFormRefBinding(String camundaFormRefBinding) {
-    camundaFormRefBindingAttribute.setValue(this, camundaFormRefBinding);
+  public void setFluxnovaFormRefBinding(String fluxnovaFormRefBinding) {
+    fluxnovaFormRefBindingAttribute.setValue(this, fluxnovaFormRefBinding);
   }
 
   public String getFluxnovaFormRefVersion() {
-    return camundaFormRefVersionAttribute.getValue(this);
+    return fluxnovaFormRefVersionAttribute.getValue(this);
   }
 
-  public void setFluxnovaFormRefVersion(String camundaFormRefVersion) {
-    camundaFormRefVersionAttribute.setValue(this, camundaFormRefVersion);
+  public void setFluxnovaFormRefVersion(String fluxnovaFormRefVersion) {
+    fluxnovaFormRefVersionAttribute.setValue(this, fluxnovaFormRefVersion);
   }
 
   public String getFluxnovaPriority() {

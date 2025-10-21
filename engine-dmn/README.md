@@ -19,8 +19,8 @@ Add the following Maven Coordinates to your project:
 ```xml
 <dependency>
   <groupId>org.finos.fluxnova.bpm.dmn</groupId>
-  <artifactId>flowave-engine-dmn</artifactId>
-  <version>${version.flowave}</version>
+  <artifactId>fluxnova-engine-dmn</artifactId>
+  <version>${version.fluxnova}</version>
 </dependency>
 ```
 
@@ -55,8 +55,8 @@ Add the following Maven Coordinates to your project:
 ```xml
 <dependency>
   <groupId>org.finos.fluxnova.bpm</groupId>
-  <artifactId>flowave-engine</artifactId>
-  <version>${version.flowave}</versions>
+  <artifactId>fluxnova-engine</artifactId>
+  <version>${version.fluxnova}</versions>
 </dependency>
 <dependency>
   <groupId>com.h2database</groupId>

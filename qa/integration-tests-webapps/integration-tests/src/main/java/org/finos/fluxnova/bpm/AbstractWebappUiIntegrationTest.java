@@ -42,12 +42,27 @@ public class AbstractWebappUiIntegrationTest extends AbstractWebIntegrationTest 
 
   @BeforeClass
   public static void createDriver() {
-    String chromeDriverExecutable = "chromedriver";
-    if (System.getProperty( "os.name" ).toLowerCase(Locale.US).indexOf("windows") > -1) {
-      chromeDriverExecutable += ".exe";
+    String chromeDriverExecutable = "";
+    String osName = System.getProperty("os.name").toLowerCase(Locale.US);
+    String osArch = System.getProperty("os.arch").toLowerCase(Locale.US);
+
+    if (osName.contains("windows")) {
+      if(osArch.contains("32")) {
+        chromeDriverExecutable = "chromedriver-win32/chromedriver.exe";
+      } else {
+        chromeDriverExecutable = "chromedriver-win64/chromedriver.exe";
+      }
+    } else if (osName.contains("mac")) {
+      if(osArch.contains("aarch64")) {
+        chromeDriverExecutable = "chromedriver-mac-arm64/chromedriver";
+      } else {
+        chromeDriverExecutable = "chromedriver-mac-x64/chromedriver";
+      }
+    } else {
+      chromeDriverExecutable = "chromedriver-linux64/chromedriver";
     }
 
-    File chromeDriver = new File("target/chromedriver/" + chromeDriverExecutable);
+    File chromeDriver = new File("target/" + chromeDriverExecutable);
     if (!chromeDriver.exists()) {
       throw new RuntimeException("chromedriver could not be located!");
     }

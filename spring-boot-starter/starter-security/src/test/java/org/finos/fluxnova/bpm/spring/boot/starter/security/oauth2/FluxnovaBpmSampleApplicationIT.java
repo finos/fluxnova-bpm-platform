@@ -45,7 +45,7 @@ public class FluxnovaBpmSampleApplicationIT extends AbstractSpringSecurityIT {
   public void testWebappApiIsAvailableAndRequiresAuthorization() {
     // given oauth2 client disabled
     // when calling the webapp api
-    ResponseEntity<String> entity = testRestTemplate.getForEntity(baseUrl + "/camunda/api/engine/engine/default/user", String.class);
+    ResponseEntity<String> entity = testRestTemplate.getForEntity(baseUrl + "/fluxnova/api/engine/engine/default/user", String.class);
     // then webapp api returns unauthorized
     assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
   }

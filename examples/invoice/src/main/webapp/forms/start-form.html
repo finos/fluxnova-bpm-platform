@@ -30,7 +30,7 @@
       flagFileUpload();
     });
 
-    camForm.on('submit', function(evt) {
+    fxnForm.on('submit', function(evt) {
       var hasFile = flagFileUpload();
 
       // prevent submit if user has not provided a file
@@ -69,7 +69,7 @@
         (e.g. &quot;30.00&quot;)
       </div>
 
-      <p ng-show="invoiceForm.amount.$error.camVariableType">
+      <p ng-show="invoiceForm.amount.$error.fxnVariableType">
         Note: Input must be a 'Double'.
       </p>
 
