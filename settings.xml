@@ -24,7 +24,7 @@
         <server>
             <id>ossrh</id>
             <username>${env.CI_DEPLOY_USERNAME}</username>
-            <password>${env.CI_DEPLOY_PASSWORD}</password>  <!-- TODO: better to use token here, find out more -->
+            <password>${env.CI_DEPLOY_PASSWORD}</password>
         </server>
     </servers>
 </settings>

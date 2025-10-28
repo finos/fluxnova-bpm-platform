@@ -9,9 +9,6 @@ env:
 # pull_request condition added temporarily to test the workflow
 # once verified, it shall be removed
 on:
-  push:
-    branches:
-      - 'release/*'
   pull_request:
   workflow_dispatch:
 
