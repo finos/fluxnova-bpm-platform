@@ -16,6 +16,9 @@
     <skip-third-party-bom>true</skip-third-party-bom>
     <!-- json-smart and accessors-smart are runtime dependencies of json-path -->
     <third-party-bom-scopes>compile|runtime</third-party-bom-scopes>
+    
+    <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
+    <maven.source.skip>true</maven.source.skip>
   </properties>
   
   <dependencies>
@@ -44,6 +47,17 @@
 
   <build>
     <plugins>
+      <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>release-attach-sources</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>

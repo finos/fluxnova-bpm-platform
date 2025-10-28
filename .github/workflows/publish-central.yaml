@@ -9,9 +9,6 @@ env:
 # pull_request condition added temporarily to test the workflow
 # once verified, it shall be removed
 on:
-  push:
-    branches:
-      - 'release/*'
   pull_request:
   workflow_dispatch:
 
@@ -54,7 +51,7 @@ jobs:
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
-        run: mvn -B -DpreparationGoals=clean release:prepare -Prelease -DinteractiveMode=false
+        run: mvn -B -DpreparationGoals=clean release:prepare -Psonatype-oss-release -DskipTests=true -DignoreSnapshots=true -DinteractiveMode=false
 
       - name: Perform release
-        run: mvn -B release:perform -Prelease -DinteractiveMode=false
+        run: mvn -B release:perform -Psonatype-oss-release -DskipTests=true -DinteractiveMode=false
