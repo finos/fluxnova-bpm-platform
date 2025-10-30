@@ -62,26 +62,30 @@ without building dependencies locally.
 
    ```bash
    git clone https://github.com/finos/fluxnova-feel-scala
-   cd fluxnova-feel-scala ```
+   cd fluxnova-feel-scala
    
-   **To Skip Test : ** mvn clean install -DskipTests -DskipITs -o
- 
-   ** To run all Tests: ** mvn clean install -o
-   
-   
+   # To skip tests:
+   mvn clean install -DskipTests -DskipITs -o
+
+   # To run all tests:
+   mvn clean install -o
+   ```
+
 4. **Clone and Build `fluxnova-bpm-platform` Repository**
 
    Finally, build the main project. You can skip tests or run them as needed.
 
    ```bash
    git clone https://github.com/finos/fluxnova-bpm-platform
-   cd fluxnova-bpm-platform ```
-  
-   **To Skip Test : ** mvn clean install -DskipTests -DskipITs -o
+   cd fluxnova-bpm-platform
 
-   ** To run all Tests: ** mvn clean install -o
-   
-   
+   # To skip tests:
+   mvn clean install -DskipTests -DskipITs -o
+
+   # To run all tests:
+   mvn clean install -o
+   ```
+
 ### Notes
 
 - The `-o` flag enables Maven offline mode, so it uses dependencies from your local `.m2/repository/org/fluxnova` directory.
@@ -101,6 +105,7 @@ The `fluxnova-bpm-platform` project uses GitHub Actions for automated CI/CD on F
 - **Manual Trigger:**  
   You can manually trigger the workflow from the GitHub Actions tab using the "Run workflow" button.  
   When using this manual trigger (`workflow_dispatch`), you can select which branch to build.
+
 ### Steps in the Workflow
 
 1. **Checkout Repository:**  
@@ -208,7 +213,7 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    sh start-camunda.sh
    ```
-4. Access the Fluxnova Monitoring at [http://localhost:8080/camunda/app/monitoring/default/#/dashboard](http://localhost:8080/camunda/app/monitoring/default/#/dashboard)
+4. Access the Fluxnova Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
 
 ### Running the Spring Boot Version
 
@@ -224,5 +229,4 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    sh start.sh
    ```
-4. Access the Fluxnova Monitoring at [http://localhost:8080/camunda/app/monitoring/default/#/dashboard](http://localhost:8080/camunda/app/monitoring/default/#/dashboard)
-   
+4. Access the Fluxnova Cockpit at [http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard](http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard)

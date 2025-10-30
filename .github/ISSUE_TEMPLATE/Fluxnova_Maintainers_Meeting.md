@@ -9,14 +9,17 @@ type: Meeting
 
 
 ## Date
+
 Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 
 ### Zoom info
+
 - **[Join Zoom Meeting](https://zoom.us/j/96553335469?pwd=jE1yjyavejsZDLuwTkKMKEAbRBMYy7.1)**
 - **Meeting ID:** 965 5333 5469
 - **Passcode:** 536792
 
 ## Meeting notices
+
 - FINOS **Project leads** are responsible for observing the FINOS guidelines for [running project meetings](https://community.finos.org/docs/governance/meeting-procedures/). Project maintainers can find additional resources in the [FINOS Maintainers Cheatsheet](https://community.finos.org/docs/finos-maintainers-cheatsheet).
 
 - **All participants** in FINOS project meetings are subject to the [LF Antitrust Policy](https://www.linuxfoundation.org/antitrust-policy/), the [FINOS Community Code of Conduct](https://community.finos.org/docs/governance/code-of-conduct) and all other [FINOS policies](https://community.finos.org/docs/governance/#policies).
@@ -25,11 +28,12 @@ Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 
 - FINOS project meetings may be recorded for use solely by the FINOS team for administration purposes. In very limited instances, and with explicit approval, recordings may be made more widely available.
 
- ## Tracking Attendance
+## Tracking Attendance
 
- **Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Fluxnova project meetings.  Please do this at the start of the meeting.
+**Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Fluxnova project meetings.  Please do this at the start of the meeting.
 
 ## Agenda
+
 - [ ] Convene & roll call, review meeting notices (5mins)
 - [ ] Review action items from previous meeting (5mins)
 - [ ] Check review status of open PRs on each repo
@@ -46,12 +50,15 @@ Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 - [ ] AOB & Adjourn (5mins)
 
 ## Minutes
+
 - ...
 
 ### Decisions Made
+
 - ...
 
 ## Action Items
+
 - [ ] ...
 
 ## Untracked attendees

@@ -12,10 +12,10 @@
         * **Never** skip the dry run, it's easy to mess things up here.
     1. Review the dry-run output
     1. Run the command again without `--dry-run`
-1. Sync the labels by applying the same procedure with repositories: **Need to Review**
-    * `camunda/camunda-bpm-platform-maintenance`
-    * `camunda/camunda-bpm-platform-ee`
-    * `camunda/camunda-bpm-platform-ee-maintenance`
-    * `camunda/camunda-bpm-rpa-bridge-ee`
+1. Sync the labels by applying the same procedure with repositories:
+    * `fluxnova/fluxnova-bpm-platform-maintenance`
+    * `fluxnova/fluxnova-bpm-platform-ee`
+    * `fluxnova/fluxnova-bpm-platform-ee-maintenance`
+    * `fluxnova/fluxnova-bpm-rpa-bridge-ee`
   
-Read https://confluence.camunda.com/display/AP/Github+labels for how to change other labels and how we overall work with labels.
+Read https://confluence.fluxnova.com/display/AP/Github+labels for how to change other labels and how we overall work with labels.

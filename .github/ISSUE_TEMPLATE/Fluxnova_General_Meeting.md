@@ -1,8 +1,8 @@
 ---
-name: Flowave General Meeting
-about: Agenda and Minutes for Flowave General Meeting
-title: 'Flowave General Meeting - dd/mm/yyyy'
-labels: Flowave General Meeting
+name: Fluxnova General Meeting
+about: Agenda and Minutes for Fluxnova General Meeting
+title: 'Fluxnova General Meeting - dd/mm/yyyy'
+labels: Fluxnova General Meeting
 type: Meeting
 
 ---
@@ -27,7 +27,7 @@ Tuesday DD MMM yyyy - 10am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 
  ## Tracking Attendance
 
- **Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Flowave project meetings.  Please do this at the start of the meeting.
+ **Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Fluxnova project meetings.  Please do this at the start of the meeting.
 
 ## Agenda
 - [ ] Convene & roll call, review meeting notices (5mins)
