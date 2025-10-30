@@ -62,6 +62,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
+        <!-- Ignore test dependencies during the release process-->
+        <configuration>
+          <ignoreTestScope>true</ignoreTestScope>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.sonatype.central</groupId>
