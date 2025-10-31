@@ -326,6 +326,7 @@
         <module>test-utils/assert</module>
         <!-- added for maven release process -->
         <module>test-utils/archunit</module>
+        <module>test-utils/testcontainers</module>
 
         <module>internal-dependencies</module>
         <module>database</module>
