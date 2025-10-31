@@ -51,7 +51,7 @@ jobs:
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
-        run: mvn -B -DpreparationGoals=clean -DskipTests=true release:prepare -Prelease,sonatype-oss-release -DinteractiveMode=false
+        run: mvn -B -DpreparationGoals=clean -DskipTests=true release:prepare -Prelease,distro -DinteractiveMode=false
 
       - name: Perform release
-        run: mvn -B release:perform -Prelease -Darguments="-Psonatype-oss-release" -DinteractiveMode=false
+        run: mvn -B release:perform -Prelease -Darguments="-Pdistro" -DinteractiveMode=false
