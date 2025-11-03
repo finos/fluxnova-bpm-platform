@@ -51,7 +51,7 @@ jobs:
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
-        run: mvn -B -DpreparationGoals=clean -DskipTests=true release:prepare -Prelease,distro,distro-ce,distro-wildfly -Dskip.frontend.build=true -DinteractiveMode=false
+        run: mvn -B -DpreparationGoals=clean -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime' release:prepare -Prelease,distro -Dskip.frontend.build=true -DinteractiveMode=false
 
       - name: Perform release
         run: mvn -B release:perform -Prelease -Darguments="-Pdistro" -DinteractiveMode=false
