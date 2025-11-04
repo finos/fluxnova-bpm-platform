@@ -87,10 +87,15 @@ public class SchemaLogUpgradeScriptPatternTest extends SchemaLogTestCase {
       // next patch version
       versions.add(versionParts[0] + "." + versionParts[1] + "." + (Integer.parseInt(versionParts[2]) + 1));
     } else if (isMinorLevel(version)) {
-      // next minor version
-      versions.add(versionParts[0] + "." + (Integer.parseInt(versionParts[1]) + 1));
-      // next major version
-      versions.add((Integer.parseInt(versionParts[0]) + 1) + ".0");
+      //This comes in for Camunda 7.23 to Fluxnova 1.0 cutoff
+      if(version.equals("7.23")) {
+        versions.add("1.0");
+      } else {
+        // next minor version
+        versions.add(versionParts[0] + "." + (Integer.parseInt(versionParts[1]) + 1));
+        // next major version
+        versions.add((Integer.parseInt(versionParts[0]) + 1) + ".0");
+      }
     } else {
       fail("unexpected pattern for version: " + version);
     }
