@@ -129,6 +129,9 @@
         <module>distro/sql-script</module>
         <module>distro/run</module>
 
+        <!-- added modules for testing -->
+        <module>distro/webjar</module>
+
         <module>clients/java</module>
 
         <module>internal-dependencies</module>
@@ -136,6 +139,8 @@
         <module>parent</module>
         <module>bom</module>
         <module>migrator</module>
+        <module>distro/wildfly</module>
+        <module>distro/wildfly26</module>
       </modules>
     </profile>
 
@@ -324,9 +329,6 @@
         <module>test-utils/junit5-extension</module>
         <module>test-utils/junit5-extension-dmn</module>
         <module>test-utils/assert</module>
-        <!-- added for maven release process -->
-        <module>test-utils/archunit</module>
-        <module>test-utils/testcontainers</module>
 
         <module>internal-dependencies</module>
         <module>database</module>
