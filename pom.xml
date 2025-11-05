@@ -373,12 +373,12 @@
             <artifactId>maven-source-plugin</artifactId>
             <configuration>
               <!-- TODO: testing will update the name -->
-              <classifier>sources-main</classifier>
+              <classifier>sources</classifier>
               <skipSource>${skip.source.attach}</skipSource>
             </configuration>
             <executions>
               <execution>
-                <id>release-attach-sources</id>
+                <id>attach-sources</id>
                 <goals>
                   <goal>jar-no-fork</goal>
                 </goals>
