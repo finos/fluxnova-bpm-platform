@@ -1,5 +1,7 @@
 package org.finos.fluxnova.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.finos.fluxnova.util.Utils.deleteDirectoryRecursively;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -51,6 +54,20 @@ class MigratorServiceIntegrationTest {
         // Verify the results
         verifyMigrationResults();
 
+    }
+
+    @Test
+    @Order(2)
+    void testStartMethodWithoutExistingPom() throws IOException, XmlPullParserException, MavenInvocationException {
+        setUp("test-project-without-pom");
+        // Create a mock project structure WITHOUT pom.xml
+        createMockProjectStructureWithoutPom();
+
+        // Run the migration
+        migratorService.start();
+
+        // Verify the results for no-pom scenario
+        verifyMigrationResultsWithoutOriginalPom();
     }
 
     private void createMockProjectStructure() throws IOException {
@@ -151,9 +168,46 @@ class MigratorServiceIntegrationTest {
             </definitions>
             """;
         Files.writeString(resourcesDir.resolve("decision.dmn"), dmnContent);
+
+        // Create a form with execution platform
+        String formWithExecutionPlatform = """
+                {
+                    "components": [],
+                    "schema": "10",
+                    "executionPlatform": "Camunda Platform",
+                    "executionPlatformVersion": "7.23.0",
+                    "exporter": {
+                        "name": "Camunda Modeler",
+                        "version": "5.35.0"
+                    }
+                }
+        """;
+        Files.writeString(resourcesDir.resolve("formWithExecutionPlatform.form"), formWithExecutionPlatform);
+
+        // Create a form with no execution platform
+        String formWithNoExecutionPlatform = """
+                {
+                    "components": [],
+                    "schema": "10",
+                    "exporter": {
+                        "name": "Camunda Modeler",
+                        "version": "5.35.0"
+                    }
+                }
+        """;
+        Files.writeString(resourcesDir.resolve("formWithNoExecutionPlatform.form"), formWithNoExecutionPlatform);
+
+        // Create a non-related json file
+        String nonRelatedJsonFile = """
+                {
+                    "name": "John",
+                    "age": "10"
+                }
+        """;
+        Files.writeString(resourcesDir.resolve("nonRelatedJsonFile.json"), nonRelatedJsonFile);
     }
 
-    private void verifyMigrationResults() throws IOException, MavenInvocationException {
+    private void verifyMigrationResults() throws IOException {
         // Verify POM dependencies were updated
         String updatedPom = Files.readString(Path.of(projectLocation + "pom.xml"));
         assertTrue(updatedPom.contains("org.finos.fluxnova.bpm"));
@@ -213,23 +267,42 @@ class MigratorServiceIntegrationTest {
         assertFalse(dmnContent.contains("exporterVersion=\"4.5.0\""),
             "DMN should not contain old Camunda exporter version");
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Verify form with no execution platform was converted back and transformed
+        Path formWithNoExecutionPlatform = Path.of(projectLocation + "src/main/resources/formWithNoExecutionPlatform.form");
+        assertTrue(Files.exists(formWithNoExecutionPlatform), "Form file <formWithNoExecutionPlatform.form> should exist");
+
+        JsonNode formWithNoExecutionPlatformJson = getJsonObject(formWithNoExecutionPlatform, objectMapper);
+
+        assertTrue(formWithNoExecutionPlatformJson.has("executionPlatform"));
+        assertTrue(formWithNoExecutionPlatformJson.has("executionPlatformVersion"));
+        assertEquals("Fluxnova Platform", formWithNoExecutionPlatformJson.get("executionPlatform").asText());
+        assertEquals(targetVersion, formWithNoExecutionPlatformJson.get("executionPlatformVersion").asText());
+        assertExporterValues(formWithNoExecutionPlatformJson);
+
+        // Verify form with execution platform was converted back and transformed
+        Path formWithExecutionPlatform = Path.of(projectLocation + "src/main/resources/formWithExecutionPlatform.form");
+        assertTrue(Files.exists(formWithExecutionPlatform), "Form file <formWithExecutionPlatform.form> should exist");
+
+        JsonNode formWithExecutionPlatformJson = getJsonObject(formWithExecutionPlatform, objectMapper);
+
+        assertEquals("Fluxnova Platform", formWithExecutionPlatformJson.get("executionPlatform").asText());
+        assertEquals(targetVersion, formWithExecutionPlatformJson.get("executionPlatformVersion").asText());
+        assertExporterValues(formWithExecutionPlatformJson);
+
+        // Verify non-form JSON did not get updated
+        Path nonFormJson = Path.of(projectLocation + "src/main/resources/nonRelatedJsonFile.json");
+        assertTrue(Files.exists(nonFormJson), "File <nonFormJson.json> should exist");
+
+        JsonNode nonFormJsonObject = getJsonObject(nonFormJson, objectMapper);
+
+        assertFalse(nonFormJsonObject.has("executionPlatform"));
+        assertFalse(nonFormJsonObject.has("executionPlatformVersion"));
+
         // Verify rewrite.yml was deleted
         assertFalse(Files.exists(Path.of(projectLocation + "rewrite.yml")), "rewrite.yml should be deleted");
 
-    }
-
-    @Test
-    @Order(2)
-    void testStartMethodWithoutExistingPom() throws IOException, XmlPullParserException, MavenInvocationException {
-        setUp("test-project-without-pom");
-        // Create a mock project structure WITHOUT pom.xml
-        createMockProjectStructureWithoutPom();
-
-        // Run the migration
-        migratorService.start();
-
-        // Verify the results for no-pom scenario
-        verifyMigrationResultsWithoutOriginalPom();
     }
 
     private void createMockProjectStructureWithoutPom() throws IOException {
@@ -295,7 +368,18 @@ class MigratorServiceIntegrationTest {
         // Verify rewrite.yml was cleaned up
         Path rewriteYmlPath = projectPath.resolve("rewrite.yml");
         assertFalse(Files.exists(rewriteYmlPath), "rewrite.yml should be cleaned up");
+    }
 
+    private JsonNode getJsonObject(Path file, ObjectMapper objectMapper) throws IOException {
+        String fileContent = Files.readString(file);
+        return objectMapper.readTree(fileContent);
+    }
+
+    private void assertExporterValues(JsonNode node) {
+        assertTrue(node.has("exporter"));
+        JsonNode exporter = node.get("exporter");
+        assertEquals("Fluxnova Modeler", exporter.get("name").asText());
+        assertEquals(modelerVersion, exporter.get("version").asText());
     }
 
 }

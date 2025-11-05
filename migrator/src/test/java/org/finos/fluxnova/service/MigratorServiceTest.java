@@ -110,8 +110,9 @@ class MigratorServiceTest {
         assertNotNull(activeRecipes);
 
         Xpp3Dom[] recipeNodes = activeRecipes.getChildren("recipe");
-        assertEquals(1, recipeNodes.length);
+        assertEquals(2, recipeNodes.length);
         assertEquals("camundaToFluxnova", recipeNodes[0].getValue());
+        assertEquals("formMigration", recipeNodes[1].getValue());
     }
 
     @Test
@@ -239,63 +240,81 @@ class MigratorServiceTest {
     }
 
     @Test
-    void convertBpmnAndDmnToXml_ShouldRenameFiles() throws IOException {
+    void convertBpmnDmnFormToFileType_ShouldRenameFiles() throws IOException {
         Path bpmnFile = Path.of(projectLocation + "process.bpmn");
         Path dmnFile = Path.of(projectLocation + "decision.dmn");
-        
+        Path formFile = Path.of(projectLocation + "c_form.form");
+
         Files.deleteIfExists(bpmnFile);
         Files.deleteIfExists(dmnFile);
-        
+        Files.deleteIfExists(formFile);
+
         // Create test BPMN and DMN files
         Files.createFile(bpmnFile);
         Files.createFile(dmnFile);
-    
+        Files.createFile(formFile);
+
         // Execute conversion
-        migratorService.convertBpmnAndDmnToXml(new File(tempDir));
-    
+        migratorService.convertBpmnDmnFormToFileType(new File(tempDir));
+
         // Verify BPMN conversion
         Path processXml = Path.of(projectLocation + "process__bpmn__.xml");
         assertTrue(Files.exists(processXml), "Converted BPMN XML file should exist");
         assertFalse(Files.exists(bpmnFile), "Original BPMN file should not exist after conversion");
-    
+
         // Verify DMN conversion
         Path decisionXml = Path.of(projectLocation + "decision__dmn__.xml");
         assertTrue(Files.exists(decisionXml), "Converted DMN XML file should exist");
         assertFalse(Files.exists(dmnFile), "Original DMN file should not exist after conversion");
-    
+
+        // Verify form conversion
+        Path formJson = Path.of(projectLocation + "c_form__form__.json");
+        assertTrue(Files.exists(formJson), "Converted form JSON file should exist");
+        assertFalse(Files.exists(formFile), "Original form file should not exist after conversion");
+
         // Cleanup
         Files.deleteIfExists(processXml);
         Files.deleteIfExists(decisionXml);
+        Files.deleteIfExists(formJson);
 
     }
 
     @Test
-    void convertXmlToBpmnAndDmn_ShouldRenameFiles() throws IOException {
+    void convertFileTypeToBpmnDmn_Form_ShouldRenameFiles() throws IOException {
         // Create test converted XML files
         Path bpmnXmlFile = Path.of(projectLocation + "process__bpmn__.xml");
         Path dmnXmlFile = Path.of(projectLocation + "decision__dmn__.xml");
-        
+        Path formJsonFile = Path.of(projectLocation + "c_form__form__.json");
+
         Files.deleteIfExists(bpmnXmlFile);
         Files.deleteIfExists(dmnXmlFile);
+        Files.deleteIfExists(formJsonFile);
         Files.createFile(bpmnXmlFile);
         Files.createFile(dmnXmlFile);
-    
+        Files.createFile(formJsonFile);
+
         // Execute conversion
-        migratorService.convertXmlToBpmnAndDmn(new File(tempDir));
-    
+        migratorService.convertFileTypeToBpmnDmnForm(new File(tempDir));
+
         // Verify BPMN conversion
         Path processBpmn = Path.of(projectLocation + "process.bpmn");
         assertTrue(Files.exists(processBpmn), "BPMN file should exist after conversion");
         assertFalse(Files.exists(bpmnXmlFile), "Original BPMN XML file should not exist after conversion");
-    
+
         // Verify DMN conversion
         Path decisionDmn = Path.of(projectLocation + "decision.dmn");
         assertTrue(Files.exists(decisionDmn), "DMN file should exist after conversion");
         assertFalse(Files.exists(dmnXmlFile), "Original DMN XML file should not exist after conversion");
-    
+
+        // Verify DMN conversion
+        Path formFile = Path.of(projectLocation + "c_form.form");
+        assertTrue(Files.exists(formFile), "Form file should exist after conversion");
+        assertFalse(Files.exists(formJsonFile), "Original form JSON file should not exist after conversion");
+
         // Cleanup
         Files.deleteIfExists(processBpmn);
         Files.deleteIfExists(decisionDmn);
+        Files.deleteIfExists(formFile);
     }
 
     @Test

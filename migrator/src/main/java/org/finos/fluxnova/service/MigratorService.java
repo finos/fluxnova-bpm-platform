@@ -106,7 +106,7 @@ public class MigratorService {
         addPlugin(model);
         writeModelToPom(pomFile, model);
         copyRewriteYml();
-        convertBpmnAndDmnToXml(new File(projectLocation));
+        convertBpmnDmnFormToFileType(new File(projectLocation));
     }
 
     /**
@@ -141,7 +141,7 @@ public class MigratorService {
         Xpp3Dom activeRecipes = new Xpp3Dom("activeRecipes");
 
         String[] recipes = {
-                "camundaToFluxnova"
+                "camundaToFluxnova", "formMigration"
         };
 
         for (String recipe : recipes) {
@@ -166,15 +166,15 @@ public class MigratorService {
         try (InputStream inputStream = Migrator.class.getClassLoader().getResourceAsStream(rewriteYmlFile)) {
             Files.createDirectories(targetPath.getParent()); // create target dir if not exists
             assert inputStream != null;
-            
+
             // Read the content as string
             String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            
+
             // Replace placeholders with actual values
             String processedContent = content
                 .replace("{{TARGET_VERSION}}", targetVersion)
                 .replace("{{MODELER_VERSION}}", modelerVersion);
-            
+
             // Write the processed content to target
             Files.writeString(targetPath, processedContent, StandardCharsets.UTF_8);
             System.out.println("Copied and processed rewrite.yml to " + targetPath);
@@ -218,7 +218,7 @@ public class MigratorService {
             writeModelToPom(pomFile, model);
         }
         deleteRewriteYml();
-        convertXmlToBpmnAndDmn(new File(projectLocation));
+        convertFileTypeToBpmnDmnForm(new File(projectLocation));
     }
 
     /**
@@ -319,7 +319,7 @@ public class MigratorService {
      * This method is called after the migration process is complete to clean up
      * temporary migration artifacts. The rewrite.yml file contains the OpenRewrite
      * recipe used for the migration.
-     * 
+     *
      * <p>The method attempts to delete the file and prints a status message to the console:
      * <ul>
      *   <li>If the file was successfully deleted, it prints a success message</li>
@@ -352,13 +352,13 @@ public class MigratorService {
      *
      * @param folder The directory to process recursively
      */
-    void convertBpmnAndDmnToXml(File folder) {
+    void convertBpmnDmnFormToFileType(File folder) {
         File[] files = folder.listFiles();
         if (files == null) return;
 
         for (File file : files) {
             if (file.isDirectory()) {
-                convertBpmnAndDmnToXml(file);
+                convertBpmnDmnFormToFileType(file);
             } else if (file.isFile()) {
                 String fileName = file.getName();
                 String newName = null;
@@ -370,10 +370,14 @@ public class MigratorService {
                 else if (fileName.endsWith(".dmn") && !fileName.contains("__dmn__")) {
                     newName = fileName.replace(".dmn", "__dmn__.xml");
                 }
+                // Handle .form files
+                else if (fileName.endsWith(".form") && !fileName.contains("__form__")) {
+                    newName = fileName.replace(".form", "__form__.json");
+                }
                 if (newName != null) {
                     File newFile = new File(file.getParent(), newName);
                     if (file.renameTo(newFile)) {
-                        LOG.info("Renamed to XML: {} -> {}", fileName, newName);
+                        LOG.info("Renamed to: {} -> {}", fileName, newName);
                     } else {
                         LOG.error("Failed to rename: {}", file.getAbsolutePath());
                     }
@@ -389,13 +393,13 @@ public class MigratorService {
      *
      * @param folder The directory to process recursively
      */
-    void convertXmlToBpmnAndDmn(File folder) {
+    void convertFileTypeToBpmnDmnForm(File folder) {
         File[] files = folder.listFiles();
         if (files == null) return;
 
         for (File file : files) {
             if (file.isDirectory()) {
-                convertXmlToBpmnAndDmn(file);
+                convertFileTypeToBpmnDmnForm(file);
             } else if (file.isFile()) {
                 String fileName = file.getName();
                 String newName = null;
@@ -406,6 +410,10 @@ public class MigratorService {
                 // Handle __dmn__.xml files
                 else if (fileName.endsWith("__dmn__.xml")) {
                     newName = fileName.replace("__dmn__.xml", ".dmn");
+                }
+                // Handle __form__.json files
+                else if (fileName.endsWith("__form__.json")) {
+                    newName = fileName.replace("__form__.json", ".form");
                 }
                 if (newName != null) {
                     File newFile = new File(file.getParent(), newName);
