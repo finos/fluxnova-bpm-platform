@@ -54,4 +54,4 @@ jobs:
         run: mvn -B -DpreparationGoals=clean release:prepare -Prelease,sonatype-oss-release,distro,distro-ce,distro-tomcat,distro-wildfly,distro-webjar,distro-run -DignoreSnapshots=true -DinteractiveMode=false
 
       - name: Perform release
-        run: mvn -B release:perform -Prelease,sonatype-oss-release,distro,distro-ce,distro-tomcat,distro-wildfly,distro-webjar,distro-run -Darguments="-Dmaven.source.skip=true -Dskip.source.attach=true" -DinteractiveMode=false
+        run: mvn -B release:perform -Prelease,sonatype-oss-release,distro,distro-ce,distro-tomcat,distro-wildfly,distro-webjar,distro-run -DinteractiveMode=false
