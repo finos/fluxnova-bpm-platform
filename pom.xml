@@ -142,8 +142,6 @@
         <module>parent</module>
         <module>bom</module>
         <module>migrator</module>
-        <module>distro/wildfly</module>
-        <module>distro/wildfly26</module>
       </modules>
     </profile>
 
