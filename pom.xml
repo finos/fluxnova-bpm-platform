@@ -66,6 +66,9 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
+        <configuration>
+          <deploymentName>fluxnova-bpm-${project.version}</deploymentName>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
