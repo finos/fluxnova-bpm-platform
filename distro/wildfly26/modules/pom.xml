@@ -397,7 +397,7 @@
               <descriptors>
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
-              <attach>true</attach>
+              <attach>false</attach>
               <appendAssemblyId>false</appendAssemblyId>
               <outputDirectory>target/</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>

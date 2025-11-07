@@ -79,7 +79,7 @@
                 <descriptor>assembly.xml</descriptor>
               </descriptors>
               <finalName>fluxnova-bpm-wildfly-${project.version}</finalName>
-              <attach>true</attach>
+              <attach>false</attach>
               <appendAssemblyId>false</appendAssemblyId>
               <outputDirectory>target/</outputDirectory>
               <workDirectory>target/assembly/work</workDirectory>
