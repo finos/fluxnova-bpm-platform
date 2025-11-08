@@ -1,5 +1,11 @@
 name: "Build and Publish Docker Image"
 description: "Build and publish a Docker image to GitHub Container Registry"
+
+inputs:
+    version:
+        description: "The version tag to apply to the Docker image"
+        required: true
+
 runs:
   using: "composite"
   steps:
