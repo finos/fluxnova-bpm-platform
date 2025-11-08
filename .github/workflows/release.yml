@@ -1,0 +1,113 @@
+# Workflow: Release and publish artifacts to Maven Central
+# Purpose: Builds, signs, and publishes Maven artifacts to Sonatype OSSRH, then tags the released version.
+# Prerequisites: pom.xml must be on a *-SNAPSHOT version; We need to change logic for non-SNAPSHOT versions.
+# Notes: Adjust version computation logic if patch releases are desired instead of minor bumps (e.g., 1.2.3-SNAPSHOT to 1.3.0-SNAPSHOT).
+
+name: "Release and publish artifacts to Maven Central"
+
+env:
+  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
+  CI_GPG_PASSPHRASE: ${{ secrets.CI_GPG_PASSPHRASE }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+# pull_request condition added temporarily to test the workflow
+# once verified, it shall be removed
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'release/*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-central:
+    name: Publish to Maven Central
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        #added with option due to runner checking out a detached HEAD state in prepare step
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}                    # or use default GITHUB_TOKEN
+          persist-credentials: true             # allow git push from the job
+          fetch-depth: 0                        # full history so branch refs exist
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}          # checkout the branch (not a detached SHA)
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          server-id: ossrh
+          server-username: CI_DEPLOY_USERNAME
+          server-password: CI_DEPLOY_PASSWORD
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpg-passphrase: CI_GPG_PASSPHRASE
+
+      - name: Configure git
+        uses: ./.github/actions/configure-git
+
+      - name: Download deps and plugins
+        run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
+
+      - name: Extract version from pom.xml and compute next development version
+        run: |
+          # Extract current version from pom.xml
+          currentVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          # Remove -SNAPSHOT if present to get the release version
+          releaseVersion=${currentVersion%-SNAPSHOT}
+
+          # Set as environment variable
+          echo "RELEASE_VERSION=${releaseVersion}" >> $GITHUB_ENV
+          
+          # Set tag name
+          TAG="v${releaseVersion}"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
+          # Extract numeric components for computing next development version
+          n=${releaseVersion//[!0-9]/ }
+          a=(${n//\./ })
+          nextMinor=$((${a[1]} + 1))
+          developmentVersion="${a[0]}.${nextMinor}.0-SNAPSHOT"
+          echo "DEVELOPMENT_VERSION=${developmentVersion}" >> $GITHUB_ENV
+
+      - name: Configure GitHub authentication for Maven Release Plugin
+        run: |
+          git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
+
+      - name: Prepare release
+        run: |
+          mvn -B \
+            -DpreparationGoals=clean \
+            release:prepare \
+            -DreleaseVersion=${{ env.RELEASE_VERSION }} \
+            -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
+            -Dtag=${{ env.TAG }} \
+            -Psonatype-oss-release \
+            -DskipTests=true \
+            -DignoreSnapshots=true \
+            -DinteractiveMode=false        
+
+      - name: Perform release
+        run: mvn -B release:perform -Psonatype-oss-release -DskipTests=true -DinteractiveMode=false
+
+  publish-docker-image:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    needs: publish-central
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Java setup
+        uses: ./.github/actions/java-setup
+
+      - name: Build and publish Docker image
+        uses: ./.github/actions/build-publish-image
+        with:
+          version: ${{ env.RELEASE_VERSION }}
