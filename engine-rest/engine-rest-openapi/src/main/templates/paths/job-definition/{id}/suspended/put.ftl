@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/job-definition/put-activate-suspend-by-id/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/job-definition/put-activate-suspend-by-id/index.html -->
 <#macro endpoint_macro docsUrl="">
 {
   <@lib.endpointInfo

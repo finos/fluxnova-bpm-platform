@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/filter/get/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/filter/get/index.html -->
 <#macro endpoint_macro docsUrl="">
 {
   <@lib.endpointInfo

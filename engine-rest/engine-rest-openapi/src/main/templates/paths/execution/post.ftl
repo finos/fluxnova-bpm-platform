@@ -1,5 +1,5 @@
 <#macro endpoint_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/execution/post-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/execution/post-query/index.html -->
 {
   <@lib.endpointInfo
       id = "queryExecutions"
@@ -30,7 +30,7 @@
                          {
                            "name": "myVariable",
                            "operator": "eq",
-                           "value": "camunda"
+                           "value": "fluxnova"
                          },
                          {
                            "name": "mySecondVariable",

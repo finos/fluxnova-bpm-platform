@@ -1,5 +1,5 @@
 <#macro dto_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/execution/post-signal/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/execution/post-signal/index.html -->
 <@lib.dto desc = "">
     
     <@lib.property

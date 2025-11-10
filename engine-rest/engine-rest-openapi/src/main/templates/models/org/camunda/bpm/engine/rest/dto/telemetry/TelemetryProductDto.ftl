@@ -4,17 +4,12 @@
     <@lib.property
         name = "name"
         type = "string"
-        desc = "The name of the product (i.e., Camunda BPM Runtime)."/>
+        desc = "The name of the product (i.e., Fluxnova BPM Runtime)."/>
 
     <@lib.property
         name = "version"
         type = "string"
-        desc = "The version of the process engine (i.e., 7.X.Y)."/>
-
-    <@lib.property
-        name = "edition"
-        type = "string"
-        desc = "The edition of the product (i.e., either community or enterprise)."/>
+        desc = "The version of the process engine (i.e., 1.X.Y)."/>
 
     <@lib.property
         name = "internals"

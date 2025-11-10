@@ -1,5 +1,5 @@
 <#macro endpoint_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/execution/local-variables/delete-local-variable/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/execution/local-variables/delete-local-variable/index.html -->
 {
   <@lib.endpointInfo
       id = "deleteLocalExecutionVariable"

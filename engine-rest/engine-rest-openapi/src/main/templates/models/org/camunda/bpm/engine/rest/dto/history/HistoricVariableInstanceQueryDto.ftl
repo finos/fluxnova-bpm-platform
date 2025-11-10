@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/variable-instance/post-variable-instance-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/variable-instance/post-variable-instance-query/index.html -->
 <#macro dto_macro docsUrl="">
 <@lib.dto desc = "A Historic Variable Instance instance query which defines a list of Historic Variable Instance instances">
 

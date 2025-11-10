@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/history-cleanup/post-history-cleanup/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/history-cleanup/post-history-cleanup/index.html -->
 <#macro endpoint_macro docsUrl="">
 {
   <@lib.endpointInfo
@@ -9,7 +9,7 @@
               [History cleanup](${docsUrl}/user-guide/process-engine/history/#history-cleanup)).
 
               **Note:** This endpoint will return at most a single history cleanup job.
-              Since version `7.9.0` it is possible to configure multiple
+              It is possible to configure multiple
               [parallel history cleanup jobs](${docsUrl}/user-guide/process-engine/history/#parallel-execution). Use
               [`GET /history/cleanup/jobs`](${docsUrl}/reference/rest/history/history-cleanup/get-history-cleanup-jobs)
               to find all the available history cleanup jobs."

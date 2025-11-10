@@ -64,7 +64,7 @@
                            "suspended": false,
                            "formKey":"aFormKey",
                            "fluxnovaFormRef":{
-                             "key": "aCamundaFormKey",
+                             "key": "aFluxnovaFormKey",
                              "binding": "version",
                              "version": 2
                            },
@@ -100,7 +100,7 @@
                            "suspended": false,
                            "formKey":"aFormKey",
                            "fluxnovaFormRef":{
-                             "key": "aCamundaFormKey",
+                             "key": "aFluxnovaFormKey",
                              "binding": "version",
                              "version": 2
                            },

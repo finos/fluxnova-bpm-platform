@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/job-definition/put-activate-suspend-by-id/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/job-definition/put-activate-suspend-by-id/index.html -->
 <#macro dto_macro docsUrl="">
 
 <#-- This DTO is also used in JobDefinitionsSuspensionStateDto that caters updating multiple definitions at once and 

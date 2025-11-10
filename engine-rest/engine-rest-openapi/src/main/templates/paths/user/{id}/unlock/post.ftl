@@ -28,7 +28,7 @@
     <@lib.response
         code = "403"
         mediaType = "application/json"
-        desc = "The user who performed the operation is not a Camunda admin user." />
+        desc = "The user who performed the operation is not a Fluxnova admin user." />
 
     <@lib.response
        code = "404"

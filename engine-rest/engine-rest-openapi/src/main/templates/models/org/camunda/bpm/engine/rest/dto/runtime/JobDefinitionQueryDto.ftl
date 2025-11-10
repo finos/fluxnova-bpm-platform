@@ -1,5 +1,5 @@
 <#macro dto_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/job/post-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/job/post-query/index.html -->
 <@lib.dto desc = "A Job definition query which defines a list of Job definitions">
 
     <#assign requestMethod="POST">

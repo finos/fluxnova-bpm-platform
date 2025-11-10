@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/history-cleanup/get-cleanup-configuration/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/history-cleanup/get-cleanup-configuration/index.html -->
 <#macro dto_macro docsUrl="">
 <@lib.dto >
     <#assign dateFormatDescription="By [default](${docsUrl}/reference/rest/overview/date-format/),

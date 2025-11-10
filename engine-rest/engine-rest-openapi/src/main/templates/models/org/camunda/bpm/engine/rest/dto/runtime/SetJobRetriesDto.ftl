@@ -1,5 +1,5 @@
 <#macro dto_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/job/post-set-job-retries/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/job/post-set-job-retries/index.html -->
 <@lib.dto 
     extends = "JobRetriesDto"
     desc = "Defines the number of retries for a selection of jobs.

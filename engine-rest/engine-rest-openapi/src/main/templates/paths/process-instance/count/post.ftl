@@ -19,7 +19,7 @@
                        [{
                            "name": "myVariable",
                            "operator": "eq",
-                           "value": "camunda"
+                           "value": "fluxnova"
                          }, {
                            "name": "mySecondVariable",
                            "operator": "neq",

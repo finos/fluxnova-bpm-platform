@@ -100,7 +100,7 @@
         defaultValue = 'false'
         last = true
         desc = "Determines whether custom extension properties defined in the BPMN activity of the external task (e.g.
-                via the Extensions tab in the Camunda modeler) should be included in the response. Default: false" />
+                via the Extensions tab in the Fluxnova modeler) should be included in the response. Default: false" />
 
 
 </@lib.dto>

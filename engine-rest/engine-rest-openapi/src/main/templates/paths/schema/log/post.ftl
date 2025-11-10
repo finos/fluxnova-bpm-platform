@@ -18,7 +18,7 @@
                          "summary": "POST /schema/log",
                          "description": "The content of the Request Body",
                          "value": {
-                           "version": "7.11.0",
+                           "version": "1.0.0",
                            "sortBy": "timestamp",
                            "sortOrder": "asc"
                          }
@@ -39,8 +39,8 @@
                        "value": [
                          {
                            "id": "0",
-                           "version": "7.11.0",
-                           "timestamp": "2019-05-13T09:07:11.751+0200"
+                           "version": "1.0.0",
+                           "timestamp": "2025-09-19T19:22:35.751+0200"
                          }
                        ]
                      }'] />

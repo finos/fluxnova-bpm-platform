@@ -16,7 +16,7 @@
                        "summary": "Status 200 Response",
                        "description": "The Response content of a status 200",
                        "value": {
-                           "version": "7.13.0"
+                           "version": "1.0.0"
                          }
                      }'] />
   }
