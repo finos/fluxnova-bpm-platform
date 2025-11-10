@@ -85,12 +85,12 @@ jobs:
             -DreleaseVersion=${{ env.RELEASE_VERSION }} \
             -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
             -Dtag=${{ env.TAG }} \
-            -Psonatype-oss-release,distro,distro-ce \
+            -Psonatype-oss-release,distro,distro-ce,distro-wildfly \
             -DignoreSnapshots=true \
             -DinteractiveMode=false        
 
-#      - name: Perform release
-#        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
+      - name: Perform release
+        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
 
   publish-docker-image:
     name: Publish Docker Image
