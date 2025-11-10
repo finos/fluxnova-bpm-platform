@@ -23,7 +23,8 @@ runs:
         images: |
           ghcr.io/${{ github.repository }}
         tags: |
-          type=raw,value=${{ inputs.version }}
+          type=semver,pattern={{version}}
+          1.0.0
 
     - name: Build/push container image
       uses: docker/build-push-action@v6
