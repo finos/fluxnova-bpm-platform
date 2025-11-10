@@ -34,6 +34,7 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
 
   protected String currentSchemaVersion;
   protected String dataBaseType;
+  private static final String FLUXNOVA_VERSION = "1.0.0";
 
   @Override
   @Before
@@ -85,6 +86,10 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
         latestVersion = getTargetVersionForScript(file);
       } else {
         String targetVersion = getTargetVersionForScript(file);
+        //Ensures that the Fluxnova Initial version is returned Only if the file with Fluxnova Version Exists.
+        if(targetVersion.equals(FLUXNOVA_VERSION)) {
+          return targetVersion;
+        }
         if(isLaterVersionThan(targetVersion, latestVersion)){
           latestVersion = targetVersion;
         }

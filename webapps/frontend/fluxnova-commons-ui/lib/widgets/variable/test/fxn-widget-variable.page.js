@@ -55,7 +55,6 @@ Variable.prototype.typeCss = function() {
   return this.typeSelectElement().getAttribute('class');
 };
 
-
 Variable.prototype.name = function() {
   return this.node.element(by.css('.name'));
 };
@@ -68,7 +67,6 @@ Variable.prototype.nameText = function() {
 Variable.prototype.nameCss = function() {
   return this.name().getAttribute('class');
 };
-
 
 Variable.prototype.value = function() {
   return this.node.element(by.css('.value'));
@@ -89,8 +87,6 @@ Variable.prototype.valueCss = function() {
   return this.value().getAttribute('class');
 };
 
-
-
 function Modal(node) {
   this.node = node;
 }
@@ -105,10 +101,14 @@ Modal.prototype.textareaSerialized = function() {
   return this.body().element(by.css('textarea[ng-model="variable.value"]'));
 };
 Modal.prototype.objectTypeInput = function() {
-  return this.body().element(by.css('[ng-model="variable.valueInfo.objectTypeName"]'));
+  return this.body().element(
+    by.css('[ng-model="variable.valueInfo.objectTypeName"]')
+  );
 };
 Modal.prototype.serializationTypeInput = function() {
-  return this.body().element(by.css('[ng-model="variable.valueInfo.serializationDataFormat"]'));
+  return this.body().element(
+    by.css('[ng-model="variable.valueInfo.serializationDataFormat"]')
+  );
 };
 Modal.prototype.footer = function() {
   return this.node.element(by.css('.modal-footer'));
@@ -117,12 +117,12 @@ Modal.prototype.button = function(text) {
   return this.footer().element(by.cssContainingText('button', text));
 };
 
-
-
-function Page() { }
+function Page() {}
 
 Page.prototype.variable = function(identifier, index) {
-  return new Variable(element.all(by.css(identifier + ' [fxn-widget-variable]')).get(index));
+  return new Variable(
+    element.all(by.css(identifier + ' [fxn-widget-variable]')).get(index)
+  );
 };
 
 Page.prototype.modal = function() {
@@ -132,6 +132,5 @@ Page.prototype.modal = function() {
 Page.prototype.applyButton = function() {
   return element(by.css('form > button'));
 };
-
 
 module.exports = new Page();

@@ -15,6 +15,6 @@
 -- limitations under the License.
 --
 
--- INCREASE process def key column size https://app.camunda.com/jira/browse/CAM-4328 --
+-- INCREASE process def key column size 
 alter table ACT_RU_JOB
   alter column PROCESS_DEF_KEY_ nvarchar(255);

@@ -44,10 +44,10 @@ public class AnotherChangeVariablesService implements JavaDelegate {
     dateList.add(new Date());
     dateList.add(new Date());
 
-    List<CockpitVariable> cockpitVariableList = new ArrayList<CockpitVariable>();
-    cockpitVariableList.add(new CockpitVariable("foo", "bar"));
-    cockpitVariableList.add(new CockpitVariable("foo2", "bar"));
-    cockpitVariableList.add(new CockpitVariable("foo3", "bar"));
+    List<MonitoringVariable> monitoringVariableList = new ArrayList<MonitoringVariable>();
+    monitoringVariableList.add(new MonitoringVariable("foo", "bar"));
+    monitoringVariableList.add(new MonitoringVariable("foo2", "bar"));
+    monitoringVariableList.add(new MonitoringVariable("foo3", "bar"));
 
     byte[] bytes = "someAnotherBytes".getBytes();
 
@@ -85,7 +85,7 @@ public class AnotherChangeVariablesService implements JavaDelegate {
 
     variables.put("dateList", dateList);
 
-    variables.put("cockpitVariableList", cockpitVariableList);
+    variables.put("monitoringVariableList", monitoringVariableList);
 
     execution.setVariablesLocal(variables);
 

@@ -93,13 +93,13 @@ module.exports = (_env, argv = {}) => {
           }
         }
       },
-      open: ['/fluxnova/app/cockpit/default/']
+      open: ['/fluxnova/app/monitoring/default/']
     }
   };
 
   const merged = merge(commonConfig, developmentConfig);
   merged.plugins.forEach(plugin => {
-    const eeApps = ['admin', 'cockpit'];
+    const eeApps = ['admin', 'monitoring'];
     function getPluginDeps(appName) {
       const pluginDependencies = [];
       if (appName !== 'welcome') {

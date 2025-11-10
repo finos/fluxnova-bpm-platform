@@ -349,7 +349,6 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       assertEquals(historicActivityInstance1.getExecutionId(), update1.getExecutionId());
       assertEquals("usertask1", historicActivityInstance1.getActivityId());
 
-      // TODO http://jira.codehaus.org/browse/ACT-1083
       assertNotNull(update2.getActivityInstanceId());
       HistoricActivityInstance historicActivityInstance2 = historyService.createHistoricActivityInstanceQuery().activityInstanceId(update2.getActivityInstanceId()).singleResult();
       assertEquals("usertask2", historicActivityInstance2.getActivityId());

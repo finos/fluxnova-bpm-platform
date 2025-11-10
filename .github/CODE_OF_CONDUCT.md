@@ -1,3 +1,3 @@
-# Flowave Code of Conduct
+# Fluxnova Code of Conduct
 
 Please see the [Community Code of Conduct](https://www.finos.org/code-of-conduct).

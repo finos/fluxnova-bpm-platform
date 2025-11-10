@@ -16,17 +16,10 @@
         desc = "Vendor and version of the application server."/>
 
     <@lib.property
-        name = "license-key"
-        type = "ref"
-        additionalProperties = false
-        dto = "TelemetryLicenseKeyDto"
-        desc = "Information about the Camunda license key."/>
-
-    <@lib.property
-        name = "camunda-integration"
+        name = "fluxnova-integration"
         type = "array"
         itemType = "string"
-        desc = "List of Camunda integrations used (e.g., Camunda Spring Boot Starter, Camunda Run, WildFly/JBoss subsystem, Camunda EJB)."/>
+        desc = "List of Fluxnova integrations used (e.g., Fluxnova Spring Boot Starter, Fluxnova Run, WildFly/JBoss subsystem, Fluxnova EJB)."/>
 
     <@lib.property
         name = "commands"
@@ -46,7 +39,7 @@
         name = "webapps"
         type = "array"
         itemType = "string"
-        desc = "The webapps enabled in this installation of Camunda."/>
+        desc = "The webapps enabled in this installation of Fluxnova."/>
 
     <@lib.property
         name = "jdk"
@@ -61,8 +54,8 @@
         format = "date-time"
         nullable = false
         last = true
-        desc = "The date when the engine started to collect dynamic data, such as command executions and metrics. If telemetry sending is enabled, dynamic data resets on sending the data to Camunda.
-                Dynamic data and the date returned by this method are reset in three cases: engine startup, after engine start when sending telemetry data to Camunda is enabled via API, after sending telemetry data to Camunda (only when this was enabled)
+        desc = "The date when the engine started to collect dynamic data, such as command executions and metrics. If telemetry sending is enabled, dynamic data resets on sending the data to Fluxnova.
+                Dynamic data and the date returned by this method are reset in three cases: engine startup, after engine start when sending telemetry data to Fluxnova is enabled via API, after sending telemetry data to Fluxnova (only when this was enabled)
                 The date is in the format <code>YYYY-MM-DD'T'HH:mm:ss.SSSZ</code>."/>
 
 </@lib.dto>

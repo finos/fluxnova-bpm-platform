@@ -133,7 +133,9 @@ describe('DRD Resource', function() {
     });
 
     it('should use correct path', function() {
-      expect(http.get.calledWith(DRD.path + '/key/' + key + '/tenant-id/' + tenantId)).to.eql(true);
+      expect(
+        http.get.calledWith(DRD.path + '/key/' + key + '/tenant-id/' + tenantId)
+      ).to.eql(true);
     });
 
     it('should pass done callback', function() {
@@ -148,11 +150,10 @@ describe('DRD Resource', function() {
 
       var usedDone = http.get.getCall(0).args[1].done;
 
-      expect(http.get.calledWith(DRD.path + '/key/' + key )).to.eql(true);
+      expect(http.get.calledWith(DRD.path + '/key/' + key)).to.eql(true);
       expect(usedDone).to.eql(done);
     });
   });
-
 
   describe('getXMLByKey', function() {
     var key = 'id23';
@@ -163,7 +164,11 @@ describe('DRD Resource', function() {
     });
 
     it('should use correct path', function() {
-      expect(http.get.calledWith(DRD.path + '/key/' + key + '/tenant-id/' + tenantId + '/xml')).to.eql(true);
+      expect(
+        http.get.calledWith(
+          DRD.path + '/key/' + key + '/tenant-id/' + tenantId + '/xml'
+        )
+      ).to.eql(true);
     });
 
     it('should pass done callback', function() {
@@ -178,7 +183,9 @@ describe('DRD Resource', function() {
 
       var usedDone = http.get.getCall(0).args[1].done;
 
-      expect(http.get.calledWith(DRD.path + '/key/' + key + '/xml')).to.eql(true);
+      expect(http.get.calledWith(DRD.path + '/key/' + key + '/xml')).to.eql(
+        true
+      );
       expect(usedDone).to.eql(done);
     });
   });

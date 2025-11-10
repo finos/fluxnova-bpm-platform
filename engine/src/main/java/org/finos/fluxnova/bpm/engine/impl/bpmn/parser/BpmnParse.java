@@ -2750,7 +2750,6 @@ public class BpmnParse extends Parse {
 
     parseExecutionListenersOnScope(receiveTaskElement, activity);
 
-    // please check https://app.camunda.com/jira/browse/CAM-10989
     if (receiveTaskElement.attribute("messageRef") != null) {
       activity.setScope(true);
       activity.setEventScope(activity);

@@ -35,8 +35,7 @@ import java.util.Locale;
 
 /**
  * NOTE: copied from
- * <a href="https://github.com/camunda/camunda-bpm-platform/blob/master/qa/integration-tests-webapps/integration-tests/src/test/java/org/finos/fluxnova/bpm/AbstractWebappUiIntegrationTest.java">platform</a>,
- * might be removed with https://jira.camunda.com/browse/CAM-11379
+ * <a href="https://github.com/finos/fluxnova-bpm-platform/blob/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/AbstractWebappUiIntegrationTest.java">platform</a>,
  */
 public class AbstractWebappUiIT extends AbstractWebIT {
 

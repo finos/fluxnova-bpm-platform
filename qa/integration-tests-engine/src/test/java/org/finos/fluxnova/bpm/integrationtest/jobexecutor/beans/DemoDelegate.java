@@ -97,7 +97,7 @@ public class DemoDelegate implements JavaDelegate {
     
     demoVariableClass.setShortObjectProperty(Short.valueOf(Short.MAX_VALUE));
     demoVariableClass.setShortProperty(Short.MIN_VALUE);
-    demoVariableClass.setStringProperty("cockpit rulez");
+    demoVariableClass.setStringProperty("monitoring rulez");
     
     insertVariable("demoVariableClass", demoVariableClass);
     

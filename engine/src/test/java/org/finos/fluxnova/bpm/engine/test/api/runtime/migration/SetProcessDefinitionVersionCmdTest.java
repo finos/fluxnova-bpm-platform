@@ -554,9 +554,6 @@ public class SetProcessDefinitionVersionCmdTest extends PluggableProcessEngineTe
     repositoryService.deleteDeployment(deployment.getId(), true);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Deployment(resources = TEST_PROCESS_ONE_JOB)
   @Test
   public void testPreserveTimestampOnUpdatedIncident() {

@@ -15,5 +15,4 @@
 -- limitations under the License.
 --
 
--- https://app.camunda.com/jira/browse/CAM-10616
 create index ACT_IDX_HI_JOB_LOG_JOB_CONF on ACT_HI_JOB_LOG(JOB_DEF_CONFIGURATION_);

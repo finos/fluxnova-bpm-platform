@@ -73,7 +73,7 @@ public class AuthCacheTTLValidateAllRequestsIT {
 
     // assume
     assertThat(httpClientRule.getHeader("X-Authorized-Apps"))
-        .isEqualTo("admin,tasklist,welcome,cockpit");
+        .isEqualTo("admin,tasklist,welcome,monitoring");
 
     identityService.deleteUser("demo");
 

@@ -1,11 +1,11 @@
-fluxnova-spin   ** Needs To Be Reviewed **
+fluxnova-spin
 ============
 
 <p>
-  <a href="https://camunda.com/">Home</a> |
-  <a href="https://docs.camunda.org/manual/reference/spin/">Documentation</a> |
-  <a href="https://forum.camunda.org/">Forum</a> |
-  <a href="https://app.camunda.com/jira/browse/CAM">Issues</a> |
+  <a href="http://fluxnova.finos.org/">Home</a> |
+  <a href="https://docs.fluxnova.finos.org/reference/spin/">Documentation</a> |
+  <a href="https://github.com/finos/fluxnova-bpm-platform/discussions">Forum</a> |
+  <a href="https://github.com/finos/fluxnova-bpm-platform/issues">Issues</a> |
   <a href="../LICENSE">License</a> |
   <a href="../CONTRIBUTING.md">Contribute</a>
 </p>

@@ -4,7 +4,6 @@ The scripts located in this directory are dependencies of the
 [fluxnova-commons-ui](https://github.com/finos/fluxnova-bpm-platform/tree/main/webapps/frontend/fluxnova-commons-ui)
 and were downloaded manually.
 
-
 ## Open Sans fonts
 
 Source: http://www.fontsquirrel.com/fonts/open-sans
@@ -13,7 +12,6 @@ Note: The webfonts were generated from
 http://www.fontsquirrel.com/tools/webfont-generator
 
 License: [Apache 2.0](http://www.fontsquirrel.com/license/open-sans)
-
 
 ## jQuery UI
 
@@ -27,18 +25,18 @@ Source: http://github.com/jquery/jquery-ui
 
 License: [MIT](https://raw.githubusercontent.com/jquery/jquery-ui/master/LICENSE.txt)
 
-
-
 ## AngularJS Bootstrap
+
 ** Section Needs To Be Reviewed **
 Version: 0.11.2
 Source: Custom build from [forked ui-bootstrap](//github.com/camunda-third-party/bootstrap). To rebuild:
+
 ```sh
 git clone https://github.com/camunda-third-party/bootstrap.git angular-ui-bootstrap
 cd angular-ui-bootstrap
 npm install
-grunt build 
-# copy 
+grunt build
+# copy
 # '<angular-ui-bootstrap directory>/dist/ui-bootstrap-tpls.0.11.2.js'
 # to
 # '<fluxnova-commons-ui directory>/vendor/ui-bootstrap-tpls.0.11.2-camunda.js'
@@ -48,8 +46,6 @@ grunt build
 
 License: [MIT](https://github.com/angular-ui/bootstrap/blob/master/LICENSE)
 
-
-
 ## domReady
 
 Version: 2.0.1
@@ -58,8 +54,6 @@ Source: http://cdnjs.cloudflare.com/ajax/libs/require-domReady/2.0.1/domReady.js
 - domReady.js
 
 License: [MIT or BSD](https://raw.githubusercontent.com/requirejs/domReady/master/LICENSE)
-
-
 
 ## Placeholders.js
 
@@ -72,8 +66,6 @@ Source: https://github.com/jamesallardice/Placeholders.js
 
 License: MIT
 
-
-
 ## bpmn-js
 
 Version: 0.5.1
@@ -82,8 +74,6 @@ Source: https://raw.githubusercontent.com/bpmn-io/bower-bpmn-js/v0.5.1/bpmn-view
 - bpmn-js.js
 
 License: https://raw.githubusercontent.com/bpmn-io/bower-bpmn-js/v0.5.1/LICENSE
-
-
 
 ## Snap.svg
 

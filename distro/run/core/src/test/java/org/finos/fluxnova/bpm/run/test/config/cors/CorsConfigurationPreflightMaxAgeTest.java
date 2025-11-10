@@ -35,8 +35,6 @@ import org.springframework.test.context.TestPropertySource;
  * Note: To run this test via an IDE you must set the system property
  * {@code sun.net.http.allowRestrictedHeaders} to {@code true}.
  * (e.g. System.setProperty("sun.net.http.allowRestrictedHeaders", "true");)
- *
- * @see https://jira.camunda.com/browse/CAM-11290
  */
 @ActiveProfiles(profiles = { "test-cors-enabled" }, inheritProfiles = true)
 @TestPropertySource(properties = { FluxnovaBpmRunCorsProperty.PREFIX + ".preflight-maxage=2600"})

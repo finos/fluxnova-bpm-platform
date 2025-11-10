@@ -97,7 +97,7 @@ public abstract class AbstractWebIntegrationTest {
     String startSessionCookie = getCookie(cookieValues, JSESSIONID_IDENTIFIER);
     
     // login with user, update session cookie
-    clientResponse = client.resource(appBasePath + "api/admin/auth/user/default/login/cockpit")
+    clientResponse = client.resource(appBasePath + "api/admin/auth/user/default/login/monitoring")
         .entity("username=demo&password=demo", MediaType.APPLICATION_FORM_URLENCODED_TYPE)
         .header(COOKIE_HEADER, createCookieHeader(startCsrfCookie, startSessionCookie))
         .header(X_XSRF_TOKEN_HEADER, startCsrfCookie)

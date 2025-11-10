@@ -17,7 +17,7 @@
 
 'use strict';
 
-var Base = require('./../../../cockpit/tests/pages/base');
+var Base = require('../../../monitoring/tests/pages/base');
 
 module.exports = Base.extend({
   formElement: function() {

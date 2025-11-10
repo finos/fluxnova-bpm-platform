@@ -882,8 +882,6 @@ public class CallActivityTest extends PluggableProcessEngineTest {
    * This testcase verifies that <camunda:out variables="all" /> works also in
    * case super process has no variables
    *
-   * https://app.camunda.com/jira/browse/CAM-1617
-   *
    */
   @Deployment(resources = {
     "org/finos/fluxnova/bpm/engine/test/bpmn/callactivity/CallActivity.testSubProcessAllDataInputOutput.bpmn20.xml",

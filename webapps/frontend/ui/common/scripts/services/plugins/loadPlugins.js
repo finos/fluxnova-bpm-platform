@@ -20,8 +20,8 @@ const appRoot = document.querySelector('base').getAttribute('app-root');
 const fluxnovaPlugins = [
   'admin-plugin-adminPlugins',
   'admin-plugin-adminEE',
-  'cockpit-plugin-cockpitPlugins',
-  'cockpit-plugin-cockpitEE',
+  'monitoring-plugin-monitoringPlugins',
+  'monitoring-plugin-monitoringEE',
   'tasklist-plugin-tasklistPlugins'
 ];
 

@@ -27,8 +27,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import org.finos.fluxnova.bpm.cockpit.Cockpit;
-import org.finos.fluxnova.bpm.cockpit.impl.DefaultCockpitRuntimeDelegate;
+import org.finos.fluxnova.bpm.monitoring.Monitoring;
+import org.finos.fluxnova.bpm.monitoring.impl.DefaultMonitoringRuntimeDelegate;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.Authentication;
@@ -78,7 +78,7 @@ public class SecurityFilterRulesTest {
   {
     final ProcessEngine engine = Mockito.mock(ProcessEngine.class);
 
-    Cockpit.setCockpitRuntimeDelegate(new DefaultCockpitRuntimeDelegate() {
+    Monitoring.setMonitoringRuntimeDelegate(new DefaultMonitoringRuntimeDelegate() {
 
       @Override
       public ProcessEngine getProcessEngine(String processEngineName) {
@@ -95,7 +95,7 @@ public class SecurityFilterRulesTest {
   @After
   public void after() {
     Authentications.setCurrent(null);
-    Cockpit.setCockpitRuntimeDelegate(null);
+    Monitoring.setMonitoringRuntimeDelegate(null);
   }
 
   @Test
@@ -113,11 +113,11 @@ public class SecurityFilterRulesTest {
   }
 
   @Test
-  public void shouldPassStaticCockpitPluginResources_GET() throws Exception {
+  public void shouldPassStaticMonitoringPluginResources_GET() throws Exception {
     assertThat(isAuthorized("GET",
-      applicationPath + "/api/cockpit/plugin/some-plugin/static/foo.html")).isTrue();
+      applicationPath + "/api/monitoring/plugin/some-plugin/static/foo.html")).isTrue();
     assertThat(isAuthorized("GET",
-      applicationPath + "/api/cockpit/plugin/bar/static/foo.html")).isTrue();
+      applicationPath + "/api/monitoring/plugin/bar/static/foo.html")).isTrue();
   }
 
   @Test
@@ -153,14 +153,14 @@ public class SecurityFilterRulesTest {
   }
 
   @Test
-  public void shouldRejectCockpitPluginApi_GET() throws Exception {
+  public void shouldRejectMonitoringPluginApi_GET() throws Exception {
 
     authenticatedForEngine("otherEngine", new Runnable() {
       @Override
       public void run() {
 
         Authorization authorization = getAuthorization("POST",
-          applicationPath + "/api/cockpit/plugin/" +
+          applicationPath + "/api/monitoring/plugin/" +
             "reporting-process-count/default/process-instance-count");
 
         assertThat(authorization.isGranted()).isFalse();
@@ -170,14 +170,14 @@ public class SecurityFilterRulesTest {
   }
 
   @Test
-  public void shouldPassCockpitPluginApi_GET_LOGGED_IN() throws Exception {
+  public void shouldPassMonitoringPluginApi_GET_LOGGED_IN() throws Exception {
     authenticatedForEngine("default", new Runnable() {
       @Override
       public void run() {
 
         Authorization authorization =
           getAuthorization("POST",
-            applicationPath + "/api/cockpit/plugin/" +
+            applicationPath + "/api/monitoring/plugin/" +
               "reporting-process-count/default/process-instance-count");
 
         assertThat(authorization.isGranted()).isTrue();
@@ -187,24 +187,24 @@ public class SecurityFilterRulesTest {
   }
 
   @Test
-  public void shouldPassCockpit_GET_LOGGED_OUT() throws Exception {
+  public void shouldPassMonitoring_GET_LOGGED_OUT() throws Exception {
 
     Authorization authorization =
-      getAuthorization("GET", applicationPath + "/app/cockpit/non-existing-engine/foo");
+      getAuthorization("GET", applicationPath + "/app/monitoring/non-existing-engine/foo");
 
     assertThat(authorization.isGranted()).isTrue();
     assertThat(authorization.isAuthenticated()).isFalse();
   }
 
   @Test
-  public void shouldPassCockpit_GET_LOGGED_IN() throws Exception {
+  public void shouldPassMonitoring_GET_LOGGED_IN() throws Exception {
 
-    authenticatedForApp("default", "cockpit", new Runnable() {
+    authenticatedForApp("default", "monitoring", new Runnable() {
 
       @Override
       public void run() {
         Authorization authorization =
-          getAuthorization("GET", applicationPath + "/app/cockpit/default/");
+          getAuthorization("GET", applicationPath + "/app/monitoring/default/");
 
         assertThat(authorization.isGranted()).isTrue();
         assertThat(authorization.isAuthenticated()).isTrue();
@@ -213,14 +213,14 @@ public class SecurityFilterRulesTest {
   }
 
   @Test
-  public void shouldPassCockpitNonExistingEngine_GET_LOGGED_IN() throws Exception {
+  public void shouldPassMonitoringNonExistingEngine_GET_LOGGED_IN() throws Exception {
 
-    authenticatedForApp("default", "cockpit", new Runnable() {
+    authenticatedForApp("default", "monitoring", new Runnable() {
 
       @Override
       public void run() {
         Authorization authorization =
-          getAuthorization("GET", applicationPath + "/app/cockpit/non-existing-engine/");
+          getAuthorization("GET", applicationPath + "/app/monitoring/non-existing-engine/");
 
         assertThat(authorization.isGranted()).isTrue();
         assertThat(authorization.isAuthenticated()).isFalse();

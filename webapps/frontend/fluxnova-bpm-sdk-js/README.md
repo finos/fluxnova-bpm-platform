@@ -10,7 +10,7 @@ bower install fluxnova-bpm-sdk-js --save
 
 ## Documentation
 
-** Needs To Be Reviewed ** See https://docs.camunda.org/manual/latest/reference/embedded-forms/
+See https://docs.fluxnova.finos.org/reference/forms/embedded-forms/
 
 ## Development
 
@@ -38,7 +38,6 @@ grunt karma:dev-form
 grunt karma:dev-form-angularjs
 ```
 
-
 #### Mocha CLI
 
 ```sh
@@ -48,8 +47,6 @@ grunt watch:mochacli
 ```
 
 ### Issues
-
-** Needs To Be Reviewed ** https://app.camunda.com/jira/browse/CAM/component/12351
 
 ## Releasing
 
@@ -81,16 +78,16 @@ grunt publish:version --setversion='myNewVersion'
 
 ### Available options
 
-* --no-bower -> skip bower release
-* --no-write -> dryRun mode
+- --no-bower -> skip bower release
+- --no-write -> dryRun mode
 
 ### Examples
 
-* [standalone usage] ** Needs To Be Reviewed ** (https://github.com/camunda/camunda-bpm-examples/tree/master/sdk-js)
+- [standalone usage] ** Needs To Be Reviewed ** (https://github.com/camunda/camunda-bpm-examples/tree/master/sdk-js)
 
 ### Contributing
 
-You are __more than welcome__ to take part on the development of this project!
+You are **more than welcome** to take part on the development of this project!
 
 #### Coding
 

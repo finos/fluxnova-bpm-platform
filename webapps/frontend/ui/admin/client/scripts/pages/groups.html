@@ -7,41 +7,53 @@
         <h3>{{ 'GROUPS_LIST_GROUPS' | translate }}</h3>
       </div>
       <div class="col-xs-4 text-right">
-        <a href="#/group-create"
-           class="btn btn-default">
+        <a href="#/group-create" class="btn btn-default">
           {{ 'GROUPS_CREATE_GROUP' | translate }}
           <span class="glyphicon glyphicon-plus-sign"></span>
         </a>
       </div>
     </header>
 
-    <div fxn-searchable-area
-         config="searchConfig"
-         on-search-change="onSearchChange(query, pages)"
-         loading-state="loadingState"
-         text-empty="{{ 'GROUPS_NO_GROUPS' | translate }}"
-         toolips="translations"
-         storage-group="'ANG'"
-         blocked="blocked">
+    <div
+      fxn-searchable-area
+      config="searchConfig"
+      on-search-change="onSearchChange(query, pages)"
+      loading-state="loadingState"
+      text-empty="{{ 'GROUPS_NO_GROUPS' | translate }}"
+      toolips="translations"
+      storage-group="'ANG'"
+      blocked="blocked"
+    >
       <table class="fxn-table group">
-        <thead fxn-sortable-table-header
-               default-sort-by="id"
-               default-sort-order="asc"
-               sorting-id="admin-sorting-groups"
-               on-sort-change="onSortChanged(sorting)"
-               on-sort-initialized="onSortInitialized(sorting)">
+        <thead
+          fxn-sortable-table-header
+          default-sort-by="id"
+          default-sort-order="asc"
+          sorting-id="admin-sorting-groups"
+          on-sort-change="onSortChanged(sorting)"
+          on-sort-initialized="onSortInitialized(sorting)"
+        >
           <tr>
-            <th class="group-id"
-                fxn-sortable-table-column
-                sort-by-property="id">{{ 'GROUPS_GROUP_ID' | translate }}
+            <th
+              class="group-id"
+              fxn-sortable-table-column
+              sort-by-property="id"
+            >
+              {{ 'GROUPS_GROUP_ID' | translate }}
             </th>
-            <th class="group-name"
-                fxn-sortable-table-column
-                sort-by-property="name">{{ 'GROUPS_GROUP_NAME' | translate }}
+            <th
+              class="group-name"
+              fxn-sortable-table-column
+              sort-by-property="name"
+            >
+              {{ 'GROUPS_GROUP_NAME' | translate }}
             </th>
-            <th class="group-type"
-                fxn-sortable-table-column
-                sort-by-property="type">{{ 'GROUPS_GROUP_TYPE' | translate }}
+            <th
+              class="group-type"
+              fxn-sortable-table-column
+              sort-by-property="type"
+            >
+              {{ 'GROUPS_GROUP_TYPE' | translate }}
             </th>
             <th class="action">{{ 'GROUPS_ACTION' | translate }}</th>
           </tr>
@@ -62,7 +74,9 @@
             </td>
 
             <td class="action">
-              <a href="#/groups/{{group.id | escape}}">{{ 'GROUPS_ACTION_EDIT' | translate }}</a>
+              <a href="#/groups/{{group.id | escape}}"
+                >{{ 'GROUPS_ACTION_EDIT' | translate }}</a
+              >
             </td>
           </tr>
         </tbody>

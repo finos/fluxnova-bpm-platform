@@ -246,7 +246,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     addDatabaseSpecificStatement(MYSQL, "selectDeploymentsByQueryCriteria", "selectDeploymentsByQueryCriteria_mysql");
     addDatabaseSpecificStatement(MYSQL, "selectDeploymentCountByQueryCriteria", "selectDeploymentCountByQueryCriteria_mysql");
 
-    // related to CAM-8064
+    
     addDatabaseSpecificStatement(MYSQL, "deleteExceptionByteArraysByIds", "deleteExceptionByteArraysByIds_mysql");
     addDatabaseSpecificStatement(MYSQL, "deleteErrorDetailsByteArraysByIds", "deleteErrorDetailsByteArraysByIds_mysql");
     addDatabaseSpecificStatement(MYSQL, "deleteHistoricDetailsByIds", "deleteHistoricDetailsByIds_mysql");
@@ -263,26 +263,25 @@ public class DbSqlSessionFactory implements SessionFactory {
 
     addDatabaseSpecificStatement(MYSQL, "deleteHistoricIncidentsByBatchIds", "deleteHistoricIncidentsByBatchIds_mysql");
 
-    // related to CAM-9505
+    
     addDatabaseSpecificStatement(MYSQL, "updateUserOperationLogByRootProcessInstanceId", "updateUserOperationLogByRootProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateExternalTaskLogByRootProcessInstanceId", "updateExternalTaskLogByRootProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateHistoricIncidentsByRootProcessInstanceId", "updateHistoricIncidentsByRootProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateHistoricIncidentsByBatchId", "updateHistoricIncidentsByBatchId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateIdentityLinkLogByRootProcessInstanceId", "updateIdentityLinkLogByRootProcessInstanceId_mysql");
 
-    // related to CAM-10172
+   
     addDatabaseSpecificStatement(MYSQL, "updateUserOperationLogByProcessInstanceId", "updateUserOperationLogByProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateExternalTaskLogByProcessInstanceId", "updateExternalTaskLogByProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateHistoricIncidentsByProcessInstanceId", "updateHistoricIncidentsByProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateIdentityLinkLogByProcessInstanceId", "updateIdentityLinkLogByProcessInstanceId_mysql");
 
-    // related to CAM-10664
+    
     addDatabaseSpecificStatement(MYSQL, "updateOperationLogAnnotationByOperationId", "updateOperationLogAnnotationByOperationId_mysql");
 
-    // related to CAM-12070
+    
     addDatabaseSpecificStatement(MYSQL, "updateByteArraysByBatchId", "updateByteArraysByBatchId_mysql");
 
-    // related to https://github.com/camunda/camunda-bpm-platform/issues/3064
     addDatabaseSpecificStatement(MYSQL, "updateAttachmentsByRootProcessInstanceId", "updateAttachmentsByRootProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateAttachmentsByProcessInstanceId", "updateAttachmentsByProcessInstanceId_mysql");
     addDatabaseSpecificStatement(MYSQL, "updateAuthorizationsByRootProcessInstanceId", "updateAuthorizationsByRootProcessInstanceId_mysql");
@@ -431,7 +430,6 @@ public class DbSqlSessionFactory implements SessionFactory {
     addDatabaseSpecificStatement(POSTGRES, "deleteAuthorizationsByRemovalTime", "deleteAuthorizationsByRemovalTime_postgres_or_db2");
     addDatabaseSpecificStatement(POSTGRES, "deleteTaskMetricsByRemovalTime", "deleteTaskMetricsByRemovalTime_postgres_or_db2");
 
-    // related to https://github.com/camunda/camunda-bpm-platform/issues/3064
     addDatabaseSpecificStatement(POSTGRES, "updateAttachmentsByRootProcessInstanceId", "updateAttachmentsByRootProcessInstanceId_postgres");
     addDatabaseSpecificStatement(POSTGRES, "updateAttachmentsByProcessInstanceId", "updateAttachmentsByProcessInstanceId_postgres");
     addDatabaseSpecificStatement(POSTGRES, "updateAuthorizationsByRootProcessInstanceId", "updateAuthorizationsByRootProcessInstanceId_postgres");
@@ -752,7 +750,6 @@ public class DbSqlSessionFactory implements SessionFactory {
     addDatabaseSpecificStatement(MSSQL, "selectHistoricDecisionInstancesByNativeQuery", "selectHistoricDecisionInstancesByNativeQuery_mssql_or_db2");
     addDatabaseSpecificStatement(MSSQL, "deleteByteArraysByRemovalTime", "deleteByteArraysByRemovalTime_mssql");
 
-    // related to CAM-13094
     addDatabaseSpecificStatement(MSSQL, "updateAttachmentsByRootProcessInstanceId", "updateAttachmentsByRootProcessInstanceId_mssql");
     addDatabaseSpecificStatement(MSSQL, "updateAttachmentsByProcessInstanceId", "updateAttachmentsByProcessInstanceId_mssql");
     addDatabaseSpecificStatement(MSSQL, "updateAuthorizationsByRootProcessInstanceId", "updateAuthorizationsByRootProcessInstanceId_mssql");
@@ -826,8 +823,6 @@ public class DbSqlSessionFactory implements SessionFactory {
   /**
    * In some situations you want to set the schema to use for table checks /
    * generation if the database metadata doesn't return that correctly, see
-   * https://jira.codehaus.org/browse/ACT-1220,
-   * https://jira.codehaus.org/browse/ACT-1062
    */
   protected String databaseSchema;
   protected SqlSessionFactory sqlSessionFactory;

@@ -37,9 +37,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/*
-  See https://jira.camunda.com/browse/CAM-9913
- */
 @RunWith(Arquillian.class)
 public class ClassloadingByJobPriorityTest extends AbstractFoxPlatformIntegrationTest {
 

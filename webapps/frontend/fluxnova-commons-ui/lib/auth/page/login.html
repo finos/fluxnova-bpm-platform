@@ -1,7 +1,6 @@
 <!-- # CE - fluxnova-commons-ui/lib/auth/page/login.html -->
 <div class="form-signin-container">
   <div class="form-signin">
-
     <div class="login-header">
       <div class="login-logo" ng-bind-html="logo"></div>
 
@@ -10,19 +9,23 @@
       </div>
     </div>
 
-    <div notifications-panel
-         ng-if="signinForm.$dirty"
-         class="notifications-panel"></div>
+    <div
+      notifications-panel
+      ng-if="signinForm.$dirty"
+      class="notifications-panel"
+    ></div>
 
     <view
       ng-repeat="plugin in loginPlugins"
       data-plugin-id="{{ plugin.id }}"
-      provider="plugin"></view>
+      provider="plugin"
+    ></view>
 
-    <div ng-if="showFirstLogin"
-         class="alert-info alert">
+    <div ng-if="showFirstLogin" class="alert-info alert">
       <div>
-        <button type="button" class="close" ng-click="dismissInfoBox()">×</button>
+        <button type="button" class="close" ng-click="dismissInfoBox()">
+          ×
+        </button>
         <strong class="status">{{ 'FIRST_LOGIN_HEADING' | translate }}</strong>
         <span class="message" ng-bind-html="FirstLoginMessage"></span>
       </div>

@@ -89,7 +89,6 @@ public class FetchExternalTasksCmd implements Command<List<LockedExternalTask>> 
 
       TopicFetchInstruction fetchInstruction = fetchInstructions.get(entity.getTopicName());
 
-      // retrieve the execution first to detect concurrent modifications @https://jira.camunda.com/browse/CAM-10750
       ExecutionEntity execution = entity.getExecution(false);
 
       if (execution != null) {

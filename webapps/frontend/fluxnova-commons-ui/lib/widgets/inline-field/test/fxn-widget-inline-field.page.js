@@ -22,7 +22,7 @@
 
 var Field = require('./fxn-widget-inline-field-object.page.js');
 
-function Page() { }
+function Page() {}
 
 Page.prototype.field = function(identifier) {
   return new Field(element(by.id(identifier)));
@@ -31,6 +31,5 @@ Page.prototype.field = function(identifier) {
 Page.prototype.body = function() {
   return element(by.tagName('body'));
 };
-
 
 module.exports = new Page();

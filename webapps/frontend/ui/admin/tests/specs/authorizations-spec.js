@@ -21,7 +21,7 @@ var testHelper = require('../../../common/tests/test-helper');
 var setupFile = require('./authorizations-setup');
 
 var authorizationsPage = require('../pages/authorizations');
-var cockpitPage = require('../../../cockpit/tests/pages/dashboard');
+var monitoringPage = require('../../../monitoring/tests/pages/dashboard');
 
 describe('Admin Authorizations Spec', function() {
   function checkCreateNewState() {
@@ -144,14 +144,14 @@ describe('Admin Authorizations Spec', function() {
         'USER',
         'john',
         'ACCESS',
-        'cockpit'
+        'monitoring'
       );
 
       // then
       authorizationsPage.logout();
-      cockpitPage.navigateToWebapp('Cockpit');
-      cockpitPage.authentication.userLogin('john', 'MobyDick');
-      cockpitPage.isActive();
+      monitoringPage.navigateToWebapp('Monitoring');
+      monitoringPage.authentication.userLogin('john', 'MobyDick');
+      monitoringPage.isActive();
     });
   });
 

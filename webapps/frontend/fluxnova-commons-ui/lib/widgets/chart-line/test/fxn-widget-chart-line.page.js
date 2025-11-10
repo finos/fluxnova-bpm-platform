@@ -30,7 +30,7 @@ ChartLine.prototype.hasCanvas = function() {
   return this.node.element(by.css('canvas')).isPresent();
 };
 
-function Page() { }
+function Page() {}
 
 Page.prototype.chartLine = function(selector) {
   return new ChartLine(element(by.css(selector)));

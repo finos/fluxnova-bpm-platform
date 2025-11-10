@@ -1147,7 +1147,7 @@ public class ExecutionQueryTest extends PluggableProcessEngineTest {
     assertEquals(3, concurrentExecutions.size());
     for (Execution execution : concurrentExecutions) {
       if (!((ExecutionEntity)execution).isProcessInstanceExecution()) {
-        // only the concurrent executions, not the root one, would be cooler to query that directly, see http://jira.codehaus.org/browse/ACT-1373
+        // only the concurrent executions, not the root one, would be cooler to query that directly
         runtimeService.setVariableLocal(execution.getId(), "x", "child");
       }
     }

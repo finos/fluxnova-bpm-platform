@@ -228,7 +228,6 @@ public class LdapTestEnvironment {
     createGroup("office-home");
 
     // Doesn't work using backslashes, end up with two uid attributes
-    // See https://issues.apache.org/jira/browse/DIRSERVER-1442
     String dnDavid = createUserUid("david(IT)", "office-home", "David", "Howe\\IT\\", "david@camunda.org");
 
     String dnRuecker = createUserUid("ruecker", "office-home", "Bernd", "Ruecker", "ruecker@camunda.org");

@@ -389,9 +389,6 @@ public class HistoricProcessInstanceTest {
     assertNotNull(historicProcessInstance.getEndTime());
   }
 
-  /**
-   * See: https://app.camunda.com/jira/browse/CAM-1324
-   */
   @Test
   @Deployment
   public void testHistoricProcessInstanceDeleteAsync() {

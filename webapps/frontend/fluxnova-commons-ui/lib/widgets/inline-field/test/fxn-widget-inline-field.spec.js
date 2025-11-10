@@ -22,8 +22,10 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/inline-field/test/fxn-widget-inline-field.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/inline-field/test/fxn-widget-inline-field.spec.html';
 
 var page = require('./fxn-widget-inline-field.page.js');
 
@@ -54,19 +56,17 @@ describe('Inline Edit Field', function() {
         .click()
         .clear()
         .type(text)
-        .okButton().click();
+        .okButton()
+        .click();
 
       expect(field.text()).to.eventually.eql(text);
     });
 
     it('should cancel the edit of value on click on cancel', function() {
-
       field.text().then(function(textBefore) {
         var text = 'more text';
 
-        field
-          .click()
-          .type(text);
+        field.click().type(text);
 
         expect(field.inputText()).to.eventually.eql(text);
 
@@ -77,13 +77,10 @@ describe('Inline Edit Field', function() {
     });
 
     it('should cancel the edit of value on click outside the input field', function() {
-
       field.text().then(function(textBefore) {
         var text = 'more text';
 
-        field
-          .click()
-          .type(text);
+        field.click().type(text);
 
         expect(field.inputText()).to.eventually.eql(text);
 
@@ -92,7 +89,6 @@ describe('Inline Edit Field', function() {
         expect(field.text()).to.eventually.eql(textBefore);
       });
     });
-
   });
 
   describe('Date Input', function() {
@@ -102,7 +98,6 @@ describe('Inline Edit Field', function() {
     });
 
     it('should open and close a datepicker widget', function() {
-
       field.click();
       field.click();
 
@@ -114,19 +109,22 @@ describe('Inline Edit Field', function() {
     });
 
     it('should apply a date', function() {
-
       field.click();
 
       field.datepicker.day('11').click();
-      field.timepicker.hoursField().clear().sendKeys('3');
-      field.timepicker.minutesField().clear().sendKeys('14');
+      field.timepicker
+        .hoursField()
+        .clear()
+        .sendKeys('3');
+      field.timepicker
+        .minutesField()
+        .clear()
+        .sendKeys('14');
 
       field.okButton().click();
 
       expect(field.text()).to.eventually.eql('January 11, 2015 3:14 AM');
     });
-
-
   });
 
   describe('Options', function() {
@@ -135,9 +133,7 @@ describe('Inline Edit Field', function() {
       field = page.field('field3');
     });
 
-
     it('should show a dropdown with options', function() {
-
       field.click();
       field.click();
 
@@ -153,13 +149,13 @@ describe('Inline Edit Field', function() {
     });
 
     it('should apply when clicking on an option', function() {
-
       expect(field.text()).to.eventually.eql('foobar');
 
       field
         .click()
         .click()
-        .dropdownOptionByText('2').click();
+        .dropdownOptionByText('2')
+        .click();
 
       expect(field.text()).to.eventually.eql('2');
     });
@@ -180,7 +176,11 @@ describe('Inline Edit Field', function() {
     });
 
     it('should apply when clicking on an option', function() {
-      field.click().click().dropdownOptionByText('3').click();
+      field
+        .click()
+        .click()
+        .dropdownOptionByText('3')
+        .click();
 
       expect(field.text()).to.eventually.eql('3');
     });
@@ -200,9 +200,7 @@ describe('Inline Edit Field', function() {
       field = page.field('field4');
     });
 
-
     it('should show values when open', function() {
-
       field.click();
       field.click();
 
@@ -218,12 +216,12 @@ describe('Inline Edit Field', function() {
     });
 
     it('should show keys and values when closed', function() {
-
       expect(field.text()).to.eventually.eql('foobar : Barfoo');
 
       field
         .click()
-        .dropdownOptionByText('Three').click();
+        .dropdownOptionByText('Three')
+        .click();
 
       expect(field.text()).to.eventually.eql('3 : Three');
     });
@@ -235,9 +233,7 @@ describe('Inline Edit Field', function() {
       field = page.field('field5');
     });
 
-
     it('should allow toggling between text und datetime', function() {
-
       field.click();
       field.click();
 
@@ -260,12 +256,17 @@ describe('Inline Edit Field', function() {
     });
 
     it('should allow editing a date in text mode', function() {
-
       field.click();
       field.calendarButton().click();
       field.datepicker.day('27').click();
-      field.timepicker.hoursField().clear().sendKeys('8');
-      field.timepicker.minutesField().clear().sendKeys('57');
+      field.timepicker
+        .hoursField()
+        .clear()
+        .sendKeys('8');
+      field.timepicker
+        .minutesField()
+        .clear()
+        .sendKeys('57');
       field.okButton().click();
       field.click();
       field.pencilButton().click();
@@ -276,15 +277,17 @@ describe('Inline Edit Field', function() {
     });
 
     it('should apply a valid text date to the datepicker', function() {
-
       field
         .click()
         .clear()
         .type('2015-11-19T18:17:29', protractor.Key.ENTER)
         .click()
-        .calendarButton().click();
+        .calendarButton()
+        .click();
 
-      expect(field.datepicker().getText()).to.eventually.contain('November 2015');
+      expect(field.datepicker().getText()).to.eventually.contain(
+        'November 2015'
+      );
       expect(field.datepicker.activeDay()).to.eventually.eql('19');
 
       // hours field depends on timezone setting of the execution environment
@@ -292,6 +295,5 @@ describe('Inline Edit Field', function() {
 
       expect(field.timepicker.minutesValue()).to.eventually.eql('17');
     });
-
   });
 });

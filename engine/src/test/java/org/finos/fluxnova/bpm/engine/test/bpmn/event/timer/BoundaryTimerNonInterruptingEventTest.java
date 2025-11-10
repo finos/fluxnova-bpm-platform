@@ -344,9 +344,6 @@ public class BoundaryTimerNonInterruptingEventTest {
     assertEquals(2, tq.count());
   }
 
-  /*
-   * see http://jira.codehaus.org/browse/ACT-1173
-   */
   @Deployment
   @Test
   public void testTimerOnEmbeddedSubprocess() {
@@ -373,9 +370,6 @@ public class BoundaryTimerNonInterruptingEventTest {
   }
 
   @Deployment
-  /*
-   * see http://jira.codehaus.org/browse/ACT-1106
-   */
   @Test
   public void testReceiveTaskWithBoundaryTimer(){
     HashMap<String, Object> variables = new HashMap<>();

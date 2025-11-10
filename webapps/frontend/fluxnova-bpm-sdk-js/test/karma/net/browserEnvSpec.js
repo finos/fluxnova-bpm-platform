@@ -19,11 +19,9 @@
 var FxnSDK = require('../../../lib/index-browser.js');
 
 describe('The browser usage', function() {
-
   it('exists globally', function() {
     expect(FxnSDK).to.not.be.undefined;
   });
-
 
   xit('can be required', function() {
     expect(require).to.not.be.undefined;
@@ -32,5 +30,4 @@ describe('The browser usage', function() {
       var fxnSdk = require('fluxnova-bpm-sdk');
     }).not.to.throw();
   });
-
 });

@@ -29,7 +29,10 @@ ViewerNode.prototype.click = function() {
 };
 
 ViewerNode.prototype.hover = function() {
-  browser.actions().mouseMove(this.node).perform();
+  browser
+    .actions()
+    .mouseMove(this.node)
+    .perform();
 };
 
 ViewerNode.prototype.isHighlighted = function() {
@@ -47,11 +50,17 @@ Viewer.prototype.isPresent = function() {
 };
 
 Viewer.prototype.element = function(id) {
-  return new ViewerNode(this.node.element(by.css('[data-element-id="'+id+'"]')));
+  return new ViewerNode(
+    this.node.element(by.css('[data-element-id="' + id + '"]'))
+  );
 };
 
 Viewer.prototype.badgeFor = function(id) {
-  return this.node.element(by.css('.djs-overlays[data-container-id="'+id +'"] > .djs-overlay:first-child'));
+  return this.node.element(
+    by.css(
+      '.djs-overlays[data-container-id="' + id + '"] > .djs-overlay:first-child'
+    )
+  );
 };
 
 Viewer.prototype.navigationButtons = function() {
@@ -71,12 +80,15 @@ Viewer.prototype.resetZoomButton = function() {
 };
 
 Viewer.prototype.zoomLevel = function() {
-  return this.node.element(by.css('.viewport')).getAttribute('transform').then(function(transform) {
-    return parseFloat(transform.substr(7));
-  });
+  return this.node
+    .element(by.css('.viewport'))
+    .getAttribute('transform')
+    .then(function(transform) {
+      return parseFloat(transform.substr(7));
+    });
 };
 
-function Page() { }
+function Page() {}
 
 Page.prototype.diagram = function(id) {
   return new Viewer(element(by.id(id)));

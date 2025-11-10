@@ -1,5 +1,6 @@
 .dashboard, /* admin */
-.cockpit-section-dashboard {// cockpit
+.monitoring-section-dashboard {
+  // monitoring
   position: absolute;
   background-color: @custom-gray-light;
   display: block;
@@ -52,7 +53,8 @@
       margin: 0;
       padding: 0;
 
-      ul > li { /* stylelint-disable-line */
+      ul > li {
+        /* stylelint-disable-line */
         display: list-item;
         list-style: disc inside;
       }
@@ -107,8 +109,9 @@
   }
 }
 
-.ctn-view.dashboard, /* cockpit */
-.ctn-wrapper > [ng-view] > .dashboard { // admin
+.ctn-view.dashboard, /* monitoring */
+.ctn-wrapper > [ng-view] > .dashboard {
+  // admin
   width: 100%;
   bottom: 0;
 }
@@ -125,7 +128,7 @@
   }
 }
 
-.cockpit-section-dashboard {
+.monitoring-section-dashboard {
   .fxn-table {
     margin-bottom: 5px;
   }

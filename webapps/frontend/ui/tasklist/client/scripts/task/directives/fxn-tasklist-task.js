@@ -85,7 +85,7 @@ module.exports = [
             }
 
             var link = Uri.appUri(
-              'cockpitbase://:engine/#/' + resource + '/' + resourceId
+              'monitoringbase://:engine/#/' + resource + '/' + resourceId
             );
 
             if (rootElement) {

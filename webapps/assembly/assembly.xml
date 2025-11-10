@@ -24,7 +24,7 @@
         <exclude>**/.settings/**</exclude>
         <exclude>**/dist/**</exclude>
         <exclude>fluxnova-commons-ui/cache/**</exclude>
-        <exclude>ui/cockpit/build/**</exclude>
+        <exclude>ui/monitoring/build/**</exclude>
       </excludes>
     </fileSet>
   </fileSets>

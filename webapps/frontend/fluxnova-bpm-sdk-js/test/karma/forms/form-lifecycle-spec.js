@@ -41,7 +41,7 @@ describe('The form', function() {
   before(function(done) {
     jQuery.ajax('/base/test/karma/forms/form-lifecycle.html', {
       success: function(data) {
-        $simpleFormDoc = jQuery('<div id="test-form">'+ data +'</div>');
+        $simpleFormDoc = jQuery('<div id="test-form">' + data + '</div>');
         // the following lines allow to see the form in the browser
         var _$top = $(top.document);
         _$top.find('#test-form').remove();
@@ -58,17 +58,17 @@ describe('The form', function() {
     });
   });
 
-
   it('prepares the testing environemnt', function() {
     expect(FxnSDK).to.be.an('object');
 
     expect(fxnClient).to.be.ok;
   });
 
-
   it('needs a process definition', function(done) {
     fxnClient.resource('process-definition').list({}, function(err, result) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       procDef = result.items.pop();
 
@@ -79,18 +79,20 @@ describe('The form', function() {
   });
 
   it('gets the process definition with a promise', function() {
-    return fxnClient.resource('process-definition').list({}).then(
-      function(result) {
+    return fxnClient
+      .resource('process-definition')
+      .list({})
+      .then(function(result) {
         procDef = result.items.pop();
         expect(procDef.id).to.be.ok;
-      }
-    );
+      });
   });
-
 
   it('initialize', function(done) {
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       // expect variable created by script to be present
       var customVar = fxnForm.variableManager.variable('customVar');
@@ -99,7 +101,6 @@ describe('The form', function() {
 
       // expect form field to be populated
       expect($('#customField', fxnForm.formElement).val()).to.eql('someValue');
-
 
       // given that we do not change the value of the custom field
       fxnForm.submit();
@@ -123,7 +124,9 @@ describe('The form', function() {
       client: fxnClient,
       processDefinitionId: procDef.id,
       formElement: $simpleFormDoc.find('form[fxn-form]'),
-      done: function() {window.setTimeout(ready);}
+      done: function() {
+        window.setTimeout(ready);
+      }
     });
   });
 });

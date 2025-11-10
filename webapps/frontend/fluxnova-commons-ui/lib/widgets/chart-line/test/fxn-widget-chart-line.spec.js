@@ -22,8 +22,10 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/chart-line/test/fxn-widget-chart-line.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/chart-line/test/fxn-widget-chart-line.spec.html';
 
 var page = require('./fxn-widget-chart-line.page.js');
 

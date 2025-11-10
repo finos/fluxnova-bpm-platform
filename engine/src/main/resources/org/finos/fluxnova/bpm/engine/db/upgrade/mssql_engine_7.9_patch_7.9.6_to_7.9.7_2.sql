@@ -15,6 +15,5 @@
 -- limitations under the License.
 --
 
--- https://app.camunda.com/jira/browse/CAM-9525
 create index ACT_IDX_HI_OP_LOG_TIMESTAMP on ACT_HI_OP_LOG(TIMESTAMP_);
 

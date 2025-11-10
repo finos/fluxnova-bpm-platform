@@ -37,7 +37,7 @@ import org.springframework.test.context.junit4.SpringRunner;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RequestTrailingSlashIT {
 
-  public static final List<String> REDIRECT_PATHS = List.of("/app", "/app/cockpit", "/app/admin", "/app/tasklist", "/app/welcome");
+  public static final List<String> REDIRECT_PATHS = List.of("/app", "/app/monitoring", "/app/admin", "/app/tasklist", "/app/welcome");
 
   TestRestTemplate client = new TestRestTemplate();
 

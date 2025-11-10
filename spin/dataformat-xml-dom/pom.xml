@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.spin</groupId>
     <artifactId>fluxnova-spin-root</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>

@@ -43,7 +43,7 @@ const DEV_LICENSES = [
 
 const ALLOWED_PACKAGES = [
   'argparse@2.0.1',
-  'caniuse-lite@1.0.30001458' // uses CC BY 4.0, permitted as of https://jira.camunda.com/browse/OB-26
+  'caniuse-lite@1.0.30001458' // uses CC BY 4.0
 ];
 
 const parseResults = (allowedLicenses, resolve, reject) =>
@@ -103,10 +103,10 @@ if (require.main === module) {
     },
     parseResults(
       PRODUCTION_LICENSES,
-      () => console.log('Production packages license check passed'),// eslint-disable-line
+      () => console.log('Production packages license check passed'), // eslint-disable-line
       warn => {
-        console.warn('License check did not pass');// eslint-disable-line
-        console.warn(warn);// eslint-disable-line
+        console.warn('License check did not pass'); // eslint-disable-line
+        console.warn(warn); // eslint-disable-line
         process.exit(1);
       }
     )
@@ -119,10 +119,10 @@ if (require.main === module) {
     },
     parseResults(
       [...PRODUCTION_LICENSES, ...DEV_LICENSES],
-      () => console.log('Development packages license check passed'),// eslint-disable-line
+      () => console.log('Development packages license check passed'), // eslint-disable-line
       warn => {
-        console.warn('License check did not pass');// eslint-disable-line
-        console.warn(warn);// eslint-disable-line
+        console.warn('License check did not pass'); // eslint-disable-line
+        console.warn(warn); // eslint-disable-line
         process.exit(1);
       }
     )

@@ -81,7 +81,6 @@ module.exports = [
         /**
          * Starting with clipboard.js 2.0.9 creating a
          * fake textarea for values not of type string is broken.
-         * Cf. https://github.com/camunda/camunda-bpm-platform/issues/4190
          * @param value the value that is not a string.
          * @returns {string} a string value.
          */

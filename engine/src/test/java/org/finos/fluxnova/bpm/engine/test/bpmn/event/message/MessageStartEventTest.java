@@ -84,7 +84,6 @@ public class MessageStartEventTest extends PluggableProcessEngineTest {
     }
   }
 
-  // SEE: https://app.camunda.com/jira/browse/CAM-1448
   @Test
   public void testEmptyMessageNameFails() {
     try {

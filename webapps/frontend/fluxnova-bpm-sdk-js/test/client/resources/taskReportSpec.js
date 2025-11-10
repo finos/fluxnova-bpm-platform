@@ -43,11 +43,9 @@ describe('The Task Report resource usage', function() {
     expect(TaskReport.resolve).to.be.a('function');
   });
 
-
   xit('has a `complete` method', function() {
     expect(TaskReport.complete).to.be.a('function');
   });
-
 
   xdescribe('instance', function() {
     var instance;

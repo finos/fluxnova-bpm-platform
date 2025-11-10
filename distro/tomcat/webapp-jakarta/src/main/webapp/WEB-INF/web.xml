@@ -9,7 +9,7 @@
 
   <!-- cockpit bootstrap listener -->
   <listener>
-    <listener-class>org.finos.fluxnova.bpm.cockpit.impl.web.bootstrap.CockpitContainerBootstrap</listener-class>
+    <listener-class>org.finos.fluxnova.bpm.monitoring.impl.web.bootstrap.MonitoringContainerBootstrap</listener-class>
   </listener>
 
   <!-- admin bootstrap listener -->
@@ -172,20 +172,20 @@
 
   <!-- cockpit rest api -->
   <servlet>
-    <servlet-name>Cockpit Api</servlet-name>
+    <servlet-name>Monitoring Api</servlet-name>
     <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
     <init-param>
       <param-name>jakarta.ws.rs.Application</param-name>
-      <param-value>org.finos.fluxnova.bpm.cockpit.impl.web.CockpitApplication</param-value>
+      <param-value>org.finos.fluxnova.bpm.monitoring.impl.web.MonitoringApplication</param-value>
     </init-param>
     <init-param>
       <param-name>resteasy.servlet.mapping.prefix</param-name>
-      <param-value>/api/cockpit</param-value>
+      <param-value>/api/monitoring</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Cockpit Api</servlet-name>
-    <url-pattern>/api/cockpit/*</url-pattern>
+    <servlet-name>Monitoring Api</servlet-name>
+    <url-pattern>/api/monitoring/*</url-pattern>
   </servlet-mapping>
 
   <!-- admin rest api -->

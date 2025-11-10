@@ -22,15 +22,17 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/cmmn-viewer/test/fxn-widget-cmmn-viewer.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/cmmn-viewer/test/fxn-widget-cmmn-viewer.spec.html';
 
 var page = require('./fxn-widget-cmmn-viewer.page.js');
 
 describe('Cmmn Viewer', function() {
-  beforeEach((function() {
+  beforeEach(function() {
     browser.get(pageUrl);
-  }));
+  });
   var diagram;
   describe('With Navigation', function() {
     beforeEach(function() {
@@ -43,20 +45,28 @@ describe('Cmmn Viewer', function() {
 
     it('should highlight elements on click', function() {
       diagram.element('PlanItem_0mb2bge').click();
-      expect(diagram.element('PlanItem_0mb2bge').isHighlighted()).to.eventually.eql(true);
+      expect(
+        diagram.element('PlanItem_0mb2bge').isHighlighted()
+      ).to.eventually.eql(true);
 
       diagram.element('PlanItem_0mb2bge').click();
-      expect(diagram.element('PlanItem_0mb2bge').isHighlighted()).to.eventually.eql(false);
+      expect(
+        diagram.element('PlanItem_0mb2bge').isHighlighted()
+      ).to.eventually.eql(false);
     });
 
     it('should create badges on click', function() {
       diagram.element('PlanItem_1').click();
-      expect(diagram.badgeFor('PlanItem_1').getText()).to.eventually.eql('Test');
+      expect(diagram.badgeFor('PlanItem_1').getText()).to.eventually.eql(
+        'Test'
+      );
     });
 
     it('should recognize hovered elements', function() {
       diagram.element('PlanItem_0vkb9uc').hover();
-      expect(page.hoveredElementsText()).to.eventually.eql('["PlanItem_0vkb9uc"]');
+      expect(page.hoveredElementsText()).to.eventually.eql(
+        '["PlanItem_0vkb9uc"]'
+      );
     });
 
     it('should zoom in', function() {
@@ -100,7 +110,6 @@ describe('Cmmn Viewer', function() {
 
       diagram.zoomInButton().click();
       var zoomBefore = diagram.zoomLevel().then(function(val) {
-
         browser.getCurrentUrl().then(function(url) {
           browser.get(url);
 
@@ -108,7 +117,6 @@ describe('Cmmn Viewer', function() {
 
           expect(zoomAfter).to.eventually.closeTo(val, 0.5);
         });
-
       });
     });
   });
@@ -122,5 +130,4 @@ describe('Cmmn Viewer', function() {
       expect(diagram.navigationButtons().isPresent()).to.eventually.eql(false);
     });
   });
-
 });

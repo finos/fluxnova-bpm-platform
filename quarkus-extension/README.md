@@ -7,8 +7,9 @@ This sub-project provides Fluxnova Platform Quarkus Extensions that allow you to
 application by adding dependencies to the classpath.
 
 You can find the documentation on the Fluxnova Platform Quarkus Extensions 
-[here](https://docs.camunda.org/manual/develop/user-guide/quarkus-integration/).
+[here](https://docs.fluxnova.finos.org/user-guide/quarkus-integration/).
 
+** Needs To Be Reviewed **
 We also provide some useful examples at our 
 [camunda-bpm-examples](https://github.com/camunda/camunda-bpm-examples/tree/master/quarkus-extension) repository.
 
@@ -50,14 +51,14 @@ quarkus.fluxnova.datasource=my-datasource
 
 ### Local Build
 
-#### Executing the Tests  ** Needs To Be Reviewed **
+#### Executing the Tests  
 ```mvn clean install -Pquarkus-tests```
 
 
 ---------
 #### Quarkus and JUEL bytecode incompatibilities
 
-**Context**: JUEL was built with a different Java version. Quarkus won't pick up new build changes. For more information, check #3419 ([comment](https://github.com/camunda/camunda-bpm-platform/issues/3419#issuecomment-1720916174))
+**Context**: JUEL was built with a different Java version. Quarkus won't pick up new build changes.
 
 **Solution**: If you notice juel exceptions like below, delete `/juel/target` folder and run the Quarkus build again.
 

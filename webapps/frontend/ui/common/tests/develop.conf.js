@@ -18,7 +18,7 @@
 'use strict';
 
 /*
-TESTED=dashboard TESTED_APP=cockpit grunt test-e2e --protractorConfig=./ui/common/tests/develop.conf.js
+TESTED=dashboard TESTED_APP=monitoring grunt test-e2e --protractorConfig=./ui/common/tests/develop.conf.js
 */
 
 var chai = require('chai');
@@ -28,7 +28,7 @@ global.expect = chai.expect;
 
 var bail = typeof process.env.TEST_BAIL !== 'undefined';
 var tested = process.env.TESTED || '*';
-var testedApp = process.env.TESTED_APP || 'admin,tasklist,cockpit,welcome';
+var testedApp = process.env.TESTED_APP || 'admin,tasklist,monitoring,welcome';
 testedApp = testedApp.indexOf(',') > -1 ? '{' + testedApp + '}' : testedApp;
 
 var specsPath = '../../' + testedApp + '/tests/specs/' + tested + '-spec.js';

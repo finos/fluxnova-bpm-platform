@@ -42,7 +42,7 @@ describe('The local storage', function() {
   before(function(done) {
     jQuery.ajax('/base/test/karma/forms/form-localstorage.html', {
       success: function(data) {
-        $simpleFormDoc = jQuery('<div id="test-form">'+ data +'</div>');
+        $simpleFormDoc = jQuery('<div id="test-form">' + data + '</div>');
         // the following lines allow to see the form in the browser
         var _$top = $(top.document);
         _$top.find('#test-form').remove();
@@ -59,15 +59,15 @@ describe('The local storage', function() {
     });
   });
 
-
-
   it('stores', function(done) {
     var fxnForm;
 
-    localStorage.removeItem('fxnForm:'+ testProcessId);
+    localStorage.removeItem('fxnForm:' + testProcessId);
 
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(fxnForm.isRestorable()).not.to.be.ok;
 
@@ -77,9 +77,10 @@ describe('The local storage', function() {
 
       var storedVars;
       try {
-        storedVars = JSON.parse(localStorage.getItem('fxnForm:'+ testProcessId)).vars;
-      }
-      catch (e) {
+        storedVars = JSON.parse(
+          localStorage.getItem('fxnForm:' + testProcessId)
+        ).vars;
+      } catch (e) {
         return done(e);
       }
 
@@ -94,22 +95,28 @@ describe('The local storage', function() {
       client: fxnClient,
       processDefinitionId: testProcessId,
       formElement: $simpleFormDoc.find('form[fxn-form]'),
-      done: function() {window.setTimeout(ready);}
+      done: function() {
+        window.setTimeout(ready);
+      }
     });
   });
-
 
   it('restores', function(done) {
     var fxnForm;
 
-    localStorage.setItem('fxnForm:'+ testProcessId, JSON.stringify({
-      vars: {
-        stringVar: 'fromStorage'
-      }
-    }));
+    localStorage.setItem(
+      'fxnForm:' + testProcessId,
+      JSON.stringify({
+        vars: {
+          stringVar: 'fromStorage'
+        }
+      })
+    );
 
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(fxnForm.isRestorable()).to.be.ok;
 
@@ -128,17 +135,20 @@ describe('The local storage', function() {
       client: fxnClient,
       processDefinitionId: testProcessId,
       formElement: $simpleFormDoc.find('form[fxn-form]'),
-      done: function() {window.setTimeout(ready);}
+      done: function() {
+        window.setTimeout(ready);
+      }
     });
   });
-
 
   describe('handling on submission', function() {
     it('is kept upon failed response from server', function(done) {
       var fxnForm;
 
       function ready(err) {
-        if (err) { return done(err); }
+        if (err) {
+          return done(err);
+        }
 
         fxnForm.submitVariables = function(cb) {
           cb(new Error('Murphy inna di place'), {});
@@ -148,61 +158,71 @@ describe('The local storage', function() {
         fxnForm.submit(function(_err) {
           expect(_err).to.be.ok;
 
-          expect(localStorage.getItem('fxnForm:'+ testProcessId)).to.be.ok;
+          expect(localStorage.getItem('fxnForm:' + testProcessId)).to.be.ok;
 
           done();
         });
       }
 
-      localStorage.setItem('fxnForm:'+ testProcessId, JSON.stringify({
-        date: 1467107571159,
-        vars: {
-          stringVar: 'fromStorage'
-        }
-      }));
+      localStorage.setItem(
+        'fxnForm:' + testProcessId,
+        JSON.stringify({
+          date: 1467107571159,
+          vars: {
+            stringVar: 'fromStorage'
+          }
+        })
+      );
 
       fxnForm = new FxnSDK.Form({
         client: fxnClient,
         processDefinitionId: testProcessId,
         formElement: $simpleFormDoc.find('form[fxn-form]'),
-        done: function() {window.setTimeout(ready);}
+        done: function() {
+          window.setTimeout(ready);
+        }
       });
     });
-
 
     it('is wiped upon successful response from server', function(done) {
       var fxnForm;
 
       function ready(err) {
-        if (err) { return done(err); }
+        if (err) {
+          return done(err);
+        }
 
         fxnForm.submitVariables = function(cb) {
           cb();
         };
 
-
         // given a successful form submission
         fxnForm.submit(function(_err) {
           expect(_err).not.to.be.ok;
 
-          expect(localStorage.getItem('fxnForm:'+ testProcessId)).not.to.be.ok;
+          expect(localStorage.getItem('fxnForm:' + testProcessId)).not.to.be.ok;
 
           done();
         });
       }
 
-      localStorage.setItem('fxnForm:'+ testProcessId, JSON.stringify({
-        date: 1467107571159,
-        vars: {
-          stringVar: 'fromStorage'
-        }
-      }));
+      localStorage.setItem(
+        'fxnForm:' + testProcessId,
+        JSON.stringify({
+          date: 1467107571159,
+          vars: {
+            stringVar: 'fromStorage'
+          }
+        })
+      );
 
       fxnForm = new FxnSDK.Form({
         client: fxnClient,
         processDefinitionId: testProcessId,
         formElement: $simpleFormDoc.find('form[fxn-form]'),
-        done: function() {window.setTimeout(ready);}
+        done: function() {
+          window.setTimeout(ready);
+        }
       });
     });
   });

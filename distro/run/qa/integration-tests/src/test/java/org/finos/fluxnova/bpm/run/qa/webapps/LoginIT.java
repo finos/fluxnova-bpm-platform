@@ -43,9 +43,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 /**
  * NOTE:
  * copied from
- * <a href="https://github.com/camunda/camunda-bpm-platform/blob/master/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/LoginIT.java">platform</a>
+ * <a href="https://github.com/finos/fluxnova-bpm-platform/tree/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/LoginIT.java">platform</a>
  * then added <code>@BeforeParam</code> and <code>@AfterParam</code> methods for container setup
- * and <code>@Parameters</code> for different setups, might be removed with https://jira.camunda.com/browse/CAM-11379
+ * and <code>@Parameters</code> for different setups.
  */
 @RunWith(Parameterized.class)
 public class LoginIT extends AbstractWebappUiIT {
@@ -116,16 +116,16 @@ public class LoginIT extends AbstractWebappUiIT {
   }
 
   @Test
-  public void shouldLoginToCockpit() throws URISyntaxException {
+  public void shouldLoginToMonitoring() throws URISyntaxException {
     try {
-      loginToCockpit();
+      loginToMonitoring();
     } catch (WebDriverException e) {
-      loginToCockpit();
+      loginToMonitoring();
     }
   }
 
-  public void loginToCockpit() throws URISyntaxException {
-    String appName = "cockpit";
+  public void loginToMonitoring() throws URISyntaxException {
+    String appName = "monitoring";
     login(appName);
     wait.until(textToBePresentInElementLocated(
         By.cssSelector(".deployed .processes .stats-label"),

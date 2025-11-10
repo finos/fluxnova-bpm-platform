@@ -117,7 +117,7 @@ public class TelemetryRestServiceTest extends AbstractRestServiceTest {
         .body("product.internals.metrics.flow-node-instances.count", equalTo(6125))
         .body("product.internals.metrics.executed-decision-elements.count", equalTo(732))
         .body("product.internals.metrics.decision-instances.count", equalTo(140))
-        .body("product.internals.webapps[0]", equalTo("cockpit"))
+        .body("product.internals.webapps[0]", equalTo("monitoring"))
         .body("product.internals.jdk.vendor", equalTo(MockProvider.EXAMPLE_TELEMETRY_JDK_VENDOR))
         .body("product.internals.jdk.version", equalTo(MockProvider.EXAMPLE_TELEMETRY_JDK_VERSION))
         .body("product.internals.application-server.vendor", equalTo(MockProvider.EXAMPLE_TELEMETRY_APP_SERVER_VENDOR))

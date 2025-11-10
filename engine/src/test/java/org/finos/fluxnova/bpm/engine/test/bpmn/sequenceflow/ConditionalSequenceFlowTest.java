@@ -80,8 +80,6 @@ public class ConditionalSequenceFlowTest extends PluggableProcessEngineTest {
    *
    * BPMN 2.0.1 p. 436 (PDF 466):
    * "The inclusive gateway throws an exception in case all conditions evaluate to false and a default flow has not been specified."
-   *
-   * @see <a href="https://app.camunda.com/jira/browse/CAM-1773">https://app.camunda.com/jira/browse/CAM-1773</a>
    */
   @Deployment
   @Test

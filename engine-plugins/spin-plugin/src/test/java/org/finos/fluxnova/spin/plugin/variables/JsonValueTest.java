@@ -247,9 +247,6 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
     assertEquals(true, returnedValueInfo.get(ValueType.VALUE_INFO_TRANSIENT));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9932
-   */
   public void testTransientJsonSpinVariables() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcess")

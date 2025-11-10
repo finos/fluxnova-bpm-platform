@@ -33,8 +33,8 @@ import java.util.logging.Logger;
 
 /**
  * NOTE: copied from
- * <a href="https://github.com/camunda/camunda-bpm-platform/blob/master/qa/integration-tests-webapps/integration-tests/src/test/java/org/finos/fluxnova/bpm/AbstractWebIntegrationTest.java">platform</a>,
- * might be removed with https://jira.camunda.com/browse/CAM-11379
+ * <a href="https://github.com/finos/fluxnova-bpm-platform/tree/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/AbstractWebIntegrationTest.java
+">platform</a>,
  */
 public abstract class AbstractWebIT {
 

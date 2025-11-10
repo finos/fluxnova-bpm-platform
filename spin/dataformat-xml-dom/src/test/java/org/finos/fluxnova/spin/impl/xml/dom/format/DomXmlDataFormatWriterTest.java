@@ -59,7 +59,7 @@ public class DomXmlDataFormatWriterTest {
 
 
   // this is what execution.setVariable("test", spinXml); does
-  // see https://github.com/camunda/camunda-bpm-platform/blob/master/engine-plugins/spin-plugin/src/main/java/org/finos/fluxnova/spin/plugin/impl/SpinValueSerializer.java
+  // see https://github.com/finos/fluxnova-bpm-platform/blob/main/engine-plugins/spin-plugin/src/main/java/org/finos/fluxnova/spin/plugin/impl/SpinValueSerializer.java
   private byte[] serializeValue(SpinXmlElement spinXml) throws UnsupportedEncodingException {
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     OutputStreamWriter outWriter = new OutputStreamWriter(out, "UTF-8");
@@ -206,7 +206,6 @@ public class DomXmlDataFormatWriterTest {
   }
 
   /**
-   * new feature provided by https://github.com/camunda/camunda-bpm-platform/issues/3633: custom formatting
    * configuration to preserve-space.
    */
   @Test

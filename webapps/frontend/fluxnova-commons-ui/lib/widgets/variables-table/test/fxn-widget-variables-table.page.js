@@ -28,17 +28,17 @@ Variable.prototype.classes = function() {
   return this.node.getAttribute('class');
 };
 
-
 Variable.prototype.textCell = function(colName) {
   return this.node.element(by.css('.col-' + colName));
 };
-
 
 Variable.prototype.actionsCell = function() {
   return this.node.element(by.css('.actions'));
 };
 Variable.prototype.editButton = function() {
-  return this.actionsCell().element(by.css('[ng-click="info.editMode = true"]'));
+  return this.actionsCell().element(
+    by.css('[ng-click="info.editMode = true"]')
+  );
 };
 Variable.prototype.deleteButton = function() {
   return this.actionsCell().element(by.css('[ng-click="deleteVariable(v)"]'));
@@ -47,7 +47,9 @@ Variable.prototype.saveButton = function() {
   return this.actionsCell().element(by.css('[ng-click="saveVariable(v)"]'));
 };
 Variable.prototype.revertButton = function() {
-  return this.actionsCell().element(by.css('[ng-click="info.editMode = false"]'));
+  return this.actionsCell().element(
+    by.css('[ng-click="info.editMode = false"]')
+  );
 };
 
 Variable.prototype.enterEditMode = function() {
@@ -57,15 +59,12 @@ Variable.prototype.leaveEditMode = function() {
   this.revertButton().click();
 };
 
-
 Variable.prototype.setNullButton = function() {
   return this.node.element(by.css('.set-null'));
 };
 Variable.prototype.setNonNullButton = function() {
   return this.node.element(by.css('.null-value'));
 };
-
-
 
 Variable.prototype.type = function() {
   return this.node.element(by.css('td.col-type'));
@@ -84,8 +83,6 @@ Variable.prototype.typeCss = function() {
   return this.typeSelectElement().getAttribute('class');
 };
 
-
-
 Variable.prototype.name = function() {
   return this.node.element(by.css('td.col-name'));
 };
@@ -101,8 +98,6 @@ Variable.prototype.nameText = function() {
 Variable.prototype.nameCss = function() {
   return this.name().getAttribute('class');
 };
-
-
 
 Variable.prototype.value = function() {
   return this.node.element(by.css('td.col-value'));
@@ -129,8 +124,6 @@ Variable.prototype.valueCss = function() {
   return this.value().getAttribute('class');
 };
 
-
-
 function Modal(node) {
   this.node = node;
 }
@@ -145,10 +138,14 @@ Modal.prototype.textareaSerialized = function() {
   return this.body().element(by.css('textarea[ng-model="variable.value"]'));
 };
 Modal.prototype.objectTypeInput = function() {
-  return this.body().element(by.css('[ng-model="variable.valueInfo.objectTypeName"]'));
+  return this.body().element(
+    by.css('[ng-model="variable.valueInfo.objectTypeName"]')
+  );
 };
 Modal.prototype.serializationTypeInput = function() {
-  return this.body().element(by.css('[ng-model="variable.valueInfo.serializationDataFormat"]'));
+  return this.body().element(
+    by.css('[ng-model="variable.valueInfo.serializationDataFormat"]')
+  );
 };
 Modal.prototype.footer = function() {
   return this.node.element(by.css('.modal-footer'));
@@ -157,9 +154,7 @@ Modal.prototype.button = function(text) {
   return this.footer().element(by.cssContainingText('button', text));
 };
 
-
-
-function Page() { }
+function Page() {}
 
 Page.prototype.variable = function(identifier, index) {
   var varSelector = identifier + ' [fxn-widget-variables-table] tbody tr';
@@ -174,9 +169,7 @@ Page.prototype.applyButton = function() {
   return element(by.css('form > button'));
 };
 
-
 module.exports = new Page();
-
 
 module.exports.Variable = Variable;
 module.exports.Modal = Modal;

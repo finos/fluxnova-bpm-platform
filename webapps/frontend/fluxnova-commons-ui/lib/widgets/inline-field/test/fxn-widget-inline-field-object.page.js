@@ -64,10 +64,14 @@ Field.prototype.datepicker = function() {
   return element(by.css('.datepicker'));
 };
 Field.prototype.datepicker.day = function(day) {
-  return this().element(by.cssContainingText('button > span:not(.text-muted)', day));
+  return this().element(
+    by.cssContainingText('button > span:not(.text-muted)', day)
+  );
 };
 Field.prototype.datepicker.activeDay = function() {
-  return this().element(by.css('button.active')).getText();
+  return this()
+    .element(by.css('button.active'))
+    .getText();
 };
 Field.prototype.timepicker = function() {
   return element(by.className('timepicker'));
@@ -76,25 +80,33 @@ Field.prototype.timepicker.hoursField = function() {
   return this().element(by.model('hours'));
 };
 Field.prototype.timepicker.hoursValue = function() {
-  return this().element(by.model('hours')).getAttribute('value');
+  return this()
+    .element(by.model('hours'))
+    .getAttribute('value');
 };
 Field.prototype.timepicker.minutesField = function() {
   return this().element(by.model('minutes'));
 };
 Field.prototype.timepicker.minutesValue = function() {
-  return this().element(by.model('minutes')).getAttribute('value');
+  return this()
+    .element(by.model('minutes'))
+    .getAttribute('value');
 };
 Field.prototype.dropdown = function() {
   return this.node.element(by.className('dropdown-menu'));
 };
 Field.prototype.dropdownOption = function(option) {
-  return this.dropdown().all(by.tagName('a')).get(option);
+  return this.dropdown()
+    .all(by.tagName('a'))
+    .get(option);
 };
 Field.prototype.dropdownOptionByText = function(text) {
   return this.dropdown().element(by.linkText(text));
 };
 Field.prototype.dropdownOptionCount = function() {
-  return this.dropdown().all(by.tagName('li')).count();
+  return this.dropdown()
+    .all(by.tagName('li'))
+    .count();
 };
 
 module.exports = Field;

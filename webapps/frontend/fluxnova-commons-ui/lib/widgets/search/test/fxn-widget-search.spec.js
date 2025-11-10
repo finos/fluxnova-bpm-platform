@@ -22,8 +22,10 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/search/test/fxn-widget-search.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/search/test/fxn-widget-search.spec.html';
 
 var page = require('./fxn-widget-search.page.js');
 
@@ -51,89 +53,237 @@ function clearPills(example) {
 }
 
 describe('Search Widget', function() {
-
   beforeEach(function() {
-    browser.get(pageUrl +'#example1');
+    browser.get(pageUrl + '#example1');
   });
 
   // this is a problem encounter on IE11
   it('should not show a dropdown at initialization', function() {
-    expect(page.example('example1').inputDropdown().isDisplayed()).to.eventually.eql(false);
+    expect(
+      page
+        .example('example1')
+        .inputDropdown()
+        .isDisplayed()
+    ).to.eventually.eql(false);
   });
 
   it('should show dropdown on click', function() {
-    page.example('example1').searchInput().click();
-    expect(page.example('example1').inputDropdown().isDisplayed()).to.eventually.eql(true);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    expect(
+      page
+        .example('example1')
+        .inputDropdown()
+        .isDisplayed()
+    ).to.eventually.eql(true);
   });
 
   it('should create search pill on select in dropdown', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(2).click();
-    expect(page.example('example1').searchPills().count()).to.eventually.eql(1);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(2)
+      .click();
+    expect(
+      page
+        .example('example1')
+        .searchPills()
+        .count()
+    ).to.eventually.eql(1);
   });
 
   it('should focus the value input of a newly created search pill', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    expect(page.example('example1').searchPill(0).valueField().inputField().isPresent()).to.eventually.eql(true);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    expect(
+      page
+        .example('example1')
+        .searchPill(0)
+        .valueField()
+        .inputField()
+        .isPresent()
+    ).to.eventually.eql(true);
 
-    browser.driver.switchTo().activeElement().getAttribute('ng-model').then(function(val) {
-      expect(page.example('example1').searchPill(0).valueField().inputField().getAttribute('ng-model')).to.eventually.eql(val);
-    });
+    browser.driver
+      .switchTo()
+      .activeElement()
+      .getAttribute('ng-model')
+      .then(function(val) {
+        expect(
+          page
+            .example('example1')
+            .searchPill(0)
+            .valueField()
+            .inputField()
+            .getAttribute('ng-model')
+        ).to.eventually.eql(val);
+      });
   });
 
   it('should focus the value input of a newly created search pill', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(2).click();
-    expect(page.example('example1').searchPill(0).nameField().inputField().isPresent()).to.eventually.eql(true);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(2)
+      .click();
+    expect(
+      page
+        .example('example1')
+        .searchPill(0)
+        .nameField()
+        .inputField()
+        .isPresent()
+    ).to.eventually.eql(true);
 
-    browser.driver.switchTo().activeElement().getAttribute('ng-model').then(function(val) {
-      expect(page.example('example1').searchPill(0).nameField().inputField().getAttribute('ng-model')).to.eventually.eql(val);
-    });
+    browser.driver
+      .switchTo()
+      .activeElement()
+      .getAttribute('ng-model')
+      .then(function(val) {
+        expect(
+          page
+            .example('example1')
+            .searchPill(0)
+            .nameField()
+            .inputField()
+            .getAttribute('ng-model')
+        ).to.eventually.eql(val);
+      });
   });
 
   it('should select the next invalid search pill on enter', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
 
-    page.example('example1').searchPill(1).valueField().type('nowValid', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchPill(1)
+      .valueField()
+      .type('nowValid', protractor.Key.ENTER);
 
-    expect(page.example('example1').searchPill(0).valueField().inputField().isPresent()).to.eventually.eql(true);
+    expect(
+      page
+        .example('example1')
+        .searchPill(0)
+        .valueField()
+        .inputField()
+        .isPresent()
+    ).to.eventually.eql(true);
 
-    browser.driver.switchTo().activeElement().getAttribute('ng-model').then(function(val) {
-      expect(page.example('example1').searchPill(0).valueField().inputField().getAttribute('ng-model')).to.eventually.eql(val);
-    });
+    browser.driver
+      .switchTo()
+      .activeElement()
+      .getAttribute('ng-model')
+      .then(function(val) {
+        expect(
+          page
+            .example('example1')
+            .searchPill(0)
+            .valueField()
+            .inputField()
+            .getAttribute('ng-model')
+        ).to.eventually.eql(val);
+      });
   });
 
   it('should return valid and all searches', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
 
-    page.example('example1').searchPill(1).valueField().type('nowValid', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchPill(1)
+      .valueField()
+      .type('nowValid', protractor.Key.ENTER);
 
     expect(page.example('example1').allSearchesCount()).to.eventually.eql('2');
-    expect(page.example('example1').validSearchesCount()).to.eventually.eql('1');
+    expect(page.example('example1').validSearchesCount()).to.eventually.eql(
+      '1'
+    );
   });
 
   it('should store valid searches in the URL', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchPill(0).valueField().type('nowValid', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchPill(0)
+      .valueField()
+      .type('nowValid', protractor.Key.ENTER);
 
     browser.getCurrentUrl().then(function(url) {
       browser.get(url);
-      expect(page.example('example1').searchPills().count()).to.eventually.eql(1);
+      expect(
+        page
+          .example('example1')
+          .searchPills()
+          .count()
+      ).to.eventually.eql(1);
     });
   });
 
   it('should adjust searches on changes in the URL', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchPill(0).valueField().type('nowValid', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchPill(0)
+      .valueField()
+      .type('nowValid', protractor.Key.ENTER);
 
     browser.getCurrentUrl().then(function(url) {
       expect(url).to.contain('nowValid');
@@ -143,19 +293,40 @@ describe('Search Widget', function() {
       location = location.replace('nowValid', 'anotherString');
 
       browser.setLocation(location).then(function() {
-        expect(page.example('example1').searchPill(0).valueField().text()).to.eventually.eql('anotherString');
+        expect(
+          page
+            .example('example1')
+            .searchPill(0)
+            .valueField()
+            .text()
+        ).to.eventually.eql('anotherString');
       });
-
     });
   });
 
   it('should retail invalid searches when adjusting searches on changes in the URL', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchPill(0).valueField().type('nowValid', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchPill(0)
+      .valueField()
+      .type('nowValid', protractor.Key.ENTER);
 
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
 
     browser.getCurrentUrl().then(function(url) {
       expect(url).to.contain('nowValid');
@@ -165,25 +336,53 @@ describe('Search Widget', function() {
       location = location.replace('nowValid', 'anotherString');
 
       browser.setLocation(location).then(function() {
-        expect(page.example('example1').searchPills().count()).to.eventually.eql(2);
+        expect(
+          page
+            .example('example1')
+            .searchPills()
+            .count()
+        ).to.eventually.eql(2);
       });
-
     });
   });
 
   it('should use default type', function() {
     var input = 'I am ignoring the typeahead';
 
-    page.example('example1').searchInput().click();
-    page.example('example1').searchInput().sendKeys(input, protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .searchInput()
+      .sendKeys(input, protractor.Key.ENTER);
 
-    expect(page.example('example1').searchPill(0).typeField().text()).to.eventually.eql('Predefined Operators');
-    expect(page.example('example1').searchPill(0).valueField().text()).to.eventually.eql(input);
+    expect(
+      page
+        .example('example1')
+        .searchPill(0)
+        .typeField()
+        .text()
+    ).to.eventually.eql('Predefined Operators');
+    expect(
+      page
+        .example('example1')
+        .searchPill(0)
+        .valueField()
+        .text()
+    ).to.eventually.eql(input);
   });
 
   it('should display operators depending on value type', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(2).click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(2)
+      .click();
 
     var pill = page.example('example1').searchPill(0);
 
@@ -201,95 +400,241 @@ describe('Search Widget', function() {
 
     // undefined
     pill.valueField().click();
-    pill.valueField().clear().type(protractor.Key.ENTER);
+    pill
+      .valueField()
+      .clear()
+      .type(protractor.Key.ENTER);
     pill.operatorField().click();
     expect(pill.operatorField().dropdownOptionCount()).to.eventually.eql(2);
   });
 
   it('should store valid searches for multiple widget instances', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(0).click();
-    page.example('example1').searchPill(0).valueField().type('nowValidSearch1', protractor.Key.ENTER);
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example1')
+      .searchPill(0)
+      .valueField()
+      .type('nowValidSearch1', protractor.Key.ENTER);
 
-    page.example('example2').searchInput().click();
-    page.example('example2').inputDropdownOption(0).click();
-    page.example('example2').searchPill(0).valueField().type('nowValidSearch2', protractor.Key.ENTER);
+    page
+      .example('example2')
+      .searchInput()
+      .click();
+    page
+      .example('example2')
+      .inputDropdownOption(0)
+      .click();
+    page
+      .example('example2')
+      .searchPill(0)
+      .valueField()
+      .type('nowValidSearch2', protractor.Key.ENTER);
 
     browser.getCurrentUrl().then(function(url) {
       browser.get(url);
-      expect(page.example('example1').searchPill(0).valueField().text()).to.eventually.eql('nowValidSearch1');
-      expect(page.example('example2').searchPill(0).valueField().text()).to.eventually.eql('nowValidSearch2');
+      expect(
+        page
+          .example('example1')
+          .searchPill(0)
+          .valueField()
+          .text()
+      ).to.eventually.eql('nowValidSearch1');
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .valueField()
+          .text()
+      ).to.eventually.eql('nowValidSearch2');
     });
   });
 
   it('should add a valid search pill with type basic', function() {
-    page.example('example1').searchInput().click();
-    page.example('example1').inputDropdownOption(3).click();
+    page
+      .example('example1')
+      .searchInput()
+      .click();
+    page
+      .example('example1')
+      .inputDropdownOption(3)
+      .click();
 
-    expect(page.example('example1').validSearchesCount()).to.eventually.eql('1');
+    expect(page.example('example1').validSearchesCount()).to.eventually.eql(
+      '1'
+    );
   });
 
   describe('Groups', function() {
     it('should show all available groups initially', function() {
-      page.example('example2').searchInput().click();
-      expect(page.example('example2').inputDropdownOptionCount()).to.eventually.eql(3);
+      page
+        .example('example2')
+        .searchInput()
+        .click();
+      expect(
+        page.example('example2').inputDropdownOptionCount()
+      ).to.eventually.eql(3);
     });
 
     it('should show only matching options in the input dropdown', function() {
-      page.example('example2').searchInput().click();
-      page.example('example2').inputDropdownOption(0).click();
-      page.example('example2').searchInput().click();
+      page
+        .example('example2')
+        .searchInput()
+        .click();
+      page
+        .example('example2')
+        .inputDropdownOption(0)
+        .click();
+      page
+        .example('example2')
+        .searchInput()
+        .click();
 
-      expect(page.example('example2').inputDropdownOption(0).getText()).to.eventually.eql('A');
-      expect(page.example('example2').inputDropdownOption(1).getText()).to.eventually.eql('C');
+      expect(
+        page
+          .example('example2')
+          .inputDropdownOption(0)
+          .getText()
+      ).to.eventually.eql('A');
+      expect(
+        page
+          .example('example2')
+          .inputDropdownOption(1)
+          .getText()
+      ).to.eventually.eql('C');
     });
 
     it('should allow type change of existing search pill only within valid group', function() {
-      page.example('example2').searchInput().click();
-      page.example('example2').inputDropdownOption(1).click();
-      page.example('example2').searchPill(0).typeField().click();
+      page
+        .example('example2')
+        .searchInput()
+        .click();
+      page
+        .example('example2')
+        .inputDropdownOption(1)
+        .click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .click();
 
-      expect(page.example('example2').searchPill(0).typeField().dropdownOption(0).getText()).to.eventually.eql('B');
-      expect(page.example('example2').searchPill(0).typeField().dropdownOption(1).getText()).to.eventually.eql('C');
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .typeField()
+          .dropdownOption(0)
+          .getText()
+      ).to.eventually.eql('B');
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .typeField()
+          .dropdownOption(1)
+          .getText()
+      ).to.eventually.eql('C');
     });
 
     it('should update allowed groups', function() {
-      page.example('example2').searchInput().click();
-      page.example('example2').inputDropdownOption(1).click();
+      page
+        .example('example2')
+        .searchInput()
+        .click();
+      page
+        .example('example2')
+        .inputDropdownOption(1)
+        .click();
 
-      page.example('example2').searchPill(0).typeField().click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .click();
 
-      expect(page.example('example2').searchPill(0).typeField().dropdownOptionCount()).to.eventually.eql(2);
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .typeField()
+          .dropdownOptionCount()
+      ).to.eventually.eql(2);
 
-      page.example('example2').searchPill(0).typeField().dropdownOption(1).click();
-      page.example('example2').searchPill(0).typeField().click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .dropdownOption(1)
+        .click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .click();
 
-      expect(page.example('example2').searchPill(0).typeField().dropdownOptionCount()).to.eventually.eql(3);
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .typeField()
+          .dropdownOptionCount()
+      ).to.eventually.eql(3);
 
-      page.example('example2').searchPill(0).typeField().dropdownOption(0).click();
-      page.example('example2').searchPill(0).typeField().click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .dropdownOption(0)
+        .click();
+      page
+        .example('example2')
+        .searchPill(0)
+        .typeField()
+        .click();
 
-      expect(page.example('example2').searchPill(0).typeField().dropdownOptionCount()).to.eventually.eql(2);
+      expect(
+        page
+          .example('example2')
+          .searchPill(0)
+          .typeField()
+          .dropdownOptionCount()
+      ).to.eventually.eql(2);
     });
   });
 
-
   describe('local persitence', function() {
     it('is not accessible when the widget does not have search pill and no record can be found', function() {
-      expect(page.example('example1').storageDropdownButton().isEnabled()).to.eventually.eql(false);
+      expect(
+        page
+          .example('example1')
+          .storageDropdownButton()
+          .isEnabled()
+      ).to.eventually.eql(false);
     });
-
 
     it('is accessible when the widget has at least 1 search pill', function() {
       var example = page.example('example1');
 
       example.searchInput().click();
       example.inputDropdownOption(3).click();
-      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(true);
-      example.searchPill(0).removeButton().click();
-      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(false);
+      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(
+        true
+      );
+      example
+        .searchPill(0)
+        .removeButton()
+        .click();
+      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(
+        false
+      );
     });
-
 
     it('allows to save a set of search criteria', function() {
       browser.executeScript('localStorage.removeItem("fluxnova")');
@@ -306,7 +651,9 @@ describe('Search Widget', function() {
       example.inputDropdownOption(3).click();
 
       example.storageDropdownButton().click();
-      expect(example.storageDropdownMenu().isDisplayed()).to.eventually.eql(true);
+      expect(example.storageDropdownMenu().isDisplayed()).to.eventually.eql(
+        true
+      );
 
       var input = example.storageDropdownInput();
       var btn = example.storageDropdownInputButton();
@@ -314,7 +661,6 @@ describe('Search Widget', function() {
       expect(input.isDisplayed()).to.eventually.eql(true);
       expect(input.isEnabled()).to.eventually.eql(true);
       expect(btn.isEnabled()).to.eventually.eql(false);
-
 
       input.sendKeys('tractor');
       expect(btn.isEnabled()).to.eventually.eql(true);
@@ -328,13 +674,12 @@ describe('Search Widget', function() {
       var label = example.storageDropdownMenuItemName(2);
       expect(label.getText()).to.eventually.eql('tractor');
 
-      browser.executeScript('return JSON.parse(localStorage.getItem("fluxnova"))')
+      browser
+        .executeScript('return JSON.parse(localStorage.getItem("fluxnova"))')
         .then(function(result) {
           expect(result.searchCriteria.search1.tractor).to.be.an('array');
-        })
-      ;
+        });
     });
-
 
     it('can restore a set of saved criteria', function() {
       var example = page.example('example1');
@@ -343,7 +688,9 @@ describe('Search Widget', function() {
 
       expect(example.searchPills().count()).to.eventually.eql(0);
 
-      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(true);
+      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(
+        true
+      );
       example.storageDropdownButton().click();
 
       var items = example.storageDropdownMenuItems();
@@ -358,12 +705,7 @@ describe('Search Widget', function() {
         var criteria = JSON.parse(decodeURIComponent(query.search1Query));
         expect(criteria).to.be.an('array');
         expect(criteria).to.be.have.length(2);
-        expect(criteria[0]).to.have.keys([
-          'type',
-          'operator',
-          'value',
-          'name'
-        ]);
+        expect(criteria[0]).to.have.keys(['type', 'operator', 'value', 'name']);
         expect(criteria[0].type).to.eql('PredefinedOperators');
         expect(criteria[0].operator).to.eql('eq');
         expect(criteria[0].value).to.eql('something');
@@ -373,10 +715,11 @@ describe('Search Widget', function() {
       });
     });
 
-
     it('allows to drop a set of search criteria', function() {
       var example = page.example('example1');
-      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(true);
+      expect(example.storageDropdownButton().isEnabled()).to.eventually.eql(
+        true
+      );
       example.storageDropdownButton().click();
 
       var items = example.storageDropdownMenuItems();
@@ -387,14 +730,13 @@ describe('Search Widget', function() {
       items = example.storageDropdownMenuItems();
       expect(items.count()).to.eventually.eql(1);
 
-      browser.executeScript('return JSON.parse(localStorage.getItem("fluxnova"))')
+      browser
+        .executeScript('return JSON.parse(localStorage.getItem("fluxnova"))')
         .then(function(result) {
           expect(result.searchCriteria.search1).to.be.an('object');
           expect(Object.keys(result.searchCriteria.search1)).to.have.length(0);
-        })
-      ;
+        });
     });
-
 
     describe('with groups', function() {
       var example, input, ddBtn, saveBtn;
@@ -404,70 +746,76 @@ describe('Search Widget', function() {
       });
 
       it('stores the sets in separate groups', function() {
-        browser.executeScript('localStorage.removeItem("fluxnova")')
+        browser
+          .executeScript('localStorage.removeItem("fluxnova")')
           .then(function(res) {
             input = example.storageDropdownInput();
             ddBtn = example.storageDropdownButton();
             saveBtn = example.storageDropdownInputButton();
 
-
-
             clearPills(example);
 
             example.searchInput().click();
             example.inputDropdownOption(0).click();
-            example.searchPill(0).valueField().type('X', protractor.Key.ENTER);
+            example
+              .searchPill(0)
+              .valueField()
+              .type('X', protractor.Key.ENTER);
 
             example.searchInput().click();
             example.inputDropdownOption(1).click();
-            example.searchPill(1).valueField().type('Z', protractor.Key.ENTER);
-
+            example
+              .searchPill(1)
+              .valueField()
+              .type('Z', protractor.Key.ENTER);
 
             ddBtn.click();
             input.sendKeys('A1');
             saveBtn.click();
 
-
-
             clearPills(example);
 
             example.searchInput().click();
             example.inputDropdownOption(0).click();
-            example.searchPill(0).valueField().type('X', protractor.Key.ENTER);
+            example
+              .searchPill(0)
+              .valueField()
+              .type('X', protractor.Key.ENTER);
 
             ddBtn.click();
             input.sendKeys('A2');
             saveBtn.click();
 
-
-
-
             clearPills(example);
 
             example.searchInput().click();
             example.inputDropdownOption(1).click();
-            example.searchPill(0).valueField().type('Y', protractor.Key.ENTER);
+            example
+              .searchPill(0)
+              .valueField()
+              .type('Y', protractor.Key.ENTER);
 
             ddBtn.click();
             input.sendKeys('B1');
             saveBtn.click();
 
-
-
             clearPills(example);
 
-
-
-            browser.executeScript('return JSON.parse(localStorage.getItem("fluxnova"))')
+            browser
+              .executeScript(
+                'return JSON.parse(localStorage.getItem("fluxnova"))'
+              )
               .then(function(result) {
-              // console.info('result', result);
-                expect(result.searchCriteria).to.have.keys(['A', 'B', 'search1']);
+                // console.info('result', result);
+                expect(result.searchCriteria).to.have.keys([
+                  'A',
+                  'B',
+                  'search1'
+                ]);
                 expect(result.searchCriteria.A).to.have.keys(['A1', 'A2']);
                 expect(result.searchCriteria.B).to.have.keys(['B1']);
-              })
-            ;
+              });
           });
-
       });
     });
   });

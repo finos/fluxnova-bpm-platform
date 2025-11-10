@@ -31,7 +31,7 @@ import org.junit.Test;
 public class WebappsDatabaseNamingConsistencyTest {
 
   public static String COLUMN_NAME_REGEX = "([a-zA-Z_]*(?=[a-z]+)[a-zA-Z_]+_)[,\\s]";
-  public static String[] SCANNED_FOLDERS = { "org/finos/fluxnova/bpm/cockpit/plugin/base/queries",
+  public static String[] SCANNED_FOLDERS = { "org/finos/fluxnova/bpm/monitoring/plugin/base/queries",
       "org/finos/fluxnova/bpm/admin/plugin/base/queries" };
 
   @Test

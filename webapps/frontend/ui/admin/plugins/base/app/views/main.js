@@ -16,7 +16,7 @@
  */
 
 /**
- * @namespace cam.cockpit.plugin.base.views
+ * @namespace cam.monitoring.plugin.base.views
  */
 'use strict';
 
@@ -29,7 +29,7 @@ var angular = require('angular'),
   dashboardAuthorizations = require('./dashboard/authorizations'),
   dashboardSystem = require('./dashboard/system');
 
-var ngModule = angular.module('cockpit.plugin.base.views', [fxnCommon.name]);
+var ngModule = angular.module('monitoringplugin.base.views', [fxnCommon.name]);
 
 ngModule.config(dashboardUsers);
 ngModule.config(dashboardGroups);

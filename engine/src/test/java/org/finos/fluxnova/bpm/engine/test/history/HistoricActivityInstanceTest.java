@@ -457,9 +457,6 @@ public class HistoricActivityInstanceTest extends PluggableProcessEngineTest {
     }
   }
 
-  /**
-   * https://app.camunda.com/jira/browse/CAM-1537
-   */
   @Deployment
   @Test
   public void testHistoricActivityInstanceGatewayEndTimes() {

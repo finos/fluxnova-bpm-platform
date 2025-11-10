@@ -130,9 +130,6 @@ public class ParallelGatewayTest extends PluggableProcessEngineTest {
     assertEquals(1, runtimeService.getActivityInstance(pid).getChildActivityInstances().length);
   }
 
-  /**
-   * http://jira.codehaus.org/browse/ACT-1222
-   */
   @Deployment
   @Test
   public void testReceyclingExecutionWithCallActivity() {

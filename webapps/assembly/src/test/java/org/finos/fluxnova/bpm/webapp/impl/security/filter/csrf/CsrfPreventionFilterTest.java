@@ -64,11 +64,11 @@ public class CsrfPreventionFilterTest {
   @Parameterized.Parameters
   public static Collection<Object[]> getRequestUrls() {
     return Arrays.asList(new Object[][]{
-      {"/app/cockpit/default/", "/api/admin/auth/user/default/login/cockpit", true},
-      {"/app/cockpit/engine1/", "/api/admin/auth/user/engine1/login/cockpit", true},
+      {"/app/monitoring/default/", "/api/admin/auth/user/default/login/monitoring", true},
+      {"/app/monitoring/engine1/", "/api/admin/auth/user/engine1/login/monitoring", true},
 
-      {"/app/cockpit/default/", "/api/engine/engine/default/history/task/count", false},
-      {"/app/cockpit/engine1/", "/api/engine/engine/engine1/history/task/count", false},
+      {"/app/monitoring/default/", "/api/engine/engine/default/history/task/count", false},
+      {"/app/monitoring/engine1/", "/api/engine/engine/engine1/history/task/count", false},
 
       {"/app/tasklist/default/", "/api/admin/auth/user/default/login/tasklist", true},
       {"/app/tasklist/engine1/", "/api/admin/auth/user/engine1/login/tasklist", true},

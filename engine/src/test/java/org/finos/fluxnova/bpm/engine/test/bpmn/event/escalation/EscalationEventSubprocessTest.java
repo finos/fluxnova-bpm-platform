@@ -50,7 +50,6 @@ public class EscalationEventSubprocessTest extends PluggableProcessEngineTest {
     assertEquals(1, taskService.createTaskQuery().taskName("task in subprocess").count());
   }
 
-  /** CAM-9220 (https://app.camunda.com/jira/browse/CAM-9220) */
   @Deployment
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
   @Test

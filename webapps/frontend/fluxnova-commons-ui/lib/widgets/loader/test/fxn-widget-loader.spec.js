@@ -22,8 +22,10 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/loader/test/fxn-widget-loader.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/loader/test/fxn-widget-loader.spec.html';
 
 var page = require('./fxn-widget-loader.page.js');
 
@@ -35,7 +37,6 @@ describe('loader', function() {
     loader = page.loader('#interactive-container');
   });
 
-
   describe('initial state', function() {
     it('hides everything', function() {
       expect(loader.isPresent()).to.eventually.eql(true);
@@ -44,7 +45,6 @@ describe('loader', function() {
       expect(loader.defaultPanel().isDisplayed()).to.eventually.eql(false);
     });
   });
-
 
   describe('loading state', function() {
     it('shows the icon', function() {
@@ -55,7 +55,6 @@ describe('loader', function() {
       });
     });
   });
-
 
   describe('loaded state', function() {
     it('shows the transclusion content', function() {
@@ -69,7 +68,6 @@ describe('loader', function() {
     });
   });
 
-
   describe('loaded empty state', function() {
     it('does not show the transclusion content', function() {
       loader.reloadEmptyButton().click(function() {
@@ -81,7 +79,6 @@ describe('loader', function() {
       });
     });
   });
-
 
   describe('error state', function() {
     it('does not show the transclusion content', function() {

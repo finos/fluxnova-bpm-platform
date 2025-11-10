@@ -27,13 +27,11 @@ describe('The node.js usage', function() {
     }).not.to.throw();
   });
 
-
   it('has to be configured', function() {
     expect(function() {
       new FluxnovaClient();
     }).to.throw();
   });
-
 
   describe('configuration', function() {
     it('needs a apiUri property', function() {
@@ -41,8 +39,5 @@ describe('The node.js usage', function() {
         new FluxnovaClient({});
       }).to.throw();
     });
-
-
-
   });
 });

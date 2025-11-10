@@ -33,15 +33,18 @@ module.exports = (_env, argv = {}) => {
 
   return {
     entry: {
-      /* Cockpit */
-      'app/cockpit/fluxnova-cockpit-bootstrap': {
+      /* Monitoring */
+      'app/monitoring/fluxnova-monitoring-bootstrap': {
         import: path.resolve(
           __dirname,
-          'ui/cockpit/client/scripts/fluxnova-cockpit-bootstrap.js'
+          'ui/monitoring/client/scripts/fluxnova-monitoring-bootstrap.js'
         )
       },
-      'plugin/cockpit/app/plugin': {
-        import: path.resolve(__dirname, 'ui/cockpit/plugins/cockpitPlugins.js')
+      'plugin/monitoring/app/plugin': {
+        import: path.resolve(
+          __dirname,
+          'ui/monitoring/plugins/monitoringPlugins.js'
+        )
       },
 
       /* Tasklist */
@@ -52,7 +55,10 @@ module.exports = (_env, argv = {}) => {
         )
       },
       'plugin/tasklist/app/plugin': {
-        import: path.resolve(__dirname, 'ui/tasklist/plugins/tasklistPlugins.js')
+        import: path.resolve(
+          __dirname,
+          'ui/tasklist/plugins/tasklistPlugins.js'
+        )
       },
 
       /* Admin */
@@ -124,7 +130,7 @@ module.exports = (_env, argv = {}) => {
             MiniCssExtractPlugin.loader,
             'css-loader',
             {
-              loader: 'less-loader',
+              loader: 'less-loader'
             }
           ]
         },
@@ -139,11 +145,17 @@ module.exports = (_env, argv = {}) => {
       new HtmlWebPackPlugin({
         minify: false,
         inject: false,
-        appName: 'cockpit',
-        template: path.resolve(__dirname, 'ui/cockpit/client/scripts/index.html'),
-        filename: 'app/cockpit/index.html',
-        chunks: ['app/cockpit/fluxnova-cockpit-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
+        appName: 'monitoring',
+        template: path.resolve(
+          __dirname,
+          'ui/monitoring/client/scripts/index.html'
+        ),
+        filename: 'app/monitoring/index.html',
+        chunks: ['app/monitoring/fluxnova-monitoring-bootstrap'],
+        favicon: path.resolve(
+          __dirname,
+          'ui/common/images/fluxnova-favicon.ico'
+        ),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -154,7 +166,10 @@ module.exports = (_env, argv = {}) => {
         template: path.resolve(__dirname, 'ui/tasklist/client/index.html'),
         filename: 'app/tasklist/index.html',
         chunks: ['app/tasklist/fluxnova-tasklist-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
+        favicon: path.resolve(
+          __dirname,
+          'ui/common/images/fluxnova-favicon.ico'
+        ),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -165,7 +180,10 @@ module.exports = (_env, argv = {}) => {
         template: path.resolve(__dirname, 'ui/admin/client/scripts/index.html'),
         filename: 'app/admin/index.html',
         chunks: ['app/admin/fluxnova-admin-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
+        favicon: path.resolve(
+          __dirname,
+          'ui/common/images/fluxnova-favicon.ico'
+        ),
         publicPath: '$APP_ROOT',
         version
       }),
@@ -173,10 +191,16 @@ module.exports = (_env, argv = {}) => {
         minify: false,
         inject: false,
         appName: 'welcome',
-        template: path.resolve(__dirname, 'ui/welcome/client/scripts/index.html'),
+        template: path.resolve(
+          __dirname,
+          'ui/welcome/client/scripts/index.html'
+        ),
         filename: 'app/welcome/index.html',
         chunks: ['app/welcome/fluxnova-welcome-bootstrap'],
-        favicon: path.resolve(__dirname, 'ui/common/images/fluxnova-favicon.ico'),
+        favicon: path.resolve(
+          __dirname,
+          'ui/common/images/fluxnova-favicon.ico'
+        ),
         publicPath: '$APP_ROOT',
         version
       }),

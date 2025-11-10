@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
 
-import org.finos.fluxnova.bpm.cockpit.Cockpit;
+import org.finos.fluxnova.bpm.monitoring.Monitoring;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.Authentication;
@@ -51,7 +51,7 @@ public class SecurityActions {
   }
 
   private static void clearAuthentication(Authentication authentication) {
-    ProcessEngine processEngine = Cockpit.getProcessEngine(authentication.getProcessEngineName());
+    ProcessEngine processEngine = Monitoring.getProcessEngine(authentication.getProcessEngineName());
     if(processEngine != null) {
       processEngine.getIdentityService().clearAuthentication();
     }
@@ -59,7 +59,7 @@ public class SecurityActions {
 
   private static void authenticateProcessEngine(Authentication authentication) {
 
-    ProcessEngine processEngine = Cockpit.getProcessEngine(authentication.getProcessEngineName());
+    ProcessEngine processEngine = Monitoring.getProcessEngine(authentication.getProcessEngineName());
     if (processEngine != null) {
 
       String userId = authentication.getIdentityId();

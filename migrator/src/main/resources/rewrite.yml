@@ -1140,30 +1140,60 @@ recipeList:
       attributeName: exporterVersion
       newValue: {{MODELER_VERSION}}
   - org.openrewrite.xml.AddTagAttribute:
-        elementName: definitions
-        attributeName: xmlns:fluxnova
-        newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
+      elementName: definitions
+      attributeName: xmlns:fluxnova
+      newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: xmlns:modeler
-        newValue: "http://fluxnova.finos.org/schema/modeler/1.0"
+      elementName: definitions
+      attributeName: xmlns:modeler
+      newValue: "http://fluxnova.finos.org/schema/modeler/1.0"
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: namespace
-        newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
+      elementName: definitions
+      attributeName: namespace
+      newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: exporter
-        newValue: "Fluxnova Modeler"
+      elementName: definitions
+      attributeName: exporter
+      newValue: "Fluxnova Modeler"
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: exporterVersion
-        newValue: {{MODELER_VERSION}}
+      elementName: definitions
+      attributeName: exporterVersion
+      newValue: {{MODELER_VERSION}}
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: modeler:executionPlatform
-        newValue: "Fluxnova Platform"
+      elementName: definitions
+      attributeName: modeler:executionPlatform
+      newValue: "Fluxnova Platform"
   - org.openrewrite.xml.ChangeTagAttribute:
-        elementName: definitions
-        attributeName: modeler:executionPlatformVersion
-        newValue: {{TARGET_VERSION}}
+      elementName: definitions
+      attributeName: modeler:executionPlatformVersion
+      newValue: {{TARGET_VERSION}}
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: formMigration
+displayName: Helping migration for Camunda forms to Fluxnova
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: "**/*__form__.json"
+recipeList:
+    # if executionPlatform keys not present then add key-values
+  - org.openrewrite.json.AddKeyValue:
+      keyPath: $.
+      key: executionPlatform
+      value: '"Fluxnova Platform"'
+  - org.openrewrite.json.AddKeyValue:
+      keyPath: $.
+      key: executionPlatformVersion
+      value: '"{{TARGET_VERSION}}"'
+    # if executionPlatform keys present then update values
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.executionPlatform
+      value: '"Fluxnova Platform"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.executionPlatformVersion
+      value: '"{{TARGET_VERSION}}"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.exporter.name
+      value: '"Fluxnova Modeler"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.exporter.version
+      value: '"{{MODELER_VERSION}}"'

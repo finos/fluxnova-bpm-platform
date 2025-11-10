@@ -198,7 +198,7 @@ public class InvoiceDemoDataGenerator {
       variableDefinitions.add(new FilterVariableDefinition("Not short", "longVar"));
       variableDefinitions.add(new FilterVariableDefinition("Double", "doubleVar"));
       variableDefinitions.add(new FilterVariableDefinition("Life jacket", "floatVar"));
-      variableDefinitions.add(new FilterVariableDefinition("Pete Cook", "cockpitVar"));
+      variableDefinitions.add(new FilterVariableDefinition("Pete Cook", "monitoringVar"));
       variableDefinitions.add(new FilterVariableDefinition("Integer", "integerVar"));
       variableDefinitions.add(new FilterVariableDefinition("Serialized variable", "serializableVar"));
       variableDefinitions.add(new FilterVariableDefinition("Serialized collection", "serializableCollection"));

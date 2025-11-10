@@ -30,8 +30,8 @@ import java.util.EnumSet;
 import java.util.Map;
 import org.finos.fluxnova.bpm.admin.impl.web.AdminApplication;
 import org.finos.fluxnova.bpm.admin.impl.web.bootstrap.AdminContainerBootstrap;
-import org.finos.fluxnova.bpm.cockpit.impl.web.CockpitApplication;
-import org.finos.fluxnova.bpm.cockpit.impl.web.bootstrap.CockpitContainerBootstrap;
+import org.finos.fluxnova.bpm.monitoring.impl.web.MonitoringApplication;
+import org.finos.fluxnova.bpm.monitoring.impl.web.bootstrap.MonitoringContainerBootstrap;
 import org.finos.fluxnova.bpm.engine.rest.filter.CacheControlFilter;
 import org.finos.fluxnova.bpm.engine.rest.filter.EmptyBodyFilter;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
@@ -80,7 +80,7 @@ public class FluxnovaBpmWebappInitializer implements ServletContextInitializer {
 
     servletContext.setSessionTrackingModes(Collections.singleton(SessionTrackingMode.COOKIE));
 
-    servletContext.addListener(new CockpitContainerBootstrap());
+    servletContext.addListener(new MonitoringContainerBootstrap());
     servletContext.addListener(new AdminContainerBootstrap());
     servletContext.addListener(new TasklistContainerBootstrap());
     servletContext.addListener(new WelcomeContainerBootstrap());
@@ -95,7 +95,7 @@ public class FluxnovaBpmWebappInitializer implements ServletContextInitializer {
     // see AppendTrailingSlashFilter for details
     registerFilter("AppendTrailingSlashFilter", AppendTrailingSlashFilter.class,
         applicationPath + "/app",
-        applicationPath + "/app/cockpit",
+        applicationPath + "/app/monitoring",
         applicationPath + "/app/admin",
         applicationPath + "/app/tasklist",
         applicationPath + "/app/welcome");
@@ -132,8 +132,8 @@ public class FluxnovaBpmWebappInitializer implements ServletContextInitializer {
     registerFilter("CacheControlFilter", CacheControlFilter.class,
         applicationPath + "/api/*", applicationPath + "/app/*", applicationPath + "/assets/*");
 
-    registerServlet("Cockpit Api", CockpitApplication.class,
-        applicationPath + "/api/cockpit/*");
+    registerServlet("Monitoring Api", MonitoringApplication.class,
+        applicationPath + "/api/monitoring/*");
     registerServlet("Admin Api", AdminApplication.class,
         applicationPath + "/api/admin/*");
     registerServlet("Tasklist Api", TasklistApplication.class,

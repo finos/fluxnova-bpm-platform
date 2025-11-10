@@ -13,46 +13,20 @@ image::https://www.openhub.net/p/camunda-bpm-spring-boot-starter/widgets/project
 ,====
 
 This project provides Spring Boot starters that allow you to integrate the Fluxnova Platform into your Spring Boot applications.
- /** Needs To Be Reviewed **
-Please check out the https://docs.camunda.org/manual/develop/user-guide/spring-boot-integration/[Documentation],
-the https://docs.camunda.org/get-started/spring-boot/[Getting Started Guide] and
+ /** Needs To Be Reviewed- Examples part **
+Please check out the https://docs.fluxnova.finos.org/user-guide/spring-boot-integration/[Documentation],
+the https://docs.fluxnova.finos.org/get-started/spring-boot/[Getting Started Guide] and
 the https://github.com/camunda/camunda-bpm-examples/tree/master/spring-boot-starter[Examples].
 
 ## Resources
- /** Needs To Be Reviewed - this is now in platform codebase**
-* https://app.camunda.com/jira/browse/CAM/component/13850[Issue Tracker] - if you have an idea for a new feature or want to file a bug ... this is the place to go.
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/blob/master/.github/CONTRIBUTING.md[Contributing] - check this if you want to contribute
-* https://forum.camunda.org/c/spring-boot-starter[Discussion Forum] - this project has it's own sub-category at the camunda forum ... use it!
 
-## Resources for versions older than 2.3.0
-
-Before version 2.2.0, the project existed as a community extension. Therefore the resources were located in different paths. You can find all the links below.
-/** Needs To Be Reviewed**
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/issues[Issue Tracker] - please DON'T create new issues here.
- /** Needs To Be Reviewed - this is now in platform codebase**
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/blob/2.2.0/docs/src/main/asciidoc/index.adoc[Documentation]
-
-### 2.x
- /** Needs To Be Reviewed - this is now in platform codebase**
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/8?closed=1[Release Notes 2.2.0]
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/10?closed=1[Release Notes 2.1.2]
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/6?closed=1[Release Notes 2.1.0]
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/3?closed=1[Release Notes 2.0.0]
-
-### 1.3.0
- /** Needs To Be Reviewed - this is now in platform codebase**
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/4?closed=1[Release Notes 1.3.0]
-
-#### Migration hints from < 1.3.0 to >= 1.3.0
+* https://github.com/camunda/camunda-bpm-platform/issues[Issue Tracker] - if you have an idea for a new feature or want to file a bug ... this is the place to go.
+* https://github.com/camunda/camunda-bpm-platform/blob/master/CONTRIBUTING.md[Contributing] - check this if you want to contribute
+* https://github.com/finos/fluxnova-bpm-platform/discussions[Discussion Forum]
 
 [IMPORTANT]
 We have decided to refactor the configuration mechanism. Especially, we removed the  `org.finos.fluxnova.bpm.spring.boot.starter.configuration.FluxnovaConfiguration` interface. For now, each configuration is a `org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin`. With this it is possible to hook into `preInit`, `postInit` and `postProcessEngineBuild`, which supports more complex situations.
 If you have implemented a `FluxnovaConfiguration`, you have to switch to `ProcessEnginePlugin` (and its `preInit` method). You can also extend your configuration from `org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl.AbstractFluxnovaConfiguration` to avoid a cast to `SpringProcessEngineConfiguration`.
-
-### 1.2.1
- /** Needs To Be Reviewed - this is now in platform codebase**
-* https://github.com/camunda/camunda-bpm-spring-boot-starter/milestone/5?closed=1[Release Notes 1.2.1]
-* https://blog.camunda.org/post/2016/06/camunda-spring-boot-1.2.0-released/[Blog Article for release 1.2.0]
 
 ## Credits
  /** Needs To Be Reviewed**

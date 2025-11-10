@@ -57,7 +57,7 @@ public interface AppPlugin {
    *
    * <p>
    *
-   * Typically, a plugin publishes its API via a subclass of {@link org.finos.fluxnova.bpm.cockpit.plugin.resource.AbstractPluginRootResource}.
+   * Typically, a plugin publishes its API via a subclass of {@link org.finos.fluxnova.bpm.monitoring.plugin.resource.AbstractPluginRootResource}.
    *
    * @return the set of resource classes provided by this plugin
    */

@@ -45,8 +45,8 @@ Header.prototype.welcomeLink = function() {
 Header.prototype.adminLink = function() {
   return this.appSwitch().element(by.css('.admin'));
 };
-Header.prototype.cockpitLink = function() {
-  return this.appSwitch().element(by.css('.cockpit'));
+Header.prototype.monitoringLink = function() {
+  return this.appSwitch().element(by.css('.monitoring'));
 };
 Header.prototype.tasklistLink = function() {
   return this.appSwitch().element(by.css('.tasklist'));
@@ -58,11 +58,10 @@ Header.prototype.smallScreenWarning = function() {
   return this.node.element(by.css('.small-screen-warning'));
 };
 
-function Page() { }
+function Page() {}
 
 Page.prototype.header = function(identifier) {
   return new Header(element(by.css(identifier)));
 };
-
 
 module.exports = new Page();

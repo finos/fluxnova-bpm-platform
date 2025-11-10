@@ -1,5 +1,5 @@
 <#macro dto_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/variable-instance/get/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/variable-instance/get/index.html -->
 <@lib.dto extends="VariableValueDto">
     
     <@lib.property

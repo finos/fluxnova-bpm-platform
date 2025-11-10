@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
     <artifactId>fluxnova-qa-db-instance-migration</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-qa-upgrade-test-fixture-714</artifactId>

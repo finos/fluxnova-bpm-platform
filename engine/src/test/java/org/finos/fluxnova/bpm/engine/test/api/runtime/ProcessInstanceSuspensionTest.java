@@ -307,9 +307,6 @@ public class ProcessInstanceSuspensionTest extends PluggableProcessEngineTest {
     }
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
   @Test
   public void testPreserveCreateTimeOnUpdatedTask() {

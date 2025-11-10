@@ -8,9 +8,9 @@
 
 The **Fluxnova External Task Client (Java)** allows to set up remote Service Tasks for your workflow.
 
-** Needs To Be Reviewed - Docs and example location **
+** Needs To Be Reviewed -Example location **
 * [Quick Start](https://docs.fluxnova.finos.org/get-started/quick-start/)
-* [Documentation](https://docs.fluxnova.finos.org/manual/develop/user-guide/ext-client/)
+* [Documentation](https://docs.fluxnova.finos.org/user-guide/ext-client/)
 * [Examples](https://github.com/camunda/camunda-bpm-examples/tree/master/clients/java)
 
 ## Features

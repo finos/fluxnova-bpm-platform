@@ -27,7 +27,6 @@ describe('The ProcessDefinition resource', function() {
     }).not.to.throw();
   });
 
-
   it('has a `path` static property', function() {
     expect(ProcessDefinition.path).to.eql('process-definition');
   });

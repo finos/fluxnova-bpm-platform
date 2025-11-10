@@ -24,8 +24,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.finos.fluxnova.bpm.cockpit.Cockpit;
-import org.finos.fluxnova.bpm.cockpit.impl.DefaultCockpitRuntimeDelegate;
+import org.finos.fluxnova.bpm.monitoring.Monitoring;
+import org.finos.fluxnova.bpm.monitoring.impl.DefaultMonitoringRuntimeDelegate;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 import org.finos.fluxnova.bpm.webapp.impl.IllegalWebAppConfigurationException;
@@ -45,26 +45,26 @@ public class EnginesFilterTest {
     Pattern pattern = ProcessEnginesFilter.APP_PREFIX_PATTERN;
 
     // when
-    Matcher matcher1 = pattern.matcher("/app/cockpit/");
-    Matcher matcher2 = pattern.matcher("/app/cockpit/engine1/");
-    Matcher matcher3 = pattern.matcher("/app/cockpit/engine1/something/asd.html");
+    Matcher matcher1 = pattern.matcher("/app/monitoring/");
+    Matcher matcher2 = pattern.matcher("/app/monitoring/engine1/");
+    Matcher matcher3 = pattern.matcher("/app/monitoring/engine1/something/asd.html");
     Matcher matcher4 = pattern.matcher("/app/admin/engine1/something/asd.html");
-    Matcher matcher5 = pattern.matcher("/app/cockpit/index.html");
+    Matcher matcher5 = pattern.matcher("/app/monitoring/index.html");
     Matcher matcher6 = pattern.matcher("/app/tasklist/spring-engine/");
 
     // then
     assertThat(matcher1.matches()).isTrue();
-    assertThat(matcher1.group(1)).isEqualTo("cockpit");
+    assertThat(matcher1.group(1)).isEqualTo("monitoring");
     assertThat(matcher1.groupCount()).isEqualTo(3);
     assertThat(matcher1.group(2)).isNull();
 
     assertThat(matcher2.matches()).isTrue();
-    assertThat(matcher2.group(1)).isEqualTo("cockpit");
+    assertThat(matcher2.group(1)).isEqualTo("monitoring");
     assertThat(matcher2.group(2)).isEqualTo("engine1");
     assertThat(matcher2.group(3)).isEmpty();
 
     assertThat(matcher3.matches()).isTrue();
-    assertThat(matcher3.group(1)).isEqualTo("cockpit");
+    assertThat(matcher3.group(1)).isEqualTo("monitoring");
     assertThat(matcher3.group(2)).isEqualTo("engine1");
     assertThat(matcher3.group(3)).isEqualTo("something/asd.html");
 
@@ -74,7 +74,7 @@ public class EnginesFilterTest {
     assertThat(matcher4.group(3)).isEqualTo("something/asd.html");
 
     assertThat(matcher5.matches()).isTrue();
-    assertThat(matcher5.group(1)).isEqualTo("cockpit");
+    assertThat(matcher5.group(1)).isEqualTo("monitoring");
     assertThat(matcher5.group(2)).isEqualTo("index.html");
     assertThat(matcher5.group(3)).isEmpty();
 
@@ -87,11 +87,9 @@ public class EnginesFilterTest {
   @Test
   public void testGetDefaultProcessEngine() {
 
-    // see https://app.camunda.com/jira/browse/CAM-2126
+   // runtime delegate returns single, non-default-named process engine engine
 
-    // runtime delegate returns single, non-default-named process engine engine
-
-    Cockpit.setCockpitRuntimeDelegate(new DefaultCockpitRuntimeDelegate() {
+    Monitoring.setMonitoringRuntimeDelegate(new DefaultMonitoringRuntimeDelegate() {
 
       protected ProcessEngineProvider loadProcessEngineProvider() {
         return null;
@@ -112,7 +110,7 @@ public class EnginesFilterTest {
 
     // now it returns 'null'
 
-    Cockpit.setCockpitRuntimeDelegate(new DefaultCockpitRuntimeDelegate() {
+    Monitoring.setMonitoringRuntimeDelegate(new DefaultMonitoringRuntimeDelegate() {
 
       protected ProcessEngineProvider loadProcessEngineProvider() {
         return null;
@@ -137,6 +135,6 @@ public class EnginesFilterTest {
 
   @After
   public void cleanup() {
-    Cockpit.setCockpitRuntimeDelegate(null);
+    Monitoring.setMonitoringRuntimeDelegate(null);
   }
 }

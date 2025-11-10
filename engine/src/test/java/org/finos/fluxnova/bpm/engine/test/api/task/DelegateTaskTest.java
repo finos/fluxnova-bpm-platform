@@ -77,9 +77,6 @@ public class DelegateTaskTest {
     taskService = engineRule.getTaskService();
   }
 
-  /**
-   * @see <a href="http://jira.codehaus.org/browse/ACT-380">http://jira.codehaus.org/browse/ACT-380</a>
-   */
   @Test
   @Deployment
   public void testGetCandidates() {

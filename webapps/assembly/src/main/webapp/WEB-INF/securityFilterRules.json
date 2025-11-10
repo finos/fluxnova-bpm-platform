@@ -2,18 +2,18 @@
   "pathFilter": {
     "deniedPaths" : [
       { "path": "/api/engine/.*", "methods" : "*" },
-      { "path": "/api/cockpit/.*", "methods" : "*" },
+      { "path": "/api/monitoring/.*", "methods" : "*" },
       { "path": "/api/tasklist/.*", "methods" : "*" },
       { "path": "/api/admin/.*", "methods" : "*" },
       { "path": "/app/tasklist/{engine}/.*", "methods" : "*" },
-      { "path": "/app/cockpit/{engine}/.*", "methods" : "*" },
+      { "path": "/app/monitoring/{engine}/.*", "methods" : "*" },
       { "path": "/app/welcome/{engine}/.*", "methods" : "*" },
       { "path": "/app/admin/{engine}/.*", "methods" : "*" }
     ],
     "allowedPaths" : [
       { "path": "/api/engine/engine/", "methods" : "GET" },
-      { "path": "/api/{app:cockpit}/plugin/{plugin}/static/.*", "methods" : "GET" },
-      { "path": "/api/{app:cockpit}/plugin/{plugin}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.EngineRequestAuthorizer" },
+      { "path": "/api/{app:monitoring}/plugin/{plugin}/static/.*", "methods" : "GET" },
+      { "path": "/api/{app:monitoring}/plugin/{plugin}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.EngineRequestAuthorizer" },
       { "path": "/api/engine/engine/{engine}/identity/password-policy", "methods" : "GET" },
       { "path": "/api/engine/engine/{engine}/identity/password-policy", "methods" : "POST" },
       { "path": "/api/admin/auth/user/{engine}", "methods" : "GET" },
@@ -28,7 +28,7 @@
       { "path": "/api/{app:tasklist}/plugin/{plugin}/static/.*", "methods" : "GET" },
       { "path": "/api/{app:tasklist}/plugin/{plugin}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.EngineRequestAuthorizer" },
       { "path": "/api/engine/engine/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.EngineRequestAuthorizer" },
-      { "path": "/app/{app:cockpit}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer" },
+      { "path": "/app/{app:monitoring}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer" },
       { "path": "/app/{app:tasklist}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer" },
       { "path": "/app/{app:welcome}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer" },
       { "path": "/app/{app:admin}/{engine}/.*", "methods" : "*", "authorizer" : "org.finos.fluxnova.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer" }

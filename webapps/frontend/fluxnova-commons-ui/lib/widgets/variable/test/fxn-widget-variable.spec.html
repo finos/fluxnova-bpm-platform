@@ -2,14 +2,18 @@
   <head>
     <title>Fluxnova commons UI library</title>
     <base href="/" />
-    <!--[if IE]><script type="text/javascript">
+    <!--[if IE
+      ]><script type="text/javascript">
         // Fix for IE ignoring relative base tags.
         // See http://stackoverflow.com/questions/3926197/html-base-tag-and-local-folder-path-with-internet-explorer
         (function() {
-            var baseTag = document.getElementsByTagName('base');
-            if (baseTag[0]) { baseTag[0].href = baseTag[0].href; }
+          var baseTag = document.getElementsByTagName('base');
+          if (baseTag[0]) {
+            baseTag[0].href = baseTag[0].href;
+          }
         })();
-    </script><![endif]-->
+      </script><!
+    [endif]-->
     <link rel="icon" href="resources/img/favicon.ico" />
     <link href="styles.css" rel="stylesheet" />
     <link href="test-styles.css" rel="stylesheet" />
@@ -27,7 +31,10 @@
       <header>
         <h2>Description</h2>
       </header>
-      <p>A widget to display and manipulate variables used by the Fluxnova Platform suite.</p>
+      <p>
+        A widget to display and manipulate variables used by the Fluxnova
+        Platform suite.
+      </p>
     </section>
 
     <section class="widget-reference">
@@ -42,13 +49,15 @@
 
         <dt><span class="badge">@?</span> display</dt>
         <dd>
-          Takes a boolean determining if the widget is only aimed to display the variable.
+          Takes a boolean determining if the widget is only aimed to display the
+          variable.
           <a href="#example-3">Example</a>
         </dd>
 
         <dt><span class="badge">=?</span> shown</dt>
         <dd>
-          Takes an array of strings to determine which parts of the variable is shown.<br/>
+          Takes an array of strings to determine which parts of the variable is
+          shown.<br />
           Valid strings:
           <ul>
             <li><code>type</code></li>
@@ -60,7 +69,8 @@
 
         <dt><span class="badge">=?</span> disabled</dt>
         <dd>
-          Takes an array of strings to determine what parts of the variable can not be edited.<br/>
+          Takes an array of strings to determine what parts of the variable can
+          not be edited.<br />
           Valid strings:
           <ul>
             <li><code>type</code></li>
@@ -76,48 +86,64 @@
         <h2>Examples</h2>
       </header>
 
-
-      <div class="widget-example"
-           id="example-1"
-           ng-controller="example1Controller">
+      <div
+        class="widget-example"
+        id="example-1"
+        ng-controller="example1Controller"
+      >
         <h3>Editable variables</h3>
-        <pre ng-non-bindable>&lt;div ng-repeat="variable in vars"
+        <pre ng-non-bindable>
+&lt;div ng-repeat="variable in vars"
      class="table-row"
      fxn-widget-variable
      fxn-variable="variable"&gt;
-&lt;/div&gt;</pre>
+&lt;/div&gt;</pre
+        >
         <div class="test-container">
-          <div ng-repeat="variable in vars"
-               class="table-row"
-               fxn-widget-variable
-               fxn-variable="variable">
-          </div>
-        </div><!-- /.test-container -->
-      </div><!-- /.widget-example -->
+          <div
+            ng-repeat="variable in vars"
+            class="table-row"
+            fxn-widget-variable
+            fxn-variable="variable"
+          ></div>
+        </div>
+        <!-- /.test-container -->
+      </div>
+      <!-- /.widget-example -->
 
-      <div class="widget-example"
-           id="example-2"
-           ng-controller="example2Controller">
+      <div
+        class="widget-example"
+        id="example-2"
+        ng-controller="example2Controller"
+      >
         <h3>Displayed variables</h3>
-        <pre ng-non-bindable>&lt;div ng-repeat="variable in vars"
+        <pre ng-non-bindable>
+&lt;div ng-repeat="variable in vars"
      fxn-widget-variable
      fxn-variable="variable"
      display="true"&gt;
-&lt;/div&gt;</pre>
+&lt;/div&gt;</pre
+        >
         <div class="test-container">
-          <div ng-repeat="variable in vars"
-               fxn-widget-variable
-               fxn-variable="variable"
-               display="true">
-          </div>
-        </div><!-- /.test-container -->
-      </div><!-- /.widget-example -->
+          <div
+            ng-repeat="variable in vars"
+            fxn-widget-variable
+            fxn-variable="variable"
+            display="true"
+          ></div>
+        </div>
+        <!-- /.test-container -->
+      </div>
+      <!-- /.widget-example -->
 
-      <div class="widget-example"
-           id="example-3"
-           ng-controller="example3Controller">
+      <div
+        class="widget-example"
+        id="example-3"
+        ng-controller="example3Controller"
+      >
         <h3>Shown variable parts</h3>
-        <pre ng-non-bindable>&lt;div fxn-widget-variable
+        <pre ng-non-bindable>
+&lt;div fxn-widget-variable
      fxn-variable="vars[9]"
      shown="nameValue"&gt;&lt;/div&gt;
 &lt;div fxn-widget-variable
@@ -125,25 +151,37 @@
      shown="typeValue"&gt;&lt;/div&gt;
 &lt;div fxn-widget-variable
      fxn-variable="vars[9]"
-     shown="typeName"&gt;&lt;/div&gt;</pre>
+     shown="typeName"&gt;&lt;/div&gt;</pre
+        >
         <div class="test-container">
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               shown="nameValue"></div>
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               shown="typeValue"></div>
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               shown="typeName"></div>
-        </div><!-- /.test-container -->
-      </div><!-- /.widget-example -->
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            shown="nameValue"
+          ></div>
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            shown="typeValue"
+          ></div>
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            shown="typeName"
+          ></div>
+        </div>
+        <!-- /.test-container -->
+      </div>
+      <!-- /.widget-example -->
 
-     <div class="widget-example"
-           id="example-4"
-           ng-controller="example3Controller">
+      <div
+        class="widget-example"
+        id="example-4"
+        ng-controller="example3Controller"
+      >
         <h3>Use within form</h3>
-        <pre ng-non-bindable>&lt;form name="testForm"&gt;
+        <pre ng-non-bindable>
+&lt;form name="testForm"&gt;
             &lt;div fxn-widget-variable
                  fxn-variable="vars[4]"&gt;&lt;/div&gt;
             &lt;div fxn-widget-variable
@@ -154,28 +192,30 @@
                    ng-disabled="testForm.$invalid"&gt;
               Submit changes
             &lt;/button&gt;
-          &lt;/form&gt;</pre>
+          &lt;/form&gt;</pre
+        >
         <div class="test-container">
           <form name="testForm">
-            <div fxn-widget-variable
-                 fxn-variable="vars[4]"></div>
-            <div fxn-widget-variable
-                 fxn-variable="vars[5]"></div>
-            <div fxn-widget-variable
-                 fxn-variable="vars[6]"></div>
-            <button class="btn btn-primary"
-                   ng-disabled="testForm.$invalid">
+            <div fxn-widget-variable fxn-variable="vars[4]"></div>
+            <div fxn-widget-variable fxn-variable="vars[5]"></div>
+            <div fxn-widget-variable fxn-variable="vars[6]"></div>
+            <button class="btn btn-primary" ng-disabled="testForm.$invalid">
               Submit changes
             </button>
           </form>
-        </div><!-- /.test-container -->
-      </div><!-- /.widget-example -->
+        </div>
+        <!-- /.test-container -->
+      </div>
+      <!-- /.widget-example -->
 
-     <div class="widget-example"
-           id="example-5"
-           ng-controller="example3Controller">
+      <div
+        class="widget-example"
+        id="example-5"
+        ng-controller="example3Controller"
+      >
         <h3>Disable input fields</h3>
-        <pre ng-non-bindable>&lt;div fxn-widget-variable
+        <pre ng-non-bindable>
+&lt;div fxn-widget-variable
      fxn-variable="vars[9]"
      disabled="nameValue"&gt;&lt;/div&gt;
 &lt;div fxn-widget-variable
@@ -183,19 +223,28 @@
      disabled="typeValue"&gt;&lt;/div&gt;
 &lt;div fxn-widget-variable
      fxn-variable="vars[9]"
-     disabled="typeName"&gt;&lt;/div&gt;</pre>
+     disabled="typeName"&gt;&lt;/div&gt;</pre
+        >
         <div class="test-container">
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               disabled="nameValue"></div>
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               disabled="typeValue"></div>
-          <div fxn-widget-variable
-               fxn-variable="vars[9]"
-               disabled="typeName"></div>
-        </div><!-- /.test-container -->
-      </div><!-- /.widget-example -->
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            disabled="nameValue"
+          ></div>
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            disabled="typeValue"
+          ></div>
+          <div
+            fxn-widget-variable
+            fxn-variable="vars[9]"
+            disabled="typeName"
+          ></div>
+        </div>
+        <!-- /.test-container -->
+      </div>
+      <!-- /.widget-example -->
     </section>
 
     <!-- gh-pages-footer -->

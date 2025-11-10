@@ -786,9 +786,6 @@ public class BatchSetRemovalTimeInChunksTest {
     assertThat(historicExternalTaskLog.getRemovalTime()).isEqualTo(REMOVAL_TIME);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-10172
-   */
   @Test
   public void shouldSetRemovalTime_ExternalTaskLog_WithPreservedCreateTime() {
     // given
@@ -880,9 +877,6 @@ public class BatchSetRemovalTimeInChunksTest {
     assertThat(historicIncident.getRemovalTime()).isEqualTo(REMOVAL_TIME);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-10172
-   */
   @Test
   public void shouldSetRemovalTime_Incident_WithPreservedCreateTime() {
     // given
@@ -947,9 +941,6 @@ public class BatchSetRemovalTimeInChunksTest {
     assertThat(userOperationLog.getRemovalTime()).isEqualTo(REMOVAL_TIME);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-10172
-   */
   @Test
   public void shouldSetRemovalTime_OperationLog_WithPreservedTimestamp() {
     // given
@@ -1010,9 +1001,6 @@ public class BatchSetRemovalTimeInChunksTest {
     assertThat(identityLinkLog.getRemovalTime()).isEqualTo(REMOVAL_TIME);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-10172
-   */
   @Test
   public void shouldSetRemovalTime_IdentityLinkLog_WithPreservedTime() {
     // given

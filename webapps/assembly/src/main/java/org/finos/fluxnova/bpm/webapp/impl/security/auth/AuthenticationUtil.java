@@ -42,7 +42,7 @@ public class AuthenticationUtil {
 
   protected static final String FXN_AUTH_SESSION_KEY = "authenticatedUser";
 
-  public static final String[] APPS = new String[]{"cockpit", "tasklist", "admin"};
+  public static final String[] APPS = new String[]{"monitoring", "tasklist", "admin"};
   public static final String APP_WELCOME = "welcome";
 
   public static UserAuthentication createAuthentication(String engineName, String username) {

@@ -74,7 +74,7 @@ describe('fxn-common FxnTabsController', function() {
     });
   }));
 
-  it('should fetch providers for cockpit.drd.definition.tab', function() {
+  it('should fetch providers for monitoringdrd.definition.tab', function() {
     expect(instance.providers).to.eql(providers);
     expect(Views.getProviders.calledWith($scope.providerParams)).to.eql(true);
   });

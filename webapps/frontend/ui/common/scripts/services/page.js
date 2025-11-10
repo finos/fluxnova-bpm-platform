@@ -23,10 +23,10 @@ var angular = require('fluxnova-commons-ui/vendor/angular');
  * A service to manage a page page.
  *
  * @name page
- * @memberof cam.cockpit.services
+ * @memberof cam.monitoring.services
  * @type angular.service
  *
- * @module cam.cockpit.services.page
+ * @module cam.monitoring.services.page
  */
 
 module.exports = [
@@ -40,7 +40,7 @@ module.exports = [
     };
 
     var headTitle = angular.element(document.querySelector('head title'));
-    var originalTitle = headTitle[0].textContent || 'Fluxnova Cockpit';
+    var originalTitle = headTitle[0].textContent || 'Fluxnova Monitoring';
 
     // add a listener to the $rootScope to propagate the changes in the page title
     // sure... we could put that in the titleSet() function

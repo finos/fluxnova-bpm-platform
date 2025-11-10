@@ -451,7 +451,7 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
 
     // then
     assertThat(eventCaptor.executionEvents).isEmpty();
-//    assertThat(eventCaptor.taskEvents).isEmpty(); => https://github.com/camunda/camunda-bpm-platform/issues/3103
+
   }
 
   @Test

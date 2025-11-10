@@ -22,13 +22,14 @@
 
 var SearchPill = require('../../search-pill/test/fxn-widget-search-pill-object.page.js');
 
-
 function Example(given) {
   this.node = typeof given === 'string' ? element(by.id(given)) : given;
 }
 
 Example.prototype.searchInput = function() {
-  return this.node.element(by.css('[fxn-widget-search] [ng-model="inputQuery"]'));
+  return this.node.element(
+    by.css('[fxn-widget-search] [ng-model="inputQuery"]')
+  );
 };
 
 Example.prototype.inputDropdown = function() {
@@ -36,11 +37,15 @@ Example.prototype.inputDropdown = function() {
 };
 
 Example.prototype.inputDropdownOption = function(option) {
-  return this.node.all(by.css('[fxn-widget-search] .form-container > ul > li')).get(option);
+  return this.node
+    .all(by.css('[fxn-widget-search] .form-container > ul > li'))
+    .get(option);
 };
 
 Example.prototype.inputDropdownOptionCount = function() {
-  return this.node.all(by.css('[fxn-widget-search] .form-container > ul > li')).count();
+  return this.node
+    .all(by.css('[fxn-widget-search] .form-container > ul > li'))
+    .count();
 };
 
 Example.prototype.storageEl = function() {
@@ -64,11 +69,17 @@ Example.prototype.storageDropdownMenuItem = function(index) {
 };
 
 Example.prototype.storageDropdownMenuItemRemove = function(index) {
-  return this.storageDropdownMenuItems().get(index).all(by.css('a')).first();
+  return this.storageDropdownMenuItems()
+    .get(index)
+    .all(by.css('a'))
+    .first();
 };
 
 Example.prototype.storageDropdownMenuItemName = function(index) {
-  return this.storageDropdownMenuItems().get(index).all(by.css('a')).last();
+  return this.storageDropdownMenuItems()
+    .get(index)
+    .all(by.css('a'))
+    .last();
 };
 
 Example.prototype.storageDropdownInput = function() {
@@ -94,7 +105,7 @@ Example.prototype.validSearchesCount = function() {
   return this.node.element(by.id('validSearchesCount')).getText();
 };
 
-function Page() { }
+function Page() {}
 
 Page.prototype.example = function(id) {
   return new Example(id);

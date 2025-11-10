@@ -710,8 +710,6 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   /**
    * In some situations you want to set the schema to use for table checks / generation if the database metadata
-   * doesn't return that correctly, see https://jira.codehaus.org/browse/ACT-1220,
-   * https://jira.codehaus.org/browse/ACT-1062
    */
   protected String databaseSchema = null;
 

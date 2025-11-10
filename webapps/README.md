@@ -10,7 +10,7 @@ The structure is as follows:
 * `assembly` - Java sources and tests for the Fluxnova web application based on `javax` namespace.
 * `assembly-jakarta` - Java sources and tests for the Fluxnova web application based on `jakarta` namespace.
   * This module is created from the `assembly` module via code transformation.
-* `frontend` - HTML, CSS and Javascript sources as well as Plugins and tests for the Fluxnova webapplications Cockpit, Tasklist and Admin.
+* `frontend` - HTML, CSS and Javascript sources as well as Plugins and tests for the Fluxnova webapplications Monitoring, Tasklist and Admin.
 
 ## FRONTEND
 
@@ -18,7 +18,7 @@ The structure is as follows:
 
 There are 3 web applications available for the Fluxnova Platform :
 
-* __cockpit__: an administration interface for processes and decisions
+* __monitoring__: an administration interface for processes and decisions
 * __tasklist__: provides an interface to process user tasks
 * __admin__: is used to administer users, groups and their authorizations
 
@@ -48,7 +48,6 @@ You need [node.js](http://nodejs.org) >= 17 and npm.
 ### Setup
 
 #### Adjusting Maven Settings
-** Needs To Be Reviewed - build-from-source **
 See https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md#build-from-source
 
 #### Using Webpack
@@ -144,7 +143,7 @@ Have a look at our [contribution guide](https://github.com/finos/fluxnova-bpm-pl
 
 
 ## Help and support
-** Needs To Be Reviewed **
+** Needs To Be Reviewed - stackoverflow **
 * [Documentation](http://docs.fluxnova.finos.org/)
 * [Forum](https://github.com/finos/fluxnova-bpm-platform/discussions)
 * [Stackoverflow](https://stackoverflow.com/questions/tagged/camunda)

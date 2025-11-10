@@ -1026,7 +1026,7 @@ public abstract class MockProvider {
     EXAMPLE_TELEMETRY_INTERNALS.setFluxnovaIntegration(
         Stream.of("spring-boot-starter", "camunda-bpm-run").collect(Collectors.toCollection(HashSet::new)));
     EXAMPLE_TELEMETRY_INTERNALS
-        .setWebapps(Stream.of("cockpit", "admin").collect(Collectors.toCollection(HashSet::new)));
+        .setWebapps(Stream.of("monitoring", "admin").collect(Collectors.toCollection(HashSet::new)));
     EXAMPLE_TELEMETRY_INTERNALS
         .setCommands(Stream.of(new Object[][] { { "StartProcessInstanceCmd", 40 }, { "FetchExternalTasksCmd", 100 } })
             .collect(Collectors.toMap(data -> (String) data[0], data -> new CommandImpl((Integer) data[1]))));
@@ -1035,7 +1035,7 @@ public abstract class MockProvider {
             { "decision-instances", 140L }, { "executed-decision-elements", 732L } })
         .collect(Collectors.toMap(data -> (String) data[0], data -> new MetricImpl((Long) data[1]))));
     EXAMPLE_TELEMETRY_INTERNALS.setFluxnovaIntegration(Collections.singleton("spring-boot"));
-    EXAMPLE_TELEMETRY_INTERNALS.setWebapps(Collections.singleton("cockpit"));
+    EXAMPLE_TELEMETRY_INTERNALS.setWebapps(Collections.singleton("monitoring"));
     EXAMPLE_TELEMETRY_INTERNALS.setDataCollectionStartDate(DateTimeUtil.parseDate(EXAMPLE_TELEMETRY_DATA_COLLECTION_START_DATE));
   }
   public static final ProductImpl EXAMPLE_TELEMETRY_PRODUCT = new ProductImpl(EXAMPLE_TELEMETRY_PRODUCT_NAME,

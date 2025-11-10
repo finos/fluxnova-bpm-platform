@@ -92,7 +92,6 @@ public class UserTaskTest extends PluggableProcessEngineTest {
   @Deployment
   @Test
   public void testCompleteAfterParallelGateway() throws InterruptedException {
-	  // related to http://jira.codehaus.org/browse/ACT-1054
 
 	  // start the process
     runtimeService.startProcessInstanceByKey("ForkProcess");

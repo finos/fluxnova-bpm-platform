@@ -5,9 +5,9 @@ Lightweight Execution Engine for DMN (Decision Model and Notation) written in Ja
 ** Needs To Be Reviewed **
 
 <p>
-  <a href="http://camunda.org/">Home</a> |
-  <a href="http://camunda.org/community/forum.html">Forum</a> |
-  <a href="https://app.camunda.com/jira/browse/CAM">Issues</a> |
+  <a href="http://fluxnova.finos.org/">Home</a> |
+  <a href="https://github.com/finos/fluxnova-bpm-platform/discussion">Forum</a> |
+  <a href="https://github.com/finos/fluxnova-bpm-platform/issues">Issues</a> |
 </p>
 
 The Decision Engine can be used seamlessly in combination with BPMN and CMMN or standalone.

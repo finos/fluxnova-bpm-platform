@@ -28,7 +28,7 @@ function waitUntil(test, next, max) {
   next = typeof next === 'function' ? next : function() {};
 
   function timestamp() {
-    return (new Date()).getTime();
+    return new Date().getTime();
   }
 
   function elapsed(from) {
@@ -50,11 +50,6 @@ function waitUntil(test, next, max) {
   repeat();
 }
 
-
-
-
-
-
 describe('The input field', function() {
   var $ = jQuery;
   var $simpleFormDoc;
@@ -72,7 +67,9 @@ describe('The input field', function() {
   it('prepares the testing environemnt', function(done) {
     jQuery.ajax('/base/test/karma/forms-angularjs/angular-form.html', {
       success: function(data) {
-        $simpleFormDoc = jQuery('<div id="test-form" ng-controller="AppController">'+ data +'</div>');
+        $simpleFormDoc = jQuery(
+          '<div id="test-form" ng-controller="AppController">' + data + '</div>'
+        );
         // the following lines allow to see the form in the browser
         var _$top = $(top.document);
         _$top.find('#test-form').remove();
@@ -86,14 +83,15 @@ describe('The input field', function() {
     });
   });
 
-
   it('needs a process definition', function(done) {
     fxnClient = new FxnSDK.Client({
       apiUri: 'engine-rest/engine'
     });
 
     fxnClient.resource('process-definition').list({}, function(err, result) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       procDef = result.items.pop();
 
@@ -103,11 +101,9 @@ describe('The input field', function() {
     });
   });
 
-
   it('should provide FxnSDKFormsAngular', function() {
     expect(FxnSDK.Form).to.not.be.undefined;
   });
-
 
   /**
    * ensures that angular integration works for a form
@@ -116,9 +112,10 @@ describe('The input field', function() {
   it('should use pre-rendered form', function(done) {
     var scope;
 
-
     function whenRetrieved(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       fxnForm.variableManager.variable('stringVar').value = 'secondUpdate';
 
@@ -129,15 +126,16 @@ describe('The input field', function() {
       }, done);
     }
 
-
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(scope).to.not.be.undefined;
 
       // change the value in the scope
       scope.$apply(function() {
-        scope.modelProperty= 'updated';
+        scope.modelProperty = 'updated';
       });
 
       // if we retrieve the variables from the form
@@ -145,22 +143,29 @@ describe('The input field', function() {
 
       waitUntil(function() {
         // the variable updated using angular is updated in the variable manager
-        return 'updated' === fxnForm.variableManager.variable('stringVar').value;
+        return (
+          'updated' === fxnForm.variableManager.variable('stringVar').value
+        );
       }, whenRetrieved);
     }
 
+    angular
+      .module('testApp', ['fxn.embedded.forms'])
+      .controller('AppController', [
+        '$scope',
+        function($scope) {
+          fxnForm = new FxnSDK.Form({
+            client: fxnClient,
+            processDefinitionId: procDef.id,
+            formElement: $simpleFormDoc.find('form[fxn-form]'),
+            done: function() {
+              window.setTimeout(ready);
+            }
+          });
 
-    angular.module('testApp', ['fxn.embedded.forms'])
-      .controller('AppController', ['$scope', function($scope) {
-        fxnForm = new FxnSDK.Form({
-          client: fxnClient,
-          processDefinitionId: procDef.id,
-          formElement: $simpleFormDoc.find('form[fxn-form]'),
-          done: function() {window.setTimeout(ready);}
-        });
-
-        scope = $scope;
-      }]);
+          scope = $scope;
+        }
+      ]);
 
     angular.bootstrap($simpleFormDoc, ['testApp', 'fxn.embedded.forms']);
   });
@@ -174,9 +179,10 @@ describe('The input field', function() {
     var appElement = $('<div ng-controller="AppController" />');
     var scope;
 
-
     function whenUpdated(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       fxnForm.variableManager.variable('stringVar').value = 'secondUpdate';
 
@@ -184,26 +190,32 @@ describe('The input field', function() {
 
       fxnForm.applyVariables();
 
-      waitUntil(function() {
-        return scope.modelProperty === 'secondUpdate';
-      }, function(err) {
-        if (err) { return done(err); }
+      waitUntil(
+        function() {
+          return scope.modelProperty === 'secondUpdate';
+        },
+        function(err) {
+          if (err) {
+            return done(err);
+          }
 
-        waitUntil(function() {
-          return scope.autoBindVar === 'autoBindValue';
-        }, done);
-      });
+          waitUntil(function() {
+            return scope.autoBindVar === 'autoBindValue';
+          }, done);
+        }
+      );
     }
 
-
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(scope).to.not.be.undefined;
 
       // change the value in the scope
       scope.$apply(function() {
-        scope.modelProperty= 'updated';
+        scope.modelProperty = 'updated';
       });
 
       // if we retrieve the variables from the form
@@ -211,69 +223,77 @@ describe('The input field', function() {
 
       waitUntil(function() {
         // the variable updated using angular is updated in the variable manager
-        return 'updated' === fxnForm.variableManager.variable('stringVar').value;
+        return (
+          'updated' === fxnForm.variableManager.variable('stringVar').value
+        );
       }, whenUpdated);
     }
 
-
-    angular.module('testApp', [])
-      .controller('AppController', ['$scope', function($scope) {
+    angular.module('testApp', []).controller('AppController', [
+      '$scope',
+      function($scope) {
         fxnForm = new FxnSDK.Form({
           client: fxnClient,
           processDefinitionId: procDef.id,
           containerElement: appElement,
           formUrl: '/base/test/karma/forms-angularjs/angular-form.html',
-          done: function() {window.setTimeout(ready);}
+          done: function() {
+            window.setTimeout(ready);
+          }
         });
         scope = $scope;
-
-      }]);
+      }
+    ]);
 
     angular.bootstrap(appElement, ['testApp', 'fxn.embedded.forms']);
   });
-
-
 
   it('should set form invalid', function(done) {
     // initialize a new angular app (off screen):
     var appElement = $('<div ng-controller="AppController" />');
     var scope;
 
-
     function ready(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(scope).to.not.be.undefined;
 
       // change the value in the scope
       scope.$apply(function() {
-        scope.integerProperty= 'abc';
+        scope.integerProperty = 'abc';
       });
 
       waitUntil(function() {
         var $el = appElement.find('input[name="integerVar"]');
-        return $el.hasClass('ng-invalid') &&
-                $el.hasClass('ng-invalid-fxn-variable-type') &&
-                scope.form &&
-                scope.form.$invalid &&
-                scope.form.$error &&
-                scope.form.$error.fxnVariableType;
+        return (
+          $el.hasClass('ng-invalid') &&
+          $el.hasClass('ng-invalid-fxn-variable-type') &&
+          scope.form &&
+          scope.form.$invalid &&
+          scope.form.$error &&
+          scope.form.$error.fxnVariableType
+        );
       }, done);
     }
 
-
-    angular.module('testApp', [])
-      .controller('AppController', ['$scope', function($scope) {
+    angular.module('testApp', []).controller('AppController', [
+      '$scope',
+      function($scope) {
         fxnForm = new FxnSDK.Form({
           client: fxnClient,
           processDefinitionId: procDef.id,
           containerElement: appElement,
           formUrl: '/base/test/karma/forms-angularjs/angular-form.html',
-          done: function() {window.setTimeout(ready);}
+          done: function() {
+            window.setTimeout(ready);
+          }
         });
 
         scope = $scope;
-      }]);
+      }
+    ]);
 
     angular.bootstrap(appElement, ['testApp', 'fxn.embedded.forms']);
   });

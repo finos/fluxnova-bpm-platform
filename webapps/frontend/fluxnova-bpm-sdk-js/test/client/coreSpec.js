@@ -24,7 +24,6 @@ var mockConfig = require('../superagent-mock-config');
 var requestListener = require('../helper/request');
 
 describe('The SDK core', function() {
-
   var superagentMock;
   before(function() {
     superagentMock = require('superagent-mock')(request, mockConfig);
@@ -42,7 +41,6 @@ describe('The SDK core', function() {
     }).not.to.throw();
   });
 
-
   it('initializes', function() {
     expect(function() {
       fxnClient = new FxnSDK.Client({
@@ -51,7 +49,6 @@ describe('The SDK core', function() {
     }).not.to.throw();
   });
 
-
   it('uses the mock HttpClient', function(done) {
     expect(function() {
       ProcessDefinition = fxnClient.resource('process-definition');
@@ -59,17 +56,20 @@ describe('The SDK core', function() {
 
     expect(ProcessDefinition.http).to.not.be.undefined;
 
-    ProcessDefinition.list({
-      nameLike: 'Bar'
-    }, function(err, results) {
-      expect(err).to.be.null;
+    ProcessDefinition.list(
+      {
+        nameLike: 'Bar'
+      },
+      function(err, results) {
+        expect(err).to.be.null;
 
-      expect(results.count).to.not.be.undefined;
+        expect(results.count).to.not.be.undefined;
 
-      expect(Array.isArray(results.items)).to.eql(true);
+        expect(Array.isArray(results.items)).to.eql(true);
 
-      done();
-    });
+        done();
+      }
+    );
   });
 
   it('has a baseUrl', function() {
@@ -82,14 +82,11 @@ describe('The SDK core', function() {
       ProcessDefinition = fxnClient.resource('process-definition');
     }).not.to.throw();
 
-    return ProcessDefinition.list({nameLike: 'Bar'}).then(
-      function(results) {
-        expect(results.count).to.not.be.undefined;
-        expect(Array.isArray(results.items)).to.eql(true);
-      }
-    );
+    return ProcessDefinition.list({nameLike: 'Bar'}).then(function(results) {
+      expect(results.count).to.not.be.undefined;
+      expect(Array.isArray(results.items)).to.eql(true);
+    });
   });
-
 
   it('has resources', function() {
     expect(function() {
@@ -101,13 +98,11 @@ describe('The SDK core', function() {
   });
 
   describe('http-client', function() {
-
     before(function() {
       requestListener.patchRequest(request);
     });
 
     it('uses default header when no custom headers provided', function(done) {
-
       fxnClient = new FxnSDK.Client({
         apiUri: 'engine-rest/engine'
       });
@@ -116,7 +111,7 @@ describe('The SDK core', function() {
 
       var check = function(request) {
         expect(request.headers).to.eql({
-          'Accept': 'application/hal+json, application/json; q=0.5'
+          Accept: 'application/hal+json, application/json; q=0.5'
         });
       };
 
@@ -128,10 +123,9 @@ describe('The SDK core', function() {
     });
 
     it('uses custom header when provided', function(done) {
-
       var header = {
-        'Accept': 'text/plain',
-        'Foo': 'Bar'
+        Accept: 'text/plain',
+        Foo: 'Bar'
       };
 
       fxnClient = new FxnSDK.Client({
@@ -153,10 +147,9 @@ describe('The SDK core', function() {
     });
 
     it('uses custom header for single request', function(done) {
-
       var header = {
-        'Accept': 'text/plain',
-        'Foo': 'Bar'
+        Accept: 'text/plain',
+        Foo: 'Bar'
       };
 
       fxnClient = new FxnSDK.Client({
@@ -182,7 +175,6 @@ describe('The SDK core', function() {
 });
 
 describe('The custom configured SDK core', function() {
-
   var baseUrl = 'engine-rest/engine';
   var mockConfig = require('../superagent-mock-config');
   var superagentMock;
@@ -204,7 +196,6 @@ describe('The custom configured SDK core', function() {
     }).not.to.throw();
   });
 
-
   it('initializes', function() {
     expect(function() {
       fxnClient = new FxnSDK.Client({
@@ -220,16 +211,19 @@ describe('The custom configured SDK core', function() {
   });
 
   it('uses the absolut apiUri', function(done) {
-    ProcessDefinition.list({
-      nameLike: 'Bar'
-    }, function(err, results) {
-      expect(err).to.be.null;
+    ProcessDefinition.list(
+      {
+        nameLike: 'Bar'
+      },
+      function(err, results) {
+        expect(err).to.be.null;
 
-      expect(results.count).to.not.be.undefined;
+        expect(results.count).to.not.be.undefined;
 
-      expect(Array.isArray(results.items)).to.eql(true);
+        expect(Array.isArray(results.items)).to.eql(true);
 
-      done();
-    });
+        done();
+      }
+    );
   });
 });

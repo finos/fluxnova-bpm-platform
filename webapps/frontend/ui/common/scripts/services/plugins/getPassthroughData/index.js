@@ -17,8 +17,8 @@
 
 module.exports = function(pluginPoint, scope, appName) {
   switch (appName) {
-    case 'cockpit':
-      return require('./cockpitPassthroughData')(pluginPoint, scope);
+    case 'monitoring':
+      return require('./monitoringPassthroughData')(pluginPoint, scope);
     case 'tasklist':
       return require('./tasklistPassthroughData')(pluginPoint, scope);
     default:

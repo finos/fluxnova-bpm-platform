@@ -117,7 +117,6 @@ public class StandaloneTaskTest extends PluggableProcessEngineTest {
     }
   }
 
-  // See http://jira.codehaus.org/browse/ACT-1290
   @Test
   public void testRevisionUpdatedOnSave() {
     Task task = taskService.newTask();

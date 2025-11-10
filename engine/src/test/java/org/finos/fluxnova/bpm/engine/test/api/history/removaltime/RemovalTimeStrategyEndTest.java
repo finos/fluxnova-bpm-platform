@@ -952,9 +952,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     assertThat(historicIncidents.get(1).getRemovalTime(), is(removalTime));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveIncidentWithPreservedCreateTime() {
     // given
@@ -1067,9 +1064,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     assertThat(externalTaskLogs.get(1).getRemovalTime(), is(removalTime));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveExternalTaskLogWithTimestampPreserved() {
     // given
@@ -1148,9 +1142,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     assertThat(jobLog.get(1).getRemovalTime(), is(removalTime));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveJobLogWithTimestampPreserved() {
     // given
@@ -1349,9 +1340,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     assertThat(userOperationLog.getRemovalTime(), is(removalTime));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveUserOperationLogWithTimestampPreserved() {
     // given
@@ -1418,9 +1406,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     assertThat(historicIdentityLinkLog.getRemovalTime(), is(removalTime));
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveIdentityLinkWithTimePreserved() {
     // given
@@ -2251,9 +2236,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     FailingExecutionListener.shouldFail = false;
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldResolveBatchJobLogWithTimestampPreserved() {
     // given
@@ -2422,9 +2404,6 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
     historyService.deleteHistoricBatch(batch.getId());
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9505
-   */
   @Test
   public void shouldNotUpdateCreateTimeForIncidentRelatedToBatch() {
     // given

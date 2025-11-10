@@ -73,7 +73,6 @@ create table ACT_RU_CASE_SENTRY_PART (
 -- create index on business key --
 create index ACT_IDX_CASE_EXEC_BUSKEY on ACT_RU_CASE_EXECUTION(BUSINESS_KEY_);
 
--- https://app.camunda.com/jira/browse/CAM-9165
 create index ACT_IDX_CASE_EXE_CASE_INST on ACT_RU_CASE_EXECUTION(CASE_INST_ID_);
 
 -- create foreign key constraints on ACT_RU_CASE_EXECUTION --
@@ -125,7 +124,7 @@ alter table ACT_RU_CASE_SENTRY_PART
     foreign key (CASE_EXEC_ID_)
     references ACT_RU_CASE_EXECUTION(ID_);
 
--- indexes for concurrency problems - https://app.camunda.com/jira/browse/CAM-1646 --
+-- indexes for concurrency problems
 create index ACT_IDX_CASE_EXEC_CASE on ACT_RU_CASE_EXECUTION(CASE_DEF_ID_);
 create index ACT_IDX_CASE_EXEC_PARENT on ACT_RU_CASE_EXECUTION(PARENT_ID_);
 create index ACT_IDX_VARIABLE_CASE_EXEC on ACT_RU_VARIABLE(CASE_EXECUTION_ID_);

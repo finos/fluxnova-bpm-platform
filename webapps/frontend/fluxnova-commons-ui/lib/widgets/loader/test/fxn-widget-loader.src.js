@@ -18,7 +18,7 @@
 'use strict';
 
 var angular = require('fluxnova-bpm-sdk-js/vendor/angular'),
-    loaderDefinition = require('../fxn-widget-loader');
+  loaderDefinition = require('../fxn-widget-loader');
 
 require('angular-ui-bootstrap');
 
@@ -29,10 +29,7 @@ var testModule = angular.module('testModule', [loaderModule.name]);
 testModule.controller('testInteractiveController', [
   '$scope',
   '$timeout',
-  function(
-    $scope,
-    $timeout
-  ) {
+  function($scope, $timeout) {
     $scope.ctrlState = 'INITIAL';
     $scope.timeoutPromise = null;
 
@@ -53,7 +50,8 @@ testModule.controller('testInteractiveController', [
         $timeout.cancel($scope.timeoutPromise);
       }
     };
-  }]);
+  }
+]);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document.body, [testModule.name]);

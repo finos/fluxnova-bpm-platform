@@ -74,7 +74,7 @@ public class DevProcessApplication extends ServletProcessApplication {
       public void run() {
         try {
           createReportDemoData(engine);
-          createCockpitDemoData(engine);
+          createMonitoringDemoData(engine);
           LOGGER.info("Done generating demo data.");
         }
         catch(Exception e) {
@@ -87,7 +87,7 @@ public class DevProcessApplication extends ServletProcessApplication {
     }.start();
   }
 
-  protected void createCockpitDemoData(final ProcessEngine engine) throws Exception {
+  protected void createMonitoringDemoData(final ProcessEngine engine) throws Exception {
     RuntimeService runtimeService = engine.getRuntimeService();
 
     Map<String, Object> vars1 = new HashMap<String, Object>();
@@ -472,7 +472,7 @@ public class DevProcessApplication extends ServletProcessApplication {
 
   protected void createReportDemoData(ProcessEngine engine) {
 
-    LOGGER.info("Generating random report data for cockpit");
+    LOGGER.info("Generating random report data for monitoring");
 
     Calendar instance = Calendar.getInstance();
     Date currentTime = instance.getTime();

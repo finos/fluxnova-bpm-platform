@@ -79,7 +79,7 @@ public class AuthCacheTTLDefaultIT {
     doGetRequestToProfileEndpoint(headers);
 
     assertThat(httpClientRule.getHeader("X-Authorized-Apps"))
-        .isEqualTo("admin,tasklist,welcome,cockpit");
+        .isEqualTo("admin,tasklist,welcome,monitoring");
 
     identityService.deleteUser("demo");
     doGetRequestToProfileEndpoint(headers);

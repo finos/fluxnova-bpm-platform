@@ -168,14 +168,14 @@ public class ManagementServiceGetTelemetryDataTest {
   @Test
   public void shouldReturnWebapps() {
     // given
-    managementService.addWebappToTelemetry("cockpit");
+    managementService.addWebappToTelemetry("monitoring");
     managementService.addWebappToTelemetry("admin");
 
     // when
     TelemetryData telemetryData = managementService.getTelemetryData();
 
     // then
-    assertThat(telemetryData.getProduct().getInternals().getWebapps()).containsExactlyInAnyOrder("cockpit", "admin");
+    assertThat(telemetryData.getProduct().getInternals().getWebapps()).containsExactlyInAnyOrder("monitoring", "admin");
   }
 
   @Test

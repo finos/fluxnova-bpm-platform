@@ -32,8 +32,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.finos.fluxnova.bpm.admin.Admin;
 import org.finos.fluxnova.bpm.admin.AdminRuntimeDelegate;
-import org.finos.fluxnova.bpm.cockpit.Cockpit;
-import org.finos.fluxnova.bpm.cockpit.CockpitRuntimeDelegate;
+import org.finos.fluxnova.bpm.monitoring.Monitoring;
+import org.finos.fluxnova.bpm.monitoring.MonitoringRuntimeDelegate;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.authorization.Groups;
 import org.finos.fluxnova.bpm.engine.rest.util.WebApplicationUtil;
@@ -59,7 +59,7 @@ import org.finos.fluxnova.bpm.welcome.WelcomeRuntimeDelegate;
  */
 public class ProcessEnginesFilter extends AbstractTemplateFilter {
 
-  protected static final String COCKPIT_APP_NAME = "cockpit";
+  protected static final String MONITORING_APP_NAME = "monitoring";
   protected static final String ADMIN_APP_NAME = "admin";
   protected static final String TASKLIST_APP_NAME = "tasklist";
   protected static final String WELCOME_APP_NAME = "welcome";
@@ -78,7 +78,7 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
 
   public static Pattern APP_PREFIX_PATTERN = Pattern.compile("/app/(?:([\\w-]+?)/(?:(index\\.html|[\\w-]+)?/?([^?]*)?)?)?");
 
-  protected final CockpitRuntimeDelegate cockpitRuntimeDelegate;
+  protected final MonitoringRuntimeDelegate monitoringRuntimeDelegate;
   protected final AdminRuntimeDelegate adminRuntimeDelegate;
   protected final TasklistRuntimeDelegate tasklistRuntimeDelegate;
   protected final WelcomeRuntimeDelegate welcomeRuntimeDelegate;
@@ -90,7 +90,7 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
   protected final String pluginDependencyFormat;
 
   public ProcessEnginesFilter() {
-    this.cockpitRuntimeDelegate = Cockpit.getRuntimeDelegate();
+    this.monitoringRuntimeDelegate = Monitoring.getRuntimeDelegate();
     this.adminRuntimeDelegate = Admin.getRuntimeDelegate();
     this.tasklistRuntimeDelegate = Tasklist.getRuntimeDelegate();
     this.welcomeRuntimeDelegate = Welcome.getRuntimeDelegate();
@@ -120,7 +120,7 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
       String engineName = uriMatcher.group(2);
       String pageUri = uriMatcher.group(3);
 
-      // this happens on weblogic - /app/cockpit/index.html
+      // this happens on weblogic - /app/control-plane/index.html
       if (INDEX_PAGE.equals(engineName)) {
         engineName = null;
       }
@@ -197,7 +197,7 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
   }
 
   protected String getDefaultEngineName() {
-    CockpitRuntimeDelegate runtimeDelegate = Cockpit.getRuntimeDelegate();
+    MonitoringRuntimeDelegate runtimeDelegate = Monitoring.getRuntimeDelegate();
 
     Set<String> processEngineNames = runtimeDelegate.getProcessEngineNames();
     if(processEngineNames.isEmpty()) {
@@ -241,7 +241,7 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
   }
 
   protected boolean needsInitialUser(String engineName) throws IOException, ServletException {
-    final ProcessEngine processEngine = Cockpit.getProcessEngine(engineName);
+    final ProcessEngine processEngine = Monitoring.getProcessEngine(engineName);
     if (processEngine == null) {
       return false;
     }
@@ -346,8 +346,8 @@ public class ProcessEnginesFilter extends AbstractTemplateFilter {
 
   @SuppressWarnings("unchecked")
   protected <T extends AppPlugin> List<T> getPlugins(String appName) {
-    if (COCKPIT_APP_NAME.equals(appName)) {
-      return (List<T>) cockpitRuntimeDelegate.getAppPluginRegistry().getPlugins();
+    if (MONITORING_APP_NAME.equals(appName)) {
+      return (List<T>) monitoringRuntimeDelegate.getAppPluginRegistry().getPlugins();
 
     } else if (ADMIN_APP_NAME.equals(appName)) {
       return (List<T>) adminRuntimeDelegate.getAppPluginRegistry().getPlugins();

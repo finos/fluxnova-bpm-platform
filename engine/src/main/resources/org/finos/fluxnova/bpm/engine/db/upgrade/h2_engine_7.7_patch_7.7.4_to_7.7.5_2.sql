@@ -15,6 +15,6 @@
 -- limitations under the License.
 --
 
--- increase the field length https://app.camunda.com/jira/browse/CAM-8177 --
+-- increase the field length
 ALTER TABLE ACT_RU_AUTHORIZATION 
   ALTER COLUMN RESOURCE_ID_ varchar(255);

@@ -71,24 +71,8 @@
       "Freitag",
       "Samstag"
     ],
-    "weekdaysMin": [
-      "So",
-      "Mo",
-      "Di",
-      "Mi",
-      "Do",
-      "Fr",
-      "Sa"
-    ],
-    "weekdaysShort": [
-      "Son",
-      "Mon",
-      "Die",
-      "Mit",
-      "Don",
-      "Fre",
-      "Sam"
-    ]
+    "weekdaysMin": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    "weekdaysShort": ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"]
   },
   "labels": {
     "ABORT": "Abbrechen",
@@ -119,7 +103,7 @@
     "AUTHORIZATION_AUTHORIZATION": "Autorisierung",
     "AUTHORIZATION_AUTHORIZATIONS": "Autorisierungen",
     "AUTHORIZATION_BATCH": "Stapel",
-    "AUTHORIZATION_COCKPIT_OR_TASKLIST": "(cockpit oder tasklist *)",
+    "AUTHORIZATION_MONITORING_OR_TASKLIST": "(monitoring oder tasklist *)",
     "AUTHORIZATION_CONFIRM_DELETE_MESSAGE": "Sind Sie sich sicher, dass Sie die folgende Autorisierung löschen möchten?",
     "AUTHORIZATION_CONFIRM_DELETE_TITLE": "Löschen bestätigen",
     "AUTHORIZATION_CREATE": "Autorisierung konnte nicht erstellt werden",
@@ -227,7 +211,7 @@
     "CANCEL": "Abbrechen",
     "CHANGE": "Änderung",
     "CLOSE": "Schließen",
-    "COCKPIT_APP": "Cockpit",
+    "MONITORING_APP": "Monitoring",
     "DASHBOARD_DASHBOARD": "Dashboard",
     "DATE": "Datum",
     "DELETE": "Löschen",
@@ -239,7 +223,7 @@
     "DIAGNOSTICS_INTRODUCTION": "Die Diagnosedaten helfen dabei, die Systemumgebung besser zu verstehen. Dies unterstützt die Problemdiagnose.",
     "DIRECTIVE_ENGINE_SELECT_MESSAGE_NOT_FOUND": "Die ausgewählte Engine existiert nicht.",
     "DIRECTIVE_ENGINE_SELECT_STATUS_NOT_FOUND": "Nichts gefunden",
-    "DIRECTIVE_ENGINE_SELECT_TOOLTIP": "Wählen Sie aus den laufenden Engines Ihre gewünschte Engine aus. Die in Cockpit angezeigten Daten basieren auf der gewählten Engine.",
+    "DIRECTIVE_ENGINE_SELECT_TOOLTIP": "Wählen Sie aus den laufenden Engines Ihre gewünschte Engine aus. Die in Monitoring angezeigten Daten basieren auf der gewählten Engine.",
     "DIRECTIVE_INPLACE_TEXTFIELD_ERROR_MSG": "Legen Sie zur Bearbeitung eine Kontext-Einstellung fest",
     "DOUBLE": "Double",
     "ERROR": "Fehler",
@@ -256,7 +240,7 @@
     "EXECUTION_METRICS_RPI": "Prozessinstanzen (Process Instances, kurz PI)",
     "EXECUTION_METRICS_START_DATE": "Anfangsdatum",
     "EXECUTION_METRICS_TW": "Task Benutzer (Task Users, kurz TU)",
-	  "EXECUTION_METRICS_MONTHLY_TABLE_TITLE": "Statistik der letzten 12 Monate",
+    "EXECUTION_METRICS_MONTHLY_TABLE_TITLE": "Statistik der letzten 12 Monate",
     "EXECUTION_METRICS_MONTHLY_START_DATE": "Anfangsdatum",
     "EXECUTION_METRICS_SHOW_LEGACY": "Zeige ursprüngliche Metriken (FNI/EDE)",
     "EXECUTION_METRICS_ANNUAL_TABLE_TITLE": "Ausführungs-Metriken je Vertragsjahr",

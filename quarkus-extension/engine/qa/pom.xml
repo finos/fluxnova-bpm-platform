@@ -2,7 +2,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.quarkus</groupId>
     <artifactId>fluxnova-bpm-quarkus-engine-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -56,7 +56,6 @@
           </dependenciesToScan>
 
           <excludes>
-            <!-- See https://jira.camunda.com/browse/CAM-13751 -->
             <exclude>**/BeanPropertyElTest.java</exclude>
 
             <!-- See ProgrammaticBeanLookupTest in quarkus-extension/engine/deployment module -->

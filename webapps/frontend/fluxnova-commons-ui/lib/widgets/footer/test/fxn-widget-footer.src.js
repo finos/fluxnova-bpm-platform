@@ -18,7 +18,7 @@
 'use strict';
 
 var angular = require('fluxnova-bpm-sdk-js/vendor/angular'),
-    footerDefinition = require('../fxn-widget-footer');
+  footerDefinition = require('../fxn-widget-footer');
 
 var footerModule = angular.module('footerModule', []);
 

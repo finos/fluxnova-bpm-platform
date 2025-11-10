@@ -99,11 +99,9 @@ describe('The History resource usage', function() {
     expect(History.resolve).to.be.a('function');
   });
 
-
   xit('has a `complete` method', function() {
     expect(History.complete).to.be.a('function');
   });
-
 
   xdescribe('instance', function() {
     var instance;

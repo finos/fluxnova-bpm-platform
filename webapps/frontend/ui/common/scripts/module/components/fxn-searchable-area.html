@@ -1,28 +1,32 @@
-<div fxn-widget-search
-     fxn-widget-search-total="Searchable.pages.total"
-     fxn-widget-search-size="Searchable.pages.size"
-     fxn-widget-search-valid-searches="Searchable.config.searches"
-     fxn-widget-search-translations="Searchable.config.tooltips"
-     fxn-widget-search-types="Searchable.config.types"
-     fxn-widget-search-id="{{searchId}}"
-     fxn-widget-search-operators="Searchable.config.operators"
-     fxn-widget-search-storage-group="Searchable.storageGroup"
-     fxn-widget-search-mode="filter">
-</div>
-<div fxn-widget-loader
-     text-error="{{Searchable.loadingError}}"
-     text-empty="{{Searchable.textEmpty}}"
-     loading-state="{{Searchable.loadingState}}">
-
+<div
+  fxn-widget-search
+  fxn-widget-search-total="Searchable.pages.total"
+  fxn-widget-search-size="Searchable.pages.size"
+  fxn-widget-search-valid-searches="Searchable.config.searches"
+  fxn-widget-search-translations="Searchable.config.tooltips"
+  fxn-widget-search-types="Searchable.config.types"
+  fxn-widget-search-id="{{searchId}}"
+  fxn-widget-search-operators="Searchable.config.operators"
+  fxn-widget-search-storage-group="Searchable.storageGroup"
+  fxn-widget-search-mode="filter"
+></div>
+<div
+  fxn-widget-loader
+  text-error="{{Searchable.loadingError}}"
+  text-empty="{{Searchable.textEmpty}}"
+  loading-state="{{Searchable.loadingState}}"
+>
   <div ng-transclude></div>
 
-  <ul uib-pagination ng-if="Searchable.pages.total > Searchable.pages.size"
-              class="pagination-sm"
-              page="Searchable.pages.current"
-              ng-model="Searchable.pages.current"
-              total-items="Searchable.pages.total"
-              items-per-page="Searchable.pages.size"
-              max-size="7"
-              boundary-links="true">
-  </ul>
+  <ul
+    uib-pagination
+    ng-if="Searchable.pages.total > Searchable.pages.size"
+    class="pagination-sm"
+    page="Searchable.pages.current"
+    ng-model="Searchable.pages.current"
+    total-items="Searchable.pages.total"
+    items-per-page="Searchable.pages.size"
+    max-size="7"
+    boundary-links="true"
+  ></ul>
 </div>

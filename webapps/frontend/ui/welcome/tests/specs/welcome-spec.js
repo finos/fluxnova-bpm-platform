@@ -24,7 +24,7 @@ var page = require('../pages/welcome');
 describe('Welcome Welcome page Spec', function() {
   before(function() {
     return testHelper([], function() {
-      page.navigateToWebapp('Cockpit');
+      page.navigateToWebapp('Monitoring');
       page.authentication.userLogin('admin', 'admin');
       page.navigateToWebapp('Welcome');
     });
@@ -33,7 +33,7 @@ describe('Welcome Welcome page Spec', function() {
   describe('webapp links', function() {
     it('displays links to the web applications', function() {
       expect(page.adminWebappLink().isDisplayed()).to.eventually.eql(true);
-      expect(page.cockpitWebappLink().isDisplayed()).to.eventually.eql(true);
+      expect(page.monitoringWebappLink().isDisplayed()).to.eventually.eql(true);
       expect(page.tasklistWebappLink().isDisplayed()).to.eventually.eql(true);
     });
 
@@ -51,7 +51,7 @@ describe('Welcome Welcome page Spec', function() {
           ).to.eventually.contain(currentEngine);
           expect(
             page
-              .cockpitWebappLink()
+              .monitoringWebappLink()
               .element(by.css('a'))
               .getAttribute('href')
           ).to.eventually.contain(currentEngine);
@@ -143,7 +143,7 @@ describe('Welcome Welcome page Spec', function() {
       page.changePasswordFormSubmit();
       page.logout();
 
-      page.navigateToWebapp('Cockpit');
+      page.navigateToWebapp('Monitoring');
       page.authentication.userLogin('admin', 'papipapo');
     });
   });

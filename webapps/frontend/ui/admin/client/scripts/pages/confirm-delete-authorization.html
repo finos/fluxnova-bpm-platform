@@ -32,26 +32,31 @@
   <div ng-show="status === 'SUCCESS'">
     <p>{{ 'AUTHORIZATION_DELETE_MESSAGE' | translate }}</p>
   </div>
-
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-default"
-          ng-click="close()"
-          ng-disabled="status === 'performCreate'"
-          ng-hide="status === 'SUCCESS' || status === 'FAILED'">
+  <button
+    class="btn btn-default"
+    ng-click="close()"
+    ng-disabled="status === 'performCreate'"
+    ng-hide="status === 'SUCCESS' || status === 'FAILED'"
+  >
     {{ 'AUTHORIZATION_DELETE_CLOSE' | translate }}
   </button>
 
-  <button class="btn btn-primary"
-          ng-click="close(status)"
-          ng-show="status === 'SUCCESS' || status === 'FAILED'">
+  <button
+    class="btn btn-primary"
+    ng-click="close(status)"
+    ng-show="status === 'SUCCESS' || status === 'FAILED'"
+  >
     {{ 'AUTHORIZATION_DELETE_OK' | translate }}
   </button>
 
-  <button class="btn btn-primary"
-          ng-click="performDelete()"
-          ng-hide="status === 'SUCCESS' || status === 'FAILED'">
+  <button
+    class="btn btn-primary"
+    ng-click="performDelete()"
+    ng-hide="status === 'SUCCESS' || status === 'FAILED'"
+  >
     {{ 'AUTHORIZATION_DELETE_DELETE' | translate }}
   </button>
 </div>

@@ -58,9 +58,6 @@ public class ConcurrentDeploymentTest extends ConcurrencyTestCase {
   protected ThreadControl thread1;
   protected ThreadControl thread2;
 
-  /**
-   * @see <a href="https://app.camunda.com/jira/browse/CAM-2128">https://app.camunda.com/jira/browse/CAM-2128</a>
-   */
   @Test
   public void testDuplicateFiltering() throws InterruptedException {
 

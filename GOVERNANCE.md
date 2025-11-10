@@ -2,7 +2,7 @@
 
 This document describes the governance of the FINOS Fluxnova project. The project is also governed by the [Linux Foundation Antitrust Policy](https://www.linuxfoundation.org/antitrust-policy/), and the FINOS [IP Policy]( https://community.finos.org/governance-docs/IP-policy.pdf), [Code of Conduct](https://community.finos.org/docs/governance/code-of-conduct), [Collaborative Principles](https://community.finos.org/docs/governance/collaborative-principles/), and [Meeting Procedures](https://community.finos.org/docs/governance/meeting-procedures/).
 
-Please also see our [contribution guidelines] (https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md)
+Please also see our [contribution guidelines](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md)
 
 ## Roles
 
@@ -12,10 +12,9 @@ Fluxnova is a meritocratic, consensus-based community project, in so far that is
 
 A Contributor is anyone who submits a contribution to the project. Contributions may include code, issues, documentation, comments, tests or design inputs.
 
-#### (CLA) Contributor License Agreement 
+#### (CLA) Contributor License Agreement
 
 Contributors must be covered under a Contributor License Agreement (CLA) with FINOS. Contributions from those not covered will be blocked by the Linux Foundation EasyCLA tool. See the [FINOS Software Project Governance](https://community.finos.org/docs/governance/software-projects/easycla/) page for more details.
-
 
 ### Maintainers
 
@@ -26,8 +25,7 @@ A Maintainer is a Contributor who, based on sustained contributions and communit
 - Participating in community discussions
 - Ensuring adherence to project standards
 
-
-###	Lead Maintainers
+### Lead Maintainers
 
 The Lead Maintainer serves as the primary liaison(s) with the FINOS team and FINOS Board. Responsibilities include:
 
@@ -47,9 +45,9 @@ Fluxnova encourages community driven stewardship. The following practices ensure
 - Lead Maintainer Re-election: The Lead Maintainer(s) is re-elected annually, or earlier if required. Any current Maintainer may nominate themselves or others. Elections are conducted by majority vote.
 - Transparency: All discussions and decisions on Maintainer appointments, removals, or Lead Maintainer elections are recorded and minuted publicly.
 - Offboarding: As part of the Annual Maintainer Review, all maintainers will be asked to:
-    - Reconfirm their commitment to the project
-    - Share any availability constraints
-    - Optionally step down if unable to contribute actively
+  - Reconfirm their commitment to the project
+  - Share any availability constraints
+  - Optionally step down if unable to contribute actively
 Inactivity Criteria: A maintainer may be considered inactive if, for 6+ months they have not:
 - Reviewed or merged PRs,
 - Participated in governance or roadmap discussions
@@ -57,7 +55,7 @@ Inactivity Criteria: A maintainer may be considered inactive if, for 6+ months t
 Offboarding:
 - Voluntary: Maintainers may step down at any time
 - Involuntary: If inactive and unresponsive, maintainers may be respectfully offboarded through consensus
-    - Note: Any offboarding decisions will be handled with care and reviewed against the FINOS policies to ensure alignment with community and legal standards
+  - Note: Any offboarding decisions will be handled with care and reviewed against the FINOS policies to ensure alignment with community and legal standards
 
 ## Contribution Guidelines
 
@@ -65,7 +63,7 @@ Contributions must abide by the contribution guidelines set out in [CONTRIBUTING
 
 ## Decision Making Process
 
-Fluxnova follows a consensus- based decision-making model:
+Fluxnova follows a consensus based decision-making model:
 
 - Preferred: All relevant Maintainer agree
 - Acceptable: Majority agrees, no strong objections
@@ -80,6 +78,7 @@ Maintainers may hold votes when consensus is not achievable. Any Maintainer may 
 - If tied, the Lead Maintainer may cast a tie-breaking vote
 
 Votes MUST be public, taking place via:
+
 - GitHub (Issues)
 - Public communication channels (mailing list)
 - Minuted project meetings
@@ -100,21 +99,22 @@ Fluxnova operates two standing Working Groups, to streamline both technical coll
 
 - Purpose: Technical forum for Maintainers to discuss engine code, new features, build pipelines and CI automation
 - Duration: 60 minutes
-- Responsibilities: 
-    - Review and merge open pull requests
-    - Discuss architecture and design proposals
-    - Ensure compliance with FINOS governance and open-source best practices
+- Responsibilities:
+  - Review and merge open pull requests
+  - Discuss architecture and design proposals
+  - Ensure compliance with FINOS governance and open-source best practices
 
 ### General Working Group
 
 - Purpose: Programme level forum that escalates items from the Maintainers Working Group and steers overall delivery
 - Duration: 30 minutes
-- Responsibilities: 
-    - Oversee roadmap milestones and delivery targets
-    - Review and approve major technical changes that require wider agreement
-    - Ensure ongoing alignment with FINOS governance and open-source best practices
+- Responsibilities:
+  - Oversee roadmap milestones and delivery targets
+  - Review and approve major technical changes that require wider agreement
+  - Ensure ongoing alignment with FINOS governance and open-source best practices
 
 ### Meeting Cadence and Chair Rotation
+
 Both Working Groups meet weekly and all sessions are minuted and published publicly.
 
 | Period | Chair & Minutes |
@@ -125,6 +125,7 @@ Both Working Groups meet weekly and all sessions are minuted and published publi
 |Q1 2026 | Capital One |
 
 Chair Responsibilities:
+
 - Set agendas and create meeting issues in GitHub
 - Facilitate the call and manage time
 - Ensure minutes capture key decisions and assigned actions
@@ -143,6 +144,7 @@ Participation is open to all who are materially affected by Fluxnova’s directi
 No single individual company, or interest group shall dominate decision making. Contributions are considered on their merit.
 
 ### Balance
+
 Efforts are made to involve diverse stakeholders across industry sectors to ensure well rounded and equitable outcomes.
 
 ### Consideration of Views and Objections

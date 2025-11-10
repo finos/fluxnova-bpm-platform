@@ -15,7 +15,7 @@ You can use the template engine in Fluxnova Automation Platform 1.0.0 as scripti
 
 ## More template engines (Community Extensions)
  ** Needs To Be Reviewed **
-You can find the following template engine extensions in Fluxnova's [Community Hub](https://github.com/camunda-community-hub/camunda-7-template-engines-jsr223/):
+You can find the following template engine extensions in Fluxnova's [Community Hub](https://github.com/finos/fluxnova-bpm-platform/tree/main/freemarker-template-engine):
 
 * Velocity 2.3
 * xQuery Saxon 9.6

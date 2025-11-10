@@ -59,16 +59,16 @@ public class LoginIT extends AbstractWebappUiIntegrationTest {
   }
 
   @Test
-  public void shouldLoginToCockpit() throws URISyntaxException {
+  public void shouldLoginToMonitoring() throws URISyntaxException {
     try {
-      loginToCockpit();
+      loginToMonitoring();
     } catch (WebDriverException e) {
-      loginToCockpit();
+      loginToMonitoring();
     }
   }
 
-  public void loginToCockpit() throws URISyntaxException {
-    String appName = "cockpit";
+  public void loginToMonitoring() throws URISyntaxException {
+    String appName = "monitoring";
     login(appName);
     wait.until(textToBePresentInElementLocated(
         By.cssSelector(".deployed .processes .stats-label"),

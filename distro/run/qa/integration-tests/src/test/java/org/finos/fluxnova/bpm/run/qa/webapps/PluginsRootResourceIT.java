@@ -38,9 +38,9 @@ import static org.junit.Assert.assertTrue;
 /**
  * NOTE:
  * copied from
- * <a href="https://github.com/camunda/camunda-bpm-platform/blob/master/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/PluginsRootResourceIT.java">platform</a>
+ * <a href="https://github.com/finos/fluxnova-bpm-platform/tree/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/PluginsRootResourceIT.java">platform</a>
  * then added <code>@BeforeParam</code> and <code>@AfterParam</code> methods for container setup
- * and changed  <code>appBasePath</code> to <code>APP_BASE_PATH</code>, might be removed with https://jira.camunda.com/browse/CAM-11379
+ * and changed  <code>appBasePath</code> to <code>APP_BASE_PATH</code>
  */
 @RunWith(Parameterized.class)
 public class PluginsRootResourceIT extends AbstractWebIT {

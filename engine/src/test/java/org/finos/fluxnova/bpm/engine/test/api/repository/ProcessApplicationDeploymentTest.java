@@ -1049,7 +1049,7 @@ public class ProcessApplicationDeploymentTest {
     testRule.deploy(repositoryService
         .createDeployment(processApplication.getReference())
         .name(name)
-        .source("cockpit")
+        .source("monitoring")
         .addModelInstance("process.bpmn", model)
         .enableDuplicateFiltering(true));
 
@@ -1059,7 +1059,7 @@ public class ProcessApplicationDeploymentTest {
     testRule.deploy(repositoryService
         .createDeployment(processApplication.getReference())
         .name("my-deployment")
-        .source("cockpit")
+        .source("monitoring")
         .addModelInstance("process.bpmn", model)
         .enableDuplicateFiltering(true));
 
@@ -1215,7 +1215,6 @@ public class ProcessApplicationDeploymentTest {
 
   /*
    * A delay is introduced between the two deployments so the test is valid when MySQL
-   * is used. See https://jira.camunda.com/browse/CAM-11893 for more details.
    */
   @Test
   public void shouldRegisterExistingDeploymentsOnLatestProcessDefinitionRemoval() {

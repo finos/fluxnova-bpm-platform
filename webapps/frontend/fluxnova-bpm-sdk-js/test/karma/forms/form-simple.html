@@ -1,27 +1,33 @@
 <form fxn-form role="form">
   <div class="form-group">
     <label for="stringVar">A string</label>
-    <input fxn-variable-name="stringVar"
-           fxn-variable-type="String"
-           type="text"
-           class="form-control"
-           id="stringVar">
+    <input
+      fxn-variable-name="stringVar"
+      fxn-variable-type="String"
+      type="text"
+      class="form-control"
+      id="stringVar"
+    />
   </div>
 
   <div class="form-group">
     <label for="longStringVar">A longer string</label>
-    <textarea fxn-variable-name="longStringVar"
-              cols="30"
-              rows="10"
-              class="form-control"
-              id="longStringVar"></textarea>
+    <textarea
+      fxn-variable-name="longStringVar"
+      cols="30"
+      rows="10"
+      class="form-control"
+      id="longStringVar"
+    ></textarea>
   </div>
 
   <div class="form-group">
     <label for="singleChoiceSelect">1 choice</label>
-    <select fxn-variable-name="singleChoiceSelect"
-            class="form-control"
-            id="singleChoiceSelect">
+    <select
+      fxn-variable-name="singleChoiceSelect"
+      class="form-control"
+      id="singleChoiceSelect"
+    >
       <option> - None - </option>
       <option value="val1">Value 1</option>
       <option value="val2">Value 2</option>
@@ -30,17 +36,19 @@
 
   <div class="form-group">
     <label for="multipleChoicesSelect">Multple choices</label>
-    <select fxn-variable-name="multipleChoicesSelect"
-            class="form-control"
-            id="multipleChoicesSelect"
-            multiple>
+    <select
+      fxn-variable-name="multipleChoicesSelect"
+      class="form-control"
+      id="multipleChoicesSelect"
+      multiple
+    >
       <option value="val1">Value 1</option>
       <option value="val2">Value 2</option>
     </select>
   </div>
 
-<!-- unsupported (for now): radios and checkboxes -->
-<!--
+  <!-- unsupported (for now): radios and checkboxes -->
+  <!--
   <div class="checkbox">
     <label>
       <input fxn-variable-name="checkboxChoices"
@@ -93,5 +101,4 @@
   </div>
 
  -->
-
 </form>

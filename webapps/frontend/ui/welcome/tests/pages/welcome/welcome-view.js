@@ -30,8 +30,8 @@ module.exports = Base.extend({
     return this.webappLinks().element(by.css('.admin-app'));
   },
 
-  cockpitWebappLink: function() {
-    return this.webappLinks().element(by.css('.cockpit-app'));
+  monitoringWebappLink: function() {
+    return this.webappLinks().element(by.css('.monitoring-app'));
   },
 
   tasklistWebappLink: function() {

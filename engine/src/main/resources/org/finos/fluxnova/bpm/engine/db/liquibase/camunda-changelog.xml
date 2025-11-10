@@ -155,4 +155,16 @@
     <tagDatabase tag="7.23.0"/>
   </changeSet>
 
+  <changeSet author="Fluxnova" id="7.23-to-1.0">
+    <sqlFile path="upgrade/${db.name}_engine_7.23_to_1.0.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="1.0.0-tag">
+    <tagDatabase tag="1.0.0"/>
+  </changeSet>
+
 </databaseChangeLog>

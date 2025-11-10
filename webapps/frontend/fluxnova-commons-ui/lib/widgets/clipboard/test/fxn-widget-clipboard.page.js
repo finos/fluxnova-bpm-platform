@@ -24,7 +24,7 @@ function Variable(node) {
   this.node = node;
 }
 
-function Page() { }
+function Page() {}
 
 Page.prototype.variable = function() {
   var varSelector = '[fxn-widget-clipboard]';

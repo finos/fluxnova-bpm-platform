@@ -30,8 +30,8 @@ var apps = {
   admin: {
     label: 'Admin'
   },
-  cockpit: {
-    label: 'Cockpit'
+  monitoring: {
+    label: 'Monitoring'
   },
   tasklist: {
     label: 'Tasklist'

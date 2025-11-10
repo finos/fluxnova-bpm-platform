@@ -22,23 +22,18 @@ var clipboardDefinition = require('../fxn-widget-clipboard');
 
 require('angular-ui-bootstrap');
 
-var clipboardModule = angular.module('clipboardModule', [
-  'ui.bootstrap'
-]);
+var clipboardModule = angular.module('clipboardModule', ['ui.bootstrap']);
 clipboardModule.directive('fxnWidgetClipboard', clipboardDefinition);
-
 
 var testModule = angular.module('testModule', [clipboardModule.name]);
 testModule.controller('testController', [
   '$scope',
-  function(
-    $scope
-  ) {
+  function($scope) {
     $scope.obj = {
       varToCopy: 'W00p! W00p!'
     };
-  }]);
-
+  }
+]);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document.body, [testModule.name]);

@@ -18,6 +18,5 @@
 insert into ACT_GE_SCHEMA_LOG
 values ('102', CURRENT_TIMESTAMP, '7.12.11');
 
--- https://jira.camunda.com/browse/CAM-12383
 create index ACT_IDX_HI_INCIDENT_CREATE_TI on ACT_HI_INCIDENT(CREATE_TIME_);
 create index ACT_IDX_HI_INCIDENT_END_TIME on ACT_HI_INCIDENT(END_TIME_);

@@ -94,8 +94,8 @@ export function init(pluginDependencies) {
       UriProvider.replace(':appName', 'admin');
       UriProvider.replace('app://', getUri('href'));
       UriProvider.replace(
-        'cockpitbase://',
-        getUri('app-root') + '/app/cockpit/'
+        'monitoringbase://',
+        getUri('app-root') + '/app/monitoring/'
       );
       UriProvider.replace('admin://', getUri('admin-api'));
       UriProvider.replace('plugin://', getUri('admin-api') + 'plugin/');

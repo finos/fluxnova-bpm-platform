@@ -34,7 +34,6 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.junit.Test;
 
 /**
- * see https://app.camunda.com/jira/browse/CAM-1612
  *
  * @author Daniel Meyer
  * @author Danny Gräf

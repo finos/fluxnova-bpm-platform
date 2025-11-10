@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: User Forum
-    url: https://forum.camunda.io/
-    about: Ask questions about using Camunda Platform here.
-  - name: Enterprise Support
-    url: https://camunda.com/services/enterprise-support-guide/
-    about: As an enterprise customer, contact our product support here.
+    url: https://github.com/finos/fluxnova-bpm-platform/discussions
+    about: Ask questions about Fluxnova in Github discussions.
+  - name: Raise an issue
+    url: https://github.com/finos/fluxnova-bpm-platform/issues
+    about: If you'd like to request a feature, report a bug or to ask for support, raise an issue on the Fluxnova-bpm-platform.

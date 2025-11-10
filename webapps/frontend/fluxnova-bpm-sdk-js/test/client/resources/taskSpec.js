@@ -35,16 +35,13 @@ describe('The Task resource usage', function() {
     expect(Task.assignee).to.be.a('function');
   });
 
-
   it('has a `delegate` method', function() {
     expect(Task.delegate).to.be.a('function');
   });
 
-
   it('has a `claim` method', function() {
     expect(Task.claim).to.be.a('function');
   });
-
 
   it('has a `unclaim` method', function() {
     expect(Task.unclaim).to.be.a('function');
@@ -54,16 +51,13 @@ describe('The Task resource usage', function() {
     expect(Task.complete).to.be.a('function');
   });
 
-
   xit('has a `resolve` method', function() {
     expect(Task.resolve).to.be.a('function');
   });
 
-
   xit('has a `complete` method', function() {
     expect(Task.complete).to.be.a('function');
   });
-
 
   xdescribe('instance', function() {
     var instance;

@@ -36,7 +36,7 @@
                        "value": {
                          "resourceIds": [ "aResourceId" ],
                          "resourceNames": [ "aResourceName" ],
-                         "source" : "cockpit"
+                         "source" : "monitoring"
                        }
                      }'] />
 
@@ -58,7 +58,7 @@
                          ],
                          "id": "aDeploymentId",
                          "name": "aName",
-                         "source": "cockpit",
+                         "source": "monitoring",
                          "deploymentTime": "2015-10-13T13:59:43.000+0200",
                          "tenantId": null,
                          "deployedProcessDefinitions": {

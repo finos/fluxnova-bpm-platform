@@ -220,9 +220,6 @@ public class XmlValueTest extends PluggableProcessEngineTestCase {
     assertEquals(0, variableInstances.size());
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-9932
-   */
   public void testTransientXmlSpinVariables() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcess")

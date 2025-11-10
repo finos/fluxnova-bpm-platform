@@ -181,7 +181,7 @@ alter table ACT_RU_CASE_SENTRY_PART
     foreign key (CASE_EXEC_ID_)
     references ACT_RU_CASE_EXECUTION(ID_);
 
--- indexes for concurrency problems - https://app.camunda.com/jira/browse/CAM-1646 --
+-- indexes for concurrency problems
 create index ACT_IDX_CASE_EXEC_CASE on ACT_RU_CASE_EXECUTION(CASE_DEF_ID_);
 create index ACT_IDX_CASE_EXEC_PARENT on ACT_RU_CASE_EXECUTION(PARENT_ID_);
 create index ACT_IDX_VARIABLE_CASE_EXEC on ACT_RU_VARIABLE(CASE_EXECUTION_ID_);
@@ -189,7 +189,7 @@ create index ACT_IDX_VARIABLE_CASE_INST on ACT_RU_VARIABLE(CASE_INST_ID_);
 create index ACT_IDX_TASK_CASE_EXEC on ACT_RU_TASK(CASE_EXECUTION_ID_);
 create index ACT_IDX_TASK_CASE_DEF_ID on ACT_RU_TASK(CASE_DEF_ID_);
 
--- add indexes for ACT_RU_CASE_SENTRY_PART --
+-- add indexes for ACT_RU_CASE_SENTRY_PART
 create index ACT_IDX_CASE_SENTRY_CASE_INST on ACT_RU_CASE_SENTRY_PART(CASE_INST_ID_);
 create index ACT_IDX_CASE_SENTRY_CASE_EXEC on ACT_RU_CASE_SENTRY_PART(CASE_EXEC_ID_);
 
@@ -208,7 +208,7 @@ create table ACT_RU_FILTER (
 -- add index to improve job executor performance
 create index ACT_IDX_JOB_PROCINST on ACT_RU_JOB(PROCESS_INSTANCE_ID_);
 
--- create historic case instance/activity table and indexes --
+-- create historic case instance/activity table and indexes
 create table ACT_HI_CASEINST (
     ID_ nvarchar(64) not null,
     CASE_INST_ID_ nvarchar(64) not null,

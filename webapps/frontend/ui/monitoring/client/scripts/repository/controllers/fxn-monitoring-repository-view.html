@@ -1,0 +1,71 @@
+<!-- # monitoring client/scripts/repository/controllers/fxn-monitoring-repository-view.html -->
+<div fxn-repository
+     class="three-cols-layout">
+  <div class="three-cols-layout-columns">
+
+      <!-- # deployment-list column -->
+    <section class="column column-left deployments"
+             ng-controller="fxnDeploymentsCtrl">
+
+      <header class="three-cols-layout-cell top">
+        <div fxn-deployments-sorting-choices
+             deployments-data="deploymentsData"></div>
+
+        <div fxn-deploy="onDeployed()"></div>
+      </header>
+
+      <div class="three-cols-layout-cell content">
+
+        <view ng-repeat="deploymentsPlugin in deploymentsPlugins"
+              provider="deploymentsPlugin"
+              class="deployment-plugins"
+              vars="deploymentsVars"></view>
+
+        <div fxn-deployments
+            deployments-data="deploymentsData"
+            deployments="control.deployments"></div>
+      </div>
+
+    </section>
+    <!-- / deployment-list column -->
+
+    <!-- # resource-list column -->
+    <section class="column column-center resources">
+
+      <header class="three-cols-layout-cell top">
+      </header>
+
+      <div class="three-cols-layout-cell content"
+           fxn-resources
+           repository-data="repositoryData">
+      </div>
+
+    </section>
+    <!-- / resource-list column -->
+
+
+
+    <!-- # resource-details column -->
+    <section class="column column-right resource-details"
+             ng-controller="fxnResourceDetailsCtrl">
+
+      <header class="three-cols-layout-cell top">
+        <div class="resource-actions"
+             ng-if="resource"
+             ng-repeat="resourceAction in resourceActions">
+          <view provider="resourceAction" vars="resourceVars">
+        </div>
+      </header>
+
+      <div class="three-cols-layout-cell content"
+           fxn-resource-wrapper
+           resource-details-data="resourceDetailsData"
+           control="control">
+      </div>
+
+    </section>
+    <!-- # resource-details column -->
+
+  </div>
+</div>
+<!-- / monitoring client/scripts/repository/controllers/fxn-monitoring-repository-view.html -->

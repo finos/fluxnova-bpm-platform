@@ -665,9 +665,6 @@ public class RuntimeServiceTest {
     }
   }
 
-  /**
-   * Testcase to reproduce ACT-950 (https://jira.codehaus.org/browse/ACT-950)
-   */
   @Deployment
   @Test
   public void testFindActiveActivityIdProcessWithErrorEventAndSubProcess() {

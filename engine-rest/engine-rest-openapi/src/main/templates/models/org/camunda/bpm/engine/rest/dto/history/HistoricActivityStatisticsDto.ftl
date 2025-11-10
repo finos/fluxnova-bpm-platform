@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/process-definition/get-historic-activity-statistics-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/process-definition/get-historic-activity-statistics-query/index.html -->
 <#macro dto_macro docsUrl="">
 <@lib.dto >
     

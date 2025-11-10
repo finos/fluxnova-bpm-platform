@@ -30,8 +30,8 @@ module.exports = function(ngModule, config) {
         config['app-root'] + '/app/tasklist/'
       );
       UriProvider.replace(
-        'cockpitbase://',
-        config['app-root'] + '/app/cockpit/'
+        'monitoringbase://',
+        config['app-root'] + '/app/monitoring/'
       );
       UriProvider.replace('admin://', config['admin-api']);
       UriProvider.replace('plugin://', config['tasklist-api'] + 'plugin/');

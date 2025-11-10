@@ -111,9 +111,6 @@ public class UserOperationLogAnnotationTest {
     assertThat(userOperationLogEntry.getAnnotation()).isEqualTo(ANNOTATION);
   }
 
-  /**
-   * See https://app.camunda.com/jira/browse/CAM-10664
-   */
   @Test
   public void shouldSetAnnotation_WithPreservedTimeStamp() {
     // given

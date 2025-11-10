@@ -15,7 +15,7 @@
 -- limitations under the License.
 --
 
--- https://app.camunda.com/jira/browse/CAM-9498
+
 ALTER TABLE ACT_RE_DEPLOYMENT
   MODIFY COLUMN DEPLOY_TIME_ datetime;
 
@@ -45,7 +45,6 @@ ALTER TABLE ACT_HI_JOB_LOG
 ALTER TABLE ACT_ID_USER
   MODIFY COLUMN LOCK_EXP_TIME_ datetime NULL;
 
--- https://app.camunda.com/jira/browse/CAM-9920
 ALTER TABLE ACT_HI_OP_LOG
   ADD COLUMN CATEGORY_ varchar(64);
   
@@ -62,7 +61,6 @@ create table ACT_GE_SCHEMA_LOG (
 insert into ACT_GE_SCHEMA_LOG
 values ('0', CURRENT_TIMESTAMP, '7.11.0');
 
--- https://app.camunda.com/jira/browse/CAM-10129
 create index ACT_IDX_HI_OP_LOG_USER_ID on ACT_HI_OP_LOG(USER_ID_);
 create index ACT_IDX_HI_OP_LOG_OP_TYPE on ACT_HI_OP_LOG(OPERATION_TYPE_);
 create index ACT_IDX_HI_OP_LOG_ENTITY_TYPE on ACT_HI_OP_LOG(ENTITY_TYPE_);

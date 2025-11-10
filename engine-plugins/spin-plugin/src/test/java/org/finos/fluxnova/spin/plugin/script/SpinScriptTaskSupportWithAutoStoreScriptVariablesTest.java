@@ -60,7 +60,6 @@ public class SpinScriptTaskSupportWithAutoStoreScriptVariablesTest extends Plugg
     checkVariables("foo", "var_s", "var_xml", "var_json");
   }
 
-  // Check https://jira.camunda.com/browse/CAM-5869
   public void FAILING_testSpinInternalVariablesNotExportedByJavascriptScriptTask() {
     String importXML = "var XML = org.finos.fluxnova.spin.Spin.XML;\n";
     String importJSON = "var JSON = org.finos.fluxnova.spin.Spin.JSON;\n";

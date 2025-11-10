@@ -19,7 +19,6 @@ var fs = require('fs');
 
 const addMissingLicenseHeaders = (filePath, source) => {
   // This fix ensures windows compatibility
-  // See https://github.com/camunda/camunda-bpm-platform/issues/2824
   const rowFile = filePath.replace(/\\/g, '/');
   if (
     rowFile &&
@@ -64,7 +63,7 @@ const addMissingLicenseHeaders = (filePath, source) => {
                 'utf8'
               );
             } catch (e) {
-              console.log(`${pkg} has no license file. 🤷‍`);// eslint-disable-line
+              console.log(`${pkg} has no license file. 🤷‍`); // eslint-disable-line
             }
           }
         }
@@ -75,7 +74,7 @@ const addMissingLicenseHeaders = (filePath, source) => {
       if (licenseInfo) {
         return `/*!\n@license ${pkg}@${version}\n${licenseInfo}*/\n${source}`;
       } else if (license) {
-        console.log(`${pkg} has a "license" property. 🤷‍`);// eslint-disable-line
+        console.log(`${pkg} has a "license" property. 🤷‍`); // eslint-disable-line
         return `/*! @license ${pkg}@${version} (${license}) */\n${source}`;
       }
     }

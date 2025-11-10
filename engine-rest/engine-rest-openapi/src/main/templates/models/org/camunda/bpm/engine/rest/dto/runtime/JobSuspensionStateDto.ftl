@@ -1,5 +1,5 @@
 <#macro dto_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/job/put-activate-suspend-by-proc-def-key/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/job/put-activate-suspend-by-proc-def-key/index.html -->
 <#-- Note: This dto describes functionality which is described in 4 different doc pages under put-activate-suspend-by-*
 If you come here from PUT /job/{id}/suspended please note that this enpoint uses SuspensionStateDto because it only uses
 the suspended attribute. Should you need to extend it, it is probably a good idea to create an additional file. -->

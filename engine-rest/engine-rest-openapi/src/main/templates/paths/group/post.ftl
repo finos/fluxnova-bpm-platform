@@ -1,5 +1,5 @@
 <#macro endpoint_macro docsUrl="">
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/group/post-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/group/post-query/index.html -->
 {
   <@lib.endpointInfo
       id = "postQueryGroups"

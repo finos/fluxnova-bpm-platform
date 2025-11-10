@@ -103,15 +103,15 @@ public class ContainerAuthenticationFilterTest {
   @Parameters
   public static Collection<Object[]> getRequestUrls() {
     return Arrays.asList(new Object[][]{
-        {"/app/cockpit/default/", "default", false, true},
-        {"/app/cockpit/engine2/", "engine2", false, true},
-        {"/api/cockpit/plugin/some-plugin/default/process-instance", "default", false, true},
-        {"/api/cockpit/plugin/some-plugin/static/process-instance", null, false, false},
+        {"/app/monitoring/default/", "default", false, true},
+        {"/app/monitoring/engine2/", "engine2", false, true},
+        {"/api/monitoring/plugin/some-plugin/default/process-instance", "default", false, true},
+        {"/api/monitoring/plugin/some-plugin/static/process-instance", null, false, false},
 
-        {"/app/cockpit/default/", "default", true, false},
-        {"/app/cockpit/engine2/", "engine2", true, false},
-        {"/api/cockpit/plugin/some-plugin/default/process-instance", "default", true, false},
-        {"/api/cockpit/plugin/some-plugin/static/process-instance", null, true, false},
+        {"/app/monitoring/default/", "default", true, false},
+        {"/app/monitoring/engine2/", "engine2", true, false},
+        {"/api/monitoring/plugin/some-plugin/default/process-instance", "default", true, false},
+        {"/api/monitoring/plugin/some-plugin/static/process-instance", null, true, false},
 
         {"/app/tasklist/default/", "default", false, true},
         {"/app/tasklist/engine2/", "engine2", false, true},
@@ -145,11 +145,11 @@ public class ContainerAuthenticationFilterTest {
         {"/api/engine/engine/engine2/process-instance", "engine2", true, false},
 
         {"/lib/deps.js", null, false, false},
-        {"/app/cockpit/styles/styles.css", null, false, false},
+        {"/app/monitoring/styles/styles.css", null, false, false},
         {"/api/admin/auth/user/default", null, false, false},
 
         {"/lib/deps.js", null, true, false},
-        {"/app/cockpit/styles/styles.css", null, true, false},
+        {"/app/monitoring/styles/styles.css", null, true, false},
         {"/api/admin/auth/user/default", null, true, false}
     });
   }

@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.webapp</groupId>
     <artifactId>fluxnova-webapp-root</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -536,7 +536,7 @@
       </build>
     </profile>
 
-    <!-- profile for running cockpit testsuite with database table prefix -->
+    <!-- profile for running monitoring testsuite with database table prefix -->
     <profile>
       <id>db-table-prefix</id>
       <!-- imports the DbSchemaPrefixTestHelper class -->

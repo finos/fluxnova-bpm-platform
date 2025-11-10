@@ -2165,9 +2165,6 @@ public class TaskServiceTest {
     taskService.deleteTask(task.getId(), true);
   }
 
-  /**
-   * @see http://jira.codehaus.org/browse/ACT-1059
-   */
   @Test
   public void testSetDelegationState() {
     Task task = taskService.newTask();

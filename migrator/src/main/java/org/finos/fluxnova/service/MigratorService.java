@@ -46,23 +46,35 @@ public class MigratorService {
     /**
      * Initiates the migration process.
      * This method orchestrates the entire migration workflow:
-     * 1. Reads the project's POM file
-     * 2. Prepares the project for migration
-     * 3. Executes the OpenRewrite migration recipe
-     * 4. Reads the modified POM file again to preserve changes
-     * 5. Cleans up temporary migration artifacts
+     * 1. Checks if pom.xml exists in the project location
+     * 2. Creates a minimal pom.xml if none exists (for standalone file migration)
+     * 3. Reads the project's POM file (existing or newly created)
+     * 4. Prepares the project for migration by adding OpenRewrite configuration
+     * 5. Executes the OpenRewrite migration recipe
+     * 6. Reads the modified POM file again to preserve changes made by OpenRewrite
+     * 7. Cleans up temporary migration artifacts (removes temp pom if created, or cleans existing pom)
      *
-     * @throws IOException If there is an error reading or writing files
+     * @throws IOException If there is an error reading, writing, or creating files
      * @throws XmlPullParserException If there is an error parsing the POM XML
      * @throws MavenInvocationException If there is an error invoking Maven
      */
     public void start() throws IOException, XmlPullParserException, MavenInvocationException {
         String pomFile = projectLocation + File.separator + "pom.xml";
+
+        // Check if pom.xml exists, create minimal one if not
+        File pomFileObj = new File(pomFile);
+        boolean pomExistedOriginally = pomFileObj.exists();
+
+        if (!pomFileObj.exists()) {
+            createMinimalPom(pomFileObj);
+            System.out.println("Created minimal pom.xml at: " + pomFile);
+        }
+
         Model model = readPomToModel(pomFile);
         prepare(pomFile, model);
         invokeRewriteRunGoal(pomFile);
         model = readPomToModel(pomFile); // it is important to read the model again to avoid losing changes done by openrewrite
-        clear(pomFile, model);
+        clear(pomFile, model, pomExistedOriginally);
     }
 
     /**
@@ -94,7 +106,7 @@ public class MigratorService {
         addPlugin(model);
         writeModelToPom(pomFile, model);
         copyRewriteYml();
-        convertBpmnAndDmnToXml(new File(projectLocation));
+        convertBpmnDmnFormToFileType(new File(projectLocation));
     }
 
     /**
@@ -129,7 +141,7 @@ public class MigratorService {
         Xpp3Dom activeRecipes = new Xpp3Dom("activeRecipes");
 
         String[] recipes = {
-                "camundaToFluxnova"
+                "camundaToFluxnova", "formMigration"
         };
 
         for (String recipe : recipes) {
@@ -154,15 +166,15 @@ public class MigratorService {
         try (InputStream inputStream = Migrator.class.getClassLoader().getResourceAsStream(rewriteYmlFile)) {
             Files.createDirectories(targetPath.getParent()); // create target dir if not exists
             assert inputStream != null;
-            
+
             // Read the content as string
             String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-            
+
             // Replace placeholders with actual values
             String processedContent = content
                 .replace("{{TARGET_VERSION}}", targetVersion)
                 .replace("{{MODELER_VERSION}}", modelerVersion);
-            
+
             // Write the processed content to target
             Files.writeString(targetPath, processedContent, StandardCharsets.UTF_8);
             System.out.println("Copied and processed rewrite.yml to " + targetPath);
@@ -175,23 +187,38 @@ public class MigratorService {
 
     /**
      * Cleans up the project after migration.
-     * This method:
-     * 1. Removes the OpenRewrite plugin from the POM
-     * 2. Removes OpenRewrite dependencies
-     * 3. Writes the cleaned POM back to disk
-     * 4. Deletes the rewrite.yml recipe file
-     * 5. Converts XML files back to BPMN format
+     * This method handles two scenarios:
+     * 1. If pom.xml existed originally:
+     *    - Removes the OpenRewrite plugin from the POM
+     *    - Removes OpenRewrite dependencies
+     *    - Writes the cleaned POM back to disk
+     * 2. If pom.xml was created temporarily for migration:
+     *    - Deletes the entire temporary pom.xml file
+     *
+     * Common cleanup operations for both scenarios:
+     * - Deletes the rewrite.yml recipe file
+     * - Converts XML files back to BPMN/DMN format
      *
      * @param pomFile The path to the project's pom.xml file
      * @param model The Maven Model object representing the POM
-     * @throws IOException If there is an error writing files
+     * @param pomExistedOriginally Flag indicating if pom.xml was present before migration
+     * @throws IOException If there is an error writing or deleting files
      */
-    private void clear(String pomFile, Model model) throws IOException {
-        removePlugin(model);
-        removeDependencies(model);
-        writeModelToPom(pomFile, model);
+    private void clear(String pomFile, Model model, boolean pomExistedOriginally) throws IOException {
+        if (!pomExistedOriginally) {
+            File pomFileObj = new File(pomFile);
+            if (pomFileObj.exists() && pomFileObj.delete()) {
+                System.out.println("Deleted temporary pom.xml file: " + pomFile);
+            } else {
+                System.out.println("Failed to delete temporary pom.xml file: " + pomFile);
+            }
+        } else {
+            removePlugin(model);
+            removeDependencies(model);
+            writeModelToPom(pomFile, model);
+        }
         deleteRewriteYml();
-        convertXmlToBpmnAndDmn(new File(projectLocation));
+        convertFileTypeToBpmnDmnForm(new File(projectLocation));
     }
 
     /**
@@ -292,7 +319,7 @@ public class MigratorService {
      * This method is called after the migration process is complete to clean up
      * temporary migration artifacts. The rewrite.yml file contains the OpenRewrite
      * recipe used for the migration.
-     * 
+     *
      * <p>The method attempts to delete the file and prints a status message to the console:
      * <ul>
      *   <li>If the file was successfully deleted, it prints a success message</li>
@@ -325,13 +352,13 @@ public class MigratorService {
      *
      * @param folder The directory to process recursively
      */
-    void convertBpmnAndDmnToXml(File folder) {
+    void convertBpmnDmnFormToFileType(File folder) {
         File[] files = folder.listFiles();
         if (files == null) return;
 
         for (File file : files) {
             if (file.isDirectory()) {
-                convertBpmnAndDmnToXml(file);
+                convertBpmnDmnFormToFileType(file);
             } else if (file.isFile()) {
                 String fileName = file.getName();
                 String newName = null;
@@ -343,10 +370,14 @@ public class MigratorService {
                 else if (fileName.endsWith(".dmn") && !fileName.contains("__dmn__")) {
                     newName = fileName.replace(".dmn", "__dmn__.xml");
                 }
+                // Handle .form files
+                else if (fileName.endsWith(".form") && !fileName.contains("__form__")) {
+                    newName = fileName.replace(".form", "__form__.json");
+                }
                 if (newName != null) {
                     File newFile = new File(file.getParent(), newName);
                     if (file.renameTo(newFile)) {
-                        LOG.info("Renamed to XML: {} -> {}", fileName, newName);
+                        LOG.info("Renamed to: {} -> {}", fileName, newName);
                     } else {
                         LOG.error("Failed to rename: {}", file.getAbsolutePath());
                     }
@@ -362,13 +393,13 @@ public class MigratorService {
      *
      * @param folder The directory to process recursively
      */
-    void convertXmlToBpmnAndDmn(File folder) {
+    void convertFileTypeToBpmnDmnForm(File folder) {
         File[] files = folder.listFiles();
         if (files == null) return;
 
         for (File file : files) {
             if (file.isDirectory()) {
-                convertXmlToBpmnAndDmn(file);
+                convertFileTypeToBpmnDmnForm(file);
             } else if (file.isFile()) {
                 String fileName = file.getName();
                 String newName = null;
@@ -380,6 +411,10 @@ public class MigratorService {
                 else if (fileName.endsWith("__dmn__.xml")) {
                     newName = fileName.replace("__dmn__.xml", ".dmn");
                 }
+                // Handle __form__.json files
+                else if (fileName.endsWith("__form__.json")) {
+                    newName = fileName.replace("__form__.json", ".form");
+                }
                 if (newName != null) {
                     File newFile = new File(file.getParent(), newName);
                     if (file.renameTo(newFile)) {
@@ -389,6 +424,51 @@ public class MigratorService {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Creates a minimal Maven POM file for projects that don't have one.
+     * This method generates a basic pom.xml with essential configuration needed
+     * for OpenRewrite migration to work on standalone files (XML, BPMN, DMN).
+     *
+     * The generated POM includes:
+     * - Basic project coordinates (groupId, artifactId, version)
+     * - Packaging type set to 'pom' for non-Java projects
+     * - Empty build section ready for OpenRewrite plugin injection
+     *
+     * @param pomFile The File object representing the location where pom.xml should be created
+     * @throws IOException If there is an error creating the directory structure or writing the file
+     */
+    void createMinimalPom(File pomFile) throws IOException {
+        String minimalPomContent = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <project xmlns="http://maven.apache.org/POM/4.0.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+            <modelVersion>4.0.0</modelVersion>
+            
+            <groupId>org.finos.fluxnova</groupId>
+            <artifactId>migration-temp</artifactId>
+            <version>1.0.0</version>
+            <packaging>pom</packaging>
+            
+            <name>Temporary Migration Project</name>
+            <description>Temporary project for OpenRewrite migration from Camunda to Fluxnova</description>            
+            <build>
+                <plugins>
+                    <!-- OpenRewrite plugin will be added by prepare() method -->
+                </plugins>
+            </build>
+        </project>
+        """;
+
+        // Ensure parent directory exists
+        pomFile.getParentFile().mkdirs();
+
+        try (FileWriter writer = new FileWriter(pomFile)) {
+            writer.write(minimalPomContent);
         }
     }
 }

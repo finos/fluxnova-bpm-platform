@@ -55,9 +55,12 @@ Pill.prototype.valueField = function() {
   return new InlineField(this.valueElement());
 };
 Pill.prototype.isValid = function() {
-  return this.node.element(by.className('search-label')).getAttribute('class').then(function(classes) {
-    return classes.split(' ').indexOf('invalid') === -1;
-  });
+  return this.node
+    .element(by.className('search-label'))
+    .getAttribute('class')
+    .then(function(classes) {
+      return classes.split(' ').indexOf('invalid') === -1;
+    });
 };
 
 Pill.prototype.removeButton = function() {

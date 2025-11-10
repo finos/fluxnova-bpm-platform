@@ -202,7 +202,7 @@ public class CompensateEventTest extends PluggableProcessEngineTest {
 
   }
 
-  // See: https://app.camunda.com/jira/browse/CAM-1410
+ 
   @Deployment
   @Test
   public void testCompensateActivityRef() {
@@ -504,8 +504,6 @@ public class CompensateEventTest extends PluggableProcessEngineTest {
 
   /**
    * enable test case when bug is fixed
-   *
-   * @see <a href="https://app.camunda.com/jira/browse/CAM-4304">https://app.camunda.com/jira/browse/CAM-4304</a>
    */
   @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/bpmn/event/compensate/CompensateEventTest.testCompensationInEventSubProcess.bpmn20.xml" })
   @Test

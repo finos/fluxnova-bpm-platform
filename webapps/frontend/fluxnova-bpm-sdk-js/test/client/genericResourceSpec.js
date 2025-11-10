@@ -27,27 +27,31 @@ describe('The AbstractClientResource', function() {
     }).not.to.throw();
   });
 
-
   it('can be extend', function() {
     expect(function() {
-      Extended1 = AbstractClientResource.extend({
-        instanceMethod: function() {},
-        instanceProperty: true
-      }, {
-        staticMethod: function() {},
-        staticProperty: true
-      });
+      Extended1 = AbstractClientResource.extend(
+        {
+          instanceMethod: function() {},
+          instanceProperty: true
+        },
+        {
+          staticMethod: function() {},
+          staticProperty: true
+        }
+      );
 
-      Extended2 = AbstractClientResource.extend({
-        otherInstanceMethod: function() {},
-        otherInstanceProperty: true
-      }, {
-        otherStaticMethod: function() {},
-        otherStaticProperty: true
-      });
+      Extended2 = AbstractClientResource.extend(
+        {
+          otherInstanceMethod: function() {},
+          otherInstanceProperty: true
+        },
+        {
+          otherStaticMethod: function() {},
+          otherStaticProperty: true
+        }
+      );
     }).not.to.throw();
   });
-
 
   describe('generated resource class', function() {
     it('has a `static` properties', function() {
@@ -63,7 +67,6 @@ describe('The AbstractClientResource', function() {
       expect(typeof Extended2.otherStaticProperty).to.eql('boolean');
     });
 
-
     it('instanciates', function() {
       expect(function() {
         instance1 = new Extended1();
@@ -71,7 +74,6 @@ describe('The AbstractClientResource', function() {
         instance2 = new Extended2();
       }).not.to.throw();
     });
-
 
     it('has a `instance` properties', function() {
       expect(typeof instance1.instanceMethod).to.eql('function');

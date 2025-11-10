@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.webapp.impl.security.filter;
 
 import java.util.Map;
 
-import org.finos.fluxnova.bpm.cockpit.Cockpit;
+import org.finos.fluxnova.bpm.monitoring.Monitoring;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.Authentication;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.Authentications;
@@ -52,7 +52,7 @@ public class ApplicationRequestAuthorizer implements RequestAuthorizer {
       }
 
       // get process engine
-      ProcessEngine processEngine = Cockpit.getProcessEngine(engineName);
+      ProcessEngine processEngine = Monitoring.getProcessEngine(engineName);
       if (processEngine == null) {
         // the process engine does not exist
         // grant user anonymous access

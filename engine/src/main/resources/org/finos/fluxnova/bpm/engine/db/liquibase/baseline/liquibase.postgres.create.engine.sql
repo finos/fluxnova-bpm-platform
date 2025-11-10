@@ -567,15 +567,15 @@ alter table ACT_RU_VARIABLE
     foreign key (BATCH_ID_)
     references ACT_RU_BATCH (ID_);
 
--- indexes for deadlock problems - https://app.camunda.com/jira/browse/CAM-2567 --
+-- indexes for deadlock problems
 create index ACT_IDX_INC_CAUSEINCID on ACT_RU_INCIDENT(CAUSE_INCIDENT_ID_);
 create index ACT_IDX_INC_EXID on ACT_RU_INCIDENT(EXECUTION_ID_);
 create index ACT_IDX_INC_PROCDEFID on ACT_RU_INCIDENT(PROC_DEF_ID_);
 create index ACT_IDX_INC_PROCINSTID on ACT_RU_INCIDENT(PROC_INST_ID_);
 create index ACT_IDX_INC_ROOTCAUSEINCID on ACT_RU_INCIDENT(ROOT_CAUSE_INCIDENT_ID_);
--- index for deadlock problem - https://app.camunda.com/jira/browse/CAM-4440 --
+-- index for deadlock problem
 create index ACT_IDX_AUTH_RESOURCE_ID on ACT_RU_AUTHORIZATION(RESOURCE_ID_);
--- index to prevent deadlock on fk constraint - https://app.camunda.com/jira/browse/CAM-5440 --
+-- index to prevent deadlock on fk constraint
 create index ACT_IDX_EXT_TASK_EXEC on ACT_RU_EXT_TASK(EXECUTION_ID_);
 
 -- indexes to improve deployment
@@ -591,6 +591,6 @@ create index ACT_IDX_PROCDEF_DEPLOYMENT_ID ON ACT_RE_PROCDEF(DEPLOYMENT_ID_);
 create index ACT_IDX_PROCDEF_TENANT_ID ON ACT_RE_PROCDEF(TENANT_ID_);
 create index ACT_IDX_PROCDEF_VER_TAG ON ACT_RE_PROCDEF(VERSION_TAG_);
 
--- indices for history cleanup: https://jira.camunda.com/browse/CAM-11616
+-- indices for history cleanup
 create index ACT_IDX_AUTH_ROOT_PI on ACT_RU_AUTHORIZATION(ROOT_PROC_INST_ID_);
 create index ACT_IDX_AUTH_RM_TIME on ACT_RU_AUTHORIZATION(REMOVAL_TIME_);

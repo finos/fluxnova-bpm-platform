@@ -22,8 +22,10 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/header/test/fxn-widget-header.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/header/test/fxn-widget-header.spec.html';
 
 var page = require('./fxn-widget-header.page.js');
 
@@ -36,10 +38,11 @@ describe('Header', function() {
     });
 
     it('uses the ng-transclude feature', function() {
-      expect(header.transcludedText()).to.eventually.eql('Awesome\nSweet\nMarvellous');
+      expect(header.transcludedText()).to.eventually.eql(
+        'Awesome\nSweet\nMarvellous'
+      );
     });
   });
-
 
   describe('Anonymous', function() {
     before(function() {
@@ -59,15 +62,14 @@ describe('Header', function() {
       expect(header.welcomeLink().isPresent()).to.eventually.eql(true);
     });
 
-    it('shows the link to the cockpit app', function() {
-      expect(header.cockpitLink().isPresent()).to.eventually.eql(true);
+    it('shows the link to the monitoring app', function() {
+      expect(header.monitoringLink().isPresent()).to.eventually.eql(true);
     });
 
     it('shows the link to the tasklist app', function() {
       expect(header.tasklistLink().isPresent()).to.eventually.eql(true);
     });
   });
-
 
   describe('Authenticated', function() {
     before(function() {
@@ -91,8 +93,8 @@ describe('Header', function() {
       expect(header.welcomeLink().isPresent()).to.eventually.eql(false);
     });
 
-    it('does not show the link to cockpit app because user has not access to it', function() {
-      expect(header.cockpitLink().isPresent()).to.eventually.eql(false);
+    it('does not show the link to monitoring app because user has not access to it', function() {
+      expect(header.monitoringLink().isPresent()).to.eventually.eql(false);
     });
 
     it('does not show the link to tasklist app because it is the current app', function() {
@@ -104,22 +106,33 @@ describe('Header', function() {
     });
 
     it('does not show a small screen warning', function() {
-      expect(header.smallScreenWarning().isDisplayed()).to.eventually.eql(false);
+      expect(header.smallScreenWarning().isDisplayed()).to.eventually.eql(
+        false
+      );
     });
-
 
     describe('on small devices', function() {
       var originalSize;
 
       before(function() {
-        browser.manage().window().getSize().then(function(size) {
-          originalSize = size;
-          browser.manage().window().setSize(760, 480);
-        });
+        browser
+          .manage()
+          .window()
+          .getSize()
+          .then(function(size) {
+            originalSize = size;
+            browser
+              .manage()
+              .window()
+              .setSize(760, 480);
+          });
       });
 
       after(function() {
-        browser.manage().window().setSize(originalSize.width, originalSize.height);
+        browser
+          .manage()
+          .window()
+          .setSize(originalSize.width, originalSize.height);
       });
 
       it('does not show the account dropdown', function() {
@@ -127,7 +140,9 @@ describe('Header', function() {
       });
 
       it('does not show the transcluded content', function() {
-        expect(header.transcludedElement().isDisplayed()).to.eventually.eql(false);
+        expect(header.transcludedElement().isDisplayed()).to.eventually.eql(
+          false
+        );
       });
 
       it('does not show the user name', function() {
@@ -139,9 +154,10 @@ describe('Header', function() {
       });
 
       it('shows a small screen warning', function() {
-        expect(header.smallScreenWarning().isDisplayed()).to.eventually.eql(true);
+        expect(header.smallScreenWarning().isDisplayed()).to.eventually.eql(
+          true
+        );
       });
-
 
       describe('when expanded', function() {
         before(function() {
@@ -149,8 +165,12 @@ describe('Header', function() {
         });
 
         it('shows the transcluded content', function() {
-          expect(header.transcludedElement().isDisplayed()).to.eventually.eql(true);
-          expect(header.transcludedText()).to.eventually.eql('Awesome\nSweet\nButton!\nMarvellous');
+          expect(header.transcludedElement().isDisplayed()).to.eventually.eql(
+            true
+          );
+          expect(header.transcludedText()).to.eventually.eql(
+            'Awesome\nSweet\nButton!\nMarvellous'
+          );
         });
 
         it('shows the account dropdown', function() {
@@ -168,7 +188,9 @@ describe('Header', function() {
           });
 
           it('does not show the transcluded content', function() {
-            expect(header.transcludedElement().isDisplayed()).to.eventually.eql(false);
+            expect(header.transcludedElement().isDisplayed()).to.eventually.eql(
+              false
+            );
           });
 
           it('does not show the account dropdown', function() {
@@ -180,13 +202,14 @@ describe('Header', function() {
           });
 
           it('shows a hamburger menu button', function() {
-            expect(header.hamburgerButton().isDisplayed()).to.eventually.eql(true);
+            expect(header.hamburgerButton().isDisplayed()).to.eventually.eql(
+              true
+            );
           });
         });
       });
     });
   });
-
 
   describe('Authenticated, 1 app', function() {
     describe('on auhorized app', function() {
@@ -194,7 +217,6 @@ describe('Header', function() {
         browser.get(pageUrl + '#authenticated-single');
         header = page.header('#authenticated-single');
       });
-
 
       it('shows the account dropdown', function() {
         expect(header.account().isPresent()).to.eventually.eql(true);
@@ -205,13 +227,11 @@ describe('Header', function() {
       });
     });
 
-
     describe('on unauhorized app', function() {
       before(function() {
         browser.get(pageUrl + '#authenticated-single-unauthorized');
         header = page.header('#authenticated-single-unauthorized');
       });
-
 
       it('shows the account dropdown', function() {
         expect(header.account().isPresent()).to.eventually.eql(true);

@@ -40,7 +40,7 @@ describe('The form', function() {
   before(function(done) {
     jQuery.ajax('/base/test/karma/forms/form-simple.html', {
       success: function(data) {
-        $simpleFormDoc = jQuery('<div id="test-form">'+ data +'</div>');
+        $simpleFormDoc = jQuery('<div id="test-form">' + data + '</div>');
         // the following lines allow to see the form in the browser
         var _$top = $(top.document);
         _$top.find('#test-form').remove();
@@ -57,10 +57,11 @@ describe('The form', function() {
     });
   });
 
-
   it('needs a process definition', function(done) {
     fxnClient.resource('process-definition').list({}, function(err, result) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       procDef = result.items.pop();
 
@@ -71,39 +72,38 @@ describe('The form', function() {
   });
 
   it('gets the process definition with a promise', function() {
-    return fxnClient.resource('process-definition').list({}).then(
-      function(result) {
+    return fxnClient
+      .resource('process-definition')
+      .list({})
+      .then(function(result) {
         procDef = result.items.pop();
         expect(procDef.id).to.be.ok;
-      }
-    );
+      });
   });
-
 
   it('exists globally', function() {
     expect(FxnSDK.Form).to.be.a('function');
   });
 
-
   it('has a DOM library', function() {
     expect(FxnSDK.Form.$).to.be.ok;
   });
-
 
   it('initialize', function(done) {
     expect(fxnClient).to.be.ok;
 
     function prepare() {
       fxnForm = new FxnSDK.Form({
-        client:               fxnClient,
-        processDefinitionId:  procDef.id,
-        formElement:          $simpleFormDoc.find('form[fxn-form]'),
-        done:                 function() {window.setTimeout(initialized);}
+        client: fxnClient,
+        processDefinitionId: procDef.id,
+        formElement: $simpleFormDoc.find('form[fxn-form]'),
+        done: function() {
+          window.setTimeout(initialized);
+        }
       });
     }
 
     function initialized() {
-
       expect(fxnForm.formFieldHandlers).to.be.an('array');
 
       expect(fxnForm.fields).to.be.an('array');
@@ -120,17 +120,18 @@ describe('The form', function() {
     expect(prepare).not.to.throw();
   });
 
-
   it('submits the form', function(done) {
-
     function formSubmitted(err, result) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       expect(result.links).to.be.ok;
 
       expect(result.definitionId).to.eql(procDef.id);
 
-      var stored = mockConfig.mockedData.processInstanceFormVariables[result.id];
+      var stored =
+        mockConfig.mockedData.processInstanceFormVariables[result.id];
       expect(stored).to.be.ok;
 
       expect(stored.stringVar).to.be.ok;
@@ -143,7 +144,9 @@ describe('The form', function() {
     }
 
     function formReady(err) {
-      if (err) { return done(err); }
+      if (err) {
+        return done(err);
+      }
 
       var $el = $simpleFormDoc.find('input[type="text"]');
 
@@ -154,32 +157,33 @@ describe('The form', function() {
       fxnForm.submit(formSubmitted);
     }
 
-
     fxnForm = new FxnSDK.Form({
-      client:               fxnClient,
-      processDefinitionId:  procDef.id,
-      formElement:          $simpleFormDoc.find('form[fxn-form]'),
-      done:                 function() {window.setTimeout(formReady);}
+      client: fxnClient,
+      processDefinitionId: procDef.id,
+      formElement: $simpleFormDoc.find('form[fxn-form]'),
+      done: function() {
+        window.setTimeout(formReady);
+      }
     });
   });
-
 
   describe('choices field', function() {
     before(function(done) {
       fxnForm = new FxnSDK.Form({
-        client:               fxnClient,
-        processDefinitionId:  procDef.id,
-        formElement:          $simpleFormDoc.find('form[fxn-form]'),
-        done:                 done
+        client: fxnClient,
+        processDefinitionId: procDef.id,
+        formElement: $simpleFormDoc.find('form[fxn-form]'),
+        done: done
       });
     });
 
     describe('single choice', function() {
       var $select;
       beforeEach(function() {
-        $select = $simpleFormDoc.find('select[fxn-variable-name]:not([multiple])');
+        $select = $simpleFormDoc.find(
+          'select[fxn-variable-name]:not([multiple])'
+        );
       });
-
 
       it('can be `select`', function() {
         expect($select.length).to.eql(1);
@@ -190,13 +194,11 @@ describe('The form', function() {
       });
     });
 
-
     describe('multiple choices', function() {
       var $select;
       before(function() {
         $select = $simpleFormDoc.find('select[fxn-variable-name][multiple]');
       });
-
 
       it('can be `select[multiple]`', function() {
         expect($select.length).to.eql(1);

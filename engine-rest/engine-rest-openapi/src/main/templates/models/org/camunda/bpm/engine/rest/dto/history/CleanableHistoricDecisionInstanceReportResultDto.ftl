@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/decision-definition/get-cleanable-decision-instance-report/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/decision-definition/get-cleanable-decision-instance-report/index.html -->
 <#macro dto_macro docsUrl="">
 <@lib.dto >
     

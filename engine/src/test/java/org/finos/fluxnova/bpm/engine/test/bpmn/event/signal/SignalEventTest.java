@@ -209,9 +209,6 @@ public class SignalEventTest {
     assertEquals(0, runtimeService.createProcessInstanceQuery().count());
   }
 
-  /**
-   * Verifies the solution of https://jira.codehaus.org/browse/ACT-1309
-   */
   @Deployment
   @Test
   public void testSignalBoundaryOnSubProcess() {

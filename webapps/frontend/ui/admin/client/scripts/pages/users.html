@@ -7,44 +7,59 @@
         <h3>{{ 'USERS_LIST_OF_USERS' | translate }}</h3>
       </div>
       <div class="col-xs-4 text-right">
-        <a class="btn btn-default"
-           href="#/user-create">
+        <a class="btn btn-default" href="#/user-create">
           {{ 'USERS_ADD_USER' | translate }}
           <span class="glyphicon glyphicon-plus-sign"></span>
         </a>
       </div>
     </header>
 
-    <div fxn-searchable-area
-         config="searchConfig"
-         on-search-change="onSearchChange(query, pages)"
-         loading-state="loadingState"
-         text-empty="{{ 'USERS_NOT_FOUND' | translate }}"
-         storage-group="'ANU'"
-         blocked="blocked">
+    <div
+      fxn-searchable-area
+      config="searchConfig"
+      on-search-change="onSearchChange(query, pages)"
+      loading-state="loadingState"
+      text-empty="{{ 'USERS_NOT_FOUND' | translate }}"
+      storage-group="'ANU'"
+      blocked="blocked"
+    >
       <table class="fxn-table">
-        <thead fxn-sortable-table-header
-               default-sort-by="userId"
-               default-sort-order="asc"
-               sorting-id="admin-sorting-users"
-               on-sort-change="onSortChanged(sorting)"
-               on-sort-initialized="onSortInitialized(sorting)">
+        <thead
+          fxn-sortable-table-header
+          default-sort-by="userId"
+          default-sort-order="asc"
+          sorting-id="admin-sorting-users"
+          on-sort-change="onSortChanged(sorting)"
+          on-sort-initialized="onSortInitialized(sorting)"
+        >
           <tr ng-if="canSortEntries">
-            <th class="username"
-                fxn-sortable-table-column
-                sort-by-property="userId">{{ 'USERS_ID' | translate }}
+            <th
+              class="username"
+              fxn-sortable-table-column
+              sort-by-property="userId"
+            >
+              {{ 'USERS_ID' | translate }}
             </th>
-            <th class="firstname"
-                fxn-sortable-table-column
-                sort-by-property="firstName">{{ 'USERS_FIRSTNAME' | translate }}
+            <th
+              class="firstname"
+              fxn-sortable-table-column
+              sort-by-property="firstName"
+            >
+              {{ 'USERS_FIRSTNAME' | translate }}
             </th>
-            <th class="lastname"
-                fxn-sortable-table-column
-                sort-by-property="lastName">{{ 'USERS_LASTNAME' | translate }}
+            <th
+              class="lastname"
+              fxn-sortable-table-column
+              sort-by-property="lastName"
+            >
+              {{ 'USERS_LASTNAME' | translate }}
             </th>
-            <th class="email"
-                fxn-sortable-table-column
-                sort-by-property="email">{{ 'USERS_EMAIL' | translate }}
+            <th
+              class="email"
+              fxn-sortable-table-column
+              sort-by-property="email"
+            >
+              {{ 'USERS_EMAIL' | translate }}
             </th>
             <th class="action">{{ 'USERS_ACTION' | translate }}</th>
           </tr>
@@ -76,7 +91,9 @@
             </td>
 
             <td class="action">
-              <a ng-href="#/users/{{user.id | escape}}">{{ 'USERS_EDIT' | translate }}</a>
+              <a ng-href="#/users/{{user.id | escape}}"
+                >{{ 'USERS_EDIT' | translate }}</a
+              >
             </td>
           </tr>
         </tbody>

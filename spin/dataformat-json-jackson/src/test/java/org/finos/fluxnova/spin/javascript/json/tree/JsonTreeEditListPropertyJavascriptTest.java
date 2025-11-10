@@ -28,37 +28,21 @@ import org.junit.Test;
 @ScriptEngine("graal.js")
 public class JsonTreeEditListPropertyJavascriptTest extends JsonTreeEditListPropertyScriptTest {
 
-  /**
-   * Ignored since javascript implementation changed
-   * see: https://app.camunda.com/jira/browse/CAM-3612
-   */
   @Test
   @Ignore
   public void shouldFailInsertAtWithWrongObject() throws Throwable {
   }
 
-  /**
-   * Ignored since javascript implementation changed
-   * see: https://app.camunda.com/jira/browse/CAM-3612
-   */
   @Test
   @Ignore
   public void shouldFailInsertWrongObjectAfterSearchObject() throws Throwable {
   }
 
-  /**
-   * Ignored since javascript implementation changed
-   * see: https://app.camunda.com/jira/browse/CAM-3612
-   */
   @Test
   @Ignore
   public void shouldFailAppendWrongNode() throws Throwable {
   }
 
-  /**
-   * Ignored since javascript implementation changed
-   * see: https://app.camunda.com/jira/browse/CAM-3612
-   */
   @Test
   @Ignore
   public void shouldFailInsertWrongObjectBeforeSearchObject() throws Throwable {

@@ -467,18 +467,12 @@ public class SubProcessTest extends PluggableProcessEngineTest {
     testRule.assertProcessEnded(pi.getId());
   }
 
-  /**
-   * @see <a href="http://jira.codehaus.org/browse/ACT-1072">http://jira.codehaus.org/browse/ACT-1072</a>
-   */
   @Deployment
   @Test
   public void testNestedSimpleSubProcessWithoutEndEvent() {
     testNestedSimpleSubProcess();
   }
 
-  /**
-   * @see <a href="http://jira.codehaus.org/browse/ACT-1072">http://jira.codehaus.org/browse/ACT-1072</a>
-   */
   @Deployment
   @Test
   public void testSimpleSubProcessWithoutEndEvent() {
@@ -486,9 +480,6 @@ public class SubProcessTest extends PluggableProcessEngineTest {
     testRule.assertProcessEnded(pi.getId());
   }
 
-  /**
-   * @see <a href="http://jira.codehaus.org/browse/ACT-1072">http://jira.codehaus.org/browse/ACT-1072</a>
-   */
   @Deployment
   @Test
   public void testNestedSubProcessesWithoutEndEvents() {
@@ -497,7 +488,6 @@ public class SubProcessTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  // SEE https://app.camunda.com/jira/browse/CAM-2169
   @Test
   public void testActivityInstanceTreeNestedCmd() {
     GetActInstanceDelegate.activityInstance = null;
@@ -516,7 +506,6 @@ public class SubProcessTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  // SEE https://app.camunda.com/jira/browse/CAM-2169
   @Test
   public void testActivityInstanceTreeNestedCmdAfterTx() {
     GetActInstanceDelegate.activityInstance = null;

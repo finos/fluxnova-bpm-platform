@@ -20,13 +20,13 @@
 var routeUtil = require('./../util/routeUtil');
 
 /**
- * A wrapper to use the cockpit/util/routeUtil as a angular service
+ * A wrapper to use the monitoring/util/routeUtil as a angular service
 
  * @name routeUtil
- * @memberof cam.cockpit.services
+ * @memberof cam.monitoring.services
  * @type angular.service
  *
- * @module cam.cockpit.services.routeUtil
+ * @module cam.monitoring.services.routeUtil
  */
 module.exports = [
   function() {

@@ -75,52 +75,52 @@ ignore:
         created: 2025-03-26T10:20:23.688Z
   SNYK-JS-ANGULAR-2772735:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-115'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:28:29.311Z
   SNYK-JS-ANGULAR-3373044:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-284'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:33:29.966Z
   SNYK-JS-ANGULAR-3373045:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-284'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:33:59.839Z
   SNYK-JS-ANGULAR-3373046:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-284'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:34:27.223Z
   SNYK-JS-ANGULAR-6091113:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-900'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:35:24.814Z
   SNYK-JS-ANGULARTRANSLATE-6674061:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-1017'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T10:57:56.060Z
   SNYK-JS-BOOTSTRAP-7444593:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-1049'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T12:10:47.382Z
   SNYK-JS-BOOTSTRAP-7444617:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-1049'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T12:12:27.685Z
   SNYK-JS-ANGULAR-7924843:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-1111'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T12:13:23.178Z
   SNYK-JS-ANGULAR-7924842:
     - '*':
-        reason: 'Fixed with https://jira.camunda.com/browse/SEC-1112'
+        reason: 'Fixed'
         expires: 2032-05-01T00:00:00.000Z
         created: 2025-03-26T12:14:51.259Z
 patch: {}

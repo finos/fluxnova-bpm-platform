@@ -61,7 +61,7 @@
   },
   "variableNameLike": {
     "type": "string",
-    "desc": "Filter by variable name like. Example usage: `variableNameLike(%camunda%)`. The query will match the names of variables in a case-insensitive way."
+    "desc": "Filter by variable name like. Example usage: `variableNameLike(%fluxnova%)`. The query will match the names of variables in a case-insensitive way."
   },
   "tenantIdIn": {
     "type": "array",

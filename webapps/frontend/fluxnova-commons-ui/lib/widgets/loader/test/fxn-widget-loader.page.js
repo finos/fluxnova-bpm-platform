@@ -48,7 +48,7 @@ Loader.prototype.failButton = function() {
   return this.node.element(by.css('button.fail-load'));
 };
 
-function Page() { }
+function Page() {}
 
 Page.prototype.loader = function(node) {
   return new Loader(element(by.css(node)));

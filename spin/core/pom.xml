@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.spin</groupId>
     <artifactId>fluxnova-spin-root</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-spin-core</artifactId>
@@ -111,7 +111,6 @@
         </plugins>
       </build>
     </profile>
-    <!-- exclude the DataFormatProviderTest until PowerMock 2.0 is released: https://app.camunda.com/jira/browse/CAM-9309 -->
     <profile>
       <id>jdk-9-and-onwards</id>
       <activation>

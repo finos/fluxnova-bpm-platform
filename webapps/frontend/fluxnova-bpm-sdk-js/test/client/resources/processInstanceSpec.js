@@ -27,11 +27,9 @@ describe('The ProcessInstance resource', function() {
     }).not.to.throw();
   });
 
-
   it('has a `path` static property', function() {
     expect(ProcessInstance.path).to.eql('process-instance');
   });
-
 
   describe('instance', function() {
     var instance;

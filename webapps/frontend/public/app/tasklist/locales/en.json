@@ -71,24 +71,8 @@
       "Friday",
       "Saturday"
     ],
-    "weekdaysMin": [
-      "Su",
-      "Mo",
-      "Tu",
-      "We",
-      "Th",
-      "Fr",
-      "Sa"
-    ],
-    "weekdaysShort": [
-      "Sun",
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat"
-    ]
+    "weekdaysMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   },
   "labels": {
     "ABORT": "Abort",
@@ -205,7 +189,7 @@
     "CLICK_PROCESS_TO_START": "Click on the process to start.",
     "CLOSE": "Close",
     "CLOSE_TASK": "Close task",
-    "COCKPIT_APP": "Cockpit",
+    "MONITORING_APP": "Monitoring",
     "COMMENT": "Comment",
     "COMMENT_CREATE": "Add Comment",
     "COMMENT_MESSAGE_PLACEHOLDER": "Enter Comment",

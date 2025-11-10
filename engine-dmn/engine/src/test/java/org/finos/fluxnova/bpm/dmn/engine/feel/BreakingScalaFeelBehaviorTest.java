@@ -46,7 +46,6 @@ public class BreakingScalaFeelBehaviorTest extends DmnEngineTest {
     return configuration;
   }
 
-  // https://jira.camunda.com/browse/CAM-11304
   @Test
   @DecisionResource(resource = "breaking_unary_test_compare_short_untyped.dmn")
   public void shouldCompareShortUntyped() {

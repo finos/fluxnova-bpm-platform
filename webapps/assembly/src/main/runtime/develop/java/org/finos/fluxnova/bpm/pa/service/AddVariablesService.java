@@ -64,9 +64,9 @@ public class AddVariablesService implements JavaDelegate {
     int random = (int)(Math.random() * 100);
     variables.put("random", random);
 
-    CockpitVariable cockpitVar = new CockpitVariable("test", "cockpitVariableValue");
-    cockpitVar.getDates().add(new Date());
-    variables.put("cockpitVar", cockpitVar);
+    MonitoringVariable monitoringVar = new MonitoringVariable("test", "monitoringVariableValue");
+    monitoringVar.getDates().add(new Date());
+    variables.put("monitoringVar", monitoringVar);
 
     execution.setVariablesLocal(variables);
   }

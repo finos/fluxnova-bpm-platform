@@ -22,15 +22,17 @@
 var path = require('path');
 var projectRoot = path.resolve(__dirname, '../../../../');
 var pkg = require(path.join(projectRoot, 'package.json'));
-var pageUrl = 'http://localhost:' + pkg.gruntConfig.connectPort +
-              '/lib/widgets/bpmn-viewer/test/fxn-widget-bpmn-viewer.spec.html';
+var pageUrl =
+  'http://localhost:' +
+  pkg.gruntConfig.connectPort +
+  '/lib/widgets/bpmn-viewer/test/fxn-widget-bpmn-viewer.spec.html';
 
 var page = require('./fxn-widget-bpmn-viewer.page.js');
 
 describe('Bpmn Viewer', function() {
-  beforeEach((function() {
+  beforeEach(function() {
     browser.get(pageUrl);
-  }));
+  });
   var diagram;
   describe('With Navigation', function() {
     beforeEach(function() {
@@ -43,15 +45,21 @@ describe('Bpmn Viewer', function() {
 
     it('should highlight elements on click', function() {
       diagram.element('UserTask_1').click();
-      expect(diagram.element('UserTask_1').isHighlighted()).to.eventually.eql(true);
+      expect(diagram.element('UserTask_1').isHighlighted()).to.eventually.eql(
+        true
+      );
 
       diagram.element('UserTask_1').click();
-      expect(diagram.element('UserTask_1').isHighlighted()).to.eventually.eql(false);
+      expect(diagram.element('UserTask_1').isHighlighted()).to.eventually.eql(
+        false
+      );
     });
 
     it('should create badges on click', function() {
       diagram.element('UserTask_2').click();
-      expect(diagram.badgeFor('UserTask_2').getText()).to.eventually.eql('Test');
+      expect(diagram.badgeFor('UserTask_2').getText()).to.eventually.eql(
+        'Test'
+      );
     });
 
     it('should recognize hovered elements', function() {
@@ -100,7 +108,6 @@ describe('Bpmn Viewer', function() {
 
       diagram.zoomInButton().click();
       var zoomBefore = diagram.zoomLevel().then(function(val) {
-
         browser.getCurrentUrl().then(function(url) {
           browser.get(url);
 
@@ -108,7 +115,6 @@ describe('Bpmn Viewer', function() {
 
           expect(zoomAfter).to.eventually.closeTo(val, 0.5);
         });
-
       });
     });
   });
@@ -122,5 +128,4 @@ describe('Bpmn Viewer', function() {
       expect(diagram.navigationButtons().isPresent()).to.eventually.eql(false);
     });
   });
-
 });

@@ -1,4 +1,4 @@
-<#-- Generated From File: camunda-docs-manual/public/reference/rest/history/job-log/post-job-log-query/index.html -->
+<#-- Generated From File: fluxnova-docs-manual/public/reference/rest/history/job-log/post-job-log-query/index.html -->
 <#macro dto_macro docsUrl="">
 <@lib.dto desc = "A Historic Job Log instance query which defines a list of Historic Job Log instances">
     

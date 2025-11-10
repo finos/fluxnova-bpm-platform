@@ -22,7 +22,7 @@
 
 var Pill = require('./fxn-widget-search-pill-object.page.js');
 
-function Page() { }
+function Page() {}
 
 Page.prototype.pill = function(identifier) {
   return new Pill(element(by.id(identifier)));
@@ -31,6 +31,5 @@ Page.prototype.pill = function(identifier) {
 Page.prototype.body = function() {
   return element(by.tagName('body'));
 };
-
 
 module.exports = new Page();

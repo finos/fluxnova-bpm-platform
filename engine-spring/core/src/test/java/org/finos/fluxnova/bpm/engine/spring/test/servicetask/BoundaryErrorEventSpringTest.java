@@ -22,7 +22,6 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * @see http://jira.codehaus.org/browse/ACT-1166
  * @author Angel López Cima
  * @author Falko Menge
  */
