@@ -355,9 +355,6 @@
     <!-- We shade artifacts into the jar, so we need to generate a dependency BOM
     for the license book -->
     <skip-third-party-bom>true</skip-third-party-bom>
-    
-    <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
-    <maven.source.skip>true</maven.source.skip>
 
     <camunda.artifact>
       org.finos.fluxnova.bpm
@@ -423,17 +420,6 @@
     </testResources>
 
     <plugins>
-      <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>release-attach-sources</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -584,19 +570,17 @@
       <id>distro</id>
       <build>
         <plugins>
-          <!--plugin>
+          <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
+          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-sources</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
+                <id>release-attach-sources</id>
+                <phase>none</phase>
               </execution>
             </executions>
-          </plugin-->
+          </plugin>
         </plugins>
       </build>
     </profile>

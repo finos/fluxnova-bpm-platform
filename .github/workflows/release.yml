@@ -11,8 +11,6 @@ env:
   CI_GPG_PASSPHRASE: ${{ secrets.CI_GPG_PASSPHRASE }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-# pull_request condition added temporarily to test the workflow
-# once verified, it shall be removed
 on:
   workflow_dispatch:
   push:
@@ -88,12 +86,11 @@ jobs:
             -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
             -Dtag=${{ env.TAG }} \
             -Psonatype-oss-release,distro,distro-ce \
-            -DskipTests=true \
             -DignoreSnapshots=true \
             -DinteractiveMode=false        
 
-      - name: Perform release
-        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DskipTests=true -DinteractiveMode=false
+#      - name: Perform release
+#        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
 
   publish-docker-image:
     name: Publish Docker Image

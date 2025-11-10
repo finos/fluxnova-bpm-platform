@@ -32,64 +32,78 @@
         <version>${project.version}</version>
         <scope>provided</scope>
       </dependency>
+      <!-- Spring Boot dependencies - explicit versions needed for Maven Central validation -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jersey</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-json</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-tomcat</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-validation</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-autoconfigure</artifactId>
+        <version>${version.spring-boot}</version>
         <scope>provided</scope>
       </dependency>
+      <!-- Spring Framework dependencies - explicit versions needed for Maven Central validation -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
+        <version>${version.spring.framework6}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
