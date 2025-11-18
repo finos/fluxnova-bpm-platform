@@ -570,14 +570,16 @@
       <id>distro</id>
       <build>
         <plugins>
-          <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>release-attach-sources</id>
-                <phase>none</phase>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
