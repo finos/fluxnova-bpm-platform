@@ -212,7 +212,7 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
    ```
 3. Start the Fluxnova Tomcat server:
    ```bash
-   sh start-camunda.sh
+   sh start-fluxnova.sh
    ```
 4. Access the Fluxnova Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
 
