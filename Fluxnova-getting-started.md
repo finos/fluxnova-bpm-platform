@@ -68,7 +68,7 @@ You can try Fluxnova BPM Platform instantly using the hosted sandbox:
 
 ## 7. Starting and Monitoring a Process
 1. In the Fluxnova web UI, navigate to your deployed process definition.
-   ![Process Deployment](docs/getting-started/images/process-deploy.png)
+   ![Process Deployment](docs/getting-started/images/deployed-process.png)
    ![Process Definition List](docs/getting-started/images/process-definition-list.png)
 2. Click "Start Process Instance" and provide any required variables.
    ![Start Process Instance](docs/getting-started/images/start-process-instance.png)
