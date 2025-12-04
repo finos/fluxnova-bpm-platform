@@ -5,7 +5,7 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../../database</relativePath>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.3.0</version>
   </parent>
 
   <groupId>org.finos.fluxnova.bpm.distro</groupId>
