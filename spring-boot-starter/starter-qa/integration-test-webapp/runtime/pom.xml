@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
     <artifactId>qa-webapp</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>qa-webapp-ce-runtime</artifactId>
