@@ -6,7 +6,7 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.0</version>
   </parent>
 
   <artifactId>fluxnova-bpm-quarkus-parent</artifactId>
