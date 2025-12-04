@@ -5,12 +5,12 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-parent</artifactId>
     <relativePath>../parent</relativePath>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.0</version>
   </parent>
 
   <groupId>org.finos.fluxnova.template-engines</groupId>
   <artifactId>fluxnova-template-engines-freemarker</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.0</version>
   
   <name>fluxnova template engine jsr223 freemarker</name>
 
