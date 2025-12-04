@@ -575,11 +575,8 @@
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-sources</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
+                <id>release-attach-sources</id>
+                <phase>none</phase>                
               </execution>
             </executions>
           </plugin>
