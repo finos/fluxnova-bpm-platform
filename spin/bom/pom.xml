@@ -6,14 +6,14 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <groupId>org.finos.fluxnova.spin</groupId>
   <artifactId>fluxnova-spin-bom</artifactId>
   <name>fluxnova spin - bom</name>
-  <version>1.4.0</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <dependencyManagement>
