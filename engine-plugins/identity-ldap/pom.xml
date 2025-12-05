@@ -9,7 +9,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-engine-plugins</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0-SNAPSHOT</version>
   </parent>
 
   <properties>
