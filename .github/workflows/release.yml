@@ -90,7 +90,7 @@ jobs:
             -DinteractiveMode=false        
 
       - name: Perform release
-        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
+        run: mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false -Darguments=" -DperformReleaseFlag=true"
 
   publish-docker-image:
     name: Publish Docker Image
