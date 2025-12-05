@@ -451,6 +451,9 @@
             <goals>
               <goal>jar</goal>
             </goals>
+            <configuration>
+                <skipSource>${performReleaseFor}</skipSource>
+            </configuration>
           </execution>
         </executions>
       </plugin>
