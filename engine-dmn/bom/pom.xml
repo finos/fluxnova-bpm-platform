@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0-SNAPSHOT</version>
     <relativePath>../../</relativePath>
   </parent>
 
   <groupId>org.finos.fluxnova.bpm.dmn</groupId>
   <artifactId>fluxnova-engine-dmn-bom</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0-SNAPSHOT</version>
   <name>fluxnova DMN - engine - bom</name>
   <packaging>pom</packaging>
 
