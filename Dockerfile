@@ -1,4 +1,4 @@
-FROM amazoncorretto:21
+FROM amazoncorretto:21.0.9
 
 # Setup required env variables
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
