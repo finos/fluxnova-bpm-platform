@@ -422,6 +422,7 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
   protected HistoryEvent createHistoricVariableEvent(VariableInstanceEntity variableInstance, VariableScope sourceVariableScope, HistoryEventType eventType) {
     String scopeActivityInstanceId = null;
     String sourceActivityInstanceId = null;
+    String taskId = null;
 
     if(variableInstance.getExecutionId() != null) {
       ExecutionEntity scopeExecution = Context.getCommandContext()
@@ -449,6 +450,12 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
     } else if (sourceVariableScope instanceof TaskEntity) {
       sourceExecution = ((TaskEntity) sourceVariableScope).getExecution();
       if (sourceExecution != null) {
+        //this block when executed for task listener variables, gets task id from source execution
+        List<TaskEntity> taskEntityList = sourceExecution.getTasks();
+        if(taskEntityList!=null && !taskEntityList.isEmpty()){
+          taskId = taskEntityList.get(0).getId();
+        }
+
         sourceActivityInstanceId = sourceExecution.getActivityInstanceId();
       }
       else {
@@ -475,6 +482,11 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
 
     // set source activity instance id
     evt.setActivityInstanceId(sourceActivityInstanceId);
+
+    // set task id for task listener variables
+    if(taskId!=null && evt.getTaskId()==null) {
+      evt.setTaskId(taskId);
+    }
 
     // mark initial variables on process start
     if (sourceExecution != null && sourceExecution.isProcessInstanceStarting()
