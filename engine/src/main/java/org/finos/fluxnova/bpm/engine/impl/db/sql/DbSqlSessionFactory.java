@@ -92,6 +92,8 @@ public class DbSqlSessionFactory implements SessionFactory {
 
   public static final Map<String, String> databaseSpecificDaysComparator = new HashMap<>();
 
+  public static final Map<String, String> databaseSpecificCoalesceForEndDate = new HashMap<>();
+
   public static final Map<String, String> databaseSpecificCollationForCaseSensitivity = new HashMap<>();
 
   public static final Map<String, String> databaseSpecificAuthJoinStart = new HashMap<>();
@@ -166,6 +168,8 @@ public class DbSqlSessionFactory implements SessionFactory {
 
     databaseSpecificDaysComparator.put(H2, "DATEDIFF(DAY, ${date}, #{currentTimestamp}) >= ${days}");
 
+    databaseSpecificCoalesceForEndDate.put(H2, "DATEDIFF(DAY, COALESCE(${preferredDate}, ${date}), #{currentTimestamp}) >= ${days}");
+
     databaseSpecificCollationForCaseSensitivity.put(H2, "");
 
     databaseSpecificAuthJoinStart.put(H2, defaultAuthOnStart);
@@ -229,6 +233,8 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(MYSQL, "IFNULL");
 
     databaseSpecificDaysComparator.put(MYSQL, "DATEDIFF(#{currentTimestamp}, ${date}) >= ${days}");
+
+    databaseSpecificCoalesceForEndDate.put(MYSQL, "DATEDIFF(#{currentTimestamp}, COALESCE(${preferredDate}, ${date})) >= ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(MYSQL, "");
 
@@ -484,6 +490,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     constants.put("constant.null.reporter", "CAST(NULL AS VARCHAR) AS REPORTER_");
     dbSpecificConstants.put(POSTGRES, constants);
     databaseSpecificDaysComparator.put(POSTGRES, "EXTRACT (DAY FROM #{currentTimestamp} - ${date}) >= ${days}");
+    databaseSpecificCoalesceForEndDate.put(POSTGRES, "EXTRACT (DAY FROM #{currentTimestamp} - COALESCE(${preferredDate}, ${date})) >= ${days}");
     databaseSpecificNumericCast.put(POSTGRES, "");
 
     // oracle
@@ -523,6 +530,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(ORACLE, "NVL");
 
     databaseSpecificDaysComparator.put(ORACLE, "${date} <= #{currentTimestamp} - ${days}");
+    databaseSpecificCoalesceForEndDate.put(ORACLE, "COALESCE(${preferredDate}, ${date}) <= #{currentTimestamp} - ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(ORACLE, "");
 
@@ -618,7 +626,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(DB2, "NVL");
 
     databaseSpecificDaysComparator.put(DB2, "${date} + ${days} DAYS <= #{currentTimestamp}");
-
+    databaseSpecificCoalesceForEndDate.put(DB2, "COALESCE(${preferredDate}, ${date}) + ${days} DAYS <= #{currentTimestamp}");
     databaseSpecificCollationForCaseSensitivity.put(DB2, "");
 
     databaseSpecificAuthJoinStart.put(DB2, defaultAuthOnStart);
@@ -717,6 +725,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(MSSQL, "ISNULL");
 
     databaseSpecificDaysComparator.put(MSSQL, "DATEDIFF(DAY, ${date}, #{currentTimestamp}) >= ${days}");
+    databaseSpecificCoalesceForEndDate.put(MSSQL, "DATEDIFF(DAY, COALESCE(${preferredDate}, ${date}), #{currentTimestamp}) >= ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(MSSQL, "COLLATE Latin1_General_CS_AS");
 

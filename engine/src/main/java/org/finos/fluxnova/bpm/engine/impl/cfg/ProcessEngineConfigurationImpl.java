@@ -1891,6 +1891,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
       properties.put("dayComparator", DbSqlSessionFactory.databaseSpecificDaysComparator.get(databaseType));
 
+      properties.put("coalesceForEndDate", DbSqlSessionFactory.databaseSpecificCoalesceForEndDate.get(databaseType));
+
       properties.put("collationForCaseSensitivity", DbSqlSessionFactory.databaseSpecificCollationForCaseSensitivity.get(databaseType));
 
       properties.put("authJoinStart", DbSqlSessionFactory.databaseSpecificAuthJoinStart.get(databaseType));

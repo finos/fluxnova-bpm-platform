@@ -30,24 +30,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.TimeZone;
+import java.util.*;
+
 import org.apache.commons.lang3.time.DateUtils;
-import org.finos.fluxnova.bpm.engine.BadUserRequestException;
-import org.finos.fluxnova.bpm.engine.CaseService;
-import org.finos.fluxnova.bpm.engine.HistoryService;
-import org.finos.fluxnova.bpm.engine.IdentityService;
-import org.finos.fluxnova.bpm.engine.ManagementService;
-import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
-import org.finos.fluxnova.bpm.engine.ProcessEngineException;
-import org.finos.fluxnova.bpm.engine.RepositoryService;
-import org.finos.fluxnova.bpm.engine.RuntimeService;
+import org.finos.fluxnova.bpm.engine.*;
 import org.finos.fluxnova.bpm.engine.history.HistoricCaseInstance;
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInstance;
 import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstance;
@@ -74,6 +60,7 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
+import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.dmn.businessruletask.TestPojo;
@@ -107,7 +94,14 @@ public class HistoryCleanupTest {
   protected static final String DECISION = "decision";
   protected static final String ONE_TASK_CASE = "case";
 
-  private static final int NUMBER_OF_THREADS = 3;
+    protected static final String PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY = "parentProcess";
+    protected static final String SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY = "subProcess";
+    protected static final String PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY = "parentDMNProcess";
+    protected static final String CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY = "childDmnProcess";
+    protected static final String DECISION_TABLE_HISTORY_CLEANUP_ID = "decisionTable";
+
+
+    private static final int NUMBER_OF_THREADS = 3;
   private static final String USER_ID = "demo";
 
   private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -1400,6 +1394,590 @@ public class HistoryCleanupTest {
 
     //then
     assertThat(cleanupJob.getRetries()).isEqualTo(0);
+  }
+
+  /**
+   * END TIME HISTORY CLEAN UP TEST FOR BPMN
+   */
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupAParentProcess.bpmn20.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupChild.bpmn20.bpmn"})
+  @Test
+  public void testEndTimeHistoryCleanup_rootProcessInstanceComplete() {
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNotNull(subInstance);
+
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY,
+        SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    // Fetch and complete the user task inside the subprocess
+
+    TaskService taskService = engineRule.getTaskService();
+    Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNotNull(subTask);
+
+    // Complete the user task
+    taskService.complete(subTask.getId());
+
+    // Send the signal to move the execution
+    runtimeService.signal(subInstance.getId());
+
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has ended
+    subInstance = runtimeService.createProcessInstanceQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNull(subInstance);
+
+    // Verify the parent process has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the endtime cleanup strategy
+    runHistoryCleanup(true);
+
+    // Should perform cleanup and delete all historical process instances since root instance is complete
+    assertResult(0);
+
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupAParentProcess.bpmn20.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupChild.bpmn20.bpmn"})
+  @Test
+  public void testEndTimeHistoryCleanup_rootProcessInstanceCompleteButTtlNotMet() {
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNotNull(subInstance);
+
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY, PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    // Fetch and complete the user task inside the subprocess
+    TaskService taskService = engineRule.getTaskService();
+    Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNotNull(subTask);
+
+    // Complete the user task
+    taskService.complete(subTask.getId());
+
+    // Send the signal to move the execution
+    runtimeService.signal(subInstance.getId());
+
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Update the current time here to set the parent instance's end time to now,
+    // ensuring that historical process instances aren't removed during the cleanup process.
+    ClockUtil.setCurrentTime(new Date());
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+
+    // Verify the subprocess has ended
+    subInstance = runtimeService.createProcessInstanceQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNull(subInstance);
+
+    // Verify the parent process has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the endtime cleanup strategy
+    runHistoryCleanup(true);
+
+    // Should not cleanup the historical process instances since root instance's end time plus ttl is not more than current time
+    assertResult(2);
+
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupAParentProcess.bpmn20.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupChild.bpmn20.bpmn"})
+  @Test
+  public void testEndTimeHistoryCleanup_rootProcessInstanceInComplete() {
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNotNull(subInstance);
+
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY,
+        SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    // Fetch and complete the user task inside the subprocess
+    TaskService taskService = engineRule.getTaskService();
+    Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNotNull(subTask);
+
+    // Complete the user task
+    taskService.complete(subTask.getId());
+
+    // Send the signal to move the execution
+    runtimeService.signal(subInstance.getId());
+
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has ended
+    subInstance = runtimeService.createProcessInstanceQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNull(subInstance);
+
+    // Verify the parent process is still running
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentInstance);
+
+    // Run the endtime cleanup strategy
+    runHistoryCleanup(true);
+
+    // Should not cleanup the historical process instances since root instance isn't complete yet
+    assertResult(2);
+
+    // Cleanup for next test
+    deleteProcessInstances(Collections.singletonList(parentInstance.getId()));
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupAParentProcess.bpmn20.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupChild.bpmn20.bpmn"})
+  @Test
+  public void testEndTimeHistoryCleanup_endTimeMinusCurrentTimeIsLessThanTTL() {
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNotNull(subInstance);
+
+    //make ttl more than (DAYS_IN_THE_PAST + INVALID_HISTORY_TTL) to make it invalid
+    final int INVALID_HISTORY_TTL = HISTORY_TIME_TO_LIVE + 15;
+
+    setTtlProcessDefinitions(INVALID_HISTORY_TTL, PARENT_BPMN_HISTORY_CLEANUP_PROCESS_KEY,
+        SUBPROCESS_BPMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    // Fetch and complete the user task inside the subprocess
+    TaskService taskService = engineRule.getTaskService();
+    Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNotNull(subTask);
+
+    // Complete the user task
+    taskService.complete(subTask.getId());
+
+    // Send the signal to move the execution
+    runtimeService.signal(subInstance.getId());
+
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has ended
+    subInstance = runtimeService.createProcessInstanceQuery().processInstanceId(subInstance.getId()).singleResult();
+    assertNull(subInstance);
+
+    // Verify the parent process has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the endtime cleanup strategy
+    runHistoryCleanup(true);
+
+    // Should not cleanup the historical process instances since INVALID_HISTORY_TTL more than (DAYS_IN_THE_PAST + INVALID_HISTORY_TTL)
+    assertResult(2);
+  }
+
+  private void setTtlProcessDefinitions(int ttl, String... processDefinitionsKeys) {
+    for (String key : processDefinitionsKeys) {
+      List<ProcessDefinition> processDefinitions = repositoryService.createProcessDefinitionQuery()
+          .processDefinitionKey(key)
+          .list();
+      assertEquals(1, processDefinitions.size());
+      repositoryService.updateProcessDefinitionHistoryTimeToLive(processDefinitions.get(0).getId(), ttl);
+    }
+  }
+
+  /**
+   * END TIME HISTORY CLEAN UP TEST FOR DMN process instances
+   */
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnParentProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnSubProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDecisionTable.dmn" })
+  @Test
+  public void testEndTimeDmnHistoryCleanup_rootProcessInstanceComplete() {
+
+    // Set the current time for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+
+    // Start the parent process instance
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+
+    // Ensure the child process is not running as the decision is already made
+    assertNull(subInstance);
+
+    // Verify no historic child process instance exists
+    ProcessInstance historicChildProcessInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(historicChildProcessInstance);
+
+    // Verify the DMN instance exists in the historic table
+    HistoricDecisionInstance childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Set TTL for DMN process definitions
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY, CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+    setTtlDmnDefinitions(HISTORY_TIME_TO_LIVE, DECISION_TABLE_HISTORY_CLEANUP_ID);
+
+    // Set the current time again for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    TaskService taskService = engineRule.getTaskService();
+
+    // Verify the parent task exists
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the end-time cleanup strategy
+    runHistoryCleanup(true);
+
+    // Verify the DMN instance no longer exists in the historic table
+    childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNull(childDmnInstance);
+
+    // Verify no instances exist in the runtime table
+    subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(subInstance);
+
+    // Verify no historic instances exist for the parent process
+    assertNull(historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult());
+
+    // Should cleanup historic instances since root process instance is complete
+    assertResult(0);
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnParentProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnSubProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDecisionTable.dmn" })
+  @Test
+  public void testEndTimeDmnHistoryCleanup_rootProcessInstanceCompleteButTtlNotMet() {
+
+    // Set the current time for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+
+    // Start the parent process instance
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+
+    // Ensure the child process is not running as the decision is already made
+    assertNull(subInstance);
+
+    // Verify no historic child process instance exists
+    ProcessInstance historicChildProcessInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(historicChildProcessInstance);
+
+    // Verify the DMN instance exists in the historic table
+    HistoricDecisionInstance childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Set TTL for DMN process definitions
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY, CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+    setTtlDmnDefinitions(HISTORY_TIME_TO_LIVE, DECISION_TABLE_HISTORY_CLEANUP_ID);
+
+    // Set the current time again for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    TaskService taskService = engineRule.getTaskService();
+
+    // Verify the parent task exists
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Update the current time here to set the parent instance's end time to now,
+    // ensuring that historical process instances aren't removed during the cleanup process.
+    ClockUtil.setCurrentTime(new Date());
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+    // Verify the subprocess has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the end-time cleanup strategy
+    runHistoryCleanup(true);
+
+    // Verify the DMN instance no longer exists in the historic table
+    childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNull(childDmnInstance);
+
+    // Verify no instances exist in the runtime table
+    subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(subInstance);
+
+    // Verify no historic instances exist for the parent process
+    assertNull(historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult());
+
+    // Should not cleanup the historical process instances since root instance's end time plus ttl is not more than current time
+    assertResult(2);
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnParentProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnSubProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDecisionTable.dmn" })
+  @Test
+  public void testEndTimeDmnHistoryCleanup_rootProcessInstanceInComplete() {
+
+    // Set the time in the past for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+
+    // Start the parent process instance
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+
+    // Ensure the child process is not running as the decision is already made
+    assertNull(subInstance);
+
+    // Verify no historic child process instance exists
+    ProcessInstance historicChildProcessInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(historicChildProcessInstance);
+
+    // Verify the DMN instance exists in the historic table
+    HistoricDecisionInstance childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Set TTL for process definitions for all definitions
+    setTtlProcessDefinitions(HISTORY_TIME_TO_LIVE, PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY, CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Update the history time to live for the decision definition for
+    setTtlDmnDefinitions(HISTORY_TIME_TO_LIVE, DECISION_TABLE_HISTORY_CLEANUP_ID);
+
+    // Verify the parent process is still running
+    parentInstance = runtimeService.createProcessInstanceQuery()
+        .processInstanceId(parentInstance.getId())
+        .singleResult();
+    assertNotNull(parentInstance);
+
+    // Run the end-time cleanup strategy
+    runHistoryCleanup(true);
+
+    // Verify the DMN instance no longer exists in the historic table
+    childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Verify no instances exist in the runtime table
+    subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(subInstance);
+
+    // Verify no historic instances exist for the parent process
+    assertNull(historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult());
+
+    // Ensure no instances are not cleaned because the root instance is still present in runtime execution table
+    assertResult(3);
+
+    // Cleanup for next test
+    deleteProcessInstances(Collections.singletonList(parentInstance.getId()));
+
+  }
+
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnParentProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDmnSubProcess.bpmn",
+      "org/finos/fluxnova/bpm/engine/test/api/history/HistoryCleanupTest.testEndTimeCleanupDecisionTable.dmn" })
+  @Test
+  public void testEndTimeDmnHistoryCleanup_endTimeMinusCurrentTimeIsLessThanTTL() {
+
+    // Set the current time for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    RuntimeService runtimeService = engineRule.getRuntimeService();
+
+    // Start the parent process instance
+    ProcessInstance parentInstance = runtimeService.startProcessInstanceByKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has started
+    ProcessInstance subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+
+    // Ensure the child process is not running as the decision is already made
+    assertNull(subInstance);
+
+    // Verify no historic child process instance exists
+    ProcessInstance historicChildProcessInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(historicChildProcessInstance);
+
+    // Verify the DMN instance exists in the historic table
+    HistoricDecisionInstance childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Set TTL for DMN process definitions
+    // Make ttl more than (DAYS_IN_THE_PAST + INVALID_HISTORY_TTL) to make it invalid
+    final int INVALID_HISTORY_TIME_TO_LIVE = HISTORY_TIME_TO_LIVE + 15;
+    setTtlProcessDefinitions(INVALID_HISTORY_TIME_TO_LIVE, PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY, CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY);
+    setTtlDmnDefinitions(INVALID_HISTORY_TIME_TO_LIVE, DECISION_TABLE_HISTORY_CLEANUP_ID);
+
+    // Set the current time again for DMN evaluation
+    ClockUtil.setCurrentTime(DateUtils.addDays(new Date(), DAYS_IN_THE_PAST));
+
+    TaskService taskService = engineRule.getTaskService();
+
+    // Verify the parent task exists
+    Task parentTask = taskService.createTaskQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNotNull(parentTask);
+
+    // Complete the user task
+    taskService.complete(parentTask.getId());
+
+    // Reset the current time
+    ClockUtil.setCurrentTime(new Date());
+
+    // Verify the subprocess has ended
+    parentInstance = runtimeService.createProcessInstanceQuery().processInstanceId(parentInstance.getId()).singleResult();
+    assertNull(parentInstance);
+
+    // Run the end-time cleanup strategy
+    runHistoryCleanup(true);
+
+    // Verify the DMN instance no longer exists in the historic table
+    childDmnInstance = historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(DECISION_TABLE_HISTORY_CLEANUP_ID)
+        .singleResult();
+    assertNotNull(childDmnInstance);
+
+    // Verify no instances exist in the runtime table
+    subInstance = runtimeService.createProcessInstanceQuery()
+        .processDefinitionKey(CHILD_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult();
+    assertNull(subInstance);
+
+    // Verify no historic instances exist for the parent process
+    assertNull(historyService.createHistoricDecisionInstanceQuery()
+        .decisionDefinitionKey(PARENT_DMN_HISTORY_CLEANUP_PROCESS_KEY)
+        .singleResult());
+
+    // Ensure no historical process instances are cleaned up because invalid ttl
+    assertResult(3);
+  }
+
+
+  private void setTtlDmnDefinitions(int ttl, String... keys) {
+    for (String key : keys) {
+      List<DecisionDefinition> dmnDefLst = repositoryService.createDecisionDefinitionQuery()
+          .decisionDefinitionKey(key)
+          .list();
+      if (!dmnDefLst.isEmpty()) {
+        repositoryService.updateDecisionDefinitionHistoryTimeToLive(dmnDefLst.get(0).getId(), ttl);
+      }
+    }
   }
 
 
