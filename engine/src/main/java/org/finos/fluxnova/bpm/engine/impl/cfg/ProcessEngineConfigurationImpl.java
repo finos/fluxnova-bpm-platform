@@ -1016,6 +1016,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected String loggingContextProcessInstanceId = "processInstanceId";
   protected String loggingContextTenantId = "tenantId";
   protected String loggingContextEngineName = "engineName";
+  protected String loggingContextRootProcessInstanceId = "rootProcessInstanceId";
 
   // logging levels (with default values)
   protected String logLevelBpmnStackTrace = "DEBUG";
@@ -5205,6 +5206,15 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public ProcessEngineConfigurationImpl setLoggingContextEngineName(String loggingContextEngineName) {
     this.loggingContextEngineName = loggingContextEngineName;
+    return this;
+  }
+  
+  public String getLoggingContextRootProcessInstanceId() {
+    return loggingContextRootProcessInstanceId;
+  }
+
+  public ProcessEngineConfigurationImpl setLoggingContextRootProcessInstanceId(String loggingContextRootProcessInstanceId) {
+    this.loggingContextRootProcessInstanceId = loggingContextRootProcessInstanceId;
     return this;
   }
 
