@@ -16,33 +16,53 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
+import static org.finos.fluxnova.bpm.engine.rest.dto.MultiStatusResponseCode.MULTI_STATUS_CODE;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.batch.Batch;
 import org.finos.fluxnova.bpm.engine.exception.NullValueException;
+import org.finos.fluxnova.bpm.engine.impl.util.CollectionUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil;
 import org.finos.fluxnova.bpm.engine.management.SetJobRetriesByJobsAsyncBuilder;
 import org.finos.fluxnova.bpm.engine.rest.JobRestService;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.JobSuspensionResponse;
+import org.finos.fluxnova.bpm.engine.rest.dto.ResponseStatus;
 import org.finos.fluxnova.bpm.engine.rest.dto.batch.BatchDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobSuspensionStateDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.SetJobRetriesDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.JobActivateSuspendDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.JobDeletionDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.JobDeletionResponse;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.sub.runtime.JobResource;
 import org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl.JobResourceImpl;
 import org.finos.fluxnova.bpm.engine.rest.util.QueryUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JobRestServiceImpl extends AbstractRestProcessEngineAware
     implements JobRestService {
+
+  private final Logger logger = LoggerFactory.getLogger(JobRestServiceImpl.class);
+  private static final int MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION = 200;
+  private static final int MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION = 200;
 
   public JobRestServiceImpl(String engineName, ObjectMapper objectMapper) {
     super(engineName, objectMapper);
@@ -136,4 +156,83 @@ public class JobRestServiceImpl extends AbstractRestProcessEngineAware
     dto.updateSuspensionState(getProcessEngine());
   }
 
+  @Override
+  public Response updateSuspensionStateForJobs(JobActivateSuspendDto jobActivateSuspendDto) {
+    // validate
+    validateInputList(jobActivateSuspendDto.getJobIds(), MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION);
+    // remove duplicates
+    Set<String> jobIds = new HashSet<>(jobActivateSuspendDto.getJobIds());
+    // update state
+    List<JobSuspensionResponse> suspensionResponses = jobIds.stream()
+            .map(jobId -> updateJobSuspensionState.apply(jobId, jobActivateSuspendDto.isSuspended()))
+            .collect(Collectors.toList());
+
+    boolean hasFailures = suspensionResponses.stream()
+            .anyMatch(response -> response.getStatus().equals(ResponseStatus.FAILURE));
+
+    if (hasFailures) {
+      return Response.status(MULTI_STATUS_CODE).entity(suspensionResponses).build();
+    }
+    return Response.status(Status.OK).entity(suspensionResponses).build();
+  }
+
+  BiFunction<String, Boolean, JobSuspensionResponse> updateJobSuspensionState = (jobId, isSuspended) -> {
+    try {
+      JobResource currentJob = this.getJob(jobId);
+      this.prepareSuspensionStateMapper.apply(currentJob, isSuspended).updateSuspensionState(getProcessEngine());
+      return new JobSuspensionResponse(jobId, ResponseStatus.SUCCESS, null);
+    } catch (Exception e) {
+      logger.error("Unable to delete job id: {}", jobId, e);
+      return new JobSuspensionResponse(jobId, ResponseStatus.FAILURE, e.getMessage());
+    }
+  };
+
+  @Override
+  public Response deleteJobs(JobDeletionDto jobDeletionDto) {
+
+    // validate
+    validateInputList(jobDeletionDto.getJobIds(), MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION);
+    // remove duplicates
+    Set<String> jobIds = new HashSet<>(jobDeletionDto.getJobIds());
+    // update state
+    List<JobDeletionResponse> deleteResults = jobIds.stream().map(deleteJob).collect(Collectors.toList());
+
+    boolean hasFailures = deleteResults.stream()
+            .anyMatch(response -> response.getStatus().equals(ResponseStatus.FAILURE));
+
+    if (hasFailures) {
+      return Response.status(MULTI_STATUS_CODE).entity(deleteResults).build();
+    }
+    return Response.status(Status.OK).entity(deleteResults).build();
+  }
+
+  Function<String, JobDeletionResponse> deleteJob = jobId -> {
+    try {
+      this.getJob(jobId).deleteJob();
+      return new JobDeletionResponse(jobId, ResponseStatus.SUCCESS, null);
+    } catch (Exception e) {
+      logger.error("Unable to delete job id: {}", jobId, e);
+      return new JobDeletionResponse(jobId, ResponseStatus.FAILURE, e.getMessage());
+    }
+  };
+
+  BiFunction<JobResource, Boolean, JobSuspensionStateDto> prepareSuspensionStateMapper = (jobResource, suspended) -> {
+    JobSuspensionStateDto dto = new JobSuspensionStateDto();
+    dto.setJobId(jobResource.getJob().getId());
+    dto.setSuspended(suspended);
+    return dto;
+  };
+  BiPredicate<List<?>, Integer> ifInputSizeExceedsLimit = (list, limit) -> list.size() > limit;
+
+  private void validateInputList(List<String> inputList, int limit) {
+    boolean invalidInput =
+            CollectionUtil.isEmpty(inputList) || inputList.stream().anyMatch(id -> id == null || id.isBlank());
+    if (invalidInput) {
+      throw new InvalidRequestException(Status.BAD_REQUEST, "Please supply valid job ids as input.");
+    }
+    if (ifInputSizeExceedsLimit.test(inputList, limit)) {
+      throw new InvalidRequestException(Status.BAD_REQUEST,
+              String.format("Input request exceeds the limit of %s.", limit));
+    }
+  }
 }
