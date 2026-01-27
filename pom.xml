@@ -38,6 +38,7 @@
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
     <version.feel-scala>1.0.0</version.feel-scala>
+    <releasePerform>false</releasePerform>
   </properties>
 
   <build>
