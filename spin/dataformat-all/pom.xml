@@ -8,7 +8,7 @@
   </parent>
 
   <artifactId>fluxnova-spin-dataformat-all</artifactId>
-  <name>fluxnova Spin - all dataformats in one</name>
+  <name>Fluxnova Spin - all dataformats in one</name>
 
   <properties>
     <!-- We shade artifacts into the jar, so we need to generate 
@@ -44,6 +44,18 @@
 
   <build>
     <plugins>
+      <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>release-attach-sources</id>
+                <phase>none</phase>
+            </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
