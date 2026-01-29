@@ -16,5 +16,6 @@ runs:
         if [[ "${{ inputs.branch }}" == "main" ]]; then
           mvn -B -e -U deploy -DskipTests=true -DskipITs=true -s ./settings.xml
         else
-          mvn -B -e -U clean install -DskipTests=true -DskipITs=true
+          mvn -B -e -U deploy -DskipTests=true -DskipITs=true -s ./settings.xml
+#         mvn -B -e -U clean install -DskipTests=true -DskipITs=true
         fi

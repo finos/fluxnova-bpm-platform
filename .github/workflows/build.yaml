@@ -2,6 +2,8 @@ name: "Build CI"
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
 
 on:
   push:
