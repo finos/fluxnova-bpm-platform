@@ -65,6 +65,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExternalTaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricJobLogEventEntity;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.IncidentEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -739,6 +740,23 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
     if(task != null) {
       evt.setTaskId(task.getId());
       evt.setTaskAssignee(task.getAssignee());
+
+      /*
+       * this code is required for input variables of the task as the historic variable instance is created first
+       * and then task entity is created
+       * get historic variable instances from the cache as the transaction is still not committed
+       */
+      List <HistoricVariableInstanceEntity> cachedHistoricVariableInstances = Context.getCommandContext().getDbEntityManager().getCachedEntitiesByType(HistoricVariableInstanceEntity.class);
+      String executionActivityInstanceId = executionEntity.getActivityInstanceId();
+      for (HistoricVariableInstanceEntity historicVariableInstance : cachedHistoricVariableInstances) {
+        String historicActivityInstanceId = historicVariableInstance.getActivityInstanceId();
+        //update task id for historic variable instances only specific to that task
+        if(executionActivityInstanceId!=null && historicActivityInstanceId!=null) {
+          if (historicActivityInstanceId.equals(executionActivityInstanceId)) {
+            historicVariableInstance.setTaskId(task.getId());
+          }
+        }
+      }
     }
 
     return evt;
