@@ -25,7 +25,9 @@ jobs:
     name: Publish to Maven Central
     runs-on: ubuntu-latest
     outputs:
-      release_version: ${{ steps.set-vars.outputs.release_version }}
+      release_version: ${{ steps.versioning.outputs.release_version }}
+      tag: ${{ steps.versioning.outputs.tag }}
+      minor_version: ${{ steps.versioning.outputs.minor_version }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -54,7 +56,7 @@ jobs:
         run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
 
       - name: Extract version from pom.xml and compute next development version
-        id: set-vars
+        id: versioning
         run: |
           # Extract current version from pom.xml
           currentVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
@@ -78,6 +80,12 @@ jobs:
           nextMinor=$((${a[1]} + 1))
           developmentVersion="${a[0]}.${nextMinor}.0-SNAPSHOT"
           echo "DEVELOPMENT_VERSION=${developmentVersion}" >> $GITHUB_ENV
+
+          minorVersion="${a[0]}.${a[1]}"
+          echo "minor_version=${minorVersion}" >> $GITHUB_OUTPUT
+
+          echo "release_version=${releaseVersion}" >> $GITHUB_OUTPUT
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
       - name: Configure GitHub authentication for Maven Release Plugin
         run: |
@@ -104,8 +112,15 @@ jobs:
             -Darguments='-Psonatype-oss-release,distro,distro-ce,!distro-tomcat,!distro-wildfly,!distro-webjar,distro-run -DreleasePerform=true -DskipTests -DskipITs' \
             release:perform
 
-      - name: Print Release Version
-        run: echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}"
+  publish-docker-image:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    needs: publish-central
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish-central.outputs.tag }}
 
       - name: Build distro ZIP only
         run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
@@ -113,4 +128,75 @@ jobs:
       - name: Build and publish Docker image
         uses: ./.github/actions/build-publish-image
         with:
-          version: ${{ env.RELEASE_VERSION }}
+          version: ${{ needs.publish-central.outputs.release_version }}
+
+  publish-javadoc:
+    name: Publish Javadoc to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: publish-central
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish-central.outputs.tag }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Generate Javadoc
+        run: |
+          mvn -B -e package javadoc:javadoc javadoc:aggregate \ 
+            -Pdistro,distro-wildfly,distro-webjar,javadocs \
+            -pl '!distro/wildfly/modules,!distro/wildfly26/modules,!engine-rest/engine-rest-openapi' \
+            -DskipTests=true -Dskip.frontend.build=true \
+            -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
+
+      - name: Publish Javadoc to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/apidocs
+          destination_dir: javadocs/${{ needs.publish-central.outputs.minor_version }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: publish Javadoc for ${{ needs.publish-central.outputs.release_version }}'
+
+  publish-openapi-spec:
+    name: Publish OpenAPI Spec to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: publish-central
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish-central.outputs.tag }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Generate OpenAPI Spec
+        run: |
+          mvn -B -e package \
+          -pl 'engine-rest'  \
+          -s ./settings.xml \
+          -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
+
+      - name: Publish OpenAPI Spec to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./engine-rest/engine-rest-openapi/target/generated-source/openapi-json
+          destination_dir: openapi/${{ needs.publish-central.outputs.minor_version }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: publish OpenAPI spec for ${{ needs.publish-central.outputs.release_version }}'
