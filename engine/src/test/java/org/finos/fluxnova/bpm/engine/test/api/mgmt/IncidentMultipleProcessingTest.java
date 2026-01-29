@@ -100,6 +100,33 @@ public class IncidentMultipleProcessingTest {
     assertThat(JOB_HANDLER.getDeleteEvents()).isEmpty();
   }
 
+  @Deployment(resources = {
+      "org/finos/fluxnova/bpm/engine/test/api/mgmt/IncidentTest.testShouldCreateOneIncident.bpmn" })
+  @Test
+  public void checkThrowableOnIncidentCreationProcess() {
+    //given
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("failingProcess");
+
+    //when
+    testRule.executeAvailableJobs();
+
+    List<Incident> incidents = runtimeService.createIncidentQuery().processInstanceId(processInstance.getId()).list();
+
+    //then
+    assertThat(incidents).hasSize(1);
+
+    assertThat(JOB_HANDLER.getCreateEvents()).hasSize(1);
+    assertThat((JOB_HANDLER.getCreateEvents()).getFirst()).isNotNull();
+    //The exception is exposed through the Incident Context while the Incident is handled.
+    assertThat((JOB_HANDLER.getCreateEvents()).getFirst().getThrowable()).isNotNull();
+    //We assert that the actual message raised by the delegate is found as part of the Exception.
+    assertThat((JOB_HANDLER.getCreateEvents()).getFirst().getThrowable().getMessage()).contains(
+        AlwaysFailingDelegate.MESSAGE);
+
+    assertThat(JOB_HANDLER.getResolveEvents()).isEmpty();
+    assertThat(JOB_HANDLER.getDeleteEvents()).isEmpty();
+  }
+
   @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/mgmt/IncidentTest.testShouldCreateOneIncident.bpmn" })
   @Test
   public void shouldResolveIncidentAfterJobRetriesRefresh() {
