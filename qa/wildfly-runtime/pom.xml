@@ -131,6 +131,7 @@
                 <exclude>configuration/**/*</exclude>
                 <exclude>**/configuration/**/*</exclude>
               </excludes>
+              <skipSource>${releasePerform}</skipSource>
             </configuration>
           </execution>
         </executions>
