@@ -1,5 +1,5 @@
-# The flowave-maintainers GitHub team will be the default reviewers for all PRs
-* @finos/flowave-maintainers
+# The fluxnova-maintainers GitHub team will be the default reviewers for all PRs
+* @finos/fluxnova-maintainers
 
 # Any changes to this CODEOWNERS file should be reviewed by finos-admins
 /.github/CODEOWNERS @finos/finos-admins

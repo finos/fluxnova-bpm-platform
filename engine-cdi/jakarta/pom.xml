@@ -348,6 +348,9 @@
             <goals>
               <goal>jar-no-fork</goal>
             </goals>
+            <configuration>
+              <skipSource>${releasePerform}</skipSource>
+            </configuration>
           </execution>
         </executions>
       </plugin>
