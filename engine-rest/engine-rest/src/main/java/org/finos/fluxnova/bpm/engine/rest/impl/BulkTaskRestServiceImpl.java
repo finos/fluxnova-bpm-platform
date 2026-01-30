@@ -42,6 +42,12 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
     return new TaskCommentResourceImpl(getProcessEngine(), "");
   }
 
+  /**
+   * Updates multiple tasks based on the provided list of TaskDto.
+   * Returns multi-status if any update fails.
+   * @param taskDtos List of tasks to update
+   * @return Response with update results
+   */
   public Response updateTasks(List<TaskDto> taskDtos) {
     validateInputs(taskDtos);
 
@@ -57,6 +63,11 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
 
   }
 
+  /**
+   * Processes a single task update.
+   * @param taskDto Task data to update
+   * @return TaskUpdateResponse with status
+   */
   private TaskUpdateResponse processTask(TaskDto taskDto) {
     ProcessEngine engine = getProcessEngine();
     TaskService taskService = engine.getTaskService();
@@ -74,6 +85,12 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
     }
   }
 
+  /**
+   * Retrieves a task by ID, throws exception if not found.
+   * @param taskId ID of the task
+   * @param taskService TaskService instance
+   * @return Task object
+   */
   private Task getTask(String taskId, TaskService taskService) {
     Task task = taskService.createTaskQuery().initializeFormKeys().taskId(taskId).singleResult();
     if (task == null) {
@@ -82,6 +99,11 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
     return task;
   }
 
+  /**
+   * Validates the input list for bulk task update.
+   * Checks for size limit and duplicate IDs.
+   * @param taskDtos List of TaskDto
+   */
   private void validateInputs(List<TaskDto> taskDtos) {
     if (taskDtos.size() > MAX_TASK_UPDATE_ALLOWED) {
       throw new InvalidRequestException(Status.BAD_REQUEST, "The request exceeds the limit of 100 tasks objects.");
@@ -99,6 +121,12 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
 
   }
 
+  /**
+   * Sets the assignee for multiple tasks.
+   * Returns multi-status if any assignment fails.
+   * @param dto TasksAssignDto containing task IDs and user ID
+   * @return Response with assignment results
+   */
   @Override
   public Response setTasksAssignee(TasksAssignDto dto) {
     List<TaskUpdateResponse> responses = new ArrayList<>();
@@ -128,6 +156,12 @@ public class BulkTaskRestServiceImpl extends AbstractRestProcessEngineAware impl
     return Response.status(Status.OK).entity(responses).build();
   }
 
+  /**
+   * Completes multiple tasks, optionally returning variables.
+   * Returns multi-status if any completion fails.
+   * @param dtos CompleteTaskRequestDto containing completion info
+   * @return Response with completion results
+   */
   @Override
   public Response completeTasks(CompleteTaskRequestDto dtos) {
     ProcessEngine engine = getProcessEngine();
