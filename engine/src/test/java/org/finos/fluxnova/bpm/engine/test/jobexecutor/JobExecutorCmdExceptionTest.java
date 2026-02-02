@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -29,10 +30,12 @@ import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteJobCmd;
 import org.finos.fluxnova.bpm.engine.impl.db.DbEntity;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.MessageEntity;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
+import org.finos.fluxnova.bpm.engine.test.api.mgmt.AlwaysFailingDelegate;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.junit.After;
@@ -200,6 +203,41 @@ public class JobExecutorCmdExceptionTest extends PluggableProcessEngineTest {
     String stacktrace = managementService.getJobExceptionStacktrace(job.getId());
     assertNotNull(stacktrace);
     assertTrue("unexpected stacktrace, was <" + stacktrace + ">", stacktrace.contains("java.lang.RuntimeException: exception in transaction listener"));
+  }
+
+  @Test
+  public void testTransientExceptionIsNotPersistedPostJobFailure() {
+    // given
+    testRule.deploy(Bpmn.createExecutableProcess("testProcess")
+        .fluxnovaHistoryTimeToLive(180)
+        .startEvent()
+        .serviceTask("theServiceTask")
+        .fluxnovaAsyncBefore()
+        .fluxnovaClass(AlwaysFailingDelegate.class)
+        .fluxnovaFailedJobRetryTimeCycle("R0/PT30S")
+        .endEvent()
+        .done());
+
+    runtimeService.startProcessInstanceByKey("testProcess");
+    Job job = managementService.createJobQuery().singleResult();
+    assertNotNull("Job should not be null", job);
+    assertNull(job.getExceptionMessage());
+    assertNull(((JobEntity) job).getException());
+
+    // when
+    try {
+      managementService.executeJob(job.getId());
+    } catch (Exception e) {
+      // expected exception
+    }
+
+    // then
+    job = managementService.createJobQuery().singleResult();
+    assertNotNull("Job should not be null", job);
+    //The message is obtained from the persistence layer.
+    assertEquals(AlwaysFailingDelegate.MESSAGE, job.getExceptionMessage());
+    //The exception at this point is null but already propagated to the Incident Handler.
+    assertNull(((JobEntity) job).getException());
   }
 
   protected void createJob(final String handlerType) {
