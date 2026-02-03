@@ -204,7 +204,7 @@ public class ProcessDataContext {
     }
 
     if (isNotBlank(mdcPropertyDefinitionKey)) {
-      addToStack(execution.getProcessDefinition().getKey(), mdcPropertyDefinitionKey);
+      addToStack(execution.getProcessDefinitionKey(), mdcPropertyDefinitionKey);
     }
 
     sections.sealCurrentSection();
