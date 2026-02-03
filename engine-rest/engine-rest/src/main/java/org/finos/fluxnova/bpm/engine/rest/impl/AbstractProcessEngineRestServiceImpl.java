@@ -24,6 +24,7 @@ import javax.ws.rs.ext.Providers;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
+import org.finos.fluxnova.bpm.engine.rest.BulkTaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseInstanceRestService;
@@ -99,6 +100,14 @@ public abstract class AbstractProcessEngineRestServiceImpl {
   public TaskRestService getTaskRestService(String engineName) {
     String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
     TaskRestServiceImpl subResource = new TaskRestServiceImpl(engineName, getObjectMapper());
+    subResource.setRelativeRootResourceUri(rootResourcePath);
+
+    return subResource;
+  }
+
+  public BulkTaskRestService getBulkTaskRestService(String engineName) {
+    String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
+    BulkTaskRestServiceImpl subResource = new BulkTaskRestServiceImpl(engineName, getObjectMapper());
     subResource.setRelativeRootResourceUri(rootResourcePath);
 
     return subResource;
