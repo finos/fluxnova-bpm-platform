@@ -105,6 +105,10 @@ public class DeployCmd implements Command<DeploymentWithDefinitions>, Serializab
     }
   }
 
+  public DeploymentBuilderImpl getDeploymentBuilder() {
+    return deploymentBuilder;
+  }
+
   protected DeploymentWithDefinitions doExecute(final CommandContext commandContext) {
     DeploymentManager deploymentManager = commandContext.getDeploymentManager();
 
@@ -190,7 +194,7 @@ public class DeployCmd implements Command<DeploymentWithDefinitions>, Serializab
       // Acquire global exclusive lock: this ensures that there can be only one
       // transaction in the cluster which is allowed to perform deployments.
       // This is important to ensure that duplicate filtering works correctly
-      
+
       // It is also important to ensure the uniqueness of a process definition key,
       // version and tenant-id since there is no database constraint to check it.
 

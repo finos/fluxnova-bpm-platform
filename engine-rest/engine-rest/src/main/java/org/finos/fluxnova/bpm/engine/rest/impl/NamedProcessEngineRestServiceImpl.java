@@ -32,6 +32,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
+import org.finos.fluxnova.bpm.engine.rest.BulkTaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseInstanceRestService;
@@ -94,6 +95,13 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
   @Path("/{name}" + TaskRestService.PATH)
   public TaskRestService getTaskRestService(@PathParam("name") String engineName) {
     return super.getTaskRestService(engineName);
+  }
+
+
+  @Override
+  @Path("/{name}" + BulkTaskRestService.PATH)
+  public BulkTaskRestService getBulkTaskRestService(@PathParam("name") String engineName) {
+    return super.getBulkTaskRestService(engineName);
   }
 
   @Override
