@@ -2,26 +2,6 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>fluxnova-feel-scala</id>
-            <username>${env.GITHUB_ACTOR}</username>
-            <password>${env.GH_TOKEN}</password>
-        </server>
-        <server>
-            <id>fluxnova-bpm-release-parent</id>
-            <username>${env.GITHUB_ACTOR}</username>
-            <password>${env.GH_TOKEN}</password>
-        </server>
-          <server>
-            <id>fluxnova-bpm-platform</id>
-            <username>${env.GITHUB_ACTOR}</username>
-            <password>${env.GH_TOKEN}</password>
-        </server>
-        <server>
-            <id>fluxnova-release-parent</id>
-            <username>${env.GITHUB_ACTOR}</username>
-            <password>${env.GH_TOKEN}</password>
-        </server>
-        <server>
             <id>ossrh</id>
             <username>${env.CI_DEPLOY_USERNAME}</username>
             <password>${env.CI_DEPLOY_PASSWORD}</password>

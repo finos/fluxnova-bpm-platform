@@ -8,7 +8,9 @@ runs:
       with:
         java-version: 21
         distribution: 'temurin'
-        cache: 'maven'
+        server-id: ossrh
+        server-username: ${{ env.CI_DEPLOY_USERNAME }}
+        server-password: ${{ env.CI_DEPLOY_PASSWORD }}
 
     # TODO - disable in order to avoid issues during the migration process
     # See https://github.com/finos/flowave-bpm-platform/pull/66#issuecomment-2900954827
