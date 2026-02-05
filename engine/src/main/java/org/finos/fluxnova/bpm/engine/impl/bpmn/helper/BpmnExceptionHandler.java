@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.engine.impl.bpmn.helper;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.delegate.BpmnError;
+import org.finos.fluxnova.bpm.engine.delegate.BpmnErrorCodeProvider;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.BpmnBehaviorLogger;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.parser.ErrorEventDefinition;
@@ -59,7 +60,11 @@ public class BpmnExceptionHandler {
       throw exception;
     }
     else {
-      propagateError(null, exception.getMessage(),exception, execution);
+      String errorCode = null;
+      if (exception instanceof BpmnErrorCodeProvider) {
+        errorCode = ((BpmnErrorCodeProvider) exception).getErrorCode();
+      }
+      propagateError(errorCode, exception.getMessage(),exception, execution);
     }
   }
 
