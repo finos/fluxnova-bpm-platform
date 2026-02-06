@@ -14,7 +14,7 @@
 
     <properties>
         <!-- Maven Dependencies -->
-        <maven-model.version>3.9.9</maven-model.version>
+        <maven-model.version>3.9.12</maven-model.version>
         <maven-invoker.version>3.3.0</maven-invoker.version>
         <plexus-utils.version>3.5.1</plexus-utils.version>
 
