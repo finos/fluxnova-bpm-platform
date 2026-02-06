@@ -21,7 +21,7 @@
 
     <redirect.test.output>true</redirect.test.output>
 
-    <weld.version>5.1.0.Final</weld.version>
+    <weld.version>5.1.7.Final</weld.version>
   </properties>
 
   <!-- import shrinkwrap and arquillian bom for artifact versions,

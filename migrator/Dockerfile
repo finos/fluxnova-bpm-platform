@@ -1,5 +1,5 @@
 # Use the official MVN image
-FROM maven:3.9.9-eclipse-temurin-21-noble
+FROM maven:3.9.12-eclipse-temurin-21-noble
 
 ENV M2_HOME=/usr/share/maven
 
