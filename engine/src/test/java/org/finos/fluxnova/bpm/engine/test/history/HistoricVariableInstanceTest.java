@@ -672,6 +672,24 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
   }
 
   @Test
+  public void testTaskIdInHistoricVariableInstance() {
+
+    Task newTask = taskService.newTask();
+    taskService.saveTask(newTask);
+
+    String variableName = "varName";
+    taskService.setVariable(newTask.getId(), variableName, "varValue");
+
+    HistoricVariableInstance variableInstance = historyService.createHistoricVariableInstanceQuery()
+            .variableName(variableName)
+            .singleResult();
+
+    assertEquals(newTask.getId(),variableInstance.getTaskId());
+
+    taskService.deleteTask(newTask.getId(), true);
+  }
+
+  @Test
   public void testBinaryFetchingDisabled() {
 
     Task newTask = taskService.newTask();
@@ -797,6 +815,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
 
     for (HistoricVariableInstance variableInstance : variableInstances) {
       assertNull(variableInstance.getErrorMessage());
+      assertEquals(newTask.getId(),variableInstance.getTaskId());
 
       ObjectValue typedValue = (ObjectValue) variableInstance.getTypedValue();
       assertNotNull(typedValue);
@@ -828,6 +847,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       .singleResult();
 
     assertNull(variableInstance.getValue());
+    assertEquals(newTask.getId(),variableInstance.getTaskId());
     assertNotNull(variableInstance.getErrorMessage());
 
     taskService.deleteTask(newTask.getId(), true);
@@ -1314,6 +1334,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       .createHistoricVariableInstanceQuery()
       .singleResult();
     assertNotNull(variable);
+    assertEquals(taskId, variable.getTaskId());
 
     String variableInstanceId = variable.getId();
 
@@ -1348,6 +1369,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       .createHistoricVariableInstanceQuery()
       .singleResult();
     assertNotNull(variable);
+    assertEquals(taskId, variable.getTaskId());
 
     if (isFullHistoryEnabled()) {
 
@@ -1556,6 +1578,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       .createHistoricVariableInstanceQuery()
       .singleResult();
     assertNotNull(variable);
+    assertEquals(taskId,variable.getTaskId());
 
     String variableInstanceId = variable.getId();
 
@@ -1625,6 +1648,8 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
     assertNotNull(instance.getProcessDefinitionKey());
     assertEquals(key, instance.getProcessDefinitionKey());
 
+    assertEquals(taskId,instance.getTaskId());
+
     assertNotNull(instance.getProcessDefinitionId());
     assertEquals(processInstance.getProcessDefinitionId(), instance.getProcessDefinitionId());
 
@@ -1672,6 +1697,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
 
     // then (2)
     assertCaseVariable(key, caseInstance, instance);
+    assertEquals(taskId,instance.getTaskId());
 
     // when (3)
     instance = historyService
@@ -2311,6 +2337,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
         createdCounter += 1;
       } else if (variable.getName().equals("bar")) {
         Assert.assertEquals(HistoricVariableInstance.STATE_DELETED, variable.getState());
+        assertEquals(task.getId(),variable.getTaskId());
         deletedCounter += 1;
       }
     }

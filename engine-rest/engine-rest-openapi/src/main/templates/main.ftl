@@ -38,6 +38,7 @@
   "tags": [
     {"name": "Authorization"},
     {"name": "Batch"},
+    {"name": "Bulk Task"},
     {"name": "Condition"},
     {"name": "Decision Definition"},
     {"name": "Decision Requirements Definition"},
