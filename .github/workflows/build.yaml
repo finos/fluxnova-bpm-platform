@@ -2,6 +2,8 @@ name: "Build CI"
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
 
 on:
   push:
@@ -47,6 +49,8 @@ jobs:
 
       - name: Build
         uses: ./.github/actions/build-deploy
+        with:
+          branch: ${{ github.ref_name }}
 
   unit-test:
     name: Unit Tests

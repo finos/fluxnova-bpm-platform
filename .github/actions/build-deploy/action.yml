@@ -1,11 +1,20 @@
 name: "Build CI/CD"
-description: "Build and deploy Flowave"
+description: "Build and deploy Fluxnova"
+inputs:
+  branch:
+    description: 'Branch name to determine build or deploy'
+    required: false
+    default: ''
 runs:
   using: "composite"
   steps:
-    - name: Build
+    - name: Build or Deploy
       env:
-          MAVEN_OPTS: "-Xmx8g"
+        MAVEN_OPTS: "-Xmx8g"
       shell: bash
       run: |
-        mvn -B -e -U deploy -DskipTests=true -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime' -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
+        if [[ "${{ inputs.branch }}" == "main" ]]; then
+          mvn -B -e -U deploy -DskipTests=true -DskipITs=true -s ./settings.xml
+        else
+          mvn -B -e -U clean install -DskipTests=true -DskipITs=true
+        fi
