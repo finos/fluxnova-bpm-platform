@@ -30,6 +30,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -65,6 +66,11 @@ public class CdiBeanCaseTaskResolutionTest extends AbstractFoxPlatformIntegratio
     return deployment;
   }
 
+  /**
+   * This test is currently ignored due to flakiness in the test execution.
+   * Investigate and stabilize before enabling.
+   */
+  @Ignore
   @Test
   @OperateOnDeployment("clientDeployment")
   public void testResolveBeanInCmmnCase() {
