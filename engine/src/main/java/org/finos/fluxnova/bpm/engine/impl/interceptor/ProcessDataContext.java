@@ -64,6 +64,7 @@ public class ProcessDataContext {
   protected String mdcPropertyInstanceId;
   protected String mdcPropertyTenantId;
   protected String mdcPropertyEngineName;
+  protected String mdcPropertyRootProcessInstanceId;
 
   protected boolean handleMdc = false;
 
@@ -113,6 +114,7 @@ public class ProcessDataContext {
     mdcPropertyInstanceId = initProperty(configuration::getLoggingContextProcessInstanceId);
     mdcPropertyTenantId = initProperty(configuration::getLoggingContextTenantId);
     mdcPropertyEngineName = initProperty(configuration::getLoggingContextEngineName);
+    mdcPropertyRootProcessInstanceId = initProperty(configuration::getLoggingContextRootProcessInstanceId);
 
     if (parkExternalProperties) {
       parkExternalProperties(configuration);
@@ -191,6 +193,7 @@ public class ProcessDataContext {
     addToStack(execution.getProcessInstanceId(), mdcPropertyInstanceId);
     addToStack(execution.getTenantId(), mdcPropertyTenantId);
     addToStack(execution.getProcessEngine().getName(), mdcPropertyEngineName);
+    addToStack(execution.getRootProcessInstanceId(), mdcPropertyRootProcessInstanceId);
 
     if (isNotBlank(mdcPropertyApplicationName)) {
       ProcessApplicationReference currentPa = Context.getCurrentProcessApplication();
