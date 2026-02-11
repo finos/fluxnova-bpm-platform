@@ -531,6 +531,8 @@ public abstract class MockProvider {
 
   public static final String EXAMPLE_AUTHORIZATION_ID = "someAuthorizationId";
   public static final int EXAMPLE_AUTHORIZATION_TYPE = 0;
+  public static final int MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION = 200;
+  public static final int MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION = 200;
   public static final String EXAMPLE_AUTHORIZATION_TYPE_STRING = "0";
 
   // process applications
