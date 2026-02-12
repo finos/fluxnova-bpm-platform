@@ -29,11 +29,11 @@ if [ $# -eq 0 ]; then
     (sleep 10; $BROWSER "http://localhost:8080/fluxnova-welcome/index.html";) &
   fi
 
-  # start Camunda Run in the background
+  # start Fluxnova Run in the background
   exec $runScript start --detached
 
 else
-  # start Camunda Run with the passed arguments
+  # start Fluxnova Run with the passed arguments
   exec $runScript start "$@"
 fi
 
