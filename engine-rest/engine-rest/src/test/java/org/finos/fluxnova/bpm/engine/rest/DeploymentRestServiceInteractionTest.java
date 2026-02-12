@@ -16,9 +16,103 @@
  */
 package org.finos.fluxnova.bpm.engine.rest;
 
+import static org.finos.fluxnova.bpm.engine.rest.dto.MultiStatusResponseCode.MULTI_STATUS_CODE;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_CATEGORY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_KEY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_VERSION;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_CATEGORY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_KEY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_DEFINITION_VERSION;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_CATEGORY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_KEY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DECISION_REQUIREMENTS_DEFINITION_VERSION;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_BPMN_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_BPMN_XML_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_CAMFORM_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_CMMN_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_CMMN_XML_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_DMN_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_DMN_XML_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_GIF_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_GROOVY_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_HTML_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JAVA_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JPEG_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JPE_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JPG_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JSON_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_JS_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_PHP_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_PNG_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_PYTHON_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_RESOURCE_FILENAME_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_RUBY_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_SVG_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_TIFF_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_TIF_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_TXT_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_DEPLOYMENT_XML_RESOURCE_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_ELEMENT_IDS;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_EXCEPTION_MESSAGE;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_COLUMN;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_COLUMN_2;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_ELEMENT_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_ELEMENT_ID_2;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_LINE;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROBLEM_LINE_2;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_CATEGORY;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_DESCRIPTION;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_DIAGRAM_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_IS_SUSPENDED;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_PROCESS_DEFINITION_VERSION;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_RESOURCE_NAME;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_TENANT_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.NON_EXISTING_DEPLOYMENT_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.NON_EXISTING_DEPLOYMENT_RESOURCE_ID;
+
+import static org.hamcrest.CoreMatchers.everyItem;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.*;
+
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ParseException;
 import org.finos.fluxnova.bpm.engine.Problem;
@@ -31,6 +125,13 @@ import org.finos.fluxnova.bpm.engine.impl.bpmn.parser.ResourceReportImpl;
 import org.finos.fluxnova.bpm.engine.impl.calendar.DateTimeUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.engine.repository.*;
+import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
+import org.finos.fluxnova.bpm.engine.repository.DeploymentQuery;
+import org.finos.fluxnova.bpm.engine.repository.DeploymentWithDefinitions;
+import org.finos.fluxnova.bpm.engine.repository.Resource;
+import org.finos.fluxnova.bpm.engine.rest.dto.ResponseStatus;
+import org.finos.fluxnova.bpm.engine.rest.dto.repository.DeleteDeploymentResponse;
+import org.finos.fluxnova.bpm.engine.rest.dto.repository.DeleteDeploymentsDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
@@ -41,6 +142,7 @@ import org.junit.Test;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.MediaType;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.*;
@@ -48,14 +150,8 @@ import java.util.*;
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.*;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyList;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.*;
+
 
 public class DeploymentRestServiceInteractionTest extends AbstractRestServiceTest {
 
@@ -73,6 +169,7 @@ public class DeploymentRestServiceInteractionTest extends AbstractRestServiceTes
   protected static final String SINGLE_RESOURCE_DATA_URL = SINGLE_RESOURCE_URL + "/data";
   protected static final String CREATE_DEPLOYMENT_URL = RESOURCE_URL + "/create";
   protected static final String REDEPLOY_DEPLOYMENT_URL = DEPLOYMENT_URL + "/redeploy";
+  protected static final String DEPLOYMENT_DELETE_DEPLOYMENTS_URL = RESOURCE_URL + "/delete";
 
   protected RepositoryService mockRepositoryService;
   protected Deployment mockDeployment;
@@ -1901,6 +1998,252 @@ public class DeploymentRestServiceInteractionTest extends AbstractRestServiceTes
       .body("message", is(message))
     .when()
       .post(REDEPLOY_DEPLOYMENT_URL);
+  }
+
+  private DeleteDeploymentsDto createDeploymentRequest(List<String> toBeDeletedIds,
+                                                       boolean cascade,
+                                                       boolean skipCustomListeners,
+                                                       boolean skipIoMappings) {
+    DeleteDeploymentsDto dto = new DeleteDeploymentsDto();
+    dto.setDeploymentIds(toBeDeletedIds);
+    dto.setCascade(cascade);
+    dto.setSkipCustomListeners(skipCustomListeners);
+    dto.setSkipIoMappings(skipIoMappings);
+    return dto;
+  }
+
+  @Test
+  public void testDeleteDeploymentsCascadeCustomListenersIoMappings() throws ParseException {
+    boolean cascade = false, skipCustomListeners = false, skipIoMappings = false;
+
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponses = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(deleteDeploymentResponses, hasItem(hasProperty("deploymentId", equalTo(EXAMPLE_DEPLOYMENT_ID))));
+
+    // Verify that deleteDeployment was called once
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, false, false, false);
+  }
+
+  @Test
+  public void testDeleteDeploymentsSkipListeners() throws ParseException {
+    boolean cascade = false, skipCustomListeners = true, skipIoMappings = false;
+
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponses = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(deleteDeploymentResponses, hasItem(hasProperty("deploymentId", equalTo(EXAMPLE_DEPLOYMENT_ID))));
+
+    // Verify that deleteDeployment was called once
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, false, true, false);
+  }
+
+  @Test
+  public void testDeleteDeploymentsSkipCascade() throws ParseException {
+    boolean cascade = true, skipCustomListeners = false, skipIoMappings = false;
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponses = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(deleteDeploymentResponses, hasItem(hasProperty("deploymentId", equalTo(EXAMPLE_DEPLOYMENT_ID))));
+
+    // Verify that deleteDeployment was called once
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, true, false, false);
+  }
+
+  @Test
+  public void testDeleteDeploymentsSkipCascadeCustomListenersIoMappings() throws ParseException {
+    boolean cascade = true, skipCustomListeners = true, skipIoMappings = true;
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponses = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(deleteDeploymentResponses, hasItem(hasProperty("deploymentId", equalTo(EXAMPLE_DEPLOYMENT_ID))));
+
+    // Verify that deleteDeployment was called once
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, true, true, true);
+  }
+
+  @Test
+  public void testDeleteDeploymentsAllFailures() throws ParseException {
+    boolean cascade = false, skipCustomListeners = false, skipIoMappings = false;
+    String invalidDeploymentIdOne = "InvalidDeploymentId";
+    String invalidDeploymentIdTwo = "InvalidDeploymentTwo";
+
+    List<String> idsToBeDeleted = List.of(invalidDeploymentIdOne, invalidDeploymentIdTwo);
+
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    DeploymentQuery deploymentQuery = mock(DeploymentQuery.class);
+    when(mockRepositoryService.createDeploymentQuery()).thenReturn(deploymentQuery);
+    when(deploymentQuery.deploymentId(anyString())).thenReturn(deploymentQuery);
+    when(deploymentQuery.singleResult()).thenReturn(null);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(MULTI_STATUS_CODE)
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponse = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("deploymentId", equalTo(invalidDeploymentIdOne))));
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("deploymentId", equalTo(invalidDeploymentIdTwo))));
+
+    assertThat(deleteDeploymentResponse, hasItem(
+        hasProperty("errorMessage", equalTo("Deployment with id '" + invalidDeploymentIdOne + "' does not exist"))));
+
+    assertThat(deleteDeploymentResponse, hasItem(
+        hasProperty("errorMessage", equalTo("Deployment with id '" + invalidDeploymentIdTwo + "' does not exist"))));
+
+    // Verify that deleteDeployment was not called
+    verify(mockRepositoryService, times(0)).deleteDeployment(anyString(), anyBoolean(), anyBoolean(), anyBoolean());
+  }
+
+  @Test
+  public void testDeleteDeploymentsPartialFailures() throws ParseException {
+    boolean cascade = false, skipCustomListeners = false, skipIoMappings = false;
+    String invalidDeploymentIdOne = "InvalidDeploymentId";
+
+    List<String> idsToBeDeleted = List.of(invalidDeploymentIdOne, EXAMPLE_DEPLOYMENT_ID);
+
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    DeploymentQuery deploymentQuery = mock(DeploymentQuery.class);
+    when(mockRepositoryService.createDeploymentQuery()).thenReturn(deploymentQuery);
+    when(deploymentQuery.deploymentId(invalidDeploymentIdOne)).thenReturn(deploymentQuery);
+    when(deploymentQuery.deploymentId(EXAMPLE_DEPLOYMENT_ID)).thenReturn(deploymentQuery);
+
+    Deployment secondMock = mock(Deployment.class);
+    when(deploymentQuery.singleResult()).thenReturn(secondMock)
+        .thenThrow(new InvalidRequestException(Status.BAD_REQUEST,
+            "Deployment with id '" + invalidDeploymentIdOne + "' does not exist"));
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(MULTI_STATUS_CODE)
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponse = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("deploymentId", equalTo(invalidDeploymentIdOne))));
+    assertThat(deleteDeploymentResponse, hasItem(hasProperty("deploymentId", equalTo(EXAMPLE_DEPLOYMENT_ID))));
+
+    assertThat(deleteDeploymentResponse, hasItem(
+        hasProperty("errorMessage", equalTo("Deployment with id '" + invalidDeploymentIdOne + "' does not exist"))));
+
+    verify(mockRepositoryService, times(1)).deleteDeployment(anyString(), anyBoolean(), anyBoolean(), anyBoolean());
+  }
+
+  @Test
+  public void testDeleteDeploymentsInvalidAuthorization() throws ParseException {
+    boolean cascade = false, skipCustomListeners = false, skipIoMappings = false;
+
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+    DeleteDeploymentsDto requestBody = createDeploymentRequest(idsToBeDeleted, cascade, skipCustomListeners,
+        skipIoMappings);
+
+    String message = "Exception found during deployment";
+    doThrow(new AuthorizationException(message)).when(mockRepositoryService)
+        .deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, false, false, false);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(MULTI_STATUS_CODE)
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponse = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(deleteDeploymentResponse,
+        hasItem(hasProperty("deploymentId", equalTo(MockProvider.EXAMPLE_DEPLOYMENT_ID))));
+    assertThat(deleteDeploymentResponse, everyItem(hasProperty("errorMessage", containsString(message))));
+
+    // Verify that deleteDeployment was called once where the exception happened
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, false, false, false);
   }
 
   private void verifyDeployment(Deployment mockDeployment, Response response) {
