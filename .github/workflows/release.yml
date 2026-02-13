@@ -29,12 +29,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        #added with option due to runner checking out a detached HEAD state in prepare step
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}                    # or use default GITHUB_TOKEN
-          persist-credentials: true             # allow git push from the job
-          fetch-depth: 0                        # full history so branch refs exist
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}          # checkout the branch (not a detached SHA)
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -75,8 +74,8 @@ jobs:
           # Extract numeric components for computing next development version
           n=${releaseVersion//[!0-9]/ }
           a=(${n//\./ })
-          nextMinor=$((${a[1]} + 1))
-          developmentVersion="${a[0]}.${nextMinor}.0-SNAPSHOT"
+          nextMajor=$((${a[0]} + 1))
+          developmentVersion="${nextMajor}.0.0-SNAPSHOT"
           echo "DEVELOPMENT_VERSION=${developmentVersion}" >> $GITHUB_ENV
 
       - name: Configure GitHub authentication for Maven Release Plugin
