@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn" id="Definitions_0juelhz" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Fluxnova Modeler" exporterVersion="1.0-SNAPSHOT">
+  <bpmn:process id="LoanApplicationProcess" name="Loan Application" isExecutable="true" camunda:historyTimeToLive="1">
+    <bpmn:startEvent id="StartEvent_LoanRequestReceived" name="Loan Request Received" camunda:formRef="loanRequestStartForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements>
+        <camunda:executionListener expression="${processCreateListener.notify(execution)}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0mlm3f4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_ReviewLoan" name="Review Loan" camunda:formRef="loanRequestReviewForm" camunda:formRefBinding="latest">
+      <bpmn:extensionElements>
+        <camunda:taskListener expression="${taskCreateListener.notify(task)}" event="create" id="" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0y6ca6i</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vmrnri</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_IsLoanRequestApproved" name="Approved?" default="Flow_LoanRequestRejected">
+      <bpmn:incoming>SequenceFlow_0vmrnri</bpmn:incoming>
+      <bpmn:incoming>Flow_02g0u2w</bpmn:incoming>
+      <bpmn:outgoing>Flow_LoanRequestApproved</bpmn:outgoing>
+      <bpmn:outgoing>Flow_LoanRequestRejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0vmrnri" sourceRef="Task_ReviewLoan" targetRef="Gateway_IsLoanRequestApproved" />
+    <bpmn:sequenceFlow id="Flow_LoanRequestApproved" name="Yes" sourceRef="Gateway_IsLoanRequestApproved" targetRef="Task_CreateLoanAccount">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${loanReviewService.isApproved(execution)}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1irh9ey" sourceRef="Task_CreateLoanAccount" targetRef="Task_SendNotification" />
+    <bpmn:endEvent id="EndEvent_LoanRequestProcessed" name="Loan Request Processed">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_0jhkwyh</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0jhkwyh" sourceRef="Task_SendNotification" targetRef="EndEvent_LoanRequestProcessed" />
+    <bpmn:sequenceFlow id="Flow_LoanRequestRejected" name="No" sourceRef="Gateway_IsLoanRequestApproved" targetRef="Task_SendNotification" />
+    <bpmn:serviceTask id="Task_CreateLoanAccount" name="Create Loan Account" camunda:type="external" camunda:topic="createLoanAccount">
+      <bpmn:incoming>Flow_LoanRequestApproved</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1irh9ey</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_SendNotification" name="Send Notification" camunda:expression="${sendNotificationDelegate.execute(execution)}">
+      <bpmn:incoming>SequenceFlow_1irh9ey</bpmn:incoming>
+      <bpmn:incoming>Flow_LoanRequestRejected</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0jhkwyh</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0mlm3f4" sourceRef="StartEvent_LoanRequestReceived" targetRef="Task_CalculateEligibleAmount" />
+    <bpmn:sequenceFlow id="Flow_0y6ca6i" sourceRef="Task_CalculateEligibleAmount" targetRef="Task_ReviewLoan" />
+    <bpmn:businessRuleTask id="Task_CalculateEligibleAmount" name="Calculate Eligible Amount" camunda:resultVariable="eligibleAmount" camunda:decisionRef="Decision_CalculateEligibleAmount" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0mlm3f4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0y6ca6i</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:boundaryEvent id="Event_1MinTimer" name="1 min timer" attachedToRef="Task_ReviewLoan">
+      <bpmn:outgoing>Flow_02g0u2w</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_1w8xs7i">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_02g0u2w" sourceRef="Event_1MinTimer" targetRef="Gateway_IsLoanRequestApproved" />
+    <bpmn:textAnnotation id="TextAnnotation_0vcq4pg">
+      <bpmn:text>DMN Rule task which calculates eligible loan amount based on age, occupation. See calculate_eligible_amount.dmn</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0h3zbpr" associationDirection="None" sourceRef="Task_CalculateEligibleAmount" targetRef="TextAnnotation_0vcq4pg" />
+    <bpmn:textAnnotation id="TextAnnotation_0pjndqg">
+      <bpmn:text>User task needs to be completed by human</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1yi5mge" associationDirection="None" sourceRef="Task_ReviewLoan" targetRef="TextAnnotation_0pjndqg" />
+    <bpmn:textAnnotation id="TextAnnotation_14yyu0h">
+      <bpmn:text>Service task - gets completed by External task worker pattern - polled by CreateLoanAccountTaskHandler.java</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1dity6k" associationDirection="None" sourceRef="Task_CreateLoanAccount" targetRef="TextAnnotation_14yyu0h" />
+    <bpmn:textAnnotation id="TextAnnotation_0la0vi5">
+      <bpmn:text>Service task
+- gets completed by Delegate pattern
+- calls SendNotificationDelegate.java</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0pxrufd" associationDirection="None" sourceRef="Task_SendNotification" targetRef="TextAnnotation_0la0vi5" />
+    <bpmn:textAnnotation id="TextAnnotation_087kedr">
+      <bpmn:text>This sequence flow has condition. The process will take this path if it evaluates to true.
+See Condition in Properties panel for this sequence flow. It calls LoanReviewService.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04b4s6o" associationDirection="None" sourceRef="Flow_LoanRequestApproved" targetRef="TextAnnotation_087kedr" />
+    <bpmn:textAnnotation id="TextAnnotation_0zmju9o">
+      <bpmn:text>Executes TaskCreateListener when this user task gets created and before it becomes available to users.
+See Task Listeners in Properties panel for this user task.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0i5k74g" associationDirection="None" sourceRef="Task_ReviewLoan" targetRef="TextAnnotation_0zmju9o" />
+    <bpmn:textAnnotation id="TextAnnotation_1da52b8">
+      <bpmn:text>This sequence flow is default, and has no condition. The process will take the default path, if all other outgoing paths from exclusive gateways evaluate to false</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0mu5j8c" associationDirection="None" sourceRef="Flow_LoanRequestRejected" targetRef="TextAnnotation_1da52b8" />
+    <bpmn:textAnnotation id="TextAnnotation_1149r0h">
+      <bpmn:text>Timer event interrupts the User task if not actioned within 1 min. The process will then take default sequence flow.
+See Time in Properties panel for this Timer event.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_05ggkzs" associationDirection="None" sourceRef="Event_1MinTimer" targetRef="TextAnnotation_1149r0h" />
+  </bpmn:process>
+  <bpmn:message id="Message_017mzpg" name="catch_message_reject_exception" />
+  <bpmn:message id="Message_1lakcer" name="catch_message_EDR_exception" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="LoanApplicationProcess">
+      <bpmndi:BPMNShape id="StartEvent_0mnfolt_di" bpmnElement="StartEvent_LoanRequestReceived" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="182" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="167" y="415" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_04ny8vc_di" bpmnElement="Task_ReviewLoan" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="520" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1lmu6yd_di" bpmnElement="Gateway_IsLoanRequestApproved" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="715" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="750" y="411" width="53" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0tfdbf9_di" bpmnElement="EndEvent_LoanRequestProcessed" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="1322" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1307" y="415" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0hnqyja_di" bpmnElement="Task_CreateLoanAccount" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="890" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0lutkqs_di" bpmnElement="Task_SendNotification" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="1100" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mggs1e_di" bpmnElement="Task_CalculateEligibleAmount" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="300" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_04b4s6o_di" bpmnElement="Association_04b4s6o">
+        <di:waypoint x="757.5" y="250" />
+        <di:waypoint x="798" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0mu5j8c_di" bpmnElement="Association_0mu5j8c">
+        <di:waypoint x="932.5" y="390" />
+        <di:waypoint x="900" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1yi5mge_di" bpmnElement="Association_1yi5mge">
+        <di:waypoint x="588" y="350" />
+        <di:waypoint x="623" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0i5k74g_di" bpmnElement="Association_0i5k74g">
+        <di:waypoint x="520" y="417" />
+        <di:waypoint x="368" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1dity6k_di" bpmnElement="Association_1dity6k">
+        <di:waypoint x="990" y="219" />
+        <di:waypoint x="1050" y="182" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0pxrufd_di" bpmnElement="Association_0pxrufd">
+        <di:waypoint x="1191" y="350" />
+        <di:waypoint x="1233" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0h3zbpr_di" bpmnElement="Association_0h3zbpr">
+        <di:waypoint x="371" y="350" />
+        <di:waypoint x="402" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_05ggkzs_di" bpmnElement="Association_05ggkzs">
+        <di:waypoint x="582" y="443" />
+        <di:waypoint x="665" y="527" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1ko3qog_di" bpmnElement="Event_1MinTimer" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="552" y="412" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="502" y="443" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0vcq4pg_di" bpmnElement="TextAnnotation_0vcq4pg">
+        <dc:Bounds x="380" y="220" width="190" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0pjndqg_di" bpmnElement="TextAnnotation_0pjndqg">
+        <dc:Bounds x="590" y="215" width="125" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_14yyu0h_di" bpmnElement="TextAnnotation_14yyu0h">
+        <dc:Bounds x="1050" y="130" width="290" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0la0vi5_di" bpmnElement="TextAnnotation_0la0vi5">
+        <dc:Bounds x="1230" y="250" width="220" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_087kedr_di" bpmnElement="TextAnnotation_087kedr">
+        <dc:Bounds x="770" y="80" width="265" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0zmju9o_di" bpmnElement="TextAnnotation_0zmju9o">
+        <dc:Bounds x="290" y="500" width="280" height="84" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1da52b8_di" bpmnElement="TextAnnotation_1da52b8">
+        <dc:Bounds x="840" y="440" width="280" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1149r0h_di" bpmnElement="TextAnnotation_1149r0h">
+        <dc:Bounds x="630" y="527" width="290" height="73" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0mlm3f4_di" bpmnElement="Flow_0mlm3f4">
+        <di:waypoint x="218" y="390" />
+        <di:waypoint x="300" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y6ca6i_di" bpmnElement="Flow_0y6ca6i">
+        <di:waypoint x="400" y="390" />
+        <di:waypoint x="520" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vmrnri_di" bpmnElement="SequenceFlow_0vmrnri">
+        <di:waypoint x="620" y="390" />
+        <di:waypoint x="715" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02g0u2w_di" bpmnElement="Flow_02g0u2w">
+        <di:waypoint x="570" y="448" />
+        <di:waypoint x="570" y="470" />
+        <di:waypoint x="740" y="470" />
+        <di:waypoint x="740" y="415" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_13fft54_di" bpmnElement="Flow_LoanRequestApproved">
+        <di:waypoint x="740" y="365" />
+        <di:waypoint x="740" y="250" />
+        <di:waypoint x="890" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="746" y="305" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1eeae6z_di" bpmnElement="Flow_LoanRequestRejected">
+        <di:waypoint x="765" y="390" />
+        <di:waypoint x="1100" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1007" y="372" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0jhkwyh_di" bpmnElement="SequenceFlow_0jhkwyh">
+        <di:waypoint x="1200" y="390" />
+        <di:waypoint x="1322" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1irh9ey_di" bpmnElement="SequenceFlow_1irh9ey">
+        <di:waypoint x="990" y="250" />
+        <di:waypoint x="1150" y="250" />
+        <di:waypoint x="1150" y="350" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>${groupId}</groupId>
+  <artifactId>${artifactId}</artifactId>
+  <version>${version}</version>
+  <description>Fluxnova demo application</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <fluxnova.version>${fluxnova-version}</fluxnova.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Spring Boot BOM: Centrally manages Spring Boot and related dependency versions -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>3.5.7</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- Fluxnova BOM: Manages all Fluxnova dependency versions centrally -->
+      <dependency>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-bom</artifactId>
+        <version>${fluxnova.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Reduces boilerplate code by generating getters/setters and other convenient methods using annotation -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <!-- Spring JDBC's autoconfiguration provides database transaction manager  -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <!-- Pulls Fluxnova core dependencies along with webapps  -->
+    <dependency>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-webapp</artifactId>
+    </dependency>
+    <!-- Provides dependencies required to call Fluxnova REST APIs, and used by external task client -->
+    <dependency>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-rest</artifactId>
+    </dependency>
+    <!-- Required to handle external tasks; In production setup, this should reside in a separate project -->
+    <dependency>
+      <groupId>org.finos.fluxnova.bpm.springboot</groupId>
+      <artifactId>fluxnova-bpm-spring-boot-starter-external-task-client</artifactId>
+    </dependency>
+    <!-- Provides In-memory/File-based lightweight relational database for development -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.finos.fluxnova.bpm</groupId>
+      <artifactId>fluxnova-bpm-assert</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <!-- Spring Boot Maven Plugin: Packages application as executable JAR -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <!-- Maven Enforcer Plugin: Enforces build standards and prevents common issues like dependency conflicts -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce</id>
+            <configuration>
+              <skip>false</skip>
+              <rules>
+                <DependencyConvergence />
+              </rules>
+            </configuration>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
