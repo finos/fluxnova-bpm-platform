@@ -49,12 +49,26 @@ module.exports = [
             var filter;
             var processData = $scope.processData.newChild($scope);
 
-            // prettier-ignore
             $scope.headColumns = [
-            { class: 'process-definition', request: 'label', sortable: true, content: $translate.instant('PLUGIN_CALLED_PROCESS')},
-            { class: 'called-process-state', request: 'state', sortable: true, content: $translate.instant('PLUGIN_CALLED_PROCESS_STATE')},
-            { class: 'activity', request: '[0].name', sortable: true, content: $translate.instant('PLUGIN_ACTIVITY')}
-        ];
+              {
+                class: 'process-definition',
+                request: 'label',
+                sortable: true,
+                content: $translate.instant('PLUGIN_CALLED_PROCESS')
+              },
+              {
+                class: 'called-process-state',
+                request: 'state',
+                sortable: true,
+                content: $translate.instant('PLUGIN_CALLED_PROCESS_STATE')
+              },
+              {
+                class: 'activity',
+                request: '[0].name',
+                sortable: true,
+                content: $translate.instant('PLUGIN_ACTIVITY')
+              }
+            ];
 
             // Default sorting
             $scope.sortObj = loadLocal({
