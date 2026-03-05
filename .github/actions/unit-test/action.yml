@@ -9,4 +9,4 @@ runs:
         MAVEN_CONFIG: ~/.m2/repository
       shell: bash
       run: |
-        mvn -B -e verify -DskipITs=true -pl '!distro/run/qa/integration-tests, !distro/run/qa, !distro/run/qa/runtime' -s ./settings.xml
+        mvn -B -e verify -DskipITs=true

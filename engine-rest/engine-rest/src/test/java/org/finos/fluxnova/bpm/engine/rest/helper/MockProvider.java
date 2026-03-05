@@ -183,6 +183,7 @@ public abstract class MockProvider {
 
   // task properties
   public static final String EXAMPLE_TASK_ID = "anId";
+  public static final String EXAMPLE_TASK_ID2 = "anId2";
   public static final String EXAMPLE_TASK_NAME = "aName";
   public static final String EXAMPLE_TASK_ASSIGNEE_NAME = "anAssignee";
   public static final String EXAMPLE_TASK_CREATE_TIME = withTimezone("2013-01-23T13:42:42");
@@ -255,7 +256,8 @@ public abstract class MockProvider {
   public static final String EXAMPLE_PROCESS_INSTANCE_ID_LIST_WITH_DUP = EXAMPLE_PROCESS_INSTANCE_ID + "," + ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID + "," + EXAMPLE_PROCESS_INSTANCE_ID;
   public static final String EXAMPLE_NON_EXISTENT_PROCESS_INSTANCE_ID = "aNonExistentProcInstId";
   public static final String EXAMPLE_PROCESS_INSTANCE_ID_LIST_WITH_NONEXISTENT_ID = EXAMPLE_PROCESS_INSTANCE_ID + "," + EXAMPLE_NON_EXISTENT_PROCESS_INSTANCE_ID;
-
+  public static final int MAX_PDI_ALLOWED_FOR_RETRIEVING_ACTIVE_COUNTS = 200;
+  public static final int MAX_PI_ALLOWED_FOR_RETRIEVING_INCIDENT_COUNT = 200;
   // variable instance
   public static final String EXAMPLE_VARIABLE_INSTANCE_ID = "aVariableInstanceId";
 
@@ -529,6 +531,8 @@ public abstract class MockProvider {
 
   public static final String EXAMPLE_AUTHORIZATION_ID = "someAuthorizationId";
   public static final int EXAMPLE_AUTHORIZATION_TYPE = 0;
+  public static final int MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION = 200;
+  public static final int MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION = 200;
   public static final String EXAMPLE_AUTHORIZATION_TYPE_STRING = "0";
 
   // process applications

@@ -18,7 +18,6 @@ package org.finos.fluxnova.bpm.engine.rest;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_DEFINITION_ID;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_EXECUTION_ID;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_CASE_INSTANCE_ID;
@@ -65,6 +64,9 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -76,11 +78,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
-
 import org.assertj.core.api.Assertions;
 import org.finos.fluxnova.bpm.ProcessApplicationService;
 import org.finos.fluxnova.bpm.application.ProcessApplicationInfo;
@@ -144,12 +144,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
-
 public class TaskRestServiceInteractionTest extends
-    AbstractRestServiceTest {
+        AbstractRestServiceTest {
 
   @ClassRule
   public static TestContainerRule rule = new TestContainerRule();
@@ -186,6 +182,7 @@ public class TaskRestServiceInteractionTest extends
   protected static final String HANDLE_BPMN_ERROR_URL = SINGLE_TASK_URL + "/bpmnError";
   protected static final String HANDLE_BPMN_ESCALATION_URL = SINGLE_TASK_URL + "/bpmnEscalation";
 
+  private TaskService taskService;
   private Task mockTask;
   private TaskService taskServiceMock;
   private TaskQuery mockQuery;
@@ -210,6 +207,8 @@ public class TaskRestServiceInteractionTest extends
   public void setUpRuntimeData() {
     taskServiceMock = mock(TaskService.class);
     when(processEngine.getTaskService()).thenReturn(taskServiceMock);
+    taskService = processEngine.getTaskService();
+
 
     mockTask = MockProvider.createMockTask();
     mockQuery = mock(TaskQuery.class);
@@ -293,60 +292,60 @@ public class TaskRestServiceInteractionTest extends
   @Test
   public void testGetSingleTask() {
     given().pathParam("id", EXAMPLE_TASK_ID)
-      .header("accept", MediaType.APPLICATION_JSON)
-      .then().expect().statusCode(Status.OK.getStatusCode())
-      .body("id", equalTo(EXAMPLE_TASK_ID))
-      .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
-      .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
-      .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
-      .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
-      .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
-      .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
-      .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
-      .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
-      .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
-      .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
-      .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
-      .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
-      .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
-      .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
-      .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
-      .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
-      .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
-      .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
-      .body("lastUpdated", equalTo(MockProvider.EXAMPLE_TASK_LAST_UPDATED))
-      .body("taskState", equalTo(MockProvider.EXAMPLE_HISTORIC_TASK_STATE))
-      .when().get(SINGLE_TASK_URL);
+            .header("accept", MediaType.APPLICATION_JSON)
+            .then().expect().statusCode(Status.OK.getStatusCode())
+            .body("id", equalTo(EXAMPLE_TASK_ID))
+            .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
+            .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
+            .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
+            .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
+            .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
+            .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
+            .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
+            .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
+            .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
+            .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
+            .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+            .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
+            .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
+            .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
+            .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
+            .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
+            .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
+            .body("lastUpdated", equalTo(MockProvider.EXAMPLE_TASK_LAST_UPDATED))
+            .body("taskState", equalTo(MockProvider.EXAMPLE_HISTORIC_TASK_STATE))
+            .when().get(SINGLE_TASK_URL);
   }
   @Test
   public void testGetSingleTaskWithQueryParam() {
     given().pathParam("id", EXAMPLE_TASK_ID)
-      .queryParam("withCommentAttachmentInfo", true)
-      .header("accept", MediaType.APPLICATION_JSON)
-      .then().expect().statusCode(Status.OK.getStatusCode())
-      .body("id", equalTo(EXAMPLE_TASK_ID))
-      .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
-      .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
-      .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
-      .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
-      .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
-      .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
-      .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
-      .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
-      .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
-      .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
-      .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
-      .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
-      .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
-      .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
-      .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
-      .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
-      .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
-      .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
-      .body("lastUpdated", equalTo(MockProvider.EXAMPLE_TASK_LAST_UPDATED))
-      .body("attachment", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_STATE))
-      .body("comment", equalTo(MockProvider.EXAMPLE_TASK_COMMENT_STATE))
-      .when().get(SINGLE_TASK_URL);
+            .queryParam("withCommentAttachmentInfo", true)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .then().expect().statusCode(Status.OK.getStatusCode())
+            .body("id", equalTo(EXAMPLE_TASK_ID))
+            .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
+            .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
+            .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
+            .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
+            .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
+            .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
+            .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
+            .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
+            .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
+            .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
+            .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+            .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
+            .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
+            .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
+            .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
+            .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
+            .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
+            .body("lastUpdated", equalTo(MockProvider.EXAMPLE_TASK_LAST_UPDATED))
+            .body("attachment", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_STATE))
+            .body("comment", equalTo(MockProvider.EXAMPLE_TASK_COMMENT_STATE))
+            .when().get(SINGLE_TASK_URL);
   }
 
   @Test
@@ -355,8 +354,8 @@ public class TaskRestServiceInteractionTest extends
 
     // setup user query mock
     List<User> mockUsers = Arrays.asList(
-      MockProvider.mockUser().id(EXAMPLE_TASK_ASSIGNEE_NAME).build(),
-      MockProvider.mockUser().id(EXAMPLE_TASK_OWNER).build()
+            MockProvider.mockUser().id(EXAMPLE_TASK_ASSIGNEE_NAME).build(),
+            MockProvider.mockUser().id(EXAMPLE_TASK_OWNER).build()
     );
     UserQuery sampleUserQuery = mock(UserQuery.class);
     when(sampleUserQuery.userIdIn(eq(EXAMPLE_TASK_ASSIGNEE_NAME), eq(EXAMPLE_TASK_OWNER))).thenReturn(sampleUserQuery);
@@ -367,8 +366,8 @@ public class TaskRestServiceInteractionTest extends
 
     // setup group query mock
     List<Group> mockGroups = Arrays.asList(
-      MockProvider.mockGroup().id(mockCandidateGroupIdentityLink.getGroupId()).build(),
-      MockProvider.mockGroup().id(mockCandidateGroup2IdentityLink.getGroupId()).build()
+            MockProvider.mockGroup().id(mockCandidateGroupIdentityLink.getGroupId()).build(),
+            MockProvider.mockGroup().id(mockCandidateGroup2IdentityLink.getGroupId()).build()
     );
     GroupQuery sampleGroupQuery = mock(GroupQuery.class);
     when(sampleGroupQuery.groupIdIn(eq(EXAMPLE_GROUP_ID), eq(EXAMPLE_GROUP_ID2))).thenReturn(sampleGroupQuery);
@@ -394,43 +393,43 @@ public class TaskRestServiceInteractionTest extends
     when(processEngine.getRepositoryService().createCaseDefinitionQuery()).thenReturn(sampleCaseDefinitionQuery);
 
     Response response = given()
-      .header("accept", Hal.APPLICATION_HAL_JSON)
-      .pathParam("id", EXAMPLE_TASK_ID)
-      .then().expect().statusCode(Status.OK.getStatusCode())
-      .body("id", equalTo(EXAMPLE_TASK_ID))
-      .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
-      .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
-      .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
-      .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
-      .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
-      .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
-      .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
-      .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
-      .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
-      .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
-      .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
-      .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
-      .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
-      .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
-      .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
-      .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
-      .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
-      .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
+            .header("accept", Hal.APPLICATION_HAL_JSON)
+            .pathParam("id", EXAMPLE_TASK_ID)
+            .then().expect().statusCode(Status.OK.getStatusCode())
+            .body("id", equalTo(EXAMPLE_TASK_ID))
+            .body("name", equalTo(MockProvider.EXAMPLE_TASK_NAME))
+            .body("assignee", equalTo(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME))
+            .body("created", equalTo(MockProvider.EXAMPLE_TASK_CREATE_TIME))
+            .body("due", equalTo(MockProvider.EXAMPLE_TASK_DUE_DATE))
+            .body("delegationState", equalTo(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString()))
+            .body("description", equalTo(MockProvider.EXAMPLE_TASK_DESCRIPTION))
+            .body("executionId", equalTo(MockProvider.EXAMPLE_TASK_EXECUTION_ID))
+            .body("owner", equalTo(MockProvider.EXAMPLE_TASK_OWNER))
+            .body("parentTaskId", equalTo(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID))
+            .body("priority", equalTo(MockProvider.EXAMPLE_TASK_PRIORITY))
+            .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+            .body("taskDefinitionKey", equalTo(MockProvider.EXAMPLE_TASK_DEFINITION_KEY))
+            .body("suspended", equalTo(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE))
+            .body("caseExecutionId", equalTo(MockProvider.EXAMPLE_CASE_EXECUTION_ID))
+            .body("caseInstanceId", equalTo(MockProvider.EXAMPLE_CASE_INSTANCE_ID))
+            .body("caseDefinitionId", equalTo(MockProvider.EXAMPLE_CASE_DEFINITION_ID))
+            .body("tenantId", equalTo(MockProvider.EXAMPLE_TENANT_ID))
 
-      // links
-      .body("_links.assignee.href", endsWith(EXAMPLE_TASK_ASSIGNEE_NAME))
-      .body("_links.caseDefinition.href", endsWith(EXAMPLE_CASE_DEFINITION_ID))
-      .body("_links.caseExecution.href", endsWith(EXAMPLE_CASE_EXECUTION_ID))
-      .body("_links.caseInstance.href", endsWith(EXAMPLE_CASE_INSTANCE_ID))
-      .body("_links.execution.href", endsWith(EXAMPLE_TASK_EXECUTION_ID))
-      .body("_links.owner.href", endsWith(EXAMPLE_TASK_OWNER))
-      .body("_links.parentTask.href", endsWith(EXAMPLE_TASK_PARENT_TASK_ID))
-      .body("_links.processDefinition.href", endsWith(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
-      .body("_links.processInstance.href", endsWith(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
-      .body("_links.identityLink.href", endsWith("/task/" + EXAMPLE_TASK_ID + "/identity-links"))
-      .body("_links.self.href", endsWith(EXAMPLE_TASK_ID))
+            // links
+            .body("_links.assignee.href", endsWith(EXAMPLE_TASK_ASSIGNEE_NAME))
+            .body("_links.caseDefinition.href", endsWith(EXAMPLE_CASE_DEFINITION_ID))
+            .body("_links.caseExecution.href", endsWith(EXAMPLE_CASE_EXECUTION_ID))
+            .body("_links.caseInstance.href", endsWith(EXAMPLE_CASE_INSTANCE_ID))
+            .body("_links.execution.href", endsWith(EXAMPLE_TASK_EXECUTION_ID))
+            .body("_links.owner.href", endsWith(EXAMPLE_TASK_OWNER))
+            .body("_links.parentTask.href", endsWith(EXAMPLE_TASK_PARENT_TASK_ID))
+            .body("_links.processDefinition.href", endsWith(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("_links.processInstance.href", endsWith(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+            .body("_links.identityLink.href", endsWith("/task/" + EXAMPLE_TASK_ID + "/identity-links"))
+            .body("_links.self.href", endsWith(EXAMPLE_TASK_ID))
 
-      .when().get(SINGLE_TASK_URL);
+            .when().get(SINGLE_TASK_URL);
 
     String content = response.asString();
 
@@ -507,7 +506,7 @@ public class TaskRestServiceInteractionTest extends
     assertHalLink(links, "self", "/process-definition/" +  MockProvider.EXAMPLE_PROCESS_DEFINITION_ID);
     assertHalLink(links, "deployment", "/deployment/" +  MockProvider.EXAMPLE_DEPLOYMENT_ID);
     assertHalLink(links, "resource", "/deployment/" +  MockProvider.EXAMPLE_DEPLOYMENT_ID + "/resources/"
-        + MockProvider.EXAMPLE_PROCESS_DEFINITION_RESOURCE_NAME);
+            + MockProvider.EXAMPLE_PROCESS_DEFINITION_RESOURCE_NAME);
 
 
     // validate embedded caseDefinitions:
@@ -529,7 +528,7 @@ public class TaskRestServiceInteractionTest extends
     assertHalLink(links, "self", "/case-definition/" +  MockProvider.EXAMPLE_CASE_DEFINITION_ID);
     assertHalLink(links, "deployment", "/deployment/" +  MockProvider.EXAMPLE_DEPLOYMENT_ID);
     assertHalLink(links, "resource", "/deployment/" +  MockProvider.EXAMPLE_DEPLOYMENT_ID + "/resources/"
-        + MockProvider.EXAMPLE_CASE_DEFINITION_RESOURCE_NAME);
+            + MockProvider.EXAMPLE_CASE_DEFINITION_RESOURCE_NAME);
 
     // validate embedded identity links
     List<Map<String, Object>> embeddedIdentityLinks = from(content).getList("_embedded.identityLink");
@@ -826,6 +825,244 @@ public class TaskRestServiceInteractionTest extends
 
     verify(formServiceMock).submitTaskForm(eq(EXAMPLE_TASK_ID), argThat(new EqualsMap(expectedVariables)));
   }
+  @Test
+  public void testPostCreateTask() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("id", "anyTaskId");
+    json.put("name", "A Task");
+    json.put("description", "Some description");
+    json.put("priority", 30);
+    json.put("assignee", "demo");
+    json.put("owner", "mary");
+    json.put("delegationState", "PENDING");
+    json.put("due", withTimezone("2014-01-01T00:00:00"));
+    json.put("followUp", withTimezone("2014-01-01T00:00:00"));
+    json.put("parentTaskId", "aParentTaskId");
+    json.put("caseInstanceId", "aCaseInstanceId");
+    json.put("tenantId", MockProvider.EXAMPLE_TENANT_ID);
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.NO_CONTENT.getStatusCode())
+            .when()
+            .post(TASK_CREATE_URL);
+
+    verify(taskServiceMock).newTask((String) json.get("id"));
+    verify(newTask).setName((String) json.get("name"));
+    verify(newTask).setDescription((String) json.get("description"));
+    verify(newTask).setPriority((Integer) json.get("priority"));
+    verify(newTask).setAssignee((String) json.get("assignee"));
+    verify(newTask).setOwner((String) json.get("owner"));
+    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
+    verify(newTask).setDueDate(any(Date.class));
+    verify(newTask).setFollowUpDate(any(Date.class));
+    verify(newTask).setParentTaskId((String) json.get("parentTaskId"));
+    verify(newTask).setCaseInstanceId((String) json.get("caseInstanceId"));
+    verify(newTask).setTenantId((String) json.get("tenantId"));
+    verify(taskServiceMock).saveTask(newTask);
+  }
+
+  @Test
+  public void testPostCreateTaskPartialProperties() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("name", "A Task");
+    json.put("description", "Some description");
+    json.put("assignee", "demo");
+    json.put("owner", "mary");
+    json.put("due", withTimezone("2014-01-01T00:00:00"));
+    json.put("parentTaskId", "aParentTaskId");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(any())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.NO_CONTENT.getStatusCode())
+            .when()
+            .post(TASK_CREATE_URL);
+
+    verify(taskServiceMock).newTask(null);
+    verify(newTask).setName((String) json.get("name"));
+    verify(newTask).setDescription((String) json.get("description"));
+    verify(newTask).setPriority(0);
+    verify(newTask).setAssignee((String) json.get("assignee"));
+    verify(newTask).setOwner((String) json.get("owner"));
+    verify(newTask).setDelegationState(null);
+    verify(newTask).setDueDate(any(Date.class));
+    verify(newTask).setFollowUpDate(null);
+    verify(newTask).setParentTaskId((String) json.get("parentTaskId"));
+    verify(newTask).setCaseInstanceId(null);
+    verify(newTask).setTenantId(null);
+    verify(taskServiceMock).saveTask(newTask);
+  }
+
+  @Test
+  public void testPostCreateTaskDelegationStateResolved() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("delegationState", "RESOLVED");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(any())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.NO_CONTENT.getStatusCode())
+            .when()
+            .post(TASK_CREATE_URL);
+
+    verify(taskServiceMock).newTask(null);
+    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
+    verify(taskServiceMock).saveTask(newTask);
+  }
+
+  @Test
+  public void testPostCreateTaskDelegationStatePending() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("delegationState", "PENDING");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(any())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.NO_CONTENT.getStatusCode())
+            .when()
+            .post(TASK_CREATE_URL);
+
+    verify(taskServiceMock).newTask(null);
+    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
+    verify(taskServiceMock).saveTask(newTask);
+  }
+
+  @Test
+  public void testPostCreateTaskUnsupportedDelegationState() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("delegationState", "unsupported");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(any())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .contentType(ContentType.JSON)
+            .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", containsString("Valid values for property 'delegationState' are 'PENDING' or 'RESOLVED', but was 'unsupported'"))
+            .when()
+            .post(TASK_CREATE_URL);
+  }
+
+  @Test
+  public void testPostCreateTaskLowercaseDelegationState() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("delegationState", "pending");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(any())).thenReturn(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .expect()
+            .statusCode(Status.NO_CONTENT.getStatusCode())
+            .when()
+            .post(TASK_CREATE_URL);
+
+    verify(taskServiceMock).newTask(null);
+    verify(newTask).setDelegationState(DelegationState.PENDING);
+    verify(taskServiceMock).saveTask(newTask);
+  }
+
+  @Test
+  public void testPostCreateTask_NotValidValueException() {
+    Map<String, Object> json = new HashMap<>();
+
+    json.put("id", "anyTaskId");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
+
+    doThrow(new NotValidException("parent task is null")).when(taskServiceMock).saveTask(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .then()
+            .expect()
+            .statusCode(Status.BAD_REQUEST.getStatusCode()).contentType(ContentType.JSON)
+            .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", equalTo("Could not save task: parent task is null"))
+            .when().post(TASK_CREATE_URL);
+  }
+
+  @Test
+  public void testPostCreateTaskThrowsAuthorizationException() {
+    Map<String, Object> json = new HashMap<>();
+    json.put("id", "anyTaskId");
+
+    String message = "expected exception";
+    when(taskServiceMock.newTask(anyString())).thenThrow(new AuthorizationException(message));
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .then()
+            .expect()
+            .statusCode(Status.FORBIDDEN.getStatusCode()).contentType(ContentType.JSON)
+            .body("type", equalTo(AuthorizationException.class.getSimpleName()))
+            .body("message", equalTo(message))
+            .when().post(TASK_CREATE_URL);
+  }
+
+  @Test
+  public void testSaveNewTaskThrowsAuthorizationException() {
+    Map<String, Object> json = new HashMap<>();
+    json.put("id", "anyTaskId");
+
+    Task newTask = mock(Task.class);
+    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
+
+    String message = "expected exception";
+    doThrow(new AuthorizationException(message)).when(taskServiceMock).saveTask(newTask);
+
+    given()
+            .body(json)
+            .contentType(ContentType.JSON)
+            .header("accept", MediaType.APPLICATION_JSON)
+            .then()
+            .expect()
+            .statusCode(Status.FORBIDDEN.getStatusCode()).contentType(ContentType.JSON)
+            .body("type", equalTo(AuthorizationException.class.getSimpleName()))
+            .body("message", equalTo(message))
+            .when().post(TASK_CREATE_URL);
+  }
 
   @Test
   public void testSubmitTaskFormWithBase64EncodedBytes() {
@@ -870,9 +1107,9 @@ public class TaskRestServiceInteractionTest extends
     verify(formServiceMock).submitTaskForm(eq(EXAMPLE_TASK_ID), captor.capture());
     VariableMap map = captor.getValue();
     FileValue fileValue = (FileValue) map.getValueTyped(variableKey);
-    assertThat(fileValue).isNotNull();
-    assertThat(fileValue.getFilename()).isEqualTo(filename);
-    assertThat(IoUtil.readInputStream(fileValue.getValue(), null)).isEqualTo("someBytes".getBytes());
+    Assertions.assertThat(fileValue).isNotNull();
+    Assertions.assertThat(fileValue.getFilename()).isEqualTo(filename);
+    Assertions.assertThat(IoUtil.readInputStream(fileValue.getValue(), null)).isEqualTo("someBytes".getBytes());
   }
 
   @Test
@@ -2916,245 +3153,6 @@ public class TaskRestServiceInteractionTest extends
       .delete(SINGLE_TASK_URL);
 
     verify(taskServiceMock).deleteTask(EXAMPLE_TASK_ID);
-  }
-
-  @Test
-  public void testPostCreateTask() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("id", "anyTaskId");
-    json.put("name", "A Task");
-    json.put("description", "Some description");
-    json.put("priority", 30);
-    json.put("assignee", "demo");
-    json.put("owner", "mary");
-    json.put("delegationState", "PENDING");
-    json.put("due", withTimezone("2014-01-01T00:00:00"));
-    json.put("followUp", withTimezone("2014-01-01T00:00:00"));
-    json.put("parentTaskId", "aParentTaskId");
-    json.put("caseInstanceId", "aCaseInstanceId");
-    json.put("tenantId", MockProvider.EXAMPLE_TENANT_ID);
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-        .statusCode(Status.NO_CONTENT.getStatusCode())
-    .when()
-        .post(TASK_CREATE_URL);
-
-    verify(taskServiceMock).newTask((String) json.get("id"));
-    verify(newTask).setName((String) json.get("name"));
-    verify(newTask).setDescription((String) json.get("description"));
-    verify(newTask).setPriority((Integer) json.get("priority"));
-    verify(newTask).setAssignee((String) json.get("assignee"));
-    verify(newTask).setOwner((String) json.get("owner"));
-    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
-    verify(newTask).setDueDate(any(Date.class));
-    verify(newTask).setFollowUpDate(any(Date.class));
-    verify(newTask).setParentTaskId((String) json.get("parentTaskId"));
-    verify(newTask).setCaseInstanceId((String) json.get("caseInstanceId"));
-    verify(newTask).setTenantId((String) json.get("tenantId"));
-    verify(taskServiceMock).saveTask(newTask);
-  }
-
-  @Test
-  public void testPostCreateTaskPartialProperties() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("name", "A Task");
-    json.put("description", "Some description");
-    json.put("assignee", "demo");
-    json.put("owner", "mary");
-    json.put("due", withTimezone("2014-01-01T00:00:00"));
-    json.put("parentTaskId", "aParentTaskId");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(any())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-        .statusCode(Status.NO_CONTENT.getStatusCode())
-    .when()
-        .post(TASK_CREATE_URL);
-
-    verify(taskServiceMock).newTask(null);
-    verify(newTask).setName((String) json.get("name"));
-    verify(newTask).setDescription((String) json.get("description"));
-    verify(newTask).setPriority(0);
-    verify(newTask).setAssignee((String) json.get("assignee"));
-    verify(newTask).setOwner((String) json.get("owner"));
-    verify(newTask).setDelegationState(null);
-    verify(newTask).setDueDate(any(Date.class));
-    verify(newTask).setFollowUpDate(null);
-    verify(newTask).setParentTaskId((String) json.get("parentTaskId"));
-    verify(newTask).setCaseInstanceId(null);
-    verify(newTask).setTenantId(null);
-    verify(taskServiceMock).saveTask(newTask);
-  }
-
-  @Test
-  public void testPostCreateTaskDelegationStateResolved() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("delegationState", "RESOLVED");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(any())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-        .statusCode(Status.NO_CONTENT.getStatusCode())
-    .when()
-        .post(TASK_CREATE_URL);
-
-    verify(taskServiceMock).newTask(null);
-    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
-    verify(taskServiceMock).saveTask(newTask);
-  }
-
-  @Test
-  public void testPostCreateTaskDelegationStatePending() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("delegationState", "PENDING");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(any())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-        .statusCode(Status.NO_CONTENT.getStatusCode())
-    .when()
-        .post(TASK_CREATE_URL);
-
-    verify(taskServiceMock).newTask(null);
-    verify(newTask).setDelegationState(DelegationState.valueOf((String) json.get("delegationState")));
-    verify(taskServiceMock).saveTask(newTask);
-  }
-
-  @Test
-  public void testPostCreateTaskUnsupportedDelegationState() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("delegationState", "unsupported");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(any())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-      .statusCode(Status.BAD_REQUEST.getStatusCode())
-      .contentType(ContentType.JSON)
-      .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
-      .body("message", containsString("Valid values for property 'delegationState' are 'PENDING' or 'RESOLVED', but was 'unsupported'"))
-    .when()
-        .post(TASK_CREATE_URL);
-  }
-
-  @Test
-  public void testPostCreateTaskLowercaseDelegationState() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("delegationState", "pending");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(any())).thenReturn(newTask);
-
-    given()
-        .body(json)
-        .contentType(ContentType.JSON)
-        .header("accept", MediaType.APPLICATION_JSON)
-    .expect()
-      .statusCode(Status.NO_CONTENT.getStatusCode())
-    .when()
-        .post(TASK_CREATE_URL);
-
-    verify(taskServiceMock).newTask(null);
-    verify(newTask).setDelegationState(DelegationState.PENDING);
-    verify(taskServiceMock).saveTask(newTask);
-  }
-
-  @Test
-  public void testPostCreateTask_NotValidValueException() {
-    Map<String, Object> json = new HashMap<>();
-
-    json.put("id", "anyTaskId");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
-
-    doThrow(new NotValidException("parent task is null")).when(taskServiceMock).saveTask(newTask);
-
-    given()
-      .body(json)
-      .contentType(ContentType.JSON)
-      .header("accept", MediaType.APPLICATION_JSON)
-    .then()
-      .expect()
-        .statusCode(Status.BAD_REQUEST.getStatusCode()).contentType(ContentType.JSON)
-        .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
-        .body("message", equalTo("Could not save task: parent task is null"))
-      .when().post(TASK_CREATE_URL);
-  }
-
-  @Test
-  public void testPostCreateTaskThrowsAuthorizationException() {
-    Map<String, Object> json = new HashMap<>();
-    json.put("id", "anyTaskId");
-
-    String message = "expected exception";
-    when(taskServiceMock.newTask(anyString())).thenThrow(new AuthorizationException(message));
-
-    given()
-      .body(json)
-      .contentType(ContentType.JSON)
-      .header("accept", MediaType.APPLICATION_JSON)
-    .then()
-      .expect()
-        .statusCode(Status.FORBIDDEN.getStatusCode()).contentType(ContentType.JSON)
-        .body("type", equalTo(AuthorizationException.class.getSimpleName()))
-        .body("message", equalTo(message))
-      .when().post(TASK_CREATE_URL);
-  }
-
-  @Test
-  public void testSaveNewTaskThrowsAuthorizationException() {
-    Map<String, Object> json = new HashMap<>();
-    json.put("id", "anyTaskId");
-
-    Task newTask = mock(Task.class);
-    when(taskServiceMock.newTask(anyString())).thenReturn(newTask);
-
-    String message = "expected exception";
-    doThrow(new AuthorizationException(message)).when(taskServiceMock).saveTask(newTask);
-
-    given()
-      .body(json)
-      .contentType(ContentType.JSON)
-      .header("accept", MediaType.APPLICATION_JSON)
-    .then()
-      .expect()
-        .statusCode(Status.FORBIDDEN.getStatusCode()).contentType(ContentType.JSON)
-        .body("type", equalTo(AuthorizationException.class.getSimpleName()))
-        .body("message", equalTo(message))
-      .when().post(TASK_CREATE_URL);
   }
 
   @Test

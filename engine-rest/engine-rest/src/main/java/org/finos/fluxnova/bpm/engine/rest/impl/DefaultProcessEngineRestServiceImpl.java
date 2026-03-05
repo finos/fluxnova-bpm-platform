@@ -22,6 +22,7 @@ import javax.ws.rs.Path;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
+import org.finos.fluxnova.bpm.engine.rest.BulkTaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseInstanceRestService;
@@ -78,6 +79,9 @@ public class DefaultProcessEngineRestServiceImpl extends AbstractProcessEngineRe
   public TaskRestService getTaskRestService() {
     return super.getTaskRestService(null);
   }
+
+  @Path(BulkTaskRestService.PATH)
+  public BulkTaskRestService getBulkTaskRestService() { return super.getBulkTaskRestService(null); }
 
   @Path(IdentityRestService.PATH)
   public IdentityRestService getIdentityRestService() {

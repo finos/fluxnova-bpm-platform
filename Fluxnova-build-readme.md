@@ -3,7 +3,7 @@
 This guide contains the following main sections:
 
 1. **Building Locally:**  
-   Step-by-step instructions to build `fluxnova-bpm-platform` and its dependencies on your local machine.
+   Step-by-step instructions to build `fluxnova-bpm-platform` on your local machine.
 
 2. **Building with GitHub Actions on FINOS:**  
    Details on how the project is built, tested, and deployed automatically using GitHub Actions, including workflow triggers and package management.
@@ -24,74 +24,37 @@ Please follow the relevant section based on your build environment.
 
 ## Building Fluxnova BPM Platform Locally
 
-### Important Note
-
-Currently, not all Fluxnova packages on FINOS are public. To build `fluxnova-bpm-platform`, you must first clone and build
-all dependent repositories locally. Once all packages are public, you will be able to build `fluxnova-bpm-platform` directly
-without building dependencies locally.
-
 ### Build Prerequisites
 
-- Java 17+
+- Java 21+
 - Maven 3.8+
 - Git
 
-### Build Order and Steps
+### Build Steps
 
-1. **Clone and Build `fluxnova-release-parent` Repository**
+All Fluxnova dependencies are now public and published to Maven Central.
 
-   This repository contains the parent POM used by other Fluxnova projects.
-
-   ```bash
-   git clone https://github.com/finos/fluxnova-release-parent
-   cd fluxnova-release-parent
-   mvn clean install -o
-   ```
-
-2. **Clone and Build `fluxnova-bpm-release-parent` Repository**
-
-   This repository is the next-level parent POM, used by downstream projects.
-
-   ```bash
-   git clone https://github.com/finos/fluxnova-bpm-release-parent
-   cd fluxnova-bpm-release-parent
-   mvn clean install -o
-   ```
-3. **Clone and Build `fluxnova-feel-scala` Repository**
-
-   This repository is a dependency for `fluxnova-bpm-platform`.
-
-   ```bash
-   git clone https://github.com/finos/fluxnova-feel-scala
-   cd fluxnova-feel-scala
-   
-   # To skip tests:
-   mvn clean install -DskipTests -DskipITs -o
-
-   # To run all tests:
-   mvn clean install -o
-   ```
-
-4. **Clone and Build `fluxnova-bpm-platform` Repository**
-
-   Finally, build the main project. You can skip tests or run them as needed.
+1. **Clone and Build `fluxnova-bpm-platform` Repository**
 
    ```bash
    git clone https://github.com/finos/fluxnova-bpm-platform
    cd fluxnova-bpm-platform
-
-   # To skip tests:
-   mvn clean install -DskipTests -DskipITs -o
-
-   # To run all tests:
-   mvn clean install -o
+   mvn clean install
    ```
+
+   - To skip tests:
+     ```bash
+     mvn clean install -DskipTests -DskipITs
+     ```
+   - To run all tests:
+     ```bash
+     mvn clean install
+     ```
 
 ### Notes
 
-- The `-o` flag enables Maven offline mode, so it uses dependencies from your local `.m2/repository/org/fluxnova` directory.
+- All dependencies are resolved from Maven Central.
 - Artifacts from each build will be stored in your local Maven repository and used by subsequent builds.
-- Once all Fluxnova dependencies are public, you can build `fluxnova-bpm-platform` directly without building the other repositories locally.
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -212,9 +175,9 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
    ```
 3. Start the Fluxnova Tomcat server:
    ```bash
-   sh start-camunda.sh
+   sh start-fluxnova.sh
    ```
-4. Access the Fluxnova Cockpit at [http://localhost:8080/camunda/app/cockpit/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
+4. Access the Fluxnova Monitoring interface at [http://localhost:8080/fluxnova/app/monitoring/default/#/dashboard](http://localhost:8080/camunda/app/cockpit/default/#/dashboard)
 
 ### Running the Spring Boot Version
 
@@ -230,7 +193,7 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
    ```bash
    sh start.sh
    ```
-4. Access the Fluxnova Cockpit at [http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard](http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard)
+4. Access the Fluxnova Monitoring interface at [http://localhost:8080/fluxnova/app/monitoring/default/#/dashboard](http://localhost:8080/fluxnova/app/cockpit/default/#/dashboard)
 
 ### Running with Docker
 
@@ -239,13 +202,13 @@ You can run the Fluxnova BPM Platform using the official Docker image. By defaul
 #### Pull the Docker Image
 
 ```bash
-docker pull ghcr.io/finos/fluxnova-bpm-platform:0.0.1-snapshot
+docker pull ghcr.io/finos/fluxnova-bpm-platform:1.1.0
 ```
 
 #### Run the Container (Default: H2 Database)
 
 ```bash
-docker run -p 8080:8080 ghcr.io/finos/fluxnova-bpm-platform:0.0.1-snapshot
+docker run -p 8080:8080 ghcr.io/finos/fluxnova-bpm-platform:1.1.0
 ```
 
 #### Run with PostgreSQL or MySQL
@@ -258,7 +221,7 @@ docker run -p 8080:8080 \
   -e DB_URL=jdbc:postgresql://<host>:<port>/<db> \
   -e DB_USERNAME=<username> \
   -e DB_PASSWORD=<password> \
-  ghcr.io/finos/fluxnova-bpm-platform:0.0.1-snapshot
+  ghcr.io/finos/fluxnova-bpm-platform:1.1.0
 ```
 
 Replace the values as needed for MySQL. Any other Spring Boot configuration can be passed as environment variables.
@@ -271,4 +234,3 @@ Replace the values as needed for MySQL. Any other Spring Boot configuration can 
   ```bash
   docker pull ghcr.io/finos/fluxnova-examples:1.0.0-snapshot
   ```
- 
