@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>fluxnova-engine-plugins</artifactId>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fluxnova-engine-plugins-ai</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Fluxnova Platform - engine plugins - ai</name>
+    <description>Parent project for Fluxnova AI plugins</description>
+
+    <modules>
+        <module>mcp-server-plugin</module>
+        <module>mcp-process-start-event</module>
+    </modules>
+
+    <properties>
+        <!-- Dependency Versions -->
+        <spring-boot.version>3.5.8</spring-boot.version>
+        <spring-ai.version>1.1.2</spring-ai.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <junit.version>5.10.1</junit.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM - manages all Spring Boot and Spring Framework versions -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring AI MCP Server -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+
+            <!-- Inter-module dependency -->
+            <dependency>
+                <groupId>org.finos.fluxnova.bpm</groupId>
+                <artifactId>fluxnova-engine-plugins-ai-mcp-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
