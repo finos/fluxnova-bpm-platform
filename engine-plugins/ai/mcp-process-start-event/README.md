@@ -179,59 +179,52 @@ MCP call:
 
 ### At deployment
 
-```
-Deploy BPMN
-    │
-    ▼
-McpParseListener.parseStartEvent()
-    │
-    ▼
-BpmnStartEventToolExtractor.extract()  ──► null (no mcp:toolName) → skip
-    │
-    ▼ (mcp:toolName found)
-ToolDefinition built
-    │
-    ▼
-ToolFactory.createAndRegister()
-    │
-    ▼
-ToolRegistry.register()  ──► MCP clients notified
+```mermaid
+flowchart TD
+    A[Deploy BPMN] --> B[McpParseListener.parseStartEvent]
+    B --> C[BpmnStartEventToolExtractor.extract]
+    C -->|no mcp:toolName| D[null → skip]
+    C -->|mcp:toolName found| E[ToolDefinition built]
+    E --> F[ToolFactory.createAndRegister]
+    F --> G[ToolRegistry.register]
+    G --> H[MCP clients notified]
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style D fill:#ffebee
+    style E fill:#e8f5e9
+    style H fill:#f3e5f5
 ```
 
 ### At startup (for pre-existing processes)
 
-```
-Application starts
-    │
-    ▼
-McpStartupScanner.scanAndRegisterExistingProcesses()
-    │
-    ▼
-Query all latest process definitions
-    │
-    ▼
-For each process: parse BPMN XML, extract start events
-    │
-    ▼
-BpmnStartEventToolExtractor + ToolFactory (same path as deployment)
+```mermaid
+flowchart TD
+    A[Application starts] --> B[McpStartupScanner.scanAndRegisterExistingProcesses]
+    B --> C[Query all latest process definitions]
+    C --> D[For each process: parse BPMN XML, extract start events]
+    D --> E[BpmnStartEventToolExtractor + ToolFactory<br/>same path as deployment]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#e8f5e9
+    style E fill:#f3e5f5
 ```
 
 ### When a tool is called by an MCP client
 
-```
-MCP client calls tool with arguments
-    │
-    ▼
-ToolRegistry handler invoked
-    │
-    ▼
-ProcessStarter.startProcess(ToolDefinition, arguments)
-    │
-    ▼
-RuntimeService.startProcessInstanceByKey(processId, businessKey, variables)
-    │
-    ▼
-Returns { processInstanceId, businessKey, message }
+```mermaid
+flowchart TD
+    A[MCP client calls tool with arguments] --> B[ToolRegistry handler invoked]
+    B --> C[ProcessStarter.startProcess<br/>ToolDefinition, arguments]
+    C --> D[RuntimeService.startProcessInstanceByKey<br/>processId, businessKey, variables]
+    D --> E[Returns<br/>processInstanceId, businessKey, message]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style C fill:#e8f5e9
+    style D fill:#ffe8e8
+    style E fill:#f3e5f5
 ```
 
 ## Key Classes

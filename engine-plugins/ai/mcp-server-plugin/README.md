@@ -80,68 +80,49 @@ int count = toolRegistry.getToolCount();
 Set<String> names = toolRegistry.getRegisteredToolNames();
 ```
 ## MCP Server Plugin Startup Initialization Flow
-```
-Spring Boot Application starts
-      │
-      ▼
-@AutoConfiguration triggers McpServerSpringAutoConfiguration
-      │
-      ├─────────────────────────────────────┐
-      │                                     │
-      ▼                                     ▼
-@ConditionalOnClass checks:          @ConditionalOnMissingBean
-  - McpSyncServer present                 checks
-      │                                       │
-      │                                       │
-      ▼                                       ▼
-Conditions met                    ToolRegistry bean created
-      │                           (McpSyncServer + ObjectMapper)
-      │                                       │
-      │                                       ▼
-      │                           McpServerFluxnovaPlugin bean created
-      │                           (ToolRegistry injected)
-      │                                       │
-      └───────────────┬───────────────────────┘
-                      │
-                      ▼
-      Fluxnova ProcessEngine initialization
-                      │
-                      ▼
-      Plugin.preInit() called
-                      │
-                      ▼
-      LOG: "MCP Server Plugin - Initializing"
-                      │
-                      ▼
-      Plugin.postInit() called
-                      │
-                      ▼
-      Plugin.postProcessEngineBuild() called
-                      │
-                      ▼
-      LOG: "MCP Server Plugin ready - X tool(s) registered"
-                      │
-                      ▼
-      ToolRegistry available for other plugins
-      (e.g., mcp-process-start-event)
-
+```mermaid
+flowchart TD
+    A[Spring Boot Application starts] --> B[@AutoConfiguration triggers<br/>McpServerSpringAutoConfiguration]
+    B --> C[@ConditionalOnClass checks:<br/>McpSyncServer present]
+    B --> D[@ConditionalOnMissingBean<br/>checks]
+    C --> E[Conditions met]
+    D --> F[ToolRegistry bean created<br/>McpSyncServer + ObjectMapper]
+    E --> G[Merge]
+    F --> H[McpServerFluxnovaPlugin bean created<br/>ToolRegistry injected]
+    H --> G
+    G --> I[Fluxnova ProcessEngine initialization]
+    I --> J[Plugin.preInit called]
+    J --> K[LOG: MCP Server Plugin - Initializing]
+    K --> L[Plugin.postInit called]
+    L --> M[Plugin.postProcessEngineBuild called]
+    M --> N[LOG: MCP Server Plugin ready - X tools registered]
+    N --> O[ToolRegistry available for other plugins<br/>e.g., mcp-process-start-event]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff4e1
+    style F fill:#e8f5e9
+    style H fill:#e8f5e9
+    style O fill:#f3e5f5
 ```
 ## Tool Execution Flow
 
-```
-MCP Client calls tool
-      │
-      ▼
-McpSyncServer receives call_tool request
-      │
-      ▼
-ToolRegistry looks up ToolConfig by name
-      │
-      ▼
-ToolConfig.handler().execute(arguments)
-      │
-      ▼
-Result serialised to JSON and returned to client
+```mermaid
+sequenceDiagram
+    participant Client as MCP Client
+    participant Server as McpSyncServer
+    participant Registry as ToolRegistry
+    participant Config as ToolConfig
+    participant Handler as ToolHandler
+
+    Client->>Server: call_tool request
+    Server->>Registry: lookup ToolConfig by name
+    Registry->>Config: retrieve ToolConfig
+    Config->>Handler: handler().execute(arguments)
+    Handler-->>Config: return result
+    Config-->>Registry: return result
+    Registry-->>Server: return result
+    Server-->>Client: JSON response
+
 ```
 
 ## Configuration
