@@ -21,6 +21,7 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngines;
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -49,6 +50,11 @@ public class ContainerManagedProcessEngineProvider implements ProcessEngineProvi
   @Override
   public Set<String> getProcessEngineNames() {
     return ProcessEngines.getProcessEngines().keySet();
+  }
+
+  @Override
+  public Map<String, ProcessEngine> getProcessEngines() {
+    return ProcessEngines.getProcessEngines();
   }
 
 }

@@ -16,9 +16,17 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class ProcessEngineDto {
 
   private String name;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private String description;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private String groupName;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private String groupDescription;
 
   public String getName() {
     return name;
@@ -27,4 +35,29 @@ public class ProcessEngineDto {
   public void setName(String name) {
     this.name = name;
   }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getGroupName() {
+    return groupName;
+  }
+
+  public void setGroupName(String groupName) {
+    this.groupName = groupName;
+  }
+
+  public String getGroupDescription() {
+    return groupDescription;
+  }
+
+  public void setGroupDescription(String groupDescription) {
+    this.groupDescription = groupDescription;
+  }
+
 }

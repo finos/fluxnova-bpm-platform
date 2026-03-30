@@ -44,16 +44,19 @@ import org.finos.fluxnova.bpm.engine.variable.type.ValueTypeResolver;
 public class MockedProcessEngineProvider implements ProcessEngineProvider {
 
   private static ProcessEngine cachedDefaultProcessEngine;
-  private static Map<String, ProcessEngine> cachedEngines = new HashMap<String, ProcessEngine>();
+  private static Map<String, ProcessEngine> cachedEngines = new HashMap<>();
 
   public void resetEngines() {
     cachedDefaultProcessEngine = null;
-    cachedEngines = new HashMap<String, ProcessEngine>();
+    cachedEngines = new HashMap<>();
   }
 
   private ProcessEngine mockProcessEngine(String engineName) {
     ProcessEngine engine = mock(ProcessEngine.class);
     when(engine.getName()).thenReturn(engineName);
+    when(engine.getDescription()).thenReturn(engineName);
+    when(engine.getGroupName()).thenReturn(engineName);
+    when(engine.getGroupDescription()).thenReturn(engineName);
     mockServices(engine);
     mockProcessEngineConfiguration(engine);
     return engine;
@@ -96,10 +99,7 @@ public class MockedProcessEngineProvider implements ProcessEngineProvider {
 
   @Override
   public ProcessEngine getDefaultProcessEngine() {
-    if (cachedDefaultProcessEngine == null) {
-      cachedDefaultProcessEngine = mockProcessEngine("default");
-    }
-
+    cachedDefaultProcessEngine = getOrCreateProcessEngine(MockProvider.EXAMPLE_PROCESS_ENGINE_NAME);
     return cachedDefaultProcessEngine;
   }
 
@@ -109,16 +109,29 @@ public class MockedProcessEngineProvider implements ProcessEngineProvider {
       return null;
     }
 
-    if (name.equals("default")) {
-      return getDefaultProcessEngine();
+    return getOrCreateProcessEngine(name);
+  }
+
+  @Override
+  public Map<String, ProcessEngine> getProcessEngines() {
+    Set<String> mockEngineNames = this.getProcessEngineNames();
+    for (String engineName : mockEngineNames) {
+      getOrCreateProcessEngine(engineName);
     }
 
-    if (cachedEngines.get(name) == null) {
-      ProcessEngine mock = mockProcessEngine(name);
-      cachedEngines.put(name, mock);
+    return cachedEngines;
+  }
+
+  protected ProcessEngine getOrCreateProcessEngine(String engineName) {
+    if (cachedEngines.get(engineName) == null) {
+      cachedEngines.put(engineName, mockProcessEngine(engineName));
     }
 
-    return cachedEngines.get(name);
+    if (MockProvider.EXAMPLE_PROCESS_ENGINE_NAME.equals(engineName)) {
+      cachedDefaultProcessEngine = cachedEngines.get(engineName);
+    }
+
+    return cachedEngines.get(engineName);
   }
 
   @Override
@@ -128,6 +141,5 @@ public class MockedProcessEngineProvider implements ProcessEngineProvider {
     result.add(MockProvider.ANOTHER_EXAMPLE_PROCESS_ENGINE_NAME);
     return result;
   }
-
 
 }

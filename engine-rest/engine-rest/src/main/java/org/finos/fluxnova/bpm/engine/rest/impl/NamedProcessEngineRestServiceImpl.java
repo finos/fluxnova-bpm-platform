@@ -21,15 +21,18 @@ import static org.finos.fluxnova.bpm.engine.rest.util.EngineUtil.getProcessEngin
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
+import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
 import org.finos.fluxnova.bpm.engine.rest.BulkTaskRestService;
@@ -283,15 +286,29 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<ProcessEngineDto> getProcessEngineNames() {
+  public List<ProcessEngineDto> getProcessEngines(
+      @QueryParam("allNamingDetails") @DefaultValue("false") boolean allNamingDetails) {
     ProcessEngineProvider provider = getProcessEngineProvider();
-    Set<String> engineNames = provider.getProcessEngineNames();
 
     List<ProcessEngineDto> results = new ArrayList<ProcessEngineDto>();
-    for (String engineName : engineNames) {
-      ProcessEngineDto dto = new ProcessEngineDto();
-      dto.setName(engineName);
-      results.add(dto);
+
+    if (allNamingDetails) {
+      Map<String, ProcessEngine> engines = provider.getProcessEngines();
+      for (Map.Entry<String, ProcessEngine> entry : engines.entrySet()) {
+        ProcessEngine engine = entry.getValue();
+        ProcessEngineDto dto = new ProcessEngineDto();
+        dto.setName(engine.getName());
+        dto.setDescription(engine.getDescription() != null ? engine.getDescription() : "");
+        dto.setGroupName(engine.getGroupName() != null ? engine.getGroupName() : "");
+        dto.setGroupDescription(engine.getGroupDescription() != null ? engine.getGroupDescription() : "");
+        results.add(dto);
+      }
+    } else {
+      for (String engineName : provider.getProcessEngineNames()) {
+        ProcessEngineDto dto = new ProcessEngineDto();
+        dto.setName(engineName);
+        results.add(dto);
+      }
     }
 
     return results;
