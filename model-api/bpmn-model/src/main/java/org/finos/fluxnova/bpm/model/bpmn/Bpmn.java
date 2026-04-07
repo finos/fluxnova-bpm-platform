@@ -32,6 +32,7 @@ import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.impl.BpmnParser;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.ActivationConditionImpl;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.ActivityImpl;
+import org.finos.fluxnova.bpm.model.bpmn.impl.instance.AdHocSubProcessImpl;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.ArtifactImpl;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.AssignmentImpl;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.AssociationImpl;
@@ -608,6 +609,7 @@ public class Bpmn {
     StartEventImpl.registerType(bpmnModelBuilder);
     SubConversationImpl.registerType(bpmnModelBuilder);
     SubProcessImpl.registerType(bpmnModelBuilder);
+    AdHocSubProcessImpl.registerType(bpmnModelBuilder);
     SupportedInterfaceRef.registerType(bpmnModelBuilder);
     Supports.registerType(bpmnModelBuilder);
     Target.registerType(bpmnModelBuilder);
