@@ -286,30 +286,23 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<ProcessEngineDto> getProcessEngines(
-      @QueryParam("allNamingDetails") @DefaultValue("false") boolean allNamingDetails) {
+  public List<ProcessEngineDto> getProcessEngines() {
     ProcessEngineProvider provider = getProcessEngineProvider();
 
     List<ProcessEngineDto> results = new ArrayList<ProcessEngineDto>();
 
-    if (allNamingDetails) {
+
       Map<String, ProcessEngine> engines = provider.getProcessEngines();
       for (Map.Entry<String, ProcessEngine> entry : engines.entrySet()) {
         ProcessEngine engine = entry.getValue();
         ProcessEngineDto dto = new ProcessEngineDto();
         dto.setName(engine.getName());
-        dto.setDescription(engine.getDescription() != null ? engine.getDescription() : "");
-        dto.setGroupName(engine.getGroupName() != null ? engine.getGroupName() : "");
-        dto.setGroupDescription(engine.getGroupDescription() != null ? engine.getGroupDescription() : "");
+        dto.setDescription(engine.getDescription());
+        dto.setGroupName(engine.getGroupName());
+        dto.setGroupDescription(engine.getGroupDescription());
         results.add(dto);
       }
-    } else {
-      for (String engineName : provider.getProcessEngineNames()) {
-        ProcessEngineDto dto = new ProcessEngineDto();
-        dto.setName(engineName);
-        results.add(dto);
-      }
-    }
+
 
     return results;
   }

@@ -5,21 +5,11 @@
       tag = "Engine"
       summary = "Get List"
       desc = "Retrieves the names of all process engines available on your platform.
-              If the query parameter `allNamingDetails` is set to `true`, each engine entry also includes
+              If the engine is configured with them the entry also includes
               `description`, `groupName`, and `groupDescription`.
               **Note**: You cannot prepend `/engine/{name}` to this method." />
 
-  "parameters" : [
-    <@lib.parameter
-        name = "allNamingDetails"
-        location = "query"
-        type = "boolean"
-        required = false
-        last = true
-        desc = "Set to `true` to include `description`, `groupName`, and `groupDescription`.
-                Defaults to `false` (name-only response)."/>
-  ],
-
+  "parameters" : [],
   "responses" : {
     <@lib.response
         code = "200"
@@ -28,7 +18,7 @@
         last=true
         desc = "Request successful."
         examples = ['"example-1": {
-                       "summary": "Default response (name only)",
+                       "summary": "Default response (name only) without extra configuration",
                        "value": [
                          {
                            "name": "default"
@@ -39,7 +29,7 @@
                        ]
                      },
                      "example-2": {
-                       "summary": "Response with allNamingDetails=true",
+                       "summary": "Response with new configuration",
                        "value": [
                          {
                            "name": "default",

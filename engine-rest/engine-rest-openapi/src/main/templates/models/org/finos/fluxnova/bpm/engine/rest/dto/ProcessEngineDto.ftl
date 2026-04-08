@@ -9,17 +9,17 @@
   <@lib.property
       name = "description"
       type = "string"
-      desc = "The description of the process engine. Only present when `allNamingDetails=true`." />
+      desc = "The description of the process engine. Only present when set in engine." />
 
   <@lib.property
       name = "groupName"
       type = "string"
-      desc = "The group name of the process engine. Only present when `allNamingDetails=true`." />
+      desc = "The group name of the process engine. Only present when set in engine." />
 
   <@lib.property
       name = "groupDescription"
       type = "string"
-      desc = "The group description of the process engine. Only present when `allNamingDetails=true`."
+      desc = "The group description of the process engine. Only present when set in engine."
       last=true />
 
 </@lib.dto>
