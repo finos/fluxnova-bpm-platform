@@ -68,6 +68,11 @@
                              "binding": "version",
                              "version": 2
                            },
+                           "camundaFormRef":{
+                             "key": "aCamundaFormKey",
+                             "binding": "version",
+                             "version": 2
+                           },
                            "tenantId": "aTenantId",
                            "taskState": "aTaskState"
                          }
@@ -101,6 +106,11 @@
                            "formKey":"aFormKey",
                            "fluxnovaFormRef":{
                              "key": "aFluxnovaFormKey",
+                             "binding": "version",
+                             "version": 2
+                           },
+                           "camundaFormRef":{
+                             "key": "aCamundaFormKey",
                              "binding": "version",
                              "version": 2
                            },
@@ -139,6 +149,11 @@
                            "formKey":"aFormKey",
                            "fluxnovaFormRef":{
                              "key": "aFluxnovaFormKey",
+                             "binding": "version",
+                             "version": 2
+                           },
+                           "camundaFormRef":{
+                             "key": "aCamundaFormKey",
                              "binding": "version",
                              "version": 2
                            },
@@ -187,6 +202,11 @@
                            "taskDefinitionKey":"aTaskDefinitionKey",
                            "suspended": false,
                            "formKey":"aFormKey",
+                           "fluxnovaFormRef":{
+                             "key": "aCamundaFormKey",
+                             "binding": "version",
+                             "version": 2
+                           },
                            "camundaFormRef":{
                              "key": "aCamundaFormKey",
                              "binding": "version",

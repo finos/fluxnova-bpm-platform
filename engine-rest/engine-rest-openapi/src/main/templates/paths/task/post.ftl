@@ -158,6 +158,11 @@
                              "binding": "version",
                              "version": 2
                            },
+                           "camundaFormRef":{
+                             "key": "aCamundaFormKey",
+                             "binding": "version",
+                             "version": 2
+                           },
                            "tenantId":"aTenantId",
                            "taskState": "aTaskState"
                          }

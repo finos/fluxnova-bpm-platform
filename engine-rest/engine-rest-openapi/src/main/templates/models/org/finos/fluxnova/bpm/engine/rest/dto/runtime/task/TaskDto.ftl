@@ -127,6 +127,13 @@
         desc = "A reference to a specific version of a Fluxnova Form."/>
 
     <@lib.property
+        name = "camundaFormRef"
+        type = "ref"
+        dto = "CamundaFormRef"
+        deprecated = true
+        desc = "**Deprecated.** Use `fluxnovaFormRef` instead. A reference to a specific version of a Camunda Form."/>
+
+    <@lib.property
         name = "tenantId"
         type = "string"
         desc = "If not `null`, the tenant id of the task." />

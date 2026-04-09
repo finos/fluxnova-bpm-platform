@@ -38,11 +38,8 @@
         <artifactId>maven-source-plugin</artifactId>
         <executions>
           <execution>
-            <id>attach-sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
+            <id>release-attach-sources</id>
+            <phase>none</phase>
           </execution>
         </executions>
       </plugin>
@@ -108,13 +105,13 @@
           </instructions>
         </configuration>
         <executions>
-         <!--  <execution>
+          <execution>
             <id>bundle-manifest</id>
             <phase>process-classes</phase>
             <goals>
               <goal>manifest</goal>
             </goals>
-          </execution> -->
+          </execution>
         </executions>
       </plugin>
     </plugins>
