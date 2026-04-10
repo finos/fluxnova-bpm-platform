@@ -2976,11 +2976,11 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return this;
   }
 
-  public String getprocessEngineGroup() {
+  public String getProcessEngineGroup() {
     return processEngineGroup;
   }
 
-  public ProcessEngineConfigurationImpl setprocessEngineGroup(String processEngineGroup) {
+  public ProcessEngineConfigurationImpl setProcessEngineGroup(String processEngineGroup) {
     this.processEngineGroup = processEngineGroup;
     return this;
   }
