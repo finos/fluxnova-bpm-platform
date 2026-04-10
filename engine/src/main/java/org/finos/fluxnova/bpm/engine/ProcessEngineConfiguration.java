@@ -203,7 +203,7 @@ public abstract class ProcessEngineConfiguration {
 
   protected String processEngineName = ProcessEngines.NAME_DEFAULT;
   protected String processEngineDisplayName;
-  protected String processEngineGroupName;
+  protected String processEngineGroup;
   protected String processEngineGroupDisplayName;
   protected int idBlockSize = 100;
   protected String history = HISTORY_DEFAULT;

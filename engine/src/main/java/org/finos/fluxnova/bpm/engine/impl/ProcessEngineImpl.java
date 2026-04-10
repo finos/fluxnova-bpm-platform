@@ -87,7 +87,7 @@ public class ProcessEngineImpl implements ProcessEngine {
     this.processEngineConfiguration = processEngineConfiguration;
     this.name = processEngineConfiguration.getProcessEngineName();
     this.displayName = processEngineConfiguration.getProcessEngineDisplayName();
-    this.group = processEngineConfiguration.getProcessEngineGroupName();
+    this.group = processEngineConfiguration.getprocessEngineGroup();
     this.groupDisplayName = processEngineConfiguration.getProcessEngineGroupDisplayName();
 
 
