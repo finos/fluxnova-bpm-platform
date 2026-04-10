@@ -2971,8 +2971,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     return processEngineDisplayName;
   }
 
-  public ProcessEngineConfigurationImpl setProcessEngineDisplayName(String processEngineDescriptio) {
-    this.processEngineDisplayName = processEngineDescriptio;
+  public ProcessEngineConfigurationImpl setProcessEngineDisplayName(String processEngineDisplayName) {
+    this.processEngineDisplayName = processEngineDisplayName;
     return this;
   }
 
@@ -2990,8 +2990,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
 
-  public ProcessEngineConfigurationImpl setProcessEngineGroupDisplayName(String processEngineGroupDescription) {
-    this.processEngineGroupDisplayName = processEngineGroupDescription;
+  public ProcessEngineConfigurationImpl setProcessEngineGroupDisplayName(String processEngineGroupDisplayName) {
+    this.processEngineGroupDisplayName = processEngineGroupDisplayName;
     return this;
   }
 

@@ -6,7 +6,7 @@
       summary = "Get List"
       desc = "Retrieves the names of all process engines available on your platform.
               If the engine is configured with them the entry also includes
-              `description`, `groupName`, and `groupDescription`.
+              `displayName`, `group`, and `groupDisplayName`.
               **Note**: You cannot prepend `/engine/{name}` to this method." />
 
   "parameters" : [],
@@ -35,7 +35,7 @@
                            "name": "default",
                            "displayName": "default",
                            "group": "default",
-                           "groupDescription": "default"
+                           "groupDisplayName": "default"
                          },
                          {
                            "name": "anotherEngineName",
