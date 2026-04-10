@@ -54,9 +54,9 @@ public class MockedProcessEngineProvider implements ProcessEngineProvider {
   private ProcessEngine mockProcessEngine(String engineName) {
     ProcessEngine engine = mock(ProcessEngine.class);
     when(engine.getName()).thenReturn(engineName);
-    when(engine.getDescription()).thenReturn(engineName);
-    when(engine.getGroupName()).thenReturn(engineName);
-    when(engine.getGroupDescription()).thenReturn(engineName);
+    when(engine.getDisplayName()).thenReturn(engineName);
+    when(engine.getGroup()).thenReturn(engineName);
+    when(engine.getGroupDisplayName()).thenReturn(engineName);
     mockServices(engine);
     mockProcessEngineConfiguration(engine);
     return engine;

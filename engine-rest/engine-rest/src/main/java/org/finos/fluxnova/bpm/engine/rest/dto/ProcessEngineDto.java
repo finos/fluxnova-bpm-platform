@@ -22,11 +22,11 @@ public class ProcessEngineDto {
 
   private String name;
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  private String description;
+  private String displayName;
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  private String groupName;
+  private String group;
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  private String groupDescription;
+  private String groupDisplayName;
 
   public String getName() {
     return name;
@@ -36,28 +36,28 @@ public class ProcessEngineDto {
     this.name = name;
   }
 
-  public String getDescription() {
-    return description;
+  public String getDisplayName() {
+    return displayName;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
   }
 
-  public String getGroupName() {
-    return groupName;
+  public String getGroup() {
+    return group;
   }
 
-  public void setGroupName(String groupName) {
-    this.groupName = groupName;
+  public void setGroup(String group) {
+    this.group = group;
   }
 
-  public String getGroupDescription() {
-    return groupDescription;
+  public String getGroupDisplayName() {
+    return groupDisplayName;
   }
 
-  public void setGroupDescription(String groupDescription) {
-    this.groupDescription = groupDescription;
+  public void setGroupDisplayName(String groupDisplayName) {
+    this.groupDisplayName = groupDisplayName;
   }
 
 }

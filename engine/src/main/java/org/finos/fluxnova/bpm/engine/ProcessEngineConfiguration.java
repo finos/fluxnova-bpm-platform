@@ -202,9 +202,9 @@ public abstract class ProcessEngineConfiguration {
   public static final String AUTHORIZATION_CHECK_REVOKE_AUTO = "auto";
 
   protected String processEngineName = ProcessEngines.NAME_DEFAULT;
-  protected String processEngineDescription;
+  protected String processEngineDisplayName;
   protected String processEngineGroupName;
-  protected String processEngineGroupDescription;
+  protected String processEngineGroupDisplayName;
   protected int idBlockSize = 100;
   protected String history = HISTORY_DEFAULT;
   protected boolean jobExecutorActivate;

@@ -55,9 +55,9 @@ public class ProcessEngineImpl implements ProcessEngine {
   private final static ProcessEngineLogger LOG = ProcessEngineLogger.INSTANCE;
 
   protected String name;
-  protected String description;
-  protected String groupName;
-  protected String groupDescription;
+  protected String displayName;
+  protected String group;
+  protected String groupDisplayName;
 
   protected RepositoryService repositoryService;
   protected RuntimeService runtimeService;
@@ -86,9 +86,9 @@ public class ProcessEngineImpl implements ProcessEngine {
 
     this.processEngineConfiguration = processEngineConfiguration;
     this.name = processEngineConfiguration.getProcessEngineName();
-    this.description = processEngineConfiguration.getProcessEngineDescription();
-    this.groupName = processEngineConfiguration.getProcessEngineGroup();
-    this.groupDescription = processEngineConfiguration.getProcessEngineGroupDescription();
+    this.displayName = processEngineConfiguration.getProcessEngineDisplayName();
+    this.group = processEngineConfiguration.getProcessEngineGroupName();
+    this.groupDisplayName = processEngineConfiguration.getProcessEngineGroupDisplayName();
 
 
     this.repositoryService = processEngineConfiguration.getRepositoryService();
@@ -186,16 +186,16 @@ public class ProcessEngineImpl implements ProcessEngine {
     return name;
   }
 
-  public String getDescription() {
-    return description;
+  public String getDisplayName() {
+    return displayName;
   }
 
-  public String getGroupName() {
-    return groupName;
+  public String getGroup() {
+    return group;
   }
 
-  public String getGroupDescription() {
-    return groupDescription;
+  public String getGroupDisplayName() {
+    return groupDisplayName;
   }
 
 

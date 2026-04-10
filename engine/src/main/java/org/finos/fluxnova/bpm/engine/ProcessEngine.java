@@ -66,13 +66,13 @@ public interface ProcessEngine extends ProcessEngineServices {
   String getName();
 
   /** Returns the description of the process engine */
-  String getDescription();
+  String getDisplayName();
 
   /** Returns the group name of the process engine */
-  String getGroupName();
+  String getGroup();
 
   /** Returns the group description of the process engine */
-  String getGroupDescription();
+  String getGroupDisplayName();
 
   void close();
 

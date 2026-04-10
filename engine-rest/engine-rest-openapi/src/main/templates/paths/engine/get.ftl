@@ -33,15 +33,15 @@
                        "value": [
                          {
                            "name": "default",
-                           "description": "default",
-                           "groupName": "default",
+                           "displayName": "default",
+                           "group": "default",
                            "groupDescription": "default"
                          },
                          {
                            "name": "anotherEngineName",
-                           "description": "anotherEngineDescription",
-                           "groupName": "anotherEngineGroupName",
-                           "groupDescription": "anotherEngineGroupDescription"
+                           "displayName": "anotherEngineDescription",
+                           "group": "anotherEngineGroupName",
+                           "groupDisplayName": "anotherEngineGroupDescription"
                          }
                        ]
                      }'] />

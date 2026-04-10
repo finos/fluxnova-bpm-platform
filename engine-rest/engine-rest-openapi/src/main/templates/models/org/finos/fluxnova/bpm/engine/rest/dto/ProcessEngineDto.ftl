@@ -7,19 +7,19 @@
       desc = "The name of the process engine." />
 
   <@lib.property
-      name = "description"
+      name = "displayName"
       type = "string"
-      desc = "The description of the process engine. Only present when set in engine." />
+      desc = "The display name of the process engine. Only present when set in engine." />
 
   <@lib.property
-      name = "groupName"
+      name = "group"
       type = "string"
       desc = "The group name of the process engine. Only present when set in engine." />
 
   <@lib.property
-      name = "groupDescription"
+      name = "groupDisplayName"
       type = "string"
-      desc = "The group description of the process engine. Only present when set in engine."
+      desc = "The group display name of the process engine. Only present when set in engine."
       last=true />
 
 </@lib.dto>

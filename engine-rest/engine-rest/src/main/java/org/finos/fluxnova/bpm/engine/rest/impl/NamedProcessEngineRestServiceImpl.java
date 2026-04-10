@@ -23,12 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
@@ -297,9 +295,9 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
         ProcessEngine engine = entry.getValue();
         ProcessEngineDto dto = new ProcessEngineDto();
         dto.setName(engine.getName());
-        dto.setDescription(engine.getDescription());
-        dto.setGroupName(engine.getGroupName());
-        dto.setGroupDescription(engine.getGroupDescription());
+        dto.setDisplayName(engine.getDisplayName());
+        dto.setGroup(engine.getGroup());
+        dto.setGroupDisplayName(engine.getGroupDisplayName());
         results.add(dto);
       }
 
