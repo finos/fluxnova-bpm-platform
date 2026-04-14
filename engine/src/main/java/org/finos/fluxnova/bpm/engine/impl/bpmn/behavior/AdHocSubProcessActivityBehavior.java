@@ -12,7 +12,7 @@ import org.finos.fluxnova.bpm.engine.impl.Condition;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.helper.CompensationUtil;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.helper.BpmnProperties;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.parser.BpmnParse;
-import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.AdHocSubProcessValidationHelper;
+import org.finos.fluxnova.bpm.engine.impl.el.Expression;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ActivityExecution;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.CompositeActivityBehavior;
@@ -24,7 +24,7 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.process.ActivityImpl;
  * <p>An Ad-Hoc Sub-Process is a specialized type of Sub-Process that has a set
  * of Activities that can be performed in any order, and some of which may not
  * be performed at all. Initial activities are activated from the
- * {@code activeTasks} process variable and additional starter activities may be
+ * {@code activeTasksCollection} extension property and additional starter activities may be
  * activated via {@code RuntimeService#triggerAdHocActivity(String, String)}.
  *
  * <p>The subprocess completes when the {@code completionCondition} evaluates to
@@ -35,11 +35,9 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.process.ActivityImpl;
  */
 public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavior implements CompositeActivityBehavior {
 
-  protected static final String AD_HOC_ACTIVE_TASKS_VAR = "activeTasks";
-
   /**
    * On entry into an ad-hoc subprocess, only starter activities named in the
-   * required {@code activeTasks} variable are activated in parallel.
+    * required {@code activeTasksCollection} extension property are activated in parallel.
    */
   @Override
   public void execute(ActivityExecution execution) throws Exception {
@@ -164,37 +162,50 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
     return AdHocSubProcessValidationHelper.hasIncomingTransitionFromAdHocScope(adHocScope, activity);
   }
 
-  @SuppressWarnings("unchecked")
   protected List<String> getConfiguredActiveTaskIds(ActivityExecution scopeExecution) {
-    Object activeTasks = scopeExecution.getVariable(AD_HOC_ACTIVE_TASKS_VAR);
+    Expression activeTasksCollection = (Expression) scopeExecution.getActivity()
+        .getProperty(BpmnParse.PROPERTYNAME_AD_HOC_ACTIVE_TASKS_COLLECTION);
 
-    if (activeTasks == null) {
+    if (activeTasksCollection == null) {
       throw new BadUserRequestException(
-          "activeTasks must be provided for adHocSubProcess '" + scopeExecution.getActivity().getId() + "'");
+          "activeTasksCollection extension property must be provided for adHocSubProcess '"
+              + scopeExecution.getActivity().getId() + "'");
     }
+
+    Object activeTasks = activeTasksCollection.getValue(scopeExecution);
 
     if (activeTasks instanceof Collection<?>) {
       List<String> activityIds = new ArrayList<>();
-      for (Object value : (Collection<Object>) activeTasks) {
+      for (Object value : (Collection<?>) activeTasks) {
         if (value != null) {
-          activityIds.add(String.valueOf(value));
+          String activityId = String.valueOf(value).trim();
+          if (!activityId.isEmpty()) {
+            activityIds.add(activityId);
+          }
         }
       }
       return activityIds;
     }
 
     if (activeTasks instanceof String) {
-      String activityId = ((String) activeTasks).trim();
-      if (activityId.isEmpty()) {
+      String activityIdsText = ((String) activeTasks).trim();
+      if (activityIdsText.isEmpty()) {
         return new ArrayList<>();
       }
+
       List<String> activityIds = new ArrayList<>();
-      activityIds.add(activityId);
+      for (String activityId : activityIdsText.split(",")) {
+        String trimmedActivityId = activityId.trim();
+        if (!trimmedActivityId.isEmpty()) {
+          activityIds.add(trimmedActivityId);
+        }
+      }
       return activityIds;
     }
 
     throw new BadUserRequestException(
-        "activeTasks for adHocSubProcess '" + scopeExecution.getActivity().getId() + "' must be a String or Collection");
+        "activeTasksCollection for adHocSubProcess '" + scopeExecution.getActivity().getId()
+            + "' must resolve to a String or Collection");
   }
 
   protected void validateConfiguredActiveTaskIds(ActivityExecution scopeExecution,
@@ -202,7 +213,7 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
       List<String> configuredActiveTaskIds) {
     if (configuredActiveTaskIds.isEmpty()) {
       throw new BadUserRequestException(
-          "activeTasks must contain at least one starter activity for adHocSubProcess '"
+          "activeTasksCollection must contain at least one starter activity for adHocSubProcess '"
               + scopeExecution.getActivity().getId() + "'");
     }
 
@@ -217,7 +228,7 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
 
     if (!invalidActivityIds.isEmpty()) {
       throw new BadUserRequestException(
-          "activeTasks contains non-startable activities in adHocSubProcess '"
+          "activeTasksCollection contains non-startable activities in adHocSubProcess '"
               + scopeExecution.getActivity().getId() + "': " + invalidActivityIds);
     }
   }

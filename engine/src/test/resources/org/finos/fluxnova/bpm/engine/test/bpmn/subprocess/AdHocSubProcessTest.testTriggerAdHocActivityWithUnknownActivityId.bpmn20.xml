@@ -10,6 +10,11 @@
     <sequenceFlow id="flow1" sourceRef="start" targetRef="adHocSubProcess" />
 
     <adHocSubProcess id="adHocSubProcess">
+      <extensionElements>
+        <camunda:properties>
+          <camunda:property name="activeTasksCollection" value="taskA" />
+        </camunda:properties>
+      </extensionElements>
       <userTask id="taskA" name="Task A" />
       <userTask id="taskB" name="Task B" />
     </adHocSubProcess>

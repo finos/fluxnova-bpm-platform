@@ -24,9 +24,7 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
   @Deployment
   @Test
   public void testTriggerAdHocActivityAndCompleteSubProcess() {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-        "adHocSubProcessBasic",
-        Map.of("activeTasks", Arrays.asList("taskA", "taskB")));
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessBasic");
 
     List<Task> adHocTasks = taskService.createTaskQuery()
         .processInstanceId(processInstance.getId())
@@ -65,7 +63,7 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
   public void testParallelActivationRespectsActiveTasksList() {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
         "adHocSubProcessBasic",
-        Collections.singletonMap("activeTasks", Collections.singletonList("taskB")));
+                Collections.singletonMap("initialTaskIds", Collections.singletonList("taskB")));
 
     Task taskA = taskService.createTaskQuery()
         .processInstanceId(processInstance.getId())
@@ -90,23 +88,23 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
     assertNotNull(taskAfter);
   }
 
-  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testTriggerAdHocActivityAndCompleteSubProcess.bpmn20.xml")
+    @Deployment
   @Test
-  public void testMissingActiveTasksFailsAdHocStart() {
+    public void testMissingActiveTasksCollectionFailsAdHocStart() {
     try {
       runtimeService.startProcessInstanceByKey("adHocSubProcessBasic");
       fail("Expected BadUserRequestException");
     } catch (BadUserRequestException e) {
-      testRule.assertTextPresent("activeTasks must be provided for adHocSubProcess 'adHocSubProcess'", e.getMessage());
+            testRule.assertTextPresent(
+                    "activeTasksCollection extension property must be provided for adHocSubProcess 'adHocSubProcess'",
+                    e.getMessage());
     }
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testStarterActivitiesFlowToDownstreamTask.bpmn20.xml")
   @Test
   public void testStarterActivitiesFlowToDownstreamTask() {
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-        "adHocSubProcessWithDownstreamFlow",
-        Map.of("activeTasks", Arrays.asList("taskA", "taskB")));
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessWithDownstreamFlow");
 
     Task taskA = taskService.createTaskQuery()
         .processInstanceId(processInstance.getId())
@@ -154,25 +152,42 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
     assertNotNull(taskAfter);
   }
 
-  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testStarterActivitiesFlowToDownstreamTask.bpmn20.xml")
+    @Deployment
   @Test
-  public void testNonStarterActiveTasksFailAdHocStart() {
+    public void testNonStarterConfiguredTasksFailAdHocStart() {
     try {
-      runtimeService.startProcessInstanceByKey(
-          "adHocSubProcessWithDownstreamFlow",
-          Collections.singletonMap("activeTasks", Collections.singletonList("taskC")));
+            runtimeService.startProcessInstanceByKey("adHocSubProcessWithDownstreamFlow");
       fail("Expected BadUserRequestException");
     } catch (BadUserRequestException e) {
-      testRule.assertTextPresent("activeTasks contains non-startable activities in adHocSubProcess 'adHocSubProcess': [taskC]", e.getMessage());
+            testRule.assertTextPresent(
+                    "activeTasksCollection contains non-startable activities in adHocSubProcess 'adHocSubProcess': [taskC]",
+                    e.getMessage());
     }
   }
 
     @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testTriggerAdHocActivityWithUnknownActivityId.bpmn20.xml")
     @Test
+    public void testCamundaAliasActiveTasksCollectionStartsConfiguredTasks() {
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessBasic");
+
+        Task taskA = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .taskDefinitionKey("taskA")
+                .singleResult();
+
+        Task taskB = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .taskDefinitionKey("taskB")
+                .singleResult();
+
+        assertNotNull(taskA);
+        assertNull(taskB);
+    }
+
+    @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testTriggerAdHocActivityWithUnknownActivityId.bpmn20.xml")
+    @Test
     public void testTriggerAdHocActivityWithUnknownActivityId() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-                "adHocSubProcessBasic",
-                Collections.singletonMap("activeTasks", Collections.singletonList("taskA")));
+                ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessBasic");
 
         Execution adHocExecution = runtimeService.createExecutionQuery()
                 .processInstanceId(processInstance.getId())
@@ -208,9 +223,7 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
     @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testStarterActivitiesFlowToDownstreamTask.bpmn20.xml")
     @Test
     public void testTriggerAdHocActivityFailsForNonStarterActivity() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
-                "adHocSubProcessWithDownstreamFlow",
-                Collections.singletonMap("activeTasks", Collections.singletonList("taskA")));
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessWithDownstreamFlow");
 
         Execution adHocExecution = runtimeService.createExecutionQuery()
                 .processInstanceId(processInstance.getId())
@@ -230,9 +243,7 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
   public void testCompletionConditionCancelsRemainingActivities() {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
         "adHocSubProcessWithCompletionCondition",
-        Map.of(
-            "approved", false,
-            "activeTasks", Arrays.asList("taskA", "taskB")));
+                Collections.singletonMap("approved", false));
 
     Task taskA = taskService.createTaskQuery()
         .processInstanceId(processInstance.getId())
@@ -275,9 +286,7 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
   public void testCompletionConditionDefersUntilActiveActivitiesFinish() {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
         "adHocSubProcessWithDeferredCompletion",
-        Map.of(
-            "approved", false,
-            "activeTasks", Arrays.asList("taskA", "taskB")));
+                Collections.singletonMap("approved", false));
 
     Task taskA = taskService.createTaskQuery()
         .processInstanceId(processInstance.getId())
