@@ -1443,7 +1443,12 @@ public class TaskEntity extends AbstractVariableScope implements Task, DelegateT
         // initialize formKey
         Expression formKey = taskDefinition.getFormKey();
         if(formKey != null) {
-          this.formKey = (String) formKey.getValue(this);
+          try {
+            this.formKey = (String) formKey.getValue(this);
+          } catch (Exception e) {
+            LOG.logFormKeyExpressionEvaluationException(id, formKey.getExpressionText(), e);
+            this.formKey = null;
+          }
         } else {
           // initialize form reference
           Expression formRef = taskDefinition.getFluxnovaFormDefinitionKey();
