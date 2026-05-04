@@ -224,6 +224,7 @@ public class TaskRestServiceInteractionTest extends
     mockTask = MockProvider.createMockTask();
     mockQuery = mock(TaskQuery.class);
     when(mockQuery.initializeFormKeys()).thenReturn(mockQuery);
+    when(mockQuery.initializeFormKeys(anyBoolean())).thenReturn(mockQuery);
     when(mockQuery.taskId(any())).thenReturn(mockQuery);
     when(mockQuery.withCommentAttachmentInfo()).thenReturn(mockQuery);
     when(mockQuery.singleResult()).thenReturn(mockTask);
