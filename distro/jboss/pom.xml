@@ -13,6 +13,9 @@
   <packaging>pom</packaging>
 
   <name>Fluxnova Platform - JBoss</name>
+  <properties>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
   <dependencyManagement>
     <dependencies>
