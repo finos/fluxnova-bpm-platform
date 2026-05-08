@@ -295,7 +295,7 @@
           <systemPropertyVariables>
             <restEasyVersion>${version.resteasy}</restEasyVersion>
           </systemPropertyVariables>
-          <argLine>-Xmx2g</argLine>
+          <argLine>@{argLine} -Xmx2g</argLine>
         </configuration>
       </plugin>
 
@@ -392,7 +392,7 @@
                 </goals>
                 <configuration>
                   <!-- Ensures that endpoints work with other encodings than UTF-8 (cf. CAM-6983) -->
-                  <argLine>-Dfile.encoding=ISO-8859-1</argLine>
+                  <argLine>@{argLine} -Dfile.encoding=ISO-8859-1</argLine>
                   <includes>
                     <include>**/ProcessDefinitionRestServiceInteractionTest.java</include>
                     <include>**/TaskRestServiceInteractionTest.java</include>
@@ -490,7 +490,7 @@
                 </goals>
                 <configuration>
                   <!-- Ensures that endpoints work with other encodings than UTF-8 (cf. CAM-6983) -->
-                  <argLine>-Dfile.encoding=ISO-8859-1</argLine>
+                  <argLine>@{argLine} -Dfile.encoding=ISO-8859-1</argLine>
                   <includes>
                     <include>**/ProcessDefinitionRestServiceInteractionTest.java</include>
                     <include>**/TaskRestServiceInteractionTest.java</include>
@@ -593,7 +593,7 @@
                 </goals>
                 <configuration>
                   <!-- Ensures that endpoints work with other encodings than UTF-8 (cf. CAM-6983) -->
-                  <argLine>-Dfile.encoding=ISO-8859-1</argLine>
+                  <argLine>@{argLine} -Dfile.encoding=ISO-8859-1</argLine>
                   <includes>
                     <include>**/ProcessDefinitionRestServiceInteractionTest.java</include>
                     <include>**/TaskRestServiceInteractionTest.java</include>
