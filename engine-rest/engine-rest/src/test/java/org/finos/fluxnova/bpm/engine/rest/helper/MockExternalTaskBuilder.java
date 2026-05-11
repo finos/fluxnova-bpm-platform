@@ -39,6 +39,7 @@ public class MockExternalTaskBuilder {
   protected String executionId;
   protected String id;
   protected Date lockExpirationTime;
+  protected Date createTime;
   protected String processDefinitionId;
   protected String processDefinitionKey;
   protected String processDefinitionVersionTag;
@@ -79,6 +80,11 @@ public class MockExternalTaskBuilder {
 
   public MockExternalTaskBuilder lockExpirationTime(Date lockExpirationTime) {
     this.lockExpirationTime = lockExpirationTime;
+    return this;
+  }
+
+  public MockExternalTaskBuilder createTime(Date createTime) {
+    this.createTime = createTime;
     return this;
   }
 
@@ -151,6 +157,7 @@ public class MockExternalTaskBuilder {
     when(task.getId()).thenReturn(id);
     when(task.getLockExpirationTime()).thenReturn(lockExpirationTime);
     when(task.getProcessDefinitionId()).thenReturn(processDefinitionId);
+    when(task.getCreateTime()).thenReturn(createTime);
     when(task.getProcessDefinitionKey()).thenReturn(processDefinitionKey);
     when(task.getProcessDefinitionVersionTag()).thenReturn(processDefinitionVersionTag);
     when(task.getProcessInstanceId()).thenReturn(processInstanceId);
@@ -173,6 +180,7 @@ public class MockExternalTaskBuilder {
     when(task.getExecutionId()).thenReturn(executionId);
     when(task.getId()).thenReturn(id);
     when(task.getLockExpirationTime()).thenReturn(lockExpirationTime);
+    when(task.getCreateTime()).thenReturn(createTime);
     when(task.getProcessDefinitionId()).thenReturn(processDefinitionId);
     when(task.getProcessDefinitionKey()).thenReturn(processDefinitionKey);
     when(task.getProcessDefinitionVersionTag()).thenReturn(processDefinitionVersionTag);

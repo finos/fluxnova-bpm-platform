@@ -11,11 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.jar.JarFile;
 
 /**
  * Service class responsible for migrating Camunda projects to Fluxnova.
@@ -30,6 +33,10 @@ public class MigratorService {
     private final String projectLocation;
     private final String targetVersion;
     private final String modelerVersion;
+    private String[] recipeFiles;
+    private String[] recipeNames;
+    private static final String RECIPES_FOLDER = "recipes";
+    private static final String YML_EXTENSION = ".yml";
 
     /**
      * Constructs a new MigratorService with the specified project location.
@@ -103,10 +110,20 @@ public class MigratorService {
      * @throws IOException If there is an error writing files
      */
     private void prepare(String pomFile, Model model) throws IOException {
+        initializeRecipes();
         addPlugin(model);
         writeModelToPom(pomFile, model);
         copyRewriteYml();
         convertBpmnDmnFormToFileType(new File(projectLocation));
+    }
+
+    /**
+     * Initializes recipe files and names by reading from the recipes folder once.
+     */
+    private void initializeRecipes() throws IOException {
+        this.recipeFiles = loadRecipeFiles();
+        this.recipeNames = extractRecipeNames(this.recipeFiles);
+        LOG.info("Loaded {} recipe files", recipeFiles.length);
     }
 
     /**
@@ -140,14 +157,16 @@ public class MigratorService {
         Xpp3Dom configuration = new Xpp3Dom("configuration");
         Xpp3Dom activeRecipes = new Xpp3Dom("activeRecipes");
 
-        String[] recipes = {
-                "camundaToFluxnova", "formMigration"
-        };
-
-        for (String recipe : recipes) {
-            Xpp3Dom recipeNode = new Xpp3Dom("recipe");
-            recipeNode.setValue(recipe);
-            activeRecipes.addChild(recipeNode);
+        if (recipeNames.length > 0) {
+            LOG.info("Adding {} recipes to OpenRewrite plugin configuration", recipeNames.length);
+            for (String recipe : recipeNames) {
+                Xpp3Dom recipeNode = new Xpp3Dom("recipe");
+                recipeNode.setValue(recipe);
+                activeRecipes.addChild(recipeNode);
+                LOG.info("Added recipe: {}", recipe);
+            }
+        } else {
+            LOG.warn("No recipe names found");
         }
 
         configuration.addChild(activeRecipes);
@@ -159,29 +178,50 @@ public class MigratorService {
      * Copies the rewrite.yml file containing the migration recipe to the project directory.
      * This file defines the transformations that will be applied to the codebase.
      */
-    private void copyRewriteYml() {
-        String rewriteYmlFile = "rewrite.yml"; // the file inside src/main/resources
+    private void copyRewriteYml() throws IOException {
+        String rewriteYmlFile = "rewrite.yml";
         Path targetPath = Path.of(projectLocation + File.separator + rewriteYmlFile);
+        Files.createDirectories(targetPath.getParent());
 
-        try (InputStream inputStream = Migrator.class.getClassLoader().getResourceAsStream(rewriteYmlFile)) {
-            Files.createDirectories(targetPath.getParent()); // create target dir if not exists
-            assert inputStream != null;
+        StringBuilder mergedContent = new StringBuilder();
 
-            // Read the content as string
-            String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        // Step 1: Add main recipe definitions
+        try (InputStream is = Migrator.class.getClassLoader().getResourceAsStream(rewriteYmlFile)) {
+            if (is == null) {
+                throw new IOException("Main rewrite.yml not found in resources");
+            }
+            mergedContent.append(new String(is.readAllBytes(), StandardCharsets.UTF_8));
+            LOG.info("Loaded main rewrite.yml");
+        }
 
-            // Replace placeholders with actual values
-            String processedContent = content
+        // Step 2: Get recipe files and append them
+        for (String recipeFile : recipeFiles) {
+            String resourcePath = "recipes/" + recipeFile;
+            try (InputStream is = Migrator.class.getClassLoader().getResourceAsStream(resourcePath)) {
+                if (is != null) {
+                    mergedContent.append("\n");
+                    mergedContent.append(new String(is.readAllBytes(), StandardCharsets.UTF_8));
+                    LOG.info("Merged recipe: {}", recipeFile);
+                } else {
+                    LOG.warn("Recipe file not found: {}", resourcePath);
+                }
+            }
+        }
+
+        // Step 3: Replace placeholders
+        String processedContent = mergedContent.toString()
                 .replace("{{TARGET_VERSION}}", targetVersion)
                 .replace("{{MODELER_VERSION}}", modelerVersion);
 
-            // Write the processed content to target
-            Files.writeString(targetPath, processedContent, StandardCharsets.UTF_8);
-            System.out.println("Copied and processed rewrite.yml to " + targetPath);
+        // Step 4: Write merged file
+        Files.writeString(targetPath, processedContent, StandardCharsets.UTF_8);
+        LOG.info("Created merged rewrite.yml with {} recipes at: {}", recipeFiles.length, targetPath);
 
-        } catch (IOException e) {
-            LOG.error("Failed to copy and process rewrite.yml", e);
-            e.printStackTrace();
+        // Step 5: Log first few lines for verification
+        String[] lines = processedContent.split("\n");
+        LOG.info("First 10 lines of merged rewrite.yml:");
+        for (int i = 0; i < Math.min(10, lines.length); i++) {
+            LOG.info("  {}", lines[i]);
         }
     }
 
@@ -441,34 +481,110 @@ public class MigratorService {
      * @throws IOException If there is an error creating the directory structure or writing the file
      */
     void createMinimalPom(File pomFile) throws IOException {
-        String minimalPomContent = """
-        <?xml version="1.0" encoding="UTF-8"?>
-        <project xmlns="http://maven.apache.org/POM/4.0.0"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-            <modelVersion>4.0.0</modelVersion>
-            
-            <groupId>org.finos.fluxnova</groupId>
-            <artifactId>migration-temp</artifactId>
-            <version>1.0.0</version>
-            <packaging>pom</packaging>
-            
-            <name>Temporary Migration Project</name>
-            <description>Temporary project for OpenRewrite migration from Camunda to Fluxnova</description>            
-            <build>
-                <plugins>
-                    <!-- OpenRewrite plugin will be added by prepare() method -->
-                </plugins>
-            </build>
-        </project>
-        """;
+        String templateFile = "minimal-pom-template.xml";
 
         // Ensure parent directory exists
         pomFile.getParentFile().mkdirs();
 
-        try (FileWriter writer = new FileWriter(pomFile)) {
-            writer.write(minimalPomContent);
+        try (InputStream inputStream = Migrator.class.getClassLoader().getResourceAsStream(templateFile)) {
+            if (inputStream == null) {
+                throw new IOException("Template file not found: " + templateFile);
+            }
+
+            // Read the template content
+            String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+
+            // Write to target location
+            try (FileWriter writer = new FileWriter(pomFile)) {
+                writer.write(content);
+            }
+
+            LOG.info("Created minimal pom.xml from template at: {}", pomFile.getAbsolutePath());
         }
+    }
+
+    /**
+     * Loads recipe files from the recipes folder (called once).
+     */
+    private String[] loadRecipeFiles() throws IOException {
+        ClassLoader classLoader = Migrator.class.getClassLoader();
+
+        try {
+            URL recipesUrl = classLoader.getResource(RECIPES_FOLDER);
+            if (recipesUrl == null) {
+                LOG.warn("Recipes folder not found");
+                return new String[0];
+            }
+
+            String protocol = recipesUrl.getProtocol();
+
+            if ("jar".equals(protocol)) {
+                // Handle JAR file
+                return loadRecipesFromJar(recipesUrl);
+            } else if ("file".equals(protocol)) {
+                // Handle file system
+                return loadRecipesFromFileSystem(recipesUrl);
+            } else {
+                LOG.warn("Unsupported protocol: {}", protocol);
+                return new String[0];
+            }
+
+        } catch (IOException e) {
+            LOG.error("Error reading recipes from JAR", e);
+            return new String[0];
+        }
+    }
+
+    private String[] loadRecipesFromFileSystem(URL recipesUrl) {
+        try {
+            File recipesDir = new File(recipesUrl.toURI());
+            File[] files = recipesDir.listFiles((dir, name) -> name.endsWith(YML_EXTENSION));
+
+            if (files == null) {
+                LOG.warn("No files found in recipes directory");
+                return new String[0];
+            }
+
+            return Arrays.stream(files)
+                    .map(File::getName)
+                    .sorted()
+                    .toArray(String[]::new);
+        } catch (URISyntaxException e) {
+            LOG.error("Invalid URI for recipes folder", e);
+            return new String[0];
+        }
+    }
+
+    private String[] loadRecipesFromJar(URL recipesUrl) throws IOException {
+        List<String> recipeFiles = new ArrayList<>();
+
+        String jarPath = recipesUrl.getPath();
+        String jarFilePath = jarPath.substring(5, jarPath.indexOf("!"));
+        String recipesPath = jarPath.substring(jarPath.indexOf("!") + 2);
+
+        try (JarFile jarFile = new JarFile(URLDecoder.decode(jarFilePath, StandardCharsets.UTF_8))) {
+            String pathPrefix = recipesPath.endsWith("/") ? recipesPath : recipesPath + "/";
+
+            jarFile.stream()
+                    .filter(entry -> !entry.isDirectory())
+                    .filter(entry -> entry.getName().startsWith(pathPrefix))
+                    .map(entry -> entry.getName().substring(pathPrefix.length()))
+                    .sorted()
+                    .forEach(recipeFiles::add);
+        }
+        return recipeFiles.toArray(new String[0]);
+    }
+
+    /**
+     * Extracts recipe names from filenames.
+     * Example: "01_mavenProperties.yml" -> "mavenProperties"
+     */
+    private String[] extractRecipeNames(String[] files) {
+        return Arrays.stream(files)
+                .map(filename -> {
+                    String nameWithoutExtension = filename.replace(".yml", "");
+                    return nameWithoutExtension.replaceFirst("^\\d+_", "");
+                })
+                .toArray(String[]::new);
     }
 }

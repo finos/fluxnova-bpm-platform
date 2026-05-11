@@ -17,10 +17,19 @@
 package org.finos.fluxnova.bpm.engine.rest;
 
 import static io.restassured.RestAssured.given;
+import static org.finos.fluxnova.bpm.engine.rest.dto.MultiStatusResponseCode.MULTI_STATUS_CODE;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.ANOTHER_EXAMPLE_JOB_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_JOB_ID;
+import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.NON_EXISTING_JOB_ID;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.everyItem;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -37,7 +46,9 @@ import static org.mockito.Mockito.when;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -55,10 +66,14 @@ import org.finos.fluxnova.bpm.engine.management.SetJobRetriesBuilder;
 import org.finos.fluxnova.bpm.engine.management.SetJobRetriesByJobsAsyncBuilder;
 import org.finos.fluxnova.bpm.engine.management.UpdateJobSuspensionStateSelectBuilder;
 import org.finos.fluxnova.bpm.engine.management.UpdateJobSuspensionStateTenantBuilder;
+import org.finos.fluxnova.bpm.engine.rest.dto.JobDeletionResponse;
+import org.finos.fluxnova.bpm.engine.rest.dto.JobSuspensionResponse;
+import org.finos.fluxnova.bpm.engine.rest.dto.ResponseStatus;
 import org.finos.fluxnova.bpm.engine.rest.dto.batch.BatchDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.history.HistoricProcessInstanceQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobSuspensionStateDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.JobActivateSuspendDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockJobBuilder;
@@ -67,6 +82,7 @@ import org.finos.fluxnova.bpm.engine.rest.util.JsonPathUtil;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -90,6 +106,7 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
   protected static final String JOB_RESOURCE_RECALC_DUEDATE_URL = JOB_RESOURCE_SET_DUEDATE_URL + "/recalculate";
   protected static final String SINGLE_JOB_SUSPENDED_URL = SINGLE_JOB_RESOURCE_URL + "/suspended";
   protected static final String JOB_SUSPENDED_URL = JOB_RESOURCE_URL + "/suspended";
+  protected static final String JOB_DELETION_URL = JOB_RESOURCE_URL + "/delete";
 
   private ProcessEngine namedProcessEngine;
   private ManagementService mockManagementService;
@@ -122,6 +139,7 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
 
     when(mockQuery.singleResult()).thenReturn(mockedJob);
     when(mockQuery.jobId(MockProvider.EXAMPLE_JOB_ID)).thenReturn(mockQuery);
+    when(mockQuery.jobId(MockProvider.ANOTHER_EXAMPLE_JOB_ID)).thenReturn(mockQuery);
 
     mockManagementService = mock(ManagementService.class);
     when(mockManagementService.createJobQuery()).thenReturn(mockQuery);
@@ -1802,6 +1820,326 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
 
     verify(mockManagementService).recalculateJobDuedate(jobId, true);
     verifyNoMoreInteractions(mockManagementService);
+  }
+
+  @Test
+  public void testActivateJobList() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("suspended", false);
+    suspendDtoJson.put("jobIds", List.of(MockProvider.EXAMPLE_JOB_ID, MockProvider.ANOTHER_EXAMPLE_JOB_ID));
+
+    Response restResponse =
+    given().contentType(ContentType.JSON).body(suspendDtoJson)
+            .then()
+            .expect().statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(JOB_SUSPENDED_URL);
+
+    List<JobSuspensionResponse> jobSuspensionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobSuspensionResponse.class);
+
+    assertThat(jobSuspensionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(jobSuspensionResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(jobSuspensionResponses, hasItem(hasProperty("jobId", equalTo(EXAMPLE_JOB_ID))));
+
+    verify(mockSuspensionStateSelectBuilder, times(2)).byJobId(MockProvider.EXAMPLE_JOB_ID);
+    verify(mockSuspensionStateBuilder, times(2)).activate();
+  }
+
+  @Test
+  public void testSuspendJobList() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("suspended", true);
+    suspendDtoJson.put("jobIds", List.of(MockProvider.EXAMPLE_JOB_ID, MockProvider.ANOTHER_EXAMPLE_JOB_ID));
+
+    Response restResponse =
+    given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect().statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(JOB_SUSPENDED_URL);
+
+    List<JobSuspensionResponse> jobSuspensionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobSuspensionResponse.class);
+
+    assertThat(jobSuspensionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(jobSuspensionResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    verify(mockSuspensionStateSelectBuilder, times(2)).byJobId(MockProvider.EXAMPLE_JOB_ID);
+    verify(mockSuspensionStateBuilder, times(2)).suspend();
+  }
+
+  @Test
+  public void testSuspendJobListThrowsErrorOnNullInput() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("suspended", true);
+    suspendDtoJson.put("jobIds", null);
+
+    given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo("Please supply valid job ids as input."))
+            .when()
+            .post(JOB_SUSPENDED_URL);
+  }
+
+  @Test
+  public void testSuspendJobListThrowsErrorOnEmptyListInput() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("suspended", true);
+    suspendDtoJson.put("jobIds", new ArrayList<>());
+
+    given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo("Please supply valid job ids as input."))
+            .when()
+            .post(JOB_SUSPENDED_URL);
+  }
+
+  @Test
+  public void testActivateJobListThrowsErrorOnEmptyListInput() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("suspended", false);
+    suspendDtoJson.put("jobIds", new ArrayList<>());
+
+    given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo("Please supply valid job ids as input."))
+            .when()
+            .post(JOB_SUSPENDED_URL);
+  }
+
+  @Test
+  public void testSuspendJobListThrowsErrorOnHigherInputsThanThreshold() {
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    int greaterThanMaxAllowedJobsCount = MockProvider.MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION + 1;
+    List<String> badListWithMoreJobsThanLimit = new ArrayList<>(
+            Collections.nCopies(greaterThanMaxAllowedJobsCount, MockProvider.EXAMPLE_JOB_ID));
+    messageBodyJson.put("jobIds", badListWithMoreJobsThanLimit);
+    messageBodyJson.put("suspended", true);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo(
+                    "Input request exceeds the limit of " + MockProvider.MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION + "."))
+            .when()
+            .post(JOB_SUSPENDED_URL);
+  }
+
+  @Test
+  public void testDeleteJobList() {
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("jobIds", List.of(EXAMPLE_JOB_ID, MockProvider.ANOTHER_EXAMPLE_JOB_ID));
+
+    Response restResponse = given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect()
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(JOB_DELETION_URL);
+
+    List<JobDeletionResponse> jobDeletionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobDeletionResponse.class);
+
+    assertThat(jobDeletionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(jobDeletionResponses, everyItem(hasProperty("errorMessage", equalTo(null))));
+
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(EXAMPLE_JOB_ID))));
+
+    verify(mockManagementService).deleteJob(EXAMPLE_JOB_ID);
+    verify(mockManagementService).deleteJob(MockProvider.ANOTHER_EXAMPLE_JOB_ID);
+  }
+
+  @Test
+  public void testDeleteJobListPartialSuccess() {
+    String expectedMessage = "No job found with id '" + NON_EXISTING_JOB_ID + "'.";
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("jobIds", List.of(NON_EXISTING_JOB_ID, ANOTHER_EXAMPLE_JOB_ID));
+
+    doThrow(new NullValueException(expectedMessage)).when(mockManagementService)
+            .deleteJob(MockProvider.NON_EXISTING_JOB_ID);
+
+    Response restResponse = given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect().statusCode(MULTI_STATUS_CODE)
+            .when()
+            .post(JOB_DELETION_URL);
+
+    List<JobDeletionResponse> jobDeletionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobDeletionResponse.class);
+
+    assertThat(jobDeletionResponses, hasItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("errorMessage", equalTo(null))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("errorMessage", equalTo(expectedMessage))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(ANOTHER_EXAMPLE_JOB_ID))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(NON_EXISTING_JOB_ID))));
+
+    verify(mockManagementService).deleteJob(NON_EXISTING_JOB_ID);
+    verify(mockManagementService).deleteJob(MockProvider.ANOTHER_EXAMPLE_JOB_ID);
+  }
+
+  @Test
+  public void testDeleteNotExistingJobList() {
+    String expectedMessage = "No job found with id '" + NON_EXISTING_JOB_ID + "'.";
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    suspendDtoJson.put("jobIds", List.of(NON_EXISTING_JOB_ID, MockProvider.ANOTHER_EXAMPLE_JOB_ID));
+
+    doThrow(new NullValueException(expectedMessage)).when(mockManagementService).deleteJob(NON_EXISTING_JOB_ID);
+    doThrow(new NullValueException(expectedMessage)).when(mockManagementService)
+            .deleteJob(MockProvider.ANOTHER_EXAMPLE_JOB_ID);
+
+    Response restResponse = given().contentType(ContentType.JSON)
+            .body(suspendDtoJson).then().expect().statusCode(MULTI_STATUS_CODE)
+            .when()
+            .post(JOB_DELETION_URL);
+
+    List<JobDeletionResponse> jobDeletionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobDeletionResponse.class);
+
+    assertThat(jobDeletionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(NON_EXISTING_JOB_ID))));
+    assertThat(jobDeletionResponses, everyItem(hasProperty("errorMessage", containsString(expectedMessage))));
+
+    verify(mockManagementService).deleteJob(NON_EXISTING_JOB_ID);
+    verify(mockManagementService).deleteJob(MockProvider.ANOTHER_EXAMPLE_JOB_ID);
+  }
+
+  @Test
+  public void testDeleteLockedJobList() {
+    String expectedMessage = "Cannot delete job when the job is being executed. Try again later.";
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    String jobId = EXAMPLE_JOB_ID;
+    String anotherJobId = MockProvider.ANOTHER_EXAMPLE_JOB_ID;
+    suspendDtoJson.put("jobIds", List.of(anotherJobId, jobId));
+    doThrow(new ProcessEngineException(expectedMessage)).when(mockManagementService).deleteJob(jobId);
+    doThrow(new ProcessEngineException(expectedMessage)).when(mockManagementService).deleteJob(anotherJobId);
+    Response restResponse = given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then().expect().statusCode(MULTI_STATUS_CODE)
+            .when()
+            .post(JOB_DELETION_URL);
+
+    List<JobDeletionResponse> jobDeletionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobDeletionResponse.class);
+
+    assertThat(jobDeletionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(MockProvider.EXAMPLE_JOB_ID))));
+    assertThat(jobDeletionResponses, everyItem(hasProperty("errorMessage", containsString(expectedMessage))));
+
+    verify(mockManagementService).deleteJob(anotherJobId);
+    verify(mockManagementService).deleteJob(jobId);
+  }
+
+  @Test
+  public void testDeleteJobListThrowAuthorizationException() {
+    String expectedMessage = "Missing permissions";
+    Map<String, Object> suspendDtoJson = new HashMap<>();
+    String jobId = EXAMPLE_JOB_ID;
+    String anotherJobId = MockProvider.ANOTHER_EXAMPLE_JOB_ID;
+    suspendDtoJson.put("jobIds", List.of(anotherJobId, jobId));
+    doThrow(new AuthorizationException(expectedMessage)).when(mockManagementService).deleteJob(jobId);
+    doThrow(new AuthorizationException(expectedMessage)).when(mockManagementService).deleteJob(anotherJobId);
+    Response restResponse = given().contentType(ContentType.JSON)
+            .body(suspendDtoJson)
+            .then()
+            .expect()
+            .statusCode(MULTI_STATUS_CODE)
+            .when()
+            .post(JOB_DELETION_URL);
+
+    List<JobDeletionResponse> jobDeletionResponses = restResponse.getBody()
+            .jsonPath()
+            .getList("", JobDeletionResponse.class);
+
+    assertThat(jobDeletionResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(jobDeletionResponses, hasItem(hasProperty("jobId", equalTo(MockProvider.EXAMPLE_JOB_ID))));
+    assertThat(jobDeletionResponses, everyItem(hasProperty("errorMessage", containsString(expectedMessage))));
+
+    verify(mockManagementService).deleteJob(anotherJobId);
+    verify(mockManagementService).deleteJob(jobId);
+  }
+
+  @Test
+  public void testDeleteJobListThrowsErrorOnHigherInputsThanThreshold() {
+    Map<String, Object> deleteJson = new HashMap<>();
+    int greaterThanMaxAllowedJobsCount = MockProvider.MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION + 1;
+    List<String> badListWithMoreJobsThanLimit = new ArrayList<>(
+            Collections.nCopies(greaterThanMaxAllowedJobsCount, EXAMPLE_JOB_ID));
+    deleteJson.put("jobIds", badListWithMoreJobsThanLimit);
+    given().contentType(ContentType.JSON)
+            .body(deleteJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo(
+                    "Input request exceeds the limit of " + MockProvider.MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION + "."))
+            .when()
+            .post(JOB_DELETION_URL);
+  }
+
+  @Test
+  public void testDeleteJobListThrowsErrorOnEmptyListInput() {
+    Map<String, Object> deleteJson = new HashMap<>();
+    deleteJson.put("jobIds", new ArrayList<>());
+
+    given().contentType(ContentType.JSON)
+            .body(deleteJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo("Please supply valid job ids as input."))
+            .when()
+            .post(JOB_DELETION_URL);
+  }
+
+  @Test
+  public void testDeleteJobListThrowsErrorOnNullInput() {
+    Map<String, Object> deleteJson = new HashMap<>();
+    deleteJson.put("jobIds", null);
+
+    given().contentType(ContentType.JSON)
+            .body(deleteJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo("Please supply valid job ids as input."))
+            .when()
+            .post(JOB_DELETION_URL);
   }
 
   protected void verifyBatchJson(String batchJson) {

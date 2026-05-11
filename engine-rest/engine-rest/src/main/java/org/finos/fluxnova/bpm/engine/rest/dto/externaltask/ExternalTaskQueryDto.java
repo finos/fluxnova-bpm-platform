@@ -23,15 +23,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.externaltask.ExternalTaskQuery;
 import org.finos.fluxnova.bpm.engine.rest.dto.AbstractQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.FluxnovaQueryParam;
-import org.finos.fluxnova.bpm.engine.rest.dto.converter.BooleanConverter;
-import org.finos.fluxnova.bpm.engine.rest.dto.converter.DateConverter;
-import org.finos.fluxnova.bpm.engine.rest.dto.converter.LongConverter;
-import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringListConverter;
-import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringSetConverter;
+import org.finos.fluxnova.bpm.engine.rest.dto.VariableQueryParameterDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.converter.*;
+import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
 /**
  * @author Thorben Lindhauer
@@ -62,7 +62,11 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
   protected String executionId;
   protected String processInstanceId;
   protected List<String> processInstanceIdIn;
+  protected String processDefinitionKey;
+  protected String[] processDefinitionKeyIn;
   protected String processDefinitionId;
+  protected String processDefinitionName;
+  protected String processDefinitionNameLike;
   protected Boolean active;
   protected Boolean suspended;
   protected Boolean withRetriesLeft;
@@ -71,6 +75,10 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
   protected List<String> tenantIds;
   protected Long priorityHigherThanOrEquals;
   protected Long priorityLowerThanOrEquals;
+  protected Boolean variableNamesIgnoreCase;
+  protected Boolean variableValuesIgnoreCase;
+
+  private List<VariableQueryParameterDto> processVariables;
 
   public ExternalTaskQueryDto() {
   }
@@ -143,9 +151,29 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
     return processDefinitionId;
   }
 
+  @FluxnovaQueryParam("processDefinitionKey")
+  public void setProcessDefinitionKey(String processDefinitionKey) {
+    this.processDefinitionKey = processDefinitionKey;
+  }
+
+  @FluxnovaQueryParam(value = "processDefinitionKeyIn", converter = StringArrayConverter.class)
+  public void setProcessDefinitionKeyIn(String[] processDefinitionKeyIn) {
+    this.processDefinitionKeyIn = processDefinitionKeyIn;
+  }
+
   @FluxnovaQueryParam("processDefinitionId")
   public void setProcessDefinitionId(String processDefinitionId) {
     this.processDefinitionId = processDefinitionId;
+  }
+
+  @FluxnovaQueryParam("processDefinitionName")
+  public void setProcessDefinitionName(String processDefinitionName) {
+    this.processDefinitionName = processDefinitionName;
+  }
+
+  @FluxnovaQueryParam("processDefinitionNameLike")
+  public void setProcessDefinitionNameLike(String processDefinitionNameLike) {
+    this.processDefinitionNameLike = processDefinitionNameLike;
   }
 
   @FluxnovaQueryParam(value = "active", converter = BooleanConverter.class)
@@ -177,9 +205,25 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
   public void setTenantIdIn(List<String> tenantIds) {
     this.tenantIds = tenantIds;
   }
+
   @FluxnovaQueryParam(value="priorityHigherThanOrEquals", converter = LongConverter.class)
   public void setPriorityHigherThanOrEquals(Long priorityHigherThanOrEquals) {
     this.priorityHigherThanOrEquals = priorityHigherThanOrEquals;
+  }
+
+  @FluxnovaQueryParam(value = "variableNamesIgnoreCase", converter = BooleanConverter.class)
+  public void setVariableNamesIgnoreCase(Boolean variableNamesCaseInsensitive) {
+    this.variableNamesIgnoreCase = variableNamesCaseInsensitive;
+  }
+
+  @FluxnovaQueryParam(value ="variableValuesIgnoreCase", converter = BooleanConverter.class)
+  public void setVariableValuesIgnoreCase(Boolean variableValuesCaseInsensitive) {
+    this.variableValuesIgnoreCase = variableValuesCaseInsensitive;
+  }
+
+  @FluxnovaQueryParam(value = "processVariables", converter = VariableListConverter.class)
+  public void setProcessVariables(List<VariableQueryParameterDto> processVariables) {
+    this.processVariables = processVariables;
   }
 
   @FluxnovaQueryParam(value="priorityLowerThanOrEquals", converter = LongConverter.class)
@@ -235,8 +279,20 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
     if (processInstanceIdIn != null && !processInstanceIdIn.isEmpty()) {
       query.processInstanceIdIn(processInstanceIdIn.toArray(new String[0]));
     }
+    if (processDefinitionKey != null) {
+      query.processDefinitionKey(processDefinitionKey);
+    }
+    if (processDefinitionKeyIn != null && processDefinitionKeyIn.length > 0) {
+      query.processDefinitionKeyIn(processDefinitionKeyIn);
+    }
     if (processDefinitionId != null) {
       query.processDefinitionId(processDefinitionId);
+    }
+    if (processDefinitionName != null) {
+      query.processDefinitionName(processDefinitionName);
+    }
+    if (processDefinitionNameLike != null) {
+      query.processDefinitionNameLike(processDefinitionNameLike);
     }
     if (active != null && active) {
       query.active();
@@ -255,6 +311,38 @@ public class ExternalTaskQueryDto extends AbstractQueryDto<ExternalTaskQuery> {
     }
     if (noRetriesLeft != null && noRetriesLeft) {
       query.noRetriesLeft();
+    }
+    if(variableValuesIgnoreCase != null && variableValuesIgnoreCase) {
+      query.matchVariableValuesIgnoreCase();
+    }
+    if(variableNamesIgnoreCase != null && variableNamesIgnoreCase) {
+      query.matchVariableNamesIgnoreCase();
+    }
+    if (processVariables != null) {
+      for (VariableQueryParameterDto variableQueryParam : processVariables) {
+        String variableName = variableQueryParam.getName();
+        String op = variableQueryParam.getOperator();
+        Object variableValue = variableQueryParam.resolveValue(objectMapper);
+        if (op.equals(VariableQueryParameterDto.EQUALS_OPERATOR_NAME)) {
+          query.processVariableValueEquals(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.NOT_EQUALS_OPERATOR_NAME)) {
+          query.processVariableValueNotEquals(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.GREATER_THAN_OPERATOR_NAME)) {
+          query.processVariableValueGreaterThan(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.GREATER_THAN_OR_EQUALS_OPERATOR_NAME)) {
+          query.processVariableValueGreaterThanOrEquals(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.LESS_THAN_OPERATOR_NAME)) {
+          query.processVariableValueLessThan(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.LESS_THAN_OR_EQUALS_OPERATOR_NAME)) {
+          query.processVariableValueLessThanOrEquals(variableName, variableValue);
+        } else if (op.equals(VariableQueryParameterDto.LIKE_OPERATOR_NAME)) {
+          query.processVariableValueLike(variableName, String.valueOf(variableValue));
+        } else if (op.equals(VariableQueryParameterDto.NOT_LIKE_OPERATOR_NAME)) {
+          query.processVariableValueNotLike(variableName, String.valueOf(variableValue));
+        } else {
+          throw new InvalidRequestException(Response.Status.BAD_REQUEST, "Invalid process variable comparator specified: " + op);
+        }
+      }
     }
     if (workerId != null) {
       query.workerId(workerId);

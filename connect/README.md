@@ -12,10 +12,10 @@ fluxnova-connect   ** Needs To Be Reviewed **
 
 Simple API for connecting HTTP Services and other things.
 
-# List of connectors
+# List of Connectors
 
-* HTTP Connector
-* SOAP HTTP Connector
+* HTTP Connector (using Apache HttpClient 5.x)
+* SOAP HTTP Connector (using Apache HttpClient 5.x)
 
 # Using a Connector
 
@@ -27,10 +27,7 @@ process engine and standalone usage via API. Please see the [official documentat
 Have a look at our [contribution guide](https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md) for how to contribute to this repository.
 
 
-# License:
+# License
 
 The source files in this repository are made available under the <a href="../LICENSE">Apache License, Version 2.0</a>.
 
-
-
-[CONTRIBUTING.md]: https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md

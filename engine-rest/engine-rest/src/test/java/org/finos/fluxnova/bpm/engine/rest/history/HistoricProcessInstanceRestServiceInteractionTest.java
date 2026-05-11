@@ -44,6 +44,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashSet;
 import javax.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -554,6 +555,8 @@ public class HistoricProcessInstanceRestServiceInteractionTest extends AbstractR
 
     String payload = "{ \"orQueries\": [{" +
         "\"processDefinitionKey\": \"aKey\", " +
+        "\"completed\": \"true\", " +
+        "\"active\": \"true\", " +
         "\"processInstanceBusinessKey\": \"aBusinessKey\"}] }";
 
     // when
@@ -574,6 +577,7 @@ public class HistoricProcessInstanceRestServiceInteractionTest extends AbstractR
     // then
     assertThat(argument.getValue().getProcessDefinitionKey()).isEqualTo("aKey");
     assertThat(argument.getValue().getBusinessKey()).isEqualTo("aBusinessKey");
+    // assertThat(argument.getValue().getState()).isEqualTo(new HashSet<>(Arrays.asList("COMPLETED", "ACTIVE")));
   }
 
   protected void verifyBatchJson(String batchJson) {

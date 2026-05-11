@@ -1016,6 +1016,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected String loggingContextProcessInstanceId = "processInstanceId";
   protected String loggingContextTenantId = "tenantId";
   protected String loggingContextEngineName = "engineName";
+  protected String loggingContextRootProcessInstanceId = "rootProcessInstanceId";
 
   // logging levels (with default values)
   protected String logLevelBpmnStackTrace = "DEBUG";
@@ -1059,6 +1060,12 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
    * Size of batch in which removal time data will be updated. {@link ProcessSetRemovalTimeJobHandler#MAX_CHUNK_SIZE} must be respected.
    */
   protected int removalTimeUpdateChunkSize = 500;
+
+  /**
+   * This legacy behavior sets the retry counter to 3 in the context when running a the job for the first time.
+   * This has been patched up to fetch the correct counter value.
+   */
+  protected boolean legacyJobRetryBehaviorEnabled = false;
 
   /**
    * @return {@code true} if the exception code feature is disabled and vice-versa.
@@ -1890,6 +1897,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       properties.put("dbSpecificIfNullFunction", DbSqlSessionFactory.databaseSpecificIfNull.get(databaseType));
 
       properties.put("dayComparator", DbSqlSessionFactory.databaseSpecificDaysComparator.get(databaseType));
+
+      properties.put("coalesceForEndDate", DbSqlSessionFactory.databaseSpecificCoalesceForEndDate.get(databaseType));
 
       properties.put("collationForCaseSensitivity", DbSqlSessionFactory.databaseSpecificCollationForCaseSensitivity.get(databaseType));
 
@@ -5207,6 +5216,15 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     this.loggingContextEngineName = loggingContextEngineName;
     return this;
   }
+  
+  public String getLoggingContextRootProcessInstanceId() {
+    return loggingContextRootProcessInstanceId;
+  }
+
+  public ProcessEngineConfigurationImpl setLoggingContextRootProcessInstanceId(String loggingContextRootProcessInstanceId) {
+    this.loggingContextRootProcessInstanceId = loggingContextRootProcessInstanceId;
+    return this;
+  }
 
   public String getLogLevelBpmnStackTrace() {
     return logLevelBpmnStackTrace;
@@ -5301,6 +5319,15 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public ProcessEngineConfiguration setDiagnosticsRegistry(DiagnosticsRegistry diagnosticsRegistry) {
     this.diagnosticsRegistry = diagnosticsRegistry;
+    return this;
+  }
+
+  public boolean isLegacyJobRetryBehaviorEnabled() {
+    return legacyJobRetryBehaviorEnabled;
+  }
+
+  public ProcessEngineConfiguration setLegacyJobRetryBehaviorEnabled(boolean legacyJobRetryBehaviorEnabled) {
+    this.legacyJobRetryBehaviorEnabled = legacyJobRetryBehaviorEnabled;
     return this;
   }
 }

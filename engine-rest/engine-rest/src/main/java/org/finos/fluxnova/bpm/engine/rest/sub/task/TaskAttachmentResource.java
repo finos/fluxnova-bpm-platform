@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.task;
 
+import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.task.AttachmentDto;
 import org.finos.fluxnova.bpm.engine.rest.mapper.MultipartFormData;
 
@@ -41,6 +42,11 @@ public interface TaskAttachmentResource {
   @Path("/{attachmentId}/data")
   @Produces(MediaType.APPLICATION_OCTET_STREAM)
   InputStream getAttachmentData(@PathParam("attachmentId") String attachmentId);
+
+  @GET
+  @Path("/count")
+  @Produces(MediaType.APPLICATION_JSON)
+  CountResultDto getAttachmentsCount();
 
   @DELETE
   @Path("/{attachmentId}")

@@ -9,7 +9,7 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <dependencyManagement>
@@ -173,7 +173,7 @@
 
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>catalina</artifactId>
+      <artifactId>tomcat-catalina</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -194,6 +194,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.cronutils</groupId>
+      <artifactId>cron-utils</artifactId>
+      <version>${version.cronutils}</version>
     </dependency>
 
     <!-- test dependencies  -->
@@ -497,6 +503,10 @@
               <pattern>com.google.gson</pattern>
               <shadedPattern>fluxnovajar.impl.com.google.gson</shadedPattern>
             </relocation>
+            <relocation>
+              <pattern>com.cronutils</pattern>
+              <shadedPattern>fluxnovajar.impl.com.cronutils</shadedPattern>
+            </relocation>
           </relocations>
           <transformers>
             <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
@@ -570,16 +580,14 @@
       <id>distro</id>
       <build>
         <plugins>
+          <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>attach-sources</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
+                <id>release-attach-sources</id>
+                <phase>none</phase>
               </execution>
             </executions>
           </plugin>

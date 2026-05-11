@@ -1,0 +1,25 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: metaInfServicesMigration
+displayName: META-INF Services Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)\.camunda\.([a-zA-Z0-9_.]+)
+      replace: $1.fluxnova.$2
+      regex: true
+      filePattern: "**/META-INF/**"
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)Camunda([A-Z][a-zA-Z0-9]*)\b
+      replace: $1Fluxnova$2
+      regex: true
+      caseSensitive: true
+      filePattern: "**/META-INF/**"
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)\.Camunda([A-Z][a-zA-Z0-9]*)\b
+      replace: Fluxnova$1
+      regex: true
+      caseSensitive: true
+      filePattern: "**/META-INF/**"
+  - org.openrewrite.RenameFile:
+      fileMatcher: "**/META-INF/services/org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin"
+      fileName: "org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin"

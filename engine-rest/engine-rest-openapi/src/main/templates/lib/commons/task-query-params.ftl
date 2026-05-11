@@ -26,8 +26,8 @@
   <@lib.parameter name = "processInstanceBusinessKeyExpression"
       location = "query"
       type = "string"
-      desc = "Restrict to tasks that belong to process instances with the given business key which 
-              is described by an expression. See the 
+      desc = "Restrict to tasks that belong to process instances with the given business key which
+              is described by an expression. See the
               [user guide](${docsUrl}/user-guide/process-engine/expression-language/#internal-context-functions)
               for more information on available functions." />
 
@@ -270,6 +270,12 @@
       location = "query"
       type = "string"
       desc = "Restrict to tasks that have one of the given keys. The keys need to be in a
+              comma-separated list." />
+
+  <@lib.parameter name = "taskDefinitionKeyNotIn"
+      location = "query"
+      type = "string"
+      desc = "Exclude instances by a list of task definition keys. The keys need to be in a
               comma-separated list." />
 
   <@lib.parameter name = "taskDefinitionKeyLike"
@@ -668,9 +674,24 @@
       location = "query"
       type = "boolean"
       defaultValue = "false"
-      last = last
       desc = "Check if task has attachments and/or comments. Value may only be `true`, as
              `false` is the default behavior.
              Adding the filter will do additional attachment and comments queries to the database,
              it might slow down the query in case of tables having high volume of data.
              This param is not considered for count queries" />
+
+  <@lib.parameter name = "withTaskVariablesInReturn"
+      location = "query"
+      type = "boolean"
+      defaultValue = "false"
+      desc = "Indicates if all the variables visible from task should be retrieved. A variable is visible from the task
+              if it is a local task variable or declared in a parent scope of the task. Value may only be `true`, as
+              `false` is the default behavior." />
+
+  <@lib.parameter name = "withTaskLocalVariablesInReturn"
+      location = "query"
+      type = "boolean"
+      defaultValue = "false"
+      last = last
+      desc = "Indicates if all the local variables visible from task should be retrieved. Value may only be `true`, as
+             `false` is the default behavior." />

@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.concurrency;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 
@@ -155,6 +156,15 @@ public class ConcurrentVariableUpdateTest {
 
     assertNull(thread1.optimisticLockingException);
     assertNotNull(thread2.optimisticLockingException);
+    String msg = thread2.optimisticLockingException.getMessage();
+    assertTrue(msg.contains("Entity was updated by another transaction concurrently."));
+    assertTrue(msg.contains("TenantId:"));
+    assertTrue(msg.contains("ProcessDefinitionId:"));
+    assertTrue(msg.contains("ProcessInstanceId:"));
+    assertTrue(msg.contains("ExecutionId:"));
+    assertTrue(msg.contains("ActivityId:"));
+    assertTrue(msg.contains("ActivityName:"));
+    assertTrue(msg.contains("JobId:"));
 
     // succeeds
     taskService.complete(taskId);
@@ -184,6 +194,15 @@ public class ConcurrentVariableUpdateTest {
 
     assertNull(thread1.optimisticLockingException);
     assertNotNull(thread2.optimisticLockingException);
+    String msg = thread2.optimisticLockingException.getMessage();
+    assertTrue(msg.contains("Entity was updated by another transaction concurrently."));
+    assertTrue(msg.contains("TenantId:"));
+    assertTrue(msg.contains("ProcessDefinitionId:"));
+    assertTrue(msg.contains("ProcessInstanceId:"));
+    assertTrue(msg.contains("ExecutionId:"));
+    assertTrue(msg.contains("ActivityId:"));
+    assertTrue(msg.contains("ActivityName:"));
+    assertTrue(msg.contains("JobId:"));
 
     // succeeds
     taskService.complete(taskId);

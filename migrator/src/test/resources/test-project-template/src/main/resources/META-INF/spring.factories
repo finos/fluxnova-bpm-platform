@@ -1,0 +1,31 @@
+# Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\\
+org.camunda.bpm.spring.boot.starter.CamundaBpmAutoConfiguration,\\
+org.camunda.bpm.spring.boot.starter.rest.CamundaBpmRestAutoConfiguration,\\
+org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration
+
+# Application Listeners
+org.springframework.context.ApplicationListener=\\
+com.example.bpm.listener.CustomApplicationListener,\\
+org.camunda.bpm.engine.spring.application.SpringProcessApplicationEventListener,\\
+org.camunda.bpm.spring.boot.starter.event.ProcessApplicationEventPublisher
+
+# Process Engine Plugins
+org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin=\\
+org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin,\\
+org.camunda.spin.plugin.impl.SpinProcessEnginePlugin,\\
+org.camunda.connect.plugin.impl.ConnectProcessEnginePlugin
+
+# Initializers
+org.springframework.context.ApplicationContextInitializer=\\
+org.camunda.bpm.spring.boot.starter.configuration.CamundaBpmConfiguration
+
+# Failure Analyzers
+org.springframework.boot.diagnostics.FailureAnalyzer=\\
+org.camunda.bpm.spring.boot.starter.util.CamundaBpmFailureAnalyzer
+
+# Property Sources
+org.springframework.boot.env.PropertySourceLoader=\\
+org.camunda.bpm.spring.boot.starter.property.CamundaBpmPropertySourceLoader
+
+

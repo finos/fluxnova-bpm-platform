@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration Form</title>
+    <script src="https://unpkg.com/camunda-bpm-sdk-js/dist/camunda-bpm-sdk.js"></script>
+    <style>
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea, select { width: 100%; padding: 8px; }
+    </style>
+</head>
+<body>
+<h2>User Registration Form</h2>
+<form role="form">
+    <!-- Text input -->
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text"
+               class="form-control"
+               id="firstName"
+               cam-variable-name="firstName"
+               cam-variable-type="String"
+               required />
+    </div>
+
+    <!-- Number input -->
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number"
+               class="form-control"
+               id="age"
+               cam-variable-name="age"
+               cam-variable-type="Integer" />
+    </div>
+
+    <!-- Checkbox -->
+    <div class="form-group">
+        <label for="approved">Approved</label>
+        <input type="checkbox"
+               id="approved"
+               cam-variable-name="approved"
+               cam-variable-type="Boolean" />
+    </div>
+
+    <!-- Date input -->
+    <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date"
+               id="startDate"
+               cam-variable-name="startDate"
+               cam-variable-type="Date" />
+    </div>
+
+    <!-- Decimal number -->
+    <div class="form-group">
+        <label for="salary">Salary</label>
+        <input type="number"
+               step="0.01"
+               id="salary"
+               cam-variable-name="salary"
+               cam-variable-type="Double" />
+    </div>
+
+    <!-- Textarea -->
+    <div class="form-group">
+        <label for="comments">Comments</label>
+        <textarea id="comments"
+                  rows="4"
+                  cam-variable-name="comments"
+                  cam-variable-type="String"></textarea>
+    </div>
+
+    <!-- Select with cam-choices and cam-values -->
+    <div class="form-group">
+        <label for="department">Department</label>
+        <select id="department"
+                cam-variable-name="department"
+                cam-variable-type="String"
+                cam-choices="Engineering,Sales,Marketing,HR"
+                cam-values="ENG,SAL,MKT,HR">
+            <option value="">Select Department</option>
+        </select>
+    </div>
+
+    <!-- JSON data -->
+    <div class="form-group">
+        <label for="metadata">Metadata (JSON)</label>
+        <textarea id="metadata"
+                  rows="3"
+                  cam-variable-name="metadata"
+                  cam-variable-type="Json"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script cam-script type="text/form-script">
+    // Camunda form script
+    var variableManager = camForm.variableManager;
+
+    camForm.on('form-loaded', function() {
+        console.log('Form loaded');
+
+        // Pre-populate department choices
+        var departmentField = camForm.fields.department;
+        if (departmentField) {
+            departmentField.setValue('ENG');
+        }
+    });
+
+    camForm.on('variables-fetched', function() {
+        console.log('Variables fetched from process');
+    });
+
+    camForm.on('submit', function(evt) {
+        console.log('Form submitted');
+
+        // Validate age
+        var age = camForm.variableManager.variableValue('age');
+        if (age && age < 18) {
+            alert('Age must be 18 or older');
+            evt.submitPrevented = true;
+        }
+    });
+
+    camForm.on('submit-success', function() {
+        console.log('Form submitted successfully');
+    });
+
+    camForm.on('submit-failed', function(evt, res) {
+        console.error('Form submission failed', res);
+    });
+</script>
+</body>
+</html>

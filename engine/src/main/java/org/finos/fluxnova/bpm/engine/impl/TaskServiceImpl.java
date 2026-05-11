@@ -29,51 +29,7 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.TaskService;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddGroupIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddUserIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AssignTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.ClaimTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CompleteTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CreateAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CreateTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DelegateTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteGroupIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteProcessInstanceCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteTaskCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteUserIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetAttachmentContentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetIdentityLinksForTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetProcessInstanceAttachmentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetProcessInstanceCommentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetSubTasksCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentContentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskCommentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskEventsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariableCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariableCmdTyped;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.HandleTaskBpmnErrorCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.HandleTaskEscalationCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.PatchTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.RemoveTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.ResolveTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SaveAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SaveTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskDescriptionCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskDueDateCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskFollowUpDateCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskNameCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskOwnerCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskPriorityCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.UpdateCommentCmd;
+import org.finos.fluxnova.bpm.engine.impl.cmd.*;
 import org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil;
 import org.finos.fluxnova.bpm.engine.task.Attachment;
 import org.finos.fluxnova.bpm.engine.task.Comment;
@@ -411,6 +367,10 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
     return commandExecutor.execute(new GetTaskCommentsCmd(taskId));
   }
 
+  public long getTaskCommentsCount(String taskId) {
+    return commandExecutor.execute(new GetTaskCommentsCountCmd(taskId));
+  }
+
   public Comment getTaskComment(String taskId, String commentId) {
     return commandExecutor.execute(new GetTaskCommentCmd(taskId, commentId));
   }
@@ -457,6 +417,10 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
 
   public List<Attachment> getTaskAttachments(String taskId) {
     return commandExecutor.execute(new GetTaskAttachmentsCmd(taskId));
+  }
+
+   public long getTaskAttachmentsCount(String taskId) {
+    return commandExecutor.execute(new GetTaskAttachmentsCountCmd(taskId));
   }
 
   public List<Attachment> getProcessInstanceAttachments(String processInstanceId) {

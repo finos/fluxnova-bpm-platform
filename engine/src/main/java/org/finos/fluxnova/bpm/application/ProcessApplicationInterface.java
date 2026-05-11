@@ -30,7 +30,7 @@ import org.finos.fluxnova.bpm.impl.juel.jakarta.el.ELResolver;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 
 /**
- * <p>A Process Application is an ordinary Java Application that uses the camunda process engine for
+ * <p>A Process Application is an ordinary Java Application that uses the fluxnova process engine for
  * BPM and Worklow functionality. Most such applications will start their own process engine (or use
  * a process engine provided by the runtime container), deploy some BPMN 2.0 process definitions and
  * interact with process instances derived from these process definitions. Since most process applications
@@ -67,10 +67,10 @@ import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
  * <ul>
  *  <li> {@link ServletProcessApplication}: To be used for Process Applications in a Servlet Container like Apache Tomcat.
  *  Use the JakartaServletProcessApplication in a Jakarta Servlet 5+ Container.</li>
- *  <li> {@link EjbProcessApplication}: To be used in a Java EE application server like WildFly, Glassfish or WebSphere Application Server.
+ *  <li> {@link EjbProcessApplication}: To be used in a Java EE application server.
  *  Use the JakartaEjbProcessApplication in a Jakarta EE 9+ application server.</li>
  *  <li> {@link EmbeddedProcessApplication}: To be used when embedding the process engine is an ordinary Java SE application.</li>
- *  <li> org.camunda.bpm.engine.spring.application.SpringProcessApplication: To be used for bootstrapping the process application from a Spring Application Context.</li>
+ *  <li> org.finos.fluxnova.bpm.engine.spring.application.SpringProcessApplication: To be used for bootstrapping the process application from a Spring Application Context.</li>
  * </ul>
  * </li>
  * <li>A processes.xml file to META-INF: The deployment descriptor file allows to provide a declarative

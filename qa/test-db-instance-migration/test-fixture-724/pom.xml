@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+        <artifactId>fluxnova-qa-db-instance-migration</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>fluxnova-qa-upgrade-test-fixture-724</artifactId>
+    <packaging>jar</packaging>
+    <name>Fluxnova BPM - QA - upgrade - instance migration - test fixture - 7.24.0</name>
+
+    <properties>
+        <camunda.version.current>${project.version}</camunda.version.current>
+        <camunda.version.previous>7.23.0</camunda.version.previous>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.finos.fluxnova.spin</groupId>
+            <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-engine-plugin-spin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm.qa.upgrade</groupId>
+            <artifactId>fluxnova-qa-upgrade-scenario-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>instance-migration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>update-db</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                                <configuration>
+                                    <changeLogFile>fluxnova-changelog.xml</changeLogFile>
+                                    <changeLogDirectory>${project.build.directory}/scripts-current/sql/liquibase/</changeLogDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- provide sql scripts -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-current-sql-scripts</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.finos.fluxnova.bpm.distro</groupId>
+                                            <artifactId>fluxnova-sql-scripts</artifactId>
+                                            <version>${camunda.version.current}</version>
+                                            <type>test-jar</type>
+                                            <outputDirectory>${project.build.directory}/scripts-current</outputDirectory>
+                                            <overWrite>true</overWrite>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

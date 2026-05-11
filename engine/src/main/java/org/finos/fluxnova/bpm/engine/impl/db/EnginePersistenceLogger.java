@@ -42,6 +42,10 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClassNameUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
+import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.operation.DbEntityOperation;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
+import org.finos.fluxnova.bpm.engine.impl.context.Context;
 
 /**
  * @author Stefan Hentschel.
@@ -135,11 +139,66 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
   }
 
   public OptimisticLockingException concurrentUpdateDbEntityException(DbOperation operation) {
-    return new OptimisticLockingException(exceptionMessage(
-      "005",
-      "Execution of '{}' failed. Entity was updated by another transaction concurrently.",
-      operation
-    ));
+	DbEntity entity = null;
+	if (operation instanceof DbEntityOperation) {
+	   entity = ((DbEntityOperation) operation).getEntity();
+	}
+
+	String activityId = null;
+	String activityName = null;
+	String processInstanceId = null;
+	String processDefinitionId = null;
+	String jobId = null;
+	String executionId = null;
+	String tenantId = null;
+	Map<String, Object> variables = null;
+		
+	if (entity instanceof ExecutionEntity) {
+	   ExecutionEntity execution = (ExecutionEntity) entity;
+       activityId = execution.getActivityId();
+	   activityName = execution.getActivity() != null ? execution.getActivity().getName() : null;
+	   processInstanceId = execution.getProcessInstanceId();
+	   processDefinitionId = execution.getProcessDefinitionId();
+	   tenantId = execution.getTenantId();
+	   executionId = execution.getId();
+	   variables = execution.getVariables();
+	} else if (entity instanceof JobEntity) {
+	   JobEntity job = (JobEntity) entity;
+	   jobId = job.getId();
+	   processInstanceId = job.getProcessInstanceId();
+	   processDefinitionId = job.getProcessDefinitionId();
+	   tenantId = job.getTenantId();
+	   executionId = job.getExecutionId();
+					
+	} else if (entity instanceof VariableInstanceEntity) {
+	   VariableInstanceEntity variable = (VariableInstanceEntity) entity;
+	   processInstanceId = variable.getProcessInstanceId();
+	   processDefinitionId = variable.getProcessDefinitionId();
+	   tenantId = variable.getTenantId();
+	   executionId = variable.getExecutionId();
+	   variables = Map.of(variable.getName(), variable.getTypedValue(false).getValue());
+		  	   
+	} else if(entity instanceof TaskEntity) {
+	   TaskEntity task = (TaskEntity) entity;
+	   processInstanceId = task.getProcessInstanceId();
+	   executionId = task.getExecutionId();
+	   processDefinitionId = task.getProcessDefinitionId();
+	   tenantId = task.getTenantId();
+	   variables = task.getVariables();
+    }
+	if (executionId != null && Context.getCommandContext() != null) {
+	    ExecutionEntity exec = Context.getCommandContext().getExecutionManager().findExecutionById(executionId);
+		  if (exec != null) {
+		    activityId = exec.getActivityId();
+		    activityName = exec.getActivity() != null ? exec.getActivity().getName() : null;
+		  }
+	}
+
+	return new OptimisticLockingException(exceptionMessage(
+	   "005", "Execution of '{}' failed. Entity was updated by another transaction concurrently.TenantId: {}, ProcessDefinitionId: {}, "
+		   + "ProcessInstanceId: {}, ExecutionId: {}, ActivityId: {}, ActivityName: {}, JobId: {}, Variables: {}",operation, 
+		   tenantId, processDefinitionId, processInstanceId, executionId, activityId, activityName, jobId, variables ));		 
+		 
   }
 
   public void flushedCacheState(List<CachedDbEntity> cachedEntities) {

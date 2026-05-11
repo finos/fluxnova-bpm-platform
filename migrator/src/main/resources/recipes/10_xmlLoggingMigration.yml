@@ -1,0 +1,10 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: xmlLoggingMigration
+displayName: XML Logging Configuration Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: '(name|category)="org\.camunda\.([^"]+)"'
+      replace: '$1="org.finos.fluxnova.$2"'
+      regex: true
+      filePattern: "**/{log4j,log4j2,logback}.xml"

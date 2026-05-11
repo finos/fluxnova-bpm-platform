@@ -1184,6 +1184,9 @@ public interface TaskService {
   /** The comments related to the given task. */
   List<Comment> getTaskComments(String taskId);
 
+  /** The count of attachments associated to a task */
+  long getTaskCommentsCount(String taskId);
+
   /** Retrieve a particular task comment */
   Comment getTaskComment(String taskId, String commentId);
 
@@ -1255,6 +1258,9 @@ public interface TaskService {
 
   /** The list of attachments associated to a task */
   List<Attachment> getTaskAttachments(String taskId);
+
+  /** The count of attachments associated to a task */
+  long getTaskAttachmentsCount(String taskId);
 
   /** The list of attachments associated to a process instance */
   List<Attachment> getProcessInstanceAttachments(String processInstanceId);
