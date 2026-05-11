@@ -12,6 +12,7 @@
   </parent>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <!-- TODO: move to parent -->
     <version.org.jboss.ironjacamar>1.0.10.Final</version.org.jboss.ironjacamar>
   </properties>

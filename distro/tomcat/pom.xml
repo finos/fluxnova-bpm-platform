@@ -13,6 +13,9 @@
   <packaging>pom</packaging>
 
   <name>Fluxnova Platform - tomcat</name>
+  <properties>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
   <dependencyManagement>
     <dependencies>

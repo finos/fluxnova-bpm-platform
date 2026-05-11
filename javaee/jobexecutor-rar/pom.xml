@@ -31,6 +31,9 @@
       <version>${project.version}</version>
     </dependency>
   </dependencies>
+  <properties>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
   <build>
     <plugins>
