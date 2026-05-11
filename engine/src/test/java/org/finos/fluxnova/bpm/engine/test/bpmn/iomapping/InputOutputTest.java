@@ -1302,4 +1302,47 @@ public class InputOutputTest extends PluggableProcessEngineTest {
     assertEquals("baroque", variable.getValue());
     assertEquals(pi.getId(), variable.getExecutionId());
   }
+
+  @Deployment
+  @Test
+  public void testTransientInputParameter() {
+    // given
+    // a process definition with an input mapping that creates a transient local variable on the "wait" execution
+
+    // when
+    runtimeService.startProcessInstanceByKey("testProcess");
+
+    // then
+    Execution execution = runtimeService.createExecutionQuery().activityId("wait").singleResult();
+    assertNotNull(execution);
+
+    // then
+    // transient var must be accessible via the runtime API
+    assertEquals("mappedValue", runtimeService.getVariableLocal(execution.getId(), "transientVar"));
+
+    // then
+    // it must not be persisted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientVar").singleResult();
+    assertThat(variableInstance).isNull();
+  }
+
+  @Deployment
+  @Test
+  public void testTransientOutputParameter() {
+    // given
+    // a process definition with an output mapping that writes a transient variable to the process instance
+
+    // when
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testProcess");
+
+    // then
+    // service task output mapping should set a transient variable on the process instance
+    assertEquals("outValue", runtimeService.getVariable(processInstance.getId(), "transientOut"));
+
+    // then
+    // but it must not be persisted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientOut").singleResult();
+    assertThat(variableInstance).isNull();
+  }
+
 }

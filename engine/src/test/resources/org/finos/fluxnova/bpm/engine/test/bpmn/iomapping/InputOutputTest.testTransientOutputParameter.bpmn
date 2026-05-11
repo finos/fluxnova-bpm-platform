@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  targetNamespace="Examples">
+
+  <bpmn:process id="testProcess" isExecutable="true">
+
+    <bpmn:startEvent id="start" />
+    <bpmn:sequenceFlow id="flow1" sourceRef="start" targetRef="scopeTask" />
+
+    <bpmn:serviceTask id="scopeTask" camunda:class="org.finos.fluxnova.bpm.engine.test.bpmn.iomapping.VariableLogDelegate">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="transientOut" camunda:isTransient="true">${'outValue'}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:sequenceFlow id="flow2" sourceRef="scopeTask" targetRef="wait" />
+
+    <bpmn:intermediateCatchEvent id="wait">
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration>PT1H</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+
+    <bpmn:sequenceFlow id="flow3" sourceRef="wait" targetRef="end" />
+    <bpmn:endEvent id="end" />
+
+  </bpmn:process>
+</bpmn:definitions>
+
