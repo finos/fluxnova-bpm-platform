@@ -71,6 +71,12 @@
       <artifactId>jackson-databind</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${version.jakarta.xml.bind-api}</version>
+    </dependency>
+
 
     <!-- test dependencies -->
     <dependency>
@@ -149,9 +155,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>${version.xml.jaxb-impl4}</version>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${version.jaxb-runtime}</version>
       <scope>provided</scope>
     </dependency>
 

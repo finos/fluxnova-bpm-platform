@@ -15,7 +15,6 @@
     <!-- pin tomcat version for engine-rest -->
     <version.tomcat>7.0.50</version.tomcat>
     <rest.http.port>38080</rest.http.port>
-    <javax.activation.version>1.1.1</javax.activation.version>
   </properties>
 
   <dependencies>
@@ -44,14 +43,16 @@
       -->
       <exclusions>
         <exclusion>
-          <groupId>jakarta.activation</groupId>
-          <artifactId>jakarta.activation-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>jakarta.xml.bind</groupId>
-          <artifactId>jakarta.xml.bind-api</artifactId>
+          <groupId>com.fasterxml.jackson.module</groupId>
+          <artifactId>jackson-module-jaxb-annotations</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-jakarta-xmlbind-annotations</artifactId>
+      <version>${version.jackson}</version>
     </dependency>
 
     <dependency>
@@ -62,6 +63,13 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+
+    <!-- Jakarta XML Bind API - needed for Jackson JAXB module -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${version.jakarta.xml.bind-api}</version>
     </dependency>
 
     <!-- provided deps -->
@@ -90,16 +98,10 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.activation</groupId>
-      <artifactId>activation</artifactId>
-      <version>${javax.activation.version}</version>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>${version.jakarta.activation}</version>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <!--
@@ -240,6 +242,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${version.jaxb-runtime}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -357,6 +366,10 @@
             <exclusion>
               <artifactId>httpclient</artifactId>
               <groupId>org.apache.httpcomponents</groupId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
             </exclusion>
           </exclusions>
         </dependency>
@@ -561,6 +574,10 @@
             <exclusion>
               <artifactId>httpclient</artifactId>
               <groupId>org.apache.httpcomponents</groupId>
+            </exclusion>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
             </exclusion>
           </exclusions>
         </dependency>

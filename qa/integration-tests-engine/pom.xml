@@ -93,6 +93,11 @@
           <artifactId>xalan</artifactId>
           <groupId>org.apache.xalan</groupId>
         </exclusion>
+        <!-- exclude old javax.activation to use Jakarta activation instead -->
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 

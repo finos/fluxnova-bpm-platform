@@ -37,11 +37,6 @@
         <artifactId>fluxnova-engine-rest</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <dependency>
-        <groupId>javax.activation</groupId>
-        <artifactId>activation</artifactId>
-        <version>1.1</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -57,6 +52,11 @@
         <exclusion>
           <groupId>org.jboss.spec.javax.ws.rs</groupId>
           <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+        </exclusion>
+        <!-- exclude old javax.activation to use Jakarta activation instead -->
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -216,6 +216,12 @@
           <groupId>org.jboss.resteasy</groupId>
           <artifactId>resteasy-jaxrs</artifactId>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.jboss.spec.javax.ws.rs</groupId>
@@ -359,6 +365,12 @@
           <groupId>org.jboss.resteasy</groupId>
           <artifactId>resteasy-jaxrs</artifactId>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <!-- We need to override the "provided" scope
           from the main dependency declaration here or

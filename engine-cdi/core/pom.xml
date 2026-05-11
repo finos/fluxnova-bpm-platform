@@ -58,6 +58,13 @@
       <version>${javaee.spec.version}</version>
       <type>pom</type>
       <scope>provided</scope>
+      <exclusions>
+        <!-- exclude old javax.activation to use Jakarta activation instead -->
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

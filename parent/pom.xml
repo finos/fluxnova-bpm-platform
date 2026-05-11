@@ -45,6 +45,8 @@
     <version.httpclient5>5.4.3</version.httpclient5>
     <version.httpcore5>5.3.4</version.httpcore5>
     <version.cronutils>9.2.1</version.cronutils>
+    <version.jaxb-runtime>4.0.5</version.jaxb-runtime>
+    <version.jakarta.activation>2.1.3</version.jakarta.activation>
 
     <version.slf4j>1.7.26</version.slf4j>
     <version.logback>1.2.11</version.logback>

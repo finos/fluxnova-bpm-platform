@@ -66,6 +66,12 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${version.selenium}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -106,6 +112,11 @@
         <exclusion>
           <artifactId>xalan</artifactId>
           <groupId>org.apache.xalan</groupId>
+        </exclusion>
+        <!-- exclude old javax.activation to use Jakarta activation instead -->
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
