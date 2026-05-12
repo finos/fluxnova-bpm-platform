@@ -277,6 +277,7 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
     evt.setVariableName(variableInstance.getName());
     evt.setSerializerName(variableInstance.getSerializerName());
     evt.setTenantId(variableInstance.getTenantId());
+    evt.setRestricted(variableInstance.isRestricted());
     evt.setUserOperationId(Context.getCommandContext().getOperationId());
 
     ExecutionEntity execution = variableInstance.getExecution();

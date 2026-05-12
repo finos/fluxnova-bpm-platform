@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -103,9 +104,26 @@ public class VariableScopeLocalAdapter implements VariableScope {
     setVariableLocal(variableName, value);
   }
 
+  public void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    setVariableLocal(variableName, value, skipJavaSerializationFormatCheck);
+  }
+
+  @Override
+  public void setVariable(String variableName, Object value, VariableOptions options) {
+    setVariableLocal(variableName, value, options);
+  }
+
   public void setVariableLocal(String variableName, Object value) {
     wrappedScope.setVariableLocal(variableName, value);
+  }
 
+  public void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    wrappedScope.setVariableLocal(variableName, value, skipJavaSerializationFormatCheck);
+  }
+
+  @Override
+  public void setVariableLocal(String variableName, Object value, VariableOptions options) {
+    wrappedScope.setVariableLocal(variableName, value, options);
   }
 
   public void setVariables(Map<String, ? extends Object> variables) {

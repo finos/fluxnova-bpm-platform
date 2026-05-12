@@ -220,6 +220,10 @@ public class Variables {
     return new IntegerValueImpl(integer, isTransient);
   }
 
+  public static IntegerValue integerValue(Integer integer, VariableOptions options) {
+    return new IntegerValueImpl(integer, options.isTransient(), options.isRestricted());
+  }
+
   /**
    * Creates a new {@link StringValue} that encapsulates the given <code>stringValue</code>
    */
@@ -232,6 +236,10 @@ public class Variables {
    */
   public static StringValue stringValue(String stringValue, boolean isTransient) {
     return new StringValueImpl(stringValue, isTransient);
+  }
+
+  public static StringValue stringValue(String stringValue, VariableOptions options) {
+    return new StringValueImpl(stringValue, options.isTransient(), options.isRestricted());
   }
 
   /**
@@ -248,6 +256,10 @@ public class Variables {
     return new BooleanValueImpl(booleanValue, isTransient);
   }
 
+  public static BooleanValue booleanValue(Boolean booleanValue, VariableOptions options) {
+    return new BooleanValueImpl(booleanValue, options.isTransient(), options.isRestricted());
+  }
+
   /**
    * Creates a new {@link BytesValue} that encapsulates the given <code>bytes</code>
    */
@@ -260,6 +272,10 @@ public class Variables {
    */
   public static BytesValue byteArrayValue(byte[] bytes, boolean isTransient) {
     return new BytesValueImpl(bytes, isTransient);
+  }
+
+  public static BytesValue byteArrayValue(byte[] bytes, VariableOptions options) {
+    return new BytesValueImpl(bytes, options.isTransient(), options.isRestricted());
   }
 
   /**
@@ -276,6 +292,10 @@ public class Variables {
     return new DateValueImpl(date, isTransient);
   }
 
+  public static DateValue dateValue(Date date, VariableOptions options) {
+    return new DateValueImpl(date, options.isTransient(), options.isRestricted());
+  }
+
   /**
    * Creates a new {@link LongValue} that encapsulates the given <code>longValue</code>
    */
@@ -288,6 +308,10 @@ public class Variables {
    */
   public static LongValue longValue(Long longValue, boolean isTransient) {
     return new LongValueImpl(longValue, isTransient);
+  }
+
+  public static LongValue longValue(Long longValue, VariableOptions options) {
+    return new LongValueImpl(longValue, options.isTransient(), options.isRestricted());
   }
 
   /**
@@ -304,6 +328,10 @@ public class Variables {
     return new ShortValueImpl(shortValue, isTransient);
   }
 
+  public static ShortValue shortValue(Short shortValue, VariableOptions options) {
+    return new ShortValueImpl(shortValue, options.isTransient(), options.isRestricted());
+  }
+
   /**
    * Creates a new {@link DoubleValue} that encapsulates the given <code>doubleValue</code>
    */
@@ -316,6 +344,10 @@ public class Variables {
    */
   public static DoubleValue doubleValue(Double doubleValue, boolean isTransient) {
     return new DoubleValueImpl(doubleValue, isTransient);
+  }
+
+  public static DoubleValue doubleValue(Double doubleValue, VariableOptions options) {
+    return new DoubleValueImpl(doubleValue, options.isTransient(), options.isRestricted());
   }
 
   /**
@@ -336,6 +368,10 @@ public class Variables {
     return new NumberValueImpl(numberValue, isTransient);
   }
 
+  public static NumberValue numberValue(Number numberValue, VariableOptions options) {
+    return new NumberValueImpl(numberValue, options.isTransient(), options.isRestricted());
+  }
+
   /**
    * Creates a {@link TypedValue} with value {@code null} and type {@link ValueType#NULL}
    */
@@ -347,12 +383,32 @@ public class Variables {
    * Creates a {@link TypedValue} with value {@code null} and type {@link ValueType#NULL}
    */
   public static TypedValue untypedNullValue(boolean isTransient) {
-    if (isTransient) {
-      return NullValueImpl.INSTANCE_TRANSIENT;
+    return untypedNullValue(isTransient, false);
+  }
+
+  /**
+   * Creates a {@link TypedValue} with value {@code null} and type {@link ValueType#NULL}
+   */
+  public static TypedValue untypedNullValue(boolean isTransient, boolean restricted) {
+    return nullValue(isTransient, restricted);
+  }
+
+  public static TypedValue untypedNullValue(VariableOptions options) {
+    return untypedNullValue(options.isTransient(), options.isRestricted());
+  }
+
+  public static NullValueImpl nullValue(boolean isTransient, boolean restricted) {
+    if (restricted) {
+      return isTransient ? NullValueImpl.INSTANCE_RESTRICTED_TRANSIENT : NullValueImpl.INSTANCE_RESTRICTED;
     }
-    else {
-      return NullValueImpl.INSTANCE;
-    }
+    return isTransient ? NullValueImpl.INSTANCE_TRANSIENT : NullValueImpl.INSTANCE;
+  }
+
+  /**
+   * Creates a {@link TypedValue} with value {@code null} and type {@link ValueType#NULL}
+   */
+  public static TypedValue untypedNullValueWithTag(boolean isTransient, boolean restricted) {
+    return nullValue(isTransient, restricted);
   }
 
   /**
@@ -365,7 +421,8 @@ public class Variables {
       untypedValue = ((TypedValueBuilder<?>) untypedValue).create();
     }
     if (untypedValue instanceof TypedValue) {
-      return untypedValue(untypedValue, ((TypedValue) untypedValue).isTransient());
+      TypedValue typedValue = (TypedValue) untypedValue;
+      return untypedValue(untypedValue, typedValue.isTransient(), typedValue.isRestricted());
     }
     else return untypedValue(untypedValue, false);
   }
@@ -375,25 +432,37 @@ public class Variables {
    * for the returned instance.
    */
   public static TypedValue untypedValue(Object value, boolean isTransient) {
+    return untypedValue(value, isTransient, false);
+  }
+
+  public static TypedValue untypedValue(Object value, boolean isTransient, boolean restricted) {
     if(value == null) {
-      return untypedNullValue(isTransient);
+      return untypedNullValue(isTransient, restricted);
     } else if (value instanceof TypedValueBuilder<?>) {
-      return ((TypedValueBuilder<?>) value).setTransient(isTransient).create();
+      return ((TypedValueBuilder<?>) value).setTransient(isTransient)
+          .setRestricted(restricted)
+          .create();
     } else if (value instanceof TypedValue) {
       TypedValue transientValue = (TypedValue) value;
       if (value instanceof NullValueImpl) {
-        transientValue = untypedNullValue(isTransient);
+        transientValue = untypedNullValue(isTransient, restricted);
       } else if (value instanceof FileValue) {
         ((FileValueImpl) transientValue).setTransient(isTransient);
+        ((FileValueImpl) transientValue).setRestricted(restricted);
       } else if (value instanceof AbstractTypedValue<?>) {
         ((AbstractTypedValue<?>) transientValue).setTransient(isTransient);
+        ((AbstractTypedValue<?>) transientValue).setRestricted(restricted);
       }
       return transientValue;
     }
     else {
       // unknown value
-      return new UntypedValueImpl(value, isTransient);
+      return new UntypedValueImpl(value, isTransient, restricted);
     }
+  }
+
+  public static TypedValue untypedValue(Object value, VariableOptions options) {
+    return untypedValue(value, options.isTransient(), options.isRestricted());
   }
 
   /**
@@ -429,6 +498,7 @@ public class Variables {
     String contentType = MimetypesFileTypeMap.getDefaultFileTypeMap().getContentType(file);
     return new FileValueBuilderImpl(file.getName()).file(file).mimeType(contentType).setTransient(isTransient).create();
   }
+
 
   /**
    * @return an empty {@link VariableContext} (from which no variables can be resolved).

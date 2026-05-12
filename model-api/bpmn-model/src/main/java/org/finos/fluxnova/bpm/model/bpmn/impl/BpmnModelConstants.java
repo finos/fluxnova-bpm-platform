@@ -469,6 +469,7 @@ public final class BpmnModelConstants {
   public static final String CAMUNDA_ATTRIBUTE_PRIORITY = "priority";
   public static final String CAMUNDA_ATTRIBUTE_READABLE = "readable";
   public static final String CAMUNDA_ATTRIBUTE_REQUIRED = "required";
+  public static final String CAMUNDA_ATTRIBUTE_RESTRICTED = "restricted";
   public static final String CAMUNDA_ATTRIBUTE_RESOURCE = "resource";
   public static final String CAMUNDA_ATTRIBUTE_RESULT_VARIABLE = "resultVariable";
   public static final String CAMUNDA_ATTRIBUTE_SCRIPT_FORMAT = "scriptFormat";

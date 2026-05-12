@@ -24,6 +24,8 @@ import static org.finos.fluxnova.bpm.engine.authorization.ProcessDefinitionPermi
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
+import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.DELETE_HISTORY_RESTRICTED;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -40,6 +42,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -511,6 +515,43 @@ public class HistoricVariableInstanceAuthorizationTest extends AuthorizationTest
     verifyVariablesDeleted();
   }
 
+  @Test
+  public void testDeleteHistoricRestrictedProcessVariableInstanceWithoutDeleteHistoryRestrictedPermission() {
+    // given
+    String variableInstanceId = createRestrictedHistoricVariableInstance(PROCESS_KEY);
+    createGrantAuthorization(PROCESS_DEFINITION, PROCESS_KEY, userId, DELETE_HISTORY);
+
+    try {
+      // when
+      historyService.deleteHistoricVariableInstance(variableInstanceId);
+      fail("Exception expected: It should not be possible to delete restricted historic variable instance");
+    } catch (AuthorizationException e) {
+      // then
+      String message = e.getMessage();
+      testRule.assertTextPresent(userId, message);
+      testRule.assertTextPresent(DELETE_HISTORY_RESTRICTED.getName(), message);
+      testRule.assertTextPresent(VARIABLE.resourceName(), message);
+    }
+  }
+
+  @Test
+  public void testDeleteHistoricRestrictedProcessVariableInstanceWithDeleteHistoryRestrictedPermission() {
+    // given
+    String variableInstanceId = createRestrictedHistoricVariableInstance(PROCESS_KEY);
+    createGrantAuthorization(PROCESS_DEFINITION, PROCESS_KEY, userId, DELETE_HISTORY);
+    createGrantAuthorization(VARIABLE, ANY, userId, DELETE_HISTORY_RESTRICTED);
+
+    try {
+      // when
+      historyService.deleteHistoricVariableInstance(variableInstanceId);
+    } catch (AuthorizationException e) {
+      fail("It should be possible to delete restricted historic variable instance with granted permissions");
+    }
+
+    // then
+    verifyVariablesDeleted();
+  }
+
   // delete deployment (cascade = false)
   @Test
   public void testDeleteHistoricProcessVariableInstanceAfterDeletingDeployment() {
@@ -655,6 +696,22 @@ public class HistoricVariableInstanceAuthorizationTest extends AuthorizationTest
     assertEquals(0L, historyService.createHistoricVariableInstanceQuery().count());
     assertEquals(0L, historyService.createHistoricDetailQuery().count());
     enableAuthorization();
+  }
+
+  protected String createRestrictedHistoricVariableInstance(String processDefinitionKey) {
+    ProcessInstance processInstance = startProcessInstanceByKey(processDefinitionKey);
+
+    disableAuthorization();
+    runtimeService.setVariable(
+        processInstance.getId(),
+        "restrictedHistoryVar",
+        Variables.stringValue("secret", VariableOptions.options(false, true)));
+
+    String variableInstanceId = historyService.createHistoricVariableInstanceQuery().singleResult().getId();
+    assertEquals(1L, historyService.createHistoricDetailQuery().count());
+    enableAuthorization();
+
+    return variableInstanceId;
   }
 
   protected void verifyVariablesCreated() {

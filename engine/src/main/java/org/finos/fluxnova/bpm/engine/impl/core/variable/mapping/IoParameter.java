@@ -39,6 +39,8 @@ public abstract class IoParameter {
    */
   protected ParameterValueProvider valueProvider;
 
+  protected boolean restricted;
+
   public IoParameter(String name, ParameterValueProvider valueProvider) {
     this.name = name;
     this.valueProvider = valueProvider;
@@ -73,6 +75,14 @@ public abstract class IoParameter {
 
   public void setValueProvider(ParameterValueProvider valueProvider) {
     this.valueProvider = valueProvider;
+  }
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
 }

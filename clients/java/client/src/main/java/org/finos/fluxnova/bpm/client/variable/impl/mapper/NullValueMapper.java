@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.client.variable.impl.mapper;
 
 import org.finos.fluxnova.bpm.client.variable.impl.AbstractTypedValueMapper;
 import org.finos.fluxnova.bpm.client.variable.impl.TypedValueField;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.NullValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.UntypedValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
@@ -34,15 +35,16 @@ public class NullValueMapper extends AbstractTypedValueMapper<NullValueImpl> {
   }
 
   public NullValueImpl convertToTypedValue(UntypedValueImpl untypedValue) {
-    return NullValueImpl.INSTANCE;
+    return Variables.nullValue(untypedValue.isTransient(), untypedValue.isRestricted());
   }
 
   public void writeValue(NullValueImpl typedValue, TypedValueField typedValueField) {
     typedValueField.setValue(null);
+    typedValueField.setRestricted(typedValue.isRestricted());
   }
 
   public NullValueImpl readValue(TypedValueField typedValueField, boolean deserialize) {
-    return NullValueImpl.INSTANCE;
+    return Variables.nullValue(false, typedValueField.isRestricted());
   }
 
   protected boolean isNull(Object value) {
