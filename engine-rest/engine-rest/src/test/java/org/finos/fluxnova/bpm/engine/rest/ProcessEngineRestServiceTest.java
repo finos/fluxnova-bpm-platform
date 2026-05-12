@@ -164,7 +164,7 @@ public class ProcessEngineRestServiceTest extends
   protected static final String HISTORY_JOB_LOG_URL = HISTORY_URL + "/job-log";
   protected static final String HISTORY_EXTERNAL_TASK_LOG_URL = HISTORY_URL + "/external-task-log";
 
-  protected static final String EXAMPLE_ENGINE_NAME = "anEngineName";
+  protected static final String EXAMPLE_ENGINE_NAME = "anotherEngineName";
 
   private ProcessEngine namedProcessEngine;
   private RepositoryService mockRepoService;

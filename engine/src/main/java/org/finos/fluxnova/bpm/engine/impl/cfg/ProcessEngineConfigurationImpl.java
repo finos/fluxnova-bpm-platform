@@ -2917,12 +2917,6 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   // getters and setters //////////////////////////////////////////////////////
-
-  @Override
-  public String getProcessEngineName() {
-    return processEngineName;
-  }
-
   public HistoryLevel getHistoryLevel() {
     return historyLevel;
   }
@@ -2944,8 +2938,42 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   @Override
+  public String getProcessEngineName() {
+    return processEngineName;
+  }
+
+
+  @Override
   public ProcessEngineConfigurationImpl setProcessEngineName(String processEngineName) {
     this.processEngineName = processEngineName;
+    return this;
+  }
+
+  public String getProcessEngineDisplayName() {
+    return processEngineDisplayName;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineDisplayName(String processEngineDisplayName) {
+    this.processEngineDisplayName = processEngineDisplayName;
+    return this;
+  }
+
+  public String getProcessEngineGroup() {
+    return processEngineGroup;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroup(String processEngineGroup) {
+    this.processEngineGroup = processEngineGroup;
+    return this;
+  }
+
+  public String getProcessEngineGroupDisplayName() {
+    return processEngineGroupDisplayName;
+  }
+
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroupDisplayName(String processEngineGroupDisplayName) {
+    this.processEngineGroupDisplayName = processEngineGroupDisplayName;
     return this;
   }
 
