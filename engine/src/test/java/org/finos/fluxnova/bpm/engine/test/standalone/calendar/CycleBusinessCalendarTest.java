@@ -109,7 +109,7 @@ public class CycleBusinessCalendarTest {
     assertThat(sdf.format(cbc.resolveDuedate("0 0 9-17 * * ?", startDate))).isEqualTo("2010 02 12 09:00");
     assertThat(sdf.format(cbc.resolveDuedate("0 0 0 25 12 ?", startDate))).isEqualTo("2010 12 25 00:00");
     assertThat(sdf.format(cbc.resolveDuedate("0 0 0 L 12 ?", startDate))).isEqualTo("2010 12 31 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("0 0 * 1|2 * ?", startDate))).isEqualTo("2010 03 01 00:00");
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 * 1,2 * ?", startDate))).isEqualTo("2010 03 01 00:00");
     assertThat(sdf.format(cbc.resolveDuedate("0 0 6,19 * * ?", startDate))).isEqualTo("2010 02 11 19:00");
   }
 
@@ -120,16 +120,18 @@ public class CycleBusinessCalendarTest {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd HH:mm");
     Date startDate = sdf.parse("2010 02 11 17:23");
 
-    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 * * THUL", startDate))).isEqualTo("2010 02 25 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 1W * *", startDate))).isEqualTo("2010 03 01 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 ? * 5#2", startDate))).isEqualTo("2010 02 12 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@monthly", startDate))).isEqualTo("2010 03 01 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@annually", startDate))).isEqualTo("2011 01 01 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@yearly", startDate))).isEqualTo("2011 01 01 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@weekly", startDate))).isEqualTo("2010 02 14 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@daily", startDate))).isEqualTo("2010 02 12 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@midnight", startDate))).isEqualTo("2010 02 12 00:00");
-    assertThat(sdf.format(cbc.resolveDuedate("@hourly", startDate))).isEqualTo("2010 02 11 18:00");
+    // QUARTZ day-of-week: 1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 ? * 5L", startDate))).isEqualTo("2010 02 25 00:00"); // last Thursday (5=Thu in QUARTZ)
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 1W * ?", startDate))).isEqualTo("2010 03 01 00:00"); // nearest weekday to 1st
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 ? * 6#2", startDate))).isEqualTo("2010 02 12 00:00"); // 2nd Friday (6=Fri in QUARTZ)
+    // Macros are not supported in QUARTZ format; use equivalent explicit QUARTZ cron expressions instead
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 1 * ?", startDate))).isEqualTo("2010 03 01 00:00");  // @monthly equivalent
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 1 1 ?", startDate))).isEqualTo("2011 01 01 00:00");  // @annually equivalent
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 1 1 ?", startDate))).isEqualTo("2011 01 01 00:00");  // @yearly equivalent
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 ? * 1", startDate))).isEqualTo("2010 02 14 00:00");  // @weekly equivalent (1=Sun in QUARTZ)
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 * * ?", startDate))).isEqualTo("2010 02 12 00:00");  // @daily equivalent
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 0 * * ?", startDate))).isEqualTo("2010 02 12 00:00");  // @midnight equivalent
+    assertThat(sdf.format(cbc.resolveDuedate("0 0 * * * ?", startDate))).isEqualTo("2010 02 11 18:00");  // @hourly equivalent
   }
 
   @Test
