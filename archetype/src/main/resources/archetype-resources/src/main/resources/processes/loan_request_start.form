@@ -1,0 +1,105 @@
+{
+  "components": [
+    {
+      "text": "# Loan application form",
+      "type": "text",
+      "layout": {
+        "row": "Row_1yf4d9t",
+        "columns": null
+      },
+      "id": "Field_1vxm706"
+    },
+    {
+      "label": "Customer name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_113jfol",
+        "columns": null
+      },
+      "id": "Field_0kfy0mj",
+      "key": "customerName",
+      "validate": {
+        "required": true,
+        "minLength": 4,
+        "maxLength": "50"
+      }
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "Date of birth",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_0hwgzed",
+        "columns": null
+      },
+      "id": "Field_1c247p8",
+      "key": "birthDate",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Occupation",
+      "values": [
+        {
+          "label": "Bank Employee",
+          "value": "Bank Employee"
+        },
+        {
+          "label": "Self Employed",
+          "value": "Self Employed"
+        },
+        {
+          "label": "Salaried",
+          "value": "Salaried"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_10yzzbk",
+        "columns": null
+      },
+      "id": "Field_14uat2s",
+      "key": "occupation",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Salary",
+      "type": "number",
+      "layout": {
+        "row": "Row_1b428z6",
+        "columns": null
+      },
+      "id": "Field_1s56dw4",
+      "key": "salary",
+      "decimalDigits": 2,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Requested amount",
+      "type": "number",
+      "layout": {
+        "row": "Row_1k3zf2t",
+        "columns": null
+      },
+      "id": "Field_0nqa1jo",
+      "key": "requestedAmount",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "loanRequestStartForm",
+  "exporter": {
+    "name": "Fluxnova Modeler",
+    "version": "1.0-SNAPSHOT"
+  },
+  "executionPlatform": "Fluxnova Platform",
+  "executionPlatformVersion": "${fluxnova-version}",
+  "schemaVersion": 19
+}

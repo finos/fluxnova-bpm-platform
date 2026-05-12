@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Fluxnova Process Application Deployment Descriptor
+
+  This file configures how Fluxnova discovers and deploys process definitions (BPMN, DMN, Forms)
+  when the application starts. It's a Fluxnova-specific configuration file.
+
+  Location: src/main/resources/META-INF/processes.xml
+
+  - default - Tells Fluxnova which process engine to use
+  - isScanForProcessDefinitions=true - Auto-scan for BPMN/DMN files
+  - isDeleteUponUndeploy=false - Keep process definitions when app stops
+  - additionalResourceSuffixes=form - Also deploy .form files
+
+  This file is read by the @EnableProcessApplication annotation during application startup.
+
+  For more information, see:
+  https://docs.fluxnova.finos.org/user-guide/process-applications/the-processes-xml-deployment-descriptor/
+-->
+<process-application
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
+  <process-archive name="Fluxnova">
+    <process-engine>default</process-engine>
+    <properties>
+      <property name="isDeleteUponUndeploy">false</property>
+      <property name="isScanForProcessDefinitions">true</property>
+      <property name="additionalResourceSuffixes">form</property>
+    </properties>
+  </process-archive>
+</process-application>

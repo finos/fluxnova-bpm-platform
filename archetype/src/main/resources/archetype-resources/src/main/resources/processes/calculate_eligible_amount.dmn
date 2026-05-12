@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://fluxnova.finos.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0jfe6uq" name="DRD" namespace="http://fluxnova.finos.org/schema/1.0/dmn" exporter="Fluxnova Modeler" exporterVersion="1.0-SNAPSHOT" modeler:executionPlatform="Fluxnova Platform" modeler:executionPlatformVersion="${fluxnova-version}" camunda:historyTimeToLive="1" xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/dmn">
+  <decision id="Decision_CalculateEligibleAmount" name="Calculate Eligible Amount" camunda:historyTimeToLive="1">
+    <decisionTable id="DecisionTable_1klppae">
+      <input id="Input_1" label="Age">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0rr1vcl" label="Age">
+        <inputExpression id="LiteralExpression_0wv785e" typeRef="integer">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_00caijq" label="Occupation" biodi:width="192">
+        <inputExpression id="LiteralExpression_0ygvp8u" typeRef="string">
+          <text>occupation</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Eligible Amount" name="eligibleAmount" typeRef="integer" biodi:width="192" />
+      <rule id="DecisionRule_0lbzoru">
+        <inputEntry id="UnaryTests_0g1z9at">
+          <text>&gt; 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14sofk0">
+          <text>&lt;= 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v8jdik">
+          <text>"Bank Employee"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kx7q1c">
+          <text>salary * 5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gyd8wu">
+        <inputEntry id="UnaryTests_1yyi89x">
+          <text>&gt; 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0orz425">
+          <text>&lt;= 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mc58xd">
+          <text>"Bank Employee"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02wxkd6">
+          <text>salary * 4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1aluivl">
+        <inputEntry id="UnaryTests_02bf17w">
+          <text>&gt; 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hfng12">
+          <text>&lt;= 60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bjpgh8">
+          <text>"Bank Employee"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_047ds34">
+          <text>salary * 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jslzsl">
+        <inputEntry id="UnaryTests_1ysblua">
+          <text>&gt; 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f87k64">
+          <text>&lt;= 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p3lqcr">
+          <text>"Salaried"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wvu1uz">
+          <text>salary * 4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18fvrrg">
+        <inputEntry id="UnaryTests_1kpbrvx">
+          <text>&gt; 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09orqkr">
+          <text>&lt;= 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08zwg2p">
+          <text>"Salaried"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lmnlq4">
+          <text>salary * 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03t4q90">
+        <inputEntry id="UnaryTests_06t3rig">
+          <text>&gt; 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18v94pd">
+          <text>&lt;= 60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1je3xrs">
+          <text>"Salaried"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lxeky8">
+          <text>salary * 2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1f3ub6x">
+        <inputEntry id="UnaryTests_14k780v">
+          <text>&gt; 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_157q0zo">
+          <text>&lt;= 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hf1wyc">
+          <text>"Self Employed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ju83lg">
+          <text>salary * 3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1azgcmk">
+        <inputEntry id="UnaryTests_0ue2514">
+          <text>&gt; 40</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17vh5qk">
+          <text>&lt;= 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11n11pb">
+          <text>"Self Employed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t9revg">
+          <text>salary * 2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gr0ed7">
+        <inputEntry id="UnaryTests_1oqcotf">
+          <text>&gt; 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q2iwhu">
+          <text>&lt;= 60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1afch35">
+          <text>"Self Employed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12415b5">
+          <text>salary * 1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hg3h83">
+        <inputEntry id="UnaryTests_09ukgx3">
+          <text>&gt; 60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00i8tll">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0anpium">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15erq5n">
+          <text>salary * 0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08jiojt">
+        <inputEntry id="UnaryTests_1w5hz2w">
+          <text>&lt;= 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_028ei8w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dpuj7w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uj2mgs">
+          <text>salary * 0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_CalculateEligibleAmount">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
