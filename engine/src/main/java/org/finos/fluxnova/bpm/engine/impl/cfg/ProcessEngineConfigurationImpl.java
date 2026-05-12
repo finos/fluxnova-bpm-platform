@@ -214,13 +214,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.db.DbIdentityServiceProvider;
 import org.finos.fluxnova.bpm.engine.impl.incident.CompositeIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.DefaultIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.IncidentHandler;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContextFactory;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutorImpl;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.DelegateInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.ExceptionCodeInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.SessionFactory;
+import org.finos.fluxnova.bpm.engine.impl.interceptor.*;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.AsyncContinuationJobHandler;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultFailedJobCommandFactory;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultJobExecutor;
@@ -1017,6 +1011,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected String loggingContextTenantId = "tenantId";
   protected String loggingContextEngineName = "engineName";
   protected String loggingContextRootProcessInstanceId = "rootProcessInstanceId";
+
+  // custom MDC property providers
+  protected Map<String, MdcPropertyProvider> customMdcPropertyProviders = new HashMap<>();
 
   // logging levels (with default values)
   protected String logLevelBpmnStackTrace = "DEBUG";
@@ -5223,6 +5220,26 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public ProcessEngineConfigurationImpl setLoggingContextRootProcessInstanceId(String loggingContextRootProcessInstanceId) {
     this.loggingContextRootProcessInstanceId = loggingContextRootProcessInstanceId;
+    return this;
+  }
+
+  public ProcessEngineConfigurationImpl addCustomMdcProperty(String propertyName, MdcPropertyProvider provider) {
+    if (propertyName == null || propertyName.trim().isEmpty()) {
+      throw new IllegalArgumentException("Property name cannot be null or empty");
+    }
+    if (provider == null) {
+      throw new IllegalArgumentException("Provider cannot be null");
+    }
+    customMdcPropertyProviders.put(propertyName, provider);
+    return this;
+  }
+
+  public Map<String, MdcPropertyProvider> getCustomMdcPropertyProviders() {
+    return Collections.unmodifiableMap(customMdcPropertyProviders);
+  }
+
+  public ProcessEngineConfigurationImpl clearCustomMdcProperties() {
+    customMdcPropertyProviders.clear();
     return this;
   }
 
