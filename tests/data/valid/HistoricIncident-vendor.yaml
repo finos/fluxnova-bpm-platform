@@ -1,0 +1,21 @@
+# Vendor test data derived from MockProvider.java
+# HistoricIncident — mirrors MockProvider EXAMPLE_HIST_INCIDENT_* constants
+id: anIncidentId
+process_definition_key: aProcDefKey
+process_definition_id: aProcDefId
+root_process_instance_id: aRootProcInstId
+process_instance_id: aProcInstId
+execution_id: anExecutionId
+create_time: "2014-01-02T00:00:00+00:00"
+end_time: "2014-01-02T00:00:00+00:00"
+removal_time: "2018-01-01T00:00:00+00:00"
+incident_message: anIncidentMessage
+incident_type: anIncidentType
+activity_id: anActivityId
+failed_activity_id: aFailedActivityId
+cause_incident_id: aCauseIncidentId
+root_cause_incident_id: aRootCauseIncidentId
+configuration: aConfiguration
+history_configuration: aHistoryConfiguration
+incident_state: RESOLVED
+tenant_id: aTenantId

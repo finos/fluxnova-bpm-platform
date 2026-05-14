@@ -1,0 +1,7 @@
+{
+  "id": "tm-001",
+  "tenant_id": "tenant-001",
+  "user_id": "user-001",
+  "group_id": "group-001",
+  "@type": "TenantMembership"
+}

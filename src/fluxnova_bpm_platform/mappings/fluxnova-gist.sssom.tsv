@@ -1,0 +1,66 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/gist.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings for the gist upper ontology (v14.1.0) — merged from all lmodel gist-* modules"
+# license: "https://creativecommons.org/licenses/by/4.0/"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/gist"
+# curie_map:
+#   dcterms: "http://purl.org/dc/terms/"
+#   gist: "https://w3id.org/lmodel/gist/"
+#   gist_upstream: "https://w3id.org/semanticarts/ns/ontology/gist/"
+#   gistd: "https://w3id.org/semanticarts/ns/data/gist/"
+#   linkml: "https://w3id.org/linkml/"
+#   media_app: "https://www.iana.org/assignments/media-types/application/"
+#   media_img: "https://www.iana.org/assignments/media-types/image/"
+#   media_txt: "https://www.iana.org/assignments/media-types/text/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   sh: "http://www.w3.org/ns/shacl#"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+gist:prevents	prevents	skos:exactMatch	gist_upstream:prohibits		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+gist:AspectInstance/ASPECT_ALTITUDE	ASPECT_ALTITUDE	skos:exactMatch	gistd:_Aspect_altitude		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_AREA	ASPECT_AREA	skos:exactMatch	gistd:_Aspect_area		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_DURATION	ASPECT_DURATION	skos:exactMatch	gistd:_Aspect_duration		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_FINANCIAL_BALANCE	ASPECT_FINANCIAL_BALANCE	skos:exactMatch	gistd:_Aspect_financial_balance		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_MASS	ASPECT_MASS	skos:exactMatch	gistd:_Aspect_mass		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_MONETARY_VALUE	ASPECT_MONETARY_VALUE	skos:exactMatch	gistd:_Aspect_monetary_value		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_PROBABILITY	ASPECT_PROBABILITY	skos:exactMatch	gistd:_Aspect_probability		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:AspectInstance/ASPECT_VOLUME	ASPECT_VOLUME	skos:exactMatch	gistd:_Aspect_volume		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum AspectInstance
+gist:MediaTypeInstance/JSON	JSON	skos:exactMatch	media_app:json		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/LD_PLUS_JSON	LD_PLUS_JSON	skos:exactMatch	media_app:ld+json		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/N_QUADS	N_QUADS	skos:exactMatch	media_app:n-quads		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/N_TRIPLES	N_TRIPLES	skos:exactMatch	media_app:n-triples		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/RDF_PLUS_XML	RDF_PLUS_XML	skos:exactMatch	media_app:rdf+xml		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/SPARQL_RESULTS_PLUS_JSON	SPARQL_RESULTS_PLUS_JSON	skos:exactMatch	media_app:sparql-results+json		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/SPARQL_RESULTS_PLUS_XML	SPARQL_RESULTS_PLUS_XML	skos:exactMatch	media_app:sparql-results+xml		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/TRIG	TRIG	skos:exactMatch	media_app:trig		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/JPG	JPG	skos:exactMatch	media_img:jpg		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/PNG	PNG	skos:exactMatch	media_img:png		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/CSV	CSV	skos:exactMatch	media_txt:csv		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/HTML	HTML	skos:exactMatch	media_txt:html		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/PLAIN	PLAIN	skos:exactMatch	media_txt:plain		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:MediaTypeInstance/TURTLE	TURTLE	skos:exactMatch	media_txt:turtle		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum MediaTypeInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_GIST	PREFIXDECLARATION_GIST	skos:exactMatch	gist_upstream:_PrefixDeclaration_gist		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_OWL	PREFIXDECLARATION_OWL	skos:exactMatch	gist_upstream:_PrefixDeclaration_owl		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_RDF	PREFIXDECLARATION_RDF	skos:exactMatch	gist_upstream:_PrefixDeclaration_rdf		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_RDFS	PREFIXDECLARATION_RDFS	skos:exactMatch	gist_upstream:_PrefixDeclaration_rdfs		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_SH	PREFIXDECLARATION_SH	skos:exactMatch	gist_upstream:_PrefixDeclaration_sh		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_SKOS	PREFIXDECLARATION_SKOS	skos:exactMatch	gist_upstream:_PrefixDeclaration_skos		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:PrefixDeclarationInstance/PREFIXDECLARATION_XSD	PREFIXDECLARATION_XSD	skos:exactMatch	gist_upstream:_PrefixDeclaration_xsd		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum PrefixDeclarationInstance
+gist:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+gist:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type

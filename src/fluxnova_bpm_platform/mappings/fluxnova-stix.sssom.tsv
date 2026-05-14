@@ -1,0 +1,78 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/stix.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel stix LinkML schema"
+# license: "https://www.apache.org/licenses/LICENSE-2.0"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/stix"
+# curie_map:
+#   linkml: "https://w3id.org/linkml/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   stix: "https://w3id.org/lmodel/stix/"
+#   unified_cyber_ontology: "https://w3id.org/lmodel/uco-master/"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+stix:ExternalReference	ExternalReference	skos:exactMatch	unified_cyber_ontology:ExternalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Directory	Directory	skos:exactMatch	unified_cyber_ontology:Directory		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:DomainName	DomainName	skos:exactMatch	unified_cyber_ontology:DomainName		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:EmailAddr	EmailAddr	skos:closeMatch	unified_cyber_ontology:EmailAddress		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:EmailMessage	EmailMessage	skos:exactMatch	unified_cyber_ontology:EmailMessage		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:File	File	skos:exactMatch	unified_cyber_ontology:File		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Ipv4Addr	Ipv4Addr	skos:closeMatch	unified_cyber_ontology:IPv4Address		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Ipv6Addr	Ipv6Addr	skos:closeMatch	unified_cyber_ontology:IPv6Address		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:MacAddr	MacAddr	skos:closeMatch	unified_cyber_ontology:MACAddress		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Mutex	Mutex	skos:exactMatch	unified_cyber_ontology:Mutex		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Process	Process	skos:exactMatch	unified_cyber_ontology:Process		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Software	Software	skos:exactMatch	unified_cyber_ontology:Software		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Url	Url	skos:closeMatch	unified_cyber_ontology:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:UserAccount	UserAccount	skos:exactMatch	unified_cyber_ontology:UserAccount		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:WindowsRegistryKey	WindowsRegistryKey	skos:exactMatch	unified_cyber_ontology:WindowsRegistryKey		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:X509Certificate	X509Certificate	skos:exactMatch	unified_cyber_ontology:X509Certificate		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:AttackPattern	AttackPattern	skos:relatedMatch	unified_cyber_ontology:Action		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Campaign	Campaign	skos:relatedMatch	unified_cyber_ontology:Grouping		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:CourseOfAction	CourseOfAction	skos:narrowMatch	unified_cyber_ontology:Action		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Grouping	Grouping	skos:exactMatch	unified_cyber_ontology:Grouping		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Identity	Identity	skos:exactMatch	unified_cyber_ontology:Identity		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Location	Location	skos:exactMatch	unified_cyber_ontology:Location		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Malware	Malware	skos:narrowMatch	unified_cyber_ontology:Software		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Note	Note	skos:exactMatch	unified_cyber_ontology:Note		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Report	Report	skos:relatedMatch	unified_cyber_ontology:Note		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:ThreatActor	ThreatActor	skos:narrowMatch	unified_cyber_ontology:Identity		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Tool	Tool	skos:exactMatch	unified_cyber_ontology:Tool		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Relationship	Relationship	skos:exactMatch	unified_cyber_ontology:Relationship		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:Sighting	Sighting	skos:relatedMatch	unified_cyber_ontology:Relationship		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+stix:id	id	skos:relatedMatch	unified_cyber_ontology:externalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:type	type	skos:relatedMatch	unified_cyber_ontology:state		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:spec_version	spec_version	skos:closeMatch	unified_cyber_ontology:specVersion		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:name	name	skos:exactMatch	unified_cyber_ontology:name		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:description	description	skos:closeMatch	unified_cyber_ontology:description		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:created	created	skos:closeMatch	unified_cyber_ontology:objectCreatedTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:modified	modified	skos:closeMatch	unified_cyber_ontology:modifiedTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:created_by_ref	created_by_ref	skos:closeMatch	unified_cyber_ontology:createdBy		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:labels	labels	skos:closeMatch	unified_cyber_ontology:tag		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:external_references	external_references	skos:closeMatch	unified_cyber_ontology:externalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:object_marking_refs	object_marking_refs	skos:closeMatch	unified_cyber_ontology:objectMarking		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:granular_markings	granular_markings	skos:narrowMatch	unified_cyber_ontology:objectMarking		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:extensions	extensions	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:source_name	source_name	skos:closeMatch	unified_cyber_ontology:name		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:url	url	skos:relatedMatch	unified_cyber_ontology:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:hashes	hashes	skos:exactMatch	unified_cyber_ontology:hashes		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:relationship_type	relationship_type	skos:relatedMatch	unified_cyber_ontology:state		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:pattern	pattern	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:pattern_type	pattern_type	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:pattern_version	pattern_version	skos:relatedMatch	unified_cyber_ontology:specVersion		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:report_types	report_types	skos:relatedMatch	unified_cyber_ontology:tag		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:object_refs	object_refs	skos:relatedMatch	unified_cyber_ontology:externalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:threat_actor_types	threat_actor_types	skos:relatedMatch	unified_cyber_ontology:tag		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:roles	roles	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:goals	goals	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:account_type	account_type	skos:exactMatch	unified_cyber_ontology:accountType		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:protocols	protocols	skos:relatedMatch	unified_cyber_ontology:hasFacet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:identity_class	identity_class	skos:relatedMatch	unified_cyber_ontology:Identity		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+stix:sectors	sectors	skos:relatedMatch	unified_cyber_ontology:Location		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot

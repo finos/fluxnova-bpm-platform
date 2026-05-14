@@ -1,0 +1,8 @@
+# Vendor test data derived from MockProvider.java
+# Filter — mirrors MockProvider EXAMPLE_FILTER_* constants
+id: aFilterId
+resource_type: "7"
+name: aFilterName
+owner: aFilterOwner
+query: "{\"taskName\":\"test\"}"
+properties: "{\"color\":\"#112233\"}"

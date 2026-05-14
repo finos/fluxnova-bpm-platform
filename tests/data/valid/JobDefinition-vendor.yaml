@@ -1,0 +1,12 @@
+# Vendor test data derived from MockProvider.java
+# JobDefinition — mirrors MockProvider EXAMPLE_JOB_DEFINITION_* constants
+id: aJobDefId
+process_definition_id: aProcDefId
+process_definition_key: aKey
+activity_id: aJobActivityId
+job_type: aJobType
+job_configuration: aJobConfig
+suspension_state: SUSPENDED
+job_priority: 2147483699
+tenant_id: aTenantId
+deployment_id: aDeploymentId

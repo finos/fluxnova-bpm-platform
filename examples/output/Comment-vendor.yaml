@@ -1,0 +1,10 @@
+id: aTaskCommentId
+event_time: '2014-04-24T14:10:44+00:00'
+type: comment
+user_id: anAssignee
+task_id: anId
+root_process_instance_id: aRootProcInstId
+process_instance_id: aProcInstId
+message: aMessage
+full_message: aTaskCommentFullMessage
+tenant_id: aTenantId

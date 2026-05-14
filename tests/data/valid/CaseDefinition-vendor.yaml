@@ -1,0 +1,11 @@
+# Vendor test data derived from MockProvider.java
+# CaseDefinition — mirrors MockProvider EXAMPLE_CASE_DEFINITION_* constants
+id: aCaseDefnitionId
+key: aCaseDefinitionKey
+name: aCaseDefinitionName
+version: 1
+category: aCaseDefinitionCategory
+deployment_id: aDeploymentId
+resource_name: aCaseDefinitionResourceName
+diagram_resource_name: aResourceName.png
+tenant_id: aTenantId

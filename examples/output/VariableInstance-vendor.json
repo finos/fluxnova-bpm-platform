@@ -1,0 +1,16 @@
+{
+  "id": "aVariableInstanceId",
+  "type": "String",
+  "name": "aVariableInstanceName",
+  "variable_scope_id": "aVariableInstanceExecutionId",
+  "execution_id": "aVariableInstanceExecutionId",
+  "process_instance_id": "aVariableInstanceProcInstId",
+  "process_definition_id": "aVariableInstanceProcDefId",
+  "case_execution_id": "aVariableInstanceCaseExecutionId",
+  "case_instance_id": "aVariableInstanceCaseInstId",
+  "task_id": "aVariableInstanceTaskId",
+  "batch_id": "aBatchId",
+  "text_value": "aVariableInstanceValue",
+  "tenant_id": "aTenantId",
+  "@type": "VariableInstance"
+}

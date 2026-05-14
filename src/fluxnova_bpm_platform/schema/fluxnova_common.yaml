@@ -1,0 +1,66 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common
+name: fluxnova_common
+description: Shared slot definitions imported by both the Fluxnova BPM persistence schema and the Fluxnova BPMN Model API
+  schema. Centralizing the slots avoids LinkML import-merge URI conflicts.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+version: 3.0.0-SNAPSHOT
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  purpose: Resolve slot-name collisions between BPM and BPMN Model API schemas.
+
+prefixes:
+  fluxnova_common: https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+default_prefix: fluxnova_common
+default_range: string
+
+imports:
+  - linkml:types
+
+slots:
+  id:
+    identifier: true
+    range: string
+    required: true
+    description: Unique identifier.
+    slot_uri: schema:identifier
+
+  name:
+    range: string
+    description: Human-readable name.
+    slot_uri: schema:name
+
+  category:
+    range: string
+    description: Category classification.
+
+  message:
+    range: string
+    description: Short message or summary.
+    annotations:
+      sql_column: MESSAGE_
+
+  properties:
+    range: string
+    description: Serialized properties.
+    annotations:
+      sql_column: PROPERTIES_
+
+  source:
+    range: string
+    description: The source.
+    annotations:
+      sql_column: SOURCE_
+
+  type:
+    range: string
+    description: Type discriminator.
+
+  value:
+    range: string
+    description: Value of this variable instance.
+    annotations:
+      sql_column: VALUE_

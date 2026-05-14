@@ -1,0 +1,9 @@
+{
+  "id": "aFilterId",
+  "resource_type": "7",
+  "name": "aFilterName",
+  "query": "{\"taskName\":\"test\"}",
+  "owner": "aFilterOwner",
+  "properties": "{\"color\":\"#112233\"}",
+  "@type": "Filter"
+}

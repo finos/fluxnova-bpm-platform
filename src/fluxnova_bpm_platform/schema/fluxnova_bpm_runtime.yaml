@@ -1,0 +1,622 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime
+name: fluxnova_bpm_runtime
+description: Fluxnova BPM Platform - Runtime module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_runtime: https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+default_prefix: fluxnova_bpm_runtime
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: runtime
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 8
+  slot_count: 67
+
+imports:
+  - linkml:types
+  - ./fluxnova_bpm_base
+  - ./fluxnova_bpm_repository
+  - ./fluxnova_common
+
+slots:
+  activity_id:
+    range: string
+    description: BPMN activity element identifier.
+
+  activity_instance_id:
+    range: string
+    description: Runtime activity instance identifier.
+
+  annotation:
+    range: string
+    description: Annotation of this incident
+    annotations:
+      sql_column: ANNOTATION_
+
+  assignee:
+    range: string
+    description: The userId of the person to which this task is assigned or delegated.
+    annotations:
+      sql_column: ASSIGNEE_
+
+  batch_id:
+    range: string
+    description: Reference to a batch.
+
+  business_key:
+    range: string
+    description: Domain-specific business key.
+
+  byte_array_id:
+    range: string
+    description: Reference to the byte array.
+    annotations:
+      sql_column: BYTEARRAY_ID_
+
+  cached_entity_state:
+    range: integer
+    description: Bitmask caching associated entity existence.
+    annotations:
+      sql_column: CACHED_ENT_STATE_
+
+  case_definition_id:
+    range: string
+    description: Reference to the case definition.
+
+  case_execution_id:
+    range: string
+    description: Reference to the case execution.
+
+  case_instance_id:
+    range: string
+    description: Reference to the case instance.
+
+  cause_incident_id:
+    range: string
+    description: Id of the incident on which this incident has been triggered.
+    annotations:
+      sql_column: CAUSE_INCIDENT_ID_
+
+  configuration:
+    range: string
+    description: Payload of this incident.
+    annotations:
+      sql_column: CONFIGURATION_
+
+  created:
+    range: datetime
+    required: true
+    description: The time this event subscription was created.
+    annotations:
+      sql_column: CREATED_
+
+  current_state:
+    range: integer
+    description: The current state.
+    annotations:
+      sql_column: CURRENT_STATE_
+
+  delegation_state:
+    range: DelegationState
+    description: The current DelegationState for this task.
+    annotations:
+      sql_column: DELEGATION_
+
+  description:
+    range: string
+    description: Human-readable description.
+    slot_uri: schema:description
+
+  double_value:
+    range: float
+    description: Variable value stored as double.
+    annotations:
+      sql_column: DOUBLE_
+
+  due_date:
+    range: datetime
+    description: Due date of the task.
+    annotations:
+      sql_column: DUE_DATE_
+
+  error_details_id:
+    range: string
+    description: Reference to a ByteArray.
+    annotations:
+      sql_column: ERROR_DETAILS_ID_
+
+  error_message:
+    range: string
+    description: If the variable value could not be loaded, this returns the error message.
+    annotations:
+      sql_column: ERROR_MSG_
+
+  event_name:
+    range: string
+    description: The name of the event this subscription belongs to as defined in the process model.
+    annotations:
+      sql_column: EVENT_NAME_
+
+  event_type:
+    range: string
+    required: true
+    description: The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal
+      event subscription, "compensation" identifies event subscriptions used for compensation ev...
+    annotations:
+      sql_column: EVENT_TYPE_
+
+  execution_id:
+    range: string
+    description: Reference to the execution.
+
+  failed_activity_id:
+    range: string
+    description: Id of the activity on which the last exception occurred.
+    annotations:
+      sql_column: FAILED_ACTIVITY_ID_
+
+  follow_up_date:
+    range: datetime
+    description: Follow-up date of the task.
+    annotations:
+      sql_column: FOLLOW_UP_DATE_
+
+  incident_message:
+    range: string
+    description: Incident message.
+    annotations:
+      sql_column: INCIDENT_MSG_
+
+  incident_timestamp:
+    range: datetime
+    required: true
+    description: Time when the incident happened.
+    annotations:
+      sql_column: INCIDENT_TIMESTAMP_
+
+  incident_type:
+    range: string
+    required: true
+    description: 'Type of this incident to identify the kind of incident. For example: failedJobs will be returned in the
+      case of an incident, which identify failed job during the execution of a process instance.'
+    annotations:
+      sql_column: INCIDENT_TYPE_
+
+  is_active:
+    range: boolean
+    description: Whether this entity is active.
+    annotations:
+      sql_column: IS_ACTIVE_
+
+  is_concurrent:
+    range: boolean
+    description: Whether this entity is concurrent.
+    annotations:
+      sql_column: IS_CONCURRENT_
+
+  is_concurrent_local:
+    range: boolean
+    description: Whether this entity is concurrent local.
+    annotations:
+      sql_column: IS_CONCURRENT_LOCAL_
+
+  is_event_scope:
+    range: boolean
+    description: Whether this entity is event scope.
+    annotations:
+      sql_column: IS_EVENT_SCOPE_
+
+  is_required:
+    range: boolean
+    description: Whether this entity is required.
+    annotations:
+      sql_column: REQUIRED_
+
+  is_satisfied:
+    range: boolean
+    description: Whether this entity is satisfied.
+    annotations:
+      sql_column: SATISFIED_
+
+  is_scope:
+    range: boolean
+    description: Whether this entity is scope.
+    annotations:
+      sql_column: IS_SCOPE_
+
+  job_definition_id:
+    range: string
+    description: Reference to the job definition.
+
+  last_failure_log_id:
+    range: string
+    description: Reference to the last failure log.
+    annotations:
+      sql_column: LAST_FAILURE_LOG_ID_
+
+  last_updated:
+    range: datetime
+    description: The date/time when this task was last updated. All operations that fire count as an update to the task. Returns
+      null if the task was never updated before (i.e. it was only created).
+    annotations:
+      sql_column: LAST_UPDATED_
+
+  lock_expiration_time:
+    range: datetime
+    description: Time at which the lock expires.
+    annotations:
+      sql_column: LOCK_EXP_TIME_
+
+  long_value:
+    range: integer
+    description: Variable value stored as long.
+    annotations:
+      sql_column: LONG_
+
+  owner:
+    range: string
+    description: The userId of the person that is responsible for this task. This is used when a task is delegated.
+    annotations:
+      sql_column: OWNER_
+
+  parent_id:
+    range: string
+    description: Reference to a CaseExecution.
+    annotations:
+      sql_column: PARENT_ID_
+
+  parent_task_id:
+    range: string
+    description: The parent task for which this task is a subtask
+    annotations:
+      sql_column: PARENT_TASK_ID_
+
+  previous_state:
+    range: integer
+    description: The previous state.
+    annotations:
+      sql_column: PREV_STATE_
+
+  priority:
+    range: integer
+    required: true
+    description: 'Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean
+      a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5...'
+    annotations:
+      sql_column: PRIORITY_
+
+  process_definition_id:
+    range: string
+    description: Reference to the process definition.
+
+  process_definition_key:
+    range: string
+    description: Key of the process definition.
+
+  process_instance_id:
+    range: string
+    description: Reference to the process instance.
+
+  retries:
+    range: integer
+    description: Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented.
+      When it hits zero, the job is supposed to be dead and not retried again (ie a manu...
+    annotations:
+      sql_column: RETRIES_
+
+  root_cause_incident_id:
+    range: string
+    description: Id of the root incident on which this transitive incident has been triggered.
+    annotations:
+      sql_column: ROOT_CAUSE_INCIDENT_ID_
+
+  sentry_id:
+    range: string
+    description: Reference to the sentry.
+    annotations:
+      sql_column: SENTRY_ID_
+
+  sequence_counter:
+    range: integer
+    description: Monotonically increasing counter for ordering.
+    annotations:
+      sql_column: SEQUENCE_COUNTER_
+
+  source_case_execution_id:
+    range: string
+    description: Reference to the source case execution.
+    annotations:
+      sql_column: SOURCE_CASE_EXEC_ID_
+
+  standard_event:
+    range: string
+    description: The standard event.
+    annotations:
+      sql_column: STANDARD_EVENT_
+
+  super_case_execution_id:
+    range: string
+    description: Reference to the super case execution.
+    annotations:
+      sql_column: SUPER_CASE_EXEC_
+
+  super_execution_id:
+    range: string
+    description: Reference to the super execution.
+    annotations:
+      sql_column: SUPER_EXEC_
+
+  task_definition_key:
+    range: string
+    description: The id of the activity in the process defining this task or null if this is not related to a process
+    annotations:
+      sql_column: TASK_DEF_KEY_
+
+  task_id:
+    range: string
+    description: Reference to the task.
+
+  task_state:
+    range: string
+    description: Task's state.
+    annotations:
+      sql_column: TASK_STATE_
+
+  text2_value:
+    range: string
+    description: Variable value stored as text2.
+    annotations:
+      sql_column: TEXT2_
+
+  text_value:
+    range: string
+    description: Variable value stored as text.
+    annotations:
+      sql_column: TEXT_
+
+  topic_name:
+    range: string
+    description: Topic name of the associated external task.
+    annotations:
+      sql_column: TOPIC_NAME_
+
+  variable_event:
+    range: string
+    description: The variable event.
+    annotations:
+      sql_column: VARIABLE_EVENT_
+
+  variable_name:
+    range: string
+    description: The name of the output variable.
+    annotations:
+      sql_column: VAR_NAME_
+
+  variable_scope_id:
+    range: string
+    required: true
+    description: Reference to the variable scope.
+    annotations:
+      sql_column: VAR_SCOPE_
+
+  worker_id:
+    range: string
+    description: Id of the worker that fetched the external task most recently.
+    annotations:
+      sql_column: WORKER_ID_
+
+classes:
+  CaseExecution:
+    description: Case Execution entity in the process execution runtime.
+    slots:
+      - id
+      - case_instance_id
+      - super_case_execution_id
+      - super_execution_id
+      - business_key
+      - parent_id
+      - case_definition_id
+      - activity_id
+      - previous_state
+      - current_state
+      - is_required
+      - tenant_id
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_CASE_EXECUTION
+
+  CaseSentryPart:
+    description: Case Sentry Part entity in the process execution runtime.
+    slots:
+      - id
+      - case_instance_id
+      - case_execution_id
+      - sentry_id
+      - type
+      - source_case_execution_id
+      - standard_event
+      - source
+      - variable_event
+      - variable_name
+      - is_satisfied
+      - tenant_id
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_CASE_SENTRY_PART
+
+  EventSubscription:
+    description: A message event subscription exists, if an Execution waits for an event like a message.
+    slots:
+      - id
+      - event_type
+      - event_name
+      - execution_id
+      - process_instance_id
+      - activity_id
+      - configuration
+      - created
+      - tenant_id
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_EVENT_SUBSCR
+
+  Execution:
+    description: Represent a 'path of execution' in a process instance. Note that a ProcessInstance also is an execution.
+    slots:
+      - id
+      - root_process_instance_id
+      - process_instance_id
+      - business_key
+      - parent_id
+      - process_definition_id
+      - super_execution_id
+      - super_case_execution_id
+      - case_instance_id
+      - activity_instance_id
+      - activity_id
+      - is_active
+      - is_concurrent
+      - is_scope
+      - is_event_scope
+      - suspension_state
+      - cached_entity_state
+      - sequence_counter
+      - tenant_id
+      - process_definition_key
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_EXECUTION
+
+  ExternalTask:
+    description: Represents an instance of an external task that is created when a service-task like activity (i.e. service
+      task, send task, ...) with attribute camunda:type="external" is executed.
+    slots:
+      - id
+      - worker_id
+      - topic_name
+      - retries
+      - error_message
+      - error_details_id
+      - lock_expiration_time
+      - create_time
+      - suspension_state
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - activity_id
+      - activity_instance_id
+      - tenant_id
+      - priority
+      - last_failure_log_id
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_EXT_TASK
+
+  Incident:
+    description: An Incident represents a failure in the execution of a process instance. A possible failure could be for
+      example a failed Job during the execution, so that the job retry is equal zero (job.retries ...
+    slots:
+      - id
+      - incident_timestamp
+      - incident_message
+      - incident_type
+      - execution_id
+      - activity_id
+      - failed_activity_id
+      - process_instance_id
+      - process_definition_id
+      - cause_incident_id
+      - root_cause_incident_id
+      - configuration
+      - tenant_id
+      - job_definition_id
+      - annotation
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_INCIDENT
+
+  Task:
+    description: Represents one task for a human user.
+    slots:
+      - id
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - case_execution_id
+      - case_instance_id
+      - case_definition_id
+      - name
+      - parent_task_id
+      - description
+      - task_definition_key
+      - owner
+      - assignee
+      - delegation_state
+      - priority
+      - create_time
+      - last_updated
+      - due_date
+      - follow_up_date
+      - suspension_state
+      - tenant_id
+      - task_state
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_TASK
+
+  VariableInstance:
+    description: A VariableInstance represents a variable in the execution of a process instance.
+    slots:
+      - id
+      - type
+      - name
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - case_execution_id
+      - case_instance_id
+      - task_id
+      - batch_id
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - variable_scope_id
+      - sequence_counter
+      - is_concurrent_local
+      - tenant_id
+    slot_usage:
+      type:
+        required: true
+      name:
+        required: true
+    in_subset:
+      - runtime
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_VARIABLE

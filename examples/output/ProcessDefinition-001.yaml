@@ -1,0 +1,14 @@
+id: procdef-001
+key: invoice-process
+name: Invoice Processing
+version: 2
+category: finance
+deployment_id: dep-001
+resource_name: invoice-process.bpmn
+diagram_resource_name: invoice-process.png
+tenant_id: tenant-alpha
+history_time_to_live: 180
+is_startable: true
+has_start_form_key: true
+suspension_state: ACTIVE
+version_tag: 2.0.0

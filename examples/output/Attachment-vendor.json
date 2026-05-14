@@ -1,0 +1,15 @@
+{
+  "id": "aTaskAttachmentId",
+  "user_id": "aUserId",
+  "name": "aTaskAttachmentName",
+  "description": "aTaskAttachmentDescription",
+  "type": "aTaskAttachmentType",
+  "task_id": "anId",
+  "root_process_instance_id": "aRootProcInstId",
+  "process_instance_id": "aProcInstId",
+  "url": "aTaskAttachmentUrl",
+  "tenant_id": "aTenantId",
+  "create_time": "2018-07-19T15:02:36+00:00",
+  "removal_time": "2018-10-17T13:35:07+00:00",
+  "@type": "Attachment"
+}

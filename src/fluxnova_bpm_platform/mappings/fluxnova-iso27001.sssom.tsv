@@ -1,0 +1,38 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/iso27001.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel iso27001 LinkML schema"
+# license: "https://www.apache.org/licenses/LICENSE-2.0"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/iso27001"
+# curie_map:
+#   cis_controls: "https://w3id.org/lmodel/cis-controls/"
+#   dcterms: "http://purl.org/dc/terms/"
+#   iso: "https://www.iso.org/standard/"
+#   iso27001: "https://w3id.org/lmodel/iso27001/"
+#   iso27002: "https://w3id.org/lmodel/iso27002/"
+#   linkml: "https://w3id.org/linkml/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   prov: "http://www.w3.org/ns/prov#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+iso27001:InformationSecurityManagementSystem	InformationSecurityManagementSystem	skos:relatedMatch	cis_controls:CISControlsDocument		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+iso27001:SecurityControl	SecurityControl	skos:relatedMatch	cis_controls:Safeguard		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+iso27001:positive integer type	positive integer type	skos:exactMatch	wikidata:Q28920044		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:unsigned short type	unsigned short type	skos:exactMatch	wikidata:Q110650833		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+iso27001:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type

@@ -1,0 +1,15 @@
+id: hai-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+process_definition_id: procdef-001
+process_definition_key: invoice-process
+start_time: "2025-03-01T09:01:00+00:00"
+end_time: "2025-03-01T09:30:00+00:00"
+duration: 1740000
+execution_id: exec-001
+activity_id: Task_ApproveInvoice
+task_id: task-001
+activity_name: Approve Invoice
+activity_type: userTask
+assignee: jane
+tenant_id: tenant-alpha

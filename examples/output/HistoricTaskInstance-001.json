@@ -1,0 +1,21 @@
+{
+  "id": "hti-001",
+  "root_process_instance_id": "pi-001",
+  "process_instance_id": "pi-001",
+  "process_definition_id": "procdef-001",
+  "process_definition_key": "invoice-process",
+  "start_time": "2025-03-01T09:01:00+00:00",
+  "end_time": "2025-03-01T09:25:00+00:00",
+  "duration": 1440000,
+  "priority": 50,
+  "task_definition_key": "Task_ApproveInvoice",
+  "execution_id": "exec-001",
+  "activity_instance_id": "hai-001",
+  "name": "Approve Invoice",
+  "owner": "john",
+  "assignee": "jane",
+  "due_date": "2025-03-05T17:00:00+00:00",
+  "tenant_id": "tenant-alpha",
+  "task_state": "COMPLETED",
+  "@type": "HistoricTaskInstance"
+}

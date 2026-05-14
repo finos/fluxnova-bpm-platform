@@ -1,0 +1,31 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/mcp.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel mcp LinkML schema"
+# license: "https://www.apache.org/licenses/LICENSE-2.0"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/mcp"
+# curie_map:
+#   dct: "http://purl.org/dc/terms/"
+#   jsonrpc: "https://www.jsonrpc.org/"
+#   linkml: "https://w3id.org/linkml/"
+#   mcp: "https://w3id.org/lmodel/mcp/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+mcp:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+mcp:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type

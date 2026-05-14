@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier
+_commit: v0.4.2-30-g325b0b4
+_src_path: gh:linkml/linkml-project-copier
+add_example: false
+copyright_year: '2026'
+email: noel.mcloughlin@gmail.com
+full_name: Noel McLoughlin
+gh_action_docs_preview: true
+gh_action_pypi: false
+github_org: lmodel
+license: Apache-2.0
+project_description: Fluxnova BPMN Platform - LinkML Schema
+project_name: fluxnova-bpm-platform
+project_slug: fluxnova_bpm_platform
+

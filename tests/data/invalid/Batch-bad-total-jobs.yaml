@@ -1,0 +1,4 @@
+# Invalid vendor test data — Batch with negative total_jobs (should be integer but wrong type)
+id: aBatchId
+type: aBatchType
+total_jobs: "ten"

@@ -1,0 +1,12 @@
+id: aBatchId
+start_time: '2016-04-12T15:29:33+00:00'
+type: aBatchType
+total_jobs: 10
+jobs_per_seed: 11
+invocations_per_job: 12
+seed_job_definition_id: aSeedJobDefinitionId
+monitor_job_definition_id: aMonitorJobDefinitionId
+batch_job_definition_id: aBatchJobDefinitionId
+tenant_id: aTenantId
+end_time: '2016-04-12T16:23:34+00:00'
+removal_time: '2016-04-12T16:23:34+00:00'

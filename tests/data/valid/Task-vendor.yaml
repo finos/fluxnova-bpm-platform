@@ -1,0 +1,21 @@
+# Vendor test data derived from MockProvider.java (engine-rest test fixtures)
+# Task entity — mirrors MockProvider EXAMPLE_TASK_* constants
+id: anId
+execution_id: anExecution
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId
+name: aName
+description: aDescription
+task_definition_key: aTaskDefinitionKey
+owner: anOwner
+assignee: anAssignee
+delegation_state: RESOLVED
+priority: 42
+create_time: "2013-01-23T13:42:42+00:00"
+last_updated: "2013-01-23T13:42:45+00:00"
+due_date: "2013-01-23T13:42:43+00:00"
+follow_up_date: "2013-01-23T13:42:44+00:00"
+suspension_state: ACTIVE
+parent_task_id: aParentId
+tenant_id: aTenantId
+task_state: aTaskState

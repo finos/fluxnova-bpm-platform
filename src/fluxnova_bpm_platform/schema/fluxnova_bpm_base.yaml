@@ -1,0 +1,260 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base
+name: fluxnova_bpm_base
+description: Fluxnova BPM Platform - Base module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_base: https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+default_prefix: fluxnova_bpm_base
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: base
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 5
+  slot_count: 12
+  enum_count: 7
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+
+slots:
+  assignee_hash:
+    range: integer
+    description: Hash of the assignee for aggregation.
+    annotations:
+      sql_column: ASSIGNEE_HASH_
+
+  bytes:
+    range: string
+    description: Serialized binary content.
+    annotations:
+      sql_column: BYTES_
+
+  create_time:
+    range: datetime
+    description: Creation timestamp.
+
+  deployment_id:
+    range: string
+    description: Reference to the deployment.
+
+  is_generated:
+    range: boolean
+    description: Whether this entity is generated.
+    annotations:
+      sql_column: GENERATED_
+
+  milliseconds:
+    range: integer
+    description: The milliseconds.
+    annotations:
+      sql_column: MILLISECONDS_
+
+  removal_time:
+    range: datetime
+    description: Timestamp when this entity is eligible for removal.
+
+  reporter:
+    range: string
+    description: Identifier of the reporting node.
+    annotations:
+      sql_column: REPORTER_
+
+  root_process_instance_id:
+    range: string
+    description: Root process instance for history cleanup.
+
+  tenant_id:
+    range: string
+    description: Multi-tenancy discriminator.
+
+  timestamp:
+    range: datetime
+    description: Time when this log occurred.
+    annotations:
+      sql_column: TIMESTAMP_
+
+  version:
+    range: integer
+    description: Version number.
+
+enums:
+  SuspensionState:
+    description: Whether an entity is active or suspended.
+    permissible_values:
+      ACTIVE:
+        description: The entity is active.
+        meaning: fluxnova_bpm_platform:SuspensionState/1
+      SUSPENDED:
+        description: The entity is suspended.
+        meaning: fluxnova_bpm_platform:SuspensionState/2
+
+  DelegationState:
+    description: Delegation states of a task.
+    permissible_values:
+      PENDING:
+        description: The task has been delegated and is awaiting resolution.
+      RESOLVED:
+        description: The delegated task has been resolved by the assignee.
+
+  ActivityInstanceState:
+    description: State of an activity instance.
+    permissible_values:
+      DEFAULT:
+        description: The activity instance is running normally.
+        meaning: fluxnova_bpm_platform:ActivityInstanceState/0
+      SCOPE_COMPLETE:
+        description: The scope of the activity instance is complete.
+        meaning: fluxnova_bpm_platform:ActivityInstanceState/1
+      CANCELED:
+        description: The activity instance was canceled.
+        meaning: fluxnova_bpm_platform:ActivityInstanceState/2
+      STARTING:
+        description: The activity instance is starting.
+        meaning: fluxnova_bpm_platform:ActivityInstanceState/3
+      ENDING:
+        description: The activity instance is ending.
+        meaning: fluxnova_bpm_platform:ActivityInstanceState/4
+
+  IncidentState:
+    description: State of a historic incident.
+    permissible_values:
+      OPEN:
+        description: The incident is open.
+      DELETED:
+        description: The incident has been deleted.
+      RESOLVED:
+        description: The incident has been resolved.
+
+  JobState:
+    description: State of a historic job log entry.
+    permissible_values:
+      CREATED:
+        description: The job was created.
+      FAILED:
+        description: The job execution failed.
+      SUCCESSFUL:
+        description: The job executed successfully.
+      DELETED:
+        description: The job was deleted.
+
+  EntityState:
+    description: General state of an entity (e.g. variable, process instance).
+    permissible_values:
+      ACTIVE:
+        description: Active.
+      SUSPENDED:
+        description: Suspended.
+      COMPLETED:
+        description: Completed.
+      EXTERNALLY_TERMINATED:
+        description: Terminated externally.
+      INTERNALLY_TERMINATED:
+        description: Terminated internally.
+
+  AuthorizationType:
+    description: Type of authorization rule.
+    permissible_values:
+      GLOBAL:
+        description: Applies to all users.
+        meaning: fluxnova_bpm_platform:AuthorizationType/0
+      GRANT:
+        description: Grants permission.
+        meaning: fluxnova_bpm_platform:AuthorizationType/1
+      REVOKE:
+        description: Revokes permission.
+        meaning: fluxnova_bpm_platform:AuthorizationType/2
+
+classes:
+  ByteArray:
+    description: Byte Array entity in the engine infrastructure.
+    slots:
+      - id
+      - name
+      - deployment_id
+      - bytes
+      - is_generated
+      - tenant_id
+      - type
+      - create_time
+      - root_process_instance_id
+      - removal_time
+    slot_usage:
+      type:
+        range: integer
+    in_subset:
+      - base
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_GE_BYTEARRAY
+
+  MeterLog:
+    description: Meter Log entity in the engine infrastructure.
+    slots:
+      - id
+      - name
+      - reporter
+      - value
+      - timestamp
+      - milliseconds
+    slot_usage:
+      name:
+        required: true
+      value:
+        range: integer
+    in_subset:
+      - base
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_METER_LOG
+
+  Property:
+    description: Property entity in the engine infrastructure.
+    slots:
+      - name
+      - value
+    slot_usage:
+      name:
+        identifier: true
+        required: true
+    in_subset:
+      - base
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_GE_PROPERTY
+
+  SchemaLogEntry:
+    description: Schema Log Entry entity in the engine infrastructure.
+    slots:
+      - id
+      - timestamp
+      - version
+    slot_usage:
+      version:
+        range: string
+    in_subset:
+      - base
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_GE_SCHEMA_LOG
+
+  TaskMeterLog:
+    description: Task Meter Log entity in the engine infrastructure.
+    slots:
+      - id
+      - assignee_hash
+      - timestamp
+    in_subset:
+      - base
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_TASK_METER_LOG

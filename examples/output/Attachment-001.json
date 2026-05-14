@@ -1,0 +1,15 @@
+{
+  "id": "att-001",
+  "user_id": "user-001",
+  "name": "invoice-scan.pdf",
+  "description": "Scanned copy of the paper invoice",
+  "type": "application/pdf",
+  "task_id": "task-001",
+  "root_process_instance_id": "pi-001",
+  "process_instance_id": "pi-001",
+  "url": "http://example.com/files/invoice-scan.pdf",
+  "content_id": "ba-002",
+  "tenant_id": "tenant-alpha",
+  "create_time": "2025-04-01T14:05:00+00:00",
+  "@type": "Attachment"
+}

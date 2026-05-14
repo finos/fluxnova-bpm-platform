@@ -1,0 +1,12 @@
+id: hdoi-001
+decision_instance_id: hdi-001
+clause_id: clause-out-1
+clause_name: Approved
+rule_id: rule-1
+rule_order: 1
+variable_name: approved
+variable_type: boolean
+text_value: "true"
+tenant_id: tenant-alpha
+create_time: "2025-03-01T09:10:00+00:00"
+root_process_instance_id: pi-001

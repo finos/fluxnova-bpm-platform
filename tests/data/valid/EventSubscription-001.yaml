@@ -1,0 +1,9 @@
+id: evtsub-001
+event_type: message
+event_name: InvoiceReceived
+execution_id: exec-001
+process_instance_id: pi-001
+activity_id: StartEvent_1
+configuration: correlationKey
+created: "2025-04-01T10:00:00+00:00"
+tenant_id: tenant-alpha

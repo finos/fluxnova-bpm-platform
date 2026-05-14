@@ -1,0 +1,7 @@
+id: aCaseExecutionId
+case_instance_id: aCaseInstanceId
+parent_id: aParentId
+case_definition_id: aCaseDefinitionId
+activity_id: anActivityId
+is_required: true
+tenant_id: aTenantId

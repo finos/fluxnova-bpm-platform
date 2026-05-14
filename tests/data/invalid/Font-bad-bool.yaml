@@ -1,0 +1,4 @@
+# Invalid: bold must be boolean, not a string
+name: Arial
+size: 12.0
+bold: "yes-please"

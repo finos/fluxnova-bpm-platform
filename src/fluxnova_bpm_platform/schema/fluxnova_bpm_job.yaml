@@ -1,0 +1,245 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/job
+name: fluxnova_bpm_job
+description: Fluxnova BPM Platform - Job module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_job: https://w3id.org/TD-Universe/fluxnova-bpm-platform/job/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_job
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: job
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 3
+  slot_count: 21
+
+imports:
+  - linkml:types
+  - ./fluxnova_bpm_base
+  - ./fluxnova_bpm_repository
+  - ./fluxnova_bpm_runtime
+  - ./fluxnova_common
+
+slots:
+  batch_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: BATCH_JOB_DEF_ID_
+
+  create_user_id:
+    range: string
+    description: The authenticated user that created this case instance.
+    annotations:
+      sql_column: CREATE_USER_ID_
+
+  exception_message:
+    range: string
+    description: Message of the exception that occurred, the last time the job was executed. Returns null when no exception
+      occurred. To get the full exception stacktrace, use
+    annotations:
+      sql_column: EXCEPTION_MSG_
+
+  exception_stack_id:
+    range: string
+    description: Reference to a ByteArray.
+    annotations:
+      sql_column: EXCEPTION_STACK_ID_
+
+  execution_start_time:
+    range: datetime
+    description: Timestamp when this started.
+    annotations:
+      sql_column: EXEC_START_TIME_
+
+  handler_configuration:
+    range: string
+    description: Configuration for the handler.
+    annotations:
+      sql_column: HANDLER_CFG_
+
+  handler_type:
+    range: string
+    description: Type of handler that processes this entity.
+    annotations:
+      sql_column: HANDLER_TYPE_
+
+  invocations_per_job:
+    range: integer
+    description: The invocations per job.
+    annotations:
+      sql_column: INVOCATIONS_PER_JOB_
+
+  is_exclusive:
+    range: boolean
+    description: Whether this entity is exclusive.
+    annotations:
+      sql_column: EXCLUSIVE_
+
+  job_configuration:
+    range: string
+    description: The configuration of a job definition provides details about the jobs which will be created. For timer jobs
+      this method returns the timer configuration.
+    annotations:
+      sql_column: JOB_CONFIGURATION_
+
+  job_priority:
+    range: integer
+    required: true
+    description: Priority of the associated job when this log entry was created.
+    annotations:
+      sql_column: JOB_PRIORITY_
+
+  job_type:
+    range: string
+    required: true
+    description: The Type of a job. Asynchronous continuation, timer, ...
+    annotations:
+      sql_column: JOB_TYPE_
+
+  jobs_created:
+    range: integer
+    description: The jobs created.
+    annotations:
+      sql_column: JOBS_CREATED_
+
+  jobs_per_seed:
+    range: integer
+    description: The jobs per seed.
+    annotations:
+      sql_column: JOBS_PER_SEED_
+
+  lock_owner:
+    range: string
+    description: Identifier of the node that acquired the lock.
+    annotations:
+      sql_column: LOCK_OWNER_
+
+  monitor_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: MONITOR_JOB_DEF_ID_
+
+  repeat:
+    range: string
+    description: Repeat/recurrence expression (ISO 8601).
+    annotations:
+      sql_column: REPEAT_
+
+  repeat_offset:
+    range: integer
+    description: Offset applied to repeat interval calculation.
+    annotations:
+      sql_column: REPEAT_OFFSET_
+
+  seed_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: SEED_JOB_DEF_ID_
+
+  start_time:
+    range: datetime
+    description: Start timestamp.
+
+  total_jobs:
+    range: integer
+    description: Total number of jobs.
+    annotations:
+      sql_column: TOTAL_JOBS_
+
+classes:
+  Batch:
+    description: 'A batch represents a number of jobs which execute a number of commands asynchronously. Batches have three
+      types of jobs: Seed jobs: Create execution jobs Execution jobs: Execute the actual action M...'
+    slots:
+      - id
+      - type
+      - total_jobs
+      - jobs_created
+      - jobs_per_seed
+      - invocations_per_job
+      - seed_job_definition_id
+      - batch_job_definition_id
+      - monitor_job_definition_id
+      - suspension_state
+      - configuration
+      - tenant_id
+      - create_user_id
+      - start_time
+      - execution_start_time
+    in_subset:
+      - job
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_BATCH
+
+  Job:
+    description: Represents one job (timer, message, etc.).
+    slots:
+      - id
+      - type
+      - lock_expiration_time
+      - lock_owner
+      - is_exclusive
+      - execution_id
+      - root_process_instance_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - retries
+      - exception_stack_id
+      - exception_message
+      - failed_activity_id
+      - due_date
+      - repeat
+      - repeat_offset
+      - handler_type
+      - handler_configuration
+      - deployment_id
+      - suspension_state
+      - job_definition_id
+      - priority
+      - sequence_counter
+      - tenant_id
+      - create_time
+      - last_failure_log_id
+      - batch_id
+    slot_usage:
+      type:
+        required: true
+      suspension_state:
+        required: true
+    in_subset:
+      - job
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_JOB
+
+  JobDefinition:
+    description: A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process
+      engine. Each Job Definition corresponds to a Timer or Asynchronous continuation job inst...
+    slots:
+      - id
+      - process_definition_id
+      - process_definition_key
+      - activity_id
+      - job_type
+      - job_configuration
+      - suspension_state
+      - job_priority
+      - tenant_id
+      - deployment_id
+    in_subset:
+      - job
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_JOBDEF

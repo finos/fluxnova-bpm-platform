@@ -1,0 +1,7 @@
+id: casedef-001
+key: support-case
+name: Support Case
+version: 1
+deployment_id: dep-001
+resource_name: support-case.cmmn
+tenant_id: tenant-alpha

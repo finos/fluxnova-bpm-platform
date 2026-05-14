@@ -1,0 +1,12 @@
+# Configuration for https://github.com/adrienverge/yamllint
+
+extends: default
+
+rules:
+  document-start: disable  # Don't check if document has a start marker (---).
+  line-length:
+    max: 80
+    level: warning
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+  new-lines: disable  # Don't check for type of new line characters.

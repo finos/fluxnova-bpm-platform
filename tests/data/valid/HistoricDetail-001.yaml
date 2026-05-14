@@ -1,0 +1,15 @@
+id: hd-001
+type: variableUpdate
+event_time: "2025-03-01T09:02:00+00:00"
+name: invoiceAmount
+process_definition_key: invoice-process
+process_definition_id: procdef-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+execution_id: exec-001
+activity_instance_id: hai-001
+variable_type: double
+double_value: 1500.0
+text_value: "1500.0"
+sequence_counter: 1
+tenant_id: tenant-alpha

@@ -1,0 +1,5 @@
+# Missing required 'query' field
+id: filter-no-query
+resource_type: 7
+name: Broken Filter
+owner: user-001

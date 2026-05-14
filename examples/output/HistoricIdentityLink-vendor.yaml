@@ -1,0 +1,13 @@
+id: aHistIdentityLinkId
+timestamp: '2014-01-05T00:00:00+00:00'
+type: assignee
+user_id: aUserId
+group_id: aGroupId
+task_id: aTaskId
+root_process_instance_id: aRootProcInstId
+process_definition_id: aProcDefId
+operation_type: add
+assigner_id: aAssignerId
+process_definition_key: aProcDefKey
+tenant_id: aTenantId
+removal_time: '2018-01-05T00:00:00+00:00'

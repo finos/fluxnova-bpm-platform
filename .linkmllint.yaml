@@ -1,0 +1,12 @@
+# linkml-lint configuration for the Fluxnova BPM Platform schemas.
+#
+# Rationale: the platform root schema imports the BPMN Model API schema
+# (./fluxnova_bpmn_model), which defines short coordinate slots ``x`` and
+# ``y`` on the Point class (matching the BPMN-DI / DC specs). The default
+# ``standard_naming`` rule warns on these names, but renaming them would
+# diverge from the OMG specification. We keep the spec-aligned names and
+# silence the warning project-wide.
+extends: recommended
+rules:
+  standard_naming:
+    level: disabled

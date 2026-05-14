@@ -1,0 +1,717 @@
+{
+   "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL#",
+   "dcterms": "http://purl.org/dc/terms/",
+   "fluxnova_bpm_base": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/",
+   "fluxnova_bpm_collaboration": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/",
+   "fluxnova_bpm_history": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/history/",
+   "fluxnova_bpm_identity": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity/",
+   "fluxnova_bpm_job": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/job/",
+   "fluxnova_bpm_platform": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/",
+   "fluxnova_bpm_repository": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/repository/",
+   "fluxnova_bpm_runtime": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime/",
+   "fluxnova_bpmn_model": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model/",
+   "fluxnova_bpmn_model_bpmndi": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/",
+   "fluxnova_bpmn_model_dc": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/",
+   "fluxnova_bpmn_model_di": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_di/",
+   "fluxnova_bpmn_model_fluxnova": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/",
+   "fluxnova_bpmn_model_instance": "https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/",
+   "fluxnova_common": "https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/",
+   "linkml": "https://w3id.org/linkml/",
+   "schema": "http://schema.org/",
+   "ActivationCondition": {
+      "@id": "fluxnova_bpmn_model_instance:ActivationCondition"
+   },
+   "Activity": {
+      "@id": "fluxnova_bpmn_model_instance:Activity"
+   },
+   "Artifact": {
+      "@id": "fluxnova_bpmn_model_instance:Artifact"
+   },
+   "Assignment": {
+      "@id": "fluxnova_bpmn_model_instance:Assignment"
+   },
+   "Association": {
+      "@id": "fluxnova_bpmn_model_instance:Association"
+   },
+   "Attachment": {
+      "@id": "fluxnova_bpm_collaboration:Attachment"
+   },
+   "Auditing": {
+      "@id": "fluxnova_bpmn_model_instance:Auditing"
+   },
+   "Authorization": {
+      "@id": "fluxnova_bpm_identity:Authorization"
+   },
+   "BaseElement": {
+      "@id": "fluxnova_bpmn_model_instance:BaseElement"
+   },
+   "Batch": {
+      "@id": "fluxnova_bpm_job:Batch"
+   },
+   "BoundaryEvent": {
+      "@id": "fluxnova_bpmn_model_instance:BoundaryEvent"
+   },
+   "Bounds": {
+      "@id": "fluxnova_bpmn_model_dc:Bounds"
+   },
+   "BpmnDiagram": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnDiagram"
+   },
+   "BpmnEdge": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnEdge"
+   },
+   "BpmnGroup": {
+      "@id": "fluxnova_bpmn_model_instance:BpmnGroup"
+   },
+   "BpmnLabel": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnLabel"
+   },
+   "BpmnLabelStyle": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnLabelStyle"
+   },
+   "BpmnModelElementInstance": {
+      "@id": "fluxnova_bpmn_model_instance:BpmnModelElementInstance"
+   },
+   "BpmnModelInstance": {
+      "@id": "fluxnova_bpmn_model:BpmnModelInstance"
+   },
+   "BpmnModelType": {
+      "@id": "fluxnova_bpmn_model:BpmnModelType"
+   },
+   "BpmnPlane": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnPlane"
+   },
+   "BpmnProperty": {
+      "@id": "fluxnova_bpmn_model_instance:BpmnProperty"
+   },
+   "BpmnShape": {
+      "@id": "fluxnova_bpmn_model_bpmndi:BpmnShape"
+   },
+   "BpmnTask": {
+      "@id": "fluxnova_bpmn_model_instance:BpmnTask"
+   },
+   "BusinessRuleTask": {
+      "@id": "fluxnova_bpmn_model_instance:BusinessRuleTask"
+   },
+   "ByteArray": {
+      "@id": "fluxnova_bpm_base:ByteArray"
+   },
+   "CallableElement": {
+      "@id": "fluxnova_bpmn_model_instance:CallableElement"
+   },
+   "CallActivity": {
+      "@id": "fluxnova_bpmn_model_instance:CallActivity"
+   },
+   "CallConversation": {
+      "@id": "fluxnova_bpmn_model_instance:CallConversation"
+   },
+   "CancelEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:CancelEventDefinition"
+   },
+   "CaseDefinition": {
+      "@id": "fluxnova_bpm_repository:CaseDefinition"
+   },
+   "CaseExecution": {
+      "@id": "fluxnova_bpm_runtime:CaseExecution"
+   },
+   "CaseSentryPart": {
+      "@id": "fluxnova_bpm_runtime:CaseSentryPart"
+   },
+   "CatchEvent": {
+      "@id": "fluxnova_bpmn_model_instance:CatchEvent"
+   },
+   "Category": {
+      "@id": "fluxnova_bpmn_model_instance:Category"
+   },
+   "CategoryValue": {
+      "@id": "fluxnova_bpmn_model_instance:CategoryValue"
+   },
+   "Collaboration": {
+      "@id": "fluxnova_bpmn_model_instance:Collaboration"
+   },
+   "Comment": {
+      "@id": "fluxnova_bpm_collaboration:Comment"
+   },
+   "CompensateEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:CompensateEventDefinition"
+   },
+   "CompletionCondition": {
+      "@id": "fluxnova_bpmn_model_instance:CompletionCondition"
+   },
+   "ComplexBehaviorDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:ComplexBehaviorDefinition"
+   },
+   "ComplexGateway": {
+      "@id": "fluxnova_bpmn_model_instance:ComplexGateway"
+   },
+   "Condition": {
+      "@id": "fluxnova_bpmn_model_instance:Condition"
+   },
+   "ConditionalEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:ConditionalEventDefinition"
+   },
+   "ConditionExpression": {
+      "@id": "fluxnova_bpmn_model_instance:ConditionExpression"
+   },
+   "Conversation": {
+      "@id": "fluxnova_bpmn_model_instance:Conversation"
+   },
+   "ConversationAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:ConversationAssociation"
+   },
+   "ConversationLink": {
+      "@id": "fluxnova_bpmn_model_instance:ConversationLink"
+   },
+   "ConversationNode": {
+      "@id": "fluxnova_bpmn_model_instance:ConversationNode"
+   },
+   "CorrelationKey": {
+      "@id": "fluxnova_bpmn_model_instance:CorrelationKey"
+   },
+   "CorrelationProperty": {
+      "@id": "fluxnova_bpmn_model_instance:CorrelationProperty"
+   },
+   "CorrelationPropertyBinding": {
+      "@id": "fluxnova_bpmn_model_instance:CorrelationPropertyBinding"
+   },
+   "CorrelationPropertyRetrievalExpression": {
+      "@id": "fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression"
+   },
+   "CorrelationSubscription": {
+      "@id": "fluxnova_bpmn_model_instance:CorrelationSubscription"
+   },
+   "DataAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:DataAssociation"
+   },
+   "DataInput": {
+      "@id": "fluxnova_bpmn_model_instance:DataInput"
+   },
+   "DataInputAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:DataInputAssociation"
+   },
+   "DataObject": {
+      "@id": "fluxnova_bpmn_model_instance:DataObject"
+   },
+   "DataObjectReference": {
+      "@id": "fluxnova_bpmn_model_instance:DataObjectReference"
+   },
+   "DataOutput": {
+      "@id": "fluxnova_bpmn_model_instance:DataOutput"
+   },
+   "DataOutputAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:DataOutputAssociation"
+   },
+   "DataState": {
+      "@id": "fluxnova_bpmn_model_instance:DataState"
+   },
+   "DataStore": {
+      "@id": "fluxnova_bpmn_model_instance:DataStore"
+   },
+   "DataStoreReference": {
+      "@id": "fluxnova_bpmn_model_instance:DataStoreReference"
+   },
+   "DecisionDefinition": {
+      "@id": "fluxnova_bpm_repository:DecisionDefinition"
+   },
+   "DecisionRequirementsDefinition": {
+      "@id": "fluxnova_bpm_repository:DecisionRequirementsDefinition"
+   },
+   "Definitions": {
+      "@id": "fluxnova_bpmn_model_instance:Definitions"
+   },
+   "Deployment": {
+      "@id": "fluxnova_bpm_repository:Deployment"
+   },
+   "Diagram": {
+      "@id": "fluxnova_bpmn_model_di:Diagram"
+   },
+   "DiagramElement": {
+      "@id": "fluxnova_bpmn_model_di:DiagramElement"
+   },
+   "Documentation": {
+      "@id": "fluxnova_bpmn_model_instance:Documentation"
+   },
+   "Edge": {
+      "@id": "fluxnova_bpmn_model_di:Edge"
+   },
+   "EndEvent": {
+      "@id": "fluxnova_bpmn_model_instance:EndEvent"
+   },
+   "EndPoint": {
+      "@id": "fluxnova_bpmn_model_instance:EndPoint"
+   },
+   "Error": {
+      "@id": "fluxnova_bpmn_model_instance:Error"
+   },
+   "ErrorEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:ErrorEventDefinition"
+   },
+   "Escalation": {
+      "@id": "fluxnova_bpmn_model_instance:Escalation"
+   },
+   "EscalationEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:EscalationEventDefinition"
+   },
+   "Event": {
+      "@id": "fluxnova_bpmn_model_instance:Event"
+   },
+   "EventBasedGateway": {
+      "@id": "fluxnova_bpmn_model_instance:EventBasedGateway"
+   },
+   "EventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:EventDefinition"
+   },
+   "EventSubscription": {
+      "@id": "fluxnova_bpm_runtime:EventSubscription"
+   },
+   "ExclusiveGateway": {
+      "@id": "fluxnova_bpmn_model_instance:ExclusiveGateway"
+   },
+   "Execution": {
+      "@id": "fluxnova_bpm_runtime:Execution"
+   },
+   "Expression": {
+      "@id": "fluxnova_bpmn_model_instance:Expression"
+   },
+   "Extension": {
+      "@id": "fluxnova_bpmn_model_di:Extension"
+   },
+   "ExtensionElements": {
+      "@id": "fluxnova_bpmn_model_instance:ExtensionElements"
+   },
+   "ExternalTask": {
+      "@id": "fluxnova_bpm_runtime:ExternalTask"
+   },
+   "Filter": {
+      "@id": "fluxnova_bpm_collaboration:Filter"
+   },
+   "FlowElement": {
+      "@id": "fluxnova_bpmn_model_instance:FlowElement"
+   },
+   "FlowNode": {
+      "@id": "fluxnova_bpmn_model_instance:FlowNode"
+   },
+   "FluxnovaConnector": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConnector"
+   },
+   "FluxnovaConnectorId": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId"
+   },
+   "FluxnovaConstraint": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConstraint"
+   },
+   "FluxnovaEntry": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaEntry"
+   },
+   "FluxnovaErrorEventDefinition": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition"
+   },
+   "FluxnovaExecutionListener": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener"
+   },
+   "FluxnovaExpression": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaExpression"
+   },
+   "FluxnovaFailedJobRetryTimeCycle": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle"
+   },
+   "FluxnovaField": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaField"
+   },
+   "FluxnovaFormData": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormData"
+   },
+   "FluxnovaFormField": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormField"
+   },
+   "FluxnovaFormProperty": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty"
+   },
+   "FluxnovaGenericValueElement": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement"
+   },
+   "FluxnovaIn": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaIn"
+   },
+   "FluxnovaInputOutput": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput"
+   },
+   "FluxnovaInputParameter": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter"
+   },
+   "FluxnovaList": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaList"
+   },
+   "FluxnovaMap": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaMap"
+   },
+   "FluxnovaOut": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaOut"
+   },
+   "FluxnovaOutputParameter": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter"
+   },
+   "FluxnovaPotentialStarter": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter"
+   },
+   "FluxnovaProperties": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaProperties"
+   },
+   "FluxnovaProperty": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaProperty"
+   },
+   "FluxnovaScript": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaScript"
+   },
+   "FluxnovaString": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaString"
+   },
+   "FluxnovaTaskListener": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener"
+   },
+   "FluxnovaValidation": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaValidation"
+   },
+   "FluxnovaValue": {
+      "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaValue"
+   },
+   "Font": {
+      "@id": "fluxnova_bpmn_model_dc:Font"
+   },
+   "FormalExpression": {
+      "@id": "fluxnova_bpmn_model_instance:FormalExpression"
+   },
+   "FormDefinition": {
+      "@id": "fluxnova_bpm_repository:FormDefinition"
+   },
+   "Gateway": {
+      "@id": "fluxnova_bpmn_model_instance:Gateway"
+   },
+   "GlobalConversation": {
+      "@id": "fluxnova_bpmn_model_instance:GlobalConversation"
+   },
+   "Group": {
+      "@id": "fluxnova_bpm_identity:Group"
+   },
+   "HistoricActivityInstance": {
+      "@id": "fluxnova_bpm_history:HistoricActivityInstance"
+   },
+   "HistoricBatch": {
+      "@id": "fluxnova_bpm_history:HistoricBatch"
+   },
+   "HistoricCaseActivityInstance": {
+      "@id": "fluxnova_bpm_history:HistoricCaseActivityInstance"
+   },
+   "HistoricCaseInstance": {
+      "@id": "fluxnova_bpm_history:HistoricCaseInstance"
+   },
+   "HistoricDecisionInputInstance": {
+      "@id": "fluxnova_bpm_history:HistoricDecisionInputInstance"
+   },
+   "HistoricDecisionInstance": {
+      "@id": "fluxnova_bpm_history:HistoricDecisionInstance"
+   },
+   "HistoricDecisionOutputInstance": {
+      "@id": "fluxnova_bpm_history:HistoricDecisionOutputInstance"
+   },
+   "HistoricDetail": {
+      "@id": "fluxnova_bpm_history:HistoricDetail"
+   },
+   "HistoricExternalTaskLog": {
+      "@id": "fluxnova_bpm_history:HistoricExternalTaskLog"
+   },
+   "HistoricIdentityLink": {
+      "@id": "fluxnova_bpm_history:HistoricIdentityLink"
+   },
+   "HistoricIncident": {
+      "@id": "fluxnova_bpm_history:HistoricIncident"
+   },
+   "HistoricJobLog": {
+      "@id": "fluxnova_bpm_history:HistoricJobLog"
+   },
+   "HistoricProcessInstance": {
+      "@id": "fluxnova_bpm_history:HistoricProcessInstance"
+   },
+   "HistoricScopeInstance": {
+      "@id": "fluxnova_bpm_history:HistoricScopeInstance"
+   },
+   "HistoricTaskInstance": {
+      "@id": "fluxnova_bpm_history:HistoricTaskInstance"
+   },
+   "HistoricVariableInstance": {
+      "@id": "fluxnova_bpm_history:HistoricVariableInstance"
+   },
+   "HumanPerformer": {
+      "@id": "fluxnova_bpmn_model_instance:HumanPerformer"
+   },
+   "IdentityInfo": {
+      "@id": "fluxnova_bpm_identity:IdentityInfo"
+   },
+   "IdentityLink": {
+      "@id": "fluxnova_bpm_identity:IdentityLink"
+   },
+   "Import": {
+      "@id": "fluxnova_bpmn_model_instance:Import"
+   },
+   "Incident": {
+      "@id": "fluxnova_bpm_runtime:Incident"
+   },
+   "InclusiveGateway": {
+      "@id": "fluxnova_bpmn_model_instance:InclusiveGateway"
+   },
+   "InputDataItem": {
+      "@id": "fluxnova_bpmn_model_instance:InputDataItem"
+   },
+   "InputSet": {
+      "@id": "fluxnova_bpmn_model_instance:InputSet"
+   },
+   "InteractionNode": {
+      "@id": "fluxnova_bpmn_model_instance:InteractionNode"
+   },
+   "Interface": {
+      "@id": "fluxnova_bpmn_model_instance:Interface"
+   },
+   "IntermediateCatchEvent": {
+      "@id": "fluxnova_bpmn_model_instance:IntermediateCatchEvent"
+   },
+   "IntermediateThrowEvent": {
+      "@id": "fluxnova_bpmn_model_instance:IntermediateThrowEvent"
+   },
+   "IoBinding": {
+      "@id": "fluxnova_bpmn_model_instance:IoBinding"
+   },
+   "IoSpecification": {
+      "@id": "fluxnova_bpmn_model_instance:IoSpecification"
+   },
+   "ItemAwareElement": {
+      "@id": "fluxnova_bpmn_model_instance:ItemAwareElement"
+   },
+   "ItemDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:ItemDefinition"
+   },
+   "Job": {
+      "@id": "fluxnova_bpm_job:Job"
+   },
+   "JobDefinition": {
+      "@id": "fluxnova_bpm_job:JobDefinition"
+   },
+   "Label": {
+      "@id": "fluxnova_bpmn_model_di:Label"
+   },
+   "LabeledEdge": {
+      "@id": "fluxnova_bpmn_model_di:LabeledEdge"
+   },
+   "LabeledShape": {
+      "@id": "fluxnova_bpmn_model_di:LabeledShape"
+   },
+   "Lane": {
+      "@id": "fluxnova_bpmn_model_instance:Lane"
+   },
+   "LaneSet": {
+      "@id": "fluxnova_bpmn_model_instance:LaneSet"
+   },
+   "LinkEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:LinkEventDefinition"
+   },
+   "LoopCardinality": {
+      "@id": "fluxnova_bpmn_model_instance:LoopCardinality"
+   },
+   "LoopCharacteristics": {
+      "@id": "fluxnova_bpmn_model_instance:LoopCharacteristics"
+   },
+   "ManualTask": {
+      "@id": "fluxnova_bpmn_model_instance:ManualTask"
+   },
+   "Membership": {
+      "@id": "fluxnova_bpm_identity:Membership"
+   },
+   "Message": {
+      "@id": "fluxnova_bpmn_model_instance:Message"
+   },
+   "MessageEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:MessageEventDefinition"
+   },
+   "MessageFlow": {
+      "@id": "fluxnova_bpmn_model_instance:MessageFlow"
+   },
+   "MessageFlowAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:MessageFlowAssociation"
+   },
+   "MeterLog": {
+      "@id": "fluxnova_bpm_base:MeterLog"
+   },
+   "Monitoring": {
+      "@id": "fluxnova_bpmn_model_instance:Monitoring"
+   },
+   "MultiInstanceLoopCharacteristics": {
+      "@id": "fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics"
+   },
+   "Node": {
+      "@id": "fluxnova_bpmn_model_di:Node"
+   },
+   "Operation": {
+      "@id": "fluxnova_bpmn_model_instance:Operation"
+   },
+   "OutputDataItem": {
+      "@id": "fluxnova_bpmn_model_instance:OutputDataItem"
+   },
+   "OutputSet": {
+      "@id": "fluxnova_bpmn_model_instance:OutputSet"
+   },
+   "ParallelGateway": {
+      "@id": "fluxnova_bpmn_model_instance:ParallelGateway"
+   },
+   "Participant": {
+      "@id": "fluxnova_bpmn_model_instance:Participant"
+   },
+   "ParticipantAssociation": {
+      "@id": "fluxnova_bpmn_model_instance:ParticipantAssociation"
+   },
+   "ParticipantMultiplicity": {
+      "@id": "fluxnova_bpmn_model_instance:ParticipantMultiplicity"
+   },
+   "Performer": {
+      "@id": "fluxnova_bpmn_model_instance:Performer"
+   },
+   "Plane": {
+      "@id": "fluxnova_bpmn_model_di:Plane"
+   },
+   "Point": {
+      "@id": "fluxnova_bpmn_model_dc:Point"
+   },
+   "PotentialOwner": {
+      "@id": "fluxnova_bpmn_model_instance:PotentialOwner"
+   },
+   "Process": {
+      "@id": "fluxnova_bpmn_model_instance:Process"
+   },
+   "ProcessDefinition": {
+      "@id": "fluxnova_bpm_repository:ProcessDefinition"
+   },
+   "Property": {
+      "@id": "fluxnova_bpm_base:Property"
+   },
+   "ReceiveTask": {
+      "@id": "fluxnova_bpmn_model_instance:ReceiveTask"
+   },
+   "Relationship": {
+      "@id": "fluxnova_bpmn_model_instance:Relationship"
+   },
+   "Rendering": {
+      "@id": "fluxnova_bpmn_model_instance:Rendering"
+   },
+   "Resource": {
+      "@id": "fluxnova_bpmn_model_instance:Resource"
+   },
+   "ResourceAssignmentExpression": {
+      "@id": "fluxnova_bpmn_model_instance:ResourceAssignmentExpression"
+   },
+   "ResourceDefinition": {
+      "@id": "fluxnova_bpm_repository:ResourceDefinition"
+   },
+   "ResourceParameter": {
+      "@id": "fluxnova_bpmn_model_instance:ResourceParameter"
+   },
+   "ResourceParameterBinding": {
+      "@id": "fluxnova_bpmn_model_instance:ResourceParameterBinding"
+   },
+   "ResourceRole": {
+      "@id": "fluxnova_bpmn_model_instance:ResourceRole"
+   },
+   "RootElement": {
+      "@id": "fluxnova_bpmn_model_instance:RootElement"
+   },
+   "SchemaLogEntry": {
+      "@id": "fluxnova_bpm_base:SchemaLogEntry"
+   },
+   "Script": {
+      "@id": "fluxnova_bpmn_model_instance:Script"
+   },
+   "ScriptTask": {
+      "@id": "fluxnova_bpmn_model_instance:ScriptTask"
+   },
+   "SendTask": {
+      "@id": "fluxnova_bpmn_model_instance:SendTask"
+   },
+   "SequenceFlow": {
+      "@id": "fluxnova_bpmn_model_instance:SequenceFlow"
+   },
+   "ServiceTask": {
+      "@id": "fluxnova_bpmn_model_instance:ServiceTask"
+   },
+   "Shape": {
+      "@id": "fluxnova_bpmn_model_di:Shape"
+   },
+   "Signal": {
+      "@id": "fluxnova_bpmn_model_instance:Signal"
+   },
+   "SignalEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:SignalEventDefinition"
+   },
+   "StartEvent": {
+      "@id": "fluxnova_bpmn_model_instance:StartEvent"
+   },
+   "Style": {
+      "@id": "fluxnova_bpmn_model_di:Style"
+   },
+   "SubConversation": {
+      "@id": "fluxnova_bpmn_model_instance:SubConversation"
+   },
+   "SubProcess": {
+      "@id": "fluxnova_bpmn_model_instance:SubProcess"
+   },
+   "Task": {
+      "@id": "fluxnova_bpm_runtime:Task"
+   },
+   "TaskMeterLog": {
+      "@id": "fluxnova_bpm_base:TaskMeterLog"
+   },
+   "Tenant": {
+      "@id": "fluxnova_bpm_identity:Tenant"
+   },
+   "TenantMembership": {
+      "@id": "fluxnova_bpm_identity:TenantMembership"
+   },
+   "TerminateEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:TerminateEventDefinition"
+   },
+   "Text": {
+      "@id": "fluxnova_bpmn_model_instance:Text"
+   },
+   "TextAnnotation": {
+      "@id": "fluxnova_bpmn_model_instance:TextAnnotation"
+   },
+   "ThrowEvent": {
+      "@id": "fluxnova_bpmn_model_instance:ThrowEvent"
+   },
+   "TimeCycle": {
+      "@id": "fluxnova_bpmn_model_instance:TimeCycle"
+   },
+   "TimeDate": {
+      "@id": "fluxnova_bpmn_model_instance:TimeDate"
+   },
+   "TimeDuration": {
+      "@id": "fluxnova_bpmn_model_instance:TimeDuration"
+   },
+   "TimerEventDefinition": {
+      "@id": "fluxnova_bpmn_model_instance:TimerEventDefinition"
+   },
+   "Transaction": {
+      "@id": "fluxnova_bpmn_model_instance:Transaction"
+   },
+   "User": {
+      "@id": "fluxnova_bpm_identity:User"
+   },
+   "UserOperationLogEntry": {
+      "@id": "fluxnova_bpm_history:UserOperationLogEntry"
+   },
+   "UserTask": {
+      "@id": "fluxnova_bpmn_model_instance:UserTask"
+   },
+   "VariableInstance": {
+      "@id": "fluxnova_bpm_runtime:VariableInstance"
+   },
+   "Waypoint": {
+      "@id": "fluxnova_bpmn_model_di:Waypoint"
+   }
+}

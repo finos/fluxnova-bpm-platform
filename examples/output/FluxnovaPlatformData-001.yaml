@@ -1,0 +1,21 @@
+deployments:
+- id: dep-001
+  name: invoice-v1
+process_definitions:
+- id: pd-001
+  key: invoice
+  name: Invoice
+  version: 1
+  is_startable: true
+tasks:
+- id: task-001
+  priority: 50
+  name: Review
+  create_time: '2025-04-01T10:00:00+00:00'
+users:
+- id: user-001
+  first_name: Jane
+  last_name: Doe
+groups:
+- id: group-001
+  name: Accounting

@@ -1,0 +1,16 @@
+{
+  "id": "aProcDefId",
+  "key": "aKey",
+  "name": "aName",
+  "version": 42,
+  "category": "aCategory",
+  "deployment_id": "aDeploymentId",
+  "resource_name": "aResourceName",
+  "diagram_resource_name": "aResourceName.png",
+  "tenant_id": "aTenantId",
+  "history_time_to_live": 5,
+  "is_startable": true,
+  "suspension_state": "SUSPENDED",
+  "version_tag": "42",
+  "@type": "ProcessDefinition"
+}

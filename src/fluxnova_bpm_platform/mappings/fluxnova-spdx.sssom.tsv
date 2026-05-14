@@ -1,0 +1,37 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/spdx.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel spdx LinkML schema"
+# license: "https://www.apache.org/licenses/LICENSE-2.0"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/spdx"
+# curie_map:
+#   ai: "https://spdx.org/rdf/3.0.1/terms/AI/"
+#   build: "https://spdx.org/rdf/3.0.1/terms/Build/"
+#   core: "https://spdx.org/rdf/3.0.1/terms/Core/"
+#   dataset: "https://spdx.org/rdf/3.0.1/terms/Dataset/"
+#   expandedlicensing: "https://spdx.org/rdf/3.0.1/terms/ExpandedLicensing/"
+#   extension: "https://spdx.org/rdf/3.0.1/terms/Extension/"
+#   linkml: "https://w3id.org/linkml/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   security: "https://spdx.org/rdf/3.0.1/terms/Security/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   simplelicensing: "https://spdx.org/rdf/3.0.1/terms/SimpleLicensing/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   software: "https://spdx.org/rdf/3.0.1/terms/Software/"
+#   spdx: "https://spdx.org/rdf/3.0.1/terms/"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+spdx:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+spdx:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type

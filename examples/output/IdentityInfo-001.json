@@ -1,0 +1,8 @@
+{
+  "id": "idinfo-001",
+  "user_id": "user-001",
+  "type": "account",
+  "key": "google",
+  "value": "user@gmail.com",
+  "@type": "IdentityInfo"
+}

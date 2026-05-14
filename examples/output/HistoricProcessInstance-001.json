@@ -1,0 +1,18 @@
+{
+  "id": "hpi-001",
+  "root_process_instance_id": "pi-001",
+  "process_instance_id": "pi-001",
+  "process_definition_id": "procdef-001",
+  "process_definition_key": "invoice-process",
+  "start_time": "2025-03-01T09:00:00+00:00",
+  "end_time": "2025-03-01T10:30:00+00:00",
+  "duration": 5400000,
+  "removal_time": "2025-09-01T00:00:00+00:00",
+  "business_key": "INV-2025-0042",
+  "start_user_id": "user-001",
+  "start_activity_id": "StartEvent_1",
+  "end_activity_id": "EndEvent_1",
+  "tenant_id": "tenant-alpha",
+  "state": "COMPLETED",
+  "@type": "HistoricProcessInstance"
+}

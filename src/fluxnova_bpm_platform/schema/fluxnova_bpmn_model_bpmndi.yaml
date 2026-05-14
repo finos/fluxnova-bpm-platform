@@ -1,0 +1,205 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpmn-model/bpmndi
+name: fluxnova_bpmn_model_bpmndi
+title: Fluxnova BPMN Model – BPMNDI (BPMN Diagram Interchange)
+description: BPMN Diagram Interchange (BPMNDI) types for layout and visual representation of BPMN diagrams.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
+see_also:
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+annotations:
+  generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
+  source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
+  module: bpmndi
+  class_count: 6
+  slot_count: 15
+  enum_count: 2
+
+prefixes:
+  fluxnova_bpmn_model_bpmndi: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  fluxnova: https://fluxnova.finos.org/ns/bpmn/
+default_prefix: fluxnova_bpmn_model_bpmndi
+default_range: string
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpmn_model_di
+  - ./fluxnova_bpmn_model_dc
+
+enums:
+  MessageVisibleKind:
+    description: The BPMNDI MessageVisibleKind simpleType
+    permissible_values:
+      initiating:
+        description: Initiating
+      non_initiating:
+        description: Non initiating
+
+  ParticipantBandKind:
+    description: The BPMNDI ParticipantBandKind simpleType
+    permissible_values:
+      top_initiating:
+        description: Top initiating
+      middle_initiating:
+        description: Middle initiating
+      bottom_initiating:
+        description: Bottom initiating
+      top_non_initiating:
+        description: Top non initiating
+      middle_non_initiating:
+        description: Middle non initiating
+      bottom_non_initiating:
+        description: Bottom non initiating
+
+slots:
+  bpmn_plane:
+    range: BpmnPlane
+    description: The plane element containing the shapes and edges of this diagram.
+
+  bpmn_label_styles:
+    range: BpmnLabelStyle
+    multivalued: true
+    inlined_as_list: true
+    description: Label style definitions available in this BPMN diagram.
+
+  bpmn_element:
+    range: string
+    description: The BPMN model element this diagram element represents.
+
+  source_element:
+    range: DiagramElement
+    description: The source element of this element.
+
+  target_element:
+    range: DiagramElement
+    description: The target element of this element.
+
+  message_visible_kind:
+    range: MessageVisibleKind
+    description: Visibility kind of the message flow in this edge.
+
+  bpmn_label:
+    range: BpmnLabel
+    description: The label element attached to this shape or edge.
+
+  label_style:
+    range: BpmnLabelStyle
+    description: The label style of this element.
+
+  font:
+    range: Font
+    description: The font of this element.
+
+  horizontal:
+    range: boolean
+    description: Whether this pool or lane is oriented horizontally.
+
+  expanded:
+    range: boolean
+    description: Whether this sub-process shape is shown in expanded form.
+
+  marker_visible:
+    range: boolean
+    description: Whether the loop or multi-instance marker is displayed.
+
+  message_visible:
+    range: boolean
+    description: Whether the message flow envelope icon is visible.
+
+  participant_band_kind:
+    range: ParticipantBandKind
+    description: Indicates the initiating/non-initiating role of this participant band.
+
+  choreography_activity_shape:
+    range: BpmnShape
+    description: Shape of the associated choreography activity.
+
+classes:
+  BpmnDiagram:
+    description: The BPMNDI BPMNDiagram element
+    is_a: Diagram
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnDiagram.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - bpmn_plane
+      - bpmn_label_styles
+
+  BpmnEdge:
+    description: The BPMNDI BPMNEdge element
+    is_a: LabeledEdge
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnEdge.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - bpmn_element
+      - source_element
+      - target_element
+      - message_visible_kind
+      - bpmn_label
+
+  BpmnLabel:
+    description: The BPMNDI BPMNLabel element
+    is_a: Label
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnLabel.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - label_style
+
+  BpmnLabelStyle:
+    description: The BPMNDI BPMNLabelStyle element
+    is_a: Style
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnLabelStyle.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - font
+
+  BpmnPlane:
+    description: The BPMNDI BPMNPlane element
+    is_a: Plane
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnPlane.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - bpmn_element
+
+  BpmnShape:
+    description: The BPMNDI BPMNShape element
+    is_a: LabeledShape
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/bpmndi/BpmnShape.java
+    in_subset:
+      - bpmndi
+      - fluxnova_bpmn_model
+    slots:
+      - bpmn_element
+      - horizontal
+      - expanded
+      - marker_visible
+      - message_visible
+      - participant_band_kind
+      - choreography_activity_shape
+      - bpmn_label

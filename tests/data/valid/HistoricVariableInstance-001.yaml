@@ -1,0 +1,13 @@
+id: hvi-001
+process_definition_key: invoice-process
+process_definition_id: procdef-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+execution_id: exec-001
+activity_instance_id: hai-001
+name: invoiceNumber
+variable_type: string
+create_time: "2025-03-01T09:01:00+00:00"
+text_value: INV-2025-0042
+tenant_id: tenant-alpha
+state: ACTIVE

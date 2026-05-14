@@ -1,0 +1,6 @@
+# Invalid vendor test data — HistoricProcessInstance with bad enum value for state
+id: aProcInstId
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId
+state: NONEXISTENT_STATE
+start_time: "2013-04-23T13:42:43+00:00"

@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fluxnova_bpm_platform"
+description = "Fluxnova BPMN Platform - LinkML Schema"
+authors = [
+  {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dynamic = ["version"]
+
+dependencies = [
+  "linkml-runtime >=1.9.4",
+]
+
+[dependency-groups]
+dev = [
+    "linkml>=1.9.3",
+    "mkdocs-material>=8.2.8",
+    "mkdocs-mermaid2-plugin>=1.1.1",
+    "mkdocs-pymdownx-material-extras>=2.5.6",
+    "jupyter>=1.0.0",
+    "mknotebooks>= 0.8.0",
+    "ruamel.yaml>=0.18",
+]
+
+# See https://hatch.pypa.io/latest/config/build/#file-selection for how to
+# explicitly include files other than default into the build distributions.
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+# Ref.: https://github.com/ninoseki/uv-dynamic-versioning/
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "pep440"
+fallback-version = "0.0.0"
+
+# Ref.: https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+# Ref.: https://github.com/codespell-project/codespell
+[tool.codespell]
+skip = [
+  "LICENSE",
+  "pyproject.toml",
+  "uv.lock",
+  "project/*",
+  "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform_pydantic.py",
+  "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform.py",
+]
+
+# Reminder: words have to be lowercased for the ignore-words-list
+ignore-words-list = "linke"
+quiet-level = 3
+
+# Ref.: https://github.com/crate-ci/typos (spell checker)
+[tool.typos.default.extend-words]
+linke = "linke"
+[tool.typos.files]
+extend-exclude = [
+  "LICENSE",
+  "uv.lock",
+  "pyproject.toml",
+  "project/*",
+  "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform_pydantic.py",
+  "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform.py",
+]

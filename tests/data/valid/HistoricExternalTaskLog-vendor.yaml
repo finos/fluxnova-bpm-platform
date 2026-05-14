@@ -1,0 +1,20 @@
+# Vendor test data derived from MockProvider.java
+# HistoricExternalTaskLog — mirrors MockProvider EXAMPLE_HISTORIC_EXTERNAL_TASK_LOG_* constants
+id: aHistoricExternalTaskLogId
+timestamp: "2015-01-01T00:00:00+00:00"
+external_task_id: anExternalTaskId
+retries: 5
+topic_name: aTopicName
+worker_id: aWorkerId
+priority: 2147483689
+error_message: aEXTERNAL_TASKExceptionMsg
+activity_id: anActId
+activity_instance_id: anActInstanceId
+execution_id: anExecId
+root_process_instance_id: aRootProcInstId
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId
+process_definition_key: aProcDefKey
+tenant_id: aTenantId
+state: ACTIVE
+removal_time: "2018-01-01T00:00:00+00:00"

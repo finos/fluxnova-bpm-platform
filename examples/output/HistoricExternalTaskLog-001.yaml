@@ -1,0 +1,16 @@
+id: hetl-001
+timestamp: '2025-03-01T09:15:00+00:00'
+external_task_id: et-001
+priority: 10
+retries: 3
+topic_name: sendEmail
+worker_id: worker-node-1
+activity_id: ExternalTask_SendEmail
+activity_instance_id: hai-002
+execution_id: exec-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+process_definition_id: procdef-001
+process_definition_key: invoice-process
+tenant_id: tenant-alpha
+state: ACTIVE

@@ -1,0 +1,12 @@
+{
+  "id": "aDecisionRequirementsDefinitionId",
+  "key": "aDecisionRequirementsDefinitionKey",
+  "name": "aDecisionRequirementsDefinitionName",
+  "version": 1,
+  "category": "aDecisionRequirementsDefinitionCategory",
+  "deployment_id": "aDeploymentId",
+  "resource_name": "aDecisionRequirementsDefinitionResourceName",
+  "diagram_resource_name": "aResourceName.png",
+  "tenant_id": "aTenantId",
+  "@type": "DecisionRequirementsDefinition"
+}

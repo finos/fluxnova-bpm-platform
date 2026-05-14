@@ -1,0 +1,3504 @@
+# metamodel_version: 1.11.0
+# version: 3.0.0-SNAPSHOT
+enum ActivityInstanceState
+  {
+    DEFAULT
+    SCOPE_COMPLETE
+    CANCELED
+    STARTING
+    ENDING
+  }
+
+enum AssociationDirection
+  {
+    None
+    One
+    Both
+  }
+
+enum AuthorizationType
+  {
+    GLOBAL
+    GRANT
+    REVOKE
+  }
+
+enum DelegationState
+  {
+    PENDING
+    RESOLVED
+  }
+
+enum EntityState
+  {
+    ACTIVE
+    SUSPENDED
+    COMPLETED
+    EXTERNALLY_TERMINATED
+    INTERNALLY_TERMINATED
+  }
+
+enum EventBasedGatewayType
+  {
+    Exclusive
+    Parallel
+  }
+
+enum GatewayDirection
+  {
+    Unspecified
+    Converging
+    Diverging
+    Mixed
+  }
+
+enum IncidentState
+  {
+    OPEN
+    DELETED
+    RESOLVED
+  }
+
+enum ItemKind
+  {
+    Information
+    Physical
+  }
+
+enum JobState
+  {
+    CREATED
+    FAILED
+    SUCCESSFUL
+    DELETED
+  }
+
+enum MessageVisibleKind
+  {
+    initiating
+    non_initiating
+  }
+
+enum MultiInstanceFlowCondition
+  {
+    None
+    One
+    All
+    Complex
+  }
+
+enum ParticipantBandKind
+  {
+    top_initiating
+    middle_initiating
+    bottom_initiating
+    top_non_initiating
+    middle_non_initiating
+    bottom_non_initiating
+  }
+
+enum ProcessType
+  {
+    None
+    Public
+    Private
+  }
+
+enum RelationshipDirection
+  {
+    None
+    Forward
+    Backward
+    Both
+  }
+
+enum SuspensionState
+  {
+    ACTIVE
+    SUSPENDED
+  }
+
+enum TransactionMethod
+  {
+    Compensate
+    Image
+    Store
+  }
+
+type ActivationCondition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Activity implements InteractionNode
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+  }
+
+type Artifact
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Assignment
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    from: String
+    to: String
+  }
+
+type Association
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    source: BaseElement
+    target: BaseElement
+    associationDirection: String
+  }
+
+type Attachment
+  {
+    id: String!
+    userId: String
+    name: String
+    description: String
+    type: String
+    taskId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    url: String
+    contentId: String
+    tenantId: String
+    createTime: String
+    removalTime: String
+  }
+
+type Auditing
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Authorization
+  {
+    id: String!
+    type: AuthorizationType!
+    groupId: String
+    userId: String
+    resourceType: Int!
+    resourceId: String
+    permissions: Int
+    removalTime: String
+    rootProcessInstanceId: String
+  }
+
+type BaseElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Batch
+  {
+    id: String!
+    type: String
+    totalJobs: Int
+    jobsCreated: Int
+    jobsPerSeed: Int
+    invocationsPerJob: Int
+    seedJobDefinitionId: String
+    batchJobDefinitionId: String
+    monitorJobDefinitionId: String
+    suspensionState: SuspensionState
+    configuration: String
+    tenantId: String
+    createUserId: String
+    startTime: String
+    executionStartTime: String
+  }
+
+type BoundaryEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [DataOutput]
+    dataOutputAssociations: [DataOutputAssociation]
+    outputSet: OutputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+    attachedTo: Activity
+  }
+
+type Bounds
+  {
+    scope: Boolean
+    x: Float
+    y: Float
+    width: Float
+    height: Float
+  }
+
+type BpmnDiagram
+  {
+    scope: Boolean
+    name: String
+    documentation: String
+    resolution: Float
+    id: String!
+    bpmnPlane: BpmnPlane
+    bpmnLabelStyles: [BpmnLabelStyle]
+  }
+
+type BpmnEdge
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    waypoints: [Waypoint]
+    bpmnElement: String
+    sourceElement: DiagramElement
+    targetElement: DiagramElement
+    messageVisibleKind: MessageVisibleKind
+    bpmnLabel: BpmnLabel
+  }
+
+type BpmnGroup
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    category: CategoryValue
+  }
+
+type BpmnLabel
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    bounds: Bounds
+    labelStyle: BpmnLabelStyle
+  }
+
+type BpmnLabelStyle
+  {
+    scope: Boolean
+    id: String!
+    font: Font
+  }
+
+type BpmnModelElementInstance
+  {
+    scope: BpmnModelElementInstance
+  }
+
+type BpmnModelInstance
+  {
+    definitions: Definitions
+  }
+
+type BpmnModelType
+  {
+  }
+
+type BpmnPlane
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    diagramElements: [DiagramElement]
+    bpmnElement: String
+  }
+
+type BpmnProperty
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+    name: String
+  }
+
+type BpmnShape
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    bounds: Bounds
+    bpmnElement: String
+    horizontal: Boolean
+    expanded: Boolean
+    markerVisible: Boolean
+    messageVisible: Boolean
+    participantBandKind: ParticipantBandKind
+    choreographyActivityShape: BpmnShape
+    bpmnLabel: BpmnLabel
+  }
+
+type BpmnTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+  }
+
+type BusinessRuleTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaType: String
+    fluxnovaTopic: String
+    fluxnovaDecisionRef: String
+    fluxnovaDecisionRefBinding: String
+    fluxnovaDecisionRefVersion: String
+    fluxnovaDecisionRefVersionTag: String
+    fluxnovaDecisionRefTenantId: String
+    fluxnovaMapDecisionResult: String
+    fluxnovaTaskPriority: String
+  }
+
+type ByteArray
+  {
+    id: String!
+    name: String
+    deploymentId: String
+    bytes: String
+    isGenerated: Boolean
+    tenantId: String
+    type: Int
+    createTime: String
+    rootProcessInstanceId: String
+    removalTime: String
+  }
+
+type CallableElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    supportedInterfaces: [Interface]
+    ioSpecification: IoSpecification
+    ioBindings: [IoBinding]
+  }
+
+type CallActivity
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    calledElement: String
+    fluxnovaAsync: Boolean
+    fluxnovaCalledElementBinding: String
+    fluxnovaCalledElementVersion: String
+    fluxnovaCalledElementVersionTag: String
+    fluxnovaCaseRef: String
+    fluxnovaCaseBinding: String
+    fluxnovaCaseVersion: String
+    fluxnovaCalledElementTenantId: String
+    fluxnovaCaseTenantId: String
+    fluxnovaVariableMappingClass: String
+    fluxnovaVariableMappingDelegateExpression: String
+  }
+
+type CallConversation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    correlationKeys: [CorrelationKey]
+    calledCollaboration: GlobalConversation
+    participantAssociations: [ParticipantAssociation]
+  }
+
+type CancelEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type CaseDefinition
+  {
+    id: String!
+    name: String
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+    key: String!
+    version: Int!
+  }
+
+type CaseExecution
+  {
+    id: String!
+    caseInstanceId: String
+    superCaseExecutionId: String
+    superExecutionId: String
+    businessKey: String
+    parentId: String
+    caseDefinitionId: String
+    activityId: String
+    previousState: Int
+    currentState: Int
+    isRequired: Boolean
+    tenantId: String
+  }
+
+type CaseSentryPart
+  {
+    id: String!
+    caseInstanceId: String
+    caseExecutionId: String
+    sentryId: String
+    type: String
+    sourceCaseExecutionId: String
+    standardEvent: String
+    source: String
+    variableEvent: String
+    variableName: String
+    isSatisfied: Boolean
+    tenantId: String
+  }
+
+type CatchEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [DataOutput]
+    dataOutputAssociations: [DataOutputAssociation]
+    outputSet: OutputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+  }
+
+type Category
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    categoryValues: [CategoryValue]
+  }
+
+type CategoryValue
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    value: String
+  }
+
+type Collaboration
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    closed: Boolean
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    artifacts: [Artifact]
+    conversationNodes: [ConversationNode]
+    conversationAssociations: [ConversationAssociation]
+    participantAssociations: [ParticipantAssociation]
+    messageFlowAssociations: [MessageFlowAssociation]
+    correlationKeys: [CorrelationKey]
+    conversationLinks: [ConversationLink]
+  }
+
+type Comment
+  {
+    id: String!
+    type: String
+    eventTime: String!
+    userId: String
+    taskId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    action: String
+    message: String
+    fullMessage: String
+    tenantId: String
+    removalTime: String
+  }
+
+type CompensateEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    waitForCompletion: Boolean
+    activity: Activity
+  }
+
+type CompletionCondition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type ComplexBehaviorDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type ComplexGateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+    default: SequenceFlow
+    activationCondition: ActivationCondition
+  }
+
+type Condition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type ConditionalEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    condition: Condition
+    fluxnovaVariableName: String
+    fluxnovaVariableEvents: String
+    fluxnovaVariableEventsList: [String]
+  }
+
+type ConditionExpression
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    language: String
+    evaluatesToType: ItemDefinition
+    type: String
+    fluxnovaResource: String
+  }
+
+type Conversation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    correlationKeys: [CorrelationKey]
+  }
+
+type ConversationAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    innerConversationNode: ConversationNode
+    outerConversationNode: ConversationNode
+  }
+
+type ConversationLink
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    source: InteractionNode
+    target: InteractionNode
+  }
+
+type ConversationNode implements InteractionNode
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    correlationKeys: [CorrelationKey]
+  }
+
+type CorrelationKey
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    correlationProperties: [CorrelationProperty]
+  }
+
+type CorrelationProperty
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    type: ItemDefinition
+    correlationPropertyRetrievalExpressions: [CorrelationPropertyRetrievalExpression]
+  }
+
+type CorrelationPropertyBinding
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    correlationProperty: CorrelationProperty
+    dataPath: String
+  }
+
+type CorrelationPropertyRetrievalExpression
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    message: Message
+    messagePath: String
+  }
+
+type CorrelationSubscription
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    correlationKey: CorrelationKey
+    correlationPropertyBindings: [CorrelationPropertyBinding]
+  }
+
+type DataAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    sources: [ItemAwareElement]
+    target: ItemAwareElement
+    transformation: FormalExpression
+    assignments: [Assignment]
+  }
+
+type DataInput
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+    name: String
+    collection: Boolean
+  }
+
+type DataInputAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    sources: [ItemAwareElement]
+    target: ItemAwareElement
+    transformation: FormalExpression
+    assignments: [Assignment]
+  }
+
+type DataObject implements ItemAwareElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    collection: Boolean
+    itemSubject: ItemDefinition
+    dataState: DataState
+  }
+
+type DataObjectReference implements ItemAwareElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    dataObject: DataObject
+    itemSubject: ItemDefinition
+    dataState: DataState
+  }
+
+type DataOutput
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+    name: String
+    collection: Boolean
+  }
+
+type DataOutputAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    sources: [ItemAwareElement]
+    target: ItemAwareElement
+    transformation: FormalExpression
+    assignments: [Assignment]
+  }
+
+type DataState
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+  }
+
+type DataStore implements ItemAwareElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    capacity: Int
+    unlimited: Boolean
+    itemSubject: ItemDefinition
+    dataState: DataState
+  }
+
+type DataStoreReference implements ItemAwareElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    dataStore: DataStore
+    itemSubject: ItemDefinition
+    dataState: DataState
+  }
+
+type DecisionDefinition
+  {
+    id: String!
+    name: String
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+    decisionRequirementsDefinitionId: String
+    decisionRequirementsDefinitionKey: String
+    versionTag: String
+    key: String!
+    version: Int!
+  }
+
+type DecisionRequirementsDefinition
+  {
+    id: String!
+    name: String
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+    key: String!
+    version: Int!
+  }
+
+type Definitions
+  {
+    scope: Boolean
+    id: String!
+    name: String
+    targetNamespace: String
+    expressionLanguage: String
+    typeLanguage: String
+    exporter: String
+    exporterVersion: String
+    imports: [Import]
+    extensions: [Extension]
+    rootElements: [RootElement]
+    bpmDiagrams: [String]
+    relationships: [Relationship]
+  }
+
+type Deployment
+  {
+    id: String!
+    name: String
+    deployTime: String
+    source: String
+    tenantId: String
+  }
+
+type Diagram
+  {
+    scope: Boolean
+    name: String
+    documentation: String
+    resolution: Float
+    id: String!
+  }
+
+type DiagramElement
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+  }
+
+type Documentation
+  {
+    scope: Boolean
+    id: String!
+    textFormat: String
+  }
+
+type Edge
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    waypoints: [Waypoint]
+  }
+
+type EndEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    dataInputs: [DataInput]
+    dataInputAssociations: [DataInputAssociation]
+    inputSet: InputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+  }
+
+type EndPoint
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Error
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    errorCode: String
+    fluxnovaErrorMessage: String
+    structure: ItemDefinition
+  }
+
+type ErrorEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    error: Error
+    fluxnovaErrorCodeVariable: String
+    fluxnovaErrorMessageVariable: String
+  }
+
+type Escalation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    escalationCode: String
+    structure: ItemDefinition
+  }
+
+type EscalationEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    escalation: Escalation
+  }
+
+type Event implements InteractionNode
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+  }
+
+type EventBasedGateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+    instantiate: Boolean
+    eventGatewayType: String
+  }
+
+type EventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type EventSubscription
+  {
+    id: String!
+    eventType: String!
+    eventName: String
+    executionId: String
+    processInstanceId: String
+    activityId: String
+    configuration: String
+    created: String!
+    tenantId: String
+  }
+
+type ExclusiveGateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+    default: SequenceFlow
+  }
+
+type Execution
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processInstanceId: String
+    businessKey: String
+    parentId: String
+    processDefinitionId: String
+    superExecutionId: String
+    superCaseExecutionId: String
+    caseInstanceId: String
+    activityInstanceId: String
+    activityId: String
+    isActive: Boolean
+    isConcurrent: Boolean
+    isScope: Boolean
+    isEventScope: Boolean
+    suspensionState: SuspensionState
+    cachedEntityState: Int
+    sequenceCounter: Int
+    tenantId: String
+    processDefinitionKey: String
+  }
+
+type Expression
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Extension
+  {
+    scope: Boolean
+  }
+
+type ExtensionElements
+  {
+    scope: Boolean
+    elements: [String]
+    elementsQuery: String
+  }
+
+type ExternalTask
+  {
+    id: String!
+    workerId: String
+    topicName: String
+    retries: Int
+    errorMessage: String
+    errorDetailsId: String
+    lockExpirationTime: String
+    createTime: String
+    suspensionState: SuspensionState
+    executionId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    activityId: String
+    activityInstanceId: String
+    tenantId: String
+    priority: Int!
+    lastFailureLogId: String
+  }
+
+type Filter
+  {
+    id: String!
+    resourceType: String!
+    name: String!
+    owner: String
+    query: String!
+    properties: String
+  }
+
+type FlowElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+  }
+
+type FlowNode
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+  }
+
+type FluxnovaConnector
+  {
+    scope: Boolean
+    fluxnovaConnectorId: FluxnovaConnectorId
+    fluxnovaInputOutput: FluxnovaInputOutput
+  }
+
+type FluxnovaConnectorId
+  {
+    scope: Boolean
+  }
+
+type FluxnovaConstraint
+  {
+    scope: Boolean
+    fluxnovaName: String
+    fluxnovaConfig: String
+  }
+
+type FluxnovaEntry implements FluxnovaGenericValueElement
+  {
+    scope: Boolean
+    fluxnovaKey: String
+    value: String
+  }
+
+type FluxnovaErrorEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    error: Error
+    fluxnovaErrorCodeVariable: String
+    fluxnovaErrorMessageVariable: String
+    fluxnovaExpression: String
+  }
+
+type FluxnovaExecutionListener
+  {
+    scope: Boolean
+    fluxnovaEvent: String
+    fluxnovaClass: String
+    fluxnovaExpression: String
+    fluxnovaDelegateExpression: String
+    fluxnovaFields: [FluxnovaField]
+    fluxnovaScript: FluxnovaScript
+  }
+
+type FluxnovaExpression
+  {
+    scope: Boolean
+  }
+
+type FluxnovaFailedJobRetryTimeCycle
+  {
+    scope: Boolean
+  }
+
+type FluxnovaField
+  {
+    scope: Boolean
+    fluxnovaName: String
+    fluxnovaExpression: String
+    fluxnovaStringValue: String
+    fluxnovaString: FluxnovaString
+    fluxnovaExpressionChild: FluxnovaExpression
+  }
+
+type FluxnovaFormData
+  {
+    scope: Boolean
+    fluxnovaFormFields: [FluxnovaFormField]
+  }
+
+type FluxnovaFormField
+  {
+    scope: Boolean
+    fluxnovaId: String
+    fluxnovaLabel: String
+    fluxnovaType: String
+    fluxnovaDatePattern: String
+    fluxnovaDefaultValue: String
+    fluxnovaProperties: FluxnovaProperties
+    fluxnovaValidation: FluxnovaValidation
+    fluxnovaValues: [FluxnovaValue]
+  }
+
+type FluxnovaFormProperty
+  {
+    scope: Boolean
+    fluxnovaId: String
+    fluxnovaName: String
+    fluxnovaType: String
+    fluxnovaRequired: Boolean
+    fluxnovaReadable: Boolean
+    fluxnovaWriteable: Boolean
+    fluxnovaVariable: String
+    fluxnovaExpression: String
+    fluxnovaDatePattern: String
+    fluxnovaDefault: String
+    fluxnovaValues: [FluxnovaValue]
+  }
+
+type FluxnovaGenericValueElement
+  {
+    value: String
+  }
+
+type FluxnovaIn
+  {
+    scope: Boolean
+    fluxnovaSource: String
+    fluxnovaSourceExpression: String
+    fluxnovaVariables: String
+    fluxnovaTarget: String
+    fluxnovaBusinessKey: String
+    fluxnovaLocal: Boolean
+  }
+
+type FluxnovaInputOutput
+  {
+    scope: Boolean
+    fluxnovaInputParameters: [FluxnovaInputParameter]
+    fluxnovaOutputParameters: [FluxnovaOutputParameter]
+  }
+
+type FluxnovaInputParameter implements FluxnovaGenericValueElement
+  {
+    scope: Boolean
+    fluxnovaName: String
+    value: String
+  }
+
+type FluxnovaList
+  {
+    scope: Boolean
+    values: String
+  }
+
+type FluxnovaMap
+  {
+    scope: Boolean
+    fluxnovaEntries: [FluxnovaEntry]
+  }
+
+type FluxnovaOut
+  {
+    scope: Boolean
+    fluxnovaSource: String
+    fluxnovaSourceExpression: String
+    fluxnovaVariables: String
+    fluxnovaTarget: String
+    fluxnovaLocal: Boolean
+  }
+
+type FluxnovaOutputParameter implements FluxnovaGenericValueElement
+  {
+    scope: Boolean
+    fluxnovaName: String
+    value: String
+  }
+
+type FluxnovaPlatformData
+  {
+    deployments: [Deployment]
+    processDefinitions: [ProcessDefinition]
+    executions: [Execution]
+    tasks: [Task]
+    jobs: [Job]
+    users: [User]
+    groups: [Group]
+    batches: [Batch]
+  }
+
+type FluxnovaPotentialStarter
+  {
+    scope: Boolean
+    resourceAssignmentExpression: ResourceAssignmentExpression
+  }
+
+type FluxnovaProperties
+  {
+    scope: Boolean
+    fluxnovaProperties: FluxnovaProperty
+  }
+
+type FluxnovaProperty
+  {
+    scope: Boolean
+    fluxnovaId: String
+    fluxnovaName: String
+    fluxnovaValue: String
+  }
+
+type FluxnovaScript
+  {
+    scope: Boolean
+    fluxnovaScriptFormat: String
+    fluxnovaResource: String
+  }
+
+type FluxnovaString
+  {
+    scope: Boolean
+  }
+
+type FluxnovaTaskListener
+  {
+    scope: Boolean
+    fluxnovaEvent: String
+    fluxnovaClass: String
+    fluxnovaExpression: String
+    fluxnovaDelegateExpression: String
+    fluxnovaFields: [FluxnovaField]
+    fluxnovaScript: FluxnovaScript
+    timeouts: [TimerEventDefinition]
+  }
+
+type FluxnovaValidation
+  {
+    scope: Boolean
+    fluxnovaConstraints: [FluxnovaConstraint]
+  }
+
+type FluxnovaValue
+  {
+    scope: Boolean
+    fluxnovaId: String
+    fluxnovaName: String
+  }
+
+type Font
+  {
+    scope: Boolean
+    name: String
+    size: Float
+    bold: Boolean
+    italic: Boolean
+    underline: Boolean
+    strikeThrough: Boolean
+  }
+
+type FormalExpression
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    language: String
+    evaluatesToType: ItemDefinition
+  }
+
+type FormDefinition
+  {
+    id: String!
+    name: String
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+    key: String!
+    version: Int!
+  }
+
+type Gateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+  }
+
+type GlobalConversation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    closed: Boolean
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    artifacts: [Artifact]
+    conversationNodes: [ConversationNode]
+    conversationAssociations: [ConversationAssociation]
+    participantAssociations: [ParticipantAssociation]
+    messageFlowAssociations: [MessageFlowAssociation]
+    correlationKeys: [CorrelationKey]
+    conversationLinks: [ConversationLink]
+  }
+
+type Group
+  {
+    id: String!
+    name: String
+    type: String
+  }
+
+type HistoricActivityInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processDefinitionKey: String
+    endTime: String
+    duration: Int
+    removalTime: String
+    parentActivityInstanceId: String
+    executionId: String!
+    activityId: String!
+    taskId: String
+    calledProcessInstanceId: String
+    calledCaseInstanceId: String
+    activityName: String
+    activityType: String!
+    assignee: String
+    activityInstanceState: ActivityInstanceState
+    sequenceCounter: Int
+    tenantId: String
+    processDefinitionId: String!
+    processInstanceId: String!
+    startTime: String!
+  }
+
+type HistoricBatch
+  {
+    id: String!
+    type: String
+    totalJobs: Int
+    jobsPerSeed: Int
+    invocationsPerJob: Int
+    seedJobDefinitionId: String
+    monitorJobDefinitionId: String
+    batchJobDefinitionId: String
+    tenantId: String
+    createUserId: String
+    startTime: String!
+    endTime: String
+    removalTime: String
+    executionStartTime: String
+  }
+
+type HistoricCaseActivityInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    startTime: String
+    endTime: String
+    duration: Int
+    removalTime: String
+    parentActivityInstanceId: String
+    caseDefinitionId: String!
+    caseInstanceId: String!
+    caseActivityId: String!
+    taskId: String
+    calledProcessInstanceId: String
+    calledCaseInstanceId: String
+    caseActivityName: String
+    caseActivityType: String
+    createTime: String!
+    state: EntityState
+    isRequired: Boolean
+    tenantId: String
+  }
+
+type HistoricCaseInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    startTime: String
+    endTime: String
+    duration: Int
+    removalTime: String
+    caseInstanceId: String!
+    businessKey: String
+    caseDefinitionId: String!
+    createTime: String!
+    closeTime: String
+    state: EntityState
+    createUserId: String
+    superCaseInstanceId: String
+    superProcessInstanceId: String
+    tenantId: String
+  }
+
+type HistoricDecisionInputInstance
+  {
+    id: String!
+    decisionInstanceId: String!
+    clauseId: String
+    clauseName: String
+    variableType: String
+    byteArrayId: String
+    doubleValue: Float
+    longValue: Int
+    textValue: String
+    text2Value: String
+    tenantId: String
+    createTime: String
+    rootProcessInstanceId: String
+    removalTime: String
+  }
+
+type HistoricDecisionInstance
+  {
+    id: String!
+    decisionDefinitionId: String!
+    decisionDefinitionKey: String!
+    decisionDefinitionName: String
+    processDefinitionKey: String
+    processDefinitionId: String
+    processInstanceId: String
+    caseDefinitionKey: String
+    caseDefinitionId: String
+    caseInstanceId: String
+    activityInstanceId: String
+    activityId: String
+    evaluationTime: String!
+    removalTime: String
+    collectResultValue: Float
+    userId: String
+    rootDecisionInstanceId: String
+    rootProcessInstanceId: String
+    decisionRequirementsDefinitionId: String
+    decisionRequirementsDefinitionKey: String
+    tenantId: String
+  }
+
+type HistoricDecisionOutputInstance
+  {
+    id: String!
+    decisionInstanceId: String!
+    clauseId: String
+    clauseName: String
+    ruleId: String
+    ruleOrder: Int
+    variableName: String
+    variableType: String
+    byteArrayId: String
+    doubleValue: Float
+    longValue: Int
+    textValue: String
+    text2Value: String
+    tenantId: String
+    createTime: String
+    rootProcessInstanceId: String
+    removalTime: String
+  }
+
+type HistoricDetail
+  {
+    id: String!
+    type: String!
+    eventTime: String!
+    name: String!
+    processDefinitionKey: String
+    processDefinitionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    executionId: String
+    caseDefinitionKey: String
+    caseDefinitionId: String
+    caseInstanceId: String
+    caseExecutionId: String
+    taskId: String
+    activityInstanceId: String
+    variableInstanceId: String
+    variableType: String
+    byteArrayId: String
+    doubleValue: Float
+    longValue: Int
+    textValue: String
+    text2Value: String
+    sequenceCounter: Int
+    tenantId: String
+    operationId: String
+    removalTime: String
+    isInitial: Boolean
+  }
+
+type HistoricExternalTaskLog
+  {
+    id: String!
+    timestamp: String!
+    externalTaskId: String!
+    retries: Int
+    topicName: String
+    workerId: String
+    priority: Int!
+    errorMessage: String
+    errorDetailsId: String
+    activityId: String
+    activityInstanceId: String
+    executionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    tenantId: String
+    state: EntityState
+    removalTime: String
+  }
+
+type HistoricIdentityLink
+  {
+    id: String!
+    timestamp: String!
+    type: String
+    userId: String
+    groupId: String
+    taskId: String
+    rootProcessInstanceId: String
+    processDefinitionId: String
+    operationType: String
+    assignerId: String
+    processDefinitionKey: String
+    tenantId: String
+    removalTime: String
+  }
+
+type HistoricIncident
+  {
+    id: String!
+    processDefinitionKey: String
+    processDefinitionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    executionId: String
+    createTime: String!
+    endTime: String
+    incidentMessage: String
+    incidentType: String!
+    activityId: String
+    failedActivityId: String
+    causeIncidentId: String
+    rootCauseIncidentId: String
+    configuration: String
+    historyConfiguration: String
+    incidentState: IncidentState
+    tenantId: String
+    jobDefinitionId: String
+    annotation: String
+    removalTime: String
+  }
+
+type HistoricJobLog
+  {
+    id: String!
+    timestamp: String!
+    jobId: String!
+    jobDueDate: String
+    jobRetries: Int
+    jobPriority: Int!
+    jobExceptionMessage: String
+    jobExceptionStackId: String
+    jobState: JobState
+    jobDefinitionId: String
+    jobDefinitionType: String
+    jobDefinitionConfiguration: String
+    activityId: String
+    failedActivityId: String
+    executionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    deploymentId: String
+    sequenceCounter: Int
+    tenantId: String
+    hostname: String
+    removalTime: String
+    batchId: String
+  }
+
+type HistoricProcessInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processDefinitionKey: String
+    endTime: String
+    duration: Int
+    removalTime: String
+    businessKey: String
+    startUserId: String
+    startActivityId: String
+    endActivityId: String
+    superProcessInstanceId: String
+    superCaseInstanceId: String
+    caseInstanceId: String
+    deleteReason: String
+    tenantId: String
+    state: EntityState
+    restartedProcessInstanceId: String
+    processInstanceId: String!
+    processDefinitionId: String!
+    startTime: String!
+  }
+
+interface HistoricScopeInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    startTime: String
+    endTime: String
+    duration: Int
+    removalTime: String
+  }
+
+type HistoricTaskInstance
+  {
+    id: String!
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    endTime: String
+    duration: Int
+    removalTime: String
+    taskDefinitionKey: String
+    executionId: String
+    caseDefinitionKey: String
+    caseDefinitionId: String
+    caseInstanceId: String
+    caseExecutionId: String
+    activityInstanceId: String
+    name: String
+    parentTaskId: String
+    description: String
+    owner: String
+    assignee: String
+    deleteReason: String
+    priority: Int!
+    dueDate: String
+    followUpDate: String
+    tenantId: String
+    taskState: String
+    startTime: String!
+  }
+
+type HistoricVariableInstance
+  {
+    id: String!
+    processDefinitionKey: String
+    processDefinitionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    executionId: String
+    caseDefinitionKey: String
+    caseDefinitionId: String
+    caseInstanceId: String
+    caseExecutionId: String
+    taskId: String
+    activityInstanceId: String
+    name: String!
+    variableType: String
+    createTime: String
+    byteArrayId: String
+    doubleValue: Float
+    longValue: Int
+    textValue: String
+    text2Value: String
+    tenantId: String
+    state: EntityState
+    removalTime: String
+  }
+
+type HumanPerformer
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    resource: Resource
+    resourceParameterBinding: [ResourceParameterBinding]
+    resourceAssignmentExpression: ResourceAssignmentExpression
+  }
+
+type IdentityInfo
+  {
+    id: String!
+    userId: String
+    type: String
+    key: String
+    value: String
+    password: String
+    parentId: String
+  }
+
+type IdentityLink
+  {
+    id: String!
+    groupId: String
+    type: String
+    userId: String
+    taskId: String
+    processDefinitionId: String
+    tenantId: String
+  }
+
+type Import
+  {
+    scope: Boolean
+    namespace: String
+    location: String
+    importType: String
+  }
+
+type Incident
+  {
+    id: String!
+    incidentTimestamp: String!
+    incidentMessage: String
+    incidentType: String!
+    executionId: String
+    activityId: String
+    failedActivityId: String
+    processInstanceId: String
+    processDefinitionId: String
+    causeIncidentId: String
+    rootCauseIncidentId: String
+    configuration: String
+    tenantId: String
+    jobDefinitionId: String
+    annotation: String
+  }
+
+type InclusiveGateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+    default: SequenceFlow
+  }
+
+type InputDataItem
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+    name: String
+    collection: Boolean
+  }
+
+type InputSet
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    dataInputs: [DataInput]
+    optionalInputs: [DataInput]
+    whileExecutingInput: [DataInput]
+    outputSets: [OutputSet]
+  }
+
+type InteractionNode
+  {
+    id: String!
+  }
+
+type Interface
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    implementationRef: String
+    operations: [Operation]
+  }
+
+type IntermediateCatchEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [DataOutput]
+    dataOutputAssociations: [DataOutputAssociation]
+    outputSet: OutputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+  }
+
+type IntermediateThrowEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    dataInputs: [DataInput]
+    dataInputAssociations: [DataInputAssociation]
+    inputSet: InputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+  }
+
+type IoBinding
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    operation: Operation
+    inputData: DataInput
+    outputData: DataOutput
+  }
+
+type IoSpecification
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    dataInputs: [DataInput]
+    dataOutputs: [DataOutput]
+    inputSets: [InputSet]
+    outputSets: [OutputSet]
+  }
+
+type ItemAwareElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+  }
+
+type ItemDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    structureRef: String
+    collection: Boolean
+    itemKind: String
+  }
+
+type Job
+  {
+    id: String!
+    type: String!
+    lockExpirationTime: String
+    lockOwner: String
+    isExclusive: Boolean
+    executionId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    retries: Int
+    exceptionStackId: String
+    exceptionMessage: String
+    failedActivityId: String
+    dueDate: String
+    repeat: String
+    repeatOffset: Int
+    handlerType: String
+    handlerConfiguration: String
+    deploymentId: String
+    suspensionState: SuspensionState!
+    jobDefinitionId: String
+    priority: Int!
+    sequenceCounter: Int
+    tenantId: String
+    createTime: String
+    lastFailureLogId: String
+    batchId: String
+  }
+
+type JobDefinition
+  {
+    id: String!
+    processDefinitionId: String
+    processDefinitionKey: String
+    activityId: String
+    jobType: String!
+    jobConfiguration: String
+    suspensionState: SuspensionState
+    jobPriority: Int!
+    tenantId: String
+    deploymentId: String
+  }
+
+type Label
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    bounds: Bounds
+  }
+
+type LabeledEdge
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    waypoints: [Waypoint]
+  }
+
+type LabeledShape
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    bounds: Bounds
+  }
+
+type Lane
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    partitionElement: String
+    partitionElementChild: String
+    flowNodeRefs: [FlowNode]
+    childLaneSet: String
+  }
+
+type LaneSet
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    lanes: [Lane]
+  }
+
+type LinkEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    sources: [LinkEventDefinition]
+    target: LinkEventDefinition
+  }
+
+type LoopCardinality
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type LoopCharacteristics
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type ManualTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+  }
+
+type Membership
+  {
+    userId: String!
+    groupId: String!
+  }
+
+type Message
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    item: ItemDefinition
+  }
+
+type MessageEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    message: Message
+    operation: Operation
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaTopic: String
+    fluxnovaType: String
+    fluxnovaTaskPriority: String
+  }
+
+type MessageFlow
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    source: InteractionNode
+    target: InteractionNode
+    message: Message
+  }
+
+type MessageFlowAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    innerMessageFlow: MessageFlow
+    outerMessageFlow: MessageFlow
+  }
+
+type MeterLog
+  {
+    id: String!
+    name: String!
+    reporter: String
+    value: Int
+    timestamp: String
+    milliseconds: Int
+  }
+
+type Monitoring
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type MultiInstanceLoopCharacteristics
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    loopCardinality: LoopCardinality
+    loopDataInputRef: DataInput
+    loopDataOutputRef: DataOutput
+    inputDataItem: InputDataItem
+    outputDataItem: OutputDataItem
+    complexBehaviorDefinitions: [ComplexBehaviorDefinition]
+    completionCondition: CompletionCondition
+    sequential: Boolean
+    behavior: String
+    oneBehaviorEventRef: EventDefinition
+    noneBehaviorEventRef: EventDefinition
+    fluxnovaCollection: String
+    fluxnovaElementVariable: String
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+  }
+
+type Node
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+  }
+
+type Operation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    implementationRef: String
+    inMessage: Message
+    outMessage: Message
+    errors: [Error]
+  }
+
+type OutputDataItem
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    itemSubject: ItemDefinition
+    dataState: DataState
+    name: String
+    collection: Boolean
+  }
+
+type OutputSet
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    dataOutputRefs: [DataOutput]
+    optionalOutputRefs: [DataOutput]
+    whileExecutingOutputRefs: [DataOutput]
+    inputSetRefs: [InputSet]
+  }
+
+type ParallelGateway
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    gatewayDirection: String
+    fluxnovaAsync: Boolean
+  }
+
+type Participant implements InteractionNode
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    process: Process
+    interfaces: [Interface]
+    endPoints: [EndPoint]
+    participantMultiplicity: ParticipantMultiplicity
+  }
+
+type ParticipantAssociation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    innerParticipant: Participant
+    outerParticipant: Participant
+  }
+
+type ParticipantMultiplicity
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    minimum: Int
+    maximum: Int
+  }
+
+type Performer
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    resource: Resource
+    resourceParameterBinding: [ResourceParameterBinding]
+    resourceAssignmentExpression: ResourceAssignmentExpression
+  }
+
+type Plane
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    diagramElements: [DiagramElement]
+  }
+
+type Point
+  {
+    scope: Boolean
+    x: Float
+    y: Float
+  }
+
+type PotentialOwner
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    resource: Resource
+    resourceParameterBinding: [ResourceParameterBinding]
+    resourceAssignmentExpression: ResourceAssignmentExpression
+  }
+
+type Process
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    supportedInterfaces: [Interface]
+    ioSpecification: IoSpecification
+    ioBindings: [IoBinding]
+    processType: String
+    closed: Boolean
+    executable: Boolean
+    auditing: Auditing
+    monitoring: Monitoring
+    properties: [BpmnProperty]
+    laneSets: [LaneSet]
+    flowElements: [FlowElement]
+    artifacts: [Artifact]
+    correlationSubscriptions: [CorrelationSubscription]
+    resourceRoles: [ResourceRole]
+    supports: [Process]
+    fluxnovaCandidateStarterGroups: String
+    fluxnovaCandidateStarterGroupsList: [String]
+    fluxnovaCandidateStarterUsers: String
+    fluxnovaCandidateStarterUsersList: [String]
+    fluxnovaJobPriority: String
+    fluxnovaTaskPriority: String
+    fluxnovaHistoryTimeToLive: Int
+    fluxnovaHistoryTimeToLiveString: String
+    fluxnovaStartableInTasklist: Boolean
+    fluxnovaVersionTag: String
+  }
+
+type ProcessDefinition
+  {
+    id: String!
+    name: String
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+    hasStartFormKey: Boolean
+    suspensionState: SuspensionState
+    versionTag: String
+    isStartable: Boolean!
+    key: String!
+    version: Int!
+  }
+
+type Property
+  {
+    name: String!
+    value: String
+  }
+
+type ReceiveTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    message: Message
+    operation: Operation
+  }
+
+type Relationship
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    type: String
+    direction: String
+    sources: [String]
+    targets: [String]
+  }
+
+type Rendering
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Resource
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    resourceParameters: [ResourceParameter]
+  }
+
+type ResourceAssignmentExpression
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    expression: Expression
+  }
+
+interface ResourceDefinition
+  {
+    id: String!
+    key: String
+    name: String
+    version: Int
+    category: String
+    deploymentId: String
+    resourceName: String
+    diagramResourceName: String
+    tenantId: String
+    historyTimeToLive: Int
+  }
+
+type ResourceParameter
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    type: ItemDefinition
+    required: Boolean
+  }
+
+type ResourceParameterBinding
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    parameter: ResourceParameter
+    expression: Expression
+  }
+
+type ResourceRole
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    resource: Resource
+    resourceParameterBinding: [ResourceParameterBinding]
+    resourceAssignmentExpression: ResourceAssignmentExpression
+  }
+
+type RootElement
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type SchemaLogEntry
+  {
+    id: String!
+    timestamp: String
+    version: String
+  }
+
+type Script
+  {
+    scope: Boolean
+  }
+
+type ScriptTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    scriptFormat: String
+    script: Script
+    fluxnovaResultVariable: String
+    fluxnovaResource: String
+  }
+
+type SendTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    message: Message
+    operation: Operation
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaType: String
+    fluxnovaTopic: String
+    fluxnovaTaskPriority: String
+  }
+
+type SequenceFlow
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    source: FlowNode
+    target: FlowNode
+    immediate: Boolean
+    conditionExpression: ConditionExpression
+  }
+
+type ServiceTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    operation: Operation
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaType: String
+    fluxnovaTopic: String
+    fluxnovaTaskPriority: String
+  }
+
+type Shape
+  {
+    scope: Boolean
+    id: String!
+    extension: Extension
+    bounds: Bounds
+  }
+
+type Signal
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    structure: ItemDefinition
+  }
+
+type SignalEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    signal: Signal
+    fluxnovaAsync: Boolean
+  }
+
+type StartEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [DataOutput]
+    dataOutputAssociations: [DataOutputAssociation]
+    outputSet: OutputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+    interrupting: Boolean
+    fluxnovaAsync: Boolean
+    fluxnovaFormHandlerClass: String
+    fluxnovaFormKey: String
+    fluxnovaFormRef: String
+    fluxnovaFormRefBinding: String
+    fluxnovaFormRefVersion: String
+    fluxnovaInitiator: String
+  }
+
+type Style
+  {
+    scope: Boolean
+    id: String!
+  }
+
+type SubConversation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    participants: [Participant]
+    messageFlows: [MessageFlow]
+    correlationKeys: [CorrelationKey]
+    conversationNodes: [ConversationNode]
+  }
+
+type SubProcess
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    laneSets: [LaneSet]
+    flowElements: [FlowElement]
+    artifacts: [Artifact]
+    fluxnovaAsync: Boolean
+  }
+
+type Task
+  {
+    id: String!
+    executionId: String
+    processInstanceId: String
+    processDefinitionId: String
+    caseExecutionId: String
+    caseInstanceId: String
+    caseDefinitionId: String
+    name: String
+    parentTaskId: String
+    description: String
+    taskDefinitionKey: String
+    owner: String
+    assignee: String
+    delegationState: DelegationState
+    priority: Int!
+    createTime: String
+    lastUpdated: String
+    dueDate: String
+    followUpDate: String
+    suspensionState: SuspensionState
+    tenantId: String
+    taskState: String
+  }
+
+type TaskMeterLog
+  {
+    id: String!
+    assigneeHash: Int
+    timestamp: String
+  }
+
+type Tenant
+  {
+    id: String!
+    name: String
+  }
+
+type TenantMembership
+  {
+    id: String!
+    tenantId: String!
+    userId: String
+    groupId: String
+  }
+
+type TerminateEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type Text
+  {
+    scope: Boolean
+  }
+
+type TextAnnotation
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    textFormat: String
+    text: Text
+  }
+
+type ThrowEvent
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    properties: [BpmnProperty]
+    dataInputs: [DataInput]
+    dataInputAssociations: [DataInputAssociation]
+    inputSet: InputSet
+    eventDefinitions: [EventDefinition]
+    eventDefinitionRefs: [EventDefinition]
+  }
+
+type TimeCycle
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type TimeDate
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type TimeDuration
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+  }
+
+type TimerEventDefinition
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    timeDate: TimeDate
+    timeDuration: TimeDuration
+    timeCycle: TimeCycle
+  }
+
+type Transaction
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    laneSets: [LaneSet]
+    flowElements: [FlowElement]
+    artifacts: [Artifact]
+    fluxnovaAsync: Boolean
+    method: String
+  }
+
+type User
+  {
+    id: String!
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    salt: String
+    lockExpirationTime: String
+    attempts: Int
+    pictureId: String
+  }
+
+type UserOperationLogEntry
+  {
+    id: String!
+    deploymentId: String
+    processDefinitionId: String
+    processDefinitionKey: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    executionId: String
+    caseDefinitionId: String
+    caseInstanceId: String
+    caseExecutionId: String
+    taskId: String
+    jobId: String!
+    jobDefinitionId: String
+    batchId: String
+    userId: String
+    timestamp: String!
+    operationType: String
+    operationId: String
+    entityType: String
+    property: String
+    originalValue: String
+    newValue: String
+    tenantId: String
+    removalTime: String
+    category: String
+    externalTaskId: String!
+    annotation: String
+  }
+
+type UserTask
+  {
+    scope: Boolean
+    id: String!
+    documentations: [Documentation]
+    extensionElements: ExtensionElements
+    diagramElement: DiagramElement
+    name: String
+    auditing: Auditing
+    monitoring: Monitoring
+    categoryValueRefs: [CategoryValue]
+    incoming: [SequenceFlow]
+    outgoing: [SequenceFlow]
+    previousNodes: FlowNode
+    succeedingNodes: FlowNode
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    forCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: SequenceFlow
+    ioSpecification: IoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [DataInputAssociation]
+    dataOutputAssociations: [DataOutputAssociation]
+    resourceRoles: [ResourceRole]
+    loopCharacteristics: LoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    renderings: [Rendering]
+    fluxnovaAssignee: String
+    fluxnovaCandidateGroups: String
+    fluxnovaCandidateGroupsList: [String]
+    fluxnovaCandidateUsers: String
+    fluxnovaCandidateUsersList: [String]
+    fluxnovaDueDate: String
+    fluxnovaFollowUpDate: String
+    fluxnovaFormHandlerClass: String
+    fluxnovaFormKey: String
+    fluxnovaFormRef: String
+    fluxnovaFormRefBinding: String
+    fluxnovaFormRefVersion: String
+    fluxnovaPriority: String
+  }
+
+type VariableInstance
+  {
+    id: String!
+    type: String!
+    name: String!
+    executionId: String
+    processInstanceId: String
+    processDefinitionId: String
+    caseExecutionId: String
+    caseInstanceId: String
+    taskId: String
+    batchId: String
+    byteArrayId: String
+    doubleValue: Float
+    longValue: Int
+    textValue: String
+    text2Value: String
+    variableScopeId: String!
+    sequenceCounter: Int
+    isConcurrentLocal: Boolean
+    tenantId: String
+  }
+
+type Waypoint
+  {
+    scope: Boolean
+    x: Float
+    y: Float
+  }

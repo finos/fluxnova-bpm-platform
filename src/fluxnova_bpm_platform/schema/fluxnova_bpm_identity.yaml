@@ -1,0 +1,233 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity
+name: fluxnova_bpm_identity
+description: Fluxnova BPM Platform - Identity module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_identity: https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_identity
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: identity
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 8
+  slot_count: 12
+
+imports:
+  - linkml:types
+  - ./fluxnova_bpm_base
+  - ./fluxnova_bpm_repository
+  - ./fluxnova_bpm_runtime
+  - ./fluxnova_common
+
+slots:
+  attempts:
+    range: integer
+    description: Number of failed login attempts.
+    annotations:
+      sql_column: ATTEMPTS_
+
+  email:
+    range: string
+    description: Email address.
+    annotations:
+      sql_column: EMAIL_
+
+  first_name:
+    range: string
+    description: First name.
+    annotations:
+      sql_column: FIRST_
+
+  group_id:
+    range: string
+    description: Reference to a group.
+
+  last_name:
+    range: string
+    description: Last name.
+    annotations:
+      sql_column: LAST_
+
+  password:
+    range: string
+    description: Hashed password.
+    annotations:
+      sql_column: PASSWORD_
+
+  permissions:
+    range: integer
+    description: Bitmask of granted permissions.
+    annotations:
+      sql_column: PERMS_
+
+  picture_id:
+    range: string
+    description: Reference to the picture.
+    annotations:
+      sql_column: PICTURE_ID_
+
+  resource_id:
+    range: string
+    description: Reference to the resource.
+    annotations:
+      sql_column: RESOURCE_ID_
+
+  resource_type:
+    range: integer
+    required: true
+    description: Numeric type of the authorized resource.
+    annotations:
+      sql_column: RESOURCE_TYPE_
+
+  salt:
+    range: string
+    description: Cryptographic salt for password hashing.
+    annotations:
+      sql_column: SALT_
+
+  user_id:
+    range: string
+    description: Reference to a user.
+
+classes:
+  Authorization:
+    description: 'An Authorization assigns a set of Permission Permissions to an identity to interact with a given Resource.
+      EXAMPLES: Nobody is allowed to edit process variables in the cockpit application, except t...'
+    slots:
+      - id
+      - type
+      - group_id
+      - user_id
+      - resource_type
+      - resource_id
+      - permissions
+      - removal_time
+      - root_process_instance_id
+    slot_usage:
+      type:
+        range: AuthorizationType
+        required: true
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_AUTHORIZATION
+
+  Group:
+    description: Represents a group, used in IdentityService.
+    slots:
+      - id
+      - name
+      - type
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_GROUP
+
+  IdentityInfo:
+    description: Identity Info entity in the identity and access management.
+    slots:
+      - id
+      - user_id
+      - type
+      - key
+      - value
+      - password
+      - parent_id
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_INFO
+
+  IdentityLink:
+    description: 'An identity link is used to associate a task with a certain identity. For example: - a user can be an assignee
+      (= identity link type) for a task - a group can be a candidate-group (= identity link ...'
+    slots:
+      - id
+      - group_id
+      - type
+      - user_id
+      - task_id
+      - process_definition_id
+      - tenant_id
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_IDENTITYLINK
+
+  Membership:
+    description: Association entity in identity and access management.
+    slots:
+      - user_id
+      - group_id
+    slot_usage:
+      user_id:
+        required: true
+      group_id:
+        required: true
+    unique_keys:
+      membership_pk:
+        unique_key_slots:
+          - user_id
+          - group_id
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_MEMBERSHIP
+
+  Tenant:
+    description: Represents a tenant, used in IdentityService.
+    slots:
+      - id
+      - name
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_TENANT
+
+  TenantMembership:
+    description: Association entity in identity and access management.
+    slots:
+      - id
+      - tenant_id
+      - user_id
+      - group_id
+    slot_usage:
+      tenant_id:
+        required: true
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_TENANT_MEMBER
+
+  User:
+    description: Represents a user, used in IdentityService.
+    slots:
+      - id
+      - first_name
+      - last_name
+      - email
+      - password
+      - salt
+      - lock_expiration_time
+      - attempts
+      - picture_id
+    in_subset:
+      - identity
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_ID_USER

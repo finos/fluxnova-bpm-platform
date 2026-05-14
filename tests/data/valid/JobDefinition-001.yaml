@@ -1,0 +1,10 @@
+id: jd-001
+process_definition_id: procdef-001
+process_definition_key: invoice-process
+activity_id: Task_SendEmail
+job_type: async-continuation
+job_configuration: transition
+suspension_state: ACTIVE
+job_priority: 0
+tenant_id: tenant-alpha
+deployment_id: dep-001

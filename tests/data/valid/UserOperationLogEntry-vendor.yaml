@@ -1,0 +1,23 @@
+# Vendor test data derived from MockProvider.java
+# UserOperationLogEntry — mirrors MockProvider EXAMPLE_USER_OPERATION_* constants
+id: userOpLogId
+process_definition_id: aProcDefId
+process_definition_key: aKey
+root_process_instance_id: aRootProcInstId
+process_instance_id: aProcInstId
+execution_id: anExecId
+task_id: aTaskId
+job_id: aJobId
+job_definition_id: aJobDefId
+batch_id: aBatchId
+user_id: aUserId
+external_task_id: anExternalTaskId
+timestamp: "2014-02-20T16:53:37+00:00"
+operation_type: Claim
+operation_id: opId
+entity_type: Task
+property: opProperty
+original_value: orgValue
+new_value: newValue
+tenant_id: aTenantId
+annotation: anAnnotation

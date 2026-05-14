@@ -1,0 +1,6 @@
+# Invalid vendor test data — Authorization with string where integer expected
+id: someAuthorizationId
+type: 0
+user_id: aUserId
+resource_type: not_a_number
+resource_id: exampleResourceId

@@ -1,0 +1,11 @@
+# Vendor test data derived from MockProvider.java
+# Authorization — mirrors MockProvider EXAMPLE_AUTHORIZATION_* constants
+id: someAuthorizationId
+type: GLOBAL
+user_id: aUserId
+group_id: aGroupId
+resource_type: 12345678
+resource_id: exampleResourceId
+permissions: 2147483647
+removal_time: "2013-04-23T13:42:43+00:00"
+root_process_instance_id: aRootProcessInstanceId

@@ -1,0 +1,16 @@
+id: anExternalTaskId
+priority: 2147484113
+worker_id: aWorkerId
+topic_name: aTopic
+retries: 5
+error_message: some error
+lock_expiration_time: '2015-10-05T13:25:00+00:00'
+create_time: '2015-10-05T12:25:00+00:00'
+suspension_state: SUSPENDED
+execution_id: anExecutionId
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId
+process_definition_key: aKey
+activity_id: anActivityId
+activity_instance_id: anActivityInstanceId
+tenant_id: aTenantId

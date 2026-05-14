@@ -1,0 +1,12 @@
+# Vendor test data derived from MockProvider.java
+# HistoricDecisionInputInstance — mirrors MockProvider constants
+id: aDecisionInputInstanceId
+decision_instance_id: aHistoricDecisionInstanceId
+clause_id: aDecisionInputClauseId
+clause_name: aDecisionInputClauseName
+variable_type: String
+text_value: test
+tenant_id: aTenantId
+create_time: "2015-09-06T11:00:00+00:00"
+root_process_instance_id: aRootProcInstId
+removal_time: "2015-10-18T11:00:00+00:00"

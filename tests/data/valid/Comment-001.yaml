@@ -1,0 +1,11 @@
+id: comment-001
+type: event
+event_time: "2025-04-01T14:10:00+00:00"
+user_id: user-001
+task_id: task-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+action: AddComment
+message: Approved by manager
+full_message: Invoice approved by Jane Doe on 2025-04-01
+tenant_id: tenant-alpha

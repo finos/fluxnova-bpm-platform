@@ -1,0 +1,23 @@
+# Vendor test data derived from MockProvider.java
+# HistoricCaseActivityInstance — mirrors MockProvider constants
+id: aCaseActivityInstanceId
+root_process_instance_id: aRootProcInstId
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId
+process_definition_key: aKey
+start_time: "2014-04-23T18:42:42+00:00"
+end_time: "2014-04-23T18:42:43+00:00"
+duration: 2000
+parent_activity_instance_id: aParentCaseActivityId
+case_definition_id: aCaseDefId
+case_instance_id: aCaseInstId
+case_activity_id: aCaseActivityId
+task_id: aTaskId
+called_process_instance_id: aCalledProcessInstanceId
+called_case_instance_id: aCalledCaseInstanceId
+case_activity_name: aCaseActivityName
+case_activity_type: aCaseActivityType
+create_time: "2014-04-23T18:42:42+00:00"
+state: COMPLETED
+is_required: true
+tenant_id: aTenantId

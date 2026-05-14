@@ -1,0 +1,15 @@
+# Vendor test data derived from MockProvider.java
+# ProcessDefinition — mirrors MockProvider EXAMPLE_PROCESS_DEFINITION_* constants
+id: aProcDefId
+name: aName
+key: aKey
+version: 42
+category: aCategory
+deployment_id: aDeploymentId
+resource_name: aResourceName
+diagram_resource_name: aResourceName.png
+suspension_state: SUSPENDED
+version_tag: "42"
+is_startable: true
+tenant_id: aTenantId
+history_time_to_live: 5

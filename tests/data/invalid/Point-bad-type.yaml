@@ -1,0 +1,3 @@
+# Invalid: x must be a number, not a string
+x: "not-a-number"
+y: 200.0

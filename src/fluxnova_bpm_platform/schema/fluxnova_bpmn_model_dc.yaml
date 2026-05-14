@@ -1,0 +1,113 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpmn-model/dc
+name: fluxnova_bpmn_model_dc
+title: Fluxnova BPMN Model – DC (Diagram Common)
+description: 'Diagram Common (DC) types: bounds, points, and font definitions.'
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
+see_also:
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+annotations:
+  generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
+  source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
+  module: dc
+  class_count: 3
+  slot_count: 9
+  enum_count: 0
+
+prefixes:
+  fluxnova_bpmn_model_dc: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  fluxnova: https://fluxnova.finos.org/ns/bpmn/
+default_prefix: fluxnova_bpmn_model_dc
+default_range: string
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+
+slots:
+  x:
+    range: float
+    description: X coordinate (horizontal offset) of this element's bounds.
+
+  y:
+    range: float
+    description: Y coordinate (vertical offset) of this element's bounds.
+
+  width:
+    range: float
+    description: Width of this element's bounding rectangle.
+
+  height:
+    range: float
+    description: Height of this element's bounding rectangle.
+
+  size:
+    range: float
+    description: Font size in points.
+
+  bold:
+    range: boolean
+    description: Whether the font is rendered in bold.
+
+  italic:
+    range: boolean
+    description: Whether the font is rendered in italic.
+
+  underline:
+    range: boolean
+    description: Whether the font is underlined.
+
+  strike_through:
+    range: boolean
+    description: Whether the font has a strike-through decoration.
+
+classes:
+  Bounds:
+    description: The DC bounds element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.dc
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/dc/Bounds.java
+    in_subset:
+      - dc
+      - fluxnova_bpmn_model
+    slots:
+      - x
+      - y
+      - width
+      - height
+
+  Font:
+    description: The DC font element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.dc
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/dc/Font.java
+    in_subset:
+      - dc
+      - fluxnova_bpmn_model
+    slots:
+      - name
+      - size
+      - bold
+      - italic
+      - underline
+      - strike_through
+
+  Point:
+    description: The DC point element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.dc
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/dc/Point.java
+    in_subset:
+      - dc
+      - fluxnova_bpmn_model
+    slots:
+      - x
+      - y

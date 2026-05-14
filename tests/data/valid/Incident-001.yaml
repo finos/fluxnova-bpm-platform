@@ -1,0 +1,13 @@
+id: inc-001
+incident_timestamp: "2025-03-10T11:22:33+00:00"
+incident_message: Failed to execute job
+incident_type: failedJob
+execution_id: exec-001
+activity_id: Task_SendEmail
+process_instance_id: pi-001
+process_definition_id: procdef-001
+cause_incident_id: inc-001
+root_cause_incident_id: inc-001
+configuration: job-001
+tenant_id: tenant-alpha
+job_definition_id: jd-001

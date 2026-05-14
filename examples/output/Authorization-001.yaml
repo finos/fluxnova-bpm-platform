@@ -1,0 +1,6 @@
+id: auth-001
+type: GRANT
+resource_type: 6
+user_id: user-001
+resource_id: '*'
+permissions: 2147483647

@@ -1,0 +1,9 @@
+# Vendor test data derived from MockProvider.java
+# CaseExecution — mirrors MockProvider EXAMPLE_CASE_EXECUTION_* constants
+id: aCaseExecutionId
+case_instance_id: aCaseInstanceId
+parent_id: aParentId
+case_definition_id: aCaseDefinitionId
+activity_id: anActivityId
+is_required: true
+tenant_id: aTenantId

@@ -1,0 +1,21 @@
+{
+  "id": "task-001",
+  "priority": 50,
+  "execution_id": "exec-001",
+  "process_instance_id": "pi-001",
+  "process_definition_id": "procdef-001",
+  "name": "Approve Invoice",
+  "description": "Review and approve the submitted invoice",
+  "task_definition_key": "Task_ApproveInvoice",
+  "owner": "john",
+  "assignee": "jane",
+  "delegation_state": "PENDING",
+  "create_time": "2025-04-01T14:00:00+00:00",
+  "last_updated": "2025-04-01T15:30:00+00:00",
+  "due_date": "2025-04-05T17:00:00+00:00",
+  "follow_up_date": "2025-04-03T09:00:00+00:00",
+  "suspension_state": "ACTIVE",
+  "tenant_id": "tenant-alpha",
+  "task_state": "CREATED",
+  "@type": "Task"
+}

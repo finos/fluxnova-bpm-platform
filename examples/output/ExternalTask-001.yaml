@@ -1,0 +1,15 @@
+id: et-001
+priority: 10
+worker_id: worker-node-1
+topic_name: sendEmail
+retries: 3
+lock_expiration_time: '2025-04-01T14:30:00+00:00'
+create_time: '2025-04-01T14:00:00+00:00'
+suspension_state: ACTIVE
+execution_id: exec-001
+process_instance_id: pi-001
+process_definition_id: procdef-001
+process_definition_key: invoice-process
+activity_id: ExternalTask_SendEmail
+activity_instance_id: ai-001
+tenant_id: tenant-alpha

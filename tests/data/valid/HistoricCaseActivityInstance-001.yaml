@@ -1,0 +1,16 @@
+id: hcai-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+process_definition_id: procdef-001
+process_definition_key: invoice-process
+start_time: "2025-03-01T09:05:00+00:00"
+end_time: "2025-03-01T09:30:00+00:00"
+duration: 1500000
+case_definition_id: casedef-001
+case_instance_id: ci-001
+case_activity_id: HumanTask_1
+task_id: task-001
+case_activity_name: Review Case
+create_time: "2025-03-01T09:05:00+00:00"
+state: COMPLETED
+tenant_id: tenant-alpha

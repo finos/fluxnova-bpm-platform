@@ -1,0 +1,7 @@
+# Invalid vendor test data — Job with non-integer retries
+id: aJobId
+retries: "not-a-number"
+type: aJobType
+execution_id: anExecutionId
+process_instance_id: aProcInstId
+process_definition_id: aProcDefId

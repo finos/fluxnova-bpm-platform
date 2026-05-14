@@ -1,0 +1,12 @@
+id: hbatch-001
+start_time: '2025-03-10T22:00:00+00:00'
+type: migration
+total_jobs: 50
+jobs_per_seed: 50
+invocations_per_job: 1
+seed_job_definition_id: sjd-001
+monitor_job_definition_id: mjd-001
+batch_job_definition_id: bjd-001
+tenant_id: tenant-alpha
+create_user_id: admin
+end_time: '2025-03-10T22:30:00+00:00'

@@ -1,0 +1,9 @@
+id: decdef-001
+key: approval-decision
+name: Approval Decision
+version: 1
+deployment_id: dep-001
+resource_name: approval.dmn
+decision_requirements_definition_id: drdef-001
+decision_requirements_definition_key: approval-drg
+version_tag: "1.0"

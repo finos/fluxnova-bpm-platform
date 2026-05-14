@@ -1,0 +1,4 @@
+# Missing required 'id' field
+first_name: John
+last_name: Smith
+email: john@example.com

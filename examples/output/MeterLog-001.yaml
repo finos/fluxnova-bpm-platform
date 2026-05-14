@@ -1,0 +1,6 @@
+id: ml-001
+name: job-acquisition
+reporter: engine-node-1
+value: 42
+timestamp: '2025-06-01T12:00:00+00:00'
+milliseconds: 150

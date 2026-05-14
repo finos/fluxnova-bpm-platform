@@ -1,0 +1,6 @@
+id: drdef-001
+key: approval-drg
+name: Approval Decision Requirements
+version: 1
+deployment_id: dep-001
+resource_name: approval-drg.dmn

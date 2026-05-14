@@ -1,0 +1,22 @@
+{
+  "id": "hjl-001",
+  "timestamp": "2025-03-01T09:15:00+00:00",
+  "job_id": "job-001",
+  "job_priority": 0,
+  "job_due_date": "2025-03-02T06:00:00+00:00",
+  "job_retries": 3,
+  "job_state": "CREATED",
+  "job_definition_id": "jd-001",
+  "job_definition_type": "async-continuation",
+  "activity_id": "Task_SendEmail",
+  "execution_id": "exec-001",
+  "root_process_instance_id": "pi-001",
+  "process_instance_id": "pi-001",
+  "process_definition_id": "procdef-001",
+  "process_definition_key": "invoice-process",
+  "deployment_id": "dep-001",
+  "sequence_counter": 1,
+  "tenant_id": "tenant-alpha",
+  "hostname": "engine-node-1",
+  "@type": "HistoricJobLog"
+}

@@ -1,0 +1,60 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/cis-controls.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel cis-controls LinkML schema"
+# license: "https://www.apache.org/licenses/LICENSE-2.0"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/cis-controls"
+# curie_map:
+#   WIKIDATA: "https://www.wikidata.org/wiki/"
+#   cis_controls: "https://w3id.org/lmodel/cis-controls/"
+#   dct: "http://purl.org/dc/terms/"
+#   iso27001: "https://w3id.org/lmodel/iso27001/"
+#   linkml: "https://w3id.org/linkml/"
+#   nist_csf_v2: "https://w3id.org/lmodel/nist-csf-v2/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+cis_controls:CISControlsDocument	CISControlsDocument	skos:exactMatch	schema:CreativeWork		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:CISControlsDocument	CISControlsDocument	skos:closeMatch	nist_csf_v2:CSFDocument		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:CISControlsDocument	CISControlsDocument	skos:relatedMatch	iso27001:InformationSecurityManagementSystem		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:CISControl	CISControl	skos:exactMatch	schema:Action		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:CISControl	CISControl	skos:closeMatch	nist_csf_v2:CSFCategory		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:CISControl	CISControl	skos:relatedMatch	WIKIDATA:Q2695280		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:Safeguard	Safeguard	skos:exactMatch	schema:Action		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:Safeguard	Safeguard	skos:closeMatch	nist_csf_v2:CSFSubcategory		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:Safeguard	Safeguard	skos:relatedMatch	iso27001:SecurityControl		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cis_controls:id	id	skos:exactMatch	nist_csf_v2:id		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:title	title	skos:exactMatch	nist_csf_v2:title		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:description	description	skos:closeMatch	nist_csf_v2:prose		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:overview	overview	skos:closeMatch	nist_csf_v2:prose		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:security_function	security_function	skos:closeMatch	nist_csf_v2:groups		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:implementation_groups	implementation_groups	skos:relatedMatch	nist_csf_v2:props		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:safeguards	safeguards	skos:closeMatch	nist_csf_v2:controls		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:controls	controls	skos:closeMatch	nist_csf_v2:groups		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:version	version	skos:exactMatch	nist_csf_v2:version		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:CISControl_id	CISControl_id	skos:exactMatch	nist_csf_v2:id		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:Safeguard_id	Safeguard_id	skos:exactMatch	nist_csf_v2:id		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:Safeguard_implementation_groups	Safeguard_implementation_groups	skos:relatedMatch	nist_csf_v2:props		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cis_controls:SecurityFunction/Govern	Govern	skos:exactMatch	nist_csf_v2:GV		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:SecurityFunction/Identify	Identify	skos:exactMatch	nist_csf_v2:ID		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:SecurityFunction/Protect	Protect	skos:exactMatch	nist_csf_v2:PR		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:SecurityFunction/Detect	Detect	skos:exactMatch	nist_csf_v2:DE		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:SecurityFunction/Respond	Respond	skos:exactMatch	nist_csf_v2:RS		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:SecurityFunction/Recover	Recover	skos:exactMatch	nist_csf_v2:RC		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	enum SecurityFunction
+cis_controls:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cis_controls:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type

@@ -1,0 +1,16 @@
+{
+  "id": "exec-001",
+  "root_process_instance_id": "pi-001",
+  "process_instance_id": "pi-001",
+  "process_definition_id": "procdef-001",
+  "activity_id": "Task_ApproveInvoice",
+  "is_active": true,
+  "is_concurrent": false,
+  "is_scope": true,
+  "is_event_scope": false,
+  "suspension_state": "ACTIVE",
+  "sequence_counter": 5,
+  "tenant_id": "tenant-alpha",
+  "process_definition_key": "invoice-process",
+  "@type": "Execution"
+}

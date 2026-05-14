@@ -1,0 +1,8 @@
+id: anEventSubscriptionId
+event_type: message
+created: '2013-01-23T13:59:43+00:00'
+event_name: anEvent
+execution_id: anExecutionId
+process_instance_id: aProcInstId
+activity_id: anActivityId
+tenant_id: aTenantId

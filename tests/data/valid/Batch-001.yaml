@@ -1,0 +1,13 @@
+id: batch-001
+type: migration
+total_jobs: 100
+jobs_created: 100
+jobs_per_seed: 100
+invocations_per_job: 1
+seed_job_definition_id: sjd-001
+batch_job_definition_id: bjd-001
+monitor_job_definition_id: mjd-001
+suspension_state: ACTIVE
+tenant_id: tenant-alpha
+create_user_id: admin
+start_time: "2025-04-01T22:00:00+00:00"

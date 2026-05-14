@@ -1,0 +1,11 @@
+{
+  "id": "caseexec-001",
+  "case_instance_id": "ci-001",
+  "parent_id": "caseexec-000",
+  "case_definition_id": "casedef-001",
+  "activity_id": "HumanTask_ReviewCase",
+  "previous_state": 0,
+  "current_state": 1,
+  "tenant_id": "tenant-alpha",
+  "@type": "CaseExecution"
+}

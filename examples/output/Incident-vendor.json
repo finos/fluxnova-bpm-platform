@@ -1,0 +1,16 @@
+{
+  "id": "anIncidentId",
+  "incident_timestamp": "2014-01-02T00:00:00+00:00",
+  "incident_type": "anIncidentType",
+  "incident_message": "anIncidentMessage",
+  "execution_id": "anExecutionId",
+  "activity_id": "anActivityId",
+  "failed_activity_id": "aFailedActivityId",
+  "process_instance_id": "aProcInstId",
+  "process_definition_id": "aProcDefId",
+  "cause_incident_id": "aCauseIncidentId",
+  "root_cause_incident_id": "aRootCauseIncidentId",
+  "configuration": "aConfiguration",
+  "tenant_id": "aTenantId",
+  "@type": "Incident"
+}

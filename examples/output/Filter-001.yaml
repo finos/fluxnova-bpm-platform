@@ -1,0 +1,6 @@
+id: filter-001
+resource_type: '7'
+name: My Tasks
+query: '{"assignee": "user-001"}'
+owner: user-001
+properties: '{"color": "#3e4d2f"}'

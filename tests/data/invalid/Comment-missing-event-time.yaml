@@ -1,0 +1,5 @@
+# Missing required 'event_time' field
+id: comment-no-time
+type: event
+user_id: user-001
+message: Incomplete comment

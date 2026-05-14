@@ -1,0 +1,6 @@
+# Invalid test data — HistoricCaseInstance with bad enum value for state
+id: hci-001
+case_instance_id: ci-001
+case_definition_id: casedef-001
+create_time: "2025-03-01T09:00:00+00:00"
+state: NONEXISTENT_STATE

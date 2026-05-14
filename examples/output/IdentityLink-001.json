@@ -1,0 +1,8 @@
+{
+  "id": "idlink-001",
+  "group_id": "group-001",
+  "type": "candidate",
+  "task_id": "task-001",
+  "tenant_id": "tenant-alpha",
+  "@type": "IdentityLink"
+}

@@ -1,0 +1,132 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration
+name: fluxnova_bpm_collaboration
+description: Fluxnova BPM Platform - Collaboration module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_collaboration: https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_collaboration
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: collaboration
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 3
+  slot_count: 6
+
+imports:
+  - linkml:types
+  - ./fluxnova_bpm_base
+  - ./fluxnova_bpm_identity
+  - ./fluxnova_bpm_runtime
+  - ./fluxnova_common
+
+slots:
+  action:
+    range: string
+    description: The action.
+    annotations:
+      sql_column: ACTION_
+
+  content_id:
+    range: string
+    description: Reference to the content.
+    annotations:
+      sql_column: CONTENT_ID_
+
+  event_time:
+    range: datetime
+    required: true
+    description: Timestamp for event time.
+    annotations:
+      sql_column: TIME_
+
+  full_message:
+    range: string
+    description: The full comment message the user had related to the task and/or process instance
+    annotations:
+      sql_column: FULL_MSG_
+
+  query:
+    range: string
+    required: true
+    description: Serialized query expression.
+    annotations:
+      sql_column: QUERY_
+
+  url:
+    range: string
+    description: The remote URL in case this is remote content. If the attachment content was uploaded with an input stream,
+      then this method returns null and the content can be fetched with .
+    annotations:
+      sql_column: URL_
+
+classes:
+  Attachment:
+    description: Any type of content that is be associated with a task or with a process instance.
+    slots:
+      - id
+      - user_id
+      - name
+      - description
+      - type
+      - task_id
+      - root_process_instance_id
+      - process_instance_id
+      - url
+      - content_id
+      - tenant_id
+      - create_time
+      - removal_time
+    in_subset:
+      - collaboration
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_HI_ATTACHMENT
+
+  Comment:
+    description: User comments that form discussions around tasks.
+    slots:
+      - id
+      - type
+      - event_time
+      - user_id
+      - task_id
+      - root_process_instance_id
+      - process_instance_id
+      - action
+      - message
+      - full_message
+      - tenant_id
+      - removal_time
+    in_subset:
+      - collaboration
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_HI_COMMENT
+
+  Filter:
+    description: Filter entity in the user collaboration.
+    slots:
+      - id
+      - resource_type
+      - name
+      - owner
+      - query
+      - properties
+    slot_usage:
+      resource_type:
+        range: string
+      name:
+        required: true
+    in_subset:
+      - collaboration
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RU_FILTER

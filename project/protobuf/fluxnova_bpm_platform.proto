@@ -1,0 +1,3351 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.11.0
+// version: 3.0.0-SNAPSHOT
+// The BPMN element activationCondition of the BPMN tComplexGateway type
+message ActivationCondition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN activity element
+message Activity
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+ }
+// The BPMN artifact element
+message Artifact
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN assignment element
+message Assignment
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string from = 0
+  string to = 0
+ }
+// The BPMN association element
+message Association
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  baseElement source = 0
+  baseElement target = 0
+  string associationDirection = 0
+ }
+// Any type of content that is be associated with a task or with a process instance.
+message Attachment
+ {
+  string id = 0
+  string userId = 0
+  string name = 0
+  string description = 0
+  string type = 0
+  string taskId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string url = 0
+  string contentId = 0
+  string tenantId = 0
+  datetime createTime = 0
+  datetime removalTime = 0
+ }
+// The BPMN auditing element
+message Auditing
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// An Authorization assigns a set of Permission Permissions to an identity to interact with a given Resource. EXAMPLES: Nobody is allowed to edit process variables in the cockpit application, except t...
+message Authorization
+ {
+  string id = 0
+  authorizationType type = 0
+  string groupId = 0
+  string userId = 0
+  integer resourceType = 0
+  string resourceId = 0
+  integer permissions = 0
+  datetime removalTime = 0
+  string rootProcessInstanceId = 0
+ }
+// The BPMN baseElement element
+message BaseElement
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// A batch represents a number of jobs which execute a number of commands asynchronously. Batches have three types of jobs: Seed jobs: Create execution jobs Execution jobs: Execute the actual action M...
+message Batch
+ {
+  string id = 0
+  string type = 0
+  integer totalJobs = 0
+  integer jobsCreated = 0
+  integer jobsPerSeed = 0
+  integer invocationsPerJob = 0
+  string seedJobDefinitionId = 0
+  string batchJobDefinitionId = 0
+  string monitorJobDefinitionId = 0
+  suspensionState suspensionState = 0
+  string configuration = 0
+  string tenantId = 0
+  string createUserId = 0
+  datetime startTime = 0
+  datetime executionStartTime = 0
+ }
+// The BPMN boundaryEvent element
+message BoundaryEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+  boolean parallelMultiple = 0
+ repeated  dataOutput dataOutputs = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+  outputSet outputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+  activity attachedTo = 0
+ }
+// The DC bounds element
+message Bounds
+ {
+  boolean scope = 0
+  float x = 0
+  float y = 0
+  float width = 0
+  float height = 0
+ }
+// The BPMNDI BPMNDiagram element
+message BpmnDiagram
+ {
+  boolean scope = 0
+  string name = 0
+  string documentation = 0
+  float resolution = 0
+  string id = 0
+  bpmnPlane bpmnPlane = 0
+ repeated  bpmnLabelStyle bpmnLabelStyles = 0
+ }
+// The BPMNDI BPMNEdge element
+message BpmnEdge
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ repeated  waypoint waypoints = 0
+  string bpmnElement = 0
+  diagramElement sourceElement = 0
+  diagramElement targetElement = 0
+  messageVisibleKind messageVisibleKind = 0
+  bpmnLabel bpmnLabel = 0
+ }
+// An artifact that visually groups flow elements without affecting the process semantics.
+message BpmnGroup
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  categoryValue category = 0
+ }
+// The BPMNDI BPMNLabel element
+message BpmnLabel
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+  bounds bounds = 0
+  bpmnLabelStyle labelStyle = 0
+ }
+// The BPMNDI BPMNLabelStyle element
+message BpmnLabelStyle
+ {
+  boolean scope = 0
+  string id = 0
+  font font = 0
+ }
+// Interface implemented by all elements in a BPMN Model
+message BpmnModelElementInstance
+ {
+  bpmnModelElementInstance scope = 0
+ }
+// Root container for a parsed BPMN model, providing access to the Definitions element.
+message BpmnModelInstance
+ {
+  definitions definitions = 0
+ }
+// The BPMNDI BPMNPlane element
+message BpmnPlane
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ repeated  diagramElement diagramElements = 0
+  string bpmnElement = 0
+ }
+// The BPMN property element
+message BpmnProperty
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+  string name = 0
+ }
+// The BPMNDI BPMNShape element
+message BpmnShape
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+  bounds bounds = 0
+  string bpmnElement = 0
+  boolean horizontal = 0
+  boolean expanded = 0
+  boolean markerVisible = 0
+  boolean messageVisible = 0
+  participantBandKind participantBandKind = 0
+  bpmnShape choreographyActivityShape = 0
+  bpmnLabel bpmnLabel = 0
+ }
+// The BPMN task element
+message BpmnTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+ }
+// The BPMN businessRuleTask element
+message BusinessRuleTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string implementation = 0
+  string fluxnovaClass = 0
+  string fluxnovaDelegateExpression = 0
+  string fluxnovaExpression = 0
+  string fluxnovaResultVariable = 0
+  string fluxnovaType = 0
+  string fluxnovaTopic = 0
+  string fluxnovaDecisionRef = 0
+  string fluxnovaDecisionRefBinding = 0
+  string fluxnovaDecisionRefVersion = 0
+  string fluxnovaDecisionRefVersionTag = 0
+  string fluxnovaDecisionRefTenantId = 0
+  string fluxnovaMapDecisionResult = 0
+  string fluxnovaTaskPriority = 0
+ }
+// Byte Array entity in the engine infrastructure.
+message ByteArray
+ {
+  string id = 0
+  string name = 0
+  string deploymentId = 0
+  string bytes = 0
+  boolean isGenerated = 0
+  string tenantId = 0
+  integer type = 0
+  datetime createTime = 0
+  string rootProcessInstanceId = 0
+  datetime removalTime = 0
+ }
+// The BPMN callableElement element
+message CallableElement
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  interface supportedInterfaces = 0
+  ioSpecification ioSpecification = 0
+ repeated  ioBinding ioBindings = 0
+ }
+// The BPMN callActivity element
+message CallActivity
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  string calledElement = 0
+  boolean fluxnovaAsync = 0
+  string fluxnovaCalledElementBinding = 0
+  string fluxnovaCalledElementVersion = 0
+  string fluxnovaCalledElementVersionTag = 0
+  string fluxnovaCaseRef = 0
+  string fluxnovaCaseBinding = 0
+  string fluxnovaCaseVersion = 0
+  string fluxnovaCalledElementTenantId = 0
+  string fluxnovaCaseTenantId = 0
+  string fluxnovaVariableMappingClass = 0
+  string fluxnovaVariableMappingDelegateExpression = 0
+ }
+// The BPMN callConversation element
+message CallConversation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  correlationKey correlationKeys = 0
+  globalConversation calledCollaboration = 0
+ repeated  participantAssociation participantAssociations = 0
+ }
+// The BPMN cancelEventDefinition element
+message CancelEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// A deployed case definition in the process repository.
+message CaseDefinition
+ {
+  string id = 0
+  string name = 0
+  string category = 0
+  string deploymentId = 0
+  string resourceName = 0
+  string diagramResourceName = 0
+  string tenantId = 0
+  integer historyTimeToLive = 0
+  string key = 0
+  integer version = 0
+ }
+// Case Execution entity in the process execution runtime.
+message CaseExecution
+ {
+  string id = 0
+  string caseInstanceId = 0
+  string superCaseExecutionId = 0
+  string superExecutionId = 0
+  string businessKey = 0
+  string parentId = 0
+  string caseDefinitionId = 0
+  string activityId = 0
+  integer previousState = 0
+  integer currentState = 0
+  boolean isRequired = 0
+  string tenantId = 0
+ }
+// Case Sentry Part entity in the process execution runtime.
+message CaseSentryPart
+ {
+  string id = 0
+  string caseInstanceId = 0
+  string caseExecutionId = 0
+  string sentryId = 0
+  string type = 0
+  string sourceCaseExecutionId = 0
+  string standardEvent = 0
+  string source = 0
+  string variableEvent = 0
+  string variableName = 0
+  boolean isSatisfied = 0
+  string tenantId = 0
+ }
+// The BPMN catchEvent element
+message CatchEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+  boolean parallelMultiple = 0
+ repeated  dataOutput dataOutputs = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+  outputSet outputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+ }
+// A named grouping used to categorise BPMN elements via CategoryValue references.
+message Category
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  categoryValue categoryValues = 0
+ }
+// The BPMN categoryValue element
+message CategoryValue
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string value = 0
+ }
+// The BPMN collaboration element
+message Collaboration
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  boolean closed = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  artifact artifacts = 0
+ repeated  conversationNode conversationNodes = 0
+ repeated  conversationAssociation conversationAssociations = 0
+ repeated  participantAssociation participantAssociations = 0
+ repeated  messageFlowAssociation messageFlowAssociations = 0
+ repeated  correlationKey correlationKeys = 0
+ repeated  conversationLink conversationLinks = 0
+ }
+// User comments that form discussions around tasks.
+message Comment
+ {
+  string id = 0
+  string type = 0
+  datetime eventTime = 0
+  string userId = 0
+  string taskId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string action = 0
+  string message = 0
+  string fullMessage = 0
+  string tenantId = 0
+  datetime removalTime = 0
+ }
+// The BPMN compensateEventDefinition element
+message CompensateEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  boolean waitForCompletion = 0
+  activity activity = 0
+ }
+// The BPMN 2.0 completionCondition element from the tMultiInstanceLoopCharacteristics type
+message CompletionCondition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// Note: Currently not implemented, because both child elements are defined with a name already used in the BPMN model API and it is currently not supported by the model API to define elements with th...
+message ComplexBehaviorDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN complexGateway element
+message ComplexGateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+  sequenceFlow default = 0
+  activationCondition activationCondition = 0
+ }
+// The BPMN condition element of the BPMN tConditionalEventDefinition type
+message Condition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN conditionalEventDefinition element
+message ConditionalEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  condition condition = 0
+  string fluxnovaVariableName = 0
+  string fluxnovaVariableEvents = 0
+ repeated  string fluxnovaVariableEventsList = 0
+ }
+// The BPMN conditionExpression element of the BPMN tSequenceFlow type
+message ConditionExpression
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string language = 0
+  itemDefinition evaluatesToType = 0
+  string type = 0
+  string fluxnovaResource = 0
+ }
+// The BPMN conversation element
+message Conversation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  correlationKey correlationKeys = 0
+ }
+// The BPMN conversationAssociation element
+message ConversationAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  conversationNode innerConversationNode = 0
+  conversationNode outerConversationNode = 0
+ }
+// The BPMN conversationLink element
+message ConversationLink
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  interactionNode source = 0
+  interactionNode target = 0
+ }
+// The BPMN conversationNode element
+message ConversationNode
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  correlationKey correlationKeys = 0
+ }
+// The BPMN correlationKey element
+message CorrelationKey
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  correlationProperty correlationProperties = 0
+ }
+// The BPMN correlationProperty element
+message CorrelationProperty
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  itemDefinition type = 0
+ repeated  correlationPropertyRetrievalExpression correlationPropertyRetrievalExpressions = 0
+ }
+// The BPMN correlationPropertyBinding element
+message CorrelationPropertyBinding
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  correlationProperty correlationProperty = 0
+  string dataPath = 0
+ }
+// The BPMN correlationPropertyRetrievalExpression element
+message CorrelationPropertyRetrievalExpression
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  message message = 0
+  string messagePath = 0
+ }
+// The BPMN correlationSubscription element
+message CorrelationSubscription
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  correlationKey correlationKey = 0
+ repeated  correlationPropertyBinding correlationPropertyBindings = 0
+ }
+// The BPMN dataAssociation element
+message DataAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ repeated  itemAwareElement sources = 0
+  itemAwareElement target = 0
+  formalExpression transformation = 0
+ repeated  assignment assignments = 0
+ }
+// The BPMN dataInput element
+message DataInput
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+  string name = 0
+  boolean collection = 0
+ }
+// The BPMN dataInputAssociation element
+message DataInputAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ repeated  itemAwareElement sources = 0
+  itemAwareElement target = 0
+  formalExpression transformation = 0
+ repeated  assignment assignments = 0
+ }
+// The BPMN dataObject element
+message DataObject
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+  boolean collection = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+ }
+// The BPMN dataObjectReference element
+message DataObjectReference
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+  dataObject dataObject = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+ }
+// The BPMN dataOutput element
+message DataOutput
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+  string name = 0
+  boolean collection = 0
+ }
+// The BPMN dataOutputAssociation element
+message DataOutputAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ repeated  itemAwareElement sources = 0
+  itemAwareElement target = 0
+  formalExpression transformation = 0
+ repeated  assignment assignments = 0
+ }
+// The BPMN dataState element
+message DataState
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ }
+// The BPMN dataStore element
+message DataStore
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  integer capacity = 0
+  boolean unlimited = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+ }
+// The BPMN dataStoreReference element
+message DataStoreReference
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+  dataStore dataStore = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+ }
+// Definition of a decision resource
+message DecisionDefinition
+ {
+  string id = 0
+  string name = 0
+  string category = 0
+  string deploymentId = 0
+  string resourceName = 0
+  string diagramResourceName = 0
+  string tenantId = 0
+  integer historyTimeToLive = 0
+  string decisionRequirementsDefinitionId = 0
+  string decisionRequirementsDefinitionKey = 0
+  string versionTag = 0
+  string key = 0
+  integer version = 0
+ }
+// Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
+message DecisionRequirementsDefinition
+ {
+  string id = 0
+  string name = 0
+  string category = 0
+  string deploymentId = 0
+  string resourceName = 0
+  string diagramResourceName = 0
+  string tenantId = 0
+  integer historyTimeToLive = 0
+  string key = 0
+  integer version = 0
+ }
+// The BPMN definitions element
+message Definitions
+ {
+  boolean scope = 0
+  string id = 0
+  string name = 0
+  string targetNamespace = 0
+  string expressionLanguage = 0
+  string typeLanguage = 0
+  string exporter = 0
+  string exporterVersion = 0
+ repeated  import imports = 0
+ repeated  extension extensions = 0
+ repeated  rootElement rootElements = 0
+ repeated  string bpmDiagrams = 0
+ repeated  relationship relationships = 0
+ }
+// Represents a deployment that is already present in the process repository. A deployment is a container for resources such as process definitions, images, forms, etc. When a deployment is 'deployed'...
+message Deployment
+ {
+  string id = 0
+  string name = 0
+  datetime deployTime = 0
+  string source = 0
+  string tenantId = 0
+ }
+// The DI Diagram element
+message Diagram
+ {
+  boolean scope = 0
+  string name = 0
+  string documentation = 0
+  float resolution = 0
+  string id = 0
+ }
+// The DI DiagramElement element
+message DiagramElement
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ }
+// The BPMN documentation element
+message Documentation
+ {
+  boolean scope = 0
+  string id = 0
+  string textFormat = 0
+ }
+// The DI Edge element
+message Edge
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ repeated  waypoint waypoints = 0
+ }
+// The BPMN endEvent element
+message EndEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInput dataInputs = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+  inputSet inputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+ }
+// The BPMN endPoint element
+message EndPoint
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN error element
+message Error
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  string errorCode = 0
+  string fluxnovaErrorMessage = 0
+  itemDefinition structure = 0
+ }
+// The BPMN errorEventDefinition element
+message ErrorEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  error error = 0
+  string fluxnovaErrorCodeVariable = 0
+  string fluxnovaErrorMessageVariable = 0
+ }
+// The BPMN escalation element
+message Escalation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  string escalationCode = 0
+  itemDefinition structure = 0
+ }
+// The BPMN escalationEventDefinition element
+message EscalationEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  escalation escalation = 0
+ }
+// The BPMN event element
+message Event
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+ }
+// The BPMN eventBasedGateway element
+message EventBasedGateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+  boolean instantiate = 0
+  string eventGatewayType = 0
+ }
+// The BPMN eventDefinition element
+message EventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// A message event subscription exists, if an Execution waits for an event like a message.
+message EventSubscription
+ {
+  string id = 0
+  string eventType = 0
+  string eventName = 0
+  string executionId = 0
+  string processInstanceId = 0
+  string activityId = 0
+  string configuration = 0
+  datetime created = 0
+  string tenantId = 0
+ }
+// The BPMN exclusiveGateway element
+message ExclusiveGateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+  sequenceFlow default = 0
+ }
+// Represent a 'path of execution' in a process instance. Note that a ProcessInstance also is an execution.
+message Execution
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string businessKey = 0
+  string parentId = 0
+  string processDefinitionId = 0
+  string superExecutionId = 0
+  string superCaseExecutionId = 0
+  string caseInstanceId = 0
+  string activityInstanceId = 0
+  string activityId = 0
+  boolean isActive = 0
+  boolean isConcurrent = 0
+  boolean isScope = 0
+  boolean isEventScope = 0
+  suspensionState suspensionState = 0
+  integer cachedEntityState = 0
+  integer sequenceCounter = 0
+  string tenantId = 0
+  string processDefinitionKey = 0
+ }
+// The BPMN expression element
+message Expression
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The DI extension element of the DI DiagramElement type
+message Extension
+ {
+  boolean scope = 0
+ }
+// The BPMN extensionElements element
+message ExtensionElements
+ {
+  boolean scope = 0
+ repeated  string elements = 0
+  string elementsQuery = 0
+ }
+// Represents an instance of an external task that is created when a service-task like activity (i.e. service task, send task, ...) with attribute camunda:type="external" is executed.
+message ExternalTask
+ {
+  string id = 0
+  string workerId = 0
+  string topicName = 0
+  integer retries = 0
+  string errorMessage = 0
+  string errorDetailsId = 0
+  datetime lockExpirationTime = 0
+  datetime createTime = 0
+  suspensionState suspensionState = 0
+  string executionId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  string activityId = 0
+  string activityInstanceId = 0
+  string tenantId = 0
+  integer priority = 0
+  string lastFailureLogId = 0
+ }
+// Filter entity in the user collaboration.
+message Filter
+ {
+  string id = 0
+  string resourceType = 0
+  string name = 0
+  string owner = 0
+  string query = 0
+  string properties = 0
+ }
+// The BPMN flowElement element
+message FlowElement
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ }
+// The BPMN flowNode element
+message FlowNode
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ }
+// The BPMN connector camunda extension element
+message FluxnovaConnector
+ {
+  boolean scope = 0
+  fluxnovaConnectorId fluxnovaConnectorId = 0
+  fluxnovaInputOutput fluxnovaInputOutput = 0
+ }
+// The BPMN connectorId camunda extension element
+message FluxnovaConnectorId
+ {
+  boolean scope = 0
+ }
+// The BPMN constraint camunda extension element
+message FluxnovaConstraint
+ {
+  boolean scope = 0
+  string fluxnovaName = 0
+  string fluxnovaConfig = 0
+ }
+// The BPMN camundaEntry camunda extension element
+message FluxnovaEntry
+ {
+  boolean scope = 0
+  string fluxnovaKey = 0
+  string value = 0
+ }
+// Fluxnova extension that augments an end event error definition with engine-specific variables.
+message FluxnovaErrorEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  error error = 0
+  string fluxnovaErrorCodeVariable = 0
+  string fluxnovaErrorMessageVariable = 0
+  string fluxnovaExpression = 0
+ }
+// The BPMN executionListener camunda extension element
+message FluxnovaExecutionListener
+ {
+  boolean scope = 0
+  string fluxnovaEvent = 0
+  string fluxnovaClass = 0
+  string fluxnovaExpression = 0
+  string fluxnovaDelegateExpression = 0
+ repeated  fluxnovaField fluxnovaFields = 0
+  fluxnovaScript fluxnovaScript = 0
+ }
+// The BPMN expression camunda extension element
+message FluxnovaExpression
+ {
+  boolean scope = 0
+ }
+// The BPMN failedJobRetryTimeCycle camunda extension element
+message FluxnovaFailedJobRetryTimeCycle
+ {
+  boolean scope = 0
+ }
+// The BPMN field camunda extension element
+message FluxnovaField
+ {
+  boolean scope = 0
+  string fluxnovaName = 0
+  string fluxnovaExpression = 0
+  string fluxnovaStringValue = 0
+  fluxnovaString fluxnovaString = 0
+  fluxnovaExpression fluxnovaExpressionChild = 0
+ }
+// The BPMN formData camunda extension element
+message FluxnovaFormData
+ {
+  boolean scope = 0
+ repeated  fluxnovaFormField fluxnovaFormFields = 0
+ }
+// The BPMN formField camunda extension element
+message FluxnovaFormField
+ {
+  boolean scope = 0
+  string fluxnovaId = 0
+  string fluxnovaLabel = 0
+  string fluxnovaType = 0
+  string fluxnovaDatePattern = 0
+  string fluxnovaDefaultValue = 0
+  fluxnovaProperties fluxnovaProperties = 0
+  fluxnovaValidation fluxnovaValidation = 0
+ repeated  fluxnovaValue fluxnovaValues = 0
+ }
+// The BPMN formProperty camunda extension element
+message FluxnovaFormProperty
+ {
+  boolean scope = 0
+  string fluxnovaId = 0
+  string fluxnovaName = 0
+  string fluxnovaType = 0
+  boolean fluxnovaRequired = 0
+  boolean fluxnovaReadable = 0
+  boolean fluxnovaWriteable = 0
+  string fluxnovaVariable = 0
+  string fluxnovaExpression = 0
+  string fluxnovaDatePattern = 0
+  string fluxnovaDefault = 0
+ repeated  fluxnovaValue fluxnovaValues = 0
+ }
+// A helper interface for camunda extension elements which hold a generic child element like camunda:inputParameter, camunda:outputParameter and camunda:entry.
+message FluxnovaGenericValueElement
+ {
+  string value = 0
+ }
+// The BPMN in camunda extension element
+message FluxnovaIn
+ {
+  boolean scope = 0
+  string fluxnovaSource = 0
+  string fluxnovaSourceExpression = 0
+  string fluxnovaVariables = 0
+  string fluxnovaTarget = 0
+  string fluxnovaBusinessKey = 0
+  boolean fluxnovaLocal = 0
+ }
+// The BPMN inputOutput camunda extension element
+message FluxnovaInputOutput
+ {
+  boolean scope = 0
+ repeated  fluxnovaInputParameter fluxnovaInputParameters = 0
+ repeated  fluxnovaOutputParameter fluxnovaOutputParameters = 0
+ }
+// The BPMN inputParameter camunda extension element
+message FluxnovaInputParameter
+ {
+  boolean scope = 0
+  string fluxnovaName = 0
+  string value = 0
+ }
+// The BPMN camundaList extension element
+message FluxnovaList
+ {
+  boolean scope = 0
+  string values = 0
+ }
+// The BPMN camundaMap extension element
+message FluxnovaMap
+ {
+  boolean scope = 0
+ repeated  fluxnovaEntry fluxnovaEntries = 0
+ }
+// The BPMN out camunda extension element
+message FluxnovaOut
+ {
+  boolean scope = 0
+  string fluxnovaSource = 0
+  string fluxnovaSourceExpression = 0
+  string fluxnovaVariables = 0
+  string fluxnovaTarget = 0
+  boolean fluxnovaLocal = 0
+ }
+// The BPMN outputParameter camunda extension element
+message FluxnovaOutputParameter
+ {
+  boolean scope = 0
+  string fluxnovaName = 0
+  string value = 0
+ }
+// Root container for Fluxnova BPM Platform data.
+message FluxnovaPlatformData
+ {
+ repeated  deployment deployments = 0
+ repeated  processDefinition processDefinitions = 0
+ repeated  execution executions = 0
+ repeated  task tasks = 0
+ repeated  job jobs = 0
+ repeated  user users = 0
+ repeated  group groups = 0
+ repeated  batch batches = 0
+ }
+// The BPMN potentialStarter camunda extension
+message FluxnovaPotentialStarter
+ {
+  boolean scope = 0
+  resourceAssignmentExpression resourceAssignmentExpression = 0
+ }
+// The BPMN properties camunda extension element
+message FluxnovaProperties
+ {
+  boolean scope = 0
+  fluxnovaProperty fluxnovaProperties = 0
+ }
+// The BPMN property camunda extension element
+message FluxnovaProperty
+ {
+  boolean scope = 0
+  string fluxnovaId = 0
+  string fluxnovaName = 0
+  string fluxnovaValue = 0
+ }
+// The BPMN script camunda extension element
+message FluxnovaScript
+ {
+  boolean scope = 0
+  string fluxnovaScriptFormat = 0
+  string fluxnovaResource = 0
+ }
+// The BPMN string camunda extension element
+message FluxnovaString
+ {
+  boolean scope = 0
+ }
+// The BPMN taskListener camunda extension element
+message FluxnovaTaskListener
+ {
+  boolean scope = 0
+  string fluxnovaEvent = 0
+  string fluxnovaClass = 0
+  string fluxnovaExpression = 0
+  string fluxnovaDelegateExpression = 0
+ repeated  fluxnovaField fluxnovaFields = 0
+  fluxnovaScript fluxnovaScript = 0
+ repeated  timerEventDefinition timeouts = 0
+ }
+// The BPMN validation camunda extension element
+message FluxnovaValidation
+ {
+  boolean scope = 0
+ repeated  fluxnovaConstraint fluxnovaConstraints = 0
+ }
+// The BPMN value camunda extension element
+message FluxnovaValue
+ {
+  boolean scope = 0
+  string fluxnovaId = 0
+  string fluxnovaName = 0
+ }
+// The DC font element
+message Font
+ {
+  boolean scope = 0
+  string name = 0
+  float size = 0
+  boolean bold = 0
+  boolean italic = 0
+  boolean underline = 0
+  boolean strikeThrough = 0
+ }
+// The BPMN formalExpression element
+message FormalExpression
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string language = 0
+  itemDefinition evaluatesToType = 0
+ }
+// An object structure representing a Camunda Form used to present forms to users either when starting a process instance or when assigned to a User Task. Camunda Forms are usually composed with the h...
+message FormDefinition
+ {
+  string id = 0
+  string name = 0
+  string category = 0
+  string deploymentId = 0
+  string resourceName = 0
+  string diagramResourceName = 0
+  string tenantId = 0
+  integer historyTimeToLive = 0
+  string key = 0
+  integer version = 0
+ }
+// The BPMN gateway element
+message Gateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+ }
+// The BPMN globalConversation element
+message GlobalConversation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  boolean closed = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  artifact artifacts = 0
+ repeated  conversationNode conversationNodes = 0
+ repeated  conversationAssociation conversationAssociations = 0
+ repeated  participantAssociation participantAssociations = 0
+ repeated  messageFlowAssociation messageFlowAssociations = 0
+ repeated  correlationKey correlationKeys = 0
+ repeated  conversationLink conversationLinks = 0
+ }
+// Represents a group, used in IdentityService.
+message Group
+ {
+  string id = 0
+  string name = 0
+  string type = 0
+ }
+// Represents one execution of an activity and it's stored permanent for statistics, audit and other business intelligence purposes.
+message HistoricActivityInstance
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processDefinitionKey = 0
+  datetime endTime = 0
+  integer duration = 0
+  datetime removalTime = 0
+  string parentActivityInstanceId = 0
+  string executionId = 0
+  string activityId = 0
+  string taskId = 0
+  string calledProcessInstanceId = 0
+  string calledCaseInstanceId = 0
+  string activityName = 0
+  string activityType = 0
+  string assignee = 0
+  activityInstanceState activityInstanceState = 0
+  integer sequenceCounter = 0
+  string tenantId = 0
+  string processDefinitionId = 0
+  string processInstanceId = 0
+  datetime startTime = 0
+ }
+// Historic representation of a org.finos.fluxnova.bpm.engine.batch.Batch.
+message HistoricBatch
+ {
+  string id = 0
+  string type = 0
+  integer totalJobs = 0
+  integer jobsPerSeed = 0
+  integer invocationsPerJob = 0
+  string seedJobDefinitionId = 0
+  string monitorJobDefinitionId = 0
+  string batchJobDefinitionId = 0
+  string tenantId = 0
+  string createUserId = 0
+  datetime startTime = 0
+  datetime endTime = 0
+  datetime removalTime = 0
+  datetime executionStartTime = 0
+ }
+// Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.
+message HistoricCaseActivityInstance
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  datetime startTime = 0
+  datetime endTime = 0
+  integer duration = 0
+  datetime removalTime = 0
+  string parentActivityInstanceId = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string caseActivityId = 0
+  string taskId = 0
+  string calledProcessInstanceId = 0
+  string calledCaseInstanceId = 0
+  string caseActivityName = 0
+  string caseActivityType = 0
+  datetime createTime = 0
+  entityState state = 0
+  boolean isRequired = 0
+  string tenantId = 0
+ }
+// A single execution of a case definition that is stored permanently.
+message HistoricCaseInstance
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  datetime startTime = 0
+  datetime endTime = 0
+  integer duration = 0
+  datetime removalTime = 0
+  string caseInstanceId = 0
+  string businessKey = 0
+  string caseDefinitionId = 0
+  datetime createTime = 0
+  datetime closeTime = 0
+  entityState state = 0
+  string createUserId = 0
+  string superCaseInstanceId = 0
+  string superProcessInstanceId = 0
+  string tenantId = 0
+ }
+// Represents one input variable of a decision evaluation.
+message HistoricDecisionInputInstance
+ {
+  string id = 0
+  string decisionInstanceId = 0
+  string clauseId = 0
+  string clauseName = 0
+  string variableType = 0
+  string byteArrayId = 0
+  float doubleValue = 0
+  integer longValue = 0
+  string textValue = 0
+  string text2Value = 0
+  string tenantId = 0
+  datetime createTime = 0
+  string rootProcessInstanceId = 0
+  datetime removalTime = 0
+ }
+// Represents one evaluation of a decision.
+message HistoricDecisionInstance
+ {
+  string id = 0
+  string decisionDefinitionId = 0
+  string decisionDefinitionKey = 0
+  string decisionDefinitionName = 0
+  string processDefinitionKey = 0
+  string processDefinitionId = 0
+  string processInstanceId = 0
+  string caseDefinitionKey = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string activityInstanceId = 0
+  string activityId = 0
+  datetime evaluationTime = 0
+  datetime removalTime = 0
+  float collectResultValue = 0
+  string userId = 0
+  string rootDecisionInstanceId = 0
+  string rootProcessInstanceId = 0
+  string decisionRequirementsDefinitionId = 0
+  string decisionRequirementsDefinitionKey = 0
+  string tenantId = 0
+ }
+// Represents one output variable of a decision evaluation.
+message HistoricDecisionOutputInstance
+ {
+  string id = 0
+  string decisionInstanceId = 0
+  string clauseId = 0
+  string clauseName = 0
+  string ruleId = 0
+  integer ruleOrder = 0
+  string variableName = 0
+  string variableType = 0
+  string byteArrayId = 0
+  float doubleValue = 0
+  integer longValue = 0
+  string textValue = 0
+  string text2Value = 0
+  string tenantId = 0
+  datetime createTime = 0
+  string rootProcessInstanceId = 0
+  datetime removalTime = 0
+ }
+// Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
+message HistoricDetail
+ {
+  string id = 0
+  string type = 0
+  datetime eventTime = 0
+  string name = 0
+  string processDefinitionKey = 0
+  string processDefinitionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string executionId = 0
+  string caseDefinitionKey = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string caseExecutionId = 0
+  string taskId = 0
+  string activityInstanceId = 0
+  string variableInstanceId = 0
+  string variableType = 0
+  string byteArrayId = 0
+  float doubleValue = 0
+  integer longValue = 0
+  string textValue = 0
+  string text2Value = 0
+  integer sequenceCounter = 0
+  string tenantId = 0
+  string operationId = 0
+  datetime removalTime = 0
+  boolean isInitial = 0
+ }
+// The HistoricExternalTaskLog is used to have a log containing information about ExternalTask task execution. The log provides details about the last lifecycle state of a ExternalTask task: An instan...
+message HistoricExternalTaskLog
+ {
+  string id = 0
+  datetime timestamp = 0
+  string externalTaskId = 0
+  integer retries = 0
+  string topicName = 0
+  string workerId = 0
+  integer priority = 0
+  string errorMessage = 0
+  string errorDetailsId = 0
+  string activityId = 0
+  string activityInstanceId = 0
+  string executionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  string tenantId = 0
+  entityState state = 0
+  datetime removalTime = 0
+ }
+// An historic identity link stores the association of a task with a certain identity. For example, historic identity link is logged on the following conditions: - a user can be an assignee/Candidate/...
+message HistoricIdentityLink
+ {
+  string id = 0
+  datetime timestamp = 0
+  string type = 0
+  string userId = 0
+  string groupId = 0
+  string taskId = 0
+  string rootProcessInstanceId = 0
+  string processDefinitionId = 0
+  string operationType = 0
+  string assignerId = 0
+  string processDefinitionKey = 0
+  string tenantId = 0
+  datetime removalTime = 0
+ }
+// Represents a historic Incident incident that is stored permanently.
+message HistoricIncident
+ {
+  string id = 0
+  string processDefinitionKey = 0
+  string processDefinitionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string executionId = 0
+  datetime createTime = 0
+  datetime endTime = 0
+  string incidentMessage = 0
+  string incidentType = 0
+  string activityId = 0
+  string failedActivityId = 0
+  string causeIncidentId = 0
+  string rootCauseIncidentId = 0
+  string configuration = 0
+  string historyConfiguration = 0
+  incidentState incidentState = 0
+  string tenantId = 0
+  string jobDefinitionId = 0
+  string annotation = 0
+  datetime removalTime = 0
+ }
+// The HistoricJobLog is used to have a log containing information about Job job execution. The log provides details about the complete lifecycle of a Job job: An instance of HistoricJobLog represents...
+message HistoricJobLog
+ {
+  string id = 0
+  datetime timestamp = 0
+  string jobId = 0
+  datetime jobDueDate = 0
+  integer jobRetries = 0
+  integer jobPriority = 0
+  string jobExceptionMessage = 0
+  string jobExceptionStackId = 0
+  jobState jobState = 0
+  string jobDefinitionId = 0
+  string jobDefinitionType = 0
+  string jobDefinitionConfiguration = 0
+  string activityId = 0
+  string failedActivityId = 0
+  string executionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  string deploymentId = 0
+  integer sequenceCounter = 0
+  string tenantId = 0
+  string hostname = 0
+  datetime removalTime = 0
+  string batchId = 0
+ }
+// A single execution of a whole process definition that is stored permanently.
+message HistoricProcessInstance
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processDefinitionKey = 0
+  datetime endTime = 0
+  integer duration = 0
+  datetime removalTime = 0
+  string businessKey = 0
+  string startUserId = 0
+  string startActivityId = 0
+  string endActivityId = 0
+  string superProcessInstanceId = 0
+  string superCaseInstanceId = 0
+  string caseInstanceId = 0
+  string deleteReason = 0
+  string tenantId = 0
+  entityState state = 0
+  string restartedProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  datetime startTime = 0
+ }
+// Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
+message HistoricTaskInstance
+ {
+  string id = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  datetime endTime = 0
+  integer duration = 0
+  datetime removalTime = 0
+  string taskDefinitionKey = 0
+  string executionId = 0
+  string caseDefinitionKey = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string caseExecutionId = 0
+  string activityInstanceId = 0
+  string name = 0
+  string parentTaskId = 0
+  string description = 0
+  string owner = 0
+  string assignee = 0
+  string deleteReason = 0
+  integer priority = 0
+  datetime dueDate = 0
+  datetime followUpDate = 0
+  string tenantId = 0
+  string taskState = 0
+  datetime startTime = 0
+ }
+// A single process variable containing the last value when its process instance has finished. It is only available when HISTORY_LEVEL is set >= AUDIT
+message HistoricVariableInstance
+ {
+  string id = 0
+  string processDefinitionKey = 0
+  string processDefinitionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string executionId = 0
+  string caseDefinitionKey = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string caseExecutionId = 0
+  string taskId = 0
+  string activityInstanceId = 0
+  string name = 0
+  string variableType = 0
+  datetime createTime = 0
+  string byteArrayId = 0
+  float doubleValue = 0
+  integer longValue = 0
+  string textValue = 0
+  string text2Value = 0
+  string tenantId = 0
+  entityState state = 0
+  datetime removalTime = 0
+ }
+// The BPMN humanPerformer element
+message HumanPerformer
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  resource resource = 0
+ repeated  resourceParameterBinding resourceParameterBinding = 0
+  resourceAssignmentExpression resourceAssignmentExpression = 0
+ }
+// Identity Info entity in the identity and access management.
+message IdentityInfo
+ {
+  string id = 0
+  string userId = 0
+  string type = 0
+  string key = 0
+  string value = 0
+  string password = 0
+  string parentId = 0
+ }
+// An identity link is used to associate a task with a certain identity. For example: - a user can be an assignee (= identity link type) for a task - a group can be a candidate-group (= identity link ...
+message IdentityLink
+ {
+  string id = 0
+  string groupId = 0
+  string type = 0
+  string userId = 0
+  string taskId = 0
+  string processDefinitionId = 0
+  string tenantId = 0
+ }
+// The BPMN Import element
+message Import
+ {
+  boolean scope = 0
+  string namespace = 0
+  string location = 0
+  string importType = 0
+ }
+// An Incident represents a failure in the execution of a process instance. A possible failure could be for example a failed Job during the execution, so that the job retry is equal zero (job.retries ...
+message Incident
+ {
+  string id = 0
+  datetime incidentTimestamp = 0
+  string incidentMessage = 0
+  string incidentType = 0
+  string executionId = 0
+  string activityId = 0
+  string failedActivityId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string causeIncidentId = 0
+  string rootCauseIncidentId = 0
+  string configuration = 0
+  string tenantId = 0
+  string jobDefinitionId = 0
+  string annotation = 0
+ }
+// The BPMN inclusiveGateway element
+message InclusiveGateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+  sequenceFlow default = 0
+ }
+// The BPMN 2.0 inputDataItem from the tMultiInstanceLoopCharacteristics type
+message InputDataItem
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+  string name = 0
+  boolean collection = 0
+ }
+// The BPMN inputSet element
+message InputSet
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  dataInput dataInputs = 0
+ repeated  dataInput optionalInputs = 0
+ repeated  dataInput whileExecutingInput = 0
+ repeated  outputSet outputSets = 0
+ }
+// The BPMN interactionNode interface
+message InteractionNode
+ {
+  string id = 0
+ }
+// The BPMN interface element
+message Interface
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  string implementationRef = 0
+ repeated  operation operations = 0
+ }
+// The BPMN intermediateCatchEvent element
+message IntermediateCatchEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+  boolean parallelMultiple = 0
+ repeated  dataOutput dataOutputs = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+  outputSet outputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+ }
+// The BPMN intermediateThrowEvent element
+message IntermediateThrowEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInput dataInputs = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+  inputSet inputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+ }
+// The BPMN ioBinding element
+message IoBinding
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  operation operation = 0
+  dataInput inputData = 0
+  dataOutput outputData = 0
+ }
+// The BPMN inputOutputSpecification element
+message IoSpecification
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ repeated  dataInput dataInputs = 0
+ repeated  dataOutput dataOutputs = 0
+ repeated  inputSet inputSets = 0
+ repeated  outputSet outputSets = 0
+ }
+// The BPMN itemAwareElement element
+message ItemAwareElement
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+ }
+// The BPMN itemDefinition element
+message ItemDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string structureRef = 0
+  boolean collection = 0
+  string itemKind = 0
+ }
+// Represents one job (timer, message, etc.).
+message Job
+ {
+  string id = 0
+  string type = 0
+  datetime lockExpirationTime = 0
+  string lockOwner = 0
+  boolean isExclusive = 0
+  string executionId = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  integer retries = 0
+  string exceptionStackId = 0
+  string exceptionMessage = 0
+  string failedActivityId = 0
+  datetime dueDate = 0
+  string repeat = 0
+  integer repeatOffset = 0
+  string handlerType = 0
+  string handlerConfiguration = 0
+  string deploymentId = 0
+  suspensionState suspensionState = 0
+  string jobDefinitionId = 0
+  integer priority = 0
+  integer sequenceCounter = 0
+  string tenantId = 0
+  datetime createTime = 0
+  string lastFailureLogId = 0
+  string batchId = 0
+ }
+// A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process engine. Each Job Definition corresponds to a Timer or Asynchronous continuation job inst...
+message JobDefinition
+ {
+  string id = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  string activityId = 0
+  string jobType = 0
+  string jobConfiguration = 0
+  suspensionState suspensionState = 0
+  integer jobPriority = 0
+  string tenantId = 0
+  string deploymentId = 0
+ }
+// The DI Label element
+message Label
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+  bounds bounds = 0
+ }
+// The DI LabeledEdge element
+message LabeledEdge
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ repeated  waypoint waypoints = 0
+ }
+// The DI LabeledShape element
+message LabeledShape
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+  bounds bounds = 0
+ }
+// The BPMN lane element
+message Lane
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  string partitionElement = 0
+  string partitionElementChild = 0
+ repeated  flowNode flowNodeRefs = 0
+  string childLaneSet = 0
+ }
+// The BPMN laneSet element
+message LaneSet
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  lane lanes = 0
+ }
+// The BPMN linkEventDefinition element
+message LinkEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  linkEventDefinition sources = 0
+  linkEventDefinition target = 0
+ }
+// The loopCardinality element from the tMultiInstanceLoopCharacteristics complex type
+message LoopCardinality
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN loopCharacteristics element
+message LoopCharacteristics
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN manualTask element
+message ManualTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+ }
+// Association entity in identity and access management.
+message Membership
+ {
+  string userId = 0
+  string groupId = 0
+ }
+// The BPMN message element
+message Message
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  itemDefinition item = 0
+ }
+// The BPMN messageEventDefinition element
+message MessageEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  message message = 0
+  operation operation = 0
+  string fluxnovaClass = 0
+  string fluxnovaDelegateExpression = 0
+  string fluxnovaExpression = 0
+  string fluxnovaResultVariable = 0
+  string fluxnovaTopic = 0
+  string fluxnovaType = 0
+  string fluxnovaTaskPriority = 0
+ }
+// The BPMN messageFlow element
+message MessageFlow
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  interactionNode source = 0
+  interactionNode target = 0
+  message message = 0
+ }
+// The BPMN messageFlowAssociation element
+message MessageFlowAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  messageFlow innerMessageFlow = 0
+  messageFlow outerMessageFlow = 0
+ }
+// Meter Log entity in the engine infrastructure.
+message MeterLog
+ {
+  string id = 0
+  string name = 0
+  string reporter = 0
+  integer value = 0
+  datetime timestamp = 0
+  integer milliseconds = 0
+ }
+// The BPMN monitoring element
+message Monitoring
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN 2.0 multiInstanceLoopCharacteristics element type
+message MultiInstanceLoopCharacteristics
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  loopCardinality loopCardinality = 0
+  dataInput loopDataInputRef = 0
+  dataOutput loopDataOutputRef = 0
+  inputDataItem inputDataItem = 0
+  outputDataItem outputDataItem = 0
+ repeated  complexBehaviorDefinition complexBehaviorDefinitions = 0
+  completionCondition completionCondition = 0
+  boolean sequential = 0
+  string behavior = 0
+  eventDefinition oneBehaviorEventRef = 0
+  eventDefinition noneBehaviorEventRef = 0
+  string fluxnovaCollection = 0
+  string fluxnovaElementVariable = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+ }
+// The DI Node element
+message Node
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ }
+// The BPMN operation element
+message Operation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  string implementationRef = 0
+  message inMessage = 0
+  message outMessage = 0
+ repeated  error errors = 0
+ }
+// The BPMN 2.0 outputDataItem from the tMultiInstanceLoopCharacteristics type
+message OutputDataItem
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  itemDefinition itemSubject = 0
+  dataState dataState = 0
+  string name = 0
+  boolean collection = 0
+ }
+// The BPMN outputSet element
+message OutputSet
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  dataOutput dataOutputRefs = 0
+ repeated  dataOutput optionalOutputRefs = 0
+ repeated  dataOutput whileExecutingOutputRefs = 0
+ repeated  inputSet inputSetRefs = 0
+ }
+// The BPMN parallelGateway element
+message ParallelGateway
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  string gatewayDirection = 0
+  boolean fluxnovaAsync = 0
+ }
+// The BPMN participant element
+message Participant
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  process process = 0
+ repeated  interface interfaces = 0
+ repeated  endPoint endPoints = 0
+  participantMultiplicity participantMultiplicity = 0
+ }
+// The BPMN participantAssociation element
+message ParticipantAssociation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  participant innerParticipant = 0
+  participant outerParticipant = 0
+ }
+// The BPMN participantMultiplicity element
+message ParticipantMultiplicity
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  integer minimum = 0
+  integer maximum = 0
+ }
+// The BPMN performer element
+message Performer
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  resource resource = 0
+ repeated  resourceParameterBinding resourceParameterBinding = 0
+  resourceAssignmentExpression resourceAssignmentExpression = 0
+ }
+// The DI Plane element
+message Plane
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+ repeated  diagramElement diagramElements = 0
+ }
+// The DC point element
+message Point
+ {
+  boolean scope = 0
+  float x = 0
+  float y = 0
+ }
+// The BPMN potentialOwner element
+message PotentialOwner
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  resource resource = 0
+ repeated  resourceParameterBinding resourceParameterBinding = 0
+  resourceAssignmentExpression resourceAssignmentExpression = 0
+ }
+// The BPMN process element
+message Process
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  interface supportedInterfaces = 0
+  ioSpecification ioSpecification = 0
+ repeated  ioBinding ioBindings = 0
+  string processType = 0
+  boolean closed = 0
+  boolean executable = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  bpmnProperty properties = 0
+ repeated  laneSet laneSets = 0
+ repeated  flowElement flowElements = 0
+ repeated  artifact artifacts = 0
+ repeated  correlationSubscription correlationSubscriptions = 0
+ repeated  resourceRole resourceRoles = 0
+ repeated  process supports = 0
+  string fluxnovaCandidateStarterGroups = 0
+ repeated  string fluxnovaCandidateStarterGroupsList = 0
+  string fluxnovaCandidateStarterUsers = 0
+ repeated  string fluxnovaCandidateStarterUsersList = 0
+  string fluxnovaJobPriority = 0
+  string fluxnovaTaskPriority = 0
+  integer fluxnovaHistoryTimeToLive = 0
+  string fluxnovaHistoryTimeToLiveString = 0
+  boolean fluxnovaStartableInTasklist = 0
+  string fluxnovaVersionTag = 0
+ }
+// An object structure representing an executable process composed of activities and transitions. Business processes are often created with graphical editors that store the process definition in certa...
+message ProcessDefinition
+ {
+  string id = 0
+  string name = 0
+  string category = 0
+  string deploymentId = 0
+  string resourceName = 0
+  string diagramResourceName = 0
+  string tenantId = 0
+  integer historyTimeToLive = 0
+  boolean hasStartFormKey = 0
+  suspensionState suspensionState = 0
+  string versionTag = 0
+  boolean isStartable = 0
+  string key = 0
+  integer version = 0
+ }
+// Property entity in the engine infrastructure.
+message Property
+ {
+  string name = 0
+  string value = 0
+ }
+// The BPMN receiveTask element
+message ReceiveTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string implementation = 0
+  message message = 0
+  operation operation = 0
+ }
+// The BPMN relationship element
+message Relationship
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string type = 0
+  string direction = 0
+ repeated  string sources = 0
+ repeated  string targets = 0
+ }
+// The BPMN rendering element
+message Rendering
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN resource element
+message Resource
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  resourceParameter resourceParameters = 0
+ }
+// The BPMN resourceAssignmentExpression element
+message ResourceAssignmentExpression
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  expression expression = 0
+ }
+// The BPMN resourceParameter element
+message ResourceParameter
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  itemDefinition type = 0
+  boolean required = 0
+ }
+// The BPMN resourceParameterBinding element
+message ResourceParameterBinding
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  resourceParameter parameter = 0
+  expression expression = 0
+ }
+// The BPMN resourceRole element
+message ResourceRole
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  resource resource = 0
+ repeated  resourceParameterBinding resourceParameterBinding = 0
+  resourceAssignmentExpression resourceAssignmentExpression = 0
+ }
+// The BPMN rootElement element
+message RootElement
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// Schema Log Entry entity in the engine infrastructure.
+message SchemaLogEntry
+ {
+  string id = 0
+  datetime timestamp = 0
+  string version = 0
+ }
+// The BPMN script element
+message Script
+ {
+  boolean scope = 0
+ }
+// The BPMN scriptTask element
+message ScriptTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string scriptFormat = 0
+  script script = 0
+  string fluxnovaResultVariable = 0
+  string fluxnovaResource = 0
+ }
+// The BPMN sendTask element
+message SendTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string implementation = 0
+  message message = 0
+  operation operation = 0
+  string fluxnovaClass = 0
+  string fluxnovaDelegateExpression = 0
+  string fluxnovaExpression = 0
+  string fluxnovaResultVariable = 0
+  string fluxnovaType = 0
+  string fluxnovaTopic = 0
+  string fluxnovaTaskPriority = 0
+ }
+// The BPMN sequenceFlow element
+message SequenceFlow
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+  flowNode source = 0
+  flowNode target = 0
+  boolean immediate = 0
+  conditionExpression conditionExpression = 0
+ }
+// The BPMN serviceTask element
+message ServiceTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string implementation = 0
+  operation operation = 0
+  string fluxnovaClass = 0
+  string fluxnovaDelegateExpression = 0
+  string fluxnovaExpression = 0
+  string fluxnovaResultVariable = 0
+  string fluxnovaType = 0
+  string fluxnovaTopic = 0
+  string fluxnovaTaskPriority = 0
+ }
+// The DI Shape element
+message Shape
+ {
+  boolean scope = 0
+  string id = 0
+  extension extension = 0
+  bounds bounds = 0
+ }
+// The BPMN signal element
+message Signal
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  itemDefinition structure = 0
+ }
+// The BPMN signalEventDefinition element
+message SignalEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  signal signal = 0
+  boolean fluxnovaAsync = 0
+ }
+// The BPMN startEvent element
+message StartEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+  boolean parallelMultiple = 0
+ repeated  dataOutput dataOutputs = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+  outputSet outputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+  boolean interrupting = 0
+  boolean fluxnovaAsync = 0
+  string fluxnovaFormHandlerClass = 0
+  string fluxnovaFormKey = 0
+  string fluxnovaFormRef = 0
+  string fluxnovaFormRefBinding = 0
+  string fluxnovaFormRefVersion = 0
+  string fluxnovaInitiator = 0
+ }
+// The DI Style element
+message Style
+ {
+  boolean scope = 0
+  string id = 0
+ }
+// The BPMN subConversation element
+message SubConversation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+ repeated  participant participants = 0
+ repeated  messageFlow messageFlows = 0
+ repeated  correlationKey correlationKeys = 0
+ repeated  conversationNode conversationNodes = 0
+ }
+// The BPMN subProcess element
+message SubProcess
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+ repeated  laneSet laneSets = 0
+ repeated  flowElement flowElements = 0
+ repeated  artifact artifacts = 0
+  boolean fluxnovaAsync = 0
+ }
+// Represents one task for a human user.
+message Task
+ {
+  string id = 0
+  string executionId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string caseExecutionId = 0
+  string caseInstanceId = 0
+  string caseDefinitionId = 0
+  string name = 0
+  string parentTaskId = 0
+  string description = 0
+  string taskDefinitionKey = 0
+  string owner = 0
+  string assignee = 0
+  delegationState delegationState = 0
+  integer priority = 0
+  datetime createTime = 0
+  datetime lastUpdated = 0
+  datetime dueDate = 0
+  datetime followUpDate = 0
+  suspensionState suspensionState = 0
+  string tenantId = 0
+  string taskState = 0
+ }
+// Task Meter Log entity in the engine infrastructure.
+message TaskMeterLog
+ {
+  string id = 0
+  integer assigneeHash = 0
+  datetime timestamp = 0
+ }
+// Represents a tenant, used in IdentityService.
+message Tenant
+ {
+  string id = 0
+  string name = 0
+ }
+// Association entity in identity and access management.
+message TenantMembership
+ {
+  string id = 0
+  string tenantId = 0
+  string userId = 0
+  string groupId = 0
+ }
+// The BPMN terminateEventDefinition element
+message TerminateEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN 2.0 text element from the tTextAnnotation complex type
+message Text
+ {
+  boolean scope = 0
+ }
+// The BPMN 2.0 textAnnotation element
+message TextAnnotation
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string textFormat = 0
+  text text = 0
+ }
+// The BPMN throwEvent element
+message ThrowEvent
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInput dataInputs = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+  inputSet inputSet = 0
+ repeated  eventDefinition eventDefinitions = 0
+ repeated  eventDefinition eventDefinitionRefs = 0
+ }
+// The BPMN timeCycle element of the BPMN tTimerEventDefinition type
+message TimeCycle
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN timeDate element of the BPMN tTimerEventDefinition type
+message TimeDate
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN timeDuration element of the BPMN tTimerEventDefinition type
+message TimeDuration
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+ }
+// The BPMN timerEventDefinition element
+message TimerEventDefinition
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  timeDate timeDate = 0
+  timeDuration timeDuration = 0
+  timeCycle timeCycle = 0
+ }
+// A sub-process that executes as an atomic unit with compensation support.
+message Transaction
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+ repeated  laneSet laneSets = 0
+ repeated  flowElement flowElements = 0
+ repeated  artifact artifacts = 0
+  boolean fluxnovaAsync = 0
+  string method = 0
+ }
+// Represents a user, used in IdentityService.
+message User
+ {
+  string id = 0
+  string firstName = 0
+  string lastName = 0
+  string email = 0
+  string password = 0
+  string salt = 0
+  datetime lockExpirationTime = 0
+  integer attempts = 0
+  string pictureId = 0
+ }
+// Log entry about an operation performed by a user. This is used for logging actions such as creating a new task, completing a task, canceling a process instance, ... The type of the operation which ...
+message UserOperationLogEntry
+ {
+  string id = 0
+  string deploymentId = 0
+  string processDefinitionId = 0
+  string processDefinitionKey = 0
+  string rootProcessInstanceId = 0
+  string processInstanceId = 0
+  string executionId = 0
+  string caseDefinitionId = 0
+  string caseInstanceId = 0
+  string caseExecutionId = 0
+  string taskId = 0
+  string jobId = 0
+  string jobDefinitionId = 0
+  string batchId = 0
+  string userId = 0
+  datetime timestamp = 0
+  string operationType = 0
+  string operationId = 0
+  string entityType = 0
+  string property = 0
+  string originalValue = 0
+  string newValue = 0
+  string tenantId = 0
+  datetime removalTime = 0
+  string category = 0
+  string externalTaskId = 0
+  string annotation = 0
+ }
+// The BPMN userTask element
+message UserTask
+ {
+  boolean scope = 0
+  string id = 0
+ repeated  documentation documentations = 0
+  extensionElements extensionElements = 0
+  diagramElement diagramElement = 0
+  string name = 0
+  auditing auditing = 0
+  monitoring monitoring = 0
+ repeated  categoryValue categoryValueRefs = 0
+ repeated  sequenceFlow incoming = 0
+ repeated  sequenceFlow outgoing = 0
+  flowNode previousNodes = 0
+  flowNode succeedingNodes = 0
+  boolean fluxnovaAsyncBefore = 0
+  boolean fluxnovaAsyncAfter = 0
+  boolean fluxnovaExclusive = 0
+  string fluxnovaJobPriority = 0
+  boolean forCompensation = 0
+  integer startQuantity = 0
+  integer completionQuantity = 0
+  sequenceFlow default = 0
+  ioSpecification ioSpecification = 0
+ repeated  bpmnProperty properties = 0
+ repeated  dataInputAssociation dataInputAssociations = 0
+ repeated  dataOutputAssociation dataOutputAssociations = 0
+ repeated  resourceRole resourceRoles = 0
+  loopCharacteristics loopCharacteristics = 0
+  boolean fluxnovaAsync = 0
+  string implementation = 0
+ repeated  rendering renderings = 0
+  string fluxnovaAssignee = 0
+  string fluxnovaCandidateGroups = 0
+ repeated  string fluxnovaCandidateGroupsList = 0
+  string fluxnovaCandidateUsers = 0
+ repeated  string fluxnovaCandidateUsersList = 0
+  string fluxnovaDueDate = 0
+  string fluxnovaFollowUpDate = 0
+  string fluxnovaFormHandlerClass = 0
+  string fluxnovaFormKey = 0
+  string fluxnovaFormRef = 0
+  string fluxnovaFormRefBinding = 0
+  string fluxnovaFormRefVersion = 0
+  string fluxnovaPriority = 0
+ }
+// A VariableInstance represents a variable in the execution of a process instance.
+message VariableInstance
+ {
+  string id = 0
+  string type = 0
+  string name = 0
+  string executionId = 0
+  string processInstanceId = 0
+  string processDefinitionId = 0
+  string caseExecutionId = 0
+  string caseInstanceId = 0
+  string taskId = 0
+  string batchId = 0
+  string byteArrayId = 0
+  float doubleValue = 0
+  integer longValue = 0
+  string textValue = 0
+  string text2Value = 0
+  string variableScopeId = 0
+  integer sequenceCounter = 0
+  boolean isConcurrentLocal = 0
+  string tenantId = 0
+ }
+// The DI waypoint element of the DI Edge type
+message Waypoint
+ {
+  boolean scope = 0
+  float x = 0
+  float y = 0
+ }

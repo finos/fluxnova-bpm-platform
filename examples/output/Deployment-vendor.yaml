@@ -1,0 +1,5 @@
+id: aDeploymentId
+name: aName
+deploy_time: '2013-01-23T13:59:43+00:00'
+source: aDeploymentSource
+tenant_id: aTenantId

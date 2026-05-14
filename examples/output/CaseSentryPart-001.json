@@ -1,0 +1,11 @@
+{
+  "id": "csp-001",
+  "case_instance_id": "ci-001",
+  "case_execution_id": "caseexec-001",
+  "sentry_id": "Sentry_1",
+  "type": "planItem",
+  "source_case_execution_id": "caseexec-002",
+  "standard_event": "complete",
+  "tenant_id": "tenant-alpha",
+  "@type": "CaseSentryPart"
+}

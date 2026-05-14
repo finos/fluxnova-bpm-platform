@@ -1,0 +1,8 @@
+{
+  "id": "dep-001",
+  "name": "invoice-process-v2",
+  "deploy_time": "2025-02-20T09:15:00+00:00",
+  "source": "classpath",
+  "tenant_id": "tenant-alpha",
+  "@type": "Deployment"
+}

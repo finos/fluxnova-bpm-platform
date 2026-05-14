@@ -1,0 +1,11 @@
+# Vendor test data derived from MockProvider.java
+# DecisionDefinition — mirrors MockProvider EXAMPLE_DECISION_DEFINITION_* constants
+id: aDecisionDefinitionId
+key: aDecisionDefinitionKey
+name: aDecisionDefinitionName
+version: 1
+category: aDecisionDefinitionCategory
+deployment_id: aDeploymentId
+resource_name: aDecisionDefinitionResourceName
+diagram_resource_name: aResourceName.png
+tenant_id: aTenantId

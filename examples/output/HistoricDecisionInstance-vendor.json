@@ -1,0 +1,18 @@
+{
+  "id": "aHistoricDecisionInstanceId",
+  "decision_definition_id": "aDecisionDefinitionId",
+  "decision_definition_key": "aDecisionDefinitionKey",
+  "evaluation_time": "2015-09-07T11:00:00+00:00",
+  "decision_definition_name": "aDecisionDefinitionName",
+  "process_definition_key": "aKey",
+  "process_definition_id": "aProcDefId",
+  "process_instance_id": "aProcInstId",
+  "activity_instance_id": "aHistoricDecisionInstanceActivityInstanceId",
+  "activity_id": "aHistoricDecisionInstanceActivityId",
+  "removal_time": "2015-09-10T11:00:00+00:00",
+  "collect_result_value": 42.0,
+  "user_id": "aUserId",
+  "root_process_instance_id": "aRootProcInstId",
+  "tenant_id": "aTenantId",
+  "@type": "HistoricDecisionInstance"
+}

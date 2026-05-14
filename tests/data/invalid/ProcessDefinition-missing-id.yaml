@@ -1,0 +1,5 @@
+# Missing required 'id' field
+name: Invoice Processing
+key: invoice-process
+version: 1
+is_startable: true

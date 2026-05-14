@@ -1,0 +1,6 @@
+id: ba-001
+name: process-diagram.bpmn
+deployment_id: dep-001
+tenant_id: tenant-alpha
+type: 1
+create_time: '2025-01-15T10:30:00+00:00'

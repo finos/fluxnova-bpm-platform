@@ -1,0 +1,86 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpmn-model
+name: fluxnova_bpmn_model
+title: Fluxnova BPMN Model API
+description: Root BPMN Model API schema. Imports all sub-modules and exposes BpmnModelInstance as the tree root.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
+see_also:
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+annotations:
+  generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
+  source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
+  module: core_api
+  class_count: 2
+  slot_count: 1
+  enum_count: 10
+  interface_count: 181
+  coverage_target: 100% of in-scope public BPMN metamodel interfaces and enums
+
+prefixes:
+  fluxnova_bpmn_model: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  fluxnova: https://fluxnova.finos.org/ns/bpmn/
+default_prefix: fluxnova_bpmn_model
+default_range: string
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpmn_model_dc
+  - ./fluxnova_bpmn_model_di
+  - ./fluxnova_bpmn_model_instance
+  - ./fluxnova_bpmn_model_bpmndi
+  - ./fluxnova_bpmn_model_fluxnova
+
+subsets:
+  core_api:
+    description: Top-level BPMN API types and enums.
+
+  instance:
+    description: Core BPMN element interfaces.
+
+  bpmndi:
+    description: BPMN diagram interchange interfaces and enums.
+
+  di:
+    description: Generic diagram interchange interfaces.
+
+  dc:
+    description: Diagram coordinate and bounds interfaces.
+
+  fluxnova_extensions:
+    description: Fluxnova BPMN extension interfaces.
+
+  fluxnova_bpmn_model:
+    description: All Fluxnova BPMN Model API types.
+
+slots:
+  definitions:
+    range: Definitions
+    description: The root BPMN Definitions element of this model.
+
+classes:
+  BpmnModelInstance:
+    description: Root container for a parsed BPMN model, providing access to the Definitions element.
+    tree_root: true
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/BpmnModelInstance.java
+    in_subset:
+      - core_api
+      - fluxnova_bpmn_model
+    slots:
+      - definitions
+
+  BpmnModelType:
+    description: Enumeration-like interface representing the BPMN model type.
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/BpmnModelType.java
+    in_subset:
+      - core_api
+      - fluxnova_bpmn_model

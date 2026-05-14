@@ -1,0 +1,11 @@
+id: var-001
+type: string
+name: invoiceNumber
+execution_id: exec-001
+process_instance_id: pi-001
+process_definition_id: procdef-001
+task_id: task-001
+text_value: INV-2025-0042
+variable_scope_id: exec-001
+sequence_counter: 1
+tenant_id: tenant-alpha

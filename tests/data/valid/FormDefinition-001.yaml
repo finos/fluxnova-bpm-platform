@@ -1,0 +1,6 @@
+id: formdef-001
+key: invoice-form
+name: Invoice Form
+version: 1
+deployment_id: dep-001
+resource_name: invoice-form.form

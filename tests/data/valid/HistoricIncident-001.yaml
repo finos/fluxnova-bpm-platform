@@ -1,0 +1,16 @@
+id: hinc-001
+process_definition_key: invoice-process
+process_definition_id: procdef-001
+root_process_instance_id: pi-001
+process_instance_id: pi-001
+execution_id: exec-001
+create_time: "2025-03-01T09:20:00+00:00"
+end_time: "2025-03-01T09:25:00+00:00"
+incident_message: Failed to send email
+incident_type: failedJob
+activity_id: ExternalTask_SendEmail
+cause_incident_id: hinc-001
+root_cause_incident_id: hinc-001
+incident_state: RESOLVED
+tenant_id: tenant-alpha
+job_definition_id: jd-001

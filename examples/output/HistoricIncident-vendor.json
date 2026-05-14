@@ -1,0 +1,22 @@
+{
+  "id": "anIncidentId",
+  "create_time": "2014-01-02T00:00:00+00:00",
+  "incident_type": "anIncidentType",
+  "process_definition_key": "aProcDefKey",
+  "process_definition_id": "aProcDefId",
+  "root_process_instance_id": "aRootProcInstId",
+  "process_instance_id": "aProcInstId",
+  "execution_id": "anExecutionId",
+  "end_time": "2014-01-02T00:00:00+00:00",
+  "incident_message": "anIncidentMessage",
+  "activity_id": "anActivityId",
+  "failed_activity_id": "aFailedActivityId",
+  "cause_incident_id": "aCauseIncidentId",
+  "root_cause_incident_id": "aRootCauseIncidentId",
+  "configuration": "aConfiguration",
+  "history_configuration": "aHistoryConfiguration",
+  "incident_state": "RESOLVED",
+  "tenant_id": "aTenantId",
+  "removal_time": "2018-01-01T00:00:00+00:00",
+  "@type": "HistoricIncident"
+}

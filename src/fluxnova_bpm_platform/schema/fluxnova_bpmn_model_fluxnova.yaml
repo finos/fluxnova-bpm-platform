@@ -1,0 +1,586 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova
+name: fluxnova_bpmn_model_fluxnova
+title: Fluxnova BPMN Model – Fluxnova Extensions
+description: Fluxnova-specific BPMN extension elements for connectors, form fields, execution listeners, and engine configuration.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
+see_also:
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+annotations:
+  generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
+  source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
+  module: fluxnova_extensions
+  class_count: 28
+  slot_count: 38
+  enum_count: 0
+
+prefixes:
+  fluxnova_bpmn_model_fluxnova: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  fluxnova: https://fluxnova.finos.org/ns/bpmn/
+default_prefix: fluxnova_bpmn_model_fluxnova
+default_range: string
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpmn_model_instance
+
+slots:
+  fluxnova_connector_id:
+    range: FluxnovaConnectorId
+    description: The unique identifier of this connector configuration.
+
+  fluxnova_input_output:
+    range: FluxnovaInputOutput
+    description: Input/output parameter container for this connector.
+
+  fluxnova_name:
+    range: string
+    description: Name attribute of this Fluxnova extension element.
+
+  fluxnova_config:
+    range: string
+    description: 'Fluxnova extension property: config.'
+
+  fluxnova_key:
+    range: string
+    description: 'Fluxnova extension property: key.'
+
+  fluxnova_event:
+    range: string
+    description: Event that triggers this execution listener.
+
+  fluxnova_fields:
+    range: FluxnovaField
+    multivalued: true
+    inlined_as_list: true
+    description: Field elements of this connector or form.
+
+  fluxnova_script:
+    range: FluxnovaScript
+    description: Inline script for this element.
+
+  fluxnova_string_value:
+    range: string
+    description: 'Fluxnova extension property: string value.'
+
+  fluxnova_string:
+    range: FluxnovaString
+    description: Inline string value.
+
+  fluxnova_expression_child:
+    range: FluxnovaExpression
+    description: 'Fluxnova extension property: expression child.'
+
+  fluxnova_form_fields:
+    range: FluxnovaFormField
+    multivalued: true
+    inlined_as_list: true
+    description: Form fields defined in this form data.
+
+  fluxnova_id:
+    range: string
+    description: Identifier for this Fluxnova extension element.
+
+  fluxnova_label:
+    range: string
+    description: Display label for this form field.
+
+  fluxnova_date_pattern:
+    range: string
+    description: Date pattern for date-typed form fields.
+
+  fluxnova_default_value:
+    range: string
+    description: Default value for this form field.
+
+  fluxnova_properties:
+    range: FluxnovaProperties
+    description: Fluxnova extension properties container.
+
+  fluxnova_validation:
+    range: FluxnovaValidation
+    description: Validation rules for this form field.
+
+  fluxnova_values:
+    range: FluxnovaValue
+    multivalued: true
+    inlined_as_list: true
+    description: Permissible value options for this form field.
+
+  fluxnova_required:
+    range: boolean
+    description: 'Fluxnova extension property: required.'
+
+  fluxnova_readable:
+    range: boolean
+    description: 'Fluxnova extension property: readable.'
+
+  fluxnova_writeable:
+    range: boolean
+    description: 'Fluxnova extension property: writeable.'
+
+  fluxnova_variable:
+    range: string
+    description: 'Fluxnova extension property: variable.'
+
+  fluxnova_default:
+    range: string
+    description: 'Fluxnova extension property: default.'
+
+  fluxnova_source:
+    range: string
+    description: 'Fluxnova extension property: source.'
+
+  fluxnova_source_expression:
+    range: string
+    description: 'Fluxnova extension property: source expression.'
+
+  fluxnova_variables:
+    range: string
+    description: 'Fluxnova extension property: variables.'
+
+  fluxnova_target:
+    range: string
+    description: 'Fluxnova extension property: target.'
+
+  fluxnova_business_key:
+    range: string
+    description: 'Fluxnova extension property: business key.'
+
+  fluxnova_local:
+    range: boolean
+    description: 'Fluxnova extension property: local.'
+
+  fluxnova_input_parameters:
+    range: FluxnovaInputParameter
+    multivalued: true
+    inlined_as_list: true
+    description: Input parameters passed to this connector or script.
+
+  fluxnova_output_parameters:
+    range: FluxnovaOutputParameter
+    multivalued: true
+    inlined_as_list: true
+    description: Output parameters produced by this connector or script.
+
+  values:
+    range: string
+    description: The values of this element.
+
+  fluxnova_entries:
+    range: FluxnovaEntry
+    multivalued: true
+    inlined_as_list: true
+    description: Key-value entries in this Fluxnova map.
+
+  fluxnova_value:
+    range: string
+    description: Value of this Fluxnova extension element.
+
+  fluxnova_script_format:
+    range: string
+    description: 'Fluxnova extension property: script format.'
+
+  timeouts:
+    range: TimerEventDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: Collection of timer event definition elements associated with this element.
+
+  fluxnova_constraints:
+    range: FluxnovaConstraint
+    multivalued: true
+    inlined_as_list: true
+    description: Validation constraints for this form field.
+
+classes:
+  FluxnovaConnector:
+    description: The BPMN connector camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnector.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_connector_id
+      - fluxnova_input_output
+
+  FluxnovaConnectorId:
+    description: The BPMN connectorId camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConnectorId.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+
+  FluxnovaConstraint:
+    description: The BPMN constraint camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaConstraint.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_name
+      - fluxnova_config
+
+  FluxnovaEntry:
+    description: The BPMN camundaEntry camunda extension element
+    is_a: BpmnModelElementInstance
+    mixins:
+      - FluxnovaGenericValueElement
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaEntry.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_key
+
+  FluxnovaErrorEventDefinition:
+    description: Fluxnova extension that augments an end event error definition with engine-specific variables.
+    is_a: ErrorEventDefinition
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaErrorEventDefinition.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_expression
+
+  FluxnovaExecutionListener:
+    description: The BPMN executionListener camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExecutionListener.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_event
+      - fluxnova_class
+      - fluxnova_expression
+      - fluxnova_delegate_expression
+      - fluxnova_fields
+      - fluxnova_script
+
+  FluxnovaExpression:
+    description: The BPMN expression camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaExpression.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+
+  FluxnovaFailedJobRetryTimeCycle:
+    description: The BPMN failedJobRetryTimeCycle camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFailedJobRetryTimeCycle.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+
+  FluxnovaField:
+    description: The BPMN field camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaField.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_name
+      - fluxnova_expression
+      - fluxnova_string_value
+      - fluxnova_string
+      - fluxnova_expression_child
+
+  FluxnovaFormData:
+    description: The BPMN formData camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormData.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_form_fields
+
+  FluxnovaFormField:
+    description: The BPMN formField camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormField.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_id
+      - fluxnova_label
+      - fluxnova_type
+      - fluxnova_date_pattern
+      - fluxnova_default_value
+      - fluxnova_properties
+      - fluxnova_validation
+      - fluxnova_values
+
+  FluxnovaFormProperty:
+    description: The BPMN formProperty camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaFormProperty.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_id
+      - fluxnova_name
+      - fluxnova_type
+      - fluxnova_required
+      - fluxnova_readable
+      - fluxnova_writeable
+      - fluxnova_variable
+      - fluxnova_expression
+      - fluxnova_date_pattern
+      - fluxnova_default
+      - fluxnova_values
+
+  FluxnovaGenericValueElement:
+    description: A helper interface for camunda extension elements which hold a generic child element like camunda:inputParameter,
+      camunda:outputParameter and camunda:entry.
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaGenericValueElement.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - value
+
+  FluxnovaIn:
+    description: The BPMN in camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaIn.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_source
+      - fluxnova_source_expression
+      - fluxnova_variables
+      - fluxnova_target
+      - fluxnova_business_key
+      - fluxnova_local
+
+  FluxnovaInputOutput:
+    description: The BPMN inputOutput camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputOutput.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_input_parameters
+      - fluxnova_output_parameters
+
+  FluxnovaInputParameter:
+    description: The BPMN inputParameter camunda extension element
+    is_a: BpmnModelElementInstance
+    mixins:
+      - FluxnovaGenericValueElement
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaInputParameter.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_name
+
+  FluxnovaList:
+    description: The BPMN camundaList extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaList.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - values
+
+  FluxnovaMap:
+    description: The BPMN camundaMap extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaMap.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_entries
+
+  FluxnovaOut:
+    description: The BPMN out camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOut.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_source
+      - fluxnova_source_expression
+      - fluxnova_variables
+      - fluxnova_target
+      - fluxnova_local
+
+  FluxnovaOutputParameter:
+    description: The BPMN outputParameter camunda extension element
+    is_a: BpmnModelElementInstance
+    mixins:
+      - FluxnovaGenericValueElement
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaOutputParameter.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_name
+
+  FluxnovaPotentialStarter:
+    description: The BPMN potentialStarter camunda extension
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaPotentialStarter.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - resource_assignment_expression
+
+  FluxnovaProperties:
+    description: The BPMN properties camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperties.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_properties
+    slot_usage:
+      fluxnova_properties:
+        range: FluxnovaProperty
+
+  FluxnovaProperty:
+    description: The BPMN property camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaProperty.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_id
+      - fluxnova_name
+      - fluxnova_value
+
+  FluxnovaScript:
+    description: The BPMN script camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaScript.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_script_format
+      - fluxnova_resource
+
+  FluxnovaString:
+    description: The BPMN string camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaString.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+
+  FluxnovaTaskListener:
+    description: The BPMN taskListener camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaTaskListener.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_event
+      - fluxnova_class
+      - fluxnova_expression
+      - fluxnova_delegate_expression
+      - fluxnova_fields
+      - fluxnova_script
+      - timeouts
+
+  FluxnovaValidation:
+    description: The BPMN validation camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValidation.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_constraints
+
+  FluxnovaValue:
+    description: The BPMN value camunda extension element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/fluxnova/FluxnovaValue.java
+    in_subset:
+      - fluxnova_extensions
+      - fluxnova_bpmn_model
+    slots:
+      - fluxnova_id
+      - fluxnova_name

@@ -1,0 +1,9 @@
+id: hdii-001
+decision_instance_id: hdi-001
+clause_id: clause-1
+clause_name: Amount
+variable_type: string
+text_value: '1500.00'
+tenant_id: tenant-alpha
+create_time: '2025-03-01T09:10:00+00:00'
+root_process_instance_id: pi-001

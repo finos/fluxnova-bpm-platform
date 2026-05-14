@@ -1,0 +1,16 @@
+{
+  "id": "hdi-001",
+  "decision_definition_id": "decdef-001",
+  "decision_definition_key": "approval-decision",
+  "evaluation_time": "2025-03-01T09:10:00+00:00",
+  "decision_definition_name": "Approval Decision",
+  "process_definition_key": "invoice-process",
+  "process_definition_id": "procdef-001",
+  "process_instance_id": "pi-001",
+  "activity_instance_id": "hai-001",
+  "activity_id": "BusinessRuleTask_1",
+  "user_id": "user-001",
+  "root_process_instance_id": "pi-001",
+  "tenant_id": "tenant-alpha",
+  "@type": "HistoricDecisionInstance"
+}

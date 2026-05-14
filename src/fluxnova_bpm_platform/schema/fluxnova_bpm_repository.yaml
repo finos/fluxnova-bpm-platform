@@ -1,0 +1,203 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpm-platform/repository
+name: fluxnova_bpm_repository
+description: Fluxnova BPM Platform - Repository module.
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform
+see_also:
+  - https://fluxnova.finos.org/
+version: 3.0.0-SNAPSHOT
+
+prefixes:
+  fluxnova_bpm_repository: https://w3id.org/TD-Universe/fluxnova-bpm-platform/repository/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_repository
+default_range: string
+annotations:
+  generated_by: scripts/fluxnova_to_linkml.py
+  module: repository
+  source_sql_dir: engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+  class_count: 7
+  slot_count: 11
+
+imports:
+  - linkml:types
+  - ./fluxnova_bpm_base
+  - ./fluxnova_common
+
+slots:
+  decision_requirements_definition_id:
+    range: string
+    description: Id of the related decision requirements definition. Can be null if the decision has no relations to other
+      decisions.
+    annotations:
+      sql_column: DEC_REQ_ID_
+
+  decision_requirements_definition_key:
+    range: string
+    description: Key of the related decision requirements definition. Can be null if the decision has no relations to other
+      decisions.
+    annotations:
+      sql_column: DEC_REQ_KEY_
+
+  deploy_time:
+    range: datetime
+    description: Timestamp for deploy time.
+    annotations:
+      sql_column: DEPLOY_TIME_
+
+  diagram_resource_name:
+    range: string
+    description: Name of the diagram resource file.
+
+  has_start_form_key:
+    range: boolean
+    description: The has start form key.
+    annotations:
+      sql_column: HAS_START_FORM_KEY_
+
+  history_time_to_live:
+    range: integer
+    description: Days to retain history before cleanup.
+
+  is_startable:
+    range: boolean
+    required: true
+    description: Whether this entity is startable.
+    annotations:
+      sql_column: STARTABLE_
+
+  key:
+    range: string
+    description: Business key for the definition.
+
+  resource_name:
+    range: string
+    description: Name of the deployed resource file.
+
+  suspension_state:
+    range: SuspensionState
+    description: Whether the entity is active or suspended.
+    annotations:
+      sql_column: SUSPENSION_STATE_
+
+  version_tag:
+    range: string
+    description: Version tag of the process definition.
+    annotations:
+      sql_column: VERSION_TAG_
+
+classes:
+  CaseDefinition:
+    description: A deployed case definition in the process repository.
+    is_a: ResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_CASE_DEF
+
+  DecisionDefinition:
+    description: Definition of a decision resource
+    is_a: ResourceDefinition
+    slots:
+      - decision_requirements_definition_id
+      - decision_requirements_definition_key
+      - version_tag
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_DECISION_DEF
+
+  DecisionRequirementsDefinition:
+    description: Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
+    is_a: ResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_DECISION_REQ_DEF
+
+  Deployment:
+    description: Represents a deployment that is already present in the process repository. A deployment is a container for
+      resources such as process definitions, images, forms, etc. When a deployment is 'deployed'...
+    slots:
+      - id
+      - name
+      - deploy_time
+      - source
+      - tenant_id
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_DEPLOYMENT
+
+  FormDefinition:
+    description: An object structure representing a Camunda Form used to present forms to users either when starting a process
+      instance or when assigned to a User Task. Camunda Forms are usually composed with the h...
+    is_a: ResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_CAMFORMDEF
+
+  ProcessDefinition:
+    description: An object structure representing an executable process composed of activities and transitions. Business processes
+      are often created with graphical editors that store the process definition in certa...
+    is_a: ResourceDefinition
+    slots:
+      - has_start_form_key
+      - suspension_state
+      - version_tag
+      - is_startable
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - repository
+      - fluxnova_bpm
+    annotations:
+      sql_table: ACT_RE_PROCDEF
+
+  ResourceDefinition:
+    description: Abstract base for deployable resource definitions (process, case, decision, form).
+    abstract: true
+    slots:
+      - id
+      - key
+      - name
+      - version
+      - category
+      - deployment_id
+      - resource_name
+      - diagram_resource_name
+      - tenant_id
+      - history_time_to_live
+    in_subset:
+      - repository
+      - fluxnova_bpm

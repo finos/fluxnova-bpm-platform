@@ -1,0 +1,3112 @@
+# metamodel_version: 1.11.0
+# version: 3.0.0-SNAPSHOT
+BASE <https://w3id.org/TD-Universe/fluxnova-bpm-platform/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+PREFIX schema1: <http://schema.org/>
+PREFIX fluxnova_common: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/fluxnova_common/>
+PREFIX fluxnova_bpm_base: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/>
+PREFIX fluxnova_bpm_collaboration: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/collaboration/>
+PREFIX fluxnova_bpm_history: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/history/>
+PREFIX fluxnova_bpm_identity: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/identity/>
+PREFIX fluxnova_bpm_job: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/job/>
+PREFIX fluxnova_bpm_repository: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/repository/>
+PREFIX fluxnova_bpm_runtime: <https://w3id.org/TD-Universe/fluxnova-bpm-platform/runtime/>
+PREFIX fluxnova_bpmn_model: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model/>
+PREFIX fluxnova_bpmn_model_dc: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/>
+PREFIX fluxnova_bpmn_model_di: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_di/>
+PREFIX fluxnova_bpmn_model_instance: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/>
+PREFIX fluxnova_bpmn_model_bpmndi: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/>
+PREFIX fluxnova_bpmn_model_fluxnova: <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/>
+
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:time
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
+fluxnova_bpmn_model_instance:ActivationCondition CLOSED {
+    (  $fluxnova_bpmn_model_instance:ActivationCondition_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ActivationCondition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Activity  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Activity_tes (  &fluxnova_bpmn_model_instance:FlowNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:FlowNode ] ? ;
+             &fluxnova_bpmn_model_instance:InteractionNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:InteractionNode ] ? ;
+             fluxnova_bpmn_model_instance:for_compensation @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:start_quantity @linkml:Integer ? ;
+             fluxnova_bpmn_model_instance:completion_quantity @linkml:Integer ? ;
+             fluxnova_bpmn_model_instance:default @fluxnova_bpmn_model_instance:SequenceFlow ? ;
+             fluxnova_bpmn_model_instance:io_specification @fluxnova_bpmn_model_instance:IoSpecification ? ;
+             fluxnova_common:properties @fluxnova_bpmn_model_instance:BpmnProperty * ;
+             fluxnova_bpmn_model_instance:data_input_associations @fluxnova_bpmn_model_instance:DataInputAssociation * ;
+             fluxnova_bpmn_model_instance:data_output_associations @fluxnova_bpmn_model_instance:DataOutputAssociation * ;
+             fluxnova_bpmn_model_instance:resource_roles @fluxnova_bpmn_model_instance:ResourceRole * ;
+             fluxnova_bpmn_model_instance:loop_characteristics @fluxnova_bpmn_model_instance:LoopCharacteristics ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Activity ]
+       )
+    } OR @fluxnova_bpmn_model_instance:BpmnTask OR @fluxnova_bpmn_model_instance:CallActivity OR
+    @fluxnova_bpmn_model_instance:SubProcess
+)
+
+fluxnova_bpmn_model_instance:Artifact  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Artifact_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Artifact ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Association OR @fluxnova_bpmn_model_instance:BpmnGroup OR
+    @fluxnova_bpmn_model_instance:TextAnnotation
+)
+
+fluxnova_bpmn_model_instance:Assignment CLOSED {
+    (  $fluxnova_bpmn_model_instance:Assignment_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:from_ @linkml:String ? ;
+          fluxnova_bpmn_model_instance:to_ @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Assignment ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Association CLOSED {
+    (  $fluxnova_bpmn_model_instance:Association_tes (  &fluxnova_bpmn_model_instance:Artifact_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Artifact ] ? ;
+          fluxnova_common:source @fluxnova_bpmn_model_instance:BaseElement ? ;
+          fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:BaseElement ? ;
+          fluxnova_bpmn_model_instance:association_direction @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Association ]
+    )
+}
+
+fluxnova_bpm_collaboration:Attachment CLOSED {
+    (  $fluxnova_bpm_collaboration:Attachment_tes (  fluxnova_bpm_identity:user_id @linkml:String ? ;
+          schema1:name @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_collaboration:url @linkml:String ? ;
+          fluxnova_bpm_collaboration:content_id @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_collaboration:Attachment ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Auditing CLOSED {
+    (  $fluxnova_bpmn_model_instance:Auditing_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Auditing ]
+    )
+}
+
+fluxnova_bpm_identity:Authorization CLOSED {
+    (  $fluxnova_bpm_identity:Authorization_tes (  fluxnova_common:type [
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/AuthorizationType/0>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/AuthorizationType/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/AuthorizationType/2> ] ;
+          fluxnova_bpm_identity:group_id @linkml:String ? ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_identity:resource_type @linkml:Integer ;
+          fluxnova_bpm_identity:resource_id @linkml:String ? ;
+          fluxnova_bpm_identity:permissions @linkml:Integer ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:Authorization ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BaseElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:BaseElement_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+             fluxnova_bpmn_model_instance:documentations @fluxnova_bpmn_model_instance:Documentation * ;
+             fluxnova_bpmn_model_instance:extension_elements @fluxnova_bpmn_model_instance:ExtensionElements ? ;
+             fluxnova_bpmn_model_instance:diagram_element @fluxnova_bpmn_model_di:DiagramElement ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Artifact OR @fluxnova_bpmn_model_instance:Assignment OR
+    @fluxnova_bpmn_model_instance:Auditing OR @fluxnova_bpmn_model_instance:CategoryValue OR
+    @fluxnova_bpmn_model_instance:ComplexBehaviorDefinition OR @fluxnova_bpmn_model_instance:ConversationAssociation OR
+    @fluxnova_bpmn_model_instance:ConversationLink OR @fluxnova_bpmn_model_instance:ConversationNode OR
+    @fluxnova_bpmn_model_instance:CorrelationKey OR @fluxnova_bpmn_model_instance:CorrelationPropertyBinding OR
+    @fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression OR @fluxnova_bpmn_model_instance:CorrelationSubscription
+    OR @fluxnova_bpmn_model_instance:DataAssociation OR @fluxnova_bpmn_model_instance:DataState OR
+    @fluxnova_bpmn_model_instance:Expression OR @fluxnova_bpmn_model_instance:FlowElement OR @fluxnova_bpmn_model_instance:InputSet
+    OR @fluxnova_bpmn_model_instance:IoBinding OR @fluxnova_bpmn_model_instance:IoSpecification OR
+    @fluxnova_bpmn_model_instance:ItemAwareElement OR @fluxnova_bpmn_model_instance:Lane OR @fluxnova_bpmn_model_instance:LaneSet
+    OR @fluxnova_bpmn_model_instance:LoopCharacteristics OR @fluxnova_bpmn_model_instance:MessageFlow OR
+    @fluxnova_bpmn_model_instance:MessageFlowAssociation OR @fluxnova_bpmn_model_instance:Monitoring OR
+    @fluxnova_bpmn_model_instance:Operation OR @fluxnova_bpmn_model_instance:OutputSet OR @fluxnova_bpmn_model_instance:Participant
+    OR @fluxnova_bpmn_model_instance:ParticipantAssociation OR @fluxnova_bpmn_model_instance:ParticipantMultiplicity OR
+    @fluxnova_bpmn_model_instance:Relationship OR @fluxnova_bpmn_model_instance:Rendering OR
+    @fluxnova_bpmn_model_instance:ResourceAssignmentExpression OR @fluxnova_bpmn_model_instance:ResourceParameter OR
+    @fluxnova_bpmn_model_instance:ResourceParameterBinding OR @fluxnova_bpmn_model_instance:ResourceRole OR
+    @fluxnova_bpmn_model_instance:RootElement
+)
+
+fluxnova_bpm_job:Batch CLOSED {
+    (  $fluxnova_bpm_job:Batch_tes (  fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_job:total_jobs @linkml:Integer ? ;
+          fluxnova_bpm_job:jobs_created @linkml:Integer ? ;
+          fluxnova_bpm_job:jobs_per_seed @linkml:Integer ? ;
+          fluxnova_bpm_job:invocations_per_job @linkml:Integer ? ;
+          fluxnova_bpm_job:seed_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_job:batch_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_job:monitor_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_runtime:configuration @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_job:create_user_id @linkml:String ? ;
+          fluxnova_bpm_job:start_time @linkml:Datetime ? ;
+          fluxnova_bpm_job:execution_start_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_job:Batch ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BoundaryEvent CLOSED {
+    (  $fluxnova_bpmn_model_instance:BoundaryEvent_tes (  &fluxnova_bpmn_model_instance:CatchEvent_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:CatchEvent ] ? ;
+          fluxnova_bpmn_model_instance:attached_to @fluxnova_bpmn_model_instance:Activity ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:BoundaryEvent ]
+    )
+}
+
+fluxnova_bpmn_model_dc:Bounds CLOSED {
+    (  $fluxnova_bpmn_model_dc:Bounds_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_dc:x @linkml:Float ? ;
+          fluxnova_bpmn_model_dc:y @linkml:Float ? ;
+          fluxnova_bpmn_model_dc:width @linkml:Float ? ;
+          fluxnova_bpmn_model_dc:height @linkml:Float ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_dc:Bounds ] ?
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnDiagram CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnDiagram_tes (  &fluxnova_bpmn_model_di:Diagram_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:Diagram ] ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_plane @fluxnova_bpmn_model_bpmndi:BpmnPlane ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_label_styles @fluxnova_bpmn_model_bpmndi:BpmnLabelStyle *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnDiagram ]
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnEdge CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnEdge_tes (  &fluxnova_bpmn_model_di:LabeledEdge_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:LabeledEdge ] ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_element @linkml:String ? ;
+          fluxnova_bpmn_model_bpmndi:source_element @fluxnova_bpmn_model_di:DiagramElement ? ;
+          fluxnova_bpmn_model_bpmndi:target_element @fluxnova_bpmn_model_di:DiagramElement ? ;
+          fluxnova_bpmn_model_bpmndi:message_visible_kind [
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/MessageVisibleKind#initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/MessageVisibleKind#non_initiating> ] ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_label @fluxnova_bpmn_model_bpmndi:BpmnLabel ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnEdge ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BpmnGroup CLOSED {
+    (  $fluxnova_bpmn_model_instance:BpmnGroup_tes (  &fluxnova_bpmn_model_instance:Artifact_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Artifact ] ? ;
+          fluxnova_common:category @fluxnova_bpmn_model_instance:CategoryValue ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:BpmnGroup ]
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnLabel CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnLabel_tes (  &fluxnova_bpmn_model_di:Label_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:Label ] ? ;
+          fluxnova_bpmn_model_bpmndi:label_style @fluxnova_bpmn_model_bpmndi:BpmnLabelStyle ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnLabel ]
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnLabelStyle CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnLabelStyle_tes (  &fluxnova_bpmn_model_di:Style_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:Style ] ? ;
+          fluxnova_bpmn_model_bpmndi:font @fluxnova_bpmn_model_dc:Font ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnLabelStyle ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BpmnModelElementInstance  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes fluxnova_bpmn_model_instance:scope
+          @fluxnova_bpmn_model_instance:BpmnModelElementInstance ? ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       )
+    } OR @fluxnova_bpmn_model_instance:BaseElement OR @fluxnova_bpmn_model_dc:Bounds OR @fluxnova_bpmn_model_instance:Definitions
+    OR @fluxnova_bpmn_model_di:Diagram OR @fluxnova_bpmn_model_di:DiagramElement OR @fluxnova_bpmn_model_instance:Documentation OR
+    @fluxnova_bpmn_model_di:Extension OR @fluxnova_bpmn_model_instance:ExtensionElements OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaConnector OR @fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaConstraint OR @fluxnova_bpmn_model_fluxnova:FluxnovaEntry OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener OR @fluxnova_bpmn_model_fluxnova:FluxnovaExpression OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle OR @fluxnova_bpmn_model_fluxnova:FluxnovaField OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaFormData OR @fluxnova_bpmn_model_fluxnova:FluxnovaFormField OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty OR @fluxnova_bpmn_model_fluxnova:FluxnovaIn OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput OR @fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaList OR @fluxnova_bpmn_model_fluxnova:FluxnovaMap OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaOut OR @fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter OR @fluxnova_bpmn_model_fluxnova:FluxnovaProperties OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaProperty OR @fluxnova_bpmn_model_fluxnova:FluxnovaScript OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaString OR @fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener OR
+    @fluxnova_bpmn_model_fluxnova:FluxnovaValidation OR @fluxnova_bpmn_model_fluxnova:FluxnovaValue OR @fluxnova_bpmn_model_dc:Font
+    OR @fluxnova_bpmn_model_instance:Import OR @fluxnova_bpmn_model_dc:Point OR @fluxnova_bpmn_model_instance:Script OR
+    @fluxnova_bpmn_model_di:Style OR @fluxnova_bpmn_model_instance:Text
+)
+
+fluxnova_bpmn_model:BpmnModelInstance CLOSED {
+    (  $fluxnova_bpmn_model:BpmnModelInstance_tes fluxnova_bpmn_model:definitions @fluxnova_bpmn_model_instance:Definitions ? ;
+       rdf:type [ fluxnova_bpmn_model:BpmnModelInstance ] ?
+    )
+}
+
+fluxnova_bpmn_model:BpmnModelType CLOSED {
+    (  $fluxnova_bpmn_model:BpmnModelType_tes rdf:type . * ;
+       rdf:type [ fluxnova_bpmn_model:BpmnModelType ] ?
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnPlane CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnPlane_tes (  &fluxnova_bpmn_model_di:Plane_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:Plane ] ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_element @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnPlane ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BpmnProperty CLOSED {
+    (  $fluxnova_bpmn_model_instance:BpmnProperty_tes (  &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+          schema1:name @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:BpmnProperty ]
+    )
+}
+
+fluxnova_bpmn_model_bpmndi:BpmnShape CLOSED {
+    (  $fluxnova_bpmn_model_bpmndi:BpmnShape_tes (  &fluxnova_bpmn_model_di:LabeledShape_tes ;
+          rdf:type [ fluxnova_bpmn_model_di:LabeledShape ] ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_element @linkml:String ? ;
+          fluxnova_bpmn_model_bpmndi:horizontal @linkml:Boolean ? ;
+          fluxnova_bpmn_model_bpmndi:expanded @linkml:Boolean ? ;
+          fluxnova_bpmn_model_bpmndi:marker_visible @linkml:Boolean ? ;
+          fluxnova_bpmn_model_bpmndi:message_visible @linkml:Boolean ? ;
+          fluxnova_bpmn_model_bpmndi:participant_band_kind [
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#top_initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#middle_initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#bottom_initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#top_non_initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#middle_non_initiating>
+             <https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/ParticipantBandKind#bottom_non_initiating>
+             ] ? ;
+          fluxnova_bpmn_model_bpmndi:choreography_activity_shape @fluxnova_bpmn_model_bpmndi:BpmnShape ? ;
+          fluxnova_bpmn_model_bpmndi:bpmn_label @fluxnova_bpmn_model_bpmndi:BpmnLabel ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_bpmndi:BpmnShape ]
+    )
+}
+
+fluxnova_bpmn_model_instance:BpmnTask  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:BpmnTask_tes (  &fluxnova_bpmn_model_instance:Activity_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Activity ] ? ;
+             fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ]
+       )
+    } OR @fluxnova_bpmn_model_instance:BusinessRuleTask OR @fluxnova_bpmn_model_instance:ManualTask OR
+    @fluxnova_bpmn_model_instance:ReceiveTask OR @fluxnova_bpmn_model_instance:ScriptTask OR @fluxnova_bpmn_model_instance:SendTask
+    OR @fluxnova_bpmn_model_instance:ServiceTask OR @fluxnova_bpmn_model_instance:UserTask
+)
+
+fluxnova_bpmn_model_instance:BusinessRuleTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:BusinessRuleTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:implementation @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_result_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_topic @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_decision_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_decision_ref_binding @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_decision_ref_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_decision_ref_version_tag @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_decision_ref_tenant_id @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_map_decision_result @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_task_priority @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:BusinessRuleTask ]
+    )
+}
+
+fluxnova_bpm_base:ByteArray CLOSED {
+    (  $fluxnova_bpm_base:ByteArray_tes (  schema1:name @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          fluxnova_bpm_base:bytes @linkml:String ? ;
+          fluxnova_bpm_base:is_generated @linkml:Boolean ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_common:type @linkml:Integer ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_base:ByteArray ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CallableElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:CallableElement_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:supported_interfaces @fluxnova_bpmn_model_instance:Interface * ;
+             fluxnova_bpmn_model_instance:io_specification @fluxnova_bpmn_model_instance:IoSpecification ? ;
+             fluxnova_bpmn_model_instance:io_bindings @fluxnova_bpmn_model_instance:IoBinding *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:CallableElement ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Process
+)
+
+fluxnova_bpmn_model_instance:CallActivity CLOSED {
+    (  $fluxnova_bpmn_model_instance:CallActivity_tes (  &fluxnova_bpmn_model_instance:Activity_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Activity ] ? ;
+          fluxnova_bpmn_model_instance:called_element @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_called_element_binding @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_called_element_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_called_element_version_tag @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_case_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_case_binding @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_case_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_called_element_tenant_id @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_case_tenant_id @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_variable_mapping_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_variable_mapping_delegate_expression @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CallActivity ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CallConversation CLOSED {
+    (  $fluxnova_bpmn_model_instance:CallConversation_tes (  &fluxnova_bpmn_model_instance:ConversationNode_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ConversationNode ] ? ;
+          fluxnova_bpmn_model_instance:called_collaboration @fluxnova_bpmn_model_instance:GlobalConversation ? ;
+          fluxnova_bpmn_model_instance:participant_associations @fluxnova_bpmn_model_instance:ParticipantAssociation *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CallConversation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CancelEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:CancelEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CancelEventDefinition ]
+    )
+}
+
+fluxnova_bpm_repository:CaseDefinition CLOSED {
+    (  $fluxnova_bpm_repository:CaseDefinition_tes (  &fluxnova_bpm_repository:ResourceDefinition_tes ;
+          rdf:type [ fluxnova_bpm_repository:ResourceDefinition ] ? ;
+          fluxnova_bpm_repository:key @linkml:String ;
+          fluxnova_bpm_base:version @linkml:Integer
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:CaseDefinition ]
+    )
+}
+
+fluxnova_bpm_runtime:CaseExecution CLOSED {
+    (  $fluxnova_bpm_runtime:CaseExecution_tes (  fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:super_case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:super_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:business_key @linkml:String ? ;
+          fluxnova_bpm_runtime:parent_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:previous_state @linkml:Integer ? ;
+          fluxnova_bpm_runtime:current_state @linkml:Integer ? ;
+          fluxnova_bpm_runtime:is_required @linkml:Boolean ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:CaseExecution ]
+    )
+}
+
+fluxnova_bpm_runtime:CaseSentryPart CLOSED {
+    (  $fluxnova_bpm_runtime:CaseSentryPart_tes (  fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:sentry_id @linkml:String ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_runtime:source_case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:standard_event @linkml:String ? ;
+          fluxnova_common:source @linkml:String ? ;
+          fluxnova_bpm_runtime:variable_event @linkml:String ? ;
+          fluxnova_bpm_runtime:variable_name @linkml:String ? ;
+          fluxnova_bpm_runtime:is_satisfied @linkml:Boolean ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:CaseSentryPart ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CatchEvent  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:CatchEvent_tes (  &fluxnova_bpmn_model_instance:Event_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Event ] ? ;
+             fluxnova_bpmn_model_instance:parallel_multiple @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:data_outputs @fluxnova_bpmn_model_instance:DataOutput * ;
+             fluxnova_bpmn_model_instance:data_output_associations @fluxnova_bpmn_model_instance:DataOutputAssociation * ;
+             fluxnova_bpmn_model_instance:output_set @fluxnova_bpmn_model_instance:OutputSet ? ;
+             fluxnova_bpmn_model_instance:event_definitions @fluxnova_bpmn_model_instance:EventDefinition * ;
+             fluxnova_bpmn_model_instance:event_definition_refs @fluxnova_bpmn_model_instance:EventDefinition *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:CatchEvent ]
+       )
+    } OR @fluxnova_bpmn_model_instance:BoundaryEvent OR @fluxnova_bpmn_model_instance:IntermediateCatchEvent OR
+    @fluxnova_bpmn_model_instance:StartEvent
+)
+
+fluxnova_bpmn_model_instance:Category CLOSED {
+    (  $fluxnova_bpmn_model_instance:Category_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:category_values @fluxnova_bpmn_model_instance:CategoryValue *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Category ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CategoryValue CLOSED {
+    (  $fluxnova_bpmn_model_instance:CategoryValue_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_common:value @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CategoryValue ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Collaboration  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Collaboration_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:closed @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:participants @fluxnova_bpmn_model_instance:Participant * ;
+             fluxnova_bpmn_model_instance:message_flows @fluxnova_bpmn_model_instance:MessageFlow * ;
+             fluxnova_bpmn_model_instance:artifacts @fluxnova_bpmn_model_instance:Artifact * ;
+             fluxnova_bpmn_model_instance:conversation_nodes @fluxnova_bpmn_model_instance:ConversationNode * ;
+             fluxnova_bpmn_model_instance:conversation_associations @fluxnova_bpmn_model_instance:ConversationAssociation * ;
+             fluxnova_bpmn_model_instance:participant_associations @fluxnova_bpmn_model_instance:ParticipantAssociation * ;
+             fluxnova_bpmn_model_instance:message_flow_associations @fluxnova_bpmn_model_instance:MessageFlowAssociation * ;
+             fluxnova_bpmn_model_instance:correlation_keys @fluxnova_bpmn_model_instance:CorrelationKey * ;
+             fluxnova_bpmn_model_instance:conversation_links @fluxnova_bpmn_model_instance:ConversationLink *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Collaboration ]
+       )
+    } OR @fluxnova_bpmn_model_instance:GlobalConversation
+)
+
+fluxnova_bpm_collaboration:Comment CLOSED {
+    (  $fluxnova_bpm_collaboration:Comment_tes (  fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_collaboration:event_time @linkml:Datetime ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_collaboration:action @linkml:String ? ;
+          fluxnova_common:message @linkml:String ? ;
+          fluxnova_bpm_collaboration:full_message @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_collaboration:Comment ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CompensateEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:CompensateEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:wait_for_completion @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:activity @fluxnova_bpmn_model_instance:Activity ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CompensateEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CompletionCondition CLOSED {
+    (  $fluxnova_bpmn_model_instance:CompletionCondition_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CompletionCondition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ComplexBehaviorDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:ComplexBehaviorDefinition_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ComplexBehaviorDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ComplexGateway CLOSED {
+    (  $fluxnova_bpmn_model_instance:ComplexGateway_tes (  &fluxnova_bpmn_model_instance:Gateway_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ] ? ;
+          fluxnova_bpmn_model_instance:default @fluxnova_bpmn_model_instance:SequenceFlow ? ;
+          fluxnova_bpmn_model_instance:activation_condition @fluxnova_bpmn_model_instance:ActivationCondition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ComplexGateway ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Condition CLOSED {
+    (  $fluxnova_bpmn_model_instance:Condition_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Condition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ConditionalEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:ConditionalEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:condition @fluxnova_bpmn_model_instance:Condition ? ;
+          fluxnova_bpmn_model_instance:fluxnova_variable_name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_variable_events @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_variable_events_list @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ConditionalEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ConditionExpression CLOSED {
+    (  $fluxnova_bpmn_model_instance:ConditionExpression_tes (  &fluxnova_bpmn_model_instance:FormalExpression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:FormalExpression ] ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_resource @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ConditionExpression ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Conversation CLOSED {
+    (  $fluxnova_bpmn_model_instance:Conversation_tes (  &fluxnova_bpmn_model_instance:ConversationNode_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ConversationNode ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Conversation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ConversationAssociation CLOSED {
+    (  $fluxnova_bpmn_model_instance:ConversationAssociation_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:inner_conversation_node @fluxnova_bpmn_model_instance:ConversationNode ? ;
+          fluxnova_bpmn_model_instance:outer_conversation_node @fluxnova_bpmn_model_instance:ConversationNode ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ConversationAssociation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ConversationLink CLOSED {
+    (  $fluxnova_bpmn_model_instance:ConversationLink_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_common:source @fluxnova_bpmn_model_instance:InteractionNode ? ;
+          fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:InteractionNode ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ConversationLink ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ConversationNode  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:ConversationNode_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+             &fluxnova_bpmn_model_instance:InteractionNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:InteractionNode ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:participants @fluxnova_bpmn_model_instance:Participant * ;
+             fluxnova_bpmn_model_instance:message_flows @fluxnova_bpmn_model_instance:MessageFlow * ;
+             fluxnova_bpmn_model_instance:correlation_keys @fluxnova_bpmn_model_instance:CorrelationKey *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:ConversationNode ]
+       )
+    } OR @fluxnova_bpmn_model_instance:CallConversation OR @fluxnova_bpmn_model_instance:Conversation OR
+    @fluxnova_bpmn_model_instance:SubConversation
+)
+
+fluxnova_bpmn_model_instance:CorrelationKey CLOSED {
+    (  $fluxnova_bpmn_model_instance:CorrelationKey_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:correlation_properties @fluxnova_bpmn_model_instance:CorrelationProperty *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CorrelationKey ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CorrelationProperty CLOSED {
+    (  $fluxnova_bpmn_model_instance:CorrelationProperty_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_common:type @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:correlation_property_retrieval_expressions
+          @fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CorrelationProperty ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CorrelationPropertyBinding CLOSED {
+    (  $fluxnova_bpmn_model_instance:CorrelationPropertyBinding_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:correlation_property @fluxnova_bpmn_model_instance:CorrelationProperty ? ;
+          fluxnova_bpmn_model_instance:data_path @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CorrelationPropertyBinding ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression CLOSED {
+    (  $fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_common:message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:message_path @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression ]
+    )
+}
+
+fluxnova_bpmn_model_instance:CorrelationSubscription CLOSED {
+    (  $fluxnova_bpmn_model_instance:CorrelationSubscription_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:correlation_key @fluxnova_bpmn_model_instance:CorrelationKey ? ;
+          fluxnova_bpmn_model_instance:correlation_property_bindings @fluxnova_bpmn_model_instance:CorrelationPropertyBinding *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:CorrelationSubscription ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataAssociation  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:DataAssociation_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+             fluxnova_bpmn_model_instance:sources @fluxnova_bpmn_model_instance:ItemAwareElement * ;
+             fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:ItemAwareElement ? ;
+             fluxnova_bpmn_model_instance:transformation @fluxnova_bpmn_model_instance:FormalExpression ? ;
+             fluxnova_bpmn_model_instance:assignments @fluxnova_bpmn_model_instance:Assignment *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataAssociation ]
+       )
+    } OR @fluxnova_bpmn_model_instance:DataInputAssociation OR @fluxnova_bpmn_model_instance:DataOutputAssociation
+)
+
+fluxnova_bpmn_model_instance:DataInput  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:DataInput_tes (  &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:collection @linkml:Boolean ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataInput ]
+       )
+    } OR @fluxnova_bpmn_model_instance:InputDataItem
+)
+
+fluxnova_bpmn_model_instance:DataInputAssociation CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataInputAssociation_tes (  &fluxnova_bpmn_model_instance:DataAssociation_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataAssociation ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataInputAssociation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataObject CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataObject_tes (  &fluxnova_bpmn_model_instance:FlowElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowElement ] ? ;
+          &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+          fluxnova_bpmn_model_instance:collection @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:item_subject @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:data_state @fluxnova_bpmn_model_instance:DataState ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataObject ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataObjectReference CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataObjectReference_tes (  &fluxnova_bpmn_model_instance:FlowElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowElement ] ? ;
+          &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+          fluxnova_bpmn_model_instance:data_object @fluxnova_bpmn_model_instance:DataObject ? ;
+          fluxnova_bpmn_model_instance:item_subject @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:data_state @fluxnova_bpmn_model_instance:DataState ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataObjectReference ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataOutput  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:DataOutput_tes (  &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:collection @linkml:Boolean ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataOutput ]
+       )
+    } OR @fluxnova_bpmn_model_instance:OutputDataItem
+)
+
+fluxnova_bpmn_model_instance:DataOutputAssociation CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataOutputAssociation_tes (  &fluxnova_bpmn_model_instance:DataAssociation_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataAssociation ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataOutputAssociation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataState CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataState_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataState ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataStore CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataStore_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:capacity @linkml:Integer ? ;
+          fluxnova_bpmn_model_instance:unlimited @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:item_subject @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:data_state @fluxnova_bpmn_model_instance:DataState ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataStore ]
+    )
+}
+
+fluxnova_bpmn_model_instance:DataStoreReference CLOSED {
+    (  $fluxnova_bpmn_model_instance:DataStoreReference_tes (  &fluxnova_bpmn_model_instance:FlowElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowElement ] ? ;
+          &fluxnova_bpmn_model_instance:ItemAwareElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ] ? ;
+          fluxnova_bpmn_model_instance:data_store @fluxnova_bpmn_model_instance:DataStore ? ;
+          fluxnova_bpmn_model_instance:item_subject @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:data_state @fluxnova_bpmn_model_instance:DataState ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:DataStoreReference ]
+    )
+}
+
+fluxnova_bpm_repository:DecisionDefinition CLOSED {
+    (  $fluxnova_bpm_repository:DecisionDefinition_tes (  &fluxnova_bpm_repository:ResourceDefinition_tes ;
+          rdf:type [ fluxnova_bpm_repository:ResourceDefinition ] ? ;
+          fluxnova_bpm_repository:decision_requirements_definition_id @linkml:String ? ;
+          fluxnova_bpm_repository:decision_requirements_definition_key @linkml:String ? ;
+          fluxnova_bpm_repository:version_tag @linkml:String ? ;
+          fluxnova_bpm_repository:key @linkml:String ;
+          fluxnova_bpm_base:version @linkml:Integer
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:DecisionDefinition ]
+    )
+}
+
+fluxnova_bpm_repository:DecisionRequirementsDefinition CLOSED {
+    (  $fluxnova_bpm_repository:DecisionRequirementsDefinition_tes (  &fluxnova_bpm_repository:ResourceDefinition_tes ;
+          rdf:type [ fluxnova_bpm_repository:ResourceDefinition ] ? ;
+          fluxnova_bpm_repository:key @linkml:String ;
+          fluxnova_bpm_base:version @linkml:Integer
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:DecisionRequirementsDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Definitions CLOSED {
+    (  $fluxnova_bpmn_model_instance:Definitions_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:target_namespace @linkml:String ? ;
+          fluxnova_bpmn_model_instance:expression_language @linkml:String ? ;
+          fluxnova_bpmn_model_instance:type_language @linkml:String ? ;
+          fluxnova_bpmn_model_instance:exporter @linkml:String ? ;
+          fluxnova_bpmn_model_instance:exporter_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:imports @fluxnova_bpmn_model_instance:Import * ;
+          fluxnova_bpmn_model_instance:extensions @fluxnova_bpmn_model_di:Extension * ;
+          fluxnova_bpmn_model_instance:root_elements @fluxnova_bpmn_model_instance:RootElement * ;
+          fluxnova_bpmn_model_instance:bpm_diagrams @linkml:String * ;
+          fluxnova_bpmn_model_instance:relationships @fluxnova_bpmn_model_instance:Relationship *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Definitions ]
+    )
+}
+
+fluxnova_bpm_repository:Deployment CLOSED {
+    (  $fluxnova_bpm_repository:Deployment_tes (  schema1:name @linkml:String ? ;
+          fluxnova_bpm_repository:deploy_time @linkml:Datetime ? ;
+          fluxnova_common:source @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:Deployment ]
+    )
+}
+
+fluxnova_bpmn_model_di:Diagram  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Diagram_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_di:documentation @linkml:String ? ;
+             fluxnova_bpmn_model_di:resolution @linkml:Float ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Diagram ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnDiagram
+)
+
+fluxnova_bpmn_model_di:DiagramElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:DiagramElement_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+             fluxnova_bpmn_model_di:extension @fluxnova_bpmn_model_di:Extension ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:DiagramElement ]
+       )
+    } OR @fluxnova_bpmn_model_di:Edge OR @fluxnova_bpmn_model_di:Node
+)
+
+fluxnova_bpmn_model_instance:Documentation CLOSED {
+    (  $fluxnova_bpmn_model_instance:Documentation_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_instance:text_format @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Documentation ]
+    )
+}
+
+fluxnova_bpmn_model_di:Edge  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Edge_tes (  &fluxnova_bpmn_model_di:DiagramElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:DiagramElement ] ? ;
+             fluxnova_bpmn_model_di:waypoints @fluxnova_bpmn_model_di:Waypoint *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Edge ]
+       )
+    } OR @fluxnova_bpmn_model_di:LabeledEdge
+)
+
+fluxnova_bpmn_model_instance:EndEvent CLOSED {
+    (  $fluxnova_bpmn_model_instance:EndEvent_tes (  &fluxnova_bpmn_model_instance:ThrowEvent_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ThrowEvent ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:EndEvent ]
+    )
+}
+
+fluxnova_bpmn_model_instance:EndPoint CLOSED {
+    (  $fluxnova_bpmn_model_instance:EndPoint_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:EndPoint ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Error CLOSED {
+    (  $fluxnova_bpmn_model_instance:Error_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:error_code @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_error_message @linkml:String ? ;
+          fluxnova_bpmn_model_instance:structure @fluxnova_bpmn_model_instance:ItemDefinition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Error ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ErrorEventDefinition  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:ErrorEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+             fluxnova_bpmn_model_instance:error @fluxnova_bpmn_model_instance:Error ? ;
+             fluxnova_bpmn_model_instance:fluxnova_error_code_variable @linkml:String ? ;
+             fluxnova_bpmn_model_instance:fluxnova_error_message_variable @linkml:String ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:ErrorEventDefinition ]
+       )
+    } OR @fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition
+)
+
+fluxnova_bpmn_model_instance:Escalation CLOSED {
+    (  $fluxnova_bpmn_model_instance:Escalation_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:escalation_code @linkml:String ? ;
+          fluxnova_bpmn_model_instance:structure @fluxnova_bpmn_model_instance:ItemDefinition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Escalation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:EscalationEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:EscalationEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:escalation @fluxnova_bpmn_model_instance:Escalation ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:EscalationEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Event  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Event_tes (  &fluxnova_bpmn_model_instance:FlowNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:FlowNode ] ? ;
+             &fluxnova_bpmn_model_instance:InteractionNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:InteractionNode ] ? ;
+             fluxnova_common:properties @fluxnova_bpmn_model_instance:BpmnProperty *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Event ]
+       )
+    } OR @fluxnova_bpmn_model_instance:CatchEvent OR @fluxnova_bpmn_model_instance:ThrowEvent
+)
+
+fluxnova_bpmn_model_instance:EventBasedGateway CLOSED {
+    (  $fluxnova_bpmn_model_instance:EventBasedGateway_tes (  &fluxnova_bpmn_model_instance:Gateway_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ] ? ;
+          fluxnova_bpmn_model_instance:instantiate @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:event_gateway_type @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:EventBasedGateway ]
+    )
+}
+
+fluxnova_bpmn_model_instance:EventDefinition  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:EventDefinition_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ]
+       )
+    } OR @fluxnova_bpmn_model_instance:CancelEventDefinition OR @fluxnova_bpmn_model_instance:CompensateEventDefinition OR
+    @fluxnova_bpmn_model_instance:ConditionalEventDefinition OR @fluxnova_bpmn_model_instance:ErrorEventDefinition OR
+    @fluxnova_bpmn_model_instance:EscalationEventDefinition OR @fluxnova_bpmn_model_instance:LinkEventDefinition OR
+    @fluxnova_bpmn_model_instance:MessageEventDefinition OR @fluxnova_bpmn_model_instance:SignalEventDefinition OR
+    @fluxnova_bpmn_model_instance:TerminateEventDefinition OR @fluxnova_bpmn_model_instance:TimerEventDefinition
+)
+
+fluxnova_bpm_runtime:EventSubscription CLOSED {
+    (  $fluxnova_bpm_runtime:EventSubscription_tes (  fluxnova_bpm_runtime:event_type @linkml:String ;
+          fluxnova_bpm_runtime:event_name @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:configuration @linkml:String ? ;
+          fluxnova_bpm_runtime:created @linkml:Datetime ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:EventSubscription ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ExclusiveGateway CLOSED {
+    (  $fluxnova_bpmn_model_instance:ExclusiveGateway_tes (  &fluxnova_bpmn_model_instance:Gateway_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ] ? ;
+          fluxnova_bpmn_model_instance:default @fluxnova_bpmn_model_instance:SequenceFlow ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ExclusiveGateway ]
+    )
+}
+
+fluxnova_bpm_runtime:Execution CLOSED {
+    (  $fluxnova_bpm_runtime:Execution_tes (  fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:business_key @linkml:String ? ;
+          fluxnova_bpm_runtime:parent_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:super_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:super_case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:is_active @linkml:Boolean ? ;
+          fluxnova_bpm_runtime:is_concurrent @linkml:Boolean ? ;
+          fluxnova_bpm_runtime:is_scope @linkml:Boolean ? ;
+          fluxnova_bpm_runtime:is_event_scope @linkml:Boolean ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_runtime:cached_entity_state @linkml:Integer ? ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:Execution ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Expression  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Expression_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ]
+       )
+    } OR @fluxnova_bpmn_model_instance:ActivationCondition OR @fluxnova_bpmn_model_instance:CompletionCondition OR
+    @fluxnova_bpmn_model_instance:Condition OR @fluxnova_bpmn_model_instance:FormalExpression OR
+    @fluxnova_bpmn_model_instance:LoopCardinality OR @fluxnova_bpmn_model_instance:TimeCycle OR
+    @fluxnova_bpmn_model_instance:TimeDate OR @fluxnova_bpmn_model_instance:TimeDuration
+)
+
+fluxnova_bpmn_model_di:Extension CLOSED {
+    (  $fluxnova_bpmn_model_di:Extension_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_di:Extension ] ?
+    )
+}
+
+fluxnova_bpmn_model_instance:ExtensionElements CLOSED {
+    (  $fluxnova_bpmn_model_instance:ExtensionElements_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_instance:elements @linkml:String * ;
+          fluxnova_bpmn_model_instance:elements_query @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ExtensionElements ] ?
+    )
+}
+
+fluxnova_bpm_runtime:ExternalTask CLOSED {
+    (  $fluxnova_bpm_runtime:ExternalTask_tes (  fluxnova_bpm_runtime:worker_id @linkml:String ? ;
+          fluxnova_bpm_runtime:topic_name @linkml:String ? ;
+          fluxnova_bpm_runtime:retries @linkml:Integer ? ;
+          fluxnova_bpm_runtime:error_message @linkml:String ? ;
+          fluxnova_bpm_runtime:error_details_id @linkml:String ? ;
+          fluxnova_bpm_runtime:lock_expiration_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:priority @linkml:Integer ;
+          fluxnova_bpm_runtime:last_failure_log_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:ExternalTask ]
+    )
+}
+
+fluxnova_bpm_collaboration:Filter CLOSED {
+    (  $fluxnova_bpm_collaboration:Filter_tes (  fluxnova_bpm_identity:resource_type @linkml:String ;
+          schema1:name @linkml:String ;
+          fluxnova_bpm_runtime:owner @linkml:String ? ;
+          fluxnova_bpm_collaboration:query @linkml:String ;
+          fluxnova_common:properties @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_collaboration:Filter ]
+    )
+}
+
+fluxnova_bpmn_model_instance:FlowElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:FlowElement_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:auditing @fluxnova_bpmn_model_instance:Auditing ? ;
+             fluxnova_bpmn_model_instance:monitoring @fluxnova_bpmn_model_instance:Monitoring ? ;
+             fluxnova_bpmn_model_instance:category_value_refs @fluxnova_bpmn_model_instance:CategoryValue *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowElement ]
+       )
+    } OR @fluxnova_bpmn_model_instance:DataObject OR @fluxnova_bpmn_model_instance:DataObjectReference OR
+    @fluxnova_bpmn_model_instance:DataStoreReference OR @fluxnova_bpmn_model_instance:FlowNode OR
+    @fluxnova_bpmn_model_instance:SequenceFlow
+)
+
+fluxnova_bpmn_model_instance:FlowNode  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:FlowNode_tes (  &fluxnova_bpmn_model_instance:FlowElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:FlowElement ] ? ;
+             fluxnova_bpmn_model_instance:incoming @fluxnova_bpmn_model_instance:SequenceFlow * ;
+             fluxnova_bpmn_model_instance:outgoing @fluxnova_bpmn_model_instance:SequenceFlow * ;
+             fluxnova_bpmn_model_instance:previous_nodes @fluxnova_bpmn_model_instance:FlowNode ? ;
+             fluxnova_bpmn_model_instance:succeeding_nodes @fluxnova_bpmn_model_instance:FlowNode ? ;
+             fluxnova_bpmn_model_instance:fluxnova_async_before @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:fluxnova_async_after @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:fluxnova_exclusive @linkml:Boolean ? ;
+             fluxnova_bpmn_model_instance:fluxnova_job_priority @linkml:String ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowNode ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Activity OR @fluxnova_bpmn_model_instance:Event OR @fluxnova_bpmn_model_instance:Gateway
+)
+
+fluxnova_bpmn_model_fluxnova:FluxnovaConnector CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaConnector_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_connector_id @fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_input_output @fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaConnector ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaConstraint CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaConstraint_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_config @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaConstraint ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaEntry CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaEntry_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          &fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_key @linkml:String ? ;
+          fluxnova_common:value @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaEntry ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition_tes (  &fluxnova_bpmn_model_instance:ErrorEventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ErrorEventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_event @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_fields @fluxnova_bpmn_model_fluxnova:FluxnovaField * ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_script @fluxnova_bpmn_model_fluxnova:FluxnovaScript ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaExpression CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaExpression_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaExpression ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle_tes ( 
+          &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaField CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaField_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_string_value @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_string @fluxnova_bpmn_model_fluxnova:FluxnovaString ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_expression_child @fluxnova_bpmn_model_fluxnova:FluxnovaExpression ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaField ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaFormData CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaFormData_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_form_fields @fluxnova_bpmn_model_fluxnova:FluxnovaFormField *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaFormData ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaFormField CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaFormField_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_id @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_label @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_date_pattern @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_default_value @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_properties @fluxnova_bpmn_model_fluxnova:FluxnovaProperties ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_validation @fluxnova_bpmn_model_fluxnova:FluxnovaValidation ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_values @fluxnova_bpmn_model_fluxnova:FluxnovaValue *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaFormField ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_id @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_required @linkml:Boolean ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_readable @linkml:Boolean ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_writeable @linkml:Boolean ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_date_pattern @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_default @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_values @fluxnova_bpmn_model_fluxnova:FluxnovaValue *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement_tes fluxnova_common:value @linkml:String ? ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaIn CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaIn_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_source @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_source_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_variables @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_target @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_business_key @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_local @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaIn ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_input_parameters @fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter * ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_output_parameters @fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          &fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_common:value @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaList CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaList_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:values @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaList ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaMap CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaMap_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_entries @fluxnova_bpmn_model_fluxnova:FluxnovaEntry *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaMap ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaOut CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaOut_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_source @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_source_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_variables @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_target @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_local @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaOut ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          &fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_common:value @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter ] ?
+    )
+}
+
+<FluxnovaPlatformData> CLOSED {
+    (  $<FluxnovaPlatformData_tes> (  <deployments> @fluxnova_bpm_repository:Deployment * ;
+          <process_definitions> @fluxnova_bpm_repository:ProcessDefinition * ;
+          <executions> @fluxnova_bpm_runtime:Execution * ;
+          <tasks> @fluxnova_bpm_runtime:Task * ;
+          <jobs> @fluxnova_bpm_job:Job * ;
+          <users> @fluxnova_bpm_identity:User * ;
+          <groups> @fluxnova_bpm_identity:Group * ;
+          <batches> @fluxnova_bpm_job:Batch *
+       ) ;
+       rdf:type [ <FluxnovaPlatformData> ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_instance:resource_assignment_expression @fluxnova_bpmn_model_instance:ResourceAssignmentExpression ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaProperties CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaProperties_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_properties @fluxnova_bpmn_model_fluxnova:FluxnovaProperty ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaProperties ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaProperty CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaProperty_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_id @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_value @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaProperty ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaScript CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaScript_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_script_format @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_resource @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaScript ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaString CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaString_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaString ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_event @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_fields @fluxnova_bpmn_model_fluxnova:FluxnovaField * ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_script @fluxnova_bpmn_model_fluxnova:FluxnovaScript ? ;
+          fluxnova_bpmn_model_fluxnova:timeouts @fluxnova_bpmn_model_instance:TimerEventDefinition *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaValidation CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaValidation_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_constraints @fluxnova_bpmn_model_fluxnova:FluxnovaConstraint *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaValidation ] ?
+    )
+}
+
+fluxnova_bpmn_model_fluxnova:FluxnovaValue CLOSED {
+    (  $fluxnova_bpmn_model_fluxnova:FluxnovaValue_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_id @linkml:String ? ;
+          fluxnova_bpmn_model_fluxnova:fluxnova_name @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_fluxnova:FluxnovaValue ] ?
+    )
+}
+
+fluxnova_bpmn_model_dc:Font CLOSED {
+    (  $fluxnova_bpmn_model_dc:Font_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_dc:size @linkml:Float ? ;
+          fluxnova_bpmn_model_dc:bold @linkml:Boolean ? ;
+          fluxnova_bpmn_model_dc:italic @linkml:Boolean ? ;
+          fluxnova_bpmn_model_dc:underline @linkml:Boolean ? ;
+          fluxnova_bpmn_model_dc:strike_through @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_dc:Font ] ?
+    )
+}
+
+fluxnova_bpmn_model_instance:FormalExpression  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:FormalExpression_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Expression ] ? ;
+             fluxnova_bpmn_model_instance:language @linkml:String ? ;
+             fluxnova_bpmn_model_instance:evaluates_to_type @fluxnova_bpmn_model_instance:ItemDefinition ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:FormalExpression ]
+       )
+    } OR @fluxnova_bpmn_model_instance:ConditionExpression
+)
+
+fluxnova_bpm_repository:FormDefinition CLOSED {
+    (  $fluxnova_bpm_repository:FormDefinition_tes (  &fluxnova_bpm_repository:ResourceDefinition_tes ;
+          rdf:type [ fluxnova_bpm_repository:ResourceDefinition ] ? ;
+          fluxnova_bpm_repository:key @linkml:String ;
+          fluxnova_bpm_base:version @linkml:Integer
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:FormDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Gateway  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Gateway_tes (  &fluxnova_bpmn_model_instance:FlowNode_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:FlowNode ] ? ;
+             fluxnova_bpmn_model_instance:gateway_direction @linkml:String ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ]
+       )
+    } OR @fluxnova_bpmn_model_instance:ComplexGateway OR @fluxnova_bpmn_model_instance:EventBasedGateway OR
+    @fluxnova_bpmn_model_instance:ExclusiveGateway OR @fluxnova_bpmn_model_instance:InclusiveGateway OR
+    @fluxnova_bpmn_model_instance:ParallelGateway
+)
+
+fluxnova_bpmn_model_instance:GlobalConversation CLOSED {
+    (  $fluxnova_bpmn_model_instance:GlobalConversation_tes (  &fluxnova_bpmn_model_instance:Collaboration_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Collaboration ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:GlobalConversation ]
+    )
+}
+
+fluxnova_bpm_identity:Group CLOSED {
+    (  $fluxnova_bpm_identity:Group_tes (  schema1:name @linkml:String ? ;
+          fluxnova_common:type @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:Group ]
+    )
+}
+
+fluxnova_bpm_history:HistoricActivityInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricActivityInstance_tes (  &fluxnova_bpm_history:HistoricScopeInstance_tes ;
+          rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ] ? ;
+          fluxnova_bpm_history:parent_activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_history:called_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:called_case_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:activity_name @linkml:String ? ;
+          fluxnova_bpm_history:activity_type @linkml:String ;
+          fluxnova_bpm_runtime:assignee @linkml:String ? ;
+          fluxnova_bpm_history:activity_instance_state [
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/ActivityInstanceState/0>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/ActivityInstanceState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/ActivityInstanceState/2>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/ActivityInstanceState/3>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/ActivityInstanceState/4> ] ? ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ;
+          fluxnova_bpm_job:start_time @linkml:Datetime
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricActivityInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricBatch CLOSED {
+    (  $fluxnova_bpm_history:HistoricBatch_tes (  fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_job:total_jobs @linkml:Integer ? ;
+          fluxnova_bpm_job:jobs_per_seed @linkml:Integer ? ;
+          fluxnova_bpm_job:invocations_per_job @linkml:Integer ? ;
+          fluxnova_bpm_job:seed_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_job:monitor_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_job:batch_job_definition_id @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_job:create_user_id @linkml:String ? ;
+          fluxnova_bpm_job:start_time @linkml:Datetime ;
+          fluxnova_bpm_history:end_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_bpm_job:execution_start_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricBatch ]
+    )
+}
+
+fluxnova_bpm_history:HistoricCaseActivityInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricCaseActivityInstance_tes (  &fluxnova_bpm_history:HistoricScopeInstance_tes ;
+          rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ] ? ;
+          fluxnova_bpm_history:parent_activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ;
+          fluxnova_bpm_history:case_activity_id @linkml:String ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_history:called_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:called_case_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:case_activity_name @linkml:String ? ;
+          fluxnova_bpm_history:case_activity_type @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ;
+          fluxnova_bpm_history:state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#ACTIVE>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#SUSPENDED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#COMPLETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#EXTERNALLY_TERMINATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#INTERNALLY_TERMINATED> ] ? ;
+          fluxnova_bpm_runtime:is_required @linkml:Boolean ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricCaseActivityInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricCaseInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricCaseInstance_tes (  &fluxnova_bpm_history:HistoricScopeInstance_tes ;
+          rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ] ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ;
+          fluxnova_bpm_runtime:business_key @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ;
+          fluxnova_bpm_history:close_time @linkml:Datetime ? ;
+          fluxnova_bpm_history:state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#ACTIVE>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#SUSPENDED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#COMPLETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#EXTERNALLY_TERMINATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#INTERNALLY_TERMINATED> ] ? ;
+          fluxnova_bpm_job:create_user_id @linkml:String ? ;
+          fluxnova_bpm_history:super_case_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:super_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricCaseInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricDecisionInputInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricDecisionInputInstance_tes (  fluxnova_bpm_history:decision_instance_id @linkml:String ;
+          fluxnova_bpm_history:clause_id @linkml:String ? ;
+          fluxnova_bpm_history:clause_name @linkml:String ? ;
+          fluxnova_bpm_history:variable_type @linkml:String ? ;
+          fluxnova_bpm_runtime:byte_array_id @linkml:String ? ;
+          fluxnova_bpm_runtime:double_value @linkml:Float ? ;
+          fluxnova_bpm_runtime:long_value @linkml:Integer ? ;
+          fluxnova_bpm_runtime:text_value @linkml:String ? ;
+          fluxnova_bpm_runtime:text2_value @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricDecisionInputInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricDecisionInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricDecisionInstance_tes (  fluxnova_bpm_history:decision_definition_id @linkml:String ;
+          fluxnova_bpm_history:decision_definition_key @linkml:String ;
+          fluxnova_bpm_history:decision_definition_name @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:case_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_history:evaluation_time @linkml:Datetime ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_bpm_history:collect_result_value @linkml:Float ? ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_history:root_decision_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_repository:decision_requirements_definition_id @linkml:String ? ;
+          fluxnova_bpm_repository:decision_requirements_definition_key @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricDecisionInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricDecisionOutputInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricDecisionOutputInstance_tes (  fluxnova_bpm_history:decision_instance_id @linkml:String ;
+          fluxnova_bpm_history:clause_id @linkml:String ? ;
+          fluxnova_bpm_history:clause_name @linkml:String ? ;
+          fluxnova_bpm_history:rule_id @linkml:String ? ;
+          fluxnova_bpm_history:rule_order @linkml:Integer ? ;
+          fluxnova_bpm_runtime:variable_name @linkml:String ? ;
+          fluxnova_bpm_history:variable_type @linkml:String ? ;
+          fluxnova_bpm_runtime:byte_array_id @linkml:String ? ;
+          fluxnova_bpm_runtime:double_value @linkml:Float ? ;
+          fluxnova_bpm_runtime:long_value @linkml:Integer ? ;
+          fluxnova_bpm_runtime:text_value @linkml:String ? ;
+          fluxnova_bpm_runtime:text2_value @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricDecisionOutputInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricDetail CLOSED {
+    (  $fluxnova_bpm_history:HistoricDetail_tes (  fluxnova_common:type @linkml:String ;
+          fluxnova_bpm_collaboration:event_time @linkml:Datetime ;
+          schema1:name @linkml:String ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_history:case_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:variable_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:variable_type @linkml:String ? ;
+          fluxnova_bpm_runtime:byte_array_id @linkml:String ? ;
+          fluxnova_bpm_runtime:double_value @linkml:Float ? ;
+          fluxnova_bpm_runtime:long_value @linkml:Integer ? ;
+          fluxnova_bpm_runtime:text_value @linkml:String ? ;
+          fluxnova_bpm_runtime:text2_value @linkml:String ? ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_history:operation_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_bpm_history:is_initial @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricDetail ]
+    )
+}
+
+fluxnova_bpm_history:HistoricExternalTaskLog CLOSED {
+    (  $fluxnova_bpm_history:HistoricExternalTaskLog_tes (  fluxnova_bpm_base:timestamp @linkml:Datetime ;
+          fluxnova_bpm_history:external_task_id @linkml:String ;
+          fluxnova_bpm_runtime:retries @linkml:Integer ? ;
+          fluxnova_bpm_runtime:topic_name @linkml:String ? ;
+          fluxnova_bpm_runtime:worker_id @linkml:String ? ;
+          fluxnova_bpm_runtime:priority @linkml:Integer ;
+          fluxnova_bpm_runtime:error_message @linkml:String ? ;
+          fluxnova_bpm_runtime:error_details_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_history:state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#ACTIVE>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#SUSPENDED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#COMPLETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#EXTERNALLY_TERMINATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#INTERNALLY_TERMINATED> ] ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricExternalTaskLog ]
+    )
+}
+
+fluxnova_bpm_history:HistoricIdentityLink CLOSED {
+    (  $fluxnova_bpm_history:HistoricIdentityLink_tes (  fluxnova_bpm_base:timestamp @linkml:Datetime ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_identity:group_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_history:operation_type @linkml:String ? ;
+          fluxnova_bpm_history:assigner_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricIdentityLink ]
+    )
+}
+
+fluxnova_bpm_history:HistoricIncident CLOSED {
+    (  $fluxnova_bpm_history:HistoricIncident_tes (  fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ;
+          fluxnova_bpm_history:end_time @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:incident_message @linkml:String ? ;
+          fluxnova_bpm_runtime:incident_type @linkml:String ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:failed_activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:cause_incident_id @linkml:String ? ;
+          fluxnova_bpm_runtime:root_cause_incident_id @linkml:String ? ;
+          fluxnova_bpm_runtime:configuration @linkml:String ? ;
+          fluxnova_bpm_history:history_configuration @linkml:String ? ;
+          fluxnova_bpm_history:incident_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/IncidentState#OPEN>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/IncidentState#DELETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/IncidentState#RESOLVED> ] ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:job_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:annotation @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricIncident ]
+    )
+}
+
+fluxnova_bpm_history:HistoricJobLog CLOSED {
+    (  $fluxnova_bpm_history:HistoricJobLog_tes (  fluxnova_bpm_base:timestamp @linkml:Datetime ;
+          fluxnova_bpm_history:job_id @linkml:String ;
+          fluxnova_bpm_history:job_due_date @linkml:Datetime ? ;
+          fluxnova_bpm_history:job_retries @linkml:Integer ? ;
+          fluxnova_bpm_job:job_priority @linkml:Integer ;
+          fluxnova_bpm_history:job_exception_message @linkml:String ? ;
+          fluxnova_bpm_history:job_exception_stack_id @linkml:String ? ;
+          fluxnova_bpm_history:job_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/JobState#CREATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/JobState#FAILED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/JobState#SUCCESSFUL>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/JobState#DELETED> ] ? ;
+          fluxnova_bpm_runtime:job_definition_id @linkml:String ? ;
+          fluxnova_bpm_history:job_definition_type @linkml:String ? ;
+          fluxnova_bpm_history:job_definition_configuration @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:failed_activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_history:hostname @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:batch_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricJobLog ]
+    )
+}
+
+fluxnova_bpm_history:HistoricProcessInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricProcessInstance_tes (  &fluxnova_bpm_history:HistoricScopeInstance_tes ;
+          rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ] ? ;
+          fluxnova_bpm_runtime:business_key @linkml:String ? ;
+          fluxnova_bpm_history:start_user_id @linkml:String ? ;
+          fluxnova_bpm_history:start_activity_id @linkml:String ? ;
+          fluxnova_bpm_history:end_activity_id @linkml:String ? ;
+          fluxnova_bpm_history:super_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:super_case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_history:delete_reason @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_history:state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#ACTIVE>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#SUSPENDED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#COMPLETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#EXTERNALLY_TERMINATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#INTERNALLY_TERMINATED> ] ? ;
+          fluxnova_bpm_history:restarted_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ;
+          fluxnova_bpm_job:start_time @linkml:Datetime
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricProcessInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricScopeInstance  (
+    @fluxnova_bpm_history:HistoricActivityInstance OR @fluxnova_bpm_history:HistoricCaseActivityInstance OR
+    @fluxnova_bpm_history:HistoricCaseInstance OR @fluxnova_bpm_history:HistoricProcessInstance OR
+    @fluxnova_bpm_history:HistoricTaskInstance
+)
+
+fluxnova_bpm_history:HistoricScopeInstance_struct {
+    (  $fluxnova_bpm_history:HistoricScopeInstance_tes (  fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_job:start_time @linkml:Datetime ? ;
+          fluxnova_bpm_history:end_time @linkml:Datetime ? ;
+          fluxnova_bpm_history:duration @linkml:Integer ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricTaskInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricTaskInstance_tes (  &fluxnova_bpm_history:HistoricScopeInstance_tes ;
+          rdf:type [ fluxnova_bpm_history:HistoricScopeInstance ] ? ;
+          fluxnova_bpm_runtime:task_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_history:case_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpm_runtime:parent_task_id @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          fluxnova_bpm_runtime:owner @linkml:String ? ;
+          fluxnova_bpm_runtime:assignee @linkml:String ? ;
+          fluxnova_bpm_history:delete_reason @linkml:String ? ;
+          fluxnova_bpm_runtime:priority @linkml:Integer ;
+          fluxnova_bpm_runtime:due_date @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:follow_up_date @linkml:Datetime ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_state @linkml:String ? ;
+          fluxnova_bpm_job:start_time @linkml:Datetime
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricTaskInstance ]
+    )
+}
+
+fluxnova_bpm_history:HistoricVariableInstance CLOSED {
+    (  $fluxnova_bpm_history:HistoricVariableInstance_tes (  fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_history:case_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_instance_id @linkml:String ? ;
+          schema1:name @linkml:String ;
+          fluxnova_bpm_history:variable_type @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:byte_array_id @linkml:String ? ;
+          fluxnova_bpm_runtime:double_value @linkml:Float ? ;
+          fluxnova_bpm_runtime:long_value @linkml:Integer ? ;
+          fluxnova_bpm_runtime:text_value @linkml:String ? ;
+          fluxnova_bpm_runtime:text2_value @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_history:state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#ACTIVE>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#SUSPENDED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#COMPLETED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#EXTERNALLY_TERMINATED>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/EntityState#INTERNALLY_TERMINATED> ] ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:HistoricVariableInstance ]
+    )
+}
+
+fluxnova_bpmn_model_instance:HumanPerformer  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:HumanPerformer_tes (  &fluxnova_bpmn_model_instance:Performer_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Performer ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:HumanPerformer ]
+       )
+    } OR @fluxnova_bpmn_model_instance:PotentialOwner
+)
+
+fluxnova_bpm_identity:IdentityInfo CLOSED {
+    (  $fluxnova_bpm_identity:IdentityInfo_tes (  fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_repository:key @linkml:String ? ;
+          fluxnova_common:value @linkml:String ? ;
+          fluxnova_bpm_identity:password @linkml:String ? ;
+          fluxnova_bpm_runtime:parent_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:IdentityInfo ]
+    )
+}
+
+fluxnova_bpm_identity:IdentityLink CLOSED {
+    (  $fluxnova_bpm_identity:IdentityLink_tes (  fluxnova_bpm_identity:group_id @linkml:String ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:IdentityLink ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Import CLOSED {
+    (  $fluxnova_bpmn_model_instance:Import_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+          fluxnova_bpmn_model_instance:namespace @linkml:String ? ;
+          fluxnova_bpmn_model_instance:location @linkml:String ? ;
+          fluxnova_bpmn_model_instance:import_type @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Import ] ?
+    )
+}
+
+fluxnova_bpm_runtime:Incident CLOSED {
+    (  $fluxnova_bpm_runtime:Incident_tes (  fluxnova_bpm_runtime:incident_timestamp @linkml:Datetime ;
+          fluxnova_bpm_runtime:incident_message @linkml:String ? ;
+          fluxnova_bpm_runtime:incident_type @linkml:String ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:failed_activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:cause_incident_id @linkml:String ? ;
+          fluxnova_bpm_runtime:root_cause_incident_id @linkml:String ? ;
+          fluxnova_bpm_runtime:configuration @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:job_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:annotation @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:Incident ]
+    )
+}
+
+fluxnova_bpmn_model_instance:InclusiveGateway CLOSED {
+    (  $fluxnova_bpmn_model_instance:InclusiveGateway_tes (  &fluxnova_bpmn_model_instance:Gateway_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ] ? ;
+          fluxnova_bpmn_model_instance:default @fluxnova_bpmn_model_instance:SequenceFlow ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:InclusiveGateway ]
+    )
+}
+
+fluxnova_bpmn_model_instance:InputDataItem CLOSED {
+    (  $fluxnova_bpmn_model_instance:InputDataItem_tes (  &fluxnova_bpmn_model_instance:DataInput_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataInput ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:InputDataItem ]
+    )
+}
+
+fluxnova_bpmn_model_instance:InputSet CLOSED {
+    (  $fluxnova_bpmn_model_instance:InputSet_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:data_inputs @fluxnova_bpmn_model_instance:DataInput * ;
+          fluxnova_bpmn_model_instance:optional_inputs @fluxnova_bpmn_model_instance:DataInput * ;
+          fluxnova_bpmn_model_instance:while_executing_input @fluxnova_bpmn_model_instance:DataInput * ;
+          fluxnova_bpmn_model_instance:output_sets @fluxnova_bpmn_model_instance:OutputSet *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:InputSet ]
+    )
+}
+
+fluxnova_bpmn_model_instance:InteractionNode CLOSED {
+    (  $fluxnova_bpmn_model_instance:InteractionNode_tes rdf:type . * ;
+       rdf:type [ fluxnova_bpmn_model_instance:InteractionNode ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Interface CLOSED {
+    (  $fluxnova_bpmn_model_instance:Interface_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:implementation_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:operations @fluxnova_bpmn_model_instance:Operation *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Interface ]
+    )
+}
+
+fluxnova_bpmn_model_instance:IntermediateCatchEvent CLOSED {
+    (  $fluxnova_bpmn_model_instance:IntermediateCatchEvent_tes (  &fluxnova_bpmn_model_instance:CatchEvent_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:CatchEvent ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:IntermediateCatchEvent ]
+    )
+}
+
+fluxnova_bpmn_model_instance:IntermediateThrowEvent CLOSED {
+    (  $fluxnova_bpmn_model_instance:IntermediateThrowEvent_tes (  &fluxnova_bpmn_model_instance:ThrowEvent_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ThrowEvent ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:IntermediateThrowEvent ]
+    )
+}
+
+fluxnova_bpmn_model_instance:IoBinding CLOSED {
+    (  $fluxnova_bpmn_model_instance:IoBinding_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:operation @fluxnova_bpmn_model_instance:Operation ? ;
+          fluxnova_bpmn_model_instance:input_data @fluxnova_bpmn_model_instance:DataInput ? ;
+          fluxnova_bpmn_model_instance:output_data @fluxnova_bpmn_model_instance:DataOutput ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:IoBinding ]
+    )
+}
+
+fluxnova_bpmn_model_instance:IoSpecification CLOSED {
+    (  $fluxnova_bpmn_model_instance:IoSpecification_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:data_inputs @fluxnova_bpmn_model_instance:DataInput * ;
+          fluxnova_bpmn_model_instance:data_outputs @fluxnova_bpmn_model_instance:DataOutput * ;
+          fluxnova_bpmn_model_instance:input_sets @fluxnova_bpmn_model_instance:InputSet * ;
+          fluxnova_bpmn_model_instance:output_sets @fluxnova_bpmn_model_instance:OutputSet *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:IoSpecification ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ItemAwareElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:ItemAwareElement_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+             fluxnova_bpmn_model_instance:item_subject @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+             fluxnova_bpmn_model_instance:data_state @fluxnova_bpmn_model_instance:DataState ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:ItemAwareElement ]
+       )
+    } OR @fluxnova_bpmn_model_instance:BpmnProperty OR @fluxnova_bpmn_model_instance:DataInput OR
+    @fluxnova_bpmn_model_instance:DataOutput
+)
+
+fluxnova_bpmn_model_instance:ItemDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:ItemDefinition_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          fluxnova_bpmn_model_instance:structure_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:collection @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:item_kind @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ItemDefinition ]
+    )
+}
+
+fluxnova_bpm_job:Job CLOSED {
+    (  $fluxnova_bpm_job:Job_tes (  fluxnova_common:type @linkml:String ;
+          fluxnova_bpm_runtime:lock_expiration_time @linkml:Datetime ? ;
+          fluxnova_bpm_job:lock_owner @linkml:String ? ;
+          fluxnova_bpm_job:is_exclusive @linkml:Boolean ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:retries @linkml:Integer ? ;
+          fluxnova_bpm_job:exception_stack_id @linkml:String ? ;
+          fluxnova_bpm_job:exception_message @linkml:String ? ;
+          fluxnova_bpm_runtime:failed_activity_id @linkml:String ? ;
+          fluxnova_bpm_runtime:due_date @linkml:Datetime ? ;
+          fluxnova_bpm_job:repeat @linkml:String ? ;
+          fluxnova_bpm_job:repeat_offset @linkml:Integer ? ;
+          fluxnova_bpm_job:handler_type @linkml:String ? ;
+          fluxnova_bpm_job:handler_configuration @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ;
+          fluxnova_bpm_runtime:job_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:priority @linkml:Integer ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:last_failure_log_id @linkml:String ? ;
+          fluxnova_bpm_runtime:batch_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_job:Job ]
+    )
+}
+
+fluxnova_bpm_job:JobDefinition CLOSED {
+    (  $fluxnova_bpm_job:JobDefinition_tes (  fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:activity_id @linkml:String ? ;
+          fluxnova_bpm_job:job_type @linkml:String ;
+          fluxnova_bpm_job:job_configuration @linkml:String ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_job:job_priority @linkml:Integer ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_job:JobDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_di:Label  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Label_tes (  &fluxnova_bpmn_model_di:Node_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:Node ] ? ;
+             fluxnova_bpmn_model_di:bounds @fluxnova_bpmn_model_dc:Bounds ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Label ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnLabel
+)
+
+fluxnova_bpmn_model_di:LabeledEdge  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:LabeledEdge_tes (  &fluxnova_bpmn_model_di:Edge_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:Edge ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:LabeledEdge ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnEdge
+)
+
+fluxnova_bpmn_model_di:LabeledShape  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:LabeledShape_tes (  &fluxnova_bpmn_model_di:Shape_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:Shape ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:LabeledShape ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnShape
+)
+
+fluxnova_bpmn_model_instance:Lane CLOSED {
+    (  $fluxnova_bpmn_model_instance:Lane_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:partition_element @linkml:String ? ;
+          fluxnova_bpmn_model_instance:partition_element_child @linkml:String ? ;
+          fluxnova_bpmn_model_instance:flow_node_refs @fluxnova_bpmn_model_instance:FlowNode * ;
+          fluxnova_bpmn_model_instance:child_lane_set @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Lane ]
+    )
+}
+
+fluxnova_bpmn_model_instance:LaneSet CLOSED {
+    (  $fluxnova_bpmn_model_instance:LaneSet_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:lanes @fluxnova_bpmn_model_instance:Lane *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:LaneSet ]
+    )
+}
+
+fluxnova_bpmn_model_instance:LinkEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:LinkEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:sources @fluxnova_bpmn_model_instance:LinkEventDefinition * ;
+          fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:LinkEventDefinition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:LinkEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:LoopCardinality CLOSED {
+    (  $fluxnova_bpmn_model_instance:LoopCardinality_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:LoopCardinality ]
+    )
+}
+
+fluxnova_bpmn_model_instance:LoopCharacteristics  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:LoopCharacteristics_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:LoopCharacteristics ]
+       )
+    } OR @fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics
+)
+
+fluxnova_bpmn_model_instance:ManualTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:ManualTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ManualTask ]
+    )
+}
+
+fluxnova_bpm_identity:Membership CLOSED {
+    (  $fluxnova_bpm_identity:Membership_tes (  fluxnova_bpm_identity:user_id @linkml:String ;
+          fluxnova_bpm_identity:group_id @linkml:String
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:Membership ] ?
+    )
+}
+
+fluxnova_bpmn_model_instance:Message CLOSED {
+    (  $fluxnova_bpmn_model_instance:Message_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:item @fluxnova_bpmn_model_instance:ItemDefinition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Message ]
+    )
+}
+
+fluxnova_bpmn_model_instance:MessageEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:MessageEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_common:message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:operation @fluxnova_bpmn_model_instance:Operation ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_result_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_topic @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_task_priority @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:MessageEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:MessageFlow CLOSED {
+    (  $fluxnova_bpmn_model_instance:MessageFlow_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_common:source @fluxnova_bpmn_model_instance:InteractionNode ? ;
+          fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:InteractionNode ? ;
+          fluxnova_common:message @fluxnova_bpmn_model_instance:Message ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:MessageFlow ]
+    )
+}
+
+fluxnova_bpmn_model_instance:MessageFlowAssociation CLOSED {
+    (  $fluxnova_bpmn_model_instance:MessageFlowAssociation_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:inner_message_flow @fluxnova_bpmn_model_instance:MessageFlow ? ;
+          fluxnova_bpmn_model_instance:outer_message_flow @fluxnova_bpmn_model_instance:MessageFlow ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:MessageFlowAssociation ]
+    )
+}
+
+fluxnova_bpm_base:MeterLog CLOSED {
+    (  $fluxnova_bpm_base:MeterLog_tes (  schema1:name @linkml:String ;
+          fluxnova_bpm_base:reporter @linkml:String ? ;
+          fluxnova_common:value @linkml:Integer ? ;
+          fluxnova_bpm_base:timestamp @linkml:Datetime ? ;
+          fluxnova_bpm_base:milliseconds @linkml:Integer ?
+       ) ;
+       rdf:type [ fluxnova_bpm_base:MeterLog ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Monitoring CLOSED {
+    (  $fluxnova_bpmn_model_instance:Monitoring_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Monitoring ]
+    )
+}
+
+fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics CLOSED {
+    (  $fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics_tes (  &fluxnova_bpmn_model_instance:LoopCharacteristics_tes
+          ;
+          rdf:type [ fluxnova_bpmn_model_instance:LoopCharacteristics ] ? ;
+          fluxnova_bpmn_model_instance:loop_cardinality @fluxnova_bpmn_model_instance:LoopCardinality ? ;
+          fluxnova_bpmn_model_instance:loop_data_input_ref @fluxnova_bpmn_model_instance:DataInput ? ;
+          fluxnova_bpmn_model_instance:loop_data_output_ref @fluxnova_bpmn_model_instance:DataOutput ? ;
+          fluxnova_bpmn_model_instance:input_data_item @fluxnova_bpmn_model_instance:InputDataItem ? ;
+          fluxnova_bpmn_model_instance:output_data_item @fluxnova_bpmn_model_instance:OutputDataItem ? ;
+          fluxnova_bpmn_model_instance:complex_behavior_definitions @fluxnova_bpmn_model_instance:ComplexBehaviorDefinition * ;
+          fluxnova_bpmn_model_instance:completion_condition @fluxnova_bpmn_model_instance:CompletionCondition ? ;
+          fluxnova_bpmn_model_instance:sequential @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:behavior @linkml:String ? ;
+          fluxnova_bpmn_model_instance:one_behavior_event_ref @fluxnova_bpmn_model_instance:EventDefinition ? ;
+          fluxnova_bpmn_model_instance:none_behavior_event_ref @fluxnova_bpmn_model_instance:EventDefinition ? ;
+          fluxnova_bpmn_model_instance:fluxnova_collection @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_element_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async_before @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async_after @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_exclusive @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics ]
+    )
+}
+
+fluxnova_bpmn_model_di:Node  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Node_tes (  &fluxnova_bpmn_model_di:DiagramElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:DiagramElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Node ]
+       )
+    } OR @fluxnova_bpmn_model_di:Label OR @fluxnova_bpmn_model_di:Plane OR @fluxnova_bpmn_model_di:Shape
+)
+
+fluxnova_bpmn_model_instance:Operation CLOSED {
+    (  $fluxnova_bpmn_model_instance:Operation_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:implementation_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:in_message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:out_message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:errors @fluxnova_bpmn_model_instance:Error *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Operation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:OutputDataItem CLOSED {
+    (  $fluxnova_bpmn_model_instance:OutputDataItem_tes (  &fluxnova_bpmn_model_instance:DataOutput_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:DataOutput ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:OutputDataItem ]
+    )
+}
+
+fluxnova_bpmn_model_instance:OutputSet CLOSED {
+    (  $fluxnova_bpmn_model_instance:OutputSet_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:data_output_refs @fluxnova_bpmn_model_instance:DataOutput * ;
+          fluxnova_bpmn_model_instance:optional_output_refs @fluxnova_bpmn_model_instance:DataOutput * ;
+          fluxnova_bpmn_model_instance:while_executing_output_refs @fluxnova_bpmn_model_instance:DataOutput * ;
+          fluxnova_bpmn_model_instance:input_set_refs @fluxnova_bpmn_model_instance:InputSet *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:OutputSet ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ParallelGateway CLOSED {
+    (  $fluxnova_bpmn_model_instance:ParallelGateway_tes (  &fluxnova_bpmn_model_instance:Gateway_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Gateway ] ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ParallelGateway ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Participant CLOSED {
+    (  $fluxnova_bpmn_model_instance:Participant_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          &fluxnova_bpmn_model_instance:InteractionNode_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:InteractionNode ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:process @fluxnova_bpmn_model_instance:Process ? ;
+          fluxnova_bpmn_model_instance:interfaces @fluxnova_bpmn_model_instance:Interface * ;
+          fluxnova_bpmn_model_instance:end_points @fluxnova_bpmn_model_instance:EndPoint * ;
+          fluxnova_bpmn_model_instance:participant_multiplicity @fluxnova_bpmn_model_instance:ParticipantMultiplicity ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Participant ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ParticipantAssociation CLOSED {
+    (  $fluxnova_bpmn_model_instance:ParticipantAssociation_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:inner_participant @fluxnova_bpmn_model_instance:Participant ? ;
+          fluxnova_bpmn_model_instance:outer_participant @fluxnova_bpmn_model_instance:Participant ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ParticipantAssociation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ParticipantMultiplicity CLOSED {
+    (  $fluxnova_bpmn_model_instance:ParticipantMultiplicity_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:minimum @linkml:Integer ? ;
+          fluxnova_bpmn_model_instance:maximum @linkml:Integer ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ParticipantMultiplicity ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Performer  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:Performer_tes (  &fluxnova_bpmn_model_instance:ResourceRole_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:ResourceRole ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:Performer ]
+       )
+    } OR @fluxnova_bpmn_model_instance:HumanPerformer
+)
+
+fluxnova_bpmn_model_di:Plane  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Plane_tes (  &fluxnova_bpmn_model_di:Node_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:Node ] ? ;
+             fluxnova_bpmn_model_di:diagram_elements @fluxnova_bpmn_model_di:DiagramElement *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Plane ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnPlane
+)
+
+fluxnova_bpmn_model_dc:Point  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_dc:Point_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ? ;
+             fluxnova_bpmn_model_dc:x @linkml:Float ? ;
+             fluxnova_bpmn_model_dc:y @linkml:Float ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_dc:Point ] ?
+       )
+    } OR @fluxnova_bpmn_model_di:Waypoint
+)
+
+fluxnova_bpmn_model_instance:PotentialOwner CLOSED {
+    (  $fluxnova_bpmn_model_instance:PotentialOwner_tes (  &fluxnova_bpmn_model_instance:HumanPerformer_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:HumanPerformer ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:PotentialOwner ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Process CLOSED {
+    (  $fluxnova_bpmn_model_instance:Process_tes (  &fluxnova_bpmn_model_instance:CallableElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:CallableElement ] ? ;
+          fluxnova_bpmn_model_instance:process_type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:closed @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:executable @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:auditing @fluxnova_bpmn_model_instance:Auditing ? ;
+          fluxnova_bpmn_model_instance:monitoring @fluxnova_bpmn_model_instance:Monitoring ? ;
+          fluxnova_common:properties @fluxnova_bpmn_model_instance:BpmnProperty * ;
+          fluxnova_bpmn_model_instance:lane_sets @fluxnova_bpmn_model_instance:LaneSet * ;
+          fluxnova_bpmn_model_instance:flow_elements @fluxnova_bpmn_model_instance:FlowElement * ;
+          fluxnova_bpmn_model_instance:artifacts @fluxnova_bpmn_model_instance:Artifact * ;
+          fluxnova_bpmn_model_instance:correlation_subscriptions @fluxnova_bpmn_model_instance:CorrelationSubscription * ;
+          fluxnova_bpmn_model_instance:resource_roles @fluxnova_bpmn_model_instance:ResourceRole * ;
+          fluxnova_bpmn_model_instance:supports @fluxnova_bpmn_model_instance:Process * ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_starter_groups @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_starter_groups_list @linkml:String * ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_starter_users @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_starter_users_list @linkml:String * ;
+          fluxnova_bpmn_model_instance:fluxnova_job_priority @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_task_priority @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_history_time_to_live @linkml:Integer ? ;
+          fluxnova_bpmn_model_instance:fluxnova_history_time_to_live_string @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_startable_in_tasklist @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_version_tag @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Process ]
+    )
+}
+
+fluxnova_bpm_repository:ProcessDefinition CLOSED {
+    (  $fluxnova_bpm_repository:ProcessDefinition_tes (  &fluxnova_bpm_repository:ResourceDefinition_tes ;
+          rdf:type [ fluxnova_bpm_repository:ResourceDefinition ] ? ;
+          fluxnova_bpm_repository:has_start_form_key @linkml:Boolean ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_repository:version_tag @linkml:String ? ;
+          fluxnova_bpm_repository:is_startable @linkml:Boolean ;
+          fluxnova_bpm_repository:key @linkml:String ;
+          fluxnova_bpm_base:version @linkml:Integer
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:ProcessDefinition ]
+    )
+}
+
+fluxnova_bpm_base:Property CLOSED {
+    (  $fluxnova_bpm_base:Property_tes fluxnova_common:value @linkml:String ? ;
+       rdf:type [ fluxnova_bpm_base:Property ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ReceiveTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:ReceiveTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:implementation @linkml:String ? ;
+          fluxnova_common:message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:operation @fluxnova_bpmn_model_instance:Operation ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ReceiveTask ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Relationship CLOSED {
+    (  $fluxnova_bpmn_model_instance:Relationship_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_common:type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:direction @linkml:String ? ;
+          fluxnova_bpmn_model_instance:sources @linkml:String * ;
+          fluxnova_bpmn_model_instance:targets @linkml:String *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Relationship ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Rendering CLOSED {
+    (  $fluxnova_bpmn_model_instance:Rendering_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Rendering ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Resource CLOSED {
+    (  $fluxnova_bpmn_model_instance:Resource_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:resource_parameters @fluxnova_bpmn_model_instance:ResourceParameter *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Resource ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ResourceAssignmentExpression CLOSED {
+    (  $fluxnova_bpmn_model_instance:ResourceAssignmentExpression_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:expression @fluxnova_bpmn_model_instance:Expression ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ResourceAssignmentExpression ]
+    )
+}
+
+fluxnova_bpm_repository:ResourceDefinition  (
+    @fluxnova_bpm_repository:CaseDefinition OR @fluxnova_bpm_repository:DecisionDefinition OR
+    @fluxnova_bpm_repository:DecisionRequirementsDefinition OR @fluxnova_bpm_repository:FormDefinition OR
+    @fluxnova_bpm_repository:ProcessDefinition
+)
+
+fluxnova_bpm_repository:ResourceDefinition_struct {
+    (  $fluxnova_bpm_repository:ResourceDefinition_tes (  fluxnova_bpm_repository:key @linkml:String ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpm_base:version @linkml:Integer ? ;
+          fluxnova_common:category @linkml:String ? ;
+          fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          fluxnova_bpm_repository:resource_name @linkml:String ? ;
+          fluxnova_bpm_repository:diagram_resource_name @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_repository:history_time_to_live @linkml:Integer ?
+       ) ;
+       rdf:type [ fluxnova_bpm_repository:ResourceDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ResourceParameter CLOSED {
+    (  $fluxnova_bpmn_model_instance:ResourceParameter_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_common:type @fluxnova_bpmn_model_instance:ItemDefinition ? ;
+          fluxnova_bpmn_model_instance:required @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ResourceParameter ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ResourceParameterBinding CLOSED {
+    (  $fluxnova_bpmn_model_instance:ResourceParameterBinding_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+          fluxnova_bpmn_model_instance:parameter @fluxnova_bpmn_model_instance:ResourceParameter ? ;
+          fluxnova_bpmn_model_instance:expression @fluxnova_bpmn_model_instance:Expression ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ResourceParameterBinding ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ResourceRole  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:ResourceRole_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ? ;
+             schema1:name @linkml:String ? ;
+             fluxnova_bpmn_model_instance:resource @fluxnova_bpmn_model_instance:Resource ? ;
+             fluxnova_bpmn_model_instance:resource_parameter_binding @fluxnova_bpmn_model_instance:ResourceParameterBinding * ;
+             fluxnova_bpmn_model_instance:resource_assignment_expression @fluxnova_bpmn_model_instance:ResourceAssignmentExpression
+             ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:ResourceRole ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Performer
+)
+
+fluxnova_bpmn_model_instance:RootElement  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:RootElement_tes (  &fluxnova_bpmn_model_instance:BaseElement_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BaseElement ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ]
+       )
+    } OR @fluxnova_bpmn_model_instance:CallableElement OR @fluxnova_bpmn_model_instance:Category OR
+    @fluxnova_bpmn_model_instance:Collaboration OR @fluxnova_bpmn_model_instance:CorrelationProperty OR
+    @fluxnova_bpmn_model_instance:DataStore OR @fluxnova_bpmn_model_instance:EndPoint OR @fluxnova_bpmn_model_instance:Error OR
+    @fluxnova_bpmn_model_instance:Escalation OR @fluxnova_bpmn_model_instance:EventDefinition OR
+    @fluxnova_bpmn_model_instance:Interface OR @fluxnova_bpmn_model_instance:ItemDefinition OR
+    @fluxnova_bpmn_model_instance:Message OR @fluxnova_bpmn_model_instance:Resource OR @fluxnova_bpmn_model_instance:Signal
+)
+
+fluxnova_bpm_base:SchemaLogEntry CLOSED {
+    (  $fluxnova_bpm_base:SchemaLogEntry_tes (  fluxnova_bpm_base:timestamp @linkml:Datetime ? ;
+          fluxnova_bpm_base:version @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_base:SchemaLogEntry ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Script CLOSED {
+    (  $fluxnova_bpmn_model_instance:Script_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Script ] ?
+    )
+}
+
+fluxnova_bpmn_model_instance:ScriptTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:ScriptTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:script_format @linkml:String ? ;
+          fluxnova_bpmn_model_instance:script @fluxnova_bpmn_model_instance:Script ? ;
+          fluxnova_bpmn_model_instance:fluxnova_result_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_resource @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ScriptTask ]
+    )
+}
+
+fluxnova_bpmn_model_instance:SendTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:SendTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:implementation @linkml:String ? ;
+          fluxnova_common:message @fluxnova_bpmn_model_instance:Message ? ;
+          fluxnova_bpmn_model_instance:operation @fluxnova_bpmn_model_instance:Operation ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_result_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_topic @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_task_priority @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:SendTask ]
+    )
+}
+
+fluxnova_bpmn_model_instance:SequenceFlow CLOSED {
+    (  $fluxnova_bpmn_model_instance:SequenceFlow_tes (  &fluxnova_bpmn_model_instance:FlowElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:FlowElement ] ? ;
+          fluxnova_common:source @fluxnova_bpmn_model_instance:FlowNode ? ;
+          fluxnova_bpmn_model_instance:target @fluxnova_bpmn_model_instance:FlowNode ? ;
+          fluxnova_bpmn_model_instance:immediate @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:condition_expression @fluxnova_bpmn_model_instance:ConditionExpression ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:SequenceFlow ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ServiceTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:ServiceTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:implementation @linkml:String ? ;
+          fluxnova_bpmn_model_instance:operation @fluxnova_bpmn_model_instance:Operation ? ;
+          fluxnova_bpmn_model_instance:fluxnova_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_delegate_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_expression @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_result_variable @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_type @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_topic @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_task_priority @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:ServiceTask ]
+    )
+}
+
+fluxnova_bpmn_model_di:Shape  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Shape_tes (  &fluxnova_bpmn_model_di:Node_tes ;
+             rdf:type [ fluxnova_bpmn_model_di:Node ] ? ;
+             fluxnova_bpmn_model_di:bounds @fluxnova_bpmn_model_dc:Bounds ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Shape ]
+       )
+    } OR @fluxnova_bpmn_model_di:LabeledShape
+)
+
+fluxnova_bpmn_model_instance:Signal CLOSED {
+    (  $fluxnova_bpmn_model_instance:Signal_tes (  &fluxnova_bpmn_model_instance:RootElement_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:RootElement ] ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpmn_model_instance:structure @fluxnova_bpmn_model_instance:ItemDefinition ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Signal ]
+    )
+}
+
+fluxnova_bpmn_model_instance:SignalEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:SignalEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:signal @fluxnova_bpmn_model_instance:Signal ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:SignalEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:StartEvent CLOSED {
+    (  $fluxnova_bpmn_model_instance:StartEvent_tes (  &fluxnova_bpmn_model_instance:CatchEvent_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:CatchEvent ] ? ;
+          fluxnova_bpmn_model_instance:interrupting @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_handler_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_key @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref_binding @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_initiator @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:StartEvent ]
+    )
+}
+
+fluxnova_bpmn_model_di:Style  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_di:Style_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_di:Style ]
+       )
+    } OR @fluxnova_bpmn_model_bpmndi:BpmnLabelStyle
+)
+
+fluxnova_bpmn_model_instance:SubConversation CLOSED {
+    (  $fluxnova_bpmn_model_instance:SubConversation_tes (  &fluxnova_bpmn_model_instance:ConversationNode_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:ConversationNode ] ? ;
+          fluxnova_bpmn_model_instance:conversation_nodes @fluxnova_bpmn_model_instance:ConversationNode *
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:SubConversation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:SubProcess  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:SubProcess_tes (  &fluxnova_bpmn_model_instance:Activity_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Activity ] ? ;
+             fluxnova_bpmn_model_instance:lane_sets @fluxnova_bpmn_model_instance:LaneSet * ;
+             fluxnova_bpmn_model_instance:flow_elements @fluxnova_bpmn_model_instance:FlowElement * ;
+             fluxnova_bpmn_model_instance:artifacts @fluxnova_bpmn_model_instance:Artifact * ;
+             fluxnova_bpmn_model_instance:fluxnova_async @linkml:Boolean ?
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:SubProcess ]
+       )
+    } OR @fluxnova_bpmn_model_instance:Transaction
+)
+
+fluxnova_bpm_runtime:Task CLOSED {
+    (  $fluxnova_bpm_runtime:Task_tes (  fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          schema1:name @linkml:String ? ;
+          fluxnova_bpm_runtime:parent_task_id @linkml:String ? ;
+          schema1:description @linkml:String ? ;
+          fluxnova_bpm_runtime:task_definition_key @linkml:String ? ;
+          fluxnova_bpm_runtime:owner @linkml:String ? ;
+          fluxnova_bpm_runtime:assignee @linkml:String ? ;
+          fluxnova_bpm_runtime:delegation_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/DelegationState#PENDING>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/base/DelegationState#RESOLVED> ] ? ;
+          fluxnova_bpm_runtime:priority @linkml:Integer ;
+          fluxnova_bpm_base:create_time @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:last_updated @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:due_date @linkml:Datetime ? ;
+          fluxnova_bpm_runtime:follow_up_date @linkml:Datetime ? ;
+          fluxnova_bpm_repository:suspension_state [ <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/1>
+             <https://w3id.org/TD-Universe/fluxnova-bpm-platform/SuspensionState/2> ] ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_state @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:Task ]
+    )
+}
+
+fluxnova_bpm_base:TaskMeterLog CLOSED {
+    (  $fluxnova_bpm_base:TaskMeterLog_tes (  fluxnova_bpm_base:assignee_hash @linkml:Integer ? ;
+          fluxnova_bpm_base:timestamp @linkml:Datetime ?
+       ) ;
+       rdf:type [ fluxnova_bpm_base:TaskMeterLog ]
+    )
+}
+
+fluxnova_bpm_identity:Tenant CLOSED {
+    (  $fluxnova_bpm_identity:Tenant_tes schema1:name @linkml:String ? ;
+       rdf:type [ fluxnova_bpm_identity:Tenant ]
+    )
+}
+
+fluxnova_bpm_identity:TenantMembership CLOSED {
+    (  $fluxnova_bpm_identity:TenantMembership_tes (  fluxnova_bpm_base:tenant_id @linkml:String ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_identity:group_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:TenantMembership ]
+    )
+}
+
+fluxnova_bpmn_model_instance:TerminateEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:TerminateEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TerminateEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Text CLOSED {
+    (  $fluxnova_bpmn_model_instance:Text_tes (  &fluxnova_bpmn_model_instance:BpmnModelElementInstance_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnModelElementInstance ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Text ] ?
+    )
+}
+
+fluxnova_bpmn_model_instance:TextAnnotation CLOSED {
+    (  $fluxnova_bpmn_model_instance:TextAnnotation_tes (  &fluxnova_bpmn_model_instance:Artifact_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Artifact ] ? ;
+          fluxnova_bpmn_model_instance:text_format @linkml:String ? ;
+          fluxnova_bpmn_model_instance:text @fluxnova_bpmn_model_instance:Text ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TextAnnotation ]
+    )
+}
+
+fluxnova_bpmn_model_instance:ThrowEvent  (
+    CLOSED {
+       (  $fluxnova_bpmn_model_instance:ThrowEvent_tes (  &fluxnova_bpmn_model_instance:Event_tes ;
+             rdf:type [ fluxnova_bpmn_model_instance:Event ] ? ;
+             fluxnova_bpmn_model_instance:data_inputs @fluxnova_bpmn_model_instance:DataInput * ;
+             fluxnova_bpmn_model_instance:data_input_associations @fluxnova_bpmn_model_instance:DataInputAssociation * ;
+             fluxnova_bpmn_model_instance:input_set @fluxnova_bpmn_model_instance:InputSet ? ;
+             fluxnova_bpmn_model_instance:event_definitions @fluxnova_bpmn_model_instance:EventDefinition * ;
+             fluxnova_bpmn_model_instance:event_definition_refs @fluxnova_bpmn_model_instance:EventDefinition *
+          ) ;
+          rdf:type [ fluxnova_bpmn_model_instance:ThrowEvent ]
+       )
+    } OR @fluxnova_bpmn_model_instance:EndEvent OR @fluxnova_bpmn_model_instance:IntermediateThrowEvent
+)
+
+fluxnova_bpmn_model_instance:TimeCycle CLOSED {
+    (  $fluxnova_bpmn_model_instance:TimeCycle_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TimeCycle ]
+    )
+}
+
+fluxnova_bpmn_model_instance:TimeDate CLOSED {
+    (  $fluxnova_bpmn_model_instance:TimeDate_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TimeDate ]
+    )
+}
+
+fluxnova_bpmn_model_instance:TimeDuration CLOSED {
+    (  $fluxnova_bpmn_model_instance:TimeDuration_tes (  &fluxnova_bpmn_model_instance:Expression_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:Expression ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TimeDuration ]
+    )
+}
+
+fluxnova_bpmn_model_instance:TimerEventDefinition CLOSED {
+    (  $fluxnova_bpmn_model_instance:TimerEventDefinition_tes (  &fluxnova_bpmn_model_instance:EventDefinition_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:EventDefinition ] ? ;
+          fluxnova_bpmn_model_instance:time_date @fluxnova_bpmn_model_instance:TimeDate ? ;
+          fluxnova_bpmn_model_instance:time_duration @fluxnova_bpmn_model_instance:TimeDuration ? ;
+          fluxnova_bpmn_model_instance:time_cycle @fluxnova_bpmn_model_instance:TimeCycle ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:TimerEventDefinition ]
+    )
+}
+
+fluxnova_bpmn_model_instance:Transaction CLOSED {
+    (  $fluxnova_bpmn_model_instance:Transaction_tes (  &fluxnova_bpmn_model_instance:SubProcess_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:SubProcess ] ? ;
+          fluxnova_bpmn_model_instance:method @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:Transaction ]
+    )
+}
+
+fluxnova_bpm_identity:User CLOSED {
+    (  $fluxnova_bpm_identity:User_tes (  fluxnova_bpm_identity:first_name @linkml:String ? ;
+          fluxnova_bpm_identity:last_name @linkml:String ? ;
+          fluxnova_bpm_identity:email @linkml:String ? ;
+          fluxnova_bpm_identity:password @linkml:String ? ;
+          fluxnova_bpm_identity:salt @linkml:String ? ;
+          fluxnova_bpm_runtime:lock_expiration_time @linkml:Datetime ? ;
+          fluxnova_bpm_identity:attempts @linkml:Integer ? ;
+          fluxnova_bpm_identity:picture_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_identity:User ]
+    )
+}
+
+fluxnova_bpm_history:UserOperationLogEntry CLOSED {
+    (  $fluxnova_bpm_history:UserOperationLogEntry_tes (  fluxnova_bpm_base:deployment_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_key @linkml:String ? ;
+          fluxnova_bpm_base:root_process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_history:job_id @linkml:String ;
+          fluxnova_bpm_runtime:job_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:batch_id @linkml:String ? ;
+          fluxnova_bpm_identity:user_id @linkml:String ? ;
+          fluxnova_bpm_base:timestamp @linkml:Datetime ;
+          fluxnova_bpm_history:operation_type @linkml:String ? ;
+          fluxnova_bpm_history:operation_id @linkml:String ? ;
+          fluxnova_bpm_history:entity_type @linkml:String ? ;
+          fluxnova_bpm_history:property @linkml:String ? ;
+          fluxnova_bpm_history:original_value @linkml:String ? ;
+          fluxnova_bpm_history:new_value @linkml:String ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ? ;
+          fluxnova_bpm_base:removal_time @linkml:Datetime ? ;
+          fluxnova_common:category @linkml:String ? ;
+          fluxnova_bpm_history:external_task_id @linkml:String ;
+          fluxnova_bpm_runtime:annotation @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_history:UserOperationLogEntry ]
+    )
+}
+
+fluxnova_bpmn_model_instance:UserTask CLOSED {
+    (  $fluxnova_bpmn_model_instance:UserTask_tes (  &fluxnova_bpmn_model_instance:BpmnTask_tes ;
+          rdf:type [ fluxnova_bpmn_model_instance:BpmnTask ] ? ;
+          fluxnova_bpmn_model_instance:implementation @linkml:String ? ;
+          fluxnova_bpmn_model_instance:renderings @fluxnova_bpmn_model_instance:Rendering * ;
+          fluxnova_bpmn_model_instance:fluxnova_assignee @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_groups @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_groups_list @linkml:String * ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_users @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_candidate_users_list @linkml:String * ;
+          fluxnova_bpmn_model_instance:fluxnova_due_date @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_follow_up_date @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_handler_class @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_key @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref_binding @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_form_ref_version @linkml:String ? ;
+          fluxnova_bpmn_model_instance:fluxnova_priority @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_instance:UserTask ]
+    )
+}
+
+fluxnova_bpm_runtime:VariableInstance CLOSED {
+    (  $fluxnova_bpm_runtime:VariableInstance_tes (  fluxnova_common:type @linkml:String ;
+          schema1:name @linkml:String ;
+          fluxnova_bpm_runtime:execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:process_definition_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_execution_id @linkml:String ? ;
+          fluxnova_bpm_runtime:case_instance_id @linkml:String ? ;
+          fluxnova_bpm_runtime:task_id @linkml:String ? ;
+          fluxnova_bpm_runtime:batch_id @linkml:String ? ;
+          fluxnova_bpm_runtime:byte_array_id @linkml:String ? ;
+          fluxnova_bpm_runtime:double_value @linkml:Float ? ;
+          fluxnova_bpm_runtime:long_value @linkml:Integer ? ;
+          fluxnova_bpm_runtime:text_value @linkml:String ? ;
+          fluxnova_bpm_runtime:text2_value @linkml:String ? ;
+          fluxnova_bpm_runtime:variable_scope_id @linkml:String ;
+          fluxnova_bpm_runtime:sequence_counter @linkml:Integer ? ;
+          fluxnova_bpm_runtime:is_concurrent_local @linkml:Boolean ? ;
+          fluxnova_bpm_base:tenant_id @linkml:String ?
+       ) ;
+       rdf:type [ fluxnova_bpm_runtime:VariableInstance ]
+    )
+}
+
+fluxnova_bpmn_model_di:Waypoint CLOSED {
+    (  $fluxnova_bpmn_model_di:Waypoint_tes (  &fluxnova_bpmn_model_dc:Point_tes ;
+          rdf:type [ fluxnova_bpmn_model_dc:Point ] ?
+       ) ;
+       rdf:type [ fluxnova_bpmn_model_di:Waypoint ] ?
+    )
+}

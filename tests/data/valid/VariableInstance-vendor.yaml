@@ -1,0 +1,15 @@
+# Vendor test data derived from MockProvider.java
+# VariableInstance — mirrors MockProvider EXAMPLE_VARIABLE_INSTANCE_* constants
+id: aVariableInstanceId
+type: String
+name: aVariableInstanceName
+execution_id: aVariableInstanceExecutionId
+process_instance_id: aVariableInstanceProcInstId
+process_definition_id: aVariableInstanceProcDefId
+case_execution_id: aVariableInstanceCaseExecutionId
+case_instance_id: aVariableInstanceCaseInstId
+task_id: aVariableInstanceTaskId
+batch_id: aBatchId
+text_value: aVariableInstanceValue
+variable_scope_id: aVariableInstanceExecutionId
+tenant_id: aTenantId

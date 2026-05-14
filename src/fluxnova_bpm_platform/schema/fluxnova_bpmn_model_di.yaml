@@ -1,0 +1,199 @@
+---
+id: https://w3id.org/TD-Universe/fluxnova-bpmn-model/di
+name: fluxnova_bpmn_model_di
+title: Fluxnova BPMN Model – DI (Diagram Interchange)
+description: 'Generic Diagram Interchange (DI) types: shapes, edges, planes, and styles.'
+license: Apache-2.0
+source: https://github.com/finos/fluxnova-bpm-platform/tree/main/model-api/bpmn-model
+see_also:
+  - https://fluxnova.finos.org/
+  - https://docs.fluxnova.finos.org/user-guide/model-api/bpmn-model-api/
+annotations:
+  generated_by: scripts/fluxnova_bpmn_model_to_linkml.py
+  source_root: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn
+  module: di
+  class_count: 12
+  slot_count: 6
+  enum_count: 0
+
+prefixes:
+  fluxnova_bpmn_model_di: https://w3id.org/TD-Universe/fluxnova-bpmn-model/fluxnova_bpmn_model_di/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+  fluxnova: https://fluxnova.finos.org/ns/bpmn/
+default_prefix: fluxnova_bpmn_model_di
+default_range: string
+
+imports:
+  - linkml:types
+  - ./fluxnova_common
+  - ./fluxnova_bpmn_model_dc
+
+slots:
+  documentation:
+    range: string
+    description: Human-readable documentation attached to this element.
+
+  resolution:
+    range: float
+    description: The resolution of this element.
+
+  extension:
+    range: Extension
+    description: Extension element containing additional diagram information.
+
+  waypoints:
+    range: Waypoint
+    multivalued: true
+    inlined_as_list: true
+    description: Ordered list of waypoints defining the visual path of this edge.
+
+  bounds:
+    range: Bounds
+    description: Bounding rectangle giving position and size of this diagram element.
+
+  diagram_elements:
+    range: DiagramElement
+    multivalued: true
+    inlined_as_list: true
+    description: All diagram elements contained within this plane.
+
+classes:
+  Diagram:
+    description: The DI Diagram element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Diagram.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - name
+      - documentation
+      - resolution
+      - id
+
+  DiagramElement:
+    description: The DI DiagramElement element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/DiagramElement.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - id
+      - extension
+
+  Edge:
+    description: The DI Edge element
+    is_a: DiagramElement
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Edge.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - waypoints
+
+  Extension:
+    description: The DI extension element of the DI DiagramElement type
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Extension.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+
+  Label:
+    description: The DI Label element
+    is_a: Node
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Label.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - bounds
+
+  LabeledEdge:
+    description: The DI LabeledEdge element
+    is_a: Edge
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/LabeledEdge.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+
+  LabeledShape:
+    description: The DI LabeledShape element
+    is_a: Shape
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/LabeledShape.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+
+  Node:
+    description: The DI Node element
+    is_a: DiagramElement
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Node.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+
+  Plane:
+    description: The DI Plane element
+    is_a: Node
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Plane.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - diagram_elements
+
+  Shape:
+    description: The DI Shape element
+    is_a: Node
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Shape.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - bounds
+
+  Style:
+    description: The DI Style element
+    is_a: BpmnModelElementInstance
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Style.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model
+    slots:
+      - id
+
+  Waypoint:
+    description: The DI waypoint element of the DI Edge type
+    is_a: Point
+    annotations:
+      java_package: org.finos.fluxnova.bpm.model.bpmn.instance.di
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/instance/di/Waypoint.java
+    in_subset:
+      - di
+      - fluxnova_bpmn_model

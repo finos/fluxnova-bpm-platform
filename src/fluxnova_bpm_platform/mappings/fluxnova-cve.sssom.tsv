@@ -1,0 +1,85 @@
+# mapping_set_id: "https://w3id.org/lmodel/mappings/cve.sssom.tsv"
+# mapping_set_version: "1.0.0"
+# mapping_set_description: "SSSOM mappings extracted from the lmodel cve LinkML schema"
+# license: "https://creativecommons.org/publicdomain/zero/1.0/"
+# creator_id: ["https://w3id.org/lmodel"]
+# mapping_date: "2026-05-14"
+# subject_source: "https://w3id.org/lmodel/cve"
+# curie_map:
+#   WIKIDATA: "https://www.wikidata.org/wiki/"
+#   cve: "https://w3id.org/lmodel/cve/"
+#   cwe: "https://w3id.org/lmodel/cwe/"
+#   dct: "http://purl.org/dc/terms/"
+#   kev_catalog: "https://w3id.org/lmodel/kev-catalog/"
+#   linkml: "https://w3id.org/linkml/"
+#   nvd: "https://w3id.org/lmodel/nist-nvd/"
+#   owl: "http://www.w3.org/2002/07/owl#"
+#   rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+#   rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+#   schema: "http://schema.org/"
+#   semapv: "https://w3id.org/semapv/vocab/"
+#   skos: "http://www.w3.org/2004/02/skos/core#"
+#   xsd: "http://www.w3.org/2001/XMLSchema#"
+
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	mapping_date	author_id	comment
+cve:CVERecord	CVERecord	skos:exactMatch	WIKIDATA:Q631425		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CVERecord	CVERecord	skos:closeMatch	nvd:NVDEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CVERecord	CVERecord	skos:relatedMatch	kev_catalog:KevEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:ProviderMetadata	ProviderMetadata	skos:relatedMatch	nvd:ScoreSource		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:AffectedProduct	AffectedProduct	skos:relatedMatch	kev_catalog:KevEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:ProblemType	ProblemType	skos:closeMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:ProblemType	ProblemType	skos:closeMatch	nvd:NVDWeakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:ProblemTypeDescription	ProblemTypeDescription	skos:closeMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CveReference	CveReference	skos:closeMatch	nvd:NVDReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CveReference	CveReference	skos:relatedMatch	cwe:ExternalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:MetricEntry	MetricEntry	skos:closeMatch	nvd:MetricSet		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CvssV4_0	CvssV4_0	skos:narrowMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CvssV3	CvssV3	skos:narrowMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CvssV2_0	CvssV2_0	skos:narrowMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:TaxonomyMapping	TaxonomyMapping	skos:exactMatch	cwe:TaxonomyMapping		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:TaxonomyRelation	TaxonomyRelation	skos:closeMatch	cwe:Relationship		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CpeApplicabilityElement	CpeApplicabilityElement	skos:closeMatch	nvd:CPEConfiguration		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:CpeMatch	CpeMatch	skos:exactMatch	nvd:CPEMatch		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Vulnerability	Vulnerability	skos:exactMatch	WIKIDATA:Q631425		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Vulnerability	Vulnerability	skos:broadMatch	nvd:NVDEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Vulnerability	Vulnerability	skos:broadMatch	kev_catalog:KevEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Vulnerability	Vulnerability	skos:relatedMatch	schema:SoftwareApplication		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Vulnerability	Vulnerability	skos:relatedMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Product	Product	skos:exactMatch	schema:SoftwareApplication		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Product	Product	skos:relatedMatch	kev_catalog:KevEntry		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Reference	Reference	skos:exactMatch	schema:CreativeWork		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Reference	Reference	skos:closeMatch	cwe:ExternalReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Reference	Reference	skos:closeMatch	nvd:NVDReference		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Weakness	Weakness	skos:closeMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Weakness	Weakness	skos:closeMatch	nvd:NVDWeakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Impact	Impact	skos:closeMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:Configuration	Configuration	skos:closeMatch	nvd:CPEConfiguration		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	class
+cve:cve_id	cve_id	skos:exactMatch	schema:identifier		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:title	title	skos:exactMatch	schema:name		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:title	title	skos:closeMatch	kev_catalog:vulnerability_name		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:description	description	skos:exactMatch	schema:description		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:description	description	skos:closeMatch	kev_catalog:short_description		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:published_date	published_date	skos:relatedMatch	kev_catalog:date_added		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:weaknesses	weaknesses	skos:relatedMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:status	status	skos:closeMatch	nvd:NVDWorkflowStatus		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:cwe_id	cwe_id	skos:relatedMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:severity	severity	skos:closeMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:vector	vector	skos:closeMatch	nvd:CVSSMetric		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:cpe_uri	cpe_uri	skos:relatedMatch	nvd:CPEMatch		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:CVERecord_cve_id	CVERecord_cve_id	skos:exactMatch	schema:identifier		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:ProblemTypeDescription_problem_description	ProblemTypeDescription_problem_description	skos:closeMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:ProblemTypeDescription_cwe_id	ProblemTypeDescription_cwe_id	skos:relatedMatch	cwe:Weakness		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:Vulnerability_cve_id	Vulnerability_cve_id	skos:exactMatch	schema:identifier		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:Vulnerability_description	Vulnerability_description	skos:exactMatch	schema:description		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:Vulnerability_description	Vulnerability_description	skos:closeMatch	kev_catalog:short_description		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	slot
+cve:CveId	CveId	skos:exactMatch	cwe:CveId		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:string	string	skos:exactMatch	schema:Text		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:integer	integer	skos:exactMatch	schema:Integer		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:boolean	boolean	skos:exactMatch	schema:Boolean		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:float	float	skos:exactMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:double	double	skos:closeMatch	schema:Float		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:decimal	decimal	skos:broadMatch	schema:Number		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:time	time	skos:exactMatch	schema:Time		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:date	date	skos:exactMatch	schema:Date		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:datetime	datetime	skos:exactMatch	schema:DateTime		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
+cve:uri	uri	skos:closeMatch	schema:URL		semapv:ManualMappingCuration	2026-05-14	https://w3id.org/lmodel	type
