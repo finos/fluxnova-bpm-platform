@@ -29,6 +29,7 @@ import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.batch.Batch;
 import org.finos.fluxnova.bpm.engine.form.FormData;
 import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstanceQuery;
+import org.finos.fluxnova.bpm.engine.impl.cmd.CompleteAdHocSubProcessCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.CreateIncidentCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteProcessInstanceCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteProcessInstancesCmd;
@@ -45,6 +46,7 @@ import org.finos.fluxnova.bpm.engine.impl.cmd.ResolveIncidentCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.SetAnnotationForIncidentCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.SetExecutionVariablesCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.SignalCmd;
+import org.finos.fluxnova.bpm.engine.impl.cmd.TriggerAdHocActivitiesCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.batch.DeleteProcessInstanceBatchCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.batch.variables.SetVariablesToProcessInstancesBatchCmd;
 import org.finos.fluxnova.bpm.engine.impl.migration.MigrationPlanBuilderImpl;
@@ -541,6 +543,23 @@ public class RuntimeServiceImpl extends ServiceImpl implements RuntimeService {
   @Override
   public void signal(String executionId, Map<String, Object> processVariables) {
     commandExecutor.execute(new SignalCmd(executionId, null, null, processVariables));
+  }
+
+  @Override
+  public void triggerAdHocActivities(String executionId,
+                                     Collection<String> activityIds,
+                                     Map<String, Map<String, Object>> activityVariables) {
+    commandExecutor.execute(new TriggerAdHocActivitiesCmd(executionId, activityIds, activityVariables));
+  }
+
+  @Override
+  public void completeAdHocSubProcess(String executionId) {
+    completeAdHocSubProcess(executionId, null);
+  }
+
+  @Override
+  public void completeAdHocSubProcess(String executionId, Map<String, Object> variables) {
+    commandExecutor.execute(new CompleteAdHocSubProcessCmd(executionId, variables));
   }
 
   @Override
