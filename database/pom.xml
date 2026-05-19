@@ -28,7 +28,7 @@
     <version.liquibase>4.8.0</version.liquibase>
 
     <!-- needed for sql script and backward compatibility checks -->
-    <camunda.version.old>1.0.0</camunda.version.old>
+    <fluxnova.version.old>1.0.0</fluxnova.version.old>
 
     <!-- Testcontainers JDBC URL parameters. By default, an empty string -->
     <database.tc.params />
