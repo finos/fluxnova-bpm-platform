@@ -68,7 +68,7 @@ server:
 # do not use the provided certificate in production
   ssl:
     key-store: classpath:keystore.p12
-    key-store-password: camunda
+    key-store-password: ${KEY_STORE_PASSWORD}
     key-store-type: pkcs12
     key-alias: camunda
     key-password: camunda
