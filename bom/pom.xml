@@ -17,5 +17,8 @@
     <module>fluxnova-only-bom</module>
     <module>fluxnova-bom</module>
   </modules>
+  <properties>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
 </project>

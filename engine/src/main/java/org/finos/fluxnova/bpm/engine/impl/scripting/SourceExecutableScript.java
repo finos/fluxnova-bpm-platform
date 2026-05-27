@@ -16,12 +16,15 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.scripting;
 
+import java.util.Objects;
+
 import javax.script.Bindings;
 import javax.script.Compilable;
 import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.finos.fluxnova.bpm.engine.ScriptCompilationException;
 import org.finos.fluxnova.bpm.engine.ScriptEvaluationException;
 import org.finos.fluxnova.bpm.engine.delegate.BpmnError;
@@ -44,7 +47,12 @@ public class SourceExecutableScript extends CompiledExecutableScript {
   protected String scriptSource;
 
   /** Flag to signal if the script should be compiled */
-  protected boolean shouldBeCompiled = true;
+  protected volatile boolean shouldBeCompiled = true;
+
+  /** Digest of the processed script source used to produce the current {@link #compiledScript}.
+   * A {@code null} value indicates no compiled artifact is present.
+   */
+  protected volatile String compiledScriptSourceDigest;
 
   public SourceExecutableScript(String language, String source) {
     super(language);
@@ -53,16 +61,34 @@ public class SourceExecutableScript extends CompiledExecutableScript {
 
   @Override
   public Object evaluate(ScriptEngine engine, VariableScope variableScope, Bindings bindings) {
-    if (shouldBeCompiled) {
-      compileScript(engine);
+    String processedScript = preprocessScript(scriptSource, variableScope);
+    String processedScriptDigest = null;
+    CompiledScript compiledScriptToEvaluate;
+
+    synchronized (this) {
+      boolean hasCompiledScript = compiledScript != null;
+
+      if (hasCompiledScript || shouldBeCompiled) {
+        processedScriptDigest = computeScriptDigest(processedScript);
+      }
+
+      if (hasCompiledScript && !Objects.equals(compiledScriptSourceDigest, processedScriptDigest)) {
+        invalidateCompiledScript();
+      }
+
+      if (shouldBeCompiled) {
+        compileScript(engine, processedScript);
+      }
+
+      compiledScriptToEvaluate = compiledScript;
     }
 
-    if (getCompiledScript() != null) {
-      return super.evaluate(engine, variableScope, bindings);
+    if (compiledScriptToEvaluate != null) {
+      return evaluateCompiledScript(compiledScriptToEvaluate, variableScope, bindings);
     }
     else {
       try {
-        return evaluateScript(engine, bindings);
+        return evaluateScript(engine, processedScript, bindings);
       } catch (ScriptException e) {
         if (e.getCause() instanceof BpmnError) {
           throw (BpmnError) e.getCause();
@@ -73,7 +99,7 @@ public class SourceExecutableScript extends CompiledExecutableScript {
     }
   }
 
-  protected void compileScript(ScriptEngine engine) {
+  protected void compileScript(ScriptEngine engine, String processedScript) {
     ProcessEngineConfigurationImpl processEngineConfiguration = Context.getProcessEngineConfiguration();
     if (processEngineConfiguration.isEnableScriptEngineCaching() && processEngineConfiguration.isEnableScriptCompilation()) {
 
@@ -81,7 +107,8 @@ public class SourceExecutableScript extends CompiledExecutableScript {
         synchronized (this) {
           if (getCompiledScript() == null && shouldBeCompiled) {
             // try to compile script
-            compiledScript = compile(engine, language, scriptSource);
+            compiledScript = compile(engine, language, processedScript);
+            compiledScriptSourceDigest = compiledScript != null ? computeScriptDigest(processedScript) : null;
 
             // either the script was successfully compiled or it can't be
             // compiled but we won't try it again
@@ -120,9 +147,9 @@ public class SourceExecutableScript extends CompiledExecutableScript {
 
   }
 
-  protected Object evaluateScript(ScriptEngine engine, Bindings bindings) throws ScriptException {
-    LOG.debugEvaluatingNonCompiledScript(scriptSource);
-    return engine.eval(scriptSource, bindings);
+  protected Object evaluateScript(ScriptEngine engine, String processedScript, Bindings bindings) throws ScriptException {
+    LOG.debugEvaluatingNonCompiledScript(processedScript);
+    return engine.eval(processedScript, bindings);
   }
 
   public String getScriptSource() {
@@ -135,14 +162,38 @@ public class SourceExecutableScript extends CompiledExecutableScript {
    * @param scriptSource
    *          the new script source code
    */
-  public void setScriptSource(String scriptSource) {
-    this.compiledScript = null;
-    shouldBeCompiled = true;
+  public synchronized void setScriptSource(String scriptSource) {
+    invalidateCompiledScript();
     this.scriptSource = scriptSource;
+  }
+
+  /**
+   * Invalidates all cached compilation state for this script instance.
+   *
+   * <p>This method clears the currently cached compiled artifact and its
+   * associated source digest, and marks the script as eligible for compilation
+   * on the next evaluation. The method is synchronized to guarantee that cache
+   * reset is applied atomically with respect to concurrent evaluation and source
+   * updates.</p>
+   */
+  protected synchronized void invalidateCompiledScript() {
+    this.compiledScript = null;
+    this.compiledScriptSourceDigest = null;
+    this.shouldBeCompiled = true;
   }
 
   public boolean isShouldBeCompiled() {
     return shouldBeCompiled;
+  }
+
+  /**
+   * Computes a collision-resistant SHA-256 digest of the given script text.
+   *
+   * @param scriptText the script text to digest
+   * @return the hex-encoded SHA-256 digest, or {@code null} if {@code scriptText} is {@code null}
+   */
+  private String computeScriptDigest(String scriptText) {
+    return scriptText != null ? DigestUtils.sha256Hex(scriptText) : null;
   }
 
 }
