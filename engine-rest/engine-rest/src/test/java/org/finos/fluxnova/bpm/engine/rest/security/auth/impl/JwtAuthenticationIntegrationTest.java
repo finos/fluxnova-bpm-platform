@@ -99,7 +99,7 @@ public class JwtAuthenticationIntegrationTest {
         buildInMemoryProcessor(),
         "https://login.microsoftonline.com/tenant-id/v2.0",
         "app-client-id",
-        "Authorization", "Bearer", "preferred_username", "roles"
+        "Authorization", "Bearer ", "preferred_username", "roles"
     );
     String token = createJWT(
         "https://login.microsoftonline.com/tenant-id/v2.0",
@@ -210,7 +210,7 @@ public class JwtAuthenticationIntegrationTest {
     return new JwtAuthenticationProvider(
         buildInMemoryProcessor(),
         MOCK_ISSUER, MOCK_AUDIENCE,
-        "Authorization", "Bearer", userClaim, groupsClaim
+        "Authorization", "Bearer ", userClaim, groupsClaim
     );
   }
 

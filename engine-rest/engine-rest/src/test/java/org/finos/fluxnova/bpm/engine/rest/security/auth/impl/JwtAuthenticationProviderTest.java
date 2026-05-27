@@ -147,17 +147,25 @@ public class JwtAuthenticationProviderTest {
     when(request.getHeader("X-Auth-Token")).thenReturn("CustomPrefix mytoken");
     JwtAuthenticationProvider provider = new JwtAuthenticationProvider(
         TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
-        "X-Auth-Token", "CustomPrefix", "sub", null
+        "X-Auth-Token", "CustomPrefix ", "sub", null
     );
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
     assertFalse(result.isAuthenticated());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testPrefixWithoutSpaceThrowsError() {
+    new JwtAuthenticationProvider(
+        TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
+        "Authorization", "Bearer", "sub", null
+    );
   }
 
 
   private JwtAuthenticationProvider createProvider() {
     return new JwtAuthenticationProvider(
         TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
-        "Authorization", "Bearer", "sub", null
+        "Authorization", "Bearer ", "sub", null
     );
   }
 
@@ -174,7 +182,7 @@ public class JwtAuthenticationProviderTest {
     processor.setJWSKeySelector(new JWSVerificationKeySelector<>(algorithms, jwkSource));
 
     return new JwtAuthenticationProvider(processor, TEST_ISSUER, TEST_AUDIENCE,
-        "Authorization", "Bearer", userClaim, groupsClaim);
+        "Authorization", "Bearer ", userClaim, groupsClaim);
   }
 
   private String createSignedJWT(Date expiration, List<String> groups) throws Exception {

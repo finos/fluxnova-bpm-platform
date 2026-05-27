@@ -199,18 +199,25 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
   }
 
   /**
-   * Normalizes the token prefix to ensure proper spacing.
-   * - Empty string or null: returns empty string (no prefix)
-   * - Non-empty prefix without trailing space: adds space automatically
-   * - Prefix already has trailing space: returns as-is
-   * This prevents configuration errors where users forget the space after "Bearer"
+   * Validates and normalizes the token prefix.
+   * - Empty string: returns empty string (no prefix expected)
+   * - Null: returns empty string (no prefix expected)
+   * - Non-empty: must end with space, otherwise throws IllegalArgumentException
+   * 
+   * @param prefix the configured token prefix
+   * @return normalized prefix
+   * @throws IllegalArgumentException if prefix format is invalid
    */
   private static String normalizePrefix(String prefix) {
     if (prefix == null || prefix.isEmpty()) {
       return "";
     }
     if (!prefix.endsWith(" ")) {
-      return prefix + " ";
+      throw new IllegalArgumentException(
+        "Invalid token prefix configuration: '" + prefix + "'. " +
+        "Prefix must end with a space (e.g., 'Bearer ', not 'Bearer'). " +
+        "Use empty string for no prefix."
+      );
     }
     return prefix;
   }
