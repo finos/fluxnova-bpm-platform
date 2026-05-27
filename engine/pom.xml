@@ -718,7 +718,7 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>clirr-maven-plugin</artifactId>
             <configuration>
-              <comparisonVersion>${camunda.version.old}</comparisonVersion>
+              <comparisonVersion>${fluxnova.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
                 <exclude>org/finos/fluxnova/bpm/*/impl/**</exclude>

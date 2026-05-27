@@ -56,36 +56,13 @@ module.exports = [
             $scope.onSearchChange = updateView;
             $scope.onSortChange = updateView;
 
+            // prettier-ignore
             $scope.headColumns = [
-              {
-                class: 'state',
-                request: 'state',
-                sortable: false,
-                content: $translate.instant('PLUGIN_PROCESS_INSTANCE_STATE')
-              },
-              {
-                class: 'instance-id',
-                request: 'instanceId',
-                sortable: false,
-                content: $translate.instant('PLUGIN_PROCESS_INSTANCE_ID')
-              },
-              {
-                class: 'start-time',
-                request: 'startTime',
-                sortable: true,
-                content: $translate.instant(
-                  'PLUGIN_PROCESS_INSTANCE_START_TIME'
-                )
-              },
-              {
-                class: 'business-key',
-                request: 'businessKey',
-                sortable: false,
-                content: $translate.instant(
-                  'PLUGIN_PROCESS_INSTANCE_BUSINESS_KEY'
-                )
-              }
-            ];
+          { class: 'state',        request: 'state',       sortable: false, content: $translate.instant('PLUGIN_PROCESS_INSTANCE_STATE')},
+          { class: 'instance-id',  request: 'instanceId',  sortable: false, content: $translate.instant('PLUGIN_PROCESS_INSTANCE_ID')},
+          { class: 'start-time',   request: 'startTime',   sortable: true,  content: $translate.instant('PLUGIN_PROCESS_INSTANCE_START_TIME')},
+          { class: 'business-key', request: 'businessKey', sortable: false, content: $translate.instant('PLUGIN_PROCESS_INSTANCE_BUSINESS_KEY')}
+        ];
 
             // Default sorting
             var defaultValue = {sortBy: 'startTime', sortOrder: 'desc'};
