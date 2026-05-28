@@ -41,6 +41,7 @@ public abstract class DynamicExecutableScript extends ExecutableScript {
 
   public Object evaluate(ScriptEngine scriptEngine, VariableScope variableScope, Bindings bindings) {
     String source = getScriptSource(variableScope);
+    source = preprocessScript(source, variableScope);
     try {
       return scriptEngine.eval(source, bindings);
     }
