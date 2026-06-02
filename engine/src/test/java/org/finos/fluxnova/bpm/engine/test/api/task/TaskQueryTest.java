@@ -5334,6 +5334,44 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
   }
 
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/task/oneTaskWithInvalidFormKeyExpressionProcess.bpmn20.xml"})
+  @Test
+  public void testInitializeFormKeyWithInvalidExpressionReturnsNullForSingleTask() {
+    // given: a process with a formKey expression that references a non-existent variable
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+
+    // when: retrieving the single task with initializeFormKeys()
+    Task task = taskService.createTaskQuery()
+            .processInstanceId(processInstance.getId())
+            .initializeFormKeys()
+            .singleResult();
+
+    // then: the task is returned successfully and formKey is null instead of throwing
+    assertNotNull(task);
+    assertNull("Form key should be null when expression evaluation fails", task.getFormKey());
+  }
+
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/task/oneTaskWithInvalidFormKeyExpressionProcess.bpmn20.xml"})
+  @Test
+  public void testInitializeFormKeyWithInvalidExpressionDoesNotBlockTaskListRetrieval() {
+    // given: multiple process instances whose formKey expression will fail to evaluate
+    runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+    runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+
+    // when: retrieving all tasks with initializeFormKeys()
+    List<Task> tasks = taskService.createTaskQuery()
+            .processDefinitionKey("invalidFormKeyExpressionProcess")
+            .initializeFormKeys()
+            .list();
+
+    // then: all tasks are returned and each has a null formKey — no exception is propagated
+    assertNotNull(tasks);
+    assertEquals("All tasks should be returned despite invalid form key expressions", 2, tasks.size());
+    for (Task task : tasks) {
+      assertNull("Form key should be null when expression evaluation fails", task.getFormKey());
+    }
+  }
+
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/task/TaskQueryTest.testProcessDefinition.bpmn20.xml")
   @Test
   public void testQueryOrderByProcessVariableInteger() {
