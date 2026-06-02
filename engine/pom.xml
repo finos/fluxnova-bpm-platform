@@ -116,6 +116,12 @@
       <artifactId>gson</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.15</version>
+    </dependency>
+
     <!-- provided dependencies -->
 
     <dependency>
@@ -718,7 +724,7 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>clirr-maven-plugin</artifactId>
             <configuration>
-              <comparisonVersion>${camunda.version.old}</comparisonVersion>
+              <comparisonVersion>${fluxnova.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
                 <exclude>org/finos/fluxnova/bpm/*/impl/**</exclude>

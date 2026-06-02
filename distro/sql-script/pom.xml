@@ -127,7 +127,7 @@
             </goals>
             <configuration>
               <propertyPrefix>camunda.old</propertyPrefix>
-              <versionString>${camunda.version.old}</versionString>
+              <versionString>${fluxnova.version.old}</versionString>
             </configuration>
           </execution>
         </executions>
@@ -422,7 +422,7 @@
                     <artifactItem>
                       <groupId>org.finos.fluxnova.bpm.distro</groupId>
                       <artifactId>fluxnova-sql-scripts</artifactId>
-                      <version>${camunda.version.old}</version>
+                      <version>${fluxnova.version.old}</version>
                       <outputDirectory>${project.build.directory}/test-classes/scripts-old</outputDirectory>
                       <overWrite>true</overWrite>
                     </artifactItem>
