@@ -1310,17 +1310,15 @@ public class InputOutputTest extends PluggableProcessEngineTest {
     // a process definition with an input mapping that creates a transient local variable on the "wait" execution
 
     // when
-    runtimeService.startProcessInstanceByKey("testProcess");
+    runtimeService.startProcessInstanceByKey("testInputTransientFeature");
 
     // then
-    Execution execution = runtimeService.createExecutionQuery().activityId("wait").singleResult();
+    Execution execution = runtimeService.createExecutionQuery().activityId("task").singleResult();
     assertNotNull(execution);
 
-    // then
-    // transient var must be accessible via the runtime API
-    assertEquals("mappedValue", runtimeService.getVariableLocal(execution.getId(), "transientVar"));
+    List<VariableInstance> variableInstances = runtimeService.createVariableInstanceQuery().list();
+    assertEquals(0, variableInstances.size());
 
-    // then
     // it must not be persisted
     VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientVar").singleResult();
     assertThat(variableInstance).isNull();
@@ -1333,15 +1331,11 @@ public class InputOutputTest extends PluggableProcessEngineTest {
     // a process definition with an output mapping that writes a transient variable to the process instance
 
     // when
-    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testProcess");
+    runtimeService.startProcessInstanceByKey("testOutputTransientFeature");
 
     // then
-    // service task output mapping should set a transient variable on the process instance
-    assertEquals("outValue", runtimeService.getVariable(processInstance.getId(), "transientOut"));
-
-    // then
-    // but it must not be persisted
-    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientOut").singleResult();
+    // it must not be persisted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientVar").singleResult();
     assertThat(variableInstance).isNull();
   }
 

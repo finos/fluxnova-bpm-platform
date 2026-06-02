@@ -79,7 +79,7 @@ public class FluxnovaOutputParameterImpl extends FluxnovaGenericValueElementImpl
     return camundaOutputTransientAttribute.getValue(this);
   }
 
-  public void setFluxnovaOutputTransient(Boolean transientFlag) {
+  public void setFluxnovaOutputTransient(boolean transientFlag) {
     camundaOutputTransientAttribute.setValue(this, transientFlag);
   }
 }

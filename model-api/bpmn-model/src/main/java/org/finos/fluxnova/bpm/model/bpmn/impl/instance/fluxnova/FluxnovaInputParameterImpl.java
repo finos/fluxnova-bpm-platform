@@ -77,7 +77,7 @@ public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl 
     return camundaInputTransientAttribute.getValue(this);
   }
 
-  public void setFluxnovaInputTransient(Boolean transientFlag) {
+  public void setFluxnovaInputTransient(boolean transientFlag) {
     camundaInputTransientAttribute.setValue(this, transientFlag);
   }
 
