@@ -16,6 +16,7 @@
   <name>Fluxnova Platform - webapp - webjar</name>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <skipTests>true</skipTests>
   </properties>
 
@@ -102,6 +103,7 @@
     <profile>
       <id>skipFrontendBuild</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <skip.frontend.build>true</skip.frontend.build>
       </properties>
     </profile>

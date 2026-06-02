@@ -347,6 +347,8 @@ import org.finos.fluxnova.bpm.engine.impl.scripting.engine.ScriptingEngines;
 import org.finos.fluxnova.bpm.engine.impl.scripting.engine.VariableScopeResolverFactory;
 import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptEnvResolver;
 import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptingEnvironment;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.CompositeScriptPreprocessor;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessor;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.DatabaseImpl;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.InternalsImpl;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.JdkImpl;
@@ -608,6 +610,10 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected boolean enableScriptEngineNashornCompatibility = false;
   protected boolean configureScriptEngineHostAccess = true;
   protected boolean skipIsolationLevelCheck = false;
+  private volatile boolean enableScriptPreprocessing = false;
+  private volatile List<ScriptPreprocessor> scriptPreprocessors;
+  private volatile ScriptPreprocessor effectiveScriptPreprocessor;
+  private final Object scriptPreprocessorLock = new Object();
 
   /**
    * When set to false, the following behavior changes:
@@ -4266,6 +4272,50 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     this.scriptFactory = scriptFactory;
   }
 
+  /**
+   * @return whether script preprocessing is enabled for script execution.
+   */
+  public boolean isEnableScriptPreprocessing() {
+    return enableScriptPreprocessing;
+  }
+
+  /**
+   * Enables/disables script preprocessing and resets the cached effective preprocessor.
+   */
+  public void setEnableScriptPreprocessing(boolean enableScriptPreprocessing) {
+    synchronized (scriptPreprocessorLock) {
+      this.enableScriptPreprocessing = enableScriptPreprocessing;
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+  /**
+   * @return a copy of configured preprocessors, or {@code null} when none are configured.
+   */
+  public List<ScriptPreprocessor> getScriptPreprocessors() {
+    synchronized (scriptPreprocessorLock) {
+      if (scriptPreprocessors == null) {
+        return null;
+      }
+      return new ArrayList<>(scriptPreprocessors);
+    }
+  }
+
+  /**
+   * Replaces configured preprocessors and resets the cached effective preprocessor.
+   */
+  public void setScriptPreprocessors(List<ScriptPreprocessor> scriptPreprocessors) {
+    synchronized (scriptPreprocessorLock) {
+      if (scriptPreprocessors == null) {
+        this.scriptPreprocessors = null;
+      } else {
+        this.scriptPreprocessors = new ArrayList<>(scriptPreprocessors);
+      }
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+
   public ScriptEngineResolver getScriptEngineResolver() {
     return scriptEngineResolver;
   }
@@ -5329,5 +5379,57 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   public ProcessEngineConfiguration setLegacyJobRetryBehaviorEnabled(boolean legacyJobRetryBehaviorEnabled) {
     this.legacyJobRetryBehaviorEnabled = legacyJobRetryBehaviorEnabled;
     return this;
+  }
+
+  /**
+   * Adds a preprocessor to the configured chain and invalidates the cached effective preprocessor.
+   */
+  public void addScriptPreprocessor(ScriptPreprocessor scriptPreprocessor) {
+    if (scriptPreprocessor == null) {
+      return;
+    }
+    synchronized (scriptPreprocessorLock) {
+      List<ScriptPreprocessor> updatedScriptPreprocessors = this.scriptPreprocessors == null
+          ? new ArrayList<>()
+          : new ArrayList<>(this.scriptPreprocessors);
+      updatedScriptPreprocessors.add(scriptPreprocessor);
+      this.scriptPreprocessors = updatedScriptPreprocessors;
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+  /**
+   * Returns the effective preprocessor for runtime use.
+   *
+   * @return {@code null} when preprocessing is disabled or no preprocessors are configured.
+   */
+  public ScriptPreprocessor getEffectiveScriptPreprocessor() {
+    if (!enableScriptPreprocessing) {
+      return null;
+    }
+    ScriptPreprocessor cached = effectiveScriptPreprocessor;
+    if (cached != null) {
+      return cached;
+    }
+
+    synchronized (scriptPreprocessorLock) {
+      if (!enableScriptPreprocessing) {
+        return null;
+      }
+
+      if (effectiveScriptPreprocessor == null) {
+        List<ScriptPreprocessor> configuredScriptPreprocessors = scriptPreprocessors;
+        if (configuredScriptPreprocessors == null || configuredScriptPreprocessors.isEmpty()) {
+          return null;
+        }
+
+        if (configuredScriptPreprocessors.size() == 1) {
+          effectiveScriptPreprocessor = configuredScriptPreprocessors.get(0);
+        } else {
+          effectiveScriptPreprocessor = new CompositeScriptPreprocessor(new ArrayList<>(configuredScriptPreprocessors));
+        }
+      }
+      return effectiveScriptPreprocessor;
+    }
   }
 }

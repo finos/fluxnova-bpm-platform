@@ -13,6 +13,7 @@
   </parent>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <cargo.timeout>120000</cargo.timeout>
     <cargo.deploy.timeout>60000</cargo.deploy.timeout>
 
@@ -207,6 +208,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>win32</os.type>
       </properties>
     </profile>
@@ -220,6 +222,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>win64</os.type>
       </properties>
     </profile>
@@ -233,6 +236,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>mac-x64</os.type>
       </properties>
     </profile>
@@ -246,6 +250,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>mac-arm64</os.type>
       </properties>
     </profile>
