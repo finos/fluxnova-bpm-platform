@@ -176,9 +176,22 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   public B fluxnovaIn(String source, String target) {
+    return fluxnovaIn(source, target, false);
+  }
+
+  /**
+   * Sets a "camunda in" parameter to pass a variable from the super process instance to the sub process instance
+   *
+   * @param source the name of variable in the super process instance
+   * @param target the name of the variable in the sub process instance
+   * @param restricted whether the variable should be restricted
+   * @return the builder object
+   */
+  public B fluxnovaIn(String source, String target, boolean restricted) {
     FluxnovaIn param = modelInstance.newInstance(FluxnovaIn.class);
     param.setFluxnovaSource(source);
     param.setFluxnovaTarget(target);
+    param.setFluxnovaRestricted(restricted);
     addExtensionElement(param);
     return myself;
   }
@@ -191,9 +204,22 @@ public class AbstractCallActivityBuilder<B extends AbstractCallActivityBuilder<B
    * @return the builder object
    */
   public B fluxnovaOut(String source, String target) {
+    return fluxnovaOut(source, target, false);
+  }
+
+  /**
+   * Sets a "camunda out" parameter to pass a variable from a sub process instance to the super process instance
+   *
+   * @param source the name of variable in the sub process instance
+   * @param target the name of the variable in the super process instance
+   * @param restricted whether the variable should be restricted
+   * @return the builder object
+   */
+  public B fluxnovaOut(String source, String target, boolean restricted) {
     FluxnovaOut param = modelInstance.newInstance(FluxnovaOut.class);
     param.setFluxnovaSource(source);
     param.setFluxnovaTarget(target);
+    param.setFluxnovaRestricted(restricted);
     addExtensionElement(param);
     return myself;
   }

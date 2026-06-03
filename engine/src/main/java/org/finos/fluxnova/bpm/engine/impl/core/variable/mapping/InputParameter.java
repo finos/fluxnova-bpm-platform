@@ -19,6 +19,8 @@ package org.finos.fluxnova.bpm.engine.impl.core.variable.mapping;
 import org.finos.fluxnova.bpm.engine.impl.core.CoreLogger;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.mapping.value.ParameterValueProvider;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 
 /**
  *
@@ -43,12 +45,14 @@ public class InputParameter extends IoParameter {
   protected void execute(AbstractVariableScope innerScope, AbstractVariableScope outerScope) {
 
     // get value from outer scope
-    Object value = valueProvider.getValue(outerScope);
+    final Object[] holder = new Object[1];
+    InternalVariableContext.executeAsInternalRead(() -> holder[0] = valueProvider.getValue(outerScope));
+    Object value = holder[0];
 
     LOG.debugMappingValueFromOuterScopeToInnerScope(value,outerScope, name, innerScope);
 
     // set variable in inner scope
-    innerScope.setVariableLocal(name, value);
+    innerScope.setVariableLocal(name, value, VariableOptions.options(false, restricted));
   }
 
 }

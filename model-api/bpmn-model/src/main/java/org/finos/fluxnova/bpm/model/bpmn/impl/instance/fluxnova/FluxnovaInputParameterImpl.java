@@ -17,6 +17,7 @@
 package org.finos.fluxnova.bpm.model.bpmn.impl.instance.fluxnova;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_NAME;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_RESTRICTED;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ELEMENT_INPUT_PARAMETER;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 
@@ -35,6 +36,7 @@ import org.finos.fluxnova.bpm.model.xml.type.attribute.Attribute;
 public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl implements FluxnovaInputParameter {
 
   protected static Attribute<String> camundaNameAttribute;
+  protected static Attribute<Boolean> camundaRestrictedAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FluxnovaInputParameter.class, CAMUNDA_ELEMENT_INPUT_PARAMETER)
@@ -50,6 +52,10 @@ public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl 
       .required()
       .build();
 
+    camundaRestrictedAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_RESTRICTED)
+      .namespace(CAMUNDA_NS)
+      .build();
+
     typeBuilder.build();
   }
 
@@ -63,6 +69,14 @@ public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl 
 
   public void setFluxnovaName(String camundaName) {
     camundaNameAttribute.setValue(this, camundaName);
+  }
+
+  public boolean getFluxnovaRestricted() {
+    return camundaRestrictedAttribute.getValue(this);
+  }
+
+  public void setFluxnovaRestricted(boolean camundaRestricted) {
+    camundaRestrictedAttribute.setValue(this, camundaRestricted);
   }
 
 }

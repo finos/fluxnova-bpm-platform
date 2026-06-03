@@ -970,14 +970,39 @@ public class ProcessBuilderTest {
     FluxnovaIn camundaIn = (FluxnovaIn) callActivity.getExtensionElements().getUniqueChildElementByType(FluxnovaIn.class);
     assertThat(camundaIn.getFluxnovaSource()).isEqualTo("in-source");
     assertThat(camundaIn.getFluxnovaTarget()).isEqualTo("in-target");
+    assertThat(camundaIn.getFluxnovaRestricted()).isFalse();
 
     FluxnovaOut camundaOut = (FluxnovaOut) callActivity.getExtensionElements().getUniqueChildElementByType(FluxnovaOut.class);
     assertThat(camundaOut.getFluxnovaSource()).isEqualTo("out-source");
     assertThat(camundaOut.getFluxnovaTarget()).isEqualTo("out-target");
+    assertThat(camundaOut.getFluxnovaRestricted()).isFalse();
 
     assertThat(callActivity.getFluxnovaVariableMappingClass()).isEqualTo(TEST_CLASS_API);
     assertThat(callActivity.getFluxnovaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
     assertFluxnovaFailedJobRetryTimeCycle(callActivity);
+  }
+
+  @Test
+  public void testCallActivityFluxnovaExtensionWithRestrictedFlag() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .callActivity(CALL_ACTIVITY_ID)
+        .fluxnovaIn("in-source", "in-target", true)
+        .fluxnovaOut("out-source", "out-target", true)
+      .endEvent()
+      .done();
+
+    CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
+
+    FluxnovaIn camundaIn = (FluxnovaIn) callActivity.getExtensionElements().getUniqueChildElementByType(FluxnovaIn.class);
+    assertThat(camundaIn.getFluxnovaSource()).isEqualTo("in-source");
+    assertThat(camundaIn.getFluxnovaTarget()).isEqualTo("in-target");
+    assertThat(camundaIn.getFluxnovaRestricted()).isTrue();
+
+    FluxnovaOut camundaOut = (FluxnovaOut) callActivity.getExtensionElements().getUniqueChildElementByType(FluxnovaOut.class);
+    assertThat(camundaOut.getFluxnovaSource()).isEqualTo("out-source");
+    assertThat(camundaOut.getFluxnovaTarget()).isEqualTo("out-target");
+    assertThat(camundaOut.getFluxnovaRestricted()).isTrue();
   }
 
   @Test

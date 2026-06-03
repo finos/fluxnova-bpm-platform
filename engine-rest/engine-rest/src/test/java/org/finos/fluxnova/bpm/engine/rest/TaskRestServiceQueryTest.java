@@ -411,7 +411,7 @@ public class TaskRestServiceQueryTest extends AbstractRestServiceTest {
     .expect().statusCode(Status.OK.getStatusCode())
     .when().get(TASK_QUERY_URL);
 
-    verify(mockQuery).initializeFormKeys(true);
+    verify(mockQuery).initializeFormKeys();
     verify(mockQuery).list();
     verifyNoMoreInteractions(mockQuery);
   }

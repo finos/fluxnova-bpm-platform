@@ -32,10 +32,13 @@ import org.finos.fluxnova.bpm.engine.impl.db.HistoricEntity;
 import org.finos.fluxnova.bpm.engine.impl.history.event.HistoricVariableUpdateEventEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.util.ByteArrayField;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.util.TypedValueField;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptorUtil;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.ValueFields;
 import org.finos.fluxnova.bpm.engine.repository.ResourceTypes;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.AbstractTypedValue;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.FileValueImpl;
 
 /**
  * @author Christian Lipphardt (camunda)
@@ -71,6 +74,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
   protected String textValue;
   protected String textValue2;
 
+  protected boolean restricted;
   protected String state = "CREATED";
 
   protected Date removalTime;
@@ -107,6 +111,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
     this.createTime = historyEvent.getTimestamp();
     this.rootProcessInstanceId = historyEvent.getRootProcessInstanceId();
     this.removalTime = historyEvent.getRemovalTime();
+    this.restricted = historyEvent.isRestricted();
 
     setSerializerName(historyEvent.getSerializerName());
 
@@ -140,6 +145,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
     state.add(processDefinitionId);
     state.add(processDefinitionKey);
     state.add(getByteArrayId());
+    state.add(restricted);
     return state;
   }
 
@@ -152,11 +158,24 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
   }
 
   public TypedValue getTypedValue() {
-    return typedValueField.getTypedValue(false);
+    return getTypedValue(true);
   }
 
   public TypedValue getTypedValue(boolean deserializeValue) {
-    return typedValueField.getTypedValue(deserializeValue, false);
+    TypedValue tv = typedValueField.getTypedValue(deserializeValue, false);
+    if (restricted) {
+      applyRestricted(tv);
+    }
+
+    return VariableInterceptorUtil.interceptGetHistoricVariable(this, tv);
+  }
+
+  protected void applyRestricted(TypedValue value) {
+    if (value instanceof AbstractTypedValue<?>) {
+      ((AbstractTypedValue<?>) value).setRestricted(true);
+    } else if (value instanceof FileValueImpl) {
+      ((FileValueImpl) value).setRestricted(true);
+    }
   }
 
   public TypedValueSerializer<?> getSerializer() {
@@ -181,6 +200,14 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
 
   public void setByteArrayValue(byte[] bytes) {
     byteArrayField.setByteArrayValue(bytes);
+  }
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
   // entity lifecycle /////////////////////////////////////////////////////////
@@ -428,6 +455,7 @@ public class HistoricVariableInstanceEntity implements ValueFields, HistoricVari
       + ", textValue2=" + textValue2
       + ", state=" + state
       + ", byteArrayId=" + getByteArrayId()
+        + ", restricted=" + restricted
       + "]";
   }
 

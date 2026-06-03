@@ -41,6 +41,7 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.task.TaskReport;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
@@ -583,6 +584,10 @@ public interface TaskService {
    */
   void setVariable(String taskId, String variableName, Object value);
 
+  void setVariable(String taskId, String variableName, Object value, boolean restricted);
+
+  void setVariable(String taskId, String variableName, Object value, VariableOptions variableOptions);
+
   /**
    * Set variables on a task. If the variable is not already existing, it will be created in the
    * most outer scope.  This means the process instance in case this task is related to an
@@ -619,6 +624,10 @@ public interface TaskService {
    *           </ul>
    */
   void setVariableLocal(String taskId, String variableName, Object value);
+
+  void setVariableLocal(String taskId, String variableName, Object value, boolean restricted);
+
+  void setVariableLocal(String taskId, String variableName, Object value, VariableOptions variableOptions);
 
   /**
    * Set variables on a task. If the variable is not already existing, it will be created in the

@@ -33,6 +33,7 @@ public class UntypedValueImpl implements TypedValue {
   protected Object value;
 
   protected boolean isTransient;
+  protected boolean restricted;
 
   public UntypedValueImpl(Object object) {
     this(object, false);
@@ -41,6 +42,11 @@ public class UntypedValueImpl implements TypedValue {
   public UntypedValueImpl(Object object, boolean isTransient) {
     this.value = object;
     this.isTransient = isTransient;
+  }
+
+  public UntypedValueImpl(Object object, boolean isTransient, boolean restricted) {
+    this(object, isTransient);
+    this.restricted = restricted;
   }
 
   public Object getValue() {
@@ -54,7 +60,7 @@ public class UntypedValueImpl implements TypedValue {
 
   @Override
   public String toString() {
-    return "Untyped value '"+value+"', isTransient = " + isTransient;
+    return "Untyped value '"+value+"', isTransient = " + isTransient + ", restricted=" + restricted;
   }
 
   @Override
@@ -63,6 +69,7 @@ public class UntypedValueImpl implements TypedValue {
     int result = 1;
     result = prime * result + ((value == null) ? 0 : value.hashCode());
     result = prime * result + (isTransient ? 1 : 0);
+    result = prime * result + (restricted ? 1 : 0);
     return result;
   }
 
@@ -83,6 +90,9 @@ public class UntypedValueImpl implements TypedValue {
     if (isTransient != other.isTransient()) {
       return false;
     }
+    if (restricted != other.restricted) {
+      return false;
+    }
     return true;
   }
 
@@ -93,6 +103,15 @@ public class UntypedValueImpl implements TypedValue {
 
   public void setTransient(boolean isTransient) {
     this.isTransient = isTransient;
+  }
+
+  @Override
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
 }

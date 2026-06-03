@@ -58,8 +58,7 @@
                            "resolved": false,
                            "removalTime": null,
                            "rootProcessInstanceId": "aRootProcessInstanceId",
-                           "annotation": "an annotation",
-                           "rootCauseIncidentMessage": "aRootCauseIncidentMessage"
+                           "annotation": "an annotation"
                          },
                          {
                            "id": "anIncidentId",
@@ -82,8 +81,7 @@
                            "resolved": true,
                            "removalTime": "2018-02-10T14:33:19.000+0200",
                            "rootProcessInstanceId": "aRootProcessInstanceId",
-                           "annotation": "another annotation",
-                           "rootCauseIncidentMessage": "anotherRootCauseIncidentMessage"
+                           "annotation": "another annotation"
                          }
                        ]
                      }']

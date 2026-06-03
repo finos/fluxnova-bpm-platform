@@ -51,6 +51,7 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.VariableMapImpl;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
@@ -1080,6 +1081,46 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
     verify(runtimeServiceMock).createProcessInstanceById(eq(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
     verify(mockInstantiationBuilder).setVariables(expectedVariables);
     assertEquals(expectedVariables.getValueTyped("foo").isTransient(), varMap.getValueTyped("foo").isTransient());
+    verify(mockInstantiationBuilder).executeWithVariablesInReturn(anyBoolean(), anyBoolean());
+  }
+
+  @Test
+  public void testProcessInstantiationWithRestrictedVariables() throws IOException {
+    Map<String, Object> json = new HashMap<>();
+
+    Map<String, Object> variables = VariablesBuilder.create()
+        .variable("foo", "bar", "String")
+        .getVariables();
+
+    @SuppressWarnings("unchecked")
+    Map<String, Object> fooVariable = (Map<String, Object>) variables.get("foo");
+    Map<String, Object> valueInfo = new HashMap<>();
+    valueInfo.put(ValueType.VALUE_INFO_RESTRICTED, true);
+    fooVariable.put("valueInfo", valueInfo);
+    json.put("variables", variables);
+
+    final VariableMap varMap = new VariableMapImpl();
+
+    when(mockInstantiationBuilder.setVariables(anyMap())).thenAnswer(new Answer<ProcessInstantiationBuilder>() {
+      @Override
+      public ProcessInstantiationBuilder answer(InvocationOnMock invocation) throws Throwable {
+        varMap.putAll((VariableMap) invocation.getArguments()[0]);
+        return mockInstantiationBuilder;
+      }
+    });
+
+    given().pathParam("id", MockProvider.EXAMPLE_PROCESS_DEFINITION_ID)
+      .contentType(POST_JSON_CONTENT_TYPE).body(json)
+      .then().expect()
+        .statusCode(Status.OK.getStatusCode())
+        .body("id", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+      .when().post(START_PROCESS_INSTANCE_URL);
+
+    VariableMap expectedVariables = Variables.createVariables()
+        .putValueTyped("foo", Variables.stringValue("bar", VariableOptions.options(false, true)));
+    verify(runtimeServiceMock).createProcessInstanceById(eq(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
+    verify(mockInstantiationBuilder).setVariables(expectedVariables);
+    assertTrue(varMap.getValueTyped("foo").isRestricted());
     verify(mockInstantiationBuilder).executeWithVariablesInReturn(anyBoolean(), anyBoolean());
   }
 

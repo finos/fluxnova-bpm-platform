@@ -742,18 +742,21 @@ public class FluxnovaExtensionsTest {
     assertThat(in.getFluxnovaTarget()).isEqualTo(TEST_STRING_XML);
     assertThat(in.getFluxnovaBusinessKey()).isEqualTo(TEST_EXPRESSION_XML);
     assertThat(in.getFluxnovaLocal()).isTrue();
+    assertThat(in.getFluxnovaRestricted()).isFalse();
     in.setFluxnovaSource(TEST_STRING_API);
     in.setFluxnovaSourceExpression(TEST_EXPRESSION_API);
     in.setFluxnovaVariables(TEST_STRING_API);
     in.setFluxnovaTarget(TEST_STRING_API);
     in.setFluxnovaBusinessKey(TEST_EXPRESSION_API);
     in.setFluxnovaLocal(false);
+    in.setFluxnovaRestricted(true);
     assertThat(in.getFluxnovaSource()).isEqualTo(TEST_STRING_API);
     assertThat(in.getFluxnovaSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
     assertThat(in.getFluxnovaVariables()).isEqualTo(TEST_STRING_API);
     assertThat(in.getFluxnovaTarget()).isEqualTo(TEST_STRING_API);
     assertThat(in.getFluxnovaBusinessKey()).isEqualTo(TEST_EXPRESSION_API);
     assertThat(in.getFluxnovaLocal()).isFalse();
+    assertThat(in.getFluxnovaRestricted()).isTrue();
   }
 
   @Test
@@ -764,16 +767,19 @@ public class FluxnovaExtensionsTest {
     assertThat(out.getFluxnovaVariables()).isEqualTo(TEST_STRING_XML);
     assertThat(out.getFluxnovaTarget()).isEqualTo(TEST_STRING_XML);
     assertThat(out.getFluxnovaLocal()).isTrue();
+    assertThat(out.getFluxnovaRestricted()).isFalse();
     out.setFluxnovaSource(TEST_STRING_API);
     out.setFluxnovaSourceExpression(TEST_EXPRESSION_API);
     out.setFluxnovaVariables(TEST_STRING_API);
     out.setFluxnovaTarget(TEST_STRING_API);
     out.setFluxnovaLocal(false);
+    out.setFluxnovaRestricted(true);
     assertThat(out.getFluxnovaSource()).isEqualTo(TEST_STRING_API);
     assertThat(out.getFluxnovaSourceExpression()).isEqualTo(TEST_EXPRESSION_API);
     assertThat(out.getFluxnovaVariables()).isEqualTo(TEST_STRING_API);
     assertThat(out.getFluxnovaTarget()).isEqualTo(TEST_STRING_API);
     assertThat(out.getFluxnovaLocal()).isFalse();
+    assertThat(out.getFluxnovaRestricted()).isTrue();
   }
 
   @Test
@@ -914,6 +920,9 @@ public class FluxnovaExtensionsTest {
     FluxnovaInputParameter inputParameter = inputParameters.iterator().next();
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("endpointUrl");
     assertThat(inputParameter.getTextContent()).isEqualTo("http://example.com/webservice");
+    assertThat(inputParameter.getFluxnovaRestricted()).isFalse();
+    inputParameter.setFluxnovaRestricted(true);
+    assertThat(inputParameter.getFluxnovaRestricted()).isTrue();
 
     Collection<FluxnovaOutputParameter> outputParameters = camundaInputOutput.getFluxnovaOutputParameters();
     assertThat(outputParameters).hasSize(1);
@@ -921,6 +930,9 @@ public class FluxnovaExtensionsTest {
     FluxnovaOutputParameter outputParameter = outputParameters.iterator().next();
     assertThat(outputParameter.getFluxnovaName()).isEqualTo("result");
     assertThat(outputParameter.getTextContent()).isEqualTo("output");
+    assertThat(outputParameter.getFluxnovaRestricted()).isFalse();
+    outputParameter.setFluxnovaRestricted(true);
+    assertThat(outputParameter.getFluxnovaRestricted()).isTrue();
   }
 
   @Test
@@ -939,8 +951,10 @@ public class FluxnovaExtensionsTest {
     // modify existing
     inputParameter.setFluxnovaName("hello");
     inputParameter.setTextContent("world");
+    inputParameter.setFluxnovaRestricted(true);
     inputParameter = findInputParameterByName(serviceTask, "hello");
     assertThat(inputParameter.getTextContent()).isEqualTo("world");
+    assertThat(inputParameter.getFluxnovaRestricted()).isTrue();
 
     // add new one
     inputParameter = modelInstance.newInstance(FluxnovaInputParameter.class);
