@@ -78,8 +78,8 @@
               </artifactSet>
               <relocations>
                 <relocation>
-                  <pattern>com.fasterxml</pattern>
-                  <shadedPattern>spinjar.com.fasterxml</shadedPattern>
+                  <pattern>tools.jackson</pattern>
+                  <shadedPattern>spinjar.tools.jackson</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>com.jayway</pattern>
