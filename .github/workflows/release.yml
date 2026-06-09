@@ -24,6 +24,9 @@ jobs:
   publish-central:
     name: Publish to Maven Central
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
     outputs:
       release_version: ${{ steps.versioning.outputs.release_version }}
       tag: ${{ steps.versioning.outputs.tag }}
