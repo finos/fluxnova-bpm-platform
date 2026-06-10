@@ -5341,7 +5341,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
     // then: the task is returned successfully and formKey is null instead of throwing
     assertNotNull(task);
-    assertNull("Form key should be null when expression evaluation fails", task.getFormKey());
+    assertNull(task.getFormKey(),"Form key should be null when expression evaluation fails");
   }
 
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/task/oneTaskWithInvalidFormKeyExpressionProcess.bpmn20.xml"})
@@ -5359,9 +5359,9 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
 
     // then: all tasks are returned and each has a null formKey — no exception is propagated
     assertNotNull(tasks);
-    assertEquals("All tasks should be returned despite invalid form key expressions", 2, tasks.size());
+    assertEquals(2, tasks.size(),"All tasks should be returned despite invalid form key expressions");
     for (Task task : tasks) {
-      assertNull("Form key should be null when expression evaluation fails", task.getFormKey());
+      assertNull(task.getFormKey(),"Form key should be null when expression evaluation fails");
     }
   }
 

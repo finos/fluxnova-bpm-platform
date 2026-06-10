@@ -85,13 +85,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest</artifactId>
-      <version>2.2</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-junit</artifactId>
@@ -358,13 +351,6 @@
       <artifactId>js-scriptengine</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-     <groupId>org.hamcrest</groupId>
-     <artifactId>hamcrest</artifactId>
-     <version>2.2</version>
-     <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-bpm-archunit</artifactId>

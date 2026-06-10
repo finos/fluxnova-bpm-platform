@@ -37,7 +37,7 @@
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.1.0</version>
+      <version>${version.jakarta-servlet}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -126,7 +126,7 @@
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>7.1.23.Final</version>
+      <version>${version.hibernate}</version>
       <scope>test</scope>
       <exclusions>
         <!-- hibernate uses an older slf4j version -->
