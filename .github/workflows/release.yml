@@ -84,9 +84,9 @@ jobs:
           echo "release_version=${releaseVersion}" >> $GITHUB_OUTPUT
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
-      - name: Configure GitHub authentication for Maven Release Plugin
-        run: |
-          git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
+#      - name: Configure GitHub authentication for Maven Release Plugin
+#        run: |
+#          git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
         run: |
@@ -100,8 +100,8 @@ jobs:
             -DignoreSnapshots=true \
             -DinteractiveMode=false        
 
-      - name: Perform release
-        run: echo mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
+#      - name: Perform release
+#        run: echo mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
 
   publish-docker-image:
     name: Publish Docker Image
@@ -139,6 +139,9 @@ jobs:
           java-version: 21
           distribution: 'temurin'
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        
       - name: Generate Javadoc
         run: |
           mvn -B -e package javadoc:javadoc javadoc:aggregate \ 
@@ -175,6 +178,8 @@ jobs:
           java-version: 21
           distribution: 'temurin'
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Generate OpenAPI Spec
         run: |
           mvn -B -e package \
