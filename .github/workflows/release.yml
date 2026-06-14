@@ -88,17 +88,17 @@ jobs:
 #        run: |
 #          git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
-      - name: Prepare release
-        run: |
-          mvn -B \
-            -DpreparationGoals=clean \
-            release:prepare \
-            -DreleaseVersion=${{ env.RELEASE_VERSION }} \
-            -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
-            -Dtag=${{ env.TAG }} \
-            -Psonatype-oss-release,distro,distro-ce,distro-wildfly \
-            -DignoreSnapshots=true \
-            -DinteractiveMode=false        
+#      - name: Prepare release
+#        run: |
+#          mvn -B \
+#            -DpreparationGoals=clean \
+#            release:prepare \
+#            -DreleaseVersion=${{ env.RELEASE_VERSION }} \
+#            -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
+#            -Dtag=${{ env.TAG }} \
+#            -Psonatype-oss-release,distro,distro-ce,distro-wildfly \
+#            -DignoreSnapshots=true \
+#            -DinteractiveMode=false        
 
 #      - name: Perform release
 #        run: echo mvn -B release:perform -Psonatype-oss-release,distro,distro-ce -DinteractiveMode=false
