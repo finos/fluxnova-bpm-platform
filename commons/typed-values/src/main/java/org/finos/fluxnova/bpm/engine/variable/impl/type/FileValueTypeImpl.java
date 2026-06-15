@@ -83,6 +83,7 @@ public class FileValueTypeImpl extends AbstractValueTypeImpl implements FileValu
     }
 
     builder.setTransient(isTransient(valueInfo));
+    builder.setRestricted(isRestricted(valueInfo));
     return builder.create();
   }
 
@@ -102,6 +103,9 @@ public class FileValueTypeImpl extends AbstractValueTypeImpl implements FileValu
     }
     if (fileValue.isTransient()) {
       result.put(VALUE_INFO_TRANSIENT, fileValue.isTransient());
+    }
+    if (fileValue.isRestricted()) {
+      result.put(VALUE_INFO_RESTRICTED, true);
     }
     return result;
   }

@@ -16,7 +16,7 @@
       <property name="user">arquillian</property>
       <property name="pass">arquillian</property>
       <property name="jmxPort">8089</property>
-      <property name="javaVmArguments">-Xmx512m</property>
+      <property name="javaVmArguments">-Xmx512m --add-opens=java.base/java.lang=ALL-UNNAMED</property>
 <!--       <property name="javaVmArguments">-Xmx512m -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</property> -->
     </configuration>
   </container>
