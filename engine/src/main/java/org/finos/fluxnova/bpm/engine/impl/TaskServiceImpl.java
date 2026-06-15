@@ -41,6 +41,7 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.task.TaskReport;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 
@@ -259,31 +260,55 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
     return (T) commandExecutor.execute(new GetTaskVariableCmdTyped(taskId, variableName, isLocal, deserializeValue));
   }
 
+  @Override
   public void setVariable(String taskId, String variableName, Object value) {
+    setVariable(taskId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariable(String taskId, String variableName, Object value, boolean restricted) {
+    setVariable(taskId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariable(String taskId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<>();
     variables.put(variableName, value);
-    setVariables(taskId, variables, false);
+    setVariables(taskId, variables, false, variableOptions);
   }
 
+  @Override
   public void setVariableLocal(String taskId, String variableName, Object value) {
+    setVariableLocal(taskId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariableLocal(String taskId, String variableName, Object value, boolean restricted) {
+    setVariableLocal(taskId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariableLocal(String taskId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<>();
     variables.put(variableName, value);
-    setVariables(taskId, variables, true);
+    setVariables(taskId, variables, true, variableOptions);
   }
 
+  @Override
   public void setVariables(String taskId, Map<String, ? extends Object> variables) {
-    setVariables(taskId, variables, false);
+    setVariables(taskId, variables, false, VariableOptions.options(false, false));
   }
 
+  @Override
   public void setVariablesLocal(String taskId, Map<String, ? extends Object> variables) {
-    setVariables(taskId, variables, true);
+    setVariables(taskId, variables, true, VariableOptions.options(false, false));
   }
 
-  protected void setVariables(String taskId, Map<String, ? extends Object> variables, boolean local) {
+  protected void setVariables(String taskId, Map<String, ? extends Object> variables, boolean local, VariableOptions variableOptions) {
     try {
-      commandExecutor.execute(new SetTaskVariablesCmd(taskId, variables, local));
+      commandExecutor.execute(new SetTaskVariablesCmd(taskId, variables, local, variableOptions));
     } catch (ProcessEngineException ex) {
       if (ExceptionUtil.checkValueTooLongException(ex)) {
         throw new BadUserRequestException("Variable value is too long", ex);

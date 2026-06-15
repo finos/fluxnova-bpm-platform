@@ -45,6 +45,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.xml.Element;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.impl.VariableMapImpl;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;

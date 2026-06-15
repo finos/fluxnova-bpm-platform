@@ -38,7 +38,10 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.DEPLOYMENT;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
+import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.DELETE_HISTORY_RESTRICTED;
 
+import org.finos.fluxnova.bpm.engine.authorization.Authorization;
 import org.finos.fluxnova.bpm.engine.authorization.Permission;
 import org.finos.fluxnova.bpm.engine.authorization.ProcessDefinitionPermissions;
 import org.finos.fluxnova.bpm.engine.authorization.ProcessInstancePermissions;
@@ -860,6 +863,9 @@ public class AuthorizationCommandChecker implements CommandChecker {
   public void checkDeleteHistoricVariableInstance(HistoricVariableInstanceEntity variable) {
     if (variable != null && variable.getProcessDefinitionKey() != null) {
       getAuthorizationManager().checkAuthorization(DELETE_HISTORY, PROCESS_DEFINITION, variable.getProcessDefinitionKey());
+    }
+    if (variable != null && variable.isRestricted()) {
+      getAuthorizationManager().checkAuthorization(DELETE_HISTORY_RESTRICTED, VARIABLE, Authorization.ANY);
     }
     // XXX if CAM-6570 is implemented, there should be a check for variables of standalone tasks here as well
   }
