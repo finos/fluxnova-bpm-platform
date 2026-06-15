@@ -109,6 +109,14 @@ public final class BpmnParseUtil {
   }
 
   /**
+   * Extracts the restricted attribute from a BPMN element.
+   */
+  public static boolean isRestricted(Element element) {
+    String restricted = element.attribute("restricted");
+    return restricted != null && Boolean.parseBoolean(restricted.trim());
+  }
+
+  /**
    * Parses a input parameter and adds it to the {@link IoMapping}.
    *
    * @param inputParameterElement the input parameter element
@@ -123,9 +131,14 @@ public final class BpmnParseUtil {
     }
 
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(inputParameterElement);
-
     // add parameter
-    ioMapping.addInputParameter(new InputParameter(nameAttribute, valueProvider, isTransient));
+      InputParameter inputParameter = new InputParameter(nameAttribute, valueProvider, isTransient);
+
+      if (isRestricted(inputParameterElement)) {
+          inputParameter.setRestricted(true);
+      }
+    // add parameter
+    ioMapping.addInputParameter(inputParameter);
   }
 
   /**
@@ -143,9 +156,14 @@ public final class BpmnParseUtil {
     }
 
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(outputParameterElement);
+      OutputParameter outputParameter = new OutputParameter(nameAttribute, valueProvider, isTransient);
+
+      if (isRestricted(outputParameterElement)) {
+          outputParameter.setRestricted(true);
+      }
 
     // add parameter
-    ioMapping.addOutputParameter(new OutputParameter(nameAttribute, valueProvider, isTransient));
+    ioMapping.addOutputParameter(outputParameter);
   }
 
   /**

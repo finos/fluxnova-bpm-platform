@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.variable.serializer;
 
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.NullValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.UntypedValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
@@ -38,15 +40,21 @@ public class NullValueSerializer extends AbstractTypedValueSerializer<NullValueI
   }
 
   public NullValueImpl convertToTypedValue(UntypedValueImpl untypedValue) {
-    return !untypedValue.isTransient() ? NullValueImpl.INSTANCE : NullValueImpl.INSTANCE_TRANSIENT;
+    return Variables.nullValue(untypedValue.isTransient(), untypedValue.isRestricted());
   }
 
   public void writeValue(NullValueImpl value, ValueFields valueFields) {
-    // nothing to do
+    if (valueFields instanceof VariableInstanceEntity) {
+      ((VariableInstanceEntity) valueFields).setRestricted(value.isRestricted());
+    }
   }
 
   public NullValueImpl readValue(ValueFields valueFields, boolean deserialize, boolean asTransientValue) {
-    return NullValueImpl.INSTANCE;
+    boolean restricted = false;
+    if (valueFields instanceof VariableInstanceEntity) {
+      restricted = ((VariableInstanceEntity) valueFields).isRestricted();
+    }
+    return Variables.nullValue(asTransientValue, restricted);
   }
 
   protected boolean canWriteValue(TypedValue value) {

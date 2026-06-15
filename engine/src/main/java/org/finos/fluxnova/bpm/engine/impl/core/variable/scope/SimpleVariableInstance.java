@@ -18,6 +18,8 @@ package org.finos.fluxnova.bpm.engine.impl.core.variable.scope;
 
 import org.finos.fluxnova.bpm.engine.impl.core.variable.CoreVariableInstance;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.AbstractTypedValue;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.FileValueImpl;
 
 /**
  * @author Daniel Meyer
@@ -29,6 +31,7 @@ public class SimpleVariableInstance implements CoreVariableInstance {
 
   protected String name;
   protected TypedValue value;
+  protected boolean restricted;
 
   public SimpleVariableInstance(String name, TypedValue value) {
     this.name = name;
@@ -42,10 +45,29 @@ public class SimpleVariableInstance implements CoreVariableInstance {
     this.name = name;
   }
   public TypedValue getTypedValue(boolean deserialize) {
+    if (value != null && restricted) {
+      applyRestricted(value);
+    }
     return value;
+  }
+
+  protected void applyRestricted(TypedValue typedValue) {
+    if (typedValue instanceof AbstractTypedValue<?>) {
+      ((AbstractTypedValue<?>) typedValue).setRestricted(true);
+    } else if (typedValue instanceof FileValueImpl) {
+      ((FileValueImpl) typedValue).setRestricted(true);
+    }
   }
   public void setValue(TypedValue value) {
     this.value = value;
+  }
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
   public static class SimpleVariableInstanceFactory implements VariableInstanceFactory<SimpleVariableInstance> {
@@ -53,8 +75,10 @@ public class SimpleVariableInstance implements CoreVariableInstance {
     public static final SimpleVariableInstanceFactory INSTANCE = new SimpleVariableInstanceFactory();
 
     @Override
-    public SimpleVariableInstance build(String name, TypedValue value, boolean isTransient) {
-      return new SimpleVariableInstance(name, value);
+    public SimpleVariableInstance build(String name, TypedValue value, boolean isTransient, boolean restricted) {
+      SimpleVariableInstance instance = new SimpleVariableInstance(name, value);
+      instance.setRestricted(restricted);
+      return instance;
     }
 
   }

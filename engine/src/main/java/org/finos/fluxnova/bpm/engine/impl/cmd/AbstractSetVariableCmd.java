@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 
 /**
  * @author Stefan Hentschel.
@@ -31,29 +32,39 @@ public abstract class AbstractSetVariableCmd extends AbstractVariableCmd {
   protected Map<String, ? extends Object> variables;
 
   protected boolean skipJavaSerializationFormatCheck;
+  protected boolean restricted;
+  protected VariableOptions variableOptions;
 
   public AbstractSetVariableCmd(String entityId, Map<String, ? extends Object> variables, boolean isLocal) {
-    super(entityId, isLocal);
-    this.variables = variables;
+    this(entityId, variables, isLocal, false);
   }
 
-  public AbstractSetVariableCmd(String entityId,
-                                Map<String, ? extends Object> variables,
-                                boolean isLocal,
-                                boolean skipJavaSerializationFormatCheck) {
-    this(entityId, variables, isLocal);
-    this.skipJavaSerializationFormatCheck = skipJavaSerializationFormatCheck;
+  public AbstractSetVariableCmd(String entityId, Map<String, ? extends Object> variables, boolean isLocal, boolean skipJavaSerializationFormatCheck) {
+    this(entityId, variables, isLocal, new VariableOptions(false, false, skipJavaSerializationFormatCheck, true));
+  }
+
+  public AbstractSetVariableCmd(String entityId, Map<String, ? extends Object> variables, boolean isLocal, VariableOptions options) {
+    super(entityId, isLocal);
+    this.variables = variables;
+    this.variableOptions = options;
+    // Maintain backward compatibility with direct field access
+    this.skipJavaSerializationFormatCheck = options.shouldSkipJavaSerializationFormatCheck();
+    this.restricted = options.isRestricted();
   }
 
   protected void executeOperation(AbstractVariableScope scope) {
     if (isLocal) {
-      scope.setVariablesLocal(variables, skipJavaSerializationFormatCheck);
+      scope.setVariablesLocalInternal(variables, skipJavaSerializationFormatCheck, restricted);
     } else {
-      scope.setVariables(variables, skipJavaSerializationFormatCheck);
+      scope.setVariablesInternal(variables, skipJavaSerializationFormatCheck, restricted);
     }
   }
 
   protected String getLogEntryOperation() {
     return UserOperationLogEntry.OPERATION_TYPE_SET_VARIABLE;
+  }
+
+  protected VariableOptions getVariableOptions() {
+    return variableOptions;
   }
 }
