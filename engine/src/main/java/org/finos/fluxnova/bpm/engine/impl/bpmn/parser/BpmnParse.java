@@ -4175,6 +4175,11 @@ public class BpmnParse extends Parse {
         addError("Empty attribute 'target' when attribute 'source' or 'sourceExpression' is set", parameterElement, ancestorElementId);
       }
       parameter.setTarget(target);
+
+      String restricted = parameterElement.attribute("restricted");
+      if (restricted != null && Boolean.parseBoolean(restricted.trim())) {
+        parameter.setRestricted(true);
+      }
     }
 
     return parameter;

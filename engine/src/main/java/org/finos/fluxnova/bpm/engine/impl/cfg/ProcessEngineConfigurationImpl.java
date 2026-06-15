@@ -375,6 +375,8 @@ import org.finos.fluxnova.bpm.engine.impl.variable.serializer.StringValueSeriali
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializerFactory;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializers;
+import org.finos.fluxnova.bpm.engine.impl.variable.DefaultRestrictedVariableInterceptor;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptor;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinition;
 import org.finos.fluxnova.bpm.engine.repository.DecisionDefinition;
@@ -883,6 +885,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   protected List<CommandChecker> commandCheckers = null;
 
+  protected List<VariableInterceptor> variableInterceptors;
+
   protected List<String> adminGroups;
 
   protected List<String> adminUsers;
@@ -1192,6 +1196,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initDiagnostics();
     initMigration();
     initCommandCheckers();
+    initVariableInterceptors();
     initDefaultUserPermissionForTask();
     initHistoryRemovalTime();
     initHistoryCleanup();
@@ -2729,6 +2734,13 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       // add the default command checkers
       commandCheckers.add(new TenantCommandChecker());
       commandCheckers.add(new AuthorizationCommandChecker());
+    }
+  }
+
+  protected void initVariableInterceptors() {
+    if (variableInterceptors == null) {
+      variableInterceptors = new ArrayList<>();
+      variableInterceptors.add(new DefaultRestrictedVariableInterceptor());
     }
   }
 
@@ -4773,6 +4785,14 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public void setCommandCheckers(List<CommandChecker> commandCheckers) {
     this.commandCheckers = commandCheckers;
+  }
+
+  public List<VariableInterceptor> getVariableInterceptors() {
+    return variableInterceptors;
+  }
+
+  public void setVariableInterceptors(List<VariableInterceptor> variableInterceptors) {
+    this.variableInterceptors = variableInterceptors;
   }
 
   public ProcessEngineConfigurationImpl setUseSharedSqlSessionFactory(boolean isUseSharedSqlSessionFactory) {
