@@ -48,7 +48,8 @@
       LONG_,
       TEXT_,
       TEXT2_,
-      STATE_
+      STATE_,
+      RESTRICTED_
     ) values (
       #{id, jdbcType=VARCHAR},
       #{processDefinitionKey, jdbcType=VARCHAR},
@@ -73,7 +74,8 @@
       #{longValue, jdbcType=BIGINT},
       #{textValue, jdbcType=VARCHAR},
       #{textValue2, jdbcType=VARCHAR},
-      #{state, jdbcType=VARCHAR}
+      #{state, jdbcType=VARCHAR},
+      #{restricted, jdbcType=BOOLEAN}
     )
   </insert>
 
@@ -91,7 +93,8 @@
       TEXT_ = #{textValue, jdbcType=VARCHAR},
       TEXT2_ = #{textValue2, jdbcType=VARCHAR},
       STATE_ = #{state, jdbcType=VARCHAR},
-      CASE_DEF_ID_ = #{caseDefinitionId, jdbcType=VARCHAR}
+      CASE_DEF_ID_ = #{caseDefinitionId, jdbcType=VARCHAR},
+      RESTRICTED_ = #{restricted, jdbcType=BOOLEAN}
     where ID_ = #{id, jdbcType=VARCHAR}
       and REV_ = #{revision, jdbcType=INTEGER}
   </update>
@@ -111,7 +114,7 @@
       ${limitAfterWithoutOffset}
     </if>
   </update>
-  
+
   <update id="updateHistoricVariableInstancesByRootProcessInstanceId_postgres"
           parameterType="java.util.Map">
     update ${prefix}ACT_HI_VARINST set
@@ -126,7 +129,7 @@
       ${limitAfterInUpdate}
     </if>
   </update>
-  
+
   <update id="updateHistoricVariableInstancesByRootProcessInstanceId_mysql"
           parameterType="java.util.Map">
     update ${prefix}ACT_HI_VARINST
@@ -177,7 +180,7 @@
         ${limitAfterWithoutOffset}
       </if>
   </update>
-  
+
   <update id="updateHistoricVariableInstancesByProcessInstanceId_postgres"
           parameterType="java.util.Map">
     update ${prefix}ACT_HI_VARINST
@@ -191,7 +194,7 @@
         ${limitAfterInUpdate}
       </if>
   </update>
-  
+
   <update id="updateHistoricVariableInstancesByProcessInstanceId_mysql"
           parameterType="java.util.Map">
     update ${prefix}ACT_HI_VARINST
@@ -345,6 +348,7 @@
     <result property="longValue" column="LONG_" jdbcType="BIGINT" />
     <result property="state" column="STATE_" jdbcType="VARCHAR" />
     <result property="removalTime" column="REMOVAL_TIME_" jdbcType="TIMESTAMP"/>
+    <result property="restricted" column="RESTRICTED_" jdbcType="BOOLEAN"/>
   </resultMap>
 
   <resultMap id="historicVariableInstanceResultMap_postgres" type="org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricVariableInstanceEntity">
@@ -372,18 +376,29 @@
     <result property="longValue" column="LONG_" jdbcType="BIGINT" />
     <result property="state" column="STATE_" jdbcType="VARCHAR" />
     <result property="removalTime" column="REMOVAL_TIME_" jdbcType="TIMESTAMP"/>
+    <result property="restricted" column="RESTRICTED_" jdbcType="BOOLEAN"/>
   </resultMap>
 
   <!-- HISTORIC VARIABLE SELECT -->
 
   <select id="selectHistoricVariablesByProcessInstanceId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="historicVariableInstanceResultMap">
-    select * from ${prefix}ACT_HI_VARINST
+    select RES.* from ${prefix}ACT_HI_VARINST RES
     where PROC_INST_ID_ = #{parameter, jdbcType=VARCHAR}
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      <if test="authCheck.restrictedVariablePermissionCheck != null">
+        and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+      </if>
+    </if>
   </select>
 
   <select id="selectHistoricVariablesByCaseInstanceId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="historicVariableInstanceResultMap">
-    select * from ${prefix}ACT_HI_VARINST
+    select RES.* from ${prefix}ACT_HI_VARINST RES
     where CASE_INST_ID_ = #{parameter, jdbcType=VARCHAR}
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      <if test="authCheck.restrictedVariablePermissionCheck != null">
+        and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+      </if>
+    </if>
   </select>
 
   <select id="selectHistoricVariableInstanceByQueryCriteria" parameterType="org.finos.fluxnova.bpm.engine.impl.HistoricVariableInstanceQueryImpl" resultMap="historicVariableInstanceResultMap">
@@ -573,6 +588,9 @@
       </if>
 
       <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+        <if test="authCheck.restrictedVariablePermissionCheck != null">
+          and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+        </if>
         <choose>
           <when test="authCheck.isHistoricInstancePermissionsEnabled">
             <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.queryAuthorizationCheck"/>

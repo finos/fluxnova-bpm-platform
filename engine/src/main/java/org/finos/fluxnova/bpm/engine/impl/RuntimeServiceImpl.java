@@ -74,6 +74,7 @@ import org.finos.fluxnova.bpm.engine.runtime.SignalEventReceivedBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.UpdateProcessInstanceSuspensionStateSelectBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstanceQuery;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -405,33 +406,53 @@ public class RuntimeServiceImpl extends ServiceImpl implements RuntimeService {
 
   @Override
   public void setVariable(String executionId, String variableName, Object value) {
+    setVariable(executionId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariable(String executionId, String variableName, Object value, boolean restricted) {
+    setVariable(executionId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariable(String executionId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put(variableName, value);
-    setVariables(executionId, variables);
+    setVariables(executionId, variables, false, variableOptions);
   }
 
   @Override
   public void setVariableLocal(String executionId, String variableName, Object value) {
+    setVariableLocal(executionId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariableLocal(String executionId, String variableName, Object value, boolean restricted) {
+    setVariableLocal(executionId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariableLocal(String executionId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put(variableName, value);
-    setVariablesLocal(executionId, variables);
+    setVariables(executionId, variables, true, variableOptions);
   }
 
   @Override
   public void setVariables(String executionId, Map<String, ? extends Object> variables) {
-    setVariables(executionId, variables, false);
+    setVariables(executionId, variables, false, VariableOptions.options(false, false));
   }
 
   @Override
   public void setVariablesLocal(String executionId, Map<String, ? extends Object> variables) {
-    setVariables(executionId, variables, true);
+    setVariables(executionId, variables, true, VariableOptions.options(false, false));
   }
 
-  protected void setVariables(String executionId, Map<String, ? extends Object> variables, boolean local) {
+  protected void setVariables(String executionId, Map<String, ? extends Object> variables, boolean local, VariableOptions variableOptions) {
     try {
-      commandExecutor.execute(new SetExecutionVariablesCmd(executionId, variables, local));
+      commandExecutor.execute(new SetExecutionVariablesCmd(executionId, variables, local, variableOptions));
     } catch (ProcessEngineException ex) {
       if (ExceptionUtil.checkValueTooLongException(ex)) {
         throw new BadUserRequestException("Variable value is too long", ex);

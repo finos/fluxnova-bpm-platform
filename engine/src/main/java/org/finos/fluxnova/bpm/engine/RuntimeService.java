@@ -58,6 +58,7 @@ import org.finos.fluxnova.bpm.engine.runtime.UpdateProcessInstanceSuspensionStat
 import org.finos.fluxnova.bpm.engine.runtime.UpdateProcessInstanceSuspensionStateSelectBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstanceQuery;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
@@ -1436,6 +1437,10 @@ public interface RuntimeService {
    */
   void setVariable(String executionId, String variableName, Object value);
 
+  void setVariable(String executionId, String variableName, Object value, boolean restricted);
+
+  void setVariable(String executionId, String variableName, Object value, VariableOptions variableOptions);
+
   /**
    * Update or create a variable for an execution (not considering parent scopes).
    * If the variable does not already exist, it will be created in the given execution.
@@ -1455,6 +1460,10 @@ public interface RuntimeService {
    *          <li>{@link Permissions#UPDATE_INSTANCE} permission on {@link Resources#PROCESS_DEFINITION}</li>
    */
   void setVariableLocal(String executionId, String variableName, Object value);
+
+  void setVariableLocal(String executionId, String variableName, Object value, boolean restricted);
+
+  void setVariableLocal(String executionId, String variableName, Object value, VariableOptions variableOptions);
 
   /**
    * Update or create given variables for an execution (including parent scopes). If the variables are not already existing, they will be created in the process instance
