@@ -245,9 +245,9 @@ public class VariableApiTest {
       if (e.getKey().equals("null")) {
         assertFalse(value.isRestricted());
       } else {
-        assertTrue("Variable '" + e.getKey() + "' is not marked restricted", value.isRestricted());
+        assertTrue(value.isRestricted(),"Variable '" + e.getKey() + "' is not marked restricted");
       }
-      assertFalse("Variable '" + e.getKey() + "' should not be transient", value.isTransient());
+      assertFalse(value.isTransient(),"Variable '" + e.getKey() + "' should not be transient");
     }
   }
 
@@ -277,9 +277,9 @@ public class VariableApiTest {
       if (e.getKey().equals("null")) {
         assertFalse(value.isRestricted());
       } else {
-        assertTrue("Variable '" + e.getKey() + "' is not marked restricted", value.isRestricted());
+        assertTrue(value.isRestricted(),"Variable '" + e.getKey() + "' is not marked restricted");
       }
-      assertTrue("Variable '" + e.getKey() + "' should be transient", value.isTransient());
+      assertTrue(value.isTransient(),"Variable '" + e.getKey() + "' should be transient");
     }
   }
 }
