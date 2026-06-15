@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.lang.model.type.NullType;
 
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.PrimitiveTypeValueImpl.DoubleValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.PrimitiveTypeValueImpl.IntegerValueImpl;
@@ -78,6 +79,9 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     Map<String, Object> result = new HashMap<String, Object>();
     if (typedValue.isTransient())
       result.put(VALUE_INFO_TRANSIENT, typedValue.isTransient());
+    if (typedValue.isRestricted()) {
+      result.put(VALUE_INFO_RESTRICTED, true);
+    }
     return result;
   }
 
@@ -92,7 +96,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public BooleanValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.booleanValue((Boolean) value, isTransient(valueInfo));
+      return Variables.booleanValue((Boolean) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
   }
@@ -106,7 +111,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public BytesValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.byteArrayValue((byte[]) value, isTransient(valueInfo));
+      return Variables.byteArrayValue((byte[]) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
   }
@@ -120,7 +126,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public DateValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.dateValue((Date) value, isTransient(valueInfo));
+      return Variables.dateValue((Date) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
   }
@@ -134,7 +141,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public DoubleValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.doubleValue((Double) value, isTransient(valueInfo));
+      return Variables.doubleValue((Double) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
     @Override
@@ -164,6 +172,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
         doubleValue = (DoubleValueImpl) Variables.doubleValue(null);
       }
       doubleValue.setTransient(numberValue.isTransient());
+      doubleValue.setRestricted(numberValue.isRestricted());
       return doubleValue;
     }
   }
@@ -177,7 +186,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public IntegerValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.integerValue((Integer) value, isTransient(valueInfo));
+      return  Variables.integerValue((Integer) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
     @Override
@@ -219,6 +229,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
         integerValue = (IntegerValueImpl) Variables.integerValue(null);
       }
       integerValue.setTransient(numberValue.isTransient());
+      integerValue.setRestricted(numberValue.isRestricted());
       return integerValue;
     }
   }
@@ -232,7 +243,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public LongValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.longValue((Long) value, isTransient(valueInfo));
+      return Variables.longValue((Long) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
     @Override
@@ -275,6 +287,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
         longvalue =  (LongValueImpl) Variables.longValue(null);
       }
       longvalue.setTransient(numberValue.isTransient());
+      longvalue.setRestricted(numberValue.isRestricted());
       return longvalue;
     }
   }
@@ -288,7 +301,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public TypedValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.untypedNullValue(isTransient(valueInfo));
+      return Variables.untypedNullValue(VariableOptions.options(isTransient(valueInfo), isRestricted(valueInfo)));
     }
 
   }
@@ -302,7 +315,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public ShortValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.shortValue((Short) value, isTransient(valueInfo));
+      return Variables.shortValue((Short) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
     @Override
@@ -324,6 +338,7 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
         shortValue =  (ShortValueImpl) Variables.shortValue(null);
       }
       shortValue.setTransient(numberValue.isTransient());
+      shortValue.setRestricted(numberValue.isRestricted());
       return shortValue;
     }
 
@@ -357,7 +372,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public StringValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.stringValue((String) value, isTransient(valueInfo));
+      return Variables.stringValue((String) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
   }
 
@@ -370,7 +386,8 @@ public abstract class PrimitiveValueTypeImpl extends AbstractValueTypeImpl imple
     }
 
     public NumberValue createValue(Object value, Map<String, Object> valueInfo) {
-      return Variables.numberValue((Number) value, isTransient(valueInfo));
+      return Variables.numberValue((Number) value, VariableOptions.options(isTransient(valueInfo),
+          isRestricted(valueInfo)));
     }
 
     @Override

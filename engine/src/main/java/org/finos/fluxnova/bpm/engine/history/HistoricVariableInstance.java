@@ -162,4 +162,9 @@ public interface HistoricVariableInstance {
 
   /** The time when the historic variable instance will be removed. */
   Date getRemovalTime();
+
+  /**
+   * Returns whether this variable is restricted.
+   */
+  boolean isRestricted();
 }

@@ -101,4 +101,16 @@ public abstract class AbstractValueTypeImpl implements ValueType {
     return false;
   }
 
+  protected boolean isRestricted(Map<String, Object> valueInfo) {
+    if (valueInfo != null && valueInfo.containsKey(VALUE_INFO_RESTRICTED)) {
+      Object restricted = valueInfo.get(VALUE_INFO_RESTRICTED);
+      if (restricted instanceof Boolean) {
+        return (Boolean) restricted;
+      }
+      throw new IllegalArgumentException("The property 'restricted' should have a value of type 'boolean'.");
+    }
+
+    return false;
+  }
+
 }

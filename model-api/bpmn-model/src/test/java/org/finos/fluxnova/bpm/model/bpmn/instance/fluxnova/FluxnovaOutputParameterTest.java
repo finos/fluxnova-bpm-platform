@@ -41,6 +41,7 @@ public class FluxnovaOutputParameterTest extends BpmnModelElementInstanceTest {
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
       new AttributeAssumption(CAMUNDA_NS, "name", false, true),
+      new AttributeAssumption(CAMUNDA_NS, "restricted"),
       new AttributeAssumption(CAMUNDA_NS, "isTransient", false, false, false)
     );
   }

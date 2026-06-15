@@ -17,6 +17,7 @@
 package org.finos.fluxnova.bpm.model.bpmn.impl.instance.fluxnova;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_NAME;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_RESTRICTED;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ELEMENT_OUTPUT_PARAMETER;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 
@@ -37,6 +38,7 @@ import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.*;
 public class FluxnovaOutputParameterImpl extends FluxnovaGenericValueElementImpl implements FluxnovaOutputParameter {
 
   protected static Attribute<String> camundaNameAttribute;
+  protected static Attribute<Boolean> camundaRestrictedAttribute;
 
   protected static Attribute<Boolean> camundaOutputTransientAttribute;
 
@@ -52,6 +54,10 @@ public class FluxnovaOutputParameterImpl extends FluxnovaGenericValueElementImpl
     camundaNameAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_NAME)
       .namespace(CAMUNDA_NS)
       .required()
+      .build();
+
+    camundaRestrictedAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_RESTRICTED)
+      .namespace(CAMUNDA_NS)
       .build();
 
     camundaOutputTransientAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_IS_TRANSIENT)
@@ -81,5 +87,13 @@ public class FluxnovaOutputParameterImpl extends FluxnovaGenericValueElementImpl
 
   public void setFluxnovaOutputTransient(boolean transientFlag) {
     camundaOutputTransientAttribute.setValue(this, transientFlag);
+  }
+
+  public boolean getFluxnovaRestricted() {
+    return camundaRestrictedAttribute.getValue(this);
+  }
+
+  public void setFluxnovaRestricted(boolean camundaRestricted) {
+    camundaRestrictedAttribute.setValue(this, camundaRestricted);
   }
 }

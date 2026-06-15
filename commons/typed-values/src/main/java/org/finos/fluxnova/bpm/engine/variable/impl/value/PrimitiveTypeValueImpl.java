@@ -55,6 +55,7 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     result = prime * result + ((type == null) ? 0 : type.hashCode());
     result = prime * result + ((value == null) ? 0 : value.hashCode());
     result = prime * result + (isTransient ? 1 : 0);
+    result = prime * result + (restricted ? 1 : 0);
     return result;
   }
 
@@ -80,6 +81,8 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     if (isTransient != other.isTransient()) {
       return false;
     }
+    if (restricted != other.restricted)
+      return false;
     return true;
   }
 
@@ -98,6 +101,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
         this(value);
         this.isTransient = isTransient;
     }
+
+    public BooleanValueImpl(Boolean value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
+    }
   }
 
   public static class BytesValueImpl extends PrimitiveTypeValueImpl<byte[]> implements BytesValue {
@@ -111,6 +119,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     public BytesValueImpl(byte[] value, boolean isTransient) {
       this(value);
       this.isTransient = isTransient;
+    }
+
+    public BytesValueImpl(byte[] value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
     }
   }
 
@@ -126,6 +139,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
       this(value);
       this.isTransient = isTransient;
     }
+
+    public DateValueImpl(Date value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
+    }
   }
 
   public static class DoubleValueImpl extends PrimitiveTypeValueImpl<Double> implements DoubleValue {
@@ -139,6 +157,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     public DoubleValueImpl(Double value, boolean isTransient) {
       this(value);
       this.isTransient = isTransient;
+    }
+
+    public DoubleValueImpl(Double value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
     }
   }
 
@@ -154,6 +177,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
       this(value);
       this.isTransient = isTransient;
     }
+
+    public IntegerValueImpl(Integer value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
+    }
   }
 
   public static class LongValueImpl extends PrimitiveTypeValueImpl<Long> implements LongValue {
@@ -167,6 +195,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     public LongValueImpl(Long value, boolean isTransient) {
       this(value);
       this.isTransient = isTransient;
+    }
+
+    public LongValueImpl(Long value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
     }
   }
 
@@ -182,6 +215,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
       this(value);
       this.isTransient = isTransient;
     }
+
+    public ShortValueImpl(Short value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
+    }
   }
 
   public static class StringValueImpl extends PrimitiveTypeValueImpl<String> implements StringValue {
@@ -196,6 +234,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
       this(value);
       this.isTransient = isTransient;
     }
+
+    public StringValueImpl(String value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
+    }
   }
 
   public static class NumberValueImpl extends PrimitiveTypeValueImpl<Number> implements NumberValue {
@@ -209,6 +252,11 @@ public class PrimitiveTypeValueImpl<T> extends AbstractTypedValue<T> implements 
     public NumberValueImpl(Number value, boolean isTransient) {
       this(value);
       this.isTransient = isTransient;
+    }
+
+    public NumberValueImpl(Number value, boolean isTransient, boolean restricted) {
+      this(value, isTransient);
+      this.restricted = restricted;
     }
   }
 
