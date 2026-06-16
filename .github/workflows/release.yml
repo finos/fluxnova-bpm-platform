@@ -144,17 +144,16 @@ jobs:
 
       - name: Generate Javadoc
         run: |
-          mvn -B -e package javadoc:javadoc javadoc:aggregate \ 
-            -Pdistro,distro-webjar,javadocs \
-            -pl '!engine-rest/engine-rest-openapi' \
-            -DskipTests=true -Dskip.frontend.build=true \
+          mvn -B -e package javadoc:javadoc javadoc:aggregate -Pdistro,distro-webjar,javadocs \
+            -pl '!engine,!engine-rest/engine-rest-openapi' \
+            -DskipTests=true -DskipITs=true -Dskip.frontend.build=true \
             -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
-
+          
       - name: Publish Javadoc to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+          publish_dir: ./target/reports/apidocs
           destination_dir: javadocs/${{ needs.publish-central.outputs.minor_version }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
@@ -183,16 +182,15 @@ jobs:
 
       - name: Generate OpenAPI Spec
         run: |
-          mvn -B -e package \
-          -pl 'engine-rest'  \
-          -s ./settings.xml \
-          -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
+          cd engine-rest && \
+          mvn -B -e package  -pl '!engine-rest,!assembly' \
+           -s ../settings.xml -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false 
 
       - name: Publish OpenAPI Spec to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./engine-rest/engine-rest-openapi/target/generated-source/openapi-json
+          publish_dir: ./engine-rest/engine-rest/docs/target/dependency
           destination_dir: openapi/${{ needs.publish-central.outputs.minor_version }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
