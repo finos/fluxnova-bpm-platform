@@ -44,8 +44,8 @@ import org.finos.fluxnova.bpm.engine.impl.util.xml.Element;
 public final class BpmnParseUtil {
 
   /**
-   * Returns the camunda extension element in the camunda namespace
-   * and the given name.
+   * Returns the extension element in the configured custom extension namespace
+   * aliases and the given name.
    *
     * @param element the parent element of the extension element
    * @param extensionElementName the name of the extension element to find
@@ -54,7 +54,11 @@ public final class BpmnParseUtil {
   public static Element findFluxnovaExtensionElement(Element element, String extensionElementName) {
     Element extensionElements = element.element("extensionElements");
     if(extensionElements != null) {
-      return extensionElements.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, extensionElementName);
+      Element extensionElement = extensionElements.elementNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, extensionElementName);
+      if (extensionElement == null) {
+        extensionElement = extensionElements.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, extensionElementName);
+      }
+      return extensionElement;
     } else {
       return null;
     }
@@ -262,7 +266,10 @@ public final class BpmnParseUtil {
   public static Map<String, String> parseFluxnovaExtensionProperties(Element element){
     Element propertiesElement = findFluxnovaExtensionElement(element, "properties");
     if(propertiesElement != null) {
-      List<Element> properties = propertiesElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "property");
+      List<Element> properties = propertiesElement.elementsNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, "property");
+      if (properties.isEmpty()) {
+        properties = propertiesElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "property");
+      }
       Map<String, String> propertiesMap = new HashMap<>();
       for (Element property : properties) {
         propertiesMap.put(property.attribute("name"), property.attribute("value"));
