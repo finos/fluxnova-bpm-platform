@@ -145,8 +145,8 @@ jobs:
       - name: Generate Javadoc
         run: |
           mvn -B -e package javadoc:javadoc javadoc:aggregate \ 
-            -Pdistro,distro-wildfly,distro-webjar,javadocs \
-            -pl '!distro/wildfly/modules,!distro/wildfly26/modules,!engine-rest/engine-rest-openapi' \
+            -Pdistro,distro-webjar,javadocs \
+            -pl '!engine-rest/engine-rest-openapi' \
             -DskipTests=true -Dskip.frontend.build=true \
             -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
 
