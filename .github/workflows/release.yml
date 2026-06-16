@@ -128,6 +128,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate/detached@v3
+        
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
@@ -139,9 +142,6 @@ jobs:
           java-version: 21
           distribution: 'temurin'
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        
       - name: Generate Javadoc
         run: |
           mvn -B -e package javadoc:javadoc javadoc:aggregate \ 
@@ -167,6 +167,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate/detached@v3
+        
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
@@ -178,8 +181,6 @@ jobs:
           java-version: 21
           distribution: 'temurin'
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Generate OpenAPI Spec
         run: |
           mvn -B -e package \
