@@ -55,6 +55,9 @@ public class FluxnovaBpmRunDeploymentConfiguration extends DefaultDeploymentConf
 
   protected String getNormalizedDeploymentDir() {
     String result = deploymentDir;
+    if (StringUtils.isEmpty(result)) {
+      return result;
+    }
     if(File.separator.equals("\\")) {
       result = result.replace("\\", "/");
     }
