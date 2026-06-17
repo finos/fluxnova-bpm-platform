@@ -212,14 +212,14 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
       activityVariablesCaptor.capture());
 
     Map<String, Map<String, Object>> capturedActivityVariables = activityVariablesCaptor.getValue();
-    Assert.assertEquals(2, capturedActivityVariables.size());
-    Assert.assertTrue(capturedActivityVariables.containsKey("taskA"));
-    Assert.assertTrue(capturedActivityVariables.containsKey("taskB"));
+    Assertions.assertEquals(2, capturedActivityVariables.size());
+    Assertions.assertTrue(capturedActivityVariables.containsKey("taskA"));
+    Assertions.assertTrue(capturedActivityVariables.containsKey("taskB"));
 
     Object taskAValue = capturedActivityVariables.get("taskA").get("k1");
     Object taskBValue = capturedActivityVariables.get("taskB").get("k2");
-    Assert.assertEquals("v1", taskAValue);
-    Assert.assertEquals(42, taskBValue);
+    Assertions.assertEquals("v1", taskAValue);
+    Assertions.assertEquals(42, taskBValue);
   }
 
   @Test
@@ -287,7 +287,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
       argThat(new EqualsList(expectedActivityIds)),
       activityVariablesCaptor.capture());
 
-    Assert.assertTrue(activityVariablesCaptor.getValue().isEmpty());
+    Assertions.assertTrue(activityVariablesCaptor.getValue().isEmpty());
   }
 
   @Test
@@ -316,7 +316,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
     verify(runtimeServiceMock).completeAdHocSubProcess(eq(MockProvider.EXAMPLE_EXECUTION_ID), variablesCaptor.capture());
 
     Map<String, Object> capturedVariables = variablesCaptor.getValue();
-    Assert.assertEquals("manual", capturedVariables.get("completionReason"));
+    Assertions.assertEquals("manual", capturedVariables.get("completionReason"));
   }
 
   @Test
