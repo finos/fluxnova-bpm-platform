@@ -20,6 +20,9 @@ import org.finos.fluxnova.bpm.BpmPlatform;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class CustomProcessEngineProvider implements ProcessEngineProvider {
@@ -37,6 +40,16 @@ public class CustomProcessEngineProvider implements ProcessEngineProvider {
   @Override
   public Set<String> getProcessEngineNames() {
     return BpmPlatform.getProcessEngineService().getProcessEngineNames();
+  }
+
+  @Override
+  public Map<String, ProcessEngine> getProcessEngines() {
+    List<ProcessEngine> engines = BpmPlatform.getProcessEngineService().getProcessEngines();
+    Map<String, ProcessEngine> map = new HashMap<>();
+    for (ProcessEngine engine : engines) {
+      map.put(engine.getName(), engine);
+    }
+    return map;
   }
 
 }

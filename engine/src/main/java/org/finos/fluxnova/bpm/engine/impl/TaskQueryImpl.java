@@ -152,6 +152,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
   protected boolean excludeSubtasks = false;
   protected SuspensionState suspensionState;
   protected boolean initializeFormKeys = false;
+  protected boolean evaluateFormKey = true;
   protected boolean taskNameCaseInsensitive = false;
 
   protected Boolean variableNamesIgnoreCase;
@@ -1089,8 +1090,14 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
 
   @Override
   public TaskQuery initializeFormKeys() {
+    return initializeFormKeys(true);
+  }
+
+  @Override
+  public TaskQuery initializeFormKeys(boolean evaluateFormKey) {
     ensureNotInOrQuery("initializeFormKeys()");
     this.initializeFormKeys = true;
+    this.evaluateFormKey = evaluateFormKey;
     return this;
   }
 
@@ -1467,7 +1474,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     if (initializeFormKeys) {
       for (Task task : taskList) {
         // initialize the form keys of the tasks
-        ((TaskEntity) task).initializeFormKey();
+        ((TaskEntity) task).initializeFormKey(evaluateFormKey);
       }
     }
 
@@ -1798,6 +1805,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
 
   public boolean isInitializeFormKeys() {
     return initializeFormKeys;
+  }
+
+  public boolean isEvaluateFormKey() {
+    return evaluateFormKey;
   }
 
   public boolean isTaskNameCaseInsensitive() {
@@ -2308,7 +2319,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     }
 
     if (extendingQuery.isInitializeFormKeys() || this.isInitializeFormKeys()) {
-      extendedQuery.initializeFormKeys();
+      boolean evalFormKey = extendingQuery.isInitializeFormKeys()
+          ? extendingQuery.isEvaluateFormKey()
+          : this.isEvaluateFormKey();
+      extendedQuery.initializeFormKeys(evalFormKey);
     }
 
     if (extendingQuery.isTaskNameCaseInsensitive() || this.isTaskNameCaseInsensitive()) {

@@ -19,6 +19,9 @@ package org.finos.fluxnova.bpm.engine.impl.core.variable.mapping;
 import org.finos.fluxnova.bpm.engine.impl.core.CoreLogger;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.mapping.value.ParameterValueProvider;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 
 /**
  *
@@ -41,15 +44,25 @@ public class OutputParameter extends IoParameter {
     super(name, valueProvider);
   }
 
+  public OutputParameter(String name, ParameterValueProvider valueProvider, boolean isTransient) {
+    super(name, valueProvider, isTransient);
+  }
+
   protected void execute(AbstractVariableScope innerScope, AbstractVariableScope outerScope) {
 
     // get value from inner scope
-    Object value = valueProvider.getValue(innerScope);
+    final Object[] holder = new Object[1];
+    InternalVariableContext.executeAsInternalRead(() -> holder[0] = valueProvider.getValue(innerScope));
+    Object value = holder[0];
 
     LOG.debugMappingValuefromInnerScopeToOuterScope(value, innerScope, name, outerScope);
 
     // set variable in outer scope
-    outerScope.setVariable(name, value);
+    if(getIsTransient()) {
+        outerScope.setVariable(name, Variables.untypedValue(value, true), VariableOptions.options(false, restricted));
+    } else {
+      outerScope.setVariable(name, value, VariableOptions.options(false, restricted));
+    }
   }
 
 }

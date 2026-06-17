@@ -34,8 +34,12 @@ import org.finos.fluxnova.bpm.engine.impl.core.variable.event.VariableEventDispa
 import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.DbEntityManager;
 import org.finos.fluxnova.bpm.impl.juel.jakarta.el.ELContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptorUtil;
+import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.VariableMapImpl;
+import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -60,7 +64,7 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
   public void initializeVariableStore(Map<String, Object> variables) {
     for (String variableName : variables.keySet()) {
       TypedValue value = Variables.untypedValue(variables.get(variableName));
-      CoreVariableInstance variableValue = getVariableInstanceFactory().build(variableName, value, false);
+      CoreVariableInstance variableValue = getVariableInstanceFactory().build(variableName, value, false, false);
       getVariableStore().addVariable(variableValue);
     }
   }
@@ -114,7 +118,10 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     for (CoreVariableInstance var : localVariables) {
       if(!resultVariables.containsKey(var.getName())
          && (collectAll || variableNames.contains(var.getName()))) {
-        resultVariables.put(var.getName(), var.getTypedValue(deserializeValues));
+        TypedValue interceptedValue = var.getTypedValue(deserializeValues);
+        if (interceptedValue != null) {
+          resultVariables.put(var.getName(), interceptedValue);
+        }
       }
     }
     if(!isLocal) {
@@ -259,9 +266,13 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     return getVariableStore().getKeys();
   }
 
-  public void setVariables(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck) {
+  public void setVariablesInternal(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck, boolean restricted) {
     VariableUtil.setVariables(variables,
-        (name, value) -> setVariable(name, value, skipJavaSerializationFormatCheck));
+        (name, value) -> setVariableInternal(name, value, skipJavaSerializationFormatCheck, restricted));
+  }
+
+  public void setVariables(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck) {
+    setVariablesInternal(variables, skipJavaSerializationFormatCheck, false);
   }
 
   @Override
@@ -269,9 +280,13 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     setVariables(variables, false);
   }
 
-  public void setVariablesLocal(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck) {
+  public void setVariablesLocalInternal(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck, boolean restricted) {
     VariableUtil.setVariables(variables,
-        (name, value) -> setVariableLocal(name, value, skipJavaSerializationFormatCheck));
+        (name, value) -> setVariableLocalInternal(name, value, skipJavaSerializationFormatCheck, restricted));
+  }
+
+  public void setVariablesLocal(Map<String, ?> variables, boolean skipJavaSerializationFormatCheck) {
+    setVariablesLocalInternal(variables, skipJavaSerializationFormatCheck, false);
   }
 
   @Override
@@ -314,14 +329,30 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     }
   }
 
-  public void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
-    TypedValue typedValue = Variables.untypedValue(value);
+  private TypedValue toTypedValue(Object value, boolean restricted) {
+    boolean isTransient = value instanceof TypedValue && ((TypedValue) value).isTransient();
+    boolean finalRestricted = restricted || (value instanceof TypedValue && ((TypedValue) value).isRestricted());
+    return Variables.untypedValue(value, isTransient, finalRestricted);
+  }
+
+  public void setVariableInternal(String variableName, Object value, boolean skipJavaSerializationFormatCheck, boolean restricted) {
+    TypedValue typedValue = toTypedValue(value, restricted);
     setVariable(variableName, typedValue, getSourceActivityVariableScope(), skipJavaSerializationFormatCheck);
   }
 
   @Override
+  public void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    setVariableInternal(variableName, value, skipJavaSerializationFormatCheck, false);
+  }
+
+  @Override
+  public void setVariable(String variableName, Object value, VariableOptions options) {
+    setVariableInternal(variableName, value, options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
+  }
+
+  @Override
   public void setVariable(String variableName, Object value) {
-    setVariable(variableName, value, false);
+    setVariableInternal(variableName, value, false, false);
   }
 
   protected void setVariable(String variableName,
@@ -364,6 +395,8 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
 
     if (variableStore.containsKey(variableName)) {
       CoreVariableInstance existingInstance = variableStore.getVariable(variableName);
+      value = VariableInterceptorUtil.interceptUpdateVariable(existingInstance, value);
+      boolean newRestricted = value.isRestricted();
 
       TypedValue previousValue = existingInstance.getTypedValue(false);
 
@@ -372,11 +405,13 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
       }
 
       existingInstance.setValue(value);
+      existingInstance.setRestricted(newRestricted);
       invokeVariableLifecycleListenersUpdate(existingInstance, sourceActivityExecution);
     }
     else if (variableStore.isRemoved(variableName)) {
-
       CoreVariableInstance existingInstance = variableStore.getRemovedVariable(variableName);
+      value = VariableInterceptorUtil.interceptUpdateVariable(existingInstance, value);
+      boolean newRestricted = value.isRestricted();
 
       TypedValue previousValue = existingInstance.getTypedValue(false);
 
@@ -385,6 +420,7 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
       }
 
       existingInstance.setValue(value);
+      existingInstance.setRestricted(newRestricted);
       getVariableStore().addVariable(existingInstance);
       invokeVariableLifecycleListenersUpdate(existingInstance, sourceActivityExecution);
 
@@ -394,7 +430,8 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
       }
     }
     else {
-      CoreVariableInstance variableValue = getVariableInstanceFactory().build(variableName, value, value.isTransient());
+      CoreVariableInstance variableValue = getVariableInstanceFactory().build(variableName, value, value.isTransient(), value.isRestricted());
+      variableValue = VariableInterceptorUtil.interceptCreateVariable(variableValue);
       getVariableStore().addVariable(variableValue);
       invokeVariableLifecycleListenersCreate(variableValue, sourceActivityExecution);
     }
@@ -433,14 +470,24 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     }
   }
 
-  public void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
-    TypedValue typedValue = Variables.untypedValue(value);
+  public void setVariableLocalInternal(String variableName, Object value, boolean skipJavaSerializationFormatCheck, boolean restricted) {
+    TypedValue typedValue = toTypedValue(value, restricted);
     setVariableLocal(variableName, typedValue, getSourceActivityVariableScope(), skipJavaSerializationFormatCheck);
   }
 
   @Override
+  public void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    setVariableLocalInternal(variableName, value, skipJavaSerializationFormatCheck, false);
+  }
+
+  @Override
+  public void setVariableLocal(String variableName, Object value, VariableOptions options) {
+    setVariableLocalInternal(variableName, value, options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
+  }
+
+  @Override
   public void setVariableLocal(String variableName, Object value) {
-    setVariableLocal(variableName, value, false);
+    setVariableLocalInternal(variableName, value, false, false);
   }
 
   @Override
@@ -477,6 +524,7 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
     if (getVariableStore().containsKey(variableName)) {
       CoreVariableInstance variableInstance = getVariableStore().getVariable(variableName);
 
+      VariableInterceptorUtil.interceptDeleteVariable(variableInstance);
       invokeVariableLifecycleListenersDelete(variableInstance, sourceActivityExecution);
       getVariableStore().removeVariable(variableName);
     }

@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -80,6 +80,9 @@
     <version.nodejs>24.14.0</version.nodejs>
     <version.npm>10.7.0</version.npm>
 
+    <!-- JaCoCo coverage -->
+    <jacoco.skip>false</jacoco.skip>
+
     <!-- OSGi bundles properties -->
     <camunda.artifact />
     <camunda.osgi.import.camunda.spin.version>version="[$(version;==;${camunda.spin.version.clean}),$(version;=+;${camunda.spin.version.clean}))"</camunda.osgi.import.camunda.spin.version>
@@ -135,6 +138,11 @@
       <plugins>
         <!-- test plugins -->
         <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${version.jacoco}</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.5.0</version>
@@ -143,7 +151,7 @@
             <systemPropertyVariables>
               <myWorkingDir>${project.build.directory}</myWorkingDir>
             </systemPropertyVariables>
-            <argLine>-Xmx968m -Duser.language=en -Duser.region=US -XX:+HeapDumpOnOutOfMemoryError
+            <argLine>@{argLine} -Xmx968m -Duser.language=en -Duser.region=US -XX:+HeapDumpOnOutOfMemoryError
               -XX:HeapDumpPath=${project.build.directory}/heap_dump.hprof
               --add-opens=java.base/java.util=ALL-UNNAMED
               --add-opens=java.base/java.lang=ALL-UNNAMED</argLine>
@@ -155,7 +163,7 @@
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>3.5.0</version>
           <configuration>
-            <argLine>-Xmx968m</argLine>
+            <argLine>@{argLine} -Xmx968m</argLine>
             <runOrder>hourly</runOrder>
           </configuration>
           <executions>
@@ -332,6 +340,57 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <!-- Prepares the JaCoCo agent for unit tests (surefire) -->
+          <execution>
+            <id>jacoco-prepare-agent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Prepares the JaCoCo agent for integration tests (failsafe) -->
+          <execution>
+            <id>jacoco-prepare-agent-integration</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>prepare-agent-integration</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Generates the per-module HTML/XML report after tests run -->
+          <execution>
+            <id>jacoco-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Generates the per-module integration test report after integration tests run -->
+          <execution>
+            <id>jacoco-report-integration</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>report-integration</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
