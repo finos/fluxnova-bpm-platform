@@ -84,6 +84,12 @@ public class ProcessEngineAuthenticationFilter implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
+    // Skip initialization if provider was already set (e.g., via Spring injection)
+    if (authenticationProvider != null) {
+      servletPathPrefix = filterConfig.getInitParameter(SERVLET_PATH_PREFIX);
+      return;
+    }
+
     String authenticationProviderClassName = filterConfig.getInitParameter(AUTHENTICATION_PROVIDER_PARAM);
 
     if (authenticationProviderClassName == null) {
@@ -105,6 +111,11 @@ public class ProcessEngineAuthenticationFilter implements Filter {
     }
 
     servletPathPrefix = filterConfig.getInitParameter(SERVLET_PATH_PREFIX);
+  }
+
+
+  public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+    this.authenticationProvider = authenticationProvider;
   }
 
   @Override
