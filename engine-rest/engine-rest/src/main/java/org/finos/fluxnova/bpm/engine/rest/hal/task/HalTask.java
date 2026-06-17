@@ -22,7 +22,9 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
+import org.finos.fluxnova.bpm.engine.form.CamundaFormRef;
 import org.finos.fluxnova.bpm.engine.form.FluxnovaFormRef;
+import org.finos.fluxnova.bpm.engine.impl.form.CamundaFormRefImpl;
 import org.finos.fluxnova.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseInstanceRestService;
@@ -88,6 +90,9 @@ public class HalTask extends HalResource<HalTask> {
   private boolean suspended;
   private String formKey;
   private FluxnovaFormRef fluxnovaFormRef;
+  /** @deprecated Use {@link #fluxnovaFormRef} instead. */
+  @Deprecated
+  private CamundaFormRef camundaFormRef;
   private String tenantId;
 
   public static HalTask generate(Task task, ProcessEngine engine) {
@@ -126,6 +131,7 @@ public class HalTask extends HalResource<HalTask> {
     try {
       dto.formKey = task.getFormKey();
       dto.fluxnovaFormRef = task.getFluxnovaFormRef();
+      dto.camundaFormRef = toCamundaFormRef(dto.fluxnovaFormRef);
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
@@ -232,8 +238,23 @@ public class HalTask extends HalResource<HalTask> {
     return fluxnovaFormRef;
   }
 
+  /** @deprecated Use {@link #getFluxnovaFormRef()} instead. */
+  @Deprecated
+  public CamundaFormRef getCamundaFormRef() {
+    return camundaFormRef;
+  }
+
   public String getTenantId() {
     return tenantId;
+  }
+
+  private static CamundaFormRef toCamundaFormRef(FluxnovaFormRef ref) {
+    if (ref == null) {
+      return null;
+    }
+    CamundaFormRefImpl camundaFormRef = new CamundaFormRefImpl(ref.getKey(), ref.getBinding());
+    camundaFormRef.setVersion(ref.getVersion());
+    return camundaFormRef;
   }
 
 }

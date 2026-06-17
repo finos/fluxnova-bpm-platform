@@ -43,6 +43,12 @@ public class AttachmentManager extends AbstractHistoricManager {
     return getDbEntityManager().selectList("selectAttachmentsByTaskId", taskId);
   }
 
+  public long countAttachmentsByTaskId(String taskId) {
+    checkHistoryEnabled();
+    Long count = (Long) getDbEntityManager().selectOne("countAttachmentsByTaskId", taskId);
+    return count != null ? count : 0L;
+  }
+
   public DbOperation addRemovalTimeToAttachmentsByRootProcessInstanceId(String rootProcessInstanceId, Date removalTime, Integer batchSize) {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("rootProcessInstanceId", rootProcessInstanceId);

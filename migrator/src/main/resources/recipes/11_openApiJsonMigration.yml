@@ -1,0 +1,38 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: openApiJsonMigration
+displayName: OpenAPI/Swagger JSON Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: '"title":\s*"Camunda Process API"'
+      replace: '"title": "Fluxnova Process API"'
+      regex: true
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '"description":\s*"([^"]*)\bCamunda BPM\b([^"]*)"'
+      replace: '"description": "$1Fluxnova BPM$2"'
+      regex: true
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '"summary":\s*"([^"]*)\bCamunda\b([^"]*)"'
+      replace: '"summary": "$1Fluxnova$2"'
+      regex: true
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '"description":\s*"([^"]*)\bCamunda\b([^"]*)"'
+      replace: '"description": "$1Fluxnova$2"'
+      regex: true
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '"CamundaProcessList"'
+      replace: '"FluxnovaProcessList"'
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '#/components/schemas/Camunda'
+      replace: '#/components/schemas/Fluxnova'
+      filePattern: "**/{openapi,swagger,api-spec}.json"
+  - org.openrewrite.text.FindAndReplace:
+      find: '"engine":\s*"Camunda Platform ([^"]+)"'
+      replace: '"engine": "Fluxnova Platform $1"'
+      regex: true
+      filePattern: "**/{openapi,swagger,api-spec}.json"

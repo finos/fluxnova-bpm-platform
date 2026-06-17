@@ -1,0 +1,8 @@
+{
+    "components": [],
+    "schema": "10",
+    "exporter": {
+        "name": "Camunda Modeler",
+        "version": "5.35.0"
+    }
+}

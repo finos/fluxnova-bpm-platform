@@ -18,8 +18,6 @@ package org.finos.fluxnova.connect.spi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Set;
-
 import org.finos.fluxnova.connect.Connectors;
 import org.finos.fluxnova.connect.dummy.DummyConnector;
 import org.junit.Test;

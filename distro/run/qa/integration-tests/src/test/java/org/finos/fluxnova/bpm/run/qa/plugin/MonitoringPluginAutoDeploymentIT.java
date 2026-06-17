@@ -27,7 +27,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
 import org.junit.After;
 import org.junit.Test;
@@ -82,7 +81,7 @@ public class MonitoringPluginAutoDeploymentIT {
 
     // then
     String responseBody = response.then()
-      .statusCode(Status.OK.getStatusCode())
+      .statusCode(200)
       .extract().body().asString();
 
     assertThat(responseBody).isEqualTo("test string");

@@ -41,6 +41,7 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.task.TaskReport;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
@@ -583,6 +584,10 @@ public interface TaskService {
    */
   void setVariable(String taskId, String variableName, Object value);
 
+  void setVariable(String taskId, String variableName, Object value, boolean restricted);
+
+  void setVariable(String taskId, String variableName, Object value, VariableOptions variableOptions);
+
   /**
    * Set variables on a task. If the variable is not already existing, it will be created in the
    * most outer scope.  This means the process instance in case this task is related to an
@@ -619,6 +624,10 @@ public interface TaskService {
    *           </ul>
    */
   void setVariableLocal(String taskId, String variableName, Object value);
+
+  void setVariableLocal(String taskId, String variableName, Object value, boolean restricted);
+
+  void setVariableLocal(String taskId, String variableName, Object value, VariableOptions variableOptions);
 
   /**
    * Set variables on a task. If the variable is not already existing, it will be created in the
@@ -1184,6 +1193,9 @@ public interface TaskService {
   /** The comments related to the given task. */
   List<Comment> getTaskComments(String taskId);
 
+  /** The count of attachments associated to a task */
+  long getTaskCommentsCount(String taskId);
+
   /** Retrieve a particular task comment */
   Comment getTaskComment(String taskId, String commentId);
 
@@ -1255,6 +1267,9 @@ public interface TaskService {
 
   /** The list of attachments associated to a task */
   List<Attachment> getTaskAttachments(String taskId);
+
+  /** The count of attachments associated to a task */
+  long getTaskAttachmentsCount(String taskId);
 
   /** The list of attachments associated to a process instance */
   List<Attachment> getProcessInstanceAttachments(String processInstanceId);

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Loggers>
+    <Logger name="org.camunda.bpm.engine" level="debug"/>
+    <Logger name="org.camunda.bpm.engine.impl.persistence" level="trace"/>
+  </Loggers>
+</Configuration>

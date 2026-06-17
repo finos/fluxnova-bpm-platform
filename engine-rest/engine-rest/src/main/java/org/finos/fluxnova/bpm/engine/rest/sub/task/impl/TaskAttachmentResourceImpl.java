@@ -34,6 +34,7 @@ import org.finos.fluxnova.bpm.engine.history.HistoricTaskInstance;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.identity.Authentication;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
+import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.task.AttachmentDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.mapper.MultipartFormData;
@@ -96,6 +97,21 @@ public class TaskAttachmentResourceImpl implements TaskAttachmentResource {
     else {
       throw new InvalidRequestException(Status.NOT_FOUND, "Attachment content for attachment with id '" + attachmentId + "' does not exist for task id '" + taskId + "'.");
     }
+  }
+
+  @Override
+  public CountResultDto getAttachmentsCount() {
+    if (!isHistoryEnabled()) {
+      return new CountResultDto(0);
+    }
+
+    ensureTaskExists(Status.NOT_FOUND);
+
+    long count = engine.getTaskService().getTaskAttachmentsCount(taskId);
+
+    CountResultDto result = new CountResultDto();
+    result.setCount(count);
+    return result;
   }
 
   @Override

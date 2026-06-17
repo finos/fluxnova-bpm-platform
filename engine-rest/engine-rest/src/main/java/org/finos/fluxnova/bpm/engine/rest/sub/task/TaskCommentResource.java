@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.task.CommentDto;
 
 public interface TaskCommentResource {
@@ -35,6 +36,11 @@ public interface TaskCommentResource {
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   List<CommentDto> getComments();
+
+  @GET
+  @Path("/count")
+  @Produces(MediaType.APPLICATION_JSON)
+  CountResultDto getCommentsCount();
 
   @GET
   @Path("/{commentId}")

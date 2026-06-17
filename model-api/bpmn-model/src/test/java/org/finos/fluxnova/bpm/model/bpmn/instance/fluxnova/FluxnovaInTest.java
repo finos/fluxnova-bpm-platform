@@ -43,7 +43,8 @@ public class FluxnovaInTest extends BpmnModelElementInstanceTest {
       new AttributeAssumption(CAMUNDA_NS, "variables"),
       new AttributeAssumption(CAMUNDA_NS, "target"),
       new AttributeAssumption(CAMUNDA_NS, "businessKey"),
-      new AttributeAssumption(CAMUNDA_NS, "local")
+      new AttributeAssumption(CAMUNDA_NS, "local"),
+      new AttributeAssumption(CAMUNDA_NS, "restricted")
     );
   }
 }

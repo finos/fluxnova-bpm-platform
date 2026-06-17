@@ -88,7 +88,12 @@ class MigratorServiceTest {
         // Read the model from the test pom file
         Model model = migratorService.readPomToModel(projectLocation + "pom.xml");
 
-        // Use reflection to access the private method
+        // Initialize recipes first (this is required before addPlugin can work)
+        java.lang.reflect.Method initializeRecipesMethod = MigratorService.class.getDeclaredMethod("initializeRecipes");
+        initializeRecipesMethod.setAccessible(true);
+        initializeRecipesMethod.invoke(migratorService);
+
+        // Use reflection to access the private addPlugin method
         java.lang.reflect.Method addPluginMethod = MigratorService.class.getDeclaredMethod("addPlugin", Model.class);
         addPluginMethod.setAccessible(true);
         addPluginMethod.invoke(migratorService, model);
@@ -110,27 +115,68 @@ class MigratorServiceTest {
         assertNotNull(activeRecipes);
 
         Xpp3Dom[] recipeNodes = activeRecipes.getChildren("recipe");
-        assertEquals(2, recipeNodes.length);
-        assertEquals("camundaToFluxnova", recipeNodes[0].getValue());
-        assertEquals("formMigration", recipeNodes[1].getValue());
+
+        // Get the actual number of recipes from the recipes folder
+        java.lang.reflect.Field recipeNamesField = MigratorService.class.getDeclaredField("recipeNames");
+        recipeNamesField.setAccessible(true);
+        String[] recipeNames = (String[]) recipeNamesField.get(migratorService);
+
+        assertEquals(recipeNames.length, recipeNodes.length,
+                "Number of recipe nodes should match number of recipe files");
+
+        // Verify first and last recipe names match
+        if (recipeNames.length > 0) {
+            assertEquals(recipeNames[0], recipeNodes[0].getValue(),
+                    "First recipe name should match");
+            assertEquals(recipeNames[recipeNames.length - 1],
+                    recipeNodes[recipeNodes.length - 1].getValue(),
+                    "Last recipe name should match");
+        }
     }
 
     @Test
     void testCopyRewriteYml() throws Exception {
-        try (MockedStatic<Migrator> migratorMockedStatic = mockStatic(Migrator.class)) {
-            // Setup ClassLoader mock
-            ClassLoader mockClassLoader = mock(ClassLoader.class);
-            //lenient(mockClassLoader.getResourceAsStream("rewrite.yml")).thenReturn(new ByteArrayInputStream("test content".getBytes()));
+        // Initialize recipes first
+        java.lang.reflect.Method initializeRecipesMethod = MigratorService.class.getDeclaredMethod("initializeRecipes");
+        initializeRecipesMethod.setAccessible(true);
+        initializeRecipesMethod.invoke(migratorService);
 
-            // Use reflection to access the private method
-            java.lang.reflect.Method copyRewriteYmlMethod = MigratorService.class.getDeclaredMethod("copyRewriteYml");
-            copyRewriteYmlMethod.setAccessible(true);
-            copyRewriteYmlMethod.invoke(migratorService);
+        // Get the recipe files that were loaded
+        java.lang.reflect.Field recipeFilesField = MigratorService.class.getDeclaredField("recipeFiles");
+        recipeFilesField.setAccessible(true);
+        String[] recipeFiles = (String[]) recipeFilesField.get(migratorService);
 
-            // Verify the file was created
-            Path rewriteYmlPath = Path.of(projectLocation + "rewrite.yml");
-            assertTrue(Files.exists(rewriteYmlPath));
+        // Call copyRewriteYml
+        java.lang.reflect.Method copyRewriteYmlMethod = MigratorService.class.getDeclaredMethod("copyRewriteYml");
+        copyRewriteYmlMethod.setAccessible(true);
+        copyRewriteYmlMethod.invoke(migratorService);
+
+        // Verify the file was created
+        Path rewriteYmlPath = Path.of(projectLocation + "rewrite.yml");
+        assertTrue(Files.exists(rewriteYmlPath), "rewrite.yml should be created");
+
+        // Read and verify content
+        String content = Files.readString(rewriteYmlPath);
+
+        // Verify main rewrite.yml content is present
+        assertTrue(content.contains("type: specs.openrewrite.org/v1beta/recipe"),
+                "Should contain OpenRewrite recipe type");
+
+        // Verify all recipe files were merged
+        for (String recipeFile : recipeFiles) {
+            String recipeName = recipeFile.replace(".yml", "").replaceFirst("^\\d+_", "");
+            assertTrue(content.contains("name: " + recipeName),
+                    "Should contain recipe: " + recipeName);
         }
+
+        // Verify placeholders were replaced
+        assertFalse(content.contains("{{TARGET_VERSION}}"),
+                "TARGET_VERSION placeholder should be replaced");
+        assertFalse(content.contains("{{MODELER_VERSION}}"),
+                "MODELER_VERSION placeholder should be replaced");
+
+        System.out.println("✅ Successfully created and verified rewrite.yml with " +
+                recipeFiles.length + " recipes");
     }
 
     @Test

@@ -18,15 +18,11 @@ package org.finos.fluxnova.bpm.engine.impl.variable.serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
 import java.io.Serializable;
 
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
-import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.engine.variable.Variables.SerializationDataFormats;
 
 /**
@@ -55,7 +51,7 @@ public class JavaObjectSerializer extends AbstractObjectValueSerializer {
     ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
     ObjectInputStream ois = null;
     try {
-      ois = new ClassloaderAwareObjectInputStream(bais);
+      ois = new ClassRemappingObjectInputStream(bais);
       return ois.readObject();
     }
     finally {
@@ -86,15 +82,4 @@ public class JavaObjectSerializer extends AbstractObjectValueSerializer {
     return value instanceof Serializable;
   }
 
-  protected static class ClassloaderAwareObjectInputStream extends ObjectInputStream {
-
-    public ClassloaderAwareObjectInputStream(InputStream in) throws IOException {
-      super(in);
-    }
-
-    protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
-      return ReflectUtil.loadClass(desc.getName());
-    }
-
-  }
 }

@@ -2,9 +2,9 @@ name: "Build and Publish Docker Image"
 description: "Build and publish a Docker image to GitHub Container Registry"
 
 inputs:
-    version:
-        description: "The version tag to apply to the Docker image"
-        required: true
+  version:
+    description: "The version tag to apply to the Docker image"
+    required: true
 
 runs:
   using: "composite"
@@ -16,6 +16,9 @@ runs:
         username: ${{ github.repository_owner }}
         password: ${{ env.GH_TOKEN }}
 
+    - name: Print release version input
+      shell: bash
+      run: echo "Input release version =${{ inputs.version }}"
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v5
@@ -23,8 +26,8 @@ runs:
         images: |
           ghcr.io/${{ github.repository }}
         tags: |
-          type=semver,pattern={{version}}
-          1.0.0
+          type=semver,pattern={{version}} 
+          ${{ inputs.version }}
 
     - name: Build/push container image
       uses: docker/build-push-action@v6

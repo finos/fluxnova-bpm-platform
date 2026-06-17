@@ -5,7 +5,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-  <display-name>Camunda Platform webapp</display-name>
+  <display-name>Fluxnova Platform webapp</display-name>
 
   <!-- cockpit bootstrap listener -->
   <listener>
@@ -42,10 +42,10 @@
   <!-- Container Based Authentication filter -->
   <!-- <filter>
     <filter-name>Container Based Authentication Filter</filter-name>
-    <filter-class>org.camunda.bpm.webapp.impl.security.auth.ContainerBasedAuthenticationFilter</filter-class>
+    <filter-class>org.finos.fluxnova.bpm.webapp.impl.security.auth.ContainerBasedAuthenticationFilter</filter-class>
     <init-param>
       <param-name>authentication-provider</param-name>
-      <param-value>org.camunda.bpm.engine.rest.security.auth.impl.ContainerBasedAuthenticationProvider</param-value>
+      <param-value>org.finos.fluxnova.bpm.engine.rest.security.auth.impl.ContainerBasedAuthenticationProvider</param-value>
     </init-param>
   </filter>
   <filter-mapping>
@@ -58,7 +58,6 @@
   <filter>
     <filter-name>Authentication Filter</filter-name>
     <filter-class>org.finos.fluxnova.bpm.webapp.impl.security.auth.AuthenticationFilter</filter-class>
-    <!-- See https://docs.camunda.org/manual/latest/webapps/shared-options/authentication/#cache -->
     <init-param>
       <param-name>cacheTimeToLive</param-name>
       <param-value>300000</param-value>
@@ -121,8 +120,6 @@
     <!--
     The Strict Transport Security header is disabled by default.
     You can enable it by uncommenting the configuration below.
-    Read more about it in the documentation
-    https://docs.camunda.org/manual/latest/webapps/shared-options/header-security/#strict-transport-security
     -->
 
     <!--

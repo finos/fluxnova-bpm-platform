@@ -132,6 +132,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
   protected String key;
   protected String keyLike;
   protected String[] taskDefinitionKeys;
+  protected String[] taskDefinitionKeyNotIn;
   protected String processDefinitionKey;
   protected String[] processDefinitionKeys;
   protected String processDefinitionId;
@@ -151,6 +152,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
   protected boolean excludeSubtasks = false;
   protected SuspensionState suspensionState;
   protected boolean initializeFormKeys = false;
+  protected boolean evaluateFormKey = true;
   protected boolean taskNameCaseInsensitive = false;
 
   protected Boolean variableNamesIgnoreCase;
@@ -671,6 +673,12 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
   }
 
   @Override
+  public TaskQuery taskDefinitionKeyNotIn(String... taskDefinitionKeyNotIn) {
+    this.taskDefinitionKeyNotIn = taskDefinitionKeyNotIn;
+    return this;
+  }
+
+  @Override
   public TaskQuery taskParentTaskId(String taskParentTaskId) {
     this.parentTaskId = taskParentTaskId;
     return this;
@@ -1082,8 +1090,14 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
 
   @Override
   public TaskQuery initializeFormKeys() {
+    return initializeFormKeys(true);
+  }
+
+  @Override
+  public TaskQuery initializeFormKeys(boolean evaluateFormKey) {
     ensureNotInOrQuery("initializeFormKeys()");
     this.initializeFormKeys = true;
+    this.evaluateFormKey = evaluateFormKey;
     return this;
   }
 
@@ -1100,6 +1114,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
       || CompareUtil.areNotInAscendingOrder(followUpAfter, followUpDate, followUpBefore)
       || CompareUtil.areNotInAscendingOrder(createTimeAfter, createTime, createTimeBefore)
       || CompareUtil.elementIsNotContainedInArray(key, taskDefinitionKeys)
+      || CompareUtil.elementIsContainedInArray(key, taskDefinitionKeyNotIn)
       || CompareUtil.elementIsNotContainedInArray(processDefinitionKey, processDefinitionKeys)
       || CompareUtil.elementIsNotContainedInArray(processInstanceBusinessKey, processInstanceBusinessKeys);
   }
@@ -1459,7 +1474,7 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     if (initializeFormKeys) {
       for (Task task : taskList) {
         // initialize the form keys of the tasks
-        ((TaskEntity) task).initializeFormKey();
+        ((TaskEntity) task).initializeFormKey(evaluateFormKey);
       }
     }
 
@@ -1676,6 +1691,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     return taskDefinitionKeys;
   }
 
+  public String[] getKeyNotIn() {
+    return taskDefinitionKeyNotIn;
+  }
+
   public String getKeyLike() {
     return keyLike;
   }
@@ -1788,6 +1807,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     return initializeFormKeys;
   }
 
+  public boolean isEvaluateFormKey() {
+    return evaluateFormKey;
+  }
+
   public boolean isTaskNameCaseInsensitive() {
     return taskNameCaseInsensitive;
   }
@@ -1802,6 +1825,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
 
   public String[] getTaskDefinitionKeys() {
     return taskDefinitionKeys;
+  }
+
+  public String[] getTaskDefinitionKeyNotIn() {
+    return taskDefinitionKeyNotIn;
   }
 
   public boolean getIsTenantIdSet() {
@@ -2101,6 +2128,13 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
       extendedQuery.taskDefinitionKeyIn(this.getKeys());
     }
 
+    if (extendingQuery.getKeyNotIn() != null) {
+      extendedQuery.taskDefinitionKeyNotIn(extendingQuery.getKeyNotIn());
+    }
+    else if (this.getKeyNotIn() != null) {
+      extendedQuery.taskDefinitionKeyNotIn(this.getKeyNotIn());
+    }
+
     if (extendingQuery.getParentTaskId() != null) {
       extendedQuery.taskParentTaskId(extendingQuery.getParentTaskId());
     }
@@ -2285,7 +2319,10 @@ public class TaskQueryImpl extends AbstractQuery<TaskQuery, Task> implements Tas
     }
 
     if (extendingQuery.isInitializeFormKeys() || this.isInitializeFormKeys()) {
-      extendedQuery.initializeFormKeys();
+      boolean evalFormKey = extendingQuery.isInitializeFormKeys()
+          ? extendingQuery.isEvaluateFormKey()
+          : this.isEvaluateFormKey();
+      extendedQuery.initializeFormKeys(evalFormKey);
     }
 
     if (extendingQuery.isTaskNameCaseInsensitive() || this.isTaskNameCaseInsensitive()) {

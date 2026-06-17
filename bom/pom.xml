@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -17,5 +17,8 @@
     <module>fluxnova-only-bom</module>
     <module>fluxnova-bom</module>
   </modules>
+  <properties>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
 </project>

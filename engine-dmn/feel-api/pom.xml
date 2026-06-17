@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.dmn</groupId>
     <artifactId>fluxnova-engine-dmn-root</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-engine-feel-api</artifactId>
@@ -57,7 +57,7 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>clirr-maven-plugin</artifactId>
             <configuration>
-              <comparisonVersion>${camunda.version.old}</comparisonVersion>
+              <comparisonVersion>${fluxnova.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
                 <exclude>org/finos/fluxnova/bpm/dmn/feel/impl/**</exclude>

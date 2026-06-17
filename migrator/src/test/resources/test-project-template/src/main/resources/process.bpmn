@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  targetNamespace="http://camunda.org/examples"
+                  modeler:executionPlatformVersion="7.23.0"
+                  exporter="Camunda Modeler"
+                  exporterVersion="5.0.0"
+                  xmlns:modeler="http://camunda.org/schema/modeler/1.0/">
+  <bpmn:process id="exampleProcess" name="Example Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" camunda:initiator="starter" />
+    <bpmn:scriptTask id="Task_1" scriptFormat="javascript">
+         <bpmn:script><![CDATA[
+           // Import Camunda BPM Engine packages
+           importPackage(org.camunda.bpm.engine);
+           importPackage(org.camunda.bpm.engine.delegate);
+           importPackage(org.camunda.bpm.engine.runtime);
+           importPackage(org.camunda.bpm.engine.task);
+           importPackage(org.camunda.bpm.engine.history);
+           importPackage(org.camunda.bpm.engine.repository);
+
+           // Import Camunda Spin for data processing
+           importPackage(org.camunda.spin);
+           importPackage(org.camunda.spin.json);
+           importPackage(org.camunda.spin.xml);
+
+           // Import Camunda Connect
+           importPackage(org.camunda.connect);
+           importPackage(org.camunda.connect.httpclient);
+
+           // Import Camunda Commons
+           importPackage(org.camunda.commons.logging);
+           import org.camunda.commons.utils
+           import org.camunda.example.camunda.sample.TestCamundaExample
+
+           // Use the services
+           var runtimeService = execution.getProcessEngineServices().getRuntimeService();
+           var taskService = execution.getProcessEngineServices().getTaskService();
+           var historyService = execution.getProcessEngineServices().getHistoryService();
+
+           // Use Spin for JSON
+           var jsonData = org.camunda.spin.Spin.JSON('{"status": "active"}');
+
+           // Use logger
+           var logger = org.camunda.commons.logging.Loggers.getLogger("MyProcess");
+           logger.info("Process started");
+         ]]></bpmn:script>
+       </bpmn:scriptTask>
+       <bpmn:serviceTask id="Task_2" camunda:class="org.camunda.example.camunda.sample.TestCamundaExample" />
+    <bpmn:endEvent id="endEvent_1" mycamunda:initiator="end"/>
+    <bpmn:endEvent id="endEvent_1" camundaprocess:initiator="end"/>
+  </bpmn:process>
+</bpmn:definitions>
