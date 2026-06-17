@@ -45,7 +45,7 @@
     <configuration>org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration</configuration>
     <properties>
       <property name="enforceHistoryTimeToLive">false</property>
-      <property name="jdbcUrl">jdbc:h2:mem:activiti3;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE</property>
+      property name="jdbcUrl">jdbc:h2:mem:activiti3;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE</property>
       <property name="authorizationEnabled">true</property>
     </properties>
 
@@ -57,7 +57,7 @@
         <class>org.finos.fluxnova.connect.plugin.impl.ConnectProcessEnginePlugin</class>
       </plugin>
     </plugins>
-  </process-engine>
+</process-engine>
 
   <process-archive name="first-test-processes">
     <properties>

@@ -143,6 +143,10 @@ public class TypedValueField implements DbEntityLifecycleAware, CommandContextLi
     return value;
   }
 
+  public void setCachedValue(TypedValue value) {
+    this.cachedValue = value;
+  }
+
   public boolean isMutable() {
     return isMutableValue(cachedValue);
   }

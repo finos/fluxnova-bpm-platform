@@ -18,26 +18,31 @@ package org.finos.fluxnova.bpm.engine.rest;
 
 import static io.restassured.RestAssured.given;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_USER_OPERATION_ANNOTATION;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.List;
+import java.util.*;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
+import io.restassured.http.ContentType;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.exception.NotFoundException;
 import org.finos.fluxnova.bpm.engine.exception.NotValidException;
 import org.finos.fluxnova.bpm.engine.impl.RuntimeServiceImpl;
+import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.runtime.IncidentQuery;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -51,6 +56,7 @@ public class IncidentRestServiceInteractionTest extends AbstractRestServiceTest 
   protected static final String INCIDENT_URL = TEST_RESOURCE_ROOT_PATH + "/incident";
   protected static final String SINGLE_INCIDENT_URL = INCIDENT_URL + "/{id}";
   protected static final String INCIDENT_ANNOTATION_URL = SINGLE_INCIDENT_URL + "/annotation";
+  protected static final String PROCESS_INSTANCE_INCIDENT_COUNT_URL = INCIDENT_URL + "/process-instance-statistics";
 
   private RuntimeServiceImpl mockRuntimeService;
   private IncidentQuery mockedQuery;
@@ -248,5 +254,68 @@ public class IncidentRestServiceInteractionTest extends AbstractRestServiceTest 
       .statusCode(Status.BAD_REQUEST.getStatusCode())
     .when()
       .delete(INCIDENT_ANNOTATION_URL);
+  }
+
+  @Test
+  public void testGetProcessInstanceIncidentCount() {
+    Incident mockIncident = MockProvider.createMockIncident();
+    IncidentQuery sampleIncidentQuery = mock(IncidentQuery.class);
+    when(mockRuntimeService.createIncidentQuery()).thenReturn(sampleIncidentQuery);
+    when(sampleIncidentQuery.processInstanceId(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID)).thenReturn(
+            sampleIncidentQuery);
+    when(sampleIncidentQuery.singleResult()).thenReturn(mockIncident);
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    messageBodyJson.put("processInstanceIds",
+            List.of(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID));
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .body("$.size()", equalTo(2))
+            .body("processInstanceId",
+                    hasItems(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID))
+            .body("incidentCount", hasItems(0, 0))
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(PROCESS_INSTANCE_INCIDENT_COUNT_URL);
+  }
+
+  @Test
+  public void testGetProcessInstanceIncidentCountThrowsError() {
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    int greaterThanMaxAllowedProcessInstanceCount = MockProvider.MAX_PI_ALLOWED_FOR_RETRIEVING_INCIDENT_COUNT + 1;
+    List<String> badListWithProcessInstanceMoreThanLimit = new ArrayList<>(
+            Collections.nCopies(greaterThanMaxAllowedProcessInstanceCount, MockProvider.EXAMPLE_PROCESS_INSTANCE_ID));
+    messageBodyJson.put("processInstanceIds", badListWithProcessInstanceMoreThanLimit);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo(
+                    "Input request exceeds the limit of " + MockProvider.MAX_PI_ALLOWED_FOR_RETRIEVING_INCIDENT_COUNT + "."))
+            .when()
+            .post(PROCESS_INSTANCE_INCIDENT_COUNT_URL);
+
+
+  }
+
+  @Test
+  public void testGetProcessInstanceIncidentCountWithEmptyInputProvidesEmptyOutputAsResponse() {
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    List<String> emptyList = new ArrayList<>();
+    messageBodyJson.put("processInstanceIds", emptyList);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.OK.getStatusCode())
+            .body("$.size()", equalTo(0))
+            .when()
+            .post(PROCESS_INSTANCE_INCIDENT_COUNT_URL);
+
   }
 }

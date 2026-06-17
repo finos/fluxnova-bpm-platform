@@ -19,7 +19,9 @@ package org.finos.fluxnova.bpm.engine.rest.dto.task;
 import java.util.Date;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
+import org.finos.fluxnova.bpm.engine.form.CamundaFormRef;
 import org.finos.fluxnova.bpm.engine.form.FluxnovaFormRef;
+import org.finos.fluxnova.bpm.engine.impl.form.CamundaFormRefImpl;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.DelegationStateConverter;
 import org.finos.fluxnova.bpm.engine.task.DelegationState;
 import org.finos.fluxnova.bpm.engine.task.Task;
@@ -48,6 +50,9 @@ public class TaskDto {
   private boolean suspended;
   private String formKey;
   private FluxnovaFormRef fluxnovaFormRef;
+  /** @deprecated Use {@link #fluxnovaFormRef} instead. */
+  @Deprecated
+  private CamundaFormRef camundaFormRef;
   private String tenantId;
   /**
    * Returns task State of task
@@ -87,6 +92,7 @@ public class TaskDto {
     try {
       this.formKey = task.getFormKey();
       this.fluxnovaFormRef = task.getFluxnovaFormRef();
+      this.camundaFormRef = toCamundaFormRef(this.fluxnovaFormRef);
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
@@ -228,6 +234,12 @@ public class TaskDto {
     return fluxnovaFormRef;
   }
 
+  /** @deprecated Use {@link #getFluxnovaFormRef()} instead. */
+  @Deprecated
+  public CamundaFormRef getCamundaFormRef() {
+    return camundaFormRef;
+  }
+
   public String getTenantId() {
     return tenantId;
   }
@@ -275,11 +287,21 @@ public class TaskDto {
     try {
       dto.formKey = task.getFormKey();
       dto.fluxnovaFormRef = task.getFluxnovaFormRef();
+      dto.camundaFormRef = toCamundaFormRef(dto.fluxnovaFormRef);
     }
     catch (BadUserRequestException e) {
       // ignore (initializeFormKeys was not called)
     }
     return dto;
+  }
+
+  private static CamundaFormRef toCamundaFormRef(FluxnovaFormRef ref) {
+    if (ref == null) {
+      return null;
+    }
+    CamundaFormRefImpl camundaFormRef = new CamundaFormRefImpl(ref.getKey(), ref.getBinding());
+    camundaFormRef.setVersion(ref.getVersion());
+    return camundaFormRef;
   }
 
   public void updateTask(Task task) {

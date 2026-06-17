@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -18,10 +18,10 @@
   </description>
 
   <properties>
-    <version.quarkus>3.20.0</version.quarkus>
+    <version.quarkus>3.27.0</version.quarkus>
     <version.spring.framework>5.3.39</version.spring.framework>
-    <version.spring.framework6>6.2.4</version.spring.framework6>
-    <version.spring-boot>3.4.4</version.spring-boot>
+    <version.spring.framework6>6.2.10</version.spring.framework6>
+    <version.spring-boot>3.5.5</version.spring-boot>
     <version.resteasy>3.15.6.Final</version.resteasy>
     <version.jersey2>2.34</version.jersey2>
     <!-- use minimum version of resteasy and jersey -->
@@ -31,8 +31,8 @@
     <version.icu.icu4j>71.1</version.icu.icu4j>
     <!-- json-smart and accessors-smart are runtime dependencies of json-path -->
     <version.json-path>2.9.0</version.json-path>
-    <version.json-smart>2.5.0</version.json-smart>
-    <version.accessors-smart>2.5.0</version.accessors-smart>
+    <version.json-smart>2.5.2</version.json-smart>
+    <version.accessors-smart>2.5.2</version.accessors-smart>
     <version.gson>2.8.9</version.gson>
     <version.openjpa>2.4.3</version.openjpa>
     <version.hibernate>5.6.5.Final</version.hibernate>
@@ -42,8 +42,9 @@
     <version.xml.jaxb-impl>2.3.6</version.xml.jaxb-impl>
     <version.xml.jaxb-impl4>4.0.5</version.xml.jaxb-impl4>
     <version.jakarta.xml.bind-api>4.0.2</version.jakarta.xml.bind-api>
-    <version.httpclient>4.5.14</version.httpclient>
-    <version.httpclient5>5.4.1</version.httpclient5>
+    <version.httpclient5>5.4.3</version.httpclient5>
+    <version.httpcore5>5.3.4</version.httpcore5>
+    <version.cronutils>9.2.1</version.cronutils>
 
     <version.slf4j>1.7.26</version.slf4j>
     <version.logback>1.2.11</version.logback>
@@ -52,19 +53,20 @@
     <version.mockito>5.10.0</version.mockito>
     <version.wiremock>2.27.2</version.wiremock>
     <version.testcontainers>1.16.0</version.testcontainers>
+    <version.unirest-java>2.3.10</version.unirest-java>
 
     <version.commonj>1.1.0</version.commonj>
     <version.bouncycastle>1.47</version.bouncycastle>
 
     <!-- application servers -->
-    <version.wildfly>35.0.0.Final</version.wildfly>
-    <version.wildfly.core>27.0.0.Final</version.wildfly.core>
+    <version.wildfly>37.0.0.Final</version.wildfly>
+    <version.wildfly.core>29.0.0.Final</version.wildfly.core>
 
     <version.wildfly26>26.0.1.Final</version.wildfly26>
     <version.wildfly26.core>18.0.4.Final</version.wildfly26.core>
 
-    <version.tomcat9>9.0.100</version.tomcat9>
-    <version.tomcat>10.1.36</version.tomcat>
+    <version.tomcat9>9.0.107</version.tomcat9>
+    <version.tomcat>10.1.43</version.tomcat>
 
     <version.arquillian>1.1.10.Final</version.arquillian>
     <version.shrinkwrap.resolvers>2.2.2</version.shrinkwrap.resolvers>
@@ -75,8 +77,11 @@
     <version.jakarta-ee-spec>10.0.0</version.jakarta-ee-spec>
 
     <version.eirslett.frontend.maven.plugin>1.12.1</version.eirslett.frontend.maven.plugin>
-    <version.nodejs>20.14.0</version.nodejs>
+    <version.nodejs>24.14.0</version.nodejs>
     <version.npm>10.7.0</version.npm>
+
+    <!-- JaCoCo coverage -->
+    <jacoco.skip>false</jacoco.skip>
 
     <!-- OSGi bundles properties -->
     <camunda.artifact />
@@ -133,6 +138,11 @@
       <plugins>
         <!-- test plugins -->
         <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${version.jacoco}</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.5.0</version>
@@ -141,7 +151,7 @@
             <systemPropertyVariables>
               <myWorkingDir>${project.build.directory}</myWorkingDir>
             </systemPropertyVariables>
-            <argLine>-Xmx968m -Duser.language=en -Duser.region=US -XX:+HeapDumpOnOutOfMemoryError
+            <argLine>@{argLine} -Xmx968m -Duser.language=en -Duser.region=US -XX:+HeapDumpOnOutOfMemoryError
               -XX:HeapDumpPath=${project.build.directory}/heap_dump.hprof
               --add-opens=java.base/java.util=ALL-UNNAMED
               --add-opens=java.base/java.lang=ALL-UNNAMED</argLine>
@@ -153,7 +163,7 @@
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>3.5.0</version>
           <configuration>
-            <argLine>-Xmx968m</argLine>
+            <argLine>@{argLine} -Xmx968m</argLine>
             <runOrder>hourly</runOrder>
           </configuration>
           <executions>
@@ -239,7 +249,7 @@
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven3-plugin</artifactId>
-          <version>1.10.16</version>
+          <version>1.10.20</version>
         </plugin>
         <plugin>
           <groupId>net.kennychua</groupId>
@@ -330,6 +340,57 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <!-- Prepares the JaCoCo agent for unit tests (surefire) -->
+          <execution>
+            <id>jacoco-prepare-agent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Prepares the JaCoCo agent for integration tests (failsafe) -->
+          <execution>
+            <id>jacoco-prepare-agent-integration</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>prepare-agent-integration</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Generates the per-module HTML/XML report after tests run -->
+          <execution>
+            <id>jacoco-report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+          <!-- Generates the per-module integration test report after integration tests run -->
+          <execution>
+            <id>jacoco-report-integration</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>report-integration</goal>
+            </goals>
+            <configuration>
+              <skip>${jacoco.skip}</skip>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

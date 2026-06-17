@@ -1,0 +1,30 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: formMigration
+displayName: Helping migration for Camunda forms to Fluxnova
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: "**/*__form__.json"
+recipeList:
+  # if executionPlatform keys not present then add key-values
+  - org.openrewrite.json.AddKeyValue:
+      keyPath: $.
+      key: executionPlatform
+      value: '"Fluxnova Platform"'
+  - org.openrewrite.json.AddKeyValue:
+      keyPath: $.
+      key: executionPlatformVersion
+      value: '"{{TARGET_VERSION}}"'
+    # if executionPlatform keys present then update values
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.executionPlatform
+      value: '"Fluxnova Platform"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.executionPlatformVersion
+      value: '"{{TARGET_VERSION}}"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.exporter.name
+      value: '"Fluxnova Modeler"'
+  - org.openrewrite.json.ChangeValue:
+      oldKeyPath: $.exporter.version
+      value: '"{{MODELER_VERSION}}"'

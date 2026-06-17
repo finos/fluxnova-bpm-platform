@@ -871,6 +871,31 @@ public class JobQueryTest {
     }
   }
 
+  @Test
+  public void testQueryByAcquired() {
+    Calendar lockExpDate = Calendar.getInstance();
+    //given - lock expiration date in future
+    lockExpDate.add(Calendar.MILLISECOND, 30000000);
+
+    createJobWithLockExpiration(lockExpDate.getTime());
+
+    Job job = managementService.createJobQuery().jobId(timerEntity.getId()).singleResult();
+    assertNotNull(job);
+
+    List<Job> list = managementService.createJobQuery().acquired().list();
+    assertEquals(list.size(), 1);
+    deleteJobInDatabase();
+
+    //given - lock expiration date in the past
+    lockExpDate.add(Calendar.MILLISECOND, -60000000);
+    createJobWithLockExpiration(lockExpDate.getTime());
+
+    list = managementService.createJobQuery().acquired().list();
+    assertEquals(list.size(), 0);
+
+    deleteJobInDatabase();
+  }
+
   //helper ////////////////////////////////////////////////////////////
 
   private void setRetries(final String processInstanceId, final int retries) {
@@ -882,6 +907,25 @@ public class JobQueryTest {
         timer.setRetries(retries);
         return null;
       }
+
+    });
+  }
+
+  private void createJobWithLockExpiration(Date lockDate) {
+    CommandExecutor commandExecutor = processEngineConfiguration.getCommandExecutorTxRequired();
+    commandExecutor.execute((Command<Void>) commandContext -> {
+      JobManager jobManager = commandContext.getJobManager();
+      timerEntity = new TimerEntity();
+      timerEntity.setLockOwner(UUID.randomUUID().toString());
+      timerEntity.setDuedate(new Date());
+      timerEntity.setRetries(0);
+      timerEntity.setLockExpirationTime(lockDate);
+
+      jobManager.insert(timerEntity);
+
+      assertNotNull(timerEntity.getId());
+
+      return null;
 
     });
   }
@@ -1011,6 +1055,91 @@ public class JobQueryTest {
           return null;
         }
       });
+  }
+
+  @Test
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
+  public void testQueryByBatchId() {
+    ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    
+    org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
+        Arrays.asList(processInstance1.getId(), processInstance2.getId()),
+        org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
+    
+    String batchId = batch.getId();
+    
+    JobQuery query = managementService.createJobQuery().batchId(batchId);
+    
+    List<Job> jobs = query.list();
+    assertThat(jobs).isNotEmpty();
+    for (Job job : jobs) {
+      assertThat(job.getBatchId()).isEqualTo(batchId);
+    }
+    
+    managementService.deleteBatch(batchId, true);
+  }
+
+  @Test
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
+  public void testQueryInBatch() {
+    ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    
+    org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
+        Arrays.asList(processInstance1.getId(), processInstance2.getId()),
+        org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
+    
+    String batchId = batch.getId();
+    
+    JobQuery query = managementService.createJobQuery().inBatch();
+    List<Job> batchJobs = query.list();
+    
+    assertThat(batchJobs).isNotEmpty();
+    for (Job job : batchJobs) {
+      assertThat(job.getBatchId()).isNotNull();
+    }
+    
+    long batchJobsCount = query.count();
+    assertThat(batchJobsCount).isEqualTo(batchJobs.size());
+    
+    managementService.deleteBatch(batchId, true);
+  }
+
+  @Test
+  public void testQueryByInvalidBatchId() {
+    JobQuery query = managementService.createJobQuery().batchId("invalid");
+    verifyQueryResults(query, 0);
+
+    assertThatThrownBy(() -> managementService.createJobQuery().batchId(null).list())
+        .isInstanceOf(ProcessEngineException.class);
+  }
+
+  @Test
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
+  public void testQueryInBatchCombinedWithOtherFilters() {
+    ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
+    
+    org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
+        Arrays.asList(processInstance1.getId(), processInstance2.getId()),
+        org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
+    
+    String batchId = batch.getId();
+    
+    JobQuery query = managementService.createJobQuery()
+        .inBatch()
+        .active();
+    
+    List<Job> jobs = query.list();
+    
+    assertThat(jobs).isNotEmpty();
+    for (Job job : jobs) {
+      assertThat(job.getBatchId()).isNotNull();
+      assertThat(job.isSuspended()).isFalse();
+    }
+    
+    managementService.deleteBatch(batchId, true);
   }
 
 }

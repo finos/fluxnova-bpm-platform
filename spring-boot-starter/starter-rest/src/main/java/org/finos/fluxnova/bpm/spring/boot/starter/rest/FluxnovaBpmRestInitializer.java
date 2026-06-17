@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.spring.boot.starter.rest;
 
 import org.finos.fluxnova.bpm.engine.rest.filter.CacheControlFilter;
 import org.finos.fluxnova.bpm.engine.rest.filter.EmptyBodyFilter;
+import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
@@ -27,7 +28,7 @@ import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
+
 import java.util.EnumSet;
 import java.util.Map;
 
@@ -46,13 +47,18 @@ public class FluxnovaBpmRestInitializer implements ServletContextInitializer {
 
   private JerseyApplicationPath applicationPath;
 
-  public FluxnovaBpmRestInitializer(JerseyApplicationPath applicationPath) {
+  private final FluxnovaBpmProperties properties;
+
+  public FluxnovaBpmRestInitializer(JerseyApplicationPath applicationPath, FluxnovaBpmProperties properties) {
+    this.properties = properties;
     this.applicationPath = applicationPath;
   }
 
   @Override
-  public void onStartup(ServletContext servletContext) throws ServletException {
+  public void onStartup(ServletContext servletContext) {
     this.servletContext = servletContext;
+
+    properties.getRestApi().getFetchAndLock().getInitParams().forEach(servletContext::setInitParameter);
 
     String restApiPathPattern = applicationPath.getUrlMapping();
 

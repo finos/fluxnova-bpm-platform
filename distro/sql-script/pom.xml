@@ -5,7 +5,7 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../../database</relativePath>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.finos.fluxnova.bpm.distro</groupId>
@@ -15,6 +15,7 @@
   <name>Fluxnova Platform - SQL scripts</name>
   
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <!-- exclude tests by default, only run in check-sql profile -->
     <skipTests>true</skipTests>
   </properties>
@@ -126,7 +127,7 @@
             </goals>
             <configuration>
               <propertyPrefix>camunda.old</propertyPrefix>
-              <versionString>${camunda.version.old}</versionString>
+              <versionString>${fluxnova.version.old}</versionString>
             </configuration>
           </execution>
         </executions>
@@ -401,6 +402,7 @@
     <profile>
       <id>check-sql</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <skipTests>false</skipTests>
       </properties>
       <build>
@@ -420,7 +422,7 @@
                     <artifactItem>
                       <groupId>org.finos.fluxnova.bpm.distro</groupId>
                       <artifactId>fluxnova-sql-scripts</artifactId>
-                      <version>${camunda.version.old}</version>
+                      <version>${fluxnova.version.old}</version>
                       <outputDirectory>${project.build.directory}/test-classes/scripts-old</outputDirectory>
                       <overWrite>true</overWrite>
                     </artifactItem>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+            xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+            xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+            xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+            xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0"
+            xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+            id="Definitions_1r0cwkc" name="DRD"
+            namespace="http://camunda.org/schema/1.0/dmn"
+            exporter="Camunda Modeler" exporterVersion="4.5.0">
+<decision id="Decision_1" name="Sample Decision" camunda:historyTimeToLive="180">
+    <decisionTable id="DecisionTable_1" hitPolicy="UNIQUE">
+    <input id="Input_1" label="Input" camunda:inputVariable="input">
+        <inputExpression id="InputExpression_1" typeRef="string">
+        <text>input</text>
+        </inputExpression>
+    </input>
+    <output id="Output_1" label="Output" name="output" typeRef="string" />
+    </decisionTable>
+    <literalExpression id="LiteralExpression_1" expressionLanguage="javascript">
+            <text><![CDATA[
+              importPackage(org.camunda.bpm.engine);
+              importPackage(org.camunda.spin);
+
+              var engine = org.camunda.bpm.engine.ProcessEngines.getDefaultProcessEngine();
+              var data = org.camunda.spin.Spin.JSON(inputData);
+
+              // Complex calculation logic
+              data.prop("result").numberValue() * 1.2;
+            ]]></text>
+          </literalExpression>
+ </decision>
+ </definitions>

@@ -34,7 +34,7 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
 
   protected String currentSchemaVersion;
   protected String dataBaseType;
-  private static final String FLUXNOVA_VERSION = "1.0.0";
+  private static final String FLUXNOVA_VERSION = "2.0.0";
 
   @Override
   @Before
@@ -57,7 +57,7 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
     }
 
     if (!scriptsForDB.isEmpty()) {
-      assertThat(getLatestTargetVersion(scriptsForDB)).isEqualTo(currentSchemaVersion);
+      assertThat(getLatestFluxnovaTargetVersion()).isEqualTo(currentSchemaVersion);
     } else {
       // databases that are newly added have no update scripts yet
       assertThat(getCurrentMinorVersion()).isEqualTo(currentSchemaVersion);
@@ -79,6 +79,15 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
     return targetVersion;
   }
 
+  /**
+   * This method is added due to naming inconsistencies in the update script files.
+   * When we do the next Fluxnova release, this method will be removed and we will use
+   * getLatestTargetVersion() instead.
+   */
+  protected String getLatestFluxnovaTargetVersion() {
+    return FLUXNOVA_VERSION;
+  }
+
   protected String getLatestTargetVersion(List<String> scriptFiles) {
     String latestVersion = null;
     for (String file : scriptFiles) {
@@ -86,10 +95,6 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
         latestVersion = getTargetVersionForScript(file);
       } else {
         String targetVersion = getTargetVersionForScript(file);
-        //Ensures that the Fluxnova Initial version is returned Only if the file with Fluxnova Version Exists.
-        if(targetVersion.equals(FLUXNOVA_VERSION)) {
-          return targetVersion;
-        }
         if(isLaterVersionThan(targetVersion, latestVersion)){
           latestVersion = targetVersion;
         }

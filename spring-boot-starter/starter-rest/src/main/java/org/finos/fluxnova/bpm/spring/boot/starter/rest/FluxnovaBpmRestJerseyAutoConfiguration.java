@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.spring.boot.starter.rest;
 
 import org.finos.fluxnova.bpm.engine.rest.impl.FetchAndLockContextListener;
 import org.finos.fluxnova.bpm.spring.boot.starter.FluxnovaBpmAutoConfiguration;
+import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -41,7 +42,7 @@ public class FluxnovaBpmRestJerseyAutoConfiguration {
   }
 
   @Bean
-  public FluxnovaBpmRestInitializer fluxnovaBpmRestInitializer(JerseyApplicationPath applicationPath) {
-    return new FluxnovaBpmRestInitializer(applicationPath);
+  public FluxnovaBpmRestInitializer fluxnovaBpmRestInitializer(JerseyApplicationPath applicationPath, FluxnovaBpmProperties properties) {
+    return new FluxnovaBpmRestInitializer(applicationPath, properties);
   }
 }

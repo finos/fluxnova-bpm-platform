@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -11,6 +11,7 @@
   <name>Large Data Tests</name>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <skipTests>true</skipTests>
     <jdbcBatchProcessing>true</jdbcBatchProcessing>
   </properties>
@@ -102,6 +103,7 @@
       <id>large-data-tests</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <skipTests>false</skipTests>
       </properties>
 
@@ -130,6 +132,7 @@
     <profile>
       <id>cfgJdbcBatchProcessingOff</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <jdbcBatchProcessing>false</jdbcBatchProcessing>
       </properties>
     </profile>

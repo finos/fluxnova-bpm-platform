@@ -7,10 +7,11 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <test.includes />
     <!-- without a special test profile we don't want to exclude anything, this expressions should never match -->
     <test.excludes>$.</test.excludes>
@@ -95,6 +96,7 @@
       <id>benchmark</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <!-- default values for properties -->
         <numberOfThreads>2</numberOfThreads>
         <numberOfRuns>100</numberOfRuns>
@@ -167,6 +169,7 @@
       <id>single-run</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <!-- default values for properties -->
         <numberOfThreads>1</numberOfThreads>
         <numberOfRuns>1</numberOfRuns>
@@ -237,6 +240,7 @@
       <id>sql-statementlog</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <numberOfThreads>1</numberOfThreads>
         <numberOfRuns>1</numberOfRuns>
         <testWatchers>org.finos.fluxnova.bpm.qa.performance.engine.sqlstatementlog.StatementLogPerfTestWatcher</testWatchers>
@@ -303,6 +307,7 @@
       <id>generate-load</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <loadGenerator.numberOfIterations>10000</loadGenerator.numberOfIterations>
         <loadGenerator.colorOutput>false</loadGenerator.colorOutput>
         <testWatchers />
@@ -355,6 +360,7 @@
       <id>query-perf-test</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <numberOfThreads>1</numberOfThreads>
         <numberOfRuns>1</numberOfRuns>
         <testWatchers>org.finos.fluxnova.bpm.qa.performance.engine.sqlstatementlog.StatementLogPerfTestWatcher</testWatchers>
@@ -423,6 +429,7 @@
       <id>activity-count</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <!-- default values for properties -->
         <numberOfThreads>1</numberOfThreads>
         <numberOfRuns>100</numberOfRuns>
@@ -491,6 +498,7 @@
     <profile>
       <id>h2</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <database.type>h2</database.type>
         <database.username>sa</database.username>
         <database.password>sa</database.password>
@@ -504,6 +512,7 @@
     <profile>
       <id>history-level-none</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <historyLevel>none</historyLevel>
       </properties>
     </profile>
@@ -511,6 +520,7 @@
     <profile>
       <id>history-level-full</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <historyLevel>full</historyLevel>
       </properties>
     </profile>
@@ -518,6 +528,7 @@
     <profile>
       <id>cfgJdbcBatchProcessingOff</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <jdbcBatchProcessing>false</jdbcBatchProcessing>
       </properties>
     </profile>
@@ -526,12 +537,14 @@
     <profile>
      <id>testBpmn</id>
      <properties>
+      <jacoco.skip>true</jacoco.skip>
       <test.includes>bpmn</test.includes>
      </properties>
     </profile>
     <profile>
      <id>testDmn</id>
      <properties>
+      <jacoco.skip>true</jacoco.skip>
       <test.includes>dmn</test.includes>
      </properties>
     </profile>

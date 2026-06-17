@@ -495,6 +495,11 @@ public interface TaskQuery extends Query<TaskQuery, Task> {
   TaskQuery taskDefinitionKeyIn(String... taskDefinitionKeys);
 
   /**
+   * Only select tasks which do not have one of the taskDefinitionKeys.
+   **/
+  TaskQuery taskDefinitionKeyNotIn(String... taskDefinitionKeys);
+
+  /**
    * Select the tasks which are sub tasks of the given parent task.
    */
   TaskQuery taskParentTaskId(String parentTaskId);
@@ -918,6 +923,19 @@ public interface TaskQuery extends Query<TaskQuery, Task> {
    * @throws ProcessEngineException When method has been executed within "or query". Method must be executed on the base query.
    */
   TaskQuery initializeFormKeys();
+
+  /**
+   * If called, the form keys initialization is triggered for fetched tasks. When {@code evaluateFormKey}
+   * is {@code true}, form key and form reference values are resolved; when {@code false}, the form key
+   * is marked as initialized but left {@code null}.
+   *
+   * @param evaluateFormKey whether to actually resolve and set the form key value
+   * @return the query itself
+   * @throws ProcessEngineException When method has been executed within "or query". Method must be executed on the base query.
+   */
+  default TaskQuery initializeFormKeys(boolean evaluateFormKey) {
+    return initializeFormKeys();
+  }
 
   /**
    * Only select tasks with one of the given tenant ids.

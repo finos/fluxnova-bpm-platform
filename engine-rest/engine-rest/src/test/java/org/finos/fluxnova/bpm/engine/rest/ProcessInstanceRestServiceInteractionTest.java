@@ -25,6 +25,7 @@ import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.createMockB
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.createMockHistoricProcessInstance;
 import static org.finos.fluxnova.bpm.engine.rest.util.DateTimeUtils.DATE_FORMAT_WITH_TIMEZONE;
 import static org.finos.fluxnova.bpm.engine.rest.util.DateTimeUtils.withTimezone;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -163,6 +164,7 @@ public class ProcessInstanceRestServiceInteractionTest extends AbstractRestServi
   protected static final String PROCESS_INSTANCE_MODIFICATION_ASYNC_URL = SINGLE_PROCESS_INSTANCE_URL + "/modification-async";
   protected static final String PROCESS_INSTANCE_SET_VARIABLES_ASYNC_URL = PROCESS_INSTANCE_URL + "/variables-async";
   protected static final String PROCESS_INSTANCE_CORRELATE_MESSAGE_ASYNC_URL = PROCESS_INSTANCE_URL + "/message-async";
+  protected static final String ACTIVE_PROCESS_INSTANCE_COUNT_URL = PROCESS_INSTANCE_URL + "/instance-counts";
 
   protected static final Answer<Object> RETURNS_SELF = invocation -> {
     Object mock = invocation.getMock();
@@ -4892,5 +4894,94 @@ public class ProcessInstanceRestServiceInteractionTest extends AbstractRestServi
     assertEquals(mockComment.getUserId(), returnedUserId);
     assertEquals(mockComment.getTime(), returnedTime);
     assertEquals(mockComment.getFullMessage(), returnedFullMessage);
+  }
+
+  @Test
+  public void testGetActiveInstanceCountWithPdiList() {
+    ProcessInstance mockInstance = MockProvider.createMockInstance();
+    ProcessInstanceQuery sampleInstanceQuery = mock(ProcessInstanceQuery.class);
+    when(runtimeServiceMock.createProcessInstanceQuery()).thenReturn(sampleInstanceQuery);
+    when(sampleInstanceQuery.processInstanceId(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID)).thenReturn(
+            sampleInstanceQuery);
+    when(sampleInstanceQuery.singleResult()).thenReturn(mockInstance);
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    messageBodyJson.put("processDefinitionIds",
+            List.of(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_DEFINITION_ID));
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .body("$.size()", equalTo(2))
+            .body("processDefinitionId",
+                    hasItems(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("instanceCount", hasItems(0, 0))
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(ACTIVE_PROCESS_INSTANCE_COUNT_URL);
+
+  }
+
+  @Test
+  public void testGetActiveInstanceCountWithActiveInputParam() {
+    ProcessInstance mockInstance = MockProvider.createMockInstance();
+    ProcessInstanceQuery sampleInstanceQuery = mock(ProcessInstanceQuery.class);
+    when(runtimeServiceMock.createProcessInstanceQuery()).thenReturn(sampleInstanceQuery);
+    when(sampleInstanceQuery.processInstanceId(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID)).thenReturn(
+            sampleInstanceQuery);
+    when(sampleInstanceQuery.active()).thenReturn(sampleInstanceQuery);
+
+    when(sampleInstanceQuery.singleResult()).thenReturn(mockInstance);
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    messageBodyJson.put("processDefinitionIds",
+            List.of(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_DEFINITION_ID));
+    messageBodyJson.put("active", true);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .body("$.size()", equalTo(2))
+            .body("processDefinitionId",
+                    hasItems(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, MockProvider.ANOTHER_EXAMPLE_PROCESS_DEFINITION_ID))
+            .body("instanceCount", hasItems(0, 0))
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(ACTIVE_PROCESS_INSTANCE_COUNT_URL);
+
+  }
+
+  @Test
+  public void testGetActiveInstanceCountThrowsError() {
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    int greaterThanMaxAllowedPdiCount = MockProvider.MAX_PDI_ALLOWED_FOR_RETRIEVING_ACTIVE_COUNTS + 1;
+    List<String> badListWithMorePdiThanLimit = new ArrayList<>(
+            Collections.nCopies(greaterThanMaxAllowedPdiCount, MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
+    messageBodyJson.put("processDefinitionIds", badListWithMorePdiThanLimit);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.BAD_REQUEST.getStatusCode())
+            .body("type", Matchers.equalTo(InvalidRequestException.class.getSimpleName()))
+            .body("message", Matchers.equalTo(
+                    "Input request exceeds the limit of " + MockProvider.MAX_PDI_ALLOWED_FOR_RETRIEVING_ACTIVE_COUNTS + "."))
+            .when()
+            .post(ACTIVE_PROCESS_INSTANCE_COUNT_URL);
+  }
+
+  @Test
+  public void testGetActiveInstanceCountWithEmptyInputProvidesEmptyOutputAsResponse() {
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    List<String> emptyList = new ArrayList<>();
+    messageBodyJson.put("processDefinitionIds", emptyList);
+    given().contentType(ContentType.JSON)
+            .body(messageBodyJson)
+            .then()
+            .expect()
+            .contentType(ContentType.JSON)
+            .statusCode(Status.OK.getStatusCode())
+            .body("$.size()", equalTo(0))
+            .when()
+            .post(ACTIVE_PROCESS_INSTANCE_COUNT_URL);
   }
 }

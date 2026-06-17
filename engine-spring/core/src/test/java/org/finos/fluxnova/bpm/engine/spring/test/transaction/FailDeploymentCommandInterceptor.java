@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.spring.test.transaction;
 
+import java.util.logging.Logger;
 import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteDeploymentCmd;
 import org.finos.fluxnova.bpm.engine.impl.cmd.DeployCmd;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
@@ -26,13 +27,15 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandInterceptor;
  *
  */
 public class FailDeploymentCommandInterceptor extends CommandInterceptor {
+  private final Logger log = Logger.getLogger(getClass().getName());
 
   @Override
   public <T> T execute(Command<T> command) {
 
     T result = next.execute(command);
 
-    if (command instanceof DeployCmd) {
+    if (command instanceof DeployCmd deployCmd) {
+      log.info("Failing deployment for deployment named " + deployCmd.getDeploymentBuilder().getNameFromDeployment());
       throw new RuntimeException("roll back transaction");
     }
 

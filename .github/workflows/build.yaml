@@ -2,6 +2,12 @@ name: "Build CI"
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
+  CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
+  SONAR_PROVIDER: ${{ secrets.SONAR_PROVIDER || 'sonarqube' }}
+  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || '' }}
+  SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY || '' }}
+  SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION || '' }}
 
 on:
   push:
@@ -41,16 +47,14 @@ jobs:
         run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
 
       - name: Collect Workflow Telemetry
-        uses: catchpoint/workflow-telemetry-action@v2
+        uses: catchpoint/workflow-telemetry-action@94c3c3d9567a0205de6da68a76c428ce4e769af1
         with:
           theme: dark
 
       - name: Build
         uses: ./.github/actions/build-deploy
-
-      - name: Build and publish Docker image
-        if: startsWith(github.ref, 'refs/heads/release/')
-        uses: ./.github/actions/build-publish-image
+        with:
+          branch: ${{ github.ref_name }}
 
   unit-test:
     name: Unit Tests
@@ -66,6 +70,15 @@ jobs:
       - name: Unit Tests
         uses: ./.github/actions/unit-test
 
+      - name: Upload unit test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-coverage
+          path: |
+            **/target/site/jacoco/jacoco.xml
+            **/target/jacoco.exec
+          if-no-files-found: warn
+
   integration-test:
     name: Integration tests
     runs-on: ubuntu-latest
@@ -77,5 +90,108 @@ jobs:
       - name: Java setup
         uses: ./.github/actions/java-setup
 
+      - name: Build internal artifacts
+        run: mvn -B -e -U clean install -DskipTests=true -DskipITs=true
+
       - name: Integration Tests
         uses: ./.github/actions/integration-test
+
+      - name: Upload integration test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-coverage
+          path: |
+            **/target/site/jacoco*/jacoco.xml
+            **/target/jacoco*.exec
+          if-no-files-found: warn
+
+  coverage-aggregate:
+    name: Aggregate Coverage
+    runs-on: ubuntu-latest
+    needs: [unit-test, integration-test]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Java setup
+        uses: ./.github/actions/java-setup
+
+      - name: Download unit test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: unit-test-coverage
+
+      - name: Download integration test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: integration-test-coverage
+        continue-on-error: true
+
+      - name: Generate aggregate coverage report
+        shell: bash
+        run: |
+          set -euo pipefail
+          mvn -B -e verify "-Pcoverage-aggregate,distro,distro-ce,distro-tomcat,distro-wildfly,distro-webjar,distro-run" -DskipTests -DskipITs
+
+      - name: Upload aggregate coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: aggregate-coverage
+          path: coverage/target/site/jacoco-aggregate/jacoco.xml
+          if-no-files-found: error
+
+  sonar:
+    name: Sonar Scan (Report Only)
+    runs-on: ubuntu-latest
+    needs: [coverage-aggregate]
+    if: ${{ vars.SONAR_ENABLED == 'true' && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main') }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Java setup
+        uses: ./.github/actions/java-setup
+
+      - name: Download aggregate coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: aggregate-coverage
+          path: coverage/target/site/jacoco-aggregate
+
+      - name: Sonar Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${SONAR_PROJECT_KEY}" ]]; then
+            echo "SONAR_PROJECT_KEY is required when SONAR_ENABLED=true"
+            exit 1
+          fi
+
+          if [[ "${SONAR_PROVIDER}" == "sonarcloud" ]]; then
+            if [[ -z "${SONAR_ORGANIZATION}" ]]; then
+              echo "SONAR_ORGANIZATION is required when SONAR_PROVIDER=sonarcloud"
+              exit 1
+            fi
+            SONAR_HOST_ARG="-Dsonar.host.url=https://sonarcloud.io"
+            SONAR_PROVIDER_ARG="-Dsonar.organization=${SONAR_ORGANIZATION}"
+          else
+            if [[ -z "${SONAR_HOST_URL}" ]]; then
+              echo "SONAR_HOST_URL is required when SONAR_PROVIDER=sonarqube"
+              exit 1
+            fi
+            SONAR_HOST_ARG="-Dsonar.host.url=${SONAR_HOST_URL}"
+            SONAR_PROVIDER_ARG=""
+          fi
+
+          mvn -B -e package -DskipTests -DskipITs -Djacoco.skip=true sonar:sonar \
+            -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
+            -Dsonar.token="${SONAR_TOKEN}" \
+            -Dsonar.scanner.skipJreProvisioning=true \
+            -Dsonar.qualitygate.wait=false \
+            -Dsonar.coverage.jacoco.aggregateXmlReportPaths="${GITHUB_WORKSPACE}/coverage/target/site/jacoco-aggregate/jacoco.xml" \
+            ${SONAR_HOST_ARG} ${SONAR_PROVIDER_ARG}

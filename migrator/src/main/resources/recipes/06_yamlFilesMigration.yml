@@ -1,0 +1,17 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: yamlFilesMigration
+displayName: YAML Files Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "camunda:"
+      replace: "fluxnova:"
+      filePattern: '**/*.{yml,yaml}'
+  - org.openrewrite.text.FindAndReplace:
+      find: "/camunda"
+      replace: "/fluxnova"
+      filePattern: '**/*.{yml,yaml}'
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda "
+      replace: "Fluxnova "
+      filePattern: '**/*.{yml,yaml}'

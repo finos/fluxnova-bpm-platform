@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Camunda Process API",
+    "description": "API for Camunda BPM processes",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/process-definition": {
+      "get": {
+        "summary": "Get Camunda process definitions",
+        "description": "Retrieves all Camunda process definitions",
+        "responses": {
+          "200": {
+            "description": "List of Camunda processes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CamundaProcessList"
+                },
+                "example": {
+                  "engine": "Camunda Platform 7.15"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CamundaProcessList": {
+        "type": "object",
+        "properties": {
+          "processes": {
+            "type": "array",
+            "description": "Array of Camunda process definitions"
+          }
+        }
+      }
+    }
+  }
+}

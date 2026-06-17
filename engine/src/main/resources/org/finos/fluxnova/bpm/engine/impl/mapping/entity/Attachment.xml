@@ -324,6 +324,10 @@
   <select id="selectAttachmentsByTaskId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="attachmentResultMap">
     select * from ${prefix}ACT_HI_ATTACHMENT where TASK_ID_ = #{parameter,jdbcType=VARCHAR}
   </select>
+
+  <select id="countAttachmentsByTaskId" parameterType="string" resultType="long">
+    select count(*) from ${prefix}ACT_HI_ATTACHMENT where TASK_ID_ = #{taskId}
+  </select>
   
   <select id="selectAttachmentsByProcessInstanceId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="attachmentResultMap">
     select * from ${prefix}ACT_HI_ATTACHMENT where PROC_INST_ID_ = #{parameter,jdbcType=VARCHAR}

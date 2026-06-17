@@ -24,9 +24,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
+import org.finos.fluxnova.bpm.engine.impl.variable.DefaultRestrictedVariableInterceptor;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptor;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,5 +111,38 @@ public class ProcessEngineConfigurationTest {
         .createProcessEngineConfigurationFromResource("camunda.cfg.skipIsolationLevelCheckEnabled.xml");
     // then
     assertTrue(engineConfiguration.skipIsolationLevelCheck);
+  }
+
+  @Test
+  public void shouldInitializeDefaultVariableInterceptorWhenNotConfigured() {
+    // given
+    ProcessEngineConfigurationImpl engineConfiguration = (ProcessEngineConfigurationImpl) ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
+
+    // when
+    engineConfiguration.initVariableInterceptors();
+
+    // then
+    assertThat(engineConfiguration.getVariableInterceptors())
+        .hasSize(1)
+        .first()
+        .isInstanceOf(DefaultRestrictedVariableInterceptor.class);
+  }
+
+  @Test
+  public void shouldKeepCustomVariableInterceptorsWhenPreconfigured() {
+    // given
+    ProcessEngineConfigurationImpl engineConfiguration = (ProcessEngineConfigurationImpl) ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration();
+    VariableInterceptor customInterceptor = mock(VariableInterceptor.class);
+    List<VariableInterceptor> customInterceptors = new ArrayList<>();
+    customInterceptors.add(customInterceptor);
+    engineConfiguration.setVariableInterceptors(customInterceptors);
+
+    // when
+    engineConfiguration.initVariableInterceptors();
+
+    // then
+    assertThat(engineConfiguration.getVariableInterceptors())
+        .hasSize(1)
+        .containsExactly(customInterceptor);
   }
 }

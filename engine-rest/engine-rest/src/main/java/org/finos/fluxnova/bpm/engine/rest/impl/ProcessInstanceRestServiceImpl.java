@@ -20,6 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
@@ -37,14 +41,11 @@ import org.finos.fluxnova.bpm.engine.query.Query;
 import org.finos.fluxnova.bpm.engine.rest.ProcessInstanceRestService;
 import org.finos.fluxnova.bpm.engine.rest.dto.AbstractQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.ProcessInstanceCountStatisticsDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.VariableValueDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.batch.BatchDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.history.HistoricProcessInstanceQueryDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceQueryDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceSuspensionStateAsyncDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceSuspensionStateDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.SetJobRetriesByProcessDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.*;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.CorrelationMessageAsyncDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.DeleteProcessInstancesDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.SetVariablesAsyncDto;
@@ -60,6 +61,8 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
 public class ProcessInstanceRestServiceImpl extends AbstractRestProcessEngineAware implements
     ProcessInstanceRestService {
+
+  private static final int MAX_PDI_ALLOWED_FOR_RETRIEVING_ACTIVE_COUNTS = 200;
 
   public ProcessInstanceRestServiceImpl(String engineName, ObjectMapper objectMapper) {
     super(engineName, objectMapper);
@@ -322,6 +325,38 @@ public class ProcessInstanceRestServiceImpl extends AbstractRestProcessEngineAwa
     }
 
     return query.toQuery(getProcessEngine());
+  }
+
+  BiFunction<String, Boolean, ProcessInstanceQueryDto> convertToQuery = (processDefinitionId, isActive) -> {
+    ProcessInstanceQueryDto queryDto = new ProcessInstanceQueryDto();
+    queryDto.setObjectMapper(getObjectMapper());
+    queryDto.setProcessDefinitionId(processDefinitionId);
+    queryDto.setActive(isActive);
+    return queryDto;
+  };
+
+  Function<ProcessInstanceQueryDto, ProcessInstanceCountStatisticsDto> extractActiveInstanceCount = queryDto -> {
+    ProcessInstanceQuery query = queryDto.toQuery(getProcessEngine());
+    return new ProcessInstanceCountStatisticsDto(queryDto.getProcessDefinitionId(), query.count());
+  };
+
+  BiPredicate<List<?>, Integer> validateInputListSize = (list, limit) -> list.size() > limit;
+
+  private void validateInputList(List<String> inputList, int limit) {
+    if (validateInputListSize.test(inputList, limit)) {
+      throw new InvalidRequestException(Status.BAD_REQUEST,
+              String.format("Input request exceeds the limit of %s.", limit));
+    }
+  }
+
+  @Override
+  public List<ProcessInstanceCountStatisticsDto> getProcessInstanceStatistics(ProcessInstanceCountRequestDto requestDto) {
+    validateInputList(requestDto.getProcessDefinitionIds(), MAX_PDI_ALLOWED_FOR_RETRIEVING_ACTIVE_COUNTS);
+    return requestDto.getProcessDefinitionIds()
+            .stream()
+            .map(processDefinitionId -> convertToQuery.apply(processDefinitionId, requestDto.isActive()))
+            .map(extractActiveInstanceCount)
+            .collect(Collectors.toList());
   }
 
 }

@@ -17,8 +17,8 @@
 package org.finos.fluxnova.connect.impl;
 
 import org.finos.fluxnova.connect.spi.ConnectorInvocation;
-import org.finos.fluxnova.connect.spi.ConnectorRequestInterceptor;
 import org.finos.fluxnova.connect.spi.ConnectorRequest;
+import org.finos.fluxnova.connect.spi.ConnectorRequestInterceptor;
 
 /**
  * <p>
@@ -60,8 +60,7 @@ public class DebugRequestInterceptor implements ConnectorRequestInterceptor {
     target = invocation.getTarget();
     if (proceed) {
       return invocation.proceed();
-    }
-    else {
+    } else {
       return response;
     }
   }

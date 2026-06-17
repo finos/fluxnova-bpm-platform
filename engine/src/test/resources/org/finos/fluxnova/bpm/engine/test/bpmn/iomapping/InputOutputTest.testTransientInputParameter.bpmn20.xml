@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1ahinw5" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.13.1">
+  <bpmn:process id="testInputTransientFeature" isExecutable="true">
+
+    <bpmn:startEvent id="start" />
+    <bpmn:sequenceFlow id="flow1" sourceRef="start" targetRef="task" />
+
+    <bpmn:userTask id="task">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="transientVar" camunda:isTransient="true">mappedValue</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+    </bpmn:userTask>
+
+    <bpmn:sequenceFlow id="flow2" sourceRef="task" targetRef="after" />
+    <bpmn:userTask id="after" />
+    <bpmn:sequenceFlow id="flow3" sourceRef="after" targetRef="end" />
+    <bpmn:endEvent id="end" />
+
+  </bpmn:process>
+</bpmn:definitions>
+

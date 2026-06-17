@@ -23,7 +23,12 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateCaseExecution;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
+import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
+import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.finos.fluxnova.bpm.engine.impl.context.Context;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessor;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessorRequest;
 
 /**
  * <p>Represents an executable script.</p>
@@ -33,6 +38,8 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
  *
  */
 public abstract class ExecutableScript {
+
+  private static final ScriptLogger LOG = ProcessEngineLogger.SCRIPT_LOGGER;
 
   /** The language of the script. Used to resolve the
    * {@link ScriptEngine}. */
@@ -94,4 +101,60 @@ public abstract class ExecutableScript {
 
   protected abstract Object evaluate(ScriptEngine scriptEngine, VariableScope variableScope, Bindings bindings);
 
+  /**
+   * Preprocesses a script before execution.
+   *
+   * <p>If script preprocessing is disabled, no preprocessor is configured, or the preprocessor
+   * returns {@code null}, the original script is returned unchanged.</p>
+   *
+   * <p>If preprocessing fails with an exception, a warning is logged and the original script is
+   * returned as a safe fallback to ensure scripts continue to execute.</p>
+   *
+   * @param script the script text to preprocess; may be {@code null}
+   * @param variableScope the current execution context; may be {@code null}
+   * @return the preprocessed script, or the original script if preprocessing is disabled,
+   *         not configured, returns {@code null}, or fails with an exception
+   */
+  protected String preprocessScript(String script, VariableScope variableScope) {
+    if (script == null) {
+      return script;
+    }
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = Context.getProcessEngineConfiguration();
+    if (processEngineConfiguration == null
+        || !processEngineConfiguration.isEnableScriptPreprocessing()) {
+      return script;
+    }
+
+    ScriptPreprocessor scriptPreprocessor = processEngineConfiguration.getEffectiveScriptPreprocessor();
+    if (scriptPreprocessor == null) {
+      return script;
+    }
+
+    String preprocessorName = getPreprocessorName(scriptPreprocessor);
+
+    ScriptPreprocessorRequest request = new ScriptPreprocessorRequest(script, language, variableScope);
+    String processedScript;
+    try {
+      processedScript = scriptPreprocessor.process(request);
+    } catch (Throwable e) {
+      LOG.warnScriptPreprocessingFailed(language, preprocessorName, e);
+      return script;
+    }
+
+    if (processedScript == null) {
+      return script;
+    }
+
+    return processedScript;
+  }
+
+  private String getPreprocessorName(ScriptPreprocessor scriptPreprocessor) {
+    try {
+      String name = scriptPreprocessor.getName();
+      return name != null ? name : "<unknown>";
+    } catch (Exception e) {
+      return "<unknown>";
+    }
+  }
 }

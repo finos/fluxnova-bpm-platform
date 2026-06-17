@@ -1,0 +1,50 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: htmlFormsMigration
+displayName: HTML Forms Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: cam-variable-name
+      replace: fxn-variable-name
+      filePattern: '**/*.html'
+
+    # Migrate cam-variable-type to fxn-variable-type
+  - org.openrewrite.text.FindAndReplace:
+      find: cam-variable-type
+      replace: fxn-variable-type
+      filePattern: '**/*.html'
+
+    # Migrate cam-choices to fxn-choices
+  - org.openrewrite.text.FindAndReplace:
+      find: cam-choices
+      replace: fxn-choices
+      filePattern: '**/*.html'
+
+    # Migrate cam-values to fxn-values
+  - org.openrewrite.text.FindAndReplace:
+      find: cam-values
+      replace: fxn-values
+      filePattern: '**/*.html'
+
+    # Migrate cam-script to fxn-script
+  - org.openrewrite.text.FindAndReplace:
+      find: cam-script
+      replace: fxn-script
+      filePattern: '**/*.html'
+
+    # Migrate camForm to fxnForm (JavaScript API)
+  - org.openrewrite.text.FindAndReplace:
+      find: camForm
+      replace: fxnForm
+      filePattern: '**/*.html'
+
+    # Migrate Camunda SDK reference
+  - org.openrewrite.text.FindAndReplace:
+      find: camunda-bpm-sdk-js
+      replace: fluxnova-bpm-sdk-js
+      filePattern: '**/*.html'
+
+  - org.openrewrite.text.FindAndReplace:
+      find: camunda-bpm-sdk
+      replace: fluxnova-bpm-sdk
+      filePattern: '**/*.html'

@@ -21,7 +21,7 @@ import static org.finos.fluxnova.bpm.engine.rest.util.EngineUtil.getProcessEngin
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,8 +30,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
+import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
+import org.finos.fluxnova.bpm.engine.rest.BulkTaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseExecutionRestService;
 import org.finos.fluxnova.bpm.engine.rest.CaseInstanceRestService;
@@ -94,6 +96,13 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
   @Path("/{name}" + TaskRestService.PATH)
   public TaskRestService getTaskRestService(@PathParam("name") String engineName) {
     return super.getTaskRestService(engineName);
+  }
+
+
+  @Override
+  @Path("/{name}" + BulkTaskRestService.PATH)
+  public BulkTaskRestService getBulkTaskRestService(@PathParam("name") String engineName) {
+    return super.getBulkTaskRestService(engineName);
   }
 
   @Override
@@ -275,16 +284,23 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<ProcessEngineDto> getProcessEngineNames() {
+  public List<ProcessEngineDto> getProcessEngines() {
     ProcessEngineProvider provider = getProcessEngineProvider();
-    Set<String> engineNames = provider.getProcessEngineNames();
 
     List<ProcessEngineDto> results = new ArrayList<ProcessEngineDto>();
-    for (String engineName : engineNames) {
-      ProcessEngineDto dto = new ProcessEngineDto();
-      dto.setName(engineName);
-      results.add(dto);
-    }
+
+
+      Map<String, ProcessEngine> engines = provider.getProcessEngines();
+      for (Map.Entry<String, ProcessEngine> entry : engines.entrySet()) {
+        ProcessEngine engine = entry.getValue();
+        ProcessEngineDto dto = new ProcessEngineDto();
+        dto.setName(engine.getName());
+        dto.setDisplayName(engine.getDisplayName());
+        dto.setGroup(engine.getGroup());
+        dto.setGroupDisplayName(engine.getGroupDisplayName());
+        results.add(dto);
+      }
+
 
     return results;
   }
