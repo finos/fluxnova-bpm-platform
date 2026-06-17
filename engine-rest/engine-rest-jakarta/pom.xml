@@ -54,6 +54,13 @@
       <artifactId>commons-io</artifactId>
     </dependency>
 
+    <!-- Nimbus JOSE+JWT for eJWT validation -->
+    <dependency>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <version>${version.nimbus-jose-jwt}</version>
+    </dependency>
+
     <dependency>
       <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
       <artifactId>jackson-jakarta-rs-json-provider</artifactId>

@@ -17,6 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.logging;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.fail;
 
 import java.util.Arrays;
@@ -34,6 +35,7 @@ import org.finos.fluxnova.bpm.engine.delegate.DelegateTask;
 import org.finos.fluxnova.bpm.engine.delegate.ExecutionListener;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
 import org.finos.fluxnova.bpm.engine.delegate.TaskListener;
+import org.finos.fluxnova.bpm.engine.impl.interceptor.MdcPropertyProvider;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
@@ -123,7 +125,8 @@ public class ProcessDataLoggingContextTest {
       .setLoggingContextProcessDefinitionId("processDefinitionId")
       .setLoggingContextProcessInstanceId("processInstanceId")
       .setLoggingContextTenantId("tenantId")
-      .setLoggingContextEngineName("engineName");
+      .setLoggingContextEngineName("engineName")
+      .clearCustomMdcProperties();
   }
 
   @Test
@@ -346,6 +349,171 @@ public class ProcessDataLoggingContextTest {
       assertThat(logEvent.getMDCPropertyMap()).containsEntry("defId", processInstance.getProcessDefinitionId());
       assertThat(logEvent.getMDCPropertyMap()).containsEntry("instId", processInstance.getId());
       assertThat(logEvent.getMDCPropertyMap()).containsEntry("tenId", processInstance.getTenantId());
+    }
+  }
+
+  // --- addCustomMdcProperty / ProcessDataContext tests ---
+
+  @Test
+  @WatchLogger(loggerNames = PVM_LOGGER, level = "DEBUG")
+  public void shouldPopulateCustomMdcPropertyViaProviderDuringExecution() {
+    // given
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> "my-tenant-value");
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then every PVM log entry during the process has the custom property set
+    List<ILoggingEvent> logs = loggingRule.getFilteredLog("ENGINE-200");
+    assertThat(logs).isNotEmpty();
+    for (ILoggingEvent logEvent : logs) {
+      assertThat(logEvent.getMDCPropertyMap()).containsEntry("x-tenant-id", "my-tenant-value");
+    }
+  }
+
+  @Test
+  @WatchLogger(loggerNames = PVM_LOGGER, level = "DEBUG")
+  public void shouldClearCustomMdcPropertyFromMdcAfterExecutionCompletes() {
+    // given
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> "my-tenant-value");
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then the custom MDC property is no longer in the MDC after execution
+    assertThat(MdcAccess.get("x-tenant-id")).isNull();
+  }
+
+  @Test
+  @WatchLogger(loggerNames = PVM_LOGGER, level = "DEBUG")
+  public void shouldNotAddCustomMdcPropertyWhenProviderReturnsNull() {
+    // given — provider always returns null
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> null);
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then the property is never present in any log entry
+    List<ILoggingEvent> logs = loggingRule.getFilteredLog("ENGINE-200");
+    assertThat(logs).isNotEmpty();
+    for (ILoggingEvent logEvent : logs) {
+      assertThat(logEvent.getMDCPropertyMap()).doesNotContainKey("x-tenant-id");
+    }
+  }
+
+  @Test
+  @WatchLogger(loggerNames = PVM_LOGGER, level = "DEBUG")
+  public void shouldSupportMultipleCustomMdcProperties() {
+    // given
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> "tenant-abc")
+        .addCustomMdcProperty("x-region", execution -> "us-east");
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then both custom properties appear in every activity log entry
+    List<ILoggingEvent> logs = loggingRule.getFilteredLog("ENGINE-200");
+    assertThat(logs).isNotEmpty();
+    for (ILoggingEvent logEvent : logs) {
+      assertThat(logEvent.getMDCPropertyMap()).containsEntry("x-tenant-id", "tenant-abc");
+      assertThat(logEvent.getMDCPropertyMap()).containsEntry("x-region", "us-east");
+    }
+  }
+
+  @Test
+  @WatchLogger(loggerNames = {PVM_LOGGER, CMD_LOGGER}, level = "DEBUG")
+  public void shouldPreserveCustomMdcPropertyInOuterMdcAfterNestedCommand() {
+    // given — a pre-existing value for the custom key sits in the MDC before execution
+    MdcAccess.put("x-tenant-id", "outer-tenant");
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> "inner-tenant");
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then the outer MDC value is restored after execution completes
+    assertThat(MdcAccess.get("x-tenant-id")).isEqualTo("outer-tenant");
+
+    // cleanup
+    MdcAccess.remove("x-tenant-id");
+  }
+
+  @Test
+  public void shouldThrowWhenAddingCustomMdcPropertyWithNullName() {
+    // given / when / then
+    assertThatThrownBy(() ->
+        engineRule.getProcessEngineConfiguration()
+            .addCustomMdcProperty(null, execution -> "value"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("Property name cannot be null or empty");
+  }
+
+  @Test
+  public void shouldThrowWhenAddingCustomMdcPropertyWithEmptyName() {
+    // given / when / then
+    assertThatThrownBy(() ->
+        engineRule.getProcessEngineConfiguration()
+            .addCustomMdcProperty("  ", execution -> "value"))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("Property name cannot be null or empty");
+  }
+
+  @Test
+  public void shouldThrowWhenAddingCustomMdcPropertyWithNullProvider() {
+    // given
+    MdcPropertyProvider nullProvider = null;
+    // when / then
+    assertThatThrownBy(() ->
+        engineRule.getProcessEngineConfiguration()
+            .addCustomMdcProperty("x-tenant-id", nullProvider))
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageContaining("Provider cannot be null");
+  }
+
+  @Test
+  public void shouldReturnRegisteredCustomMdcProviders() {
+    // given
+    MdcPropertyProvider provider = execution -> "value";
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", provider);
+
+    // when
+    Map<String, ?> providers = engineRule.getProcessEngineConfiguration().getCustomMdcPropertyProviders();
+
+    // then
+    assertThat(providers).containsKey("x-tenant-id");
+  }
+
+  @Test
+  @WatchLogger(loggerNames = PVM_LOGGER, level = "DEBUG")
+  public void shouldNotLogCustomMdcPropertyOutsideActivityContext() {
+    // given
+    engineRule.getProcessEngineConfiguration()
+        .addCustomMdcProperty("x-tenant-id", execution -> "my-tenant-value");
+    manageDeployment(modelOneTaskProcess());
+
+    // when
+    runtimeService.startProcessInstanceByKey(PROCESS, B_KEY);
+    taskService.complete(taskService.createTaskQuery().singleResult().getId());
+
+    // then non-activity-context logs (e.g. command logs) do not carry the custom MDC property
+    List<ILoggingEvent> cmdLogs = loggingRule.getFilteredLog("ENGINE-130");
+    for (ILoggingEvent logEvent : cmdLogs) {
+      assertThat(logEvent.getMDCPropertyMap()).doesNotContainKey("x-tenant-id");
     }
   }
 
