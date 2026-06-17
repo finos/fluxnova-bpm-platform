@@ -1177,9 +1177,11 @@ public class JobQueryTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryByBatchId() {
+  public void testQueryByBatchId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
 
@@ -1200,9 +1202,11 @@ public class JobQueryTest {
     managementService.deleteBatch(batchId, true);
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryInBatch() {
+  public void testQueryInBatch(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
 
@@ -1226,8 +1230,10 @@ public class JobQueryTest {
     managementService.deleteBatch(batchId, true);
   }
 
-  @Test
-  public void testQueryByInvalidBatchId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidBatchId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().batchId("invalid");
     verifyQueryResults(query, 0);
 
@@ -1235,9 +1241,11 @@ public class JobQueryTest {
         .isInstanceOf(ProcessEngineException.class);
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryInBatchCombinedWithOtherFilters() {
+  public void testQueryInBatchCombinedWithOtherFilters(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
 
