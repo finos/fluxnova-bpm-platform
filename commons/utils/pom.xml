@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.commons</groupId>
     <artifactId>fluxnova-commons-root</artifactId>
-    <version>2.0.3-snapshot</version>
+    <version>2.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-commons-utils</artifactId>

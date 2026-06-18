@@ -5,7 +5,7 @@
     <groupId>org.finos.fluxnova.bpm.model</groupId>
     <artifactId>fluxnova-model-apis</artifactId>
     <relativePath>../</relativePath>
-    <version>2.0.3-snapshot</version>
+    <version>2.0.3-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-cmmn-model</artifactId>
