@@ -23,6 +23,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
@@ -45,11 +46,12 @@ public class BasicAuthenticationTest {
   ProcessInstanceApi api;
 
   @Rule
-  public WireMockRule wireMockRule = new WireMockRule(8080);
+  public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
 
   @Before
   public void clientWithValidCredentials() {
     ApiClient apiClient = new ApiClient();
+    apiClient.setBasePath("http://localhost:" + wireMockRule.port() + "/engine-rest");
 
     apiClient.setUsername(USERNAME);
     apiClient.setPassword(PASSWORD);

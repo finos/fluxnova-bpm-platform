@@ -206,6 +206,7 @@ create table ACT_HI_ATTACHMENT (
     TENANT_ID_ varchar(64),
     CREATE_TIME_ timestamp,
     REMOVAL_TIME_ timestamp,
+    CREATED_BY_ varchar(255),
     primary key (ID_)
 );
 

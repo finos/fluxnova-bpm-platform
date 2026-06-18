@@ -844,6 +844,7 @@ public class TaskServiceTest {
       assertEquals(taskId, attachment.getTaskId());
       assertEquals("someprocessinstanceid", attachment.getProcessInstanceId());
       assertEquals("http://weather.com", attachment.getUrl());
+      assertEquals("johndoe", attachment.getCreatedBy());
       assertNull(taskService.getAttachmentContent(attachment.getId()));
 
       // Finally, clean up

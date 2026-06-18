@@ -2953,6 +2953,7 @@ public class TaskRestServiceInteractionTest extends
       .body("createTime", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_CREATE_DATE))
       .body("removalTime", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE))
       .body("rootProcessInstanceId", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID))
+      .body("createdBy", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_CREATED_BY))
     .when().get(SINGLE_TASK_SINGLE_ATTACHMENT_URL);
   }
 

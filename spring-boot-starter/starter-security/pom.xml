@@ -41,6 +41,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-client</artifactId>
     </dependency>
+    
+    <!-- JWT parsing for token authentication -->
+    <dependency>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <version>${version.nimbus-jose-jwt}</version>
+    </dependency>
     <dependency>
       <artifactId>fluxnova-bpm-spring-boot-starter-test</artifactId>
       <groupId>${project.groupId}</groupId>
