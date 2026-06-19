@@ -485,7 +485,7 @@
         <artifactId>maven-shade-plugin</artifactId>
         <configuration>
           <promoteTransitiveDependencies>false</promoteTransitiveDependencies>
-          <createSourcesJar>true</createSourcesJar>
+          <createSourcesJar>false</createSourcesJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
           <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
           <artifactSet>
@@ -586,14 +586,19 @@
       <id>distro</id>
       <build>
         <plugins>
-          <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>release-attach-sources</id>
-                <phase>none</phase>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+                <configuration>
+                  <skipSource>${releasePerform}</skipSource>
+                </configuration>
               </execution>
             </executions>
           </plugin>
