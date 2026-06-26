@@ -273,7 +273,7 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
         .disable(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS)
         .disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE)
         .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .enable(DateTimeFeature.WRITE_UTC_AS_OFFSET)
+        //.enable(DateTimeFeature.WRITE_UTC_AS_OFFSET)
         .defaultDateFormat(sdf)
         .build();
   }
