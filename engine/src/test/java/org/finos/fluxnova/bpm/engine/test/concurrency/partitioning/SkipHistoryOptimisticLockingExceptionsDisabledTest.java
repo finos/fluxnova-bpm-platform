@@ -23,7 +23,8 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tassilo Weidner

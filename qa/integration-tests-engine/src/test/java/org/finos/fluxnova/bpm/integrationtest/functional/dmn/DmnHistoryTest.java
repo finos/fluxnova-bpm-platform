@@ -16,9 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.dmn;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInstance;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
@@ -27,15 +26,16 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Philipp Ossler
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class DmnHistoryTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -54,12 +54,12 @@ public class DmnHistoryTest extends AbstractFoxPlatformIntegrationTest {
     ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess", variables);
 
     HistoricDecisionInstance historicDecisionInstance = historyService.createHistoricDecisionInstanceQuery().includeInputs().includeOutputs().singleResult();
-    assertThat(historicDecisionInstance, is(notNullValue()));
-    assertThat(historicDecisionInstance.getDecisionDefinitionKey(), is("decision"));
-    assertThat(historicDecisionInstance.getDecisionDefinitionName(), is("Check Order"));
+    assertNotNull(historicDecisionInstance);
+    assertEquals("decision", historicDecisionInstance.getDecisionDefinitionKey());
+    assertEquals("Check Order", historicDecisionInstance.getDecisionDefinitionName());
 
-    assertThat(historicDecisionInstance.getInputs().size(), is(2));
-    assertThat(historicDecisionInstance.getOutputs().size(), is(2));
+    assertEquals(2, historicDecisionInstance.getInputs().size());
+    assertEquals(2, historicDecisionInstance.getOutputs().size());
 
     Task task = taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult();
     taskService.complete(task.getId());

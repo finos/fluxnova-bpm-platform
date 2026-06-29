@@ -27,7 +27,7 @@ import org.finos.fluxnova.bpm.engine.task.Event;
 /**
  * @author Tom Baeyens
  */
-public class GetTaskEventsCmd implements Command<List<Event>>, Serializable {  
+public class GetTaskEventsCmd implements Command<List<Event>>, Serializable {
 
   private static final long serialVersionUID = 1L;
   protected String taskId;

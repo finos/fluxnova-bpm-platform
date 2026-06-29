@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.DataFormats.json;
 import static org.finos.fluxnova.spin.plugin.variable.SpinValues.jsonValue;
 import static org.finos.fluxnova.spin.plugin.variable.type.SpinValueType.JSON;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,8 @@ import org.finos.fluxnova.spin.plugin.variable.type.SpinValueType;
 import org.finos.fluxnova.spin.plugin.variable.value.JsonValue;
 import org.finos.fluxnova.spin.plugin.variable.value.builder.JsonValueBuilder;
 import org.json.JSONException;
+
+import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
 /**
@@ -61,6 +64,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   protected String variableName = "x";
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testGetUntypedJsonValue() throws JSONException {
     // given
     JsonValue jsonValue = jsonValue(jsonString).create();
@@ -77,6 +81,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testGetNullJsonValue() {
     // given
     JsonValue jsonValue = jsonValue((String) null).create();
@@ -92,6 +97,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testGetTypedJsonValue() throws JSONException {
     // given
     JsonValue jsonValue = jsonValue(jsonString).create();
@@ -113,6 +119,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testBrokenJsonSerialization() {
     // given
     JsonValue value = jsonValue(brokenJsonString).create();
@@ -128,6 +135,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testFailingDeserialization() {
     // given
     JsonValue value = jsonValue(brokenJsonString).create();
@@ -164,6 +172,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testFailForNonExistingSerializationFormat() {
     // given
     JsonValueBuilder builder = jsonValue(jsonString).serializationDataFormat("non existing data format");
@@ -191,6 +200,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = "org/finos/fluxnova/spin/plugin/jsonConditionProcess.bpmn20.xml")
+  @Test
   public void testJsonValueInCondition() {
     // given
     String jsonString = "{\"age\": 22 }";
@@ -206,6 +216,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testTransientJsonValueFluent() {
     // given
     JsonValue jsonValue = jsonValue(jsonString).setTransient(true).create();
@@ -220,6 +231,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testTransientJsonValue() {
     // given
     JsonValue jsonValue = jsonValue(jsonString, true).create();
@@ -233,6 +245,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
     assertEquals(0, variableInstances.size());
   }
 
+  @Test
   public void testApplyValueInfoFromSerializedValue() {
     // given
     Map<String, Object> valueInfo = new HashMap<>();
@@ -247,6 +260,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
     assertEquals(true, returnedValueInfo.get(ValueType.VALUE_INFO_TRANSIENT));
   }
 
+  @Test
   public void testTransientJsonSpinVariables() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("aProcess")
@@ -266,6 +280,7 @@ public class JsonValueTest extends PluggableProcessEngineTestCase {
     assertThat(value).isNull();
   }
 
+  @Test
   public void testDeserializeTransientJsonValue() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("foo")

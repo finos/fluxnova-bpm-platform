@@ -18,9 +18,10 @@ package org.finos.fluxnova.bpm.model.xml.testmodel.instance;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,10 +35,9 @@ import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
 import org.finos.fluxnova.bpm.model.xml.testmodel.Gender;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelConstants;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -49,16 +49,11 @@ public class AlternativeNsTest extends TestModelTest {
   private static final String MECHANICAL_NS = "http://camunda.org/mechanical";
   private static final String YET_ANOTHER_NS = "http://camunda.org/yans";
 
-  public AlternativeNsTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
+  public AlternativeNsTest() {
+    super("parsed", parseModel(AlternativeNsTest.class));
   }
 
-  @Parameters(name = "Model {0}")
-  public static Collection<Object[]> models() {
-    return Collections.singleton(parseModel(AlternativeNsTest.class));
-  }
-
-  @Before
+  @BeforeEach
   public void setUp() {
     modelInstance = cloneModelInstance();
     ModelImpl modelImpl = (ModelImpl) modelInstance.getModel();
@@ -66,7 +61,7 @@ public class AlternativeNsTest extends TestModelTest {
     modelImpl.declareAlternativeNamespace(YET_ANOTHER_NS, TestModelConstants.NEWER_NAMESPACE);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ModelImpl modelImpl = (ModelImpl) modelInstance.getModel();
     modelImpl.undeclareAlternativeNamespace(MECHANICAL_NS);
@@ -229,7 +224,7 @@ public class AlternativeNsTest extends TestModelTest {
     for (int i = 0; i < attributes.getLength(); i++) {
       Node item = attributes.item(i);
       String nodeValue = item.getNodeValue();
-      assertNotEquals("Found newer namespace url which shouldn't exist", TestModelConstants.NEWER_NAMESPACE, nodeValue);
+      assertNotEquals(TestModelConstants.NEWER_NAMESPACE, nodeValue, "Found newer namespace url which shouldn't exist");
     }
   }
 

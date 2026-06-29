@@ -22,7 +22,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEnginePerformanceTestCase;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.EvaluateDecisionTableStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Evaluate DMN decision tables via decision service.

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.client.task;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -30,7 +30,8 @@ import org.finos.fluxnova.bpm.client.variable.impl.ValueMappers;
 import org.finos.fluxnova.bpm.client.variable.impl.VariableValue;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tobias Metzke

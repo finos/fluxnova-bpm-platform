@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;

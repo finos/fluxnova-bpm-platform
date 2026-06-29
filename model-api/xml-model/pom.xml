@@ -21,11 +21,10 @@
     </camunda.osgi.import.additional>
   </properties>
   <dependencies>
-
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -33,7 +32,6 @@
       <artifactId>assertj-core</artifactId>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -88,6 +86,7 @@
                 </goals>
                 <configuration>
                   <textOutputFile>${project.build.directory}/clirr-all.txt</textOutputFile>
+                  <ignoredDifferencesFile>.clirr-jenkins-ignore.xml</ignoredDifferencesFile>
                   <failOnWarning>false</failOnWarning>
                   <failOnError>false</failOnError>
                 </configuration>

@@ -14,6 +14,10 @@
   <name>Fluxnova Platform - Run - Root</name>
   <description>This is the root of Fluxnova Platform Run</description>
   <packaging>pom</packaging>
+  <properties>
+    <version.spring-boot>4.0.5</version.spring-boot>
+    <jacoco.skip>true</jacoco.skip>
+  </properties>
 
   <dependencyManagement>
     <dependencies>
@@ -30,6 +34,7 @@
         <groupId>org.graalvm.js</groupId>
         <artifactId>js</artifactId>
         <version>${version.graal.js}</version>
+        <type>pom</type>
       </dependency>
 
       <dependency>
@@ -45,9 +50,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <properties>
-    <jacoco.skip>true</jacoco.skip>
-  </properties>
 
   <build>
     <pluginManagement>

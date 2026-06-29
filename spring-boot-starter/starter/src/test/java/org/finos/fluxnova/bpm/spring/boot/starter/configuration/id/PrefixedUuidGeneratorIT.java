@@ -21,15 +21,15 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.IdGenerator;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.FluxnovaSpringBootUtil;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.spring.boot.starter.configuration.id.IdGeneratorConfiguration.PREFIXED;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestApplication.class},
   properties = {

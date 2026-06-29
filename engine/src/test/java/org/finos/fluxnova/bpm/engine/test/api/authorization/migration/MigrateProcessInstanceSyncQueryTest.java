@@ -35,12 +35,12 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -54,16 +54,16 @@ public class MigrateProcessInstanceSyncQueryTest {
 
   protected List<Authorization> authorizations;
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authorizations = new ArrayList<Authorization>();
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     for (Authorization authorization : authorizations) {
       engineRule.getAuthorizationService().deleteAuthorization(authorization.getId());
@@ -108,7 +108,7 @@ public class MigrateProcessInstanceSyncQueryTest {
       .processInstanceId(instance1.getId())
       .singleResult();
 
-    Assert.assertEquals(sourceDefinition.getId(), instance1AfterMigration.getProcessDefinitionId());
+    Assertions.assertEquals(sourceDefinition.getId(), instance1AfterMigration.getProcessDefinitionId());
   }
 
   protected void grantAuthorization(String userId, Resource resource, String resourceId, Permission permission) {

@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.integrationtest.functional.spin.dataformat;
 import org.finos.fluxnova.bpm.integrationtest.functional.spin.XmlSerializable;
 import org.finos.fluxnova.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.finos.fluxnova.spin.spi.DataFormatConfigurator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 /**
  * @author Svetlana Dorokhova.
@@ -37,11 +38,13 @@ public class CustomDataFormatConfigurator implements DataFormatConfigurator<Jack
 
   @Override
   public void configure(JacksonJsonDataFormat dataFormat) {
-    ObjectMapper objectMapper = dataFormat.getObjectMapper();
-    SimpleModule module = new SimpleModule();
-    module.addDeserializer(XmlSerializable.class, new XmlSerializableJsonDeserializer());
-    module.addSerializer(XmlSerializable.class, new XmlSerializableJsonSerializer());
-    objectMapper.registerModule(module);
+    JsonMapper mapper = JsonMapper.builder()
+            .addModule(new SimpleModule()
+            .addDeserializer(XmlSerializable.class, new XmlSerializableJsonDeserializer())
+            .addSerializer(XmlSerializable.class, new XmlSerializableJsonSerializer()))
+            .build();
+
+    dataFormat.setObjectMapper(mapper);
   }
 
 }

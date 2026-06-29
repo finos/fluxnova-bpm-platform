@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,17 +41,15 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Svetlana Dorokhova
  */
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoricProcessInstanceManagerProcessInstancesForCleanupTest {
 
@@ -63,40 +59,25 @@ public class HistoricProcessInstanceManagerProcessInstancesForCleanupTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private HistoryService historyService;
   private RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
   }
-
-  @Parameterized.Parameter(0)
   public int processDefiniotion1TTL;
-
-  @Parameterized.Parameter(1)
   public int processDefiniotion2TTL;
-
-  @Parameterized.Parameter(2)
   public int processInstancesOfProcess1Count;
-
-  @Parameterized.Parameter(3)
   public int processInstancesOfProcess2Count;
-
-  @Parameterized.Parameter(4)
   public int daysPassedAfterProcessEnd;
-
-  @Parameterized.Parameter(5)
   public int batchSize;
-
-  @Parameterized.Parameter(6)
   public int resultCount;
 
-  @Parameterized.Parameters
   public static Collection<Object[]> scenarios() {
     return Arrays.asList(new Object[][] {
         { 3, 5, 3, 7, 4, 50, 3 },
@@ -109,9 +90,12 @@ public class HistoricProcessInstanceManagerProcessInstancesForCleanupTest {
     });
   }
 
-  @Test
-  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml", "org/finos/fluxnova/bpm/engine/test/api/twoTasksProcess.bpmn20.xml" })
-  public void testFindHistoricProcessInstanceIdsForCleanup() {
+  @ParameterizedTest
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml", "org/finos/fluxnova/bpm/engine/test/api/twoTasksProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void testFindHistoricProcessInstanceIdsForCleanup(int processDefiniotion1TTL, int processDefiniotion2TTL, int processInstancesOfProcess1Count, int processInstancesOfProcess2Count, int daysPassedAfterProcessEnd, int batchSize, int resultCount) {
+
+    initHistoricProcessInstanceManagerProcessInstancesForCleanupTest(processDefiniotion1TTL, processDefiniotion2TTL, processInstancesOfProcess1Count, processInstancesOfProcess2Count, daysPassedAfterProcessEnd, batchSize, resultCount);
 
     engineRule.getProcessEngineConfiguration().getCommandExecutorTxRequired().execute(new Command<Object>() {
       @Override
@@ -181,6 +165,16 @@ public class HistoricProcessInstanceManagerProcessInstancesForCleanupTest {
     }
 
     return processInstanceIds;
+  }
+
+  public void initHistoricProcessInstanceManagerProcessInstancesForCleanupTest(int processDefiniotion1TTL, int processDefiniotion2TTL, int processInstancesOfProcess1Count, int processInstancesOfProcess2Count, int daysPassedAfterProcessEnd, int batchSize, int resultCount) {
+    this.processDefiniotion1TTL = processDefiniotion1TTL;
+    this.processDefiniotion2TTL = processDefiniotion2TTL;
+    this.processInstancesOfProcess1Count = processInstancesOfProcess1Count;
+    this.processInstancesOfProcess2Count = processInstancesOfProcess2Count;
+    this.daysPassedAfterProcessEnd = daysPassedAfterProcessEnd;
+    this.batchSize = batchSize;
+    this.resultCount = resultCount;
   }
 
 }

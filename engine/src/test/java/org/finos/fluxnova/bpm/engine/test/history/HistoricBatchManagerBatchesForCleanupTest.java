@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,15 +39,13 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.MigrationTestRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch.BatchMigrationHelper;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoricBatchManagerBatchesForCleanupTest {
 
@@ -55,40 +53,27 @@ public class HistoricBatchManagerBatchesForCleanupTest {
   public MigrationTestRule migrationRule = new MigrationTestRule(engineRule);
   public BatchMigrationHelper helper = new BatchMigrationHelper(engineRule, migrationRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule);
 
   protected HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void init() {
     historyService = engineRule.getHistoryService();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     helper.removeAllRunningAndHistoricBatches();
   }
-
-  @Parameterized.Parameter(0)
   public int historicBatchHistoryTTL;
-
-  @Parameterized.Parameter(1)
   public int daysInThePast;
-
-  @Parameterized.Parameter(2)
   public int batch1EndTime;
-
-  @Parameterized.Parameter(3)
   public int batch2EndTime;
-
-  @Parameterized.Parameter(4)
   public int batchSize;
-
-  @Parameterized.Parameter(5)
   public int resultCount;
 
-  @Parameterized.Parameters
   public static Collection<Object[]> scenarios() {
     return Arrays.asList(new Object[][] {
         // all historic batches are old enough to be cleaned up
@@ -101,9 +86,11 @@ public class HistoricBatchManagerBatchesForCleanupTest {
         { 5, -11, -6, -7, 1, 1 } });
   }
 
+  @MethodSource("scenarios")
   @SuppressWarnings("unchecked")
-  @Test
-  public void testFindHistoricBatchIdsForCleanup() {
+  @ParameterizedTest
+  public void testFindHistoricBatchIdsForCleanup(int historicBatchHistoryTTL, int daysInThePast, int batch1EndTime, int batch2EndTime, int batchSize, int resultCount) {
+    initHistoricBatchManagerBatchesForCleanupTest(historicBatchHistoryTTL, daysInThePast, batch1EndTime, batch2EndTime, batchSize, resultCount);
     // given
     String batchType = prepareHistoricBatches(2);
     final Map<String, Integer> batchOperationsMap = new HashedMap();
@@ -158,5 +145,14 @@ public class HistoricBatchManagerBatchesForCleanupTest {
     ClockUtil.setCurrentTime(new Date());
 
     return batchType;
+  }
+
+  public void initHistoricBatchManagerBatchesForCleanupTest(int historicBatchHistoryTTL, int daysInThePast, int batch1EndTime, int batch2EndTime, int batchSize, int resultCount) {
+    this.historicBatchHistoryTTL = historicBatchHistoryTTL;
+    this.daysInThePast = daysInThePast;
+    this.batch1EndTime = batch1EndTime;
+    this.batch2EndTime = batch2EndTime;
+    this.batchSize = batchSize;
+    this.resultCount = resultCount;
   }
 }

@@ -16,20 +16,20 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.deployment.cfg;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(ArquillianExtension.class)
 public class TestDeploymentTenantId extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -45,15 +45,15 @@ public class TestDeploymentTenantId extends AbstractFoxPlatformIntegrationTest {
 
   @Test
   public void testDeployProcessArchiveWithTenantId() {
-    assertThat(processEngine, is(notNullValue()));
+    assertNotNull(processEngine, "Process engine should be initialized");
 
     org.finos.fluxnova.bpm.engine.repository.Deployment deployment = processEngine
         .getRepositoryService()
         .createDeploymentQuery()
         .singleResult();
 
-    assertThat(deployment, is(notNullValue()));
-    assertThat(deployment.getTenantId(), is("tenant1"));
+    assertNotNull(deployment, "Deployment should not be null");
+    assertEquals("tenant1", deployment.getTenantId(), "Tenant ID mismatch");
   }
 
 }

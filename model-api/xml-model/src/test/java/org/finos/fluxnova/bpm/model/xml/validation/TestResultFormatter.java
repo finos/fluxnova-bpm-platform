@@ -34,8 +34,8 @@ public class TestResultFormatter implements ValidationResultFormatter {
   public void formatElement(StringWriter writer, ModelElementInstance element) {
     Formatter formatter = new Formatter(writer);
 
-    if (element instanceof FlyingAnimal) {
-      formatter.format("%s\n", ((FlyingAnimal) element).getId());
+    if (element instanceof FlyingAnimal animal) {
+      formatter.format("%s\n", animal.getId());
     } else {
       formatter.format("%s\n", element.getElementType().getTypeName());
     }
@@ -57,6 +57,6 @@ public class TestResultFormatter implements ValidationResultFormatter {
 
   @Override
   public int getFormattedSuffixWithOmittedResultsSize(int count) {
-    return String.format(OMITTED_RESULTS_SUFFIX_FORMAT, count).getBytes().length;
+    return OMITTED_RESULTS_SUFFIX_FORMAT.formatted(count).getBytes().length;
   }
 }

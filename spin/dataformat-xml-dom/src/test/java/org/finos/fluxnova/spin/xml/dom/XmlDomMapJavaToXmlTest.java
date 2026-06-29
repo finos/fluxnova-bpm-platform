@@ -25,7 +25,8 @@ import static org.finos.fluxnova.spin.xml.XmlTestConstants.createExampleOrder;
 import org.finos.fluxnova.spin.xml.XmlTestUtil;
 import org.finos.fluxnova.spin.xml.mapping.NonXmlRootElementType;
 import org.finos.fluxnova.spin.xml.mapping.Order;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class XmlDomMapJavaToXmlTest {
 

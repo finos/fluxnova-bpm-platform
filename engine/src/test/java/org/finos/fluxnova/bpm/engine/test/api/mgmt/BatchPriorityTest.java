@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.HistoryService;
 import org.finos.fluxnova.bpm.engine.IdentityService;
@@ -31,11 +31,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.MigrationTestRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch.BatchMigrationHelper;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class BatchPriorityTest {
 
@@ -45,8 +45,8 @@ public class BatchPriorityTest {
   protected MigrationTestRule migrationRule = new MigrationTestRule(engineRule);
   protected BatchMigrationHelper helper = new BatchMigrationHelper(engineRule, migrationRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule);
 
   protected RuntimeService runtimeService;
   protected ManagementService managementService;
@@ -56,7 +56,7 @@ public class BatchPriorityTest {
   protected int defaultBatchJobsPerSeed;
   protected long defaultBatchJobPriority;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
@@ -64,7 +64,7 @@ public class BatchPriorityTest {
     identityService = engineRule.getIdentityService();
   }
 
-  @Before
+  @BeforeEach
   public void saveAndReduceBatchConfiguration() {
     ProcessEngineConfigurationImpl configuration = engineRule.getProcessEngineConfiguration();
     defaultBatchJobsPerSeed = configuration.getBatchJobsPerSeed();
@@ -73,12 +73,12 @@ public class BatchPriorityTest {
     configuration.setBatchJobsPerSeed(1);
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void resetBatchJobsPerSeed() {
     ProcessEngineConfigurationImpl processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     processEngineConfiguration.setBatchJobsPerSeed(defaultBatchJobsPerSeed);

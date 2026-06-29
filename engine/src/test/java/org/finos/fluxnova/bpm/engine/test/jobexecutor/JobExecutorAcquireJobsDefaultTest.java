@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -28,21 +28,13 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AcquirableJobEntity;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ClockTestUtil;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class JobExecutorAcquireJobsDefaultTest extends AbstractJobExecutorAcquireJobsTest {
-
-  @Parameterized.Parameter(0)
   public boolean ensureJobDueDateSet;
-
-  @Parameterized.Parameter(1)
   public Date currentTime;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false, null },
@@ -50,21 +42,20 @@ public class JobExecutorAcquireJobsDefaultTest extends AbstractJobExecutorAcquir
     });
   }
 
-  @Before
-  public void setUp() {
-    rule.getProcessEngineConfiguration().setEnsureJobDueDateNotNull(ensureJobDueDateSet);
-  }
-
-  @Test
-  public void testProcessEngineConfiguration() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testProcessEngineConfiguration(boolean ensureJobDueDateSet, Date currentTime) {
+    initJobExecutorAcquireJobsDefaultTest(ensureJobDueDateSet, currentTime);
     assertFalse(configuration.isJobExecutorPreferTimerJobs());
     assertFalse(configuration.isJobExecutorAcquireByDueDate());
     assertEquals(ensureJobDueDateSet, configuration.isEnsureJobDueDateNotNull());
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/jobexecutor/simpleAsyncProcess.bpmn20.xml")
-  public void testJobDueDateValue() {
+  @MethodSource("scenarios")
+  public void testJobDueDateValue(boolean ensureJobDueDateSet, Date currentTime) {
+    initJobExecutorAcquireJobsDefaultTest(ensureJobDueDateSet, currentTime);
     // when
     runtimeService.startProcessInstanceByKey("simpleAsyncProcess");
     List<AcquirableJobEntity> jobList = findAcquirableJobs();
@@ -72,5 +63,11 @@ public class JobExecutorAcquireJobsDefaultTest extends AbstractJobExecutorAcquir
     // then
     assertEquals(1, jobList.size());
     assertEquals(currentTime, jobList.get(0).getDuedate());
+  }
+
+  public void initJobExecutorAcquireJobsDefaultTest(boolean ensureJobDueDateSet, Date currentTime) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    this.currentTime = currentTime;
+    rule.getProcessEngineConfiguration().setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 }

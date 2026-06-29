@@ -16,17 +16,17 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.test;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
 import org.finos.fluxnova.bpm.engine.delegate.Expression;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.behavior.CaseControlRuleImpl;
 import org.finos.fluxnova.bpm.engine.impl.el.FixedValue;
+
+import org.opentest4j.AssertionFailedError;
 
 
 /**
  * @author Tom Baeyens
  */
-public class PvmTestCase extends TestCase {
+public class PvmTestCase {
   /**
    * This class isn't used in the Process Engine test suite anymore.
    * However, some Test classes in the following modules still use it:

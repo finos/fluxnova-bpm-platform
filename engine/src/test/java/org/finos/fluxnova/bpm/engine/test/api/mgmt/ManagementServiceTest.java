@@ -18,12 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,10 +52,10 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -75,7 +70,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
 
   protected final Date TEST_DUE_DATE = new Date(1675752840000L);
 
-  @After
+  @AfterEach
   public void tearDown() {
     if(tearDownEnsureJobDueDateNotNull) {
       processEngineConfiguration.setEnsureJobDueDateNotNull(false);
@@ -130,7 +125,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
 
     try {
       managementService.executeJob(timerJob.getId());
@@ -144,13 +139,13 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    Assert.assertNotNull(timerJob);
-    Assert.assertNotNull(timerJob.getExceptionMessage());
+    Assertions.assertNotNull(timerJob);
+    Assertions.assertNotNull(timerJob.getExceptionMessage());
     testRule.assertTextPresent("This is an exception thrown from scriptTask", timerJob.getExceptionMessage());
 
     // Get the full stacktrace using the managementService
     String exceptionStack = managementService.getJobExceptionStacktrace(timerJob.getId());
-    Assert.assertNotNull(exceptionStack);
+    Assertions.assertNotNull(exceptionStack);
     testRule.assertTextPresent("This is an exception thrown from scriptTask", exceptionStack);
   }
 
@@ -185,7 +180,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
     assertEquals(JobEntity.DEFAULT_RETRIES, timerJob.getRetries());
 
     managementService.setJobRetries(timerJob.getId(), 5);
@@ -420,7 +415,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
     assertEquals(JobEntity.DEFAULT_RETRIES, timerJob.getRetries());
 
     managementService.setJobRetries(timerJob.getId(), 0);
@@ -473,7 +468,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
 
     Job timerJob = query.singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
     assertEquals(0, timerJob.getRetries());
 
     managementService.setJobRetriesByJobDefinitionId(jobDefinition.getId(), 5);
@@ -656,11 +651,11 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("timerOnTask");
     Job timerJob = managementService.createJobQuery().processInstanceId(processInstance.getId()).singleResult();
 
-    assertNotNull("Task timer should be there", timerJob);
+    assertNotNull(timerJob, "Task timer should be there");
     managementService.deleteJob(timerJob.getId());
 
     timerJob = managementService.createJobQuery().processInstanceId(processInstance.getId()).singleResult();
-    assertNull("There should be no job now. It was deleted", timerJob);
+    assertNull(timerJob, "There should be no job now. It was deleted");
   }
 
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/timerOnTask.bpmn20.xml"})
@@ -704,7 +699,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
     assertNotNull(timerJob.getDuedate());
 
     Calendar cal = Calendar.getInstance();
@@ -733,7 +728,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
     assertNotNull(timerJob.getDuedate());
 
     managementService.setJobDuedate(timerJob.getId(), null);
@@ -899,7 +894,7 @@ public class ManagementServiceTest extends PluggableProcessEngineTest {
     assertEquals(Long.MIN_VALUE + 1, job.getPriority());
   }
 
-  @Ignore
+  @Disabled
   @Test
   public void testGetTableMetaData() {
 

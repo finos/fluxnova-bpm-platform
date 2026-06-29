@@ -25,11 +25,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_PRO
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
@@ -49,9 +45,9 @@ import org.finos.fluxnova.bpm.engine.query.PeriodUnit;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -67,7 +63,7 @@ public class HistoricTaskInstanceAuthorizationTest extends AuthorizationTest {
   protected String deploymentId;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     deploymentId = testRule.deploy(
         "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml",
@@ -78,7 +74,7 @@ public class HistoricTaskInstanceAuthorizationTest extends AuthorizationTest {
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnableHistoricInstancePermissions(false);

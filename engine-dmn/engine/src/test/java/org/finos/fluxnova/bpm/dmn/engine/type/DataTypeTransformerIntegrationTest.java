@@ -32,7 +32,8 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests that {@link DmnDataTypeTransformerTest} is invoked while evaluation of the

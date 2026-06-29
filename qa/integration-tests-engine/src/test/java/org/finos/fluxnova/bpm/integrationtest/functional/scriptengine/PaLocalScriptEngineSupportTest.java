@@ -16,15 +16,16 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.scriptengine;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.integrationtest.functional.scriptengine.engine.AbstractScriptEngineFactory;
 import org.finos.fluxnova.bpm.integrationtest.functional.scriptengine.engine.DummyScriptEngineFactory;
 import org.jboss.arquillian.container.test.api.Deployment;
+
+import org.junit.jupiter.api.Test;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
 
 /**
  * @author Roman Smirnov

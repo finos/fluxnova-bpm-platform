@@ -26,13 +26,13 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.Failure;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.ProcessAssertTestCase;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 @Deployment(resources = "cmmn/MilestoneAssertIsCompletedTest.cmmn")
 public class MilestoneAssertIsCompletedTest extends ProcessAssertTestCase {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   @Test

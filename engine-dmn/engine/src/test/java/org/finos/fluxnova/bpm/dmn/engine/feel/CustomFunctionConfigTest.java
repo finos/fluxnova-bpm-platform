@@ -22,9 +22,10 @@ import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.dmn.feel.impl.scala.function.FeelCustomFunctionProvider;
-import org.junit.Test;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

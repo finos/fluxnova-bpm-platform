@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 public class AuthorizationTest {
@@ -44,7 +44,7 @@ public class AuthorizationTest {
 
   protected boolean defaultAuthorizationEnabled;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProcessEngineRule();
 
   @Before

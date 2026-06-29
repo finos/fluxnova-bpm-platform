@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.runtime.migration.history;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,11 +47,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -89,15 +86,15 @@ public class MigrationHistoricVariablesTest {
       .message("Message")
       .done();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   protected RuntimeService runtimeService;
   protected TaskService taskService;
   protected HistoryService historyService;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = rule.getRuntimeService();
     taskService = rule.getTaskService();
@@ -129,10 +126,10 @@ public class MigrationHistoricVariablesTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then there is still one historic variable instance
-    Assert.assertEquals(1, historyService.createHistoricVariableInstanceQuery().count());
+    Assertions.assertEquals(1, historyService.createHistoricVariableInstanceQuery().count());
 
     // and no additional historic details
-    Assert.assertEquals(1, historyService.createHistoricDetailQuery().count());
+    Assertions.assertEquals(1, historyService.createHistoricDetailQuery().count());
   }
 
   @Test
@@ -163,10 +160,10 @@ public class MigrationHistoricVariablesTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then there is still one historic variable instance
-    Assert.assertEquals(1, historyService.createHistoricVariableInstanceQuery().count());
+    Assertions.assertEquals(1, historyService.createHistoricVariableInstanceQuery().count());
 
     // and no additional historic details
-    Assert.assertEquals(1, historyService.createHistoricDetailQuery().count());
+    Assertions.assertEquals(1, historyService.createHistoricDetailQuery().count());
   }
 
   @Test
@@ -221,7 +218,7 @@ public class MigrationHistoricVariablesTest {
 
     //then
     List<HistoricVariableInstance> migratedVariables = historyService.createHistoricVariableInstanceQuery().list();
-    Assert.assertEquals(6, migratedVariables.size()); // 3 loop counter + nrOfInstance + nrOfActiveInstances + nrOfCompletedInstances
+    Assertions.assertEquals(6, migratedVariables.size()); // 3 loop counter + nrOfInstance + nrOfActiveInstances + nrOfCompletedInstances
 
     for (HistoricVariableInstance variable : migratedVariables) {
       assertEquals(targetDefinition.getKey(), variable.getProcessDefinitionKey());
@@ -268,7 +265,7 @@ public class MigrationHistoricVariablesTest {
       .createHistoricVariableInstanceQuery()
       .variableId(eventScopeVariable.getId())
       .singleResult();
-    Assert.assertEquals(targetDefinition.getId(), historicVariableInstance.getProcessDefinitionId());
+    Assertions.assertEquals(targetDefinition.getId(), historicVariableInstance.getProcessDefinitionId());
   }
 
 

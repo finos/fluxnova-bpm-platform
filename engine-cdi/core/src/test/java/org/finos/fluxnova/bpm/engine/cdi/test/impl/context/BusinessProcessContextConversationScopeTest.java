@@ -16,19 +16,20 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.test.impl.context;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.CreditCard;
 import org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.ProcessScopedMessageBean;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+import org.jboss.arquillian.junit5.ArquillianExtension;
+
+@ExtendWith(ArquillianExtension.class)
 public class BusinessProcessContextConversationScopeTest extends CdiProcessEngineTestCase {
 
   @Test

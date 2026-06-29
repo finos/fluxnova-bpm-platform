@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.usertask;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
@@ -41,11 +38,11 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Process;
 import org.finos.fluxnova.bpm.model.bpmn.instance.Task;
 import org.finos.fluxnova.bpm.model.bpmn.instance.UserTask;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Daniel Meyer
@@ -63,17 +60,17 @@ public class UserTaskBpmnModelExecutionContextTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testRule);
 
-  @Before
+  @BeforeEach
   public void setup() {
     runtimeService = rule.getRuntimeService();
     repositoryService = rule.getRepositoryService();
     taskService = rule.getTaskService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ModelExecutionContextTaskListener.clear();
   }

@@ -18,9 +18,9 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 
 import java.net.URI;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Providers;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
@@ -59,7 +59,7 @@ import org.finos.fluxnova.bpm.engine.rest.impl.history.HistoryRestServiceImpl;
 import org.finos.fluxnova.bpm.engine.rest.impl.optimize.OptimizeRestService;
 import org.finos.fluxnova.bpm.engine.rest.util.ProvidersUtil;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * <p>Abstract process engine resource that provides instantiations of all REST resources.</p>

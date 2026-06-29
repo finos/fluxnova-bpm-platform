@@ -13,8 +13,8 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.security.auth.AuthenticationProvider;
 import org.finos.fluxnova.bpm.engine.rest.security.auth.AuthenticationResult;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;

@@ -21,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.finos.fluxnova.bpm.engine.impl.db.sql.DbSqlSessionFactory;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.ApplicationServerImpl;
 import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 @RequiredDatabase(includes = DbSqlSessionFactory.H2) // it's h2-specific test
 public class TelemetryStaticDataTest {

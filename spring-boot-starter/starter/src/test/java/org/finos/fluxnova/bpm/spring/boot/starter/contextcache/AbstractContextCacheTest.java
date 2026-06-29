@@ -20,8 +20,9 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngines;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 
 import java.util.HashMap;

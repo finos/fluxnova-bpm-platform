@@ -40,8 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import io.restassured.response.Response;
 import org.finos.fluxnova.bpm.engine.CaseService;
@@ -110,10 +110,11 @@ import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.hamcrest.CoreMatchers;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
 import io.restassured.http.ContentType;
@@ -122,7 +123,7 @@ import org.finos.fluxnova.bpm.engine.runtime.MessageCorrelationResult;
 public class ProcessEngineRestServiceTest extends
     AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String ENGINES_URL = TEST_RESOURCE_ROOT_PATH + "/engine";
@@ -180,7 +181,7 @@ public class ProcessEngineRestServiceTest extends
   private MessageCorrelationBuilder mockMessageCorrelationBuilder;
   private MessageCorrelationResult mockMessageCorrelationResult;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     namedProcessEngine = getProcessEngine(EXAMPLE_ENGINE_NAME);
     mockRepoService = mock(RepositoryService.class);
@@ -659,7 +660,7 @@ public class ProcessEngineRestServiceTest extends
     verifyNoInteractions(processEngine);
   }
 
-  @Ignore
+  @Disabled
   @Test
   public void testHistoryServiceEngineAccess_HistoricVariableInstanceBinaryFile() {
 
@@ -734,7 +735,7 @@ public class ProcessEngineRestServiceTest extends
     verifyNoInteractions(processEngine);
   }
 
-  @Ignore
+  @Disabled
   @Test
   public void testHistoryServiceEngineAccess_HistoricDetailBinaryFile() {
     HistoricDetailQuery query = mock(HistoricDetailQuery.class);

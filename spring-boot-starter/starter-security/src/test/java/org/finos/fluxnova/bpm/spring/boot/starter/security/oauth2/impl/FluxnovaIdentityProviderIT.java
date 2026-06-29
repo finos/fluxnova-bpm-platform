@@ -34,24 +34,26 @@ import org.finos.fluxnova.bpm.engine.impl.identity.WritableIdentityProvider;
 import org.finos.fluxnova.bpm.engine.impl.identity.db.DbGroupQueryImpl;
 import org.finos.fluxnova.bpm.engine.impl.identity.db.DbUserQueryImpl;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.AbstractSpringSecurityIT;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import reactor.netty.http.client.HttpClient;
 
 @AutoConfigureMockMvc
 @TestPropertySource("/oauth2-mock.properties")
@@ -64,13 +66,12 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
   @Autowired
   private MockMvc mockMvc;
 
-  @Autowired
-  private TestRestTemplate restTemplate;
+  private WebTestClient restTemplate;
 
   @Autowired
   private ClientRegistrationRepository registrations;
 
-  @MockBean
+  @MockitoBean
   private OAuth2AuthorizedClientService authorizedClientService;
 
   public static OAuth2IdentityProvider spiedIdentityProvider = spy(new OAuth2IdentityProvider());
@@ -79,9 +80,13 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
     mockIdentityProviderFactory();
   }
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     super.setup();
+    restTemplate = WebTestClient.bindToServer(
+            new ReactorClientHttpConnector(HttpClient.create().followRedirect(true)))
+        .baseUrl(baseUrl)
+        .build();
   }
 
   @Test
@@ -93,15 +98,17 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
     doAnswer(resultCaptor).when(spiedIdentityProvider).createUserQuery();
 
     // when calling rest api
-    ResponseEntity<String> entity = restTemplate.getForEntity(baseUrl + "/engine-rest/user/", String.class);
+    String body = restTemplate.get().uri("/engine-rest/user/")
+        .exchange()
+        .expectStatus().isEqualTo(HttpStatus.OK)
+        .expectBody(String.class).returnResult().getResponseBody();
 
     // then identity provider does fallback to db provider
-    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     verify(spiedIdentityProvider, atLeastOnce()).createUserQuery();
     UserQuery userQueryResult = resultCaptor.result;
     assertThat(userQueryResult).isInstanceOf(DbUserQueryImpl.class);
     assertThat(userQueryResult).isNotNull();
-    assertThat(entity.getBody()).contains(newUser.getId());
+    assertThat(body).contains(newUser.getId());
   }
 
   @Test
@@ -113,15 +120,17 @@ public class FluxnovaIdentityProviderIT extends AbstractSpringSecurityIT {
     doAnswer(resultCaptor).when(spiedIdentityProvider).createGroupQuery();
 
     // when calling rest api
-    ResponseEntity<String> entity = restTemplate.getForEntity(baseUrl + "/engine-rest/group/", String.class);
+    String body = restTemplate.get().uri("/engine-rest/group/")
+        .exchange()
+        .expectStatus().isEqualTo(HttpStatus.OK)
+        .expectBody(String.class).returnResult().getResponseBody();
 
     // then identity provider does fallback to db provider
-    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
     verify(spiedIdentityProvider, atLeastOnce()).createGroupQuery();
     GroupQuery groupQueryResult = resultCaptor.result;
     assertThat(groupQueryResult).isInstanceOf(DbGroupQueryImpl.class);
     assertThat(groupQueryResult).isNotNull();
-    assertThat(entity.getBody()).contains(newGroup.getId());
+    assertThat(body).contains(newGroup.getId());
   }
 
   @Test

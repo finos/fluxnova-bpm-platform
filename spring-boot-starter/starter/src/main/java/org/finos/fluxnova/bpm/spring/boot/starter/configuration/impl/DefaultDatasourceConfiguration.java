@@ -24,7 +24,7 @@ import org.finos.fluxnova.bpm.spring.boot.starter.property.DatabaseProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguration implements FluxnovaDatasourceConfiguration {
 
@@ -61,11 +61,11 @@ public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguratio
     configuration.setDatabaseType(database.getType());
     configuration.setDatabaseSchemaUpdate(database.getSchemaUpdate());
 
-    if (!StringUtils.isEmpty(database.getTablePrefix())) {
+    if (!ObjectUtils.isEmpty(database.getTablePrefix())) {
       configuration.setDatabaseTablePrefix(database.getTablePrefix());
     }
 
-    if(!StringUtils.isEmpty(database.getSchemaName())) {
+    if(!ObjectUtils.isEmpty(database.getSchemaName())) {
       configuration.setDatabaseSchema(database.getSchemaName());
     }
 

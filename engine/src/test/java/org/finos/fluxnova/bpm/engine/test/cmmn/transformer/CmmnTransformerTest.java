@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.transformer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -44,9 +42,9 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.HumanTask;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Stage;
 import org.finos.fluxnova.bpm.model.xml.impl.util.IoUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -61,7 +59,7 @@ public class CmmnTransformerTest {
   protected CasePlanModel casePlanModel;
   protected DeploymentEntity deployment;
 
-  @Before
+  @BeforeEach
   public void setup() {
     CmmnTransformer transformerWrapper = new CmmnTransformer(null, new DefaultCmmnElementHandlerRegistry(), null);
     transformer = new CmmnTransform(transformerWrapper);
@@ -83,7 +81,7 @@ public class CmmnTransformerTest {
         .setEnforceHistoryTimeToLive(false));
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     Context.removeProcessEngineConfiguration();
   }

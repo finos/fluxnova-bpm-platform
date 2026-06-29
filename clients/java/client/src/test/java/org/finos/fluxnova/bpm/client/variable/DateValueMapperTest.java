@@ -22,8 +22,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.type.PrimitiveValueTypeImpl;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.UntypedValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.value.DateValue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 import java.util.Calendar;
@@ -40,7 +40,7 @@ public class DateValueMapperTest {
 
   protected DateValueMapper dateValueMapper;
 
-  @Before
+  @BeforeEach
   public void setup() {
     dateValueMapper = new DateValueMapper(DATE_FORMAT);
   }

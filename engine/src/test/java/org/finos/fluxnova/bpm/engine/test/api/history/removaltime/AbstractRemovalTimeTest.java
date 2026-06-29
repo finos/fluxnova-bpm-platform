@@ -49,10 +49,10 @@ import org.finos.fluxnova.bpm.engine.test.api.resources.GetByteArrayCommand;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Tassilo Weidner
@@ -63,8 +63,8 @@ public abstract class AbstractRemovalTimeTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected RuntimeService runtimeService;
   protected FormService formService;
@@ -79,7 +79,7 @@ public abstract class AbstractRemovalTimeTest {
 
   protected static ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     formService = engineRule.getFormService();
@@ -102,7 +102,7 @@ public abstract class AbstractRemovalTimeTest {
         .init();
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDownAfterAll() {
     if (processEngineConfiguration != null) {
       processEngineConfiguration

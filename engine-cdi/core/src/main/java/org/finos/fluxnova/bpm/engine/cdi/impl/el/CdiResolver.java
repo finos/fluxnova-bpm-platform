@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl.el;
 
-import java.beans.FeatureDescriptor;
-import java.util.Iterator;
-import javax.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.BeanManager;
 import org.finos.fluxnova.bpm.engine.cdi.impl.util.BeanManagerLookup;
 import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import org.finos.fluxnova.bpm.impl.juel.jakarta.el.ELContext;
@@ -37,20 +35,15 @@ public class CdiResolver extends ELResolver {
     return BeanManagerLookup.getBeanManager();
   }
 
-  protected javax.el.ELResolver getWrappedResolver() {
+  protected jakarta.el.ELResolver getWrappedResolver() {
     BeanManager beanManager = getBeanManager();
-    javax.el.ELResolver resolver = beanManager.getELResolver();
+    jakarta.el.ELResolver resolver = beanManager.getELResolver();
     return resolver;
   }
 
   @Override
   public Class< ? > getCommonPropertyType(ELContext context, Object base) {
     return getWrappedResolver().getCommonPropertyType(wrapContext(context), base);
-  }
-
-  @Override
-  public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext context, Object base) {
-    return getWrappedResolver().getFeatureDescriptors(wrapContext(context), base);
   }
 
   @Override
@@ -87,7 +80,7 @@ public class CdiResolver extends ELResolver {
     return getWrappedResolver().invoke(wrapContext(context), base, method, paramTypes, params);
   }
 
-  protected javax.el.ELContext wrapContext(ELContext context) {
+  protected jakarta.el.ELContext wrapContext(ELContext context) {
     return new ElContextDelegate(context, getWrappedResolver());
   }
 

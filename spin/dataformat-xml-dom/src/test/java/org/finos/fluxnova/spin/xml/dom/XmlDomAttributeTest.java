@@ -18,6 +18,7 @@ package org.finos.fluxnova.spin.xml.dom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.Spin.XML;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.StringWriter;
 
@@ -25,8 +26,8 @@ import org.finos.fluxnova.spin.xml.SpinXmlAttribute;
 import org.finos.fluxnova.spin.xml.SpinXmlAttributeException;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
 import org.finos.fluxnova.spin.xml.XmlTestConstants;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -35,7 +36,7 @@ public class XmlDomAttributeTest {
 
   private SpinXmlAttribute attribute;
 
-  @Before
+  @BeforeEach
   public void getAttribute() {
     attribute = XML(XmlTestConstants.EXAMPLE_XML).attr("order");
   }
@@ -65,9 +66,10 @@ public class XmlDomAttributeTest {
     assertThat(attribute.value("order2").value()).isEqualTo("order2");
   }
 
-  @Test(expected = SpinXmlAttributeException.class)
+  @Test
   public void setNullValue() {
-    attribute.value(null);
+    assertThrows(SpinXmlAttributeException.class, () ->
+      attribute.value(null));
   }
 
   @Test

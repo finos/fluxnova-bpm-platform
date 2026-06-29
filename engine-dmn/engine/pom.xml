@@ -52,16 +52,15 @@
       <artifactId>feel-engine</artifactId>
       <classifier>scala-shaded</classifier>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>compile</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.juel</groupId>
       <artifactId>fluxnova-juel</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -91,6 +90,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
 
@@ -99,7 +99,6 @@
       <artifactId>js-scriptengine</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
@@ -111,6 +110,12 @@
       <artifactId>fluxnova-bpm-archunit</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
   </dependencies>
@@ -171,6 +176,7 @@
                   <textOutputFile>${project.build.directory}/clirr-all.txt</textOutputFile>
                   <failOnWarning>false</failOnWarning>
                   <failOnError>false</failOnError>
+                  <ignoredDifferencesFile>../.clirr-jenkins-ignore.xml</ignoredDifferencesFile>
                 </configuration>
               </execution>
               <execution>

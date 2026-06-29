@@ -19,20 +19,22 @@ package org.finos.fluxnova.bpm.engine.cdi.test.impl.el;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.HashMap;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import java.util.Map;
 
 import static org.finos.fluxnova.bpm.engine.cdi.test.impl.el.beans.CdiTaskListenerBean.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Sebastian Menski
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TaskListenerInvocationTest extends CdiProcessEngineTestCase {
 
   @Test

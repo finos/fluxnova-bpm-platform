@@ -16,10 +16,12 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.exception;
 
-import javax.ws.rs.core.Response.Status;
+
+
+import jakarta.ws.rs.core.Response.Status;
 
 public class RestException extends RuntimeException {
-  
+
   private static final long serialVersionUID = 1L;
   
   private Status status;

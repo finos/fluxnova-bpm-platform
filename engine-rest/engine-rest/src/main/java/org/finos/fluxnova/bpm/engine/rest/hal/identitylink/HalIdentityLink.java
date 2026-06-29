@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.hal.identitylink;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.rest.GroupRestService;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;

@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.util;
 
+
+
 /**
  * Runtime exception that is the superclass of all exceptions in the spring boot started.
  */

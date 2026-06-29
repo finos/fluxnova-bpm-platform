@@ -24,7 +24,7 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.List;
@@ -39,7 +39,7 @@ import static org.junit.Assert.assertThat;
 @Origin("7.11.0")
 public class ModificationBatchTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   @ScenarioUnderTest("initModificationBatch.1")

@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.test.api.annotation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
@@ -29,15 +27,17 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.StringValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
 
 /**
  * @author Roman Smirnov
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ProcessVariableTypedTest extends CdiProcessEngineTestCase {
 
   @Test

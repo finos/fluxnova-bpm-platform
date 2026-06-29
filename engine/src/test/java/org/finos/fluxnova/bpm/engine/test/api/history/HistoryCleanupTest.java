@@ -22,11 +22,7 @@ import static org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration.HISTORY_C
 import static org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration.HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.CATEGORY_OPERATOR;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERATION_TYPE_CREATE_HISTORY_CLEANUP_JOB;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,12 +66,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.Removable;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Svetlana Dorokhova
@@ -122,8 +118,8 @@ public class HistoryCleanupTest {
 
   protected Removable removable;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(bootstrapRule)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(bootstrapRule)
       .around(engineRule)
       .around(testRule);
 
@@ -138,7 +134,7 @@ public class HistoryCleanupTest {
   private ProcessEngineConfigurationImpl processEngineConfiguration;
 
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
@@ -157,7 +153,7 @@ public class HistoryCleanupTest {
     removable = Removable.of(testRule);
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     //reset configuration changes
     processEngineConfiguration.setHistoryCleanupBatchWindowStartTime(defaultStartTime);
@@ -1095,7 +1091,7 @@ public class HistoryCleanupTest {
   }
 
   @Test
-  @Ignore("CAM-10055")
+  @Disabled("CAM-10055")
   public void testLessThanThresholdOutsideBatchWindowAfterMidnightDaylightSaving() throws ParseException {
     //given
     prepareData(5);
@@ -1127,7 +1123,7 @@ public class HistoryCleanupTest {
   }
 
   @Test
-  @Ignore("CAM-10055")
+  @Disabled("CAM-10055")
   public void testLessThanThresholdWithinBatchWindowAfterMidnightDaylightSaving() throws ParseException {
     //given
     prepareData(5);

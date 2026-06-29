@@ -16,18 +16,20 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.util.container;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.Application;
+import jakarta.ws.rs.core.Application;
 
 import org.finos.fluxnova.bpm.engine.rest.CustomJacksonDateFormatTest;
 import org.finos.fluxnova.bpm.engine.rest.ExceptionHandlerTest;
 import org.finos.fluxnova.bpm.engine.rest.application.TestCustomResourceApplication;
-import org.junit.rules.ExternalResource;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
  * @author Thorben Lindhauer
@@ -35,83 +37,115 @@ import org.junit.rules.TestRule;
  */
 public class JerseySpecifics implements ContainerSpecifics {
 
-  protected static final TestRuleFactory DEFAULT_RULE_FACTORY =
-      new EmbeddedServerRuleFactory(new JaxrsApplication());
+    protected static final TestRuleFactory DEFAULT_RULE_FACTORY =
+            new EmbeddedServerRuleFactory(new JaxrsApplication());
 
-  protected static final Map<Class<?>, TestRuleFactory> TEST_RULE_FACTORIES =
-      new HashMap<Class<?>, TestRuleFactory>();
+    protected static final Map<Class<?>, TestRuleFactory> TEST_RULE_FACTORIES =
+            new HashMap<Class<?>, TestRuleFactory>();
 
-  static {
-    TEST_RULE_FACTORIES.put(ExceptionHandlerTest.class, new EmbeddedServerRuleFactory(new TestCustomResourceApplication()));
-    TEST_RULE_FACTORIES.put(CustomJacksonDateFormatTest.class, new ServletContainerRuleFactory("custom-date-format-web.xml"));
-  }
-
-  public TestRule getTestRule(Class<?> testClass) {
-    TestRuleFactory ruleFactory = DEFAULT_RULE_FACTORY;
-
-    if (TEST_RULE_FACTORIES.containsKey(testClass)) {
-      ruleFactory = TEST_RULE_FACTORIES.get(testClass);
+    static {
+        TEST_RULE_FACTORIES.put(ExceptionHandlerTest.class, new EmbeddedServerRuleFactory(new TestCustomResourceApplication()));
+        TEST_RULE_FACTORIES.put(CustomJacksonDateFormatTest.class, new EmbeddedServerRuleFactory(new JaxrsApplication()));
     }
 
-    return ruleFactory.createTestRule();
-  }
+    public Extension getTestExtension(Class<?> testClass) {
+        TestRuleFactory ruleFactory = DEFAULT_RULE_FACTORY;
 
-  public static class EmbeddedServerRuleFactory implements TestRuleFactory {
-
-    protected Application jaxRsApplication;
-
-    public EmbeddedServerRuleFactory(Application jaxRsApplication) {
-      this.jaxRsApplication = jaxRsApplication;
-    }
-
-    public TestRule createTestRule() {
-      return new ExternalResource() {
-
-        JerseyServerBootstrap bootstrap = new JerseyServerBootstrap(jaxRsApplication);
-
-        protected void before() throws Throwable {
-          bootstrap.start();
+        if (TEST_RULE_FACTORIES.containsKey(testClass)) {
+            ruleFactory = TEST_RULE_FACTORIES.get(testClass);
         }
 
-        protected void after() {
-          bootstrap.stop();
+        return ruleFactory.createTestRule();
+    }
+
+    public static class EmbeddedServerRuleFactory implements TestRuleFactory {
+
+        protected Application jaxRsApplication;
+
+        public EmbeddedServerRuleFactory(Application jaxRsApplication) {
+            this.jaxRsApplication = jaxRsApplication;
         }
-      };
-    }
-  }
 
-  public TestRule getTestRule(String webXmlResource) {
-    throw new UnsupportedOperationException();
-  }
-
-  public static class ServletContainerRuleFactory implements TestRuleFactory {
-
-    protected String webXmlResource;
-
-    public ServletContainerRuleFactory(String webXmlResource) {
-      this.webXmlResource = webXmlResource;
+        public Extension createTestRule() {
+            return new ServerLifecycleExtension(jaxRsApplication);
+        }
     }
 
-    public TestRule createTestRule() {
-      final TemporaryFolder tempFolder = new TemporaryFolder();
+    private static class ServerLifecycleExtension implements BeforeEachCallback, AfterEachCallback {
+        private JerseyServerBootstrap bootstrap;
+        private final Application jaxRsApplication;
 
-      return RuleChain
-        .outerRule(tempFolder)
-        .around(new ExternalResource() {
+        public ServerLifecycleExtension(Application jaxRsApplication) {
+            this.jaxRsApplication = jaxRsApplication;
+        }
 
-          TomcatServerBootstrap bootstrap = new JerseyTomcatServerBootstrap(webXmlResource);
-
-          protected void before() throws Throwable {
-            bootstrap.setWorkingDir(tempFolder.getRoot().getAbsolutePath());
+        @Override
+        public void beforeEach(ExtensionContext context) throws Exception {
+            bootstrap = new JerseyServerBootstrap(jaxRsApplication);
             bootstrap.start();
-          }
+        }
 
-          protected void after() {
-            bootstrap.stop();
-          }
-        });
+        @Override
+        public void afterEach(ExtensionContext context) throws Exception {
+            if (bootstrap != null) {
+                bootstrap.stop();
+            }
+        }
     }
 
-  }
+    public static class ServletContainerRuleFactory implements TestRuleFactory {
+
+        protected String webXmlResource;
+
+        public ServletContainerRuleFactory(String webXmlResource) {
+            this.webXmlResource = webXmlResource;
+        }
+
+        public Extension createTestRule() {
+            return new ServletLifecycleExtension(webXmlResource);
+        }
+    }
+
+    private static class ServletLifecycleExtension implements BeforeEachCallback, AfterEachCallback {
+        private File tempFolder;
+        private TomcatServerBootstrap bootstrap;
+        private final String webXmlResource;
+
+        public ServletLifecycleExtension(String webXmlResource) {
+            this.webXmlResource = webXmlResource;
+        }
+
+        @Override
+        public void beforeEach(ExtensionContext context) throws Exception {
+            tempFolder = Files.createTempDirectory("junit").toFile();
+            bootstrap = new JerseyTomcatServerBootstrap(webXmlResource);
+            bootstrap.setWorkingDir(tempFolder.getAbsolutePath());
+            bootstrap.start();
+        }
+
+        @Override
+        public void afterEach(ExtensionContext context) throws Exception {
+            if (bootstrap != null) {
+                bootstrap.stop();
+            }
+            if (tempFolder != null && tempFolder.exists()) {
+                deleteDirectory(tempFolder);
+            }
+        }
+
+        private void deleteDirectory(File directory) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteDirectory(file);
+                    } else {
+                        file.delete();
+                    }
+                }
+            }
+            directory.delete();
+        }
+    }
 
 }

@@ -20,9 +20,8 @@ import static org.finos.fluxnova.bpm.client.task.OrderingConfig.Direction.ASC;
 import static org.finos.fluxnova.bpm.client.task.OrderingConfig.Direction.DESC;
 import static org.finos.fluxnova.bpm.client.task.OrderingConfig.SortingField.CREATE_TIME;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -64,6 +63,8 @@ import org.finos.fluxnova.bpm.client.variable.impl.mapper.ShortValueMapper;
 import org.finos.fluxnova.bpm.client.variable.impl.mapper.StringValueMapper;
 import org.finos.fluxnova.bpm.client.variable.impl.mapper.XmlValueMapper;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author Tassilo Weidner
@@ -83,7 +84,7 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
 
   protected String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
-  protected ObjectMapper objectMapper;
+  protected JsonMapper jsonMapper;
   protected ValueMappers valueMappers;
   protected TypedValues typedValues;
   protected EngineClient engineClient;
@@ -226,7 +227,7 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
 
     initBaseUrl();
     initWorkerId();
-    initObjectMapper();
+    initJsonMapper();
     initEngineClient();
     initVariableMappers();
     initTopicSubscriptionManager();
@@ -264,15 +265,17 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
     });
   }
 
-  protected void initObjectMapper() {
-    objectMapper = new ObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-
+  protected void initJsonMapper() {
     SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-    objectMapper.setDateFormat(sdf);
-    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+    jsonMapper = JsonMapper.builder()
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .disable(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS)
+        .disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE)
+        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        //.enable(DateTimeFeature.WRITE_UTC_AS_OFFSET)
+        .defaultDateFormat(sdf)
+        .build();
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -311,7 +314,7 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
   protected void initEngineClient() {
     RequestInterceptorHandler requestInterceptorHandler = new RequestInterceptorHandler(interceptors);
     httpClientBuilder.addRequestInterceptorLast(requestInterceptorHandler);
-    RequestExecutor requestExecutor = new RequestExecutor(httpClientBuilder.build(), objectMapper);
+    RequestExecutor requestExecutor = new RequestExecutor(httpClientBuilder.build(), jsonMapper);
 
     engineClient = new EngineClient(workerId, maxTasks, asyncResponseTimeout, urlResolver, requestExecutor, usePriority,
         orderingConfig);
@@ -437,7 +440,7 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
   }
 
   public ObjectMapper getObjectMapper() {
-    return objectMapper;
+    return jsonMapper;
   }
 
   public ValueMappers getValueMappers() {

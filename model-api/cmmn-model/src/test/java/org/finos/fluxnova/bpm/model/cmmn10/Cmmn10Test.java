@@ -44,7 +44,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
 import org.finos.fluxnova.bpm.model.cmmn.instance.TimerEvent;
 import org.finos.fluxnova.bpm.model.cmmn.instance.UserEvent;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

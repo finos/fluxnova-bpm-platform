@@ -17,7 +17,8 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.property.authcachettl;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.property.ParsePropertiesHelper;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

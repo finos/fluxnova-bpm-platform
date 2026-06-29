@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.task;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
@@ -26,8 +24,8 @@ import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.filter.Filter;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -48,7 +46,7 @@ public class TaskQueryDisabledAdhocExpressionsTest extends PluggableProcessEngin
     assertFalse(processEngineConfiguration.isEnableExpressionsInAdhocQueries());
   }
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     MUTABLE_FIELD = 0;
   }

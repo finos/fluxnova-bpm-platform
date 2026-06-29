@@ -23,16 +23,16 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class SpinProcessEnginePluginConfigurationTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineBootstrapRule bootstrapRule
       = new ProcessEngineBootstrapRule("custom.camunda.cfg.xml");
 
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
   @Test

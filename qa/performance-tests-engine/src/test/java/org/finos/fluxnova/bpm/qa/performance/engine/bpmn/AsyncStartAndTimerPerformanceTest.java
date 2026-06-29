@@ -20,7 +20,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEngineJobExecutorPerformanceTestCase;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.StartProcessInstanceStep;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.WaitStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class AsyncStartAndTimerPerformanceTest extends ProcessEngineJobExecutorPerformanceTestCase {
 

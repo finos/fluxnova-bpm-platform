@@ -31,8 +31,9 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Askar Akhmerov
@@ -53,7 +54,7 @@ public abstract class AbstractBatchAuthorizationTest {
   protected ManagementService managementService;
   protected int invocationsPerBatchJob;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authRule.createUserAndGroup("userId", "groupId");
     runtimeService = engineRule.getRuntimeService();
@@ -61,7 +62,7 @@ public abstract class AbstractBatchAuthorizationTest {
     invocationsPerBatchJob = engineRule.getProcessEngineConfiguration().getInvocationsPerBatchJob();
   }
 
-  @Before
+  @BeforeEach
   public void deployProcesses() {
     sourceDefinition = testHelper.deployAndGetDefinition(modify(ProcessModels.ONE_TASK_PROCESS)
         .changeElementId(ProcessModels.PROCESS_KEY, "ONE_TASK_PROCESS"));
@@ -71,13 +72,13 @@ public abstract class AbstractBatchAuthorizationTest {
     processInstance2 = engineRule.getRuntimeService().startProcessInstanceById(sourceDefinition2.getId());
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(invocationsPerBatchJob);
   }
 
-  @After
+  @AfterEach
   public void cleanBatch() {
     Batch batch = engineRule.getManagementService().createBatchQuery().singleResult();
     if (batch != null) {

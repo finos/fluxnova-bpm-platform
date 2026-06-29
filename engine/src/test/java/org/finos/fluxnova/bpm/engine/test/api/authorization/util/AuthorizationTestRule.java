@@ -21,12 +21,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.Assert;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * @author Thorben Lindhauer
@@ -36,7 +35,6 @@ public class AuthorizationTestRule extends AuthorizationTestBaseRule {
 
   protected AuthorizationExceptionInterceptor interceptor;
   protected CommandExecutor replacedCommandExecutor;
-
   protected AuthorizationScenarioInstance scenarioInstance;
 
   public AuthorizationTestRule(ProcessEngineRule engineRule) {
@@ -44,12 +42,31 @@ public class AuthorizationTestRule extends AuthorizationTestBaseRule {
     this.interceptor = new AuthorizationExceptionInterceptor();
   }
 
+  @Override
+  public void beforeEach(ExtensionContext context) throws Exception {
+    ProcessEngineConfigurationImpl engineConfiguration =
+        (ProcessEngineConfigurationImpl) engineRule.getProcessEngine().getProcessEngineConfiguration();
+    interceptor.reset();
+    engineConfiguration.getCommandInterceptorsTxRequired().get(0).setNext(interceptor);
+    interceptor.setNext(engineConfiguration.getCommandInterceptorsTxRequired().get(1));
+    super.beforeEach(context);
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    super.afterEach(context);
+    ProcessEngineConfigurationImpl engineConfiguration =
+        (ProcessEngineConfigurationImpl) engineRule.getProcessEngine().getProcessEngineConfiguration();
+    engineConfiguration.getCommandInterceptorsTxRequired().get(0).setNext(interceptor.getNext());
+    interceptor.setNext(null);
+  }
+
   public void start(AuthorizationScenario scenario) {
     start(scenario, null, new HashMap<String, String>());
   }
 
   public void start(AuthorizationScenario scenario, String userId, Map<String, String> resourceBindings) {
-    Assert.assertNull(interceptor.getLastException());
+    Assertions.assertNull(interceptor.getLastException());
     scenarioInstance = new AuthorizationScenarioInstance(scenario, engineRule.getAuthorizationService(), resourceBindings);
     enableAuthorization(userId);
     interceptor.activate();
@@ -81,27 +98,6 @@ public class AuthorizationTestRule extends AuthorizationTestBaseRule {
 
   public boolean scenarioFailed() {
     return interceptor.getLastException() != null;
-  }
-
-  protected void starting(Description description) {
-    ProcessEngineConfigurationImpl engineConfiguration =
-        (ProcessEngineConfigurationImpl) engineRule.getProcessEngine().getProcessEngineConfiguration();
-
-    interceptor.reset();
-    engineConfiguration.getCommandInterceptorsTxRequired().get(0).setNext(interceptor);
-    interceptor.setNext(engineConfiguration.getCommandInterceptorsTxRequired().get(1));
-
-    super.starting(description);
-  }
-
-  protected void finished(Description description) {
-    super.finished(description);
-
-    ProcessEngineConfigurationImpl engineConfiguration =
-        (ProcessEngineConfigurationImpl) engineRule.getProcessEngine().getProcessEngineConfiguration();
-
-    engineConfiguration.getCommandInterceptorsTxRequired().get(0).setNext(interceptor.getNext());
-    interceptor.setNext(null);
   }
 
   public static Collection<AuthorizationScenario[]> asParameters(AuthorizationScenario... scenarios) {

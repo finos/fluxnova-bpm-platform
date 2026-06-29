@@ -443,7 +443,7 @@ public class BpmnParse extends Parse {
         Class<?> wsdlImporterClass;
         try {
           wsdlImporterClass = Class.forName("org.camunda.bpm.engine.impl.webservice.CxfWSDLImporter", true, Thread.currentThread().getContextClassLoader());
-          XMLImporter newInstance = (XMLImporter) wsdlImporterClass.newInstance();
+          XMLImporter newInstance = (XMLImporter) wsdlImporterClass.getDeclaredConstructor().newInstance();
           this.importers.put(importType, newInstance);
           return newInstance;
         } catch (Exception e) {
@@ -754,8 +754,8 @@ public class BpmnParse extends Parse {
       callback.callback();
     }
 
-    if (parentScope instanceof ProcessDefinition) {
-      parseProcessDefinitionCustomExtensions(scopeElement, (ProcessDefinition) parentScope);
+    if (parentScope instanceof ProcessDefinition definition) {
+      parseProcessDefinitionCustomExtensions(scopeElement, definition);
     }
   }
 
@@ -976,9 +976,9 @@ public class BpmnParse extends Parse {
         addError(parentElement.getTagName() + " must define a startEvent element", parentElement);
       }
     }
-    if (scope instanceof ProcessDefinitionEntity) {
-      selectInitial(startEventActivities, (ProcessDefinitionEntity) scope, parentElement);
-      parseStartFormHandlers(startEventElements, (ProcessDefinitionEntity) scope);
+    if (scope instanceof ProcessDefinitionEntity entity) {
+      selectInitial(startEventActivities, entity, parentElement);
+      parseStartFormHandlers(startEventElements, entity);
     }
 
     // invoke parse listeners
@@ -1792,8 +1792,8 @@ public class BpmnParse extends Parse {
     // find all cancel end events
     for (ActivityImpl childActivity : transaction.getActivities()) {
       ActivityBehavior activityBehavior = childActivity.getActivityBehavior();
-      if (activityBehavior != null && activityBehavior instanceof CancelEndEventActivityBehavior) {
-        ((CancelEndEventActivityBehavior) activityBehavior).setCancelBoundaryEvent(activity);
+      if (activityBehavior != null && activityBehavior instanceof CancelEndEventActivityBehavior behavior) {
+        behavior.setCancelBoundaryEvent(activity);
       }
     }
 
@@ -4950,8 +4950,8 @@ public class BpmnParse extends Parse {
     if (value == null) {
       return new NullValueProvider();
 
-    } else if (value instanceof String) {
-      Expression expression = expressionManager.createExpression((String) value);
+    } else if (value instanceof String string) {
+      Expression expression = expressionManager.createExpression(string);
       return new ElValueProvider(expression);
 
     } else {

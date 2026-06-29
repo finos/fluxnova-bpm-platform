@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -64,26 +60,24 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Joram Barrez
  * @author Falko Menge
  */
-@RunWith(Parameterized.class)
 public class JobQueryTest {
 
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
@@ -109,11 +103,8 @@ public class JobQueryTest {
   private static final long ONE_HOUR = 60L * 60L * 1000L;
   private static final long ONE_SECOND = 1000L;
   private static final String EXCEPTION_MESSAGE = "java.lang.RuntimeException: This is an exception thrown from scriptTask";
-
-  @Parameterized.Parameter
   public boolean ensureJobDueDateSet;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false },
@@ -126,7 +117,7 @@ public class JobQueryTest {
    *   - 3 process instances, each with one timer, each firing at t1/t2/t3 + 1 hour (see process)
    *   - 1 message
    */
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngineConfiguration = rule.getProcessEngineConfiguration();
     runtimeService = rule.getRuntimeService();
@@ -135,6 +126,14 @@ public class JobQueryTest {
     commandExecutor = processEngineConfiguration.getCommandExecutorTxRequired();
 
     defaultEnsureJobDueDateSet = processEngineConfiguration.isEnsureJobDueDateNotNull();
+  }
+
+  private void setupJobsWithDueDateConfig(boolean ensureJobDueDateSet) throws Exception {
+    if (deploymentId != null) {
+      // Already set up
+      return;
+    }
+
     processEngineConfiguration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
 
     deploymentId = repositoryService.createDeployment()
@@ -171,11 +170,12 @@ public class JobQueryTest {
     messageDueDate = startTime.getTime();
 
     // Create one message
+    final boolean jobDueDateSet = ensureJobDueDateSet;
     messageId = commandExecutor.execute(new Command<String>() {
       public String execute(CommandContext commandContext) {
         MessageEntity message = new MessageEntity();
 
-        if (ensureJobDueDateSet) {
+        if (jobDueDateSet) {
           message.setDuedate(messageDueDate);
         }
 
@@ -185,29 +185,39 @@ public class JobQueryTest {
     });
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
-    repositoryService.deleteDeployment(deploymentId, true);
-    commandExecutor.execute(new DeleteJobsCmd(messageId, true));
+    if (deploymentId != null) {
+      repositoryService.deleteDeployment(deploymentId, true);
+    }
+    if (messageId != null) {
+      commandExecutor.execute(new DeleteJobsCmd(messageId, true));
+    }
     processEngineConfiguration.setEnsureJobDueDateNotNull(defaultEnsureJobDueDateSet);
   }
 
-  @Test
-  public void testQueryByNoCriteria() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByNoCriteria(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery();
     verifyQueryResults(query, 4);
   }
 
-  @Test
-  public void testQueryByActivityId(){
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByActivityId(boolean ensureJobDueDateSet){
+    initJobQueryTest(ensureJobDueDateSet);
     JobDefinition jobDefinition = managementService.createJobDefinitionQuery().singleResult();
 
     JobQuery query = managementService.createJobQuery().activityId(jobDefinition.getActivityId());
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByInvalidActivityId(){
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidActivityId(boolean ensureJobDueDateSet){
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().activityId("invalid");
     verifyQueryResults(query, 0);
 
@@ -217,16 +227,20 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
-  public void testByJobDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testByJobDefinitionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobDefinition jobDefinition = managementService.createJobDefinitionQuery().singleResult();
 
     JobQuery query = managementService.createJobQuery().jobDefinitionId(jobDefinition.getId());
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testByInvalidJobDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testByInvalidJobDefinitionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().jobDefinitionId("invalid");
     verifyQueryResults(query, 0);
 
@@ -236,14 +250,18 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
-  public void testQueryByProcessInstanceId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processInstanceId(processInstanceIdOne);
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testQueryByInvalidProcessInstanceId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidProcessInstanceId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processInstanceId("invalid");
     verifyQueryResults(query, 0);
 
@@ -253,16 +271,20 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
-  public void testQueryByExecutionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByExecutionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     Job job = managementService.createJobQuery().processInstanceId(processInstanceIdOne).singleResult();
     JobQuery query = managementService.createJobQuery().executionId(job.getExecutionId());
     assertEquals(query.singleResult().getId(), job.getId());
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testQueryByInvalidExecutionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidExecutionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().executionId("invalid");
     verifyQueryResults(query, 0);
 
@@ -272,16 +294,20 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
-  public void testQueryByProcessDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessDefinitionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().list().get(0);
 
     JobQuery query = managementService.createJobQuery().processDefinitionId(processDefinition.getId());
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByInvalidProcessDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidProcessDefinitionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processDefinitionId("invalid");
     verifyQueryResults(query, 0);
 
@@ -291,9 +317,11 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/JobQueryTest.testTimeCycleQueryByProcessDefinitionId.bpmn20.xml"})
-  public void testTimeCycleQueryByProcessDefinitionId() {
+  @MethodSource("scenarios")
+  public void testTimeCycleQueryByProcessDefinitionId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     String processDefinitionId = repositoryService
         .createProcessDefinitionQuery()
         .processDefinitionKey("process")
@@ -313,14 +341,18 @@ public class JobQueryTest {
     assertFalse(jobId.equals(anotherJobId));
   }
 
-  @Test
-  public void testQueryByProcessDefinitionKey() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessDefinitionKey(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processDefinitionKey("timerOnTask");
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByInvalidProcessDefinitionKey() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidProcessDefinitionKey(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processDefinitionKey("invalid");
     verifyQueryResults(query, 0);
 
@@ -330,9 +362,11 @@ public class JobQueryTest {
     } catch (ProcessEngineException e) {}
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/JobQueryTest.testTimeCycleQueryByProcessDefinitionId.bpmn20.xml"})
-  public void testTimeCycleQueryByProcessDefinitionKey() {
+  @MethodSource("scenarios")
+  public void testTimeCycleQueryByProcessDefinitionKey(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processDefinitionKey("process");
 
     verifyQueryResults(query, 1);
@@ -346,8 +380,10 @@ public class JobQueryTest {
     assertFalse(jobId.equals(anotherJobId));
   }
 
-  @Test
-  public void testQueryByRetriesLeft() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByRetriesLeft(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().withRetriesLeft();
     verifyQueryResults(query, 4);
 
@@ -356,8 +392,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByExecutable() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByExecutable(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     long testTime = ensureJobDueDateSet? messageDueDate.getTime() : timerThreeFireTime.getTime();
     int expectedCount = ensureJobDueDateSet? 0 : 1;
 
@@ -374,20 +412,26 @@ public class JobQueryTest {
     verifyQueryResults(query, expectedCount); // 1, since a message is always executable when retries > 0
   }
 
-  @Test
-  public void testQueryByOnlyTimers() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByOnlyTimers(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().timers();
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByOnlyMessages() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByOnlyMessages(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().messages();
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testInvalidOnlyTimersUsage() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testInvalidOnlyTimersUsage(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     try {
       managementService.createJobQuery().timers().messages().list();
       fail();
@@ -396,8 +440,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByDuedateLowerThen() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByDuedateLowerThen(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().duedateLowerThen(testStartTime);
     verifyQueryResults(query, 0);
 
@@ -416,8 +462,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByDuedateLowerThenOrEqual() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByDuedateLowerThenOrEqual(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().duedateLowerThenOrEquals(testStartTime);
     verifyQueryResults(query, 0);
 
@@ -436,8 +484,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByDuedateHigherThen() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByDuedateHigherThen(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     int startTimeExpectedCount = ensureJobDueDateSet? 4 : 3;
     int timerOneExpectedCount = ensureJobDueDateSet? 3 : 2;
     int timerTwoExpectedCount = ensureJobDueDateSet? 2 : 1;
@@ -461,8 +511,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByDuedateHigherThenOrEqual() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByDuedateHigherThenOrEqual(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     int startTimeExpectedCount = ensureJobDueDateSet? 4 : 3;
     int timerOneExpectedCount = ensureJobDueDateSet? 3 : 2;
     int timerTwoExpectedCount = ensureJobDueDateSet? 2 : 1;
@@ -489,8 +541,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByDuedateCombinations() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByDuedateCombinations(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery()
         .duedateHigherThan(testStartTime)
         .duedateLowerThan(new Date(timerThreeFireTime.getTime() + ONE_SECOND));
@@ -502,8 +556,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 0);
   }
 
-  @Test
-  public void testQueryByCreateTimeCombinations() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByCreateTimeCombinations(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery()
             .processInstanceId(processInstanceIdOne);
     List<Job> jobs = query.list();
@@ -531,8 +587,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 0);
   }
 
-  @Test
-  public void shouldReturnNoJobDueToExcludingCriteria() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void shouldReturnNoJobDueToExcludingCriteria(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processInstanceId(processInstanceIdOne);
 
     List<Job> jobs = query.list();
@@ -543,8 +601,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 0);
   }
 
-  @Test
-  public void shouldReturnJobDueToIncludingCriteria() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void shouldReturnJobDueToIncludingCriteria(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().processInstanceId(processInstanceIdOne);
 
     List<Job> jobs = query.list();
@@ -555,9 +615,11 @@ public class JobQueryTest {
     verifyQueryResults(query, 1);
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml"})
-  public void testQueryByException() {
+  @MethodSource("scenarios")
+  public void testQueryByException(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().withException();
     verifyQueryResults(query, 0);
 
@@ -567,9 +629,11 @@ public class JobQueryTest {
     verifyFailedJob(query, processInstance);
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml"})
-  public void testQueryByExceptionMessage() {
+  @MethodSource("scenarios")
+  public void testQueryByExceptionMessage(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().exceptionMessage(EXCEPTION_MESSAGE);
     verifyQueryResults(query, 0);
 
@@ -581,9 +645,11 @@ public class JobQueryTest {
     verifyFailedJob(query, processInstance);
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml"})
-  public void testQueryByExceptionMessageEmpty() {
+  @MethodSource("scenarios")
+  public void testQueryByExceptionMessageEmpty(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().exceptionMessage("");
     verifyQueryResults(query, 0);
 
@@ -593,8 +659,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 0);
   }
 
-  @Test
-  public void testQueryByExceptionMessageNull() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByExceptionMessageNull(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     try {
       managementService.createJobQuery().exceptionMessage(null);
       fail("ProcessEngineException expected");
@@ -603,9 +671,11 @@ public class JobQueryTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml"})
-  public void testQueryByFailedActivityId(){
+  @MethodSource("scenarios")
+  public void testQueryByFailedActivityId(boolean ensureJobDueDateSet){
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().failedActivityId("theScriptTask");
     verifyQueryResults(query, 0);
 
@@ -615,8 +685,10 @@ public class JobQueryTest {
     verifyFailedJob(query, processInstance);
   }
 
-  @Test
-  public void testQueryByInvalidFailedActivityId(){
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidFailedActivityId(boolean ensureJobDueDateSet){
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().failedActivityId("invalid");
     verifyQueryResults(query, 0);
 
@@ -627,8 +699,11 @@ public class JobQueryTest {
   }
 
 
-  @Test
-  public void testJobQueryWithExceptions() throws Throwable {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testJobQueryWithExceptions(boolean ensureJobDueDateSet) throws Throwable {
+
+    initJobQueryTest(ensureJobDueDateSet);
 
     createJobWithoutExceptionMsg();
 
@@ -654,8 +729,10 @@ public class JobQueryTest {
 
   }
 
-  @Test
-  public void testQueryByNoRetriesLeft() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByNoRetriesLeft(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().noRetriesLeft();
     verifyQueryResults(query, 0);
 
@@ -664,14 +741,18 @@ public class JobQueryTest {
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testQueryByActive() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByActive(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().active();
     verifyQueryResults(query, 4);
   }
 
-  @Test
-  public void testQueryBySuspended() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryBySuspended(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().suspended();
     verifyQueryResults(query, 0);
 
@@ -679,8 +760,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 3);
   }
 
-  @Test
-  public void testQueryByJobIdsWithOneId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithOneId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     String id = managementService.createJobQuery().processInstanceId(processInstanceIdOne).singleResult().getId();
     // when
@@ -689,8 +772,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testQueryByJobIdsWithMultipleIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithMultipleIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = managementService.createJobQuery().list().stream()
         .map(Job::getId).collect(Collectors.toSet());
@@ -700,8 +785,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 4);
   }
 
-  @Test
-  public void testQueryByJobIdsWithMultipleIdsIncludingFakeIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithMultipleIdsIncludingFakeIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = new HashSet<>();
     ids.addAll(managementService.createJobQuery().list().stream().map(Job::getId).collect(Collectors.toSet()));
@@ -712,8 +799,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 4);
   }
 
-  @Test
-  public void testQueryByJobIdsWithEmptyList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithEmptyList(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = Collections.emptySet();
 
@@ -723,8 +812,10 @@ public class JobQueryTest {
       .hasMessageContaining("Set of job ids is empty");
   }
 
-  @Test
-  public void testQueryByJobIdsWithNull() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithNull(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = null;
 
@@ -734,8 +825,10 @@ public class JobQueryTest {
       .hasMessageContaining("Set of job ids is null");
   }
 
-  @Test
-  public void testQueryByJobIdsWithFakeIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByJobIdsWithFakeIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = new HashSet<>();
     Collections.addAll(ids, "fakeIdOne", "fakeIdTwo");
@@ -745,16 +838,20 @@ public class JobQueryTest {
     verifyQueryResults(query, 0);
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithOneId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithOneId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // when
     JobQuery query = managementService.createJobQuery().processInstanceIds(Collections.singleton(processInstanceIdOne));
     // then
     verifyQueryResults(query, 1);
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithMultipleIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithMultipleIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = new HashSet<>();
     Collections.addAll(ids, processInstanceIdOne, processInstanceIdThree);
@@ -764,8 +861,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 2);
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithMultipleIdsIncludingFakeIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithMultipleIdsIncludingFakeIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = new HashSet<>();
     Collections.addAll(ids, processInstanceIdOne, processInstanceIdThree, "fakeIdOne", "fakeIdTwo");
@@ -775,8 +874,10 @@ public class JobQueryTest {
     verifyQueryResults(query, 2);
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithEmptyList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithEmptyList(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = Collections.emptySet();
 
@@ -786,8 +887,10 @@ public class JobQueryTest {
       .hasMessageContaining("Set of process instance ids is empty");
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithNull() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithNull(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = null;
 
@@ -797,8 +900,10 @@ public class JobQueryTest {
       .hasMessageContaining("Set of process instance ids is null");
   }
 
-  @Test
-  public void testQueryByProcessInstanceIdsWithFakeIds() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByProcessInstanceIdsWithFakeIds(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // given
     Set<String> ids = new HashSet<>();
     Collections.addAll(ids, "fakeIdOne", "fakeIdTwo");
@@ -810,8 +915,10 @@ public class JobQueryTest {
 
   //sorting //////////////////////////////////////////
 
-  @Test
-  public void testQuerySorting() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQuerySorting(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     // asc
     assertEquals(4, managementService.createJobQuery().orderByJobId().asc().count());
     assertEquals(4, managementService.createJobQuery().orderByJobDuedate().asc().count());
@@ -854,8 +961,10 @@ public class JobQueryTest {
     assertEquals(processInstanceIdOne, jobs.get(2).getProcessInstanceId());
   }
 
-  @Test
-  public void testQueryInvalidSortingUsage() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryInvalidSortingUsage(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     try {
       managementService.createJobQuery().orderByJobId().list();
       fail();
@@ -871,8 +980,10 @@ public class JobQueryTest {
     }
   }
 
-  @Test
-  public void testQueryByAcquired() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByAcquired(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     Calendar lockExpDate = Calendar.getInstance();
     //given - lock expiration date in future
     lockExpDate.add(Calendar.MILLISECOND, 30000000);
@@ -940,7 +1051,7 @@ public class JobQueryTest {
       .processInstanceId(processInstance.getId())
       .singleResult();
 
-    assertNotNull("No job found for process instance", timerJob);
+    assertNotNull(timerJob, "No job found for process instance");
 
     try {
       managementService.executeJob(timerJob.getId());
@@ -1057,57 +1168,72 @@ public class JobQueryTest {
       });
   }
 
-  @Test
+  public void initJobQueryTest(boolean ensureJobDueDateSet) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    try {
+      setupJobsWithDueDateConfig(ensureJobDueDateSet);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to setup jobs", e);
+    }
+  }
+
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryByBatchId() {
+  public void testQueryByBatchId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
-    
+
     org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
         Arrays.asList(processInstance1.getId(), processInstance2.getId()),
         org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
-    
+
     String batchId = batch.getId();
-    
+
     JobQuery query = managementService.createJobQuery().batchId(batchId);
-    
+
     List<Job> jobs = query.list();
     assertThat(jobs).isNotEmpty();
     for (Job job : jobs) {
       assertThat(job.getBatchId()).isEqualTo(batchId);
     }
-    
+
     managementService.deleteBatch(batchId, true);
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryInBatch() {
+  public void testQueryInBatch(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
-    
+
     org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
         Arrays.asList(processInstance1.getId(), processInstance2.getId()),
         org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
-    
+
     String batchId = batch.getId();
-    
+
     JobQuery query = managementService.createJobQuery().inBatch();
     List<Job> batchJobs = query.list();
-    
+
     assertThat(batchJobs).isNotEmpty();
     for (Job job : batchJobs) {
       assertThat(job.getBatchId()).isNotNull();
     }
-    
+
     long batchJobsCount = query.count();
     assertThat(batchJobsCount).isEqualTo(batchJobs.size());
-    
+
     managementService.deleteBatch(batchId, true);
   }
 
-  @Test
-  public void testQueryByInvalidBatchId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testQueryByInvalidBatchId(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     JobQuery query = managementService.createJobQuery().batchId("invalid");
     verifyQueryResults(query, 0);
 
@@ -1115,30 +1241,32 @@ public class JobQueryTest {
         .isInstanceOf(ProcessEngineException.class);
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml")
-  public void testQueryInBatchCombinedWithOtherFilters() {
+  public void testQueryInBatchCombinedWithOtherFilters(boolean ensureJobDueDateSet) {
+    initJobQueryTest(ensureJobDueDateSet);
     ProcessInstance processInstance1 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
     ProcessInstance processInstance2 = runtimeService.startProcessInstanceByKey("exceptionInJobExecution");
-    
+
     org.finos.fluxnova.bpm.engine.batch.Batch batch = runtimeService.setVariablesAsync(
         Arrays.asList(processInstance1.getId(), processInstance2.getId()),
         org.finos.fluxnova.bpm.engine.variable.Variables.createVariables().putValue("test", "value"));
-    
+
     String batchId = batch.getId();
-    
+
     JobQuery query = managementService.createJobQuery()
         .inBatch()
         .active();
-    
+
     List<Job> jobs = query.list();
-    
+
     assertThat(jobs).isNotEmpty();
     for (Job job : jobs) {
       assertThat(job.getBatchId()).isNotNull();
       assertThat(job.isSuspended()).isFalse();
     }
-    
+
     managementService.deleteBatch(batchId, true);
   }
 

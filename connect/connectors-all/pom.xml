@@ -27,7 +27,6 @@
       <groupId>org.finos.fluxnova.connect</groupId>
       <artifactId>fluxnova-connect-soap-http-client</artifactId>
     </dependency>
-
   </dependencies>
 
   <build>

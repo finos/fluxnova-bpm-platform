@@ -56,11 +56,11 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class SetVariablesBatchTest {
 
@@ -74,21 +74,21 @@ public class SetVariablesBatchTest {
   protected BatchRule batchRule = new BatchRule(engineRule, engineTestRule);
   protected BatchHelper helper = new BatchHelper(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule).around(batchRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule).around(batchRule);
 
   protected RuntimeService runtimeService;
   protected HistoryService historyService;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
     managementService = engineRule.getManagementService();
   }
 
-  @Before
+  @BeforeEach
   public void deployProcess() {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_KEY)
         .startEvent()
@@ -98,7 +98,7 @@ public class SetVariablesBatchTest {
     engineTestRule.deploy(process);
   }
 
-  @After
+  @AfterEach
   public void clearAuthentication() {
     ClockUtil.reset();
     engineRule.getIdentityService()

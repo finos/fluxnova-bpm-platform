@@ -29,10 +29,10 @@ import org.finos.fluxnova.bpm.engine.impl.metrics.Meter;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -43,8 +43,8 @@ public abstract class AbstractMetricsTest {
   protected final ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected final ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
@@ -54,7 +54,7 @@ public abstract class AbstractMetricsTest {
   protected RepositoryService repositoryService;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void initializeServices() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -67,7 +67,7 @@ public abstract class AbstractMetricsTest {
     clearMetrics();
   }
 
-  @After
+  @AfterEach
   public void cleanUpMetrics() {
     clearMetrics();
   }

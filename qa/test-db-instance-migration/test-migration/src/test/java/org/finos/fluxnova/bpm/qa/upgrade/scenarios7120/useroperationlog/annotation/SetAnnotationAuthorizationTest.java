@@ -26,7 +26,7 @@ import org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertThat;
 
 public class SetAnnotationAuthorizationTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   protected HistoryService historyService;

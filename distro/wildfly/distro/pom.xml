@@ -22,7 +22,6 @@
       <type>pom</type>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
       <artifactId>fluxnova-wildfly-assembly</artifactId>

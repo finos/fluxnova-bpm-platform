@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,15 +27,14 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.jpa.domain.TestEntity;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.jpa.repository.TestEntityRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestApplication.class },
   webEnvironment = WebEnvironment.NONE,
   properties = {

@@ -24,19 +24,20 @@ import org.finos.fluxnova.bpm.engine.rest.dto.runtime.FilterDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.task.TaskQueryDto;
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
 import org.finos.fluxnova.bpm.run.test.AbstractRestTest;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { FluxnovaBpmRun.class }, webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(profiles = { "test-default-task-filter" }, inheritProfiles = true)
+@SpringBootTest(classes = {FluxnovaBpmRun.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles(profiles = {"test-default-task-filter"}, inheritProfiles = true)
+@AutoConfigureTestRestTemplate
 public class DefaultTaskFilterTest extends AbstractRestTest{
 
   @Test

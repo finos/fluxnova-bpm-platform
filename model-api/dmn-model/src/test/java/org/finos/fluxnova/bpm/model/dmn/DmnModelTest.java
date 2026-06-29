@@ -31,9 +31,10 @@ import org.finos.fluxnova.bpm.model.dmn.util.Java9CDataWhitespaceFilter;
 import org.finos.fluxnova.bpm.model.dmn.util.ParseDmnModelRule;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.io.TempDir;
+
 import org.w3c.dom.Document;
 import org.xmlunit.builder.DiffBuilder;
 import org.xmlunit.diff.Diff;
@@ -42,15 +43,15 @@ public abstract class DmnModelTest {
 
   public final static String TEST_NAMESPACE = "http://camunda.org/schema/1.0/dmn";
 
-  @Rule
+  @RegisterExtension
   public final ParseDmnModelRule parseDmnModelRule = new ParseDmnModelRule();
 
-  @Rule
-  public TemporaryFolder tmpFolder = new TemporaryFolder();
+  @TempDir
+  public File tmpFolder;
 
   protected DmnModelInstance modelInstance;
 
-  @Before
+  @BeforeEach
   public void setup() {
     modelInstance = parseDmnModelRule.getDmnModel();
   }
@@ -79,19 +80,19 @@ public abstract class DmnModelTest {
 
   public <E extends DmnModelElementInstance> E generateElement(Class<E> elementClass, Integer suffix) {
     E element = modelInstance.newInstance(elementClass);
-    if (element instanceof DmnElement) {
+    if (element instanceof DmnElement dmnElement) {
       String identifier = elementClass.getSimpleName();
       if (suffix != null) {
         identifier += suffix.toString();
       }
       identifier = Character.toLowerCase(identifier.charAt(0)) + identifier.substring(1);
-      ((DmnElement) element).setId(identifier);
+      dmnElement.setId(identifier);
     }
     return element;
   }
 
   protected void assertModelEqualsFile(String expectedPath) throws Exception {
-    File actualFile = tmpFolder.newFile();
+    File actualFile = File.createTempFile("junit", null, tmpFolder);
     Dmn.writeModelToFile(actualFile, modelInstance);
 
     File expectedFile = ReflectUtil.getResourceAsFile(expectedPath);

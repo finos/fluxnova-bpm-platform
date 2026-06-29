@@ -18,22 +18,23 @@ package org.finos.fluxnova.bpm.engine.cdi.test.jsf;
 
 import java.util.Set;
 
-import javax.enterprise.inject.AmbiguousResolutionException;
-import javax.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.AmbiguousResolutionException;
+import jakarta.enterprise.inject.spi.Bean;
 
 import org.finos.fluxnova.bpm.engine.cdi.compat.FluxnovaTaskForm;
 import org.finos.fluxnova.bpm.engine.cdi.compat.FoxTaskForm;
 import org.finos.fluxnova.bpm.engine.cdi.jsf.TaskForm;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
 
 /**
  * @author Daniel Meyer
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TaskFormTest extends CdiProcessEngineTestCase {
 
   @Test
@@ -42,25 +43,25 @@ public class TaskFormTest extends CdiProcessEngineTestCase {
     Set<Bean<?>> taskForm = beanManager.getBeans(TaskForm.class);
     try {
       Bean<? extends Object> bean = beanManager.resolve(taskForm);
-      Assert.assertNotNull(bean);
+      Assertions.assertNotNull(bean);
     }catch(AmbiguousResolutionException e) {
-      Assert.fail("Injection of TaskForm is ambiguous.");
+      Assertions.fail("Injection of TaskForm is ambiguous.");
     }
 
     Set<Bean<?>> foxTaskForm = beanManager.getBeans(FoxTaskForm.class);
     try {
       Bean<? extends Object> bean = beanManager.resolve(foxTaskForm);
-      Assert.assertNotNull(bean);
+      Assertions.assertNotNull(bean);
     }catch(AmbiguousResolutionException e) {
-      Assert.fail("Injection of FoxTaskForm is ambiguous.");
+      Assertions.fail("Injection of FoxTaskForm is ambiguous.");
     }
 
     Set<Bean<?>> camundaTaskForm = beanManager.getBeans(FluxnovaTaskForm.class);
     try {
       Bean<? extends Object> bean = beanManager.resolve(camundaTaskForm);
-      Assert.assertNotNull(bean);
+      Assertions.assertNotNull(bean);
     }catch(AmbiguousResolutionException e) {
-      Assert.fail("Injection of CamundaTaskForm is ambiguous.");
+      Assertions.fail("Injection of CamundaTaskForm is ambiguous.");
     }
 
   }

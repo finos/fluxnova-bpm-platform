@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.request.beans;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 /**
  * Simple request scoped bean keeping an invocation count.
