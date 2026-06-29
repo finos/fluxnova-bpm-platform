@@ -148,11 +148,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-spring-6</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.finos.fluxnova.bpm.springboot</groupId>
       <artifactId>fluxnova-bpm-spring-boot-starter</artifactId>
       <version>${project.version}</version>
