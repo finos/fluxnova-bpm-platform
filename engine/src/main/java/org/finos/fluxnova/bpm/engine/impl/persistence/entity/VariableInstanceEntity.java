@@ -40,12 +40,15 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.util.ByteArrayField
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.util.TypedValueField;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.util.TypedValueUpdateListener;
 import org.finos.fluxnova.bpm.engine.impl.pvm.runtime.LegacyBehavior;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptorUtil;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.ValueFields;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializerFactory;
 import org.finos.fluxnova.bpm.engine.repository.ResourceTypes;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.variable.impl.value.UntypedValueImpl;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.AbstractTypedValue;
+import org.finos.fluxnova.bpm.engine.variable.impl.value.FileValueImpl;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
@@ -121,6 +124,8 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
    */
   protected boolean isTransient = false;
 
+  protected boolean restricted;
+
   // transient properties
   protected ExecutionEntity execution;
 
@@ -136,8 +141,13 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
     typedValueField.setValue(value);
   }
 
+  public VariableInstanceEntity(String name, TypedValue value, boolean isTransient, boolean restricted) {
+    this(name,value,isTransient);
+    this.restricted = restricted;
+  }
+
   public static VariableInstanceEntity createAndInsert(String name, TypedValue value) {
-    VariableInstanceEntity variableInstance = create(name, value, value.isTransient());
+    VariableInstanceEntity variableInstance = create(name, value, value.isTransient(), value.isRestricted());
     insert(variableInstance);
     return variableInstance;
   }
@@ -155,7 +165,15 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
     return new VariableInstanceEntity(name, value, isTransient);
   }
 
+  public static VariableInstanceEntity create(String name, TypedValue value, boolean isTransient, boolean restricted) {
+    return new VariableInstanceEntity(name, value, isTransient, restricted);
+  }
+
   public void delete() {
+    // Wrap in internal move context to bypass permission checks during engine-initiated cleanup
+    org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext.executeAsInternalWrite(() ->
+      VariableInterceptorUtil.interceptDeleteVariable(this)
+    );
 
     if (!isTransient()) {
       typedValueField.notifyImplicitValueUpdateIfEnabled();
@@ -200,6 +218,7 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
     persistentState.put("tenantId", tenantId);
     persistentState.put("processInstanceId", processInstanceId);
     persistentState.put("processDefinitionId", processDefinitionId);
+    persistentState.put("restricted", restricted);
 
     return persistentState;
   }
@@ -276,11 +295,24 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
   }
 
   public TypedValue getTypedValue() {
-    return typedValueField.getTypedValue(isTransient);
+    return getTypedValue(true);
   }
 
   public TypedValue getTypedValue(boolean deserializeValue) {
-    return typedValueField.getTypedValue(deserializeValue, isTransient);
+    TypedValue tv = typedValueField.getTypedValue(deserializeValue, isTransient);
+    if (restricted) {
+      applyRestricted(tv);
+    }
+
+      return VariableInterceptorUtil.interceptGetVariable(this, tv);
+  }
+
+  protected void applyRestricted(TypedValue value) {
+    if (value instanceof AbstractTypedValue<?>) {
+      ((AbstractTypedValue<?>) value).setRestricted(true);
+    } else if (value instanceof FileValueImpl) {
+      ((FileValueImpl) value).setRestricted(true);
+    }
   }
 
   public void setValue(TypedValue value) {
@@ -659,6 +691,7 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
       + ", byteArrayValueId=" + getByteArrayValueId()
       + ", configuration=" + configuration
       + ", isConcurrentLocal=" + isConcurrentLocal
+        + ", restricted=" + restricted
       + "]";
   }
 
@@ -704,6 +737,14 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
     return isTransient;
   }
 
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
+  }
+
   public String getTenantId() {
     return tenantId;
   }
@@ -719,6 +760,7 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
   }
 
   @Override
+  @SuppressWarnings("rawtypes")
   public Map<String, Class> getReferencedEntitiesIdAndClass() {
     Map<String, Class> referenceIdAndClass = new HashMap<>();
 
@@ -742,7 +784,7 @@ public class VariableInstanceEntity implements VariableInstance, CoreVariableIns
   }
 
   /**
-   * 
+   *
    * @return <code>true</code> <code>processDefinitionId</code> is introduced in 7.13,
    * the check is used to created missing history at {@link LegacyBehavior#createMissingHistoricVariables(org.finos.fluxnova.bpm.engine.impl.pvm.runtime.PvmExecutionImpl) LegacyBehavior#createMissingHistoricVariables}
    */

@@ -22,10 +22,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openapitools.client.ApiException;
@@ -41,7 +43,12 @@ public class DeploymentTest {
   final DeploymentApi api = new DeploymentApi();
 
   @Rule
-  public WireMockRule wireMockRule = new WireMockRule(8080);
+  public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
+
+  @Before
+  public void setupApiClient() {
+    api.getApiClient().setBasePath("http://localhost:" + wireMockRule.port() + "/engine-rest");
+  }
 
   @Test
   public void shouldCreateDeployment() throws ApiException {

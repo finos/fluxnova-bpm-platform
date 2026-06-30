@@ -224,6 +224,7 @@ public class TaskRestServiceInteractionTest extends
     mockTask = MockProvider.createMockTask();
     mockQuery = mock(TaskQuery.class);
     when(mockQuery.initializeFormKeys()).thenReturn(mockQuery);
+    when(mockQuery.initializeFormKeys(anyBoolean())).thenReturn(mockQuery);
     when(mockQuery.taskId(any())).thenReturn(mockQuery);
     when(mockQuery.withCommentAttachmentInfo()).thenReturn(mockQuery);
     when(mockQuery.singleResult()).thenReturn(mockTask);
@@ -2952,6 +2953,7 @@ public class TaskRestServiceInteractionTest extends
       .body("createTime", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_CREATE_DATE))
       .body("removalTime", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE))
       .body("rootProcessInstanceId", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID))
+      .body("createdBy", equalTo(MockProvider.EXAMPLE_TASK_ATTACHMENT_CREATED_BY))
     .when().get(SINGLE_TASK_SINGLE_ATTACHMENT_URL);
   }
 

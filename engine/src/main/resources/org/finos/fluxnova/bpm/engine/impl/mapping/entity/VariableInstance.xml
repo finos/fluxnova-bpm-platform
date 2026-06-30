@@ -45,6 +45,7 @@
       SEQUENCE_COUNTER_,
       IS_CONCURRENT_LOCAL_,
       TENANT_ID_,
+      RESTRICTED_,
       REV_
     )
     values (
@@ -67,6 +68,7 @@
       #{sequenceCounter, jdbcType=BIGINT},
       #{isConcurrentLocal, jdbcType=BOOLEAN},
       #{tenantId, jdbcType=VARCHAR},
+      #{restricted, jdbcType=BOOLEAN},
       1
     )
   </insert>
@@ -85,7 +87,8 @@
 	    LONG_ = #{longValue, jdbcType=BIGINT},
 	    TEXT_ = #{textValue, jdbcType=VARCHAR},
 	    TEXT2_ = #{textValue2, jdbcType=VARCHAR},
-      SEQUENCE_COUNTER_ = #{sequenceCounter, jdbcType=BIGINT}
+      SEQUENCE_COUNTER_ = #{sequenceCounter, jdbcType=BIGINT},
+      RESTRICTED_ = #{restricted, jdbcType=BOOLEAN}
     where ID_ = #{id, jdbcType=VARCHAR}
       and REV_ = #{revision, jdbcType=INTEGER}
   </update>
@@ -122,6 +125,7 @@
       <result property="sequenceCounter" column="SEQUENCE_COUNTER_" jdbcType="BIGINT"/>
       <result property="isConcurrentLocal" column="IS_CONCURRENT_LOCAL_" jdbcType="BOOLEAN"/>
       <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
+      <result property="restricted" column="RESTRICTED_" jdbcType="BOOLEAN"/>
 	</resultMap>
 
   <!-- VARIABLE INSTANCE SELECT -->
@@ -179,6 +183,9 @@
           #{item, jdbcType=VARCHAR}
         </foreach>
     </if>
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+    </if>
   </select>
 
   <select id="selectVariablesByProcessInstanceId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="variableInstanceResultMap">
@@ -200,6 +207,9 @@
 
     WHERE
         RES.PROC_INST_ID_ = #{parameter, jdbcType=VARCHAR}
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+    </if>
   </select>
 
   <select id="selectVariablesByCaseExecutionId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="variableInstanceResultMap">
@@ -230,6 +240,9 @@
           #{item, jdbcType=VARCHAR}
         </foreach>
     </if>
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+    </if>
   </select>
 
   <select id="selectVariablesByTaskId" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="variableInstanceResultMap">
@@ -257,6 +270,9 @@
         <foreach item="item" index="index" collection="parameter.variableNames" open="(" separator="," close=")">
           #{item, jdbcType=VARCHAR}
         </foreach>
+    </if>
+    <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+      and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
     </if>
   </select>
 
@@ -324,11 +340,11 @@
             on PROC_EXECUTION.ID_ = RES.PROC_INST_ID_
 
             left join ${prefix}ACT_RE_PROCDEF PROCDEF
-            on PROCDEF.ID_ = PROC_EXECUTION.PROC_DEF_ID_   
-            <if test="!authCheck.revokeAuthorizationCheckEnabled">      
+            on PROCDEF.ID_ = PROC_EXECUTION.PROC_DEF_ID_
+            <if test="!authCheck.revokeAuthorizationCheckEnabled">
               <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.authCheckJoinWithoutOnClause" />
               AUTH ON (AUTH.RESOURCE_ID_ ${authJoinStart}
-                RES.PROC_INST_ID_ 
+                RES.PROC_INST_ID_
                 ${authJoinSeparator} PROC_EXECUTION.ID_
                 ${authJoinSeparator} PROCDEF.KEY_
                 ${authJoinSeparator} RES.TASK_ID_
@@ -464,6 +480,9 @@
 
             <bind name="applyAuthorizationCheckForCaseInstances" value="true" />
             <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.contextualAuthorizationCheck" />
+            <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
+              and <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.restrictedVariableFilter" /> = 1
+            </if>
             <include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.TenantEntity.queryTenantCheck" />
 
           </where>
@@ -476,22 +495,22 @@
     insert into ${prefix}ACT_GE_BYTEARRAY(ID_, NAME_, BYTES_, DEPLOYMENT_ID_, TENANT_ID_, TYPE_, CREATE_TIME_, ROOT_PROC_INST_ID_, REMOVAL_TIME_, REV_)
     values (
       #{id, jdbcType=VARCHAR},
-      #{name, jdbcType=VARCHAR}, 
-      #{bytes, jdbcType=BLOB}, 
+      #{name, jdbcType=VARCHAR},
+      #{bytes, jdbcType=BLOB},
       #{deploymentId, jdbcType=VARCHAR},
       #{tenantId, jdbcType=VARCHAR},
       #{type, jdbcType=INTEGER},
       #{createTime, jdbcType=TIMESTAMP},
       #{rootProcessInstanceId, jdbcType=VARCHAR},
       #{removalTime, jdbcType=TIMESTAMP},
-      1 
-    )  
+      1
+    )
   </insert>
 
   <!-- BYTE ARRAY UPDATE -->
 
   <update id="updateByteArray" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayEntity">
-    update ${prefix}ACT_GE_BYTEARRAY 
+    update ${prefix}ACT_GE_BYTEARRAY
     set
       REV_ = #{revisionNext, jdbcType=INTEGER},
       BYTES_ = #{bytes, jdbcType=BLOB}
@@ -532,7 +551,7 @@
 
   <update id="updateByteArraysByRootProcessInstanceId_mysql"
           parameterType="java.util.Map">
-      update ${prefix}ACT_GE_BYTEARRAY 
+      update ${prefix}ACT_GE_BYTEARRAY
       <choose>
         <when test="maxResults != null">
           ${limitBeforeInUpdate} ${prefix}ACT_GE_BYTEARRAY

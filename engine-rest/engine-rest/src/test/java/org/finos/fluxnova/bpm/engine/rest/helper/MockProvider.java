@@ -223,6 +223,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_TASK_ATTACHMENT_CREATE_DATE = withTimezone("2018-07-19T15:02:36");
   public static final String EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE = withTimezone("2018-10-17T13:35:07");
   public static final String EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID = "aRootProcInstId";
+  public static final String EXAMPLE_TASK_ATTACHMENT_CREATED_BY = "demo";
 
   // task count by candidate group
 
@@ -753,6 +754,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_HIST_INCIDENT_PROC_DEF_KEY = "aProcDefKey";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID = "aRootProcInstId";
   public static final String EXAMPLE_HIST_INCIDENT_CAUSE_INCIDENT_ID = "aCauseIncidentId";
+  public static final String EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG = "aRootCauseIncidentMessage";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_CAUSE_INCIDENT_ID = "aRootCauseIncidentId";
   public static final String EXAMPLE_HIST_INCIDENT_CONFIGURATION = "aConfiguration";
   public static final String EXAMPLE_HIST_INCIDENT_HISTORY_CONFIGURATION = "aHistoryConfiguration";
@@ -1174,6 +1176,7 @@ public abstract class MockProvider {
     when(mockAttachment.getCreateTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_CREATE_DATE));
     when(mockAttachment.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE));
     when(mockAttachment.getRootProcessInstanceId()).thenReturn(EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID);
+    when(mockAttachment.getCreatedBy()).thenReturn(EXAMPLE_TASK_ATTACHMENT_CREATED_BY);
 
     return mockAttachment;
   }
@@ -2674,8 +2677,21 @@ public abstract class MockProvider {
     when(incident.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_HIST_INCIDENT_REMOVAL_TIME));
     when(incident.getRootProcessInstanceId()).thenReturn(EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID);
     when(incident.getAnnotation()).thenReturn(EXAMPLE_USER_OPERATION_ANNOTATION);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG);
 
     return incident;
+  }
+
+  public static HistoricIncident createMockHistoricIncidentWithoutRootCauseIncidentMessage() {
+    HistoricIncident incident = createMockHistoricIncident(EXAMPLE_TENANT_ID);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(null);
+    return incident;
+  }
+
+  public static List<HistoricIncident> createMockHistoricIncidentsWithoutRootCauseIncidentMessage() {
+    List<HistoricIncident> entries = new ArrayList<>();
+    entries.add(createMockHistoricIncidentWithoutRootCauseIncidentMessage());
+    return entries;
   }
 
   public static List<HistoricIncident> createMockHistoricIncidents() {

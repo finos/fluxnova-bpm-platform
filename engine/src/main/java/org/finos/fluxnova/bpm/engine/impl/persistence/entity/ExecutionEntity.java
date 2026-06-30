@@ -79,6 +79,7 @@ import org.finos.fluxnova.bpm.engine.impl.tree.TreeVisitor;
 import org.finos.fluxnova.bpm.engine.impl.util.BitMaskUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.CollectionUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
 import org.finos.fluxnova.bpm.engine.impl.variable.VariableDeclaration;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.Execution;
@@ -1231,37 +1232,43 @@ public class ExecutionEntity extends PvmExecutionImpl implements Execution, Proc
   }
 
   protected void moveVariablesTo(ExecutionEntity other) {
-    List<VariableInstanceEntity> variables = variableStore.getVariables();
-    variableStore.removeVariables();
+    InternalVariableContext.executeAsInternalWrite(() -> {
+      List<VariableInstanceEntity> variables = variableStore.getVariables();
+      variableStore.removeVariables();
 
-    for (VariableInstanceEntity variable : variables) {
-      moveVariableTo(variable, other);
-    }
+      for (VariableInstanceEntity variable : variables) {
+        moveVariableTo(variable, other);
+      }
+    });
   }
 
   protected void moveVariableTo(VariableInstanceEntity variable, ExecutionEntity other) {
-    if (other.variableStore.containsKey(variable.getName())) {
-      CoreVariableInstance existingInstance = other.variableStore.getVariable(variable.getName());
-      existingInstance.setValue(variable.getTypedValue(false));
-      invokeVariableLifecycleListenersUpdate(existingInstance, this);
-      invokeVariableLifecycleListenersDelete(
-          variable,
-          this,
-          Collections.singletonList(getVariablePersistenceListener()));
-    }
-    else {
-      other.variableStore.addVariable(variable);
-    }
+    InternalVariableContext.executeAsInternalWrite(() -> {
+      if (other.variableStore.containsKey(variable.getName())) {
+        CoreVariableInstance existingInstance = other.variableStore.getVariable(variable.getName());
+        existingInstance.setValue(variable.getTypedValue(false));
+        invokeVariableLifecycleListenersUpdate(existingInstance, this);
+        invokeVariableLifecycleListenersDelete(
+                variable,
+                this,
+                Collections.singletonList(getVariablePersistenceListener()));
+      }
+      else {
+        other.variableStore.addVariable(variable);
+      }
+    });
   }
 
   protected void moveConcurrentLocalVariablesTo(ExecutionEntity other) {
-    List<VariableInstanceEntity> variables = variableStore.getVariables();
+    InternalVariableContext.executeAsInternalWrite(() -> {
+      List<VariableInstanceEntity> variables = variableStore.getVariables();
 
-    for (VariableInstanceEntity variable : variables) {
-      if (variable.isConcurrentLocal()) {
-        moveVariableTo(variable, other);
+      for (VariableInstanceEntity variable : variables) {
+        if (variable.isConcurrentLocal()) {
+          moveVariableTo(variable, other);
+        }
       }
-    }
+    });
   }
 
   // variables ////////////////////////////////////////////////////////////////

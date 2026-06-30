@@ -59,6 +59,11 @@ public class BpmnParser extends Parser {
   public static final String ACTIVITI_BPMN_EXTENSIONS_NS = "http://activiti.org/bpmn";
 
   /**
+   * The namespace of the Fluxnova custom BPMN extensions.
+   */
+  public static final String FLUXNOVA_BPMN_EXTENSIONS_NS = "http://fluxnova.finos.org/schema/1.0/bpmn";
+
+  /**
    * The namepace of the BPMN 2.0 diagram interchange elements.
    */
   public static final String BPMN_DI_NS = "http://www.omg.org/spec/BPMN/20100524/DI";

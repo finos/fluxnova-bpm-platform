@@ -1302,4 +1302,72 @@ public class InputOutputTest extends PluggableProcessEngineTest {
     assertEquals("baroque", variable.getValue());
     assertEquals(pi.getId(), variable.getExecutionId());
   }
+
+  @Deployment
+  @Test
+  public void testTransientInputParameter() {
+    // given
+    // a process definition with an input mapping that creates a transient local variable on the "wait" execution
+
+    // when
+    runtimeService.startProcessInstanceByKey("testInputTransientFeature");
+
+    // then
+    Execution execution = runtimeService.createExecutionQuery().activityId("task").singleResult();
+    assertNotNull(execution);
+
+    List<VariableInstance> variableInstances = runtimeService.createVariableInstanceQuery().list();
+    assertEquals(0, variableInstances.size());
+
+    // it must not be persisted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientVar").singleResult();
+    assertThat(variableInstance).isNull();
+  }
+
+  @Deployment
+  @Test
+  public void testTransientOutputParameter() {
+    // given
+    // a process definition with an output mapping that writes a transient variable to the process instance
+
+    // when
+    runtimeService.startProcessInstanceByKey("testOutputTransientFeature");
+
+    // then
+    // it must not be persisted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("transientVar").singleResult();
+    assertThat(variableInstance).isNull();
+  }
+
+  @Deployment
+  @Test
+  public void testRestrictedInputParameter() {
+    // given a process definition with an input mapping that creates a restricted local variable
+    // on the "task" execution, using the fluxnova:restricted attribute
+
+    // when
+    runtimeService.startProcessInstanceByKey("testInputRestrictedFeature");
+
+    // then the variable is persisted and flagged as restricted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("restrictedVar").singleResult();
+    assertNotNull(variableInstance);
+    assertEquals("mappedValue", variableInstance.getValue());
+    assertTrue(variableInstance.isRestricted());
+  }
+
+  @Deployment
+  @Test
+  public void testRestrictedOutputParameter() {
+    // given a process definition with an output mapping that writes a restricted variable to the
+    // process instance, using the fluxnova:restricted attribute
+
+    // when
+    runtimeService.startProcessInstanceByKey("testOutputRestrictedFeature");
+
+    // then the variable is persisted and flagged as restricted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("restrictedVar").singleResult();
+    assertNotNull(variableInstance);
+    assertTrue(variableInstance.isRestricted());
+  }
+
 }

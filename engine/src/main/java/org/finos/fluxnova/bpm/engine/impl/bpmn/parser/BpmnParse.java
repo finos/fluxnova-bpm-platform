@@ -43,6 +43,7 @@ import org.finos.fluxnova.bpm.engine.delegate.VariableListener;
 import org.finos.fluxnova.bpm.engine.impl.Condition;
 import org.finos.fluxnova.bpm.engine.impl.HistoryTimeToLiveParser;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
+import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.AdHocSubProcessActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.BoundaryConditionalEventActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.CallActivityBehavior;
@@ -203,6 +204,12 @@ public class BpmnParse extends Parse {
   public static final String PROPERTYNAME_CONSUMES_COMPENSATION = "consumesCompensation";
   public static final String PROPERTYNAME_JOB_PRIORITY = "jobPriority";
   public static final String PROPERTYNAME_TASK_PRIORITY = "taskPriority";
+  public static final String PROPERTYNAME_AD_HOC_CANCEL_REMAINING = "adHocCancelRemainingInstances";
+  public static final String PROPERTYNAME_AD_HOC_AUTO_COMPLETE = "adHocAutoComplete";
+  public static final String PROPERTYNAME_AD_HOC_COMPLETION_CONDITION = "adHocCompletionCondition";
+  public static final String PROPERTYNAME_AD_HOC_COMPLETION_CONDITION_TEXT = "adHocCompletionConditionText";
+  public static final String PROPERTYNAME_AD_HOC_ACTIVE_TASKS_COLLECTION = "adHocActiveTasksCollection";
+  public static final String PROPERTYNAME_AD_HOC_ACTIVE_TASKS_COLLECTION_TEXT = "adHocActiveTasksCollectionText";
   public static final String PROPERTYNAME_EXTERNAL_TASK_TOPIC = "topic";
   public static final String PROPERTYNAME_CLASS = "class";
   public static final String PROPERTYNAME_EXPRESSION = "expression";
@@ -256,6 +263,8 @@ public class BpmnParse extends Parse {
   public static final String PROPERTYNAME_IS_MULTI_INSTANCE = "isMultiInstance";
 
   public static final Namespace CAMUNDA_BPMN_EXTENSIONS_NS = new Namespace(BpmnParser.CAMUNDA_BPMN_EXTENSIONS_NS, BpmnParser.ACTIVITI_BPMN_EXTENSIONS_NS);
+  // Fluxnova extensions namespace, falling back to the legacy Camunda namespace for backwards compatibility
+  public static final Namespace FLUXNOVA_BPMN_EXTENSIONS_NS = new Namespace(BpmnParser.FLUXNOVA_BPMN_EXTENSIONS_NS, BpmnParser.CAMUNDA_BPMN_EXTENSIONS_NS);
   public static final Namespace XSI_NS = new Namespace(BpmnParser.XSI_NS);
   public static final Namespace BPMN_DI_NS = new Namespace(BpmnParser.BPMN_DI_NS);
   public static final Namespace OMG_DI_NS = new Namespace(BpmnParser.OMG_DI_NS);
@@ -1413,7 +1422,9 @@ public class BpmnParse extends Parse {
       activity = parseEventBasedGateway(activityElement, parentElement, scopeElement);
     } else if (activityElement.getTagName().equals(ActivityTypes.TRANSACTION)) {
       activity = parseTransaction(activityElement, scopeElement);
-    } else if (activityElement.getTagName().equals(ActivityTypes.SUB_PROCESS_AD_HOC) || activityElement.getTagName().equals(ActivityTypes.GATEWAY_COMPLEX)) {
+    } else if (activityElement.getTagName().equals(ActivityTypes.SUB_PROCESS_AD_HOC)) {
+      activity = parseAdHocSubProcess(activityElement, scopeElement);
+    } else if (activityElement.getTagName().equals(ActivityTypes.GATEWAY_COMPLEX)) {
       addWarning("Ignoring unsupported activity type", activityElement);
     }
 
@@ -3898,6 +3909,70 @@ public class BpmnParse extends Parse {
     return subProcessActivity;
   }
 
+  public ActivityImpl parseAdHocSubProcess(Element adHocSubProcessElement, ScopeImpl scope) {
+    ActivityImpl adHocSubProcessActivity = createActivityOnScope(adHocSubProcessElement, scope);
+    adHocSubProcessActivity.setSubProcessScope(true);
+
+    parseAsynchronousContinuationForActivity(adHocSubProcessElement, adHocSubProcessActivity);
+
+    adHocSubProcessActivity.getProperties().set(BpmnProperties.TRIGGERED_BY_EVENT, false);
+    adHocSubProcessActivity.setProperty(PROPERTYNAME_CONSUMES_COMPENSATION, true);
+
+    boolean cancelRemainingInstances = parseBooleanAttribute(adHocSubProcessElement.attribute("cancelRemainingInstances"), true);
+    adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_CANCEL_REMAINING, cancelRemainingInstances);
+    adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_AUTO_COMPLETE, true);
+
+    String autoCompleteAttributeText = adHocSubProcessElement.attributeNS(FLUXNOVA_BPMN_EXTENSIONS_NS, "autoComplete");
+    if (autoCompleteAttributeText == null) {
+      autoCompleteAttributeText = adHocSubProcessElement.attributeNS(CAMUNDA_BPMN_EXTENSIONS_NS, "autoComplete");
+    }
+    if (autoCompleteAttributeText != null) {
+      String trimmedAutoCompleteAttributeText = autoCompleteAttributeText.trim();
+      Boolean autoCompleteAttribute = parseBooleanAttribute(trimmedAutoCompleteAttributeText);
+      if (autoCompleteAttribute == null) {
+        addError("Invalid value '" + trimmedAutoCompleteAttributeText
+            + "' for ad-hoc extension attribute 'autoComplete'; expected boolean value", adHocSubProcessElement);
+      } else {
+        adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_AUTO_COMPLETE, autoCompleteAttribute);
+      }
+    }
+
+    Element completionConditionElement = adHocSubProcessElement.element("completionCondition");
+    if (completionConditionElement != null) {
+      Condition completionCondition = parseConditionExpression(completionConditionElement, adHocSubProcessActivity.getId());
+      adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_COMPLETION_CONDITION, completionCondition);
+      adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_COMPLETION_CONDITION_TEXT, completionConditionElement.getText().trim());
+    }
+
+    Map<String, String> extensionProperties = parseFluxnovaExtensionProperties(adHocSubProcessElement);
+    if (extensionProperties != null) {
+      String activeTasksCollectionText = extensionProperties.get("activeTasksCollection");
+      if (activeTasksCollectionText != null) {
+        String trimmedActiveTasksCollectionText = activeTasksCollectionText.trim();
+        adHocSubProcessActivity.setProperty(PROPERTYNAME_AD_HOC_ACTIVE_TASKS_COLLECTION_TEXT, trimmedActiveTasksCollectionText);
+        adHocSubProcessActivity.setProperty(
+            PROPERTYNAME_AD_HOC_ACTIVE_TASKS_COLLECTION,
+            expressionManager.createExpression(trimmedActiveTasksCollectionText));
+      }
+
+      if (extensionProperties.containsKey("autoComplete")) {
+        addError("Unsupported ad-hoc extension property 'autoComplete'; use extension attribute 'autoComplete' on the adHocSubProcess element",
+            adHocSubProcessElement);
+      }
+    }
+
+    adHocSubProcessActivity.setScope(true);
+    adHocSubProcessActivity.setActivityBehavior(new AdHocSubProcessActivityBehavior());
+    parseScope(adHocSubProcessElement, adHocSubProcessActivity);
+    parseActivityInputOutput(adHocSubProcessElement, adHocSubProcessActivity);
+
+    for (BpmnParseListener parseListener : parseListeners) {
+      parseListener.parseSubProcess(adHocSubProcessElement, scope, adHocSubProcessActivity);
+    }
+
+    return adHocSubProcessActivity;
+  }
+
   protected ActivityImpl parseTransaction(Element transactionElement, ScopeImpl scope) {
     ActivityImpl activity = createActivityOnScope(transactionElement, scope);
 
@@ -4175,6 +4250,10 @@ public class BpmnParse extends Parse {
         addError("Empty attribute 'target' when attribute 'source' or 'sourceExpression' is set", parameterElement, ancestorElementId);
       }
       parameter.setTarget(target);
+
+      if (BpmnParseUtil.isRestricted(parameterElement)) {
+        parameter.setRestricted(true);
+      }
     }
 
     return parameter;
@@ -4828,6 +4907,7 @@ public class BpmnParse extends Parse {
         || tagName.contains("Event")
         || tagName.equals("transaction")
         || tagName.equals("subProcess")
+        || tagName.equals("adHocSubProcess")
         || tagName.equals("callActivity"))) {
       addError("camunda:inputOutput mapping unsupported for element type '" + tagName + "'.", activityElement);
       return false;

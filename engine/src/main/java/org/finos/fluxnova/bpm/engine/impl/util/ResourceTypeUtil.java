@@ -25,6 +25,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFI
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.SYSTEM;
+import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,7 @@ import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.authorization.SystemPermissions;
 import org.finos.fluxnova.bpm.engine.authorization.TaskPermissions;
 import org.finos.fluxnova.bpm.engine.authorization.UserOperationLogCategoryPermissions;
+import org.finos.fluxnova.bpm.engine.authorization.VariablePermissions;
 
 public class ResourceTypeUtil {
 
@@ -64,6 +66,7 @@ public class ResourceTypeUtil {
       put(OPERATION_LOG_CATEGORY.resourceType(), UserOperationLogCategoryPermissions.class);
       put(OPTIMIZE.resourceType(), OptimizePermissions.class);
       put(SYSTEM.resourceType(), SystemPermissions.class);
+      put(VARIABLE.resourceType(), VariablePermissions.class);
     }};
 
     // the rest

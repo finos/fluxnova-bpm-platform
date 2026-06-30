@@ -179,4 +179,16 @@
     <tagDatabase tag="2.0.0"/>
   </changeSet>
 
+  <changeSet author="Fluxnova" id="2.0-to-3.0">
+    <sqlFile path="upgrade/${db.name}_engine_2.0_to_3.0.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.0.0-tag">
+    <tagDatabase tag="3.0.0"/>
+  </changeSet>
+
 </databaseChangeLog>

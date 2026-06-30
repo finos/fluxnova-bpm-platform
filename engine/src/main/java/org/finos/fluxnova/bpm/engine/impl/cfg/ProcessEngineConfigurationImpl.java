@@ -214,13 +214,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.db.DbIdentityServiceProvider;
 import org.finos.fluxnova.bpm.engine.impl.incident.CompositeIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.DefaultIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.IncidentHandler;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContextFactory;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutorImpl;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.DelegateInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.ExceptionCodeInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.SessionFactory;
+import org.finos.fluxnova.bpm.engine.impl.interceptor.*;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.AsyncContinuationJobHandler;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultFailedJobCommandFactory;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultJobExecutor;
@@ -375,6 +369,8 @@ import org.finos.fluxnova.bpm.engine.impl.variable.serializer.StringValueSeriali
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializerFactory;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializers;
+import org.finos.fluxnova.bpm.engine.impl.variable.DefaultRestrictedVariableInterceptor;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptor;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinition;
 import org.finos.fluxnova.bpm.engine.repository.DecisionDefinition;
@@ -883,6 +879,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   protected List<CommandChecker> commandCheckers = null;
 
+  protected List<VariableInterceptor> variableInterceptors;
+
   protected List<String> adminGroups;
 
   protected List<String> adminUsers;
@@ -1023,6 +1021,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected String loggingContextTenantId = "tenantId";
   protected String loggingContextEngineName = "engineName";
   protected String loggingContextRootProcessInstanceId = "rootProcessInstanceId";
+
+  // custom MDC property providers
+  protected Map<String, MdcPropertyProvider> customMdcPropertyProviders = new HashMap<>();
 
   // logging levels (with default values)
   protected String logLevelBpmnStackTrace = "DEBUG";
@@ -1192,6 +1193,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initDiagnostics();
     initMigration();
     initCommandCheckers();
+    initVariableInterceptors();
     initDefaultUserPermissionForTask();
     initHistoryRemovalTime();
     initHistoryCleanup();
@@ -2732,6 +2734,13 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     }
   }
 
+  protected void initVariableInterceptors() {
+    if (variableInterceptors == null) {
+      variableInterceptors = new ArrayList<>();
+      variableInterceptors.add(new DefaultRestrictedVariableInterceptor());
+    }
+  }
+
   protected void initBeans() {
     if (beans == null) {
       beans = DEFAULT_BEANS_MAP;
@@ -2923,12 +2932,6 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   // getters and setters //////////////////////////////////////////////////////
-
-  @Override
-  public String getProcessEngineName() {
-    return processEngineName;
-  }
-
   public HistoryLevel getHistoryLevel() {
     return historyLevel;
   }
@@ -2950,8 +2953,42 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   @Override
+  public String getProcessEngineName() {
+    return processEngineName;
+  }
+
+
+  @Override
   public ProcessEngineConfigurationImpl setProcessEngineName(String processEngineName) {
     this.processEngineName = processEngineName;
+    return this;
+  }
+
+  public String getProcessEngineDisplayName() {
+    return processEngineDisplayName;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineDisplayName(String processEngineDisplayName) {
+    this.processEngineDisplayName = processEngineDisplayName;
+    return this;
+  }
+
+  public String getProcessEngineGroup() {
+    return processEngineGroup;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroup(String processEngineGroup) {
+    this.processEngineGroup = processEngineGroup;
+    return this;
+  }
+
+  public String getProcessEngineGroupDisplayName() {
+    return processEngineGroupDisplayName;
+  }
+
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroupDisplayName(String processEngineGroupDisplayName) {
+    this.processEngineGroupDisplayName = processEngineGroupDisplayName;
     return this;
   }
 
@@ -4775,6 +4812,14 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     this.commandCheckers = commandCheckers;
   }
 
+  public List<VariableInterceptor> getVariableInterceptors() {
+    return variableInterceptors;
+  }
+
+  public void setVariableInterceptors(List<VariableInterceptor> variableInterceptors) {
+    this.variableInterceptors = variableInterceptors;
+  }
+
   public ProcessEngineConfigurationImpl setUseSharedSqlSessionFactory(boolean isUseSharedSqlSessionFactory) {
     this.isUseSharedSqlSessionFactory = isUseSharedSqlSessionFactory;
     return this;
@@ -5273,6 +5318,26 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public ProcessEngineConfigurationImpl setLoggingContextRootProcessInstanceId(String loggingContextRootProcessInstanceId) {
     this.loggingContextRootProcessInstanceId = loggingContextRootProcessInstanceId;
+    return this;
+  }
+
+  public ProcessEngineConfigurationImpl addCustomMdcProperty(String propertyName, MdcPropertyProvider provider) {
+    if (propertyName == null || propertyName.trim().isEmpty()) {
+      throw new IllegalArgumentException("Property name cannot be null or empty");
+    }
+    if (provider == null) {
+      throw new IllegalArgumentException("Provider cannot be null");
+    }
+    customMdcPropertyProviders.put(propertyName, provider);
+    return this;
+  }
+
+  public Map<String, MdcPropertyProvider> getCustomMdcPropertyProviders() {
+    return Collections.unmodifiableMap(customMdcPropertyProviders);
+  }
+
+  public ProcessEngineConfigurationImpl clearCustomMdcProperties() {
+    customMdcPropertyProviders.clear();
     return this;
   }
 

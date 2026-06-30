@@ -44,8 +44,8 @@ import org.finos.fluxnova.bpm.engine.impl.util.xml.Element;
 public final class BpmnParseUtil {
 
   /**
-   * Returns the camunda extension element in the camunda namespace
-   * and the given name.
+   * Returns the extension element in the configured custom extension namespace
+   * aliases and the given name.
    *
     * @param element the parent element of the extension element
    * @param extensionElementName the name of the extension element to find
@@ -54,7 +54,11 @@ public final class BpmnParseUtil {
   public static Element findFluxnovaExtensionElement(Element element, String extensionElementName) {
     Element extensionElements = element.element("extensionElements");
     if(extensionElements != null) {
-      return extensionElements.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, extensionElementName);
+      Element extensionElement = extensionElements.elementNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, extensionElementName);
+      if (extensionElement == null) {
+        extensionElement = extensionElements.elementNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, extensionElementName);
+      }
+      return extensionElement;
     } else {
       return null;
     }
@@ -109,6 +113,19 @@ public final class BpmnParseUtil {
   }
 
   /**
+   * Extracts the restricted attribute from a BPMN element. The attribute is read from the Fluxnova
+   * extensions namespace first, falling back to the (legacy) Camunda namespace and finally to a
+   * non-namespaced attribute, for backwards compatibility with existing models.
+   */
+  public static boolean isRestricted(Element element) {
+    String restricted = element.attributeNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, "restricted");
+    if (restricted == null) {
+      restricted = element.attribute("restricted");
+    }
+    return restricted != null && Boolean.parseBoolean(restricted.trim());
+  }
+
+  /**
    * Parses a input parameter and adds it to the {@link IoMapping}.
    *
    * @param inputParameterElement the input parameter element
@@ -117,6 +134,7 @@ public final class BpmnParseUtil {
    */
   public static void parseInputParameterElement(Element inputParameterElement, IoMapping ioMapping) {
     String nameAttribute = inputParameterElement.attribute("name");
+    boolean isTransient = Boolean.parseBoolean(inputParameterElement.attributeNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "isTransient"));
     if(nameAttribute == null || nameAttribute.isEmpty()) {
       throw new BpmnParseException("Missing attribute 'name' for inputParameter", inputParameterElement);
     }
@@ -124,7 +142,8 @@ public final class BpmnParseUtil {
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(inputParameterElement);
 
     // add parameter
-    ioMapping.addInputParameter(new InputParameter(nameAttribute, valueProvider));
+    ioMapping.addInputParameter(
+        new InputParameter(nameAttribute, valueProvider, isTransient, isRestricted(inputParameterElement)));
   }
 
   /**
@@ -136,6 +155,7 @@ public final class BpmnParseUtil {
    */
   public static void parseOutputParameterElement(Element outputParameterElement, IoMapping ioMapping) {
     String nameAttribute = outputParameterElement.attribute("name");
+    boolean isTransient = Boolean.parseBoolean(outputParameterElement.attributeNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "isTransient"));
     if(nameAttribute == null || nameAttribute.isEmpty()) {
       throw new BpmnParseException("Missing attribute 'name' for outputParameter", outputParameterElement);
     }
@@ -143,7 +163,8 @@ public final class BpmnParseUtil {
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(outputParameterElement);
 
     // add parameter
-    ioMapping.addOutputParameter(new OutputParameter(nameAttribute, valueProvider));
+    ioMapping.addOutputParameter(
+        new OutputParameter(nameAttribute, valueProvider, isTransient, isRestricted(outputParameterElement)));
   }
 
   /**
@@ -242,7 +263,10 @@ public final class BpmnParseUtil {
   public static Map<String, String> parseFluxnovaExtensionProperties(Element element){
     Element propertiesElement = findFluxnovaExtensionElement(element, "properties");
     if(propertiesElement != null) {
-      List<Element> properties = propertiesElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "property");
+      List<Element> properties = propertiesElement.elementsNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, "property");
+      if (properties.isEmpty()) {
+        properties = propertiesElement.elementsNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "property");
+      }
       Map<String, String> propertiesMap = new HashMap<>();
       for (Element property : properties) {
         propertiesMap.put(property.attribute("name"), property.attribute("value"));
