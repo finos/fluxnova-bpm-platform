@@ -147,6 +147,7 @@
         <module>parent</module>
         <module>bom</module>
         <module>migrator</module>
+        <module>archetype</module>
       </modules>
     </profile>
 
