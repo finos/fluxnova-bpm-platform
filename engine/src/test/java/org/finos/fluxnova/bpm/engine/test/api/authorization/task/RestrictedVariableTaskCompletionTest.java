@@ -14,6 +14,7 @@ import static org.junit.Assert.fail;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
+import org.finos.fluxnova.bpm.engine.history.HistoricVariableInstance;
 import org.finos.fluxnova.bpm.engine.authorization.VariablePermissions;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
@@ -220,11 +221,13 @@ public class RestrictedVariableTaskCompletionTest extends AuthorizationTest {
     // then
     assertNull(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult());
 
-    Object historicValue = runWithoutAuthorization(() -> historyService.createHistoricVariableInstanceQuery()
-        .variableName(RESTRICTED_VARIABLE_NAME)
-        .singleResult()
-        .getValue());
-    assertEquals(RESTRICTED_VARIABLE_VALUE, historicValue);
+    HistoricVariableInstance historicVariable = runWithoutAuthorization(() ->
+        historyService.createHistoricVariableInstanceQuery()
+            .variableName(RESTRICTED_VARIABLE_NAME)
+            .singleResult());
+    assertEquals(RESTRICTED_VARIABLE_VALUE, historicVariable.getValue());
+    // a resubmit that dropped the restriction tag must not un-restrict the variable
+    assertTrue(historicVariable.isRestricted());
   }
 
   @Test

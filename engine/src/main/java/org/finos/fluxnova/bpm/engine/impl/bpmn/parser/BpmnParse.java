@@ -263,7 +263,8 @@ public class BpmnParse extends Parse {
   public static final String PROPERTYNAME_IS_MULTI_INSTANCE = "isMultiInstance";
 
   public static final Namespace CAMUNDA_BPMN_EXTENSIONS_NS = new Namespace(BpmnParser.CAMUNDA_BPMN_EXTENSIONS_NS, BpmnParser.ACTIVITI_BPMN_EXTENSIONS_NS);
-  public static final Namespace FLUXNOVA_BPMN_EXTENSIONS_NS = new Namespace(BpmnParser.FLUXNOVA_BPMN_EXTENSIONS_NS);
+  // Fluxnova extensions namespace, falling back to the legacy Camunda namespace for backwards compatibility
+  public static final Namespace FLUXNOVA_BPMN_EXTENSIONS_NS = new Namespace(BpmnParser.FLUXNOVA_BPMN_EXTENSIONS_NS, BpmnParser.CAMUNDA_BPMN_EXTENSIONS_NS);
   public static final Namespace XSI_NS = new Namespace(BpmnParser.XSI_NS);
   public static final Namespace BPMN_DI_NS = new Namespace(BpmnParser.BPMN_DI_NS);
   public static final Namespace OMG_DI_NS = new Namespace(BpmnParser.OMG_DI_NS);
@@ -4250,8 +4251,7 @@ public class BpmnParse extends Parse {
       }
       parameter.setTarget(target);
 
-      String restricted = parameterElement.attribute("restricted");
-      if (restricted != null && Boolean.parseBoolean(restricted.trim())) {
+      if (BpmnParseUtil.isRestricted(parameterElement)) {
         parameter.setRestricted(true);
       }
     }

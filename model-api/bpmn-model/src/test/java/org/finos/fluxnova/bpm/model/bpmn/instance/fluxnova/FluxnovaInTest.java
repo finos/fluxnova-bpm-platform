@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.FLUXNOVA_NS;
 
 /**
  * @author Sebastian Menski
@@ -44,7 +45,7 @@ public class FluxnovaInTest extends BpmnModelElementInstanceTest {
       new AttributeAssumption(CAMUNDA_NS, "target"),
       new AttributeAssumption(CAMUNDA_NS, "businessKey"),
       new AttributeAssumption(CAMUNDA_NS, "local"),
-      new AttributeAssumption(CAMUNDA_NS, "restricted")
+      new AttributeAssumption(FLUXNOVA_NS, "restricted")
     );
   }
 }

@@ -47,11 +47,6 @@ public class BpmnParser extends Parser {
   public static final String BPMN_20_SCHEMA_LOCATION = "org/finos/fluxnova/bpm/engine/impl/bpmn/parser/BPMN20.xsd";
 
   /**
-    * The namespace of the Fluxnova custom BPMN extensions.
-    */
-    public static final String FLUXNOVA_BPMN_EXTENSIONS_NS = "http://fluxnova.finos.org/schema/1.0/bpmn";
-
-    /**
    * The namespace of the camunda custom BPMN extensions.
    */
   public static final String CAMUNDA_BPMN_EXTENSIONS_NS = "http://camunda.org/schema/1.0/bpmn";
@@ -62,6 +57,11 @@ public class BpmnParser extends Parser {
    */
   @Deprecated
   public static final String ACTIVITI_BPMN_EXTENSIONS_NS = "http://activiti.org/bpmn";
+
+  /**
+   * The namespace of the Fluxnova custom BPMN extensions.
+   */
+  public static final String FLUXNOVA_BPMN_EXTENSIONS_NS = "http://fluxnova.finos.org/schema/1.0/bpmn";
 
   /**
    * The namepace of the BPMN 2.0 diagram interchange elements.

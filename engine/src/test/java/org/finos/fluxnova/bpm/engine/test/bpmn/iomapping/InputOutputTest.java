@@ -1339,4 +1339,35 @@ public class InputOutputTest extends PluggableProcessEngineTest {
     assertThat(variableInstance).isNull();
   }
 
+  @Deployment
+  @Test
+  public void testRestrictedInputParameter() {
+    // given a process definition with an input mapping that creates a restricted local variable
+    // on the "task" execution, using the fluxnova:restricted attribute
+
+    // when
+    runtimeService.startProcessInstanceByKey("testInputRestrictedFeature");
+
+    // then the variable is persisted and flagged as restricted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("restrictedVar").singleResult();
+    assertNotNull(variableInstance);
+    assertEquals("mappedValue", variableInstance.getValue());
+    assertTrue(variableInstance.isRestricted());
+  }
+
+  @Deployment
+  @Test
+  public void testRestrictedOutputParameter() {
+    // given a process definition with an output mapping that writes a restricted variable to the
+    // process instance, using the fluxnova:restricted attribute
+
+    // when
+    runtimeService.startProcessInstanceByKey("testOutputRestrictedFeature");
+
+    // then the variable is persisted and flagged as restricted
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("restrictedVar").singleResult();
+    assertNotNull(variableInstance);
+    assertTrue(variableInstance.isRestricted());
+  }
+
 }

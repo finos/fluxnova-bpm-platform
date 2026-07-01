@@ -20,6 +20,7 @@ import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_RESTRICTED;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ELEMENT_INPUT_PARAMETER;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.FLUXNOVA_NS;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_IS_TRANSIENT;
 
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaInputParameter;
@@ -37,7 +38,7 @@ import org.finos.fluxnova.bpm.model.xml.type.attribute.Attribute;
 public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl implements FluxnovaInputParameter {
 
   protected static Attribute<String> camundaNameAttribute;
-  protected static Attribute<Boolean> camundaRestrictedAttribute;
+  protected static Attribute<Boolean> fluxnovaRestrictedAttribute;
 
   protected static Attribute<Boolean> camundaInputTransientAttribute;
 
@@ -55,8 +56,8 @@ public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl 
       .required()
       .build();
 
-    camundaRestrictedAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_RESTRICTED)
-      .namespace(CAMUNDA_NS)
+    fluxnovaRestrictedAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_RESTRICTED)
+      .namespace(FLUXNOVA_NS)
       .build();
 
     camundaInputTransientAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_IS_TRANSIENT)
@@ -80,11 +81,11 @@ public class FluxnovaInputParameterImpl extends FluxnovaGenericValueElementImpl 
   }
 
   public boolean getFluxnovaRestricted() {
-    return camundaRestrictedAttribute.getValue(this);
+    return fluxnovaRestrictedAttribute.getValue(this);
   }
 
-  public void setFluxnovaRestricted(boolean camundaRestricted) {
-    camundaRestrictedAttribute.setValue(this, camundaRestricted);
+  public void setFluxnovaRestricted(boolean fluxnovaRestricted) {
+    fluxnovaRestrictedAttribute.setValue(this, fluxnovaRestricted);
   }
 
   public boolean isFluxnovaInputTransient() {

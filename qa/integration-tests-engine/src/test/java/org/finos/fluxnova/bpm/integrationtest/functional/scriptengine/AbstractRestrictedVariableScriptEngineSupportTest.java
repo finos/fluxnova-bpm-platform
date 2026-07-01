@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
@@ -105,5 +106,30 @@ public abstract class AbstractRestrictedVariableScriptEngineSupportTest extends 
     assertNotNull(variableInstance);
     assertEquals(OVERWRITTEN_VALUE, variableInstance.getValue());
     assertFalse(variableInstance.isRestricted());
+  }
+
+  @Test
+  public void shouldPreserveRestrictionWhenResubmittingUnchangedValueAsPlainValue() {
+    String processInstanceId = runtimeService.startProcessInstanceByKey(CREATE_PROCESS_ID).getId();
+
+    // the script created a restricted variable
+    assertTrue(runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult()
+        .isRestricted());
+
+    // re-submit the unchanged value as a non-restricted (plain) typed value, as a task form would.
+    // The restriction must be preserved rather than silently dropped.
+    runtimeService.setVariable(processInstanceId, RESTRICTED_VAR, Variables.stringValue(SECRET_VALUE));
+
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult();
+
+    assertNotNull(variableInstance);
+    assertEquals(SECRET_VALUE, variableInstance.getValue());
+    assertTrue(variableInstance.isRestricted());
   }
 }
