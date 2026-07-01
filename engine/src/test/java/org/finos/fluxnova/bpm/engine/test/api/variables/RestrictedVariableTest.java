@@ -173,5 +173,22 @@ public class RestrictedVariableTest extends PluggableProcessEngineTest {
     assertTrue(variableInstance.isRestricted());
   }
 
+  @Test
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
+  public void testUpdateRestrictedWithSameValuePreservesRestriction() {
+    String processInstanceId = runtimeService.startProcessInstanceByKey("oneTaskProcess").getId();
+
+    runtimeService.setVariable(processInstanceId, "var", Variables.stringValue("v1", VariableOptions.options(false, true)));
+    assertTrue(runtimeService.createVariableInstanceQuery().variableName("var").singleResult().isRestricted());
+
+    // Re-submit the unchanged value as a non-restricted typed value, as a task form / REST submit would
+    // (same value and type, restricted flag dropped). The restriction must be preserved, not lost.
+    runtimeService.setVariable(processInstanceId, "var", Variables.stringValue("v1"));
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("var").singleResult();
+
+    assertTrue(variableInstance.isRestricted());
+    assertEquals("v1", variableInstance.getValue());
+  }
+
 }
 

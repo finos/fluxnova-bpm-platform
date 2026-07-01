@@ -23,6 +23,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.FLUXNOVA_NS;
 import static org.junit.Assert.fail;
 
 /**
@@ -41,7 +42,7 @@ public class FluxnovaOutputParameterTest extends BpmnModelElementInstanceTest {
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
       new AttributeAssumption(CAMUNDA_NS, "name", false, true),
-      new AttributeAssumption(CAMUNDA_NS, "restricted"),
+      new AttributeAssumption(FLUXNOVA_NS, "restricted"),
       new AttributeAssumption(CAMUNDA_NS, "isTransient", false, false, false)
     );
   }

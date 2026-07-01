@@ -50,9 +50,14 @@ public abstract class IoParameter {
   }
 
   public IoParameter(String name, ParameterValueProvider valueProvider, boolean isTransient) {
+    this(name, valueProvider, isTransient, false);
+  }
+
+  public IoParameter(String name, ParameterValueProvider valueProvider, boolean isTransient, boolean restricted) {
     this.name = name;
     this.valueProvider = valueProvider;
     this.isTransient = isTransient;
+    this.restricted = restricted;
   }
 
   /**
