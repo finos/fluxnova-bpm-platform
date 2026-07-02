@@ -3403,6 +3403,17 @@ public class BpmnParse extends Parse {
     }
   }
 
+  protected ActivityImpl getAdHocSubProcessScope(ActivityImpl activity) {
+    ScopeImpl flowScope = activity.getFlowScope();
+    if (flowScope instanceof ActivityImpl) {
+      ActivityImpl flowScopeActivity = (ActivityImpl) flowScope;
+      if (ActivityTypes.SUB_PROCESS_AD_HOC.equals(flowScopeActivity.getProperty(BpmnProperties.TYPE.getName()))) {
+        return flowScopeActivity;
+      }
+    }
+    return null;
+  }
+
   /**
    * Parses a boundary timer event. The end-result will be that the given nested
    * activity will get the appropriate {@link ActivityBehavior}.
@@ -4878,17 +4889,21 @@ public class BpmnParse extends Parse {
 
           activity.setIoMapping(inputOutput);
 
-          if (getMultiInstanceScope(activity) == null) {
+          if (getMultiInstanceScope(activity) == null && getAdHocSubProcessScope(activity) == null) {
             // turn activity into a scope (->local, isolated scope for
-            // variables) unless it is a multi instance activity, in that case
-            // this
-            // is not necessary because:
+            // variables) unless it is a multi instance activity or a direct
+            // child of an ad hoc subprocess, in that case this is not necessary
+            // because:
             // A scope is already created for the multi instance body which
             // isolates the local variables from other executions in the same
             // scope, and
             // * parallel: the individual concurrent executions are isolated
             // even if they are not scope themselves
             // * sequential: after each iteration local variables are purged
+            // For an ad hoc subprocess the subprocess scope execution provides
+            // variable isolation, and output-parameter values written by child
+            // tasks must propagate to the subprocess scope (e.g. to satisfy a
+            // completionCondition).
             activity.setScope(true);
           }
         }
