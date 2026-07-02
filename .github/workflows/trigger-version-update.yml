@@ -1,0 +1,39 @@
+name: "Trigger Version Update in fluxnova-examples"
+
+# Dispatches a repository_dispatch event to finos/fluxnova-examples.
+# Run manually via Actions UI (workflow_dispatch)
+# Todo: connect this workflow to at the end of release.yml to automatically call this workflow after a release is published
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version to push to fluxnova-examples (e.g. 1.0.0)"
+        required: true
+        default: "2.1.5"
+
+  workflow_call:
+    inputs:
+      version:
+        description: "Release version passed in from the calling workflow"
+        required: true
+        type: string
+
+jobs:
+  trigger-version-update:
+    name: Trigger Example Repository Workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Example Repository Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/finos/fluxnova-examples/dispatches \
+            -d '{
+              "event_type": "update-version",
+              "client_payload": {
+                "version": "${{ inputs.version }}"
+              }
+            }'
