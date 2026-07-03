@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Batch — mirrors MockProvider EXAMPLE_BATCH_* constants
+# Batch - mirrors MockProvider EXAMPLE_BATCH_* constants
 id: aBatchId
 type: aBatchType
 total_jobs: 10

@@ -168,7 +168,7 @@ def _merge_mapping_list(node: CommentedMap, key: str, new_values: list[str]) -> 
     """Merge *new_values* into ``node[key]`` (a YAML sequence).
 
     Emits a block-style (indented, one-item-per-line) sequence to match the
-    surrounding schema convention. Returns True if the node was modified — this
+    surrounding schema convention. Returns True if the node was modified - this
     includes the case where the content is unchanged but the existing node is
     flow-styled (``[a, b]``), so legacy inline lists get reflowed to block.
     """
@@ -263,7 +263,7 @@ def _build_name_index(
     - ``related_mappings``: the subject CURIE ``P:X`` and all mapped objects.
 
     Only ``related_mappings`` is used (regardless of the original SKOS predicate
-    type) because name-based matching is a weak signal — the fluxnova element
+    type) because name-based matching is a weak signal - the fluxnova element
     having the same local name as an ecosystem element does not imply the same
     semantic strength as the original ecosystem-to-ecosystem mapping.
     """
@@ -401,7 +401,7 @@ def patch_schema(
     # Post-process the serialized lines:
     #  - rstrip trailing whitespace (ruamel can leave a trailing space where it
     #    wraps a long plain scalar; cosmetic, but yamllint's trailing-spaces
-    #    rule flags it — also cleans any pre-existing trailing whitespace);
+    #    rule flags it - also cleans any pre-existing trailing whitespace);
     #  - drop blank line(s) immediately before a ``*_mappings:`` key so the
     #    injected mapping block hugs its element.
     out_lines: list[str] = []
@@ -470,7 +470,7 @@ def main(argv: list[str] | None = None) -> int:
     index, curie_registry = load_sssom_files(args.mappings_dir)
 
     if not index:
-        print("  No SSSOM rows found — nothing to apply.")
+        print("  No SSSOM rows found - nothing to apply.")
         return 0
 
     covered_prefixes = sorted(index.keys())

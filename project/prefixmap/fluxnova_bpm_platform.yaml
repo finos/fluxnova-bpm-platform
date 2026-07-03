@@ -51,6 +51,9 @@
    "Agent": {
       "@id": "fluxnova_bpm_provenance:Agent"
    },
+   "AgentLoopRun": {
+      "@id": "fluxnova_bpm_ai_provenance:AgentLoopRun"
+   },
    "AiAgent": {
       "@id": "fluxnova_bpm_ai_provenance:AiAgent"
    },
@@ -62,6 +65,9 @@
    },
    "AiModelInvocation": {
       "@id": "fluxnova_bpm_ai_provenance:AiModelInvocation"
+   },
+   "AiToolDefinition": {
+      "@id": "fluxnova_bpm_ai_provenance:AiToolDefinition"
    },
    "Artifact": {
       "@id": "fluxnova_bpmn_model_instance:Artifact"

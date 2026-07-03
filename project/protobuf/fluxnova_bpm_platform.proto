@@ -52,6 +52,44 @@ message Agent
   string email = 0
  repeated  string role = 0
  }
+// One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+// Owns the ordered sequence of AiModelInvocation turns performed during the
+// loop, together with the tools advertised to the model. Each turn is a
+// single model call; tool calls made in a turn may materialize child step
+// runs. Inherits status, timestamps, parent workflow run, sequence number,
+// and incident linkage from StepRun.
+// 
+// Use this as the parent record for an agentic subprocess: the loop is a
+// single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+// implementation_kind AGENT_LOOP, and each individual model call is a child
+// AiModelInvocation with a turn_index.
+message AgentLoopRun
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  workflowRun workflowRun = 0
+  stepDefinition stepDefinition = 0
+  string activityInstanceId = 0
+  stepRun parentStepRun = 0
+ repeated  stepRun informedBy = 0
+  runStatus status = 0
+  datetime startedAt = 0
+  datetime endedAt = 0
+  agent executedBy = 0
+  environment environment = 0
+  executionResource executionResource = 0
+ repeated  parameterValue inputValues = 0
+ repeated  parameterValue outputValues = 0
+ repeated  workflowArtifact consumedArtifacts = 0
+ repeated  workflowArtifact producedArtifacts = 0
+  string incidentMessage = 0
+  integer retries = 0
+  integer sequenceNo = 0
+  aiAgent invokedModel = 0
+ repeated  aiToolDefinition availableTools = 0
+ repeated  aiModelInvocation modelInvocations = 0
+ }
 // Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova
 // workflow. Concrete embodiment of one or more AI models exposed through a
 // provider endpoint. Distinct from the human, organizational, or system Agent
@@ -121,6 +159,10 @@ message AiModelDescriptor
 // consumption telemetry (token counts, cost), any safety flags raised, and
 // any evaluation results attached. Inherits status, timestamps, parent
 // workflow run, sequence number, and incident linkage from StepRun.
+// 
+// A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+// TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+// AgentLoopRun via parent_agent_loop and carries a turn_index.
 message AiModelInvocation
  {
   string id = 0
@@ -146,6 +188,8 @@ message AiModelInvocation
   integer sequenceNo = 0
   aiAgent invokedModel = 0
   aiInvocationKind invocationKind = 0
+  agentLoopRun parentAgentLoop = 0
+  integer turnIndex = 0
  repeated  promptMessage promptMessages = 0
  repeated  toolCall toolCalls = 0
   promptMessage responseMessage = 0
@@ -157,6 +201,22 @@ message AiModelInvocation
   decimal costUsd = 0
  repeated  safetyFlag safetyFlags = 0
  repeated  evaluationResult evaluationResults = 0
+ }
+// Prospective definition of a tool advertised to an AI agent. Corresponds to
+// a child activity of an ad-hoc agent subprocess that is exposed to the model
+// as a callable function. Captures the tool description and the process
+// variables the tool reads and writes, and links to the backing step
+// definition. Distinct from ToolCall, which records a concrete invocation of
+// such a tool during a run.
+message AiToolDefinition
+ {
+  string id = 0
+  string name = 0
+  string externalRef = 0
+  string toolDescription = 0
+ repeated  string readsVariables = 0
+ repeated  string writesVariables = 0
+  stepDefinition backingStepDefinition = 0
  }
 // The BPMN artifact element
 message Artifact
@@ -3526,6 +3586,7 @@ message ToolCall
   string externalRef = 0
   string toolName = 0
   string toolCallId = 0
+  aiToolDefinition toolDefinition = 0
   string argumentsJson = 0
   string resultJson = 0
   workflowArtifact resultArtifact = 0

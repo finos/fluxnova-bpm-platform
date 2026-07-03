@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# ExternalTask — mirrors MockProvider EXTERNAL_TASK_* constants
+# ExternalTask - mirrors MockProvider EXTERNAL_TASK_* constants
 id: anExternalTaskId
 worker_id: aWorkerId
 topic_name: aTopic

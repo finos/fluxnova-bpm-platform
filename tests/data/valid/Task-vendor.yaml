@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java (engine-rest test fixtures)
-# Task entity — mirrors MockProvider EXAMPLE_TASK_* constants
+# Task entity - mirrors MockProvider EXAMPLE_TASK_* constants
 id: anId
 execution_id: anExecution
 process_instance_id: aProcInstId

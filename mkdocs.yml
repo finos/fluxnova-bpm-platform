@@ -70,6 +70,9 @@ nav:
   - About:
     - Solution design: about.md
     - Provenance design: elements/provenance/README.md
+  - Proposals:
+    - AI provenance overlay: proposals/finos-ai-provenance-overlay-proposal.md
+    - Agentic subprocess follow-up: proposals/ai-provenance-agentic-subprocess-followup.md
 
 exclude_docs: |
   /templates-linkml/

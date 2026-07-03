@@ -1,5 +1,5 @@
 # Auto generated from fluxnova_bpm_platform.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-06-12T11:25:11
+# Generation date: 2026-07-03T14:17:21
 # Schema: fluxnova_bpm_platform
 #
 # id: https://w3id.org/lmodel/fluxnova-bpm-platform
@@ -945,6 +945,14 @@ class AiAgentId(AgentId):
 
 
 class AiModelDescriptorId(RuntimeComponentId):
+    pass
+
+
+class AiToolDefinitionId(NamedThingId):
+    pass
+
+
+class AgentLoopRunId(StepRunId):
     pass
 
 
@@ -11405,6 +11413,95 @@ class AiModelDescriptor(RuntimeComponent):
 
 
 @dataclass(repr=False)
+class AiToolDefinition(NamedThing):
+    """
+    Prospective definition of a tool advertised to an AI agent. Corresponds to
+    a child activity of an ad-hoc agent subprocess that is exposed to the model
+    as a callable function. Captures the tool description and the process
+    variables the tool reads and writes, and links to the backing step
+    definition. Distinct from ToolCall, which records a concrete invocation of
+    such a tool during a run.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AiToolDefinition"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AiToolDefinition"
+    class_name: ClassVar[str] = "AiToolDefinition"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AiToolDefinition
+
+    id: Union[str, AiToolDefinitionId] = None
+    tool_description: Optional[str] = None
+    reads_variables: Optional[Union[str, list[str]]] = empty_list()
+    writes_variables: Optional[Union[str, list[str]]] = empty_list()
+    backing_step_definition: Optional[Union[str, StepDefinitionId]] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AiToolDefinitionId):
+            self.id = AiToolDefinitionId(self.id)
+
+        if self.tool_description is not None and not isinstance(self.tool_description, str):
+            self.tool_description = str(self.tool_description)
+
+        if not isinstance(self.reads_variables, list):
+            self.reads_variables = [self.reads_variables] if self.reads_variables is not None else []
+        self.reads_variables = [v if isinstance(v, str) else str(v) for v in self.reads_variables]
+
+        if not isinstance(self.writes_variables, list):
+            self.writes_variables = [self.writes_variables] if self.writes_variables is not None else []
+        self.writes_variables = [v if isinstance(v, str) else str(v) for v in self.writes_variables]
+
+        if self.backing_step_definition is not None and not isinstance(self.backing_step_definition, StepDefinitionId):
+            self.backing_step_definition = StepDefinitionId(self.backing_step_definition)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class AgentLoopRun(StepRun):
+    """
+    One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+    Owns the ordered sequence of AiModelInvocation turns performed during the
+    loop, together with the tools advertised to the model. Each turn is a
+    single model call; tool calls made in a turn may materialize child step
+    runs. Inherits status, timestamps, parent workflow run, sequence number,
+    and incident linkage from StepRun.
+
+    Use this as the parent record for an agentic subprocess: the loop is a
+    single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+    implementation_kind AGENT_LOOP, and each individual model call is a child
+    AiModelInvocation with a turn_index.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = FLUXNOVA_BPM_AI_PROVENANCE["AgentLoopRun"]
+    class_class_curie: ClassVar[str] = "fluxnova_bpm_ai_provenance:AgentLoopRun"
+    class_name: ClassVar[str] = "AgentLoopRun"
+    class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.AgentLoopRun
+
+    id: Union[str, AgentLoopRunId] = None
+    invoked_model: Optional[Union[str, AiAgentId]] = None
+    available_tools: Optional[Union[dict[Union[str, AiToolDefinitionId], Union[dict, AiToolDefinition]], list[Union[dict, AiToolDefinition]]]] = empty_dict()
+    model_invocations: Optional[Union[dict[Union[str, AiModelInvocationId], Union[dict, "AiModelInvocation"]], list[Union[dict, "AiModelInvocation"]]]] = empty_dict()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, AgentLoopRunId):
+            self.id = AgentLoopRunId(self.id)
+
+        if self.invoked_model is not None and not isinstance(self.invoked_model, AiAgentId):
+            self.invoked_model = AiAgentId(self.invoked_model)
+
+        self._normalize_inlined_as_list(slot_name="available_tools", slot_type=AiToolDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="model_invocations", slot_type=AiModelInvocation, key_name="id", keyed=True)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
 class AiModelInvocation(StepRun):
     """
     One concrete invocation of an AI model from a workflow step. Captures the
@@ -11412,6 +11509,10 @@ class AiModelInvocation(StepRun):
     consumption telemetry (token counts, cost), any safety flags raised, and
     any evaluation results attached. Inherits status, timestamps, parent
     workflow run, sequence number, and incident linkage from StepRun.
+
+    A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+    TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+    AgentLoopRun via parent_agent_loop and carries a turn_index.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -11423,6 +11524,8 @@ class AiModelInvocation(StepRun):
     id: Union[str, AiModelInvocationId] = None
     invoked_model: Optional[Union[str, AiAgentId]] = None
     invocation_kind: Optional[Union[str, "AiInvocationKind"]] = None
+    parent_agent_loop: Optional[Union[str, AgentLoopRunId]] = None
+    turn_index: Optional[int] = None
     prompt_messages: Optional[Union[dict[Union[str, PromptMessageId], Union[dict, "PromptMessage"]], list[Union[dict, "PromptMessage"]]]] = empty_dict()
     tool_calls: Optional[Union[dict[Union[str, ToolCallId], Union[dict, "ToolCall"]], list[Union[dict, "ToolCall"]]]] = empty_dict()
     response_message: Optional[Union[dict, "PromptMessage"]] = None
@@ -11446,6 +11549,12 @@ class AiModelInvocation(StepRun):
 
         if self.invocation_kind is not None and not isinstance(self.invocation_kind, AiInvocationKind):
             self.invocation_kind = AiInvocationKind(self.invocation_kind)
+
+        if self.parent_agent_loop is not None and not isinstance(self.parent_agent_loop, AgentLoopRunId):
+            self.parent_agent_loop = AgentLoopRunId(self.parent_agent_loop)
+
+        if self.turn_index is not None and not isinstance(self.turn_index, int):
+            self.turn_index = int(self.turn_index)
 
         self._normalize_inlined_as_list(slot_name="prompt_messages", slot_type=PromptMessage, key_name="id", keyed=True)
 
@@ -11552,6 +11661,7 @@ class ToolCall(NamedThing):
     id: Union[str, ToolCallId] = None
     tool_name: Optional[str] = None
     tool_call_id: Optional[str] = None
+    tool_definition: Optional[Union[str, AiToolDefinitionId]] = None
     arguments_json: Optional[str] = None
     result_json: Optional[str] = None
     result_artifact: Optional[Union[str, WorkflowArtifactId]] = None
@@ -11572,6 +11682,9 @@ class ToolCall(NamedThing):
 
         if self.tool_call_id is not None and not isinstance(self.tool_call_id, str):
             self.tool_call_id = str(self.tool_call_id)
+
+        if self.tool_definition is not None and not isinstance(self.tool_definition, AiToolDefinitionId):
+            self.tool_definition = AiToolDefinitionId(self.tool_definition)
 
         if self.arguments_json is not None and not isinstance(self.arguments_json, str):
             self.arguments_json = str(self.arguments_json)
@@ -12132,6 +12245,11 @@ class ImplementationKind(EnumDefinitionImpl):
     SUBPROCESS = PermissibleValue(
         text="SUBPROCESS",
         description="Embedded subprocess.")
+    AGENT_LOOP = PermissibleValue(
+        text="AGENT_LOOP",
+        description="""Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step
+repeatedly calls an AI model and dispatches model-requested tool
+activities until the model returns a terminal response.""")
 
     _defn = EnumDefinition(
         name="ImplementationKind",
@@ -12209,6 +12327,11 @@ class BPMNElementType(EnumDefinitionImpl):
     SUB_PROCESS = PermissibleValue(
         text="SUB_PROCESS",
         description="Sub-process.")
+    AD_HOC_SUB_PROCESS = PermissibleValue(
+        text="AD_HOC_SUB_PROCESS",
+        description="""Ad-hoc sub-process: an unordered collection of activities executed on
+demand. Used as the scope for an autonomous AI agent loop, where child
+activities are advertised to the model as callable tools.""")
     EXCLUSIVE_GATEWAY = PermissibleValue(
         text="EXCLUSIVE_GATEWAY",
         description="Exclusive (XOR) gateway.")
@@ -14443,6 +14566,18 @@ slots.invoked_model = Slot(uri=PROV.wasAssociatedWith, name="invoked_model", cur
 slots.invocation_kind = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.invocation_kind, name="invocation_kind", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('invocation_kind'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.invocation_kind, domain=None, range=Optional[Union[str, "AiInvocationKind"]])
 
+slots.parent_agent_loop = Slot(uri=PROV.wasInformedBy, name="parent_agent_loop", curie=PROV.curie('wasInformedBy'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.parent_agent_loop, domain=None, range=Optional[Union[str, AgentLoopRunId]])
+
+slots.turn_index = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.turn_index, name="turn_index", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('turn_index'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.turn_index, domain=None, range=Optional[int])
+
+slots.model_invocations = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.model_invocations, name="model_invocations", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('model_invocations'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.model_invocations, domain=None, range=Optional[Union[dict[Union[str, AiModelInvocationId], Union[dict, AiModelInvocation]], list[Union[dict, AiModelInvocation]]]])
+
+slots.available_tools = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.available_tools, name="available_tools", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('available_tools'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.available_tools, domain=None, range=Optional[Union[dict[Union[str, AiToolDefinitionId], Union[dict, AiToolDefinition]], list[Union[dict, AiToolDefinition]]]])
+
 slots.prompt_messages = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.prompt_messages, name="prompt_messages", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('prompt_messages'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.prompt_messages, domain=None, range=Optional[Union[dict[Union[str, PromptMessageId], Union[dict, PromptMessage]], list[Union[dict, PromptMessage]]]])
 
@@ -14490,6 +14625,21 @@ slots.parent_invocation = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.parent_invocation,
 
 slots.tool_name = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_name, name="tool_name", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.tool_name, domain=None, range=Optional[str])
+
+slots.tool_definition = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_definition, name="tool_definition", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_definition'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tool_definition, domain=None, range=Optional[Union[str, AiToolDefinitionId]])
+
+slots.tool_description = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_description, name="tool_description", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_description'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tool_description, domain=None, range=Optional[str])
+
+slots.reads_variables = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.reads_variables, name="reads_variables", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('reads_variables'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.reads_variables, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.writes_variables = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.writes_variables, name="writes_variables", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('writes_variables'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.writes_variables, domain=None, range=Optional[Union[str, list[str]]])
+
+slots.backing_step_definition = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.backing_step_definition, name="backing_step_definition", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('backing_step_definition'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.backing_step_definition, domain=None, range=Optional[Union[str, StepDefinitionId]])
 
 slots.tool_call_id = Slot(uri=FLUXNOVA_BPM_AI_PROVENANCE.tool_call_id, name="tool_call_id", curie=FLUXNOVA_BPM_AI_PROVENANCE.curie('tool_call_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.tool_call_id, domain=None, range=Optional[str])

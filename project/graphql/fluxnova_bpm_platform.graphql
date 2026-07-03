@@ -77,6 +77,7 @@ enum BPMNElementType
     MANUAL_TASK
     CALL_ACTIVITY
     SUB_PROCESS
+    AD_HOC_SUB_PROCESS
     EXCLUSIVE_GATEWAY
     PARALLEL_GATEWAY
     EVENT_BASED_GATEWAY
@@ -162,6 +163,7 @@ enum ImplementationKind
     EVENT
     GATEWAY
     SUBPROCESS
+    AGENT_LOOP
   }
 
 enum IncidentState
@@ -357,6 +359,34 @@ type Agent
     role: [String]
   }
 
+type AgentLoopRun
+  {
+    id: String!
+    name: String
+    externalRef: String
+    workflowRun: WorkflowRun
+    stepDefinition: StepDefinition
+    activityInstanceId: String
+    parentStepRun: StepRun
+    informedBy: [StepRun]
+    status: RunStatus
+    startedAt: String
+    endedAt: String
+    executedBy: Agent
+    environment: Environment
+    executionResource: ExecutionResource
+    inputValues: [ParameterValue]
+    outputValues: [ParameterValue]
+    consumedArtifacts: [WorkflowArtifact]
+    producedArtifacts: [WorkflowArtifact]
+    incidentMessage: String
+    retries: Int
+    sequenceNo: Int
+    invokedModel: AiAgent
+    availableTools: [AiToolDefinition]
+    modelInvocations: [AiModelInvocation]
+  }
+
 type AiAgent
   {
     id: String!
@@ -437,6 +467,8 @@ type AiModelInvocation
     sequenceNo: Int
     invokedModel: AiAgent
     invocationKind: AiInvocationKind
+    parentAgentLoop: AgentLoopRun
+    turnIndex: Int
     promptMessages: [PromptMessage]
     toolCalls: [ToolCall]
     responseMessage: PromptMessage
@@ -448,6 +480,17 @@ type AiModelInvocation
     costUsd: Float
     safetyFlags: [SafetyFlag]
     evaluationResults: [EvaluationResult]
+  }
+
+type AiToolDefinition
+  {
+    id: String!
+    name: String
+    externalRef: String
+    toolDescription: String
+    readsVariables: [String]
+    writesVariables: [String]
+    backingStepDefinition: StepDefinition
   }
 
 type Artifact
@@ -3844,6 +3887,7 @@ type ToolCall
     externalRef: String
     toolName: String
     toolCallId: String
+    toolDefinition: AiToolDefinition
     argumentsJson: String
     resultJson: String
     resultArtifact: WorkflowArtifact

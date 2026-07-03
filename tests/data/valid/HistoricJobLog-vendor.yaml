@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricJobLog — mirrors MockProvider EXAMPLE_HISTORIC_JOB_LOG_* constants
+# HistoricJobLog - mirrors MockProvider EXAMPLE_HISTORIC_JOB_LOG_* constants
 id: aHistoricJobLogId
 timestamp: "2015-01-01T00:00:00+00:00"
 removal_time: "2018-01-01T00:00:00+00:00"

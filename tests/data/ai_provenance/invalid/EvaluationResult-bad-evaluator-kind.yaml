@@ -1,4 +1,4 @@
-# Invalid AI provenance — evaluator_kind is not in EvaluatorKind enum.
+# Invalid AI provenance - evaluator_kind is not in EvaluatorKind enum.
 id: eval-bad-evaluator
 evaluator_name: coin-flip-judge
 evaluator_kind: COIN_FLIP

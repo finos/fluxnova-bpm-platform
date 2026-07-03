@@ -1,4 +1,4 @@
-"""DDL coverage tests — cross-validates LinkML schema against SQL DDL.
+"""DDL coverage tests - cross-validates LinkML schema against SQL DDL.
 
 Ensures every mapped SQL table/column is represented in the schema,
 and that vendor-supplied test data (from MockProvider.java) exercises

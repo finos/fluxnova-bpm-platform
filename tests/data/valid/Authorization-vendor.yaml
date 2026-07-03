@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Authorization — mirrors MockProvider EXAMPLE_AUTHORIZATION_* constants
+# Authorization - mirrors MockProvider EXAMPLE_AUTHORIZATION_* constants
 id: someAuthorizationId
 type: GLOBAL
 user_id: aUserId

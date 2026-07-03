@@ -192,6 +192,8 @@ export type BpmnShapeId = string;
 export type FluxnovaErrorEventDefinitionId = string;
 export type AiAgentId = string;
 export type AiModelDescriptorId = string;
+export type AiToolDefinitionId = string;
+export type AgentLoopRunId = string;
 export type AiModelInvocationId = string;
 export type PromptMessageId = string;
 export type ToolCallId = string;
@@ -682,6 +684,10 @@ export enum ImplementationKind {
     GATEWAY = "GATEWAY",
     /** Embedded subprocess. */
     SUBPROCESS = "SUBPROCESS",
+    /** Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step
+repeatedly calls an AI model and dispatches model-requested tool
+activities until the model returns a terminal response. */
+    AGENT_LOOP = "AGENT_LOOP",
 };
 /**
 * Kind of execution resource.
@@ -732,6 +738,10 @@ export enum BPMNElementType {
     CALL_ACTIVITY = "CALL_ACTIVITY",
     /** Sub-process. */
     SUB_PROCESS = "SUB_PROCESS",
+    /** Ad-hoc sub-process: an unordered collection of activities executed on
+demand. Used as the scope for an autonomous AI agent loop, where child
+activities are advertised to the model as callable tools. */
+    AD_HOC_SUB_PROCESS = "AD_HOC_SUB_PROCESS",
     /** Exclusive (XOR) gateway. */
     EXCLUSIVE_GATEWAY = "EXCLUSIVE_GATEWAY",
     /** Parallel (AND) gateway. */
@@ -4594,17 +4604,69 @@ export interface AiModelDescriptor extends RuntimeComponent {
 
 
 /**
+ * Prospective definition of a tool advertised to an AI agent. Corresponds to
+a child activity of an ad-hoc agent subprocess that is exposed to the model
+as a callable function. Captures the tool description and the process
+variables the tool reads and writes, and links to the backing step
+definition. Distinct from ToolCall, which records a concrete invocation of
+such a tool during a run.
+ */
+export interface AiToolDefinition extends NamedThing {
+    /** Human- or model-facing description of what the tool does. */
+    tool_description?: string,
+    /** Process variables the tool reads as input. */
+    reads_variables?: string[],
+    /** Process variables the tool writes as output. */
+    writes_variables?: string[],
+    /** Step definition (typically a child service task of the ad-hoc agent
+subprocess) that implements the tool. */
+    backing_step_definition?: StepDefinitionId,
+}
+
+
+/**
+ * One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+Owns the ordered sequence of AiModelInvocation turns performed during the
+loop, together with the tools advertised to the model. Each turn is a
+single model call; tool calls made in a turn may materialize child step
+runs. Inherits status, timestamps, parent workflow run, sequence number,
+and incident linkage from StepRun.
+
+Use this as the parent record for an agentic subprocess: the loop is a
+single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+implementation_kind AGENT_LOOP, and each individual model call is a child
+AiModelInvocation with a turn_index.
+ */
+export interface AgentLoopRun extends StepRun {
+    /** AI agent that was invoked to produce the step result. */
+    invoked_model?: AiAgentId,
+    /** Tools advertised to the model for the duration of the agent loop. */
+    available_tools?: AiToolDefinition[],
+    /** Ordered sequence of model invocation turns performed during an agent loop. */
+    model_invocations?: AiModelInvocation[],
+}
+
+
+/**
  * One concrete invocation of an AI model from a workflow step. Captures the
 runtime call (kind, parameters, prompts, tool calls, response), the
 consumption telemetry (token counts, cost), any safety flags raised, and
 any evaluation results attached. Inherits status, timestamps, parent
 workflow run, sequence number, and incident linkage from StepRun.
+
+A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+AgentLoopRun via parent_agent_loop and carries a turn_index.
  */
 export interface AiModelInvocation extends StepRun {
     /** AI agent that was invoked to produce the step result. */
     invoked_model?: AiAgentId,
     /** Kind of invocation (chat completion, tool use, embedding, etc.). */
     invocation_kind?: string,
+    /** Agent loop run that owns this model invocation as one of its turns. */
+    parent_agent_loop?: AgentLoopRunId,
+    /** Zero-based position of this invocation within its parent agent loop. */
+    turn_index?: number,
     /** Ordered sequence of prompt messages sent to the model. */
     prompt_messages?: PromptMessage[],
     /** Tool / function calls performed by the model during the invocation. */
@@ -4668,6 +4730,8 @@ export interface ToolCall extends NamedThing {
     tool_name?: string,
     /** Provider-assigned identifier for the tool call. */
     tool_call_id?: string,
+    /** Prospective tool definition that this call is an invocation of. */
+    tool_definition?: AiToolDefinitionId,
     /** JSON-serialized arguments passed to the tool. */
     arguments_json?: string,
     /** JSON-serialized result returned by the tool. */

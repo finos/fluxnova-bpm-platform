@@ -12,7 +12,7 @@ for any slot whose annotations are stored as a JsonObj by the schema loader.
 The fix was added between 1.11.0 and 1.11.0rc1.post104.dev0; until a patched
 release is on PyPI, this wrapper registers the missing representer first.
 
-See ISSUE.md — Issue #1 / Bug #5 for full analysis.
+See ISSUE.md - Issue #1 / Bug #5 for full analysis.
 """
 import sys
 import yaml

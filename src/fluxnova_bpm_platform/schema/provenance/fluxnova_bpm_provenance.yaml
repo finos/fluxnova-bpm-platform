@@ -864,6 +864,11 @@ enums:
         description: BPMN gateway routing.
       SUBPROCESS:
         description: Embedded subprocess.
+      AGENT_LOOP:
+        description: |-
+          Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step
+          repeatedly calls an AI model and dispatches model-requested tool
+          activities until the model returns a terminal response.
 
   ResourceKind:
     description: Kind of execution resource.
@@ -910,6 +915,11 @@ enums:
         description: Call activity.
       SUB_PROCESS:
         description: Sub-process.
+      AD_HOC_SUB_PROCESS:
+        description: |-
+          Ad-hoc sub-process: an unordered collection of activities executed on
+          demand. Used as the scope for an autonomous AI agent loop, where child
+          activities are advertised to the model as callable tools.
       EXCLUSIVE_GATEWAY:
         description: Exclusive (XOR) gateway.
       PARALLEL_GATEWAY:

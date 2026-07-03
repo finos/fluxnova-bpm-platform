@@ -1,4 +1,4 @@
-# Fluxnova Provenance — Design Documents
+# Fluxnova Provenance - Design Documents
 
 Narrative and reference material for the Fluxnova BPM provenance feature.
 The canonical, validated schema modules live under
@@ -16,7 +16,7 @@ these documents explain how to populate and project them.
 ## Schema modules
 
 The base provenance module is imported by the master platform schema, and the
-base in turn imports the AI overlay — so both are part of the platform root. The
+base in turn imports the AI overlay - so both are part of the platform root. The
 strict overlay is **opt-in**: a consumer must `imports:` it explicitly.
 
 | Module                                                                                                                           | Imported by master | Purpose                                           |

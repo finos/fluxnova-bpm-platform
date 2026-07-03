@@ -1,4 +1,4 @@
-# Invalid vendor test data — ExternalTask with invalid timestamp
+# Invalid vendor test data - ExternalTask with invalid timestamp
 id: anExternalTaskId
 lock_expiration_time: "not-a-date"
 topic_name: aTopic

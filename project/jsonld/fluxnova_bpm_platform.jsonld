@@ -1010,6 +1010,10 @@
         {
           "text": "SUBPROCESS",
           "description": "Embedded subprocess."
+        },
+        {
+          "text": "AGENT_LOOP",
+          "description": "Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step\nrepeatedly calls an AI model and dispatches model-requested tool\nactivities until the model returns a terminal response."
         }
       ]
     },
@@ -1102,6 +1106,10 @@
         {
           "text": "SUB_PROCESS",
           "description": "Sub-process."
+        },
+        {
+          "text": "AD_HOC_SUB_PROCESS",
+          "description": "Ad-hoc sub-process: an unordered collection of activities executed on\ndemand. Used as the scope for an autonomous AI agent loop, where child\nactivities are advertised to the model as callable tools."
         },
         {
           "text": "EXCLUSIVE_GATEWAY",
@@ -11597,6 +11605,7 @@
       "slot_uri": "http://www.w3.org/ns/prov#wasAssociatedWith",
       "owner": "AiModelInvocation",
       "domain_of": [
+        "AgentLoopRun",
         "AiModelInvocation"
       ],
       "range": "AiAgent",
@@ -11613,6 +11622,67 @@
         "AiModelInvocation"
       ],
       "range": "AiInvocationKind",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "parent_agent_loop",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/parent_agent_loop",
+      "description": "Agent loop run that owns this model invocation as one of its turns.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "http://www.w3.org/ns/prov#wasInformedBy"
+      ],
+      "slot_uri": "http://www.w3.org/ns/prov#wasInformedBy",
+      "owner": "AiModelInvocation",
+      "domain_of": [
+        "AiModelInvocation"
+      ],
+      "range": "AgentLoopRun",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "turn_index",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/turn_index",
+      "description": "Zero-based position of this invocation within its parent agent loop.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/turn_index",
+      "owner": "AiModelInvocation",
+      "domain_of": [
+        "AiModelInvocation"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "model_invocations",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_invocations",
+      "description": "Ordered sequence of model invocation turns performed during an agent loop.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_invocations",
+      "owner": "AgentLoopRun",
+      "domain_of": [
+        "AgentLoopRun"
+      ],
+      "range": "AiModelInvocation",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "available_tools",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/available_tools",
+      "description": "Tools advertised to the model for the duration of the agent loop.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/available_tools",
+      "owner": "AgentLoopRun",
+      "domain_of": [
+        "AgentLoopRun"
+      ],
+      "range": "AiToolDefinition",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
       "@type": "SlotDefinition"
     },
     {
@@ -11833,6 +11903,73 @@
         "ToolCall"
       ],
       "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "tool_definition",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_definition",
+      "description": "Prospective tool definition that this call is an invocation of.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_definition",
+      "owner": "ToolCall",
+      "domain_of": [
+        "ToolCall"
+      ],
+      "range": "AiToolDefinition",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "tool_description",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_description",
+      "description": "Human- or model-facing description of what the tool does.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_description",
+      "owner": "AiToolDefinition",
+      "domain_of": [
+        "AiToolDefinition"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "reads_variables",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/reads_variables",
+      "description": "Process variables the tool reads as input.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/reads_variables",
+      "owner": "AiToolDefinition",
+      "domain_of": [
+        "AiToolDefinition"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "writes_variables",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/writes_variables",
+      "description": "Process variables the tool writes as output.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/writes_variables",
+      "owner": "AiToolDefinition",
+      "domain_of": [
+        "AiToolDefinition"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "backing_step_definition",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/backing_step_definition",
+      "description": "Step definition (typically a child service task of the ad-hoc agent\nsubprocess) that implements the tool.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/backing_step_definition",
+      "owner": "AiToolDefinition",
+      "domain_of": [
+        "AiToolDefinition"
+      ],
+      "range": "StepDefinition",
       "@type": "SlotDefinition"
     },
     {
@@ -13877,9 +14014,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform",
-      "exact_mappings": [
-        "fluxnova_bpm_platform:FluxnovaPlatformData"
-      ],
       "slots": [
         "FluxnovaPlatformData_deployments",
         "FluxnovaPlatformData_process_definitions",
@@ -13891,6 +14025,7 @@
         "FluxnovaPlatformData_batches"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/FluxnovaPlatformData",
       "tree_root": true,
       "@type": "ClassDefinition"
     },
@@ -13910,9 +14045,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/base",
-      "exact_mappings": [
-        "fluxnova_bpm_base:ByteArray"
-      ],
       "slots": [
         "id",
         "name",
@@ -13926,6 +14058,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/ByteArray",
       "@type": "ClassDefinition"
     },
     {
@@ -13944,9 +14077,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/base",
-      "exact_mappings": [
-        "fluxnova_bpm_base:MeterLog"
-      ],
       "slots": [
         "id",
         "MeterLog_name",
@@ -13956,6 +14086,7 @@
         "milliseconds"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/MeterLog",
       "@type": "ClassDefinition"
     },
     {
@@ -13974,14 +14105,12 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/base",
-      "exact_mappings": [
-        "fluxnova_bpm_base:Property"
-      ],
       "slots": [
         "Property_name",
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/Property",
       "@type": "ClassDefinition"
     },
     {
@@ -14000,15 +14129,13 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/base",
-      "exact_mappings": [
-        "fluxnova_bpm_base:SchemaLogEntry"
-      ],
       "slots": [
         "id",
         "timestamp",
         "SchemaLogEntry_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/SchemaLogEntry",
       "@type": "ClassDefinition"
     },
     {
@@ -14027,15 +14154,13 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/base",
-      "exact_mappings": [
-        "fluxnova_bpm_base:TaskMeterLog"
-      ],
       "slots": [
         "id",
         "assignee_hash",
         "timestamp"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/TaskMeterLog",
       "@type": "ClassDefinition"
     },
     {
@@ -14054,9 +14179,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration",
-      "exact_mappings": [
-        "fluxnova_bpm_collaboration:Attachment"
-      ],
       "slots": [
         "id",
         "user_id",
@@ -14073,6 +14195,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/Attachment",
       "@type": "ClassDefinition"
     },
     {
@@ -14091,9 +14214,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration",
-      "exact_mappings": [
-        "fluxnova_bpm_collaboration:Comment"
-      ],
       "slots": [
         "id",
         "type",
@@ -14109,6 +14229,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/Comment",
       "@type": "ClassDefinition"
     },
     {
@@ -14127,9 +14248,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration",
-      "exact_mappings": [
-        "fluxnova_bpm_collaboration:Filter"
-      ],
       "slots": [
         "id",
         "Filter_resource_type",
@@ -14139,6 +14257,7 @@
         "properties"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/Filter",
       "@type": "ClassDefinition"
     },
     {
@@ -14157,9 +14276,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricActivityInstance"
-      ],
       "is_a": "HistoricScopeInstance",
       "slots": [
         "id",
@@ -14185,6 +14301,7 @@
         "HistoricActivityInstance_start_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricActivityInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14203,9 +14320,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricBatch"
-      ],
       "slots": [
         "id",
         "type",
@@ -14223,6 +14337,7 @@
         "execution_start_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricBatch",
       "@type": "ClassDefinition"
     },
     {
@@ -14241,9 +14356,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricCaseActivityInstance"
-      ],
       "is_a": "HistoricScopeInstance",
       "slots": [
         "id",
@@ -14270,6 +14382,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricCaseActivityInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14288,9 +14401,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricCaseInstance"
-      ],
       "is_a": "HistoricScopeInstance",
       "slots": [
         "id",
@@ -14314,6 +14424,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricCaseInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14332,9 +14443,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricDecisionInputInstance"
-      ],
       "slots": [
         "id",
         "decision_instance_id",
@@ -14352,6 +14460,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricDecisionInputInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14370,9 +14479,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricDecisionInstance"
-      ],
       "slots": [
         "id",
         "decision_definition_id",
@@ -14397,6 +14503,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricDecisionInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14415,9 +14522,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricDecisionOutputInstance"
-      ],
       "slots": [
         "id",
         "decision_instance_id",
@@ -14438,6 +14542,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricDecisionOutputInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14456,9 +14561,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricDetail"
-      ],
       "slots": [
         "id",
         "HistoricDetail_type",
@@ -14489,6 +14591,7 @@
         "is_initial"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricDetail",
       "@type": "ClassDefinition"
     },
     {
@@ -14507,9 +14610,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricExternalTaskLog"
-      ],
       "slots": [
         "id",
         "HistoricExternalTaskLog_timestamp",
@@ -14532,6 +14632,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricExternalTaskLog",
       "@type": "ClassDefinition"
     },
     {
@@ -14550,9 +14651,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricIdentityLink"
-      ],
       "slots": [
         "id",
         "HistoricIdentityLink_timestamp",
@@ -14569,6 +14667,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricIdentityLink",
       "@type": "ClassDefinition"
     },
     {
@@ -14587,9 +14686,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricIncident"
-      ],
       "slots": [
         "id",
         "process_definition_key",
@@ -14614,6 +14710,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricIncident",
       "@type": "ClassDefinition"
     },
     {
@@ -14632,9 +14729,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricJobLog"
-      ],
       "slots": [
         "id",
         "HistoricJobLog_timestamp",
@@ -14663,6 +14757,7 @@
         "batch_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricJobLog",
       "@type": "ClassDefinition"
     },
     {
@@ -14681,9 +14776,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricProcessInstance"
-      ],
       "is_a": "HistoricScopeInstance",
       "slots": [
         "id",
@@ -14708,6 +14800,7 @@
         "HistoricProcessInstance_start_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricProcessInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14719,9 +14812,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricScopeInstance"
-      ],
       "abstract": true,
       "slots": [
         "id",
@@ -14735,6 +14825,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricScopeInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14753,9 +14844,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricTaskInstance"
-      ],
       "is_a": "HistoricScopeInstance",
       "slots": [
         "id",
@@ -14787,6 +14875,7 @@
         "HistoricTaskInstance_start_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricTaskInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14805,9 +14894,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:HistoricVariableInstance"
-      ],
       "slots": [
         "id",
         "process_definition_key",
@@ -14834,6 +14920,7 @@
         "removal_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/HistoricVariableInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -14852,9 +14939,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/history",
-      "exact_mappings": [
-        "fluxnova_bpm_history:UserOperationLogEntry"
-      ],
       "slots": [
         "id",
         "deployment_id",
@@ -14885,6 +14969,7 @@
         "annotation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/UserOperationLogEntry",
       "@type": "ClassDefinition"
     },
     {
@@ -14903,9 +14988,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:Authorization"
-      ],
       "slots": [
         "id",
         "Authorization_type",
@@ -14918,6 +15000,7 @@
         "root_process_instance_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/Authorization",
       "@type": "ClassDefinition"
     },
     {
@@ -14936,9 +15019,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:Group"
-      ],
       "related_mappings": [
         "d3f:Group",
         "oscal:Group"
@@ -14949,6 +15029,7 @@
         "type"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/Group",
       "@type": "ClassDefinition"
     },
     {
@@ -14967,9 +15048,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:IdentityInfo"
-      ],
       "slots": [
         "id",
         "user_id",
@@ -14980,6 +15058,7 @@
         "parent_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/IdentityInfo",
       "@type": "ClassDefinition"
     },
     {
@@ -14998,9 +15077,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:IdentityLink"
-      ],
       "slots": [
         "id",
         "group_id",
@@ -15011,6 +15087,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/IdentityLink",
       "@type": "ClassDefinition"
     },
     {
@@ -15029,14 +15106,12 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:Membership"
-      ],
       "slots": [
         "Membership_user_id",
         "Membership_group_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/Membership",
       "unique_keys": [
         {
           "unique_key_name": "membership_pk",
@@ -15065,14 +15140,12 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:Tenant"
-      ],
       "slots": [
         "id",
         "name"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/Tenant",
       "@type": "ClassDefinition"
     },
     {
@@ -15091,9 +15164,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:TenantMembership"
-      ],
       "slots": [
         "id",
         "TenantMembership_tenant_id",
@@ -15101,6 +15171,7 @@
         "group_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/TenantMembership",
       "@type": "ClassDefinition"
     },
     {
@@ -15119,9 +15190,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity",
-      "exact_mappings": [
-        "fluxnova_bpm_identity:User"
-      ],
       "related_mappings": [
         "ocsf:User",
         "stix:UserAccount",
@@ -15139,6 +15207,7 @@
         "picture_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/User",
       "@type": "ClassDefinition"
     },
     {
@@ -15157,9 +15226,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/job",
-      "exact_mappings": [
-        "fluxnova_bpm_job:Batch"
-      ],
       "slots": [
         "id",
         "type",
@@ -15178,6 +15244,7 @@
         "execution_start_time"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/job/Batch",
       "@type": "ClassDefinition"
     },
     {
@@ -15196,9 +15263,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/job",
-      "exact_mappings": [
-        "fluxnova_bpm_job:Job"
-      ],
       "slots": [
         "id",
         "Job_type",
@@ -15230,6 +15294,7 @@
         "batch_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/job/Job",
       "@type": "ClassDefinition"
     },
     {
@@ -15248,9 +15313,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/job",
-      "exact_mappings": [
-        "fluxnova_bpm_job:JobDefinition"
-      ],
       "slots": [
         "id",
         "process_definition_id",
@@ -15264,6 +15326,7 @@
         "deployment_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/job/JobDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15282,9 +15345,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:CaseDefinition"
-      ],
       "is_a": "ResourceDefinition",
       "slots": [
         "id",
@@ -15299,6 +15359,7 @@
         "CaseDefinition_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/CaseDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15317,9 +15378,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:DecisionDefinition"
-      ],
       "is_a": "ResourceDefinition",
       "slots": [
         "id",
@@ -15337,6 +15395,7 @@
         "DecisionDefinition_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/DecisionDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15355,9 +15414,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:DecisionRequirementsDefinition"
-      ],
       "is_a": "ResourceDefinition",
       "slots": [
         "id",
@@ -15372,6 +15428,7 @@
         "DecisionRequirementsDefinition_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/DecisionRequirementsDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15390,9 +15447,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:Deployment"
-      ],
       "slots": [
         "id",
         "name",
@@ -15401,6 +15455,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/Deployment",
       "@type": "ClassDefinition"
     },
     {
@@ -15419,9 +15474,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:FormDefinition"
-      ],
       "is_a": "ResourceDefinition",
       "slots": [
         "id",
@@ -15436,6 +15488,7 @@
         "FormDefinition_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/FormDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15454,9 +15507,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:ProcessDefinition"
-      ],
       "is_a": "ResourceDefinition",
       "slots": [
         "id",
@@ -15475,6 +15525,7 @@
         "ProcessDefinition_version"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/ProcessDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15486,9 +15537,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository",
-      "exact_mappings": [
-        "fluxnova_bpm_repository:ResourceDefinition"
-      ],
       "abstract": true,
       "slots": [
         "id",
@@ -15503,6 +15551,7 @@
         "history_time_to_live"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/ResourceDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15521,9 +15570,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:CaseExecution"
-      ],
       "slots": [
         "id",
         "case_instance_id",
@@ -15539,6 +15585,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/CaseExecution",
       "@type": "ClassDefinition"
     },
     {
@@ -15557,9 +15604,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:CaseSentryPart"
-      ],
       "slots": [
         "id",
         "case_instance_id",
@@ -15575,6 +15619,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/CaseSentryPart",
       "@type": "ClassDefinition"
     },
     {
@@ -15593,9 +15638,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:EventSubscription"
-      ],
       "slots": [
         "id",
         "event_type",
@@ -15608,6 +15650,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/EventSubscription",
       "@type": "ClassDefinition"
     },
     {
@@ -15626,9 +15669,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:Execution"
-      ],
       "slots": [
         "id",
         "root_process_instance_id",
@@ -15652,6 +15692,7 @@
         "process_definition_key"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/Execution",
       "@type": "ClassDefinition"
     },
     {
@@ -15670,9 +15711,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:ExternalTask"
-      ],
       "slots": [
         "id",
         "worker_id",
@@ -15694,6 +15732,7 @@
         "last_failure_log_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/ExternalTask",
       "@type": "ClassDefinition"
     },
     {
@@ -15712,9 +15751,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:Incident"
-      ],
       "slots": [
         "id",
         "incident_timestamp",
@@ -15733,6 +15769,7 @@
         "annotation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/Incident",
       "@type": "ClassDefinition"
     },
     {
@@ -15751,9 +15788,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:Task"
-      ],
       "slots": [
         "id",
         "execution_id",
@@ -15779,6 +15813,7 @@
         "task_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/Task",
       "@type": "ClassDefinition"
     },
     {
@@ -15797,9 +15832,6 @@
         "fluxnova_bpm"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime",
-      "exact_mappings": [
-        "fluxnova_bpm_runtime:VariableInstance"
-      ],
       "slots": [
         "id",
         "VariableInstance_type",
@@ -15822,6 +15854,7 @@
         "tenant_id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/VariableInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -15845,13 +15878,11 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model",
-      "exact_mappings": [
-        "fluxnova_bpmn_model:BpmnModelInstance"
-      ],
       "slots": [
         "definitions"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/BpmnModelInstance",
       "tree_root": true,
       "@type": "ClassDefinition"
     },
@@ -15876,10 +15907,8 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model",
-      "exact_mappings": [
-        "fluxnova_bpmn_model:BpmnModelType"
-      ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/BpmnModelType",
       "@type": "ClassDefinition"
     },
     {
@@ -15887,7 +15916,7 @@
       "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/NamedThing",
       "description": "Abstract identifiable provenance entity with optional human-readable name and external reference.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
-      "exact_mappings": [
+      "mappings": [
         "fluxnova_bpm_provenance:NamedThing"
       ],
       "abstract": true,
@@ -15897,6 +15926,7 @@
         "external_ref"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/NamedThing",
       "@type": "ClassDefinition"
     },
     {
@@ -15907,8 +15937,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ProvenanceBundle"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ProvenanceBundle",
         "prov:Bundle",
         "schema:Dataset"
       ],
@@ -15928,6 +15960,7 @@
         "resources"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ProvenanceBundle",
       "tree_root": true,
       "@type": "ClassDefinition"
     },
@@ -15939,8 +15972,10 @@
         "prospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:WorkflowDefinition"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:WorkflowDefinition",
         "bpmn:Process",
         "schema:ComputationalWorkflow",
         "fluxnova_bpm_repository:ProcessDefinition"
@@ -15960,6 +15995,7 @@
         "tags"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -15970,8 +16006,10 @@
         "prospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:StepDefinition"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:StepDefinition",
         "bpmn:FlowNode",
         "schema:HowToStep"
       ],
@@ -15992,6 +16030,7 @@
         "bpmn_extension_names"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/StepDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -16002,8 +16041,10 @@
         "prospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ParameterDefinition"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ParameterDefinition",
         "schema:PropertyValueSpecification",
         "wrroc:FormalParameter"
       ],
@@ -16021,6 +16062,7 @@
         "allowed_values"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -16031,8 +16073,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:Agent"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:Agent",
         "prov:Agent",
         "schema:Agent"
       ],
@@ -16050,6 +16094,7 @@
         "role"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/Agent",
       "@type": "ClassDefinition"
     },
     {
@@ -16060,8 +16105,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:Environment"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:Environment",
         "schema:SoftwareApplication"
       ],
       "is_a": "NamedThing",
@@ -16077,6 +16124,7 @@
         "configuration_ref"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/Environment",
       "@type": "ClassDefinition"
     },
     {
@@ -16087,8 +16135,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:RuntimeComponent"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:RuntimeComponent",
         "schema:SoftwareApplication",
         "prov:SoftwareAgent"
       ],
@@ -16102,6 +16152,7 @@
         "endpoint"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/RuntimeComponent",
       "@type": "ClassDefinition"
     },
     {
@@ -16112,8 +16163,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:WorkflowArtifact"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:WorkflowArtifact",
         "prov:Entity",
         "schema:MediaObject"
       ],
@@ -16131,6 +16184,7 @@
         "consumed_by_step_runs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowArtifact",
       "@type": "ClassDefinition"
     },
     {
@@ -16141,8 +16195,10 @@
         "retrospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:WorkflowRun"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:WorkflowRun",
         "prov:Activity",
         "schema:CreateAction",
         "fluxnova_bpm_history:HistoricProcessInstance"
@@ -16169,6 +16225,7 @@
         "tags"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/WorkflowRun",
       "@type": "ClassDefinition"
     },
     {
@@ -16179,8 +16236,10 @@
         "retrospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:StepRun"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:StepRun",
         "prov:Activity",
         "schema:CreateAction",
         "fluxnova_bpm_history:HistoricActivityInstance"
@@ -16210,6 +16269,7 @@
         "sequence_no"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/StepRun",
       "@type": "ClassDefinition"
     },
     {
@@ -16220,8 +16280,10 @@
         "retrospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ParameterValue"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ParameterValue",
         "schema:PropertyValue",
         "prov:Entity",
         "fluxnova_bpm_history:HistoricVariableInstance"
@@ -16244,6 +16306,7 @@
         "classification"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ParameterValue",
       "@type": "ClassDefinition"
     },
     {
@@ -16254,8 +16317,10 @@
         "retrospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ResourceUsage"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ResourceUsage",
         "schema:PropertyValue"
       ],
       "is_a": "NamedThing",
@@ -16271,6 +16336,7 @@
         "execution_resource"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceUsage",
       "@type": "ClassDefinition"
     },
     {
@@ -16281,8 +16347,10 @@
         "context_entities"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ExecutionResource"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ExecutionResource",
         "prov:Entity",
         "schema:Thing"
       ],
@@ -16297,6 +16365,7 @@
         "labels"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ExecutionResource",
       "@type": "ClassDefinition"
     },
     {
@@ -16307,8 +16376,10 @@
         "retrospective_provenance"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance",
+      "mappings": [
+        "fluxnova_bpm_provenance:ProvenanceIncident"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_provenance:ProvenanceIncident",
         "schema:Action",
         "fluxnova_bpm_history:HistoricIncident"
       ],
@@ -16325,6 +16396,7 @@
         "related_workflow_run"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ProvenanceIncident",
       "@type": "ClassDefinition"
     },
     {
@@ -16348,9 +16420,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/dc",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_dc:Bounds"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -16360,6 +16429,7 @@
         "height"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/Bounds",
       "@type": "ClassDefinition"
     },
     {
@@ -16383,9 +16453,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/dc",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_dc:Font"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -16397,6 +16464,7 @@
         "strike_through"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/Font",
       "@type": "ClassDefinition"
     },
     {
@@ -16420,9 +16488,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/dc",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_dc:Point"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -16430,6 +16495,7 @@
         "y"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/Point",
       "@type": "ClassDefinition"
     },
     {
@@ -16453,9 +16519,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Diagram"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -16465,6 +16528,7 @@
         "id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Diagram",
       "@type": "ClassDefinition"
     },
     {
@@ -16488,9 +16552,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:DiagramElement"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -16498,6 +16559,7 @@
         "extension"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/DiagramElement",
       "@type": "ClassDefinition"
     },
     {
@@ -16521,9 +16583,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Edge"
-      ],
       "is_a": "DiagramElement",
       "slots": [
         "scope",
@@ -16532,6 +16591,7 @@
         "waypoints"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Edge",
       "@type": "ClassDefinition"
     },
     {
@@ -16555,14 +16615,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Extension"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Extension",
       "@type": "ClassDefinition"
     },
     {
@@ -16586,9 +16644,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Label"
-      ],
       "is_a": "Node",
       "slots": [
         "scope",
@@ -16597,6 +16652,7 @@
         "bounds"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Label",
       "@type": "ClassDefinition"
     },
     {
@@ -16620,9 +16676,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:LabeledEdge"
-      ],
       "is_a": "Edge",
       "slots": [
         "scope",
@@ -16631,6 +16684,7 @@
         "waypoints"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/LabeledEdge",
       "@type": "ClassDefinition"
     },
     {
@@ -16654,9 +16708,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:LabeledShape"
-      ],
       "is_a": "Shape",
       "slots": [
         "scope",
@@ -16665,6 +16716,7 @@
         "bounds"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/LabeledShape",
       "@type": "ClassDefinition"
     },
     {
@@ -16688,9 +16740,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Node"
-      ],
       "is_a": "DiagramElement",
       "slots": [
         "scope",
@@ -16698,6 +16747,7 @@
         "extension"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Node",
       "@type": "ClassDefinition"
     },
     {
@@ -16721,9 +16771,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Plane"
-      ],
       "is_a": "Node",
       "slots": [
         "scope",
@@ -16732,6 +16779,7 @@
         "diagram_elements"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Plane",
       "@type": "ClassDefinition"
     },
     {
@@ -16755,9 +16803,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Shape"
-      ],
       "is_a": "Node",
       "slots": [
         "scope",
@@ -16766,6 +16811,7 @@
         "bounds"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Shape",
       "@type": "ClassDefinition"
     },
     {
@@ -16789,15 +16835,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Style"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Style",
       "@type": "ClassDefinition"
     },
     {
@@ -16821,9 +16865,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/di",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_di:Waypoint"
-      ],
       "is_a": "Point",
       "slots": [
         "scope",
@@ -16831,6 +16872,7 @@
         "y"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/Waypoint",
       "@type": "ClassDefinition"
     },
     {
@@ -16854,9 +16896,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ActivationCondition"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -16866,6 +16905,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ActivationCondition",
       "@type": "ClassDefinition"
     },
     {
@@ -16889,9 +16929,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Activity"
-      ],
       "is_a": "FlowNode",
       "mixins": [
         "InteractionNode"
@@ -16926,6 +16963,7 @@
         "loop_characteristics"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Activity",
       "@type": "ClassDefinition"
     },
     {
@@ -16949,9 +16987,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Artifact"
-      ],
       "related_mappings": [
         "d3f:Artifact",
         "spdx:Element",
@@ -16967,6 +17002,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Artifact",
       "@type": "ClassDefinition"
     },
     {
@@ -16990,9 +17026,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Assignment"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17004,6 +17037,7 @@
         "to_"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Assignment",
       "@type": "ClassDefinition"
     },
     {
@@ -17027,9 +17061,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Association"
-      ],
       "is_a": "Artifact",
       "slots": [
         "scope",
@@ -17042,6 +17073,7 @@
         "association_direction"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Association",
       "@type": "ClassDefinition"
     },
     {
@@ -17065,9 +17097,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Auditing"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17077,6 +17106,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Auditing",
       "@type": "ClassDefinition"
     },
     {
@@ -17100,9 +17130,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BaseElement"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -17112,6 +17139,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BaseElement",
       "@type": "ClassDefinition"
     },
     {
@@ -17135,9 +17163,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BoundaryEvent"
-      ],
       "is_a": "CatchEvent",
       "slots": [
         "scope",
@@ -17167,6 +17192,7 @@
         "attached_to"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BoundaryEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -17190,14 +17216,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BpmnModelElementInstance"
-      ],
       "slots": [
         "BpmnModelElementInstance_scope",
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BpmnModelElementInstance",
       "@type": "ClassDefinition"
     },
     {
@@ -17221,9 +17245,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BusinessRuleTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -17270,6 +17291,7 @@
         "fluxnova_task_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BusinessRuleTask",
       "@type": "ClassDefinition"
     },
     {
@@ -17293,9 +17315,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CallActivity"
-      ],
       "is_a": "Activity",
       "slots": [
         "scope",
@@ -17339,6 +17358,7 @@
         "fluxnova_variable_mapping_delegate_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CallActivity",
       "@type": "ClassDefinition"
     },
     {
@@ -17362,9 +17382,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CallConversation"
-      ],
       "is_a": "ConversationNode",
       "slots": [
         "scope",
@@ -17380,6 +17397,7 @@
         "participant_associations"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CallConversation",
       "@type": "ClassDefinition"
     },
     {
@@ -17403,9 +17421,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CallableElement"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -17419,6 +17434,7 @@
         "io_bindings"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CallableElement",
       "@type": "ClassDefinition"
     },
     {
@@ -17442,9 +17458,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CancelEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -17454,6 +17467,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CancelEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -17477,9 +17491,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CatchEvent"
-      ],
       "is_a": "Event",
       "slots": [
         "scope",
@@ -17508,6 +17519,7 @@
         "event_definition_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CatchEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -17531,9 +17543,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Category"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -17545,6 +17554,7 @@
         "category_values"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Category",
       "@type": "ClassDefinition"
     },
     {
@@ -17568,9 +17578,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CategoryValue"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17581,6 +17588,7 @@
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CategoryValue",
       "@type": "ClassDefinition"
     },
     {
@@ -17604,9 +17612,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Collaboration"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -17627,6 +17632,7 @@
         "conversation_links"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Collaboration",
       "@type": "ClassDefinition"
     },
     {
@@ -17650,9 +17656,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CompensateEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -17664,6 +17667,7 @@
         "activity"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CompensateEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -17687,9 +17691,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CompletionCondition"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -17699,6 +17700,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CompletionCondition",
       "@type": "ClassDefinition"
     },
     {
@@ -17722,9 +17724,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ComplexBehaviorDefinition"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17734,6 +17733,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ComplexBehaviorDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -17757,9 +17757,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ComplexGateway"
-      ],
       "is_a": "Gateway",
       "slots": [
         "scope",
@@ -17784,6 +17781,7 @@
         "activation_condition"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ComplexGateway",
       "@type": "ClassDefinition"
     },
     {
@@ -17807,9 +17805,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Condition"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -17819,6 +17814,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Condition",
       "@type": "ClassDefinition"
     },
     {
@@ -17842,9 +17838,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ConditionExpression"
-      ],
       "is_a": "FormalExpression",
       "slots": [
         "scope",
@@ -17858,6 +17851,7 @@
         "fluxnova_resource"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ConditionExpression",
       "@type": "ClassDefinition"
     },
     {
@@ -17881,9 +17875,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ConditionalEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -17897,6 +17888,7 @@
         "fluxnova_variable_events_list"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ConditionalEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -17920,9 +17912,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Conversation"
-      ],
       "is_a": "ConversationNode",
       "slots": [
         "scope",
@@ -17936,6 +17925,7 @@
         "correlation_keys"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Conversation",
       "@type": "ClassDefinition"
     },
     {
@@ -17959,9 +17949,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ConversationAssociation"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -17973,6 +17960,7 @@
         "outer_conversation_node"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ConversationAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -17996,9 +17984,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ConversationLink"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18011,6 +17996,7 @@
         "ConversationLink_target"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ConversationLink",
       "@type": "ClassDefinition"
     },
     {
@@ -18034,9 +18020,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ConversationNode"
-      ],
       "is_a": "BaseElement",
       "mixins": [
         "InteractionNode"
@@ -18053,6 +18036,7 @@
         "correlation_keys"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ConversationNode",
       "@type": "ClassDefinition"
     },
     {
@@ -18076,9 +18060,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CorrelationKey"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18090,6 +18071,7 @@
         "correlation_properties"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CorrelationKey",
       "@type": "ClassDefinition"
     },
     {
@@ -18113,9 +18095,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CorrelationProperty"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -18128,6 +18107,7 @@
         "correlation_property_retrieval_expressions"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CorrelationProperty",
       "@type": "ClassDefinition"
     },
     {
@@ -18151,9 +18131,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CorrelationPropertyBinding"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18165,6 +18142,7 @@
         "data_path"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CorrelationPropertyBinding",
       "@type": "ClassDefinition"
     },
     {
@@ -18188,9 +18166,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18202,6 +18177,7 @@
         "message_path"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CorrelationPropertyRetrievalExpression",
       "@type": "ClassDefinition"
     },
     {
@@ -18225,9 +18201,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:CorrelationSubscription"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18239,6 +18212,7 @@
         "correlation_property_bindings"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/CorrelationSubscription",
       "@type": "ClassDefinition"
     },
     {
@@ -18262,9 +18236,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataAssociation"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18278,6 +18249,7 @@
         "assignments"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -18301,9 +18273,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataInput"
-      ],
       "is_a": "ItemAwareElement",
       "slots": [
         "scope",
@@ -18317,6 +18286,7 @@
         "collection"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataInput",
       "@type": "ClassDefinition"
     },
     {
@@ -18340,9 +18310,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataInputAssociation"
-      ],
       "is_a": "DataAssociation",
       "slots": [
         "scope",
@@ -18356,6 +18323,7 @@
         "assignments"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataInputAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -18379,9 +18347,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataObject"
-      ],
       "is_a": "FlowElement",
       "mixins": [
         "ItemAwareElement"
@@ -18401,6 +18366,7 @@
         "data_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataObject",
       "@type": "ClassDefinition"
     },
     {
@@ -18424,9 +18390,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataObjectReference"
-      ],
       "is_a": "FlowElement",
       "mixins": [
         "ItemAwareElement"
@@ -18446,6 +18409,7 @@
         "data_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataObjectReference",
       "@type": "ClassDefinition"
     },
     {
@@ -18469,9 +18433,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataOutput"
-      ],
       "is_a": "ItemAwareElement",
       "slots": [
         "scope",
@@ -18485,6 +18446,7 @@
         "collection"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataOutput",
       "@type": "ClassDefinition"
     },
     {
@@ -18508,9 +18470,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataOutputAssociation"
-      ],
       "is_a": "DataAssociation",
       "slots": [
         "scope",
@@ -18524,6 +18483,7 @@
         "assignments"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataOutputAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -18547,9 +18507,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataState"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -18560,6 +18517,7 @@
         "name"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataState",
       "@type": "ClassDefinition"
     },
     {
@@ -18583,9 +18541,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataStore"
-      ],
       "is_a": "RootElement",
       "mixins": [
         "ItemAwareElement"
@@ -18603,6 +18558,7 @@
         "data_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataStore",
       "@type": "ClassDefinition"
     },
     {
@@ -18626,9 +18582,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:DataStoreReference"
-      ],
       "is_a": "FlowElement",
       "mixins": [
         "ItemAwareElement"
@@ -18648,6 +18601,7 @@
         "data_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/DataStoreReference",
       "@type": "ClassDefinition"
     },
     {
@@ -18671,9 +18625,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Definitions"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -18691,6 +18642,7 @@
         "relationships"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Definitions",
       "@type": "ClassDefinition"
     },
     {
@@ -18714,9 +18666,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Documentation"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -18724,6 +18673,7 @@
         "text_format"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Documentation",
       "@type": "ClassDefinition"
     },
     {
@@ -18747,9 +18697,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:EndEvent"
-      ],
       "is_a": "ThrowEvent",
       "slots": [
         "scope",
@@ -18777,6 +18724,7 @@
         "event_definition_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/EndEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -18800,9 +18748,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:EndPoint"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -18812,6 +18757,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/EndPoint",
       "@type": "ClassDefinition"
     },
     {
@@ -18835,9 +18781,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Error"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -18851,6 +18794,7 @@
         "structure"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Error",
       "@type": "ClassDefinition"
     },
     {
@@ -18874,9 +18818,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ErrorEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -18889,6 +18830,7 @@
         "fluxnova_error_message_variable"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ErrorEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -18912,9 +18854,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Escalation"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -18927,6 +18866,7 @@
         "structure"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Escalation",
       "@type": "ClassDefinition"
     },
     {
@@ -18950,9 +18890,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:EscalationEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -18963,6 +18900,7 @@
         "escalation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/EscalationEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -18986,9 +18924,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Event"
-      ],
       "is_a": "FlowNode",
       "mixins": [
         "InteractionNode"
@@ -19014,6 +18949,7 @@
         "Event_properties"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Event",
       "@type": "ClassDefinition"
     },
     {
@@ -19037,9 +18973,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:EventBasedGateway"
-      ],
       "is_a": "Gateway",
       "slots": [
         "scope",
@@ -19064,6 +18997,7 @@
         "event_gateway_type"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/EventBasedGateway",
       "@type": "ClassDefinition"
     },
     {
@@ -19087,9 +19021,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:EventDefinition"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -19099,6 +19030,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/EventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -19122,9 +19054,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ExclusiveGateway"
-      ],
       "is_a": "Gateway",
       "slots": [
         "scope",
@@ -19148,6 +19077,7 @@
         "default"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ExclusiveGateway",
       "@type": "ClassDefinition"
     },
     {
@@ -19171,9 +19101,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Expression"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19183,6 +19110,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Expression",
       "@type": "ClassDefinition"
     },
     {
@@ -19206,9 +19134,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ExtensionElements"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -19216,6 +19141,7 @@
         "elements_query"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ExtensionElements",
       "@type": "ClassDefinition"
     },
     {
@@ -19239,9 +19165,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:FlowElement"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19255,6 +19178,7 @@
         "category_value_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/FlowElement",
       "@type": "ClassDefinition"
     },
     {
@@ -19278,9 +19202,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:FlowNode"
-      ],
       "is_a": "FlowElement",
       "slots": [
         "scope",
@@ -19302,6 +19223,7 @@
         "fluxnova_job_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/FlowNode",
       "@type": "ClassDefinition"
     },
     {
@@ -19325,9 +19247,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:FormalExpression"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -19339,6 +19258,7 @@
         "evaluates_to_type"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/FormalExpression",
       "@type": "ClassDefinition"
     },
     {
@@ -19362,9 +19282,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Gateway"
-      ],
       "is_a": "FlowNode",
       "slots": [
         "scope",
@@ -19387,6 +19304,7 @@
         "gateway_direction"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Gateway",
       "@type": "ClassDefinition"
     },
     {
@@ -19410,9 +19328,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:GlobalConversation"
-      ],
       "is_a": "Collaboration",
       "slots": [
         "scope",
@@ -19433,6 +19348,7 @@
         "conversation_links"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/GlobalConversation",
       "@type": "ClassDefinition"
     },
     {
@@ -19456,9 +19372,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BpmnGroup"
-      ],
       "is_a": "Artifact",
       "slots": [
         "scope",
@@ -19469,6 +19382,7 @@
         "BpmnGroup_category"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BpmnGroup",
       "@type": "ClassDefinition"
     },
     {
@@ -19492,9 +19406,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:HumanPerformer"
-      ],
       "is_a": "Performer",
       "slots": [
         "scope",
@@ -19508,6 +19419,7 @@
         "resource_assignment_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/HumanPerformer",
       "@type": "ClassDefinition"
     },
     {
@@ -19531,9 +19443,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Import"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -19542,6 +19451,7 @@
         "import_type"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Import",
       "@type": "ClassDefinition"
     },
     {
@@ -19565,9 +19475,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:InclusiveGateway"
-      ],
       "is_a": "Gateway",
       "slots": [
         "scope",
@@ -19591,6 +19498,7 @@
         "default"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/InclusiveGateway",
       "@type": "ClassDefinition"
     },
     {
@@ -19614,9 +19522,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:InputDataItem"
-      ],
       "is_a": "DataInput",
       "slots": [
         "scope",
@@ -19630,6 +19535,7 @@
         "collection"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/InputDataItem",
       "@type": "ClassDefinition"
     },
     {
@@ -19653,9 +19559,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:InputSet"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19670,6 +19573,7 @@
         "output_sets"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/InputSet",
       "@type": "ClassDefinition"
     },
     {
@@ -19693,13 +19597,11 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:InteractionNode"
-      ],
       "slots": [
         "id"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/InteractionNode",
       "@type": "ClassDefinition"
     },
     {
@@ -19723,9 +19625,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Interface"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -19738,6 +19637,7 @@
         "operations"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Interface",
       "@type": "ClassDefinition"
     },
     {
@@ -19761,9 +19661,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:IntermediateCatchEvent"
-      ],
       "is_a": "CatchEvent",
       "slots": [
         "scope",
@@ -19792,6 +19689,7 @@
         "event_definition_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/IntermediateCatchEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -19815,9 +19713,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:IntermediateThrowEvent"
-      ],
       "is_a": "ThrowEvent",
       "slots": [
         "scope",
@@ -19845,6 +19740,7 @@
         "event_definition_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/IntermediateThrowEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -19868,9 +19764,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:IoBinding"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19883,6 +19776,7 @@
         "output_data"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/IoBinding",
       "@type": "ClassDefinition"
     },
     {
@@ -19906,9 +19800,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:IoSpecification"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19922,6 +19813,7 @@
         "output_sets"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/IoSpecification",
       "@type": "ClassDefinition"
     },
     {
@@ -19945,9 +19837,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ItemAwareElement"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -19959,6 +19848,7 @@
         "data_state"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ItemAwareElement",
       "@type": "ClassDefinition"
     },
     {
@@ -19982,9 +19872,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ItemDefinition"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -19997,6 +19884,7 @@
         "item_kind"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ItemDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -20020,9 +19908,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Lane"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20037,6 +19922,7 @@
         "child_lane_set"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Lane",
       "@type": "ClassDefinition"
     },
     {
@@ -20060,9 +19946,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:LaneSet"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20074,6 +19957,7 @@
         "lanes"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/LaneSet",
       "@type": "ClassDefinition"
     },
     {
@@ -20097,9 +19981,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:LinkEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -20112,6 +19993,7 @@
         "LinkEventDefinition_target"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/LinkEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -20135,9 +20017,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:LoopCardinality"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -20147,6 +20026,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/LoopCardinality",
       "@type": "ClassDefinition"
     },
     {
@@ -20170,9 +20050,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:LoopCharacteristics"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20182,6 +20059,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/LoopCharacteristics",
       "@type": "ClassDefinition"
     },
     {
@@ -20205,9 +20083,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ManualTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -20240,6 +20115,7 @@
         "fluxnova_async"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ManualTask",
       "@type": "ClassDefinition"
     },
     {
@@ -20263,9 +20139,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Message"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -20277,6 +20150,7 @@
         "item"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Message",
       "@type": "ClassDefinition"
     },
     {
@@ -20300,9 +20174,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:MessageEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -20321,6 +20192,7 @@
         "fluxnova_task_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/MessageEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -20344,9 +20216,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:MessageFlow"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20360,6 +20229,7 @@
         "MessageFlow_message"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/MessageFlow",
       "@type": "ClassDefinition"
     },
     {
@@ -20383,9 +20253,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:MessageFlowAssociation"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20397,6 +20264,7 @@
         "outer_message_flow"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/MessageFlowAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -20420,9 +20288,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Monitoring"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20432,6 +20297,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Monitoring",
       "@type": "ClassDefinition"
     },
     {
@@ -20455,9 +20321,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics"
-      ],
       "is_a": "LoopCharacteristics",
       "slots": [
         "scope",
@@ -20483,6 +20346,7 @@
         "fluxnova_exclusive"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/MultiInstanceLoopCharacteristics",
       "@type": "ClassDefinition"
     },
     {
@@ -20506,9 +20370,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Operation"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20523,6 +20384,7 @@
         "errors"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Operation",
       "@type": "ClassDefinition"
     },
     {
@@ -20546,9 +20408,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:OutputDataItem"
-      ],
       "is_a": "DataOutput",
       "slots": [
         "scope",
@@ -20562,6 +20421,7 @@
         "collection"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/OutputDataItem",
       "@type": "ClassDefinition"
     },
     {
@@ -20585,9 +20445,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:OutputSet"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20602,6 +20459,7 @@
         "input_set_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/OutputSet",
       "@type": "ClassDefinition"
     },
     {
@@ -20625,9 +20483,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ParallelGateway"
-      ],
       "is_a": "Gateway",
       "slots": [
         "scope",
@@ -20651,6 +20506,7 @@
         "fluxnova_async"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ParallelGateway",
       "@type": "ClassDefinition"
     },
     {
@@ -20674,9 +20530,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Participant"
-      ],
       "is_a": "BaseElement",
       "mixins": [
         "InteractionNode"
@@ -20694,6 +20547,7 @@
         "participant_multiplicity"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Participant",
       "@type": "ClassDefinition"
     },
     {
@@ -20717,9 +20571,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ParticipantAssociation"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20731,6 +20582,7 @@
         "outer_participant"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ParticipantAssociation",
       "@type": "ClassDefinition"
     },
     {
@@ -20754,9 +20606,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ParticipantMultiplicity"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -20768,6 +20617,7 @@
         "maximum"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ParticipantMultiplicity",
       "@type": "ClassDefinition"
     },
     {
@@ -20791,9 +20641,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Performer"
-      ],
       "is_a": "ResourceRole",
       "slots": [
         "scope",
@@ -20807,6 +20654,7 @@
         "resource_assignment_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Performer",
       "@type": "ClassDefinition"
     },
     {
@@ -20830,9 +20678,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:PotentialOwner"
-      ],
       "is_a": "HumanPerformer",
       "slots": [
         "scope",
@@ -20846,6 +20691,7 @@
         "resource_assignment_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/PotentialOwner",
       "@type": "ClassDefinition"
     },
     {
@@ -20869,9 +20715,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Process"
-      ],
       "related_mappings": [
         "d3f:Process",
         "ocsf:Process",
@@ -20914,6 +20757,7 @@
         "fluxnova_version_tag"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Process",
       "@type": "ClassDefinition"
     },
     {
@@ -20937,9 +20781,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BpmnProperty"
-      ],
       "is_a": "ItemAwareElement",
       "slots": [
         "scope",
@@ -20952,6 +20793,7 @@
         "name"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BpmnProperty",
       "@type": "ClassDefinition"
     },
     {
@@ -20975,9 +20817,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ReceiveTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -21013,6 +20852,7 @@
         "operation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ReceiveTask",
       "@type": "ClassDefinition"
     },
     {
@@ -21036,9 +20876,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Relationship"
-      ],
       "related_mappings": [
         "cve:TaxonomyRelation",
         "cwe:Relationship",
@@ -21058,6 +20895,7 @@
         "targets"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Relationship",
       "@type": "ClassDefinition"
     },
     {
@@ -21081,9 +20919,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Rendering"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21093,6 +20928,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Rendering",
       "@type": "ClassDefinition"
     },
     {
@@ -21116,9 +20952,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Resource"
-      ],
       "related_mappings": [
         "d3f:Resource",
         "oscal:Resource"
@@ -21134,6 +20967,7 @@
         "resource_parameters"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Resource",
       "@type": "ClassDefinition"
     },
     {
@@ -21157,9 +20991,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ResourceAssignmentExpression"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21170,6 +21001,7 @@
         "expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ResourceAssignmentExpression",
       "@type": "ClassDefinition"
     },
     {
@@ -21193,9 +21025,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ResourceParameter"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21208,6 +21037,7 @@
         "required"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ResourceParameter",
       "@type": "ClassDefinition"
     },
     {
@@ -21231,9 +21061,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ResourceParameterBinding"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21245,6 +21072,7 @@
         "expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ResourceParameterBinding",
       "@type": "ClassDefinition"
     },
     {
@@ -21268,9 +21096,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ResourceRole"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21284,6 +21109,7 @@
         "resource_assignment_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ResourceRole",
       "@type": "ClassDefinition"
     },
     {
@@ -21307,9 +21133,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:RootElement"
-      ],
       "is_a": "BaseElement",
       "slots": [
         "scope",
@@ -21319,6 +21142,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/RootElement",
       "@type": "ClassDefinition"
     },
     {
@@ -21342,14 +21166,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Script"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Script",
       "@type": "ClassDefinition"
     },
     {
@@ -21373,9 +21195,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ScriptTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -21412,6 +21231,7 @@
         "fluxnova_resource"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ScriptTask",
       "@type": "ClassDefinition"
     },
     {
@@ -21435,9 +21255,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:SendTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -21480,6 +21297,7 @@
         "fluxnova_task_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/SendTask",
       "@type": "ClassDefinition"
     },
     {
@@ -21503,9 +21321,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:SequenceFlow"
-      ],
       "is_a": "FlowElement",
       "slots": [
         "scope",
@@ -21523,6 +21338,7 @@
         "condition_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/SequenceFlow",
       "@type": "ClassDefinition"
     },
     {
@@ -21546,9 +21362,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ServiceTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -21590,6 +21403,7 @@
         "fluxnova_task_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ServiceTask",
       "@type": "ClassDefinition"
     },
     {
@@ -21613,9 +21427,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Signal"
-      ],
       "is_a": "RootElement",
       "slots": [
         "scope",
@@ -21627,6 +21438,7 @@
         "structure"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Signal",
       "@type": "ClassDefinition"
     },
     {
@@ -21650,9 +21462,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:SignalEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -21664,6 +21473,7 @@
         "fluxnova_async"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/SignalEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -21687,9 +21497,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:StartEvent"
-      ],
       "is_a": "CatchEvent",
       "slots": [
         "scope",
@@ -21726,6 +21533,7 @@
         "fluxnova_initiator"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/StartEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -21749,9 +21557,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:SubConversation"
-      ],
       "is_a": "ConversationNode",
       "slots": [
         "scope",
@@ -21766,6 +21571,7 @@
         "conversation_nodes"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/SubConversation",
       "@type": "ClassDefinition"
     },
     {
@@ -21789,9 +21595,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:SubProcess"
-      ],
       "is_a": "Activity",
       "slots": [
         "scope",
@@ -21827,6 +21630,7 @@
         "fluxnova_async"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/SubProcess",
       "@type": "ClassDefinition"
     },
     {
@@ -21850,9 +21654,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:BpmnTask"
-      ],
       "is_a": "Activity",
       "slots": [
         "scope",
@@ -21885,6 +21686,7 @@
         "fluxnova_async"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/BpmnTask",
       "@type": "ClassDefinition"
     },
     {
@@ -21908,9 +21710,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TerminateEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -21920,6 +21719,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TerminateEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -21943,14 +21743,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Text"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Text",
       "@type": "ClassDefinition"
     },
     {
@@ -21974,9 +21772,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TextAnnotation"
-      ],
       "is_a": "Artifact",
       "slots": [
         "scope",
@@ -21988,6 +21783,7 @@
         "text"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TextAnnotation",
       "@type": "ClassDefinition"
     },
     {
@@ -22011,9 +21807,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:ThrowEvent"
-      ],
       "is_a": "Event",
       "slots": [
         "scope",
@@ -22041,6 +21834,7 @@
         "event_definition_refs"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/ThrowEvent",
       "@type": "ClassDefinition"
     },
     {
@@ -22064,9 +21858,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TimeCycle"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -22076,6 +21867,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TimeCycle",
       "@type": "ClassDefinition"
     },
     {
@@ -22099,9 +21891,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TimeDate"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -22111,6 +21900,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TimeDate",
       "@type": "ClassDefinition"
     },
     {
@@ -22134,9 +21924,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TimeDuration"
-      ],
       "is_a": "Expression",
       "slots": [
         "scope",
@@ -22146,6 +21933,7 @@
         "diagram_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TimeDuration",
       "@type": "ClassDefinition"
     },
     {
@@ -22169,9 +21957,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:TimerEventDefinition"
-      ],
       "is_a": "EventDefinition",
       "slots": [
         "scope",
@@ -22184,6 +21969,7 @@
         "time_cycle"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/TimerEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -22207,9 +21993,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:Transaction"
-      ],
       "is_a": "SubProcess",
       "slots": [
         "scope",
@@ -22246,6 +22029,7 @@
         "method"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/Transaction",
       "@type": "ClassDefinition"
     },
     {
@@ -22269,9 +22053,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/instance",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_instance:UserTask"
-      ],
       "is_a": "BpmnTask",
       "slots": [
         "scope",
@@ -22319,6 +22100,7 @@
         "fluxnova_priority"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/UserTask",
       "@type": "ClassDefinition"
     },
     {
@@ -22342,9 +22124,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnDiagram"
-      ],
       "is_a": "Diagram",
       "slots": [
         "scope",
@@ -22356,6 +22135,7 @@
         "bpmn_label_styles"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnDiagram",
       "@type": "ClassDefinition"
     },
     {
@@ -22379,9 +22159,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnEdge"
-      ],
       "is_a": "LabeledEdge",
       "slots": [
         "scope",
@@ -22395,6 +22172,7 @@
         "bpmn_label"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnEdge",
       "@type": "ClassDefinition"
     },
     {
@@ -22418,9 +22196,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnLabel"
-      ],
       "is_a": "Label",
       "slots": [
         "scope",
@@ -22430,6 +22205,7 @@
         "label_style"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnLabel",
       "@type": "ClassDefinition"
     },
     {
@@ -22453,9 +22229,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnLabelStyle"
-      ],
       "is_a": "Style",
       "slots": [
         "scope",
@@ -22463,6 +22236,7 @@
         "font"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnLabelStyle",
       "@type": "ClassDefinition"
     },
     {
@@ -22486,9 +22260,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnPlane"
-      ],
       "is_a": "Plane",
       "slots": [
         "scope",
@@ -22498,6 +22269,7 @@
         "bpmn_element"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnPlane",
       "@type": "ClassDefinition"
     },
     {
@@ -22521,9 +22293,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_bpmndi:BpmnShape"
-      ],
       "is_a": "LabeledShape",
       "slots": [
         "scope",
@@ -22540,6 +22309,7 @@
         "bpmn_label"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/BpmnShape",
       "@type": "ClassDefinition"
     },
     {
@@ -22563,9 +22333,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaConnector"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22573,6 +22340,7 @@
         "fluxnova_input_output"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaConnector",
       "@type": "ClassDefinition"
     },
     {
@@ -22596,14 +22364,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaConnectorId",
       "@type": "ClassDefinition"
     },
     {
@@ -22627,9 +22393,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaConstraint"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22637,6 +22400,7 @@
         "fluxnova_config"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaConstraint",
       "@type": "ClassDefinition"
     },
     {
@@ -22660,9 +22424,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaEntry"
-      ],
       "is_a": "BpmnModelElementInstance",
       "mixins": [
         "FluxnovaGenericValueElement"
@@ -22673,6 +22434,7 @@
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaEntry",
       "@type": "ClassDefinition"
     },
     {
@@ -22696,9 +22458,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition"
-      ],
       "is_a": "ErrorEventDefinition",
       "slots": [
         "scope",
@@ -22712,6 +22471,7 @@
         "fluxnova_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaErrorEventDefinition",
       "@type": "ClassDefinition"
     },
     {
@@ -22735,9 +22495,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22749,6 +22506,7 @@
         "fluxnova_script"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaExecutionListener",
       "@type": "ClassDefinition"
     },
     {
@@ -22772,14 +22530,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaExpression"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaExpression",
       "@type": "ClassDefinition"
     },
     {
@@ -22803,14 +22559,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaFailedJobRetryTimeCycle",
       "@type": "ClassDefinition"
     },
     {
@@ -22834,9 +22588,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaField"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22847,6 +22598,7 @@
         "fluxnova_expression_child"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaField",
       "@type": "ClassDefinition"
     },
     {
@@ -22870,15 +22622,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaFormData"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "fluxnova_form_fields"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaFormData",
       "@type": "ClassDefinition"
     },
     {
@@ -22902,9 +22652,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaFormField"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22918,6 +22665,7 @@
         "fluxnova_values"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaFormField",
       "@type": "ClassDefinition"
     },
     {
@@ -22941,9 +22689,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -22960,6 +22705,7 @@
         "fluxnova_values"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaFormProperty",
       "@type": "ClassDefinition"
     },
     {
@@ -22983,13 +22729,11 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement"
-      ],
       "slots": [
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaGenericValueElement",
       "@type": "ClassDefinition"
     },
     {
@@ -23013,9 +22757,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaIn"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23027,6 +22768,7 @@
         "fluxnova_local"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaIn",
       "@type": "ClassDefinition"
     },
     {
@@ -23050,9 +22792,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23060,6 +22799,7 @@
         "fluxnova_output_parameters"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaInputOutput",
       "@type": "ClassDefinition"
     },
     {
@@ -23083,9 +22823,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter"
-      ],
       "is_a": "BpmnModelElementInstance",
       "mixins": [
         "FluxnovaGenericValueElement"
@@ -23096,6 +22833,7 @@
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaInputParameter",
       "@type": "ClassDefinition"
     },
     {
@@ -23119,15 +22857,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaList"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "values"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaList",
       "@type": "ClassDefinition"
     },
     {
@@ -23151,15 +22887,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaMap"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "fluxnova_entries"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaMap",
       "@type": "ClassDefinition"
     },
     {
@@ -23183,9 +22917,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaOut"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23196,6 +22927,7 @@
         "fluxnova_local"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaOut",
       "@type": "ClassDefinition"
     },
     {
@@ -23219,9 +22951,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter"
-      ],
       "is_a": "BpmnModelElementInstance",
       "mixins": [
         "FluxnovaGenericValueElement"
@@ -23232,6 +22961,7 @@
         "value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaOutputParameter",
       "@type": "ClassDefinition"
     },
     {
@@ -23255,15 +22985,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "resource_assignment_expression"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaPotentialStarter",
       "@type": "ClassDefinition"
     },
     {
@@ -23287,15 +23015,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaProperties"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "FluxnovaProperties_fluxnova_properties"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaProperties",
       "@type": "ClassDefinition"
     },
     {
@@ -23319,9 +23045,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaProperty"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23330,6 +23053,7 @@
         "fluxnova_value"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaProperty",
       "@type": "ClassDefinition"
     },
     {
@@ -23353,9 +23077,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaScript"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23363,6 +23084,7 @@
         "fluxnova_resource"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaScript",
       "@type": "ClassDefinition"
     },
     {
@@ -23386,14 +23108,12 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaString"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaString",
       "@type": "ClassDefinition"
     },
     {
@@ -23417,9 +23137,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23432,6 +23149,7 @@
         "timeouts"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaTaskListener",
       "@type": "ClassDefinition"
     },
     {
@@ -23455,15 +23173,13 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaValidation"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
         "fluxnova_constraints"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaValidation",
       "@type": "ClassDefinition"
     },
     {
@@ -23487,9 +23203,6 @@
         "fluxnova_bpmn_model"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova",
-      "exact_mappings": [
-        "fluxnova_bpmn_model_fluxnova:FluxnovaValue"
-      ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "scope",
@@ -23497,6 +23210,7 @@
         "fluxnova_name"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/FluxnovaValue",
       "@type": "ClassDefinition"
     },
     {
@@ -23507,14 +23221,19 @@
         "ai_prospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AiAgent"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:AiAgent",
         "airo:AIAgent",
+        "dpv_ai:AIAgent",
         "nexus:AiAgent",
         "prov:SoftwareAgent"
       ],
       "related_mappings": [
-        "dpv_ai:AISystem"
+        "airo:AISystem",
+        "dpv_ai:AISystem",
+        "nexus:AiSystem"
       ],
       "is_a": "Agent",
       "slots": [
@@ -23536,6 +23255,7 @@
         "is_part_of_ai_system"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiAgent",
       "@type": "ClassDefinition"
     },
     {
@@ -23546,16 +23266,18 @@
         "ai_prospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AiModelDescriptor"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:AiModelDescriptor",
         "airo:AIModel",
-        "nexus:AiModel",
-        "nexus:LargeLanguageModel"
+        "nexus:AiModel"
       ],
       "close_mappings": [
         "nexus:LargeLanguageModel"
       ],
       "related_mappings": [
+        "airo:AIComponent",
         "schema:SoftwareApplication"
       ],
       "is_a": "RuntimeComponent",
@@ -23575,18 +23297,96 @@
         "supported_languages"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelDescriptor",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AiToolDefinition",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiToolDefinition",
+      "description": "Prospective definition of a tool advertised to an AI agent. Corresponds to\na child activity of an ad-hoc agent subprocess that is exposed to the model\nas a callable function. Captures the tool description and the process\nvariables the tool reads and writes, and links to the backing step\ndefinition. Distinct from ToolCall, which records a concrete invocation of\nsuch a tool during a run.",
+      "in_subset": [
+        "ai_prospective"
+      ],
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AiToolDefinition"
+      ],
+      "related_mappings": [
+        "schema:Action",
+        "prov:Plan"
+      ],
+      "is_a": "NamedThing",
+      "slots": [
+        "id",
+        "name",
+        "external_ref",
+        "tool_description",
+        "reads_variables",
+        "writes_variables",
+        "backing_step_definition"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiToolDefinition",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AgentLoopRun",
+      "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AgentLoopRun",
+      "description": "One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.\nOwns the ordered sequence of AiModelInvocation turns performed during the\nloop, together with the tools advertised to the model. Each turn is a\nsingle model call; tool calls made in a turn may materialize child step\nruns. Inherits status, timestamps, parent workflow run, sequence number,\nand incident linkage from StepRun.\n\nUse this as the parent record for an agentic subprocess: the loop is a\nsingle StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and\nimplementation_kind AGENT_LOOP, and each individual model call is a child\nAiModelInvocation with a turn_index.",
+      "in_subset": [
+        "ai_retrospective"
+      ],
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AgentLoopRun"
+      ],
+      "exact_mappings": [
+        "prov:Activity",
+        "schema:CreateAction"
+      ],
+      "is_a": "StepRun",
+      "slots": [
+        "id",
+        "name",
+        "external_ref",
+        "workflow_run",
+        "step_definition",
+        "activity_instance_id",
+        "parent_step_run",
+        "informed_by",
+        "status",
+        "started_at",
+        "ended_at",
+        "executed_by",
+        "environment",
+        "execution_resource",
+        "input_values",
+        "output_values",
+        "consumed_artifacts",
+        "produced_artifacts",
+        "incident_message",
+        "retries",
+        "sequence_no",
+        "invoked_model",
+        "available_tools",
+        "model_invocations"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AgentLoopRun",
       "@type": "ClassDefinition"
     },
     {
       "name": "AiModelInvocation",
       "definition_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelInvocation",
-      "description": "One concrete invocation of an AI model from a workflow step. Captures the\nruntime call (kind, parameters, prompts, tool calls, response), the\nconsumption telemetry (token counts, cost), any safety flags raised, and\nany evaluation results attached. Inherits status, timestamps, parent\nworkflow run, sequence number, and incident linkage from StepRun.",
+      "description": "One concrete invocation of an AI model from a workflow step. Captures the\nruntime call (kind, parameters, prompts, tool calls, response), the\nconsumption telemetry (token counts, cost), any safety flags raised, and\nany evaluation results attached. Inherits status, timestamps, parent\nworkflow run, sequence number, and incident linkage from StepRun.\n\nA single stand-alone call sets invocation_kind to CHAT_COMPLETION,\nTOOL_USE, etc. When it is one turn of an agentic loop it links back to its\nAgentLoopRun via parent_agent_loop and carries a turn_index.",
       "in_subset": [
         "ai_retrospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AiModelInvocation"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:AiModelInvocation",
         "prov:Activity",
         "schema:CreateAction"
       ],
@@ -23615,6 +23415,8 @@
         "sequence_no",
         "invoked_model",
         "invocation_kind",
+        "parent_agent_loop",
+        "turn_index",
         "prompt_messages",
         "tool_calls",
         "response_message",
@@ -23628,6 +23430,7 @@
         "evaluation_results"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelInvocation",
       "@type": "ClassDefinition"
     },
     {
@@ -23638,7 +23441,7 @@
         "ai_retrospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
-      "exact_mappings": [
+      "mappings": [
         "fluxnova_bpm_ai_provenance:PromptMessage"
       ],
       "related_mappings": [
@@ -23658,6 +23461,7 @@
         "parent_invocation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/PromptMessage",
       "@type": "ClassDefinition"
     },
     {
@@ -23668,8 +23472,10 @@
         "ai_retrospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:ToolCall"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:ToolCall",
         "schema:Action"
       ],
       "related_mappings": [
@@ -23682,6 +23488,7 @@
         "external_ref",
         "tool_name",
         "tool_call_id",
+        "tool_definition",
         "arguments_json",
         "result_json",
         "result_artifact",
@@ -23692,6 +23499,7 @@
         "parent_invocation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/ToolCall",
       "@type": "ClassDefinition"
     },
     {
@@ -23702,8 +23510,10 @@
         "ai_retrospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:EvaluationResult"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:EvaluationResult",
         "dqv:QualityMeasurement",
         "nexus:AiEvalResult"
       ],
@@ -23726,6 +23536,7 @@
         "evaluated_invocation"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/EvaluationResult",
       "@type": "ClassDefinition"
     },
     {
@@ -23736,8 +23547,10 @@
         "ai_prospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:AiDataset"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:AiDataset",
         "cr:Dataset",
         "nexus:Dataset",
         "prov:Entity",
@@ -23761,6 +23574,7 @@
         "classification"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiDataset",
       "@type": "ClassDefinition"
     },
     {
@@ -23771,8 +23585,10 @@
         "ai_prospective"
       ],
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance",
+      "mappings": [
+        "fluxnova_bpm_ai_provenance:ModelArtifact"
+      ],
       "exact_mappings": [
-        "fluxnova_bpm_ai_provenance:ModelArtifact",
         "schema:SoftwareSourceCode"
       ],
       "related_mappings": [
@@ -23798,14 +23614,15 @@
         "parameter_count"
       ],
       "slot_usage": {},
+      "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/ModelArtifact",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.11.0",
   "source_file": "fluxnova_bpm_platform.yaml",
-  "source_file_date": "2026-06-12T11:23:52",
+  "source_file_date": "2026-07-03T14:17:06",
   "source_file_size": 4673,
-  "generation_date": "2026-06-12T11:23:56",
+  "generation_date": "2026-07-03T14:17:12",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/fluxnova_bpm_platform.context.jsonld",

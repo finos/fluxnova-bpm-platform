@@ -1,4 +1,4 @@
-# Invalid AI provenance — prompt message has a MessageRole value that is not
+# Invalid AI provenance - prompt message has a MessageRole value that is not
 # in the permissible set (SYSTEM/USER/ASSISTANT/TOOL).
 id: ai-invocation-bad-role
 status: COMPLETED

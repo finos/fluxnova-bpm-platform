@@ -1,4 +1,4 @@
-# Invalid AI provenance — dataset_kind is not in DatasetKind enum.
+# Invalid AI provenance - dataset_kind is not in DatasetKind enum.
 id: ai-dataset-bad-kind
 name: Bad dataset kind sample
 dataset_kind: SYNTHETIC_VR

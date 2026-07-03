@@ -1239,10 +1239,10 @@ class LinkMLGenerator:
 
     def _build_abstract_bases(self) -> None:
         """Create abstract base classes and mixins not directly in SQL."""
-        # DbEntity — abstract root for all persisted entities
+        # DbEntity - abstract root for all persisted entities
         # (not emitted as a class, but provides shared id slot)
 
-        # ResourceDefinition — abstract base for definition entities
+        # ResourceDefinition - abstract base for definition entities
         rd = ClassDef(
             name="ResourceDefinition",
             module="repository",
@@ -1257,7 +1257,7 @@ class LinkMLGenerator:
         )
         self.classes["ResourceDefinition"] = rd
 
-        # HistoricScopeInstance — abstract base for timed history events
+        # HistoricScopeInstance - abstract base for timed history events
         hsi = ClassDef(
             name="HistoricScopeInstance",
             module="history",
@@ -1398,7 +1398,7 @@ class LinkMLGenerator:
                     elif not col.nullable and slot_name != "id" and not self.all_slots[slot_name].required:
                         cls.slot_usage.setdefault(slot_name, {})["required"] = True
                 else:
-                    # Slot inherited — use slot_usage only if we refine it
+                    # Slot inherited - use slot_usage only if we refine it
                     usage: dict = {}
                     if not col.nullable and slot_name != "id":
                         usage["required"] = True
@@ -1620,7 +1620,7 @@ class LinkMLGenerator:
                 if s not in module_slot_names:
                     module_slot_names.append(s)
 
-        # Build slots dict — only include slots owned by this module.
+        # Build slots dict - only include slots owned by this module.
         # SHARED_SLOTS are emitted by ``fluxnova_common.yaml`` instead, so we
         # skip them here and rely on the ``./fluxnova_common`` import below.
         slots_dict: OrderedDict[str, dict] = OrderedDict()
@@ -2045,7 +2045,7 @@ def main() -> None:
     print_report(tables, gen)
 
     if args.dry_run:
-        print("Dry run — no files written.")
+        print("Dry run - no files written.")
         return
 
     # ---- Phase 3: Write schema files ----

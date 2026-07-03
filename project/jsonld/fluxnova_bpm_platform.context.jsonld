@@ -146,6 +146,14 @@
          "@type": "@id",
          "@id": "fluxnova_bpm_provenance:authors"
       },
+      "available_tools": {
+         "@type": "@id",
+         "@id": "fluxnova_bpm_ai_provenance:available_tools"
+      },
+      "backing_step_definition": {
+         "@type": "@id",
+         "@id": "fluxnova_bpm_ai_provenance:backing_step_definition"
+      },
       "base_model": {
          "@type": "@id",
          "@id": "prov:wasDerivedFrom"
@@ -1564,6 +1572,10 @@
       "model_family": {
          "@id": "schema:productID"
       },
+      "model_invocations": {
+         "@type": "@id",
+         "@id": "fluxnova_bpm_ai_provenance:model_invocations"
+      },
       "model_name": {
          "@id": "schema:name"
       },
@@ -1718,6 +1730,10 @@
       "parent_activity_instance_id": {
          "@id": "fluxnova_bpm_history:parent_activity_instance_id"
       },
+      "parent_agent_loop": {
+         "@type": "@id",
+         "@id": "prov:wasInformedBy"
+      },
       "parent_id": {
          "@id": "fluxnova_bpm_runtime:parent_id"
       },
@@ -1834,6 +1850,9 @@
       },
       "query": {
          "@id": "fluxnova_bpm_collaboration:query"
+      },
+      "reads_variables": {
+         "@id": "fluxnova_bpm_ai_provenance:reads_variables"
       },
       "record_count": {
          "@type": "xsd:integer",
@@ -2247,6 +2266,13 @@
          "@type": "@id",
          "@id": "fluxnova_bpm_ai_provenance:tool_calls"
       },
+      "tool_definition": {
+         "@type": "@id",
+         "@id": "fluxnova_bpm_ai_provenance:tool_definition"
+      },
+      "tool_description": {
+         "@id": "fluxnova_bpm_ai_provenance:tool_description"
+      },
       "tool_name": {
          "@id": "fluxnova_bpm_ai_provenance:tool_name"
       },
@@ -2280,6 +2306,10 @@
       "transformation": {
          "@type": "@id",
          "@id": "fluxnova_bpmn_model_instance:transformation"
+      },
+      "turn_index": {
+         "@type": "xsd:integer",
+         "@id": "fluxnova_bpm_ai_provenance:turn_index"
       },
       "type": {
          "@id": "fluxnova_common:type"
@@ -2382,6 +2412,9 @@
          "@type": "@id",
          "@id": "fluxnova_bpm_provenance:workflow_runs"
       },
+      "writes_variables": {
+         "@id": "fluxnova_bpm_ai_provenance:writes_variables"
+      },
       "x": {
          "@type": "xsd:float",
          "@id": "fluxnova_bpmn_model_dc:x"
@@ -2405,6 +2438,9 @@
       "Agent": {
          "@id": "fluxnova_bpm_provenance:Agent"
       },
+      "AgentLoopRun": {
+         "@id": "fluxnova_bpm_ai_provenance:AgentLoopRun"
+      },
       "AiAgent": {
          "@id": "fluxnova_bpm_ai_provenance:AiAgent"
       },
@@ -2416,6 +2452,9 @@
       },
       "AiModelInvocation": {
          "@id": "fluxnova_bpm_ai_provenance:AiModelInvocation"
+      },
+      "AiToolDefinition": {
+         "@id": "fluxnova_bpm_ai_provenance:AiToolDefinition"
       },
       "Artifact": {
          "@id": "fluxnova_bpmn_model_instance:Artifact"

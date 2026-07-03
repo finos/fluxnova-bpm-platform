@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricIdentityLink — mirrors MockProvider EXAMPLE_HIST_IDENTITY_LINK_* constants
+# HistoricIdentityLink - mirrors MockProvider EXAMPLE_HIST_IDENTITY_LINK_* constants
 id: aHistIdentityLinkId
 timestamp: "2014-01-05T00:00:00+00:00"
 type: assignee

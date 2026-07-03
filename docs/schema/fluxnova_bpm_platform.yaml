@@ -809,6 +809,14 @@ enums:
       SUBPROCESS:
         text: SUBPROCESS
         description: Embedded subprocess.
+      AGENT_LOOP:
+        text: AGENT_LOOP
+        description: 'Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the
+          step
+
+          repeatedly calls an AI model and dispatches model-requested tool
+
+          activities until the model returns a terminal response.'
   ResourceKind:
     name: ResourceKind
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/ResourceKind
@@ -878,6 +886,14 @@ enums:
       SUB_PROCESS:
         text: SUB_PROCESS
         description: Sub-process.
+      AD_HOC_SUB_PROCESS:
+        text: AD_HOC_SUB_PROCESS
+        description: 'Ad-hoc sub-process: an unordered collection of activities executed
+          on
+
+          demand. Used as the scope for an autonomous AI agent loop, where child
+
+          activities are advertised to the model as callable tools.'
       EXCLUSIVE_GATEWAY:
         text: EXCLUSIVE_GATEWAY
         description: Exclusive (XOR) gateway.
@@ -9009,6 +9025,7 @@ slots:
     slot_uri: prov:wasAssociatedWith
     owner: AiModelInvocation
     domain_of:
+    - AgentLoopRun
     - AiModelInvocation
     range: AiAgent
   invocation_kind:
@@ -9021,6 +9038,55 @@ slots:
     domain_of:
     - AiModelInvocation
     range: AiInvocationKind
+  parent_agent_loop:
+    name: parent_agent_loop
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/parent_agent_loop
+    description: Agent loop run that owns this model invocation as one of its turns.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - prov:wasInformedBy
+    slot_uri: prov:wasInformedBy
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: AgentLoopRun
+  turn_index:
+    name: turn_index
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/turn_index
+    description: Zero-based position of this invocation within its parent agent loop.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:turn_index
+    owner: AiModelInvocation
+    domain_of:
+    - AiModelInvocation
+    range: integer
+  model_invocations:
+    name: model_invocations
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/model_invocations
+    description: Ordered sequence of model invocation turns performed during an agent
+      loop.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:model_invocations
+    owner: AgentLoopRun
+    domain_of:
+    - AgentLoopRun
+    range: AiModelInvocation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  available_tools:
+    name: available_tools
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/available_tools
+    description: Tools advertised to the model for the duration of the agent loop.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:available_tools
+    owner: AgentLoopRun
+    domain_of:
+    - AgentLoopRun
+    range: AiToolDefinition
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
   prompt_messages:
     name: prompt_messages
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/prompt_messages
@@ -9059,6 +9125,8 @@ slots:
     domain_of:
     - AiModelInvocation
     range: PromptMessage
+    inlined: true
+    inlined_as_list: false
   temperature:
     name: temperature
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/temperature
@@ -9202,6 +9270,60 @@ slots:
     domain_of:
     - ToolCall
     range: string
+  tool_definition:
+    name: tool_definition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_definition
+    description: Prospective tool definition that this call is an invocation of.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:tool_definition
+    owner: ToolCall
+    domain_of:
+    - ToolCall
+    range: AiToolDefinition
+  tool_description:
+    name: tool_description
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_description
+    description: Human- or model-facing description of what the tool does.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:tool_description
+    owner: AiToolDefinition
+    domain_of:
+    - AiToolDefinition
+    range: string
+  reads_variables:
+    name: reads_variables
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/reads_variables
+    description: Process variables the tool reads as input.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:reads_variables
+    owner: AiToolDefinition
+    domain_of:
+    - AiToolDefinition
+    range: string
+    multivalued: true
+  writes_variables:
+    name: writes_variables
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/writes_variables
+    description: Process variables the tool writes as output.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:writes_variables
+    owner: AiToolDefinition
+    domain_of:
+    - AiToolDefinition
+    range: string
+    multivalued: true
+  backing_step_definition:
+    name: backing_step_definition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/backing_step_definition
+    description: 'Step definition (typically a child service task of the ad-hoc agent
+
+      subprocess) that implements the tool.'
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    slot_uri: fluxnova_bpm_ai_provenance:backing_step_definition
+    owner: AiToolDefinition
+    domain_of:
+    - AiToolDefinition
+    range: StepDefinition
   tool_call_id:
     name: tool_call_id
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/tool_call_id
@@ -10844,8 +10966,6 @@ classes:
     - platform
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform
-    exact_mappings:
-    - fluxnova_bpm_platform:FluxnovaPlatformData
     slots:
     - FluxnovaPlatformData_deployments
     - FluxnovaPlatformData_process_definitions
@@ -10910,8 +11030,6 @@ classes:
     - base
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
-    exact_mappings:
-    - fluxnova_bpm_base:ByteArray
     slots:
     - id
     - name
@@ -10940,8 +11058,6 @@ classes:
     - base
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
-    exact_mappings:
-    - fluxnova_bpm_base:MeterLog
     slots:
     - id
     - MeterLog_name
@@ -10969,8 +11085,6 @@ classes:
     - base
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
-    exact_mappings:
-    - fluxnova_bpm_base:Property
     slots:
     - Property_name
     - value
@@ -10992,8 +11106,6 @@ classes:
     - base
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
-    exact_mappings:
-    - fluxnova_bpm_base:SchemaLogEntry
     slots:
     - id
     - timestamp
@@ -11015,8 +11127,6 @@ classes:
     - base
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/base
-    exact_mappings:
-    - fluxnova_bpm_base:TaskMeterLog
     slots:
     - id
     - assignee_hash
@@ -11035,8 +11145,6 @@ classes:
     - collaboration
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration
-    exact_mappings:
-    - fluxnova_bpm_collaboration:Attachment
     slots:
     - id
     - user_id
@@ -11064,8 +11172,6 @@ classes:
     - collaboration
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration
-    exact_mappings:
-    - fluxnova_bpm_collaboration:Comment
     slots:
     - id
     - type
@@ -11092,8 +11198,6 @@ classes:
     - collaboration
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration
-    exact_mappings:
-    - fluxnova_bpm_collaboration:Filter
     slots:
     - id
     - Filter_resource_type
@@ -11122,8 +11226,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricActivityInstance
     is_a: HistoricScopeInstance
     slots:
     - id
@@ -11176,8 +11278,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricBatch
     slots:
     - id
     - type
@@ -11211,8 +11311,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricCaseActivityInstance
     is_a: HistoricScopeInstance
     slots:
     - id
@@ -11260,8 +11358,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricCaseInstance
     is_a: HistoricScopeInstance
     slots:
     - id
@@ -11306,8 +11402,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricDecisionInputInstance
     slots:
     - id
     - decision_instance_id
@@ -11336,8 +11430,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricDecisionInstance
     slots:
     - id
     - decision_definition_id
@@ -11373,8 +11465,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricDecisionOutputInstance
     slots:
     - id
     - decision_instance_id
@@ -11407,8 +11497,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricDetail
     slots:
     - id
     - HistoricDetail_type
@@ -11459,8 +11547,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricExternalTaskLog
     slots:
     - id
     - HistoricExternalTaskLog_timestamp
@@ -11500,8 +11586,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricIdentityLink
     slots:
     - id
     - HistoricIdentityLink_timestamp
@@ -11533,8 +11617,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricIncident
     slots:
     - id
     - process_definition_key
@@ -11576,8 +11658,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricJobLog
     slots:
     - id
     - HistoricJobLog_timestamp
@@ -11621,8 +11701,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricProcessInstance
     is_a: HistoricScopeInstance
     slots:
     - id
@@ -11664,8 +11742,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricScopeInstance
     abstract: true
     slots:
     - id
@@ -11692,8 +11768,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricTaskInstance
     is_a: HistoricScopeInstance
     slots:
     - id
@@ -11741,8 +11815,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:HistoricVariableInstance
     slots:
     - id
     - process_definition_key
@@ -11786,8 +11858,6 @@ classes:
     - history
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/history
-    exact_mappings:
-    - fluxnova_bpm_history:UserOperationLogEntry
     slots:
     - id
     - deployment_id
@@ -11835,8 +11905,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:Authorization
     slots:
     - id
     - Authorization_type
@@ -11865,8 +11933,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:Group
     related_mappings:
     - d3f:Group
     - oscal:Group
@@ -11887,8 +11953,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:IdentityInfo
     slots:
     - id
     - user_id
@@ -11912,8 +11976,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:IdentityLink
     slots:
     - id
     - group_id
@@ -11935,8 +11997,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:Membership
     slots:
     - Membership_user_id
     - Membership_group_id
@@ -11966,8 +12026,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:Tenant
     slots:
     - id
     - name
@@ -11984,8 +12042,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:TenantMembership
     slots:
     - id
     - TenantMembership_tenant_id
@@ -12008,8 +12064,6 @@ classes:
     - identity
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/identity
-    exact_mappings:
-    - fluxnova_bpm_identity:User
     related_mappings:
     - ocsf:User
     - stix:UserAccount
@@ -12039,8 +12093,6 @@ classes:
     - job
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/job
-    exact_mappings:
-    - fluxnova_bpm_job:Batch
     slots:
     - id
     - type
@@ -12070,8 +12122,6 @@ classes:
     - job
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/job
-    exact_mappings:
-    - fluxnova_bpm_job:Job
     slots:
     - id
     - Job_type
@@ -12123,8 +12173,6 @@ classes:
     - job
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/job
-    exact_mappings:
-    - fluxnova_bpm_job:JobDefinition
     slots:
     - id
     - process_definition_id
@@ -12149,8 +12197,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:CaseDefinition
     is_a: ResourceDefinition
     slots:
     - id
@@ -12183,8 +12229,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:DecisionDefinition
     is_a: ResourceDefinition
     slots:
     - id
@@ -12221,8 +12265,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:DecisionRequirementsDefinition
     is_a: ResourceDefinition
     slots:
     - id
@@ -12257,8 +12299,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:Deployment
     slots:
     - id
     - name
@@ -12280,8 +12320,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:FormDefinition
     is_a: ResourceDefinition
     slots:
     - id
@@ -12316,8 +12354,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:ProcessDefinition
     is_a: ResourceDefinition
     slots:
     - id
@@ -12351,8 +12387,6 @@ classes:
     - repository
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/repository
-    exact_mappings:
-    - fluxnova_bpm_repository:ResourceDefinition
     abstract: true
     slots:
     - id
@@ -12378,8 +12412,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:CaseExecution
     slots:
     - id
     - case_instance_id
@@ -12406,8 +12438,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:CaseSentryPart
     slots:
     - id
     - case_instance_id
@@ -12435,8 +12465,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:EventSubscription
     slots:
     - id
     - event_type
@@ -12461,8 +12489,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:Execution
     slots:
     - id
     - root_process_instance_id
@@ -12499,8 +12525,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:ExternalTask
     slots:
     - id
     - worker_id
@@ -12535,8 +12559,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:Incident
     slots:
     - id
     - incident_timestamp
@@ -12566,8 +12588,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:Task
     slots:
     - id
     - execution_id
@@ -12605,8 +12625,6 @@ classes:
     - runtime
     - fluxnova_bpm
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/runtime
-    exact_mappings:
-    - fluxnova_bpm_runtime:VariableInstance
     slots:
     - id
     - VariableInstance_type
@@ -12651,8 +12669,6 @@ classes:
     - core_api
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model
-    exact_mappings:
-    - fluxnova_bpmn_model:BpmnModelInstance
     slots:
     - definitions
     class_uri: fluxnova_bpmn_model:BpmnModelInstance
@@ -12672,8 +12688,6 @@ classes:
     - core_api
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model
-    exact_mappings:
-    - fluxnova_bpmn_model:BpmnModelType
     class_uri: fluxnova_bpmn_model:BpmnModelType
   NamedThing:
     name: NamedThing
@@ -12681,7 +12695,7 @@ classes:
     description: Abstract identifiable provenance entity with optional human-readable
       name and external reference.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:NamedThing
     abstract: true
     slots:
@@ -12696,8 +12710,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ProvenanceBundle
+    exact_mappings:
     - prov:Bundle
     - schema:Dataset
     slots:
@@ -12723,8 +12738,9 @@ classes:
     in_subset:
     - prospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:WorkflowDefinition
+    exact_mappings:
     - bpmn:Process
     - schema:ComputationalWorkflow
     - fluxnova_bpm_repository:ProcessDefinition
@@ -12749,8 +12765,9 @@ classes:
     in_subset:
     - prospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:StepDefinition
+    exact_mappings:
     - bpmn:FlowNode
     - schema:HowToStep
     is_a: NamedThing
@@ -12776,8 +12793,9 @@ classes:
     in_subset:
     - prospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ParameterDefinition
+    exact_mappings:
     - schema:PropertyValueSpecification
     - wrroc:FormalParameter
     is_a: NamedThing
@@ -12801,8 +12819,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:Agent
+    exact_mappings:
     - prov:Agent
     - schema:Agent
     related_mappings:
@@ -12824,8 +12843,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:Environment
+    exact_mappings:
     - schema:SoftwareApplication
     is_a: NamedThing
     slots:
@@ -12846,8 +12866,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:RuntimeComponent
+    exact_mappings:
     - schema:SoftwareApplication
     - prov:SoftwareAgent
     is_a: NamedThing
@@ -12866,8 +12887,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:WorkflowArtifact
+    exact_mappings:
     - prov:Entity
     - schema:MediaObject
     is_a: NamedThing
@@ -12890,8 +12912,9 @@ classes:
     in_subset:
     - retrospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:WorkflowRun
+    exact_mappings:
     - prov:Activity
     - schema:CreateAction
     - fluxnova_bpm_history:HistoricProcessInstance
@@ -12923,8 +12946,9 @@ classes:
     in_subset:
     - retrospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:StepRun
+    exact_mappings:
     - prov:Activity
     - schema:CreateAction
     - fluxnova_bpm_history:HistoricActivityInstance
@@ -12959,8 +12983,9 @@ classes:
     in_subset:
     - retrospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ParameterValue
+    exact_mappings:
     - schema:PropertyValue
     - prov:Entity
     - fluxnova_bpm_history:HistoricVariableInstance
@@ -12988,8 +13013,9 @@ classes:
     in_subset:
     - retrospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ResourceUsage
+    exact_mappings:
     - schema:PropertyValue
     is_a: NamedThing
     slots:
@@ -13010,8 +13036,9 @@ classes:
     in_subset:
     - context_entities
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ExecutionResource
+    exact_mappings:
     - prov:Entity
     - schema:Thing
     is_a: NamedThing
@@ -13032,8 +13059,9 @@ classes:
     in_subset:
     - retrospective_provenance
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_provenance:ProvenanceIncident
+    exact_mappings:
     - schema:Action
     - fluxnova_bpm_history:HistoricIncident
     is_a: NamedThing
@@ -13063,8 +13091,6 @@ classes:
     - dc
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/dc
-    exact_mappings:
-    - fluxnova_bpmn_model_dc:Bounds
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13088,8 +13114,6 @@ classes:
     - dc
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/dc
-    exact_mappings:
-    - fluxnova_bpmn_model_dc:Font
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13115,8 +13139,6 @@ classes:
     - dc
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/dc
-    exact_mappings:
-    - fluxnova_bpmn_model_dc:Point
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13138,8 +13160,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Diagram
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13163,8 +13183,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:DiagramElement
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13186,8 +13204,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Edge
     is_a: DiagramElement
     slots:
     - scope
@@ -13210,8 +13226,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Extension
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13231,8 +13245,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Label
     is_a: Node
     slots:
     - scope
@@ -13255,8 +13267,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:LabeledEdge
     is_a: Edge
     slots:
     - scope
@@ -13279,8 +13289,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:LabeledShape
     is_a: Shape
     slots:
     - scope
@@ -13303,8 +13311,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Node
     is_a: DiagramElement
     slots:
     - scope
@@ -13326,8 +13332,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Plane
     is_a: Node
     slots:
     - scope
@@ -13350,8 +13354,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Shape
     is_a: Node
     slots:
     - scope
@@ -13374,8 +13376,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Style
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13396,8 +13396,6 @@ classes:
     - di
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/di
-    exact_mappings:
-    - fluxnova_bpmn_model_di:Waypoint
     is_a: Point
     slots:
     - scope
@@ -13420,8 +13418,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ActivationCondition
     is_a: Expression
     slots:
     - scope
@@ -13445,8 +13441,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Activity
     is_a: FlowNode
     mixins:
     - InteractionNode
@@ -13500,8 +13494,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Artifact
     related_mappings:
     - d3f:Artifact
     - spdx:Element
@@ -13530,8 +13522,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Assignment
     is_a: BaseElement
     slots:
     - scope
@@ -13557,8 +13547,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Association
     is_a: Artifact
     slots:
     - scope
@@ -13589,8 +13577,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Auditing
     is_a: BaseElement
     slots:
     - scope
@@ -13614,8 +13600,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BaseElement
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -13639,8 +13623,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BoundaryEvent
     is_a: CatchEvent
     slots:
     - scope
@@ -13684,8 +13666,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BpmnModelElementInstance
     slots:
     - BpmnModelElementInstance_scope
     - scope
@@ -13709,8 +13689,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BusinessRuleTask
     is_a: BpmnTask
     slots:
     - scope
@@ -13771,8 +13749,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CallActivity
     is_a: Activity
     slots:
     - scope
@@ -13830,8 +13806,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CallConversation
     is_a: ConversationNode
     slots:
     - scope
@@ -13861,8 +13835,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CallableElement
     is_a: RootElement
     slots:
     - scope
@@ -13890,8 +13862,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CancelEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -13915,8 +13885,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CatchEvent
     is_a: Event
     slots:
     - scope
@@ -13960,8 +13928,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Category
     is_a: RootElement
     slots:
     - scope
@@ -13987,8 +13953,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CategoryValue
     is_a: BaseElement
     slots:
     - scope
@@ -14013,8 +13977,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Collaboration
     is_a: RootElement
     slots:
     - scope
@@ -14049,8 +14011,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CompensateEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -14077,8 +14037,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CompletionCondition
     is_a: Expression
     slots:
     - scope
@@ -14104,8 +14062,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ComplexBehaviorDefinition
     is_a: BaseElement
     slots:
     - scope
@@ -14129,8 +14085,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ComplexGateway
     is_a: Gateway
     slots:
     - scope
@@ -14170,8 +14124,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Condition
     is_a: Expression
     slots:
     - scope
@@ -14195,8 +14147,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ConditionExpression
     is_a: FormalExpression
     slots:
     - scope
@@ -14224,8 +14174,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ConditionalEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -14253,8 +14201,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Conversation
     is_a: ConversationNode
     slots:
     - scope
@@ -14282,8 +14228,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ConversationAssociation
     is_a: BaseElement
     slots:
     - scope
@@ -14309,8 +14253,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ConversationLink
     is_a: BaseElement
     slots:
     - scope
@@ -14344,8 +14286,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ConversationNode
     is_a: BaseElement
     mixins:
     - InteractionNode
@@ -14375,8 +14315,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CorrelationKey
     is_a: BaseElement
     slots:
     - scope
@@ -14402,8 +14340,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CorrelationProperty
     is_a: RootElement
     slots:
     - scope
@@ -14434,8 +14370,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CorrelationPropertyBinding
     is_a: BaseElement
     slots:
     - scope
@@ -14461,8 +14395,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression
     is_a: BaseElement
     slots:
     - scope
@@ -14492,8 +14424,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:CorrelationSubscription
     is_a: BaseElement
     slots:
     - scope
@@ -14519,8 +14449,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataAssociation
     is_a: BaseElement
     slots:
     - scope
@@ -14552,8 +14480,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataInput
     is_a: ItemAwareElement
     slots:
     - scope
@@ -14581,8 +14507,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataInputAssociation
     is_a: DataAssociation
     slots:
     - scope
@@ -14610,8 +14534,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataObject
     is_a: FlowElement
     mixins:
     - ItemAwareElement
@@ -14644,8 +14566,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataObjectReference
     is_a: FlowElement
     mixins:
     - ItemAwareElement
@@ -14678,8 +14598,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataOutput
     is_a: ItemAwareElement
     slots:
     - scope
@@ -14707,8 +14625,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataOutputAssociation
     is_a: DataAssociation
     slots:
     - scope
@@ -14736,8 +14652,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataState
     is_a: BaseElement
     slots:
     - scope
@@ -14762,8 +14676,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataStore
     is_a: RootElement
     mixins:
     - ItemAwareElement
@@ -14794,8 +14706,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:DataStoreReference
     is_a: FlowElement
     mixins:
     - ItemAwareElement
@@ -14828,8 +14738,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Definitions
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -14861,8 +14769,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Documentation
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -14884,8 +14790,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:EndEvent
     is_a: ThrowEvent
     slots:
     - scope
@@ -14927,8 +14831,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:EndPoint
     is_a: RootElement
     slots:
     - scope
@@ -14952,8 +14854,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Error
     is_a: RootElement
     slots:
     - scope
@@ -14981,8 +14881,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ErrorEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -15009,8 +14907,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Escalation
     is_a: RootElement
     slots:
     - scope
@@ -15037,8 +14933,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:EscalationEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -15063,8 +14957,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Event
     is_a: FlowNode
     mixins:
     - InteractionNode
@@ -15109,8 +15001,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:EventBasedGateway
     is_a: Gateway
     slots:
     - scope
@@ -15149,8 +15039,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:EventDefinition
     is_a: RootElement
     slots:
     - scope
@@ -15174,8 +15062,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ExclusiveGateway
     is_a: Gateway
     slots:
     - scope
@@ -15213,8 +15099,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Expression
     is_a: BaseElement
     slots:
     - scope
@@ -15238,8 +15122,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ExtensionElements
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -15261,8 +15143,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:FlowElement
     is_a: BaseElement
     slots:
     - scope
@@ -15290,8 +15170,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:FlowNode
     is_a: FlowElement
     slots:
     - scope
@@ -15327,8 +15205,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:FormalExpression
     is_a: Expression
     slots:
     - scope
@@ -15354,8 +15230,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Gateway
     is_a: FlowNode
     slots:
     - scope
@@ -15392,8 +15266,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:GlobalConversation
     is_a: Collaboration
     slots:
     - scope
@@ -15429,8 +15301,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BpmnGroup
     is_a: Artifact
     slots:
     - scope
@@ -15459,8 +15329,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:HumanPerformer
     is_a: Performer
     slots:
     - scope
@@ -15488,8 +15356,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Import
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -15512,8 +15378,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:InclusiveGateway
     is_a: Gateway
     slots:
     - scope
@@ -15552,8 +15416,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:InputDataItem
     is_a: DataInput
     slots:
     - scope
@@ -15581,8 +15443,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:InputSet
     is_a: BaseElement
     slots:
     - scope
@@ -15611,8 +15471,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:InteractionNode
     slots:
     - id
     class_uri: fluxnova_bpmn_model_instance:InteractionNode
@@ -15631,8 +15489,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Interface
     is_a: RootElement
     slots:
     - scope
@@ -15659,8 +15515,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:IntermediateCatchEvent
     is_a: CatchEvent
     slots:
     - scope
@@ -15703,8 +15557,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:IntermediateThrowEvent
     is_a: ThrowEvent
     slots:
     - scope
@@ -15746,8 +15598,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:IoBinding
     is_a: BaseElement
     slots:
     - scope
@@ -15774,8 +15624,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:IoSpecification
     is_a: BaseElement
     slots:
     - scope
@@ -15803,8 +15651,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ItemAwareElement
     is_a: BaseElement
     slots:
     - scope
@@ -15830,8 +15676,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ItemDefinition
     is_a: RootElement
     slots:
     - scope
@@ -15858,8 +15702,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Lane
     is_a: BaseElement
     slots:
     - scope
@@ -15888,8 +15730,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:LaneSet
     is_a: BaseElement
     slots:
     - scope
@@ -15915,8 +15755,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:LinkEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -15951,8 +15789,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:LoopCardinality
     is_a: Expression
     slots:
     - scope
@@ -15976,8 +15812,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:LoopCharacteristics
     is_a: BaseElement
     slots:
     - scope
@@ -16001,8 +15835,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ManualTask
     is_a: BpmnTask
     slots:
     - scope
@@ -16049,8 +15881,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Message
     is_a: RootElement
     slots:
     - scope
@@ -16076,8 +15906,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:MessageEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -16114,8 +15942,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:MessageFlow
     is_a: BaseElement
     slots:
     - scope
@@ -16153,8 +15979,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:MessageFlowAssociation
     is_a: BaseElement
     slots:
     - scope
@@ -16180,8 +16004,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Monitoring
     is_a: BaseElement
     slots:
     - scope
@@ -16205,8 +16027,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics
     is_a: LoopCharacteristics
     slots:
     - scope
@@ -16246,8 +16066,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Operation
     is_a: BaseElement
     slots:
     - scope
@@ -16277,8 +16095,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:OutputDataItem
     is_a: DataOutput
     slots:
     - scope
@@ -16306,8 +16122,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:OutputSet
     is_a: BaseElement
     slots:
     - scope
@@ -16336,8 +16150,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ParallelGateway
     is_a: Gateway
     slots:
     - scope
@@ -16375,8 +16187,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Participant
     is_a: BaseElement
     mixins:
     - InteractionNode
@@ -16407,8 +16217,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ParticipantAssociation
     is_a: BaseElement
     slots:
     - scope
@@ -16434,8 +16242,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ParticipantMultiplicity
     is_a: BaseElement
     slots:
     - scope
@@ -16461,8 +16267,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Performer
     is_a: ResourceRole
     slots:
     - scope
@@ -16490,8 +16294,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:PotentialOwner
     is_a: HumanPerformer
     slots:
     - scope
@@ -16519,8 +16321,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Process
     related_mappings:
     - d3f:Process
     - ocsf:Process
@@ -16582,8 +16382,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BpmnProperty
     is_a: ItemAwareElement
     slots:
     - scope
@@ -16610,8 +16408,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ReceiveTask
     is_a: BpmnTask
     slots:
     - scope
@@ -16665,8 +16461,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Relationship
     related_mappings:
     - cve:TaxonomyRelation
     - cwe:Relationship
@@ -16703,8 +16497,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Rendering
     is_a: BaseElement
     slots:
     - scope
@@ -16728,8 +16520,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Resource
     related_mappings:
     - d3f:Resource
     - oscal:Resource
@@ -16758,8 +16548,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ResourceAssignmentExpression
     is_a: BaseElement
     slots:
     - scope
@@ -16784,8 +16572,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ResourceParameter
     is_a: BaseElement
     slots:
     - scope
@@ -16816,8 +16602,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ResourceParameterBinding
     is_a: BaseElement
     slots:
     - scope
@@ -16843,8 +16627,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ResourceRole
     is_a: BaseElement
     slots:
     - scope
@@ -16872,8 +16654,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:RootElement
     is_a: BaseElement
     slots:
     - scope
@@ -16897,8 +16677,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Script
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -16918,8 +16696,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ScriptTask
     is_a: BpmnTask
     slots:
     - scope
@@ -16970,8 +16746,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:SendTask
     is_a: BpmnTask
     slots:
     - scope
@@ -17032,8 +16806,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:SequenceFlow
     is_a: FlowElement
     slots:
     - scope
@@ -17072,8 +16844,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ServiceTask
     is_a: BpmnTask
     slots:
     - scope
@@ -17129,8 +16899,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Signal
     is_a: RootElement
     slots:
     - scope
@@ -17156,8 +16924,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:SignalEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -17183,8 +16949,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:StartEvent
     is_a: CatchEvent
     slots:
     - scope
@@ -17235,8 +16999,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:SubConversation
     is_a: ConversationNode
     slots:
     - scope
@@ -17265,8 +17027,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:SubProcess
     is_a: Activity
     slots:
     - scope
@@ -17316,8 +17076,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:BpmnTask
     is_a: Activity
     slots:
     - scope
@@ -17364,8 +17122,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TerminateEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -17389,8 +17145,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Text
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -17410,8 +17164,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TextAnnotation
     is_a: Artifact
     slots:
     - scope
@@ -17437,8 +17189,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:ThrowEvent
     is_a: Event
     slots:
     - scope
@@ -17480,8 +17230,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TimeCycle
     is_a: Expression
     slots:
     - scope
@@ -17505,8 +17253,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TimeDate
     is_a: Expression
     slots:
     - scope
@@ -17530,8 +17276,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TimeDuration
     is_a: Expression
     slots:
     - scope
@@ -17555,8 +17299,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:TimerEventDefinition
     is_a: EventDefinition
     slots:
     - scope
@@ -17583,8 +17325,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:Transaction
     is_a: SubProcess
     slots:
     - scope
@@ -17635,8 +17375,6 @@ classes:
     - instance
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/instance
-    exact_mappings:
-    - fluxnova_bpmn_model_instance:UserTask
     is_a: BpmnTask
     slots:
     - scope
@@ -17698,8 +17436,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnDiagram
     is_a: Diagram
     slots:
     - scope
@@ -17725,8 +17461,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnEdge
     is_a: LabeledEdge
     slots:
     - scope
@@ -17754,8 +17488,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnLabel
     is_a: Label
     slots:
     - scope
@@ -17779,8 +17511,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnLabelStyle
     is_a: Style
     slots:
     - scope
@@ -17802,8 +17532,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnPlane
     is_a: Plane
     slots:
     - scope
@@ -17827,8 +17555,6 @@ classes:
     - bpmndi
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/bpmndi
-    exact_mappings:
-    - fluxnova_bpmn_model_bpmndi:BpmnShape
     is_a: LabeledShape
     slots:
     - scope
@@ -17859,8 +17585,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaConnector
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -17882,8 +17606,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -17903,8 +17625,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaConstraint
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -17926,8 +17646,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaEntry
     is_a: BpmnModelElementInstance
     mixins:
     - FluxnovaGenericValueElement
@@ -17952,8 +17670,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition
     is_a: ErrorEventDefinition
     slots:
     - scope
@@ -17981,8 +17697,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18008,8 +17722,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaExpression
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18029,8 +17741,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18050,8 +17760,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaField
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18076,8 +17784,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaFormData
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18098,8 +17804,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaFormField
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18127,8 +17831,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18160,8 +17862,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement
     slots:
     - value
     class_uri: fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement
@@ -18180,8 +17880,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaIn
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18207,8 +17905,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18230,8 +17926,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter
     is_a: BpmnModelElementInstance
     mixins:
     - FluxnovaGenericValueElement
@@ -18255,8 +17949,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaList
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18277,8 +17969,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaMap
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18299,8 +17989,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaOut
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18325,8 +18013,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter
     is_a: BpmnModelElementInstance
     mixins:
     - FluxnovaGenericValueElement
@@ -18350,8 +18036,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18372,8 +18056,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaProperties
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18398,8 +18080,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaProperty
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18422,8 +18102,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaScript
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18445,8 +18123,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaString
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18466,8 +18142,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18494,8 +18168,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaValidation
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18516,8 +18188,6 @@ classes:
     - fluxnova_extensions
     - fluxnova_bpmn_model
     from_schema: https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova
-    exact_mappings:
-    - fluxnova_bpmn_model_fluxnova:FluxnovaValue
     is_a: BpmnModelElementInstance
     slots:
     - scope
@@ -18538,13 +18208,17 @@ classes:
     in_subset:
     - ai_prospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:AiAgent
+    exact_mappings:
     - airo:AIAgent
+    - dpv_ai:AIAgent
     - nexus:AiAgent
     - prov:SoftwareAgent
     related_mappings:
+    - airo:AISystem
     - dpv_ai:AISystem
+    - nexus:AiSystem
     is_a: Agent
     slots:
     - id
@@ -18578,14 +18252,15 @@ classes:
     in_subset:
     - ai_prospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:AiModelDescriptor
+    exact_mappings:
     - airo:AIModel
     - nexus:AiModel
-    - nexus:LargeLanguageModel
     close_mappings:
     - nexus:LargeLanguageModel
     related_mappings:
+    - airo:AIComponent
     - schema:SoftwareApplication
     is_a: RuntimeComponent
     slots:
@@ -18603,6 +18278,97 @@ classes:
     - fine_tuning_description
     - supported_languages
     class_uri: fluxnova_bpm_ai_provenance:AiModelDescriptor
+  AiToolDefinition:
+    name: AiToolDefinition
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiToolDefinition
+    description: 'Prospective definition of a tool advertised to an AI agent. Corresponds
+      to
+
+      a child activity of an ad-hoc agent subprocess that is exposed to the model
+
+      as a callable function. Captures the tool description and the process
+
+      variables the tool reads and writes, and links to the backing step
+
+      definition. Distinct from ToolCall, which records a concrete invocation of
+
+      such a tool during a run.'
+    in_subset:
+    - ai_prospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - fluxnova_bpm_ai_provenance:AiToolDefinition
+    related_mappings:
+    - schema:Action
+    - prov:Plan
+    is_a: NamedThing
+    slots:
+    - id
+    - name
+    - external_ref
+    - tool_description
+    - reads_variables
+    - writes_variables
+    - backing_step_definition
+    class_uri: fluxnova_bpm_ai_provenance:AiToolDefinition
+  AgentLoopRun:
+    name: AgentLoopRun
+    definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AgentLoopRun
+    description: 'One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+
+      Owns the ordered sequence of AiModelInvocation turns performed during the
+
+      loop, together with the tools advertised to the model. Each turn is a
+
+      single model call; tool calls made in a turn may materialize child step
+
+      runs. Inherits status, timestamps, parent workflow run, sequence number,
+
+      and incident linkage from StepRun.
+
+
+      Use this as the parent record for an agentic subprocess: the loop is a
+
+      single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+
+      implementation_kind AGENT_LOOP, and each individual model call is a child
+
+      AiModelInvocation with a turn_index.'
+    in_subset:
+    - ai_retrospective
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
+    mappings:
+    - fluxnova_bpm_ai_provenance:AgentLoopRun
+    exact_mappings:
+    - prov:Activity
+    - schema:CreateAction
+    is_a: StepRun
+    slots:
+    - id
+    - name
+    - external_ref
+    - workflow_run
+    - step_definition
+    - activity_instance_id
+    - parent_step_run
+    - informed_by
+    - status
+    - started_at
+    - ended_at
+    - executed_by
+    - environment
+    - execution_resource
+    - input_values
+    - output_values
+    - consumed_artifacts
+    - produced_artifacts
+    - incident_message
+    - retries
+    - sequence_no
+    - invoked_model
+    - available_tools
+    - model_invocations
+    class_uri: fluxnova_bpm_ai_provenance:AgentLoopRun
   AiModelInvocation:
     name: AiModelInvocation
     definition_uri: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/AiModelInvocation
@@ -18615,12 +18381,20 @@ classes:
 
       any evaluation results attached. Inherits status, timestamps, parent
 
-      workflow run, sequence number, and incident linkage from StepRun.'
+      workflow run, sequence number, and incident linkage from StepRun.
+
+
+      A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+
+      TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+
+      AgentLoopRun via parent_agent_loop and carries a turn_index.'
     in_subset:
     - ai_retrospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:AiModelInvocation
+    exact_mappings:
     - prov:Activity
     - schema:CreateAction
     is_a: StepRun
@@ -18648,6 +18422,8 @@ classes:
     - sequence_no
     - invoked_model
     - invocation_kind
+    - parent_agent_loop
+    - turn_index
     - prompt_messages
     - tool_calls
     - response_message
@@ -18671,7 +18447,7 @@ classes:
     in_subset:
     - ai_retrospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:PromptMessage
     related_mappings:
     - schema:Message
@@ -18701,8 +18477,9 @@ classes:
     in_subset:
     - ai_retrospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:ToolCall
+    exact_mappings:
     - schema:Action
     related_mappings:
     - prov:Activity
@@ -18713,6 +18490,7 @@ classes:
     - external_ref
     - tool_name
     - tool_call_id
+    - tool_definition
     - arguments_json
     - result_json
     - result_artifact
@@ -18735,8 +18513,9 @@ classes:
     in_subset:
     - ai_retrospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:EvaluationResult
+    exact_mappings:
     - dqv:QualityMeasurement
     - nexus:AiEvalResult
     related_mappings:
@@ -18769,8 +18548,9 @@ classes:
     in_subset:
     - ai_prospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:AiDataset
+    exact_mappings:
     - cr:Dataset
     - nexus:Dataset
     - prov:Entity
@@ -18806,8 +18586,9 @@ classes:
     in_subset:
     - ai_prospective
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance
-    exact_mappings:
+    mappings:
     - fluxnova_bpm_ai_provenance:ModelArtifact
+    exact_mappings:
     - schema:SoftwareSourceCode
     related_mappings:
     - nexus:LargeLanguageModel
@@ -18832,7 +18613,7 @@ classes:
     class_uri: fluxnova_bpm_ai_provenance:ModelArtifact
 metamodel_version: 1.11.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-06-12T02:47:46'
+source_file_date: '2026-07-03T12:24:39'
 source_file_size: 4673
-generation_date: '2026-06-12T03:12:19'
+generation_date: '2026-07-03T12:25:34'
 

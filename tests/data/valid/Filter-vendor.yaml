@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Filter — mirrors MockProvider EXAMPLE_FILTER_* constants
+# Filter - mirrors MockProvider EXAMPLE_FILTER_* constants
 id: aFilterId
 resource_type: "7"
 name: aFilterName

@@ -914,6 +914,12 @@ class ImplementationKind(str, Enum):
     """
     Embedded subprocess.
     """
+    AGENT_LOOP = "AGENT_LOOP"
+    """
+    Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step
+    repeatedly calls an AI model and dispatches model-requested tool
+    activities until the model returns a terminal response.
+    """
 
 
 class ResourceKind(str, Enum):
@@ -1001,6 +1007,12 @@ class BPMNElementType(str, Enum):
     SUB_PROCESS = "SUB_PROCESS"
     """
     Sub-process.
+    """
+    AD_HOC_SUB_PROCESS = "AD_HOC_SUB_PROCESS"
+    """
+    Ad-hoc sub-process: an unordered collection of activities executed on
+    demand. Used as the scope for an autonomous AI agent loop, where child
+    activities are advertised to the model as callable tools.
     """
     EXCLUSIVE_GATEWAY = "EXCLUSIVE_GATEWAY"
     """
@@ -26639,6 +26651,131 @@ class NamedThing(ConfiguredBaseModel):
     external_ref: Optional[str] = Field(default=None, description="""External URI, engine identifier, or source reference for this entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:url'} })
 
 
+class AiToolDefinition(NamedThing):
+    """
+    Prospective definition of a tool advertised to an AI agent. Corresponds to
+    a child activity of an ad-hoc agent subprocess that is exposed to the model
+    as a callable function. Captures the tool description and the process
+    variables the tool reads and writes, and links to the backing step
+    definition. Distinct from ToolCall, which records a concrete invocation of
+    such a tool during a run.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'fluxnova_bpm_ai_provenance:AiToolDefinition',
+         'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance',
+         'in_subset': ['ai_prospective'],
+         'related_mappings': ['schema:Action', 'prov:Plan']})
+
+    tool_description: Optional[str] = Field(default=None, description="""Human- or model-facing description of what the tool does.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiToolDefinition']} })
+    reads_variables: Optional[list[str]] = Field(default=None, description="""Process variables the tool reads as input.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiToolDefinition']} })
+    writes_variables: Optional[list[str]] = Field(default=None, description="""Process variables the tool writes as output.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiToolDefinition']} })
+    backing_step_definition: Optional[str] = Field(default=None, description="""Step definition (typically a child service task of the ad-hoc agent
+subprocess) that implements the tool.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiToolDefinition']} })
+    id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
+                       'MeterLog',
+                       'SchemaLogEntry',
+                       'TaskMeterLog',
+                       'Authorization',
+                       'Group',
+                       'IdentityInfo',
+                       'IdentityLink',
+                       'Tenant',
+                       'TenantMembership',
+                       'User',
+                       'CaseExecution',
+                       'CaseSentryPart',
+                       'EventSubscription',
+                       'Execution',
+                       'ExternalTask',
+                       'Incident',
+                       'Task',
+                       'VariableInstance',
+                       'Attachment',
+                       'Comment',
+                       'Filter',
+                       'Deployment',
+                       'ResourceDefinition',
+                       'Batch',
+                       'Job',
+                       'JobDefinition',
+                       'HistoricBatch',
+                       'HistoricDecisionInputInstance',
+                       'HistoricDecisionInstance',
+                       'HistoricDecisionOutputInstance',
+                       'HistoricDetail',
+                       'HistoricExternalTaskLog',
+                       'HistoricIdentityLink',
+                       'HistoricIncident',
+                       'HistoricJobLog',
+                       'HistoricScopeInstance',
+                       'HistoricVariableInstance',
+                       'UserOperationLogEntry',
+                       'Diagram',
+                       'DiagramElement',
+                       'Style',
+                       'BaseElement',
+                       'Definitions',
+                       'Documentation',
+                       'InteractionNode',
+                       'NamedThing',
+                       'ProvenanceBundle'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
+         'slot_uri': 'schema:identifier'} })
+    name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
+                       'MeterLog',
+                       'Property',
+                       'Group',
+                       'Tenant',
+                       'Task',
+                       'VariableInstance',
+                       'Attachment',
+                       'Filter',
+                       'Deployment',
+                       'ResourceDefinition',
+                       'HistoricDetail',
+                       'HistoricTaskInstance',
+                       'HistoricVariableInstance',
+                       'Font',
+                       'Diagram',
+                       'CallableElement',
+                       'Category',
+                       'Collaboration',
+                       'ConversationLink',
+                       'ConversationNode',
+                       'CorrelationKey',
+                       'CorrelationProperty',
+                       'DataInput',
+                       'DataOutput',
+                       'DataState',
+                       'DataStore',
+                       'Definitions',
+                       'Error',
+                       'Escalation',
+                       'FlowElement',
+                       'InputSet',
+                       'Interface',
+                       'Lane',
+                       'LaneSet',
+                       'LinkEventDefinition',
+                       'Message',
+                       'MessageFlow',
+                       'Operation',
+                       'OutputSet',
+                       'Participant',
+                       'BpmnProperty',
+                       'Resource',
+                       'ResourceParameter',
+                       'ResourceRole',
+                       'Signal',
+                       'NamedThing',
+                       'ProvenanceBundle'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
+         'slot_uri': 'schema:name'} })
+    external_ref: Optional[str] = Field(default=None, description="""External URI, engine identifier, or source reference for this entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:url'} })
+
+
 class PromptMessage(NamedThing):
     """
     A single message turn in an AI model invocation (system, user, assistant,
@@ -26779,6 +26916,7 @@ class ToolCall(NamedThing):
 
     tool_name: Optional[str] = Field(default=None, description="""Tool or function name as exposed to the model.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
     tool_call_id: Optional[str] = Field(default=None, description="""Provider-assigned identifier for the tool call.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
+    tool_definition: Optional[str] = Field(default=None, description="""Prospective tool definition that this call is an invocation of.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
     arguments_json: Optional[str] = Field(default=None, description="""JSON-serialized arguments passed to the tool.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
     result_json: Optional[str] = Field(default=None, description="""JSON-serialized result returned by the tool.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
     result_artifact: Optional[str] = Field(default=None, description="""Optional artifact reference for large tool outputs.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall']} })
@@ -27663,10 +27801,13 @@ class AiAgent(Agent):
     kinds declared in the base provenance module.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'fluxnova_bpm_ai_provenance:AiAgent',
-         'exact_mappings': ['airo:AIAgent', 'nexus:AiAgent', 'prov:SoftwareAgent'],
+         'exact_mappings': ['airo:AIAgent',
+                            'dpv_ai:AIAgent',
+                            'nexus:AiAgent',
+                            'prov:SoftwareAgent'],
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance',
          'in_subset': ['ai_prospective'],
-         'related_mappings': ['dpv_ai:AISystem']})
+         'related_mappings': ['airo:AISystem', 'dpv_ai:AISystem', 'nexus:AiSystem']})
 
     model_family: Optional[str] = Field(default=None, description="""Model family or product line (e.g. \"GPT-4\", \"Claude 3\", \"Llama 3\", \"Mistral 7B\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiAgent', 'AiModelDescriptor'], 'slot_uri': 'schema:productID'} })
     model_name: Optional[str] = Field(default=None, description="""Concrete model name (e.g. \"gpt-4o-2024-05-13\", \"claude-3-5-sonnet-20240620\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiAgent'], 'slot_uri': 'schema:name'} })
@@ -28044,12 +28185,10 @@ class AiModelDescriptor(RuntimeComponent):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'fluxnova_bpm_ai_provenance:AiModelDescriptor',
          'close_mappings': ['nexus:LargeLanguageModel'],
-         'exact_mappings': ['airo:AIModel',
-                            'nexus:AiModel',
-                            'nexus:LargeLanguageModel'],
+         'exact_mappings': ['airo:AIModel', 'nexus:AiModel'],
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance',
          'in_subset': ['ai_prospective'],
-         'related_mappings': ['schema:SoftwareApplication']})
+         'related_mappings': ['airo:AIComponent', 'schema:SoftwareApplication']})
 
     model_family: Optional[str] = Field(default=None, description="""Model family or product line (e.g. \"GPT-4\", \"Claude 3\", \"Llama 3\", \"Mistral 7B\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiAgent', 'AiModelDescriptor'], 'slot_uri': 'schema:productID'} })
     architecture: Optional[str] = Field(default=None, description="""Architecture family (e.g. \"transformer-decoder\", \"moe\", \"mamba\", \"diffusion\").""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelDescriptor']} })
@@ -28858,6 +28997,169 @@ class StepRun(NamedThing):
     external_ref: Optional[str] = Field(default=None, description="""External URI, engine identifier, or source reference for this entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:url'} })
 
 
+class AgentLoopRun(StepRun):
+    """
+    One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+    Owns the ordered sequence of AiModelInvocation turns performed during the
+    loop, together with the tools advertised to the model. Each turn is a
+    single model call; tool calls made in a turn may materialize child step
+    runs. Inherits status, timestamps, parent workflow run, sequence number,
+    and incident linkage from StepRun.
+
+    Use this as the parent record for an agentic subprocess: the loop is a
+    single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+    implementation_kind AGENT_LOOP, and each individual model call is a child
+    AiModelInvocation with a turn_index.
+    """
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'fluxnova_bpm_ai_provenance:AgentLoopRun',
+         'exact_mappings': ['prov:Activity', 'schema:CreateAction'],
+         'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance',
+         'in_subset': ['ai_retrospective']})
+
+    invoked_model: Optional[str] = Field(default=None, description="""AI agent that was invoked to produce the step result.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AgentLoopRun', 'AiModelInvocation'],
+         'exact_mappings': ['prov:wasAssociatedWith'],
+         'slot_uri': 'prov:wasAssociatedWith'} })
+    available_tools: Optional[list[AiToolDefinition]] = Field(default=None, description="""Tools advertised to the model for the duration of the agent loop.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AgentLoopRun']} })
+    model_invocations: Optional[list[AiModelInvocation]] = Field(default=None, description="""Ordered sequence of model invocation turns performed during an agent loop.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AgentLoopRun']} })
+    workflow_run: Optional[str] = Field(default=None, description="""Parent workflow run for the step run.""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun']} })
+    step_definition: Optional[str] = Field(default=None, description="""Step definition this run instantiates.""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun'], 'slot_uri': 'schema:instrument'} })
+    activity_instance_id: Optional[str] = Field(default=None, description="""Runtime activity instance identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Execution',
+                       'ExternalTask',
+                       'HistoricDecisionInstance',
+                       'HistoricDetail',
+                       'HistoricExternalTaskLog',
+                       'HistoricTaskInstance',
+                       'HistoricVariableInstance',
+                       'StepRun']} })
+    parent_step_run: Optional[str] = Field(default=None, description="""Parent step run for nested step executions.""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun']} })
+    informed_by: Optional[list[str]] = Field(default=None, description="""Step runs whose completion preceded and informed this step run (by-reference).""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun'], 'slot_uri': 'prov:wasInformedBy'} })
+    status: Optional[RunStatus] = Field(default=None, description="""Status of the workflow run or step run.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall', 'WorkflowRun', 'StepRun'],
+         'related_mappings': ['core:status', 'nvd:NVDWorkflowStatus'],
+         'slot_uri': 'schema:actionStatus'} })
+    started_at: Optional[datetime ] = Field(default=None, description="""Timestamp when execution started.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall', 'WorkflowRun', 'StepRun'],
+         'slot_uri': 'schema:startTime'} })
+    ended_at: Optional[datetime ] = Field(default=None, description="""Timestamp when execution ended (absent for running instances).""", json_schema_extra = { "linkml_meta": {'domain_of': ['ToolCall', 'WorkflowRun', 'StepRun'],
+         'slot_uri': 'schema:endTime'} })
+    executed_by: Optional[str] = Field(default=None, description="""Agent (assignee, service account, system) that executed the step.""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun'],
+         'narrow_mappings': ['schema:agent'],
+         'slot_uri': 'prov:wasAssociatedWith'} })
+    environment: Optional[str] = Field(default=None, description="""Runtime environment in which the run took place.""", json_schema_extra = { "linkml_meta": {'domain_of': ['WorkflowRun', 'StepRun']} })
+    execution_resource: Optional[str] = Field(default=None, description="""Resource (pod, container, node, queue) used to execute the step.""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun', 'ResourceUsage']} })
+    input_values: Optional[list[str]] = Field(default=None, description="""Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).""", json_schema_extra = { "linkml_meta": {'domain_of': ['WorkflowRun', 'StepRun'], 'slot_uri': 'schema:object'} })
+    output_values: Optional[list[str]] = Field(default=None, description="""Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).""", json_schema_extra = { "linkml_meta": {'domain_of': ['WorkflowRun', 'StepRun'], 'slot_uri': 'schema:result'} })
+    consumed_artifacts: Optional[list[str]] = Field(default=None, description="""Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun'], 'slot_uri': 'prov:used'} })
+    produced_artifacts: Optional[list[str]] = Field(default=None, description="""Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).""", json_schema_extra = { "linkml_meta": {'domain_of': ['StepRun'], 'slot_uri': 'prov:generated'} })
+    incident_message: Optional[str] = Field(default=None, description="""Incident message.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'INCIDENT_MSG_'}},
+         'domain_of': ['Incident', 'HistoricIncident', 'StepRun']} })
+    retries: Optional[int] = Field(default=None, description="""Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'RETRIES_'}},
+         'domain_of': ['ExternalTask', 'Job', 'HistoricExternalTaskLog', 'StepRun']} })
+    sequence_no: Optional[int] = Field(default=None, description="""Exporter-assigned ordering number for deterministic serialization.""", json_schema_extra = { "linkml_meta": {'domain_of': ['PromptMessage', 'StepRun']} })
+    id: str = Field(default=..., description="""Unique identifier.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
+                       'MeterLog',
+                       'SchemaLogEntry',
+                       'TaskMeterLog',
+                       'Authorization',
+                       'Group',
+                       'IdentityInfo',
+                       'IdentityLink',
+                       'Tenant',
+                       'TenantMembership',
+                       'User',
+                       'CaseExecution',
+                       'CaseSentryPart',
+                       'EventSubscription',
+                       'Execution',
+                       'ExternalTask',
+                       'Incident',
+                       'Task',
+                       'VariableInstance',
+                       'Attachment',
+                       'Comment',
+                       'Filter',
+                       'Deployment',
+                       'ResourceDefinition',
+                       'Batch',
+                       'Job',
+                       'JobDefinition',
+                       'HistoricBatch',
+                       'HistoricDecisionInputInstance',
+                       'HistoricDecisionInstance',
+                       'HistoricDecisionOutputInstance',
+                       'HistoricDetail',
+                       'HistoricExternalTaskLog',
+                       'HistoricIdentityLink',
+                       'HistoricIncident',
+                       'HistoricJobLog',
+                       'HistoricScopeInstance',
+                       'HistoricVariableInstance',
+                       'UserOperationLogEntry',
+                       'Diagram',
+                       'DiagramElement',
+                       'Style',
+                       'BaseElement',
+                       'Definitions',
+                       'Documentation',
+                       'InteractionNode',
+                       'NamedThing',
+                       'ProvenanceBundle'],
+         'related_mappings': ['cis_controls:id',
+                              'nist_csf_v2:id',
+                              'stix:id',
+                              'unified_cyber_ontology:externalReference'],
+         'slot_uri': 'schema:identifier'} })
+    name: Optional[str] = Field(default=None, description="""Human-readable name.""", json_schema_extra = { "linkml_meta": {'domain_of': ['ByteArray',
+                       'MeterLog',
+                       'Property',
+                       'Group',
+                       'Tenant',
+                       'Task',
+                       'VariableInstance',
+                       'Attachment',
+                       'Filter',
+                       'Deployment',
+                       'ResourceDefinition',
+                       'HistoricDetail',
+                       'HistoricTaskInstance',
+                       'HistoricVariableInstance',
+                       'Font',
+                       'Diagram',
+                       'CallableElement',
+                       'Category',
+                       'Collaboration',
+                       'ConversationLink',
+                       'ConversationNode',
+                       'CorrelationKey',
+                       'CorrelationProperty',
+                       'DataInput',
+                       'DataOutput',
+                       'DataState',
+                       'DataStore',
+                       'Definitions',
+                       'Error',
+                       'Escalation',
+                       'FlowElement',
+                       'InputSet',
+                       'Interface',
+                       'Lane',
+                       'LaneSet',
+                       'LinkEventDefinition',
+                       'Message',
+                       'MessageFlow',
+                       'Operation',
+                       'OutputSet',
+                       'Participant',
+                       'BpmnProperty',
+                       'Resource',
+                       'ResourceParameter',
+                       'ResourceRole',
+                       'Signal',
+                       'NamedThing',
+                       'ProvenanceBundle'],
+         'related_mappings': ['stix:name', 'unified_cyber_ontology:name'],
+         'slot_uri': 'schema:name'} })
+    external_ref: Optional[str] = Field(default=None, description="""External URI, engine identifier, or source reference for this entity.""", json_schema_extra = { "linkml_meta": {'domain_of': ['NamedThing'], 'slot_uri': 'schema:url'} })
+
+
 class AiModelInvocation(StepRun):
     """
     One concrete invocation of an AI model from a workflow step. Captures the
@@ -28865,16 +29167,22 @@ class AiModelInvocation(StepRun):
     consumption telemetry (token counts, cost), any safety flags raised, and
     any evaluation results attached. Inherits status, timestamps, parent
     workflow run, sequence number, and incident linkage from StepRun.
+
+    A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+    TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+    AgentLoopRun via parent_agent_loop and carries a turn_index.
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'class_uri': 'fluxnova_bpm_ai_provenance:AiModelInvocation',
          'exact_mappings': ['prov:Activity', 'schema:CreateAction'],
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance',
          'in_subset': ['ai_retrospective']})
 
-    invoked_model: Optional[str] = Field(default=None, description="""AI agent that was invoked to produce the step result.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation'],
+    invoked_model: Optional[str] = Field(default=None, description="""AI agent that was invoked to produce the step result.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AgentLoopRun', 'AiModelInvocation'],
          'exact_mappings': ['prov:wasAssociatedWith'],
          'slot_uri': 'prov:wasAssociatedWith'} })
     invocation_kind: Optional[AiInvocationKind] = Field(default=None, description="""Kind of invocation (chat completion, tool use, embedding, etc.).""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
+    parent_agent_loop: Optional[str] = Field(default=None, description="""Agent loop run that owns this model invocation as one of its turns.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation'], 'slot_uri': 'prov:wasInformedBy'} })
+    turn_index: Optional[int] = Field(default=None, description="""Zero-based position of this invocation within its parent agent loop.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     prompt_messages: Optional[list[PromptMessage]] = Field(default=None, description="""Ordered sequence of prompt messages sent to the model.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     tool_calls: Optional[list[ToolCall]] = Field(default=None, description="""Tool / function calls performed by the model during the invocation.""", json_schema_extra = { "linkml_meta": {'domain_of': ['AiModelInvocation']} })
     response_message: Optional[PromptMessage] = Field(default=None, description="""Assistant or tool message returned by the model as the response.
@@ -29812,6 +30120,7 @@ FluxnovaValue.model_rebuild()
 BpmnModelInstance.model_rebuild()
 BpmnModelType.model_rebuild()
 NamedThing.model_rebuild()
+AiToolDefinition.model_rebuild()
 PromptMessage.model_rebuild()
 ToolCall.model_rebuild()
 EvaluationResult.model_rebuild()
@@ -29829,6 +30138,7 @@ AiDataset.model_rebuild()
 ModelArtifact.model_rebuild()
 WorkflowRun.model_rebuild()
 StepRun.model_rebuild()
+AgentLoopRun.model_rebuild()
 AiModelInvocation.model_rebuild()
 ParameterValue.model_rebuild()
 ResourceUsage.model_rebuild()

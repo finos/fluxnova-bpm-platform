@@ -1,6 +1,6 @@
 id: https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/strict
 name: fluxnova_bpm_provenance_strict
-title: Fluxnova BPM Provenance — Strict Profile
+title: Fluxnova BPM Provenance - Strict Profile
 description: |-
   Production-hardening overlay for the Fluxnova BPM provenance schema.
   Tightens cardinality, marks export-critical slots required, adds patterns

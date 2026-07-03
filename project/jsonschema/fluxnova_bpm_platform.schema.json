@@ -356,6 +356,202 @@
             "title": "AgentKind",
             "type": "string"
         },
+        "AgentLoopRun": {
+            "additionalProperties": false,
+            "description": "One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.\nOwns the ordered sequence of AiModelInvocation turns performed during the\nloop, together with the tools advertised to the model. Each turn is a\nsingle model call; tool calls made in a turn may materialize child step\nruns. Inherits status, timestamps, parent workflow run, sequence number,\nand incident linkage from StepRun.\n\nUse this as the parent record for an agentic subprocess: the loop is a\nsingle StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and\nimplementation_kind AGENT_LOOP, and each individual model call is a child\nAiModelInvocation with a turn_index.",
+            "properties": {
+                "activity_instance_id": {
+                    "description": "Runtime activity instance identifier.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "available_tools": {
+                    "description": "Tools advertised to the model for the duration of the agent loop.",
+                    "items": {
+                        "$ref": "#/$defs/AiToolDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "consumed_artifacts": {
+                    "description": "Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "Timestamp when execution ended (absent for running instances).",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "environment": {
+                    "description": "Runtime environment in which the run took place.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "executed_by": {
+                    "description": "Agent (assignee, service account, system) that executed the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "execution_resource": {
+                    "description": "Resource (pod, container, node, queue) used to execute the step.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "incident_message": {
+                    "description": "Incident message.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "informed_by": {
+                    "description": "Step runs whose completion preceded and informed this step run (by-reference).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "input_values": {
+                    "description": "Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "invoked_model": {
+                    "description": "AI agent that was invoked to produce the step result.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "model_invocations": {
+                    "description": "Ordered sequence of model invocation turns performed during an agent loop.",
+                    "items": {
+                        "$ref": "#/$defs/AiModelInvocation"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_values": {
+                    "description": "Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "parent_step_run": {
+                    "description": "Parent step run for nested step executions.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "produced_artifacts": {
+                    "description": "Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "retries": {
+                    "description": "Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu...",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "sequence_no": {
+                    "description": "Exporter-assigned ordering number for deterministic serialization.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "started_at": {
+                    "description": "Timestamp when execution started.",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "status": {
+                    "$ref": "#/$defs/RunStatus",
+                    "description": "Status of the workflow run or step run."
+                },
+                "step_definition": {
+                    "description": "Step definition this run instantiates.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "workflow_run": {
+                    "description": "Parent workflow run for the step run.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AgentLoopRun",
+            "type": "object"
+        },
         "AiAgent": {
             "additionalProperties": false,
             "description": "Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova\nworkflow. Concrete embodiment of one or more AI models exposed through a\nprovider endpoint. Distinct from the human, organizational, or system Agent\nkinds declared in the base provenance module.",
@@ -710,7 +906,7 @@
         },
         "AiModelInvocation": {
             "additionalProperties": false,
-            "description": "One concrete invocation of an AI model from a workflow step. Captures the\nruntime call (kind, parameters, prompts, tool calls, response), the\nconsumption telemetry (token counts, cost), any safety flags raised, and\nany evaluation results attached. Inherits status, timestamps, parent\nworkflow run, sequence number, and incident linkage from StepRun.",
+            "description": "One concrete invocation of an AI model from a workflow step. Captures the\nruntime call (kind, parameters, prompts, tool calls, response), the\nconsumption telemetry (token counts, cost), any safety flags raised, and\nany evaluation results attached. Inherits status, timestamps, parent\nworkflow run, sequence number, and incident linkage from StepRun.\n\nA single stand-alone call sets invocation_kind to CHAT_COMPLETION,\nTOOL_USE, etc. When it is one turn of an agentic loop it links back to its\nAgentLoopRun via parent_agent_loop and carries a turn_index.",
             "properties": {
                 "activity_instance_id": {
                     "description": "Runtime activity instance identifier.",
@@ -848,6 +1044,13 @@
                         "null"
                     ]
                 },
+                "parent_agent_loop": {
+                    "description": "Agent loop run that owns this model invocation as one of its turns.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "parent_step_run": {
                     "description": "Parent step run for nested step executions.",
                     "type": [
@@ -967,6 +1170,13 @@
                         "null"
                     ]
                 },
+                "turn_index": {
+                    "description": "Zero-based position of this invocation within its parent agent loop.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
                 "workflow_run": {
                     "description": "Parent workflow run for the step run.",
                     "type": [
@@ -979,6 +1189,69 @@
                 "id"
             ],
             "title": "AiModelInvocation",
+            "type": "object"
+        },
+        "AiToolDefinition": {
+            "additionalProperties": false,
+            "description": "Prospective definition of a tool advertised to an AI agent. Corresponds to\na child activity of an ad-hoc agent subprocess that is exposed to the model\nas a callable function. Captures the tool description and the process\nvariables the tool reads and writes, and links to the backing step\ndefinition. Distinct from ToolCall, which records a concrete invocation of\nsuch a tool during a run.",
+            "properties": {
+                "backing_step_definition": {
+                    "description": "Step definition (typically a child service task of the ad-hoc agent\nsubprocess) that implements the tool.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "external_ref": {
+                    "description": "External URI, engine identifier, or source reference for this entity.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "reads_variables": {
+                    "description": "Process variables the tool reads as input.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "tool_description": {
+                    "description": "Human- or model-facing description of what the tool does.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "writes_variables": {
+                    "description": "Process variables the tool writes as output.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "AiToolDefinition",
             "type": "object"
         },
         "Artifact": {
@@ -1450,6 +1723,7 @@
                 "MANUAL_TASK",
                 "CALL_ACTIVITY",
                 "SUB_PROCESS",
+                "AD_HOC_SUB_PROCESS",
                 "EXCLUSIVE_GATEWAY",
                 "PARALLEL_GATEWAY",
                 "EVENT_BASED_GATEWAY",
@@ -13550,7 +13824,8 @@
                 "EXTERNAL_SERVICE",
                 "EVENT",
                 "GATEWAY",
-                "SUBPROCESS"
+                "SUBPROCESS",
+                "AGENT_LOOP"
             ],
             "title": "ImplementationKind",
             "type": "string"
@@ -22682,6 +22957,13 @@
                 },
                 "tool_call_id": {
                     "description": "Provider-assigned identifier for the tool call.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "tool_definition": {
+                    "description": "Prospective tool definition that this call is an invocation of.",
                     "type": [
                         "string",
                         "null"

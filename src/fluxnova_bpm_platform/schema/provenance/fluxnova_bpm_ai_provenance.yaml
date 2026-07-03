@@ -77,10 +77,13 @@ classes:
     class_uri: fluxnova_bpm_ai_provenance:AiAgent
     exact_mappings:
       - airo:AIAgent
+      - dpv_ai:AIAgent
       - nexus:AiAgent
       - prov:SoftwareAgent
     related_mappings:
+      - airo:AISystem
       - dpv_ai:AISystem
+      - nexus:AiSystem
     in_subset: [ai_prospective]
     slots:
       - model_family
@@ -105,8 +108,8 @@ classes:
     exact_mappings:
       - airo:AIModel
       - nexus:AiModel
-      - nexus:LargeLanguageModel
     related_mappings:
+      - airo:AIComponent
       - schema:SoftwareApplication
     in_subset: [ai_prospective]
     slots:
@@ -119,6 +122,51 @@ classes:
       - supported_languages
     close_mappings:
       - nexus:LargeLanguageModel
+
+  AiToolDefinition:
+    is_a: NamedThing
+    description: |-
+      Prospective definition of a tool advertised to an AI agent. Corresponds to
+      a child activity of an ad-hoc agent subprocess that is exposed to the model
+      as a callable function. Captures the tool description and the process
+      variables the tool reads and writes, and links to the backing step
+      definition. Distinct from ToolCall, which records a concrete invocation of
+      such a tool during a run.
+    class_uri: fluxnova_bpm_ai_provenance:AiToolDefinition
+    related_mappings:
+      - schema:Action
+      - prov:Plan
+    in_subset: [ai_prospective]
+    slots:
+      - tool_description
+      - reads_variables
+      - writes_variables
+      - backing_step_definition
+
+  AgentLoopRun:
+    is_a: StepRun
+    description: |-
+      One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
+      Owns the ordered sequence of AiModelInvocation turns performed during the
+      loop, together with the tools advertised to the model. Each turn is a
+      single model call; tool calls made in a turn may materialize child step
+      runs. Inherits status, timestamps, parent workflow run, sequence number,
+      and incident linkage from StepRun.
+
+      Use this as the parent record for an agentic subprocess: the loop is a
+      single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
+      implementation_kind AGENT_LOOP, and each individual model call is a child
+      AiModelInvocation with a turn_index.
+    class_uri: fluxnova_bpm_ai_provenance:AgentLoopRun
+    exact_mappings:
+      - prov:Activity
+      - schema:CreateAction
+    in_subset: [ai_retrospective]
+    slots:
+      - invoked_model
+      - available_tools
+      - model_invocations
+
   AiModelInvocation:
     is_a: StepRun
     description: |-
@@ -127,6 +175,10 @@ classes:
       consumption telemetry (token counts, cost), any safety flags raised, and
       any evaluation results attached. Inherits status, timestamps, parent
       workflow run, sequence number, and incident linkage from StepRun.
+
+      A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
+      TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
+      AgentLoopRun via parent_agent_loop and carries a turn_index.
     class_uri: fluxnova_bpm_ai_provenance:AiModelInvocation
     exact_mappings:
       - prov:Activity
@@ -135,6 +187,8 @@ classes:
     slots:
       - invoked_model
       - invocation_kind
+      - parent_agent_loop
+      - turn_index
       - prompt_messages
       - tool_calls
       - response_message
@@ -182,6 +236,7 @@ classes:
     slots:
       - tool_name
       - tool_call_id
+      - tool_definition
       - arguments_json
       - result_json
       - result_artifact
@@ -338,6 +393,31 @@ slots:
     range: AiInvocationKind
     description: Kind of invocation (chat completion, tool use, embedding, etc.).
 
+  parent_agent_loop:
+    range: AgentLoopRun
+    description: |-
+      Agent loop run that owns this model invocation as one of its turns.
+    slot_uri: prov:wasInformedBy
+
+  turn_index:
+    range: integer
+    description: |-
+      Zero-based position of this invocation within its parent agent loop.
+
+  model_invocations:
+    range: AiModelInvocation
+    multivalued: true
+    inlined_as_list: true
+    description: |-
+      Ordered sequence of model invocation turns performed during an agent loop.
+
+  available_tools:
+    range: AiToolDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: |-
+      Tools advertised to the model for the duration of the agent loop.
+
   prompt_messages:
     range: PromptMessage
     multivalued: true
@@ -414,6 +494,27 @@ slots:
 
   tool_name:
     description: Tool or function name as exposed to the model.
+
+  tool_definition:
+    range: AiToolDefinition
+    description: Prospective tool definition that this call is an invocation of.
+
+  tool_description:
+    description: Human- or model-facing description of what the tool does.
+
+  reads_variables:
+    multivalued: true
+    description: Process variables the tool reads as input.
+
+  writes_variables:
+    multivalued: true
+    description: Process variables the tool writes as output.
+
+  backing_step_definition:
+    range: StepDefinition
+    description: |-
+      Step definition (typically a child service task of the ad-hoc agent
+      subprocess) that implements the tool.
 
   tool_call_id:
     description: Provider-assigned identifier for the tool call.

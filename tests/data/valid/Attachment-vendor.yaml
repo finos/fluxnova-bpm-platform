@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Attachment — mirrors MockProvider EXAMPLE_TASK_ATTACHMENT_* constants
+# Attachment - mirrors MockProvider EXAMPLE_TASK_ATTACHMENT_* constants
 id: aTaskAttachmentId
 user_id: aUserId
 name: aTaskAttachmentName
