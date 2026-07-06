@@ -13,8 +13,6 @@ env:
   CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD }}
   CI_GPG_PASSPHRASE: ${{ secrets.CI_GPG_PASSPHRASE }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 on:
   workflow_dispatch:
@@ -131,15 +129,6 @@ jobs:
 
       - name: Build distro ZIP only
         run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
-
-      - name: Build and publish Docker image
-        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
-        uses: ./.github/actions/build-publish-image-dockerhub
-        with:
-          image_name: finos/fluxnova-bpm-platform
-          dockerfile_path: fluxnova-springboot-example/Dockerfile
-          docker_context: .
-          release_tag: ${{ env.RELEASE_VERSION }}
 
   notify-external-repos:
     name: Notify fluxnova-examples of new release
