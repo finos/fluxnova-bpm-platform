@@ -8,7 +8,7 @@ inputs:
   dockerfile_path:
     description: "Path to Dockerfile"
     required: true
-    default: "fluxnova-springboot-example/Dockerfile"
+    default: "Dockerfile"
   docker_context:
     description: "Docker build context"
     required: false
