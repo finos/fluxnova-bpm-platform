@@ -28,17 +28,17 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.UserTaskBuilder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public abstract class AbstractTaskListenerTest {
 
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public   ProcessEngineTestRule     testRule   = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected RuntimeService                 runtimeService;
   protected TaskService                    taskService;
@@ -46,7 +46,7 @@ public abstract class AbstractTaskListenerTest {
   protected HistoryService                 historyService;
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -55,7 +55,7 @@ public abstract class AbstractTaskListenerTest {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @Before
+  @BeforeEach
   public void resetListeners() {
     RecorderTaskListener.clear();
   }

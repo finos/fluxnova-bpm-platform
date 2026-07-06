@@ -18,7 +18,8 @@ package org.finos.fluxnova.bpm.spring.boot.starter.property.headersec;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.property.HeaderSecurityProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.ParsePropertiesHelper;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

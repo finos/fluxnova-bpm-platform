@@ -17,9 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.resources;
 
 import static org.finos.fluxnova.bpm.engine.repository.ResourceTypes.RUNTIME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -52,11 +50,11 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class RuntimeByteArrayTest {
   protected static final String WORKER_ID = "aWorkerId";
@@ -69,8 +67,8 @@ public class RuntimeByteArrayTest {
   protected BatchMigrationHelper helper = new BatchMigrationHelper(engineRule, migrationRule);
 
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl configuration;
   protected RuntimeService runtimeService;
@@ -81,7 +79,7 @@ public class RuntimeByteArrayTest {
 
   protected String id;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     configuration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -91,12 +89,12 @@ public class RuntimeByteArrayTest {
     externalTaskService = engineRule.getExternalTaskService();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (id != null) {
       // delete task

@@ -45,8 +45,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -78,19 +78,20 @@ import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.BooleanValue;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String EXECUTION_URL = TEST_RESOURCE_ROOT_PATH + "/execution/{id}";
@@ -106,7 +107,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
 
   private RuntimeServiceImpl runtimeServiceMock;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     runtimeServiceMock = mock(RuntimeServiceImpl.class);
     when(runtimeServiceMock.getVariablesLocalTyped(MockProvider.EXAMPLE_EXECUTION_ID, true)).thenReturn(EXAMPLE_VARIABLES);
@@ -211,14 +212,14 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
       activityVariablesCaptor.capture());
 
     Map<String, Map<String, Object>> capturedActivityVariables = activityVariablesCaptor.getValue();
-    Assert.assertEquals(2, capturedActivityVariables.size());
-    Assert.assertTrue(capturedActivityVariables.containsKey("taskA"));
-    Assert.assertTrue(capturedActivityVariables.containsKey("taskB"));
+    Assertions.assertEquals(2, capturedActivityVariables.size());
+    Assertions.assertTrue(capturedActivityVariables.containsKey("taskA"));
+    Assertions.assertTrue(capturedActivityVariables.containsKey("taskB"));
 
     Object taskAValue = capturedActivityVariables.get("taskA").get("k1");
     Object taskBValue = capturedActivityVariables.get("taskB").get("k2");
-    Assert.assertEquals("v1", taskAValue);
-    Assert.assertEquals(42, taskBValue);
+    Assertions.assertEquals("v1", taskAValue);
+    Assertions.assertEquals(42, taskBValue);
   }
 
   @Test
@@ -286,7 +287,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
       argThat(new EqualsList(expectedActivityIds)),
       activityVariablesCaptor.capture());
 
-    Assert.assertTrue(activityVariablesCaptor.getValue().isEmpty());
+    Assertions.assertTrue(activityVariablesCaptor.getValue().isEmpty());
   }
 
   @Test
@@ -315,7 +316,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
     verify(runtimeServiceMock).completeAdHocSubProcess(eq(MockProvider.EXAMPLE_EXECUTION_ID), variablesCaptor.capture());
 
     Map<String, Object> capturedVariables = variablesCaptor.getValue();
-    Assert.assertEquals("manual", capturedVariables.get("completionReason"));
+    Assertions.assertEquals("manual", capturedVariables.get("completionReason"));
   }
 
   @Test
@@ -517,7 +518,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
       .body(EXAMPLE_VARIABLE_KEY + ".type", equalTo(String.class.getSimpleName()))
       .when().get(EXECUTION_LOCAL_VARIABLES_URL);
 
-    Assert.assertEquals("Should return exactly one variable", 1, response.jsonPath().getMap("").size());
+    Assertions.assertEquals(1, response.jsonPath().getMap("").size(), "Should return exactly one variable");
   }
 
   @Test
@@ -1332,7 +1333,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
 
     ObjectMapper mapper = new ObjectMapper();
     String jsonBytes = mapper.writeValueAsString(serializable);
-    String typeName = TypeFactory.defaultInstance().constructType(serializable.getClass()).toCanonical();
+    String typeName = TypeFactory.createDefaultInstance().constructType(serializable.getClass()).toCanonical();
 
     String variableKey = "aVariableKey";
 
@@ -1362,7 +1363,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
     try {
       ObjectMapper mapper = new ObjectMapper();
       String jsonBytes = mapper.writeValueAsString("test");
-      String typeName = TypeFactory.defaultInstance().constructType(String.class).toCanonical();
+      String typeName = TypeFactory.createDefaultInstance().constructType(String.class).toCanonical();
 
       String variableKey = "aVariableKey";
 
@@ -1399,7 +1400,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
     try {
       ObjectMapper mapper = new ObjectMapper();
       String jsonBytes = mapper.writeValueAsString("test");
-      String typeName = TypeFactory.defaultInstance().constructType(String.class).toCanonical();
+      String typeName = TypeFactory.createDefaultInstance().constructType(String.class).toCanonical();
 
       String variableKey = "aVariableKey";
 
@@ -1428,7 +1429,7 @@ public class ExecutionRestServiceInteractionTest extends AbstractRestServiceTest
 
     ObjectMapper mapper = new ObjectMapper();
     String jsonBytes = mapper.writeValueAsString(serializable);
-    String typeName = TypeFactory.defaultInstance().constructType(serializable.getClass()).toCanonical();
+    String typeName = TypeFactory.createDefaultInstance().constructType(serializable.getClass()).toCanonical();
 
     String variableKey = "aVariableKey";
 

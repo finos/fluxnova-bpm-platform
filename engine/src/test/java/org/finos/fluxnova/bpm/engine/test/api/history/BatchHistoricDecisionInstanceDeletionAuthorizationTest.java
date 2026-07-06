@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.history;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.revoke;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,16 +45,14 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-@RunWith(Parameterized.class)
 public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
 
   protected static String DECISION = "decision";
@@ -69,13 +67,10 @@ public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
 
   protected List<String> decisionInstanceIds;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testRule);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testRule);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -114,7 +109,7 @@ public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
     );
   }
 
-  @Before
+  @BeforeEach
   public void setup() {
     historyService = engineRule.getHistoryService();
     decisionService = engineRule.getDecisionService();
@@ -122,30 +117,12 @@ public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
     decisionInstanceIds = new ArrayList<String>();
   }
 
-  @Before
-  public void executeDecisionInstances() {
-    testRule.deploy("org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn");
-
-    VariableMap variables = Variables.createVariables()
-        .putValue("status", "silver")
-        .putValue("sum", 723);
-
-    for (int i = 0; i < 10; i++) {
-      decisionService.evaluateDecisionByKey(DECISION).variables(variables).evaluate();
-    }
-
-    List<HistoricDecisionInstance> decisionInstances = historyService.createHistoricDecisionInstanceQuery().list();
-    for(HistoricDecisionInstance decisionInstance : decisionInstances) {
-      decisionInstanceIds.add(decisionInstance.getId());
-    }
-  }
-
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     for (Batch batch : managementService.createBatchQuery().list()) {
       managementService.deleteBatch(batch.getId(), true);
@@ -157,8 +134,11 @@ public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
     }
   }
 
-  @Test
-  public void executeBatch() {
+  @MethodSource("scenarios")
+  @ParameterizedTest
+  public void testCreateBatchWithPermissions(AuthorizationScenario scenario) {
+    initBatchHistoricDecisionInstanceDeletionAuthorizationTest(scenario);
+    setupDecisionInstances();
     // given
     authRule.init(scenario)
       .withUser("userId")
@@ -182,5 +162,26 @@ public class BatchHistoricDecisionInstanceDeletionAuthorizationTest {
     if (authRule.assertScenario(scenario)) {
       assertEquals("userId", batch.getCreateUserId());
     }
+  }
+
+  private void setupDecisionInstances() {
+    testRule.deploy("org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn");
+
+    VariableMap variables = Variables.createVariables()
+        .putValue("status", "silver")
+        .putValue("sum", 723);
+
+    for (int i = 0; i < 10; i++) {
+      decisionService.evaluateDecisionByKey(DECISION).variables(variables).evaluate();
+    }
+
+    List<HistoricDecisionInstance> decisionInstances = historyService.createHistoricDecisionInstanceQuery().list();
+    for(HistoricDecisionInstance decisionInstance : decisionInstances) {
+      decisionInstanceIds.add(decisionInstance.getId());
+    }
+  }
+
+  public void initBatchHistoricDecisionInstanceDeletionAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

@@ -31,16 +31,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinition;
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinitionQuery;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -56,12 +57,12 @@ public class CaseDefinitionRestServiceQueryTest extends AbstractRestServiceTest 
   protected static final String CASE_DEFINITION_QUERY_URL = TEST_RESOURCE_ROOT_PATH + "/case-definition";
   protected static final String CASE_DEFINITION_COUNT_QUERY_URL = CASE_DEFINITION_QUERY_URL + "/count";
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   private CaseDefinitionQuery mockedQuery;
 
-  @Before
+  @BeforeEach
   public void setUpRuntime() {
     mockedQuery = createMockCaseDefinitionQuery(MockProvider.createMockCaseDefinitions());
   }

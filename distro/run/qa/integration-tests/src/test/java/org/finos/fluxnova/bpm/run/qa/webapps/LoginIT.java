@@ -17,25 +17,23 @@
 package org.finos.fluxnova.bpm.run.qa.webapps;
 
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestName;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.AfterParam;
-import org.junit.runners.Parameterized.BeforeParam;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -44,16 +42,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  * NOTE:
  * copied from
  * <a href="https://github.com/finos/fluxnova-bpm-platform/tree/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/LoginIT.java">platform</a>
- * then added <code>@BeforeParam</code> and <code>@AfterParam</code> methods for container setup
- * and <code>@Parameters</code> for different setups.
+ * then added container lifecycle management for different setups.
  */
-@RunWith(Parameterized.class)
 public class LoginIT extends AbstractWebappUiIT {
-
-  @Parameter
   public String[] commands;
 
-  @Parameters
   public static Collection<Object[]> commands() {
     return Arrays.asList(new Object[][] {
       { new String[0] },
@@ -62,25 +55,15 @@ public class LoginIT extends AbstractWebappUiIT {
     });
   }
 
-  @Rule
-  public TestName name = new TestName();
+  
+  public String name;
 
-  protected static SpringBootManagedContainer container;
+  protected SpringBootManagedContainer container;
 
   protected WebDriverWait wait;
 
-  @BeforeParam
-  public static void runStartScript(String[] commands) {
-    container = new SpringBootManagedContainer(commands);
-    try {
-      container.start();
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot start managed Spring Boot application!", e);
-    }
-  }
-
-  @AfterParam
-  public static void stopApp() {
+  @AfterEach
+  public void stopApp() {
     try {
       if (container != null) {
         container.stop();
@@ -89,6 +72,15 @@ public class LoginIT extends AbstractWebappUiIT {
       throw new RuntimeException("Cannot stop managed Spring Boot application!", e);
     } finally {
       container = null;
+    }
+  }
+
+  private void startContainer(String[] commands) {
+    container = new SpringBootManagedContainer(commands);
+    try {
+      container.start();
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot start managed Spring Boot application!", e);
     }
   }
 
@@ -115,8 +107,11 @@ public class LoginIT extends AbstractWebappUiIT {
     Arrays.stream(keys.split("")).forEach(c -> element.sendKeys(c));
   }
 
-  @Test
-  public void shouldLoginToMonitoring() throws URISyntaxException {
+  @MethodSource("commands")
+  @ParameterizedTest
+  public void shouldLoginToMonitoring(String[] commands) throws URISyntaxException {
+    startContainer(commands);
+    initLoginIT(commands);
     try {
       loginToMonitoring();
     } catch (WebDriverException e) {
@@ -135,8 +130,11 @@ public class LoginIT extends AbstractWebappUiIT {
         + appName + "/default/#/dashboard")));
   }
 
-  @Test
-  public void shouldLoginToTasklist() {
+  @MethodSource("commands")
+  @ParameterizedTest
+  public void shouldLoginToTasklist(String[] commands) {
+    startContainer(commands);
+    initLoginIT(commands);
     try {
       loginToTasklist();
     } catch (WebDriverException e) {
@@ -155,8 +153,11 @@ public class LoginIT extends AbstractWebappUiIT {
         + appName + "/default/#/?searchQuery="));
   }
 
-  @Test
-  public void shouldLoginToAdmin() throws URISyntaxException {
+  @MethodSource("commands")
+  @ParameterizedTest
+  public void shouldLoginToAdmin(String[] commands) throws URISyntaxException {
+    startContainer(commands);
+    initLoginIT(commands);
     try {
       loginToAdmin();
     } catch (WebDriverException e) {
@@ -175,8 +176,11 @@ public class LoginIT extends AbstractWebappUiIT {
         + "app/" + appName + "/default/#/")));
   }
 
-  @Test
-  public void shouldLoginToWelcome() throws URISyntaxException {
+  @MethodSource("commands")
+  @ParameterizedTest
+  public void shouldLoginToWelcome(String[] commands) throws URISyntaxException {
+    startContainer(commands);
+    initLoginIT(commands);
     try {
       loginToWelcome();
     } catch (WebDriverException e) {
@@ -193,6 +197,18 @@ public class LoginIT extends AbstractWebappUiIT {
 
     wait.until(currentURIIs(new URI(appUrl
         + "app/" + appName + "/default/#!/welcome")));
+  }
+
+  @BeforeEach
+  public void setup(TestInfo testInfo) {
+    Optional<Method> testMethod = testInfo.getTestMethod();
+    if (testMethod.isPresent()) {
+      this.name = testMethod.get().getName();
+    }
+  }
+
+  public void initLoginIT(String[] commands) {
+    this.commands = commands;
   }
 
 }

@@ -24,7 +24,7 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
  * @author Tom Baeyens
  */
 public class StartFormDataImpl extends FormDataImpl implements StartFormData {
-  
+
   private static final long serialVersionUID = 1L;
   
   protected ProcessDefinition processDefinition;

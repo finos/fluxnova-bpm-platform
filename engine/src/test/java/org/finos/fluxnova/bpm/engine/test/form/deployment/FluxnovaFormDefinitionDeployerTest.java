@@ -29,16 +29,12 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.FluxnovaFormUtils;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class FluxnovaFormDefinitionDeployerTest {
 
   protected static final String BPMN_USER_TASK_FORM_REF_DEPLOYMENT = "org/finos/fluxnova/bpm/engine/test/form/deployment/CamundaFormDefinitionDeployerTest.shouldDeployProcessWithCamundaFormDefinitionBindingDeployment.bpmn";
@@ -49,16 +45,13 @@ public class FluxnovaFormDefinitionDeployerTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   RepositoryService repositoryService;
   ProcessEngineConfigurationImpl processEngineConfiguration;
-
-  @Parameter(0)
   public String bpmnResource;
 
-  @Parameters(name = "{0}")
   public static Collection<Object> params() {
     return Arrays.asList(new String[] {
         BPMN_USER_TASK_FORM_REF_DEPLOYMENT,
@@ -66,14 +59,16 @@ public class FluxnovaFormDefinitionDeployerTest {
         BPMN_USER_TASK_FORM_REF_VERSION });
   }
 
-  @Before
+  @BeforeEach
   public void init() {
     repositoryService = engineRule.getRepositoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @Test
-  public void shouldDeployProcessWithFluxnovaFormDefinition() {
+  @MethodSource("params")
+  @ParameterizedTest(name = "{0}")
+  public void shouldDeployProcessWithFluxnovaFormDefinition(String bpmnResource) {
+    initFluxnovaFormDefinitionDeployerTest(bpmnResource);
     String deploymentId = testRule.deploy(bpmnResource, SIMPLE_FORM).getId();
 
     // there should only be one deployment
@@ -84,5 +79,9 @@ public class FluxnovaFormDefinitionDeployerTest {
     List<FluxnovaFormDefinition> definitions = FluxnovaFormUtils.findAllFluxnovaFormDefinitionEntities(processEngineConfiguration);
     assertThat(definitions).hasSize(1);
     assertThat(definitions.get(0).getDeploymentId()).isEqualTo(deploymentId);
+  }
+
+  public void initFluxnovaFormDefinitionDeployerTest(String bpmnResource) {
+    this.bpmnResource = bpmnResource;
   }
 }

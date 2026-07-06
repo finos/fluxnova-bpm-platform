@@ -18,12 +18,14 @@ package org.finos.fluxnova.spin.json.tree;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON_FILE_NAME;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.impl.test.ScriptVariable;
 import org.finos.fluxnova.spin.json.SpinJsonPropertyException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -51,18 +53,20 @@ public abstract class JsonTreeRemovePropertyScriptTest extends ScriptTest {
     assertThat(value2).isFalse();
   }
 
-  @Test(expected = SpinJsonPropertyException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailWhileRemovingPropertyByName() throws Throwable{
-    failingWithException();
+  public void shouldFailWhileRemovingPropertyByName() throws Throwable {
+    assertThrows(SpinJsonPropertyException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonPropertyException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailWhileRemovingPropertyByList() throws Throwable{
-    failingWithException();
+  public void shouldFailWhileRemovingPropertyByList() throws Throwable {
+    assertThrows(SpinJsonPropertyException.class, () ->
+      failingWithException());
   }
 
 }

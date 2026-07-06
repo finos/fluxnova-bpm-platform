@@ -17,7 +17,6 @@
     <version.h2>1.4.199</version.h2>
     <version.jaxb-api>2.3.1</version.jaxb-api>
     <version.jersey-apache-client>1.15</version.jersey-apache-client>
-    <version.junit>4.12</version.junit>
     <version.chromedriver>141.0.7390.54</version.chromedriver>
 
     <host.chromedriver>https://storage.googleapis.com/chrome-for-testing-public</host.chromedriver>
@@ -71,12 +70,6 @@
         </dependency>
 
         <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <scope>test</scope>
-        </dependency>
-
-        <dependency>
           <groupId>org.apache.httpcomponents.client5</groupId>
           <artifactId>httpclient5</artifactId>
           <scope>test</scope>
@@ -92,6 +85,7 @@
           <groupId>org.graalvm.js</groupId>
           <artifactId>js</artifactId>
           <version>${version.graal.js}</version>
+          <type>pom</type>
         </dependency>
 
         <dependency>
@@ -101,9 +95,9 @@
         </dependency>
 
         <dependency>
-          <groupId>javax.xml.bind</groupId>
-          <artifactId>jaxb-api</artifactId>
-          <version>${version.jaxb-api}</version>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <version>${version.jakarta.xml.bind-api}</version>
           <scope>test</scope>
         </dependency>
 
@@ -143,7 +137,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M3</version>
+            <version>3.1.2</version>
             <configuration>
               <dependenciesToScan>
                 <dependency>org.finos.fluxnova.bpm.qa:fluxnova-qa-integration-tests-webapps</dependency>

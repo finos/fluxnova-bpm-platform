@@ -25,7 +25,6 @@
       <artifactId>fluxnova-bpm-spring-boot-starter-webapp</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm.example</groupId>
       <artifactId>fluxnova-example-invoice-jakarta</artifactId>

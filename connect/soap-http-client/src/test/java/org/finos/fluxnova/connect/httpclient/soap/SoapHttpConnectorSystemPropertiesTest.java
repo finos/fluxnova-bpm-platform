@@ -27,13 +27,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.finos.fluxnova.connect.httpclient.soap.impl.SoapHttpConnectorImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Since Apache HTTP client makes it extremely hard to test the proper configuration
@@ -46,19 +46,21 @@ public class SoapHttpConnectorSystemPropertiesTest {
 
   public static final int PORT = 51234;
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(
-      WireMockConfiguration.wireMockConfig().port(PORT));
+  @RegisterExtension
+  static WireMockExtension wireMockRule = WireMockExtension.newInstance()
+          .options(WireMockConfiguration.wireMockConfig().port(PORT))
+          .configureStaticDsl(true)
+          .build();
 
   protected Set<String> updatedSystemProperties;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     updatedSystemProperties = new HashSet<>();
     wireMockRule.stubFor(get(urlEqualTo("/")).willReturn(aResponse().withStatus(200)));
   }
 
-  @After
+  @AfterEach
   public void clearCustomSystemProperties() {
     for (String property : updatedSystemProperties) {
       System.getProperties().remove(property);

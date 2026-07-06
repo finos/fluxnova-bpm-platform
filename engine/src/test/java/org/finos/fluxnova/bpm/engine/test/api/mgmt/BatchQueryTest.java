@@ -38,12 +38,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.MigrationTestRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch.BatchMigrationHelper;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -55,21 +54,21 @@ public class BatchQueryTest {
   protected MigrationTestRule migrationRule = new MigrationTestRule(engineRule);
   protected BatchMigrationHelper helper = new BatchMigrationHelper(engineRule, migrationRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule);
 
   protected RuntimeService runtimeService;
   protected ManagementService managementService;
   protected HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
     historyService = engineRule.getHistoryService();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
     ClockUtil.reset();
@@ -85,15 +84,15 @@ public class BatchQueryTest {
     List<Batch> list = managementService.createBatchQuery().list();
 
     // then
-    Assert.assertEquals(2, list.size());
+    org.junit.jupiter.api.Assertions.assertEquals(2, list.size());
 
     List<String> batchIds = new ArrayList<>();
     for (Batch resultBatch : list) {
       batchIds.add(resultBatch.getId());
     }
 
-    Assert.assertTrue(batchIds.contains(batch1.getId()));
-    Assert.assertTrue(batchIds.contains(batch2.getId()));
+    org.junit.jupiter.api.Assertions.assertTrue(batchIds.contains(batch1.getId()));
+    org.junit.jupiter.api.Assertions.assertTrue(batchIds.contains(batch2.getId()));
   }
 
   @Test
@@ -106,19 +105,19 @@ public class BatchQueryTest {
     Batch resultBatch = managementService.createBatchQuery().singleResult();
 
     // then
-    Assert.assertNotNull(batch);
+    org.junit.jupiter.api.Assertions.assertNotNull(batch);
 
-    Assert.assertEquals(batch.getId(), resultBatch.getId());
-    Assert.assertEquals(batch.getBatchJobDefinitionId(), resultBatch.getBatchJobDefinitionId());
-    Assert.assertEquals(batch.getMonitorJobDefinitionId(), resultBatch.getMonitorJobDefinitionId());
-    Assert.assertEquals(batch.getSeedJobDefinitionId(), resultBatch.getSeedJobDefinitionId());
-    Assert.assertEquals(batch.getTenantId(), resultBatch.getTenantId());
-    Assert.assertEquals(batch.getType(), resultBatch.getType());
-    Assert.assertEquals(batch.getBatchJobsPerSeed(), resultBatch.getBatchJobsPerSeed());
-    Assert.assertEquals(batch.getInvocationsPerBatchJob(), resultBatch.getInvocationsPerBatchJob());
-    Assert.assertEquals(batch.getTotalJobs(), resultBatch.getTotalJobs());
-    Assert.assertEquals(batch.getJobsCreated(), resultBatch.getJobsCreated());
-    Assert.assertEquals(batch.isSuspended(), resultBatch.isSuspended());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getId(), resultBatch.getId());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getBatchJobDefinitionId(), resultBatch.getBatchJobDefinitionId());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getMonitorJobDefinitionId(), resultBatch.getMonitorJobDefinitionId());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getSeedJobDefinitionId(), resultBatch.getSeedJobDefinitionId());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getTenantId(), resultBatch.getTenantId());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getType(), resultBatch.getType());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getBatchJobsPerSeed(), resultBatch.getBatchJobsPerSeed());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getInvocationsPerBatchJob(), resultBatch.getInvocationsPerBatchJob());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getTotalJobs(), resultBatch.getTotalJobs());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.getJobsCreated(), resultBatch.getJobsCreated());
+    org.junit.jupiter.api.Assertions.assertEquals(batch.isSuspended(), resultBatch.isSuspended());
     Assertions.assertThat(batch.getStartTime()).isEqualToIgnoringMillis(resultBatch.getStartTime());
     Assertions.assertThat(batch.getStartTime()).isEqualToIgnoringMillis(ClockUtil.getCurrentTime());
   }
@@ -133,15 +132,15 @@ public class BatchQueryTest {
     Batch resultBatch = managementService.createBatchQuery().batchId(batch1.getId()).singleResult();
 
     // then
-    Assert.assertNotNull(resultBatch);
-    Assert.assertEquals(batch1.getId(), resultBatch.getId());
+    org.junit.jupiter.api.Assertions.assertNotNull(resultBatch);
+    org.junit.jupiter.api.Assertions.assertEquals(batch1.getId(), resultBatch.getId());
   }
 
   @Test
   public void testBatchQueryByIdNull() {
     try {
       managementService.createBatchQuery().batchId(null).singleResult();
-      Assert.fail("exception expected");
+      org.junit.jupiter.api.Assertions.fail("exception expected");
     }
     catch (NullValueException e) {
       assertThat(e.getMessage()).contains("Batch id is null");
@@ -158,7 +157,7 @@ public class BatchQueryTest {
     long count = managementService.createBatchQuery().type(batch1.getType()).count();
 
     // then
-    Assert.assertEquals(2, count);
+    org.junit.jupiter.api.Assertions.assertEquals(2, count);
   }
 
   @Test
@@ -170,14 +169,14 @@ public class BatchQueryTest {
     long count = managementService.createBatchQuery().type("foo").count();
 
     // then
-    Assert.assertEquals(0, count);
+    org.junit.jupiter.api.Assertions.assertEquals(0, count);
   }
 
   @Test
   public void testBatchQueryByTypeNull() {
     try {
       managementService.createBatchQuery().type(null).singleResult();
-      Assert.fail("exception expected");
+      org.junit.jupiter.api.Assertions.fail("exception expected");
     }
     catch (NullValueException e) {
       assertThat(e.getMessage()).contains("Type is null");
@@ -194,7 +193,7 @@ public class BatchQueryTest {
     long count = managementService.createBatchQuery().count();
 
     // then
-    Assert.assertEquals(2, count);
+    org.junit.jupiter.api.Assertions.assertEquals(2, count);
   }
 
   @Test
@@ -227,7 +226,7 @@ public class BatchQueryTest {
   public void testBatchQueryOrderingPropertyWithoutOrder() {
     try {
       managementService.createBatchQuery().orderById().singleResult();
-      Assert.fail("exception expected");
+      org.junit.jupiter.api.Assertions.fail("exception expected");
     }
     catch (NotValidException e) {
       assertThat(e.getMessage()).contains("Invalid query: "
@@ -239,7 +238,7 @@ public class BatchQueryTest {
   public void testBatchQueryOrderWithoutOrderingProperty() {
     try {
       managementService.createBatchQuery().asc().singleResult();
-      Assert.fail("exception expected");
+      org.junit.jupiter.api.Assertions.fail("exception expected");
     }
     catch (NotValidException e) {
       assertThat(e.getMessage()).contains("You should call any of the orderBy methods "
@@ -261,9 +260,9 @@ public class BatchQueryTest {
 
     // then
     BatchQuery query = managementService.createBatchQuery().suspended();
-    Assert.assertEquals(1, query.count());
-    Assert.assertEquals(1, query.list().size());
-    Assert.assertEquals(batch2.getId(), query.singleResult().getId());
+    org.junit.jupiter.api.Assertions.assertEquals(1, query.count());
+    org.junit.jupiter.api.Assertions.assertEquals(1, query.list().size());
+    org.junit.jupiter.api.Assertions.assertEquals(batch2.getId(), query.singleResult().getId());
   }
 
   @Test
@@ -280,8 +279,8 @@ public class BatchQueryTest {
 
     // then
     BatchQuery query = managementService.createBatchQuery().active();
-    Assert.assertEquals(2, query.count());
-    Assert.assertEquals(2, query.list().size());
+    org.junit.jupiter.api.Assertions.assertEquals(2, query.count());
+    org.junit.jupiter.api.Assertions.assertEquals(2, query.list().size());
 
     List<String> foundIds = new ArrayList<>();
     for (Batch batch : query.list()) {

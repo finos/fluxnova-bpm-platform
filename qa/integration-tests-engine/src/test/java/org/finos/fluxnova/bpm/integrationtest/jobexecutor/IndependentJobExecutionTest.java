@@ -33,26 +33,26 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.protocol.servlet.arq514hack.descriptors.api.web.WebAppDescriptor;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.descriptor.api.Descriptors;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 import java.util.Set;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class IndependentJobExecutionTest extends AbstractFoxPlatformIntegrationTest {
 
   private ProcessEngine engine1;
   private ProcessEngineConfigurationImpl engine1Configuration;
 
-  @Before
+  @BeforeEach
   public void setEngines() {
     ProcessEngineService engineService = BpmPlatform.getProcessEngineService();
     engine1 = engineService.getProcessEngine("engine1");
@@ -64,7 +64,7 @@ public class IndependentJobExecutionTest extends AbstractFoxPlatformIntegrationT
 
     WebArchive deployment = initWebArchiveDeployment("pa1.war", "org/finos/fluxnova/bpm/integrationtest/jobexecutor/IndependentJobExecutionTest.pa1.xml")
         .addAsResource("org/finos/fluxnova/bpm/integrationtest/jobexecutor/IndependentJobExecutionTest.process1.bpmn20.xml")
-        .setWebXML(new StringAsset(Descriptors.create(WebAppDescriptor.class).version("3.0").exportAsString()));
+        .setWebXML(new StringAsset(Descriptors.create(WebAppDescriptor.class).version("5.0").exportAsString()));
 
     TestContainer.addContainerSpecificProcessEngineConfigurationClass(deployment);
 
@@ -90,14 +90,14 @@ public class IndependentJobExecutionTest extends AbstractFoxPlatformIntegrationT
 
     List<ProcessApplicationDeploymentInfo> pa1DeploymentInfo = pa1Info.getDeploymentInfo();
 
-    Assert.assertEquals(1, pa1DeploymentInfo.size());
-    Assert.assertTrue(registeredDeploymentsForEngine1.contains(pa1DeploymentInfo.get(0).getDeploymentId()));
+    Assertions.assertEquals(1, pa1DeploymentInfo.size());
+    Assertions.assertTrue(registeredDeploymentsForEngine1.contains(pa1DeploymentInfo.get(0).getDeploymentId()));
 
     ProcessApplicationInfo pa2Info = getProcessApplicationDeploymentInfo("pa2");
 
     List<ProcessApplicationDeploymentInfo> pa2DeploymentInfo = pa2Info.getDeploymentInfo();
-    Assert.assertEquals(1, pa2DeploymentInfo.size());
-    Assert.assertTrue(registeredDeploymentsForDefaultEngine.contains(pa2DeploymentInfo.get(0).getDeploymentId()));
+    Assertions.assertEquals(1, pa2DeploymentInfo.size());
+    Assertions.assertTrue(registeredDeploymentsForDefaultEngine.contains(pa2DeploymentInfo.get(0).getDeploymentId()));
   }
 
   private ProcessApplicationInfo getProcessApplicationDeploymentInfo(String applicationName) {
@@ -125,9 +125,9 @@ public class IndependentJobExecutionTest extends AbstractFoxPlatformIntegrationT
     CommandExecutor commandExecutor = engine1Configuration.getCommandExecutorTxRequired();
     AcquiredJobs acquiredJobs = commandExecutor.execute(new AcquireJobsCmd(jobExecutor1));
 
-    Assert.assertEquals(1, acquiredJobs.size());
-    Assert.assertTrue(acquiredJobs.contains(job1.getId()));
-    Assert.assertFalse(acquiredJobs.contains(job2.getId()));
+    Assertions.assertEquals(1, acquiredJobs.size());
+    Assertions.assertTrue(acquiredJobs.contains(job1.getId()));
+    Assertions.assertFalse(acquiredJobs.contains(job2.getId()));
   }
 
   @OperateOnDeployment("pa1")
@@ -147,9 +147,9 @@ public class IndependentJobExecutionTest extends AbstractFoxPlatformIntegrationT
     try {
       AcquiredJobs acquiredJobs = commandExecutor.execute(new AcquireJobsCmd(defaultJobExecutor));
 
-      Assert.assertEquals(2, acquiredJobs.size());
-      Assert.assertTrue(acquiredJobs.contains(job1.getId()));
-      Assert.assertTrue(acquiredJobs.contains(job2.getId()));
+      Assertions.assertEquals(2, acquiredJobs.size());
+      Assertions.assertTrue(acquiredJobs.contains(job1.getId()));
+      Assertions.assertTrue(acquiredJobs.contains(job2.getId()));
     } finally {
       processEngineConfiguration.setJobExecutorDeploymentAware(true);
     }

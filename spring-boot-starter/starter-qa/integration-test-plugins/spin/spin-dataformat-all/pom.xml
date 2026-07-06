@@ -23,6 +23,14 @@
           <groupId>org.finos.fluxnova.spin</groupId>
           <artifactId>fluxnova-spin-dataformat-json-jackson</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -30,10 +38,9 @@
       <groupId>org.finos.fluxnova.spin</groupId>
       <artifactId>fluxnova-spin-dataformat-all</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
+      <groupId>tools.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
 
   </dependencies>

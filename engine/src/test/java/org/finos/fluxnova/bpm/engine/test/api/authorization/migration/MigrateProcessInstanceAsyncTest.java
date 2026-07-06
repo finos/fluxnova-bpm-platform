@@ -38,22 +38,18 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Parameterized.class)
 public class MigrateProcessInstanceAsyncTest {
 
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
@@ -62,13 +58,10 @@ public class MigrateProcessInstanceAsyncTest {
 
   protected Batch batch;
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-
-  @Parameter
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenario scenario;
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -122,13 +115,13 @@ public class MigrateProcessInstanceAsyncTest {
          );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     batch = null;
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (batch != null) {
       engineRule.getManagementService().deleteBatch(batch.getId(), true);
@@ -136,9 +129,12 @@ public class MigrateProcessInstanceAsyncTest {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/authorization/oneIncidentProcess.bpmn20.xml")
-  public void testMigrate() {
+  @MethodSource("scenarios")
+  public void testMigrate(AuthorizationScenario scenario) {
+
+    initMigrateProcessInstanceAsyncTest(scenario);
 
     // given
     ProcessDefinition sourceDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
@@ -167,16 +163,19 @@ public class MigrateProcessInstanceAsyncTest {
 
     // then
     if (authRule.assertScenario(scenario)) {
-      Assert.assertEquals("userId", batch.getCreateUserId());
+      Assertions.assertEquals("userId", batch.getCreateUserId());
 
-      Assert.assertEquals(1, engineRule.getManagementService().createBatchQuery().count());
+      Assertions.assertEquals(1, engineRule.getManagementService().createBatchQuery().count());
     }
 
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/authorization/oneIncidentProcess.bpmn20.xml")
-  public void testMigrateWithQuery() {
+  @MethodSource("scenarios")
+  public void testMigrateWithQuery(AuthorizationScenario scenario) {
+
+    initMigrateProcessInstanceAsyncTest(scenario);
 
     // given
     ProcessDefinition sourceDefinition = testHelper.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
@@ -207,8 +206,12 @@ public class MigrateProcessInstanceAsyncTest {
 
     // then
     if (authRule.assertScenario(scenario)) {
-      Assert.assertEquals(1, engineRule.getManagementService().createBatchQuery().count());
+      Assertions.assertEquals(1, engineRule.getManagementService().createBatchQuery().count());
     }
 
+  }
+
+  public void initMigrateProcessInstanceAsyncTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

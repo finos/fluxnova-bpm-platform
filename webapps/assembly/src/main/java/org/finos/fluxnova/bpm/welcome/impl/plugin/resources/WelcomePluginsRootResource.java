@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.welcome.impl.plugin.resources;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 
 import org.finos.fluxnova.bpm.welcome.impl.plugin.WelcomePlugins;
 import org.finos.fluxnova.bpm.welcome.resource.AbstractWelcomePluginRootResource;

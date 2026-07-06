@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi;
 
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.Typed;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.Typed;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.cdi.annotation.ExecutionId;
 import org.finos.fluxnova.bpm.engine.cdi.annotation.ProcessInstanceId;

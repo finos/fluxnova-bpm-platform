@@ -16,7 +16,10 @@
  */
 package org.finos.fluxnova.bpm.dmn.engine.feel;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResult;
@@ -29,15 +32,10 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
 import org.finos.fluxnova.bpm.dmn.feel.impl.scala.ScalaFeelEngineFactory;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class BreakingScalaFeelBehaviorTest extends DmnEngineTest {
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   @Override
   public DmnEngineConfiguration getDmnEngineConfiguration() {
@@ -100,16 +98,15 @@ public class BreakingScalaFeelBehaviorTest extends DmnEngineTest {
     DefaultDmnEngineConfiguration configuration = (DefaultDmnEngineConfiguration) getDmnEngineConfiguration();
     DmnEngine engine = configuration.buildEngine();
 
-    // then
-    thrown.expect(FeelException.class);
-    thrown.expectMessage("FEEL/SCALA-01008 Error while evaluating expression: failed to parse expression ''Hello World'': "
-      + "Expected (start-of-input | negation | positiveUnaryTests | anyInput):1:1, found \"'Hello Wor\"");
+    Throwable exception = assertThrows(FeelException.class, () ->
 
-    // when
-    engine.evaluateDecision(decision, Variables.createVariables().putValue("input", "Hello World"));
+      // when
+      engine.evaluateDecision(decision, Variables.createVariables().putValue("input", "Hello World")));
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("FEEL/SCALA-01008 Error while evaluating expression: failed to parse expression ''Hello World'': "
+      + "Expected (start-of-input | negation | positiveUnaryTests | anyInput):1:1, found \"'Hello Wor\""));
   }
 
-  @Ignore("CAM-11319")
+  @Disabled("CAM-11319")
   @Test
   @DecisionResource(resource = "breaking_pojo_comparison.dmn")
   public void shouldComparePojo() {

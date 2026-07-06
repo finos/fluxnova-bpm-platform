@@ -17,11 +17,13 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.scripttask;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.Date;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ScriptTaskNashornTest extends AbstractScriptTaskTest {
 

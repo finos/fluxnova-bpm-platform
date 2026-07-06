@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.inverted;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.propertyComparator;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySorting;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.List;
@@ -43,9 +43,9 @@ import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Philipp Ossler
@@ -67,7 +67,7 @@ public class HistoricDecisionInstanceQueryTest extends PluggableProcessEngineTes
   protected static final String DECISION_DEFINITION_KEY = "testDecision";
   protected static final String DISH_DECISION = "dish-decision";
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();
@@ -79,7 +79,7 @@ public class HistoricDecisionInstanceQueryTest extends PluggableProcessEngineTes
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();

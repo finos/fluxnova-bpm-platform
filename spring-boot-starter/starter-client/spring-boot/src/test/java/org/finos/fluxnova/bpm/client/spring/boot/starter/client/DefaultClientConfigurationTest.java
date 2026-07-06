@@ -17,8 +17,9 @@
 package org.finos.fluxnova.bpm.client.spring.boot.starter.client;
 
 import org.finos.fluxnova.bpm.client.spring.boot.starter.ParsePropertiesHelper;
-import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

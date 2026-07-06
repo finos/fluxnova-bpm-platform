@@ -48,7 +48,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
     <!-- make sure this runs after the oauth2 module -->
     <dependency>
       <groupId>org.finos.fluxnova.bpm.run</groupId>

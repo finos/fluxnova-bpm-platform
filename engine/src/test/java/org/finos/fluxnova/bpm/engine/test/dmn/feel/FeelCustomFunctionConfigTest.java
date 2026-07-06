@@ -29,14 +29,13 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.dmn.feel.helper.CustomFunctionProvider;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class FeelCustomFunctionConfigTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
     List<FeelCustomFunctionProvider> customFunctionProviders = new ArrayList<>();
     customFunctionProviders.add(new CustomFunctionProvider("myFunctionOne", "foo"));
@@ -45,14 +44,14 @@ public class FeelCustomFunctionConfigTest {
     configuration.setDmnFeelCustomFunctionProviders(customFunctionProviders);
   });
 
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
   protected ProcessEngine processEngine;
   protected RepositoryService repositoryService;
   protected String deploymentId;
 
-  @Before
+  @BeforeEach
   public void setup() {
     processEngine = engineRule.getProcessEngine();
     repositoryService = processEngine.getRepositoryService();

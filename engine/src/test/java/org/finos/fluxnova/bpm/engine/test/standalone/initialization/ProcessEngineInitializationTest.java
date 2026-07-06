@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.initialization;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tom Baeyens

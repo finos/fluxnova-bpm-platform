@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.rest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,21 +34,23 @@ import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
 import org.finos.fluxnova.bpm.AbstractWebIntegrationTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 public class RestJaxRs2IT extends AbstractWebIntegrationTest {
 
   private static final String ENGINE_DEFAULT_PATH = "engine/default";
   private static final String FETCH_AND_LOCK_PATH = ENGINE_DEFAULT_PATH + "/external-task/fetchAndLock";
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getRestCtxPath());
   }
 
-  @Test(timeout=10000)
+  @Test
+  @Timeout(value = 10000, unit = TimeUnit.MILLISECONDS)
   public void shouldUseJaxRs2Artifact() {
     Map<String, Object> payload = new HashMap<>();
     payload.put("workerId", "aWorkerId");

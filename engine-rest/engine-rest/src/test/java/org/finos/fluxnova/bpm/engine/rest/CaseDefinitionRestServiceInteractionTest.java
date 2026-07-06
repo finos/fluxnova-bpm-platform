@@ -22,7 +22,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.doThrow;
@@ -39,7 +38,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -62,11 +61,10 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.runtime.CaseInstanceBuilder;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -93,7 +91,7 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
 
   protected static final String UPDATE_HISTORY_TIME_TO_LIVE_URL = SINGLE_CASE_DEFINITION_URL + "/history-time-to-live";
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   private RepositoryService repositoryServiceMock;
@@ -101,7 +99,7 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
   private CaseDefinitionQuery caseDefinitionQueryMock;
   private CaseInstanceBuilder caseInstanceBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntime() {
     CaseDefinition mockCaseDefinition = MockProvider.createMockCaseDefinition();
 
@@ -140,7 +138,7 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
   private InputStream createMockCaseDefinitionCmmnXml() {
     // do not close the input stream, will be done in implementation
     InputStream cmmnXmlInputStream = ReflectUtil.getResourceAsStream("cases/case-model.cmmn");
-    Assert.assertNotNull(cmmnXmlInputStream);
+    Assertions.assertNotNull(cmmnXmlInputStream);
     return cmmnXmlInputStream;
   }
 
@@ -155,8 +153,8 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
         .get(XML_DEFINITION_URL);
 
     String responseContent = response.asString();
-    Assert.assertTrue(responseContent.contains(MockProvider.EXAMPLE_CASE_DEFINITION_ID));
-    Assert.assertTrue(responseContent.contains("<?xml"));
+    Assertions.assertTrue(responseContent.contains(MockProvider.EXAMPLE_CASE_DEFINITION_ID));
+    Assertions.assertTrue(responseContent.contains("<?xml"));
   }
 
   @Test
@@ -191,8 +189,8 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
         .get(XML_DEFINITION_BY_KEY_URL);
 
     String responseContent = response.asString();
-    Assert.assertTrue(responseContent.contains(MockProvider.EXAMPLE_CASE_DEFINITION_ID));
-    Assert.assertTrue(responseContent.contains("<?xml"));
+    Assertions.assertTrue(responseContent.contains(MockProvider.EXAMPLE_CASE_DEFINITION_ID));
+    Assertions.assertTrue(responseContent.contains("<?xml"));
   }
 
   @Test
@@ -576,7 +574,7 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
 
     // compare input stream with response body bytes
     byte[] expected = IoUtil.readInputStream(new FileInputStream(file), "case diagram");
-    Assert.assertArrayEquals(expected, actual);
+    Assertions.assertArrayEquals(expected, actual);
   }
 
   @Test
@@ -603,7 +601,7 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
 
     // compare input stream with response body bytes
     byte[] expected = IoUtil.readInputStream(new FileInputStream(file), "case diagram");
-    Assert.assertArrayEquals(expected, actual);
+    Assertions.assertArrayEquals(expected, actual);
   }
 
   @Test
@@ -623,14 +621,14 @@ public class CaseDefinitionRestServiceInteractionTest extends AbstractRestServic
 
   @Test
   public void testProcessDiagramMediaType() {
-    Assert.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.png"));
-    Assert.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.PNG"));
-    Assert.assertEquals("image/svg+xml", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.svg"));
-    Assert.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpeg"));
-    Assert.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpg"));
-    Assert.assertEquals("image/gif", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.gif"));
-    Assert.assertEquals("image/bmp", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.bmp"));
-    Assert.assertEquals("application/octet-stream", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.UNKNOWN"));
+    Assertions.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.png"));
+    Assertions.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.PNG"));
+    Assertions.assertEquals("image/svg+xml", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.svg"));
+    Assertions.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpeg"));
+    Assertions.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpg"));
+    Assertions.assertEquals("image/gif", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.gif"));
+    Assertions.assertEquals("image/bmp", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.bmp"));
+    Assertions.assertEquals("application/octet-stream", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.UNKNOWN"));
   }
 
   @Test

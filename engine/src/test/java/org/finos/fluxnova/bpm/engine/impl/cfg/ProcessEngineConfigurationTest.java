@@ -18,7 +18,8 @@ package org.finos.fluxnova.bpm.engine.impl.cfg;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger.CONFIG_LOGGER;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,11 +30,11 @@ import java.util.List;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.finos.fluxnova.bpm.engine.impl.variable.DefaultRestrictedVariableInterceptor;
 import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptor;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
 
 public class ProcessEngineConfigurationTest {
 
@@ -43,7 +44,7 @@ public class ProcessEngineConfigurationTest {
   private static final String SERIALIZABLE_NAME = "SERIALIZABLE";
   public static final ProcessEngineException EXPECTED_EXCEPTION = CONFIG_LOGGER.invalidTransactionIsolationLevel(SERIALIZABLE_NAME);
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.engineConfiguration = (ProcessEngineConfigurationImpl) ProcessEngineConfiguration.createProcessEngineConfigurationFromResourceDefault();
     this.logger = mock(ConfigurationLogger.class);
@@ -52,7 +53,7 @@ public class ProcessEngineConfigurationTest {
     ProcessEngineConfigurationImpl.LOG = logger;
   }
 
-  @AfterClass
+  @AfterAll
   public static void cleanUp() {
     ProcessEngineConfigurationImpl.LOG = CONFIG_LOGGER;
   }

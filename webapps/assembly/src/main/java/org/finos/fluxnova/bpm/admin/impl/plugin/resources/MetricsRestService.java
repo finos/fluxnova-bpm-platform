@@ -16,26 +16,27 @@
  */
 package org.finos.fluxnova.bpm.admin.impl.plugin.resources;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.finos.fluxnova.bpm.admin.impl.plugin.base.dto.MetricsAggregatedQueryDto;
 import org.finos.fluxnova.bpm.admin.impl.plugin.base.dto.MetricsAggregatedResultDto;
 import org.finos.fluxnova.bpm.admin.resource.AbstractAdminPluginResource;
 import org.finos.fluxnova.bpm.engine.impl.metrics.util.MetricsUtil;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MetricsRestService extends AbstractAdminPluginResource {
 
   public static final String PATH = "/metrics";
-  public static final ObjectMapper objectMapper = new ObjectMapper();
+  public static final ObjectMapper objectMapper = new JsonMapper();
 
   public MetricsRestService(String engineName) {
     super(engineName);

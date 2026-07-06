@@ -25,25 +25,20 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Daniel Meyer
  *
  */
-@RunWith(Parameterized.class)
 public class SpinScriptTaskSupportTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule();
 
-  @Parameters(name = "{index}: {0}")
   public static Object[] data() {
       return new Object[][] {
                { "groovy", "" },
@@ -52,25 +47,23 @@ public class SpinScriptTaskSupportTest {
                { "ruby", "$" }
          };
   }
-
-  @Parameter(0)
   public String language;
-
-  @Parameter(1)
   public String variablePrefix;
 
   private RuntimeService runtimeService;
   private RepositoryService repositoryService;
 
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.runtimeService = engineRule.getRuntimeService();
     this.repositoryService = engineRule.getRepositoryService();
   }
 
-  @Test
-  public void testSpinAvailable() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSpinAvailable(String language, String variablePrefix) {
+    initSpinScriptTaskSupportTest(language, variablePrefix);
     deployProcess(language, setVariableScript("name", "S('<test />').name()"));
     ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess");
 
@@ -78,8 +71,10 @@ public class SpinScriptTaskSupportTest {
     assertThat(var).isEqualTo("test");
   }
 
-  @Test
-  public void testTwoScriptTasks() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testTwoScriptTasks(String language, String variablePrefix) {
+    initSpinScriptTaskSupportTest(language, variablePrefix);
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("testProcess")
       .startEvent()
@@ -135,5 +130,10 @@ public class SpinScriptTaskSupportTest {
       .endEvent()
     .done();
 
+  }
+
+  public void initSpinScriptTaskSupportTest(String language, String variablePrefix) {
+    this.language = language;
+    this.variablePrefix = variablePrefix;
   }
 }

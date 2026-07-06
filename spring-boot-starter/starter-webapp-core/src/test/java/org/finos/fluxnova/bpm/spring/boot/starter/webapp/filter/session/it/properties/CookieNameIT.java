@@ -20,17 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.HttpClientRule;
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.FilterTestApp;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { FilterTestApp.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {FilterTestApp.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
   "fluxnova.bpm.webapp.session-cookie.cookieName=myFancyCookieName",
   "server.servlet.session.cookie.name=myFancyCookieName"
@@ -38,7 +36,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @DirtiesContext
 public class CookieNameIT {
 
-  @Rule
+  @RegisterExtension
   public HttpClientRule httpClientRule = new HttpClientRule();
 
   @LocalServerPort

@@ -214,11 +214,11 @@ public class DefaultDmnHistoryEventProducer implements DmnHistoryEventProducer {
       }
     }
 
-    if (evaluationEvent instanceof DmnDecisionTableEvaluationEvent) {
-      initDecisionInstanceEventForDecisionTable(event, (DmnDecisionTableEvaluationEvent) evaluationEvent);
+    if (evaluationEvent instanceof DmnDecisionTableEvaluationEvent tableEvaluationEvent) {
+      initDecisionInstanceEventForDecisionTable(event, tableEvaluationEvent);
 
-    } else if (evaluationEvent instanceof DmnDecisionLiteralExpressionEvaluationEvent) {
-      initDecisionInstanceEventForDecisionLiteralExpression(event, (DmnDecisionLiteralExpressionEvaluationEvent) evaluationEvent);
+    } else if (evaluationEvent instanceof DmnDecisionLiteralExpressionEvaluationEvent expressionEvaluationEvent) {
+      initDecisionInstanceEventForDecisionLiteralExpression(event, expressionEvaluationEvent);
 
     } else {
       event.setInputs(Collections.<HistoricDecisionInputInstance> emptyList());
@@ -241,14 +241,14 @@ public class DefaultDmnHistoryEventProducer implements DmnHistoryEventProducer {
 
   protected Double getCollectResultValue(TypedValue collectResultValue) {
     // the built-in collect aggregators return only numbers
-    if(collectResultValue instanceof IntegerValue) {
-      return ((IntegerValue) collectResultValue).getValue().doubleValue();
+    if(collectResultValue instanceof IntegerValue value2) {
+      return value2.getValue().doubleValue();
 
-    } else if(collectResultValue instanceof LongValue) {
-      return ((LongValue) collectResultValue).getValue().doubleValue();
+    } else if(collectResultValue instanceof LongValue value1) {
+      return value1.getValue().doubleValue();
 
-    } else if(collectResultValue instanceof DoubleValue) {
-      return ((DoubleValue) collectResultValue).getValue();
+    } else if(collectResultValue instanceof DoubleValue value) {
+      return value.getValue();
 
     } else {
       throw LOG.collectResultValueOfUnsupportedTypeException(collectResultValue);

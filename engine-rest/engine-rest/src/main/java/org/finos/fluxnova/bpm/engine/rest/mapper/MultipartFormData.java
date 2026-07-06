@@ -16,12 +16,12 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.mapper;
 
-import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload2.core.FileItemInput;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -65,7 +65,7 @@ public class MultipartFormData {
     protected String fileName;
     protected byte[] binaryContent;
 
-    public FormPart(FileItemStream stream) {
+    public FormPart(FileItemInput stream) {
       fieldName = stream.getFieldName();
       contentType = stream.getContentType();
       binaryContent = readBinaryContent(stream);
@@ -79,14 +79,14 @@ public class MultipartFormData {
     public FormPart() {
     }
 
-    protected byte[] readBinaryContent(FileItemStream stream) {
+    protected byte[] readBinaryContent(FileItemInput stream) {
       InputStream inputStream = getInputStream(stream);
       return IoUtil.readInputStream(inputStream, stream.getFieldName());
     }
 
-    protected InputStream getInputStream(FileItemStream stream) {
+    protected InputStream getInputStream(FileItemInput stream) {
       try {
-        return stream.openStream();
+        return stream.getInputStream();
       } catch (IOException e) {
         throw new RestException(Status.INTERNAL_SERVER_ERROR, e);
       }

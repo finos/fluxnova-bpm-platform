@@ -36,16 +36,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
 
@@ -60,7 +56,6 @@ public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
 
   protected static final String DECISION_DEFINITION_KEY = "testDecision";
 
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
       { DECISION_PROCESS_WITH_DECISION_SERVICE, "task" },
@@ -71,34 +66,25 @@ public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
       { DECISION_PROCESS_WITH_TAKE_LISTENER, "start" }
     });
   }
-
-  @Parameter(0)
   public String process;
-
-  @Parameter(1)
   public String activityId;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
   protected RuntimeService runtimeService;
   protected RepositoryService repositoryService;
   protected HistoryService historyService;
 
-  @Before
-  public void init() {
-    testRule.deploy(DECISION_DMN, process);
-
+  @BeforeEach
+  public void enableDmnFeelLegacyBehavior() {
     runtimeService = engineRule.getRuntimeService();
     repositoryService = engineRule.getRepositoryService();
     historyService = engineRule.getHistoryService();
-  }
 
-  @Before
-  public void enableDmnFeelLegacyBehavior() {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         engineRule.getProcessEngineConfiguration()
             .getDmnEngineConfiguration();
@@ -108,7 +94,7 @@ public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
         .init();
   }
 
-  @After
+  @AfterEach
   public void disableDmnFeelLegacyBehavior() {
 
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
@@ -120,8 +106,11 @@ public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
         .init();
   }
 
-  @Test
-  public void evaluateDecisionWithDecisionService() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void evaluateDecisionWithDecisionService(String process, String activityId) {
+    initHistoricDecisionInstanceDecisionServiceEvaluationTest(process, activityId);
+    testRule.deploy(DECISION_DMN, this.process);
 
     runtimeService.startProcessInstanceByKey("testProcess", Variables.createVariables()
         .putValue("input1", null)
@@ -147,6 +136,11 @@ public class HistoricDecisionInstanceDecisionServiceEvaluationTest {
     assertThat(historicDecisionInstance.getCaseInstanceId()).isNull();
     assertThat(historicDecisionInstance.getActivityId()).isEqualTo(activityId);
     assertThat(historicDecisionInstance.getEvaluationTime()).isNotNull();
+  }
+
+  public void initHistoricDecisionInstanceDecisionServiceEvaluationTest(String process, String activityId) {
+    this.process = process;
+    this.activityId = activityId;
   }
 
 }

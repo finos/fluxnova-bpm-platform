@@ -23,20 +23,16 @@ import java.util.Collection;
 
 import org.finos.fluxnova.bpm.model.dmn.instance.Decision;
 import org.finos.fluxnova.bpm.model.dmn.instance.Input;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class FluxnovaExtensionsTest {
 
-  private final DmnModelInstance originalModelInstance;
+  private DmnModelInstance originalModelInstance;
   private DmnModelInstance modelInstance;
 
-   @Parameters(name="Namespace: {0}")
    public static Collection<Object[]> parameters(){
      return Arrays.asList(new Object[][]{
          {Dmn.readModelFromStream(FluxnovaExtensionsTest.class.getResourceAsStream("CamundaExtensionsTest.dmn"))},
@@ -45,41 +41,42 @@ public class FluxnovaExtensionsTest {
      });
    }
 
-  public FluxnovaExtensionsTest(DmnModelInstance originalModelInstance) {
+  public void initFluxnovaExtensionsTest(DmnModelInstance originalModelInstance) {
     this.originalModelInstance = originalModelInstance;
-  }
-
-  @Before
-  public void parseModel() {
     modelInstance = originalModelInstance.clone();
-
   }
 
-  @Test
-  public void testFluxnovaClauseOutput() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaClauseOutput(DmnModelInstance originalModelInstance) {
+    initFluxnovaExtensionsTest(originalModelInstance);
     Input input = modelInstance.getModelElementById("input");
     assertThat(input.getFluxnovaInputVariable()).isEqualTo("myVariable");
     input.setFluxnovaInputVariable("foo");
     assertThat(input.getFluxnovaInputVariable()).isEqualTo("foo");
   }
 
-  @Test
-  public void testFluxnovaHistoryTimeToLive() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaHistoryTimeToLive(DmnModelInstance originalModelInstance) {
+    initFluxnovaExtensionsTest(originalModelInstance);
     Decision decision = modelInstance.getModelElementById("decision");
     assertThat(decision.getFluxnovaHistoryTimeToLive()).isEqualTo(5);
     decision.setFluxnovaHistoryTimeToLive(6);
     assertThat(decision.getFluxnovaHistoryTimeToLive()).isEqualTo(6);
   }
 
-  @Test
-  public void testFluxnovaVersionTag() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaVersionTag(DmnModelInstance originalModelInstance) {
+    initFluxnovaExtensionsTest(originalModelInstance);
     Decision decision = modelInstance.getModelElementById("decision");
     assertThat(decision.getVersionTag()).isEqualTo("1.0.0");
     decision.setVersionTag("1.1.0");
     assertThat(decision.getVersionTag()).isEqualTo("1.1.0");
   }
 
-  @After
+  @AfterEach
   public void validateModel() {
     Dmn.validateModel(modelInstance);
   }

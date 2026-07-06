@@ -38,7 +38,7 @@
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${version.jackson}</version>
         <scope>import</scope>
@@ -67,16 +67,15 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+        <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <version>${version.jackson}</version>
     </dependency>
 
-
-    <!-- test dependencies -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${version.jakarta.xml.bind-api}</version>
     </dependency>
 
     <dependency>
@@ -108,6 +107,19 @@
       <artifactId>fluxnova-spin-dataformat-all</artifactId>
       <scope>test</scope>
     </dependency>
+
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-junit</artifactId>
+        <version>${version.hamcrest}</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.qa</groupId>
@@ -149,9 +161,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>${version.xml.jaxb-impl4}</version>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${version.jaxb-runtime}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -258,7 +270,7 @@
           <!-- Container configuration -->
           <container>
             <type>installed</type>
-            <containerId>tomcat10x</containerId>
+                <containerId>tomcat11x</containerId>
             <append>false</append>
             <home>${tomcat.runtime}</home>
             <timeout>${cargo.timeout}</timeout>

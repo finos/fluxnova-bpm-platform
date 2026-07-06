@@ -32,7 +32,8 @@ import org.finos.fluxnova.bpm.model.dmn.DmnModelException;
 import org.finos.fluxnova.bpm.model.dmn.DmnModelInstance;
 import org.finos.fluxnova.bpm.model.xml.ModelException;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ParseDecisionTest extends DmnEngineTest {
 

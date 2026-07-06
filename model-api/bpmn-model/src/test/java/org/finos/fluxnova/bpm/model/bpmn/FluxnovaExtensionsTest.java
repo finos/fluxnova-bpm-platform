@@ -112,18 +112,15 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaProperty;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaScript;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaTaskListener;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaValue;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Sebastian Menski
  * @author Ronny Bräunlich
  */
-@RunWith(Parameterized.class)
 public class FluxnovaExtensionsTest {
 
   private Process process;
@@ -143,7 +140,6 @@ public class FluxnovaExtensionsTest {
   private BpmnModelInstance modelInstance;
   private Error error;
 
-  @Parameters(name="Namespace: {0}")
   public static Collection<Object[]> parameters(){
     return Arrays.asList(new Object[][]{
         {CAMUNDA_NS, Bpmn.readModelFromStream(FluxnovaExtensionsTest.class.getResourceAsStream("CamundaExtensionsTest.xml"))},
@@ -153,13 +149,9 @@ public class FluxnovaExtensionsTest {
     });
   }
 
-  public FluxnovaExtensionsTest(String namespace, BpmnModelInstance modelInstance) {
+  public void initFluxnovaExtensionsTest(String namespace, BpmnModelInstance originalModelInstance) {
     this.namespace = namespace;
-    this.originalModelInstance = modelInstance;
-  }
-
-  @Before
-  public void setUp(){
+    this.originalModelInstance = originalModelInstance;
     modelInstance = originalModelInstance.clone();
     process = modelInstance.getModelElementById(PROCESS_ID);
     startEvent = modelInstance.getModelElementById(START_EVENT_ID);
@@ -176,15 +168,19 @@ public class FluxnovaExtensionsTest {
     error = modelInstance.getModelElementById("error");
   }
 
-  @Test
-  public void testAssignee() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testAssignee(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaAssignee()).isEqualTo(TEST_STRING_XML);
     userTask.setFluxnovaAssignee(TEST_STRING_API);
     assertThat(userTask.getFluxnovaAssignee()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testAsync() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testAsync(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.isFluxnovaAsync()).isFalse();
     assertThat(userTask.isFluxnovaAsync()).isTrue();
     assertThat(parallelGateway.isFluxnovaAsync()).isTrue();
@@ -198,8 +194,10 @@ public class FluxnovaExtensionsTest {
     assertThat(parallelGateway.isFluxnovaAsync()).isFalse();
   }
 
-  @Test
-  public void testAsyncBefore() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testAsyncBefore(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.isFluxnovaAsyncBefore()).isTrue();
     assertThat(endEvent.isFluxnovaAsyncBefore()).isTrue();
     assertThat(userTask.isFluxnovaAsyncBefore()).isTrue();
@@ -216,8 +214,10 @@ public class FluxnovaExtensionsTest {
     assertThat(parallelGateway.isFluxnovaAsyncBefore()).isFalse();
   }
 
-  @Test
-  public void testAsyncAfter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testAsyncAfter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.isFluxnovaAsyncAfter()).isTrue();
     assertThat(endEvent.isFluxnovaAsyncAfter()).isTrue();
     assertThat(userTask.isFluxnovaAsyncAfter()).isTrue();
@@ -234,152 +234,198 @@ public class FluxnovaExtensionsTest {
     assertThat(parallelGateway.isFluxnovaAsyncAfter()).isFalse();
   }
 
-  @Test
-  public void testFlowNodeJobPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFlowNodeJobPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.getFluxnovaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
     assertThat(endEvent.getFluxnovaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
     assertThat(userTask.getFluxnovaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
     assertThat(parallelGateway.getFluxnovaJobPriority()).isEqualTo(TEST_FLOW_NODE_JOB_PRIORITY);
   }
 
-  @Test
-  public void testProcessJobPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testProcessJobPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaJobPriority()).isEqualTo(TEST_PROCESS_JOB_PRIORITY);
   }
 
-  @Test
-  public void testProcessTaskPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testProcessTaskPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaTaskPriority()).isEqualTo(TEST_PROCESS_TASK_PRIORITY);
   }
 
-  @Test
-  public void testHistoryTimeToLive() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testHistoryTimeToLive(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaHistoryTimeToLive()).isEqualTo(TEST_HISTORY_TIME_TO_LIVE);
   }
 
-  @Test
-  public void testIsStartableInTasklist() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testIsStartableInTasklist(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.isFluxnovaStartableInTasklist()).isEqualTo(false);
   }
 
-  @Test
-  public void testVersionTag() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testVersionTag(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaVersionTag()).isEqualTo("v1.0.0");
   }
 
-  @Test
-  public void testServiceTaskPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testServiceTaskPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
-  @Test
-  public void testCalledElementBinding() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCalledElementBinding(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCalledElementBinding()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCalledElementBinding(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCalledElementBinding()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCalledElementVersion() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCalledElementVersion(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCalledElementVersion()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCalledElementVersion(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCalledElementVersion()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCalledElementVersionTag() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCalledElementVersionTag(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCalledElementVersionTag()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCalledElementVersionTag(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCalledElementVersionTag()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCalledElementTenantId() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCalledElementTenantId(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCalledElementTenantId()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCalledElementTenantId(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCalledElementTenantId()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCaseRef() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCaseRef(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCaseRef()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCaseRef(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCaseRef()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCaseBinding() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCaseBinding(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCaseBinding()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCaseBinding(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCaseBinding()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCaseVersion() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCaseVersion(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCaseVersion()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCaseVersion(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCaseVersion()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testCaseTenantId() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCaseTenantId(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaCaseTenantId()).isEqualTo(TEST_STRING_XML);
     callActivity.setFluxnovaCaseTenantId(TEST_STRING_API);
     assertThat(callActivity.getFluxnovaCaseTenantId()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testDecisionRef() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDecisionRef(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaDecisionRef()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaDecisionRef(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaDecisionRef()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testDecisionRefBinding() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDecisionRefBinding(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaDecisionRefBinding()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaDecisionRefBinding(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaDecisionRefBinding()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testDecisionRefVersion() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDecisionRefVersion(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaDecisionRefVersion()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaDecisionRefVersion(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaDecisionRefVersion()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testDecisionRefVersionTag() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDecisionRefVersionTag(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaDecisionRefVersionTag()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaDecisionRefVersionTag(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaDecisionRefVersionTag()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testDecisionRefTenantId() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDecisionRefTenantId(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaDecisionRefTenantId()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaDecisionRefTenantId(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaDecisionRefTenantId()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testMapDecisionResult() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testMapDecisionResult(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaMapDecisionResult()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaMapDecisionResult(TEST_STRING_API);
     assertThat(businessRuleTask.getFluxnovaMapDecisionResult()).isEqualTo(TEST_STRING_API);
   }
 
 
-  @Test
-  public void testTaskPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testTaskPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(businessRuleTask.getFluxnovaTaskPriority()).isEqualTo(TEST_STRING_XML);
     businessRuleTask.setFluxnovaTaskPriority(TEST_SERVICE_TASK_PRIORITY);
     assertThat(businessRuleTask.getFluxnovaTaskPriority()).isEqualTo(TEST_SERVICE_TASK_PRIORITY);
   }
 
-  @Test
-  public void testCandidateGroups() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCandidateGroups(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateGroups()).isEqualTo(TEST_GROUPS_XML);
     assertThat(userTask.getFluxnovaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
     userTask.setFluxnovaCandidateGroups(TEST_GROUPS_API);
@@ -390,8 +436,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
   }
 
-  @Test
-  public void testCandidateStarterGroups() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCandidateStarterGroups(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaCandidateStarterGroups()).isEqualTo(TEST_GROUPS_XML);
     assertThat(process.getFluxnovaCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
     process.setFluxnovaCandidateStarterGroups(TEST_GROUPS_API);
@@ -402,8 +450,10 @@ public class FluxnovaExtensionsTest {
     assertThat(process.getFluxnovaCandidateStarterGroupsList()).containsAll(TEST_GROUPS_LIST_XML);
   }
 
-  @Test
-  public void testCandidateStarterUsers() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCandidateStarterUsers(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(process.getFluxnovaCandidateStarterUsers()).isEqualTo(TEST_USERS_XML);
     assertThat(process.getFluxnovaCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
     process.setFluxnovaCandidateStarterUsers(TEST_USERS_API);
@@ -414,8 +464,10 @@ public class FluxnovaExtensionsTest {
     assertThat(process.getFluxnovaCandidateStarterUsersList()).containsAll(TEST_USERS_LIST_XML);
   }
 
-  @Test
-  public void testCandidateUsers() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testCandidateUsers(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateUsers()).isEqualTo(TEST_USERS_XML);
     assertThat(userTask.getFluxnovaCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
     userTask.setFluxnovaCandidateUsers(TEST_USERS_API);
@@ -426,8 +478,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateUsersList()).containsAll(TEST_USERS_LIST_XML);
   }
 
-  @Test
-  public void testClass() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testClass(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaClass()).isEqualTo(TEST_CLASS_XML);
     assertThat(messageEventDefinition.getFluxnovaClass()).isEqualTo(TEST_CLASS_XML);
 
@@ -438,8 +492,10 @@ public class FluxnovaExtensionsTest {
     assertThat(messageEventDefinition.getFluxnovaClass()).isEqualTo(TEST_CLASS_API);
   }
 
-  @Test
-  public void testDelegateExpression() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDelegateExpression(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
     assertThat(messageEventDefinition.getFluxnovaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
 
@@ -450,34 +506,44 @@ public class FluxnovaExtensionsTest {
     assertThat(messageEventDefinition.getFluxnovaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
   }
 
-  @Test
-  public void testDueDate() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testDueDate(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaDueDate()).isEqualTo(TEST_DUE_DATE_XML);
     userTask.setFluxnovaDueDate(TEST_DUE_DATE_API);
     assertThat(userTask.getFluxnovaDueDate()).isEqualTo(TEST_DUE_DATE_API);
   }
 
-  @Test
-  public void testErrorCodeVariable(){
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testErrorCodeVariable(String namespace, BpmnModelInstance modelInstance){
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     ErrorEventDefinition errorEventDefinition = startEvent.getChildElementsByType(ErrorEventDefinition.class).iterator().next();
     assertThat(errorEventDefinition.getAttributeValueNs(namespace, CAMUNDA_ATTRIBUTE_ERROR_CODE_VARIABLE)).isEqualTo("errorVariable");
   }
 
-  @Test
-  public void testErrorMessageVariable(){
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testErrorMessageVariable(String namespace, BpmnModelInstance modelInstance){
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     ErrorEventDefinition errorEventDefinition = startEvent.getChildElementsByType(ErrorEventDefinition.class).iterator().next();
     assertThat(errorEventDefinition.getAttributeValueNs(namespace, CAMUNDA_ATTRIBUTE_ERROR_MESSAGE_VARIABLE)).isEqualTo("errorMessageVariable");
   }
 
-  @Test
-  public void testErrorMessage() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testErrorMessage(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(error.getFluxnovaErrorMessage()).isEqualTo(TEST_STRING_XML);
     error.setFluxnovaErrorMessage(TEST_STRING_API);
     assertThat(error.getFluxnovaErrorMessage()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testExclusive() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testExclusive(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.isFluxnovaExclusive()).isTrue();
     assertThat(userTask.isFluxnovaExclusive()).isFalse();
     userTask.setFluxnovaExclusive(true);
@@ -491,8 +557,10 @@ public class FluxnovaExtensionsTest {
     assertThat(callActivity.isFluxnovaExclusive()).isTrue();
   }
 
-  @Test
-  public void testExpression() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testExpression(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaExpression()).isEqualTo(TEST_EXPRESSION_XML);
     assertThat(messageEventDefinition.getFluxnovaExpression()).isEqualTo(TEST_EXPRESSION_XML);
     serviceTask.setFluxnovaExpression(TEST_EXPRESSION_API);
@@ -501,8 +569,10 @@ public class FluxnovaExtensionsTest {
     assertThat(messageEventDefinition.getFluxnovaExpression()).isEqualTo(TEST_EXPRESSION_API);
   }
 
-  @Test
-  public void testFormHandlerClass() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFormHandlerClass(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.getFluxnovaFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
     assertThat(userTask.getFluxnovaFormHandlerClass()).isEqualTo(TEST_CLASS_XML);
     startEvent.setFluxnovaFormHandlerClass(TEST_CLASS_API);
@@ -511,8 +581,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
   }
 
-  @Test
-  public void testFormKey() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFormKey(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.getFluxnovaFormKey()).isEqualTo(TEST_STRING_XML);
     assertThat(userTask.getFluxnovaFormKey()).isEqualTo(TEST_STRING_XML);
     startEvent.setFluxnovaFormKey(TEST_STRING_API);
@@ -521,22 +593,28 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaFormKey()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testInitiator() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testInitiator(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(startEvent.getFluxnovaInitiator()).isEqualTo(TEST_STRING_XML);
     startEvent.setFluxnovaInitiator(TEST_STRING_API);
     assertThat(startEvent.getFluxnovaInitiator()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testPriority() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testPriority(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaPriority()).isEqualTo(TEST_PRIORITY_XML);
     userTask.setFluxnovaPriority(TEST_PRIORITY_API);
     assertThat(userTask.getFluxnovaPriority()).isEqualTo(TEST_PRIORITY_API);
   }
 
-  @Test
-  public void testResultVariable() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testResultVariable(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaResultVariable()).isEqualTo(TEST_STRING_XML);
     assertThat(messageEventDefinition.getFluxnovaResultVariable()).isEqualTo(TEST_STRING_XML);
     serviceTask.setFluxnovaResultVariable(TEST_STRING_API);
@@ -545,8 +623,10 @@ public class FluxnovaExtensionsTest {
     assertThat(messageEventDefinition.getFluxnovaResultVariable()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testType() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testType(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaType()).isEqualTo(TEST_TYPE_XML);
     assertThat(messageEventDefinition.getFluxnovaType()).isEqualTo(TEST_STRING_XML);
     serviceTask.setFluxnovaType(TEST_TYPE_API);
@@ -556,8 +636,10 @@ public class FluxnovaExtensionsTest {
 
   }
 
-  @Test
-  public void testTopic() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testTopic(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(serviceTask.getFluxnovaTopic()).isEqualTo(TEST_STRING_XML);
     assertThat(messageEventDefinition.getFluxnovaTopic()).isEqualTo(TEST_STRING_XML);
     serviceTask.setFluxnovaTopic(TEST_TYPE_API);
@@ -566,22 +648,28 @@ public class FluxnovaExtensionsTest {
     assertThat(messageEventDefinition.getFluxnovaTopic()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testVariableMappingClass() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testVariableMappingClass(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaVariableMappingClass()).isEqualTo(TEST_CLASS_XML);
     callActivity.setFluxnovaVariableMappingClass(TEST_CLASS_API);
     assertThat(callActivity.getFluxnovaVariableMappingClass()).isEqualTo(TEST_CLASS_API);
   }
 
-  @Test
-  public void testVariableMappingDelegateExpression() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testVariableMappingDelegateExpression(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(callActivity.getFluxnovaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_XML);
     callActivity.setFluxnovaVariableMappingDelegateExpression(TEST_DELEGATE_EXPRESSION_API);
     assertThat(callActivity.getFluxnovaVariableMappingDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
   }
 
-  @Test
-  public void testExecutionListenerExtension() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testExecutionListenerExtension(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaExecutionListener processListener = process.getExtensionElements().getElementsQuery().filterByType(FluxnovaExecutionListener.class).singleResult();
     FluxnovaExecutionListener startEventListener = startEvent.getExtensionElements().getElementsQuery().filterByType(FluxnovaExecutionListener.class).singleResult();
     FluxnovaExecutionListener serviceTaskListener = serviceTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaExecutionListener.class).singleResult();
@@ -605,8 +693,10 @@ public class FluxnovaExtensionsTest {
     assertThat(serviceTaskListener.getFluxnovaEvent()).isEqualTo(TEST_EXECUTION_EVENT_API);
   }
 
-  @Test
-  public void testFluxnovaScriptExecutionListener() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaScriptExecutionListener(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaExecutionListener sequenceFlowListener = sequenceFlow.getExtensionElements().getElementsQuery().filterByType(FluxnovaExecutionListener.class).singleResult();
 
     FluxnovaScript script = sequenceFlowListener.getFluxnovaScript();
@@ -614,7 +704,7 @@ public class FluxnovaExtensionsTest {
     assertThat(script.getFluxnovaResource()).isNull();
     assertThat(script.getTextContent()).isEqualTo("println 'Hello World'");
 
-    FluxnovaScript newScript = modelInstance.newInstance(FluxnovaScript.class);
+    FluxnovaScript newScript = this.modelInstance.newInstance(FluxnovaScript.class);
     newScript.setFluxnovaScriptFormat("groovy");
     newScript.setFluxnovaResource("test.groovy");
     sequenceFlowListener.setFluxnovaScript(newScript);
@@ -625,16 +715,20 @@ public class FluxnovaExtensionsTest {
     assertThat(script.getTextContent()).isEmpty();
   }
 
-  @Test
-  public void testFailedJobRetryTimeCycleExtension() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFailedJobRetryTimeCycleExtension(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaFailedJobRetryTimeCycle timeCycle = sendTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaFailedJobRetryTimeCycle.class).singleResult();
     assertThat(timeCycle.getTextContent()).isEqualTo(TEST_STRING_XML);
     timeCycle.setTextContent(TEST_STRING_API);
     assertThat(timeCycle.getTextContent()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testFieldExtension() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFieldExtension(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaField field = sendTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaField.class).singleResult();
     assertThat(field.getFluxnovaName()).isEqualTo(TEST_STRING_XML);
     assertThat(field.getFluxnovaExpression()).isEqualTo(TEST_EXPRESSION_XML);
@@ -653,8 +747,10 @@ public class FluxnovaExtensionsTest {
     assertThat(field.getFluxnovaString().getTextContent()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testFormData() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFormData(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaFormData formData = userTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaFormData.class).singleResult();
     FluxnovaFormField formField = formData.getFluxnovaFormFields().iterator().next();
     assertThat(formField.getFluxnovaId()).isEqualTo(TEST_STRING_XML);
@@ -698,8 +794,10 @@ public class FluxnovaExtensionsTest {
     assertThat(value.getFluxnovaName()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testFormProperty() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFormProperty(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaFormProperty formProperty = startEvent.getExtensionElements().getElementsQuery().filterByType(FluxnovaFormProperty.class).singleResult();
     assertThat(formProperty.getFluxnovaId()).isEqualTo(TEST_STRING_XML);
     assertThat(formProperty.getFluxnovaName()).isEqualTo(TEST_STRING_XML);
@@ -733,8 +831,10 @@ public class FluxnovaExtensionsTest {
     assertThat(formProperty.getFluxnovaDefault()).isEqualTo(TEST_STRING_API);
   }
 
-  @Test
-  public void testInExtension() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testInExtension(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaIn in = callActivity.getExtensionElements().getElementsQuery().filterByType(FluxnovaIn.class).singleResult();
     assertThat(in.getFluxnovaSource()).isEqualTo(TEST_STRING_XML);
     assertThat(in.getFluxnovaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
@@ -759,8 +859,10 @@ public class FluxnovaExtensionsTest {
     assertThat(in.getFluxnovaRestricted()).isTrue();
   }
 
-  @Test
-  public void testOutExtension() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testOutExtension(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaOut out = callActivity.getExtensionElements().getElementsQuery().filterByType(FluxnovaOut.class).singleResult();
     assertThat(out.getFluxnovaSource()).isEqualTo(TEST_STRING_XML);
     assertThat(out.getFluxnovaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
@@ -782,8 +884,10 @@ public class FluxnovaExtensionsTest {
     assertThat(out.getFluxnovaRestricted()).isTrue();
   }
 
-  @Test
-  public void testPotentialStarter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testPotentialStarter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaPotentialStarter potentialStarter = startEvent.getExtensionElements().getElementsQuery().filterByType(FluxnovaPotentialStarter.class).singleResult();
     Expression expression = potentialStarter.getResourceAssignmentExpression().getExpression();
     assertThat(expression.getTextContent()).isEqualTo(TEST_GROUPS_XML);
@@ -791,8 +895,10 @@ public class FluxnovaExtensionsTest {
     assertThat(expression.getTextContent()).isEqualTo(TEST_GROUPS_API);
   }
 
-  @Test
-  public void testTaskListener() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testTaskListener(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaTaskListener taskListener = userTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaTaskListener.class).list().get(0);
     assertThat(taskListener.getFluxnovaEvent()).isEqualTo(TEST_TASK_EVENT_XML);
     assertThat(taskListener.getFluxnovaClass()).isEqualTo(TEST_CLASS_XML);
@@ -821,8 +927,10 @@ public class FluxnovaExtensionsTest {
     assertThat(timeout.getTimeDuration().getRawTextContent()).isEqualTo("PT1H");
   }
 
-  @Test
-  public void testFluxnovaScriptTaskListener() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaScriptTaskListener(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaTaskListener taskListener = userTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaTaskListener.class).list().get(1);
 
     FluxnovaScript script = taskListener.getFluxnovaScript();
@@ -830,7 +938,7 @@ public class FluxnovaExtensionsTest {
     assertThat(script.getFluxnovaResource()).isEqualTo("test.groovy");
     assertThat(script.getTextContent()).isEmpty();
 
-    FluxnovaScript newScript = modelInstance.newInstance(FluxnovaScript.class);
+    FluxnovaScript newScript = this.modelInstance.newInstance(FluxnovaScript.class);
     newScript.setFluxnovaScriptFormat("groovy");
     newScript.setTextContent("println 'Hello World'");
     taskListener.setFluxnovaScript(newScript);
@@ -841,8 +949,10 @@ public class FluxnovaExtensionsTest {
     assertThat(script.getTextContent()).isEqualTo("println 'Hello World'");
   }
 
-  @Test
-  public void testFluxnovaModelerProperties() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaModelerProperties(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaProperties camundaProperties = endEvent.getExtensionElements().getElementsQuery().filterByType(FluxnovaProperties.class).singleResult();
     assertThat(camundaProperties).isNotNull();
     assertThat(camundaProperties.getFluxnovaProperties()).hasSize(2);
@@ -854,15 +964,19 @@ public class FluxnovaExtensionsTest {
     }
   }
 
-  @Test
-  public void testGetNonExistingFluxnovaCandidateUsers() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testGetNonExistingFluxnovaCandidateUsers(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     userTask.removeAttributeNs(namespace, "candidateUsers");
     assertThat(userTask.getFluxnovaCandidateUsers()).isNull();
     assertThat(userTask.getFluxnovaCandidateUsersList()).isEmpty();
   }
 
-  @Test
-  public void testSetNullFluxnovaCandidateUsers() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testSetNullFluxnovaCandidateUsers(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateUsers()).isNotEmpty();
     assertThat(userTask.getFluxnovaCandidateUsersList()).isNotEmpty();
     userTask.setFluxnovaCandidateUsers(null);
@@ -870,8 +984,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateUsersList()).isEmpty();
   }
 
-  @Test
-  public void testEmptyFluxnovaCandidateUsers() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testEmptyFluxnovaCandidateUsers(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateUsers()).isNotEmpty();
     assertThat(userTask.getFluxnovaCandidateUsersList()).isNotEmpty();
     userTask.setFluxnovaCandidateUsers("");
@@ -879,8 +995,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateUsersList()).isEmpty();
   }
 
-  @Test
-  public void testSetNullFluxnovaCandidateUsersList() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testSetNullFluxnovaCandidateUsersList(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateUsers()).isNotEmpty();
     assertThat(userTask.getFluxnovaCandidateUsersList()).isNotEmpty();
     userTask.setFluxnovaCandidateUsersList(null);
@@ -888,8 +1006,10 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateUsersList()).isEmpty();
   }
 
-  @Test
-  public void testEmptyFluxnovaCandidateUsersList() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testEmptyFluxnovaCandidateUsersList(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(userTask.getFluxnovaCandidateUsers()).isNotEmpty();
     assertThat(userTask.getFluxnovaCandidateUsersList()).isNotEmpty();
     userTask.setFluxnovaCandidateUsersList(Collections.<String>emptyList());
@@ -897,14 +1017,18 @@ public class FluxnovaExtensionsTest {
     assertThat(userTask.getFluxnovaCandidateUsersList()).isEmpty();
   }
 
-  @Test
-  public void testScriptResource() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testScriptResource(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     assertThat(scriptTask.getScriptFormat()).isEqualTo("groovy");
     assertThat(scriptTask.getFluxnovaResource()).isEqualTo("test.groovy");
   }
 
-  @Test
-  public void testFluxnovaConnector() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaConnector(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaConnector camundaConnector = serviceTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaConnector.class).singleResult();
     assertThat(camundaConnector).isNotNull();
 
@@ -935,16 +1059,20 @@ public class FluxnovaExtensionsTest {
     assertThat(outputParameter.getFluxnovaRestricted()).isTrue();
   }
 
-  @Test
-  public void testFluxnovaInputOutput() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaInputOutput(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputOutput camundaInputOutput = serviceTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaInputOutput.class).singleResult();
     assertThat(camundaInputOutput).isNotNull();
     assertThat(camundaInputOutput.getFluxnovaInputParameters()).hasSize(6);
     assertThat(camundaInputOutput.getFluxnovaOutputParameters()).hasSize(1);
   }
 
-  @Test
-  public void testFluxnovaInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     // find existing
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeConstant");
 
@@ -957,7 +1085,7 @@ public class FluxnovaExtensionsTest {
     assertThat(inputParameter.getFluxnovaRestricted()).isTrue();
 
     // add new one
-    inputParameter = modelInstance.newInstance(FluxnovaInputParameter.class);
+    inputParameter = this.modelInstance.newInstance(FluxnovaInputParameter.class);
     inputParameter.setFluxnovaName("abc");
     inputParameter.setTextContent("def");
     serviceTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaInputOutput.class).singleResult()
@@ -969,29 +1097,37 @@ public class FluxnovaExtensionsTest {
     assertThat(inputParameter.getTextContent()).isEqualTo("def");
   }
 
-  @Test
-  public void testFluxnovaNullInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaNullInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeNull");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeNull");
     assertThat(inputParameter.getTextContent()).isEmpty();
   }
 
-  @Test
-  public void testFluxnovaConstantInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaConstantInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeConstant");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeConstant");
     assertThat(inputParameter.getTextContent()).isEqualTo("foo");
   }
 
-  @Test
-  public void testFluxnovaExpressionInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaExpressionInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeExpression");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeExpression");
     assertThat(inputParameter.getTextContent()).isEqualTo("${1 + 1}");
   }
 
-  @Test
-  public void testFluxnovaListInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaListInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeList");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeList");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
@@ -1003,13 +1139,13 @@ public class FluxnovaExtensionsTest {
       assertThat(values.getTextContent()).isIn("a", "b", "c");
     }
 
-    list = modelInstance.newInstance(FluxnovaList.class);
+    list = this.modelInstance.newInstance(FluxnovaList.class);
     for (int i = 0; i < 4; i++) {
-      FluxnovaValue value = modelInstance.newInstance(FluxnovaValue.class);
+      FluxnovaValue value = this.modelInstance.newInstance(FluxnovaValue.class);
       value.setTextContent("test");
       list.getValues().add(value);
     }
-    Collection<FluxnovaValue> testValues = Arrays.asList(modelInstance.newInstance(FluxnovaValue.class), modelInstance.newInstance(FluxnovaValue.class));
+    Collection<FluxnovaValue> testValues = Arrays.asList(this.modelInstance.newInstance(FluxnovaValue.class), this.modelInstance.newInstance(FluxnovaValue.class));
     list.getValues().addAll(testValues);
     inputParameter.setValue(list);
 
@@ -1034,19 +1170,19 @@ public class FluxnovaExtensionsTest {
     // test standard list interactions
     Collection<BpmnModelElementInstance> elements = list.getValues();
 
-    FluxnovaValue value = modelInstance.newInstance(FluxnovaValue.class);
+    FluxnovaValue value = this.modelInstance.newInstance(FluxnovaValue.class);
     elements.add(value);
 
     List<FluxnovaValue> newValues = new ArrayList<FluxnovaValue>();
-    newValues.add(modelInstance.newInstance(FluxnovaValue.class));
-    newValues.add(modelInstance.newInstance(FluxnovaValue.class));
+    newValues.add(this.modelInstance.newInstance(FluxnovaValue.class));
+    newValues.add(this.modelInstance.newInstance(FluxnovaValue.class));
     elements.addAll(newValues);
     assertThat(elements).hasSize(3);
 
-    assertThat(elements).doesNotContain(modelInstance.newInstance(FluxnovaValue.class));
-    assertThat(elements.containsAll(Arrays.asList(modelInstance.newInstance(FluxnovaValue.class)))).isFalse();
+    assertThat(elements).doesNotContain(this.modelInstance.newInstance(FluxnovaValue.class));
+    assertThat(elements.containsAll(Arrays.asList(this.modelInstance.newInstance(FluxnovaValue.class)))).isFalse();
 
-    assertThat(elements.remove(modelInstance.newInstance(FluxnovaValue.class))).isFalse();
+    assertThat(elements.remove(this.modelInstance.newInstance(FluxnovaValue.class))).isFalse();
     assertThat(elements).hasSize(3);
 
     assertThat(elements.remove(value)).isTrue();
@@ -1055,7 +1191,7 @@ public class FluxnovaExtensionsTest {
     assertThat(elements.removeAll(newValues)).isTrue();
     assertThat(elements).isEmpty();
 
-    elements.add(modelInstance.newInstance(FluxnovaValue.class));
+    elements.add(this.modelInstance.newInstance(FluxnovaValue.class));
     elements.clear();
     assertThat(elements).isEmpty();
 
@@ -1064,8 +1200,10 @@ public class FluxnovaExtensionsTest {
 
   }
 
-  @Test
-  public void testFluxnovaMapInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaMapInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeMap");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeMap");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
@@ -1083,8 +1221,8 @@ public class FluxnovaExtensionsTest {
       }
     }
 
-    map = modelInstance.newInstance(FluxnovaMap.class);
-    FluxnovaEntry entry = modelInstance.newInstance(FluxnovaEntry.class);
+    map = this.modelInstance.newInstance(FluxnovaMap.class);
+    FluxnovaEntry entry = this.modelInstance.newInstance(FluxnovaEntry.class);
     entry.setFluxnovaKey("test");
     entry.setTextContent("value");
     map.getFluxnovaEntries().add(entry);
@@ -1097,15 +1235,17 @@ public class FluxnovaExtensionsTest {
     assertThat(entry.getTextContent()).isEqualTo("value");
 
     Collection<FluxnovaEntry> entries = map.getFluxnovaEntries();
-    entries.add(modelInstance.newInstance(FluxnovaEntry.class));
+    entries.add(this.modelInstance.newInstance(FluxnovaEntry.class));
     assertThat(entries).hasSize(2);
 
     inputParameter.removeValue();
     assertThat((Object) inputParameter.getValue()).isNull();
   }
 
-  @Test
-  public void testFluxnovaScriptInputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaScriptInputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaInputParameter inputParameter = findInputParameterByName(serviceTask, "shouldBeScript");
     assertThat(inputParameter.getFluxnovaName()).isEqualTo("shouldBeScript");
     assertThat(inputParameter.getTextContent()).isNotEmpty();
@@ -1117,7 +1257,7 @@ public class FluxnovaExtensionsTest {
     assertThat(script.getFluxnovaResource()).isNull();
     assertThat(script.getTextContent()).isEqualTo("1 + 1");
 
-    script = modelInstance.newInstance(FluxnovaScript.class);
+    script = this.modelInstance.newInstance(FluxnovaScript.class);
     script.setFluxnovaScriptFormat("python");
     script.setFluxnovaResource("script.py");
 
@@ -1132,8 +1272,10 @@ public class FluxnovaExtensionsTest {
     assertThat((Object) inputParameter.getValue()).isNull();
   }
 
-  @Test
-  public void testFluxnovaNestedOutputParameter() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void testFluxnovaNestedOutputParameter(String namespace, BpmnModelInstance modelInstance) {
+    initFluxnovaExtensionsTest(namespace, modelInstance);
     FluxnovaOutputParameter camundaOutputParameter = serviceTask.getExtensionElements().getElementsQuery().filterByType(FluxnovaInputOutput.class).singleResult().getFluxnovaOutputParameters().iterator().next();
 
     assertThat(camundaOutputParameter).isNotNull();
@@ -1187,7 +1329,7 @@ public class FluxnovaExtensionsTest {
     throw new BpmnModelException("Unable to find camunda:inputParameter with name '" + name + "' for element with id '" + baseElement.getId() + "'");
   }
 
-  @After
+  @AfterEach
   public void validateModel() {
     Bpmn.validateModel(modelInstance);
   }

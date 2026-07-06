@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,34 +38,32 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenarioWithCount;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_AUDIT)
 public class DeleteHistoricProcessInstancesBatchAuthorizationTest extends AbstractBatchAuthorizationTest {
 
   protected static final long BATCH_OPERATIONS = 3;
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenarioWithCount scenario;
 
   protected HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void setupHistoricService() {
     historyService = engineRule.getHistoryService();
   }
 
+  @AfterEach
   public void cleanBatch() {
     super.cleanBatch();
     List<HistoricProcessInstance> list = historyService.createHistoricProcessInstanceQuery().list();
@@ -79,7 +77,6 @@ public class DeleteHistoricProcessInstancesBatchAuthorizationTest extends Abstra
     }
   }
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         AuthorizationScenarioWithCount.scenario()
@@ -109,8 +106,10 @@ public class DeleteHistoricProcessInstancesBatchAuthorizationTest extends Abstra
     );
   }
 
-  @Test
-  public void testWithTwoInvocationsProcessInstancesList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsProcessInstancesList(AuthorizationScenarioWithCount scenario) {
+    initDeleteHistoricProcessInstancesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteHistoricProcessInstancesListTest();
 
@@ -120,8 +119,10 @@ public class DeleteHistoricProcessInstancesBatchAuthorizationTest extends Abstra
     assertThat(historyService.createHistoricProcessInstanceQuery().count()).isEqualTo(getScenario().getCount());
   }
 
-  @Test
-  public void testProcessInstancesList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testProcessInstancesList(AuthorizationScenarioWithCount scenario) {
+    initDeleteHistoricProcessInstancesBatchAuthorizationTest(scenario);
     setupAndExecuteHistoricProcessInstancesListTest();
     // then
     assertScenario();
@@ -168,5 +169,9 @@ public class DeleteHistoricProcessInstancesBatchAuthorizationTest extends Abstra
       }
       assertThat(historyService.createHistoricProcessInstanceQuery().count()).isEqualTo(0L);
     }
+  }
+
+  public void initDeleteHistoricProcessInstancesBatchAuthorizationTest(AuthorizationScenarioWithCount scenario) {
+    this.scenario = scenario;
   }
 }

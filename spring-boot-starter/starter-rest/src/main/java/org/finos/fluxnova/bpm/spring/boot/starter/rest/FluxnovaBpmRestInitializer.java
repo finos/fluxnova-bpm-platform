@@ -21,7 +21,7 @@ import org.finos.fluxnova.bpm.engine.rest.filter.EmptyBodyFilter;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
+import org.springframework.boot.jersey.autoconfigure.JerseyApplicationPath;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 
 import jakarta.servlet.DispatcherType;

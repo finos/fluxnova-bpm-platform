@@ -606,8 +606,8 @@ public class ExecutionEntity extends PvmExecutionImpl implements Execution, Proc
   @Override
   @SuppressWarnings("deprecation")
   public <T extends CoreExecution> void performOperation(CoreAtomicOperation<T> operation) {
-    if (operation instanceof AtomicOperation) {
-      performOperation((AtomicOperation) operation);
+    if (operation instanceof AtomicOperation atomicOperation) {
+      performOperation(atomicOperation);
     } else {
       super.performOperation(operation);
     }
@@ -616,8 +616,8 @@ public class ExecutionEntity extends PvmExecutionImpl implements Execution, Proc
   @Override
   @SuppressWarnings("deprecation")
   public <T extends CoreExecution> void performOperationSync(CoreAtomicOperation<T> operation) {
-    if (operation instanceof AtomicOperation) {
-      performOperationSync((AtomicOperation) operation);
+    if (operation instanceof AtomicOperation atomicOperation) {
+      performOperationSync(atomicOperation);
     } else {
       super.performOperationSync(operation);
     }
@@ -784,8 +784,8 @@ public class ExecutionEntity extends PvmExecutionImpl implements Execution, Proc
     this.processDefinition = processDefinition;
     if (processDefinition != null) {
       this.processDefinitionId = processDefinition.getId();
-      if (processDefinition instanceof ProcessDefinitionEntity) {
-        this.processDefinitionKey = ((ProcessDefinitionEntity) processDefinition).getKey();
+      if (processDefinition instanceof ProcessDefinitionEntity entity) {
+        this.processDefinitionKey = entity.getKey();
       }
     }
     else {
@@ -1351,7 +1351,7 @@ public class ExecutionEntity extends PvmExecutionImpl implements Execution, Proc
       Collection<ExternalTaskEntity> externalTasks) {
 
     EnsureUtil.ensureNotEmpty(NullValueException.class,
-        String.format("Cannot restore state of process instance %s", processInstanceId),
+      "Cannot restore state of process instance %s".formatted(processInstanceId),
         "list of executions", executions);
 
     if(!isProcessInstanceExecution()) {

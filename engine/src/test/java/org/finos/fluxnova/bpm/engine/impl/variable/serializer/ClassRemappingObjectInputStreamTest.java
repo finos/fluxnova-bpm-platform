@@ -1,14 +1,16 @@
 package org.finos.fluxnova.bpm.engine.impl.variable.serializer;
 
 import org.finos.fluxnova.TestProxyInterface;
-import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Proxy;
-
-import static org.junit.Assert.*;
 
 /**
  * Tests for ClassRemappingObjectInputStream.
@@ -46,8 +48,8 @@ public class ClassRemappingObjectInputStreamTest {
         try (ClassRemappingObjectInputStream in = new ClassRemappingObjectInputStream(new java.io.ByteArrayInputStream(header))) {
             String legacyName = "org.camunda.TestProxyInterface";
             Class<?> proxyClass = in.resolveProxyClass(new String[]{legacyName});
-            assertNotNull("Proxy class should be created", proxyClass);
-            assertTrue("Result should be a dynamic proxy class", Proxy.isProxyClass(proxyClass));
+            assertNotNull(proxyClass, "Proxy class should be created");
+            assertTrue(Proxy.isProxyClass(proxyClass), "Result should be a dynamic proxy class");
             boolean implementsExpected = false;
             for (Class<?> iface : proxyClass.getInterfaces()) {
                 if (iface.equals(TestProxyInterface.class)) {
@@ -55,7 +57,7 @@ public class ClassRemappingObjectInputStreamTest {
                     break;
                 }
             }
-            assertTrue("Proxy should implement org.finos.fluxnova.TestProxyInterface after remapping", implementsExpected);
+            assertTrue(implementsExpected, "Proxy should implement org.finos.fluxnova.TestProxyInterface after remapping");
         }
     }
 
@@ -69,8 +71,8 @@ public class ClassRemappingObjectInputStreamTest {
         try (ClassRemappingObjectInputStream in = new ClassRemappingObjectInputStream(new java.io.ByteArrayInputStream(header))) {
             String newName = "org.finos.fluxnova.TestProxyInterface";
             Class<?> proxyClass = in.resolveProxyClass(new String[]{newName});
-            assertNotNull("Proxy class should be created", proxyClass);
-            assertTrue("Result should be a dynamic proxy class", Proxy.isProxyClass(proxyClass));
+            assertNotNull(proxyClass, "Proxy class should be created");
+            assertTrue(Proxy.isProxyClass(proxyClass), "Result should be a dynamic proxy class");
             boolean implementsExpected = false;
             for (Class<?> iface : proxyClass.getInterfaces()) {
                 if (iface.equals(TestProxyInterface.class)) {
@@ -78,7 +80,7 @@ public class ClassRemappingObjectInputStreamTest {
                     break;
                 }
             }
-            assertTrue("Proxy should implement the test interface", implementsExpected);
+            assertTrue(implementsExpected, "Proxy should implement the test interface");
         }
     }
 
@@ -101,15 +103,15 @@ public class ClassRemappingObjectInputStreamTest {
 
         try (ClassRemappingObjectInputStream in = new ClassRemappingObjectInputStream(new java.io.ByteArrayInputStream(bytes))) {
             Object obj = in.readObject();
-            assertNotNull("Deserialized object should not be null", obj);
+            assertNotNull(obj, "Deserialized object should not be null");
 
             // verify that the object was resolved to the new package and retains the field
-            assertEquals("Deserialized class name should be the new namespace",
-                    "org.finos.fluxnova.LegacySerialized", obj.getClass().getName());
+            assertEquals("org.finos.fluxnova.LegacySerialized",
+                    obj.getClass().getName(), "Deserialized class name should be the new namespace");
 
             // cast to target class and verify field preserved
             org.finos.fluxnova.LegacySerialized target = (org.finos.fluxnova.LegacySerialized) obj;
-            assertEquals("Field value should be preserved after remapping", TEST_VALUE_LEGACY, target.value);
+            assertEquals(TEST_VALUE_LEGACY, target.value, "Field value should be preserved after remapping");
         }
     }
 
@@ -132,9 +134,9 @@ public class ClassRemappingObjectInputStreamTest {
 
         try (ClassRemappingObjectInputStream in = new ClassRemappingObjectInputStream(new java.io.ByteArrayInputStream(bytes))) {
             Object obj = in.readObject();
-            assertNotNull("Deserialized object should not be null", obj);
-            assertTrue("Deserialized object should be a String", obj instanceof String);
-            assertTrue("String value should match original", original.equals(obj));
+            assertNotNull(obj, "Deserialized object should not be null");
+            assertTrue(obj instanceof String, "Deserialized object should be a String");
+            assertTrue(original.equals(obj), "String value should match original");
         }
     }
 
@@ -156,11 +158,11 @@ public class ClassRemappingObjectInputStreamTest {
 
         try (ClassRemappingObjectInputStream in = new ClassRemappingObjectInputStream(new java.io.ByteArrayInputStream(bytes))) {
             Object obj = in.readObject();
-            assertNotNull("Deserialized object should not be null", obj);
-            assertEquals("Should remain in the new namespace",
-                    "org.finos.fluxnova.LegacySerialized", obj.getClass().getName());
+            assertNotNull(obj, "Deserialized object should not be null");
+            assertEquals("org.finos.fluxnova.LegacySerialized",
+                    obj.getClass().getName(), "Should remain in the new namespace");
             org.finos.fluxnova.LegacySerialized target = (org.finos.fluxnova.LegacySerialized) obj;
-            assertEquals("Field value should be preserved", TEST_VALUE_NEW, target.value);
+            assertEquals(TEST_VALUE_NEW, target.value, "Field value should be preserved");
         }
     }
 

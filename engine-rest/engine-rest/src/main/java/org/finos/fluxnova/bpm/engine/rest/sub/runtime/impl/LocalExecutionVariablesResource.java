@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.RuntimeServiceImpl;
 import org.finos.fluxnova.bpm.engine.rest.sub.impl.AbstractVariablesResource;

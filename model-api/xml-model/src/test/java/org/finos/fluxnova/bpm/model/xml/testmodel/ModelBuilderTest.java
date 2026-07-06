@@ -18,7 +18,8 @@ package org.finos.fluxnova.bpm.model.xml.testmodel;
 
 import org.finos.fluxnova.bpm.model.xml.Model;
 import org.finos.fluxnova.bpm.model.xml.ModelBuilder;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.model.xml.testmodel.TestModelConstants.MODEL_NAME;

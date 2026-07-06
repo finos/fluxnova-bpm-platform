@@ -18,39 +18,37 @@ package org.finos.fluxnova.bpm.engine.rest.mapper;
 
 import java.text.SimpleDateFormat;
 
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.ContextResolver;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.ContextResolver;
+import jakarta.ws.rs.ext.Provider;
 
 import org.finos.fluxnova.bpm.engine.rest.hal.Hal;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 @Provider
 @Produces({MediaType.APPLICATION_JSON, Hal.APPLICATION_HAL_JSON})
 public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
 
-  public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+  public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXX";
   public static String dateFormatString = DEFAULT_DATE_FORMAT;
 
-  public static ObjectMapper configureObjectMapper(ObjectMapper mapper) {
+  public static JsonMapper configureObjectMapper() {
     SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
-    mapper.setDateFormat(dateFormat);
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    
-    mapper.registerModule(new JavaTimeModule());
-
-    return mapper;
+    return JsonMapper.builder()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .defaultDateFormat(dateFormat)
+            .build();
   }
 
   @Override
   public ObjectMapper getContext(Class<?> clazz) {
-    return configureObjectMapper(new ObjectMapper());
+    return configureObjectMapper();
   }
 
   public static void setDateFormatString(String dateFormatString) {

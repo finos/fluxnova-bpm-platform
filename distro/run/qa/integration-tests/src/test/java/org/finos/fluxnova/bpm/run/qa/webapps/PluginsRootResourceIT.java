@@ -19,56 +19,37 @@ package org.finos.fluxnova.bpm.run.qa.webapps;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.AfterParam;
-import org.junit.runners.Parameterized.BeforeParam;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * NOTE:
  * copied from
  * <a href="https://github.com/finos/fluxnova-bpm-platform/tree/main/qa/integration-tests-webapps/integration-tests/src/main/java/org/finos/fluxnova/bpm/PluginsRootResourceIT.java">platform</a>
- * then added <code>@BeforeParam</code> and <code>@AfterParam</code> methods for container setup
+ * then added container lifecycle management for different setups
  * and changed  <code>appBasePath</code> to <code>APP_BASE_PATH</code>
  */
-@RunWith(Parameterized.class)
 public class PluginsRootResourceIT extends AbstractWebIT {
-
-  @Parameter(0)
   public String assetName;
-
-  @Parameter(1)
   public boolean assetAllowed;
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     createClient(getWebappCtxPath());
   }
 
-  private static SpringBootManagedContainer container;
+  private SpringBootManagedContainer container;
 
-  @BeforeParam
-  public static void runStartScript(String assetName, boolean assetAllowed) {
-    container = new SpringBootManagedContainer("--webapps");
-    try {
-      container.start();
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot start managed Spring Boot application!", e);
-    }
-  }
-
-  @AfterParam
-  public static void stopApp() {
+  @AfterEach
+  public void stopApp() {
     try {
       if (container != null) {
         container.stop();
@@ -80,7 +61,15 @@ public class PluginsRootResourceIT extends AbstractWebIT {
     }
   }
 
-  @Parameters(name = "Test instance: {index}. Asset: {0}, Allowed: {1}")
+  private void startContainer() {
+    container = new SpringBootManagedContainer("--webapps");
+    try {
+      container.start();
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot start managed Spring Boot application!", e);
+    }
+  }
+
   public static Collection<Object[]> getAssets() {
     return Arrays.asList(new Object[][]{
         {"app/plugin.js", true},
@@ -91,8 +80,11 @@ public class PluginsRootResourceIT extends AbstractWebIT {
     });
   }
 
-  @Test
-  public void shouldGetAssetIfAllowed() {
+  @MethodSource("getAssets")
+  @ParameterizedTest(name = "Test instance: {index}. Asset: {0}, Allowed: {1}")
+  public void shouldGetAssetIfAllowed(String assetName, boolean assetAllowed) {
+    startContainer();
+    initPluginsRootResourceIT(assetName, assetAllowed);
     // when
     HttpResponse<String> response = Unirest.get(APP_BASE_PATH + "api/admin/plugin/adminPlugins/static/" + assetName).asString();
 
@@ -110,6 +102,11 @@ public class PluginsRootResourceIT extends AbstractWebIT {
       assertTrue(responseEntity.contains("\"type\":\"RestException\""));
       assertTrue(responseEntity.contains("\"message\":\"Not allowed to load the following file '" + asset + "'.\""));
     }
+  }
+
+  public void initPluginsRootResourceIT(String assetName, boolean assetAllowed) {
+    this.assetName = assetName;
+    this.assetAllowed = assetAllowed;
   }
 
 }

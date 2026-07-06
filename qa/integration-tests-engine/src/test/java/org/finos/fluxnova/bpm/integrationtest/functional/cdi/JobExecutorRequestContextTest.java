@@ -21,11 +21,11 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.integrationtest.functional.cdi.beans.RequestScopedDelegateBean;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegrationTest {
 
   /**
@@ -63,7 +63,7 @@ public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegratio
     waitForJobExecutorToProcessAllJobs();
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
   }
 
   @Test
@@ -78,7 +78,7 @@ public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegratio
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // -> the same bean instance was invoked 2 times!
-    Assert.assertEquals(2, variable);
+    Assertions.assertEquals(2, variable);
 
     Task task = taskService.createTaskQuery()
       .processInstanceId(pi.getProcessInstanceId())
@@ -89,7 +89,7 @@ public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegratio
 
     variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // now it's '1' again! -> new instance of the bean
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
 
   }
 
@@ -107,7 +107,7 @@ public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegratio
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // -> seperate requests
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
 
     Task task = taskService.createTaskQuery()
       .processInstanceId(pi.getProcessInstanceId())
@@ -117,7 +117,7 @@ public class JobExecutorRequestContextTest extends AbstractFoxPlatformIntegratio
     waitForJobExecutorToProcessAllJobs();
 
     variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
 
   }
 

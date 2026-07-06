@@ -48,34 +48,32 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class CustomHistoryEventHandlerTest {
 
   protected static RecorderHistoryEventHandler recorderHandler = new RecorderHistoryEventHandler();
 
-  @ClassRule
-  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(c -> {
-    c.setHistoryEventHandler(recorderHandler);
-  });
+  @RegisterExtension
+  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(c ->
+    c.setHistoryEventHandler(recorderHandler));
 
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
   private RuntimeService runtimeService;
   private TaskService taskService;
 
-  @After
+  @AfterEach
   public void clearHistoryEvents() {
     recorderHandler.clear();
   }
 
-  @Before
+  @BeforeEach
   public void initServices() {
     recorderHandler.clear();
 

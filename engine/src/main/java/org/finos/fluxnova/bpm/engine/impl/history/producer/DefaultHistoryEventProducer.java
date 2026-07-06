@@ -419,12 +419,12 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
 
     ExecutionEntity sourceExecution = null;
     CaseExecutionEntity sourceCaseExecution = null;
-    if (sourceVariableScope instanceof ExecutionEntity) {
-      sourceExecution = (ExecutionEntity) sourceVariableScope;
+    if (sourceVariableScope instanceof ExecutionEntity entity2) {
+      sourceExecution = entity2;
       sourceActivityInstanceId = sourceExecution.getActivityInstanceId();
 
-    } else if (sourceVariableScope instanceof TaskEntity) {
-      sourceExecution = ((TaskEntity) sourceVariableScope).getExecution();
+    } else if (sourceVariableScope instanceof TaskEntity entity1) {
+      sourceExecution = entity1.getExecution();
       if (sourceExecution != null) {
         //this block when executed for task listener variables, gets task id from source execution
         List<TaskEntity> taskEntityList = sourceExecution.getTasks();
@@ -435,14 +435,14 @@ public class DefaultHistoryEventProducer implements HistoryEventProducer {
         sourceActivityInstanceId = sourceExecution.getActivityInstanceId();
       }
       else {
-        sourceCaseExecution = ((TaskEntity) sourceVariableScope).getCaseExecution();
+        sourceCaseExecution = entity1.getCaseExecution();
         if (sourceCaseExecution != null) {
           sourceActivityInstanceId = sourceCaseExecution.getId();
         }
       }
     }
-    else if (sourceVariableScope instanceof CaseExecutionEntity) {
-      sourceCaseExecution = (CaseExecutionEntity) sourceVariableScope;
+    else if (sourceVariableScope instanceof CaseExecutionEntity entity) {
+      sourceCaseExecution = entity;
       sourceActivityInstanceId = sourceCaseExecution.getId();
     }
 

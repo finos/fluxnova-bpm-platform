@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.subprocess;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -37,7 +34,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.bpmn.subprocess.util.GetActInstanceDelegate;
 import org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

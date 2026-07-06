@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.repository.diagram;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -49,13 +46,11 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinitionQuery;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 
 /**
@@ -73,7 +68,6 @@ import org.junit.runners.Parameterized.Parameters;
  * 
  * @author Falko Menge
  */
-@RunWith(Parameterized.class)
 public class ProcessDiagramRetrievalTest {
   
   /**
@@ -83,14 +77,13 @@ public class ProcessDiagramRetrievalTest {
    */
   private static final boolean OVERWRITE_EXPECTED_HTML_FILES = false;
   
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   /**
    * Provides a list of parameters for
    * {@link ProcessDiagramRetrievalTest#ProcessDiagramRetrievalTest(String, String, String, String)}
    */
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
             { "testStartEventWithNegativeCoordinates", ".bpmn", ".png", "sid-61D1FC47-8031-4834-A9B4-84158E73F7B9" },
@@ -109,42 +102,29 @@ public class ProcessDiagramRetrievalTest {
             { "testProcessFromYaoqiang", ".bpmn", ".png", "_3" },
     });
   }
-  
-  private final String xmlFileName;
-  private final String imageFileName;
-  private final String highlightedActivityId;
+
+  private String xmlFileName;
+  private String imageFileName;
+  private String highlightedActivityId;
   private RepositoryService repositoryService;
   private String deploymentId;
 
   private ProcessDefinitionQuery processDefinitionQuery;
 
-  public ProcessDiagramRetrievalTest(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) {
+  public void initProcessDiagramRetrievalTest(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) {
     this.xmlFileName = modelName + xmlFileExtension;
     this.imageFileName = modelName + imageFileExtension;
     this.highlightedActivityId = highlightedActivityId;
   }
 
-  @Before
-  public void setup() {
-    repositoryService = engineRule.getRepositoryService();
-    deploymentId = repositoryService.createDeployment()
-      .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + xmlFileName)
-      .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + imageFileName)
-      .deploy()
-      .getId();
-    processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
-  }
-  
-  @After
-  public void teardown() {
-    repositoryService.deleteDeployment(deploymentId, true);
-  }
-
   /**
    * Tests {@link RepositoryService#getProcessModel(String)}.
    */
-  @Test
-  public void testGetProcessModel() throws Exception {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testGetProcessModel(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) throws Exception {
+    initProcessDiagramRetrievalTest(modelName, xmlFileExtension, imageFileExtension, highlightedActivityId);
+    setupDeployment();
     if (1 == processDefinitionQuery.count()) {
       ProcessDefinition processDefinition = processDefinitionQuery.singleResult();
       InputStream expectedStream = new FileInputStream("src/test/resources/org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + xmlFileName);
@@ -159,8 +139,11 @@ public class ProcessDiagramRetrievalTest {
   /**
    * Tests {@link RepositoryService#getProcessDiagram(String)}.
    */
-  @Test
-  public void testGetProcessDiagram() throws Exception {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testGetProcessDiagram(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) throws Exception {
+    initProcessDiagramRetrievalTest(modelName, xmlFileExtension, imageFileExtension, highlightedActivityId);
+    setupDeployment();
     if (1 == processDefinitionQuery.count()) {
       ProcessDefinition processDefinition = processDefinitionQuery.singleResult();
       InputStream expectedStream = new FileInputStream("src/test/resources/org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + imageFileName);
@@ -174,8 +157,11 @@ public class ProcessDiagramRetrievalTest {
     }
   }
 
-  @Test
-  public void testGetProcessDiagramAfterCacheWasCleaned() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testGetProcessDiagramAfterCacheWasCleaned(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) {
+    initProcessDiagramRetrievalTest(modelName, xmlFileExtension, imageFileExtension, highlightedActivityId);
+    setupDeployment();
     if (1 == processDefinitionQuery.count()) {
       engineRule.getProcessEngineConfiguration().getDeploymentCache().discardProcessDefinitionCache();
       // given
@@ -192,13 +178,16 @@ public class ProcessDiagramRetrievalTest {
       // and are therefore ignored by the engine
     }
   }
-  
+
   /**
    * Tests {@link RepositoryService#getProcessDiagramLayout(String)} and
    * {@link ProcessDiagramLayoutFactory#getProcessDiagramLayout(InputStream, InputStream)}.
    */
-  @Test
-  public void testGetProcessDiagramLayout() throws Exception {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testGetProcessDiagramLayout(String modelName, String xmlFileExtension, String imageFileExtension, String highlightedActivityId) throws Exception {
+    initProcessDiagramRetrievalTest(modelName, xmlFileExtension, imageFileExtension, highlightedActivityId);
+    setupDeployment();
     DiagramLayout processDiagramLayout;
     if (1 == processDefinitionQuery.count()) {
       ProcessDefinition processDefinition = processDefinitionQuery.singleResult();
@@ -224,6 +213,23 @@ public class ProcessDiagramRetrievalTest {
         });
     }
     assertLayoutCorrect(processDiagramLayout);
+  }
+
+  private void setupDeployment() {
+    repositoryService = engineRule.getRepositoryService();
+    deploymentId = repositoryService.createDeployment()
+      .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + xmlFileName)
+      .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/diagram/" + imageFileName)
+      .deploy()
+      .getId();
+    processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
+  }
+
+  @AfterEach
+  public void teardown() {
+    if (deploymentId != null) {
+      repositoryService.deleteDeployment(deploymentId, true);
+    }
   }
 
   private void assertLayoutCorrect(DiagramLayout processDiagramLayout) throws IOException {

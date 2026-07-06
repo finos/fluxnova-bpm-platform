@@ -140,8 +140,8 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
 
   public OptimisticLockingException concurrentUpdateDbEntityException(DbOperation operation) {
 	DbEntity entity = null;
-	if (operation instanceof DbEntityOperation) {
-	   entity = ((DbEntityOperation) operation).getEntity();
+	if (operation instanceof DbEntityOperation entityOperation) {
+	   entity = entityOperation.getEntity();
 	}
 
 	String activityId = null;
@@ -153,8 +153,7 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
 	String tenantId = null;
 	Map<String, Object> variables = null;
 		
-	if (entity instanceof ExecutionEntity) {
-	   ExecutionEntity execution = (ExecutionEntity) entity;
+	if (entity instanceof ExecutionEntity execution) {
        activityId = execution.getActivityId();
 	   activityName = execution.getActivity() != null ? execution.getActivity().getName() : null;
 	   processInstanceId = execution.getProcessInstanceId();
@@ -162,24 +161,21 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
 	   tenantId = execution.getTenantId();
 	   executionId = execution.getId();
 	   variables = execution.getVariables();
-	} else if (entity instanceof JobEntity) {
-	   JobEntity job = (JobEntity) entity;
+	} else if (entity instanceof JobEntity job) {
 	   jobId = job.getId();
 	   processInstanceId = job.getProcessInstanceId();
 	   processDefinitionId = job.getProcessDefinitionId();
 	   tenantId = job.getTenantId();
 	   executionId = job.getExecutionId();
 					
-	} else if (entity instanceof VariableInstanceEntity) {
-	   VariableInstanceEntity variable = (VariableInstanceEntity) entity;
+	} else if (entity instanceof VariableInstanceEntity variable) {
 	   processInstanceId = variable.getProcessInstanceId();
 	   processDefinitionId = variable.getProcessDefinitionId();
 	   tenantId = variable.getTenantId();
 	   executionId = variable.getExecutionId();
 	   variables = Map.of(variable.getName(), variable.getTypedValue(false).getValue());
 		  	   
-	} else if(entity instanceof TaskEntity) {
-	   TaskEntity task = (TaskEntity) entity;
+	} else if(entity instanceof TaskEntity task) {
 	   processInstanceId = task.getProcessInstanceId();
 	   executionId = task.getExecutionId();
 	   processDefinitionId = task.getProcessDefinitionId();
@@ -228,8 +224,7 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
         message = "null";
       }
 
-      if(parameter instanceof DbEntity) {
-        DbEntity dbEntity = (DbEntity) parameter;
+      if(parameter instanceof DbEntity dbEntity) {
         message = ClassNameUtil.getClassNameWithoutPackage(dbEntity) + "[id=" + dbEntity.getId() + "]";
       }
 
@@ -320,10 +315,11 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
   public ProcessEngineException invokeSchemaResourceToolException(int length) {
     return new ProcessEngineException(exceptionMessage(
       "022",
-      "Schema resource tool was invoked with '{}' parameters." +
-      "Schema resource tool must be invoked with exactly 2 parameters:" +
-      "\n - 1st parameter is the process engine configuration file," +
-      "\n - 2nd parameter is the schema resource file name",
+      """
+      Schema resource tool was invoked with '{}' parameters.\
+      Schema resource tool must be invoked with exactly 2 parameters:
+       - 1st parameter is the process engine configuration file,
+       - 2nd parameter is the schema resource file name""",
       length
     ));
   }
@@ -882,8 +878,7 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
     List<SQLException> sqlExceptionList = new ArrayList<>();
     Throwable cause = exception;
     do {
-      if (cause instanceof SQLException) {
-        SQLException sqlEx = (SQLException) cause;
+      if (cause instanceof SQLException sqlEx) {
         sqlExceptionList.add(sqlEx);
         while (sqlEx.getNextException() != null) {
           sqlExceptionList.add(sqlEx.getNextException());

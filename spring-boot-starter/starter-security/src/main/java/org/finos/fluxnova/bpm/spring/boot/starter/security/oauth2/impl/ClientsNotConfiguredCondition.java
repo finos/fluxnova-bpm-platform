@@ -17,7 +17,6 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl;
 
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 

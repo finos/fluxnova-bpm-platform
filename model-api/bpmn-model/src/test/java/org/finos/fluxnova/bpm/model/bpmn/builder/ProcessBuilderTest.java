@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.model.bpmn.builder;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.BOUNDARY_ID;
@@ -55,7 +57,8 @@ import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.TEST_VERSION_T
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.TRANSACTION_ID;
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.USER_TASK_ID;
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -124,11 +127,9 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaTaskListener;
 import org.finos.fluxnova.bpm.model.xml.Model;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -142,16 +143,13 @@ public class ProcessBuilderTest {
 
   public static final String FAILED_JOB_RETRY_TIME_CYCLE = "R5/PT1M";
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   private BpmnModelInstance modelInstance;
   private static ModelElementType taskType;
   private static ModelElementType gatewayType;
   private static ModelElementType eventType;
   private static ModelElementType processType;
 
-  @BeforeClass
+  @BeforeAll
   public static void getElementTypes() {
     Model model = Bpmn.createEmptyModel().getModel();
     taskType = model.getType(Task.class);
@@ -160,7 +158,7 @@ public class ProcessBuilderTest {
     processType = model.getType(Process.class);
   }
 
-  @After
+  @AfterEach
   public void validateModel() throws IOException {
     if (modelInstance != null) {
       Bpmn.validateModel(modelInstance);
@@ -2672,12 +2670,11 @@ public class ProcessBuilderTest {
       .compensationStart()
       .userTask("compensate").name("compensate");
 
-    // then
-    thrown.expect(BpmnModelException.class);
-    thrown.expectMessage("Only single compensation handler allowed. Call compensationDone() to continue main flow.");
+    Throwable exception = assertThrows(BpmnModelException.class, () ->
 
-    // when
-    builder.userTask();
+      // when
+      builder.userTask());
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("Only single compensation handler allowed. Call compensationDone() to continue main flow."));
   }
 
   @Test
@@ -2685,12 +2682,11 @@ public class ProcessBuilderTest {
     // given
     StartEventBuilder builder = Bpmn.createProcess().startEvent();
 
-    // then
-    thrown.expect(BpmnModelException.class);
-    thrown.expectMessage("Compensation can only be started on a boundary event with a compensation event definition");
+    Throwable exception = assertThrows(BpmnModelException.class, () ->
 
-    // when
-    builder.compensationStart();
+      // when
+      builder.compensationStart());
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("Compensation can only be started on a boundary event with a compensation event definition"));
   }
 
   @Test
@@ -2702,12 +2698,11 @@ public class ProcessBuilderTest {
       .boundaryEvent("boundary")
       .compensateEventDefinition().compensateEventDefinitionDone();
 
-    // then
-    thrown.expect(BpmnModelException.class);
-    thrown.expectMessage("No compensation in progress. Call compensationStart() first.");
+    Throwable exception = assertThrows(BpmnModelException.class, () ->
 
-    // when
-    builder.compensationDone();
+      // when
+      builder.compensationDone());
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("No compensation in progress. Call compensationStart() first."));
   }
 
   @Test

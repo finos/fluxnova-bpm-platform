@@ -16,15 +16,13 @@
  */
 package org.finos.fluxnova.spin.impl.test;
 
-import org.junit.rules.TestRule;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Method annotation to signal a script test for the {@link ScriptRule} {@link TestRule}.
+ * Method annotation to signal a script test for the {@link ScriptRule} Extension.
  * The name of the script is optional and if omitted the package name is used as directory
  * and the ClassName.MethodName.ScriptExtension as filename. Additionally a list of
  * variables can be defined and the execute flag decides whether the script is execute

@@ -28,11 +28,11 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ import java.util.Map;
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class PurgeDatabaseTest extends AbstractFoxPlatformIntegrationTest {
 
   public static final List<String> TABLENAMES_EXCLUDED_FROM_DB_CLEAN_CHECK = Arrays.asList(
@@ -57,7 +57,7 @@ public class PurgeDatabaseTest extends AbstractFoxPlatformIntegrationTest {
 
   @Test
   public void testPurgeDatabase() {
-    Assert.assertNotNull(processEngine);
+    Assertions.assertNotNull(processEngine);
     VariableMap variableMap = Variables.putValue("var", "value");
     runtimeService.startProcessInstanceByKey("testDeployProcessArchive", variableMap);
     runtimeService.startProcessInstanceByKey("testDeployProcessArchive", variableMap);
@@ -111,7 +111,7 @@ public class PurgeDatabaseTest extends AbstractFoxPlatformIntegrationTest {
             }
           });
       }
-      Assert.fail(outputMessage.toString());
+      Assertions.fail(outputMessage.toString());
     }
   }
 

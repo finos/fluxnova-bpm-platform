@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.property;
 
+
 import java.io.Serializable;
 
 /**
@@ -24,8 +25,8 @@ import java.io.Serializable;
  * @author Joram Barrez
  */
 public class Order implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = 1L;
     
     private String address;
     

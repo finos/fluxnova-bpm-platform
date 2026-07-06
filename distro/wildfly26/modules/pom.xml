@@ -39,6 +39,14 @@
           <groupId>commons-lang</groupId>
           <artifactId>commons-lang</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-email2-jakarta</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -110,12 +118,12 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js-scriptengine</artifactId>
     </dependency>
-
     <!-- template engine dependencies -->
     <dependency>
       <groupId>org.freemarker</groupId>
@@ -257,7 +265,7 @@
                   <mapper>
                     <chainedmapper>
                       <regexpmapper from="^(.*)/([^/]+)/([^/]*)$$" to="\1/${version.jackson}/\3" handledirsep="yes" />
-                      <regexpmapper from="^(com.fasterxml.jackson.*)\/((jackson.*-)[0-9\.]*).*.jar$$" to="\1/\3${version.jackson}.jar" handledirsep="yes" />
+                      <regexpmapper from="^(tools.jackson.*)\/((jackson.*-)[0-9\.]*).*.jar$$" to="\1/\3${version.jackson}.jar" handledirsep="yes" />
                     </chainedmapper>
                   </mapper>
                 </copy>

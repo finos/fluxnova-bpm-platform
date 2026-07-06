@@ -21,7 +21,8 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Thorben Lindhauer
@@ -61,8 +62,8 @@ public class JobAcquisitionTestHelper {
   }
 
   public static void assertInBetween(long minimum, long maximum, long actualValue) {
-    Assert.assertTrue("Expected '" + actualValue + "' to be between '" + minimum + "' and '" + maximum + "'",
-      actualValue >= minimum && actualValue <= maximum);
+    Assertions.assertTrue(actualValue >= minimum && actualValue <= maximum,
+      "Expected '" + actualValue + "' to be between '" + minimum + "' and '" + maximum + "'");
   }
 
 }

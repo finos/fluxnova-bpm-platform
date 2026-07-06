@@ -20,16 +20,15 @@ import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.HttpClientRule;
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.FilterTestApp;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,8 +36,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { FilterTestApp.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {FilterTestApp.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
   "fluxnova.bpm.admin-user.id=demo",
   "fluxnova.bpm.admin-user.password=demo"
@@ -46,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext
 public class AuthCacheTTLDefaultIT {
 
-  @Rule
+  @RegisterExtension
   public HttpClientRule httpClientRule = new HttpClientRule();
 
   @LocalServerPort
@@ -55,7 +53,7 @@ public class AuthCacheTTLDefaultIT {
   @Autowired
   protected IdentityService identityService;
 
-  @After
+  @AfterEach
   public void reset() {
     ClockUtil.reset();
   }

@@ -16,9 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.compat;
 
-import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.inject.Typed;
-import javax.inject.Named;
+
+
+import jakarta.enterprise.context.ConversationScoped;
+import jakarta.enterprise.inject.Typed;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.cdi.jsf.TaskForm;
 

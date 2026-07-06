@@ -49,11 +49,11 @@ public class DefaultFormFieldValidatorContext implements FormFieldValidatorConte
   }
 
   public DelegateExecution getExecution() {
-    if(variableScope instanceof DelegateExecution) {
-      return (DelegateExecution) variableScope;
+    if(variableScope instanceof DelegateExecution execution) {
+      return execution;
     }
-    else if(variableScope instanceof TaskEntity){
-      return ((TaskEntity) variableScope).getExecution();
+    else if(variableScope instanceof TaskEntity entity){
+      return entity.getExecution();
     }
     else {
       return null;

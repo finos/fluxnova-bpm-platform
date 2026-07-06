@@ -10,14 +10,16 @@
   <artifactId>fluxnova-spin-dataformat-xml-dom-jakarta</artifactId>
   <name>fluxnova Spin - DOM XML data format Jakarta</name>
 
-  <properties>
-    <jaxb-runtime.version>4.0.1</jaxb-runtime.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.finos.fluxnova.spin</groupId>
       <artifactId>fluxnova-spin-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -33,20 +35,12 @@
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>${version.jakarta.xml.bind-api}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
-      <version>${jaxb-runtime.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -83,6 +77,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
     
@@ -97,16 +92,10 @@
       <artifactId>logback-classic</artifactId>
       <scope>test</scope>
     </dependency>
-    
-    <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-module-junit4</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
-      <groupId>org.powermock</groupId>
-      <artifactId>powermock-api-mockito2</artifactId>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
 

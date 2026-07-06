@@ -62,13 +62,13 @@ public class RuntimeContainerJobExecutor extends JobExecutor {
       rejectedJobsHandler.jobsRejected(jobIds, processEngine, this);
     }
 
-    if (executorService instanceof JmxManagedThreadPool) {
-      int totalQueueCapacity = calculateTotalQueueCapacity(((JmxManagedThreadPool) executorService).getQueueCount(),
-          ((JmxManagedThreadPool) executorService).getQueueAddlCapacity());
+    if (executorService instanceof JmxManagedThreadPool pool) {
+      int totalQueueCapacity = calculateTotalQueueCapacity(pool.getQueueCount(),
+          pool.getQueueAddlCapacity());
 
-      logJobExecutionInfo(processEngine, ((JmxManagedThreadPool) executorService).getQueueCount(), totalQueueCapacity,
-          ((JmxManagedThreadPool) executorService).getMaximumPoolSize(),
-          ((JmxManagedThreadPool) executorService).getActiveCount());
+      logJobExecutionInfo(processEngine, pool.getQueueCount(), totalQueueCapacity,
+          pool.getMaximumPoolSize(),
+          pool.getActiveCount());
     }
   }
 

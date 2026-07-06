@@ -16,34 +16,36 @@
  */
 package org.finos.fluxnova.bpm.run.test.config.https;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
 import org.finos.fluxnova.bpm.run.test.AbstractRestTest;
 import org.finos.fluxnova.bpm.run.test.util.TestUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.ResourceAccessException;
 
-@SpringBootTest(classes = { FluxnovaBpmRun.class }, webEnvironment = WebEnvironment.DEFINED_PORT)
-@ActiveProfiles(profiles = { "test-https-enabled" }, inheritProfiles = true)
+@SpringBootTest(classes = {FluxnovaBpmRun.class}, webEnvironment = WebEnvironment.DEFINED_PORT)
+@ActiveProfiles(profiles = {"test-https-enabled"}, inheritProfiles = true)
+//@AutoConfigureTestRestTemplate
 public class HttpsConfigurationEnabledTest extends AbstractRestTest {
-  
-  @Rule
-  public ExpectedException exceptionRule = ExpectedException.none();
 
-  @Before
+  @BeforeEach
   public void init() throws Exception {
     TestUtils.trustSelfSignedSSL();
   }
@@ -54,7 +56,7 @@ public class HttpsConfigurationEnabledTest extends AbstractRestTest {
     String url = "https://localhost:" + localPort + CONTEXT_PATH + "/task";
 
     // when
-    ResponseEntity<List> response = testRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(null), List.class);
+    ResponseEntity<List> response = testRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>((HttpHeaders) null), List.class);
 
     // then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -65,11 +67,11 @@ public class HttpsConfigurationEnabledTest extends AbstractRestTest {
     // given
     String url = "http://localhost:" + 8080 + CONTEXT_PATH + "/task";
 
-    // then
-    exceptionRule.expect(ResourceAccessException.class);
-    exceptionRule.expectMessage("I/O error on GET request for \"http://localhost:8080/engine-rest/task\":");
+    Throwable exception = assertThrows(ResourceAccessException.class, () -> {
 
-    // then
-    ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(null), String.class);
+      // then
+      ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>((HttpHeaders) null), String.class);
+    });
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("I/O error on GET request for \"http://localhost:8080/engine-rest/task\":"));
   }
 }

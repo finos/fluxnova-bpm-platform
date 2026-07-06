@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -44,7 +44,7 @@ import org.finos.fluxnova.bpm.engine.runtime.Execution;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class ExecutionResourceImpl implements ExecutionResource {
 
@@ -78,7 +78,7 @@ public class ExecutionResourceImpl implements ExecutionResource {
       runtimeService.signal(executionId, variables);
 
     } catch (RestException e) {
-      String errorMessage = String.format("Cannot signal execution %s: %s", executionId, e.getMessage());
+      String errorMessage = "Cannot signal execution %s: %s".formatted(executionId, e.getMessage());
       throw new InvalidRequestException(e.getStatus(), e, errorMessage);
 
     } catch (AuthorizationException e) {

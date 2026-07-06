@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter;
 
-import static junit.framework.TestCase.fail;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.util.Collections;
@@ -39,17 +39,15 @@ import org.finos.fluxnova.bpm.spring.boot.starter.event.TaskEvent;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.BoundaryEventServiceTask;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestEventCaptor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestApplication.class},
   webEnvironment = WebEnvironment.NONE
@@ -68,12 +66,12 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
 
   private ProcessInstance instance;
 
-  @Before
+  @BeforeEach
   public void init() {
     eventCaptor.clear();
   }
 
-  @After
+  @AfterEach
   public void stop() {
     if (instance != null) {
       // update stale instance
@@ -281,10 +279,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Remove candidate group
     HistoryEvent candidateGroupEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateGroupEvent.getEventType()).isEqualTo("delete-identity-link");
-    if (candidateGroupEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getOperationType()).isEqualTo("delete");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getGroupId()).isEqualTo("groupId");
+    if (candidateGroupEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("delete");
+      assertThat(entity.getGroupId()).isEqualTo("groupId");
     } else {
       fail("Expected identity link log event");
     }
@@ -297,10 +295,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Remove candidate user
     HistoryEvent candidateUserEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateUserEvent.getEventType()).isEqualTo("delete-identity-link");
-    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getOperationType()).isEqualTo("delete");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getUserId()).isEqualTo("userId");
+    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("delete");
+      assertThat(entity.getUserId()).isEqualTo("userId");
     } else {
       fail("Expected identity link log event");
     }
@@ -313,10 +311,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Add candidate group
     candidateGroupEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateGroupEvent.getEventType()).isEqualTo("add-identity-link");
-    if (candidateGroupEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getOperationType()).isEqualTo("add");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateGroupEvent).getGroupId()).isEqualTo("groupId");
+    if (candidateGroupEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("add");
+      assertThat(entity.getGroupId()).isEqualTo("groupId");
     } else {
       fail("Expected identity link log event");
     }
@@ -329,10 +327,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Add candidate user
     candidateUserEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateUserEvent.getEventType()).isEqualTo("add-identity-link");
-    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getOperationType()).isEqualTo("add");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getUserId()).isEqualTo("userId");
+    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("add");
+      assertThat(entity.getUserId()).isEqualTo("userId");
     } else {
       fail("Expected identity link log event");
     }
@@ -354,8 +352,8 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // then
     HistoryEvent taskChangeEvent = eventCaptor.historyEvents.pop();
     assertThat(taskChangeEvent.getEventType()).isEqualTo("update");
-    if (taskChangeEvent instanceof HistoricTaskInstanceEventEntity) {
-      assertThat(((HistoricTaskInstanceEventEntity) taskChangeEvent).getName()).isEqualTo("new Name");
+    if (taskChangeEvent instanceof HistoricTaskInstanceEventEntity entity) {
+      assertThat(entity.getName()).isEqualTo("new Name");
     } else {
       fail("Expected task instance change event");
     }
@@ -383,10 +381,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Add candidate user
     HistoryEvent candidateUserEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateUserEvent.getEventType()).isEqualTo("add-identity-link");
-    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getOperationType()).isEqualTo("add");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getUserId()).isEqualTo("user2");
+    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("add");
+      assertThat(entity.getUserId()).isEqualTo("user2");
     } else {
       fail("Expected identity link log event");
     }
@@ -399,10 +397,10 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // Add candidate user
     candidateUserEvent = eventCaptor.historyEvents.pop();
     assertThat(candidateUserEvent.getEventType()).isEqualTo("add-identity-link");
-    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity) {
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getType()).isEqualTo("candidate");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getOperationType()).isEqualTo("add");
-      assertThat(((HistoricIdentityLinkLogEventEntity) candidateUserEvent).getUserId()).isEqualTo("user1");
+    if (candidateUserEvent instanceof HistoricIdentityLinkLogEventEntity entity) {
+      assertThat(entity.getType()).isEqualTo("candidate");
+      assertThat(entity.getOperationType()).isEqualTo("add");
+      assertThat(entity.getUserId()).isEqualTo("user1");
     } else {
       fail("Expected identity link log event");
     }
@@ -426,8 +424,8 @@ public class FluxnovaEventingIT extends AbstractFluxnovaAutoConfigurationIT {
     // then
     HistoryEvent taskChangeEvent = eventCaptor.historyEvents.pop();
     assertThat(taskChangeEvent.getEventType()).isEqualTo("update");
-    if (taskChangeEvent instanceof HistoricTaskInstanceEventEntity) {
-      assertThat(((HistoricTaskInstanceEventEntity) taskChangeEvent).getFollowUpDate()).isEqualTo(now);
+    if (taskChangeEvent instanceof HistoricTaskInstanceEventEntity entity) {
+      assertThat(entity.getFollowUpDate()).isEqualTo(now);
     } else {
       fail("Expected task instance change event");
     }

@@ -18,16 +18,14 @@ package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FluxnovaBpmPropertiesTest {
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-  @Rule
-  public final ExpectedException thrown = ExpectedException.none();
+public class FluxnovaBpmPropertiesTest {
 
   @Test
   public void initResourcePatterns() {
@@ -46,10 +44,10 @@ public class FluxnovaBpmPropertiesTest {
     new FluxnovaBpmProperties().getDatabase().setSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_CREATE_DROP);
     new FluxnovaBpmProperties().getDatabase().setSchemaUpdate(ProcessEngineConfigurationImpl.DB_SCHEMA_UPDATE_DROP_CREATE);
 
-    thrown.expect(IllegalArgumentException.class);
-    thrown.expectMessage("foo");
+    Throwable exception = assertThrows(IllegalArgumentException.class, () ->
 
-    new FluxnovaBpmProperties().getDatabase().setSchemaUpdate("foo");
+      new FluxnovaBpmProperties().getDatabase().setSchemaUpdate("foo"));
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("foo"));
   }
 
 

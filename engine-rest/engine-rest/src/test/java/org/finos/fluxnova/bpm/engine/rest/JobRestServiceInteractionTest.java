@@ -24,12 +24,13 @@ import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.NON_EXISTIN
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -53,7 +54,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ManagementService;
@@ -83,16 +84,17 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 
 public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
 
   private static final String RETRIES = "retries";
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String JOB_RESOURCE_URL = TEST_RESOURCE_ROOT_PATH + "/job";
@@ -118,7 +120,7 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
   private SetJobRetriesByJobsAsyncBuilder mockSetJobRetriesByJobsAsyncBuilder;
   private SetJobRetriesBuilder mockSetJobRetriesBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
 
     mockQuery = mock(JobQuery.class);
@@ -405,7 +407,7 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
     .when().get(JOB_RESOURCE_GET_STACKTRACE_URL);
 
     String content = response.asString();
-    Assert.assertEquals(stacktrace, content);
+    Assertions.assertEquals(stacktrace, content);
   }
 
   @Test
@@ -2144,7 +2146,7 @@ public class JobRestServiceInteractionTest extends AbstractRestServiceTest {
 
   protected void verifyBatchJson(String batchJson) {
     BatchDto batch = JsonPathUtil.from(batchJson).getObject("", BatchDto.class);
-    assertNotNull("The returned batch should not be null.", batch);
+    assertNotNull(batch, "The returned batch should not be null.");
     assertEquals(MockProvider.EXAMPLE_BATCH_ID, batch.getId());
     assertEquals(MockProvider.EXAMPLE_BATCH_TYPE, batch.getType());
     assertEquals(MockProvider.EXAMPLE_BATCH_TOTAL_JOBS, batch.getTotalJobs());

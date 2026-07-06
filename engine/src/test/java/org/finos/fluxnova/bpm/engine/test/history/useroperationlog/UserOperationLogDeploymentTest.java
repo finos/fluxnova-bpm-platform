@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history.useroperationlog;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -32,8 +28,8 @@ import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -45,7 +41,7 @@ public class UserOperationLogDeploymentTest extends AbstractUserOperationLogTest
   protected static final String RESOURCE_NAME = "path/to/my/process.bpmn";
   protected static final String PROCESS_KEY = "process";
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
 
 

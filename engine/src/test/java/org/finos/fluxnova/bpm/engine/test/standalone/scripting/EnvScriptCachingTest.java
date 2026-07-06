@@ -16,17 +16,15 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.scripting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Map;
 import org.finos.fluxnova.bpm.engine.impl.scripting.ExecutableScript;
 import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptEnvResolver;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

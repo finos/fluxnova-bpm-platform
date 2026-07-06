@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto.history;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.HistoricTaskInstanceReport;
 import org.finos.fluxnova.bpm.engine.history.HistoricTaskInstanceReportResult;
@@ -25,8 +25,8 @@ import org.finos.fluxnova.bpm.engine.rest.dto.FluxnovaQueryParam;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
 

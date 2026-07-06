@@ -22,6 +22,7 @@ import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.configuration.FluxnovaProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class DefaultProcessEngineConfiguration extends AbstractFluxnovaConfigura
 
   private void setProcessEngineName(SpringProcessEngineConfiguration configuration) {
     String processEngineName = StringUtils.trimAllWhitespace(camundaBpmProperties.getProcessEngineName());
-    if (!StringUtils.isEmpty(processEngineName) && !processEngineName.contains("-")) {
+    if (!ObjectUtils.isEmpty(processEngineName) && !processEngineName.contains("-")) {
 
       if (camundaBpmProperties.getGenerateUniqueProcessEngineName()) {
         if (!processEngineName.equals(ProcessEngines.NAME_DEFAULT)) {

@@ -73,37 +73,37 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-expression</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>

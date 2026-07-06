@@ -16,14 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.repository;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.test.api.repository.RedeploymentTest.DEPLOYMENT_NAME;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,10 +47,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.cache.Cache;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  *
@@ -62,10 +59,10 @@ import org.junit.Test;
  */
 public class DeleteProcessDefinitionTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
   protected HistoryService historyService;
@@ -75,7 +72,7 @@ public class DeleteProcessDefinitionTest {
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected Deployment deployment;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     historyService = engineRule.getHistoryService();
     repositoryService = engineRule.getRepositoryService();
@@ -84,7 +81,7 @@ public class DeleteProcessDefinitionTest {
     processEngineConfiguration = (ProcessEngineConfigurationImpl) engineRule.getProcessEngine().getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     if (deployment != null) {
       repositoryService.deleteDeployment(deployment.getId(), true);

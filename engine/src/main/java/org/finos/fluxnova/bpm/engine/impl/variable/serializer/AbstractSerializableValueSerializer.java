@@ -136,8 +136,7 @@ public abstract class AbstractSerializableValueSerializer<T extends Serializable
       return false;
     }
 
-    if (typedValue instanceof SerializableValue) {
-      SerializableValue serializableValue = (SerializableValue) typedValue;
+    if (typedValue instanceof SerializableValue serializableValue) {
       String requestedDataFormat = serializableValue.getSerializationDataFormat();
       if (!serializableValue.isDeserialized()) {
         // serialized object => dataformat must match

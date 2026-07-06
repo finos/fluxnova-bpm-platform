@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.DbEntityManager;
 import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.cache.CachedDbEntity;
@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *

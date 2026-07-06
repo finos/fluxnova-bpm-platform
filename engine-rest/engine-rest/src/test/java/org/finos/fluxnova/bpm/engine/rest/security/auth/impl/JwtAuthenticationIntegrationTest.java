@@ -14,11 +14,11 @@ import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.security.auth.AuthenticationResult;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
@@ -29,7 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -51,7 +51,7 @@ public class JwtAuthenticationIntegrationTest {
   private RSAPrivateKey privateKey;
   private RSAPublicKey publicKey;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     request = Mockito.mock(HttpServletRequest.class);
     engine = Mockito.mock(ProcessEngine.class);
@@ -73,7 +73,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Valid token should authenticate successfully", result.isAuthenticated());
+    assertTrue(result.isAuthenticated(), "Valid token should authenticate successfully");
     assertEquals("user123", result.getAuthenticatedUser());
   }
 
@@ -85,9 +85,9 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Valid token with groups should authenticate", result.isAuthenticated());
+    assertTrue(result.isAuthenticated(), "Valid token with groups should authenticate");
     assertEquals("user123", result.getAuthenticatedUser());
-    assertNotNull("Groups should be extracted", result.getGroups());
+    assertNotNull(result.getGroups(), "Groups should be extracted");
     assertTrue(result.getGroups().contains("admins"));
     assertTrue(result.getGroups().contains("viewers"));
   }
@@ -111,7 +111,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Entra ID token should authenticate", result.isAuthenticated());
+    assertTrue(result.isAuthenticated(), "Entra ID token should authenticate");
     assertEquals("john.doe@company.com", result.getAuthenticatedUser());
     assertNotNull(result.getGroups());
     assertTrue(result.getGroups().contains("BPM-Admin"));
@@ -130,7 +130,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Token with no prefix should authenticate", result.isAuthenticated());
+    assertTrue(result.isAuthenticated(), "Token with no prefix should authenticate");
     assertEquals("user@example.com", result.getAuthenticatedUser());
   }
 
@@ -142,8 +142,8 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Should authenticate without groups configured", result.isAuthenticated());
-    assertNull("Groups should be null when not configured", result.getGroups());
+    assertTrue(result.isAuthenticated(), "Should authenticate without groups configured");
+    assertNull(result.getGroups(), "Groups should be null when not configured");
   }
 
   @Test
@@ -153,7 +153,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Missing token should not authenticate", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Missing token should not authenticate");
   }
 
   @Test
@@ -163,7 +163,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Malformed token should not authenticate", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Malformed token should not authenticate");
   }
 
   @Test
@@ -174,7 +174,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Expired token should not authenticate", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Expired token should not authenticate");
   }
 
   @Test
@@ -188,7 +188,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Wrong issuer should not authenticate", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Wrong issuer should not authenticate");
   }
 
   @Test
@@ -202,7 +202,7 @@ public class JwtAuthenticationIntegrationTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Wrong audience should not authenticate", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Wrong audience should not authenticate");
   }
 
 

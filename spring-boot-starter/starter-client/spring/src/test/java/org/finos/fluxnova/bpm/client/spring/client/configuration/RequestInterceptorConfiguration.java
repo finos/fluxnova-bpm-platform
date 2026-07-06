@@ -18,7 +18,9 @@ package org.finos.fluxnova.bpm.client.spring.client.configuration;
 
 import org.finos.fluxnova.bpm.client.interceptor.ClientRequestInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class RequestInterceptorConfiguration {
 
   @Bean
