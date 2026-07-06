@@ -42,7 +42,6 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
     return JsonMapper.builder()
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
-            //.enable(DateTimeFeature.WRITE_UTC_AS_OFFSET)
             .defaultDateFormat(dateFormat)
             .build();
   }

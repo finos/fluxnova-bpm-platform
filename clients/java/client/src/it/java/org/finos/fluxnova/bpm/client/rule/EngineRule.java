@@ -129,7 +129,6 @@ public class EngineRule implements BeforeEachCallback, AfterEachCallback {
       objectMapper = JsonMapper.builder()
               .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
               .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
-              //.enable(DateTimeFeature.WRITE_UTC_AS_OFFSET)
               .defaultDateFormat(dateFormat)
               .build();
     }
