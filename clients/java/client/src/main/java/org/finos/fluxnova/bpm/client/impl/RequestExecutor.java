@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.client.impl;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.exc.StreamReadException;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -146,10 +146,10 @@ public class RequestExecutor {
       inputStream = httpEntity.getContent();
       return objectMapper.readValue(inputStream, responseClass);
 
-    } catch (JsonParseException e) {
+    } catch (StreamReadException e) {
       throw LOG.exceptionWhileParsingJsonObject(responseClass, e);
 
-    } catch (JsonMappingException e) {
+    } catch (DatabindException e) {
       throw LOG.exceptionWhileMappingJsonObject(responseClass, e);
 
     } catch (IOException e) {
@@ -166,7 +166,7 @@ public class RequestExecutor {
 
     try {
       serializedRequest = objectMapper.writeValueAsBytes(dto);
-    } catch (JsonProcessingException e) {
+    } catch (JacksonException e) {
       throw LOG.exceptionWhileSerializingJsonObject(dto, e);
     }
 

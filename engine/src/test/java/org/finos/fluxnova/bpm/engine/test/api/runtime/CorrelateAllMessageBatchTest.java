@@ -55,11 +55,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class CorrelateAllMessageBatchTest {
 
@@ -75,21 +75,21 @@ public class CorrelateAllMessageBatchTest {
   protected BatchRule rule = new BatchRule(engineRule, engineTestRule);
   protected BatchHelper helper = new BatchHelper(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule).around(rule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule).around(rule);
 
   protected RuntimeService runtimeService;
   protected HistoryService historyService;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
     managementService = engineRule.getManagementService();
   }
 
-  @Before
+  @BeforeEach
   public void deployProcessIntermediateMessageOne() {
     BpmnModelInstance process = Bpmn.createExecutableProcess(PROCESS_ONE_KEY)
       .startEvent()
@@ -101,12 +101,12 @@ public class CorrelateAllMessageBatchTest {
     engineTestRule.deploy(process);
   }
 
-  @After
+  @AfterEach
   public void clearAuthentication() {
     engineRule.getIdentityService().setAuthenticatedUserId(null);
   }
 
-  @After
+  @AfterEach
   public void resetConfiguration() {
     ClockUtil.reset();
     engineRule.getProcessEngineConfiguration()

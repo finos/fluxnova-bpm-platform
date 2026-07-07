@@ -16,16 +16,12 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import jakarta.annotation.PostConstruct;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ParsePropertiesHelper.TestConfig.class)
+@SpringJUnitConfig(classes = ParsePropertiesHelper.TestConfig.class)
 public abstract class ParsePropertiesHelper {
 
   @EnableConfigurationProperties(FluxnovaBpmProperties.class)

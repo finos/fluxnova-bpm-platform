@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
  * @author Joram Barrez
  */
 public class SaveGroupCmd extends AbstractWritableIdentityServiceCmd<Void> implements Command<Void>, Serializable {
-  
+
   private static final long serialVersionUID = 1L;
   protected Group group;
   

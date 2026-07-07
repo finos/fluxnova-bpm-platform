@@ -27,8 +27,9 @@ import org.finos.fluxnova.bpm.model.xml.validation.ModelElementValidator;
 import org.finos.fluxnova.bpm.model.xml.validation.ValidationResult;
 import org.finos.fluxnova.bpm.model.xml.validation.ValidationResultType;
 import org.finos.fluxnova.bpm.model.xml.validation.ValidationResults;
-import org.junit.Test;
 import org.finos.fluxnova.bpm.model.bpmn.instance.Process;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 

@@ -28,16 +28,16 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HistoryCleanupJobPriorityTest {
 
   private static final Long CUSTOM_PRIORITY = 10L;
 
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   protected ProcessEngineConfigurationImpl config;
@@ -45,14 +45,14 @@ public class HistoryCleanupJobPriorityTest {
 
   protected long defaultHistoryCleanupJobPriority;
 
-  @Before
+  @BeforeEach
   public void setup() {
     config = engineRule.getProcessEngineConfiguration();
     historyService = engineRule.getHistoryService();
     defaultHistoryCleanupJobPriority = config.getHistoryCleanupJobPriority();
   }
 
-  @After
+  @AfterEach
   public void reset() {
     config.setHistoryCleanupJobPriority(defaultHistoryCleanupJobPriority);
     resetDatabase();

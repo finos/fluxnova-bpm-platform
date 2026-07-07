@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.List;
@@ -40,11 +40,12 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class CleanableHistoricCaseInstanceReportTest {
@@ -54,8 +55,8 @@ public class CleanableHistoricCaseInstanceReportTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(testRule).around(engineRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(testRule).around(engineRule);
 
   protected HistoryService historyService;
   protected RepositoryService repositoryService;
@@ -65,7 +66,7 @@ public class CleanableHistoricCaseInstanceReportTest {
 
   protected static final String CASE_DEFINITION_KEY = "one";
 
-  @Before
+  @BeforeEach
   public void setUp() {
     historyService = engineRule.getHistoryService();
     repositoryService = engineRule.getRepositoryService();
@@ -76,7 +77,7 @@ public class CleanableHistoricCaseInstanceReportTest {
     testRule.deploy("org/finos/fluxnova/bpm/engine/test/repository/one.cmmn");
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     List<HistoricCaseInstance> instanceList = historyService.createHistoricCaseInstanceQuery().active().list();
     if (!instanceList.isEmpty()) {

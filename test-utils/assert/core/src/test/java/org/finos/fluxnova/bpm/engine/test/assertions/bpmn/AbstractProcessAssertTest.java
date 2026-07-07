@@ -26,9 +26,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
 @SuppressWarnings("unchecked")
@@ -41,7 +42,7 @@ public class AbstractProcessAssertTest {
 
   Iterator<Class<AbstractProcessAssert<?, ?>>> allAsserts;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngine = Mockito.mock(ProcessEngine.class);
     AbstractAssertions.init(processEngine);
@@ -53,7 +54,7 @@ public class AbstractProcessAssertTest {
     }).iterator();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     AbstractAssertions.reset();
   }

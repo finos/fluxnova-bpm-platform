@@ -22,17 +22,17 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.webapp.AppRuntimeDelegate;
@@ -216,14 +216,32 @@ public class AbstractAppPluginRootResource<T extends AppPlugin> {
   }
 
   protected InputStream getWebResourceAsStream(String assetDirectory, String fileName) {
-    String resourceName = String.format("/%s/%s", assetDirectory, fileName);
+      validateResourcePath(assetDirectory, "assetDirectory");
+      validateResourcePath(fileName, "fileName");
+      String resourceName = "/%s/%s".formatted(assetDirectory, fileName);
 
     return servletContext.getResourceAsStream(resourceName);
   }
 
   protected InputStream getClasspathResourceAsStream(AppPlugin plugin, String assetDirectory, String fileName) {
-    String resourceName = String.format("%s/%s", assetDirectory, fileName);
+      validateResourcePath(assetDirectory, "assetDirectory");
+      validateResourcePath(fileName, "fileName");
+      String resourceName = "%s/%s".formatted(assetDirectory, fileName);
     return plugin.getClass().getClassLoader().getResourceAsStream(resourceName);
   }
+
+    private static void validateResourcePath(String value, String label) {
+        if (value == null) {
+            throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+                    .entity("Invalid " + label + ": must not be null").build());
+        }
+        String normalized = value.replace('\\', '/');
+        for (String segment : normalized.split("/")) {
+            if ("..".equals(segment)) {
+                throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+                        .entity("Invalid " + label + ": path traversal detected").build());
+            }
+        }
+    }
 
 }

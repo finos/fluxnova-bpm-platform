@@ -25,15 +25,15 @@ import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.impl.xml.dom.format.DomXmlDataFormat;
 import org.finos.fluxnova.spin.xml.JdkUtil;
 import org.finos.fluxnova.spin.xml.SpinXmlDataFormatException;
-import org.junit.Assume;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class DomXmlDataFormatProtectionTest {
 
   protected static DomXmlDataFormat format;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpMocks() {
     format = (DomXmlDataFormat) DataFormats.xml();
   }
@@ -41,16 +41,15 @@ public class DomXmlDataFormatProtectionTest {
   @Test
   public void shouldThrowExceptionForTooManyAttributes() {
     // IBM JDKs do not check on attribute number limits, skip the test there
-    Assume.assumeFalse(JdkUtil.runsOnIbmJDK());
+    Assumptions.assumeFalse(JdkUtil.runsOnIbmJDK());
 
     // given
     String testXml = "org/finos/fluxnova/spin/xml/dom/format/spi/FeatureSecureProcessing.xml";
     InputStream testXmlAsStream = this.getClass().getClassLoader().getResourceAsStream(testXml);
 
     // when
-    assertThatThrownBy(() -> {
-      format.getReader().readInput(new InputStreamReader(testXmlAsStream));
-    })
+    assertThatThrownBy(() ->
+      format.getReader().readInput(new InputStreamReader(testXmlAsStream)))
         // then
         .isInstanceOf(SpinXmlDataFormatException.class);
   }
@@ -62,9 +61,8 @@ public class DomXmlDataFormatProtectionTest {
     InputStream testXmlAsStream = this.getClass().getClassLoader().getResourceAsStream(testXml);
 
     // when
-    assertThatThrownBy(() -> {
-      format.getReader().readInput(new InputStreamReader(testXmlAsStream));
-    })
+    assertThatThrownBy(() ->
+      format.getReader().readInput(new InputStreamReader(testXmlAsStream)))
         // then
         .isInstanceOf(SpinXmlDataFormatException.class)
         .hasMessageContaining("SPIN/DOM-XML-01009 Unable to parse input into DOM document")

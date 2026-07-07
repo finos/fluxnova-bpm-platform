@@ -19,6 +19,7 @@ package org.finos.fluxnova.bpm.engine.impl.cmmn.entity.runtime;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_ACTIVITY_DESCRIPTION;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_ACTIVITY_TYPE;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -280,8 +281,8 @@ public class CaseExecutionEntity extends CmmnExecution implements CaseExecution,
 
     if (activity != null) {
       Object value = activity.getProperty(property);
-      if (value != null && value instanceof String) {
-        result = (String) value;
+      if (value != null && value instanceof String string) {
+        result = string;
       }
     }
 

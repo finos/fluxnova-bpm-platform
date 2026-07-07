@@ -1,5 +1,6 @@
 package org.finos.fluxnova;
 
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +8,7 @@ import java.io.Serializable;
  * deserialization can succeed after remapping.
  */
 public class LegacySerialized implements Serializable {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
     public int value;
 
     public LegacySerialized() {

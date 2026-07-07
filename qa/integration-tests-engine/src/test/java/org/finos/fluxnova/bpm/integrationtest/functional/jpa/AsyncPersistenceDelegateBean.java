@@ -18,12 +18,13 @@ package org.finos.fluxnova.bpm.integrationtest.functional.jpa;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
-import org.junit.Assert;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.enterprise.context.ApplicationScoped;
+
+import org.junit.jupiter.api.Assertions;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 @Named
 @ApplicationScoped
@@ -40,7 +41,7 @@ public class AsyncPersistenceDelegateBean implements JavaDelegate {
     // this means that we obtain a seperate entity manager since
     // we are invoked in a new transaction
 
-    Assert.assertFalse(em.contains(entity));
+    Assertions.assertFalse(em.contains(entity));
 
   }
 

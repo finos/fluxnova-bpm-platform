@@ -135,8 +135,8 @@ public abstract class AbstractCollectNumberHitPolicyHandler implements DmnHitPol
         // check if it is an integer
 
         Object value = typedValue.getValue();
-        if (value instanceof Integer) {
-          intValues.add((Integer) value);
+        if (value instanceof Integer integer) {
+          intValues.add(integer);
 
         } else {
           throw new IllegalArgumentException();
@@ -162,8 +162,8 @@ public abstract class AbstractCollectNumberHitPolicyHandler implements DmnHitPol
         // check if it is a long or a string of a number
 
         Object value = typedValue.getValue();
-        if (value instanceof Long) {
-          longValues.add((Long) value);
+        if (value instanceof Long long1) {
+          longValues.add(long1);
 
         } else {
           Long longValue = Long.valueOf(value.toString());
@@ -191,8 +191,8 @@ public abstract class AbstractCollectNumberHitPolicyHandler implements DmnHitPol
         // check if it is a double or a string of a decimal number
 
         Object value = typedValue.getValue();
-        if (value instanceof Double) {
-          doubleValues.add((Double) value);
+        if (value instanceof Double double1) {
+          doubleValues.add(double1);
 
         } else {
           Double doubleValue = Double.valueOf(value.toString());

@@ -24,7 +24,8 @@ import org.finos.fluxnova.spin.SpinList;
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public abstract class JsonTreeMapObjectToJsonScriptTest extends ScriptTest {
 

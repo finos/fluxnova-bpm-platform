@@ -10,7 +10,6 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.scriptengine;
 
-import static org.junit.Assert.assertEquals;
 
 import java.util.Collections;
 
@@ -18,13 +17,15 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Integration tests for script preprocessing and script compilation interactions in BPMN
@@ -47,7 +48,7 @@ import org.junit.runner.RunWith;
  * <p>Variable-binding-specific scenarios are covered in
  * {@link ScriptPreprocessorIntegrationTest}.</p>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ScriptPreprocessingCompilationTest extends AbstractFoxPlatformIntegrationTest {
 
   /** Process definition key for the model deployed by this test class. */
@@ -88,13 +89,13 @@ public class ScriptPreprocessingCompilationTest extends AbstractFoxPlatformInteg
   }
 
   /** Resets preprocessing configuration before each test to guarantee isolation. */
-  @Before
+  @BeforeEach
   public void setUp() {
     ScriptPreprocessorTestHelper.resetScriptPreprocessing(processEngineConfiguration);
   }
 
   /** Restores preprocessing configuration after each test to prevent state leakage. */
-  @After
+  @AfterEach
   public void tearDown() {
     ScriptPreprocessorTestHelper.resetScriptPreprocessing(processEngineConfiguration);
   }

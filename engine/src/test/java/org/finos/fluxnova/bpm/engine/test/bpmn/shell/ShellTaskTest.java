@@ -16,14 +16,14 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.shell;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ShellTaskTest extends PluggableProcessEngineTest {
 
@@ -47,7 +47,7 @@ public class ShellTaskTest extends PluggableProcessEngineTest {
       return OsType.UNKOWN;
   }
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     osType = getSystemOsType();
   }

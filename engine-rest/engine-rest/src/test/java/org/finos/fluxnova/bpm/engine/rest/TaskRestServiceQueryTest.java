@@ -18,10 +18,12 @@ package org.finos.fluxnova.bpm.engine.rest;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
-import static junit.framework.TestCase.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.rest.util.DateTimeUtils.withTimezone;
 import static org.finos.fluxnova.bpm.engine.rest.util.QueryParamUtils.arrayAsCommaSeperatedList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -42,8 +44,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.ProcessApplicationService;
 import org.finos.fluxnova.bpm.application.ProcessApplicationInfo;
@@ -68,10 +70,10 @@ import org.finos.fluxnova.bpm.engine.task.DelegationState;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -81,7 +83,7 @@ import io.restassured.response.Response;
 
 public class TaskRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String TASK_QUERY_URL = TEST_RESOURCE_ROOT_PATH + "/task";
@@ -92,7 +94,7 @@ public class TaskRestServiceQueryTest extends AbstractRestServiceTest {
 
   private TaskQuery mockQuery;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockQuery = setUpMockTaskQuery(MockProvider.createMockTasks());
   }
@@ -294,8 +296,8 @@ public class TaskRestServiceQueryTest extends AbstractRestServiceTest {
     // validate embedded tasks
     String content = response.asString();
     List<Map<String,Object>> instances = from(content).getList("_embedded.task");
-    Assert.assertEquals("There should be one task returned.", 1, instances.size());
-    Assert.assertNotNull("The returned task should not be null.", instances.get(0));
+    assertEquals(1, instances.size(), "There should be one task returned.");
+    assertNotNull(instances.get(0), "The returned task should not be null.");
 
     Map<String, Object> taskObject = instances.get(0);
 
@@ -321,87 +323,87 @@ public class TaskRestServiceQueryTest extends AbstractRestServiceTest {
     String returnedFormKey = (String) taskObject.get("formKey");
     String returnedTenantId = (String) taskObject.get("tenantId");
 
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_NAME, returnedTaskName);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_ID, returnedId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME, returnedAssignee);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_CREATE_TIME, returnedCreateTime);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_DUE_DATE, returnedDueDate);
-    Assert.assertEquals(MockProvider.EXAMPLE_FOLLOW_UP_DATE, returnedFollowUpDate);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString(), returnedDelegationState);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_DESCRIPTION, returnedDescription);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_EXECUTION_ID, returnedExecutionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_OWNER, returnedOwner);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID, returnedParentTaskId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_PRIORITY, returnedPriority);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, returnedProcessDefinitionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, returnedProcessInstanceId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_DEFINITION_KEY, returnedTaskDefinitionKey);
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_ID, returnedCaseDefinitionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_INSTANCE_ID, returnedCaseInstanceId);
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_EXECUTION_ID, returnedCaseExecutionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE, returnedSuspensionState);
-    Assert.assertEquals(MockProvider.EXAMPLE_FORM_KEY, returnedFormKey);
-    Assert.assertEquals(MockProvider.EXAMPLE_TENANT_ID, returnedTenantId);
+    assertEquals(MockProvider.EXAMPLE_TASK_NAME, returnedTaskName);
+    assertEquals(MockProvider.EXAMPLE_TASK_ID, returnedId);
+    assertEquals(MockProvider.EXAMPLE_TASK_ASSIGNEE_NAME, returnedAssignee);
+    assertEquals(MockProvider.EXAMPLE_TASK_CREATE_TIME, returnedCreateTime);
+    assertEquals(MockProvider.EXAMPLE_TASK_DUE_DATE, returnedDueDate);
+    assertEquals(MockProvider.EXAMPLE_FOLLOW_UP_DATE, returnedFollowUpDate);
+    assertEquals(MockProvider.EXAMPLE_TASK_DELEGATION_STATE.toString(), returnedDelegationState);
+    assertEquals(MockProvider.EXAMPLE_TASK_DESCRIPTION, returnedDescription);
+    assertEquals(MockProvider.EXAMPLE_TASK_EXECUTION_ID, returnedExecutionId);
+    assertEquals(MockProvider.EXAMPLE_TASK_OWNER, returnedOwner);
+    assertEquals(MockProvider.EXAMPLE_TASK_PARENT_TASK_ID, returnedParentTaskId);
+    assertEquals(MockProvider.EXAMPLE_TASK_PRIORITY, returnedPriority);
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, returnedProcessDefinitionId);
+    assertEquals(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, returnedProcessInstanceId);
+    assertEquals(MockProvider.EXAMPLE_TASK_DEFINITION_KEY, returnedTaskDefinitionKey);
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_ID, returnedCaseDefinitionId);
+    assertEquals(MockProvider.EXAMPLE_CASE_INSTANCE_ID, returnedCaseInstanceId);
+    assertEquals(MockProvider.EXAMPLE_CASE_EXECUTION_ID, returnedCaseExecutionId);
+    assertEquals(MockProvider.EXAMPLE_TASK_SUSPENSION_STATE, returnedSuspensionState);
+    assertEquals(MockProvider.EXAMPLE_FORM_KEY, returnedFormKey);
+    assertEquals(MockProvider.EXAMPLE_TENANT_ID, returnedTenantId);
 
     // validate the task count
-    Assert.assertEquals(1l, from(content).getLong("count"));
+    assertEquals(1l, from(content).getLong("count"));
 
     // validate links
     Map<String,Object> selfReference = from(content).getMap("_links.self");
-    Assert.assertNotNull(selfReference);
-    Assert.assertEquals("/task", selfReference.get("href"));
+    assertNotNull(selfReference);
+    assertEquals("/task", selfReference.get("href"));
 
     // validate embedded assignees:
     List<Map<String,Object>> embeddedAssignees = from(content).getList("_embedded.assignee");
-    Assert.assertEquals("There should be one assignee returned.", 1, embeddedAssignees.size());
+    assertEquals(1, embeddedAssignees.size(), "There should be one assignee returned.");
     Map<String, Object> embeddedAssignee = embeddedAssignees.get(0);
-    Assert.assertNotNull("The returned assignee should not be null.", embeddedAssignee);
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_ID, embeddedAssignee.get("id"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_FIRST_NAME, embeddedAssignee.get("firstName"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_LAST_NAME, embeddedAssignee.get("lastName"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_EMAIL, embeddedAssignee.get("email"));
+    assertNotNull(embeddedAssignee, "The returned assignee should not be null.");
+    assertEquals(MockProvider.EXAMPLE_USER_ID, embeddedAssignee.get("id"));
+    assertEquals(MockProvider.EXAMPLE_USER_FIRST_NAME, embeddedAssignee.get("firstName"));
+    assertEquals(MockProvider.EXAMPLE_USER_LAST_NAME, embeddedAssignee.get("lastName"));
+    assertEquals(MockProvider.EXAMPLE_USER_EMAIL, embeddedAssignee.get("email"));
 
     // validate embedded owners:
     List<Map<String,Object>> embeddedOwners = from(content).getList("_embedded.owner");
-    Assert.assertEquals("There should be one owner returned.", 1, embeddedOwners.size());
+    assertEquals(1, embeddedOwners.size(), "There should be one owner returned.");
     Map<String, Object> embeddedOwner = embeddedOwners.get(0);
-    Assert.assertNotNull("The returned owner should not be null.", embeddedOwner);
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_ID, embeddedOwner.get("id"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_FIRST_NAME, embeddedOwner.get("firstName"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_LAST_NAME, embeddedOwner.get("lastName"));
-    Assert.assertEquals(MockProvider.EXAMPLE_USER_EMAIL, embeddedOwner.get("email"));
+    assertNotNull(embeddedOwner, "The returned owner should not be null.");
+    assertEquals(MockProvider.EXAMPLE_USER_ID, embeddedOwner.get("id"));
+    assertEquals(MockProvider.EXAMPLE_USER_FIRST_NAME, embeddedOwner.get("firstName"));
+    assertEquals(MockProvider.EXAMPLE_USER_LAST_NAME, embeddedOwner.get("lastName"));
+    assertEquals(MockProvider.EXAMPLE_USER_EMAIL, embeddedOwner.get("email"));
 
     // validate embedded processDefinitions:
     List<Map<String,Object>> embeddedDefinitions = from(content).getList("_embedded.processDefinition");
-    Assert.assertEquals("There should be one processDefinition returned.", 1, embeddedDefinitions.size());
+    assertEquals(1, embeddedDefinitions.size(), "There should be one processDefinition returned.");
     Map<String, Object> embeddedProcessDefinition = embeddedDefinitions.get(0);
-    Assert.assertNotNull("The returned processDefinition should not be null.", embeddedProcessDefinition);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, embeddedProcessDefinition.get("id"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_KEY, embeddedProcessDefinition.get("key"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_CATEGORY, embeddedProcessDefinition.get("category"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_NAME, embeddedProcessDefinition.get("name"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_DESCRIPTION, embeddedProcessDefinition.get("description"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_VERSION, embeddedProcessDefinition.get("version"));
-    Assert.assertEquals(MockProvider.EXAMPLE_VERSION_TAG, embeddedProcessDefinition.get("versionTag"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_RESOURCE_NAME, embeddedProcessDefinition.get("resource"));
-    Assert.assertEquals(MockProvider.EXAMPLE_DEPLOYMENT_ID, embeddedProcessDefinition.get("deploymentId"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_DIAGRAM_RESOURCE_NAME, embeddedProcessDefinition.get("diagram"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_IS_SUSPENDED, embeddedProcessDefinition.get("suspended"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH, embeddedProcessDefinition.get("contextPath"));
+    assertNotNull(embeddedProcessDefinition, "The returned processDefinition should not be null.");
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, embeddedProcessDefinition.get("id"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_KEY, embeddedProcessDefinition.get("key"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_CATEGORY, embeddedProcessDefinition.get("category"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_NAME, embeddedProcessDefinition.get("name"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_DESCRIPTION, embeddedProcessDefinition.get("description"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_VERSION, embeddedProcessDefinition.get("version"));
+    assertEquals(MockProvider.EXAMPLE_VERSION_TAG, embeddedProcessDefinition.get("versionTag"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_RESOURCE_NAME, embeddedProcessDefinition.get("resource"));
+    assertEquals(MockProvider.EXAMPLE_DEPLOYMENT_ID, embeddedProcessDefinition.get("deploymentId"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_DIAGRAM_RESOURCE_NAME, embeddedProcessDefinition.get("diagram"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_IS_SUSPENDED, embeddedProcessDefinition.get("suspended"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH, embeddedProcessDefinition.get("contextPath"));
 
     // validate embedded caseDefinitions:
     List<Map<String,Object>> embeddedCaseDefinitions = from(content).getList("_embedded.caseDefinition");
-    Assert.assertEquals("There should be one caseDefinition returned.", 1, embeddedCaseDefinitions.size());
+    assertEquals(1, embeddedCaseDefinitions.size(), "There should be one caseDefinition returned.");
     Map<String, Object> embeddedCaseDefinition = embeddedCaseDefinitions.get(0);
-    Assert.assertNotNull("The returned caseDefinition should not be null.", embeddedCaseDefinition);
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_ID, embeddedCaseDefinition.get("id"));
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_KEY, embeddedCaseDefinition.get("key"));
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_CATEGORY, embeddedCaseDefinition.get("category"));
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_NAME, embeddedCaseDefinition.get("name"));
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_VERSION, embeddedCaseDefinition.get("version"));
-    Assert.assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_RESOURCE_NAME, embeddedCaseDefinition.get("resource"));
-    Assert.assertEquals(MockProvider.EXAMPLE_DEPLOYMENT_ID, embeddedCaseDefinition.get("deploymentId"));
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH, embeddedCaseDefinition.get("contextPath"));
+    assertNotNull(embeddedCaseDefinition, "The returned caseDefinition should not be null.");
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_ID, embeddedCaseDefinition.get("id"));
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_KEY, embeddedCaseDefinition.get("key"));
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_CATEGORY, embeddedCaseDefinition.get("category"));
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_NAME, embeddedCaseDefinition.get("name"));
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_VERSION, embeddedCaseDefinition.get("version"));
+    assertEquals(MockProvider.EXAMPLE_CASE_DEFINITION_RESOURCE_NAME, embeddedCaseDefinition.get("resource"));
+    assertEquals(MockProvider.EXAMPLE_DEPLOYMENT_ID, embeddedCaseDefinition.get("deploymentId"));
+    assertEquals(MockProvider.EXAMPLE_PROCESS_APPLICATION_CONTEXT_PATH, embeddedCaseDefinition.get("contextPath"));
   }
 
   @Test

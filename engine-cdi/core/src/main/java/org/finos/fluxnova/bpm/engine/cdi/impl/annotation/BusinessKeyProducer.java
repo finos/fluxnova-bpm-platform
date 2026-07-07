@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl.annotation;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.cdi.annotation.BusinessKey;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;

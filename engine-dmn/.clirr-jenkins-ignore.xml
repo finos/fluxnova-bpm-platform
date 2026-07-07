@@ -17,4 +17,22 @@
     <differenceType>7013</differenceType>
     <method>*</method>
   </difference>
+  <difference>
+    <!-- JUnit 4 TestRule removed as part of JUnit 5 migration -->
+    <className>org/finos/fluxnova/bpm/dmn/engine/test/DmnEngineRule</className>
+    <differenceType>4001</differenceType>
+    <to>**</to>
+  </difference>
+  <difference>
+    <!-- JUnit 4 TestWatcher removed as part of JUnit 5 migration -->
+    <className>org/finos/fluxnova/bpm/dmn/engine/test/DmnEngineRule</className>
+    <differenceType>5001</differenceType>
+    <to>**</to>
+  </difference>
+  <difference>
+    <!-- JUnit 4 starting(Description) removed as part of JUnit 5 migration -->
+    <className>org/finos/fluxnova/bpm/dmn/engine/test/DmnEngineRule</className>
+    <differenceType>7002</differenceType>
+    <method>void starting(org.junit.runner.Description)</method>
+  </difference>
 </differences>

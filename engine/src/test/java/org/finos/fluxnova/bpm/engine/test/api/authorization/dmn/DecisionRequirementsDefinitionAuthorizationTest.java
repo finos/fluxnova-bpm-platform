@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.dmn;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.DECISION_REQUIREMENTS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -32,15 +32,12 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * 
@@ -48,7 +45,6 @@ import org.junit.runners.Parameterized.Parameters;
  *
  */
 
-@RunWith(Parameterized.class)
 public class DecisionRequirementsDefinitionAuthorizationTest {
 
   protected static final String DMN_FILE = "org/finos/fluxnova/bpm/engine/test/dmn/deployment/drdDish.dmn11.xml";
@@ -61,13 +57,10 @@ public class DecisionRequirementsDefinitionAuthorizationTest {
 
   protected RepositoryService repositoryService;
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
-
-  @Parameter(0)
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
   public AuthorizationScenario scenario;
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -85,20 +78,23 @@ public class DecisionRequirementsDefinitionAuthorizationTest {
       );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     authRule.createUserAndGroup("userId", "groupId");
     repositoryService = engineRule.getRepositoryService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
-  @Deployment(resources = { DMN_FILE })
-  public void getDecisionRequirementsDefinition() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @Deployment(resources = {DMN_FILE})
+  @MethodSource("scenarios")
+  public void getDecisionRequirementsDefinition(AuthorizationScenario scenario) {
+
+    initDecisionRequirementsDefinitionAuthorizationTest(scenario);
 
     String decisionRequirementsDefinitionId = repositoryService
       .createDecisionRequirementsDefinitionQuery()
@@ -115,9 +111,12 @@ public class DecisionRequirementsDefinitionAuthorizationTest {
     }
   }
 
-  @Test
-  @Deployment(resources = { DMN_FILE })
-  public void getDecisionRequirementsModel() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @Deployment(resources = {DMN_FILE})
+  @MethodSource("scenarios")
+  public void getDecisionRequirementsModel(AuthorizationScenario scenario) {
+
+    initDecisionRequirementsDefinitionAuthorizationTest(scenario);
 
     // given
     String decisionRequirementsDefinitionId = repositoryService
@@ -135,9 +134,12 @@ public class DecisionRequirementsDefinitionAuthorizationTest {
     }
   }
 
-  @Test
-  @Deployment(resources = { DMN_FILE, DRD_FILE })
-  public void getDecisionRequirementsDiagram() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @Deployment(resources = {DMN_FILE, DRD_FILE})
+  @MethodSource("scenarios")
+  public void getDecisionRequirementsDiagram(AuthorizationScenario scenario) {
+
+    initDecisionRequirementsDefinitionAuthorizationTest(scenario);
 
     // given
     String decisionRequirementsDefinitionId = repositoryService
@@ -153,5 +155,9 @@ public class DecisionRequirementsDefinitionAuthorizationTest {
     if (authRule.assertScenario(scenario)) {
       assertNotNull(decisionRequirementsDiagram);
     }
+  }
+
+  public void initDecisionRequirementsDefinitionAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

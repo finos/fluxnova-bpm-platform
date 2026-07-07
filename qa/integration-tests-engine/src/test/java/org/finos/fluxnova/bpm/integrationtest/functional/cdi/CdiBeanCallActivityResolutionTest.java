@@ -26,19 +26,19 @@ import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class CdiBeanCallActivityResolutionTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa1")
@@ -71,7 +71,7 @@ public class CdiBeanCallActivityResolutionTest extends AbstractFoxPlatformIntegr
 
   protected ProcessInstance processInstance;
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (processInstance != null) {
       runtimeService.deleteProcessInstance(processInstance.getId(), null);
@@ -89,11 +89,11 @@ public class CdiBeanCallActivityResolutionTest extends AbstractFoxPlatformIntegr
         Variables.createVariables().putValue("var", "value"));
 
     Task afterCallActivityTask = taskService.createTaskQuery().singleResult();
-    Assert.assertNotNull(afterCallActivityTask);
-    Assert.assertEquals("afterCallActivity", afterCallActivityTask.getTaskDefinitionKey());
+    Assertions.assertNotNull(afterCallActivityTask);
+    Assertions.assertEquals("afterCallActivity", afterCallActivityTask.getTaskDefinitionKey());
 
     String variable = (String) runtimeService.getVariable(processInstance.getId(), "var");
-    Assert.assertEquals("valuevalue", variable);
+    Assertions.assertEquals("valuevalue", variable);
   }
 
   @Test
@@ -110,8 +110,8 @@ public class CdiBeanCallActivityResolutionTest extends AbstractFoxPlatformIntegr
 
     // then
     Task afterCallActivityTask = taskService.createTaskQuery().singleResult();
-    Assert.assertNotNull(afterCallActivityTask);
-    Assert.assertEquals("afterCallActivityTask", afterCallActivityTask.getTaskDefinitionKey());
+    Assertions.assertNotNull(afterCallActivityTask);
+    Assertions.assertEquals("afterCallActivityTask", afterCallActivityTask.getTaskDefinitionKey());
   }
 
 }

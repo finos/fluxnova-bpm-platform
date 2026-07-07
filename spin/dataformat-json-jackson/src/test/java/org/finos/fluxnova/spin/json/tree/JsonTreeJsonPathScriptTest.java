@@ -18,6 +18,7 @@ package org.finos.fluxnova.spin.json.tree;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON_FILE_NAME;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.SpinList;
 import org.finos.fluxnova.spin.impl.test.Script;
@@ -26,7 +27,8 @@ import org.finos.fluxnova.spin.impl.test.ScriptVariable;
 import org.finos.fluxnova.spin.json.SpinJsonDataFormatException;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.json.SpinJsonPathException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -130,46 +132,52 @@ public abstract class JsonTreeJsonPathScriptTest extends ScriptTest {
     assertThat(nodeList.get(2).stringValue()).isEqualTo("Johnny");
   }
 
-  @Test(expected = SpinJsonPathException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailReadingJsonPath() throws Throwable{
-    failingWithException();
+  public void shouldFailReadingJsonPath() throws Throwable {
+    assertThrows(SpinJsonPathException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonPathException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailAccessNonExistentProperty() throws Throwable{
-    failingWithException();
+  public void shouldFailAccessNonExistentProperty() throws Throwable {
+    assertThrows(SpinJsonPathException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonDataFormatException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailReadingElementList() throws Throwable{
-    failingWithException();
+  public void shouldFailReadingElementList() throws Throwable {
+    assertThrows(SpinJsonDataFormatException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonDataFormatException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailReadingString() throws Throwable{
-    failingWithException();
+  public void shouldFailReadingString() throws Throwable {
+    assertThrows(SpinJsonDataFormatException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonDataFormatException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailReadingNumber() throws Throwable{
-    failingWithException();
+  public void shouldFailReadingNumber() throws Throwable {
+    assertThrows(SpinJsonDataFormatException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinJsonDataFormatException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailReadingBoolean() throws Throwable{
-    failingWithException();
+  public void shouldFailReadingBoolean() throws Throwable {
+    assertThrows(SpinJsonDataFormatException.class, () ->
+      failingWithException());
   }
 }
 

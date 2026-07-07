@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.cdi.impl;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
-import javax.enterprise.concurrent.ManagedExecutorService;
+import jakarta.enterprise.concurrent.ManagedExecutorService;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineImpl;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;

@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl;
 
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.InjectionPoint;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
 import org.finos.fluxnova.bpm.ProcessEngineService;

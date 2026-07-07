@@ -22,6 +22,7 @@ import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectV
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertObjectValueDeserializedNull;
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertObjectValueSerializedNull;
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertUntypedNullValue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.Reader;
 import java.util.List;
@@ -46,6 +47,8 @@ import org.finos.fluxnova.spin.Spin;
 import org.finos.fluxnova.spin.impl.util.SpinIoUtil;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
 
+import org.junit.jupiter.api.Test;
+
 public class XmlSerializationTest extends PluggableProcessEngineTestCase {
 
   protected static final String ONE_TASK_PROCESS = "org/finos/fluxnova/spin/plugin/oneTaskProcess.bpmn20.xml";
@@ -55,6 +58,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   protected String originalSerializationFormat;
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSerializationAsXml() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -85,6 +89,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testFailingSerialization() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -100,6 +105,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testFailingDeserialization() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -156,6 +162,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testFailForNonExistingSerializationFormat() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -171,6 +178,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testVariableValueCaching() {
     final ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -196,6 +204,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testGetSerializedVariableValue() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -211,6 +220,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetSerializedVariableValue() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
     XmlSerializable bean = new XmlSerializable("a String", 42, true);
@@ -234,6 +244,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetSerializedVariableValueNoTypeName() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
     XmlSerializable bean = new XmlSerializable("a String", 42, true);
@@ -253,6 +264,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetSerializedVariableValueMismatchingTypeName() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
     XmlSerializable bean = new XmlSerializable("a String", 42, true);
@@ -275,6 +287,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
 
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetSerializedVariableValueNull() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -298,6 +311,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetSerializedVariableValueNullNoTypeName() {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -320,6 +334,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetJavaOjectNullDeserialized() throws Exception {
 
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
@@ -340,6 +355,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetJavaOjectNullSerialized() throws Exception {
 
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
@@ -362,6 +378,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetJavaOjectNullSerializedObjectTypeName() throws Exception {
 
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
@@ -397,6 +414,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetUntypedNullForExistingVariable() throws Exception {
 
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
@@ -422,6 +440,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSetTypedNullForExistingVariable() throws Exception {
 
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
@@ -445,6 +464,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
     assertObjectValueDeserializedNull(typedValue);
   }
 
+  @Test
   public void testTransientXmlValue() {
     // given
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess("foo")
@@ -481,6 +501,7 @@ public class XmlSerializationTest extends PluggableProcessEngineTestCase {
     assertEquals("userTask1", task.getTaskDefinitionKey());
   }
 
+  @Test
   public void testOverloadedAppendMethod() {
     // given
     deployment(Bpmn.createExecutableProcess("spin-xml-issue")

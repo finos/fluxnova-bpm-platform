@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.rest.ConditionRestService;
@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.runtime.ConditionEvaluationBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class ConditionRestServiceImpl extends AbstractRestProcessEngineAware implements ConditionRestService {
 

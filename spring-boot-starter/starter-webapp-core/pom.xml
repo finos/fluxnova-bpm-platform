@@ -32,7 +32,7 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
     </dependency>
 
     <dependency>
@@ -60,12 +60,30 @@
     </dependency>
     
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
       <version>${version.mockito}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
+<!--  <dependency>-->
+<!--    <groupId>tools.jackson</groupId>-->
+<!--    <artifactId>jackson-bom</artifactId>-->
+<!--    <version>${version.jackson}</version>-->
+<!--    <scope>import</scope>-->
+<!--    <type>pom</type>-->
+<!--  </dependency>-->
   </dependencies>
 
   <build>

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.variables;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,19 +29,15 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Philipp Ossler
  */
-@RunWith(Parameterized.class)
 public class PrimitiveTypeValueSerializationTest {
 
   protected static final String BPMN_FILE = "org/finos/fluxnova/bpm/engine/test/api/variables/oneTaskProcess.bpmn20.xml";
@@ -49,7 +45,6 @@ public class PrimitiveTypeValueSerializationTest {
 
   protected static final String VARIABLE_NAME = "variable";
 
-  @Parameters(name = "{index}: variable = {0}")
   public static Collection<Object[]> data() {
     return Arrays
         .asList(new Object[][] {
@@ -62,21 +57,17 @@ public class PrimitiveTypeValueSerializationTest {
           { Variables.dateValue(new Date()), Variables.dateValue(null) }
         });
   }
-
-  @Parameter(0)
   public TypedValue typedValue;
-
-  @Parameter(1)
   public TypedValue nullValue;
 
   private RuntimeService runtimeService;
   private RepositoryService repositoryService;
   private String deploymentId;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
-  @Before
+  @BeforeEach
   public void setup() {
     runtimeService = rule.getRuntimeService();
     repositoryService = rule.getRepositoryService();
@@ -84,13 +75,15 @@ public class PrimitiveTypeValueSerializationTest {
     deploymentId = repositoryService.createDeployment().addClasspathResource(BPMN_FILE).deploy().getId();
   }
 
-  @After
+  @AfterEach
   public void teardown() {
     repositoryService.deleteDeployment(deploymentId, true);
   }
 
-  @Test
-  public void shouldGetUntypedVariable() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: variable = {0}")
+  public void shouldGetUntypedVariable(TypedValue typedValue, TypedValue nullValue) {
+    initPrimitiveTypeValueSerializationTest(typedValue, nullValue);
     ProcessInstance instance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 
     runtimeService.setVariable(instance.getId(), VARIABLE_NAME, typedValue);
@@ -99,8 +92,10 @@ public class PrimitiveTypeValueSerializationTest {
     assertEquals(typedValue.getValue(), variableValue);
   }
 
-  @Test
-  public void shouldGetTypedVariable() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: variable = {0}")
+  public void shouldGetTypedVariable(TypedValue typedValue, TypedValue nullValue) {
+    initPrimitiveTypeValueSerializationTest(typedValue, nullValue);
     ProcessInstance instance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 
     runtimeService.setVariable(instance.getId(), VARIABLE_NAME, typedValue);
@@ -110,8 +105,10 @@ public class PrimitiveTypeValueSerializationTest {
     assertEquals(typedValue.getValue(), typedVariableValue.getValue());
   }
 
-  @Test
-  public void shouldGetTypedNullVariable() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: variable = {0}")
+  public void shouldGetTypedNullVariable(TypedValue typedValue, TypedValue nullValue) {
+    initPrimitiveTypeValueSerializationTest(typedValue, nullValue);
     ProcessInstance instance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 
     runtimeService.setVariable(instance.getId(), VARIABLE_NAME, nullValue);
@@ -121,6 +118,11 @@ public class PrimitiveTypeValueSerializationTest {
     TypedValue typedVariableValue = runtimeService.getVariableTyped(instance.getId(), VARIABLE_NAME);
     assertEquals(nullValue.getType(), typedVariableValue.getType());
     assertEquals(null, typedVariableValue.getValue());
+  }
+
+  public void initPrimitiveTypeValueSerializationTest(TypedValue typedValue, TypedValue nullValue) {
+    this.typedValue = typedValue;
+    this.nullValue = nullValue;
   }
 
 }

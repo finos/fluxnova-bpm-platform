@@ -28,12 +28,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -41,13 +40,13 @@ import org.junit.Test;
  */
 public class NestedExecutionAPIInvocationTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule1 = new ProvidedProcessEngineRule();
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule engine2BootstrapRule = new ProcessEngineBootstrapRule("camunda.cfg.prefix_extended.xml");
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule2 = new ProvidedProcessEngineRule(engine2BootstrapRule);
 
   public static final String PROCESS_KEY_1 = "process";
@@ -78,7 +77,7 @@ public class NestedExecutionAPIInvocationTest {
   .endEvent()
   .done();
 
-  @Before
+  @BeforeEach
   public void init() {
 
     StartProcessOnAnotherEngineDelegate.engine = engine2BootstrapRule.getProcessEngine();
@@ -106,7 +105,7 @@ public class NestedExecutionAPIInvocationTest {
     engineRule2.manageDeployment(deployment3);
   }
 
-  @After
+  @AfterEach
   public void clearEngineReference() {
     StartProcessOnAnotherEngineDelegate.engine = null;
     NestedProcessStartDelegate.engine = null;
@@ -152,7 +151,7 @@ public class NestedExecutionAPIInvocationTest {
       // then the wait state is reached immediately after instantiation
       ActivityInstance activityInstance = runtimeService.getActivityInstance(processInstance.getId());
       ActivityInstance[] activityInstances = activityInstance.getActivityInstances("waitState");
-      Assert.assertEquals(1, activityInstances.length);
+      Assertions.assertEquals(1, activityInstances.length);
 
     }
   }
@@ -170,7 +169,7 @@ public class NestedExecutionAPIInvocationTest {
       // then the wait state is reached immediately after instantiation
       ActivityInstance activityInstance = runtimeService.getActivityInstance(processInstance.getId());
       ActivityInstance[] activityInstances = activityInstance.getActivityInstances("waitState");
-      Assert.assertEquals(1, activityInstances.length);
+      Assertions.assertEquals(1, activityInstances.length);
 
     }
   }

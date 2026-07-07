@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.util;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,8 +25,8 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.migration.MigrationInstructionValidationReport;
 import org.finos.fluxnova.bpm.engine.migration.MigrationPlanValidationReport;
 import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 
 public class MigrationPlanValidationReportAssert {
 
@@ -37,7 +37,7 @@ public class MigrationPlanValidationReportAssert {
   }
 
   public MigrationPlanValidationReportAssert isNotNull() {
-    assertNotNull("Expected report to be not null", actual);
+    assertNotNull(actual, "Expected report to be not null");
 
     return this;
   }
@@ -79,7 +79,7 @@ public class MigrationPlanValidationReportAssert {
       matchers.add(Matchers.containsString(expectedFailure));
     }
 
-    Assert.assertThat("Expected failures for activity id '" + activityId + "':\n" + joinFailures(expectedFailures) +
+    MatcherAssert.assertThat("Expected failures for activity id '" + activityId + "':\n" + joinFailures(expectedFailures) +
       "But found failures:\n" + joinFailures(failuresFound.toArray()),
       failuresFound, Matchers.containsInAnyOrder(matchers));
 

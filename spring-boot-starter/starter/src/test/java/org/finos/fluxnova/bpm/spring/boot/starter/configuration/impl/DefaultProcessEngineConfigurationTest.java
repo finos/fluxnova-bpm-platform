@@ -22,8 +22,9 @@ import org.finos.fluxnova.bpm.engine.ProcessEngines;
 import org.finos.fluxnova.bpm.engine.impl.cfg.IdGenerator;
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class DefaultProcessEngineConfigurationTest {
   private final SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
   private final FluxnovaBpmProperties properties = new FluxnovaBpmProperties();
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     ReflectionTestUtils.setField(instance, "camundaBpmProperties", properties);
     initIdGenerator(null);

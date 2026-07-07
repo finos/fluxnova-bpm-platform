@@ -16,22 +16,35 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.WebApplicationContext;
+import reactor.netty.http.client.HttpClient;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FluxnovaBpmSampleApplicationIT extends AbstractSpringSecurityIT {
 
   @Autowired
-  private TestRestTemplate testRestTemplate;
-
-  @Autowired
   private WebApplicationContext webApplicationContext;
+
+  private WebTestClient webTestClient;
+
+  @BeforeEach
+  @Override
+  public void setup() throws Exception {
+    super.setup();
+    webTestClient = WebTestClient.bindToServer(
+            new ReactorClientHttpConnector(HttpClient.create().followRedirect(true)))
+        .baseUrl(baseUrl)
+        .build();
+  }
 
   @Test
   public void testSpringSecurityAutoConfigurationCorrectlySet() {
@@ -45,18 +58,18 @@ public class FluxnovaBpmSampleApplicationIT extends AbstractSpringSecurityIT {
   public void testWebappApiIsAvailableAndRequiresAuthorization() {
     // given oauth2 client disabled
     // when calling the webapp api
-    ResponseEntity<String> entity = testRestTemplate.getForEntity(baseUrl + "/fluxnova/api/engine/engine/default/user", String.class);
-    // then webapp api returns unauthorized
-    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    webTestClient.get().uri("/fluxnova/api/engine/engine/default/user")
+        .exchange()
+        .expectStatus().isEqualTo(HttpStatus.UNAUTHORIZED);
   }
 
   @Test
   public void testRestApiIsAvailable() {
     // given oauth2 client disabled
     // when calling the rest api
-    ResponseEntity<String> entity = testRestTemplate.getForEntity(baseUrl + "/engine-rest/engine/", String.class);
-    // then rest api is accessible
-    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(entity.getBody()).isEqualTo(EXPECTED_NAME_DEFAULT);
+    webTestClient.get().uri("/engine-rest/engine/")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(String.class).isEqualTo(EXPECTED_NAME_DEFAULT);
   }
 }

@@ -17,11 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.iomapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,8 +41,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Testcase for camunda input / output in BPMN
@@ -1029,7 +1025,7 @@ public class InputOutputTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/iomapping/InputOutputTest.testThrowErrorInScriptInputOutputMapping.bpmn")
-  @Ignore
+  @Disabled
   @Test
   public void testBpmnErrorInScriptInputMapping() {
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -1056,7 +1052,7 @@ public class InputOutputTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/iomapping/InputOutputTest.testThrowErrorInScriptInputOutputMapping.bpmn")
-  @Ignore
+  @Disabled
   @Test
   public void testBpmnErrorInScriptOutputMapping() {
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -1083,7 +1079,7 @@ public class InputOutputTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  @Ignore
+  @Disabled
   @Test
   public void testOutputMappingOnErrorBoundaryEvent() {
 
@@ -1122,7 +1118,7 @@ public class InputOutputTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  @Ignore
+  @Disabled
   @Test
   public void testOutputMappingOnMessageBoundaryEvent() {
 
@@ -1171,7 +1167,7 @@ public class InputOutputTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  @Ignore
+  @Disabled
   @Test
   public void testOutputMappingOnTimerBoundaryEvent() {
 

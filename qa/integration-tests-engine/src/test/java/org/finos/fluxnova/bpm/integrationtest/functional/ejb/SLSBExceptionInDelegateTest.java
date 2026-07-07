@@ -16,8 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
@@ -25,10 +24,11 @@ import org.finos.fluxnova.bpm.integrationtest.functional.ejb.beans.SLSBClientDel
 import org.finos.fluxnova.bpm.integrationtest.functional.ejb.beans.SLSBThrowExceptionDelegate;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Testcase verifying that if an exception is thrown inside an EJB the original
@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
  * @author Ronny Bräunlich
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class SLSBExceptionInDelegateTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -56,7 +56,7 @@ public class SLSBExceptionInDelegateTest extends AbstractFoxPlatformIntegrationT
       waitForJobExecutorToProcessAllJobs();
       
       Incident incident = runtimeService.createIncidentQuery().activityId("servicetask1").singleResult();
-      assertThat(incident.getIncidentMessage(), is("error"));
+      assertEquals("error", incident.getIncidentMessage());
   }
 
 }

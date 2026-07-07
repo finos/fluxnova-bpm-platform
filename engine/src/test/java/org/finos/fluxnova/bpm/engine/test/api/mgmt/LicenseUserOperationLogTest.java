@@ -29,10 +29,10 @@ import org.finos.fluxnova.bpm.engine.impl.cmd.LicenseCmd;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class LicenseUserOperationLogTest {
@@ -40,7 +40,7 @@ public class LicenseUserOperationLogTest {
   private final static String LICENSE_KEY = "testLicenseKey";
   private static final String USER_ID = "testUserId";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   ProcessEngine processEngine;
@@ -48,7 +48,7 @@ public class LicenseUserOperationLogTest {
   HistoryService historyService;
   IdentityService identityService;
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngine = engineRule.getProcessEngine();
     managementService = processEngine.getManagementService();
@@ -56,7 +56,7 @@ public class LicenseUserOperationLogTest {
     identityService = processEngine.getIdentityService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     identityService.clearAuthentication();
     managementService.deleteLicenseKey();

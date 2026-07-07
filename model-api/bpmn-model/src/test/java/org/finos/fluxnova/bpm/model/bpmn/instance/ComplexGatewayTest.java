@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.model.bpmn.instance;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

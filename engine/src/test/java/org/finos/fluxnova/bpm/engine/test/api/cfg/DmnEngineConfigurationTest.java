@@ -17,7 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.dmn.el.ProcessEngineJuelElProvider;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Philipp Ossler
@@ -46,7 +47,7 @@ public class DmnEngineConfigurationTest {
 
   protected ProcessEngine engine;
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (engine != null) {
       engine.close();

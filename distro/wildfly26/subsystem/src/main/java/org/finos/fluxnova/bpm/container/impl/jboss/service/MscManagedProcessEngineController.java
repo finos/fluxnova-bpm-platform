@@ -41,7 +41,7 @@ import org.jboss.msc.service.StopContext;
 import org.jboss.msc.value.InjectedValue;
 
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -211,8 +211,8 @@ public class MscManagedProcessEngineController extends MscManagedProcessEngine {
 
     Object configurationObject = createInstance(configurationClassName);
 
-    if (configurationObject instanceof JtaProcessEngineConfiguration) {
-      return (JtaProcessEngineConfiguration) configurationObject;
+    if (configurationObject instanceof JtaProcessEngineConfiguration configuration) {
+      return configuration;
 
     } else {
       throw new ProcessEngineException("Configuration class '"+configurationClassName+"' " +
@@ -224,7 +224,7 @@ public class MscManagedProcessEngineController extends MscManagedProcessEngine {
   private Object createInstance(String configurationClassName) {
     try {
       Class<?> configurationClass = getClass().getClassLoader().loadClass(configurationClassName);
-      return configurationClass.newInstance();
+      return configurationClass.getDeclaredConstructor().newInstance();
 
     } catch (Exception e) {
       throw new ProcessEngineException("Could not load '"+configurationClassName+"': the class must be visible from the camunda-wildfly-subsystem module.", e);

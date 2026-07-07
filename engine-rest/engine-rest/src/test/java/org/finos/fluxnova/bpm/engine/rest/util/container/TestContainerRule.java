@@ -20,25 +20,37 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-public class TestContainerRule implements TestRule {
+public class TestContainerRule implements BeforeEachCallback, AfterEachCallback {
 
   private static final Logger LOGGER = Logger.getLogger(TestContainerRule.class.getSimpleName());
 
   protected ContainerSpecifics containerSpecifics;
+  protected Extension containerSpecificExtension;
 
-  public Statement apply(Statement base, Description description) {
-
+  @Override
+  public void beforeEach(ExtensionContext context) throws Exception {
     lookUpContainerSpecifics();
-    TestRule containerSpecificRule = containerSpecifics.getTestRule(description.getTestClass());
-    return containerSpecificRule.apply(base, description);
+    containerSpecificExtension = containerSpecifics.getTestExtension(context.getRequiredTestClass());
+
+    if (containerSpecificExtension instanceof BeforeEachCallback) {
+      ((BeforeEachCallback) containerSpecificExtension).beforeEach(context);
+    }
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    if (containerSpecificExtension instanceof AfterEachCallback) {
+      ((AfterEachCallback) containerSpecificExtension).afterEach(context);
+    }
   }
 
   protected void lookUpContainerSpecifics() {
@@ -64,4 +76,3 @@ public class TestContainerRule implements TestRule {
 
   }
 }
-

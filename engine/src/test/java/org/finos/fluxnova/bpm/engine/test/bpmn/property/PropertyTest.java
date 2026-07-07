@@ -18,7 +18,8 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.property;
 
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez

@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +29,8 @@ import org.finos.fluxnova.bpm.engine.migration.MigratingProcessInstanceValidatio
 import org.finos.fluxnova.bpm.engine.migration.MigratingTransitionInstanceValidationReport;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 
 public class MigratingProcessInstanceValidationReportAssert {
 
@@ -41,7 +41,7 @@ public class MigratingProcessInstanceValidationReportAssert {
   }
 
   public MigratingProcessInstanceValidationReportAssert isNotNull() {
-    assertNotNull("Expected report to be not null", actual);
+    assertNotNull(actual, "Expected report to be not null");
 
     return this;
   }
@@ -53,7 +53,7 @@ public class MigratingProcessInstanceValidationReportAssert {
   public MigratingProcessInstanceValidationReportAssert hasProcessInstanceId(String processInstanceId) {
     isNotNull();
 
-    assertEquals("Expected report to be for process instance", processInstanceId, actual.getProcessInstanceId());
+    assertEquals(processInstanceId, actual.getProcessInstanceId(), "Expected report to be for process instance");
 
     return this;
   }
@@ -68,7 +68,7 @@ public class MigratingProcessInstanceValidationReportAssert {
       matchers.add(Matchers.containsString(expectedFailure));
     }
 
-    Assert.assertThat("Expected failures:\n" + joinFailures(Arrays.asList(expectedFailures)) +
+    MatcherAssert.assertThat("Expected failures:\n" + joinFailures(Arrays.asList(expectedFailures)) +
         "But found failures:\n" + joinFailures(actualFailures),
       actualFailures, Matchers.containsInAnyOrder(matchers));
 
@@ -86,7 +86,7 @@ public class MigratingProcessInstanceValidationReportAssert {
       }
     }
 
-    assertNotNull("No validation report found for source scope: " + sourceScopeId, actualReport);
+    assertNotNull(actualReport, "No validation report found for source scope: " + sourceScopeId);
 
     assertFailures(sourceScopeId, Arrays.asList(expectedFailures), actualReport.getFailures());
 
@@ -104,7 +104,7 @@ public class MigratingProcessInstanceValidationReportAssert {
       }
     }
 
-    assertNotNull("No validation report found for source scope: " + sourceScopeId, actualReport);
+    assertNotNull(actualReport, "No validation report found for source scope: " + sourceScopeId);
 
     assertFailures(sourceScopeId, Arrays.asList(expectedFailures), actualReport.getFailures());
 
@@ -118,7 +118,7 @@ public class MigratingProcessInstanceValidationReportAssert {
       matchers.add(Matchers.containsString(expectedFailure));
     }
 
-    Assert.assertThat("Expected failures for source scope: " + sourceScopeId + "\n" + joinFailures(expectedFailures) +
+    MatcherAssert.assertThat("Expected failures for source scope: " + sourceScopeId + "\n" + joinFailures(expectedFailures) +
         "But found failures:\n" + joinFailures(actualFailures),
       actualFailures, Matchers.containsInAnyOrder(matchers));
   }

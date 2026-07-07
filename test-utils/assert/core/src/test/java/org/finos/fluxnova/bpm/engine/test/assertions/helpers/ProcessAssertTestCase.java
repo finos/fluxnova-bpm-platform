@@ -21,11 +21,12 @@ import static org.assertj.core.api.Assertions.fail;
 import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.AbstractAssertions.reset;
 
 import org.assertj.core.util.Lists;
-import org.junit.After;
+
+import org.junit.jupiter.api.AfterEach;
 
 public abstract class ProcessAssertTestCase {
 
-  @After
+  @AfterEach
   public void tearDown() {
     reset();
   }
@@ -39,7 +40,7 @@ public abstract class ProcessAssertTestCase {
       fail.when();
     } catch (AssertionError e) {
       if (e.getMessage().contains(messageContent)) {
-        System.out.println(String.format("AssertionError caught with message '%s' and expected content '%s'", e.getMessage(), messageContent));
+        System.out.println("AssertionError caught with message '%s' and expected content '%s'".formatted(e.getMessage(), messageContent));
         return;
       } else {
         fail("Error message should include '" + messageContent + "' but was: " + e.getMessage());

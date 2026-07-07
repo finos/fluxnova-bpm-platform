@@ -22,19 +22,18 @@ import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.api.DeploymentApi;
 import org.openapitools.client.model.DeploymentWithDefinitionsDto;
-
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class DeploymentTest {
 
@@ -42,13 +41,8 @@ public class DeploymentTest {
 
   final DeploymentApi api = new DeploymentApi();
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
-
-  @Before
-  public void setupApiClient() {
-    api.getApiClient().setBasePath("http://localhost:" + wireMockRule.port() + "/engine-rest");
-  }
+  @RegisterExtension
+  public WireMockExtension wireMockRule = WireMockExtension.newInstance().options(WireMockConfiguration.options().port(8080)).build();
 
   @Test
   public void shouldCreateDeployment() throws ApiException {

@@ -29,14 +29,14 @@ import org.finos.fluxnova.bpm.engine.impl.util.CollectionUtil;
 import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.largedata.util.EngineDataGenerator;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DeleteDeploymentCascadeTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   protected static final String DATA_PREFIX = DeleteDeploymentCascadeTest.class.getSimpleName();
@@ -46,7 +46,7 @@ public class DeleteDeploymentCascadeTest {
   protected HistoryService historyService;
   protected EngineDataGenerator generator;
   
-  @Before
+  @BeforeEach
   public void init() {
     repositoryService = processEngineRule.getProcessEngine().getRepositoryService();
     historyService = processEngineRule.getProcessEngine().getHistoryService();
@@ -57,7 +57,7 @@ public class DeleteDeploymentCascadeTest {
     generator.generateCompletedProcessInstanceData();
   }
 
-  @After
+  @AfterEach
   public void teardown() {
     Deployment deployment = repositoryService.createDeploymentQuery().deploymentName(generator.getDeploymentName()).singleResult();
     if (deployment != null) {

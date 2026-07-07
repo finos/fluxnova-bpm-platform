@@ -17,8 +17,8 @@
 package org.finos.fluxnova.impl.test.utils.testcontainers;
 
 import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.MySQLContainerProvider;
+import org.testcontainers.mysql.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class FluxnovaMySqlContainerProvider extends MySQLContainerProvider {

@@ -19,23 +19,24 @@ package org.finos.fluxnova.bpm.engine.cdi.test.api.annotation;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
 
 /**
  * 
  * @author Daniel Meyer
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ProcessIdTest extends CdiProcessEngineTestCase {
 
   @Test
   @Deployment
   public void testProcessIdInjectable() {
     getBeanInstance(BusinessProcess.class).startProcessByKey("keyOfTheProcess");    
-    Assert.assertNotNull(getBeanInstance("processInstanceId"));
+    Assertions.assertNotNull(getBeanInstance("processInstanceId"));
   }
   
 }

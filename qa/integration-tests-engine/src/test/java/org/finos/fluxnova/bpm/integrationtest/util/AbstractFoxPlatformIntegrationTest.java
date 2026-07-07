@@ -34,8 +34,9 @@ import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Before;
 
 import java.util.List;
 import java.util.Timer;
@@ -85,7 +86,7 @@ public abstract class AbstractFoxPlatformIntegrationTest {
 
 
 
-  @Before
+  @BeforeEach
   public void setupBeforeTest() {
     processEngineService = BpmPlatform.getProcessEngineService();
     processEngine = processEngineService.getDefaultProcessEngine();

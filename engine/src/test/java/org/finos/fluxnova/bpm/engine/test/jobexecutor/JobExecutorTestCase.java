@@ -21,8 +21,9 @@ import java.util.Date;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.MessageEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TimerEntity;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Tom Baeyens
@@ -31,12 +32,12 @@ public class JobExecutorTestCase extends PluggableProcessEngineTest {
 
   protected TweetHandler tweetHandler = new TweetHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngineConfiguration.getJobHandlers().put(tweetHandler.getType(), tweetHandler);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     processEngineConfiguration.getJobHandlers().remove(tweetHandler.getType());
   }

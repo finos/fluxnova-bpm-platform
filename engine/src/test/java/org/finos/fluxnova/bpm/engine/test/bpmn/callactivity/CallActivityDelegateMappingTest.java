@@ -16,8 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.callactivity;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 
@@ -29,10 +28,9 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
@@ -43,8 +41,8 @@ public class CallActivityDelegateMappingTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   @Test
   @Deployment(resources = {
@@ -153,7 +151,7 @@ public class CallActivityDelegateMappingTest {
       engineRule.getTaskService().complete(taskBeforeSubProcess.getId());
       fail("Exeption expected!");
     } catch (ProcessEngineException pex) { //then
-      Assert.assertTrue(pex.getMessage().equalsIgnoreCase("org.finos.fluxnova.bpm.engine.ProcessEngineException: New process engine exception.")
+      assertTrue(pex.getMessage().equalsIgnoreCase("org.finos.fluxnova.bpm.engine.ProcessEngineException: New process engine exception.")
               || pex.getMessage().contains("1234"));
     }
 
@@ -222,7 +220,7 @@ public class CallActivityDelegateMappingTest {
       engineRule.getTaskService().complete(taskInSubProcess.getId());
       fail("Exeption expected!");
     } catch (ProcessEngineException pex) { //then
-      Assert.assertTrue(pex.getMessage().equalsIgnoreCase("org.finos.fluxnova.bpm.engine.ProcessEngineException: New process engine exception.")
+      assertTrue(pex.getMessage().equalsIgnoreCase("org.finos.fluxnova.bpm.engine.ProcessEngineException: New process engine exception.")
               || pex.getMessage().contains("1234"));
     }
 

@@ -18,9 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.concurrency;
 
 import static org.finos.fluxnova.bpm.engine.variable.Variables.createVariables;
 import static org.finos.fluxnova.bpm.model.bpmn.Bpmn.createExecutableProcess;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.OptimisticLockingException;
 import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.cache.CachedDbEntity;
@@ -28,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * thread1:
@@ -101,12 +100,12 @@ public class CompetingByteVariableAccessTest extends ConcurrencyTestCase {
       // fetch the variable instance but not the value (make sure the byte array is lazily fetched)
       VariableInstanceEntity varInstance = (VariableInstanceEntity) execution.getVariableInstanceLocal(varName);
       String byteArrayValueId = varInstance.getByteArrayValueId();
-      assertNotNull("Byte array id is expected to be not null", byteArrayValueId);
+      assertNotNull(byteArrayValueId, "Byte array id is expected to be not null");
 
       CachedDbEntity cachedByteArray = commandContext.getDbEntityManager().getDbEntityCache()
         .getCachedEntity(ByteArrayEntity.class, byteArrayValueId);
 
-      assertNull("Byte array is expected to be not fetched yet / lazily fetched.", cachedByteArray);
+      assertNull(cachedByteArray, "Byte array is expected to be not fetched yet / lazily fetched.");
 
       monitor.sync();
 

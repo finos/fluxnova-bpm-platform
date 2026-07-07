@@ -21,8 +21,9 @@ import org.finos.fluxnova.bpm.client.interceptor.ClientRequestInterceptor;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.client.configuration.RequestInterceptorConfiguration;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleClientConfiguration;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 

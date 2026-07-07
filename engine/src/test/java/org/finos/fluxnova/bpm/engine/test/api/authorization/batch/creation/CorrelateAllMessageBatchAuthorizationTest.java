@@ -24,8 +24,9 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Collection;
 
@@ -34,7 +35,6 @@ import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.Authoriz
 
 public class CorrelateAllMessageBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -63,8 +63,11 @@ public class CorrelateAllMessageBatchAuthorizationTest extends BatchCreationAuth
     );
   }
 
-  @Test
-  public void shouldAuthorizeSetVariablesBatch() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
+  public void shouldAuthorizeSetVariablesBatch(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     // given
     authRule
         .init(scenario)

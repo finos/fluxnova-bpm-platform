@@ -24,48 +24,46 @@ import org.finos.fluxnova.bpm.client.spring.boot.starter.ParsePropertiesHelper;
 import org.finos.fluxnova.bpm.client.spring.boot.starter.client.configuration.RequestInterceptorConfiguration;
 import org.finos.fluxnova.bpm.client.spring.boot.starter.client.configuration.SimpleSubscriptionConfiguration;
 import org.finos.fluxnova.bpm.client.spring.boot.starter.impl.ClientAutoConfiguration;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @TestPropertySource(properties = {
-    "fluxnova.bpm.client.basic-auth.username=my-username",
-    "fluxnova.bpm.client.basic-auth.password=my-password",
+  "fluxnova.bpm.client.basic-auth.username=my-username",
+  "fluxnova.bpm.client.basic-auth.password=my-password",
 })
-@ContextConfiguration(classes = {
-    ParsePropertiesHelper.TestConfig.class,
-    ClientAutoConfiguration.class,
-    SimpleSubscriptionConfiguration.class,
-    RequestInterceptorConfiguration.class
+@SpringJUnitConfig(classes = {
+  ParsePropertiesHelper.TestConfig.class,
+  ClientAutoConfiguration.class,
+  SimpleSubscriptionConfiguration.class,
+  RequestInterceptorConfiguration.class
 })
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class BasicAuthAndInterceptorConfigurationTest extends ParsePropertiesHelper {
 
   protected static ExternalTaskClientBuilder clientBuilder;
 
-  @Rule
-  public MockitoRule mockitoRule = MockitoJUnit.rule();
-
-  @BeforeClass
+  @BeforeAll
   public static void initMocks() {
     MockHelper.initMocks();
     clientBuilder = MockHelper.getClientBuilder();
   }
 
-  @AfterClass
+  @AfterAll
   public static void reset() {
     MockHelper.reset();
   }

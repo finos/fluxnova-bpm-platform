@@ -25,14 +25,14 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -48,10 +48,10 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
 
     // After process start, there should be timer created
     ProcessInstance pi1 = runtimeService.startProcessInstanceByKey("intermediateTimerEventExample", variables1);
-    Assert.assertEquals(1, managementService.createJobQuery().processInstanceId(pi1.getId()).count());
+    Assertions.assertEquals(1, managementService.createJobQuery().processInstanceId(pi1.getId()).count());
 
     List<Job> jobs = managementService.createJobQuery().executable().list();
-    Assert.assertEquals(1, jobs.size());
+    Assertions.assertEquals(1, jobs.size());
     runtimeService.deleteProcessInstance(pi1.getId(), "test");
     
     return jobs.get(0).getDuedate();
@@ -62,7 +62,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dt));
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(dueDate));
   }
 
   @Test
@@ -70,7 +70,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(dt));
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(dueDate));
   }
 
   @Test
@@ -78,7 +78,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy-MM-dd'T'HH").format(new Date()));
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy-MM-dd'T'HH").format(dt), new SimpleDateFormat("yyyy-MM-dd'T'HH").format(dueDate));
   }
 
   @Test
@@ -86,7 +86,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM-dd").format(dt), new SimpleDateFormat("yyyy-MM-dd").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy-MM-dd").format(dt), new SimpleDateFormat("yyyy-MM-dd").format(dueDate));
   }
 
   @Test
@@ -94,7 +94,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy-MM").format(new Date()));
-    Assert.assertEquals(new SimpleDateFormat("yyyy-MM").format(dt), new SimpleDateFormat("yyyy-MM").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy-MM").format(dt), new SimpleDateFormat("yyyy-MM").format(dueDate));
   }
 
   @Test
@@ -102,7 +102,7 @@ public class JodaTimeClassloadingTest extends AbstractFoxPlatformIntegrationTest
     Date dt = new Date();
 
     Date dueDate = testExpression(new SimpleDateFormat("yyyy").format(new Date()));
-    Assert.assertEquals(new SimpleDateFormat("yyyy").format(dt), new SimpleDateFormat("yyyy").format(dueDate));
+    Assertions.assertEquals(new SimpleDateFormat("yyyy").format(dt), new SimpleDateFormat("yyyy").format(dueDate));
   }
 
 }

@@ -18,12 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.identity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,10 +53,10 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
 import org.finos.fluxnova.commons.testing.WatchLogger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Frederik Heremans
@@ -73,21 +68,21 @@ public class IdentityServiceTest {
   private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
   private static final String INDENTITY_LOGGER = "org.finos.fluxnova.bpm.engine.identity";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule();
 
   protected IdentityService identityService;
   protected ProcessEngine processEngine;
 
-  @Before
+  @BeforeEach
   public void init() {
     identityService = engineRule.getIdentityService();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     for (User user : identityService.createUserQuery().list()) {
       identityService.deleteUser(user.getId());
@@ -263,7 +258,7 @@ public class IdentityServiceTest {
 
     // Fetch and update the user
     user = identityService.createUserQuery().userId("johndoe").singleResult();
-    assertTrue("byte arrays differ", Arrays.equals("niceface".getBytes(), picture.getBytes()));
+    assertTrue(Arrays.equals("niceface".getBytes(), picture.getBytes()), "byte arrays differ");
     assertEquals("image/string", picture.getMimeType());
 
     identityService.deleteUserPicture("johndoe");
@@ -924,7 +919,7 @@ public class IdentityServiceTest {
       identityService.saveUser(user);
       fail("Invalid user id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "User", invalidId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("User", invalidId), ex.getMessage());
     }
   }
 
@@ -938,7 +933,7 @@ public class IdentityServiceTest {
 
       fail("Invalid user id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "User", invalidId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("User", invalidId), ex.getMessage());
     }
   }
 
@@ -950,7 +945,7 @@ public class IdentityServiceTest {
       identityService.saveGroup(group);
       fail("Invalid group id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Group", invalidId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Group", invalidId), ex.getMessage());
     }
   }
 
@@ -964,7 +959,7 @@ public class IdentityServiceTest {
 
       fail("Invalid group id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Group", invalidId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Group", invalidId), ex.getMessage());
     }
   }
 
@@ -998,7 +993,7 @@ public class IdentityServiceTest {
       identityService.saveUser(user);
       fail("Invalid user id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "User", invalidUserId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("User", invalidUserId), ex.getMessage());
     }
 
     Group johnsGroup = identityService.newGroup("johnsGroup");
@@ -1007,7 +1002,7 @@ public class IdentityServiceTest {
       identityService.saveGroup(johnsGroup);
       fail("Invalid group id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Group", invalidGroupId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Group", invalidGroupId), ex.getMessage());
     }
 
     Tenant tenant = identityService.newTenant(invalidTenantId);
@@ -1015,7 +1010,7 @@ public class IdentityServiceTest {
       identityService.saveTenant(tenant);
       fail("Invalid tenant id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Tenant", invalidTenantId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Tenant", invalidTenantId), ex.getMessage());
     }
   }
 
@@ -1038,7 +1033,7 @@ public class IdentityServiceTest {
       identityService.saveUser(user);
       fail("Invalid user id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "User", invalidUserId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("User", invalidUserId), ex.getMessage());
     }
 
     Group group = identityService.newGroup(invalidGroupId);
@@ -1048,7 +1043,7 @@ public class IdentityServiceTest {
       identityService.saveGroup(group);
       fail("Invalid group id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Group", invalidGroupId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Group", invalidGroupId), ex.getMessage());
     }
 
     Tenant tenant = identityService.newTenant(invalidTenantId);
@@ -1057,7 +1052,7 @@ public class IdentityServiceTest {
       identityService.saveTenant(tenant);
       fail("Invalid tenant id exception expected!");
     } catch (ProcessEngineException ex) {
-      assertEquals(String.format(INVALID_ID_MESSAGE, "Tenant", invalidTenantId), ex.getMessage());
+      assertEquals(INVALID_ID_MESSAGE.formatted("Tenant", invalidTenantId), ex.getMessage());
     }
   }
 

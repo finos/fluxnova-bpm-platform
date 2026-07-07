@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,13 +33,10 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Redeploy process definition and assert that no new job definitions were created.
@@ -49,10 +44,8 @@ import org.junit.runners.Parameterized.Parameters;
  * @author Philipp Ossler
  *
  */
-@RunWith(Parameterized.class)
 public class JobDefinitionRedeploymentTest {
 
-  @Parameters(name = "{index}: process definition = {0}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] { 
         { "org/finos/fluxnova/bpm/engine/test/jobexecutor/JobDefinitionDeploymentTest.testTimerStartEvent.bpmn20.xml" },
@@ -65,11 +58,9 @@ public class JobDefinitionRedeploymentTest {
         { "org/finos/fluxnova/bpm/engine/test/jobexecutor/JobDefinitionDeploymentTest.testAsyncContinuationOfActivityWrappedInMultiInstance.bpmn20.xml" }
     });
   }
-
-  @Parameter
   public String processDefinitionResource;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
   protected ManagementService managementService;
@@ -77,7 +68,7 @@ public class JobDefinitionRedeploymentTest {
   protected RuntimeService runtimeService;
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void initServices() {    
     managementService = rule.getManagementService();
     repositoryService = rule.getRepositoryService();
@@ -85,8 +76,11 @@ public class JobDefinitionRedeploymentTest {
     processEngineConfiguration = (ProcessEngineConfigurationImpl) rule.getProcessEngine().getProcessEngineConfiguration();
   }
 
-  @Test
-  public void testJobDefinitionsAfterRedeploment() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: process definition = {0}")
+  public void testJobDefinitionsAfterRedeploment(String processDefinitionResource) {
+
+    initJobDefinitionRedeploymentTest(processDefinitionResource);
 
     // initially there are no job definitions:
     assertEquals(0, managementService.createJobDefinitionQuery().count());
@@ -129,6 +123,10 @@ public class JobDefinitionRedeploymentTest {
       definitionIds.add(definition.getId());
     }
     return definitionIds;
+  }
+
+  public void initJobDefinitionRedeploymentTest(String processDefinitionResource) {
+    this.processDefinitionResource = processDefinitionResource;
   }
 
 }

@@ -24,7 +24,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.List;
@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Origin("7.15.0")
 public class SetProcessInstanceVariablesBatchTest {
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule engineRule = new UpgradeTestRule();
 
   private ManagementService managementService;

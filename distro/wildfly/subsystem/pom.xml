@@ -35,6 +35,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>${version.jakarta-servlet}</version>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.wildfly</groupId>
@@ -71,16 +77,14 @@
     </dependency>
 
     <dependency>
-      <groupId>org.wildfly.core</groupId>
-      <artifactId>wildfly-subsystem-test-framework</artifactId>
-      <version>${version.wildfly.core}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <!-- test dependencies -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.wildfly.core</groupId>
+      <artifactId>wildfly-subsystem-test-framework</artifactId>
+      <version>31.0.3.Final</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -104,6 +108,12 @@
             <include>**/*TestCase.java</include>
             <include>**/*Test.java</include>
           </includes>
+          <excludes>
+            <!-- Exclude tests that extend JUnit 4-based AbstractSubsystemTest/AbstractSubsystemBaseTest -->
+            <exclude>**/BpmPlatformSubsystemTest.java</exclude>
+            <exclude>**/BpmPlatformSubsystemWithExpressionsTest.java</exclude>
+            <exclude>**/JBossSubsystemXMLTest.java</exclude>
+          </excludes>
           <forkMode>once</forkMode>
         </configuration>
       </plugin>

@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.finos.fluxnova.bpm.engine.management.SchemaLogEntry;
 import org.finos.fluxnova.bpm.engine.test.util.TestconfigProperties;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Miklas Boskamp
@@ -34,10 +34,10 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
 
   protected String currentSchemaVersion;
   protected String dataBaseType;
-  private static final String FLUXNOVA_VERSION = "2.0.0";
+  private static final String FLUXNOVA_VERSION = "3.0.0";
 
   @Override
-  @Before
+  @BeforeEach
   public void init() {
     super.init();
 

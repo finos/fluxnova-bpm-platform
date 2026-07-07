@@ -16,10 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,16 +28,20 @@ import java.util.Set;
 import jakarta.servlet.Filter;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.LazyDelegateFilter.InitHook;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import org.springframework.context.ApplicationContext;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class LazyInitRegistrationTest {
 
   @Mock
@@ -51,7 +53,7 @@ public class LazyInitRegistrationTest {
   @Mock
   private InitHook<ResourceLoaderDependingFilter> initHookMock;
 
-  @Before
+  @BeforeEach
   public void init() {
     LazyInitRegistration.APPLICATION_CONTEXT = null;
     LazyInitRegistration.REGISTRATION.clear();
@@ -133,9 +135,10 @@ public class LazyInitRegistrationTest {
     assertFalse(LazyInitRegistration.getRegistrations().contains(lazyDelegateFilterMock));
   }
 
-  @Test(expected = UnsupportedOperationException.class)
+  @Test
   public void getRegistrationsTest() {
-    LazyInitRegistration.getRegistrations().add(lazyDelegateFilterMock);
+    assertThrows(UnsupportedOperationException.class, () ->
+      LazyInitRegistration.getRegistrations().add(lazyDelegateFilterMock));
   }
 
   @Test
@@ -145,9 +148,9 @@ public class LazyInitRegistrationTest {
       Set<LazyDelegateFilter<? extends Filter>> registrations = new HashSet<>();
       registrations.add(lazyDelegateFilterMock);
       theMock.when(() -> LazyInitRegistration.getRegistrations()).thenReturn(registrations);
-  
+
       new LazyInitRegistration().setApplicationContext(applicationContextMock);
-  
+
       assertEquals(LazyInitRegistration.APPLICATION_CONTEXT, applicationContextMock);
       theMock.verify(() -> LazyInitRegistration.lazyInit(lazyDelegateFilterMock));
     }

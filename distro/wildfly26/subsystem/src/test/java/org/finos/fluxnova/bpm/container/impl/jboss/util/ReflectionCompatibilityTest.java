@@ -18,9 +18,10 @@ package org.finos.fluxnova.bpm.container.impl.jboss.util;
 
 import org.finos.fluxnova.bpm.container.impl.jboss.extension.BpmPlatformExtension;
 import org.jboss.as.controller.SimpleMapAttributeDefinition;
+
+import org.junit.jupiter.api.Test;
 import org.jboss.as.controller.descriptions.StandardResourceDescriptionResolver;
 import org.jboss.dmr.ModelNode;
-import org.junit.Test;
 
 import java.util.ResourceBundle;
 

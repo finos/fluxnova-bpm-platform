@@ -15,16 +15,16 @@
  * limitations under the License.
  */
 package org.finos.fluxnova.bpm.engine.rest.standalone;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.ByteArrayEntity;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
@@ -34,22 +34,23 @@ import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstantiationBuilder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Tassilo Weidner
@@ -67,10 +68,10 @@ public abstract class AbstractEmptyBodyFilterTest extends AbstractRestServiceTes
   protected CloseableHttpClient client;
   protected RequestConfig reqConfig;
 
-  @Before
+  @BeforeEach
   public void setUpHttpClientAndRuntimeData() {
     client = HttpClients.createDefault();
-    reqConfig = RequestConfig.custom().setConnectTimeout(3 * 60 * 1000).setSocketTimeout(10 * 60 * 1000).build();
+    reqConfig = RequestConfig.custom().setConnectTimeout(3 * 60 * 1000, TimeUnit.MILLISECONDS).setResponseTimeout(10 * 60 * 1000, TimeUnit.MILLISECONDS).build();
 
     ProcessDefinition mockDefinition = MockProvider.createMockDefinition();
 
@@ -97,37 +98,37 @@ public abstract class AbstractEmptyBodyFilterTest extends AbstractRestServiceTes
     when(repositoryServiceMock.createProcessDefinitionQuery()).thenReturn(processDefinitionQueryMock);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws IOException {
     client.close();
   }
 
   @Test
-  public void testBodyIsEmpty() throws IOException {
-    evaluatePostRequest(new ByteArrayEntity("".getBytes("UTF-8")), ContentType.create(MediaType.APPLICATION_JSON).toString(), 200, true);
+  public void testBodyIsEmpty() throws IOException, ParseException {
+    evaluatePostRequest(new ByteArrayEntity("".getBytes("UTF-8"), ContentType.create(MediaType.APPLICATION_JSON)), ContentType.create(MediaType.APPLICATION_JSON).toString(), 200, true);
   }
 
   @Test
-  public void testBodyIsNull() throws IOException {
+  public void testBodyIsNull() throws IOException, ParseException {
     evaluatePostRequest(null, ContentType.create(MediaType.APPLICATION_JSON).toString(), 200, true);
   }
 
   @Test
-  public void testBodyIsNullAndContentTypeIsNull() throws IOException {
+  public void testBodyIsNullAndContentTypeIsNull() throws IOException, ParseException {
     evaluatePostRequest(null, null, 415, false);
   }
 
   @Test
-  public void testBodyIsNullAndContentTypeHasISOCharset() throws IOException {
+  public void testBodyIsNullAndContentTypeHasISOCharset() throws IOException, ParseException {
     evaluatePostRequest(null, ContentType.create(MediaType.APPLICATION_JSON, "iso-8859-1").toString(), 200, true);
   }
 
   @Test
-  public void testBodyIsEmptyJSONObject() throws IOException {
-    evaluatePostRequest(new ByteArrayEntity(EMPTY_JSON_OBJECT.getBytes("UTF-8")), ContentType.create(MediaType.APPLICATION_JSON).toString(), 200, true);
+  public void testBodyIsEmptyJSONObject() throws IOException, ParseException {
+    evaluatePostRequest(new ByteArrayEntity(EMPTY_JSON_OBJECT.getBytes("UTF-8"), ContentType.create(MediaType.APPLICATION_JSON)), ContentType.create(MediaType.APPLICATION_JSON).toString(), 200, true);
   }
 
-  private void evaluatePostRequest(HttpEntity reqBody, String reqContentType, int expectedStatusCode, boolean assertResponseBody) throws IOException {
+  private void evaluatePostRequest(HttpEntity reqBody, String reqContentType, int expectedStatusCode, boolean assertResponseBody) throws IOException, ParseException {
     HttpPost post = new HttpPost("http://localhost:" + PORT + START_PROCESS_INSTANCE_BY_KEY_URL);
     post.setConfig(reqConfig);
 
@@ -139,7 +140,7 @@ public abstract class AbstractEmptyBodyFilterTest extends AbstractRestServiceTes
 
     CloseableHttpResponse response = client.execute(post);
 
-    assertEquals(expectedStatusCode, response.getStatusLine().getStatusCode());
+    assertEquals(expectedStatusCode, response.getCode());
 
     if(assertResponseBody) {
       assertThat(EntityUtils.toString(response.getEntity(), "UTF-8"), containsString(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID));

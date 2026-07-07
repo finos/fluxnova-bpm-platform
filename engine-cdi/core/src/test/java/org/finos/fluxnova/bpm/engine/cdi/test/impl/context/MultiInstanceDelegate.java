@@ -19,11 +19,12 @@ package org.finos.fluxnova.bpm.engine.cdi.test.impl.context;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
-import org.junit.Assert;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.Dependent;
+
+import org.junit.jupiter.api.Assertions;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @Named
 @Dependent
@@ -34,7 +35,7 @@ public class MultiInstanceDelegate implements JavaDelegate {
 
   @Override
   public void execute(DelegateExecution delegateExecution) {
-    Assert.assertNotNull("local variable should be set", businessProcess.getVariable("localVar"));
+    Assertions.assertNotNull(businessProcess.getVariable("localVar"), "local variable should be set");
   }
 
 }

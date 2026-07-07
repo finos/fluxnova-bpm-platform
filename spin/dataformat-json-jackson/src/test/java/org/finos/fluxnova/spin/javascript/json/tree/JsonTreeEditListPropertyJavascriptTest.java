@@ -18,8 +18,8 @@ package org.finos.fluxnova.spin.javascript.json.tree;
 
 import org.finos.fluxnova.spin.impl.test.ScriptEngine;
 import org.finos.fluxnova.spin.json.tree.JsonTreeEditListPropertyScriptTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel
@@ -29,22 +29,22 @@ import org.junit.Test;
 public class JsonTreeEditListPropertyJavascriptTest extends JsonTreeEditListPropertyScriptTest {
 
   @Test
-  @Ignore
+  @Disabled
   public void shouldFailInsertAtWithWrongObject() throws Throwable {
   }
 
   @Test
-  @Ignore
+  @Disabled
   public void shouldFailInsertWrongObjectAfterSearchObject() throws Throwable {
   }
 
   @Test
-  @Ignore
+  @Disabled
   public void shouldFailAppendWrongNode() throws Throwable {
   }
 
   @Test
-  @Ignore
+  @Disabled
   public void shouldFailInsertWrongObjectBeforeSearchObject() throws Throwable {
   }
 }

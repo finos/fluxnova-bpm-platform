@@ -34,27 +34,27 @@ import org.finos.fluxnova.bpm.engine.impl.scripting.engine.DefaultScriptEngineRe
 import org.finos.fluxnova.bpm.engine.impl.scripting.engine.ScriptingEngines;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ScriptEngineNameJavaScriptTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
 
   protected String defaultJsSciptEngineName;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     defaultJsSciptEngineName = processEngineConfiguration.getScriptEngineNameJavaScript();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.setScriptEngineNameJavaScript(defaultJsSciptEngineName);
   }

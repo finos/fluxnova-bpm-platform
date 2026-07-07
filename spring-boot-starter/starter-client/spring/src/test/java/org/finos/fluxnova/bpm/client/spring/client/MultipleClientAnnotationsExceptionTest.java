@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.client.spring.client;
 import org.finos.fluxnova.bpm.client.spring.client.configuration.AnotherSimpleClientConfiguration;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleClientConfiguration;
 import org.finos.fluxnova.bpm.client.spring.exception.SpringExternalTaskClientException;
-import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

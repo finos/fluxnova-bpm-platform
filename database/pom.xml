@@ -28,7 +28,7 @@
     <version.liquibase>4.8.0</version.liquibase>
 
     <!-- needed for sql script and backward compatibility checks -->
-    <fluxnova.version.old>1.0.0</fluxnova.version.old>
+    <fluxnova.version.old>2.0.0</fluxnova.version.old>
 
     <!-- Testcontainers JDBC URL parameters. By default, an empty string -->
     <database.tc.params />
@@ -377,17 +377,6 @@
 
     <profile>
       <id>testcontainers</id>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>com.fasterxml.jackson</groupId>
-            <artifactId>jackson-bom</artifactId>
-            <version>${version.jackson}</version>
-            <scope>import</scope>
-            <type>pom</type>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
       <dependencies>
         <!-- Testcontainers depends on docker-java which depends on jackson-annotations -->
         <dependency>

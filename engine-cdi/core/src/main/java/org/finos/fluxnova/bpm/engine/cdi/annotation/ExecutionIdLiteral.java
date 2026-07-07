@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.annotation;
 
-import javax.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.AnnotationLiteral;
 
 /**
  * @author Daniel Meyer

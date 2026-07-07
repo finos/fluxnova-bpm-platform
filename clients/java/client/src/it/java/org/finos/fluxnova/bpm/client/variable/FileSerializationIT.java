@@ -24,6 +24,7 @@ import static org.finos.fluxnova.bpm.client.util.ProcessModels.TWO_EXTERNAL_TASK
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.USER_TASK_ID;
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.createProcessWithExclusiveGateway;
 import static org.finos.fluxnova.bpm.engine.variable.type.ValueType.FILE;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -41,6 +42,7 @@ import org.finos.fluxnova.bpm.client.dto.VariableInstanceDto;
 import org.finos.fluxnova.bpm.client.exception.ValueMapperException;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskService;
 import org.finos.fluxnova.bpm.client.util.RecordingExternalTaskHandler;
@@ -54,11 +56,9 @@ import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 public class FileSerializationIT {
 
@@ -80,10 +80,9 @@ public class FileSerializationIT {
 
   protected ClientRule clientRule = new ClientRule();
   protected EngineRule engineRule = new EngineRule();
-  protected ExpectedException thrown = ExpectedException.none();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule).around(thrown);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
@@ -92,7 +91,7 @@ public class FileSerializationIT {
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
   protected RecordingInvocationHandler invocationHandler = new RecordingInvocationHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
     processDefinition = engineRule.deploy(TWO_EXTERNAL_TASK_PROCESS).get(0);
@@ -574,28 +573,27 @@ public class FileSerializationIT {
       .handler(handler)
       .open();
 
-    // then
-    thrown.expect(ValueMapperException.class);
+    // when & then
+    assertThrows(ValueMapperException.class, () -> {
+      Map<String, Object> variables = new HashMap<>();
+      DeferredFileValue deferredFileValue = fooTask.getVariableTyped(VARIABLE_NAME_FILE);
+      variables.put("deferredFile", deferredFileValue);
+      variables.put(ANOTHER_VARIABLE_NAME_FILE, ANOTHER_VARIABLE_VALUE_FILE);
+      fooService.complete(fooTask, variables);
 
-    // when
-    Map<String, Object> variables = new HashMap<>();
-    DeferredFileValue deferredFileValue = fooTask.getVariableTyped(VARIABLE_NAME_FILE);
-    variables.put("deferredFile", deferredFileValue);
-    variables.put(ANOTHER_VARIABLE_NAME_FILE, ANOTHER_VARIABLE_VALUE_FILE);
-    fooService.complete(fooTask, variables);
+      clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
 
-    clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
+      // then
+      List<VariableInstanceDto> variableInstances = engineRule.getVariablesByProcessInstanceIdAndVariableName(processInstance.getId(), null);
+      assertThat(variableInstances.size()).isEqualTo(2);
 
-    // then
-    List<VariableInstanceDto> variableInstances = engineRule.getVariablesByProcessInstanceIdAndVariableName(processInstance.getId(), null);
-    assertThat(variableInstances.size()).isEqualTo(2);
+      List<String> variableNames = new ArrayList<>();
+      for (VariableInstanceDto variableInstance : variableInstances) {
+        variableNames.add(variableInstance.getName());
+      }
 
-    List<String> variableNames = new ArrayList<>();
-    for (VariableInstanceDto variableInstance : variableInstances) {
-      variableNames.add(variableInstance.getName());
-    }
-
-    assertThat(variableNames).containsExactlyInAnyOrder(VARIABLE_NAME_FILE, ANOTHER_VARIABLE_NAME_FILE); // contains not "deferredFile"
+      assertThat(variableNames).containsExactlyInAnyOrder(VARIABLE_NAME_FILE, ANOTHER_VARIABLE_NAME_FILE); // contains not "deferredFile"
+    });
   }
 
   @Test

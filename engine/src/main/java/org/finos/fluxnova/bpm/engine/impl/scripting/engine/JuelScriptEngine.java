@@ -197,11 +197,11 @@ public class JuelScriptEngine extends AbstractScriptEngine {
 
   public static void importFunctions(ScriptContext ctx, String namespace, Object obj) {
     Class< ? > clazz = null;
-    if (obj instanceof Class) {
-      clazz = (Class< ? >) obj;
-    } else if (obj instanceof String) {
+    if (obj instanceof Class< ? > class1) {
+      clazz = class1;
+    } else if (obj instanceof String string) {
       try {
-        clazz = ReflectUtil.loadClass((String) obj);
+        clazz = ReflectUtil.loadClass(string);
       } catch (ProcessEngineException ae) {
         throw new ELException(ae);
       }
@@ -303,7 +303,7 @@ public class JuelScriptEngine extends AbstractScriptEngine {
       if (scope != -1) {
         // Methods are added as variables in the ScriptScope
         Object attributeValue = scriptContext.getAttribute(functionName);
-        return (attributeValue instanceof Method) ? (Method) attributeValue : null;
+        return (attributeValue instanceof Method m) ? m : null;
       } else {
         return null;
       }

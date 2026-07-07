@@ -16,14 +16,15 @@
  */
 package org.finos.fluxnova.bpm.run.qa.webapps;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import kong.unirest.ObjectMapper;
 import kong.unirest.Unirest;
 import org.finos.fluxnova.bpm.TestProperties;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.openqa.selenium.chrome.ChromeDriverService;
+import tools.jackson.core.JacksonException;
 
 import java.util.logging.Logger;
 
@@ -47,15 +48,15 @@ public abstract class AbstractWebIT {
 
   public String httpPort;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpClass() {
     Unirest.config().reset().enableCookieManagement(false).setObjectMapper(new ObjectMapper() {
-      final com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+      final tools.jackson.databind.ObjectMapper mapper = new tools.jackson.databind.ObjectMapper();
 
       public String writeValue(Object value) {
         try {
           return mapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
           throw new RuntimeException(e);
         }
       }
@@ -63,14 +64,14 @@ public abstract class AbstractWebIT {
       public <T> T readValue(String value, Class<T> valueType) {
         try {
           return mapper.readValue(value, valueType);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
           throw new RuntimeException(e);
         }
       }
     });
   }
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     testProperties = new TestProperties(48080);
   }

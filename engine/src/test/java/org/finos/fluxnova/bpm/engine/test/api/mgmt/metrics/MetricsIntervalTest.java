@@ -16,12 +16,9 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt.metrics;
 
-import static junit.framework.TestCase.assertEquals;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.management.Metrics.ACTIVTY_INSTANCE_START;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -33,8 +30,8 @@ import org.finos.fluxnova.bpm.engine.management.MetricIntervalValue;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 import org.finos.fluxnova.bpm.engine.management.MetricsQuery;
 import org.joda.time.DateTime;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -438,14 +435,14 @@ public class MetricsIntervalTest extends AbstractMetricsIntervalTest {
     //on query with name
      metrics = managementService.createMetricsQuery().name(ACTIVTY_INSTANCE_START).limit(1).interval();
     long newValue = metrics.get(0).getValue();
-    Assert.assertTrue(value + 3 == newValue);
+    assertTrue(value + 3 == newValue);
 
     //on query without name also
      metrics = managementService.createMetricsQuery().interval();
      for (MetricIntervalValue intervalValue : metrics) {
        if (intervalValue.getName().equalsIgnoreCase(ACTIVTY_INSTANCE_START)) {
         newValue = intervalValue.getValue();
-        Assert.assertTrue(value + 3 == newValue);
+        assertTrue(value + 3 == newValue);
         break;
        }
      }

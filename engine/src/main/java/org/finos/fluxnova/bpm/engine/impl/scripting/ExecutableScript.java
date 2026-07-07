@@ -74,11 +74,10 @@ public abstract class ExecutableScript {
     String activityId = null;
     String definitionIdMessage = "";
 
-    if (variableScope instanceof DelegateExecution) {
-      activityId = ((DelegateExecution) variableScope).getCurrentActivityId();
-      definitionIdMessage = " in the process definition with id '" + ((DelegateExecution) variableScope).getProcessDefinitionId() + "'";
-    } else if (variableScope instanceof TaskEntity) {
-      TaskEntity task = (TaskEntity) variableScope;
+    if (variableScope instanceof DelegateExecution execution1) {
+      activityId = execution1.getCurrentActivityId();
+      definitionIdMessage = " in the process definition with id '" + execution1.getProcessDefinitionId() + "'";
+    } else if (variableScope instanceof TaskEntity task) {
       if (task.getExecution() != null) {
         activityId = task.getExecution().getActivityId();
         definitionIdMessage = " in the process definition with id '" + task.getProcessDefinitionId() + "'";
@@ -87,9 +86,9 @@ public abstract class ExecutableScript {
         activityId = task.getCaseExecution().getActivityId();
         definitionIdMessage = " in the case definition with id '" + task.getCaseDefinitionId() + "'";
       }
-    } else if (variableScope instanceof DelegateCaseExecution) {
-      activityId = ((DelegateCaseExecution) variableScope).getActivityId();
-      definitionIdMessage = " in the case definition with id '" + ((DelegateCaseExecution) variableScope).getCaseDefinitionId() + "'";
+    } else if (variableScope instanceof DelegateCaseExecution execution) {
+      activityId = execution.getActivityId();
+      definitionIdMessage = " in the case definition with id '" + execution.getCaseDefinitionId() + "'";
     }
 
     if (activityId == null) {

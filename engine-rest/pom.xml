@@ -14,11 +14,11 @@
   <name>Fluxnova Platform - engine - REST - Root</name>
 
   <properties>
-    <version.rest-assured>4.5.0</version.rest-assured>
+    <version.rest-assured>6.0.0</version.rest-assured>
     <!-- override groovy version with the one used by rest-assured -->
     <version.groovy>3.0.9</version.groovy>
     <version.apache.httpcore>4.4.5</version.apache.httpcore>
-    <version.commons-codec>1.15</version.commons-codec>
+    <version.commons-codec>1.17.2</version.commons-codec>
   </properties>
 
   <dependencyManagement>
@@ -40,9 +40,9 @@
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>com.sun.xml.bind</groupId>
-        <artifactId>jaxb-impl</artifactId>
-        <version>${version.xml.jaxb-impl}</version>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>${version.jaxb-runtime}</version>
       </dependency>
       <dependency>
         <groupId>io.rest-assured</groupId>
@@ -50,7 +50,7 @@
         <version>${version.rest-assured}</version>
       </dependency>
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${version.jackson}</version>
         <scope>import</scope>

@@ -26,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.exception.NullValueException;
 import org.finos.fluxnova.bpm.engine.impl.history.handler.CompositeDbHistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Alexander Tyatenkov

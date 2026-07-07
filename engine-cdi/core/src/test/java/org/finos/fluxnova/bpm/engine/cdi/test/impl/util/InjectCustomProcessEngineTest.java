@@ -23,20 +23,24 @@ import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.InjectedProcessEngineBean;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.*;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
 
   protected ProcessEngine defaultProcessEngine = null;
   protected ProcessEngine processEngine = null;
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngine = TestHelper.getProcessEngine("org/finos/fluxnova/bpm/engine/cdi/test/impl/util/camunda.cfg.xml");
     defaultProcessEngine = BpmPlatform.getProcessEngineService().getDefaultProcessEngine();
@@ -48,7 +52,7 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
     RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(processEngine);
   }
 
-  @After
+  @AfterEach
   public void tearDownCdiProcessEngineTestCase() {
     RuntimeContainerDelegate.INSTANCE.get().unregisterProcessEngine(processEngine);
 
@@ -57,15 +61,17 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
     }
   }
 
+
   @Test
   public void testProcessEngineInject() {
     //given only custom engine exist
-
+    init();
     //when TestClass is created
     InjectedProcessEngineBean testClass = ProgrammaticBeanLookup.lookup(InjectedProcessEngineBean.class);
-    Assert.assertNotNull(testClass);
+    Assertions.assertNotNull(testClass);
 
     //then custom engine is injected
-    Assert.assertEquals("myCustomEngine", testClass.processEngine.getName());
+    Assertions.assertEquals("myCustomEngine", testClass.processEngine.getName());
+    tearDownCdiProcessEngineTestCase();
   }
 }

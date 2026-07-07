@@ -30,7 +30,7 @@
   });
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
-  @Rule
+  @RegisterExtension
   public RuleChain ruleChain = RuleChain.outerRule(bootstrapRule).around(engineRule);
   ```
   
