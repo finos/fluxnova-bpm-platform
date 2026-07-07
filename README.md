@@ -52,6 +52,13 @@ Out of the box, Fluxnova provides infrastructure-level integration with Java EE 
 
 Most of the components that make up the platform can even be completely embedded inside an application. For instance, you can add the process engine and the REST API as a library to your application and assemble your custom BPM platform configuration.
 
+## Docker Images
+
+| Event | Registry | Image tag |
+|---|---|---|
+| Merge to `main` | [GHCR](https://ghcr.io) (`ghcr.io/finos/fluxnova-bpm-platform`) | `<run>-<sha>` e.g. `127-a3f9c21` |
+| Release (`release/x.y.z`) | [Docker Hub](https://hub.docker.com/r/finos/fluxnova-bpm-platform) (`finos/fluxnova-bpm-platform`) | `x.y.z` + `latest` |
+
 ## Contributing
 
 Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.

@@ -6,7 +6,7 @@
 #   - hotfix/* branches: minor version increment (e.g., 1.2.3-SNAPSHOT to 1.3.0-SNAPSHOT)
 # Adjust version computation logic if patch releases are desired instead of minor bumps (e.g., 1.2.3-SNAPSHOT to 1.3.0-SNAPSHOT).
 
-name: "Release and publish artifacts to Maven Central and creates docker image in GHCR"
+name: "Release and publish artifacts to Maven Central and creates docker image in Docker Hub"
 
 env:
   CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
@@ -130,7 +130,10 @@ jobs:
       - name: Build distro ZIP only
         run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
 
-      - name: Build and publish Docker image
-        uses: ./.github/actions/build-publish-image
-        with:
-          version: ${{ env.RELEASE_VERSION }}
+  notify-external-repos:
+    name: Notify fluxnova-examples of new release
+    needs: publish-central
+    uses: ./.github/workflows/trigger-version-update.yml
+    with:
+      version: ${{ needs.publish-central.outputs.release_version }}
+    secrets: inherit

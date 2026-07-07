@@ -33,6 +33,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    outputs:
+      image_version: ${{ steps.version.outputs.image_version }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -55,6 +57,27 @@ jobs:
         uses: ./.github/actions/build-deploy
         with:
           branch: ${{ github.ref_name }}
+
+      - name: Compute image version
+        id: version
+        shell: bash
+        run: |
+          SHORT_SHA="${GITHUB_SHA:0:7}"
+          echo "image_version=${{ github.run_number }}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+
+  docker:
+    name: Build and Publish Docker Image to GHCR
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build and publish Docker image
+        uses: ./.github/actions/build-publish-image-ghcr
+        with:
+          version: ${{ needs.build.outputs.image_version }}
 
   unit-test:
     name: Unit Tests
