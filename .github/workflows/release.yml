@@ -110,7 +110,7 @@ jobs:
 
       - name: Prepare release
         run: |
-          mvn -B \
+          echo mvn -B \
             -DpreparationGoals=clean \
             release:prepare \
             -DreleaseVersion=${{ env.RELEASE_VERSION }} \
@@ -133,7 +133,7 @@ jobs:
         run: echo "RELEASE_VERSION=${{ env.RELEASE_VERSION }}"
 
       - name: Build distro ZIP only
-        run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
+        run: echo mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
 
 #      - name: Build and publish Docker image
 #        uses: ./.github/actions/build-publish-image
