@@ -25,12 +25,11 @@ import org.finos.fluxnova.bpm.engine.impl.history.handler.CompositeDbHistoryEven
 import org.finos.fluxnova.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.fluxnova.bpm.spring.boot.starter.event.PublishHistoryEventHandler;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import org.junit.jupiter.api.Test;
+
+import org.springframework.boot.test.context.SpringBootTest;
+
 @SpringBootTest(classes = { TestApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomHistoryEventHandlersIT extends AbstractFluxnovaAutoConfigurationIT {
 

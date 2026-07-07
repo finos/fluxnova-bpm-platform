@@ -12,6 +12,7 @@ import org.finos.fluxnova.bpm.engine.impl.core.variable.CoreVariableInstance;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationManager;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -57,7 +58,9 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
     if (restricted
         && hasNoEffectiveChange(variableInstance, newValue)
         && isAuthorized(VariablePermissions.READ_RESTRICTED)) {
-      return newValue;
+      // Preserve the restricted flag: a resubmit that lost the metadata (e.g. a task form echoing
+      // the value back as a plain value) must not silently un-restrict the variable.
+      return Variables.untypedValue(newValue, newValue.isTransient(), true);
     }
 
     checkAuthorization(VariablePermissions.UPDATE_RESTRICTED, restricted);

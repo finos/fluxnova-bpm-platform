@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,18 +40,15 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenarioWithCount;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizationTest {
 
   protected static final String DEFINITION_XML = "org/finos/fluxnova/bpm/engine/test/api/mgmt/ManagementServiceTest.testGetJobExceptionStacktrace.bpmn20.xml";
@@ -74,14 +71,12 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     return result;
   }
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenarioWithCount scenario;
 
   @Override
-  @Before
+  @BeforeEach
   public void deployProcesses() {
     Deployment deploy = testHelper.deploy(DEFINITION_XML);
     sourceDefinition = engineRule.getRepositoryService()
@@ -91,7 +86,6 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
   }
 
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         AuthorizationScenarioWithCount.scenario()
@@ -129,8 +123,10 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     );
   }
 
-  @Test
-  public void testWithTwoInvocationsJobsListBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsJobsListBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteJobsListBasedTest();
 
@@ -140,8 +136,10 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     assertRetries(getAllJobIds(), Long.valueOf(getScenario().getCount()).intValue());
   }
 
-  @Test
-  public void testWithTwoInvocationsJobsQueryBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsJobsQueryBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteJobsQueryBasedTest();
 
@@ -151,22 +149,28 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     assertRetries(getAllJobIds(), Long.valueOf(getScenario().getCount()).intValue());
   }
 
-  @Test
-  public void testJobsListBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testJobsListBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     setupAndExecuteJobsListBasedTest();
     // then
     assertScenario();
   }
 
-  @Test
-  public void testJobsListQueryBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testJobsListQueryBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     setupAndExecuteJobsQueryBasedTest();
     // then
     assertScenario();
   }
 
-  @Test
-  public void testWithTwoInvocationsProcessListBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsProcessListBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteProcessListBasedTest();
 
@@ -176,8 +180,10 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     assertRetries(getAllJobIds(), Long.valueOf(getScenario().getCount()).intValue());
   }
 
-  @Test
-  public void testWithTwoInvocationsProcessQueryBased() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsProcessQueryBased(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteJobsQueryBasedTest();
 
@@ -205,8 +211,10 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
     executeSeedAndBatchJobs();
   }
 
-  @Test
-  public void testProcessList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testProcessList(AuthorizationScenarioWithCount scenario) {
+    initSetJobRetriesBatchAuthorizationTest(scenario);
     setupAndExecuteProcessListBasedTest();
     // then
     assertScenario();
@@ -267,5 +275,9 @@ public class SetJobRetriesBatchAuthorizationTest extends AbstractBatchAuthorizat
       }
       assertRetries(getAllJobIds(), 5);
     }
+  }
+
+  public void initSetJobRetriesBatchAuthorizationTest(AuthorizationScenarioWithCount scenario) {
+    this.scenario = scenario;
   }
 }

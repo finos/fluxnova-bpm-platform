@@ -20,12 +20,7 @@ import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPER
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_ACTIVITY_TYPE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_REPETITION_RULE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_REQUIRED_RULE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.impl.cmmn.CaseControlRule;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.behavior.CmmnActivityBehavior;
@@ -49,8 +44,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItemControl;
 import org.finos.fluxnova.bpm.model.cmmn.instance.RepetitionRule;
 import org.finos.fluxnova.bpm.model.cmmn.instance.RequiredRule;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -62,7 +57,7 @@ public class MilestonePlanItemHandlerTest extends CmmnElementHandlerTest {
   protected PlanItem planItem;
   protected MilestoneItemHandler handler = new MilestoneItemHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     milestone = createElement(casePlanModel, "aMilestone", Milestone.class);
 

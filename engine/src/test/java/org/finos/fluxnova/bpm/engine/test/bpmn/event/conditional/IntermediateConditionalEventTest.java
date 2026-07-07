@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.conditional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Map;
 
@@ -33,7 +29,9 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -46,6 +44,7 @@ public class IntermediateConditionalEventTest extends AbstractConditionalEventTe
   protected static final String TASK_BEFORE_SERVICE_TASK_ID = "taskBeforeServiceTask";
   protected static final String TASK_BEFORE_EVENT_BASED_GW_ID = "taskBeforeEGW";
 
+  @AfterEach
   @Override
   public void checkIfProcessCanBeFinished() {
     //override since check is not needed in intermediate test suite

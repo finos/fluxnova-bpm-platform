@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.impl.juel;
 import jakarta.el.ELException;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -31,11 +32,11 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return Boolean.FALSE;
     }
-    if (value instanceof Boolean) {
-      return (Boolean) value;
+    if (value instanceof Boolean boolean1) {
+      return boolean1;
     }
-    if (value instanceof String) {
-      return Boolean.valueOf((String) value);
+    if (value instanceof String string) {
+      return Boolean.valueOf(string);
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Boolean.class));
   }
@@ -44,14 +45,14 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return (char) 0;
     }
-    if (value instanceof Character) {
-      return (Character) value;
+    if (value instanceof Character character) {
+      return character;
     }
-    if (value instanceof Number) {
-      return (char) ((Number) value).shortValue();
+    if (value instanceof Number number) {
+      return (char) number.shortValue();
     }
-    if (value instanceof String) {
-      return ((String) value).charAt(0);
+    if (value instanceof String string) {
+      return string.charAt(0);
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Character.class));
   }
@@ -60,24 +61,24 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return BigDecimal.valueOf(0l);
     }
-    if (value instanceof BigDecimal) {
-      return (BigDecimal) value;
+    if (value instanceof BigDecimal decimal) {
+      return decimal;
     }
-    if (value instanceof BigInteger) {
-      return new BigDecimal((BigInteger) value);
+    if (value instanceof BigInteger integer) {
+      return new BigDecimal(integer);
     }
-    if (value instanceof Number) {
-      return new BigDecimal(((Number) value).doubleValue());
+    if (value instanceof Number number) {
+      return new BigDecimal(number.doubleValue());
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return new BigDecimal((String) value);
+        return new BigDecimal(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, BigDecimal.class));
       }
     }
-    if (value instanceof Character) {
-      return new BigDecimal((short) ((Character) value).charValue());
+    if (value instanceof Character character) {
+      return new BigDecimal((short) character.charValue());
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), BigDecimal.class));
   }
@@ -86,24 +87,24 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return BigInteger.valueOf(0l);
     }
-    if (value instanceof BigInteger) {
-      return (BigInteger) value;
+    if (value instanceof BigInteger integer) {
+      return integer;
     }
-    if (value instanceof BigDecimal) {
-      return ((BigDecimal) value).toBigInteger();
+    if (value instanceof BigDecimal decimal) {
+      return decimal.toBigInteger();
     }
-    if (value instanceof Number) {
-      return BigInteger.valueOf(((Number) value).longValue());
+    if (value instanceof Number number) {
+      return BigInteger.valueOf(number.longValue());
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return new BigInteger((String) value);
+        return new BigInteger(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, BigInteger.class));
       }
     }
-    if (value instanceof Character) {
-      return BigInteger.valueOf((short) ((Character) value).charValue());
+    if (value instanceof Character character) {
+      return BigInteger.valueOf((short) character.charValue());
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), BigInteger.class));
   }
@@ -112,21 +113,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return (double) 0;
     }
-    if (value instanceof Double) {
-      return (Double) value;
+    if (value instanceof Double double1) {
+      return double1;
     }
-    if (value instanceof Number) {
-      return ((Number) value).doubleValue();
+    if (value instanceof Number number) {
+      return number.doubleValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Double.valueOf((String) value);
+        return Double.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Double.class));
       }
     }
-    if (value instanceof Character) {
-      return (double) (short) ((Character) value).charValue();
+    if (value instanceof Character character) {
+      return (double) (short) character.charValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Double.class));
   }
@@ -135,21 +136,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return (float) 0;
     }
-    if (value instanceof Float) {
-      return (Float) value;
+    if (value instanceof Float float1) {
+      return float1;
     }
-    if (value instanceof Number) {
-      return ((Number) value).floatValue();
+    if (value instanceof Number number) {
+      return number.floatValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Float.valueOf((String) value);
+        return Float.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Float.class));
       }
     }
-    if (value instanceof Character) {
-      return (float) (short) ((Character) value).charValue();
+    if (value instanceof Character character) {
+      return (float) (short) character.charValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Float.class));
   }
@@ -158,21 +159,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return 0l;
     }
-    if (value instanceof Long) {
-      return (Long) value;
+    if (value instanceof Long long1) {
+      return long1;
     }
-    if (value instanceof Number) {
-      return ((Number) value).longValue();
+    if (value instanceof Number number) {
+      return number.longValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Long.valueOf((String) value);
+        return Long.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Long.class));
       }
     }
-    if (value instanceof Character) {
-      return (long) (short) ((Character) value).charValue();
+    if (value instanceof Character character) {
+      return (long) (short) character.charValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Long.class));
   }
@@ -181,21 +182,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return 0;
     }
-    if (value instanceof Integer) {
-      return (Integer) value;
+    if (value instanceof Integer integer) {
+      return integer;
     }
-    if (value instanceof Number) {
-      return ((Number) value).intValue();
+    if (value instanceof Number number) {
+      return number.intValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Integer.valueOf((String) value);
+        return Integer.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Integer.class));
       }
     }
-    if (value instanceof Character) {
-      return (int) (short) ((Character) value).charValue();
+    if (value instanceof Character character) {
+      return (int) (short) character.charValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Integer.class));
   }
@@ -204,21 +205,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return (short) 0;
     }
-    if (value instanceof Short) {
-      return (Short) value;
+    if (value instanceof Short short1) {
+      return short1;
     }
-    if (value instanceof Number) {
-      return ((Number) value).shortValue();
+    if (value instanceof Number number) {
+      return number.shortValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Short.valueOf((String) value);
+        return Short.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Short.class));
       }
     }
-    if (value instanceof Character) {
-      return (short) ((Character) value).charValue();
+    if (value instanceof Character character) {
+      return (short) character.charValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Short.class));
   }
@@ -227,21 +228,21 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || "".equals(value)) {
       return (byte) 0;
     }
-    if (value instanceof Byte) {
-      return (Byte) value;
+    if (value instanceof Byte byte1) {
+      return byte1;
     }
-    if (value instanceof Number) {
-      return ((Number) value).byteValue();
+    if (value instanceof Number number) {
+      return number.byteValue();
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Byte.valueOf((String) value);
+        return Byte.valueOf(string);
       } catch (NumberFormatException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, Byte.class));
       }
     }
-    if (value instanceof Character) {
-      return Short.valueOf((short) ((Character) value).charValue()).byteValue();
+    if (value instanceof Character character) {
+      return Short.valueOf((short) character.charValue()).byteValue();
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), Byte.class));
   }
@@ -250,11 +251,11 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null) {
       return "";
     }
-    if (value instanceof String) {
-      return (String) value;
+    if (value instanceof String string) {
+      return string;
     }
-    if (value instanceof Enum<?>) {
-      return ((Enum<?>) value).name();
+    if (value instanceof Enum<?> enum1) {
+      return enum1.name();
     }
     return value.toString();
   }
@@ -267,9 +268,9 @@ public class TypeConverterImpl implements TypeConverter {
     if (type.isInstance(value)) {
       return (T) value;
     }
-    if (value instanceof String) {
+    if (value instanceof String string) {
       try {
-        return Enum.valueOf(type, (String) value);
+        return Enum.valueOf(type, string);
       } catch (IllegalArgumentException e) {
         throw new ELException(LocalMessages.get("error.coerce.value", value, type));
       }
@@ -343,8 +344,8 @@ public class TypeConverterImpl implements TypeConverter {
     if (value == null || value.getClass() == type || type.isInstance(value)) {
       return value;
     }
-    if (value instanceof String) {
-      return coerceStringToType((String) value, type);
+    if (value instanceof String string) {
+      return coerceStringToType(string, type);
     }
     throw new ELException(LocalMessages.get("error.coerce.type", value.getClass(), type));
   }

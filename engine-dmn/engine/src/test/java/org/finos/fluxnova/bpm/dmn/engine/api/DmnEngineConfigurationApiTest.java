@@ -28,14 +28,14 @@ import org.finos.fluxnova.bpm.dmn.engine.delegate.DmnDecisionEvaluationListener;
 import org.finos.fluxnova.bpm.dmn.engine.delegate.DmnDecisionTableEvaluationListener;
 import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.impl.metrics.DefaultEngineMetricCollector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DmnEngineConfigurationApiTest {
 
   protected DmnEngineConfiguration configuration;
 
-  @Before
+  @BeforeEach
   public void initConfiguration() {
     configuration = DmnEngineConfiguration.createDefaultDmnEngineConfiguration();
   }

@@ -22,7 +22,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEnginePerformanceTestCase;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.StartProcessInstanceStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Execute process definitions which contains a DMN business rule task.

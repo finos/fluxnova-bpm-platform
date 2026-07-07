@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.dto.history;
 
 import static java.lang.Boolean.TRUE;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.HistoricExternalTaskLogQuery;
 import org.finos.fluxnova.bpm.engine.rest.dto.AbstractQueryDto;
@@ -27,7 +27,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.LongConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringArrayConverter;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

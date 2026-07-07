@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.util;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import org.finos.fluxnova.bpm.engine.form.FluxnovaFormRef;
 

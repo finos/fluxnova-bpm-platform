@@ -30,8 +30,8 @@ import org.finos.fluxnova.bpm.model.bpmn.builder.CallActivityBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.instance.CallActivity;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaIn;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaOut;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Askar Akhmerov
@@ -43,7 +43,7 @@ public class MultiInstanceVariablesTest {
   public static final String PROCESS_ID = "process";
   public static final String CALL_ACTIVITY = "callActivity";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   @Test

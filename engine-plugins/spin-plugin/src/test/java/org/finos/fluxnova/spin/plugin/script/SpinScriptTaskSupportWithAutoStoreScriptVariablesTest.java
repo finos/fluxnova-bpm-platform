@@ -24,7 +24,14 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
+
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -38,14 +45,26 @@ public class SpinScriptTaskSupportWithAutoStoreScriptVariablesTest extends Plugg
 
   protected ProcessInstance processInstance;
 
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration.setAutoStoreScriptVariables(true);
   }
 
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.setAutoStoreScriptVariables(false);
+    // Clean up process instance if it exists
+    if (processInstance != null) {
+      try {
+        runtimeService.deleteProcessInstance(processInstance.getId(), "test cleanup");
+      } catch (Exception e) {
+        // Process may already be completed
+      }
+      processInstance = null;
+    }
   }
 
+  @Test
   public void testSpinInternalVariablesNotExportedGroovyScriptTask() {
     String importXML = "XML = org.finos.fluxnova.spin.Spin.&XML\n";
     String importJSON = "JSON = org.finos.fluxnova.spin.Spin.&JSON\n";
@@ -74,6 +93,7 @@ public class SpinScriptTaskSupportWithAutoStoreScriptVariablesTest extends Plugg
     checkVariables("foo", "var_s", "var_xml", "var_json");
   }
 
+  @Test
   public void testSpinInternalVariablesNotExportedByPythonScriptTask() {
     String importXML = "import org.finos.fluxnova.spin.Spin.XML as XML;\n";
     String importJSON = "import org.finos.fluxnova.spin.Spin.JSON as JSON;\n";
@@ -88,6 +108,7 @@ public class SpinScriptTaskSupportWithAutoStoreScriptVariablesTest extends Plugg
     checkVariables("foo", "var_s", "var_xml", "var_json");
   }
 
+  @Test
   public void testSpinInternalVariablesNotExportedByRubyScriptTask() {
     String importXML = "def XML(*args)\n\torg.finos.fluxnova.spin.Spin.XML(*args)\nend\n";
     String importJSON = "def JSON(*args)\n\torg.finos.fluxnova.spin.Spin.JSON(*args)\nend\n";

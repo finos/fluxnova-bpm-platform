@@ -66,6 +66,12 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${version.selenium}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -87,9 +93,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
+      <groupId>org.jboss.arquillian.junit5</groupId>
+      <artifactId>arquillian-junit5-container</artifactId>
       <scope>test</scope>
+      <version>1.10.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
@@ -97,24 +104,23 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.jboss.spec</groupId>
-      <artifactId>jboss-javaee-6.0</artifactId>
-      <type>pom</type>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>xalan</artifactId>
-          <groupId>org.apache.xalan</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.jboss.spec</groupId>-->
+<!--      <artifactId>jboss-javaee-6.0</artifactId>-->
+<!--      <type>pom</type>-->
+<!--      <scope>provided</scope>-->
+<!--      <exclusions>-->
+<!--        <exclusion>-->
+<!--          <artifactId>xalan</artifactId>-->
+<!--          <groupId>org.apache.xalan</groupId>-->
+<!--        </exclusion>-->
+<!--        &lt;!&ndash; exclude old javax.activation to use Jakarta activation instead &ndash;&gt;-->
+<!--        <exclusion>-->
+<!--          <groupId>javax.activation</groupId>-->
+<!--          <artifactId>activation</artifactId>-->
+<!--        </exclusion>-->
+<!--      </exclusions>-->
+<!--    </dependency>-->
     
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -160,7 +166,6 @@
       <artifactId>fluxnova-commons-logging</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm.example</groupId>
       <artifactId>fluxnova-example-invoice</artifactId>

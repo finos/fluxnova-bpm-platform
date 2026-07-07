@@ -19,11 +19,12 @@ package org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova;
 import java.util.Arrays;
 import java.util.Collection;
 import org.finos.fluxnova.bpm.model.bpmn.instance.BpmnModelElementInstanceTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.FLUXNOVA_NS;
 
 /**
  * @author Sebastian Menski
@@ -42,11 +43,11 @@ public class FluxnovaInputParameterTest extends BpmnModelElementInstanceTest {
     return Arrays.asList(
       new AttributeAssumption(CAMUNDA_NS, "name", false, true),
       new AttributeAssumption(CAMUNDA_NS, "isTransient", false, false, false),
-      new AttributeAssumption(CAMUNDA_NS, "restricted")
+      new AttributeAssumption(FLUXNOVA_NS, "restricted")
     );
   }
 
-  @Ignore("Test ignored. CAM-9441: Bug fix needed")
+  @Disabled("Test ignored. CAM-9441: Bug fix needed")
   @Test
   public void testIntputParameterScriptChildAssignment() {
     try {
@@ -63,7 +64,7 @@ public class FluxnovaInputParameterTest extends BpmnModelElementInstanceTest {
     }
   }
 
-  @Ignore("Test ignored. CAM-9441: Bug fix needed")
+  @Disabled("Test ignored. CAM-9441: Bug fix needed")
   @Test
   public void testInputParameterListChildAssignment() {
     try {
@@ -78,7 +79,7 @@ public class FluxnovaInputParameterTest extends BpmnModelElementInstanceTest {
     }
   }
 
-  @Ignore("Test ignored. CAM-9441: Bug fix needed")
+  @Disabled("Test ignored. CAM-9441: Bug fix needed")
   @Test
   public void testInputParameterMapChildAssignment() {
     try {

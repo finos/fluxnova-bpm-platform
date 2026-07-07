@@ -16,15 +16,16 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl.annotation;
 
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import jakarta.inject.Inject;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
@@ -63,8 +64,8 @@ public class StartProcessInterceptor implements Serializable {
       return result;
     } catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
-      if(cause != null && cause instanceof Exception) {
-        throw (Exception) cause;
+      if(cause != null && cause instanceof Exception exception) {
+        throw exception;
       } else {
         throw e;
       }

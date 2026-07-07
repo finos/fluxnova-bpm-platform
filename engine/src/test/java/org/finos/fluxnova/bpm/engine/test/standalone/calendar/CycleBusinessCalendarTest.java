@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.standalone.calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,12 +27,12 @@ import java.util.Date;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.calendar.CycleBusinessCalendar;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class CycleBusinessCalendarTest {
   
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.reset();
   }

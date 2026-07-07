@@ -22,15 +22,15 @@ import static org.springframework.test.util.ReflectionTestUtils.setField;
 
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DefaultMetricsConfigurationTest {
   private DefaultMetricsConfiguration defaultMetricsConfiguration = new DefaultMetricsConfiguration();
   private FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
   private SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     setField(defaultMetricsConfiguration, "camundaBpmProperties", camundaBpmProperties);
     defaultMetricsConfiguration.init();

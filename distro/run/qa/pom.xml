@@ -20,7 +20,6 @@
     <version.jersey-json>1.15</version.jersey-json>
     <version.jersey-apache-client>1.15</version.jersey-apache-client>
     <version.httpcomponents>5.3.1</version.httpcomponents>
-    <version.junit>4.13.1</version.junit>
     <version.chromedriver>141.0.7390.54</version.chromedriver>
     <host.chromedriver>https://storage.googleapis.com/chrome-for-testing-public</host.chromedriver>
   </properties>
@@ -40,15 +39,12 @@
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>4.10.0</version>
-      </dependency>
-
-      <!-- using 4.13 in order to have @BeforeParam/@AfterParam for parameterized 
-        tests to correctly start and tear down the Spring Boot container before each 
-        parameter run -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${version.junit}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
     </dependencies>

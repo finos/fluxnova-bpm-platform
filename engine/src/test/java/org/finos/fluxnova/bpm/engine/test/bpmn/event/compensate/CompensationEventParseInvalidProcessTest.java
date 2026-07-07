@@ -17,37 +17,33 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.compensate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import junit.framework.AssertionFailedError;
 import org.finos.fluxnova.bpm.engine.ParseException;
 import org.finos.fluxnova.bpm.engine.Problem;
 import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import org.opentest4j.AssertionFailedError;
 
 /**
  * Parse an invalid process definition and assert the error message.
  *
  * @author Philipp Ossler
  */
-@RunWith(Parameterized.class)
 public class CompensationEventParseInvalidProcessTest {
 
   private static final String PROCESS_DEFINITION_DIRECTORY = "org/finos/fluxnova/bpm/engine/test/bpmn/event/compensate/";
 
-  @Parameters(name = "{index}: process definition = {0}, expected error message = {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
         { "CompensationEventParseInvalidProcessTest.illegalCompensateActivityRefParentScope.bpmn20.xml", "Invalid attribute value for 'activityRef': no activity with id 'someServiceInMainProcess' in scope 'subProcess'", new String[] { "throwCompensate" } },
@@ -62,28 +58,24 @@ public class CompensationEventParseInvalidProcessTest {
         { "CompensationEventParseInvalidProcessTest.invalidIncomingSequenceflow.bpmn20.xml", "Invalid incoming sequence flow of compensation activity 'task'. A compensation activity should not have an incoming or outgoing sequence flow.", new String[] { "task" } }
     });
   }
-
-  @Parameter(0)
   public String processDefinitionResource;
-
-  @Parameter(1)
   public String expectedErrorMessage;
-
-  @Parameter(2)
   public String[] bpmnElementIds;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
   protected RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     repositoryService = rule.getRepositoryService();
   }
 
-  @Test
-  public void testParseInvalidProcessDefinition() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: process definition = {0}, expected error message = {1}")
+  public void testParseInvalidProcessDefinition(String processDefinitionResource, String expectedErrorMessage, String[] bpmnElementIds) {
+    initCompensationEventParseInvalidProcessTest(processDefinitionResource, expectedErrorMessage, bpmnElementIds);
     try {
       repositoryService.createDeployment()
         .addClasspathResource(PROCESS_DEFINITION_DIRECTORY + processDefinitionResource)
@@ -106,5 +98,11 @@ public class CompensationEventParseInvalidProcessTest {
     if (actualMessage == null || !actualMessage.contains(expectedMessage)) {
       throw new AssertionFailedError("expected presence of [" + expectedMessage + "], but was [" + actualMessage + "]");
     }
+  }
+
+  public void initCompensationEventParseInvalidProcessTest(String processDefinitionResource, String expectedErrorMessage, String[] bpmnElementIds) {
+    this.processDefinitionResource = processDefinitionResource;
+    this.expectedErrorMessage = expectedErrorMessage;
+    this.bpmnElementIds = bpmnElementIds;
   }
 }

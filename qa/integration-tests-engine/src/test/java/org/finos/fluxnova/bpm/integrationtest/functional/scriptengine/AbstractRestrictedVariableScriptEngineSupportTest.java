@@ -1,21 +1,23 @@
 package org.finos.fluxnova.bpm.integrationtest.functional.scriptengine;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public abstract class AbstractRestrictedVariableScriptEngineSupportTest extends AbstractFoxPlatformIntegrationTest {
 
   protected static final String CREATE_PROCESS_ID = "restrictedCreateProcess";
@@ -105,5 +107,30 @@ public abstract class AbstractRestrictedVariableScriptEngineSupportTest extends 
     assertNotNull(variableInstance);
     assertEquals(OVERWRITTEN_VALUE, variableInstance.getValue());
     assertFalse(variableInstance.isRestricted());
+  }
+
+  @Test
+  public void shouldPreserveRestrictionWhenResubmittingUnchangedValueAsPlainValue() {
+    String processInstanceId = runtimeService.startProcessInstanceByKey(CREATE_PROCESS_ID).getId();
+
+    // the script created a restricted variable
+    assertTrue(runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult()
+        .isRestricted());
+
+    // re-submit the unchanged value as a non-restricted (plain) typed value, as a task form would.
+    // The restriction must be preserved rather than silently dropped.
+    runtimeService.setVariable(processInstanceId, RESTRICTED_VAR, Variables.stringValue(SECRET_VALUE));
+
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult();
+
+    assertNotNull(variableInstance);
+    assertEquals(SECRET_VALUE, variableInstance.getValue());
+    assertTrue(variableInstance.isRestricted());
   }
 }

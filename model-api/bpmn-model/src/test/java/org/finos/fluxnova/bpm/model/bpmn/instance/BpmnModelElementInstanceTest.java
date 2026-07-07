@@ -19,18 +19,18 @@ package org.finos.fluxnova.bpm.model.bpmn.instance;
 import org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.finos.fluxnova.bpm.model.bpmn.util.GetBpmnModelElementTypeRule;
 import org.finos.fluxnova.bpm.model.xml.test.AbstractModelElementInstanceTest;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * @author Sebastian Menski
  */
 public abstract class BpmnModelElementInstanceTest extends AbstractModelElementInstanceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static final GetBpmnModelElementTypeRule modelElementTypeRule = new GetBpmnModelElementTypeRule();
 
-  @BeforeClass
+  @BeforeAll
   public static void initModelElementType() {
     initModelElementType(modelElementTypeRule);
   }

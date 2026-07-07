@@ -19,6 +19,7 @@ package org.finos.fluxnova.bpm.engine.impl;
 import static org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil.ensureNotNull;
 import static org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil.ensureNull;
 
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -281,8 +282,8 @@ public abstract class AbstractQuery<T extends Query<?,?>, U> extends ListQueryPa
       }
 
       // automatically convert DateTime to date
-      if (value instanceof DateTime) {
-        value = ((DateTime) value).toDate();
+      if (value instanceof DateTime time) {
+        value = time.toDate();
       }
 
       try {

@@ -27,14 +27,15 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -52,7 +53,7 @@ public class MetricsRestServiceTest extends AbstractAdminPluginTest {
   private DbMetricsReporter dbMetricsReporter;
   private MetricsRegistry metricsRegistry;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.before();
 
@@ -68,7 +69,7 @@ public class MetricsRestServiceTest extends AbstractAdminPluginTest {
     Mockito.doReturn(queryParameters).when(uriInfo).getQueryParameters();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     queryParameters.clear();
     managementService.deleteMetrics(null);
@@ -198,7 +199,7 @@ public class MetricsRestServiceTest extends AbstractAdminPluginTest {
     // given
     queryParameters.add("subscriptionStartDate", new DateTime().withYear(2020).withMonthOfYear(1).withDayOfMonth(1).toString());
     queryParameters.add("groupBy", "year");
-    queryParameters.add("metrics", String.format("%s,%s", Metrics.PROCESS_INSTANCES, Metrics.FLOW_NODE_INSTANCES));
+    queryParameters.add("metrics", "%s,%s".formatted(Metrics.PROCESS_INSTANCES, Metrics.FLOW_NODE_INSTANCES));
 
     // generate metrics for all available meters
     var metricNames = metricsRegistry.getDbMeters().keySet();

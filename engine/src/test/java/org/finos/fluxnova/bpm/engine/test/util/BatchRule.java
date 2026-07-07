@@ -27,10 +27,11 @@ import org.finos.fluxnova.bpm.engine.batch.history.HistoricBatch;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.AfterEachCallback;
 
-public class BatchRule extends TestWatcher {
+public class BatchRule implements BeforeEachCallback, AfterEachCallback {
 
   public static final String SEED_JOB = "seed-job";
   public static final String MONITOR_JOB = "monitor-job";
@@ -45,7 +46,12 @@ public class BatchRule extends TestWatcher {
   }
 
   @Override
-  protected void finished(Description description) {
+  public void beforeEach(ExtensionContext context) throws Exception {
+    // nothing to do by default; subclasses may override
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
     engineRule.getProcessEngineConfiguration()
         .setInvocationsPerBatchJob(DEFAULT_INVOCATIONS_PER_BATCH_JOB);
     ClockUtil.reset();

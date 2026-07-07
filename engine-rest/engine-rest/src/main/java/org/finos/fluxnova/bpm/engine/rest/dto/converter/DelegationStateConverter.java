@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.dto.converter;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.task.DelegationState;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 public class DelegationStateConverter extends JacksonAwareStringToTypeConverter<DelegationState> {
 

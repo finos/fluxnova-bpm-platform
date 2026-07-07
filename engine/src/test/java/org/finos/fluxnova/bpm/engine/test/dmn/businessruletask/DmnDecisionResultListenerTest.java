@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.dmn.businessruletask;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 
@@ -30,8 +26,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the decision result that is retrieved by an execution listener.
@@ -52,7 +48,7 @@ public class DmnDecisionResultListenerTest extends PluggableProcessEngineTest {
   public void testNoOutput() {
     startTestProcess("no output");
 
-    assertTrue("The decision result 'ruleResult' should be empty", results.isEmpty());
+    assertTrue(results.isEmpty(), "The decision result 'ruleResult' should be empty");
   }
 
   @Deployment(resources = { TEST_PROCESS, TEST_DECISION})
@@ -60,7 +56,7 @@ public class DmnDecisionResultListenerTest extends PluggableProcessEngineTest {
   public void testEmptyOutput() {
     startTestProcess("empty output");
 
-    assertFalse("The decision result 'ruleResult' should not be empty", results.isEmpty());
+    assertFalse(results.isEmpty(), "The decision result 'ruleResult' should not be empty");
 
     DmnDecisionResultEntries decisionOutput = results.get(0);
     assertNull(decisionOutput.getFirstEntry());
@@ -74,7 +70,7 @@ public class DmnDecisionResultListenerTest extends PluggableProcessEngineTest {
     assertEquals(2, results.size());
 
     for (DmnDecisionResultEntries output : results) {
-      assertTrue("The decision output should be empty", output.isEmpty());
+      assertTrue(output.isEmpty(), "The decision output should be empty");
     }
   }
 
@@ -148,7 +144,7 @@ public class DmnDecisionResultListenerTest extends PluggableProcessEngineTest {
   public void testCollectSumHitPolicyNoOutput() {
     startTestProcess("no output");
 
-    assertTrue("The decision result 'ruleResult' should be empty", results.isEmpty());
+    assertTrue(results.isEmpty(), "The decision result 'ruleResult' should be empty");
   }
 
   @Deployment(resources = { TEST_PROCESS, TEST_DECISION_COLLECT_SUM })
@@ -185,7 +181,7 @@ public class DmnDecisionResultListenerTest extends PluggableProcessEngineTest {
     return processInstance;
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     // reset the invoked execution listener
     DecisionResultTestListener.reset();

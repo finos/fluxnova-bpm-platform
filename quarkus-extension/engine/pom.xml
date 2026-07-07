@@ -27,7 +27,7 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <!-- Quarkus requires version 3.8+ for Maven plugins. -->
-          <version>3.8.1</version>
+          <version>3.15.0</version>
         </plugin>
       </plugins>
     </pluginManagement>

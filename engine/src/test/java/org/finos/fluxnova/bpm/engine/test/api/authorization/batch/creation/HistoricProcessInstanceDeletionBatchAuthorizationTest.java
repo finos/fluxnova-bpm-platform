@@ -29,12 +29,12 @@ import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class HistoricProcessInstanceDeletionBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -54,10 +54,12 @@ public class HistoricProcessInstanceDeletionBatchAuthorizationTest extends Batch
     );
   }
 
-
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_AUDIT)
-  public void testBatchHistoricProcessInstanceDeletion() {
+  public void testBatchHistoricProcessInstanceDeletion(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     List<String> historicProcessInstances = setupHistory();
 
     //given

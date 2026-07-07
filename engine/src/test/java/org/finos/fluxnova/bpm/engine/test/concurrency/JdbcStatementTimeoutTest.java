@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.concurrency;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -34,12 +34,11 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *  @author Philipp Ossler
@@ -51,25 +50,25 @@ public class JdbcStatementTimeoutTest extends ConcurrencyTestHelper {
   private static final int TEST_TIMEOUT_IN_MILLIS = 10000;
   private static final String JOB_ENTITY_ID = "42";
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
           configuration.setJdbcStatementTimeout(STATEMENT_TIMEOUT_IN_SECONDS));
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private ConcurrencyTestHelper.ThreadControl thread1;
   private ConcurrencyTestHelper.ThreadControl thread2;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     if (thread1 != null) {
       thread1.waitUntilDone();
@@ -111,7 +110,7 @@ public class JdbcStatementTimeoutTest extends ConcurrencyTestHelper {
     // wait for thread 2 to cancel FLUSH because of timeout
     thread2.waitForSync(TEST_TIMEOUT_IN_MILLIS);
 
-    assertNotNull("expected timeout exception", thread2.getException());
+    assertNotNull(thread2.getException(), "expected timeout exception");
   }
 
   private void createJobEntity() {

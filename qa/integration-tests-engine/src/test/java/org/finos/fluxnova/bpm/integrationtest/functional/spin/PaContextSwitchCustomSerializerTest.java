@@ -30,15 +30,17 @@ import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.spi.DataFormatConfigurator;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import static org.finos.fluxnova.bpm.application.ProcessApplicationContext.withProcessApplicationContext;
-import static org.junit.Assert.assertEquals;
 
-@RunWith(Arquillian.class)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.finos.fluxnova.bpm.application.ProcessApplicationContext.withProcessApplicationContext;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(ArquillianExtension.class)
 public class PaContextSwitchCustomSerializerTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name = "pa3")

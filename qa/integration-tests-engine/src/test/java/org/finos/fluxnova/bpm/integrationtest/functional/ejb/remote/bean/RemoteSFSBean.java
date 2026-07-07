@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.remote.bean;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateful;
+import jakarta.ejb.Remote;
+import jakarta.ejb.Stateful;
 
 /**
  * A SFSB with a remote business interface 

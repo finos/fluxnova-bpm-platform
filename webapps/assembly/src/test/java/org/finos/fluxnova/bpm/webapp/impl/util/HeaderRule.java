@@ -22,13 +22,15 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.junit.rules.ExternalResource;
+import org.eclipse.jetty.ee10.webapp.WebAppContext;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * @author Tassilo Weidner
  */
-public class HeaderRule extends ExternalResource {
+public class HeaderRule implements BeforeEachCallback, AfterEachCallback {
 
   protected static final int SERVER_PORT = 8085;
   protected static final int RETRIES = 3;
@@ -38,7 +40,7 @@ public class HeaderRule extends ExternalResource {
   protected HttpURLConnection connection = null;
 
   @Override
-  protected void before() {
+  public void beforeEach(ExtensionContext context) {
     try {
       server.stop();
     } catch (Exception e) {
@@ -47,7 +49,7 @@ public class HeaderRule extends ExternalResource {
   }
 
   @Override
-  protected void after() {
+  public void afterEach(ExtensionContext context) {
     try {
       server.stop();
     } catch (Exception e) {
@@ -65,7 +67,7 @@ public class HeaderRule extends ExternalResource {
 
   protected void startServer(String webDescriptor, String scope, String contextPath, int startUpRetries) {
     webAppContext.setContextPath(contextPath);
-    webAppContext.setResourceBase("/");
+    webAppContext.setBaseResourceAsString("/");
     webAppContext.setDescriptor("src/test/resources/WEB-INF/" + scope + "/" + webDescriptor);
 
     server.setHandler(webAppContext);

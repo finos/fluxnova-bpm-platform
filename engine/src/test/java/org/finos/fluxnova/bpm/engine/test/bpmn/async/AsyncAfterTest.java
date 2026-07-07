@@ -17,11 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.async;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +37,9 @@ import org.finos.fluxnova.bpm.engine.test.bpmn.event.error.ThrowBpmnErrorDelegat
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -651,7 +647,7 @@ public class AsyncAfterTest extends PluggableProcessEngineTest {
   }
 
   @Deployment
-  @Ignore
+  @Disabled
   @Test
   public void testAsyncAfterOnParallelGatewayJoin() {
     String configuration = PvmAtomicOperation.ACTIVITY_END.getCanonicalName();
@@ -755,7 +751,7 @@ public class AsyncAfterTest extends PluggableProcessEngineTest {
 
     // then
     job = managementService.createJobQuery().singleResult();
-    Assert.assertEquals(9, job.getRetries());
+    Assertions.assertEquals(9, job.getRetries());
   }
 
   protected Job fetchFirstJobByHandlerConfiguration(List<Job> jobs, String configuration) {
@@ -788,7 +784,7 @@ public class AsyncAfterTest extends PluggableProcessEngineTest {
 
   private void assertBehaviorInvoked(ProcessInstance pi, int times) {
     Long behaviorInvoked = (Long) runtimeService.getVariable(pi.getId(), "behaviorInvoked");
-    assertNotNull("behavior was not invoked", behaviorInvoked);
+    assertNotNull(behaviorInvoked, "behavior was not invoked");
     assertEquals(times , behaviorInvoked.intValue());
 
   }

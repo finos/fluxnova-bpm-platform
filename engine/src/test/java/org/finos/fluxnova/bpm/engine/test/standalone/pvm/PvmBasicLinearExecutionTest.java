@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.pvm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
@@ -30,7 +28,8 @@ import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.Automatic;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.End;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.WaitState;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.While;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

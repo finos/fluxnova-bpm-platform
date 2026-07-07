@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.container.impl.threading.ra;
 
-import javax.resource.spi.work.Work;
+import jakarta.resource.spi.work.Work;
 
 /**
  * An adapter for wrapping a Runnable as a JCA {@link Work} instance.

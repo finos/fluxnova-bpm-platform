@@ -22,16 +22,15 @@ import org.finos.fluxnova.bpm.engine.impl.plugin.AdministratorAuthorizationPlugi
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunAdministratorAuthorizationProperties;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunProperties;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { FluxnovaBpmRun.class })
 @ActiveProfiles(profiles = { "test-auth-enabled" , "test-admin-auth-enabled" })
 public class AdminAuthorizationConfigurationTest {

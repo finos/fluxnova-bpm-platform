@@ -16,15 +16,18 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.util.container;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.finos.fluxnova.bpm.engine.rest.CustomJacksonDateFormatTest;
 import org.finos.fluxnova.bpm.engine.rest.ExceptionHandlerTest;
-import org.junit.rules.ExternalResource;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
  * @author Thorben Lindhauer
@@ -43,7 +46,7 @@ public class WinkSpecifics implements ContainerSpecifics {
     TEST_RULE_FACTORIES.put(CustomJacksonDateFormatTest.class, new ServletContainerRuleFactory("custom-date-format-web.xml"));
   }
 
-  public TestRule getTestRule(Class<?> testClass) {
+  public Extension getTestExtension(Class<?> testClass) {
     TestRuleFactory ruleFactory = DEFAULT_RULE_FACTORY;
 
     if (TEST_RULE_FACTORIES.containsKey(testClass)) {
@@ -61,24 +64,19 @@ public class WinkSpecifics implements ContainerSpecifics {
       this.webXmlResource = webXmlResource;
     }
 
-    public TestRule createTestRule() {
-      final TemporaryFolder tempFolder = new TemporaryFolder();
+    public Extension createTestRule() {
+      return new BeforeEachCallback() {
+        private File tempFolder;
+        private WinkTomcatServerBootstrap bootstrap;
 
-      return RuleChain
-        .outerRule(tempFolder)
-        .around(new ExternalResource() {
-
-          WinkTomcatServerBootstrap bootstrap = new WinkTomcatServerBootstrap(webXmlResource);
-
-          protected void before() throws Throwable {
-            bootstrap.setWorkingDir(tempFolder.getRoot().getAbsolutePath());
-            bootstrap.start();
-          }
-
-          protected void after() {
-            bootstrap.stop();
-          }
-        });
+        @Override
+        public void beforeEach(ExtensionContext context) throws Exception {
+          tempFolder = Files.createTempDirectory("junit").toFile();
+          bootstrap = new WinkTomcatServerBootstrap(webXmlResource);
+          bootstrap.setWorkingDir(tempFolder.getAbsolutePath());
+          bootstrap.start();
+        }
+      };
     }
 
   }

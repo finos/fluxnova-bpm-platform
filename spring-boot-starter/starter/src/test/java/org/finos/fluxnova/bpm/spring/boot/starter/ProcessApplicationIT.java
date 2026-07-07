@@ -18,20 +18,20 @@ package org.finos.fluxnova.bpm.spring.boot.starter;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.event.PostDeployEvent;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.pa.TestProcessApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
  * @author Svetlana Dorokhova.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = { TestProcessApplication.class, ProcessApplicationIT.DummyComponent.class },
   webEnvironment = SpringBootTest.WebEnvironment.NONE

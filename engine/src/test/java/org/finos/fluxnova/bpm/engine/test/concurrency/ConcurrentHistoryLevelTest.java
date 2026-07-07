@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.concurrency;
 
 import static org.assertj.core.api.Assumptions.assumeThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.Connection;
 
@@ -29,8 +29,8 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.engine.test.util.DatabaseHelper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>Tests cluster scenario with two nodes trying to write the history level property in parallel.</p>
@@ -41,7 +41,7 @@ import org.junit.Test;
  */
 public class ConcurrentHistoryLevelTest extends ConcurrencyTestCase {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     TestHelper.deleteHistoryLevel(processEngineConfiguration);
   }

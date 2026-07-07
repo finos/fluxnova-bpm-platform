@@ -24,6 +24,7 @@ import static org.finos.fluxnova.spin.xml.XmlTestConstants.EXAMPLE_NAMESPACE;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.EXAMPLE_XML_FILE_NAME;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.NON_EXISTING;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.exampleXmlFileAsReader;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,8 @@ import org.finos.fluxnova.spin.xml.SpinXmlAttribute;
 import org.finos.fluxnova.spin.xml.SpinXmlAttributeException;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
 import org.finos.fluxnova.spin.xml.SpinXmlElementException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -71,7 +73,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(hasAttribute).isFalse();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.checkAttributeByName",
     variables = {
@@ -81,7 +83,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canCheckAttributeByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -112,7 +115,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(hasAttribute).isFalse();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.checkAttributeByNamespaceAndName",
     variables = {
@@ -123,7 +126,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canCheckAttributeByNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -172,7 +176,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(value).isEqualTo("order1");
   }
 
-  @Test(expected = SpinXmlAttributeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByName",
     variables = {
@@ -182,10 +186,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlAttributeException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByName",
     variables = {
@@ -195,7 +200,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -226,7 +232,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(value).isEqualTo("order1");
   }
 
-  @Test(expected = SpinXmlAttributeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByNamespaceAndName",
     variables = {
@@ -237,10 +243,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNonExistingNamespaceAndName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlAttributeException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlAttributeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByNamespaceAndName",
     variables = {
@@ -251,10 +258,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlAttributeException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByNamespaceAndName",
     variables = {
@@ -265,10 +273,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlAttributeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByNamespaceAndName",
     variables = {
@@ -279,10 +288,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNonExistingNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlAttributeException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.readAttributeValueByNamespaceAndName",
     variables = {
@@ -293,7 +303,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReadAttributeByNullNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   // write attribute
@@ -326,7 +337,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(newValue).isEqualTo("newValue");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.writeAttributeValueByName",
     variables = {
@@ -337,10 +348,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canWriteAttributeByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.writeAttributeValueByName",
     variables = {
@@ -351,7 +363,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotWriteAttributeByNameWithNullValue() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -384,7 +397,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(newValue).isEqualTo("order2");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.writeAttributeValueByName",
     variables = {
@@ -396,10 +409,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canWriteAttributeByNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.writeAttributeValueByName",
     variables = {
@@ -411,7 +425,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canWriteAttributeByNamespaceAndNameWithNullValue() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -472,7 +487,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(element.hasAttr(NON_EXISTING)).isFalse();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.removeAttributeByName",
     variables = {
@@ -482,7 +497,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotRemoveAttributeByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -513,7 +529,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(element.hasAttrNs(null, "order")).isFalse();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.removeAttributeByNamespaceAndName",
     variables = {
@@ -524,7 +540,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void canRemoveAttributeByNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -663,7 +680,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(childElement.attr("name").value()).isEqualTo("20140512");
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByName",
     variables = {
@@ -673,10 +690,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetSingleChildElementByNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByName",
     variables = {
@@ -686,7 +704,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetSingleChildElementByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -718,7 +737,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(childElement).isNotNull();
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByNamespaceAndName",
     variables = {
@@ -729,10 +748,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetChildElementByNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByNamespaceAndName",
     variables = {
@@ -743,10 +763,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetChildElementByNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByNamespaceAndName",
     variables = {
@@ -757,10 +778,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetChildElementByNonExistingNamespaceAndName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByNamespaceAndName",
     variables = {
@@ -771,10 +793,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetChildElementByNonExistingNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementByNamespaceAndName",
     variables = {
@@ -785,7 +808,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetChildElementByNullNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   // append child element
@@ -822,7 +846,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(child.attr("id").value()).isEqualTo("child");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.appendChildElement",
     variables = {
@@ -832,7 +856,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotAppendNullChildElement() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -884,7 +909,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.removeChildElement",
     variables = {
@@ -895,10 +920,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotRemoveANullChildElement() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.removeChildElement",
     variables = {
@@ -908,8 +934,10 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotRemoveANonChildElement() throws Throwable {
-    script.setVariable("child", S("<child/>"));
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () -> {
+      script.setVariable("child", S("<child/>"));
+      failingWithException();
+    });
   }
 
   @Test
@@ -985,7 +1013,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(childElements).hasSize(3);
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByName",
     variables = {
@@ -995,10 +1023,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByName",
     variables = {
@@ -1008,7 +1037,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   @Test
@@ -1039,7 +1069,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(childElements).hasSize(2);
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByNamespaceAndName",
     variables = {
@@ -1050,10 +1080,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNonExistingNamespaceAndName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByNamespaceAndName",
     variables = {
@@ -1064,10 +1095,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByNamespaceAndName",
     variables = {
@@ -1078,10 +1110,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNamespaceAndNonNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByNamespaceAndName",
     variables = {
@@ -1092,10 +1125,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNonExistingNamespaceAndNonExistingName() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.getChildElementsByNamespaceAndName",
     variables = {
@@ -1106,7 +1140,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotGetAllChildElementsByNullNamespaceAndNullName() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
   // replace child element
@@ -1138,7 +1173,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.replaceChildElement",
     variables = {
@@ -1149,10 +1184,11 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReplaceANullChildElement() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.replaceChildElement",
     variables = {
@@ -1162,16 +1198,18 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReplaceByANullChildElement() throws Throwable {
-    SpinXmlElement element = XML(exampleXmlFileAsReader());
-    SpinXmlElement date = element.childElement("date");
+    assertThrows(IllegalArgumentException.class, () -> {
+      SpinXmlElement element = XML(exampleXmlFileAsReader());
+      SpinXmlElement date = element.childElement("date");
 
-    script
-      .setVariable("element", element)
-      .setVariable("existingChild", date);
-    failingWithException();
+      script
+        .setVariable("element", element)
+        .setVariable("existingChild", date);
+      failingWithException();
+    });
   }
 
-  @Test(expected = SpinXmlElementException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.replaceChildElement",
     variables = {
@@ -1181,8 +1219,10 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReplaceANoneChildElement() throws Throwable {
-    script.setVariable("existingChild", XML("<child/>"));
-    failingWithException();
+    assertThrows(SpinXmlElementException.class, () -> {
+      script.setVariable("existingChild", XML("<child/>"));
+      failingWithException();
+    });
   }
 
   // replace element
@@ -1229,7 +1269,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(element.childElements()).isEmpty();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.replaceElement",
     variables = {
@@ -1238,10 +1278,12 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotReplaceByNullElement() throws Throwable {
-    SpinXmlElement element = XML(exampleXmlFileAsReader());
-    script
-      .setVariable("oldElement", element);
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () -> {
+      SpinXmlElement element = XML(exampleXmlFileAsReader());
+      script
+        .setVariable("oldElement", element);
+      failingWithException();
+    });
   }
 
   @Test
@@ -1286,7 +1328,7 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     assertThat(textContent).isEmpty();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.writeTextContent",
     variables = {
@@ -1296,7 +1338,8 @@ public abstract class XmlDomElementScriptTest extends ScriptTest {
     execute = false
   )
   public void cannotWriteNullTextContent() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 
 }

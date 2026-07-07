@@ -19,14 +19,12 @@ package org.finos.fluxnova.bpm.engine.cdi.test.impl.event;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcessEvent;
 import org.finos.fluxnova.bpm.engine.cdi.annotation.event.*;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ApplicationScoped
 public class TestEventListener {

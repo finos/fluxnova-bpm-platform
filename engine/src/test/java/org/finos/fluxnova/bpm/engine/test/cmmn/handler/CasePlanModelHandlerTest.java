@@ -19,11 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.cmmn.handler;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_ACTIVITY_DESCRIPTION;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_ACTIVITY_TYPE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_AUTO_COMPLETE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.impl.cmmn.behavior.CmmnActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.behavior.StageActivityBehavior;
@@ -37,7 +33,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.ConditionExpression;
 import org.finos.fluxnova.bpm.model.cmmn.instance.ExitCriterion;
 import org.finos.fluxnova.bpm.model.cmmn.instance.IfPart;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

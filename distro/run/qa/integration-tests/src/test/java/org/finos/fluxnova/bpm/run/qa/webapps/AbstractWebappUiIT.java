@@ -17,11 +17,11 @@
 package org.finos.fluxnova.bpm.run.qa.webapps;
 
 import org.finos.fluxnova.bpm.util.SeleniumScreenshotRule;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -41,10 +41,10 @@ public class AbstractWebappUiIT extends AbstractWebIT {
 
   protected static WebDriver driver;
 
-  @Rule
+  @RegisterExtension
   public SeleniumScreenshotRule screenshotRule = new SeleniumScreenshotRule(driver);
 
-  @BeforeClass
+  @BeforeAll
   public static void createDriver() {
     String chromeDriverExecutable = "";
     String osName = System.getProperty("os.name").toLowerCase(Locale.US);
@@ -112,14 +112,14 @@ public class AbstractWebappUiIT extends AbstractWebIT {
 
   }
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getWebappCtxPath());
     appUrl = testProperties.getApplicationPath("/" + getWebappCtxPath());
   }
 
-  @AfterClass
+  @AfterAll
   public static void quitDriver() {
     driver.quit();
   }

@@ -20,9 +20,10 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.Query;
 import org.finos.fluxnova.bpm.model.bpmn.impl.QueryImpl;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ReflectUtil;
-import org.junit.Before;
 
 import java.io.InputStream;
+
+import org.junit.jupiter.api.BeforeEach;
 import java.util.Collection;
 
 public abstract class AbstractEventDefinitionTest extends BpmnModelElementInstanceTest {
@@ -41,7 +42,7 @@ public abstract class AbstractEventDefinitionTest extends BpmnModelElementInstan
     return null;
   }
 
-  @Before
+  @BeforeEach
   public void getEvent() {
     InputStream inputStream = ReflectUtil.getResourceAsStream("org/finos/fluxnova/bpm/model/bpmn/EventDefinitionsTest.xml");
     IntermediateThrowEvent event = Bpmn.readModelFromStream(inputStream).getModelElementById("event");

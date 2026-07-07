@@ -27,12 +27,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +39,8 @@ import java.util.Map;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.ibatis.jdbc.RuntimeSqlException;
+import org.hamcrest.MatcherAssert;
+
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ParseException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
@@ -79,10 +76,9 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -98,14 +94,14 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
 
   protected SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     // get rid of the milliseconds because of MySQL datetime precision
     Date now = formatter.parse(formatter.format(new Date()));
     ClockUtil.setCurrentTime(now);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     ClockUtil.reset();
   }
@@ -2456,7 +2452,7 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
       externalTaskService.unlock(null);
       fail("expected exception");
     } catch (ProcessEngineException e) {
-      Assert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
+      MatcherAssert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
     }
   }
 
@@ -2541,22 +2537,22 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
         errorMessage = errorMessage + ":" + e.getMessage();
       }
     }
-    Assert.assertThat(exceptionStackTrace,is(notNullValue()));
+    MatcherAssert.assertThat(exceptionStackTrace,is(notNullValue()));
 //  make sure that stack trace is longer then errorMessage DB field length
-    Assert.assertThat(exceptionStackTrace.length(),is(greaterThan(4000)));
+    MatcherAssert.assertThat(exceptionStackTrace.length(),is(greaterThan(4000)));
     externalTaskService.handleFailure(task.getId(), WORKER_ID, errorMessage, exceptionStackTrace, 5, 3000L);
     ClockUtil.setCurrentTime(nowPlus(4000L));
     tasks = externalTaskService.fetchAndLock(5, WORKER_ID)
         .topic(TOPIC_NAME, LOCK_TIME)
         .execute();
-    Assert.assertThat(tasks.size(), is(1));
+    MatcherAssert.assertThat(tasks.size(), is(1));
 
     // verify that exception is accessible properly
     task = tasks.get(0);
-    Assert.assertThat(task.getErrorMessage(),is(errorMessage.substring(0,666)));
-    Assert.assertThat(task.getRetries(),is(5));
-    Assert.assertThat(externalTaskService.getExternalTaskErrorDetails(task.getId()),is(exceptionStackTrace));
-    Assert.assertThat(task.getErrorDetails(),is(exceptionStackTrace));
+    MatcherAssert.assertThat(task.getErrorMessage(),is(errorMessage.substring(0,666)));
+    MatcherAssert.assertThat(task.getRetries(),is(5));
+    MatcherAssert.assertThat(externalTaskService.getExternalTaskErrorDetails(task.getId()),is(exceptionStackTrace));
+    MatcherAssert.assertThat(task.getErrorDetails(),is(exceptionStackTrace));
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/externaltask/oneExternalTaskProcess.bpmn20.xml")
@@ -3036,7 +3032,7 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
       externalTaskService.setRetries((String)null, 5);
       fail("expected exception");
     } catch (NullValueException e) {
-      Assert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
+      MatcherAssert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
     }
   }
 
@@ -3077,7 +3073,7 @@ public class ExternalTaskServiceTest extends PluggableProcessEngineTest {
       externalTaskService.setPriority(null, 5);
       fail("expected exception");
     } catch (NullValueException e) {
-      Assert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
+      MatcherAssert.assertThat(e.getMessage(), containsString("externalTaskId is null"));
     }
   }
 

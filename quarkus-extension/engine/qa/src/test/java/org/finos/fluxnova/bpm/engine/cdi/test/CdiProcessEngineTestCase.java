@@ -36,8 +36,9 @@ import org.finos.fluxnova.bpm.engine.TaskService;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.quarkus.engine.extension.QuarkusProcessEngineConfiguration;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
@@ -69,7 +70,7 @@ public class CdiProcessEngineTestCase {
 
   protected Set<InstanceHandle<?>> beanInstanceHandles = new HashSet<>();
 
-  @Before
+  @BeforeEach
   public void before() {
     Set<String> processEngineNames = BpmPlatform.getProcessEngineService()
         .getProcessEngineNames();
@@ -95,7 +96,7 @@ public class CdiProcessEngineTestCase {
     decisionService = processEngine.getDecisionService();
   }
 
-  @After
+  @AfterEach
   public void after() {
     Arc.container().requestContext().deactivate();
 

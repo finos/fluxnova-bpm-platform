@@ -32,17 +32,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.management.JobDefinition;
 import org.finos.fluxnova.bpm.engine.management.JobDefinitionQuery;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.OrderingBuilder;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -50,14 +51,14 @@ import io.restassured.response.Response;
 
 public class JobDefinitionRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String JOB_DEFINITION_QUERY_URL = TEST_RESOURCE_ROOT_PATH + "/job-definition";
   protected static final String JOB_DEFINITION_COUNT_QUERY_URL = JOB_DEFINITION_QUERY_URL + "/count";
   private JobDefinitionQuery mockedQuery;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockedQuery = setUpMockDefinitionQuery(MockProvider.createMockJobDefinitions());
   }

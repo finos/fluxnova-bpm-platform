@@ -113,10 +113,15 @@ public final class BpmnParseUtil {
   }
 
   /**
-   * Extracts the restricted attribute from a BPMN element.
+   * Extracts the restricted attribute from a BPMN element. The attribute is read from the Fluxnova
+   * extensions namespace first, falling back to the (legacy) Camunda namespace and finally to a
+   * non-namespaced attribute, for backwards compatibility with existing models.
    */
   public static boolean isRestricted(Element element) {
-    String restricted = element.attribute("restricted");
+    String restricted = element.attributeNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, "restricted");
+    if (restricted == null) {
+      restricted = element.attribute("restricted");
+    }
     return restricted != null && Boolean.parseBoolean(restricted.trim());
   }
 
@@ -135,14 +140,10 @@ public final class BpmnParseUtil {
     }
 
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(inputParameterElement);
-    // add parameter
-      InputParameter inputParameter = new InputParameter(nameAttribute, valueProvider, isTransient);
 
-      if (isRestricted(inputParameterElement)) {
-          inputParameter.setRestricted(true);
-      }
     // add parameter
-    ioMapping.addInputParameter(inputParameter);
+    ioMapping.addInputParameter(
+        new InputParameter(nameAttribute, valueProvider, isTransient, isRestricted(inputParameterElement)));
   }
 
   /**
@@ -160,14 +161,10 @@ public final class BpmnParseUtil {
     }
 
     ParameterValueProvider valueProvider = parseNestedParamValueProvider(outputParameterElement);
-      OutputParameter outputParameter = new OutputParameter(nameAttribute, valueProvider, isTransient);
-
-      if (isRestricted(outputParameterElement)) {
-          outputParameter.setRestricted(true);
-      }
 
     // add parameter
-    ioMapping.addOutputParameter(outputParameter);
+    ioMapping.addOutputParameter(
+        new OutputParameter(nameAttribute, valueProvider, isTransient, isRestricted(outputParameterElement)));
   }
 
   /**

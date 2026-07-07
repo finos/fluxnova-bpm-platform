@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.spin.plugin.impl;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
@@ -28,12 +30,28 @@ import org.finos.fluxnova.spin.plugin.variable.type.JsonValueType;
 import org.finos.fluxnova.spin.plugin.variable.type.XmlValueType;
 import org.mockito.Mockito;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Ronny Bräunlich
  *
  */
 public class SpinProcessEnginePluginTest extends PluggableProcessEngineTestCase {
 
+  @Override
+  public void tearDown() throws Exception {
+    // Skip the database cleanup check since this test doesn't use the database
+    // It only tests plugin registration with mocked configurations
+  }
+
+  @AfterEach
+  public void cleanupDataFormats() {
+    // Reset DataFormats after each test to ensure clean state
+    DataFormats.loadDataFormats(null);
+  }
+
+  @Test
   public void testPluginDoesNotRegisterXmlSerializerIfNotPresentInClasspath() throws IOException {
     ClassLoader mockClassloader = Mockito.mock(ClassLoader.class);
     Mockito.when(mockClassloader.getResources(Mockito.anyString())).thenReturn(Collections.enumeration(Collections.<URL>emptyList()));
@@ -46,6 +64,7 @@ public class SpinProcessEnginePluginTest extends PluggableProcessEngineTestCase 
     assertTrue(serializers.getSerializerByName(XmlValueType.TYPE_NAME) == null);
   }
 
+  @Test
   public void testPluginDoesNotRegisterJsonSerializerIfNotPresentInClasspath() throws IOException {
     ClassLoader mockClassloader = Mockito.mock(ClassLoader.class);
     Mockito.when(mockClassloader.getResources(Mockito.anyString())).thenReturn(Collections.enumeration(Collections.<URL>emptyList()));
@@ -58,6 +77,7 @@ public class SpinProcessEnginePluginTest extends PluggableProcessEngineTestCase 
     assertTrue(serializers.getSerializerByName(JsonValueType.TYPE_NAME) == null);
   }
 
+  @Test
   public void testPluginRegistersXmlSerializerIfPresentInClasspath(){
     DataFormats.loadDataFormats(null);
     ProcessEngineConfigurationImpl mockConfig = Mockito.mock(ProcessEngineConfigurationImpl.class);
@@ -67,6 +87,7 @@ public class SpinProcessEnginePluginTest extends PluggableProcessEngineTestCase 
     assertTrue(processEngineConfiguration.getVariableSerializers().getSerializerByName(XmlValueType.TYPE_NAME) instanceof XmlValueSerializer);
   }
 
+  @Test
   public void testPluginRegistersJsonSerializerIfPresentInClasspath(){
     DataFormats.loadDataFormats(null);
     ProcessEngineConfigurationImpl mockConfig = Mockito.mock(ProcessEngineConfigurationImpl.class);

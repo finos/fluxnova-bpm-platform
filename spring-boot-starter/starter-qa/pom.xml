@@ -13,7 +13,6 @@
 
   <artifactId>fluxnova-bpm-spring-boot-starter-qa</artifactId>
   <name>Fluxnova Platform - Spring Boot Starter - QA - Root Pom</name>
-
   <profiles>  
     <profile>
       <id>distro</id>

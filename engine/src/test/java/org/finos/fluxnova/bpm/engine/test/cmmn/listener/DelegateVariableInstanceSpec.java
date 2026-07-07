@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.listener;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateCaseVariableInstance;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;

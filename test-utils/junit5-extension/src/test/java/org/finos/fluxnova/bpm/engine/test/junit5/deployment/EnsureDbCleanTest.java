@@ -26,6 +26,7 @@ import static org.junit.platform.testkit.engine.TestExecutionResultConditions.me
 import org.finos.fluxnova.bpm.engine.test.junit5.ProcessEngineExtension;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -70,7 +71,8 @@ public class EnsureDbCleanTest {
    * by the containing class
    */
   @EnabledIf("isEnabled")
-  public static class ClassUnderTest {
+  @Nested
+  public class ClassUnderTest {
 
     private static boolean isEnabled = false;
 
@@ -88,9 +90,9 @@ public class EnsureDbCleanTest {
     public void shouldRaiseExceptionIfDbNotClean() {
       // when
       extension.getRepositoryService()
-          .createDeployment()
-          .addClasspathResource(SUB_PROCESS)
-          .deploy();
+        .createDeployment()
+        .addClasspathResource(SUB_PROCESS)
+        .deploy();
     }
   }
 }

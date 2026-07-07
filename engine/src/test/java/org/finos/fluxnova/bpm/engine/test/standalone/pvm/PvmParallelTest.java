@@ -23,18 +23,15 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.ProcessDefinitionBuilder;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmExecution;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessDefinition;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessInstance;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.Automatic;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.End;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.ParallelGateway;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.WaitState;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

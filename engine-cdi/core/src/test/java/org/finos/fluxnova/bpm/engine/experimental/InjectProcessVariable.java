@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.experimental;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
 
 import org.finos.fluxnova.bpm.engine.cdi.annotation.ProcessVariable;
 

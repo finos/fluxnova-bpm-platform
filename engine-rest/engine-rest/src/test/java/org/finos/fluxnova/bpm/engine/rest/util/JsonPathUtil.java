@@ -16,20 +16,39 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.util;
 
-import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.path.json.mapper.factory.DefaultJackson2ObjectMapperFactory;
+import io.restassured.path.json.config.JsonPathConfig;
+import io.restassured.path.json.mapper.factory.Jackson3ObjectMapperFactory;
 import io.restassured.path.json.JsonPath;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+
+import java.text.SimpleDateFormat;
 
 public final class JsonPathUtil {
 
+  public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXX";
+  public static String dateFormatString = DEFAULT_DATE_FORMAT;
+
   public static JsonPath from(String json) {
-    return JsonPath.from(json).using(new DefaultJackson2ObjectMapperFactory() {
-      public ObjectMapper create(Class cls, String charset) {
-        return JacksonConfigurator.configureObjectMapper(super.create(cls, charset));
-      }
-    });
+
+      final Jackson3ObjectMapperFactory factory = (cls, charset) -> {
+          SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+          return JsonMapper.builder()
+                  .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                  .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+                  .defaultDateFormat(dateFormat)
+                  .build();
+      };
+
+      JsonPathConfig config = new JsonPathConfig() {
+          @Override
+          public Jackson3ObjectMapperFactory jackson3ObjectMapperFactory() {
+              return factory;
+          }
+      };
+
+      return JsonPath.from(json).using(config);
   }
 
 }

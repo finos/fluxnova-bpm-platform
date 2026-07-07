@@ -24,8 +24,8 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Nikola Koevski
@@ -47,7 +47,7 @@ public class JobTimestampsUpdateTest extends AbstractTimestampUpdateTest {
     assertNotNull(job);
 
     // then
-    assertThat(job.getDuedate(), is(TIMESTAMP));
+    assertEquals(TIMESTAMP, job.getDuedate());
   }
 
   @ScenarioUnderTest("initJobTimestamps.1")
@@ -60,6 +60,6 @@ public class JobTimestampsUpdateTest extends AbstractTimestampUpdateTest {
     assertNotNull(job);
 
     // then
-    assertThat(job.getLockExpirationTime(), is(LOCK_EXP_TIME));
+    assertEquals(LOCK_EXP_TIME, job.getLockExpirationTime());
   }
 }

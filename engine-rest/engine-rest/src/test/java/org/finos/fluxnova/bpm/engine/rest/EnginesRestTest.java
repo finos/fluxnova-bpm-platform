@@ -11,8 +11,8 @@ import javax.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.restassured.http.ContentType;
 
@@ -24,7 +24,7 @@ import io.restassured.http.ContentType;
  */
 public class EnginesRestTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String ENGINES_URL = TEST_RESOURCE_ROOT_PATH + "/engine";

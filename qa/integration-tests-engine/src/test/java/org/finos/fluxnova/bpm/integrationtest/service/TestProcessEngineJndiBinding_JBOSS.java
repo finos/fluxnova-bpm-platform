@@ -21,11 +21,11 @@ import javax.naming.InitialContext;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * <p>Makes sure that the process engine JNDI bindings are created</p>
@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TestProcessEngineJndiBinding_JBOSS extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -46,10 +46,10 @@ public class TestProcessEngineJndiBinding_JBOSS extends AbstractFoxPlatformInteg
     
     try {
       ProcessEngine processEngine = InitialContext.doLookup("java:global/camunda-bpm-platform/process-engine/default");
-      Assert.assertNotNull("Process engine must not be null", processEngine);
+      Assertions.assertNotNull(processEngine, "Process engine must not be null");
       
     } catch(Exception e) {
-      Assert.fail("Process Engine not bound in JNDI.");
+      Assertions.fail("Process Engine not bound in JNDI.");
       
     }
         

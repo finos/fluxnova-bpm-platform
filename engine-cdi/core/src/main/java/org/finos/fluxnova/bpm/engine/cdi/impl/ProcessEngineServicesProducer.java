@@ -16,9 +16,9 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
 import org.finos.fluxnova.bpm.engine.AuthorizationService;

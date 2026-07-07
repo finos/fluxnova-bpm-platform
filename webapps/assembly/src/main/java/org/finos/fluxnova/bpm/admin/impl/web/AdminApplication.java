@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.core.Application;
+import jakarta.ws.rs.core.Application;
 
 import org.finos.fluxnova.bpm.admin.Admin;
 import org.finos.fluxnova.bpm.admin.plugin.spi.AdminPlugin;
@@ -29,7 +29,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.RestExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.UserAuthenticationResource;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import tools.jackson.jakarta.rs.json.JacksonJsonProvider;
 
 /**
  * The rest api exposed by the admin application

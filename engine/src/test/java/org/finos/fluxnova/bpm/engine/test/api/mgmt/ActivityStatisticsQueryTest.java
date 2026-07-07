@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +31,9 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
 
@@ -57,12 +54,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
     List<ActivityStatistics> statistics =
         managementService.createActivityStatisticsQuery(definition.getId()).list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(1, activityResult.getInstances());
-    Assert.assertEquals("theServiceTask", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(1, activityResult.getInstances());
+    Assertions.assertEquals("theServiceTask", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
   }
 
   @Test
@@ -82,7 +79,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
 
@@ -112,7 +109,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidentsForType("failedJob")
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
 
@@ -142,7 +139,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidentsForType("invalid")
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
 
@@ -164,12 +161,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeFailedJobs()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
 
-    Assert.assertEquals("callSubProcess", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs()); // has no failed jobs
+    Assertions.assertEquals("callSubProcess", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs()); // has no failed jobs
 
     List<IncidentStatistics> incidentStatistics = activityResult.getIncidentStatistics();
     assertFalse(incidentStatistics.isEmpty());
@@ -194,12 +191,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(1, activityResult.getInstances());
-    Assert.assertEquals("theTask", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(1, activityResult.getInstances());
+    Assertions.assertEquals("theTask", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
     assertTrue(activityResult.getIncidentStatistics().isEmpty());
   }
 
@@ -217,7 +214,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .count();
 
-    Assert.assertEquals(1, count);
+    Assertions.assertEquals(1, count);
   }
 
   @Test
@@ -237,12 +234,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(3, activityResult.getInstances());
-    Assert.assertEquals("theTask", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(3, activityResult.getInstances());
+    Assertions.assertEquals("theTask", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
     assertTrue(activityResult.getIncidentStatistics().isEmpty());
   }
 
@@ -260,12 +257,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(3, activityResult.getInstances());
-    Assert.assertEquals("theTask", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(3, activityResult.getInstances());
+    Assertions.assertEquals("theTask", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
     assertTrue(activityResult.getIncidentStatistics().isEmpty());
   }
 
@@ -281,12 +278,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .createActivityStatisticsQuery(definition.getId())
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(3, activityResult.getInstances());
-    Assert.assertEquals("theTask", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(3, activityResult.getInstances());
+    Assertions.assertEquals("theTask", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
     assertTrue(activityResult.getIncidentStatistics().isEmpty());
   }
 
@@ -305,11 +302,11 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .createActivityStatisticsQuery(definition.getId())
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics result = statistics.get(0);
-    Assert.assertEquals(1, result.getInstances());
-    Assert.assertEquals("subProcessTask", result.getId());
+    Assertions.assertEquals(1, result.getInstances());
+    Assertions.assertEquals("subProcessTask", result.getId());
   }
 
   @Test
@@ -333,11 +330,11 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics result = statistics.get(0);
-    Assert.assertEquals(1, result.getInstances());
-    Assert.assertEquals(0, result.getFailedJobs());
+    Assertions.assertEquals(1, result.getInstances());
+    Assertions.assertEquals(0, result.getFailedJobs());
     assertTrue(result.getIncidentStatistics().isEmpty());
 
     ProcessDefinition callSubProcessDefinition = repositoryService
@@ -352,11 +349,11 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, callSubProcessStatistics.size());
+    Assertions.assertEquals(1, callSubProcessStatistics.size());
 
     result = callSubProcessStatistics.get(0);
-    Assert.assertEquals(1, result.getInstances());
-    Assert.assertEquals(0, result.getFailedJobs());
+    Assertions.assertEquals(1, result.getInstances());
+    Assertions.assertEquals(0, result.getFailedJobs());
     assertTrue(result.getIncidentStatistics().isEmpty());
   }
 
@@ -374,12 +371,12 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
 
     ActivityStatistics activityResult = statistics.get(0);
-    Assert.assertEquals(1, activityResult.getInstances());
-    Assert.assertEquals("theTimer", activityResult.getId());
-    Assert.assertEquals(0, activityResult.getFailedJobs());
+    Assertions.assertEquals(1, activityResult.getInstances());
+    Assertions.assertEquals("theTimer", activityResult.getId());
+    Assertions.assertEquals(0, activityResult.getFailedJobs());
     assertTrue(activityResult.getIncidentStatistics().isEmpty());
   }
 
@@ -387,7 +384,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
   public void testNullProcessDefinitionParameter() {
     try {
       managementService.createActivityStatisticsQuery(null).list();
-      Assert.fail();
+      Assertions.fail();
     } catch (ProcessEngineException e) {
       // expected
     }
@@ -412,7 +409,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .includeIncidents()
         .listPage(0, 1);
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
   }
 
   @Test
@@ -432,10 +429,10 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .createActivityStatisticsQuery(definition.getId())
         .list();
 
-    Assert.assertEquals(2, statistics.size());
+    Assertions.assertEquals(2, statistics.size());
 
     for (ActivityStatistics result : statistics) {
-      Assert.assertEquals(1, result.getInstances());
+      Assertions.assertEquals(1, result.getInstances());
     }
   }
 
@@ -633,7 +630,7 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
     assertEquals(Incident.FAILED_JOB_HANDLER_TYPE, incidentStatistic.getIncidentType());
   }
 
-  @Ignore("CAM-126")
+  @Disabled("CAM-126")
   @Test
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/mgmt/StatisticsTest.testStatisticsQuery.bpmn20.xml")
   public void testActivityStatisticsQueryWithNoInstances() {
@@ -649,11 +646,11 @@ public class ActivityStatisticsQueryTest extends PluggableProcessEngineTest {
         .createActivityStatisticsQuery(definition.getId())
         .list();
 
-    Assert.assertEquals(1, statistics.size());
+    Assertions.assertEquals(1, statistics.size());
     ActivityStatistics result = statistics.get(0);
-    Assert.assertEquals("theTask", result.getId());
-    Assert.assertEquals(0, result.getInstances());
-    Assert.assertEquals(0, result.getFailedJobs());
+    Assertions.assertEquals("theTask", result.getId());
+    Assertions.assertEquals(0, result.getInstances());
+    Assertions.assertEquals(0, result.getFailedJobs());
 
   }
 }

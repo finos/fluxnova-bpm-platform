@@ -330,13 +330,21 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
   }
 
   private TypedValue toTypedValue(Object value, boolean restricted) {
-    boolean isTransient = value instanceof TypedValue && ((TypedValue) value).isTransient();
+    return toTypedValue(value, false, restricted);
+  }
+
+  private TypedValue toTypedValue(Object value, boolean isTransient, boolean restricted) {
+    boolean finalTransient = isTransient || (value instanceof TypedValue && ((TypedValue) value).isTransient());
     boolean finalRestricted = restricted || (value instanceof TypedValue && ((TypedValue) value).isRestricted());
-    return Variables.untypedValue(value, isTransient, finalRestricted);
+    return Variables.untypedValue(value, finalTransient, finalRestricted);
   }
 
   public void setVariableInternal(String variableName, Object value, boolean skipJavaSerializationFormatCheck, boolean restricted) {
-    TypedValue typedValue = toTypedValue(value, restricted);
+    setVariableInternal(variableName, value, false, skipJavaSerializationFormatCheck, restricted);
+  }
+
+  public void setVariableInternal(String variableName, Object value, boolean isTransient, boolean skipJavaSerializationFormatCheck, boolean restricted) {
+    TypedValue typedValue = toTypedValue(value, isTransient, restricted);
     setVariable(variableName, typedValue, getSourceActivityVariableScope(), skipJavaSerializationFormatCheck);
   }
 
@@ -347,7 +355,7 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
 
   @Override
   public void setVariable(String variableName, Object value, VariableOptions options) {
-    setVariableInternal(variableName, value, options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
+    setVariableInternal(variableName, value, options.isTransient(), options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
   }
 
   @Override
@@ -471,7 +479,11 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
   }
 
   public void setVariableLocalInternal(String variableName, Object value, boolean skipJavaSerializationFormatCheck, boolean restricted) {
-    TypedValue typedValue = toTypedValue(value, restricted);
+    setVariableLocalInternal(variableName, value, false, skipJavaSerializationFormatCheck, restricted);
+  }
+
+  public void setVariableLocalInternal(String variableName, Object value, boolean isTransient, boolean skipJavaSerializationFormatCheck, boolean restricted) {
+    TypedValue typedValue = toTypedValue(value, isTransient, restricted);
     setVariableLocal(variableName, typedValue, getSourceActivityVariableScope(), skipJavaSerializationFormatCheck);
   }
 
@@ -482,7 +494,7 @@ public abstract class AbstractVariableScope implements Serializable, VariableSco
 
   @Override
   public void setVariableLocal(String variableName, Object value, VariableOptions options) {
-    setVariableLocalInternal(variableName, value, options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
+    setVariableLocalInternal(variableName, value, options.isTransient(), options.shouldSkipJavaSerializationFormatCheck(), options.isRestricted());
   }
 
   @Override

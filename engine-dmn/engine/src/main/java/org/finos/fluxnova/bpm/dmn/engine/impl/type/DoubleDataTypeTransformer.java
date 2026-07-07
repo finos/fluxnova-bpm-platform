@@ -30,12 +30,12 @@ public class DoubleDataTypeTransformer implements DmnDataTypeTransformer {
 
   @Override
   public TypedValue transform(Object value) throws IllegalArgumentException {
-    if (value instanceof Number) {
-      double doubleValue = transformNumber((Number) value);
+    if (value instanceof Number number) {
+      double doubleValue = transformNumber(number);
       return Variables.doubleValue(doubleValue);
 
-    } else if (value instanceof String) {
-      double doubleValue = transformString((String) value);
+    } else if (value instanceof String string) {
+      double doubleValue = transformString(string);
       return Variables.doubleValue(doubleValue);
 
     } else {

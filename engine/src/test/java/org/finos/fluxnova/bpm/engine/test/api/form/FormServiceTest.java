@@ -25,12 +25,7 @@ import static org.finos.fluxnova.bpm.engine.variable.Variables.createVariables;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.objectValue;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectValue;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.stringValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -89,12 +84,11 @@ import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Joram Barrez
@@ -104,14 +98,14 @@ import org.junit.rules.RuleChain;
  */
 public class FormServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
       configuration.setJavaSerializationFormatEnabled(true));
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
   private TaskService taskService;
@@ -122,7 +116,7 @@ public class FormServiceTest {
   private CaseService caseService;
   private ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -137,7 +131,7 @@ public class FormServiceTest {
     identityService.createMembership("fozzie", "management");
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     identityService.deleteGroup("management");
     identityService.deleteUser("fozzie");
@@ -1582,9 +1576,8 @@ public class FormServiceTest {
     String procDefId = repositoryService.createProcessDefinitionQuery().singleResult().getId();
 
     // when
-    assertThatThrownBy(() -> {
-      formService.getDeployedStartForm(procDefId);
-    }).isInstanceOf(NotFoundException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedStartForm(procDefId)).isInstanceOf(NotFoundException.class)
     .hasMessageContaining("The form with the resource name 'org/finos/fluxnova/bpm/engine/test/api/form/start.html' cannot be found in deployment");
   }
 
@@ -1597,9 +1590,8 @@ public class FormServiceTest {
     String taskId = taskService.createTaskQuery().singleResult().getId();
 
     // when
-    assertThatThrownBy(() -> {
-      formService.getDeployedTaskForm(taskId);
-    }).isInstanceOf(NotFoundException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedTaskForm(taskId)).isInstanceOf(NotFoundException.class)
     .hasMessageContaining("The form with the resource name 'org/finos/fluxnova/bpm/engine/test/api/form/task.html' cannot be found in deployment");
   }
 
@@ -1610,9 +1602,8 @@ public class FormServiceTest {
     String processDefinitionId = repositoryService.createProcessDefinitionQuery().singleResult().getId();
 
     // when
-    assertThatThrownBy(() -> {
-      formService.getDeployedStartForm(processDefinitionId);
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedStartForm(processDefinitionId)).isInstanceOf(BadUserRequestException.class)
     .hasMessage("One of the attributes 'formKey' and 'camunda:formRef' must be supplied but none were set.");
   }
 
@@ -1624,9 +1615,8 @@ public class FormServiceTest {
     String taskId = taskService.createTaskQuery().singleResult().getId();
 
     // when
-    assertThatThrownBy(() -> {
-      formService.getDeployedTaskForm(taskId);
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedTaskForm(taskId)).isInstanceOf(BadUserRequestException.class)
     .hasMessage("One of the attributes 'formKey' and 'camunda:formRef' must be supplied but none were set.");
   }
 

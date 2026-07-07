@@ -23,9 +23,7 @@ import static org.finos.fluxnova.bpm.engine.task.Event.ACTION_DELETE_ATTACHMENT;
 import static org.finos.fluxnova.bpm.engine.task.Event.ACTION_DELETE_GROUP_LINK;
 import static org.finos.fluxnova.bpm.engine.task.Event.ACTION_DELETE_USER_LINK;
 import static org.finos.fluxnova.bpm.engine.task.IdentityLinkType.CANDIDATE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -38,9 +36,9 @@ import org.finos.fluxnova.bpm.engine.task.Attachment;
 import org.finos.fluxnova.bpm.engine.task.Event;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.history.useroperationlog.AbstractUserOperationLogTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -57,13 +55,13 @@ public class TaskEventsTest extends AbstractUserOperationLogTest {
 
   private Task task;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     task = taskService.newTask();
     taskService.saveTask(task);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     // delete task
     taskService.deleteTask(task.getId(), true);

@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.integrationtest.deployment.spring;
 import org.finos.fluxnova.bpm.application.PostDeploy;
 import org.finos.fluxnova.bpm.application.PreUndeploy;
 import org.finos.fluxnova.bpm.engine.spring.application.SpringServletProcessApplication;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Daniel Meyer
@@ -42,16 +42,16 @@ public class CustomSpringServletProcessApplication extends SpringServletProcessA
 
   @Override
   public void start() {
-    Assert.assertFalse(isPostDeployInvoked);
+    Assertions.assertFalse(isPostDeployInvoked);
     super.start();
-    Assert.assertTrue("@PostDeploy Method not invoked", isPostDeployInvoked);
+    Assertions.assertTrue(isPostDeployInvoked, "@PostDeploy Method not invoked");
   }
 
   @Override
   public void stop() {
-    Assert.assertFalse(isPreUndeployInvoked);
+    Assertions.assertFalse(isPreUndeployInvoked);
     super.stop();
-    Assert.assertTrue("@PreUndeploy Method not invoked", isPreUndeployInvoked);
+    Assertions.assertTrue(isPreUndeployInvoked, "@PreUndeploy Method not invoked");
   }
 
 }

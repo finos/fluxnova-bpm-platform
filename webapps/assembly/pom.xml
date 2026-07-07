@@ -37,15 +37,31 @@
         <artifactId>fluxnova-engine-rest</artifactId>
         <version>${project.version}</version>
       </dependency>
-      <dependency>
-        <groupId>javax.activation</groupId>
-        <artifactId>activation</artifactId>
-        <version>1.1</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+  <dependency>
+   <groupId>jakarta.servlet</groupId>
+   <artifactId>jakarta.servlet-api</artifactId>
+   <version>${version.jakarta-servlet}</version>
+   <scope>provided</scope>
+  </dependency>
+  <dependency>
+   <groupId>jakarta.ws.rs</groupId>
+   <artifactId>jakarta.ws.rs-api</artifactId>
+   <version>3.1.0</version>
+  </dependency>
+  <dependency>
+    <groupId>tools.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>${version.jackson}</version>
+  </dependency>
+  <dependency>
+    <groupId>tools.jackson.jakarta.rs</groupId>
+    <artifactId>jackson-jakarta-rs-json-provider</artifactId>
+    <version>${version.jackson}</version>
+  </dependency>
 
     <!-- jee spec -->
     <dependency>
@@ -57,6 +73,11 @@
         <exclusion>
           <groupId>org.jboss.spec.javax.ws.rs</groupId>
           <artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
+        </exclusion>
+        <!-- exclude old javax.activation to use Jakarta activation instead -->
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -71,6 +92,10 @@
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-engine-rest-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
     </dependency>
 
     <dependency>
@@ -216,6 +241,12 @@
           <groupId>org.jboss.resteasy</groupId>
           <artifactId>resteasy-jaxrs</artifactId>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <dependency>
           <groupId>org.jboss.spec.javax.ws.rs</groupId>
@@ -258,13 +289,14 @@
           <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-impl</artifactId>
-          <version>${version.xml.jaxb-impl}</version>
+          <groupId>org.glassfish.jaxb</groupId>
+          <artifactId>jaxb-runtime</artifactId>
+          <version>2.3.9</version>
         </dependency>
         <dependency>
           <groupId>org.graalvm.js</groupId>
           <artifactId>js</artifactId>
+          <type>pom</type>
         </dependency>
         <dependency>
           <groupId>org.graalvm.js</groupId>
@@ -359,6 +391,12 @@
           <groupId>org.jboss.resteasy</groupId>
           <artifactId>resteasy-jaxrs</artifactId>
           <scope>runtime</scope>
+          <exclusions>
+            <exclusion>
+              <groupId>com.sun.activation</groupId>
+              <artifactId>jakarta.activation</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
         <!-- We need to override the "provided" scope
           from the main dependency declaration here or

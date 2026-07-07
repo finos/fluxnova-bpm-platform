@@ -25,17 +25,18 @@ import org.json.JSONObject;
 import org.finos.fluxnova.bpm.AbstractWebIntegrationTest;
 import org.finos.fluxnova.bpm.engine.rest.hal.Hal;
 import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import static org.junit.Assert.*;
 
 public class RestIT extends AbstractWebIntegrationTest {
 
@@ -57,7 +58,7 @@ public class RestIT extends AbstractWebIntegrationTest {
 
   private final static Logger log = Logger.getLogger(RestIT.class.getName());
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getRestCtxPath());
@@ -332,7 +333,7 @@ public class RestIT extends AbstractWebIntegrationTest {
     String actual = response.getHeaders().getFirst("Content-Type");
     assertEquals(200, response.getStatus());
     // use startsWith cause sometimes server also returns quality parameters
-    assertTrue("Expected: " + expected + " Actual: " + actual, actual != null && actual.startsWith(expected));
+    assertTrue(actual != null && actual.startsWith(expected), "Expected: " + expected + " Actual: " + actual);
   }
 
 }

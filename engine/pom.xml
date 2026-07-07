@@ -26,7 +26,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -85,6 +85,12 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-junit</artifactId>
+      <version>${version.hamcrest}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.finos.fluxnova.commons</groupId>
@@ -94,6 +100,11 @@
     <dependency>
       <groupId>org.finos.fluxnova.commons</groupId>
       <artifactId>fluxnova-commons-typed-values</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -162,7 +173,7 @@
     <dependency>
       <groupId>jakarta.transaction</groupId>
       <artifactId>jakarta.transaction-api</artifactId>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -174,7 +185,7 @@
     <dependency>
       <groupId>jakarta.ejb</groupId>
       <artifactId>jakarta.ejb-api</artifactId>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -192,20 +203,14 @@
 
     <dependency>
       <groupId>org.apache.commons</groupId>
-      <artifactId>commons-email</artifactId>
+      <artifactId>commons-email2-jakarta</artifactId>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
+      <version>2.0.0-M1</version>
     </dependency>
 
     <dependency>
       <groupId>com.cronutils</groupId>
       <artifactId>cron-utils</artifactId>
-      <version>${version.cronutils}</version>
     </dependency>
 
     <!-- test dependencies  -->
@@ -213,6 +218,13 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${version.mockito}</version>
       <scope>test</scope>
     </dependency>
 
@@ -298,7 +310,7 @@
 
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
+      <artifactId>wiremock-jre8</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -330,6 +342,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
 
@@ -338,7 +351,6 @@
       <artifactId>js-scriptengine</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-bpm-archunit</artifactId>
@@ -352,6 +364,26 @@
       <version>0.24.0</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>${version.jakarta.activation}</version>
+      <scope>test</scope>
+    </dependency>
+  <dependency>
+   <groupId>jakarta.mail</groupId>
+   <artifactId>jakarta.mail-api</artifactId>
+   <scope>test</scope>
+  </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.angus</groupId>
+      <artifactId>angus-activation</artifactId>
+      <version>2.0.2</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
 

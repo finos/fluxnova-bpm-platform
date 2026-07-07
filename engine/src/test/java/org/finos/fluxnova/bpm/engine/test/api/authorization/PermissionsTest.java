@@ -28,7 +28,8 @@ import org.finos.fluxnova.bpm.engine.authorization.Permissions;
 import org.finos.fluxnova.bpm.engine.authorization.Resource;
 import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.impl.util.ResourceTypeUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class PermissionsTest {
 

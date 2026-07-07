@@ -16,13 +16,14 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.impl.annotation;
 
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import jakarta.inject.Inject;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
 
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.cdi.ProcessEngineCdiException;

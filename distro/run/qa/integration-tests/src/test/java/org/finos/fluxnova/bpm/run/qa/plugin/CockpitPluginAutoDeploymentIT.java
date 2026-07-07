@@ -24,12 +24,11 @@ import io.restassured.response.Response;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class CockpitPluginAutoDeploymentIT {
 
@@ -41,7 +40,7 @@ public class CockpitPluginAutoDeploymentIT {
 
   protected List<String> deployedPlugins = new ArrayList<>();
 
-  @After
+  @AfterEach
   public void teardown() {
     stopApp();
     undeployPlugins();
@@ -88,7 +87,7 @@ public class CockpitPluginAutoDeploymentIT {
   }
 
   protected void deployPlugin(String jarName) throws IOException {
-    Path runUserlibDir = Paths.get(baseDirectory, SpringBootManagedContainer.USERLIB_PATH);
+    Path runUserlibDir = Path.of(baseDirectory, SpringBootManagedContainer.USERLIB_PATH);
     String pluginHome = System.getProperty(EXAMPLE_PLUGIN_HOME);
 
     if (pluginHome == null || pluginHome.isEmpty()) {
@@ -96,7 +95,7 @@ public class CockpitPluginAutoDeploymentIT {
               + "to the root directory of the plugin to deploy.");
     }
 
-    Path pluginPath = Paths.get(pluginHome, jarName).toAbsolutePath();
+    Path pluginPath = Path.of(pluginHome, jarName).toAbsolutePath();
     Path copy = Files.copy(pluginPath, runUserlibDir.resolve(pluginPath.getFileName()));
 
     deployedPlugins.add(copy.toString());
@@ -105,7 +104,7 @@ public class CockpitPluginAutoDeploymentIT {
   protected void undeployPlugins() {
     for (String pluginPath : deployedPlugins) {
       try {
-        Files.delete(Paths.get(pluginPath));
+        Files.delete(Path.of(pluginPath));
       } catch (IOException e) {
         fail("unable to undeploy plugin " + pluginPath);
       }

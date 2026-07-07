@@ -19,11 +19,13 @@ package org.finos.fluxnova.bpm.engine.cdi.test.impl.task;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+
+@ExtendWith(ArquillianExtension.class)
 public class CdiTaskServiceTest extends CdiProcessEngineTestCase {
   
   @Test

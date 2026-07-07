@@ -16,9 +16,9 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.spin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.application.ProcessApplicationContext;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
@@ -30,13 +30,13 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.finos.fluxnova.spin.spi.DataFormatConfigurator;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.joda.time.DateTime;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
 import java.util.Date;
@@ -45,7 +45,7 @@ import java.util.Date;
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class PaDataFormatConfiguratorJodaTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -67,7 +67,7 @@ public class PaDataFormatConfiguratorJodaTest extends AbstractFoxPlatformIntegra
   }
 
   @Test
-  public void testPaLocalJodaConfiguration() throws JsonProcessingException, IOException {
+  public void testPaLocalJodaConfiguration() throws JacksonException, IOException {
     // given a process instance
     final ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess");
 
@@ -94,7 +94,7 @@ public class PaDataFormatConfiguratorJodaTest extends AbstractFoxPlatformIntegra
     JsonNode actualJsonTree = objectMapper.readTree(serializedValue);
     JsonNode expectedJsonTree = objectMapper.readTree(expectedSerializedValue);
     // JsonNode#equals makes a deep comparison
-    Assert.assertEquals(expectedJsonTree, actualJsonTree);
+    Assertions.assertEquals(expectedJsonTree, actualJsonTree);
   }
 
 }

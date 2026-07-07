@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.standalone.history;
 
 import static org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration.DB_SCHEMA_UPDATE_CREATE_DROP;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,34 +38,26 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class CustomHistoryLevelIdentityLinkTest {
 
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
       new Object[]{ Arrays.asList(HistoryEventTypes.IDENTITY_LINK_ADD) },
       new Object[]{ Arrays.asList(HistoryEventTypes.IDENTITY_LINK_DELETE, HistoryEventTypes.IDENTITY_LINK_ADD) }
     });
   }
-
-  @Parameter
   public List<HistoryEventTypes> eventTypes;
 
   static CustomHistoryLevelIdentityLink customHisstoryLevelIL = new CustomHistoryLevelIdentityLink();
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
     configuration.setJdbcUrl("jdbc:h2:mem:" + CustomHistoryLevelIdentityLinkTest.class.getSimpleName());
     List<HistoryLevel> levels = new ArrayList<>();
@@ -77,8 +69,8 @@ public class CustomHistoryLevelIdentityLinkTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected HistoryService historyService;
   protected RuntimeService runtimeService;
@@ -86,25 +78,25 @@ public class CustomHistoryLevelIdentityLinkTest {
   protected RepositoryService repositoryService;
   protected TaskService taskService;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
     identityService = engineRule.getIdentityService();
     repositoryService = engineRule.getRepositoryService();
     taskService = engineRule.getTaskService();
-
-    customHisstoryLevelIL.setEventTypes(eventTypes);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     customHisstoryLevelIL.setEventTypes(null);
   }
 
-  @Test
+  @ParameterizedTest
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
-  public void testDeletingIdentityLinkByProcDefId() {
+  @MethodSource("data")
+  public void testDeletingIdentityLinkByProcDefId(List<HistoryEventTypes> eventTypes) {
+    initCustomHistoryLevelIdentityLinkTest(eventTypes);
     // Pre test
     List<HistoricIdentityLinkLog> historicIdentityLinks = historyService.createHistoricIdentityLinkLogQuery().list();
     assertEquals(historicIdentityLinks.size(), 0);
@@ -132,8 +124,10 @@ public class CustomHistoryLevelIdentityLinkTest {
     assertEquals(0, historicIdentityLinks.size());
   }
 
-  @Test
-  public void testDeletingIdentityLinkByTaskId() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testDeletingIdentityLinkByTaskId(List<HistoryEventTypes> eventTypes) {
+    initCustomHistoryLevelIdentityLinkTest(eventTypes);
     // Pre test
     List<HistoricIdentityLinkLog> historicIdentityLinks = historyService.createHistoricIdentityLinkLogQuery().list();
     assertEquals(historicIdentityLinks.size(), 0);
@@ -159,4 +153,8 @@ public class CustomHistoryLevelIdentityLinkTest {
     assertEquals(0, historicIdentityLinks.size());
   }
 
+  public void initCustomHistoryLevelIdentityLinkTest(List<HistoryEventTypes> eventTypes) {
+    this.eventTypes = eventTypes;
+    customHisstoryLevelIL.setEventTypes(eventTypes);
+  }
 }

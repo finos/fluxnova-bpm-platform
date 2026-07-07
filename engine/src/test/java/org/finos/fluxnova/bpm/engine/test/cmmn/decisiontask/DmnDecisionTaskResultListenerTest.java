@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.decisiontask;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResult;
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResultEntries;
@@ -28,8 +24,8 @@ import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -49,7 +45,7 @@ public class DmnDecisionTaskResultListenerTest extends CmmnTest {
   public void testNoOutput() {
     startTestCase("no output");
 
-    assertTrue("The decision result 'ruleResult' should be empty", results.isEmpty());
+    assertTrue(results.isEmpty(), "The decision result 'ruleResult' should be empty");
   }
 
   @Deployment(resources = { TEST_CASE, TEST_DECISION})
@@ -57,7 +53,7 @@ public class DmnDecisionTaskResultListenerTest extends CmmnTest {
   public void testEmptyOutput() {
     startTestCase("empty output");
 
-    assertFalse("The decision result 'ruleResult' should not be empty", results.isEmpty());
+    assertFalse(results.isEmpty(), "The decision result 'ruleResult' should not be empty");
 
     DmnDecisionResultEntries decisionOutput = results.get(0);
     assertNull(decisionOutput.getFirstEntry());
@@ -71,7 +67,7 @@ public class DmnDecisionTaskResultListenerTest extends CmmnTest {
     assertEquals(2, results.size());
 
     for (DmnDecisionResultEntries output : results) {
-      assertTrue("The decision output should be empty", output.isEmpty());
+      assertTrue(output.isEmpty(), "The decision output should be empty");
     }
   }
 
@@ -145,7 +141,7 @@ public class DmnDecisionTaskResultListenerTest extends CmmnTest {
   public void testCollectSumHitPolicyNoOutput() {
     startTestCase("no output");
 
-    assertTrue("The decision result 'ruleResult' should be empty", results.isEmpty());
+    assertTrue(results.isEmpty(), "The decision result 'ruleResult' should be empty");
   }
 
   @Deployment(resources = { TEST_CASE, TEST_DECISION_COLLECT_SUM })
@@ -179,7 +175,7 @@ public class DmnDecisionTaskResultListenerTest extends CmmnTest {
     return caseInstance;
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     // reset the invoked execution listener
     DecisionResultTestListener.reset();

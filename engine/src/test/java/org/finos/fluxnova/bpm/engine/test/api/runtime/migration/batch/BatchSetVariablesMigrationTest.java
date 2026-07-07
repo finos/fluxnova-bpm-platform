@@ -31,10 +31,10 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessMo
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import java.util.List;
 
@@ -49,21 +49,21 @@ public class BatchSetVariablesMigrationTest {
   protected BatchMigrationHelper helper = new BatchMigrationHelper(engineRule, migrationRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule)
       .around(migrationRule).around(testRule);
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void clearAuthentication() {
     engineRule.getIdentityService().clearAuthentication();
   }
 
-  @After
+  @AfterEach
   public void resetEngineConfig() {
     engineRule.getProcessEngineConfiguration()
         .setRestrictUserOperationLogToAuthenticatedUsers(true);
