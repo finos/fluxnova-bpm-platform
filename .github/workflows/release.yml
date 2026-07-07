@@ -122,7 +122,7 @@ jobs:
 
       - name: Perform release
         run: |
-          mvn -B \
+          echo mvn -B \
             -DinteractiveMode=false \
             -DreleaseProfiles=sonatype-oss-release \
             -Dgoals='deploy org.sonatype.plugins:nexus-staging-maven-plugin:1.6.13:close org.sonatype.plugins:nexus-staging-maven-plugin:1.6.13:release' \
@@ -135,10 +135,10 @@ jobs:
       - name: Build distro ZIP only
         run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
 
-      - name: Build and publish Docker image
-        uses: ./.github/actions/build-publish-image
-        with:
-          version: ${{ env.RELEASE_VERSION }}
+#      - name: Build and publish Docker image
+#        uses: ./.github/actions/build-publish-image
+#        with:
+#          version: ${{ env.RELEASE_VERSION }}
 
   publish-javadoc:
     name: Publish Javadoc to GitHub Pages
@@ -153,7 +153,7 @@ jobs:
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.publish-central.outputs.tag }}
+          ref: ${{ env.TAG  }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -173,11 +173,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/reports/apidocs
-          destination_dir: javadocs/${{ needs.publish-central.outputs.minor_version }}
+          destination_dir: javadocs/${{ env.RELEASE_VERSION }}
           keep_files: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'docs: publish Javadoc for ${{ needs.publish-central.outputs.release_version }}'
+          commit_message: 'docs: publish Javadoc for ${{ env.RELEASE_VERSION }}'
 
   publish-openapi-spec:
     name: Publish OpenAPI Spec to GitHub Pages
@@ -192,7 +192,7 @@ jobs:
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.publish-central.outputs.tag }}
+          ref: ${{ env.TAG  }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -211,8 +211,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./engine-rest/docs/target/dependency
-          destination_dir: openapi/${{ needs.publish-central.outputs.minor_version }}
+          destination_dir: openapi/${{ env.RELEASE_VERSION }}
           keep_files: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'docs: publish OpenAPI spec for ${{ needs.publish-central.outputs.release_version }}'
+          commit_message: 'docs: publish OpenAPI spec for ${{ env.RELEASE_VERSION }}'
