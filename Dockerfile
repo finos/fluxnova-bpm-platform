@@ -4,10 +4,6 @@ FROM amazoncorretto:21
 ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
     PATH=$PATH:$JAVA_HOME/bin
 
-# Arguments for DB driver versions
-ARG POSTGRESQL_VERSION
-ARG MYSQL_VERSION
-
 WORKDIR /fluxnova
 
 # Install packages
@@ -23,18 +19,6 @@ COPY distro/run/distro/target/fluxnova-bpm-run-*.zip /fluxnova/
 RUN unzip fluxnova-bpm-run-*.zip
 
 COPY docker-script.sh /fluxnova/docker-script.sh
-
-# Download PostgreSQL JDBC driver if version specified
-RUN if [ -n "$POSTGRESQL_VERSION" ]; then \
-      curl -L -o postgresql.jar https://repo1.maven.org/maven2/org/postgresql/postgresql/${POSTGRESQL_VERSION}/postgresql-${POSTGRESQL_VERSION}.jar; \
-      mv postgresql.jar configuration/userlib/; \
-   fi
-
-# Download MySQL JDBC driver if version specified
-RUN if [ -n "$MYSQL_VERSION" ]; then \
-      curl -L -o mysql-connector.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_VERSION}/mysql-connector-j-${MYSQL_VERSION}.jar; \
-      mv mysql-connector.jar configuration/userlib/; \
-   fi
 
 RUN chown -R fluxnova_user:fluxnova_group /fluxnova
 
