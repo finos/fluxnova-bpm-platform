@@ -147,13 +147,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate/detached@v3
-        
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.TAG  }}
+          ref: ${{ needs.publish-central.outputs.tag }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -173,11 +170,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/reports/apidocs
-          destination_dir: javadocs/${{ env.RELEASE_VERSION }}
+          destination_dir: javadocs/${{ needs.publish-central.outputs.minor_version }}
           keep_files: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'docs: publish Javadoc for ${{ env.RELEASE_VERSION }}'
+          commit_message: 'docs: publish Javadoc for ${{ needs.publish-central.outputs.release_version }}'
 
   publish-openapi-spec:
     name: Publish OpenAPI Spec to GitHub Pages
@@ -192,7 +189,7 @@ jobs:
       - name: Checkout repo at release tag
         uses: actions/checkout@v4
         with:
-          ref: ${{ env.TAG  }}
+          ref: ${{ needs.publish-central.outputs.tag }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -211,8 +208,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./engine-rest/docs/target/dependency
-          destination_dir: openapi/${{ env.RELEASE_VERSION }}
+          destination_dir: openapi/${{ needs.publish-central.outputs.minor_version }}
           keep_files: true
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'docs: publish OpenAPI spec for ${{ env.RELEASE_VERSION }}'
+          commit_message: 'docs: publish OpenAPI spec for ${{ needs.publish-central.outputs.release_version }}'
