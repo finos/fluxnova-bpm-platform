@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_version: ${{ steps.set-vars.outputs.release_version }}
+      tag: ${{ steps.set-vars.outputs.tag }}
+      minor_version: ${{ steps.set-vars.outputs.minor_version }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -99,6 +101,9 @@ jobs:
           
           echo "DEVELOPMENT_VERSION=${developmentVersion}" >> $GITHUB_ENV
 
+          minorVersion="${a[0]}.${a[1]}"
+          echo "minor_version=${minorVersion}" >> $GITHUB_OUTPUT
+
       - name: Configure GitHub authentication for Maven Release Plugin
         run: |
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
@@ -137,3 +142,75 @@ jobs:
     with:
       version: ${{ needs.publish-central.outputs.release_version }}
     secrets: inherit
+
+
+  publish-javadoc:
+    name: Publish Javadoc to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: publish-central
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish-central.outputs.tag }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Generate Javadoc
+        run: |
+          mvn -B -e package javadoc:javadoc javadoc:aggregate -Pdistro,distro-webjar,javadocs \
+            -pl '!engine-rest/engine-rest-openapi' \
+            -DskipTests=true -DskipITs=true -Dskip.frontend.build=true \
+            -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
+          
+      - name: Publish Javadoc to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/reports/apidocs
+          destination_dir: javadocs/${{ needs.publish-central.outputs.minor_version }}
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: publish Javadoc for ${{ needs.publish-central.outputs.release_version }}'
+
+  publish-openapi-spec:
+    name: Publish OpenAPI Spec to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: publish-central
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo at release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish-central.outputs.tag }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Generate OpenAPI Spec
+        run: |
+          cd engine-rest && \
+          mvn -B -e package  -pl '!engine-rest,!assembly' \
+           -s ../settings.xml -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false 
+
+      - name: Publish OpenAPI Spec to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./engine-rest/docs/target/dependency
+          destination_dir: openapi/${{ needs.publish-central.outputs.minor_version }}
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: publish OpenAPI spec for ${{ needs.publish-central.outputs.release_version }}'
