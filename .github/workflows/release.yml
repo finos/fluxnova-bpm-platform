@@ -161,7 +161,7 @@ jobs:
       - name: Generate Javadoc
         run: |
           mvn -B -e package javadoc:javadoc javadoc:aggregate -Pdistro,distro-webjar,javadocs \
-            -pl '!engine,!engine-rest/engine-rest-openapi' \
+            -pl '!engine-rest/engine-rest-openapi' \
             -DskipTests=true -DskipITs=true -Dskip.frontend.build=true \
             -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
           
