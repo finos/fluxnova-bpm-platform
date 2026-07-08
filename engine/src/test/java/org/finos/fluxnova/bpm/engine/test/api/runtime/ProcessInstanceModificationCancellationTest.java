@@ -20,10 +20,7 @@ import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.ass
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.describeExecutionTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +37,8 @@ import org.finos.fluxnova.bpm.engine.test.bpmn.executionlistener.RecorderExecuti
 import org.finos.fluxnova.bpm.engine.test.util.ExecutionTree;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests cancellation of four basic patterns of active activities in a scope:

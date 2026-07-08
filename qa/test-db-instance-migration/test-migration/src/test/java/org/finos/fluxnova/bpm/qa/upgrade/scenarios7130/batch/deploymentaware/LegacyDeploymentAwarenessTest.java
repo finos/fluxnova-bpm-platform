@@ -29,14 +29,14 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 @ScenarioUnderTest("DeploymentAwareBatchesScenario")
 @Origin("7.12.0")
 public class LegacyDeploymentAwarenessTest {
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule engineRule = new UpgradeTestRule();
 
   ManagementService managementService;

@@ -61,8 +61,8 @@ public class BpmnExceptionHandler {
     }
     else {
       String errorCode = null;
-      if (exception instanceof BpmnErrorCodeProvider) {
-        errorCode = ((BpmnErrorCodeProvider) exception).getErrorCode();
+      if (exception instanceof BpmnErrorCodeProvider provider) {
+        errorCode = provider.getErrorCode();
       }
       propagateError(errorCode, exception.getMessage(),exception, execution);
     }
@@ -86,8 +86,8 @@ public class BpmnExceptionHandler {
    *         BpmnError was found
    */
   protected static BpmnError checkIfCauseOfExceptionIsBpmnError(Throwable e) {
-    if (e instanceof BpmnError) {
-      return (BpmnError) e;
+    if (e instanceof BpmnError error) {
+      return error;
     } else if (e.getCause() == null) {
       return null;
     }

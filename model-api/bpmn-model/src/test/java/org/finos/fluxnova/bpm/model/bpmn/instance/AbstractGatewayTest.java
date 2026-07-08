@@ -20,9 +20,10 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.GatewayDirection;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.Before;
 
 import java.io.InputStream;
+
+import org.junit.jupiter.api.BeforeEach;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -51,7 +52,7 @@ public abstract class AbstractGatewayTest<G extends Gateway> extends BpmnModelEl
     );
   }
 
-  @Before
+  @BeforeEach
   @SuppressWarnings("unchecked")
   public void getGateway() {
     InputStream inputStream = ReflectUtil.getResourceAsStream("org/finos/fluxnova/bpm/model/bpmn/GatewaysTest.xml");

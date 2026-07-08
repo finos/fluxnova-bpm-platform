@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.client.spring.subscription;
 import org.finos.fluxnova.bpm.client.spring.SpringTopicSubscription;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.subscription.configuration.InitializedEventConfiguration;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;

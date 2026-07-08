@@ -17,15 +17,14 @@
 package org.finos.fluxnova.bpm.engine.test.api.authorization;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.authorization.Permissions;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -79,7 +78,7 @@ public class DefaultUserPermissionNameForTaskCfgTest {
       fail("Exception expected");
 
     } catch(ProcessEngineException e) {
-      String expectedExceptionMessage = String.format("Invalid value '%s' for configuration property 'defaultUserPermissionNameForTask'.", "UNSUPPORTED");
+      String expectedExceptionMessage = "Invalid value '%s' for configuration property 'defaultUserPermissionNameForTask'.".formatted("UNSUPPORTED");
       assertThat(e.getMessage()).contains(expectedExceptionMessage);
     }
   }
@@ -124,7 +123,7 @@ public class DefaultUserPermissionNameForTaskCfgTest {
       final TestProcessEngineCfg testProcessEngineCfg = new TestProcessEngineCfg();
 
       engine = testProcessEngineCfg.setProcessEngineName("DefaultTaskPermissionsCfgTest-engine")
-        .setJdbcUrl(String.format("jdbc:h2:mem:%s", "DefaultTaskPermissionsCfgTest-engine-db"))
+        .setJdbcUrl("jdbc:h2:mem:%s".formatted("DefaultTaskPermissionsCfgTest-engine-db"))
         .setMetricsEnabled(false)
         .setJobExecutorActivate(false)
         .buildProcessEngine();

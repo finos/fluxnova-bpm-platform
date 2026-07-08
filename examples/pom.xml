@@ -38,12 +38,6 @@
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>test</scope>
@@ -52,6 +46,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
 
@@ -60,7 +55,6 @@
       <artifactId>js-scriptengine</artifactId>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>

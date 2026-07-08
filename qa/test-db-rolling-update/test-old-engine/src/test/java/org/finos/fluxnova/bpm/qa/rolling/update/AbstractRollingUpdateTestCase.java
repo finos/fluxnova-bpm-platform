@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
@@ -47,7 +47,7 @@ public abstract class AbstractRollingUpdateTestCase {
   @Parameter
   public String tag;
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule rule = new UpgradeTestRule();
 
   @Before

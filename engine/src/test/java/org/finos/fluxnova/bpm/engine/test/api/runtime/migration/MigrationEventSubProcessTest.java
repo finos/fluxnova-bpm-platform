@@ -23,8 +23,8 @@ import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.Ev
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.describeExecutionTree;
 import static org.finos.fluxnova.bpm.engine.test.util.MigrationPlanValidationReportAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -46,10 +46,9 @@ import org.finos.fluxnova.bpm.engine.test.util.ClockTestUtil;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.joda.time.DateTime;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class MigrationEventSubProcessTest {
 
@@ -61,8 +60,8 @@ public class MigrationEventSubProcessTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   @Test
   public void testMigrateActiveEventSubProcess() {
@@ -141,7 +140,7 @@ public class MigrationEventSubProcessTest {
         .done());
 
     testHelper.assertEventSubscriptionRemoved(EVENT_SUB_PROCESS_START_ID, EventSubProcessModels.MESSAGE_NAME);
-    Assert.assertEquals(0, testHelper.snapshotAfterMigration.getEventSubscriptions().size());
+    assertEquals(0, testHelper.snapshotAfterMigration.getEventSubscriptions().size());
 
     // and it is possible to complete the process instance
     testHelper.completeTask(USER_TASK_ID);
@@ -318,7 +317,7 @@ public class MigrationEventSubProcessTest {
 
     // and it is possible to trigger the event subprocess
     rule.getRuntimeService().correlateMessage(EventSubProcessModels.MESSAGE_NAME);
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    assertEquals(1, rule.getTaskService().createTaskQuery().count());
 
     // and complete the process instance
     testHelper.completeTask(EVENT_SUB_PROCESS_TASK_ID);
@@ -347,7 +346,7 @@ public class MigrationEventSubProcessTest {
     // and it is possible to trigger the event subprocess
     Job timerJob = testHelper.snapshotAfterMigration.getJobs().get(0);
     rule.getManagementService().executeJob(timerJob.getId());
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    assertEquals(1, rule.getTaskService().createTaskQuery().count());
 
     // and complete the process instance
     testHelper.completeTask(EVENT_SUB_PROCESS_TASK_ID);
@@ -375,7 +374,7 @@ public class MigrationEventSubProcessTest {
 
     // and it is possible to trigger the event subprocess
     rule.getRuntimeService().signalEventReceived(EventSubProcessModels.SIGNAL_NAME);
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    assertEquals(1, rule.getTaskService().createTaskQuery().count());
 
     // and complete the process instance
     testHelper.completeTask(EVENT_SUB_PROCESS_TASK_ID);
@@ -413,7 +412,7 @@ public class MigrationEventSubProcessTest {
         .mapActivities(USER_TASK_ID, USER_TASK_ID)
         .mapActivities(EVENT_SUB_PROCESS_START_ID, EVENT_SUB_PROCESS_START_ID)
         .build();
-      Assert.fail("exception expected");
+      org.junit.jupiter.api.Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())
@@ -486,7 +485,7 @@ public class MigrationEventSubProcessTest {
 
     // and it is possible to trigger the event subprocess
     rule.getRuntimeService().correlateMessage(EventSubProcessModels.MESSAGE_NAME);
-    Assert.assertEquals(2, rule.getTaskService().createTaskQuery().count());
+    assertEquals(2, rule.getTaskService().createTaskQuery().count());
 
     // and complete the process instance
     testHelper.completeTask(EVENT_SUB_PROCESS_TASK_ID);

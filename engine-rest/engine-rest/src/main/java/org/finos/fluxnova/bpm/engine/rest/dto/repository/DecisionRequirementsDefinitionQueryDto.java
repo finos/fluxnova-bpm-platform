@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.repository.DecisionRequirementsDefinitionQuery;
@@ -32,7 +32,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.BooleanConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.IntegerConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringListConverter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class DecisionRequirementsDefinitionQueryDto extends AbstractQueryDto<DecisionRequirementsDefinitionQuery> {
 

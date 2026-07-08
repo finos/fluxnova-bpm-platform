@@ -1,5 +1,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.subprocess;
 
+import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.assertThat;
+import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.describeExecutionTree;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -19,6 +21,7 @@ import org.finos.fluxnova.bpm.engine.runtime.Execution;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
+import org.finos.fluxnova.bpm.engine.test.util.ExecutionTree;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.junit.Test;
 
@@ -845,6 +848,366 @@ public class AdHocSubProcessTest extends PluggableProcessEngineTest {
           "Invalid value 'maybe' for ad-hoc extension attribute 'autoComplete'; expected boolean value",
           e.getMessage());
     }
+  }
+
+  @Deployment
+  @Test
+  public void testMultiInstanceParallelAdHocSubProcessWithIoMappedTasks() {
+    // regression test: tasks with camunda:inputOutput inside a parallel multi-instance ad hoc subprocess
+    // were failing at process start because the task was marked scope due to its IO mapping, creating a
+    // mismatch between the scope hierarchy and the execution hierarchy
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+        "adHocSubProcessMultiInstanceParallelWithIoMappedTasks");
+
+    List<Task> adHocTasks = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .list();
+
+    assertEquals(2, adHocTasks.size());
+
+    for (Task task : adHocTasks) {
+      taskService.complete(task.getId());
+    }
+
+    assertEquals(0, runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).count());
+  }
+
+  @Deployment
+  @Test
+  public void testCompletionConditionCancelsRemainingIoMappedTasks() {
+    // regression test: completing a task with a variable that satisfies the completion condition
+    // while other IO-mapped tasks are still active caused an ACT_FK_VAR_EXE foreign key violation,
+    // because the ad hoc scope execution was deleted while variables still referenced it
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+        "adHocSubProcessCompletionConditionWithIoMappedTasks");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+    assertNotNull(taskA);
+
+    // complete Task_A -> flows to Task_B (Task_C still active)
+    taskService.complete(taskA.getId());
+
+    Task taskB = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult();
+    assertNotNull(taskB);
+
+    // completing Task_B with approved=true satisfies the completion condition,
+    // which cancels the still-active Task_C and leaves the subprocess
+    taskService.complete(taskB.getId(), Collections.singletonMap("approved", true));
+
+    assertEquals(0, runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).count());
+  }
+
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testCompletionConditionCancelsRemainingIoMappedTasks.bpmn20.xml")
+  @Test
+  public void testCompletionConditionOnMidChainTaskCompletionCancelsRemaining() {
+    // completing a task that has an outgoing sequence flow (taskA -> taskB) with a variable
+    // that satisfies the completion condition must complete the subprocess immediately:
+    // taskB is never created and the still-active taskC is canceled
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+        "adHocSubProcessCompletionConditionWithIoMappedTasks");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+    assertNotNull(taskA);
+
+    taskService.complete(taskA.getId(), Collections.singletonMap("approved", true));
+
+    // eager completion: taskB must never be created (not created-then-canceled)
+    assertNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult());
+
+    assertEquals(0, runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).count());
+  }
+
+  @Deployment
+  @Test
+  public void testAutoCompleteFalseStillHonorsCompletionCondition() {
+    // with autoComplete=false, an explicit completion condition is still honored:
+    // completing the mid-chain taskA with approved=true completes the subprocess (taskB never created)
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+        "adHocSubProcessCompletionConditionAutoCompleteFalse",
+        Collections.singletonMap("approved", false));
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    Task taskB = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult();
+
+    assertNotNull(taskA);
+    assertNotNull(taskB);
+
+    taskService.complete(taskA.getId(), Collections.singletonMap("approved", true));
+
+    assertNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult());
+
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+  }
+
+  @Deployment
+  @Test
+  public void testAutoCompleteFalseKeepsScopeOpenAfterActivitiesComplete() {
+    // with autoComplete=false and no completion condition, the scope stays open after all
+    // started activities complete until explicit completion is requested
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessAutoCompleteFalse");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    Task taskB = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult();
+
+    assertNotNull(taskA);
+    assertNotNull(taskB);
+
+    taskService.complete(taskA.getId());
+    taskService.complete(taskB.getId());
+
+    Execution adHocExecution = runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("adHocSubProcess")
+        .singleResult();
+
+    assertNotNull(adHocExecution);
+    assertNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+
+    runtimeService.completeAdHocSubProcess(adHocExecution.getId());
+
+    assertNull(runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("adHocSubProcess")
+        .singleResult());
+
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+  }
+
+  @Deployment
+  @Test
+  public void testMultiInstanceParallelInputMappedCompletionConditionCompletesPerInstance() {
+    // process-level 'approved' is input-mapped onto each parallel MI instance of the ad hoc
+    // subprocess, so each instance has its own copy: approving inside one instance completes
+    // only that instance (canceling its remaining tasks) and leaves the sibling untouched
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessMiInputMappedCompletion");
+
+    List<Task> taskAs = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .list();
+    assertEquals(2, taskAs.size());
+
+    // mid-chain completion: taskA flows to taskB, but approval completes the instance eagerly
+    taskService.complete(taskAs.get(0).getId(), Collections.singletonMap("approved", true));
+
+    List<Task> remaining = taskService.createTaskQuery().processInstanceId(processInstance.getId()).list();
+    // first instance fully gone (its taskC canceled, taskB never created);
+    // second instance untouched with its taskA and taskC
+    assertEquals(2, remaining.size());
+    assertEquals(1, remaining.stream().filter(t -> "taskA".equals(t.getTaskDefinitionKey())).count());
+    assertEquals(1, remaining.stream().filter(t -> "taskC".equals(t.getTaskDefinitionKey())).count());
+
+    // approving the second instance completes the whole process
+    Task secondTaskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+    taskService.complete(secondTaskA.getId(), Collections.singletonMap("approved", true));
+
+    assertEquals(0, runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).count());
+  }
+
+  /**
+   * When parallel ad-hoc activities drain down to a single remaining one, the ad-hoc
+   * scope must stay a distinct scope execution with the remaining activity running as a
+   * concurrent child. Historically {@code tryPruneLastConcurrentChild()} folded that last
+   * child into the scope execution, which destroyed the parent subprocess scope that
+   * agentic child execution listeners rely on. This test pins the un-pruned tree shape.
+   */
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testTriggerAdHocActivityAndCompleteSubProcess.bpmn20.xml")
+  @Test
+  public void testLastRemainingActivityKeepsAdHocScopeAsConcurrentParent() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessBasic");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    taskService.complete(taskA.getId());
+
+    // taskB is now the only remaining ad-hoc activity
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult());
+
+    assertAdHocScopeHasSingleConcurrentChild(processInstance, "taskB");
+  }
+
+  /**
+   * A single starter activity runs as a concurrent child of the ad-hoc scope and completes
+   * end-to-end. Note: the historical prune fired only from {@code concurrentChildExecutionEnded}
+   * (when a sibling ended), so a lone starter never triggered it - this case documents the
+   * baseline single-activity invariant rather than discriminating the prune removal.
+   */
+  @Deployment
+  @Test
+  public void testSingleStarterActivityRunsAsConcurrentChildAndCompletes() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessSingleStarter");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    assertNotNull(taskA);
+
+    assertAdHocScopeHasSingleConcurrentChild(processInstance, "taskA");
+
+    taskService.complete(taskA.getId());
+
+    // the un-pruned single child still completes the subprocess and flows downstream
+    assertNull(runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("adHocSubProcess")
+        .singleResult());
+    assertEquals(0, runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("taskA")
+        .count());
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+  }
+
+  /**
+   * Draining two parallel activities down to one and then to zero must still auto-complete
+   * the subprocess. With the prune removed, the final activity now ends via
+   * {@code concurrentChildExecutionEnded} with no children left, rather than via the
+   * folded-scope path; this guards that completion path.
+   */
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testAutoCompleteAttributeTrueAutoCompletesAdHocSubProcess.bpmn20.xml")
+  @Test
+  public void testDrainToSingleConcurrentChildThenAutoCompletes() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("adHocSubProcessAutoCompleteAttributeTrue");
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    taskService.complete(taskA.getId());
+
+    // one activity left: scope preserved as a distinct concurrent parent
+    assertAdHocScopeHasSingleConcurrentChild(processInstance, "taskB");
+
+    Task taskB = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult();
+
+    taskService.complete(taskB.getId());
+
+    // last child ends -> subprocess auto-completes, no leaked executions
+    assertNull(runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("adHocSubProcess")
+        .singleResult());
+    assertEquals(0, runtimeService.createExecutionQuery()
+        .processInstanceId(processInstance.getId())
+        .activityId("taskB")
+        .count());
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+  }
+
+  /**
+   * With a completion condition that is already met but instances preserved
+   * ({@code cancelRemainingInstances=false}), the open scope must keep the single remaining
+   * activity as a concurrent child and defer leaving until that child finishes.
+   */
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/subprocess/AdHocSubProcessTest.testCompletionConditionDefersUntilActiveActivitiesFinish.bpmn20.xml")
+  @Test
+  public void testDeferredCompletionKeepsSingleConcurrentChild() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(
+        "adHocSubProcessWithDeferredCompletion",
+        Collections.singletonMap("approved", false));
+
+    Task taskA = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskA")
+        .singleResult();
+
+    // condition becomes true, but taskB is still active -> scope must stay open
+    taskService.complete(taskA.getId(), Collections.singletonMap("approved", true));
+
+    assertNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+
+    assertAdHocScopeHasSingleConcurrentChild(processInstance, "taskB");
+
+    Task taskB = taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskB")
+        .singleResult();
+
+    taskService.complete(taskB.getId());
+
+    assertNotNull(taskService.createTaskQuery()
+        .processInstanceId(processInstance.getId())
+        .taskDefinitionKey("taskAfter")
+        .singleResult());
+  }
+
+  /**
+   * Asserts that the ad-hoc subprocess scope is preserved as a distinct scope execution
+   * whose only child is a concurrent (non-scope) execution at {@code expectedChildActivityId}.
+   * This is exactly the shape that {@code tryPruneLastConcurrentChild()} would have collapsed.
+   */
+  protected void assertAdHocScopeHasSingleConcurrentChild(ProcessInstance processInstance,
+      String expectedChildActivityId) {
+    ExecutionTree executionTree = ExecutionTree.forExecution(processInstance.getId(), processEngine);
+
+    assertThat(executionTree).matches(
+        describeExecutionTree(null).scope()
+            .child("adHocSubProcess").scope()
+              .child(expectedChildActivityId).concurrent().noScope()
+            .done());
   }
 }
 

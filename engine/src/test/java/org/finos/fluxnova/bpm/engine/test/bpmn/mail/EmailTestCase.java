@@ -18,8 +18,10 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.mail;
 
 import org.finos.fluxnova.bpm.engine.impl.test.TestLogger;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.slf4j.Logger;
 import org.subethamail.wiser.Wiser;
 
@@ -33,7 +35,7 @@ public abstract class EmailTestCase extends PluggableProcessEngineTest {
 
   protected Wiser wiser;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
 
 
@@ -57,7 +59,7 @@ public abstract class EmailTestCase extends PluggableProcessEngineTest {
     }
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     wiser.stop();
 

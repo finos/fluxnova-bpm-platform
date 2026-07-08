@@ -25,7 +25,6 @@
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.fasterxml.uuid</groupId>
       <artifactId>java-uuid-generator</artifactId>

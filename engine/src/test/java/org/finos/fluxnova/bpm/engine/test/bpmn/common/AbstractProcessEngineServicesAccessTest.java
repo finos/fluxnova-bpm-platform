@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.common;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +29,9 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.instance.Task;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -47,7 +47,7 @@ public abstract class AbstractProcessEngineServicesAccessTest extends PluggableP
 
   protected List<String> deploymentIds = new ArrayList<String>();
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     for (String deploymentId : deploymentIds) {
       repositoryService.deleteDeployment(deploymentId, true);
@@ -182,14 +182,14 @@ public abstract class AbstractProcessEngineServicesAccessTest extends PluggableP
   }
 
   public static void assertCanAccessServices(ProcessEngineServices services) {
-    Assert.assertNotNull(services.getAuthorizationService());
-    Assert.assertNotNull(services.getFormService());
-    Assert.assertNotNull(services.getHistoryService());
-    Assert.assertNotNull(services.getIdentityService());
-    Assert.assertNotNull(services.getManagementService());
-    Assert.assertNotNull(services.getRepositoryService());
-    Assert.assertNotNull(services.getRuntimeService());
-    Assert.assertNotNull(services.getTaskService());
+    Assertions.assertNotNull(services.getAuthorizationService());
+    Assertions.assertNotNull(services.getFormService());
+    Assertions.assertNotNull(services.getHistoryService());
+    Assertions.assertNotNull(services.getIdentityService());
+    Assertions.assertNotNull(services.getManagementService());
+    Assertions.assertNotNull(services.getRepositoryService());
+    Assertions.assertNotNull(services.getRuntimeService());
+    Assertions.assertNotNull(services.getTaskService());
   }
 
   public static void assertCanPerformQuery(ProcessEngineServices services) {

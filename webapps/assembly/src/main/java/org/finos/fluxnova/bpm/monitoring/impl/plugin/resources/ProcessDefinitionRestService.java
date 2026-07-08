@@ -23,15 +23,15 @@ import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.sub.resources.ProcessD
 import org.finos.fluxnova.bpm.monitoring.plugin.resource.AbstractPluginResource;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
 
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;

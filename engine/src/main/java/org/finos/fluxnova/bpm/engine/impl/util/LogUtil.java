@@ -98,8 +98,8 @@ public class LogUtil {
         line.append(" CFG ");
       }
 
-      int threadId = record.getThreadID();
-      String threadIndent = getThreadIndent(threadId);
+      long threadId = record.getLongThreadID();
+      String threadIndent = getThreadIndent((int) threadId);
 
       line.append(threadIndent);
       line.append(" | ");

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.experimental;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,15 +24,16 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+import org.jboss.arquillian.junit5.ArquillianExtension;
+
+@ExtendWith(ArquillianExtension.class)
 public class ProcessVariablesTest extends CdiProcessEngineTestCase {
 
-  @Ignore
+  @Disabled
   @Test
   @Deployment(resources = "org/activiti/cdi/BusinessProcessBeanTest.test.bpmn20.xml")
   public void testResolveString() {

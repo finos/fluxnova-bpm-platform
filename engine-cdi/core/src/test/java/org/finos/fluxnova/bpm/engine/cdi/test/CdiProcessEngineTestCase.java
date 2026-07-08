@@ -21,7 +21,8 @@ import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-import javax.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.inject.Inject;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
 import org.finos.fluxnova.bpm.container.RuntimeContainerDelegate;
@@ -40,20 +41,21 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.TaskService;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;
+import org.finos.fluxnova.bpm.engine.cdi.impl.util.BeanManagerLookup;
 import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
+import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.engine.impl.util.LogUtil;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Daniel Meyer
@@ -78,28 +80,46 @@ public abstract class CdiProcessEngineTestCase {
       .addAsManifestResource("META-INF/beans.xml", "beans.xml");
   }
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
+  // CDI-injected fields: populated by Weld on the CDI-managed test instance.
+  // On the plain JUnit5 instance these @Inject annotations are ignored;
+  // the @BeforeEach method below fills in the fields as a fallback.
+  @Inject
   protected BeanManager beanManager;
 
+  @Inject
   protected ProcessEngine processEngine;
+  @Inject
   protected FormService formService;
+  @Inject
   protected HistoryService historyService;
+  @Inject
   protected IdentityService identityService;
+  @Inject
   protected ManagementService managementService;
+  @Inject
   protected RepositoryService repositoryService;
+  @Inject
   protected RuntimeService runtimeService;
+  @Inject
   protected TaskService taskService;
+  @Inject
   protected AuthorizationService authorizationService;
+  @Inject
   protected FilterService filterService;
+  @Inject
   protected ExternalTaskService externalTaskService;
+  @Inject
   protected CaseService caseService;
+  @Inject
   protected DecisionService decisionService;
 
+  // No CDI producer for ProcessEngineConfigurationImpl – set manually.
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void setUpCdiProcessEngineTestCase() throws Exception {
 
     if(BpmPlatform.getProcessEngineService().getDefaultProcessEngine() == null) {
@@ -123,7 +143,7 @@ public abstract class CdiProcessEngineTestCase {
     decisionService = processEngine.getDecisionService();
   }
 
-  @After
+  @AfterEach
   public void tearDownCdiProcessEngineTestCase() throws Exception {
     RuntimeContainerDelegate.INSTANCE.get().unregisterProcessEngine(processEngine);
     beanManager = null;
@@ -159,6 +179,15 @@ public abstract class CdiProcessEngineTestCase {
   //////////////////////// copied from AbstractActivitiTestcase
 
   public void waitForJobExecutorToProcessAllJobs(long maxMillisToWait, long intervalMillis) {
+    // processEngineConfiguration may be null if CDI-injected processEngine was cleared in
+    // teardown and not re-injected (Arquillian may reuse the same test instance). Re-derive it.
+    if (processEngineConfiguration == null && processEngine != null) {
+      processEngineConfiguration = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
+    }
+    if (processEngineConfiguration == null) {
+      throw new ProcessEngineException("processEngineConfiguration is not initialized. " +
+          "Ensure setUpCdiProcessEngineTestCase() ran successfully before calling this method.");
+    }
     JobExecutor jobExecutor = processEngineConfiguration.getJobExecutor();
     jobExecutor.start();
 

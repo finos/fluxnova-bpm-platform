@@ -14,12 +14,12 @@ import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.security.auth.AuthenticationResult;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
@@ -30,7 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
@@ -48,7 +48,7 @@ public class JwtAuthenticationProviderTest {
   private RSAPrivateKey privateKey;
   private RSAPublicKey publicKey;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     request = Mockito.mock(HttpServletRequest.class);
     response = Mockito.mock(HttpServletResponse.class);
@@ -69,7 +69,7 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Should fail when token is missing", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Should fail when token is missing");
   }
 
   @Test
@@ -79,7 +79,7 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Should fail with invalid token format", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Should fail with invalid token format");
   }
 
   @Test
@@ -89,7 +89,7 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Should fail without Bearer prefix", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Should fail without Bearer prefix");
   }
 
   @Test
@@ -101,7 +101,7 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertFalse("Should fail with expired token", result.isAuthenticated());
+    assertFalse(result.isAuthenticated(), "Should fail with expired token");
   }
 
   @Test
@@ -113,8 +113,8 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Valid JWT should authenticate successfully", result.isAuthenticated());
-    assertEquals("User ID should match sub claim", TEST_USER_ID, result.getAuthenticatedUser());
+    assertTrue(result.isAuthenticated(), "Valid JWT should authenticate successfully");
+    assertEquals(TEST_USER_ID, result.getAuthenticatedUser(), "User ID should match sub claim");
   }
 
   @Test
@@ -126,11 +126,11 @@ public class JwtAuthenticationProviderTest {
 
     AuthenticationResult result = provider.extractAuthenticatedUser(request, engine);
 
-    assertTrue("Valid JWT with groups should authenticate", result.isAuthenticated());
+    assertTrue(result.isAuthenticated(), "Valid JWT with groups should authenticate");
     assertEquals(TEST_USER_ID, result.getAuthenticatedUser());
-    assertNotNull("Groups should be extracted", result.getGroups());
-    assertTrue("Should contain group-a", result.getGroups().contains("group-a"));
-    assertTrue("Should contain group-b", result.getGroups().contains("group-b"));
+    assertNotNull(result.getGroups(), "Groups should be extracted");
+    assertTrue(result.getGroups().contains("group-a"), "Should contain group-a");
+    assertTrue(result.getGroups().contains("group-b"), "Should contain group-b");
   }
 
   @Test
@@ -153,11 +153,13 @@ public class JwtAuthenticationProviderTest {
     assertFalse(result.isAuthenticated());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testPrefixWithoutSpaceThrowsError() {
-    new JwtAuthenticationProvider(
-        TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
-        "Authorization", "Bearer", "sub", null
+    assertThrows(IllegalArgumentException.class, () ->
+        new JwtAuthenticationProvider(
+            TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
+            "Authorization", "Bearer", "sub", null
+        )
     );
   }
 

@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.sql.DataSource;
 
@@ -26,7 +26,8 @@ import org.apache.ibatis.session.Configuration;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

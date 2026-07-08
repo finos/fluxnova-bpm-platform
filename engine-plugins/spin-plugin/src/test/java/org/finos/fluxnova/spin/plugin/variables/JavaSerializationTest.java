@@ -25,8 +25,11 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.json.JSONException;
+
+import org.junit.jupiter.api.Test;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.objectValue;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectValue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Here we test how the engine behaves, when more than one object serializers are available.
@@ -38,6 +41,7 @@ public class JavaSerializationTest extends PluggableProcessEngineTestCase {
   protected static final String ONE_TASK_PROCESS = "org/finos/fluxnova/spin/plugin/oneTaskProcess.bpmn20.xml";
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSerializationAsJava() throws JSONException {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -64,6 +68,7 @@ public class JavaSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testJavaSerializedValuesAreProhibited() throws JSONException {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -79,6 +84,7 @@ public class JavaSerializationTest extends PluggableProcessEngineTestCase {
   }
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testJavaSerializedValuesAreProhibitedForTransient() throws JSONException {
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
 
@@ -93,6 +99,7 @@ public class JavaSerializationTest extends PluggableProcessEngineTestCase {
 
   }
 
+  @Test
   public void testStandaloneTaskVariable() {
     Task task = taskService.newTask();
     task.setName("gonzoTask");
@@ -112,6 +119,7 @@ public class JavaSerializationTest extends PluggableProcessEngineTestCase {
 
   }
 
+  @Test
   public void testStandaloneTaskTransientVariable() {
     Task task = taskService.newTask();
     task.setName("gonzoTask");

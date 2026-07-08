@@ -21,20 +21,16 @@ import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification.AbstractExecutionListenerSpec;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
 import org.finos.fluxnova.bpm.model.cmmn.instance.ProcessTask;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Parameterized.class)
 public class ProcessTaskPlanItemExecutionListenerHandlerTest extends CmmnElementHandlerTest {
 
-  @Parameters(name = "testListener: {0}")
   public static Iterable<Object[]> data() {
     return ExecutionListenerCases.TASK_OR_STAGE_CASES;
   }
@@ -45,11 +41,11 @@ public class ProcessTaskPlanItemExecutionListenerHandlerTest extends CmmnElement
 
   protected AbstractExecutionListenerSpec testSpecification;
 
-  public ProcessTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
+  public void initProcessTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
     this.testSpecification = testSpecification;
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processTask = createElement(casePlanModel, "aProcessTask", ProcessTask.class);
 
@@ -58,8 +54,10 @@ public class ProcessTaskPlanItemExecutionListenerHandlerTest extends CmmnElement
 
   }
 
-  @Test
-  public void testCaseExecutionListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "testListener: {0}")
+  public void testCaseExecutionListener(AbstractExecutionListenerSpec testSpecification) {
+    initProcessTaskPlanItemExecutionListenerHandlerTest(testSpecification);
     // given:
     testSpecification.addListenerToElement(modelInstance, processTask);
 

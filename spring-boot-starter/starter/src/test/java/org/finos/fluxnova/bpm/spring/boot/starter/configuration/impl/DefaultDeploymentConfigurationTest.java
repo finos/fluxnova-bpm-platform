@@ -24,8 +24,9 @@ import java.util.Set;
 
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.core.io.Resource;
 
 public class DefaultDeploymentConfigurationTest {
@@ -34,7 +35,7 @@ public class DefaultDeploymentConfigurationTest {
   private final FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
   private final SpringProcessEngineConfiguration configuration = new SpringProcessEngineConfiguration();
 
-  @Before
+  @BeforeEach
   public void before() {
     defaultDeploymentConfiguration.camundaBpmProperties = camundaBpmProperties;
   }

@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItemDefinition;
 import org.finos.fluxnova.bpm.model.cmmn.util.CmmnModelResource;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

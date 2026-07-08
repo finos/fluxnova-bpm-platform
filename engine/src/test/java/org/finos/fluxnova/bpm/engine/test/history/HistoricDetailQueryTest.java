@@ -19,10 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.history;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -59,10 +56,10 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
@@ -77,8 +74,8 @@ public class HistoricDetailQueryTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
 
   protected RuntimeService runtimeService;
@@ -88,7 +85,7 @@ public class HistoricDetailQueryTest {
   protected IdentityService identityService;
   protected CaseService caseService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
@@ -246,8 +243,7 @@ public class HistoricDetailQueryTest {
     assertEquals(1, query.list().size());
     assertEquals(1, query.count());
     HistoricDetail historicDetail = query.list().get(0);
-    if (historicDetail instanceof HistoricVariableUpdate) {
-      HistoricVariableUpdate variableUpdate = (HistoricVariableUpdate) historicDetail;
+    if (historicDetail instanceof HistoricVariableUpdate variableUpdate) {
       assertEquals(variableUpdate.getVariableName(), "stringVar");
       assertEquals(variableUpdate.getTypeName(), "string");
     } else {
@@ -273,8 +269,7 @@ public class HistoricDetailQueryTest {
     assertEquals(1, query.list().size());
     assertEquals(1, query.count());
     HistoricDetail historicDetail = query.list().get(0);
-    if (historicDetail instanceof HistoricVariableUpdate) {
-      HistoricVariableUpdate variableUpdate = (HistoricVariableUpdate) historicDetail;
+    if (historicDetail instanceof HistoricVariableUpdate variableUpdate) {
       assertEquals(variableUpdate.getVariableName(), "boolVar");
       assertEquals(variableUpdate.getTypeName(), "boolean");
     } else {
@@ -307,8 +302,7 @@ public class HistoricDetailQueryTest {
     allowedVariableTypes.add("integer");
     allowedVariableTypes.add("object");
     for (HistoricDetail detail : query.list()) {
-      if (detail instanceof HistoricVariableUpdate) {
-        HistoricVariableUpdate variableUpdate = (HistoricVariableUpdate) detail;
+      if (detail instanceof HistoricVariableUpdate variableUpdate) {
         assertTrue(allowedVariableTypes.contains(variableUpdate.getTypeName()));
       } else {
         fail("Historic detail should be a variable update!");
@@ -542,9 +536,8 @@ public class HistoricDetailQueryTest {
     HistoricDetailQuery query = historyService.createHistoricDetailQuery();
 
     // then
-    assertThatThrownBy(() -> {
-      query.variableNameLike(null);
-    })
+    assertThatThrownBy(() ->
+      query.variableNameLike(null))
         .isInstanceOf(NullValueException.class)
         .hasMessageContaining("Variable name like is null");
   }

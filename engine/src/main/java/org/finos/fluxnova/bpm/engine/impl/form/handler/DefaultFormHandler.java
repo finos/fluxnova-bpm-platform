@@ -327,12 +327,11 @@ public class DefaultFormHandler implements FormHandler {
       // fire history events
       final ExecutionEntity executionEntity;
       final String taskId;
-      if(variableScope instanceof ExecutionEntity) {
-        executionEntity = (ExecutionEntity) variableScope;
+      if(variableScope instanceof ExecutionEntity entity) {
+        executionEntity = entity;
         taskId = null;
       }
-      else if (variableScope instanceof TaskEntity) {
-        TaskEntity task = (TaskEntity) variableScope;
+      else if (variableScope instanceof TaskEntity task) {
         executionEntity = task.getExecution();
         taskId = task.getId();
       } else {

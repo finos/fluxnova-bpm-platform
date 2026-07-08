@@ -27,10 +27,11 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.AfterAllCallback;
 
-public class ProcessEngineBootstrapRule extends TestWatcher {
+public class ProcessEngineBootstrapRule implements BeforeAllCallback, AfterAllCallback {
 
   private ProcessEngine processEngine;
   protected Consumer<ProcessEngineConfigurationImpl> processEngineConfigurator;
@@ -52,6 +53,11 @@ public class ProcessEngineBootstrapRule extends TestWatcher {
     this.processEngine = bootstrapEngine(configurationResource);
   }
 
+  @Override
+  public void beforeAll(ExtensionContext context) throws Exception {
+    // engine is bootstrapped in constructor; nothing additional needed here
+  }
+
   public ProcessEngine bootstrapEngine(String configurationResource) {
     ProcessEngineConfigurationImpl processEngineConfiguration = (ProcessEngineConfigurationImpl) ProcessEngineConfiguration
       .createProcessEngineConfigurationFromResource(configurationResource);
@@ -71,7 +77,7 @@ public class ProcessEngineBootstrapRule extends TestWatcher {
   }
 
   @Override
-  protected void finished(Description description) {
+  public void afterAll(ExtensionContext context) throws Exception {
     deleteHistoryCleanupJob();
     processEngine.close();
     ProcessEngines.unregister(processEngine);

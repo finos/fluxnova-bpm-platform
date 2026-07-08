@@ -36,7 +36,8 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 import org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi.BpmnShape;
 import org.finos.fluxnova.bpm.model.bpmn.instance.dc.Bounds;
 import org.finos.fluxnova.bpm.model.bpmn.instance.di.Waypoint;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class CoordinatesGenerationTest {
 

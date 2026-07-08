@@ -16,13 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.filter;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,10 +32,9 @@ import org.finos.fluxnova.bpm.engine.filter.Filter;
 import org.finos.fluxnova.bpm.engine.filter.FilterQuery;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.FilterEntity;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -46,7 +43,7 @@ public class FilterQueryTest extends PluggableProcessEngineTest {
 
   protected List<String> filterIds = new ArrayList<String>();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     saveFilter("b", "b");
     saveFilter("d", "d");
@@ -62,7 +59,7 @@ public class FilterQueryTest extends PluggableProcessEngineTest {
     filterIds.add(filter.getId());
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     // delete all filters
     for (Filter filter : filterService.createFilterQuery().list()) {
@@ -221,56 +218,56 @@ public class FilterQueryTest extends PluggableProcessEngineTest {
     List<String> sortedIds = new ArrayList<String>(filterIds);
     Collections.sort(sortedIds);
     assertEquals(4, filterService.createFilterQuery().orderByFilterId().asc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterId().asc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterId().asc().list(),
         contains(hasProperty("id", equalTo(sortedIds.get(0))),
             hasProperty("id", equalTo(sortedIds.get(1))),
             hasProperty("id", equalTo(sortedIds.get(2))),
             hasProperty("id", equalTo(sortedIds.get(3)))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterResourceType().asc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterResourceType().asc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterResourceType().asc().list(),
         contains(hasProperty("resourceType", equalTo(EntityTypes.TASK)),
           hasProperty("resourceType", equalTo(EntityTypes.TASK)),
           hasProperty("resourceType", equalTo(EntityTypes.TASK)),
           hasProperty("resourceType", equalTo(EntityTypes.TASK))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterName().asc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterName().asc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterName().asc().list(),
         contains(hasProperty("name", equalTo("a")),
             hasProperty("name", equalTo("b")),
             hasProperty("name", equalTo("c_")),
             hasProperty("name", equalTo("d"))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterOwner().asc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterOwner().asc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterOwner().asc().list(),
         contains(hasProperty("owner", equalTo("a")),
             hasProperty("owner", equalTo("b")),
             hasProperty("owner", equalTo("c")),
             hasProperty("owner", equalTo("d"))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterId().desc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterId().desc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterId().desc().list(),
         contains(hasProperty("id", equalTo(sortedIds.get(3))),
             hasProperty("id", equalTo(sortedIds.get(2))),
             hasProperty("id", equalTo(sortedIds.get(1))),
             hasProperty("id", equalTo(sortedIds.get(0)))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterResourceType().desc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterResourceType().desc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterResourceType().desc().list(),
       contains(hasProperty("resourceType", equalTo(EntityTypes.TASK)),
         hasProperty("resourceType", equalTo(EntityTypes.TASK)),
         hasProperty("resourceType", equalTo(EntityTypes.TASK)),
         hasProperty("resourceType", equalTo(EntityTypes.TASK))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterName().desc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterName().desc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterName().desc().list(),
         contains(hasProperty("name", equalTo("d")),
             hasProperty("name", equalTo("c_")),
             hasProperty("name", equalTo("b")),
             hasProperty("name", equalTo("a"))));
 
     assertEquals(4, filterService.createFilterQuery().orderByFilterOwner().desc().list().size());
-    Assert.assertThat(filterService.createFilterQuery().orderByFilterOwner().desc().list(),
+    assertThat(filterService.createFilterQuery().orderByFilterOwner().desc().list(),
         contains(hasProperty("name", equalTo("d")),
             hasProperty("name", equalTo("c_")),
             hasProperty("name", equalTo("b")),

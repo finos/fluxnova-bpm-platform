@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.finos.fluxnova.bpm.engine.test.util.TypedValueAssert.assertObjectValueSerializedJava;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectValue;
 
@@ -44,11 +40,9 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Assert;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * Represents the test class for the process instantiation on which
@@ -64,14 +58,14 @@ public class ProcessInstantiationWithVariablesInReturnTest {
   protected static final String SET_VARIABLE_IN_DELEGATE_WITH_WAIT_STATE_PROCESS = "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstantiationWithVariablesInReturn.setVariableInDelegateWithWaitState.bpmn20.xml";
   protected static final String SIMPLE_PROCESS = "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstantiationWithVariablesInReturn.simpleProcess.bpmn20.xml";
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
       configuration.setJavaSerializationFormatEnabled(true));
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   private void checkVariables(VariableMap map, int expectedSize) {
     List<HistoricVariableInstance> variables = engineRule.getHistoryService()
@@ -89,8 +83,8 @@ public class ProcessInstantiationWithVariablesInReturnTest {
       Object mapValue = map.getValueTyped(instance.getName()).getValue();
       if (instanceValue == null) {
         assertNull(mapValue);
-      } else if (instanceValue instanceof byte[]) {
-        assertTrue(Arrays.equals((byte[]) instanceValue, (byte[]) mapValue));
+      } else if (instanceValue instanceof byte[] bytes) {
+        assertTrue(Arrays.equals(bytes, (byte[]) mapValue));
       } else {
         assertEquals(instanceValue, mapValue);
       }
@@ -125,7 +119,7 @@ public class ProcessInstantiationWithVariablesInReturnTest {
     //access on value should fail because variable is not deserialized
     try {
       serializedVar.getValue();
-      Assert.fail("Deserialization should fail!");
+      fail("Deserialization should fail!");
     } catch (IllegalStateException ise) {
       assertTrue(ise.getMessage().equals("Object is not deserialized."));
     }

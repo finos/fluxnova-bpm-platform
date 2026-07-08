@@ -31,16 +31,14 @@ import org.finos.fluxnova.bpm.engine.impl.jobexecutor.RejectedJobsHandler;
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestApplication.class},
   webEnvironment = WebEnvironment.NONE
@@ -54,7 +52,7 @@ public class DefaultJobConfigurationTest {
   @Autowired
   JobExecutor jobExecutor;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     setField(jobConfiguration, "camundaBpmProperties", properties);
   }

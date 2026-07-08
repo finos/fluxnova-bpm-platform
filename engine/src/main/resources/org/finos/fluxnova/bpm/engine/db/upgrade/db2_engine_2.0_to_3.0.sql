@@ -8,6 +8,7 @@
 
 alter table ACT_RU_VARIABLE add RESTRICTED_ smallint check(RESTRICTED_ in (1,0));
 alter table ACT_HI_VARINST add RESTRICTED_ smallint check(RESTRICTED_ in (1,0));
+alter table ACT_HI_ATTACHMENT add CREATED_BY_ varchar(255);
 
 create index ACT_IDX_VARIABLE_RESTRICTED on ACT_RU_VARIABLE(RESTRICTED_);
 create index ACT_IDX_HI_VARINST_RESTRICTED on ACT_HI_VARINST(RESTRICTED_);

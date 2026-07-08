@@ -40,6 +40,7 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
@@ -49,11 +50,11 @@ import org.finos.fluxnova.commons.logging.MdcAccess;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
 import org.finos.fluxnova.commons.testing.WatchLogger;
 import org.jboss.logging.MDC;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,17 +78,17 @@ public class ProcessDataLoggingContextTest {
   private RuntimeContainerDelegate runtimeContainerDelegate = RuntimeContainerDelegate.INSTANCE.get();
   private boolean defaultEngineRegistered;
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
       configuration.setLoggingContextBusinessKey("businessKey"));
 
-  @Rule
-  public ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
+  protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
+  protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule();
 
   private RuntimeService runtimeService;
@@ -95,7 +96,7 @@ public class ProcessDataLoggingContextTest {
 
   private TestMdcFacade testMDCFacade;
 
-  @Before
+  @BeforeEach
   public void setupServices() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -103,20 +104,20 @@ public class ProcessDataLoggingContextTest {
     testMDCFacade = TestMdcFacade.empty();
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
     testMDCFacade.clear();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (defaultEngineRegistered) {
       runtimeContainerDelegate.unregisterProcessEngine(engineRule.getProcessEngine());
     }
   }
 
-  @After
+  @AfterEach
   public void resetLogConfiguration() {
     engineRule.getProcessEngineConfiguration()
       .setLoggingContextActivityId("activityId")

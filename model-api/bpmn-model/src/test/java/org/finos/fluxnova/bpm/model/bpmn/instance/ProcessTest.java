@@ -25,7 +25,8 @@ import org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants;
 
 import org.finos.fluxnova.bpm.model.bpmn.ProcessType;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.Supports;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski

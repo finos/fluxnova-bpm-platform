@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto.runtime;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.management.UpdateJobSuspensionStateBuilder;

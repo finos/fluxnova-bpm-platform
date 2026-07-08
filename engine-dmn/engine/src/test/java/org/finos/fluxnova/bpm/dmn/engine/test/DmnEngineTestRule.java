@@ -22,7 +22,7 @@ import java.util.List;
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecision;
 import org.finos.fluxnova.bpm.dmn.engine.DmnEngineConfiguration;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * JUnit test rule for internal unit tests. Uses The
@@ -48,55 +48,40 @@ public class DmnEngineTestRule extends DmnEngineRule {
   }
 
   @Override
-  protected void starting(Description description) {
-    super.starting(description);
-
-    decision = loadDecision(description);
+  public void beforeEach(ExtensionContext context) {
+    super.beforeEach(context);
+    decision = loadDecision(context);
   }
 
-  protected DmnDecision loadDecision(Description description) {
-    DecisionResource decisionResource = description.getAnnotation(DecisionResource.class);
+  protected DmnDecision loadDecision(ExtensionContext context) {
+    DecisionResource decisionResource = context.getRequiredTestMethod().getAnnotation(DecisionResource.class);
 
-    if(decisionResource != null) {
-
+    if (decisionResource != null) {
       String resourcePath = decisionResource.resource();
-
-      resourcePath = expandResourcePath(description, resourcePath);
+      resourcePath = expandResourcePath(context, resourcePath);
 
       InputStream inputStream = IoUtil.fileAsStream(resourcePath);
-
       String decisionKey = decisionResource.decisionKey();
 
       if (decisionKey == null || decisionKey.isEmpty()) {
         List<DmnDecision> decisions = dmnEngine.parseDecisions(inputStream);
-        if (!decisions.isEmpty()) {
-          return decisions.get(0);
-        }
-        else {
-          return null;
-        }
+        return decisions.isEmpty() ? null : decisions.get(0);
       } else {
         return dmnEngine.parseDecision(decisionKey, inputStream);
       }
-    }
-    else {
+    } else {
       return null;
     }
   }
 
-  protected String expandResourcePath(Description description, String resourcePath) {
+  protected String expandResourcePath(ExtensionContext context, String resourcePath) {
     if (resourcePath.contains("/")) {
-      // already expanded path
       return resourcePath;
-    }
-    else {
-      Class<?> testClass = description.getTestClass();
+    } else {
+      Class<?> testClass = context.getRequiredTestClass();
       if (resourcePath.isEmpty()) {
-        // use test class and method name as resource file name
-        return testClass.getName().replace(".", "/") + "." + description.getMethodName() + "." + DMN_SUFFIX;
-      }
-      else {
-        // use test class location as resource location
+        return testClass.getName().replace(".", "/") + "." + context.getRequiredTestMethod().getName() + "." + DMN_SUFFIX;
+      } else {
         return testClass.getPackage().getName().replace(".", "/") + "/" + resourcePath;
       }
     }

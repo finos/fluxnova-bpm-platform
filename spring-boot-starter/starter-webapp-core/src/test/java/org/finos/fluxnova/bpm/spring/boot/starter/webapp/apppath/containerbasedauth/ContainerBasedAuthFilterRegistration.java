@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp.apppath.containerbasedauth;
 
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.ContainerBasedAuthenticationFilter;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import org.springframework.core.annotation.Order;
 import java.util.Collections;
 
 @Configuration
-@Order(SecurityProperties.BASIC_AUTH_ORDER - 15)
+@Order(-105)
 public class ContainerBasedAuthFilterRegistration {
 
     @Bean

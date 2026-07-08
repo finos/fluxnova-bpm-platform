@@ -16,12 +16,13 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto.converter;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.exc.StreamReadException;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import java.io.IOException;
 
 /**
@@ -40,15 +41,15 @@ public abstract class JacksonAwareStringToTypeConverter<T> implements StringToTy
   protected T mapToType(String value, Class<T> typeClass) {
     try {
       return objectMapper.readValue(value, typeClass);
-    } catch (JsonParseException e) {
-      throw new InvalidRequestException(Status.BAD_REQUEST, e, String.format("Cannot convert value %s to java type %s",
-          value, typeClass.getName()));
-    } catch (JsonMappingException e) {
-      throw new InvalidRequestException(Status.BAD_REQUEST, e, String.format("Cannot convert value %s to java type %s",
-          value, typeClass.getName()));
-    } catch (IOException e) {
-      throw new InvalidRequestException(Status.BAD_REQUEST, e, String.format("Cannot convert value %s to java type %s",
-          value, typeClass.getName()));
+    } catch (StreamReadException e) {
+      throw new InvalidRequestException(Status.BAD_REQUEST, e, "Cannot convert value %s to java type %s".formatted(
+              value, typeClass.getName()));
+    } catch (DatabindException e) {
+      throw new InvalidRequestException(Status.BAD_REQUEST, e, "Cannot convert value %s to java type %s".formatted(
+              value, typeClass.getName()));
+    } catch (JacksonException e) {
+      throw new InvalidRequestException(Status.BAD_REQUEST, e, "Cannot convert value %s to java type %s".formatted(
+              value, typeClass.getName()));
     }
   }
 }

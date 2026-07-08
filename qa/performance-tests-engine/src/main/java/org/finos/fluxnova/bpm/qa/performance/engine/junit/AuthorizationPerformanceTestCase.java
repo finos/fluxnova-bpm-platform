@@ -19,8 +19,6 @@ package org.finos.fluxnova.bpm.qa.performance.engine.junit;
 import static org.finos.fluxnova.bpm.engine.authorization.Authorization.ANY;
 import static org.finos.fluxnova.bpm.engine.authorization.Authorization.AUTH_TYPE_GRANT;
 
-import java.util.List;
-
 import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.HistoryService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -30,27 +28,22 @@ import org.finos.fluxnova.bpm.engine.TaskService;
 import org.finos.fluxnova.bpm.engine.authorization.Authorization;
 import org.finos.fluxnova.bpm.engine.authorization.Permission;
 import org.finos.fluxnova.bpm.engine.authorization.Resource;
-import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestBuilder;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestConfiguration;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * @author Daniel Meyer
- *
  */
 public abstract class AuthorizationPerformanceTestCase {
 
   public PerfTestConfigurationRule testConfigurationRule = new PerfTestConfigurationRule();
-
   public PerfTestResultRecorderRule resultRecorderRule = new PerfTestResultRecorderRule();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain
-    .outerRule(testConfigurationRule)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension
+    .outerExtension(testConfigurationRule)
     .around(resultRecorderRule);
 
   protected ProcessEngine engine;
@@ -59,7 +52,7 @@ public abstract class AuthorizationPerformanceTestCase {
   protected RuntimeService runtimeService;
   protected RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void setup() {
     engine = PerfTestProcessEngine.getInstance();
     taskService = engine.getTaskService();
@@ -74,9 +67,7 @@ public abstract class AuthorizationPerformanceTestCase {
     return new PerfTestBuilder(configuration, resultRecorderRule);
   }
 
-
   protected void grouptGrant(String groupId, Resource resource, Permission... perms) {
-
     AuthorizationService authorizationService = engine.getAuthorizationService();
     Authorization groupGrant = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
     groupGrant.setResource(resource);
@@ -89,7 +80,6 @@ public abstract class AuthorizationPerformanceTestCase {
   }
 
   protected void userGrant(String userId, Resource resource, Permission... perms) {
-
     AuthorizationService authorizationService = engine.getAuthorizationService();
     Authorization groupGrant = authorizationService.createNewAuthorization(AUTH_TYPE_GRANT);
     groupGrant.setResource(resource);

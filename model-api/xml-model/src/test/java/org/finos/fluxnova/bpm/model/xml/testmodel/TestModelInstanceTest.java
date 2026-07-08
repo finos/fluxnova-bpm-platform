@@ -18,13 +18,14 @@ package org.finos.fluxnova.bpm.model.xml.testmodel;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.finos.fluxnova.bpm.model.xml.ModelInstance;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Animal;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Animals;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Bird;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class TestModelInstanceTest {
 

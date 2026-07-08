@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.webapp.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.webapp.db.QueryParameters;
 import org.finos.fluxnova.bpm.engine.rest.dto.FluxnovaQueryParam;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.JacksonAwareStringToTypeConverter;
@@ -26,8 +26,10 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response.Status;
+
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -102,7 +104,7 @@ public abstract class AbstractRestQueryParametersDto<T> extends QueryParameters 
       if (sortOrder == null || sortOrder.isEmpty()) {
         sortOrder = SORT_ORDER_ASC_VALUE;
       }
-      return String.format("%s %s", getOrderByValue(sortBy), sortOrder);
+      return "%s %s".formatted(getOrderByValue(sortBy), sortOrder);
     }
     return DEFAULT_ORDER;
   }
@@ -164,8 +166,7 @@ public abstract class AbstractRestQueryParametersDto<T> extends QueryParameters 
 
       for (int j = 0; j < methodAnnotations.length; j++) {
         Annotation annotation = methodAnnotations[j];
-        if (annotation instanceof FluxnovaQueryParam) {
-          FluxnovaQueryParam parameterAnnotation = (FluxnovaQueryParam) annotation;
+        if (annotation instanceof FluxnovaQueryParam parameterAnnotation) {
           if (parameterAnnotation.value().equals(parameterName)) {
             result.add(method);
           }
@@ -180,8 +181,7 @@ public abstract class AbstractRestQueryParametersDto<T> extends QueryParameters 
 
     for (int j = 0; j < methodAnnotations.length; j++) {
       Annotation annotation = methodAnnotations[j];
-      if (annotation instanceof FluxnovaQueryParam) {
-        FluxnovaQueryParam parameterAnnotation = (FluxnovaQueryParam) annotation;
+      if (annotation instanceof FluxnovaQueryParam parameterAnnotation) {
         return parameterAnnotation.converter();
       }
     }

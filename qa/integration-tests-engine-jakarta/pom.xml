@@ -15,7 +15,6 @@
     <!-- Needs to be updated after a new WildFly release -->
     <wildfly.container.adapter.groupId>org.wildfly.arquillian</wildfly.container.adapter.groupId>
     <wildfly.container.adapter.version>5.0.1.Final</wildfly.container.adapter.version>
-    <version.spring.framework>${version.spring.framework6}</version.spring.framework>
 
     <version.arquillian>1.7.0.Final</version.arquillian>
 
@@ -61,7 +60,7 @@
       </dependency>
 
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${version.jackson}</version>
         <scope>import</scope>
@@ -88,19 +87,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
+      <groupId>org.jboss.arquillian.junit5</groupId>
+      <artifactId>arquillian-junit5-container</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
       <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -201,7 +194,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-spring-6</artifactId>
+      <artifactId>fluxnova-engine-spring</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
       <exclusions>
@@ -223,7 +216,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <groupId>tools.jackson.datatype</groupId>
       <artifactId>jackson-datatype-joda</artifactId>
     </dependency>
 
@@ -281,7 +274,11 @@
       <artifactId>groovy-jsr223</artifactId>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+        <groupId>org.jboss.arquillian.junit5</groupId>
+        <artifactId>arquillian-junit5-core</artifactId>
+        <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -411,13 +408,13 @@
                 <resource>
                   <directory>${basedir}/../integration-tests-engine/src/test/resources-tomcat</directory>
                   <filtering>false</filtering>
-                  <!-- Do not copy the tomcat 9 arquillian xml -->
+                  <!-- Do not copy the legacy tomcat arquillian xml -->
                   <excludes>
                     <exclude>**/arquillian.xml</exclude>
                   </excludes>
                 </resource>
 
-                <!-- Use the tomcat 10 arquillian.xml instead -->
+                <!-- Use the tomcat 11 arquillian.xml instead -->
                 <resource>
                   <directory>${basedir}/src/test/resources-tomcat</directory>
                   <filtering>false</filtering>
@@ -607,20 +604,20 @@
         <!-- This dependency can be updated when arquillian releases the managed tomcat 10 artifact -->
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-tomcat-managed-8</artifactId>
-          <version>1.1.0.Final</version>
+          <artifactId>arquillian-tomcat-managed-10</artifactId>
+          <version>1.2.4.Final</version>
           <scope>test</scope>
         </dependency>
 
-        <!-- switch to use Jakarta Servlet 5.0 protocol -->
+        <!-- switch to use Jakarta Servlet 6.0 protocol -->
         <dependency>
           <groupId>org.jboss.arquillian.protocol</groupId>
           <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
         </dependency>
 
         <dependency>
-          <groupId>org.jboss.arquillian.junit</groupId>
-          <artifactId>arquillian-junit-container</artifactId>
+          <groupId>org.jboss.arquillian.junit5</groupId>
+          <artifactId>arquillian-junit5-container</artifactId>
           <scope>test</scope>
         </dependency>
 

@@ -21,14 +21,14 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.finos.fluxnova.bpm.engine.impl.digest.DatabasePrefixHandler;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DatabasePrefixHandlerTest {
 
   DatabasePrefixHandler prefixHandler;
 
-  @Before
+  @BeforeEach
   public void inti() {
     prefixHandler = new DatabasePrefixHandler();
   }

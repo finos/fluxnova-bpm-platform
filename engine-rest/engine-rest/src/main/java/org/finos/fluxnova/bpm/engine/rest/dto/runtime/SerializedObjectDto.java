@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto.runtime;
 
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.type.TypeFactory;
 
 /**
  *
@@ -28,7 +28,7 @@ public class SerializedObjectDto {
   protected Object object;
 
   public SerializedObjectDto(Object value) {
-    type = TypeFactory.defaultInstance().constructType(value.getClass()).toCanonical();
+    type = TypeFactory.createDefaultInstance().constructType(value.getClass()).toCanonical();
     object = value;
   }
 

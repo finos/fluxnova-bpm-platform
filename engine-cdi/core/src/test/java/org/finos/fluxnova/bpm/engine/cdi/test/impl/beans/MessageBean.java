@@ -16,10 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.cdi.test.impl.beans;
 
+
 import java.io.Serializable;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 /**
  * @author Daniel Meyer

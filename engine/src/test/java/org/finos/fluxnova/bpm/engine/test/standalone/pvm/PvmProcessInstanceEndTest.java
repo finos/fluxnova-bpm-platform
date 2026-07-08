@@ -21,7 +21,8 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessDefinition;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.Automatic;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.WaitState;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

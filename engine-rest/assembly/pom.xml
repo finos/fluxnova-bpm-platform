@@ -22,6 +22,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>jakarta.ws.rs</groupId>
+      <artifactId>jakarta.ws.rs-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-engine-rest-core</artifactId>
       <version>${project.version}</version>
@@ -49,6 +54,12 @@
       <artifactId>resteasy-jaxrs</artifactId>
       <version>${version.resteasy}</version>
       <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.sun.activation</groupId>
+          <artifactId>jakarta.activation</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

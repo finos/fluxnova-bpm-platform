@@ -36,10 +36,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -59,7 +58,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -79,8 +78,8 @@
               </artifactSet>
               <relocations>
                 <relocation>
-                  <pattern>com.fasterxml</pattern>
-                  <shadedPattern>spinjar.com.fasterxml</shadedPattern>
+                  <pattern>tools.jackson</pattern>
+                  <shadedPattern>spinjar.tools.jackson</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>com.jayway</pattern>
@@ -111,6 +110,7 @@
                   <pattern>com.sun.xml.txw2</pattern>
                   <shadedPattern>spinjar.com.sun.xml.txw2</shadedPattern>
                 </relocation>
+                <!-- Keep old javax relocations for backward compatibility -->
                 <relocation>
                   <pattern>javax.xml.bind</pattern>
                   <shadedPattern>spinjar.javax.xml.bind</shadedPattern>
@@ -119,15 +119,41 @@
                   <pattern>javax.activation</pattern>
                   <shadedPattern>spinjar.javax.activation</shadedPattern>
                 </relocation>
+                <!-- Add new Jakarta relocations for Jakarta XML Bind 4.x -->
+                <relocation>
+                  <pattern>jakarta.xml.bind</pattern>
+                  <shadedPattern>spinjar.jakarta.xml.bind</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>jakarta.activation</pattern>
+                  <shadedPattern>spinjar.jakarta.activation</shadedPattern>
+                </relocation>
+                <!-- Add relocations for the JAXB Runtime 4.x implementation classes -->
+                <relocation>
+                  <pattern>org.glassfish.jaxb</pattern>
+                  <shadedPattern>spinjar.org.glassfish.jaxb</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.eclipse.angus</pattern>
+                  <shadedPattern>spinjar.org.eclipse.angus</shadedPattern>
+                </relocation>
               </relocations>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
               </transformers>
               <filters>
+                <!-- Exclude old javax JAXB service file from com.sun.xml.bind (JAXB 2.x) -->
                 <filter>
                   <artifact>com.sun.xml.bind:*</artifact>
                   <excludes>
                     <exclude>META-INF/services/javax.xml.bind.JAXBContext</exclude>
+                  </excludes>
+                </filter>
+                <!-- Exclude Jakarta JAXB service file from API JAR - will use implementation from jaxb-runtime -->
+                <filter>
+                  <artifact>jakarta.xml.bind:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/services/jakarta.xml.bind.JAXBContext</exclude>
                   </excludes>
                 </filter>
                 <filter>
@@ -151,9 +177,9 @@
           <dependencySourceIncludes><include>org.finos.fluxnova.spin:*</include></dependencySourceIncludes>
           <additionalDependencies>
            <additionalDependency>
-             <groupId>junit</groupId>
-             <artifactId>junit</artifactId>
-             <version>${version.junit}</version>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter</artifactId>
+             <version>${version.junit5}</version>
            </additionalDependency>
           </additionalDependencies>
         </configuration>

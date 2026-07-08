@@ -16,7 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.net.URL;

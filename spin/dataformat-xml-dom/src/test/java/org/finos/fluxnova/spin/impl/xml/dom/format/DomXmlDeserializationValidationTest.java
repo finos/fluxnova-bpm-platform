@@ -16,13 +16,16 @@
  */
 package org.finos.fluxnova.spin.impl.xml.dom.format;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.finos.fluxnova.spin.DeserializationTypeValidator;
 import org.finos.fluxnova.spin.SpinRuntimeException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class DomXmlDeserializationValidationTest {
@@ -30,15 +33,12 @@ public class DomXmlDeserializationValidationTest {
   protected DeserializationTypeValidator validator;
   protected static DomXmlDataFormat format;
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
-  @BeforeClass
+  @BeforeAll
   public static void setUpMocks() {
     format = new DomXmlDataFormat("test");
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDown() {
     format = null;
   }
@@ -52,7 +52,7 @@ public class DomXmlDeserializationValidationTest {
     format.getMapper().validateType(int.class, validator);
 
     // then
-    Mockito.verifyZeroInteractions(validator);
+    Mockito.verifyNoMoreInteractions(validator);
   }
 
   @Test
@@ -99,12 +99,11 @@ public class DomXmlDeserializationValidationTest {
     // given
     validator = createValidatorMock(false);
 
-    // then
-    thrown.expect(SpinRuntimeException.class);
-    thrown.expectMessage("'java.lang.String'");
+    Throwable exception = assertThrows(SpinRuntimeException.class, () ->
 
-    // when
-    format.getMapper().validateType(String.class, validator);
+      // when
+      format.getMapper().validateType(String.class, validator));
+    assertThat(exception.getMessage(), containsString("'java.lang.String'"));
   }
 
   @Test
@@ -112,12 +111,11 @@ public class DomXmlDeserializationValidationTest {
     // given
     validator = createValidatorMock(false);
 
-    // then
-    thrown.expect(SpinRuntimeException.class);
-    thrown.expectMessage("'org.finos.fluxnova.spin.impl.xml.dom.format.DomXmlDeserializationValidationTest$Complex'");
+    Throwable exception = assertThrows(SpinRuntimeException.class, () ->
 
-    // when
-    format.getMapper().validateType(Complex.class, validator);
+      // when
+      format.getMapper().validateType(Complex.class, validator));
+    assertThat(exception.getMessage(), containsString("'org.finos.fluxnova.spin.impl.xml.dom.format.DomXmlDeserializationValidationTest$Complex'"));
   }
 
   @Test
@@ -125,12 +123,11 @@ public class DomXmlDeserializationValidationTest {
     // given
     validator = createValidatorMock(false);
 
-    // then
-    thrown.expect(SpinRuntimeException.class);
-    thrown.expectMessage("'java.lang.Integer'");
+    Throwable exception = assertThrows(SpinRuntimeException.class, () ->
 
-    // when
-    format.getMapper().validateType(Integer[].class, validator);
+      // when
+      format.getMapper().validateType(Integer[].class, validator));
+    assertThat(exception.getMessage(), containsString("'java.lang.Integer'"));
   }
 
   public static class Complex {

@@ -40,10 +40,11 @@ import org.finos.fluxnova.bpm.engine.impl.diagnostics.PlatformDiagnosticsRegistr
 import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
-import org.junit.Assume;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 
 /**
@@ -100,7 +101,7 @@ import org.junit.runners.model.Statement;
  *
  * @author Tom Baeyens
  */
-public class ProcessEngineRule extends TestWatcher implements ProcessEngineServices {
+public class ProcessEngineRule implements BeforeEachCallback, AfterEachCallback, ProcessEngineServices {
 
   protected String configurationResource = "camunda.cfg.xml";
   protected String configurationResourceCompat = "activiti.cfg.xml";
@@ -151,46 +152,66 @@ public class ProcessEngineRule extends TestWatcher implements ProcessEngineServi
   }
 
   @Override
-  public void starting(Description description) {
-    String methodName = description.getMethodName();
-    if (methodName != null) {
-      // cut off method variant suffix "[variant name]" for parameterized tests
-      int methodNameVariantStart = description.getMethodName().indexOf('[');
-      int methodNameEnd = methodNameVariantStart < 0 ? description.getMethodName().length() : methodNameVariantStart;
-      methodName = description.getMethodName().substring(0, methodNameEnd);
-    }
-    deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, description.getTestClass(), methodName,
-        description.getAnnotation(Deployment.class));
-  }
-
-  @Override
-  public Statement apply(final Statement base, final Description description) {
-
+  public void beforeEach(ExtensionContext context) throws Exception {
     if (processEngine == null) {
       initializeProcessEngine();
     }
-
     initializeServices();
 
-    Class<?> testClass = description.getTestClass();
-    String methodName = description.getMethodName();
+    Class<?> testClass = context.getTestClass().orElse(null);
+    String methodName = context.getTestMethod().map(m -> m.getName()).orElse(null);
 
-    RequiredHistoryLevel reqHistoryLevel = description.getAnnotation(RequiredHistoryLevel.class);
+    RequiredHistoryLevel reqHistoryLevel = null;
+    if (context.getTestMethod().isPresent()) {
+      reqHistoryLevel = context.getTestMethod().get().getAnnotation(RequiredHistoryLevel.class);
+    }
+    if (reqHistoryLevel == null && testClass != null) {
+      reqHistoryLevel = testClass.getAnnotation(RequiredHistoryLevel.class);
+    }
     boolean hasRequiredHistoryLevel = TestHelper.annotationRequiredHistoryLevelCheck(processEngine,
         reqHistoryLevel, testClass, methodName);
 
-    RequiredDatabase requiredDatabase = description.getAnnotation(RequiredDatabase.class);
+    RequiredDatabase requiredDatabase = null;
+    if (context.getTestMethod().isPresent()) {
+      requiredDatabase = context.getTestMethod().get().getAnnotation(RequiredDatabase.class);
+    }
+    if (requiredDatabase == null && testClass != null) {
+      requiredDatabase = testClass.getAnnotation(RequiredDatabase.class);
+    }
     boolean runsWithRequiredDatabase = TestHelper.annotationRequiredDatabaseCheck(processEngine,
         requiredDatabase, testClass, methodName);
-    return new Statement() {
 
-      @Override
-      public void evaluate() throws Throwable {
-        Assume.assumeTrue("ignored because the current history level is too low", hasRequiredHistoryLevel);
-        Assume.assumeTrue("ignored because the database doesn't match the required ones", runsWithRequiredDatabase);
-        ProcessEngineRule.super.apply(base, description).evaluate();
-      }
-    };
+    Assumptions.assumeTrue(hasRequiredHistoryLevel, "ignored because the current history level is too low");
+    Assumptions.assumeTrue(runsWithRequiredDatabase, "ignored because the database doesn't match the required ones");
+
+    Deployment deploymentAnnotation = context.getTestMethod()
+        .map(m -> m.getAnnotation(Deployment.class))
+        .orElse(null);
+    deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, testClass, methodName, deploymentAnnotation);
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    identityService.clearAuthentication();
+    processEngine.getProcessEngineConfiguration().setTenantCheckEnabled(true);
+
+    Class<?> testClass = context.getTestClass().orElse(null);
+    String methodName = context.getTestMethod().map(m -> m.getName()).orElse(null);
+
+    TestHelper.annotationDeploymentTearDown(processEngine, deploymentId, testClass, methodName);
+    for (String additionalDeployment : additionalDeployments) {
+      TestHelper.deleteDeployment(processEngine, additionalDeployment);
+    }
+    additionalDeployments.clear();
+
+    if (ensureCleanAfterTest) {
+      TestHelper.assertAndEnsureCleanDbAndCache(processEngine);
+    }
+
+    TestHelper.resetIdGenerator(processEngineConfiguration);
+    ClockUtil.reset();
+    clearServiceReferences();
+    PlatformDiagnosticsRegistry.clear();
   }
 
   protected void initializeProcessEngine() {
@@ -237,28 +258,6 @@ public class ProcessEngineRule extends TestWatcher implements ProcessEngineServi
     decisionService = null;
   }
 
-  @Override
-  public void finished(Description description) {
-    identityService.clearAuthentication();
-    processEngine.getProcessEngineConfiguration().setTenantCheckEnabled(true);
-
-    TestHelper.annotationDeploymentTearDown(processEngine, deploymentId, description.getTestClass(), description.getMethodName());
-    for (String additionalDeployment : additionalDeployments) {
-      TestHelper.deleteDeployment(processEngine, additionalDeployment);
-    }
-
-    if (ensureCleanAfterTest) {
-      TestHelper.assertAndEnsureCleanDbAndCache(processEngine);
-    }
-
-    TestHelper.resetIdGenerator(processEngineConfiguration);
-    ClockUtil.reset();
-
-
-    clearServiceReferences();
-
-    PlatformDiagnosticsRegistry.clear();
-  }
 
   public void setCurrentTime(Date currentTime) {
     ClockUtil.setCurrentTime(currentTime);

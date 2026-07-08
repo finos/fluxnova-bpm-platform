@@ -20,9 +20,10 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Process;
 import org.finos.fluxnova.bpm.model.bpmn.instance.RootElement;
 import org.finos.fluxnova.bpm.model.bpmn.util.BpmnModelResource;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.Test;
 
 import java.util.Collection;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

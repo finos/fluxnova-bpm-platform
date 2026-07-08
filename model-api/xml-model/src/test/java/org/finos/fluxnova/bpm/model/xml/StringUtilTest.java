@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.model.xml;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.model.xml.impl.util.StringUtil.joinCommaSeparatedList;

@@ -16,7 +16,9 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.exception;
 
-import javax.ws.rs.core.Response.Status;
+
+
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  * This exception is used for any kind of errors that occur due to malformed

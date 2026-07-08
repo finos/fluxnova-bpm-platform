@@ -35,8 +35,9 @@ import org.finos.fluxnova.bpm.engine.impl.test.ProcessEngineAssert;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 
-import junit.framework.TestCase;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 
 /** Convenience for ProcessEngine and services initialization in the form of a JUnit base class.
  *
@@ -51,8 +52,7 @@ import junit.framework.TestCase;
  *
  * <p>You can declare a deployment with the {@link Deployment} annotation.
  * This base class will make sure that this deployment gets deployed in the
- * setUp and {@link RepositoryService#deleteDeploymentCascade(String, boolean) cascade deleted}
- * in the tearDown.
+ * setUp and cascade deleted in the tearDown.
  * </p>
  *
  * <p>This class also lets you {@link #setCurrentTime(Date) set the current time used by the
@@ -66,11 +66,12 @@ import junit.framework.TestCase;
  * @author Tom Baeyens
  * @author Falko Menge (camunda)
  */
-public class ProcessEngineTestCase extends TestCase {
+public class ProcessEngineTestCase {
 
   protected String configurationResource = "camunda.cfg.xml";
   protected String configurationResourceCompat = "activiti.cfg.xml";
   protected String deploymentId = null;
+  protected String currentTestMethodName = null;
 
   protected ProcessEngine processEngine;
   protected RepositoryService repositoryService;
@@ -87,36 +88,26 @@ public class ProcessEngineTestCase extends TestCase {
 
   protected boolean skipTest = false;
 
-  /** uses 'camunda.cfg.xml' as it's configuration resource */
-  public ProcessEngineTestCase() {
-  }
-
   public void assertProcessEnded(final String processInstanceId) {
     ProcessEngineAssert.assertProcessEnded(processEngine, processInstanceId);
   }
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
+  @BeforeEach
+  public void setUp(TestInfo testInfo) throws Exception {
 
     if (processEngine==null) {
       initializeProcessEngine();
       initializeServices();
     }
 
-    boolean hasRequiredHistoryLevel = TestHelper.annotationRequiredHistoryLevelCheck(processEngine, getClass(), getName());
+    currentTestMethodName = testInfo.getTestMethod().map(m -> m.getName()).orElse(getClass().getSimpleName());
+
+    boolean hasRequiredHistoryLevel = TestHelper.annotationRequiredHistoryLevelCheck(processEngine, getClass(), currentTestMethodName);
     // ignore test case when current history level is too low
     skipTest = !hasRequiredHistoryLevel;
 
     if (!skipTest) {
-      deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, getClass(), getName());
-    }
-  }
-
-  @Override
-  protected void runTest() throws Throwable {
-    if (!skipTest) {
-      super.runTest();
+      deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, getClass(), currentTestMethodName);
     }
   }
 
@@ -148,13 +139,11 @@ public class ProcessEngineTestCase extends TestCase {
     caseService = processEngine.getCaseService();
   }
 
-  @Override
-  protected void tearDown() throws Exception {
-    TestHelper.annotationDeploymentTearDown(processEngine, deploymentId, getClass(), getName());
+  @AfterEach
+  public void tearDown() throws Exception {
+    TestHelper.annotationDeploymentTearDown(processEngine, deploymentId, getClass(), currentTestMethodName);
 
     ClockUtil.reset();
-
-    super.tearDown();
   }
 
   public static void closeProcessEngines() {

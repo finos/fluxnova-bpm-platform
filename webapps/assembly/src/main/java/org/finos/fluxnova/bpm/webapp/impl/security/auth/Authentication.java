@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.webapp.impl.security.auth;
 
+
 import java.io.Serializable;
 import java.security.Principal;
 
@@ -34,7 +35,7 @@ import java.security.Principal;
 public class Authentication implements Principal, Serializable {
 
   public static final Authentication ANONYMOUS = new Authentication(null, null);
-  
+
   private static final long serialVersionUID = 1L;
 
   protected final String identityId;

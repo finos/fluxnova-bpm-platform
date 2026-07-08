@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.hal.group;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.identity.Group;
 import org.finos.fluxnova.bpm.engine.rest.GroupRestService;

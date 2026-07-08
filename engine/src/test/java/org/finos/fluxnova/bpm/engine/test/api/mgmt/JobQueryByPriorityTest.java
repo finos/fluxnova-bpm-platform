@@ -19,9 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.inverted;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.jobByPriority;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySortingAndCount;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +31,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer

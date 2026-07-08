@@ -15,7 +15,7 @@ import org.finos.fluxnova.bpm.engine.impl.bpmn.parser.BpmnParse;
 import org.finos.fluxnova.bpm.engine.impl.el.Expression;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ActivityExecution;
-import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.CompositeActivityBehavior;
+import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.AdHocCompositeActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.pvm.process.ActivityImpl;
 
 /**
@@ -36,7 +36,7 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.process.ActivityImpl;
  * required.
  *
  */
-public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavior implements CompositeActivityBehavior {
+public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavior implements AdHocCompositeActivityBehavior {
 
   protected static final String VARIABLE_AD_HOC_ACTIVITY_STARTED = "adHocActivityStarted";
 
@@ -75,12 +75,11 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
     // Evaluate before pruning so ad-hoc scope metadata and active children are still intact.
     evaluateCompletionCondition(scopeExecution, adHocScopeActivity);
 
-    // If completion handling moved execution out of the ad-hoc scope, stop here.
-    if (scopeExecution.getActivity() != adHocScopeActivity) {
+    // If completion handling moved execution out of the ad-hoc scope or ended it, stop here.
+    if (scopeExecution.getActivity() != adHocScopeActivity || scopeExecution.isEnded()) {
       return;
     }
 
-    scopeExecution.tryPruneLastConcurrentChild();
     scopeExecution.forceUpdate();
   }
 
@@ -144,6 +143,39 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
     }
   }
 
+  /**
+   * Invoked before a direct child execution leaves its activity via an
+   * outgoing transition. Returns {@code true} when the completion condition is
+   * already satisfied and remaining instances are to be canceled, so that the
+   * child execution ends instead of flowing onward — which completes the
+   * subprocess and cancels all remaining activities.
+   */
+  @Override
+  public boolean shouldCompleteOnChildTransition(ActivityExecution scopeExecution) {
+    if (scopeExecution == null) {
+      return false;
+    }
+
+    ActivityImpl scopeActivity = (ActivityImpl) scopeExecution.getActivity();
+    if (!isAdHocScopeActivity(scopeActivity)) {
+      return false;
+    }
+
+    Condition completionCondition = (Condition) scopeActivity
+        .getProperty(BpmnParse.PROPERTYNAME_AD_HOC_COMPLETION_CONDITION);
+    if (completionCondition == null) {
+      return false;
+    }
+
+    boolean cancelRemaining = Boolean.TRUE.equals(
+        scopeActivity.getProperty(BpmnParse.PROPERTYNAME_AD_HOC_CANCEL_REMAINING));
+    if (!cancelRemaining) {
+      return false;
+    }
+
+    return completionCondition.evaluate(scopeExecution, scopeExecution);
+  }
+
   protected boolean isAdHocScopeExecution(ActivityExecution execution) {
     if (execution == null || execution.getActivity() == null) {
       return false;
@@ -169,7 +201,13 @@ public class AdHocSubProcessActivityBehavior extends AbstractBpmnActivityBehavio
     List<ActivityExecution> children = new ArrayList<>(scopeExecution.getExecutions());
     for (ActivityExecution child : children) {
       child.interrupt("adHocCompletionConditionMet");
+      // interrupt only fires the end listeners; the execution must also be removed so
+      // that its variables and tasks are deleted before the ad-hoc scope execution is
+      // destroyed (otherwise tryPruneLastConcurrentChild may move the canceled child's
+      // variables onto the already deleted scope execution -> FK violation on flush)
+      child.remove();
     }
+    scopeExecution.forceUpdate();
   }
 
   protected boolean hasActiveChildExecutions(ActivityExecution scopeExecution) {

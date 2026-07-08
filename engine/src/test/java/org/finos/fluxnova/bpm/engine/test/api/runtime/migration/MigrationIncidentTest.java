@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime.migration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
@@ -40,10 +37,10 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
@@ -99,8 +96,8 @@ public class MigrationIncidentTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   @Test
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/migration/calledProcess.bpmn",
@@ -142,8 +139,8 @@ public class MigrationIncidentTest {
 
     // then
     Incident incidentAfterMigration = engineRule.getRuntimeService().createIncidentQuery().incidentId(incidentInCallingProcess.getId()).singleResult();
-    Assert.assertEquals(callingProcessV2.getId(), incidentAfterMigration.getProcessDefinitionId());
-    Assert.assertEquals("CallActivityV2", incidentAfterMigration.getActivityId());
+    Assertions.assertEquals(callingProcessV2.getId(), incidentAfterMigration.getProcessDefinitionId());
+    Assertions.assertEquals("CallActivityV2", incidentAfterMigration.getActivityId());
 
   }
 
@@ -188,8 +185,8 @@ public class MigrationIncidentTest {
 
     // then
     Incident incidentAfterMigration = engineRule.getRuntimeService().createIncidentQuery().incidentId(incidentInCallingProcess.getId()).singleResult();
-    Assert.assertEquals(callingProcessV2.getId(), incidentAfterMigration.getProcessDefinitionId());
-    Assert.assertEquals("ServiceTask_V2", incidentAfterMigration.getActivityId());
+    Assertions.assertEquals(callingProcessV2.getId(), incidentAfterMigration.getProcessDefinitionId());
+    Assertions.assertEquals("ServiceTask_V2", incidentAfterMigration.getActivityId());
   }
 
 
@@ -235,8 +232,8 @@ public class MigrationIncidentTest {
             .createIncidentQuery()
             .incidentId(incidentInCallingProcess.getId())
             .singleResult();
-    Assert.assertEquals(newProcess.getId(), incidentAfterMigration.getProcessDefinitionId());
-    Assert.assertEquals("callingV2", incidentAfterMigration.getActivityId());
+    Assertions.assertEquals(newProcess.getId(), incidentAfterMigration.getProcessDefinitionId());
+    Assertions.assertEquals("callingV2", incidentAfterMigration.getActivityId());
   }
 
 
@@ -282,8 +279,8 @@ public class MigrationIncidentTest {
             .createIncidentQuery()
             .incidentId(incidentInCallingProcess.getId())
             .singleResult();
-    Assert.assertEquals(newProcess.getId(), incidentAfterMigration.getProcessDefinitionId());
-    Assert.assertEquals("taskV2", incidentAfterMigration.getActivityId());
+    Assertions.assertEquals(newProcess.getId(), incidentAfterMigration.getProcessDefinitionId());
+    Assertions.assertEquals("taskV2", incidentAfterMigration.getActivityId());
 
   }
 

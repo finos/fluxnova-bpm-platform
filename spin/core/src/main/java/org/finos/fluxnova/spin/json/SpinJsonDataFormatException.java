@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.spin.json;
 
+
+
 import org.finos.fluxnova.spin.spi.SpinDataFormatException;
 
 public class SpinJsonDataFormatException extends SpinDataFormatException {

@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.TASK_WORK;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 
@@ -27,8 +27,8 @@ import org.finos.fluxnova.bpm.engine.authorization.Permissions;
 import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.identity.Group;
 import org.finos.fluxnova.bpm.engine.identity.User;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -45,7 +45,7 @@ public class DefaultUserPermissionsForTaskTest extends AuthorizationTest {
 
   protected String defaultTaskPermissionValue;
 
-  @After
+  @AfterEach
   public void tearDown() {
     // reset default permission
     processEngineConfiguration.setDefaultUserPermissionForTask(UPDATE);

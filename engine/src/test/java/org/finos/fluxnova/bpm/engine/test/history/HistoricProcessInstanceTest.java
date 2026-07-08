@@ -25,11 +25,7 @@ import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.hi
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.historicProcessInstanceByProcessInstanceId;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySorting;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,10 +74,10 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Tom Baeyens
@@ -110,8 +106,8 @@ public class HistoricProcessInstanceTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   protected RepositoryService repositoryService;
   protected RuntimeService runtimeService;
@@ -120,7 +116,7 @@ public class HistoricProcessInstanceTest {
   protected TaskService taskService;
   protected CaseService caseService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     repositoryService = engineRule.getRepositoryService();
     runtimeService = engineRule.getRuntimeService();

@@ -148,8 +148,11 @@ public class SourceExecutableScript extends CompiledExecutableScript {
   }
 
   protected Object evaluateScript(ScriptEngine engine, String processedScript, Bindings bindings) throws ScriptException {
+    if (processedScript == null) {
+        throw new ScriptEvaluationException("Script source must not be null", null);
+    }
     LOG.debugEvaluatingNonCompiledScript(processedScript);
-    return engine.eval(processedScript, bindings);
+    return ScriptEvaluationUtil.evaluate(engine, processedScript, bindings);
   }
 
   public String getScriptSource() {

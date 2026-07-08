@@ -17,15 +17,16 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 /**
  * Integration tests for script preprocessing in BPMN script tasks that rely on
@@ -45,7 +46,7 @@ import static org.junit.Assert.assertEquals;
  *   <li>safe fallback when a preprocessor throws an exception.</li>
  * </ul>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ScriptPreprocessorIntegrationTest extends AbstractFoxPlatformIntegrationTest {
 
   /** Process definition used for variable-binding scenarios. */
@@ -68,13 +69,13 @@ public class ScriptPreprocessorIntegrationTest extends AbstractFoxPlatformIntegr
   }
 
   /** Restores script preprocessing settings before each test for isolation. */
-  @Before
+  @BeforeEach
   public void beforeEach() {
     ScriptPreprocessorTestHelper.resetScriptPreprocessing(processEngineConfiguration);
   }
 
   /** Restores script preprocessing settings after each test to avoid state leakage. */
-  @After
+  @AfterEach
   public void afterEach() {
     ScriptPreprocessorTestHelper.resetScriptPreprocessing(processEngineConfiguration);
   }

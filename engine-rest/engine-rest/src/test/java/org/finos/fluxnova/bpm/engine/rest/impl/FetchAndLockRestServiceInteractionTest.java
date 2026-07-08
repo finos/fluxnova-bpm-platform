@@ -42,8 +42,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.ServletContextEvent;
-import javax.ws.rs.core.Response.Status;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.ExternalTaskService;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
@@ -59,26 +59,29 @@ import org.finos.fluxnova.bpm.engine.rest.dto.externaltask.FetchExternalTasksExt
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * @author Tassilo Weidner
  */
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
-  private static final String FETCH_EXTERNAL_TASK_URL =  "/rest-test/external-task/fetchAndLock";
+  private static final String FETCH_EXTERNAL_TASK_URL = "/rest-test/external-task/fetchAndLock";
 
   @Mock
   private ExternalTaskService externalTaskService;
@@ -97,7 +100,7 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
   private List<String> groupIds;
   private List<String> tenantIds;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     when(processEngine.getExternalTaskService()).thenReturn(externalTaskService);
 
@@ -143,7 +146,7 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then().expect()
+      .then().expect()
       .statusCode(Status.OK.getStatusCode())
       .body("[0].id", equalTo(MockProvider.EXTERNAL_TASK_ID))
       .body("[0].topicName", equalTo(MockProvider.EXTERNAL_TASK_TOPIC_NAME))
@@ -164,7 +167,7 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
       .body("[0].variables." + MockProvider.EXAMPLE_VARIABLE_INSTANCE_NAME, notNullValue())
       .body("[0].variables." + MockProvider.EXAMPLE_VARIABLE_INSTANCE_NAME + ".value", equalTo(MockProvider.EXAMPLE_PRIMITIVE_VARIABLE_VALUE.getValue()))
       .body("[0].variables." + MockProvider.EXAMPLE_VARIABLE_INSTANCE_NAME + ".type", equalTo("String"))
-    .when().post(FETCH_EXTERNAL_TASK_URL);
+      .when().post(FETCH_EXTERNAL_TASK_URL);
 
     InOrder inOrder = inOrder(fetchAndLockBuilder, fetchTopicBuilder, externalTaskService);
 
@@ -191,11 +194,11 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
       .statusCode(Status.OK.getStatusCode())
       .body("[0].id", equalTo(MockProvider.EXTERNAL_TASK_ID))
-    .when()
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     InOrder inOrder = inOrder(fetchAndLockBuilder, fetchTopicBuilder, externalTaskService);
@@ -222,10 +225,10 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
       .statusCode(Status.OK.getStatusCode())
-    .when()
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     InOrder inOrder = inOrder(fetchAndLockBuilder, fetchTopicBuilder, externalTaskService);
@@ -253,12 +256,12 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
-        .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
-        .body("message", containsString("The asynchronous response timeout cannot be set to a value greater than "))
-        .statusCode(Status.BAD_REQUEST.getStatusCode())
-    .when()
+      .body("type", equalTo(InvalidRequestException.class.getSimpleName()))
+      .body("message", containsString("The asynchronous response timeout cannot be set to a value greater than "))
+      .statusCode(Status.BAD_REQUEST.getStatusCode())
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
   }
 
@@ -274,12 +277,12 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
-        .body("type", equalTo(ProcessEngineException.class.getSimpleName()))
-        .body("message", equalTo("anExceptionMessage"))
-        .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
-    .when()
+      .body("type", equalTo(ProcessEngineException.class.getSimpleName()))
+      .body("message", equalTo("anExceptionMessage"))
+      .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     verify(fetchTopicBuilder, atLeastOnce()).execute();
@@ -295,12 +298,12 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
-        .body("type", equalTo(ProcessEngineException.class.getSimpleName()))
-        .body("message", equalTo("anExceptionMessage"))
-        .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
-    .when()
+      .body("type", equalTo(ProcessEngineException.class.getSimpleName()))
+      .body("message", equalTo("anExceptionMessage"))
+      .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     verify(fetchTopicBuilder, times(1)).execute();
@@ -316,15 +319,15 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
-        .body("size()", is(1))
-        .statusCode(Status.OK.getStatusCode())
-    .when()
+      .body("size()", is(1))
+      .statusCode(Status.OK.getStatusCode())
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
   }
 
-  @Ignore
+  @Disabled
   @Test
   public void shouldSetAuthenticationProperly() {
     when(identityServiceMock.getCurrentAuthentication())
@@ -335,7 +338,7 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .when()
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     ArgumentCaptor<Authentication> argumentCaptor = ArgumentCaptor.forClass(Authentication.class);
@@ -356,12 +359,12 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
     given()
       .contentType(ContentType.JSON)
       .body(fetchExternalTasksDto)
-    .then()
+      .then()
       .expect()
-        .body("type", equalTo(IllegalArgumentException.class.getSimpleName()))
-        .body("message", equalTo("anExceptionMessage"))
-        .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
-    .when()
+      .body("type", equalTo(IllegalArgumentException.class.getSimpleName()))
+      .body("message", equalTo("anExceptionMessage"))
+      .statusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode())
+      .when()
       .post(FETCH_EXTERNAL_TASK_URL);
 
     verify(fetchTopicBuilder, times(1)).execute();
@@ -370,21 +373,21 @@ public class FetchAndLockRestServiceInteractionTest extends AbstractRestServiceT
   @Test
   public void shouldFetchAndLockByProcessDefinitionVersionTag() {
     when(fetchTopicBuilder.execute())
-    .thenReturn(new ArrayList<LockedExternalTask>(Collections.singleton(lockedExternalTaskMock)));
+      .thenReturn(new ArrayList<LockedExternalTask>(Collections.singleton(lockedExternalTaskMock)));
 
     FetchExternalTasksExtendedDto fetchExternalTasksDto = createDto(500L);
     for (FetchExternalTaskTopicDto topic : fetchExternalTasksDto.getTopics()) {
       topic.setProcessDefinitionVersionTag("version");
     }
 
-  given()
-    .contentType(ContentType.JSON)
-    .body(fetchExternalTasksDto)
-  .then()
-    .expect()
-    .statusCode(Status.OK.getStatusCode())
-  .when()
-    .post(FETCH_EXTERNAL_TASK_URL);
+    given()
+      .contentType(ContentType.JSON)
+      .body(fetchExternalTasksDto)
+      .then()
+      .expect()
+      .statusCode(Status.OK.getStatusCode())
+      .when()
+      .post(FETCH_EXTERNAL_TASK_URL);
 
     verify(fetchTopicBuilder).processDefinitionVersionTag("version");
   }

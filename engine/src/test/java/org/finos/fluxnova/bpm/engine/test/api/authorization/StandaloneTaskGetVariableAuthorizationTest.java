@@ -20,9 +20,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.TaskPermissions.READ_VARIABLE;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,30 +39,24 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Yana.Vasileva
  *
  */
-@RunWith(Parameterized.class)
 public class StandaloneTaskGetVariableAuthorizationTest {
 
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
-
-  @Parameter
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
   public AuthorizationScenario scenario;
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -78,7 +70,6 @@ public class StandaloneTaskGetVariableAuthorizationTest {
   protected static final String PROCESS_KEY = "oneTaskProcess";
   protected boolean ensureSpecificVariablePermission;
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -95,7 +86,7 @@ public class StandaloneTaskGetVariableAuthorizationTest {
       );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     taskService = engineRule.getTaskService();
@@ -107,15 +98,17 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     processEngineConfiguration.setEnforceSpecificVariablePermission(true);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
     taskService.deleteTask(taskId, true);
     processEngineConfiguration.setEnforceSpecificVariablePermission(ensureSpecificVariablePermission);
   }
 
-  @Test
-  public void testGetVariable() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariable(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -137,8 +130,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariableLocal() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariableLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -160,8 +155,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariableTyped() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariableTyped(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -184,8 +181,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariableLocalTyped() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariableLocalTyped(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -208,8 +207,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariables() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariables(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -232,8 +233,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesLocal() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -256,8 +259,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesTyped() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesTyped(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     createTask(taskId);
 
     taskService.setVariables(taskId, getVariables());
@@ -279,8 +284,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesLocalTyped() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesLocalTyped(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     createTask(taskId);
 
     taskService.setVariablesLocal(taskId, getVariables());
@@ -302,8 +309,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesByName() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesByName(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -326,8 +335,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesLocalByName() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesLocalByName(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -350,8 +361,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesTypedByName() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesTypedByName(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     createTask(taskId);
 
     taskService.setVariables(taskId, getVariables());
@@ -373,8 +386,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     }
   }
 
-  @Test
-  public void testGetVariablesLocalTypedByName() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testGetVariablesLocalTypedByName(AuthorizationScenario scenario) {
+    initStandaloneTaskGetVariableAuthorizationTest(scenario);
     createTask(taskId);
 
     taskService.setVariablesLocal(taskId, getVariables());
@@ -417,6 +432,10 @@ public class StandaloneTaskGetVariableAuthorizationTest {
     assertFalse(variables.isEmpty());
     assertEquals(1, variables.size());
     assertEquals(VARIABLE_VALUE, variables.get(VARIABLE_NAME));
+  }
+
+  public void initStandaloneTaskGetVariableAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

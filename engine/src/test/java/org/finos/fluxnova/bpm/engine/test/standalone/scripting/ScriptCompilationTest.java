@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,8 +48,8 @@ import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptingEnvironment;
 import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessor;
 import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessorRequest;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel.
@@ -60,7 +61,7 @@ public class ScriptCompilationTest extends PluggableProcessEngineTest {
 
   protected ScriptFactory scriptFactory;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     scriptFactory = processEngineConfiguration.getScriptFactory();
   }
@@ -186,7 +187,7 @@ public class ScriptCompilationTest extends PluggableProcessEngineTest {
       // when
       Object firstResult = executeScript(script);
       CompiledScript compiledForFirstPreprocessedOutput = script.getCompiledScript();
-      
+
       Object secondResult = executeScript(script);
       CompiledScript compiledForSecondPreprocessedOutput = script.getCompiledScript();
 

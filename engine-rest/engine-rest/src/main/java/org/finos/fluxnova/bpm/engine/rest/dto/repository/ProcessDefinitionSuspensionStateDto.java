@@ -22,7 +22,7 @@ import org.finos.fluxnova.bpm.engine.impl.calendar.DateTimeUtil;
 import org.finos.fluxnova.bpm.engine.rest.dto.SuspensionStateDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import java.util.Date;
 
 /**

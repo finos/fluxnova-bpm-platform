@@ -17,12 +17,14 @@
 package org.finos.fluxnova.spin.javascript.nashorn.xml.dom;
 
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.EXAMPLE_XML_FILE_NAME;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptEngine;
 import org.finos.fluxnova.spin.impl.test.ScriptVariable;
 import org.finos.fluxnova.spin.xml.dom.XmlDomElementScriptTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 @ScriptEngine("nashorn")
 public class XmlDomElementJavascriptTest extends XmlDomElementScriptTest {
@@ -32,7 +34,7 @@ public class XmlDomElementJavascriptTest extends XmlDomElementScriptTest {
    * parameter is null.
    */
 
-  @Test(expected = RuntimeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.appendChildElement",
     variables = {
@@ -42,14 +44,15 @@ public class XmlDomElementJavascriptTest extends XmlDomElementScriptTest {
     execute = false
   )
   public void cannotAppendNullChildElement() throws Throwable {
-    failingWithException();
+    assertThrows(RuntimeException.class, () ->
+      failingWithException());
   }
 
   /**
    * The Nashorn scripting engine cannot determine the method to call if the
    * parameter is null.
    */
-  @Test(expected = RuntimeException.class)
+  @Test
   @Script(
     name = "XmlDomElementScriptTest.removeChildElement",
     variables = {
@@ -60,7 +63,8 @@ public class XmlDomElementJavascriptTest extends XmlDomElementScriptTest {
     execute = false
   )
   public void cannotRemoveANullChildElement() throws Throwable {
-    failingWithException();
+    assertThrows(RuntimeException.class, () ->
+      failingWithException());
   }
 
 }

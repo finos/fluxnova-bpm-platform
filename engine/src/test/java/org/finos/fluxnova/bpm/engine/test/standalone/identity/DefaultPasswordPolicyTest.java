@@ -38,17 +38,17 @@ import org.finos.fluxnova.bpm.engine.impl.identity.PasswordPolicyUpperCaseRuleIm
 import org.finos.fluxnova.bpm.engine.impl.identity.PasswordPolicyUserDataRuleImpl;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Miklas Boskamp
  */
 public class DefaultPasswordPolicyTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
   protected IdentityService identityService;
@@ -57,7 +57,7 @@ public class DefaultPasswordPolicyTest {
   // lower case, one digit and one special character
   protected PasswordPolicy policy = new DefaultPasswordPolicyImpl();
 
-  @Before
+  @BeforeEach
   public void init() {
     identityService = rule.getIdentityService();
 
@@ -66,7 +66,7 @@ public class DefaultPasswordPolicyTest {
       .setEnablePasswordPolicy(true);
   }
 
-  @After
+  @AfterEach
   public void resetProcessEngineConfig() {
     rule.getProcessEngineConfiguration()
       .setPasswordPolicy(null)

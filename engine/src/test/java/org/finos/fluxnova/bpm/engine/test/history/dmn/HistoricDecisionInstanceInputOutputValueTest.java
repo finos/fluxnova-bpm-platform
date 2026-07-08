@@ -40,23 +40,18 @@ import org.finos.fluxnova.bpm.engine.test.api.variables.JavaSerializable;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoricDecisionInstanceInputOutputValueTest {
 
   protected static final String DECISION_PROCESS = "org/finos/fluxnova/bpm/engine/test/history/HistoricDecisionInstanceTest.processWithBusinessRuleTask.bpmn20.xml";
   protected static final String DECISION_SINGLE_OUTPUT_DMN = "org/finos/fluxnova/bpm/engine/test/history/HistoricDecisionInstanceTest.decisionSingleOutput.dmn11.xml";
 
-  @Parameters(name = "{index}: input({0}) = {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
       { "string", "a" },
@@ -67,22 +62,18 @@ public class HistoricDecisionInstanceInputOutputValueTest {
       { "object", Collections.singletonList(new JavaSerializable("bar")) }
     });
   }
-
-  @Parameter(0)
   public String valueType;
-
-  @Parameter(1)
   public Object inputValue;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.setCurrentTime(new Date());
   }
 
-  @Before
+  @BeforeEach
   public void enableDmnFeelLegacyBehavior() {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         engineRule.getProcessEngineConfiguration()
@@ -93,7 +84,7 @@ public class HistoricDecisionInstanceInputOutputValueTest {
         .init();
   }
 
-  @After
+  @AfterEach
   public void disableDmnFeelLegacyBehavior() {
 
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
@@ -105,9 +96,11 @@ public class HistoricDecisionInstanceInputOutputValueTest {
         .init();
   }
 
-  @Test
-  @Deployment(resources = { DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN })
-  public void decisionInputInstanceValue() throws ParseException {
+  @ParameterizedTest(name = "{index}: input({0}) = {1}")
+  @Deployment(resources = {DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN})
+  @MethodSource("data")
+  public void decisionInputInstanceValue(String valueType, Object inputValue) throws ParseException {
+    initHistoricDecisionInstanceInputOutputValueTest(valueType, inputValue);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
     Date fixedDate = sdf.parse("01/01/2001 01:01:01.000");
     ClockUtil.setCurrentTime(fixedDate);
@@ -124,9 +117,11 @@ public class HistoricDecisionInstanceInputOutputValueTest {
     assertThat(inputInstance.getCreateTime()).isEqualTo(fixedDate);
   }
 
-  @Test
-  @Deployment(resources = { DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN })
-  public void decisionOutputInstanceValue() throws ParseException {
+  @ParameterizedTest(name = "{index}: input({0}) = {1}")
+  @Deployment(resources = {DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN})
+  @MethodSource("data")
+  public void decisionOutputInstanceValue(String valueType, Object inputValue) throws ParseException {
+    initHistoricDecisionInstanceInputOutputValueTest(valueType, inputValue);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
     Date fixedDate = sdf.parse("01/01/2001 01:01:01.000");
     ClockUtil.setCurrentTime(fixedDate);
@@ -146,6 +141,11 @@ public class HistoricDecisionInstanceInputOutputValueTest {
   protected ProcessInstance startProcessInstanceAndEvaluateDecision(Object input) {
     return engineRule.getRuntimeService().startProcessInstanceByKey("testProcess",
         Variables.createVariables().putValue("input1", input));
+  }
+
+  public void initHistoricDecisionInstanceInputOutputValueTest(String valueType, Object inputValue) {
+    this.valueType = valueType;
+    this.inputValue = inputValue;
   }
 
 }

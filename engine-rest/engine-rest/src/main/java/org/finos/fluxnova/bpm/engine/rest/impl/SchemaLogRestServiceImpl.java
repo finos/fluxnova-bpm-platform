@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.util.List;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.management.SchemaLogEntry;
 import org.finos.fluxnova.bpm.engine.management.SchemaLogQuery;
 import org.finos.fluxnova.bpm.engine.rest.SchemaLogRestService;

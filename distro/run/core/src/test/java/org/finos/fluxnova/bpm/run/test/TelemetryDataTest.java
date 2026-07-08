@@ -25,15 +25,14 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.diagnostics.FluxnovaIntegration;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.TelemetryDataImpl;
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { FluxnovaBpmRun.class })
 public class TelemetryDataTest {
 

@@ -17,13 +17,15 @@
 package org.finos.fluxnova.bpm.engine.test.standalone.testing;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

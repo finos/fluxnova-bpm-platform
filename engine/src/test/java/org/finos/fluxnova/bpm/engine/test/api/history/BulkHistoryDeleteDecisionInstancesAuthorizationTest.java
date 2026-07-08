@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.history;
 
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,18 +39,16 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Svetlana Dorokhova
  */
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class BulkHistoryDeleteDecisionInstancesAuthorizationTest {
 
@@ -60,24 +58,21 @@ public class BulkHistoryDeleteDecisionInstancesAuthorizationTest {
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
 
   private HistoryService historyService;
   private DecisionService decisionService;
 
-  @Before
+  @BeforeEach
   public void init() {
     historyService = engineRule.getHistoryService();
     decisionService = engineRule.getDecisionService();
 
     authRule.createUserAndGroup("demo", "groupId");
   }
-
-  @Parameterized.Parameter
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -101,15 +96,17 @@ public class BulkHistoryDeleteDecisionInstancesAuthorizationTest {
     );
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn"})
-  public void testCleanupHistory() {
+    "org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn"})
+  @MethodSource("scenarios")
+  public void testCleanupHistory(AuthorizationScenario scenario) {
+    initBulkHistoryDeleteDecisionInstancesAuthorizationTest(scenario);
     //given
     final List<String> ids = prepareHistoricDecisions();
 
@@ -142,6 +139,10 @@ public class BulkHistoryDeleteDecisionInstancesAuthorizationTest {
 
   protected VariableMap createVariables() {
     return Variables.createVariables().putValue("status", "silver").putValue("sum", 723);
+  }
+
+  public void initBulkHistoryDeleteDecisionInstancesAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

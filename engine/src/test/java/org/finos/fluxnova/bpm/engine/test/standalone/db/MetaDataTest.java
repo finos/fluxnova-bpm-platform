@@ -16,12 +16,13 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.db;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.impl.db.sql.DbSqlSessionFactory;
 import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

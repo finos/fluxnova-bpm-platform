@@ -18,12 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +47,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author roman.smirnov
@@ -463,7 +459,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTest {
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
       assertEquals("string", var.getTypeName());
-      assertTrue("Unexpected value found: " + var.getValue(), expected.contains(var.getValue()));
+      assertTrue(expected.contains(var.getValue()), "Unexpected value found: " + var.getValue());
     }
   }
 

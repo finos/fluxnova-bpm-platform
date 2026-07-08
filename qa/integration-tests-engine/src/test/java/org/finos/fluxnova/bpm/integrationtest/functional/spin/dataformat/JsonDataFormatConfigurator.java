@@ -18,11 +18,13 @@ package org.finos.fluxnova.bpm.integrationtest.functional.spin.dataformat;
 
 import java.text.SimpleDateFormat;
 
+import org.finos.fluxnova.bpm.integrationtest.functional.spin.XmlSerializable;
 import org.finos.fluxnova.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.finos.fluxnova.spin.spi.DataFormatConfigurator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.module.SimpleModule;
 
 /**
  * @author Thorben Lindhauer
@@ -39,9 +41,11 @@ public class JsonDataFormatConfigurator implements DataFormatConfigurator<Jackso
 
   @Override
   public void configure(JacksonJsonDataFormat dataFormat) {
-    ObjectMapper objectMapper = dataFormat.getObjectMapper();
-    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    objectMapper.setDateFormat(DATE_FORMAT);
+    JsonMapper mapper = JsonMapper.builder()
+            .defaultDateFormat(DATE_FORMAT)
+            .build();
+
+    dataFormat.setObjectMapper(mapper);
 
   }
 

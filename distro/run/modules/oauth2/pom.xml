@@ -26,7 +26,6 @@
       <groupId>org.finos.fluxnova.bpm.springboot</groupId>
       <artifactId>fluxnova-bpm-spring-boot-starter-security</artifactId>
     </dependency>
-
   </dependencies>
 
   <build>
