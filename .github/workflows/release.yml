@@ -106,6 +106,7 @@ jobs:
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
+        continue-on-error: true
         run: |
           mvn -B \
             -DpreparationGoals=clean \
