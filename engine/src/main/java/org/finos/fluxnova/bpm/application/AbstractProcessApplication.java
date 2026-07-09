@@ -184,7 +184,7 @@ public abstract class AbstractProcessApplication implements ProcessApplicationIn
    * Java SE {@link ServiceLoader} facilities for resolving implementations of {@link ProcessApplicationElResolver}.</p>
    * <p>
    * <p>If you want to provide a custom implementation in your application, place a file named
-   * <code>META-INF/org.camunda.bpm.application.ProcessApplicationElResolver</code> inside your application
+   * <code>META-INF/org.finos.fluxnova.bpm.application.ProcessApplicationElResolver</code> inside your application
    * which contains the fully qualified classname of your implementation. Or simply override this method.</p>
    *
    * @return the process application ElResolver.
