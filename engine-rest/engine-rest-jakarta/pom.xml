@@ -88,12 +88,6 @@
       <version>${version.jackson}</version>
     </dependency>
 
-    <dependency>
-      <groupId>tools.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>3.0.0-rc2</version>
-    </dependency>
-
     <!-- provided deps -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
