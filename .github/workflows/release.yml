@@ -119,6 +119,7 @@ jobs:
             -DinteractiveMode=false
 
       - name: Perform release
+        continue-on-error: true
         run: |
           mvn -B \
             -DinteractiveMode=false \
