@@ -33,6 +33,6 @@ runs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ steps.tags.outputs.tags }}
         provenance: true
         platforms: linux/amd64,linux/arm64
