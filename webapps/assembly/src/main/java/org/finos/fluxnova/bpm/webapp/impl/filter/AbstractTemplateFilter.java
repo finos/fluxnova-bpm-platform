@@ -79,7 +79,12 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @return
    */
   protected boolean hasWebResource(String name) {
-    if (containsPathTraversal(name)) {
+    if (name == null) {
+      return false;
+    }
+    String normalized = name.replace('\\', '/');
+    if (normalized.contains("../") || normalized.contains("./")
+        || normalized.equals("..") || normalized.equals(".")) {
       return false;
     }
     try {
@@ -102,8 +107,13 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @throws IOException
    */
   protected String getWebResourceContents(String name) throws IOException {
-    if (containsPathTraversal(name)) {
-      throw new IOException("Resource name contains illegal path traversal sequence: " + name);
+    if (name == null) {
+      throw new IOException("Resource name must not be null.");
+    }
+    String normalized = name.replace('\\', '/');
+    if (normalized.contains("../") || normalized.contains("./")
+        || normalized.equals("..") || normalized.equals(".")) {
+      throw new IOException("Path traversal detected in resource name.");
     }
 
     InputStream is = null;
@@ -129,20 +139,5 @@ public abstract class AbstractTemplateFilter implements Filter {
     }
   }
 
-  /**
-   * Returns true if the given resource name contains path traversal sequences (CWE-73 fix).
-   * Handles both forward slash and backslash variants.
-   */
-  private boolean containsPathTraversal(String name) {
-    if (name == null) {
-      return true;
-    }
-    String normalized = name.replace('\\', '/');
-    for (String segment : normalized.split("/")) {
-      if ("..".equals(segment)) {
-        return true;
-      }
-    }
-    return false;
-  }
+
 }

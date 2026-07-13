@@ -53,6 +53,11 @@ public class SourceExecutableScript extends CompiledExecutableScript {
 
   @Override
   public Object evaluate(ScriptEngine engine, VariableScope variableScope, Bindings bindings) {
+    if (scriptSource != null && scriptSource.indexOf('\0') >= 0) {
+      String activityIdMessage = getActivityIdExceptionMessage(variableScope);
+      throw new ScriptEvaluationException("Unable to evaluate script" + activityIdMessage
+          + ": script source contains illegal null bytes.", null);
+    }
     if (shouldBeCompiled) {
       compileScript(engine);
     }

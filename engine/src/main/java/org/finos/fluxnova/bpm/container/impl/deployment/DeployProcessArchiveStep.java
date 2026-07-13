@@ -43,7 +43,6 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.StringUtil;
-import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeployment;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.repository.ResumePreviousBy;
@@ -89,7 +88,15 @@ public class DeployProcessArchiveStep extends DeploymentOperationStep {
     // add all processes listed in the processes.xml
     List<String> listedProcessResources = processArchive.getProcessResourceNames();
     for (String processResource : listedProcessResources) {
-      ReflectUtil.validateResourceName(processResource);
+      if (processResource == null) {
+        throw new IllegalArgumentException("Process resource name must not be null.");
+      }
+      String normalizedResource = processResource.replace('\\', '/');
+      if (normalizedResource.contains("../") || normalizedResource.contains("./")
+          || normalizedResource.equals("..") || normalizedResource.equals(".")) {
+        throw new IllegalArgumentException(
+            "Path traversal detected in process resource name: " + processResource);
+      }
       InputStream resourceAsStream = null;
       try {
         resourceAsStream = processApplicationClassloader.getResourceAsStream(processResource);

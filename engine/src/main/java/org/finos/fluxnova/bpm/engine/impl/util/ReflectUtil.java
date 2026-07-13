@@ -122,24 +122,26 @@ public abstract class ReflectUtil {
   }
 
   /**
-   * Validates that a resource name does not contain path traversal sequences (CWE-73 fix).
-   * Throws ProcessEngineException if the name is null or contains '..' segments.
+   * Validates a classloader resource name before it is passed to a classloader.
    */
   public static void validateResourceName(String name) {
     if (name == null) {
       throw new ProcessEngineException("Resource name must not be null");
     }
-    // Normalize separators and check for path traversal sequences
     String normalized = name.replace('\\', '/');
-    for (String segment : normalized.split("/")) {
-      if ("..".equals(segment)) {
-        throw new ProcessEngineException(
-            "Resource name contains illegal path traversal sequence: " + name);
-      }
+    if (normalized.startsWith("/")
+        || normalized.contains("../")
+        || normalized.contains("./")
+        || normalized.endsWith("..")
+        || normalized.equals("..")
+        || normalized.equals(".")) {
+      throw new ProcessEngineException(
+          "Invalid resource name; path traversal is not allowed: " + name);
     }
   }
 
   public static InputStream getResourceAsStream(String name) {
+    // Validate before passing the resource name to any classloader.
     validateResourceName(name);
     InputStream resourceStream = null;
     ClassLoader classLoader = getCustomClassLoader();
@@ -161,6 +163,7 @@ public abstract class ReflectUtil {
    }
 
    public static URL getResource(String name) {
+     // Validate before passing the resource name to any classloader.
      validateResourceName(name);
      URL url = null;
      ClassLoader classLoader = getCustomClassLoader();

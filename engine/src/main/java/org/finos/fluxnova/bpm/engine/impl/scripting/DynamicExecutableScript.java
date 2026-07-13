@@ -32,6 +32,8 @@ import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
  */
 public abstract class DynamicExecutableScript extends ExecutableScript {
 
+  private static final int MAX_DYNAMIC_SCRIPT_LENGTH = 1_000_000;
+
   protected final Expression scriptExpression;
 
   protected DynamicExecutableScript(Expression scriptExpression, String language) {
@@ -43,6 +45,17 @@ public abstract class DynamicExecutableScript extends ExecutableScript {
     String source = getScriptSource(variableScope);
     if (source == null) {
       throw new ScriptEvaluationException("Script source must not be null", null);
+    }
+    if (source.length() > MAX_DYNAMIC_SCRIPT_LENGTH) {
+      String activityIdMessage = getActivityIdExceptionMessage(variableScope);
+      throw new ScriptEvaluationException("Unable to evaluate script" + activityIdMessage
+          + ": script source length (" + source.length() + " chars) exceeds the maximum allowed "
+          + MAX_DYNAMIC_SCRIPT_LENGTH + " characters.", null);
+    }
+    if (source.indexOf('\0') >= 0) {
+      String activityIdMessage = getActivityIdExceptionMessage(variableScope);
+      throw new ScriptEvaluationException("Unable to evaluate script" + activityIdMessage
+          + ": script source contains illegal null bytes.", null);
     }
     try {
         return ScriptEvaluationUtil.evaluate(scriptEngine, source, bindings);

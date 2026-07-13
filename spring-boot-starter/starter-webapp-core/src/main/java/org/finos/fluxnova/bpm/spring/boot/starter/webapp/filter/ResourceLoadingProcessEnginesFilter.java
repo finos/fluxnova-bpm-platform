@@ -60,7 +60,14 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
 
   @Override
   protected String getWebResourceContents(String name) throws IOException {
-    validateResourceName(name);
+    if (name == null) {
+      throw new IOException("Resource name must not be null.");
+    }
+    String normalized = name.replace('\\', '/');
+    if (normalized.contains("../") || normalized.contains("./")
+        || normalized.equals("..") || normalized.equals(".")) {
+      throw new IOException("Path traversal detected in resource name.");
+    }
     InputStream is = null;
 
     try {
@@ -130,15 +137,5 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     return input;
   }
 
-  private static void validateResourceName(String name) throws IOException {
-    if (name == null) {
-      throw new IOException("Resource name must not be null");
-    }
-    String normalized = name.replace('\\', '/');
-    for (String segment : normalized.split("/")) {
-      if ("..".equals(segment)) {
-        throw new IOException("Resource name contains illegal path traversal sequence: " + name);
-      }
-    }
-  }
+
 }

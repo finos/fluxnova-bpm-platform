@@ -147,6 +147,16 @@ public abstract class BaseLogger {
   }
 
   /**
+   * Sanitizes formatted log output to prevent CR/LF/TAB log injection.
+   */
+  private static String sanitize(String input) {
+    if (input == null) {
+      return null;
+    }
+    return input.replaceAll("[\r\n\t]", "_");
+  }
+
+  /**
    * Logs a 'TRACE' message
    *
    * @param id              the unique id of this log message
@@ -156,7 +166,14 @@ public abstract class BaseLogger {
   protected void logTrace(String id, String messageTemplate, Object... parameters) {
     if (delegateLogger.isTraceEnabled()) {
       String msg = formatMessageTemplate(id, messageTemplate);
-      delegateLogger.trace(msg, parameters);
+      org.slf4j.helpers.FormattingTuple formatted = MessageFormatter.arrayFormat(msg, parameters);
+      String sanitized = sanitize(formatted.getMessage());
+      Throwable throwable = formatted.getThrowable();
+      if (throwable != null) {
+        delegateLogger.trace(sanitized, throwable);
+      } else {
+        delegateLogger.trace(sanitized);
+      }
     }
   }
 
@@ -170,7 +187,14 @@ public abstract class BaseLogger {
   protected void logDebug(String id, String messageTemplate, Object... parameters) {
     if(delegateLogger.isDebugEnabled()) {
       String msg = formatMessageTemplate(id, messageTemplate);
-      delegateLogger.debug(msg, parameters);
+      org.slf4j.helpers.FormattingTuple formatted = MessageFormatter.arrayFormat(msg, parameters);
+      String sanitized = sanitize(formatted.getMessage());
+      Throwable throwable = formatted.getThrowable();
+      if (throwable != null) {
+        delegateLogger.debug(sanitized, throwable);
+      } else {
+        delegateLogger.debug(sanitized);
+      }
     }
   }
 
@@ -184,7 +208,14 @@ public abstract class BaseLogger {
   protected void logInfo(String id, String messageTemplate, Object... parameters) {
     if(delegateLogger.isInfoEnabled()) {
       String msg = formatMessageTemplate(id, messageTemplate);
-      delegateLogger.info(msg, parameters);
+      org.slf4j.helpers.FormattingTuple formatted = MessageFormatter.arrayFormat(msg, parameters);
+      String sanitized = sanitize(formatted.getMessage());
+      Throwable throwable = formatted.getThrowable();
+      if (throwable != null) {
+        delegateLogger.info(sanitized, throwable);
+      } else {
+        delegateLogger.info(sanitized);
+      }
     }
   }
 
@@ -198,7 +229,14 @@ public abstract class BaseLogger {
   protected void logWarn(String id, String messageTemplate, Object... parameters) {
     if(delegateLogger.isWarnEnabled()) {
       String msg = formatMessageTemplate(id, messageTemplate);
-      delegateLogger.warn(msg, parameters);
+      org.slf4j.helpers.FormattingTuple formatted = MessageFormatter.arrayFormat(msg, parameters);
+      String sanitized = sanitize(formatted.getMessage());
+      Throwable throwable = formatted.getThrowable();
+      if (throwable != null) {
+        delegateLogger.warn(sanitized, throwable);
+      } else {
+        delegateLogger.warn(sanitized);
+      }
     }
   }
 
@@ -212,7 +250,14 @@ public abstract class BaseLogger {
   protected void logError(String id, String messageTemplate, Object... parameters) {
     if(delegateLogger.isErrorEnabled()) {
       String msg = formatMessageTemplate(id, messageTemplate);
-      delegateLogger.error(msg, parameters);
+      org.slf4j.helpers.FormattingTuple formatted = MessageFormatter.arrayFormat(msg, parameters);
+      String sanitized = sanitize(formatted.getMessage());
+      Throwable throwable = formatted.getThrowable();
+      if (throwable != null) {
+        delegateLogger.error(sanitized, throwable);
+      } else {
+        delegateLogger.error(sanitized);
+      }
     }
   }
 

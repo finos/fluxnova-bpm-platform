@@ -91,13 +91,13 @@ public class SpinScriptEnv {
   }
 
   protected static String loadScriptEnv(String language, String extension) {
-    String scriptEnvPath = String.format(ENV_PATH_TEMPLATE, language, extension);
-    // Validate the constructed path contains no traversal sequences
-    for (String segment : scriptEnvPath.split("/")) {
-      if ("..".equals(segment)) {
-        throw LOG.noScriptEnvFoundForLanguage(language, scriptEnvPath);
-      }
+    if (language == null || extension == null
+        || language.contains("/") || language.contains("\\") || language.contains("..")
+        || extension.contains("/") || extension.contains("\\") || extension.contains("..")) {
+      throw new IllegalArgumentException(
+          "Path traversal detected in script language or extension.");
     }
+    String scriptEnvPath = String.format(ENV_PATH_TEMPLATE, language, extension);
     InputStream envResource = SpinScriptException.class.getClassLoader().getResourceAsStream(scriptEnvPath);
 
     if(envResource == null) {

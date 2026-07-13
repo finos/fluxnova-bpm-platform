@@ -216,32 +216,32 @@ public class AbstractAppPluginRootResource<T extends AppPlugin> {
   }
 
   protected InputStream getWebResourceAsStream(String assetDirectory, String fileName) {
-      validateResourcePath(assetDirectory, "assetDirectory");
-      validateResourcePath(fileName, "fileName");
-      String resourceName = "/%s/%s".formatted(assetDirectory, fileName);
+    validatePathSegment(assetDirectory);
+    validatePathSegment(fileName);
+    String resourceName = "/%s/%s".formatted(assetDirectory, fileName);
 
     return servletContext.getResourceAsStream(resourceName);
   }
 
   protected InputStream getClasspathResourceAsStream(AppPlugin plugin, String assetDirectory, String fileName) {
-      validateResourcePath(assetDirectory, "assetDirectory");
-      validateResourcePath(fileName, "fileName");
-      String resourceName = "%s/%s".formatted(assetDirectory, fileName);
+    validatePathSegment(assetDirectory);
+    validatePathSegment(fileName);
+    String resourceName = "%s/%s".formatted(assetDirectory, fileName);
     return plugin.getClass().getClassLoader().getResourceAsStream(resourceName);
   }
 
-    private static void validateResourcePath(String value, String label) {
-        if (value == null) {
-            throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
-                    .entity("Invalid " + label + ": must not be null").build());
-        }
-        String normalized = value.replace('\\', '/');
-        for (String segment : normalized.split("/")) {
-            if ("..".equals(segment)) {
-                throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
-                        .entity("Invalid " + label + ": path traversal detected").build());
-            }
-        }
+  /**
+   * Validates that a path segment does not contain directory traversal sequences.
+   */
+  private void validatePathSegment(String segment) {
+    if (segment == null) {
+      throw new RestException(Status.BAD_REQUEST, "Path segment must not be null.");
     }
+    String normalized = segment.replace('\\', '/');
+    if (normalized.contains("../") || normalized.contains("./")
+        || normalized.equals("..") || normalized.equals(".")) {
+      throw new RestException(Status.FORBIDDEN, "Path traversal detected in resource path.");
+    }
+  }
 
 }
