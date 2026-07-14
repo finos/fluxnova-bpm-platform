@@ -23,12 +23,25 @@ public class BaseLoggerSecurityTest {
   }
 
   @Test
-  public void shouldSanitizeFormattedLogParameters() {
+  public void shouldSanitizeStringLogParameters() {
     when(delegate.isInfoEnabled()).thenReturn(true);
 
     logger.logInfo("01", "User input: {}", "first\r\nsecond\tthird");
 
-    verify(delegate).info("TEST-0101 User input: first__second_third");
+    verify(delegate).info(
+        "TEST-0101 User input: {}",
+        new Object[] { "first__second_third" });
+  }
+
+  @Test
+  public void shouldPreserveFormattingInMessageTemplate() {
+    when(delegate.isInfoEnabled()).thenReturn(true);
+
+    logger.logInfo("02", "Deployment summary:\n\t{}", "model.bpmn");
+
+    verify(delegate).info(
+        "TEST-0102 Deployment summary:\n\t{}",
+        new Object[] { "model.bpmn" });
   }
 
   @Test
@@ -36,8 +49,11 @@ public class BaseLoggerSecurityTest {
     when(delegate.isErrorEnabled()).thenReturn(true);
     RuntimeException failure = new RuntimeException("failure");
 
-    logger.logError("02", "Failed for {}", "bad\nvalue", failure);
+    logger.logError("03", "Failed for {}", "bad\nvalue", failure);
 
-    verify(delegate).error("TEST-0102 Failed for bad_value", failure);
+    verify(delegate).error(
+        "TEST-0103 Failed for {}",
+        new Object[] { "bad_value", failure });
   }
 }
+
