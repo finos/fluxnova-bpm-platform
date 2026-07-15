@@ -23,6 +23,8 @@ import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -121,65 +123,72 @@ public abstract class ReflectUtil {
     }
   }
 
-  /**
-   * Validates that a resource name does not contain path traversal sequences (CWE-73 fix).
-   * Throws ProcessEngineException if the name is null or contains '..' segments.
-   */
-  public static void validateResourceName(String name) {
+  public static String validateResourceName(String name) {
     if (name == null) {
       throw new ProcessEngineException("Resource name must not be null");
     }
-    // Normalize separators and check for path traversal sequences
-    String normalized = name.replace('\\', '/');
-    for (String segment : normalized.split("/")) {
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(name, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw new ProcessEngineException(
+          "Resource name contains malformed encoding: " + name);
+    }
+
+    String normalized = decoded.replace('\\', '/');
+    for (String segment : normalized.split("/", -1)) {
       if ("..".equals(segment)) {
         throw new ProcessEngineException(
             "Resource name contains illegal path traversal sequence: " + name);
       }
     }
+
+    return normalized;
   }
 
   public static InputStream getResourceAsStream(String name) {
-    validateResourceName(name);
+    String safeName = validateResourceName(name);
     InputStream resourceStream = null;
     ClassLoader classLoader = getCustomClassLoader();
     if(classLoader != null) {
-      resourceStream = classLoader.getResourceAsStream(name);
+      resourceStream = classLoader.getResourceAsStream(safeName);
     }
 
     if(resourceStream == null) {
       // Try the current Thread context classloader
       classLoader = Thread.currentThread().getContextClassLoader();
-      resourceStream = classLoader.getResourceAsStream(name);
+      resourceStream = classLoader.getResourceAsStream(safeName);
       if(resourceStream == null) {
         // Finally, try the classloader for this class
         classLoader = ReflectUtil.class.getClassLoader();
-        resourceStream = classLoader.getResourceAsStream(name);
+        resourceStream = classLoader.getResourceAsStream(safeName);
       }
     }
     return resourceStream;
-   }
+  }
 
-   public static URL getResource(String name) {
-     validateResourceName(name);
-     URL url = null;
-     ClassLoader classLoader = getCustomClassLoader();
-     if(classLoader != null) {
-       url = classLoader.getResource(name);
-     }
-     if(url == null) {
-       // Try the current Thread context classloader
-       classLoader = Thread.currentThread().getContextClassLoader();
-       url = classLoader.getResource(name);
-       if(url == null) {
-         // Finally, try the classloader for this class
-         classLoader = ReflectUtil.class.getClassLoader();
-         url = classLoader.getResource(name);
-       }
-     }
-
-     return url;
+  public static URL getResource(String name) {
+    String safeName = validateResourceName(name);
+    URL url = null;
+    ClassLoader classLoader = getCustomClassLoader();
+    if(classLoader != null) {
+      url = classLoader.getResource(safeName);
     }
+    if(url == null) {
+      // Try the current Thread context classloader
+      classLoader = Thread.currentThread().getContextClassLoader();
+      url = classLoader.getResource(safeName);
+      if(url == null) {
+        // Finally, try the classloader for this class
+        classLoader = ReflectUtil.class.getClassLoader();
+        url = classLoader.getResource(safeName);
+      }
+    }
+
+    return url;
+  }
 
    public static String getResourceUrlAsString(String name) {
      String url = getResource(name).toString();

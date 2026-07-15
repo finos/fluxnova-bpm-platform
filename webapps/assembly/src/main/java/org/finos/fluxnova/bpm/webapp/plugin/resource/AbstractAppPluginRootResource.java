@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -216,32 +218,43 @@ public class AbstractAppPluginRootResource<T extends AppPlugin> {
   }
 
   protected InputStream getWebResourceAsStream(String assetDirectory, String fileName) {
-      validateResourcePath(assetDirectory, "assetDirectory");
-      validateResourcePath(fileName, "fileName");
-      String resourceName = "/%s/%s".formatted(assetDirectory, fileName);
-
+    String safeDir = validateResourcePath(assetDirectory, "assetDirectory");
+    String safeFile = validateResourcePath(fileName, "fileName");
+    String resourceName = "/" + safeDir + "/" + safeFile;
     return servletContext.getResourceAsStream(resourceName);
   }
 
   protected InputStream getClasspathResourceAsStream(AppPlugin plugin, String assetDirectory, String fileName) {
-      validateResourcePath(assetDirectory, "assetDirectory");
-      validateResourcePath(fileName, "fileName");
-      String resourceName = "%s/%s".formatted(assetDirectory, fileName);
+    String safeDir = validateResourcePath(assetDirectory, "assetDirectory");
+    String safeFile = validateResourcePath(fileName, "fileName");
+    String resourceName = safeDir + "/" + safeFile;
     return plugin.getClass().getClassLoader().getResourceAsStream(resourceName);
   }
 
-    private static void validateResourcePath(String value, String label) {
-        if (value == null) {
-            throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
-                    .entity("Invalid " + label + ": must not be null").build());
-        }
-        String normalized = value.replace('\\', '/');
-        for (String segment : normalized.split("/")) {
-            if ("..".equals(segment)) {
-                throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
-                        .entity("Invalid " + label + ": path traversal detected").build());
-            }
-        }
+  private static String validateResourcePath(String value, String label) {
+    if (value == null) {
+      throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+          .entity("Invalid " + label + ": must not be null").build());
     }
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(value, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+          .entity("Invalid " + label + ": malformed encoding").build());
+    }
+
+    String normalized = decoded.replace('\\', '/');
+    for (String segment : normalized.split("/", -1)) {
+      if ("..".equals(segment)) {
+        throw new WebApplicationException(Response.status(Status.BAD_REQUEST)
+            .entity("Invalid " + label + ": path traversal detected").build());
+      }
+    }
+
+    return normalized;
+  }
 
 }
