@@ -33,6 +33,8 @@ For detailed build and run instructions, see the [Fluxnova Build Guide](https://
   mvn clean install
   ```
 - Run Tomcat or Spring Boot version (see build guide for details).
+
+> **Note:** If you download a Fluxnova distribution archive, unzip it **outside** your local clone of this repository. Extracting it into the repository root leaves the distribution files (e.g. `configuration/`, `internal/`, start/shutdown scripts) cluttering your `git status` as untracked files.
 - Alternatively, use the official Docker image:
   ```sh
   docker pull ghcr.io/finos/fluxnova-bpm-platform:1.1.0
