@@ -120,11 +120,8 @@ public class SourceExecutableScript extends CompiledExecutableScript {
 
   }
 
-  protected Object evaluateScript(ScriptEngine engine, Bindings bindings) throws ScriptException {
-    if (scriptSource == null) {
-      throw new ScriptEvaluationException("Script source must not be null", null);
-    }
-    LOG.debugEvaluatingNonCompiledScript(scriptSource);
+  protected Object evaluateScript(ScriptEngine engine, Bindings bindings)
+      throws ScriptException {
     return ScriptEvaluationUtil.evaluate(engine, scriptSource, bindings);
   }
 
@@ -139,6 +136,7 @@ public class SourceExecutableScript extends CompiledExecutableScript {
    *          the new script source code
    */
   public void setScriptSource(String scriptSource) {
+    ScriptEvaluationUtil.validateScriptSource(scriptSource);
     this.compiledScript = null;
     shouldBeCompiled = true;
     this.scriptSource = scriptSource;
