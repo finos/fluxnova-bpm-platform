@@ -165,13 +165,14 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
 
 ### Running the Tomcat Version
 
-1. After a successful build, extract the Tomcat distribution archive:
+1. After a successful build, extract the Tomcat distribution archive into a directory **outside** the repository.
+   The archive has no top-level folder — extracting it into the repository root will clutter your `git status` with untracked distribution files. The `-d` target below (`~/fluxnova-tomcat`) is just an example; change it to any location you prefer:
    ```bash
-   unzip distro/tomcat/distro/target/fluxnova-bpm-tomcat-0.0.1-SNAPSHOT.zip
+   unzip distro/tomcat/distro/target/fluxnova-bpm-tomcat-0.0.1-SNAPSHOT.zip -d ~/fluxnova-tomcat
    ```
-2. Navigate to the extracted folder:
+2. Navigate to the extraction directory:
    ```bash
-   cd fluxnova-bpm-tomcat-0.0.1-SNAPSHOT
+   cd ~/fluxnova-tomcat
    ```
 3. Start the Fluxnova Tomcat server:
    ```bash
@@ -181,13 +182,14 @@ You can run Fluxnova in two modes: **Tomcat** and **Spring Boot**.
 
 ### Running the Spring Boot Version
 
-1. After a successful build, extract the Spring Boot distribution archive:
+1. After a successful build, extract the Spring Boot distribution archive into a directory **outside** the repository.
+   The archive has no top-level folder — extracting it into the repository root will clutter your `git status` with untracked distribution files. The `-d` target below (`~/fluxnova-run`) is just an example; change it to any location you prefer:
    ```bash
-   unzip distro/run/distro/target/fluxnova-bpm-run-0.0.1-SNAPSHOT.zip
+   unzip distro/run/distro/target/fluxnova-bpm-run-0.0.1-SNAPSHOT.zip -d ~/fluxnova-run
    ```
-2. Navigate to the extracted folder:
+2. Navigate to the extraction directory:
    ```bash
-   cd fluxnova-bpm-run-0.0.1-SNAPSHOT
+   cd ~/fluxnova-run
    ```
 3. Start the Spring Boot server:
    ```bash
