@@ -32,7 +32,7 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
- * registers support for handling the annotations in the org.camunda.bpm.engine.annotations package.
+ * registers support for handling the annotations in the org.finos.fluxnova.bpm.engine.annotations package.
  * <p/>
  * The first major component is the state handlers. For this to work, a BeanFactoryPostProcessor is registered which in turn registers a
  * {@link org.finos.fluxnova.bpm.engine.test.spring.components.registry.ActivitiStateHandlerRegistry} if none exists.

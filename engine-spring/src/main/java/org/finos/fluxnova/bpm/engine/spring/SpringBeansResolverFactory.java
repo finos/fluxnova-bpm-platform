@@ -34,7 +34,7 @@ import org.springframework.context.ApplicationContext;
  * </p>
  * 
  * <p>
- * {@see org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration#initScripting()}
+ * {@see org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration#initScripting()}
  * <p>
  *
  */

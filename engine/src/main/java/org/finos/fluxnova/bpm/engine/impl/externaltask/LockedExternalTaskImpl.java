@@ -145,7 +145,7 @@ public class LockedExternalTaskImpl implements LockedExternalTask {
    * During mapping variables will be collected,during collection variables will not be deserialized
    * and scope will not be set to local.
    *
-   * @see {@link org.camunda.bpm.engine.impl.core.variable.scope.AbstractVariableScope#collectVariables(VariableMapImpl, Collection, boolean, boolean)}
+   * @see {@link org.finos.fluxnova.bpm.engine.impl.core.variable.scope.AbstractVariableScope#collectVariables(VariableMapImpl, Collection, boolean, boolean)}
    *
    * @param externalTaskEntity - source persistent entity to use for fields
    * @param variablesToFetch - list of variable names to fetch, if null then all variables will be fetched
