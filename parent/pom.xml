@@ -50,7 +50,7 @@
     <version.nimbus-jose-jwt>9.37.4</version.nimbus-jose-jwt>
 
     <version.slf4j>1.7.26</version.slf4j>
-    <version.logback>1.2.11</version.logback>
+    <version.logback>1.6.0</version.logback>
     <version.junit5>6.0.3</version.junit5>
     <version.assertj>2.9.1</version.assertj>
     <version.mockito>5.23.0</version.mockito>
