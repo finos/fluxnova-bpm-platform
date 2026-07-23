@@ -20,7 +20,7 @@
 
     <redirect.test.output>true</redirect.test.output>
 
-    <weld.version>5.1.0.Final</weld.version>
+    <weld.version>5.1.7.Final</weld.version>
   </properties>
 
   <!-- import shrinkwrap and arquillian bom for artifact versions,
@@ -605,7 +605,7 @@
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
           <artifactId>arquillian-tomcat-managed-10</artifactId>
-          <version>1.2.4.Final</version>
+          <version>1.2.5.Final</version>
           <scope>test</scope>
         </dependency>
 

@@ -12,7 +12,7 @@
   </parent>
 
   <properties>
-    <version.json-schema-validator>3.0.2</version.json-schema-validator>
+    <version.json-schema-validator>3.0.6</version.json-schema-validator>
   </properties>
 
   <dependencies>
