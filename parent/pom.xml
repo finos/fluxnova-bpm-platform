@@ -55,7 +55,7 @@
     <version.assertj>2.9.1</version.assertj>
     <version.mockito>5.23.0</version.mockito>
     <version.hamcrest>2.0.0.0</version.hamcrest>
-    <version.wiremock>2.35.2</version.wiremock>
+    <version.wiremock>3.0.1</version.wiremock>
     <version.testcontainers>1.16.0</version.testcontainers>
     <version.unirest-java>2.3.10</version.unirest-java>
     <version.jakarta-servlet>6.1.0</version.jakarta-servlet>
