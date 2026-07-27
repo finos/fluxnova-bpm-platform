@@ -21,7 +21,7 @@ import org.finos.fluxnova.bpm.engine.delegate.DelegateTask;
 
 
 /**
- * @deprecated use org.camunda.bpm.engine.delegate.TaskListener instead
+ * @deprecated org.finos.fluxnova.bpm.engine.delegate.TaskListener instead
  * 
  * @author Tom Baeyens
  */

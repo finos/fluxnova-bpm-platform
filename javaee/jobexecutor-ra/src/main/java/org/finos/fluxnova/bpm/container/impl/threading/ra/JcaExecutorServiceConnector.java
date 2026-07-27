@@ -61,7 +61,7 @@ public class JcaExecutorServiceConnector implements ResourceAdapter, Serializabl
    */
   public class ExecutorServiceWrapper {
     /**
-     * will hold a org.camunda.bpm.container.ExecutorService reference
+     * will hold a org.finos.fluxnova.bpm.container.ExecutorService reference
      */
     protected Object executorService;
 
