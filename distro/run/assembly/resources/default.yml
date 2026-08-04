@@ -33,3 +33,14 @@ spring.datasource:
 # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-static-content
 spring.web.resources:
   static-locations: NULL
+
+# Expose the Prometheus scraping endpoint for FluxNova engine metrics.
+# Access at: http://localhost:8080/actuator/prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  endpoint:
+    prometheus:
+      access: unrestricted
