@@ -119,7 +119,7 @@ jobs:
             -DreleaseVersion=${{ env.RELEASE_VERSION }} \
             -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
             -Dtag=${{ env.TAG }} \
-            -Psonatype-oss-release,distro,distro-ce,distro-wildfly \
+            -Psonatype-oss-release,distro,distro-ce,distro-wildfly,coverage-aggregate \
             -DignoreSnapshots=true \
             -DinteractiveMode=false
 
