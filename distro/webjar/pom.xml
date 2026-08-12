@@ -36,7 +36,7 @@
   <dependencies>
     <dependency>
       <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-      <artifactId>fluxnova-webapp-jakarta</artifactId>
+      <artifactId>fluxnova-webapp</artifactId>
       <version>${project.parent.version}</version>
       <type>jar</type>
       <classifier>classes</classifier>
@@ -59,7 +59,7 @@
               <artifactItems>
                 <artifactItem>
                   <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-                  <artifactId>fluxnova-webapp-jakarta</artifactId>
+                  <artifactId>fluxnova-webapp</artifactId>
                   <version>${project.parent.version}</version>
                   <type>war</type>
                   <overWrite>true</overWrite>

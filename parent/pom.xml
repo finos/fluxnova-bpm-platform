@@ -259,7 +259,7 @@
         <plugin>
           <groupId>org.codehaus.cargo</groupId>
           <artifactId>cargo-maven3-plugin</artifactId>
-          <version>1.10.20</version>
+          <version>1.10.27</version>
         </plugin>
         <plugin>
           <groupId>net.kennychua</groupId>
@@ -301,22 +301,6 @@
             </additionalJOptions>
             <doctitle>Camunda Platform Javadocs ${project.version}</doctitle>
             <windowtitle>Camunda Platform Javadocs ${project.version}</windowtitle>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.eclipse.transformer</groupId>
-          <artifactId>transformer-maven-plugin</artifactId>
-          <version>0.5.0</version>
-          <configuration>
-            <rules>
-              <jakartaDefaults>true</jakartaDefaults>
-              <renames>
-                <rename>jar:file:${org.finos.fluxnova.bpm:fluxnova-engine:jar}!/META-INF/jakarta-renames.properties</rename>
-                <rename>jar:file:${org.finos.fluxnova.bpm:fluxnova-engine:jar}!/META-INF/fluxnova-renames.properties</rename>
-              </renames>
-            </rules>
-            <classifier>jakarta</classifier>
           </configuration>
         </plugin>
 

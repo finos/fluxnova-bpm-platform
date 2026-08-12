@@ -27,6 +27,12 @@
     </dependency>
 
     <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
@@ -91,71 +97,56 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>${version.jaxb-runtime}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
-    <profile>
-      <id>jdk-9-and-onwards</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>jakarta.xml.bind</groupId>
-          <artifactId>jakarta.xml.bind-api</artifactId>
-          <version>${version.jakarta.xml.bind-api}</version>
-          <scope>provided</scope>
-        </dependency>
+      <profile>
+          <id>jdk-15-and-onwards</id>
+          <activation>
+              <jdk>[15,)</jdk>
+          </activation>
+          <build>
+              <plugins>
+                  <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-surefire-plugin</artifactId>
+                      <configuration>
+                          <excludes combine.children="append">
+                              <exclude>**/nashorn/**</exclude>
+                          </excludes>
+                      </configuration>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
 
-        <dependency>
-          <groupId>org.glassfish.jaxb</groupId>
-          <artifactId>jaxb-runtime</artifactId>
-          <version>${version.jaxb-runtime}</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
-    <profile>
-      <id>disable-javascript-tests</id>
-      <activation>
-        <jdk>(,1.8)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <argLine>-XX:PermSize=128m -Duser.timezone=GMT+02:00</argLine>
-              <excludes>
-                <exclude>**/javascript/**</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    
-    <profile>
-      <id>jdk-15-and-onwards</id>
-      <activation>
-        <jdk>[15,)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes combine.children="append">
-                <exclude>**/nashorn/**</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
+      <profile>
+          <id>disable-javascript-tests</id>
+          <activation>
+              <jdk>(,1.8)</jdk>
+          </activation>
+          <build>
+              <plugins>
+                  <plugin>
+                      <groupId>org.apache.maven.plugins</groupId>
+                      <artifactId>maven-surefire-plugin</artifactId>
+                      <configuration>
+                          <argLine>-XX:PermSize=128m -Duser.timezone=GMT+02:00</argLine>
+                          <excludes>
+                              <exclude>**/javascript/**</exclude>
+                          </excludes>
+                      </configuration>
+                  </plugin>
+              </plugins>
+          </build>
+      </profile>
 
     <profile>
       <id>jdk-16-and-onwards</id>

@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>fluxnova-engine-rest</artifactId>
-  <name>Fluxnova Platform - engine - REST - Assembly</name>
-  <packaging>war</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>fluxnova-engine-rest</artifactId>
+    <name>Fluxnova Platform - engine - REST - Assembly</name>
+    <packaging>war</packaging>
 
-  <parent>
-    <groupId>org.finos.fluxnova.bpm</groupId>
-    <artifactId>fluxnova-engine-rest-root</artifactId>
+    <parent>
+        <groupId>org.finos.fluxnova.bpm</groupId>
+        <artifactId>fluxnova-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
     <version>3.1.0-SNAPSHOT</version>
   </parent>
@@ -18,184 +19,179 @@
     runtime-specific-WARs are in provided scope -->
     <skip-third-party-bom>true</skip-third-party-bom>
     <third-party-bom-scopes>compile|provided</third-party-bom-scopes>
+    <version.resteasy>6.2.3.Final</version.resteasy>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>jakarta.ws.rs</groupId>
-      <artifactId>jakarta.ws.rs-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-rest-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>jakarta.platform</groupId>
+                <artifactId>jakarta.jakartaee-bom</artifactId>
+                <version>${version.jakarta-ee-spec}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
 
-    <!-- dependencies only used for assemblies should be scope provided -->
-    <dependency>
-      <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-rest-core</artifactId>
-      <version>${project.version}</version>
-      <classifier>sources</classifier>
-      <scope>provided</scope>
-    </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-bom</artifactId>
+                <version>${version.resteasy}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
 
-    <dependency>
-      <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-rest-core</artifactId>
-      <version>${project.version}</version>
-      <classifier>tests</classifier>
-      <scope>provided</scope>
-    </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxrs</artifactId>
-      <version>${version.resteasy}</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>com.sun.activation</groupId>
-          <artifactId>jakarta.activation</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.glassfish.jersey.containers</groupId>
-      <artifactId>jersey-container-servlet</artifactId>
-      <version>${version.jersey2}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.inject</groupId>
-      <artifactId>jersey-hk2</artifactId>
-      <version>${version.jersey2}</version>
-      <scope>provided</scope>
-    </dependency>
+        <!-- dependencies only used for assemblies should be scope provided -->
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+            <scope>provided</scope>
+        </dependency>
 
-  </dependencies>
+        <dependency>
+            <groupId>org.finos.fluxnova.bpm</groupId>
+            <artifactId>fluxnova-engine-rest-core-jakarta</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>provided</scope>
+        </dependency>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>wildfly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <archive>
-                <manifestEntries>
-                  <!-- module dependencies for deployment on wildfly  -->
-                  <Dependencies>org.finos.fluxnova.bpm.fluxnova-engine,org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn,org.finos.fluxnova.commons.fluxnova-commons-logging,org.finos.fluxnova.spin.fluxnova-spin-core,org.finos.fluxnova.bpm.juel.fluxnova-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
-                </manifestEntries>
-              </archive>
-              <descriptors>
-                <descriptor>assembly-war-wildfly.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <classifier>wildfly</classifier>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
+        <!-- Jakarta API -->
 
-          <execution>
-            <id>tomcat</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>assembly-war-tomcat.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <classifier>tomcat</classifier>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-          <execution>
-            <id>wls</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>assembly-war-wls.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <classifier>wls</classifier>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-          <execution>
-            <id>classes</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>assembly-classes.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
+        <!-- Resteasy -->
 
-          <execution>
-            <id>sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>assembly-sources.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-          <execution>
-            <id>tests</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>assembly-tests.xml</descriptor>
-              </descriptors>
-              <finalName>fluxnova-engine-rest-${project.version}</finalName>
-              <attach>true</attach>
-              <outputDirectory>target/</outputDirectory>
-              <workDirectory>target/assembly/work</workDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+    </dependencies>
 
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>wildfly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <!-- module dependencies for deployment on wildfly  -->
+                                    <Dependencies>org.finos.fluxnova.bpm.fluxnova-engine,org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn,org.finos.fluxnova.commons.fluxnova-commons-logging,org.finos.fluxnova.spin.fluxnova-spin-core,org.finos.fluxnova.bpm.juel.fluxnova-juel services,org.graalvm.js.js-scriptengine services</Dependencies>
+                                </manifestEntries>
+                            </archive>
+                            <descriptors>
+                                <descriptor>assembly-war-wildfly.xml</descriptor>
+                            </descriptors>
+                            <finalName>fluxnova-engine-rest-${project.version}</finalName>
+                            <attach>true</attach>
+                            <classifier>wildfly</classifier>
+                            <outputDirectory>target/</outputDirectory>
+                            <workDirectory>target/assembly/work</workDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>tomcat</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-war-tomcat.xml</descriptor>
+                            </descriptors>
+                            <finalName>fluxnova-engine-rest-${project.version}</finalName>
+                            <attach>true</attach>
+                            <classifier>tomcat</classifier>
+                            <outputDirectory>target/</outputDirectory>
+                            <workDirectory>target/assembly/work</workDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>classes</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-classes.xml</descriptor>
+                            </descriptors>
+                            <finalName>fluxnova-engine-rest-${project.version}</finalName>
+                            <attach>true</attach>
+                            <outputDirectory>target/</outputDirectory>
+                            <workDirectory>target/assembly/work</workDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-sources.xml</descriptor>
+                            </descriptors>
+                            <finalName>fluxnova-engine-rest-${project.version}</finalName>
+                            <attach>true</attach>
+                            <outputDirectory>target/</outputDirectory>
+                            <workDirectory>target/assembly/work</workDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>tests</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-tests.xml</descriptor>
+                            </descriptors>
+                            <finalName>fluxnova-engine-rest-${project.version}</finalName>
+                            <attach>true</attach>
+                            <outputDirectory>target/</outputDirectory>
+                            <workDirectory>target/assembly/work</workDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

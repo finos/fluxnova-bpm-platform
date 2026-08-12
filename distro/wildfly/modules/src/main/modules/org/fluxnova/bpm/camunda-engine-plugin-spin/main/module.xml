@@ -14,7 +14,7 @@
 
     <module name="org.camunda.spin.fluxnova-spin-core" />
     <module name="org.camunda.spin.fluxnova-spin-dataformat-json-jackson" services="import" />
-    <module name="org.camunda.spin.fluxnova-spin-dataformat-xml-dom-jakarta" services="import" />
+    <module name="org.camunda.spin.fluxnova-spin-dataformat-xml-dom" services="import" />
 
     <module name="org.finos.fluxnova.bpm.dmn.fluxnova-engine-feel-scala" />
     <module name="org.finos.fluxnova.feel.feel-engine" />

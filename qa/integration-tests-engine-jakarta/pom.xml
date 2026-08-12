@@ -143,13 +143,13 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.javaee</groupId>
-      <artifactId>fluxnova-ejb-client-jakarta</artifactId>
+      <artifactId>fluxnova-ejb-client</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
+      <artifactId>fluxnova-engine-cdi</artifactId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -279,6 +279,11 @@
         <artifactId>arquillian-junit5-core</artifactId>
         <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.jboss.arquillian.protocol</groupId>
+          <artifactId>arquillian-protocol-servlet</artifactId>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
 
   <build>
@@ -457,84 +462,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.eclipse.transformer</groupId>
-        <artifactId>transformer-maven-plugin</artifactId>
-        <executions>
-          <!-- transform sources -->
-          <execution>
-            <id>transform-jakarta-test-sources</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/jakarta</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-sources-tomcat</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/java-tomcat</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-sources-wildfly</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/java-wildfly</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-sources-wildfly-servlet</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/java-wildfly-servlet</transformDirectory>
-            </configuration>
-          </execution>
-         <!-- transform resources -->
-          <execution>
-            <id>transform-jakarta-test-resources</id>
-            <phase>generate-test-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-resources/jakarta</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-resources-wildfly</id>
-            <phase>generate-test-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-resources/resources-wildfly</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-resources-tomcat</id>
-            <phase>generate-test-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-resources/resources-tomcat</transformDirectory>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <version>3.2.0</version>
@@ -615,7 +542,7 @@
           <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
         </dependency>
 
-        <dependency>
+          <dependency>
           <groupId>org.jboss.arquillian.junit5</groupId>
           <artifactId>arquillian-junit5-container</artifactId>
           <scope>test</scope>

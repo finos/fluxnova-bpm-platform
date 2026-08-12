@@ -229,4 +229,17 @@ public class DeployProcessArchiveStep extends DeploymentOperationStep {
     }
   }
 
+  private static void validateResourceName(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Process resource name must not be null");
+    }
+    String normalized = name.replace('\\', '/');
+    for (String segment : normalized.split("/")) {
+      if ("..".equals(segment)) {
+        throw new IllegalArgumentException(
+            "Process resource name contains illegal path traversal sequence: " + name);
+      }
+    }
+  }
+
 }

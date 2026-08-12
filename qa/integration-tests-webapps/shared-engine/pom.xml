@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+          <artifactId>fluxnova-engine-rest</artifactId>
           <version>${project.version}</version>
           <classifier>wildfly</classifier>
           <scope>test</scope>
@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm.example</groupId>
-          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+          <artifactId>fluxnova-example-invoice</artifactId>
           <version>${project.version}</version>
           <scope>test</scope>
           <type>war</type>
@@ -100,14 +100,14 @@
               <deployables>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+                  <artifactId>fluxnova-example-invoice</artifactId>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/user/demo/profile</pingURL>
                   <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
                 </deployable>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+                  <artifactId>fluxnova-engine-rest</artifactId>
                   <classifier>wildfly</classifier>
                   <type>war</type>
                   <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/process-definition</pingURL>
@@ -280,7 +280,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+          <artifactId>fluxnova-engine-rest</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
@@ -288,7 +288,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm.example</groupId>
-          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+          <artifactId>fluxnova-example-invoice</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
@@ -336,7 +336,7 @@
               <deployables>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+                  <artifactId>fluxnova-engine-rest</artifactId>
                   <type>war</type>
                   <classifier>tomcat</classifier>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/engine-rest/engine/default/process-definition</pingURL>
@@ -357,7 +357,7 @@
                 </deployable>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+                  <artifactId>fluxnova-example-invoice</artifactId>
                   <type>war</type>
                   <properties>
                     <context>invoice</context>

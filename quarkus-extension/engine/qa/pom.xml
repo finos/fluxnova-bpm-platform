@@ -52,7 +52,7 @@
           </systemPropertyVariables>
 
           <dependenciesToScan>
-            <dependency>org.finos.fluxnova.bpm:fluxnova-engine-cdi-jakarta</dependency>
+            <dependency>org.finos.fluxnova.bpm:fluxnova-engine-cdi</dependency>
           </dependenciesToScan>
 
           <excludes>
@@ -79,7 +79,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
+      <artifactId>fluxnova-engine-cdi</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <classifier>tests-quarkus</classifier>
