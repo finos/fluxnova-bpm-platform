@@ -25,6 +25,10 @@
         <version>${version.jaxrs.api}</version>
       </dependency>
       <dependency>
+        <groupId>org.jboss.spec.javax.ws.rs</groupId>
+        <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
+      </dependency>
+      <dependency>
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>
         <version>${version.jakarta-ee-spec}</version>
@@ -62,11 +66,10 @@
 
     <!-- Nimbus JOSE+JWT for eJWT validation -->
     <dependency>
-      <groupId>com.nimbusds</groupId>
-      <artifactId>nimbus-jose-jwt</artifactId>
-      <version>${version.nimbus-jose-jwt}</version>
+        <groupId>com.nimbusds</groupId>
+        <artifactId>nimbus-jose-jwt</artifactId>
+        <version>${version.nimbus-jose-jwt}</version>
     </dependency>
-
     <dependency>
       <groupId>tools.jackson.jakarta.rs</groupId>
       <artifactId>jackson-jakarta-rs-json-provider</artifactId>
@@ -420,55 +423,6 @@
                   <filtering>false</filtering>
                 </resource>
               </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.eclipse.transformer</groupId>
-        <artifactId>transformer-maven-plugin</artifactId>
-        <!-- sources & test-sources -->
-        <executions>
-          <execution>
-            <id>transform-jakarta-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-sources/jakarta</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-sources</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/jakarta</transformDirectory>
-            </configuration>
-          </execution>
-          <!-- resteasy test-sources & test-resources -->
-          <execution>
-            <id>transform-jakarta-test-sources-resteasy</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-sources/jakarta-resteasy</transformDirectory>
-            </configuration>
-          </execution>
-          <execution>
-            <id>transform-jakarta-test-resources-resteasy</id>
-            <phase>generate-test-resources</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-            <configuration>
-              <transformDirectory>${project.build.directory}/generated-test-resources/jakarta-resteasy</transformDirectory>
             </configuration>
           </execution>
         </executions>

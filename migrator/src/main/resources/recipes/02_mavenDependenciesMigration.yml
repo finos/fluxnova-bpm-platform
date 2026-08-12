@@ -46,12 +46,6 @@ recipeList:
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm
-      oldArtifactId: camunda-engine-cdi-jakarta
-      newGroupId: org.finos.fluxnova.bpm
-      newArtifactId: fluxnova-engine-cdi-jakarta
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.bpm
       oldArtifactId: camunda-engine-plugin-connect
       newGroupId: org.finos.fluxnova.bpm
       newArtifactId: fluxnova-engine-plugin-connect
@@ -79,12 +73,6 @@ recipeList:
       oldArtifactId: camunda-engine-rest-core-jakarta
       newGroupId: org.finos.fluxnova.bpm
       newArtifactId: fluxnova-engine-rest-core-jakarta
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.bpm
-      oldArtifactId: camunda-engine-rest-jakarta
-      newGroupId: org.finos.fluxnova.bpm
-      newArtifactId: fluxnova-engine-rest-jakarta
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm
@@ -189,12 +177,6 @@ recipeList:
       newArtifactId: fluxnova-example-invoice
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.bpm.example
-      oldArtifactId: camunda-example-invoice-jakarta
-      newGroupId: org.finos.fluxnova.bpm.example
-      newArtifactId: fluxnova-example-invoice-jakarta
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm.extension
       oldArtifactId: camunda-bpm-assert-scenario
       newGroupId: org.finos.fluxnova.bpm.extension
@@ -265,12 +247,6 @@ recipeList:
       oldArtifactId: camunda-ejb-client
       newGroupId: org.finos.fluxnova.bpm.javaee
       newArtifactId: fluxnova-ejb-client
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.bpm.javaee
-      oldArtifactId: camunda-ejb-client-jakarta
-      newGroupId: org.finos.fluxnova.bpm.javaee
-      newArtifactId: fluxnova-ejb-client-jakarta
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm.javaee
@@ -496,12 +472,6 @@ recipeList:
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.bpm.webapp
-      oldArtifactId: camunda-webapp-jakarta
-      newGroupId: org.finos.fluxnova.bpm.webapp
-      newArtifactId: fluxnova-webapp-jakarta
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.bpm.webapp
       oldArtifactId: camunda-webapp-webjar
       newGroupId: org.finos.fluxnova.bpm.webapp
       newArtifactId: fluxnova-webapp-webjar
@@ -613,12 +583,6 @@ recipeList:
       oldArtifactId: camunda-spin-dataformat-xml-dom
       newGroupId: org.finos.fluxnova.spin
       newArtifactId: fluxnova-spin-dataformat-xml-dom
-      newVersion: {{TARGET_VERSION}}
-  - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
-      oldGroupId: org.camunda.spin
-      oldArtifactId: camunda-spin-dataformat-xml-dom-jakarta
-      newGroupId: org.finos.fluxnova.spin
-      newArtifactId: fluxnova-spin-dataformat-xml-dom-jakarta
       newVersion: {{TARGET_VERSION}}
   - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
       oldGroupId: org.camunda.template-engines

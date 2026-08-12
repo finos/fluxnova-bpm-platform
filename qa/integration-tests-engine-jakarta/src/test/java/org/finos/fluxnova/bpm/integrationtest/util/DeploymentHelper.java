@@ -22,8 +22,8 @@ import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 
 public class DeploymentHelper extends AbstractDeploymentHelper {
 
-  protected static final String CAMUNDA_EJB_CLIENT = "org.finos.fluxnova.bpm.javaee:fluxnova-ejb-client-jakarta";
-  protected static final String CAMUNDA_ENGINE_CDI = "org.finos.fluxnova.bpm:fluxnova-engine-cdi-jakarta";
+  protected static final String CAMUNDA_EJB_CLIENT = "org.finos.fluxnova.bpm.javaee:fluxnova-ejb-client";
+  protected static final String CAMUNDA_ENGINE_CDI = "org.finos.fluxnova.bpm:fluxnova-engine-cdi";
   protected static final String CAMUNDA_ENGINE_SPRING = "org.finos.fluxnova.bpm:fluxnova-engine-spring";
 
   public static JavaArchive getEjbClient() {

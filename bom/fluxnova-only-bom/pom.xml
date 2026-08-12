@@ -40,11 +40,6 @@
       </dependency>
       <dependency>
         <groupId>org.finos.fluxnova.bpm</groupId>
-        <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.finos.fluxnova.bpm</groupId>
         <artifactId>fluxnova-engine-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -79,11 +74,6 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.finos.fluxnova.bpm.javaee</groupId>
-        <artifactId>fluxnova-ejb-client-jakarta</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.finos.fluxnova.bpm.juel</groupId>
         <artifactId>fluxnova-juel</artifactId>
         <version>${project.version}</version>
@@ -115,12 +105,6 @@
         <classifier>classes</classifier>
       </dependency>
       <dependency>
-        <groupId>org.finos.fluxnova.bpm</groupId>
-        <artifactId>fluxnova-engine-rest-jakarta</artifactId>
-        <version>${project.version}</version>
-        <classifier>classes</classifier>
-      </dependency>
-      <dependency>
         <groupId>org.finos.fluxnova.bpm.webapp</groupId>
         <artifactId>fluxnova-webapp-webjar</artifactId>
         <version>${project.version}</version>
@@ -133,7 +117,7 @@
       </dependency>
       <dependency>
         <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-        <artifactId>fluxnova-webapp-jakarta</artifactId>
+        <artifactId>fluxnova-webapp</artifactId>
         <version>${project.version}</version>
         <type>war</type>
       </dependency>
@@ -146,7 +130,7 @@
       </dependency>
       <dependency>
         <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-        <artifactId>fluxnova-webapp-jakarta</artifactId>
+        <artifactId>fluxnova-webapp</artifactId>
         <version>${project.version}</version>
         <type>jar</type>
         <classifier>classes</classifier>

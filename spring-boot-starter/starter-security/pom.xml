@@ -41,7 +41,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security-oauth2-client</artifactId>
     </dependency>
-    
+
     <!-- JWT parsing for token authentication -->
     <dependency>
       <groupId>com.nimbusds</groupId>
