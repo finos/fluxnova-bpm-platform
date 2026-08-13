@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
   </parent>
 
   <properties>
