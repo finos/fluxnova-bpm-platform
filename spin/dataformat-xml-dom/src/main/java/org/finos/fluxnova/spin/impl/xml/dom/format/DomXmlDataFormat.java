@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import org.finos.fluxnova.spin.impl.xml.dom.DomXmlAttribute;
 import org.finos.fluxnova.spin.impl.xml.dom.DomXmlElement;
@@ -204,7 +205,9 @@ public class DomXmlDataFormat implements DataFormat<SpinXmlElement> {
   }
 
   public static TransformerFactory defaultTransformerFactory() {
-    return TransformerFactory.newInstance();
+    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    enableSecureProcessing(transformerFactory);
+    return transformerFactory;
   }
 
   public static DocumentBuilderFactory defaultDocumentBuilderFactory() {
@@ -278,6 +281,25 @@ public class DomXmlDataFormat implements DataFormat<SpinXmlElement> {
       dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       dbf.setAttribute(JAXP_ACCESS_EXTERNAL_SCHEMA, resolveAccessExternalSchemaProperty());
     } catch (ParserConfigurationException | IllegalArgumentException ignored) {
+      // ignored
+    }
+  }
+
+  /*
+   * Configures the TransformerFactory to process XML securely.
+   * Disables external DTD and stylesheet resolution to prevent XXE attacks (CWE-611).
+   * If the implementing transformer does not support one or multiple features,
+   * the failed feature is ignored. The transformer might not be protected,
+   * if the feature assignment fails.
+   *
+   * @param transformerFactory The factory to configure.
+   */
+  protected static void enableSecureProcessing(TransformerFactory transformerFactory) {
+    try {
+      transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+    } catch (TransformerConfigurationException | IllegalArgumentException ignored) {
       // ignored
     }
   }
