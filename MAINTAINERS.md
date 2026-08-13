@@ -4,19 +4,19 @@ This file lists the maintainers of this repository.
 
 ## Current maintainers
 
-| GitHub Username | Name | Organization | Email |
-|----------------|------|--------------|-------|
-| @HarishMalavade | *please add name* | Fidelity Investment | *please add email* |
-| @SureshMuthukaruppasamy | *please add name* | *please add organization* | *please add email* |
+| GitHub Username | Name | Organization | Email (optional) |
+|----------------|------|--------------|------------------|
+| @HarishMalavade | *please add name* | Fidelity Investment |  |
+| @SureshMuthukaruppasamy | *please add name* | *please add organization* |  |
 | @andy9876 | *please add name* | *please add organization* | andrew.bonham@verizon.net |
-| @aurelian-valeriu-apostol-db | *please add name* | *please add organization* | *please add email* |
-| @aurelianapostol | Aurelian | *please add organization* | *please add email* |
-| @eljaime | Jaime Mantilla | *please add organization* | *please add email* |
-| @gaborherr-db | *please add name* | *please add organization* | *please add email* |
-| @gliptak | Gábor Lipták | *please add organization* | *please add email* |
-| @kriswest | Kris West | NatWest Group | *please add email* |
-| @pieter-schutte | *please add name* | *please add organization* | *please add email* |
-| @prajwolbhandari1 | prajwol bhandari | *please add organization* | *please add email* |
+| @aurelian-valeriu-apostol-db | *please add name* | *please add organization* |  |
+| @aurelianapostol | Aurelian | *please add organization* |  |
+| @eljaime | Jaime Mantilla | *please add organization* |  |
+| @gaborherr-db | *please add name* | *please add organization* |  |
+| @gliptak | Gábor Lipták | *please add organization* |  |
+| @kriswest | Kris West | NatWest Group |  |
+| @pieter-schutte | *please add name* | *please add organization* |  |
+| @prajwolbhandari1 | prajwol bhandari | *please add organization* |  |
 
 For information about maintainer responsibilities and resources, see the [FINOS Maintainers Cheatsheet](https://community.finos.org/docs/finos-maintainers-cheatsheet).
 
