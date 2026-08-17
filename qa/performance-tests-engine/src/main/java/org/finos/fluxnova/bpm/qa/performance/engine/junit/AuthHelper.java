@@ -37,8 +37,8 @@ public class AuthHelper {
     }
     catch (Throwable t) {
 
-      if (t instanceof RuntimeException) {
-        throw (RuntimeException) t;
+      if (t instanceof RuntimeException exception) {
+        throw exception;
       }
       else {
         throw new RuntimeException(t);

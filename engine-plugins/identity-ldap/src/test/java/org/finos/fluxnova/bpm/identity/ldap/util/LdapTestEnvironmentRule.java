@@ -16,9 +16,11 @@
  */
 package org.finos.fluxnova.bpm.identity.ldap.util;
 
-import org.junit.rules.ExternalResource;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class LdapTestEnvironmentRule extends ExternalResource {
+public class LdapTestEnvironmentRule implements BeforeAllCallback, AfterAllCallback {
 
   LdapTestEnvironment ldapTestEnvironment;
 
@@ -28,7 +30,7 @@ public class LdapTestEnvironmentRule extends ExternalResource {
   boolean posix = false;
 
   @Override
-  protected void before() throws Exception {
+  public void beforeAll(ExtensionContext context) throws Exception {
     if(posix) {
       setupPosix();
     } else {
@@ -37,7 +39,7 @@ public class LdapTestEnvironmentRule extends ExternalResource {
   }
 
   @Override
-  protected void after() {
+  public void afterAll(ExtensionContext context) {
     if (ldapTestEnvironment != null) {
       ldapTestEnvironment.shutdown();
       ldapTestEnvironment = null;

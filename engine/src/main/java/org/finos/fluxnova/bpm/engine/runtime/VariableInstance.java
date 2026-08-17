@@ -106,4 +106,9 @@ public interface VariableInstance {
    */
   String getTenantId();
 
+  /**
+   * Returns whether this variable is restricted.
+   */
+  boolean isRestricted();
+
 }

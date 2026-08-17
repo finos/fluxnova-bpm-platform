@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.management;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ManagementService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -61,7 +61,7 @@ public class JobDefinitionResourceImpl implements JobDefinitionResource {
       dto.updateSuspensionState(engine);
 
     } catch (IllegalArgumentException e) {
-      String message = String.format("The suspension state of Job Definition with id %s could not be updated due to: %s", jobDefinitionId, e.getMessage());
+      String message = "The suspension state of Job Definition with id %s could not be updated due to: %s".formatted(jobDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.BAD_REQUEST, e, message);
     }
 

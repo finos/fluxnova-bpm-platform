@@ -30,14 +30,14 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public abstract class AbstractCompositeHistoryEventHandlerTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -55,7 +55,7 @@ public abstract class AbstractCompositeHistoryEventHandlerTest {
   /**
    * Perform common setup.
    */
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -68,7 +68,7 @@ public abstract class AbstractCompositeHistoryEventHandlerTest {
     countCustomHistoryEventHandler = 0;
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     // reset original history event handler
     processEngineConfiguration.setHistoryEventHandler(originalHistoryEventHandler);

@@ -25,22 +25,15 @@ import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.Authoriz
 
 import java.util.Collection;
 
+import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
-/**
- * @author Yana.Vasileva
- *
- */
-@RunWith(Parameterized.class)
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 public class ProcessTaskReadVariablePermissionAuthorizationTest extends ProcessTaskAuthorizationTest {
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -64,7 +57,7 @@ public class ProcessTaskReadVariablePermissionAuthorizationTest extends ProcessT
       );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     super.setUp();
     ensureSpecificVariablePermission = processEngineConfiguration.isEnforceSpecificVariablePermission();
@@ -72,7 +65,7 @@ public class ProcessTaskReadVariablePermissionAuthorizationTest extends ProcessT
     processEngineConfiguration.setEnforceSpecificVariablePermission(true);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnforceSpecificVariablePermission(ensureSpecificVariablePermission);

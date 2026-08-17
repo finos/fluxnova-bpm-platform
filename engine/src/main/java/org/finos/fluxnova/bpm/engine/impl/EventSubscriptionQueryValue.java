@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.impl;
 
+
 import java.io.Serializable;
 
 
@@ -23,7 +24,7 @@ import java.io.Serializable;
  * @author Daniel Meyer
  */
 public class EventSubscriptionQueryValue implements Serializable {
-  
+
   private static final long serialVersionUID = 1L;
   
   protected String eventType;

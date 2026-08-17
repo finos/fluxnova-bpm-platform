@@ -16,9 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.jdbc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,15 +28,19 @@ import org.finos.fluxnova.bpm.engine.impl.history.HistoryLevel;
 import org.finos.fluxnova.bpm.engine.impl.history.HistoryLevelAudit;
 import org.finos.fluxnova.bpm.engine.impl.history.event.HistoryEventType;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class HistoryLevelDeterminatorJdbcTemplateImplTest {
 
   @Mock
@@ -45,7 +48,7 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
 
   private FluxnovaBpmProperties camundaBpmProperties;
 
-  @Before
+  @BeforeEach
   public void before() {
     camundaBpmProperties = new FluxnovaBpmProperties();
   }
@@ -72,23 +75,28 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     assertEquals(historyLevelDefault, determinator.defaultHistoryLevel);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void afterPropertiesSetTest3() throws Exception {
-    new HistoryLevelDeterminatorJdbcTemplateImpl().afterPropertiesSet();
+    assertThrows(IllegalArgumentException.class, () ->
+      new HistoryLevelDeterminatorJdbcTemplateImpl().afterPropertiesSet());
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void afterPropertiesSetTest4() throws Exception {
-    HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.afterPropertiesSet();
+    assertThrows(IllegalArgumentException.class, () -> {
+      HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
+      determinator.setJdbcTemplate(jdbcTemplate);
+      determinator.afterPropertiesSet();
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void afterPropertiesSetTest5() throws Exception {
-    HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setFluxnovaBpmProperties(camundaBpmProperties);
-    determinator.afterPropertiesSet();
+    assertThrows(IllegalArgumentException.class, () -> {
+      HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
+      determinator.setFluxnovaBpmProperties(camundaBpmProperties);
+      determinator.afterPropertiesSet();
+    });
   }
 
   @Test
@@ -119,17 +127,19 @@ public class HistoryLevelDeterminatorJdbcTemplateImplTest {
     verify(jdbcTemplate).queryForObject(determinator.getSql(), Integer.class);
   }
 
-  @Test(expected = DataRetrievalFailureException.class)
+  @Test
   public void determinedExceptionNotIgnoringTest() throws Exception {
-    HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
-    determinator.setIgnoreDataAccessException(false);
-    final String defaultHistoryLevel = "test";
-    determinator.setDefaultHistoryLevel(defaultHistoryLevel);
-    determinator.setJdbcTemplate(jdbcTemplate);
-    determinator.setFluxnovaBpmProperties(camundaBpmProperties);
-    determinator.afterPropertiesSet();
-    when(jdbcTemplate.queryForObject(determinator.getSql(), Integer.class)).thenThrow(new DataRetrievalFailureException(""));
-    determinator.determineHistoryLevel();
+    assertThrows(DataRetrievalFailureException.class, () -> {
+      HistoryLevelDeterminatorJdbcTemplateImpl determinator = new HistoryLevelDeterminatorJdbcTemplateImpl();
+      determinator.setIgnoreDataAccessException(false);
+      final String defaultHistoryLevel = "test";
+      determinator.setDefaultHistoryLevel(defaultHistoryLevel);
+      determinator.setJdbcTemplate(jdbcTemplate);
+      determinator.setFluxnovaBpmProperties(camundaBpmProperties);
+      determinator.afterPropertiesSet();
+      when(jdbcTemplate.queryForObject(determinator.getSql(), Integer.class)).thenThrow(new DataRetrievalFailureException(""));
+      determinator.determineHistoryLevel();
+    });
   }
 
   @Test

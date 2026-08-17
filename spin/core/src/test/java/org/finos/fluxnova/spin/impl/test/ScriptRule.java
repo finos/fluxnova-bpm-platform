@@ -30,20 +30,20 @@ import org.finos.fluxnova.spin.SpinScriptException;
 import org.finos.fluxnova.spin.impl.util.SpinIoUtil;
 import org.finos.fluxnova.spin.scripting.SpinScriptEnv;
 import org.graalvm.polyglot.Value;
-import org.junit.ClassRule;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
- * A jUnit4 {@link TestRule} to load and execute a script. To
- * execute a {@link org.finos.fluxnova.spin.impl.test.ScriptEngine} {@link ClassRule}
+ * A JUnit5 Extension to load and execute a script. To
+ * execute a {@link org.finos.fluxnova.spin.impl.test.ScriptEngine} {@link RegisterExtension}
  * is used to obtain a {@link ScriptEngine}.
  *
  * @author Sebastian Menski
  * @author Daniel Meyer
  */
-public class ScriptRule implements TestRule {
+public class ScriptRule implements BeforeEachCallback, AfterEachCallback {
 
   private static final SpinTestLogger LOG = SpinTestLogger.TEST_LOGGER;
 
@@ -56,14 +56,20 @@ public class ScriptRule implements TestRule {
    */
   protected final Map<String, Object> variables = new HashMap<>();
 
-  public Statement apply(final Statement base, final Description description) {
-    return new Statement() {
-      public void evaluate() throws Throwable {
-        loadScript(description);
-        base.evaluate();
-        tearDownVariables();
-      }
-    };
+  @Override
+  public void beforeEach(ExtensionContext context) throws Exception {
+    try {
+      loadScript(context);
+    } catch (Exception e) {
+      throw e;
+    } catch (Throwable t) {
+      throw new Exception(t);
+    }
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    tearDownVariables();
   }
 
   protected void tearDownVariables() {
@@ -79,23 +85,23 @@ public class ScriptRule implements TestRule {
    * Load a script and the script variables defined. Also execute the
    * script if {@link Script#execute()} is {@link true}.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @throws Throwable
    */
-  private void loadScript(Description description) throws Throwable {
-    scriptEngine = getScriptEngine(description);
+  private void loadScript(ExtensionContext context) throws Throwable {
+    scriptEngine = getScriptEngine(context);
     if (scriptEngine == null) {
       return;
     }
 
-    script = getScript(description);
-    collectScriptVariables(description);
+    script = getScript(context);
+    collectScriptVariables(context);
     if (scriptEngine.getFactory().getLanguageName().equalsIgnoreCase("ruby")) {
       // set magic property to remove all internal variables of the ruby scripting engine
       // otherwise global variables will live forever
       variables.put("org.jruby.embed.clear.variables", true);
     }
-    boolean execute = isExecuteScript(description);
+    boolean execute = isExecuteScript(context);
     if (execute) {
       executeScript();
     }
@@ -105,12 +111,13 @@ public class ScriptRule implements TestRule {
    * Returns the {@link ScriptEngine} of the {@link ScriptEngineRule} of the
    * test class.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return the script engine found or null
    */
-  private ScriptEngine getScriptEngine(Description description) {
+  private ScriptEngine getScriptEngine(ExtensionContext context) {
     try {
-      ScriptEngineRule scriptEngineRule = (ScriptEngineRule) description.getTestClass().getField("scriptEngine").get(null);
+      Class<?> testClass = context.getRequiredTestClass();
+      ScriptEngineRule scriptEngineRule = (ScriptEngineRule) testClass.getField("scriptEngine").get(null);
       return scriptEngineRule.getScriptEngine();
     } catch (NoSuchFieldException e) {
       return null;
@@ -123,17 +130,17 @@ public class ScriptRule implements TestRule {
    * Return the script as {@link String} based on the {@literal @}{@link Script} annotation
    * of the test method.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return the script as string or null if no script was found
    */
-  private String getScript(Description description) {
-    Script scriptAnnotation = description.getAnnotation(Script.class);
+  private String getScript(ExtensionContext context) {
+    Script scriptAnnotation = context.getRequiredTestMethod().getAnnotation(Script.class);
     if (scriptAnnotation == null) {
       return null;
     }
-    String scriptBasename = getScriptBasename(scriptAnnotation, description);
-    scriptPath = getScriptPath(scriptBasename, description);
-    File file = SpinIoUtil.getClasspathFile(scriptPath, description.getTestClass().getClassLoader());
+    String scriptBasename = getScriptBasename(scriptAnnotation, context);
+    scriptPath = getScriptPath(scriptBasename, context);
+    File file = SpinIoUtil.getClasspathFile(scriptPath, context.getRequiredTestClass().getClassLoader());
     return SpinIoUtil.fileAsString(file);
   }
 
@@ -141,16 +148,16 @@ public class ScriptRule implements TestRule {
    * Collect all {@literal @}{@link ScriptVariable} annotations of the test method
    * and save the variables in the {@link #variables} field.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    */
-  private void collectScriptVariables(Description description) {
-    ScriptVariable scriptVariable = description.getAnnotation(ScriptVariable.class);
-    collectScriptVariable(scriptVariable, description);
+  private void collectScriptVariables(ExtensionContext context) {
+    ScriptVariable scriptVariable = context.getRequiredTestMethod().getAnnotation(ScriptVariable.class);
+    collectScriptVariable(scriptVariable, context);
 
-    Script script = description.getAnnotation(Script.class);
+    Script script = context.getRequiredTestMethod().getAnnotation(Script.class);
     if (script != null) {
       for (ScriptVariable variable : script.variables()) {
-        collectScriptVariable(variable, description);
+        collectScriptVariable(variable, context);
       }
     }
   }
@@ -159,9 +166,9 @@ public class ScriptRule implements TestRule {
    * Extract the variable of a single {@literal @}{@link ScriptVariable} annotation.
    *
    * @param scriptVariable the annotation
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    */
-  private void collectScriptVariable(ScriptVariable scriptVariable, Description description) {
+  private void collectScriptVariable(ScriptVariable scriptVariable, ExtensionContext context) {
     if (scriptVariable == null) {
       return;
     }
@@ -189,11 +196,11 @@ public class ScriptRule implements TestRule {
    * Determines if the script should be executed before the call of the
    * java test method.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return true if the script should be executed in front or false otherwise
    */
-  private boolean isExecuteScript(Description description) {
-    Script annotation = description.getAnnotation(Script.class);
+  private boolean isExecuteScript(ExtensionContext context) {
+    Script annotation = context.getRequiredTestMethod().getAnnotation(Script.class);
     return annotation != null && annotation.execute();
   }
 
@@ -251,16 +258,16 @@ public class ScriptRule implements TestRule {
    * Determines the base filename of the script.
    *
    * @param scriptAnnotation the script annotation of the test method
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return the base filename of the script
    */
-  private String getScriptBasename(Script scriptAnnotation, Description description) {
+  private String getScriptBasename(Script scriptAnnotation, ExtensionContext context) {
     String scriptBasename = scriptAnnotation.value();
     if (scriptBasename.isEmpty()) {
       scriptBasename = scriptAnnotation.name();
     }
     if (scriptBasename.isEmpty()) {
-      scriptBasename = description.getTestClass().getSimpleName() + "." + description.getMethodName();
+      scriptBasename = context.getRequiredTestClass().getSimpleName() + "." + context.getRequiredTestMethod().getName();
     }
     return scriptBasename;
   }
@@ -268,11 +275,11 @@ public class ScriptRule implements TestRule {
   /**
    * Returns the directory path of the package.
    *
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return the directory for the package
    */
-  private String getPackageDirectoryPath(Description description) {
-    String packageName = description.getTestClass().getPackage().getName();
+  private String getPackageDirectoryPath(ExtensionContext context) {
+    String packageName = context.getRequiredTestClass().getPackage().getName();
     return replaceDotsWithPathSeparators(packageName) + File.separator;
   }
 
@@ -290,11 +297,11 @@ public class ScriptRule implements TestRule {
    * Returns the full path of the script based on package and basename.
    *
    * @param scriptBasename the basename of the script file
-   * @param description the description of the test method
+   * @param context the extension context of the test method
    * @return the full path
    */
-  private String getScriptPath(String scriptBasename, Description description) {
-    return getPackageDirectoryPath(description) +  scriptBasename + getScriptExtension();
+  private String getScriptPath(String scriptBasename, ExtensionContext context) {
+    return getPackageDirectoryPath(context) +  scriptBasename + getScriptExtension();
   }
 
   /**

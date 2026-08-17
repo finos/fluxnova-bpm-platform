@@ -16,9 +16,9 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl;
 
-import org.junit.Test;
-
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;

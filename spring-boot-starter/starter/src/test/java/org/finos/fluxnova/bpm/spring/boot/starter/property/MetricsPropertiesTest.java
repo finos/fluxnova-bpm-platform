@@ -18,8 +18,9 @@ package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
+
+import org.junit.jupiter.api.Test;
 
 @TestPropertySource(properties = {"fluxnova.bpm.metrics.enabled=false", "fluxnova.bpm.metrics.db-reporter-activate=false"})
 public class MetricsPropertiesTest extends ParsePropertiesHelper {

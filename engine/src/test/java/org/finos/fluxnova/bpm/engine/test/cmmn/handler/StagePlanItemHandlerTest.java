@@ -22,12 +22,7 @@ import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPER
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_MANUAL_ACTIVATION_RULE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_REPETITION_RULE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_REQUIRED_RULE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -57,8 +52,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.RepetitionRule;
 import org.finos.fluxnova.bpm.model.cmmn.instance.RequiredRule;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Stage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -70,7 +65,7 @@ public class StagePlanItemHandlerTest extends CmmnElementHandlerTest {
   protected PlanItem planItem;
   protected StageItemHandler handler = new StageItemHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     stage = createElement(casePlanModel, "aStage", Stage.class);
 

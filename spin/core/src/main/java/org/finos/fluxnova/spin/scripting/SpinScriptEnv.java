@@ -92,6 +92,12 @@ public class SpinScriptEnv {
 
   protected static String loadScriptEnv(String language, String extension) {
     String scriptEnvPath = String.format(ENV_PATH_TEMPLATE, language, extension);
+    // Validate the constructed path contains no traversal sequences
+    for (String segment : scriptEnvPath.split("/")) {
+      if ("..".equals(segment)) {
+        throw LOG.noScriptEnvFoundForLanguage(language, scriptEnvPath);
+      }
+    }
     InputStream envResource = SpinScriptException.class.getClassLoader().getResourceAsStream(scriptEnvPath);
 
     if(envResource == null) {

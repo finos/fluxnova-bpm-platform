@@ -1,0 +1,10 @@
+# Service Provider Interface implementations
+# Camunda BPM Engine Plugins
+org.camunda.bpm.engine.impl.plugin.AdministratorAuthorizationPlugin
+org.camunda.connect.plugin.impl.ConnectProcessEnginePlugin
+
+# Camunda BPM Platform Services
+org.camunda.bpm.engine.ProcessEngineConfiguration
+
+# Custom
+org.camunda.example.camunda.sample.TestCamundaExample

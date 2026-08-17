@@ -30,12 +30,12 @@ public class IntegerDataTypeTransformer implements DmnDataTypeTransformer {
 
   @Override
   public TypedValue transform(Object value) throws IllegalArgumentException {
-    if (value instanceof Number) {
-      int intValue = transformNumber((Number) value);
+    if (value instanceof Number number) {
+      int intValue = transformNumber(number);
       return Variables.integerValue(intValue);
 
-    } else if (value instanceof String) {
-      int intValue = transformString((String) value);
+    } else if (value instanceof String string) {
+      int intValue = transformString(string);
       return Variables.integerValue(intValue);
 
     } else {

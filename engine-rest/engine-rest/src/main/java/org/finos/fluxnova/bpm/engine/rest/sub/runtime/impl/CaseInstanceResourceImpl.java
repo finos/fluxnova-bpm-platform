@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
@@ -34,7 +34,7 @@ import org.finos.fluxnova.bpm.engine.rest.sub.runtime.CaseInstanceResource;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecutionCommandBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import java.util.List;
 import java.util.Map;
 
@@ -145,12 +145,12 @@ public class CaseInstanceResourceImpl implements CaseInstanceResource {
   }
 
   protected InvalidRequestException createInvalidRequestException(String transition, Status status, ProcessEngineException cause) {
-    String errorMessage = String.format("Cannot %s case instance %s: %s", transition, caseInstanceId, cause.getMessage());
+    String errorMessage = "Cannot %s case instance %s: %s".formatted(transition, caseInstanceId, cause.getMessage());
     return new InvalidRequestException(status, cause, errorMessage);
   }
 
   protected RestException createRestException(String transition, Status status, ProcessEngineException cause) {
-    String errorMessage = String.format("Cannot %s case instance %s: %s", transition, caseInstanceId, cause.getMessage());
+    String errorMessage = "Cannot %s case instance %s: %s".formatted(transition, caseInstanceId, cause.getMessage());
     return new RestException(status, cause, errorMessage);
   }
 
@@ -179,7 +179,7 @@ public class CaseInstanceResourceImpl implements CaseInstanceResource {
         }
 
       } catch (RestException e) {
-        String errorMessage = String.format("Cannot %s case instance %s due to invalid variable %s: %s", transition, caseInstanceId, variableName, e.getMessage());
+        String errorMessage = "Cannot %s case instance %s due to invalid variable %s: %s".formatted(transition, caseInstanceId, variableName, e.getMessage());
         throw new RestException(e.getStatus(), e, errorMessage);
 
       }

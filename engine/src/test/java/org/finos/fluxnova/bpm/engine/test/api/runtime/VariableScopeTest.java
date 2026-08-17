@@ -16,16 +16,16 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Map;
 
 import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.util.TestVariableScope;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -39,7 +39,7 @@ public class VariableScopeTest {
 
   private VariableScope variableScope;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.variableScope = new TestVariableScope();
     variableScope.setVariable(VAR_NAME, VAR_VALUE_STRING);

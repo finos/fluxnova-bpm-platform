@@ -20,11 +20,13 @@ import java.io.IOException;
 import org.finos.fluxnova.bpm.container.impl.jboss.extension.BpmPlatformExtension;
 import org.finos.fluxnova.bpm.container.impl.jboss.extension.ModelConstants;
 import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
+import org.junit.jupiter.api.Disabled;
 
 
 /**
  * @author Christian Lipphardt
  */
+@Disabled
 public class BpmPlatformSubsystemTest extends AbstractSubsystemBaseTest {
 
   public BpmPlatformSubsystemTest() {

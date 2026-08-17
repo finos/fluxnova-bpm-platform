@@ -25,7 +25,8 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.impl.cfg.CompositeProcessEnginePlugin;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class FluxnovaBpmConfigurationTest {
 

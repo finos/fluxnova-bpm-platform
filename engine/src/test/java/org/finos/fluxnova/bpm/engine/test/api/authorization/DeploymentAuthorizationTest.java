@@ -24,12 +24,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.DELETE;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.DEPLOYMENT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -47,7 +42,8 @@ import org.finos.fluxnova.bpm.engine.authorization.SystemPermissions;
 import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentQuery;
 import org.finos.fluxnova.bpm.engine.repository.Resource;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -582,10 +578,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   public void shouldNotRegisterProcessApplicationWithoutAuthorization() {
     // given
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.registerProcessApplication(null, null);
-    })
+      managementService.registerProcessApplication(null, null))
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.SET));
   }
@@ -647,10 +642,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   public void shouldNotUnregisterProcessApplicationWithoutAuthorization() {
     // given
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.unregisterProcessApplication("anyDeploymentId", true);
-    })
+      managementService.unregisterProcessApplication("anyDeploymentId", true))
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.SET));
   }
@@ -713,10 +707,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   public void shouldNotGetProcessApplicationForDeploymentWithoutAuthorization() {
     // given
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.getProcessApplicationForDeployment("anyDeploymentId");
-    })
+      managementService.getProcessApplicationForDeployment("anyDeploymentId"))
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.READ));
   }
@@ -770,10 +763,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   public void shouldNotGetRegisteredDeploymentsWithoutAuthorization() {
     // given
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.getRegisteredDeployments();
-    })
+      managementService.getRegisteredDeployments())
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.READ));
   }
@@ -830,10 +822,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
     String deploymentId = createDeployment(null, FIRST_RESOURCE).getId();
     enableAuthorization();
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.registerDeploymentForJobExecutor(deploymentId);
-    })
+      managementService.registerDeploymentForJobExecutor(deploymentId))
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.SET));
   }
@@ -887,10 +878,9 @@ public class DeploymentAuthorizationTest extends AuthorizationTest {
   public void shouldNotUnregisterDeploymentWithoutAuthorization() {
     // given
 
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
-      managementService.unregisterDeploymentForJobExecutor("anyDeploymentId");
-    })
+      managementService.unregisterDeploymentForJobExecutor("anyDeploymentId"))
         // then
         .hasMessageContaining(permissionException(Resources.SYSTEM, SystemPermissions.SET));
   }

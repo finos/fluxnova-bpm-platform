@@ -18,8 +18,9 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.history;
 
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,19 +42,17 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_ACTIVITY)
-@RunWith(Parameterized.class)
 public class DeleteHistoricProcessInstancesAuthorizationTest {
 
   protected static final String PROCESS_KEY = "oneTaskProcess";
@@ -72,12 +71,10 @@ public class DeleteHistoricProcessInstancesAuthorizationTest {
   protected HistoryService historyService;
   protected ManagementService managementService;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -94,7 +91,7 @@ public class DeleteHistoricProcessInstancesAuthorizationTest {
     );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authRule.createUserAndGroup("userId", "groupId");
     runtimeService = engineRule.getRuntimeService();
@@ -120,13 +117,15 @@ public class DeleteHistoricProcessInstancesAuthorizationTest {
         .processInstanceId(processInstance2.getId()).singleResult();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
-  public void testProcessInstancesList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testProcessInstancesList(AuthorizationScenario scenario) {
+    initDeleteHistoricProcessInstancesAuthorizationTest(scenario);
     //given
     List<String> processInstanceIds = Arrays.asList(historicProcessInstance.getId(), historicProcessInstance2.getId());
     authRule
@@ -143,5 +142,9 @@ public class DeleteHistoricProcessInstancesAuthorizationTest {
     if (authRule.assertScenario(scenario)) {
       assertThat(historyService.createHistoricProcessInstanceQuery().count(), is(0L));
     }
+  }
+
+  public void initDeleteHistoricProcessInstancesAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

@@ -21,8 +21,8 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.DELETE;
 
 import java.net.URI;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;
@@ -30,7 +30,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.ResourceOptionsDto;
 import org.finos.fluxnova.bpm.engine.rest.sub.identity.TenantGroupMembersResource;
 import org.finos.fluxnova.bpm.engine.rest.util.PathUtil;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class TenantGroupMembersResourceImpl extends AbstractIdentityResource implements TenantGroupMembersResource {
 

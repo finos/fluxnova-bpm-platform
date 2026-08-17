@@ -18,12 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime.message;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -72,32 +67,31 @@ import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.engine.variable.value.StringValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
  */
 public class MessageCorrelationTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
       configuration.setJavaSerializationFormatEnabled(true));
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
   private TaskService taskService;
   private RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -1744,7 +1738,7 @@ public class MessageCorrelationTest {
     ProcessInstance messageWaitProcess = runtimeService.startProcessInstanceByKey("waitForMessageProcess", variables);
 
     Execution waitingProcess = runtimeService.createExecutionQuery().executionId(messageWaitProcess.getProcessInstanceId()).singleResult();
-    Assert.assertNotNull(waitingProcess);
+    Assertions.assertNotNull(waitingProcess);
 
     VariableMap switchScenarioFlag = Variables.createVariables().putValue("allFlag", false);
 
@@ -1755,7 +1749,7 @@ public class MessageCorrelationTest {
 
     // waiting process has not finished
     waitingProcess = runtimeService.createExecutionQuery().executionId(messageWaitProcess.getProcessInstanceId()).singleResult();
-    Assert.assertNotNull(waitingProcess);
+    Assertions.assertNotNull(waitingProcess);
   }
 
   @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/runtime/message/MessageCorrelationTest.waitForMessageProcess.bpmn20.xml",
@@ -1768,7 +1762,7 @@ public class MessageCorrelationTest {
     ProcessInstance messageWaitProcess = runtimeService.startProcessInstanceByKey("waitForMessageProcess", variables);
 
     Execution waitingProcess = runtimeService.createExecutionQuery().executionId(messageWaitProcess.getProcessInstanceId()).singleResult();
-    Assert.assertNotNull(waitingProcess);
+    Assertions.assertNotNull(waitingProcess);
 
     // start process that sends two messages with the same correlationKey
     VariableMap switchScenarioFlag = Variables.createVariables().putValue("allFlag", true);
@@ -1776,7 +1770,7 @@ public class MessageCorrelationTest {
 
     // waiting process must be finished
     waitingProcess = runtimeService.createExecutionQuery().executionId(messageWaitProcess.getProcessInstanceId()).singleResult();
-    Assert.assertNull(waitingProcess);
+    Assertions.assertNull(waitingProcess);
   }
 
   @Test

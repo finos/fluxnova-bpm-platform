@@ -32,8 +32,8 @@ public class Migrator {
             String projectPath = args[0];
             String targetVersion = args[1];
             String modelerVersion = args[2];
-            System.out.println(String.format("Migration from Camunda to Fluxnova %s (Modeler %s) started on project %s", 
-                targetVersion, modelerVersion, projectPath));
+            System.out.println("Migration from Camunda to Fluxnova %s (Modeler %s) started on project %s".formatted(
+              targetVersion, modelerVersion, projectPath));
             MigratorService migratorService = new MigratorService(projectPath, targetVersion, modelerVersion);
             migratorService.start();
             System.out.println("Migrating from Camunda to Fluxnova ended");

@@ -17,11 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.history;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +40,8 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.JsonUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Nikola Koevski

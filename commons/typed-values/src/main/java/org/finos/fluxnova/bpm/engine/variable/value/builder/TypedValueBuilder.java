@@ -28,4 +28,6 @@ public interface TypedValueBuilder<T extends TypedValue> {
 
   TypedValueBuilder<T> setTransient(boolean isTransient);
 
+  TypedValueBuilder<T> setRestricted(boolean restricted);
+
 }

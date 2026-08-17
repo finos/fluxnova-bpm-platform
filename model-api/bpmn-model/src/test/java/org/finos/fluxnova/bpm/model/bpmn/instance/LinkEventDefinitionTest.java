@@ -18,9 +18,10 @@ package org.finos.fluxnova.bpm.model.bpmn.instance;
 
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.Source;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.Target;
-import org.junit.Test;
 
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;

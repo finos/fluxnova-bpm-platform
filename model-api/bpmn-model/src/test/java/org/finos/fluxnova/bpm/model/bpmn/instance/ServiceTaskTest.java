@@ -21,9 +21,10 @@ import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants;
 
+import org.junit.jupiter.api.Test;
+
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 import static org.finos.fluxnova.bpm.model.xml.test.AbstractModelElementInstanceTest.modelInstance;
-import org.junit.Test;
 
 /**
  * @author Sebastian Menski

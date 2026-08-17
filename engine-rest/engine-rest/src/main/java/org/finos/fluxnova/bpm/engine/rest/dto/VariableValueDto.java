@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.activation.MimeType;
-import javax.activation.MimeTypeParseException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.activation.MimeType;
+import jakarta.activation.MimeTypeParseException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.digest._apacheCommonsCodec.Base64;
@@ -42,7 +42,7 @@ import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  *
@@ -84,8 +84,18 @@ public class VariableValueDto {
     ValueTypeResolver valueTypeResolver = processEngine.getProcessEngineConfiguration().getValueTypeResolver();
 
     if (type == null) {
-      if (valueInfo != null && valueInfo.get(ValueType.VALUE_INFO_TRANSIENT) instanceof Boolean) {
-        return Variables.untypedValue(value, (Boolean) valueInfo.get(ValueType.VALUE_INFO_TRANSIENT));
+      if (valueInfo != null) {
+        boolean isTransient = false;
+        if (valueInfo.get(ValueType.VALUE_INFO_TRANSIENT) instanceof Boolean) {
+          isTransient = (Boolean) valueInfo.get(ValueType.VALUE_INFO_TRANSIENT);
+        }
+
+        boolean restricted = false;
+        if (valueInfo.get(ValueType.VALUE_INFO_RESTRICTED) instanceof Boolean) {
+          restricted = (Boolean) valueInfo.get(ValueType.VALUE_INFO_RESTRICTED);
+        }
+
+        return Variables.untypedValue(value, isTransient, restricted);
       }
       return Variables.untypedValue(value);
     }
@@ -259,6 +269,12 @@ public class VariableValueDto {
       boolean isTransient = Boolean.parseBoolean(transientString);
       if (isTransient) {
         dto.valueInfo.put(AbstractValueTypeImpl.VALUE_INFO_TRANSIENT, isTransient);
+      }
+
+      String restrictedString = mimeType.getParameter(ValueType.VALUE_INFO_RESTRICTED);
+      boolean restricted = Boolean.parseBoolean(restrictedString);
+      if (restricted) {
+        dto.valueInfo.put(ValueType.VALUE_INFO_RESTRICTED, true);
       }
     }
 

@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.dto.AbstractQueryDto;
@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringListConverter;
 import org.finos.fluxnova.bpm.engine.runtime.IncidentQuery;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Roman Smirnov

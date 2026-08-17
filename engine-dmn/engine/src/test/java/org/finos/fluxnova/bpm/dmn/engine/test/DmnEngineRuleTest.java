@@ -22,18 +22,18 @@ import org.finos.fluxnova.bpm.dmn.engine.DmnEngine;
 import org.finos.fluxnova.bpm.dmn.engine.DmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngine;
 import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class DmnEngineRuleTest {
 
-  @Rule
+  @RegisterExtension
   public DmnEngineRule engineRule = new DmnEngineRule();
 
-  @Rule
+  @RegisterExtension
   public DmnEngineRule nullEngineRule = new DmnEngineRule(null);
 
-  @Rule
+  @RegisterExtension
   public DmnEngineRule customEngineRule = new DmnEngineRule(initConfiguration());
 
   public DmnEngineConfiguration customConfiguration;

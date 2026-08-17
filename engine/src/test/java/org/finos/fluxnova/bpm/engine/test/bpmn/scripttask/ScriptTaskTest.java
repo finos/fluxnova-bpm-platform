@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.scripttask;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,7 +33,8 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -495,8 +492,10 @@ public class ScriptTaskTest extends AbstractScriptTaskTest {
     Date date = (Date) runtimeService.getVariable(pi.getId(), "date");
     assertEquals(0, date.getTime());
 
-    deployProcess(PYTHON, "import org.finos.fluxnova.bpm.engine.test.bpmn.scripttask.MySerializable\n" +
-      "execution.setVariable('myVar', org.finos.fluxnova.bpm.engine.test.bpmn.scripttask.MySerializable('test'));");
+    deployProcess(PYTHON, """
+      import org.finos.fluxnova.bpm.engine.test.bpmn.scripttask.MySerializable
+      execution.setVariable('myVar', org.finos.fluxnova.bpm.engine.test.bpmn.scripttask.MySerializable('test'));\
+      """);
 
     pi = runtimeService.startProcessInstanceByKey("testProcess");
 

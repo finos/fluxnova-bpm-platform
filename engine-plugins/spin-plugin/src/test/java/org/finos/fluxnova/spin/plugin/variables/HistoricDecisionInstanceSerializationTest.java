@@ -16,6 +16,9 @@
  */
 package org.finos.fluxnova.spin.plugin.variables;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
 
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInputInstance;
@@ -28,9 +31,12 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.spin.DataFormats;
 
+import org.junit.jupiter.api.Test;
+
 public class HistoricDecisionInstanceSerializationTest extends PluggableProcessEngineTestCase {
 
   @Deployment(resources = {"org/finos/fluxnova/spin/plugin/DecisionSingleOutput.dmn11.xml"})
+  @Test
   public void testListJsonProperty() {
     JsonListSerializable<String> list = new JsonListSerializable<String>();
     list.addElement("foo");

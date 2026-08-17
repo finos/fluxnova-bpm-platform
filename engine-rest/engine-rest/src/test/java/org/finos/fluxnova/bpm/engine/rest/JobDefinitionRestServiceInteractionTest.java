@@ -43,7 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ManagementService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -60,14 +60,15 @@ import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockJobDefinitionBuilder;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 
 public class JobDefinitionRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String JOB_DEFINITION_RESOURCE_URL = TEST_RESOURCE_ROOT_PATH + "/job-definition";
@@ -87,7 +88,7 @@ public class JobDefinitionRestServiceInteractionTest extends AbstractRestService
 
   private SetJobRetriesBuilder mockSetJobRetriesBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockManagementService = mock(ManagementService.class);
 

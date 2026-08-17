@@ -25,7 +25,8 @@ import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.qa.performance.engine.bpmn.delegate.NoopDelegate;
 import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEnginePerformanceTestCase;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.StartProcessInstanceStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer

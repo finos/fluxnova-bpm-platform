@@ -22,18 +22,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ProcessApplicationExecutionListenerTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -57,8 +57,8 @@ public class ProcessApplicationExecutionListenerTest extends AbstractFoxPlatform
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testProcess");
 
     Integer listenerInvocationCount = (Integer) runtimeService.getVariable(processInstance.getId(), ExecutionListenerProcessApplication.LISTENER_INVOCATION_COUNT);
-    Assert.assertNotNull(listenerInvocationCount);
-    Assert.assertEquals(5, listenerInvocationCount.intValue());
+    Assertions.assertNotNull(listenerInvocationCount);
+    Assertions.assertEquals(5, listenerInvocationCount.intValue());
   }
 
 }

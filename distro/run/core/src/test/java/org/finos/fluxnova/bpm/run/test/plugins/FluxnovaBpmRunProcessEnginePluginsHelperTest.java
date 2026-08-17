@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunProcessEnginePluginProperty;
 import org.finos.fluxnova.bpm.run.utils.FluxnovaBpmRunProcessEnginePluginHelper;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class FluxnovaBpmRunProcessEnginePluginsHelperTest {
 

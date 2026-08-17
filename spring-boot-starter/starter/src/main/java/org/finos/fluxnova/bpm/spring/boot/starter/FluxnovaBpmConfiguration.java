@@ -57,20 +57,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+@Configuration
 @Import({
-    JobConfiguration.class,
-    IdGeneratorConfiguration.class
+  JobConfiguration.class,
+  IdGeneratorConfiguration.class
 })
 public class FluxnovaBpmConfiguration {
 
   @Bean
   @ConditionalOnMissingBean(ProcessEngineConfigurationImpl.class)
+  @DependsOnDatabaseInitialization
   public ProcessEngineConfigurationImpl processEngineConfigurationImpl(List<ProcessEnginePlugin> processEnginePlugins) {
     final SpringProcessEngineConfiguration configuration = FluxnovaSpringBootUtil.springProcessEngineConfiguration();
     configuration.getProcessEnginePlugins().add(new CompositeProcessEnginePlugin(processEnginePlugins));

@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.run.test.config.deploy;
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRunProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunDeploymentProperties;
 import org.finos.fluxnova.bpm.run.test.AbstractRestTest;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;

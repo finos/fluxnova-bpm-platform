@@ -23,21 +23,18 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestEventCaptor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import jakarta.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestApplication.class},
   webEnvironment = WebEnvironment.NONE
@@ -57,7 +54,7 @@ public class FluxnovaEventingDisabledIT extends AbstractFluxnovaAutoConfiguratio
 
   private ProcessInstance instance;
 
-  @Before
+  @BeforeEach
   public void init() {
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
       .processDefinitionKey("eventing")
@@ -68,7 +65,7 @@ public class FluxnovaEventingDisabledIT extends AbstractFluxnovaAutoConfiguratio
     instance = runtime.startProcessInstanceByKey("eventing");
   }
 
-  @After
+  @AfterEach
   public void stop() {
     if (instance != null) {
       // update stale instance

@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.conditional;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,14 +30,13 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Parameterized.class)
 public class ConditionalEventWithSpecificVariableEventTest extends AbstractConditionalEventTestCase {
 
   private interface ConditionalProcessVarSpecification {
@@ -46,7 +45,6 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     BpmnModelInstance getProcessWithVarEvents(boolean interrupting, String varEvent);
   }
 
-  @Parameterized.Parameters(name = "{0}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
       {
@@ -171,13 +169,13 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
       }}
     });
   }
-
-
-  @Parameterized.Parameter
   public ConditionalProcessVarSpecification specifier;
 
-  @Test
-  public void testVariableConditionWithVariableName() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testVariableConditionWithVariableName(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with boundary conditional event and defined variable name
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarName(true, CONDITION_EXPR);
@@ -206,8 +204,11 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     assertEquals(0, conditionEventSubscriptionQuery.list().size());
   }
 
-  @Test
-  public void testVariableConditionWithVariableNameAndEvent() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testVariableConditionWithVariableNameAndEvent(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with boundary conditional event and defined variable name and event
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarNameAndEvents(true, CONDITIONAL_VAR_EVENT_UPDATE);
@@ -236,8 +237,11 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     assertEquals(0, conditionEventSubscriptionQuery.list().size());
   }
 
-  @Test
-  public void testNonInterruptingVariableConditionWithVariableName() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testNonInterruptingVariableConditionWithVariableName(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with non interrupting boundary conditional event and defined variable name and true condition
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarName(false, TRUE_CONDITION);
@@ -272,8 +276,11 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     assertEquals(1, conditionEventSubscriptionQuery.list().size());
   }
 
-  @Test
-  public void testNonInterruptingVariableConditionWithVariableNameAndEvents() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testNonInterruptingVariableConditionWithVariableNameAndEvents(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with non interrupting boundary conditional event and defined variable name and events
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarNameAndEvents(false, CONDITIONAL_VAR_EVENTS);
@@ -297,8 +304,11 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
   }
 
 
-  @Test
-  public void testVariableConditionWithVariableEvent() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testVariableConditionWithVariableEvent(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with boundary conditional event and defined variable event
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarEvents(true, CONDITIONAL_VAR_EVENT_UPDATE);
@@ -329,8 +339,11 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     assertEquals(0, conditionEventSubscriptionQuery.list().size());
   }
 
-  @Test
-  public void testNonInterruptingVariableConditionWithVariableEvent() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{0}")
+  public void testNonInterruptingVariableConditionWithVariableEvent(ConditionalProcessVarSpecification specifier) {
+
+    initConditionalEventWithSpecificVariableEventTest(specifier);
 
     //given process with non interrupting boundary conditional event and defined variable event
     final BpmnModelInstance modelInstance = specifier.getProcessWithVarEvents(false, CONDITIONAL_VAR_EVENT_UPDATE);
@@ -357,6 +370,10 @@ public class ConditionalEventWithSpecificVariableEventTest extends AbstractCondi
     tasksAfterVariableIsSet = taskService.createTaskQuery().list();
     assertEquals(3, tasksAfterVariableIsSet.size());
     assertEquals(1, conditionEventSubscriptionQuery.list().size());
+  }
+
+  public void initConditionalEventWithSpecificVariableEventTest(ConditionalProcessVarSpecification specifier) {
+    this.specifier = specifier;
   }
 
 }

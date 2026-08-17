@@ -5,7 +5,7 @@
     <groupId>org.finos.fluxnova.bpm.model</groupId>
     <artifactId>fluxnova-model-apis</artifactId>
     <relativePath>../</relativePath>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-xml-model</artifactId>
@@ -21,11 +21,10 @@
     </camunda.osgi.import.additional>
   </properties>
   <dependencies>
-
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -33,7 +32,6 @@
       <artifactId>assertj-core</artifactId>
       <scope>provided</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -73,7 +71,7 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>clirr-maven-plugin</artifactId>
             <configuration>
-              <comparisonVersion>${camunda.version.old}</comparisonVersion>
+              <comparisonVersion>${fluxnova.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
                 <exclude>org/finos/fluxnova/bpm/model/xml/impl/**</exclude>
@@ -88,6 +86,7 @@
                 </goals>
                 <configuration>
                   <textOutputFile>${project.build.directory}/clirr-all.txt</textOutputFile>
+                  <ignoredDifferencesFile>.clirr-jenkins-ignore.xml</ignoredDifferencesFile>
                   <failOnWarning>false</failOnWarning>
                   <failOnError>false</failOnError>
                 </configuration>

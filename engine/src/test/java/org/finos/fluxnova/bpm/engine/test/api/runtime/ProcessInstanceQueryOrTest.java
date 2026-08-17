@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,14 +36,14 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ProcessInstanceQueryOrTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
 
   protected RuntimeService runtimeService;
@@ -52,14 +52,14 @@ public class ProcessInstanceQueryOrTest {
 
   protected List<String> deploymentIds = new ArrayList<>();
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = processEngineRule.getRuntimeService();
     repositoryService = processEngineRule.getRepositoryService();
     managementService = processEngineRule.getManagementService();
   }
 
-  @After
+  @AfterEach
   public void deleteDeployments() {
     for (String deploymentId : deploymentIds) {
       repositoryService.deleteDeployment(deploymentId, true);

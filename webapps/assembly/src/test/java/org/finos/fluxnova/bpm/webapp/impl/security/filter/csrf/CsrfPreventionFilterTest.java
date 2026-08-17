@@ -17,23 +17,23 @@
 package org.finos.fluxnova.bpm.webapp.impl.security.filter.csrf;
 
 import org.finos.fluxnova.bpm.webapp.impl.security.filter.CsrfPreventionFilter;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockFilterConfig;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,7 +45,6 @@ import static org.finos.fluxnova.bpm.webapp.impl.security.filter.util.CookieCons
 /**
  * @author Nikola Koevski
  */
-@RunWith(Parameterized.class)
 public class CsrfPreventionFilterTest {
 
   protected static final String SERVICE_PATH = "/fluxnova";
@@ -61,7 +60,6 @@ public class CsrfPreventionFilterTest {
   // flags a modifying request (POST/PUT/DELETE) as a non-modifying one
   protected boolean isModifyingFetchRequest;
 
-  @Parameterized.Parameters
   public static Collection<Object[]> getRequestUrls() {
     return Arrays.asList(new Object[][]{
       {"/app/monitoring/default/", "/api/admin/auth/user/default/login/monitoring", true},
@@ -87,13 +85,13 @@ public class CsrfPreventionFilterTest {
     });
   }
 
-  public CsrfPreventionFilterTest(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) {
+  public void initCsrfPreventionFilterTest(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) {
     this.nonModifyingRequestUrl = nonModifyingRequestUrl;
     this.modifyingRequestUrl = modifyingRequestUrl;
     this.isModifyingFetchRequest = isModifyingFetchRequest;
   }
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     setupFilter();
   }
@@ -109,25 +107,29 @@ public class CsrfPreventionFilterTest {
     csrfPreventionFilter.doFilter(request, response, filterChain);
   }
 
-  @Test
-  public void testNonModifyingRequestTokenGeneration() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void testNonModifyingRequestTokenGeneration(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) throws IOException, ServletException {
+    initCsrfPreventionFilterTest(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
     MockHttpServletResponse response = performNonModifyingRequest(nonModifyingRequestUrl, new MockHttpSession());
 
     String cookieToken = (String) response.getHeader(SET_COOKIE_HEADER_NAME);
     String headerToken = (String) response.getHeader(CSRF_HEADER_NAME);
 
-    Assert.assertNotNull(cookieToken);
-    Assert.assertNotNull(headerToken);
+    Assertions.assertNotNull(cookieToken);
+    Assertions.assertNotNull(headerToken);
 
     String regex = CSRF_COOKIE_NAME + "=[A-Z0-9]{32}" + CSRF_PATH_FIELD_NAME + getCookiePath(SERVICE_PATH) + ";SameSite=Lax";
     assertThat(cookieToken).matches(regex.replace(";", ";\\s*"));
 
-    Assert.assertEquals("No HTTP Header Token!",false, headerToken.isEmpty());
+    Assertions.assertEquals(false,headerToken.isEmpty(), "No HTTP Header Token!");
     assertThat(cookieToken).contains(headerToken);
   }
 
-  @Test
-  public void testNonModifyingRequestTokenGenerationWithRootContextPath() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void testNonModifyingRequestTokenGenerationWithRootContextPath(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) throws IOException, ServletException {
+    initCsrfPreventionFilterTest(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
     // given
     MockHttpSession session = new MockHttpSession();
     MockHttpServletRequest nonModifyingRequest = getMockedRequest();
@@ -146,20 +148,22 @@ public class CsrfPreventionFilterTest {
     String cookieToken = (String) response.getHeader(SET_COOKIE_HEADER_NAME);
     String headerToken = (String) response.getHeader(CSRF_HEADER_NAME);
 
-    Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 
-    Assert.assertNotNull(cookieToken);
-    Assert.assertNotNull(headerToken);
+    Assertions.assertNotNull(cookieToken);
+    Assertions.assertNotNull(headerToken);
 
     String regex = CSRF_COOKIE_NAME + "=[A-Z0-9]{32}" + CSRF_PATH_FIELD_NAME + getCookiePath("") + ";SameSite=Lax";
     assertThat(cookieToken).matches(regex.replace(";", ";\\s*"));
 
-    Assert.assertEquals("No HTTP Header Token!",false, headerToken.isEmpty());
+    Assertions.assertEquals(false,headerToken.isEmpty(), "No HTTP Header Token!");
     assertThat(cookieToken).contains(headerToken);
   }
 
-  @Test
-  public void testConsecutiveNonModifyingRequestTokens() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void testConsecutiveNonModifyingRequestTokens(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) throws IOException, ServletException {
+    initCsrfPreventionFilterTest(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
     MockHttpSession session = new MockHttpSession();
 
     // first non-modifying request
@@ -170,12 +174,14 @@ public class CsrfPreventionFilterTest {
     String headerToken1 = (String) firstResponse.getHeader(CSRF_HEADER_NAME);
     String headerToken2 = (String) secondResponse.getHeader(CSRF_HEADER_NAME);
 
-    Assert.assertNotNull(headerToken1);
-    Assert.assertNull(headerToken2);
+    Assertions.assertNotNull(headerToken1);
+    Assertions.assertNull(headerToken2);
   }
 
-  @Test
-  public void testModifyingRequestTokenValidation() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void testModifyingRequestTokenValidation(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) throws IOException, ServletException {
+    initCsrfPreventionFilterTest(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
     MockHttpSession session = new MockHttpSession();
 
     // first a non-modifying request to obtain a token
@@ -184,20 +190,22 @@ public class CsrfPreventionFilterTest {
     if (!isModifyingFetchRequest) {
       String token = (String) nonModifyingResponse.getHeader(CSRF_HEADER_NAME);
       HttpServletResponse modifyingResponse = performModifyingRequest(token, session);
-      Assert.assertEquals(Response.Status.OK.getStatusCode(), modifyingResponse.getStatus());
+      Assertions.assertEquals(Response.Status.OK.getStatusCode(), modifyingResponse.getStatus());
     }
   }
 
-  @Test
-  public void testModifyingRequestInvalidToken() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void testModifyingRequestInvalidToken(String nonModifyingRequestUrl, String modifyingRequestUrl, boolean isModifyingFetchRequest) throws IOException, ServletException {
+    initCsrfPreventionFilterTest(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
     MockHttpSession session = new MockHttpSession();
     performNonModifyingRequest(nonModifyingRequestUrl, session);
 
     if (!isModifyingFetchRequest) {
       // invalid header token
       MockHttpServletResponse response = performModifyingRequest("invalid header token", session);
-      Assert.assertEquals(Response.Status.FORBIDDEN.getStatusCode(), response.getStatus());
-      Assert.assertEquals("CSRFPreventionFilter: Invalid HTTP Header Token.", response.getErrorMessage());
+      Assertions.assertEquals(Response.Status.FORBIDDEN.getStatusCode(), response.getStatus());
+      Assertions.assertEquals("CSRFPreventionFilter: Invalid HTTP Header Token.", response.getErrorMessage());
 
       // no token in header
       MockHttpServletResponse response2 = new MockHttpServletResponse();
@@ -208,10 +216,10 @@ public class CsrfPreventionFilterTest {
       modifyingRequest.setContextPath(SERVICE_PATH);
 
       applyFilter(modifyingRequest, response2);
-      Assert.assertEquals(CSRF_HEADER_REQUIRED, response2.getHeader(CSRF_HEADER_NAME));
-      Assert.assertEquals(Response.Status.FORBIDDEN.getStatusCode(), response2.getStatus());
-      Assert.assertEquals("CSRFPreventionFilter: Token provided via HTTP Header is absent/empty.", response2.getErrorMessage());
-      Assert.assertNotEquals(modifyingRequest.getSession().getId(), session.getId());
+      Assertions.assertEquals(CSRF_HEADER_REQUIRED, response2.getHeader(CSRF_HEADER_NAME));
+      Assertions.assertEquals(Response.Status.FORBIDDEN.getStatusCode(), response2.getStatus());
+      Assertions.assertEquals("CSRFPreventionFilter: Token provided via HTTP Header is absent/empty.", response2.getErrorMessage());
+      Assertions.assertNotEquals(modifyingRequest.getSession().getId(), session.getId());
     }
   }
 
@@ -226,7 +234,7 @@ public class CsrfPreventionFilterTest {
 
     applyFilter(nonModifyingRequest, response);
 
-    Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+    Assertions.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 
     return response;
   }

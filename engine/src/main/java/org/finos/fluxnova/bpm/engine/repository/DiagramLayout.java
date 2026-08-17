@@ -40,8 +40,8 @@ public class DiagramLayout implements Serializable {
 
   public DiagramNode getNode(String id) {
     DiagramElement element = getElements().get(id);
-    if (element instanceof DiagramNode) {
-      return (DiagramNode) element;
+    if (element instanceof DiagramNode node) {
+      return node;
     } else {
       return null;
     }
@@ -49,8 +49,8 @@ public class DiagramLayout implements Serializable {
   
   public DiagramEdge getEdge(String id) {
     DiagramElement element = getElements().get(id);
-    if (element instanceof DiagramEdge) {
-      return (DiagramEdge) element;
+    if (element instanceof DiagramEdge edge) {
+      return edge;
     } else {
       return null;
     }
@@ -68,8 +68,8 @@ public class DiagramLayout implements Serializable {
     List<DiagramNode> nodes = new ArrayList<DiagramNode>();
     for (Entry<String, DiagramElement> entry : getElements().entrySet()) {
       DiagramElement element = entry.getValue();
-      if (element instanceof DiagramNode) {
-        nodes.add((DiagramNode) element);
+      if (element instanceof DiagramNode node) {
+        nodes.add(node);
       }
     }
     return nodes;

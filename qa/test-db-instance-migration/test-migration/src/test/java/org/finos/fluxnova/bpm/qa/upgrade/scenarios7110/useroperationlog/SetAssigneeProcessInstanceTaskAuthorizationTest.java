@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 /**
@@ -42,7 +42,7 @@ public class SetAssigneeProcessInstanceTaskAuthorizationTest {
 
   private static final String USER_ID = "jane" + "SetAssigneeProcessInstanceTask";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   protected HistoryService historyService;

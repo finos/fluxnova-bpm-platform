@@ -31,9 +31,9 @@ import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -48,7 +48,7 @@ public class HistoricActivityInstanceAuthorizationTest extends AuthorizationTest
   protected String deploymentId;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     deploymentId = createDeployment(null,
         "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml",
@@ -58,7 +58,7 @@ public class HistoricActivityInstanceAuthorizationTest extends AuthorizationTest
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnableHistoricInstancePermissions(false);

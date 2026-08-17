@@ -1,5 +1,11 @@
 <differences>
   <difference>
+    <!-- JUnit 4 TestRule removed as part of JUnit 5 migration -->
+    <className>org/finos/fluxnova/bpm/model/xml/test/GetModelElementTypeRule</className>
+    <differenceType>4001</differenceType>
+    <to>**</to>
+  </difference>
+  <difference>
     <!-- It is okay to add classes to the set of superclasses -->
     <className>**</className>
     <differenceType>5000</differenceType>

@@ -19,8 +19,8 @@ package org.finos.fluxnova.spin.impl.json.jackson.format;
 import java.lang.reflect.TypeVariable;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.type.TypeFactory;
 
 public class ListJacksonJsonTypeDetector extends AbstractJacksonJsonTypeDetector {
 
@@ -33,7 +33,7 @@ public class ListJacksonJsonTypeDetector extends AbstractJacksonJsonTypeDetector
   }
 
   protected JavaType constructType(Object object) {
-    TypeFactory typeFactory = TypeFactory.defaultInstance();
+    TypeFactory typeFactory = TypeFactory.createDefaultInstance();
 
     if (object instanceof List && !((List<?>) object).isEmpty()) {
       List<?> list = (List<?>) object;

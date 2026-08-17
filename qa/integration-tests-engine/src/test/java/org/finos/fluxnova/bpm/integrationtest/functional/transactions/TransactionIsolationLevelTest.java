@@ -21,20 +21,21 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import jakarta.inject.Inject;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.finos.fluxnova.bpm.integrationtest.util.TestContainer.addContainerSpecificResourcesForNonPaWithoutWeld;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TransactionIsolationLevelTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -55,8 +56,8 @@ public class TransactionIsolationLevelTest extends AbstractFoxPlatformIntegratio
         .openSession();
     try {
       int transactionIsolation = sqlSession.getConnection().getTransactionIsolation();
-      assertEquals("TransactionIsolationLevel for connection is " + transactionIsolation + " instead of " + Connection.TRANSACTION_READ_COMMITTED,
-          Connection.TRANSACTION_READ_COMMITTED, transactionIsolation);
+      assertEquals(Connection.TRANSACTION_READ_COMMITTED,
+          transactionIsolation, "TransactionIsolationLevel for connection is " + transactionIsolation + " instead of " + Connection.TRANSACTION_READ_COMMITTED);
     } catch (SQLException e) {
       e.printStackTrace();
     }

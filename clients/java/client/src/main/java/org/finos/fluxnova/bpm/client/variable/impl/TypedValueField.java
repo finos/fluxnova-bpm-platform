@@ -25,6 +25,7 @@ public class TypedValueField {
 
   protected Object value;
   protected String type;
+  protected boolean restricted;
   protected Map<String, Object> valueInfo;
 
   public Object getValue() {
@@ -33,6 +34,10 @@ public class TypedValueField {
 
   public String getType() {
     return type;
+  }
+
+  public boolean isRestricted() {
+    return restricted;
   }
 
   public Map<String, Object> getValueInfo() {
@@ -47,13 +52,17 @@ public class TypedValueField {
     this.value = value;
   }
 
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
+  }
+
   public void setValueInfo(Map<String,Object> valueInfo) {
     this.valueInfo = valueInfo;
   }
 
   @Override
   public String toString() {
-    return "TypedValueField [type=" + type + ", value=" + value + ", valueInfo=" + valueInfo + "]";
+    return "TypedValueField [type=" + type + ", value=" + value + ", restricted=" + restricted + ", valueInfo=" + valueInfo + "]";
   }
 
 }

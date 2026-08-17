@@ -16,10 +16,8 @@
  */
 package org.finos.fluxnova.spin.spi;
 
+import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,47 +25,52 @@ import java.util.Iterator;
 import java.util.ServiceLoader;
 
 import org.finos.fluxnova.spin.DataFormats;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Matchers;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.mockito.ArgumentMatchers;
+import org.mockito.MockedStatic;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
- * Note: The @RunWith and @PrepareForTest annotations are required by powermock to be able
- * to mock static methods provided by the JDK (i.e. ServiceLoader.load(..) in our case).
- * See https://code.google.com/p/powermock/wiki/MockSystem and
- * https://code.google.com/p/powermock/wiki/MockStatic
- *
  * @author Thorben Lindhauer
  */
-@RunWith(PowerMockRunner.class)
 public class DataFormatLoadingTest {
+
+  private MockedStatic<ServiceLoader> mockedServiceLoader;
 
   protected ServiceLoader<DataFormatProvider> mockServiceLoader;
 
   @SuppressWarnings("rawtypes")
   protected ServiceLoader<DataFormatConfigurator> mockConfiguratorLoader;
 
-  @Before
+  @BeforeEach
   @SuppressWarnings("unchecked")
   public void setUp() {
-    mockStatic(ServiceLoader.class);
-
     mockServiceLoader = mock(ServiceLoader.class);
-    when(ServiceLoader.load(Matchers.eq(DataFormatProvider.class), Matchers.any(ClassLoader.class)))
-      .thenReturn(mockServiceLoader);
-
     mockConfiguratorLoader = mock(ServiceLoader.class);
-    when(ServiceLoader.load(Matchers.eq(DataFormatConfigurator.class), Matchers.any(ClassLoader.class)))
-      .thenReturn(mockConfiguratorLoader);
+
+    // A single MockedStatic handles both stubbings
+    mockedServiceLoader = mockStatic(ServiceLoader.class);
+    mockedServiceLoader.when(() -> ServiceLoader.load(
+            ArgumentMatchers.eq(DataFormatProvider.class),
+            ArgumentMatchers.any(ClassLoader.class)))
+        .thenReturn(mockServiceLoader);
+    mockedServiceLoader.when(() -> ServiceLoader.load(
+            ArgumentMatchers.eq(DataFormatConfigurator.class),
+            ArgumentMatchers.any(ClassLoader.class)))
+        .thenReturn(mockConfiguratorLoader);
+  }
+
+  @AfterEach
+  public void tearDown() {
+    mockedServiceLoader.close();
   }
 
   @Test
-  @PrepareForTest( { DataFormats.class })
   public void testCustomDataFormatProvider() {
     // given a custom data format provider that is returned by the service loader API
     mockProviders(new CustomDataFormatProvider());
@@ -81,9 +84,7 @@ public class DataFormatLoadingTest {
     assertThat(customDataFormat).isSameAs(CustomDataFormatProvider.DATA_FORMAT);
   }
 
-
   @Test
-  @PrepareForTest( { DataFormats.class })
   public void testConfigureDataFormat() {
     // given a custom data format provider that is returned by the service loader API
     mockProviders(new CustomDataFormatProvider());
@@ -98,7 +99,6 @@ public class DataFormatLoadingTest {
   }
 
   @Test
-  @PrepareForTest(DataFormats.class)
   public void testConfigureDataFormatWithConfiguratorList() {
     // given a custom data format provider that is returned by the service loader API
     mockProviders(new CustomDataFormatProvider());
@@ -107,17 +107,16 @@ public class DataFormatLoadingTest {
 
     // when a list of data format configurators is passed to the "load" method
     DataFormats.loadDataFormats(DataFormats.class.getClassLoader(),
-                                Collections.singletonList(configurator));
+      Collections.singletonList(configurator));
 
     // then the configuration was applied
     ExampleCustomDataFormat customFormat = (ExampleCustomDataFormat) DataFormats
-        .getDataFormat(CustomDataFormatProvider.NAME);
+      .getDataFormat(CustomDataFormatProvider.NAME);
     assertThat(customFormat.getProperty())
-        .isEqualTo(ExampleCustomDataFormatConfigurator.UPDATED_PROPERTY);
+      .isEqualTo(ExampleCustomDataFormatConfigurator.UPDATED_PROPERTY);
   }
 
   @Test
-  @PrepareForTest(DataFormats.class)
   public void testRegisterDataFormatWithConfiguratorList() {
     // given a custom data format provider that is returned by the service loader API
     mockProviders(new CustomDataFormatProvider());
@@ -126,17 +125,16 @@ public class DataFormatLoadingTest {
 
     // when a list of data format configurators is passed to the "load" method
     DataFormats.getInstance().registerDataFormats(DataFormats.class.getClassLoader(),
-                                                  Collections.singletonList(configurator));
+      Collections.singletonList(configurator));
 
     // then the configuration was applied
     ExampleCustomDataFormat customFormat = (ExampleCustomDataFormat) DataFormats
-        .getDataFormat(CustomDataFormatProvider.NAME);
+      .getDataFormat(CustomDataFormatProvider.NAME);
     assertThat(customFormat.getProperty())
-        .isEqualTo(ExampleCustomDataFormatConfigurator.UPDATED_PROPERTY);
+      .isEqualTo(ExampleCustomDataFormatConfigurator.UPDATED_PROPERTY);
   }
 
   @Test
-  @PrepareForTest(DataFormats.class)
   public void shouldPassConfiguratorPropertiesToProvider() {
     // given a custom data format provider that is returned by the service loader API
     mockProviders(new CustomDataFormatProvider());
@@ -144,19 +142,18 @@ public class DataFormatLoadingTest {
 
     // when a map of configuration properties is passed to the "load" method
     DataFormats.getInstance().registerDataFormats(DataFormats.class.getClassLoader(),
-                                                  Collections.EMPTY_LIST,
-                                                  Collections.singletonMap("conditional-prop", true));
+      Collections.EMPTY_LIST,
+      Collections.singletonMap("conditional-prop", true));
 
     // then the configuration property is applied
     ExampleCustomDataFormat customFormat = (ExampleCustomDataFormat) DataFormats
-        .getDataFormat(CustomDataFormatProvider.NAME);
+      .getDataFormat(CustomDataFormatProvider.NAME);
     assertThat(customFormat.isConditionalProperty())
-        .isTrue();
+      .isTrue();
   }
 
   protected void mockProviders(final DataFormatProvider... providers) {
     when(mockServiceLoader.iterator()).thenAnswer(new Answer<Iterator<DataFormatProvider>>() {
-
       @Override
       public Iterator<DataFormatProvider> answer(InvocationOnMock invocation) throws Throwable {
         return Arrays.asList(providers).iterator();
@@ -166,7 +163,6 @@ public class DataFormatLoadingTest {
 
   protected void mockConfigurators(final DataFormatConfigurator<?>... configurators) {
     when(mockConfiguratorLoader.iterator()).thenAnswer(new Answer<Iterator<DataFormatConfigurator<?>>>() {
-
       @Override
       public Iterator<DataFormatConfigurator<?>> answer(InvocationOnMock invocation) throws Throwable {
         return Arrays.asList(configurators).iterator();

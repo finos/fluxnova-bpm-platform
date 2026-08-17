@@ -18,11 +18,11 @@
   <!--                                                                       -->
   <!-- ===================================================================== -->
 <web-app
-  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns="https://jakarta.ee/xml/ns/jakartaee"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
   metadata-complete="true"
-  version="2.5"
+  version="6.0"
 >
 
   <description>
@@ -179,7 +179,7 @@
 
   <servlet>
     <servlet-name>H2Console</servlet-name>
-    <servlet-class>org.h2.server.web.WebServlet</servlet-class>
+    <servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
 
     <init-param>
       <param-name>webAllowOthers</param-name>

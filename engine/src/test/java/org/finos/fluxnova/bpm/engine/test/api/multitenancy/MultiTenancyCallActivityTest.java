@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.multitenancy;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinition;
@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class MultiTenancyCallActivityTest extends PluggableProcessEngineTest {
 

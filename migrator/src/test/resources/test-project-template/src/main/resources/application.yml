@@ -1,0 +1,26 @@
+spring:
+  camunda:
+    bpm:
+      enabled: true
+      admin-user:
+        id: admin
+        password: admin
+      database:
+        schema-update: true
+      history-level: full
+      job-execution:
+        enabled: true
+
+camunda:
+  bpm:
+    process-engine-name: default
+    default-serialization-format: application/json
+
+server:
+  servlet:
+    context-path: /camunda
+
+app:
+  name: Camunda Process Application
+  engine:
+    url: http://localhost:8080/camunda

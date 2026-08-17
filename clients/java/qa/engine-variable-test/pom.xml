@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-external-task-client-qa</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <dependencies>
@@ -20,11 +20,10 @@
       <artifactId>fluxnova-engine</artifactId>
       <scope>provided</scope>
     </dependency>
-
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.0.0</version>
+      <version>${version.jakarta-servlet}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

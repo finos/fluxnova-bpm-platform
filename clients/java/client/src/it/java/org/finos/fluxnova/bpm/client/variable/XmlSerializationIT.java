@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.client.variable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.EXTERNAL_TASK_TOPIC_BAR;
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.EXTERNAL_TASK_TOPIC_FOO;
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.TWO_EXTERNAL_TASK_PROCESS;
@@ -33,6 +34,7 @@ import org.finos.fluxnova.bpm.client.dto.ProcessInstanceDto;
 import org.finos.fluxnova.bpm.client.exception.ValueMapperException;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskService;
 import org.finos.fluxnova.bpm.client.util.RecordingExternalTaskHandler;
@@ -43,11 +45,11 @@ import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.spin.Spin;
 import org.finos.fluxnova.spin.SpinList;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class XmlSerializationIT {
 
@@ -82,10 +84,9 @@ public class XmlSerializationIT {
 
   protected ClientRule clientRule = new ClientRule();
   protected EngineRule engineRule = new EngineRule();
-  protected ExpectedException thrown = ExpectedException.none();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule).around(thrown);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
@@ -95,7 +96,7 @@ public class XmlSerializationIT {
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
   protected RecordingInvocationHandler invocationHandler = new RecordingInvocationHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
     processDefinition = engineRule.deploy(TWO_EXTERNAL_TASK_PROCESS).get(0);
@@ -272,9 +273,6 @@ public class XmlSerializationIT {
 
     engineRule.startProcessInstance(processDefinition.getId(), VARIABLE_NAME_XML, objectValue);
 
-    // then
-    thrown.expect(ValueMapperException.class);
-
     // when
     client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(handler)
@@ -283,7 +281,10 @@ public class XmlSerializationIT {
     clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
 
     ExternalTask task = handler.getHandledTasks().get(0);
-    task.getVariable(VARIABLE_NAME_XML);
+
+    // then
+    assertThatThrownBy(() -> task.getVariable(VARIABLE_NAME_XML))
+      .isInstanceOf(ValueMapperException.class);
   }
 
   @Test
@@ -296,9 +297,6 @@ public class XmlSerializationIT {
 
     engineRule.startProcessInstance(processDefinition.getId(), VARIABLE_NAME_XML, objectValue);
 
-    // then
-    thrown.expect(ValueMapperException.class);
-
     // when
     client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(handler)
@@ -307,7 +305,10 @@ public class XmlSerializationIT {
     clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
 
     ExternalTask task = handler.getHandledTasks().get(0);
-    task.getVariableTyped(VARIABLE_NAME_XML);
+
+    // then
+    assertThatThrownBy(() -> task.getVariableTyped(VARIABLE_NAME_XML))
+      .isInstanceOf(ValueMapperException.class);
   }
 
   @Test
@@ -381,9 +382,6 @@ public class XmlSerializationIT {
 
     engineRule.startProcessInstance(processDefinition.getId(), VARIABLE_NAME_XML, serializedValue);
 
-    // then
-    thrown.expect(ValueMapperException.class);
-
     // when
     client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(handler)
@@ -392,13 +390,15 @@ public class XmlSerializationIT {
     clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
 
     ExternalTask task = handler.getHandledTasks().get(0);
-    task.getVariable(VARIABLE_NAME_XML);
+
+    // then
+    assertThatThrownBy(() -> task.getVariable(VARIABLE_NAME_XML))
+      .isInstanceOf(ValueMapperException.class);
   }
 
   @Test
   public void shouldFailWhileDeserializationDueToWrongTypeName() {
     // given
-
     // not reachable class
     class Foo {}
 
@@ -409,9 +409,6 @@ public class XmlSerializationIT {
 
     engineRule.startProcessInstance(processDefinition.getId(), VARIABLE_NAME_XML, serializedValue);
 
-    // then
-    thrown.expect(ValueMapperException.class);
-
     // when
     client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(handler)
@@ -420,7 +417,10 @@ public class XmlSerializationIT {
     clientRule.waitForFetchAndLockUntil(() -> !handler.getHandledTasks().isEmpty());
 
     ExternalTask task = handler.getHandledTasks().get(0);
-    task.getVariable(VARIABLE_NAME_XML);
+
+    // then
+    assertThatThrownBy(() -> task.getVariable(VARIABLE_NAME_XML))
+      .isInstanceOf(ValueMapperException.class);
   }
 
   @Test

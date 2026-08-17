@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.remote.bean;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import javax.naming.InitialContext;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;

@@ -1,0 +1,10 @@
+{
+    "components": [],
+    "schema": "10",
+    "executionPlatform": "Camunda Platform",
+    "executionPlatformVersion": "7.23.0",
+    "exporter": {
+        "name": "Camunda Modeler",
+        "version": "5.35.0"
+    }
+}

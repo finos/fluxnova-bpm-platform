@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
@@ -39,7 +39,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.finos.fluxnova.bpm.engine.rest.dto.VariableValueDto.toMap;
 

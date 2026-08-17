@@ -16,23 +16,28 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl;
 
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
 import javax.sql.DataSource;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.transaction.PlatformTransactionManager;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class DefaultDatasourceConfigurationTest {
 
   @Mock
@@ -45,7 +50,7 @@ public class DefaultDatasourceConfigurationTest {
 
   private SpringProcessEngineConfiguration configuration;
 
-  @Before
+  @BeforeEach
   public void before() {
     configuration = new SpringProcessEngineConfiguration();
     camundaBpmProperties = new FluxnovaBpmProperties();

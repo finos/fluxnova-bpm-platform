@@ -22,11 +22,11 @@ import org.finos.fluxnova.bpm.admin.impl.DefaultAdminRuntimeDelegate;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.util.LogUtil;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AbstractAdminPluginTest {
 
@@ -37,25 +37,25 @@ public abstract class AbstractAdminPluginTest {
     LogFactory.useJdkLogging();
   }
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule(true);
 
-  @BeforeClass
+  @BeforeAll
   public static void beforeClass() {
     Admin.setAdminRuntimeDelegate(RUNTIME_DELEGATE);
   }
 
-  @AfterClass
+  @AfterAll
   public static void afterClass() {
     Admin.setAdminRuntimeDelegate(null);
   }
 
-  @Before
+  @BeforeEach
   public void before() {
     RUNTIME_DELEGATE.ENGINE = getProcessEngine();
   }
 
-  @After
+  @AfterEach
   public void after() {
     RUNTIME_DELEGATE.ENGINE = null;
     getProcessEngine().getIdentityService().clearAuthentication();

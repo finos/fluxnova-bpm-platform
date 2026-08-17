@@ -18,8 +18,9 @@ package org.finos.fluxnova.bpm.run.test.config.rest;
 
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunRestProperties;
 import org.finos.fluxnova.bpm.run.test.AbstractRestTest;
-import org.junit.Test;
 import org.springframework.http.HttpStatus;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 

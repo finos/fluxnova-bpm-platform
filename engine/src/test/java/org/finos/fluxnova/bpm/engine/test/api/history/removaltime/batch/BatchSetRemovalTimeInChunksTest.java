@@ -78,11 +78,11 @@ import org.finos.fluxnova.bpm.engine.test.dmn.businessruletask.TestPojo;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(HISTORY_FULL)
 public class BatchSetRemovalTimeInChunksTest {
@@ -91,8 +91,8 @@ public class BatchSetRemovalTimeInChunksTest {
   protected ProcessEngineTestRule engineTestRule = new ProcessEngineTestRule(engineRule);
   protected BatchSetRemovalTimeRule testRule = new BatchSetRemovalTimeRule(engineRule, engineTestRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule).around(testRule);
 
   protected final Date REMOVAL_TIME = testRule.REMOVAL_TIME;
 
@@ -112,7 +112,7 @@ public class BatchSetRemovalTimeInChunksTest {
   protected int defaultMaxUpdateRows;
   protected int defaultInvocationsPerBatchJob;
 
-  @Before
+  @BeforeEach
   public void setup() {
     engineConfiguration = engineRule.getProcessEngineConfiguration();
 
@@ -130,7 +130,7 @@ public class BatchSetRemovalTimeInChunksTest {
     authorizationService = engineRule.getAuthorizationService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     engineConfiguration.setRemovalTimeUpdateChunkSize(defaultMaxUpdateRows);
     engineConfiguration.setInvocationsPerBatchJob(defaultInvocationsPerBatchJob);

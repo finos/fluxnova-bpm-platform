@@ -95,4 +95,10 @@ public class FileValueBuilderImpl implements FileValueBuilder {
     return this;
   }
 
+  @Override
+  public FileValueBuilder setRestricted(boolean restricted) {
+    fileValue.setRestricted(restricted);
+    return this;
+  }
+
 }

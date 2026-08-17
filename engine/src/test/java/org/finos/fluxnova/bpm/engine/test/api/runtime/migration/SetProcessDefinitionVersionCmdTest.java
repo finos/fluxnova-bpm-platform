@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime.migration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -42,7 +40,8 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -358,8 +357,8 @@ public class SetProcessDefinitionVersionCmdTest extends PluggableProcessEngineTe
 
     Task followUpTask = taskService.createTaskQuery().singleResult();
 
-    assertNotNull("Should have migrated to the new version and immediately executed the correct follow-up activity",
-        followUpTask);
+    assertNotNull(followUpTask,
+        "Should have migrated to the new version and immediately executed the correct follow-up activity");
 
     repositoryService.deleteDeployment(secondDeploymentId, true);
   }

@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -45,15 +42,13 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class BatchModificationHistoryTest {
 
@@ -71,16 +66,11 @@ public class BatchModificationHistoryTest {
 
   protected static final Date START_DATE = new Date(1457326800000L);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testRule);
-
-  @Parameterized.Parameter(0)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testRule);
   public boolean ensureJobDueDateSet;
-
-  @Parameterized.Parameter(1)
   public Date currentTime;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false, null },
@@ -88,12 +78,12 @@ public class BatchModificationHistoryTest {
     });
   }
 
-  @Before
+  @BeforeEach
   public void setClock() {
     ClockUtil.setCurrentTime(START_DATE);
   }
 
-  @Before
+  @BeforeEach
   public void createBpmnModelInstance() {
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -104,44 +94,45 @@ public class BatchModificationHistoryTest {
         .done();
   }
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = rule.getRuntimeService();
   }
 
-  @Before
+  @BeforeEach
   public void storeEngineSettings() {
     processEngineConfiguration = rule.getProcessEngineConfiguration();
     defaultBatchJobsPerSeed = processEngineConfiguration.getBatchJobsPerSeed();
     defaultInvocationsPerBatchJob = processEngineConfiguration.getInvocationsPerBatchJob();
     defaultEnsureJobDueDateSet = processEngineConfiguration.isEnsureJobDueDateNotNull();
-    processEngineConfiguration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
-  @After
+  @AfterEach
   public void removeInstanceIds() {
     helper.currentProcessInstances = new ArrayList<String>();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void restoreEngineSettings() {
     processEngineConfiguration.setBatchJobsPerSeed(defaultBatchJobsPerSeed);
     processEngineConfiguration.setInvocationsPerBatchJob(defaultInvocationsPerBatchJob);
     processEngineConfiguration.setEnsureJobDueDateNotNull(defaultEnsureJobDueDateSet);
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @Test
-  public void testHistoricBatchCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     // when
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 10, "user1", processDefinition.getId());
@@ -161,8 +152,10 @@ public class BatchModificationHistoryTest {
     assertNull(historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricBatchCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 1, "user1", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -179,8 +172,10 @@ public class BatchModificationHistoryTest {
     assertEquals(endDate, historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricSeedJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     // when
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.cancelAllAsync("process1", 1, "user1", processDefinition.getId());
@@ -217,8 +212,10 @@ public class BatchModificationHistoryTest {
 
   }
 
-  @Test
-  public void testHistoricMonitorJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 1, "user1", processDefinition.getId());
 
@@ -278,8 +275,10 @@ public class BatchModificationHistoryTest {
     assertEquals(monitorJobDueDate, jobLog.getJobDueDate());
   }
 
-  @Test
-  public void testHistoricBatchJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 1, "user1", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -314,8 +313,10 @@ public class BatchModificationHistoryTest {
     assertEquals(currentTime, jobLog.getJobDueDate());
   }
 
-  @Test
-  public void testHistoricBatchForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startTransitionAsync("process1", 1, "seq", processDefinition.getId());
 
@@ -329,8 +330,10 @@ public class BatchModificationHistoryTest {
     assertEquals(deletionDate, historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricSeedJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 1, "user1", processDefinition.getId());
 
@@ -345,8 +348,10 @@ public class BatchModificationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testHistoricMonitorJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 1, "user1", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -362,8 +367,10 @@ public class BatchModificationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testHistoricBatchJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 1, "user2", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -379,8 +386,10 @@ public class BatchModificationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testDeleteHistoricBatch() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testDeleteHistoricBatch(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startTransitionAsync("process1", 1, "seq", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -398,8 +407,10 @@ public class BatchModificationHistoryTest {
     assertTrue(helper.getHistoricBatchJobLog(batch).isEmpty());
   }
 
-  @Test
-  public void testHistoricSeedJobIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 1, "user2", processDefinition.getId());
@@ -417,8 +428,10 @@ public class BatchModificationHistoryTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testHistoricMonitorJobIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startTransitionAsync("process1", 1, "seq", processDefinition.getId());
@@ -437,8 +450,10 @@ public class BatchModificationHistoryTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testHistoricBatchJobLogIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLogIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchModificationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 3, "user1", processDefinition.getId());
@@ -464,5 +479,11 @@ public class BatchModificationHistoryTest {
     assertNull(jobLog.getDeploymentId());
     assertNull(jobLog.getProcessDefinitionId());
     assertNull(jobLog.getExecutionId());
+  }
+
+  public void initBatchModificationHistoryTest(boolean ensureJobDueDateSet, Date currentTime) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    this.currentTime = currentTime;
+    processEngineConfiguration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 }

@@ -1,0 +1,10 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: xmlMetaInfMigration
+displayName: XML META-INF Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: '\borg\.camunda(?=\.)'
+      replace: 'org.finos.fluxnova'
+      regex: true
+      filePattern: '**/{*.xml,META-INF/**}'

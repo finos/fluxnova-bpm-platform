@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.core.Application;
+import jakarta.ws.rs.core.Application;
 
 import org.finos.fluxnova.bpm.monitoring.Monitoring;
 import org.finos.fluxnova.bpm.monitoring.plugin.spi.MonitoringPlugin;
@@ -28,7 +28,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.ExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import tools.jackson.jakarta.rs.json.JacksonJsonProvider;
 
 /**
  * The monitoring rest api exposed by the application.

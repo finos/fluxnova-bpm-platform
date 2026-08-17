@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.tasklistener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl.HISTORYLEVEL_AUDIT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,9 +52,9 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.IoUtil;
 import org.joda.time.LocalDateTime;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -69,7 +65,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
   Testing use-cases when Task Events are thrown and caught by Task Listeners
    */
 
-  @Before
+  @BeforeEach
   public void resetListenerCounters() {
     VariablesCollectingListener.reset();
   }
@@ -148,7 +144,7 @@ public class TaskListenerTest extends AbstractTaskListenerTest {
     runtimeService.startProcessInstanceByKey("mainProc");
     Task task = taskService.createTaskQuery().singleResult();
 
-    Assert.assertEquals(task.getTaskDefinitionKey(), "calledTask");
+    Assertions.assertEquals(task.getTaskDefinitionKey(), "calledTask");
   }
 
   // COMPLETE Task Listener tests

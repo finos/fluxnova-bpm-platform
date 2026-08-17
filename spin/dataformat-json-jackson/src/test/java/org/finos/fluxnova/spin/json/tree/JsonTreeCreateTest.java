@@ -31,7 +31,8 @@ import java.io.Reader;
 import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.spi.SpinDataFormatException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer

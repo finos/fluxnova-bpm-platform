@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
     <artifactId>fluxnova-bpm-spring-boot-starter-root</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.finos.fluxnova.bpm.springboot</groupId>
@@ -19,7 +19,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-      <artifactId>fluxnova-webapp-jakarta</artifactId>
+      <artifactId>fluxnova-webapp</artifactId>
       <type>jar</type>
       <classifier>classes</classifier>
     </dependency>
@@ -32,7 +32,7 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-starter-webmvc</artifactId>
     </dependency>
 
     <dependency>
@@ -60,12 +60,30 @@
     </dependency>
     
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
       <version>${version.mockito}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
 
+<!--  <dependency>-->
+<!--    <groupId>tools.jackson</groupId>-->
+<!--    <artifactId>jackson-bom</artifactId>-->
+<!--    <version>${version.jackson}</version>-->
+<!--    <scope>import</scope>-->
+<!--    <type>pom</type>-->
+<!--  </dependency>-->
   </dependencies>
 
   <build>

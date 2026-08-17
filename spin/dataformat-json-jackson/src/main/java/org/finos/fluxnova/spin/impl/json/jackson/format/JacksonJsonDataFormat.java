@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
-import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+import com.jayway.jsonpath.spi.json.Jackson3JsonProvider;
+import com.jayway.jsonpath.spi.json.JsonProvider;
+import com.jayway.jsonpath.spi.mapper.Jackson3MappingProvider;
 import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.impl.json.jackson.JacksonJsonLogger;
 import org.finos.fluxnova.spin.impl.json.jackson.JacksonJsonNode;
@@ -32,14 +33,16 @@ import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.spi.DataFormat;
 import org.finos.fluxnova.spin.spi.TypeDetector;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.JsonNodeFactory;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.type.TypeFactory;
 import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.Configuration.ConfigurationBuilder;
 
 /**
  * Spin data format that can wrap Json content and uses
@@ -72,16 +75,18 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
   protected final String name;
 
   public JacksonJsonDataFormat(String name) {
-    this(name, new ObjectMapper());
+    this(name, JsonMapper.builder()
+            .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build());
   }
 
   public JacksonJsonDataFormat(String name, ObjectMapper objectMapper) {
 
     this(name, objectMapper,
-        new ConfigurationBuilder()
-          .jsonProvider(new JacksonJsonProvider(objectMapper))
-          .mappingProvider(new JacksonMappingProvider(objectMapper))
-          .build());
+            Configuration.builder()
+            .jsonProvider(new Jackson3JsonProvider(objectMapper))
+            .mappingProvider(new Jackson3MappingProvider(objectMapper))
+            .build());
   }
 
   public JacksonJsonDataFormat(String name, ObjectMapper objectMapper, Configuration jsonPathConfiguration) {
@@ -162,7 +167,7 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
    */
   public JavaType constructJavaTypeFromCanonicalString(String canonicalString) {
     try {
-      return TypeFactory.defaultInstance().constructFromCanonical(canonicalString);
+      return TypeFactory.createDefaultInstance().constructFromCanonical(canonicalString);
     } catch (IllegalArgumentException e) {
       throw LOG.unableToConstructJavaType(canonicalString, e);
     }
@@ -251,32 +256,32 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
   }
 
   public JsonNode createJsonNode(String parameter) {
-    return objectMapper.getNodeFactory().textNode(parameter);
+    return JsonNodeFactory.instance.stringNode(parameter);
   }
 
   public JsonNode createJsonNode(Integer parameter) {
-    return objectMapper.getNodeFactory().numberNode(parameter);
+    return JsonNodeFactory.instance.numberNode(parameter);
   }
 
   public JsonNode createJsonNode(Float parameter) {
-    return objectMapper.getNodeFactory().numberNode(parameter);
+    return JsonNodeFactory.instance.numberNode(parameter);
   }
 
   public JsonNode createJsonNode(Double parameter) {
-    return objectMapper.getNodeFactory().numberNode(parameter);
+    return JsonNodeFactory.instance.numberNode(parameter);
   }
 
   public JsonNode createJsonNode(Long parameter) {
-    return objectMapper.getNodeFactory().numberNode(parameter);
+    return JsonNodeFactory.instance.numberNode(parameter);
   }
 
   public JsonNode createJsonNode(Boolean parameter) {
-    return objectMapper.getNodeFactory().booleanNode(parameter);
+    return JsonNodeFactory.instance.booleanNode(parameter);
   }
 
   public JsonNode createJsonNode(List<Object> parameter) {
     if (parameter != null) {
-      ArrayNode node = objectMapper.getNodeFactory().arrayNode();
+      ArrayNode node = JsonNodeFactory.instance.arrayNode();
       for(Object entry : parameter) {
         node.add(createJsonNode(entry));
       }
@@ -290,7 +295,7 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
 
   public JsonNode createJsonNode(Map<String, Object> parameter) {
     if (parameter != null) {
-      ObjectNode node = objectMapper.getNodeFactory().objectNode();
+      ObjectNode node = JsonNodeFactory.instance.objectNode();
       for (Map.Entry<String, Object> entry : parameter.entrySet()) {
         node.set(entry.getKey(), createJsonNode(entry.getValue()));
       }
@@ -302,6 +307,6 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
   }
 
   public JsonNode createNullJsonNode() {
-    return objectMapper.getNodeFactory().nullNode();
+    return JsonNodeFactory.instance.nullNode();
   }
 }

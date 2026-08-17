@@ -16,47 +16,41 @@
  */
 package org.finos.fluxnova.bpm;
 
-import com.sun.jersey.api.client.ClientResponse;
-import org.junit.Before;
-import org.junit.Test;
-
-import javax.ws.rs.core.MultivaluedMap;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SessionCookieSecurityIT extends AbstractWebIntegrationTest {
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getWebappCtxPath());
   }
 
-  @Test(timeout=10000)
+  @Test
+  @Timeout(value = 10000, unit = TimeUnit.MILLISECONDS)
   public void shouldCheckPresenceOfProperties() {
     // given
 
     // when
-    ClientResponse response = client.resource(appBasePath + TASKLIST_PATH)
-        .get(ClientResponse.class);
+    HttpResponse<String> response = Unirest.get(appBasePath + TASKLIST_PATH).asString();
 
     // then
     assertEquals(200, response.getStatus());
     assertTrue(isCookieHeaderValuePresent("HttpOnly", response));
     assertFalse(isCookieHeaderValuePresent("Secure", response));
-
-    // cleanup
-    response.close();
   }
 
-  protected boolean isCookieHeaderValuePresent(String expectedHeaderValue, ClientResponse response) {
-    MultivaluedMap<String, String> headers = response.getHeaders();
-
-    List<String> values = headers.get("Set-Cookie");
+  protected boolean isCookieHeaderValuePresent(String expectedHeaderValue, HttpResponse<String> response) {
+    List<String> values = response.getHeaders().get("Set-Cookie");
     for (String value : values) {
       if (value.startsWith("JSESSIONID=")) {
         return value.contains(expectedHeaderValue);

@@ -257,9 +257,7 @@ public class ProcessApplicationStartService implements Service<ProcessApplicatio
 
       boolean injectionResolved = false;
 
-      if(parameterType instanceof Class) {
-
-        Class<?> parameterClass = (Class<?>)parameterType;
+      if(parameterType instanceof Class<?> parameterClass) {
 
         // support injection of the default process engine, if present
         if(ProcessEngine.class.isAssignableFrom(parameterClass)) {
@@ -273,9 +271,7 @@ public class ProcessApplicationStartService implements Service<ProcessApplicatio
           injectionResolved = true;
         }
 
-      } else if(parameterType instanceof ParameterizedType) {
-
-        ParameterizedType parameterizedType = (ParameterizedType) parameterType;
+      } else if(parameterType instanceof ParameterizedType parameterizedType) {
         Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
 
         // support injection of List<ProcessEngine>

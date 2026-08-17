@@ -54,6 +54,12 @@ public class CommentManager extends AbstractHistoricManager {
     return getDbEntityManager().selectList("selectCommentsByTaskId", taskId);
   }
 
+  public long countCommentsByTaskId(String taskId) {
+    checkHistoryEnabled();
+    Long count = (Long) getDbEntityManager().selectOne("countCommentsByTaskId", taskId);
+    return count != null ? count : 0L;
+  }
+
   @SuppressWarnings("unchecked")
   public List<Event> findEventsByTaskId(String taskId) {
     checkHistoryEnabled();

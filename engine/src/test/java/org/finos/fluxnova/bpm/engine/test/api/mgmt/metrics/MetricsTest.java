@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt.metrics;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 import java.util.Date;
@@ -35,11 +32,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * @author Daniel Meyer
@@ -50,24 +47,27 @@ public class MetricsTest {
   protected static final ProcessEngineRule ENGINE_RULE = new ProvidedProcessEngineRule();
   protected static final ProcessEngineTestRule TEST_RULE = new ProcessEngineTestRule(ENGINE_RULE);
 
-  @ClassRule
-  public static RuleChain RULE_CHAIN = RuleChain.outerRule(ENGINE_RULE).around(TEST_RULE);
+  @RegisterExtension
+  public static ChainedExtension RULE_CHAIN = ChainedExtension.outerExtension(ENGINE_RULE).around(TEST_RULE);
 
   protected static RuntimeService runtimeService;
   protected static ProcessEngineConfigurationImpl processEngineConfiguration;
   protected static ManagementService managementService;
+  private static boolean initialized = false;
 
   protected static void clearMetrics() {
-    Collection<Meter> meters = processEngineConfiguration.getMetricsRegistry().getDbMeters().values();
-    for (Meter meter : meters) {
-      meter.getAndClear();
+    if (processEngineConfiguration != null) {
+      Collection<Meter> meters = processEngineConfiguration.getMetricsRegistry().getDbMeters().values();
+      for (Meter meter : meters) {
+        meter.getAndClear();
+      }
+      managementService.deleteMetrics(null);
+      processEngineConfiguration.setDbMetricsReporterActivate(false);
     }
-    managementService.deleteMetrics(null);
-    processEngineConfiguration.setDbMetricsReporterActivate(false);
   }
 
-  @BeforeClass
-  public static void initMetrics() {
+  @BeforeEach
+  public void initMetrics() {
     runtimeService = ENGINE_RULE.getRuntimeService();
     processEngineConfiguration = ENGINE_RULE.getProcessEngineConfiguration();
     managementService = ENGINE_RULE.getManagementService();
@@ -82,7 +82,7 @@ public class MetricsTest {
         .done());
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     clearMetrics();
   }

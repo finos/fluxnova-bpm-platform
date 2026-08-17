@@ -24,6 +24,7 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.CommandChecker;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.scope.AbstractVariableScope;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.PropertyChange;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 
 
 /**
@@ -34,26 +35,20 @@ public class SetExecutionVariablesCmd extends AbstractSetVariableCmd {
 
   private static final long serialVersionUID = 1L;
 
-  protected boolean failIfNotExists = true;
+  public SetExecutionVariablesCmd(String executionId, Map<String, ?> variables, boolean isLocal) {
+    super(executionId, variables, isLocal);
+  }
 
-  public SetExecutionVariablesCmd(String executionId,
-                                  Map<String, ?> variables,
-                                  boolean isLocal,
-                                  boolean skipJavaSerializationFormatCheck) {
+  public SetExecutionVariablesCmd(String executionId, Map<String, ?> variables, boolean isLocal, boolean skipJavaSerializationFormatCheck) {
     super(executionId, variables, isLocal, skipJavaSerializationFormatCheck);
   }
 
-  public SetExecutionVariablesCmd(String executionId,
-                                  Map<String, ?> variables,
-                                  boolean isLocal,
-                                  boolean skipJavaSerializationFormatCheck,
-                                  boolean failIfNotExists) {
-    this(executionId, variables, isLocal, skipJavaSerializationFormatCheck);
-    this.failIfNotExists = failIfNotExists;
+  public SetExecutionVariablesCmd(String executionId, Map<String, ?> variables, boolean isLocal, boolean skipJavaSerializationFormatCheck, boolean failIfNotExists) {
+    super(executionId, variables, isLocal, new VariableOptions(false, false, skipJavaSerializationFormatCheck, failIfNotExists));
   }
 
-  public SetExecutionVariablesCmd(String executionId, Map<String, ? extends Object> variables, boolean isLocal) {
-    super(executionId, variables, isLocal, false);
+  public SetExecutionVariablesCmd(String executionId, Map<String, ?> variables, boolean isLocal, VariableOptions options) {
+    super(executionId, variables, isLocal, options);
   }
 
   protected ExecutionEntity getEntity() {
@@ -63,7 +58,7 @@ public class SetExecutionVariablesCmd extends AbstractSetVariableCmd {
       .getExecutionManager()
       .findExecutionById(entityId);
 
-    if (failIfNotExists) {
+    if (getVariableOptions().shouldFailIfNotExists()) {
       ensureNotNull("execution " + entityId + " doesn't exist", "execution", execution);
     }
 

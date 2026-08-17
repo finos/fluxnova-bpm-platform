@@ -9,10 +9,11 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <cargo.timeout>120000</cargo.timeout>
     <cargo.deploy.timeout>60000</cargo.deploy.timeout>
 
@@ -56,26 +57,21 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.9</version>
+        <groupId>org.apache.httpcomponents.client5</groupId>
+        <artifactId>httpclient5</artifactId>
+        <version>${version.httpclient5}</version>
       </dependency>
-    
-      <dependency>
-        <groupId>com.sun.jersey.contribs</groupId>
-        <artifactId>jersey-apache-client4</artifactId>
-        <version>1.15</version>
-      </dependency>
-	  <dependency>
-	    <groupId>com.sun.jersey</groupId>
-	    <artifactId>jersey-json</artifactId>
-	    <version>1.15</version>
-	  </dependency>
 	  
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
         <version>${version.selenium}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -97,32 +93,14 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
+      <groupId>org.jboss.arquillian.junit5</groupId>
+      <artifactId>arquillian-junit5-container</artifactId>
       <scope>test</scope>
+      <version>1.10.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
       <artifactId>arquillian-protocol-servlet</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.spec</groupId>
-      <artifactId>jboss-javaee-6.0</artifactId>
-      <type>pom</type>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>xalan</artifactId>
-          <groupId>org.apache.xalan</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
     
@@ -133,26 +111,16 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>com.sun.jersey.contribs</groupId>
-      <artifactId>jersey-apache-client4</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-json</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.jersey.contribs</groupId>
-      <artifactId>jersey-multipart</artifactId>
-      <version>1.15</version>
+      <groupId>com.konghq</groupId>
+      <artifactId>unirest-java</artifactId>
+      <version>${version.unirest-java}</version>
+      <classifier>standalone</classifier>
       <scope>test</scope>
     </dependency>
 
@@ -173,7 +141,6 @@
       <artifactId>fluxnova-commons-logging</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.finos.fluxnova.bpm.example</groupId>
       <artifactId>fluxnova-example-invoice</artifactId>
@@ -221,6 +188,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>win32</os.type>
       </properties>
     </profile>
@@ -234,6 +202,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>win64</os.type>
       </properties>
     </profile>
@@ -247,6 +216,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>mac-x64</os.type>
       </properties>
     </profile>
@@ -260,6 +230,7 @@
         </os>
       </activation>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <os.type>mac-arm64</os.type>
       </properties>
     </profile>

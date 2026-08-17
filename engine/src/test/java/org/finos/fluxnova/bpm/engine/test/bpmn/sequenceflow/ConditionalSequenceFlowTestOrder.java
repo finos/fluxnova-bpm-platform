@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.sequenceflow;
 
+
 import java.io.Serializable;
 
 
@@ -25,7 +26,7 @@ import java.io.Serializable;
  * @author Joram Barrez
  */
 public class ConditionalSequenceFlowTestOrder implements Serializable {
-  
+
   private static final long serialVersionUID = 1L;
   
   protected int price;

@@ -65,6 +65,15 @@ public interface ProcessEngine extends ProcessEngineServices {
    * The default name for a process engine is 'default */
   String getName();
 
+  /** Returns the description of the process engine */
+  String getDisplayName();
+
+  /** Returns the group name of the process engine */
+  String getGroup();
+
+  /** Returns the group description of the process engine */
+  String getGroupDisplayName();
+
   void close();
 
   ProcessEngineConfiguration getProcessEngineConfiguration();

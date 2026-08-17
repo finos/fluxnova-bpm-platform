@@ -21,8 +21,8 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFI
 import static org.finos.fluxnova.bpm.engine.authorization.UserOperationLogCategoryPermissions.READ;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.CATEGORY_ADMIN;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.CATEGORY_OPERATOR;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.finos.fluxnova.bpm.engine.EntityTypes;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
@@ -41,7 +41,8 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
 import org.finos.fluxnova.bpm.engine.test.api.identity.TestPermissions;
 import org.finos.fluxnova.bpm.engine.test.api.identity.TestResource;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tobias Metzke

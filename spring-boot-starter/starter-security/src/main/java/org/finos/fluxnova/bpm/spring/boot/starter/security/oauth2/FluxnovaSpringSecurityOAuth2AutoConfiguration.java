@@ -25,6 +25,7 @@ import org.finos.fluxnova.bpm.spring.boot.starter.FluxnovaBpmAutoConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.WebappProperty;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl.AuthorizeTokenFilter;
+import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl.ClientsConfiguredCondition;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl.OAuth2AuthenticationProvider;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl.OAuth2GrantedAuthoritiesMapper;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2.impl.OAuth2IdentityProviderPlugin;
@@ -36,12 +37,12 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.security.autoconfigure.web.servlet.SecurityFilterProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,8 +56,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.util.Map;
 
 @AutoConfigureOrder(FluxnovaSpringSecurityOAuth2AutoConfiguration.CAMUNDA_OAUTH2_ORDER)
-@AutoConfigureAfter({ FluxnovaBpmAutoConfiguration.class, SpringProcessEngineServicesConfiguration.class })
+@AutoConfigureAfter({FluxnovaBpmAutoConfiguration.class, SpringProcessEngineServicesConfiguration.class})
 @ConditionalOnBean(FluxnovaBpmProperties.class)
+@Configuration
 @Conditional(ClientsConfiguredCondition.class)
 @EnableConfigurationProperties(OAuth2Properties.class)
 public class FluxnovaSpringSecurityOAuth2AutoConfiguration {
@@ -81,7 +83,7 @@ public class FluxnovaSpringSecurityOAuth2AutoConfiguration {
     filterRegistration.setInitParameters(Map.of(
         ProcessEngineAuthenticationFilter.AUTHENTICATION_PROVIDER_PARAM, OAuth2AuthenticationProvider.class.getName()));
     // make sure the filter is registered after the Spring Security Filter Chain
-    filterRegistration.setOrder(SecurityProperties.DEFAULT_FILTER_ORDER + 1);
+    filterRegistration.setOrder(SecurityFilterProperties.DEFAULT_FILTER_ORDER + 1);
     filterRegistration.addUrlPatterns(webappPath + "/app/*", webappPath + "/api/*");
     filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
     return filterRegistration;

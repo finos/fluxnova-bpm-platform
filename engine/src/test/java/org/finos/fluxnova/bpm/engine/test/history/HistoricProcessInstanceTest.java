@@ -25,11 +25,7 @@ import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.hi
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.historicProcessInstanceByProcessInstanceId;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySorting;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,10 +74,10 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Tom Baeyens
@@ -110,8 +106,8 @@ public class HistoricProcessInstanceTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   protected RepositoryService repositoryService;
   protected RuntimeService runtimeService;
@@ -120,7 +116,7 @@ public class HistoricProcessInstanceTest {
   protected TaskService taskService;
   protected CaseService caseService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     repositoryService = engineRule.getRepositoryService();
     runtimeService = engineRule.getRuntimeService();
@@ -2797,6 +2793,47 @@ public void shouldExcludeByProcessInstanceIdNotIn() {
 
     // THEN making a query that has contradicting conditions should succeed
     assertThat(count).isEqualTo(0L);
+  }
+
+  @Test
+  public void shouldQueryByRootProcessInstanceId() {
+    // given a parent process instance with a couple of subprocesses
+    BpmnModelInstance rootProcess = Bpmn.createExecutableProcess("rootProcess")
+            .startEvent("startRoot")
+            .callActivity()
+            .calledElement("levelOneProcess")
+            .endEvent("endRoot")
+            .done();
+
+    BpmnModelInstance levelOneProcess = Bpmn.createExecutableProcess("levelOneProcess")
+            .startEvent("startLevelOne")
+            .callActivity()
+            .calledElement("levelTwoProcess")
+            .endEvent("endLevelOne")
+            .done();
+
+    BpmnModelInstance levelTwoProcess = Bpmn.createExecutableProcess("levelTwoProcess")
+            .startEvent("startLevelTwo")
+            .userTask("Task1")
+            .endEvent("endLevelTwo")
+            .done();
+
+    deployment(rootProcess, levelOneProcess, levelTwoProcess);
+    String rootProcessId = runtimeService.startProcessInstanceByKey("rootProcess").getId();
+    List<HistoricProcessInstance> allHistoricProcessInstances = historyService.createHistoricProcessInstanceQuery()
+            .list();
+
+    // when
+    HistoricProcessInstanceQuery historicProcessInstanceQuery = historyService.createHistoricProcessInstanceQuery()
+            .rootProcessInstanceId(rootProcessId);
+
+    // then
+    assertEquals(3, allHistoricProcessInstances.size());
+    assertEquals(3, allHistoricProcessInstances.stream()
+            .filter(process -> process.getRootProcessInstanceId().equals(rootProcessId))
+            .count());
+    assertEquals(3, historicProcessInstanceQuery.count());
+    assertEquals(3, historicProcessInstanceQuery.list().size());
   }
 
   protected void deployment(String... resources) {

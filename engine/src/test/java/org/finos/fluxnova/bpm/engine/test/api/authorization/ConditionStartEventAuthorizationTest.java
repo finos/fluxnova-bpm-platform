@@ -22,9 +22,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.CREATE_INS
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -32,7 +30,8 @@ import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ConditionStartEventAuthorizationTest extends AuthorizationTest {
 

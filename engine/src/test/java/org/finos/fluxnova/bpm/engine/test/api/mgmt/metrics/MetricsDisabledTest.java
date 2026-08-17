@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt.metrics;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.finos.fluxnova.bpm.engine.ManagementService;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
@@ -26,12 +26,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * Asserts engine functionality is metrics are disabled
@@ -41,27 +40,27 @@ import org.junit.rules.RuleChain;
  */
 public class MetricsDisabledTest {
 
-  @ClassRule
+  @RegisterExtension
   public final static ProcessEngineBootstrapRule bootstrapRule =
       new ProcessEngineBootstrapRule("org/finos/fluxnova/bpm/engine/test/api/mgmt/metrics/metricsDisabledTest.cfg.xml");
 
   protected final ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected final ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     managementService = engineRule.getManagementService();
   }
 
   // (to run, remove "FAILING" from methodname)
-  @Ignore("CAM-4053")
+  @Disabled("CAM-4053")
   @Test
   public void testQueryMetricsIfMetricsIsDisabled() {
 

@@ -51,30 +51,32 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceWithVariables;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstantiationBuilder;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.impl.VariableMapImpl;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 
 import static io.restassured.RestAssured.given;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.createMockSerializedVariables;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyString;
@@ -85,7 +87,7 @@ import static org.mockito.Mockito.*;
 
 public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String PROCESS_DEFINITION_URL = TEST_RESOURCE_ROOT_PATH + "/process-definition";
@@ -130,7 +132,7 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
   private ProcessInstanceWithVariables mockInstance;
   private ProcessInstantiationBuilder mockInstantiationBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     ProcessDefinition mockDefinition = MockProvider.createMockDefinition();
     setUpRuntimeDataForDefinition(mockDefinition);
@@ -192,7 +194,7 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
     // do not close the input stream, will be done in implementation
     InputStream bpmn20XmlIn = null;
     bpmn20XmlIn = ReflectUtil.getResourceAsStream("processes/fox-invoice_en_long_id.bpmn");
-    Assert.assertNotNull(bpmn20XmlIn);
+    org.junit.jupiter.api.Assertions.assertNotNull(bpmn20XmlIn);
     return bpmn20XmlIn;
   }
 
@@ -247,8 +249,8 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
     .when().get(XML_DEFINITION_URL);
 
     String responseContent = response.asString();
-    Assert.assertTrue(responseContent.contains(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
-    Assert.assertTrue(responseContent.contains("<?xml"));
+    org.junit.jupiter.api.Assertions.assertTrue(responseContent.contains(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
+    org.junit.jupiter.api.Assertions.assertTrue(responseContent.contains("<?xml"));
   }
 
   @Test
@@ -274,7 +276,7 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
 
     // compare input stream with response body bytes
     byte[] expected = IoUtil.readInputStream(new FileInputStream(file), "process diagram");
-    Assert.assertArrayEquals(expected, actual);
+    org.junit.jupiter.api.Assertions.assertArrayEquals(expected, actual);
   }
 
   @Test
@@ -301,7 +303,7 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
 
     // compare input stream with response body bytes
     byte[] expected = IoUtil.readInputStream(new FileInputStream(file), "process diagram");
-    Assert.assertArrayEquals(expected, actual);
+    org.junit.jupiter.api.Assertions.assertArrayEquals(expected, actual);
   }
 
   @Test
@@ -321,14 +323,14 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
 
   @Test
   public void testProcessDiagramMediaType() {
-    Assert.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.png"));
-    Assert.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.PNG"));
-    Assert.assertEquals("image/svg+xml", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.svg"));
-    Assert.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpeg"));
-    Assert.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpg"));
-    Assert.assertEquals("image/gif", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.gif"));
-    Assert.assertEquals("image/bmp", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.bmp"));
-    Assert.assertEquals("application/octet-stream", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.UNKNOWN"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.png"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/png", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.PNG"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/svg+xml", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.svg"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpeg"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/jpeg", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.jpg"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/gif", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.gif"));
+    org.junit.jupiter.api.Assertions.assertEquals("image/bmp", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.bmp"));
+    org.junit.jupiter.api.Assertions.assertEquals("application/octet-stream", ProcessDefinitionResourceImpl.getMediaTypeForFileSuffix("process.UNKNOWN"));
   }
 
   @Test
@@ -425,6 +427,9 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
       .body("fluxnovaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
       .body("fluxnovaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
       .body("fluxnovaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
+      .body("camundaFormRef.key", equalTo(MockProvider.EXAMPLE_FORM_KEY))
+      .body("camundaFormRef.binding", equalTo(MockProvider.EXAMPLE_FORM_REF_BINDING))
+      .body("camundaFormRef.version", equalTo(MockProvider.EXAMPLE_FORM_REF_VERSION))
     .when().get(START_FORM_URL);
   }
 
@@ -1077,6 +1082,46 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
     verify(runtimeServiceMock).createProcessInstanceById(eq(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
     verify(mockInstantiationBuilder).setVariables(expectedVariables);
     assertEquals(expectedVariables.getValueTyped("foo").isTransient(), varMap.getValueTyped("foo").isTransient());
+    verify(mockInstantiationBuilder).executeWithVariablesInReturn(anyBoolean(), anyBoolean());
+  }
+
+  @Test
+  public void testProcessInstantiationWithRestrictedVariables() throws IOException {
+    Map<String, Object> json = new HashMap<>();
+
+    Map<String, Object> variables = VariablesBuilder.create()
+        .variable("foo", "bar", "String")
+        .getVariables();
+
+    @SuppressWarnings("unchecked")
+    Map<String, Object> fooVariable = (Map<String, Object>) variables.get("foo");
+    Map<String, Object> valueInfo = new HashMap<>();
+    valueInfo.put(ValueType.VALUE_INFO_RESTRICTED, true);
+    fooVariable.put("valueInfo", valueInfo);
+    json.put("variables", variables);
+
+    final VariableMap varMap = new VariableMapImpl();
+
+    when(mockInstantiationBuilder.setVariables(anyMap())).thenAnswer(new Answer<ProcessInstantiationBuilder>() {
+      @Override
+      public ProcessInstantiationBuilder answer(InvocationOnMock invocation) throws Throwable {
+        varMap.putAll((VariableMap) invocation.getArguments()[0]);
+        return mockInstantiationBuilder;
+      }
+    });
+
+    given().pathParam("id", MockProvider.EXAMPLE_PROCESS_DEFINITION_ID)
+      .contentType(POST_JSON_CONTENT_TYPE).body(json)
+      .then().expect()
+        .statusCode(Status.OK.getStatusCode())
+        .body("id", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
+      .when().post(START_PROCESS_INSTANCE_URL);
+
+    VariableMap expectedVariables = Variables.createVariables()
+        .putValueTyped("foo", Variables.stringValue("bar", VariableOptions.options(false, true)));
+    verify(runtimeServiceMock).createProcessInstanceById(eq(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
+    verify(mockInstantiationBuilder).setVariables(expectedVariables);
+    assertTrue(varMap.getValueTyped("foo").isRestricted());
     verify(mockInstantiationBuilder).executeWithVariablesInReturn(anyBoolean(), anyBoolean());
   }
 
@@ -2772,8 +2817,8 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
     .when().get(XML_DEFINITION_BY_KEY_URL);
 
     String responseContent = response.asString();
-    Assert.assertTrue(responseContent.contains(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
-    Assert.assertTrue(responseContent.contains("<?xml"));
+    org.junit.jupiter.api.Assertions.assertTrue(responseContent.contains(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID));
+    org.junit.jupiter.api.Assertions.assertTrue(responseContent.contains("<?xml"));
   }
 
   @Test

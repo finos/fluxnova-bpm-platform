@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.util.container;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +30,9 @@ import org.finos.fluxnova.bpm.engine.rest.standalone.NoServletAuthenticationFilt
 import org.finos.fluxnova.bpm.engine.rest.standalone.NoServletEmptyBodyFilterTest;
 import org.finos.fluxnova.bpm.engine.rest.standalone.ServletAuthenticationFilterTest;
 import org.finos.fluxnova.bpm.engine.rest.standalone.ServletEmptyBodyFilterTest;
-import org.junit.rules.ExternalResource;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
  * @author Thorben Lindhauer
@@ -54,7 +55,7 @@ public class ResteasySpecifics implements ContainerSpecifics {
     TEST_RULE_FACTORIES.put(CustomJacksonDateFormatTest.class, new ServletContainerRuleFactory("custom-date-format-web.xml"));
   }
 
-  public TestRule getTestRule(Class<?> testClass) {
+  public Extension getTestExtension(Class<?> testClass) {
     TestRuleFactory ruleFactory = DEFAULT_RULE_FACTORY;
 
     if (TEST_RULE_FACTORIES.containsKey(testClass)) {
@@ -72,17 +73,14 @@ public class ResteasySpecifics implements ContainerSpecifics {
       this.jaxRsApplication = jaxRsApplication;
     }
 
-    public TestRule createTestRule() {
-      return new ExternalResource() {
+    public Extension createTestRule() {
+      return new BeforeEachCallback() {
+        private ResteasyServerBootstrap bootstrap;
 
-        ResteasyServerBootstrap bootstrap = new ResteasyServerBootstrap(jaxRsApplication);
-
-        protected void before() throws Throwable {
+        @Override
+        public void beforeEach(ExtensionContext context) throws Exception {
+          bootstrap = new ResteasyServerBootstrap(jaxRsApplication);
           bootstrap.start();
-        }
-
-        protected void after() {
-          bootstrap.stop();
         }
       };
     }
@@ -96,27 +94,21 @@ public class ResteasySpecifics implements ContainerSpecifics {
       this.webXmlResource = webXmlResource;
     }
 
-    public TestRule createTestRule() {
-      final TemporaryFolder tempFolder = new TemporaryFolder();
+    public Extension createTestRule() {
+      return new BeforeEachCallback() {
+        private File tempFolder;
+        private ResteasyTomcatServerBootstrap bootstrap;
 
-      return RuleChain
-        .outerRule(tempFolder)
-        .around(new ExternalResource() {
-
-          ResteasyTomcatServerBootstrap bootstrap = new ResteasyTomcatServerBootstrap(webXmlResource);
-
-          protected void before() throws Throwable {
-            bootstrap.setWorkingDir(tempFolder.getRoot().getAbsolutePath());
-            bootstrap.start();
-          }
-
-          protected void after() {
-            bootstrap.stop();
-          }
-        });
+        @Override
+        public void beforeEach(ExtensionContext context) throws Exception {
+          tempFolder = Files.createTempDirectory("junit").toFile();
+          bootstrap = new ResteasyTomcatServerBootstrap(webXmlResource);
+          bootstrap.setWorkingDir(tempFolder.getAbsolutePath());
+          bootstrap.start();
+        }
+      };
     }
 
   }
-
 
 }

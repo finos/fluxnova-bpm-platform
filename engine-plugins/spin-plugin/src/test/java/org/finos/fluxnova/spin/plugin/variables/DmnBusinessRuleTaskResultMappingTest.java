@@ -16,12 +16,16 @@
  */
 package org.finos.fluxnova.spin.plugin.variables;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Collections;
 
 import org.finos.fluxnova.bpm.engine.impl.test.ResourceProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * The test is copied from the engine to check how JSON serialization will behave with DMN result object.
@@ -40,7 +44,8 @@ public class DmnBusinessRuleTaskResultMappingTest extends ResourceProcessEngineT
     super("org/finos/fluxnova/spin/plugin/json.camunda.cfg.xml");
   }
 
-  @Deployment(resources = {STORE_DECISION_RESULT_BPMN, TEST_DECISION })
+  @Deployment(resources = {STORE_DECISION_RESULT_BPMN, TEST_DECISION})
+  @Test
   public void testStoreDecisionResult() {
     ProcessInstance processInstance = startTestProcess("multiple entries");
 
@@ -48,7 +53,8 @@ public class DmnBusinessRuleTaskResultMappingTest extends ResourceProcessEngineT
     assertNotNull(runtimeService.getVariableTyped(processInstance.getId(), "result", false));
   }
 
-  @Deployment(resources = {CUSTOM_MAPPING_BPMN, TEST_DECISION })
+  @Deployment(resources = {CUSTOM_MAPPING_BPMN, TEST_DECISION})
+  @Test
   public void testCustomOutputMapping() {
     ProcessInstance processInstance = startTestProcess("multiple entries");
 
@@ -59,7 +65,8 @@ public class DmnBusinessRuleTaskResultMappingTest extends ResourceProcessEngineT
     assertEquals(Variables.stringValue("bar"), runtimeService.getVariableTyped(processInstance.getId(), "result2"));
   }
 
-  @Deployment(resources = { SINGLE_ENTRY_BPMN, TEST_DECISION})
+  @Deployment(resources = {SINGLE_ENTRY_BPMN, TEST_DECISION})
+  @Test
   public void testSingleEntryMapping() {
     ProcessInstance processInstance = startTestProcess("single entry");
 
@@ -67,7 +74,8 @@ public class DmnBusinessRuleTaskResultMappingTest extends ResourceProcessEngineT
     assertEquals(Variables.stringValue("foo"), runtimeService.getVariableTyped(processInstance.getId(), "result"));
   }
 
-  @Deployment(resources = { DEFAULT_MAPPING_BPMN, TEST_DECISION })
+  @Deployment(resources = {DEFAULT_MAPPING_BPMN, TEST_DECISION})
+  @Test
   public void testTransientDecisionResult() {
     // when a decision is evaluated and the result is stored in a transient variable "decisionResult"
     ProcessInstance processInstance = startTestProcess("single entry");

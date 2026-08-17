@@ -39,11 +39,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class MultiTenancyRepositoryServiceTest {
 
@@ -58,13 +58,13 @@ public class MultiTenancyRepositoryServiceTest {
 
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected RepositoryService repositoryService;
   protected ProcessEngineConfiguration processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     repositoryService = engineRule.getRepositoryService();
@@ -164,6 +164,33 @@ public class MultiTenancyRepositoryServiceTest {
       .deploy();
 
     // then a new deployment is created
+    assertThat(repositoryService.createDeploymentQuery().count()).isEqualTo(2L);
+  }
+
+  @Test
+  public void deploymentWithDuplicateFilteringForDifferentTenantsRepeated() {
+    // given: a deployment with tenant ID
+    createDeploymentBuilder()
+            .enableDuplicateFiltering(false)
+            .name("twice")
+            .tenantId(TENANT_ONE)
+            .deploy();
+
+    // if the same process is deployed with the another tenant ID
+    createDeploymentBuilder()
+            .enableDuplicateFiltering(false)
+            .name("twice")
+            .tenantId(TENANT_TWO)
+            .deploy();
+
+    // and then with the first tenant ID again
+    createDeploymentBuilder()
+            .enableDuplicateFiltering(false)
+            .name("twice")
+            .tenantId(TENANT_ONE)
+            .deploy();
+
+    // then only 2 deployment is created
     assertThat(repositoryService.createDeploymentQuery().count()).isEqualTo(2L);
   }
 
@@ -297,7 +324,7 @@ public class MultiTenancyRepositoryServiceTest {
         .addModelInstance("testProcess.bpmn", emptyProcess);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     for(Deployment deployment : repositoryService.createDeploymentQuery().list()) {
       repositoryService.deleteDeployment(deployment.getId(), true);

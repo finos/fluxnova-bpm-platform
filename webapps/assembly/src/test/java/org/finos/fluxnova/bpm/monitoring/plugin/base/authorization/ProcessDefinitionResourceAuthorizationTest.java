@@ -31,9 +31,9 @@ import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.dto.ProcessDefinitionD
 import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.dto.query.ProcessDefinitionQueryDto;
 import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.sub.resources.ProcessDefinitionResource;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -49,7 +49,7 @@ public class ProcessDefinitionResourceAuthorizationTest extends AuthorizationTes
   protected ProcessDefinitionResource resource;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
 
@@ -61,7 +61,7 @@ public class ProcessDefinitionResourceAuthorizationTest extends AuthorizationTes
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     deleteDeployment(deploymentId);
     super.tearDown();

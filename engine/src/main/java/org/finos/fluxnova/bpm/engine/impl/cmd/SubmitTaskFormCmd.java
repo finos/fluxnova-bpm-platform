@@ -31,6 +31,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionVariableSn
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskManager;
 import org.finos.fluxnova.bpm.engine.impl.task.TaskDefinition;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
 import org.finos.fluxnova.bpm.engine.task.DelegationState;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
@@ -85,14 +86,16 @@ public class SubmitTaskFormCmd implements Command<VariableMap>, Serializable {
     }
 
     // complete or resolve the task
-    if (DelegationState.PENDING.equals(task.getDelegationState())) {
-      task.resolve();
-      task.logUserOperation(UserOperationLogEntry.OPERATION_TYPE_RESOLVE);
-      task.triggerUpdateEvent();
-    } else {
-      task.logUserOperation(UserOperationLogEntry.OPERATION_TYPE_COMPLETE);
-      task.complete();
-    }
+    InternalVariableContext.executeAsInternalWrite(() -> {
+      if (DelegationState.PENDING.equals(task.getDelegationState())) {
+        task.resolve();
+        task.logUserOperation(UserOperationLogEntry.OPERATION_TYPE_RESOLVE);
+        task.triggerUpdateEvent();
+      } else {
+        task.logUserOperation(UserOperationLogEntry.OPERATION_TYPE_COMPLETE);
+        task.complete();
+      }
+    });
 
     if (returnVariables)
     {

@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.springboot.project</groupId>
     <artifactId>fluxnova-bpm-spring-boot-starter-root</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.finos.fluxnova.bpm.springboot</groupId>
@@ -18,19 +18,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>compile</scope>
-    </dependency>
-
-    <!-- needed for JUnit4 execution -->
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.hamcrest</groupId>
-          <artifactId>hamcrest-core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>

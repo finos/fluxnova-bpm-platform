@@ -21,16 +21,18 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.metrics.reporter.DbMetricsReporter;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 
 import static org.mockito.Mockito.mockStatic;
 
-import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class HistoryCleanupSchedulerCmdTest {
 
     @Mock
@@ -50,7 +53,7 @@ public class HistoryCleanupSchedulerCmdTest {
     private JobManager jobManager;
     @Spy
     private ProcessEngineConfigurationImpl engineConfigurationSpy;
-    @Mock
+
     private MockedStatic<HistoryCleanupHelper> mockedHistoryCleanupHelper;
 
     private HistoryCleanupSchedulerCmd historyCleanupSchedulerCmd;
@@ -61,15 +64,14 @@ public class HistoryCleanupSchedulerCmdTest {
     String METRICS_KEY = "Key";
     Long METRICS_VALUE = 123L;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
 
         when(commandContext.getProcessEngineConfiguration()).thenReturn(engineConfigurationSpy);
         when(commandContext.getJobManager()).thenReturn(jobManager);
         when(jobManager.findJobById(jobId)).thenReturn(jobEntity);
 
-        when(engineConfigurationSpy.getDbMetricsReporter()).thenReturn(dbMetricsReporter);
+        lenient().when(engineConfigurationSpy.getDbMetricsReporter()).thenReturn(dbMetricsReporter);
 
         reports = new HashMap<>();
         reports.put(METRICS_KEY, METRICS_VALUE);
@@ -80,7 +82,7 @@ public class HistoryCleanupSchedulerCmdTest {
         mockedHistoryCleanupHelper.when(() -> HistoryCleanupHelper.isWithinBatchWindow(any(Date.class), any(ProcessEngineConfigurationImpl.class))).thenReturn(false);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         mockedHistoryCleanupHelper.close();
     }

@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.impl.calendar.DateTimeUtil;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
@@ -48,10 +48,11 @@ import org.finos.fluxnova.bpm.engine.rest.util.OrderingBuilder;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -60,7 +61,7 @@ import io.restassured.response.Response;
 
 public class JobRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String JOBS_RESOURCE_URL = TEST_RESOURCE_ROOT_PATH + "/job";
@@ -72,7 +73,7 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
   protected static final long JOB_QUERY_MAX_PRIORITY = Long.MAX_VALUE;
   protected static final long JOB_QUERY_MIN_PRIORITY = Long.MIN_VALUE;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockQuery = setUpMockJobQuery(MockProvider.createMockJobs());
   }
@@ -147,8 +148,8 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
 
     String content = response.asString();
     List<String> instances = from(content).getList("");
-    Assert.assertEquals("There should be one job returned.", 1, instances.size());
-    Assert.assertNotNull("The returned job should not be null.", instances.get(0));
+    Assertions.assertEquals(1, instances.size(), "There should be one job returned.");
+    Assertions.assertNotNull(instances.get(0), "The returned job should not be null.");
 
     String returnedJobId = from(content).getString("[0].id");
     String returnedProcessInstanceId = from(content).getString("[0].processInstanceId");
@@ -166,21 +167,21 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
     String returnedCreateTime = from(content).getString("[0].createTime");
     String returnedBatchId = from(content).getString("[0].batchId");
 
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_ID, returnedJobId);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, returnedProcessInstanceId);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, returnedProcessDefinitionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_KEY, returnedProcessDefinitionKey);
-    Assert.assertEquals(MockProvider.EXAMPLE_EXECUTION_ID, returnedExecutionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_NO_EXCEPTION_MESSAGE, returnedExceptionMessage);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_FAILED_ACTIVITY_ID, returnedFailedActivityId);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_RETRIES, returnedRetries);
-    Assert.assertEquals(DateTimeUtil.parseDate(MockProvider.EXAMPLE_DUE_DATE), returnedDueDate);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_IS_SUSPENDED, returnedSuspended);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_PRIORITY, returnedPriority);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_DEFINITION_ID, returnedJobDefinitionId);
-    Assert.assertEquals(MockProvider.EXAMPLE_TENANT_ID, returnedTenantId);
-    Assert.assertEquals(MockProvider.EXAMPLE_JOB_CREATE_TIME, returnedCreateTime);
-    Assert.assertEquals(MockProvider.EXAMPLE_BATCH_ID, returnedBatchId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_ID, returnedJobId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID, returnedProcessInstanceId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, returnedProcessDefinitionId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_PROCESS_DEFINITION_KEY, returnedProcessDefinitionKey);
+    Assertions.assertEquals(MockProvider.EXAMPLE_EXECUTION_ID, returnedExecutionId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_NO_EXCEPTION_MESSAGE, returnedExceptionMessage);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_FAILED_ACTIVITY_ID, returnedFailedActivityId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_RETRIES, returnedRetries);
+    Assertions.assertEquals(DateTimeUtil.parseDate(MockProvider.EXAMPLE_DUE_DATE), returnedDueDate);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_IS_SUSPENDED, returnedSuspended);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_PRIORITY, returnedPriority);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_DEFINITION_ID, returnedJobDefinitionId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_TENANT_ID, returnedTenantId);
+    Assertions.assertEquals(MockProvider.EXAMPLE_JOB_CREATE_TIME, returnedCreateTime);
+    Assertions.assertEquals(MockProvider.EXAMPLE_BATCH_ID, returnedBatchId);
   }
 
   private interface DateParameters {
@@ -360,6 +361,38 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
   }
 
   @Test
+  public void testAcquiredParameter() {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("acquired", MockProvider.EXAMPLE_ACQUIRED);
+
+    given()
+            .queryParams(parameters)
+            .then()
+            .expect()
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .get(JOBS_RESOURCE_URL);
+
+    verify(mockQuery).acquired();
+    verify(mockQuery).list();
+  }
+
+  @Test
+  public void testAcquiredParameterAsPost() {
+    Map<String, Object> parameters = new HashMap<>();
+    parameters.put("acquired", MockProvider.EXAMPLE_ACQUIRED);
+
+    given()
+            .contentType(POST_JSON_CONTENT_TYPE)
+            .body(parameters)
+            .then()
+            .expect()
+            .statusCode(Status.OK.getStatusCode())
+            .when()
+            .post(JOBS_RESOURCE_URL);
+  }
+
+  @Test
   public void testMessagesTimersParameter() {
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("messages", MockProvider.EXAMPLE_MESSAGES);
@@ -421,6 +454,7 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
     parameters.put("priorityLowerThanOrEquals", JOB_QUERY_MAX_PRIORITY);
     parameters.put("priorityHigherThanOrEquals", JOB_QUERY_MIN_PRIORITY);
     parameters.put("jobDefinitionId", MockProvider.EXAMPLE_JOB_DEFINITION_ID);
+    parameters.put("acquired", MockProvider.EXAMPLE_ACQUIRED);
     return parameters;
   }
 
@@ -458,6 +492,7 @@ public class JobRestServiceQueryTest extends AbstractRestServiceTest {
     verify(mockQuery).priorityLowerThanOrEquals(JOB_QUERY_MAX_PRIORITY);
     verify(mockQuery).priorityHigherThanOrEquals(JOB_QUERY_MIN_PRIORITY);
     verify(mockQuery).jobDefinitionId(MockProvider.EXAMPLE_JOB_DEFINITION_ID);
+    verify(mockQuery).acquired();
   }
 
   private void testDateParameters(DateParameters parameters) {

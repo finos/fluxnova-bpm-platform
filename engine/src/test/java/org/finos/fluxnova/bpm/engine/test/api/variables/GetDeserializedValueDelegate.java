@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.variables;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Daniel Meyer
@@ -30,8 +30,8 @@ public class GetDeserializedValueDelegate implements JavaDelegate {
 
     JavaSerializable dataObject = (JavaSerializable) execution.getVariable("varName");
 
-    Assert.assertNotNull(dataObject);
-    Assert.assertEquals("foo", dataObject.getProperty());
+    Assertions.assertNotNull(dataObject);
+    Assertions.assertEquals("foo", dataObject.getProperty());
 
   }
 

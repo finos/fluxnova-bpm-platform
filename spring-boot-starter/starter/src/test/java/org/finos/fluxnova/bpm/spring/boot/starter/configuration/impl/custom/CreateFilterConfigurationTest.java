@@ -17,6 +17,8 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl.custom;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -34,9 +36,8 @@ import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties
 import org.finos.fluxnova.bpm.spring.boot.starter.test.helper.StandaloneInMemoryTestConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.SpringBootProcessEngineLogger;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -56,13 +57,10 @@ public class CreateFilterConfigurationTest {
     configuration.init();
   }
 
-  @Rule
+  @RegisterExtension
   public final ProcessEngineRule processEngineRule = new StandaloneInMemoryTestConfiguration(configuration).rule();
 
-  @Rule
-  public final ExpectedException thrown = ExpectedException.none();
-
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule()
       .watch(SpringBootProcessEngineLogger.PACKAGE);
 
@@ -72,26 +70,28 @@ public class CreateFilterConfigurationTest {
   }
 
   @Test
-  public void fail_if_not_configured_onInit() throws Exception {
-    thrown.expect(IllegalStateException.class);
-    FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
-    final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
-    ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
-    configuration.init();
+  public void fail_if_not_configured_onInit() {
+    assertThrows(IllegalStateException.class, () -> {
+      FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
+      final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
+      ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
+      configuration.init();
+    });
   }
 
   @Test
-  public void fail_if_not_configured_onExecution() throws Exception {
-    thrown.expect(NullPointerException.class);
+  public void fail_if_not_configured_onExecution() {
+    assertThrows(NullPointerException.class, () -> {
 
-    FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
-    camundaBpmProperties.getFilter().setCreate("All");
-    final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
-    ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
-    configuration.init();
-    configuration.filterName = null;
+      FluxnovaBpmProperties camundaBpmProperties = new FluxnovaBpmProperties();
+      camundaBpmProperties.getFilter().setCreate("All");
+      final CreateFilterConfiguration configuration = new CreateFilterConfiguration();
+      ReflectionTestUtils.setField(configuration, "camundaBpmProperties", camundaBpmProperties);
+      configuration.init();
+      configuration.filterName = null;
 
-    configuration.postProcessEngineBuild(mock(ProcessEngine.class));
+      configuration.postProcessEngineBuild(mock(ProcessEngine.class));
+    });
   }
 
   @Test

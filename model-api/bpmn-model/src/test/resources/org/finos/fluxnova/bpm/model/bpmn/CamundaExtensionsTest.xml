@@ -177,8 +177,8 @@
                   camunda:variableMappingClass="org.camunda.test.Test"
                   camunda:variableMappingDelegateExpression="${org.camunda.test.Test}">
       <extensionElements>
-        <camunda:in source="test" sourceExpression="${test}" variables="test" businessKey="${test}" target="test" local="true"/>
-        <camunda:out source="test" sourceExpression="${test}" variables="test" target="test" local="true"/>
+        <camunda:in source="test" sourceExpression="${test}" variables="test" businessKey="${test}" target="test" local="true" restricted="false"/>
+        <camunda:out source="test" sourceExpression="${test}" variables="test" target="test" local="true" restricted="false"/>
       </extensionElements>
     </callActivity>
 

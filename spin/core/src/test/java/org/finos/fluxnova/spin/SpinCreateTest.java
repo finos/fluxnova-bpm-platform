@@ -20,7 +20,8 @@ import static org.assertj.core.api.Assertions.fail;
 import static org.finos.fluxnova.spin.Spin.S;
 
 import org.finos.fluxnova.spin.spi.DataFormat;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer

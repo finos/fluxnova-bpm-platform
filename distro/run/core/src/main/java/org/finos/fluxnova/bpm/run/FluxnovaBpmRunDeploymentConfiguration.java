@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,7 +41,7 @@ public class FluxnovaBpmRunDeploymentConfiguration extends DefaultDeploymentConf
   @Override
   public Set<Resource> getDeploymentResources() {
     if (!StringUtils.isEmpty(deploymentDir)) {
-      Path resourceDir = Paths.get(deploymentDir);
+      Path resourceDir = Path.of(deploymentDir);
 
       try (Stream<Path> stream = Files.walk(resourceDir)) {
         return stream.filter(file -> !Files.isDirectory(file)).map(FileSystemResource::new).collect(Collectors.toSet());
@@ -55,6 +54,9 @@ public class FluxnovaBpmRunDeploymentConfiguration extends DefaultDeploymentConf
 
   protected String getNormalizedDeploymentDir() {
     String result = deploymentDir;
+    if (StringUtils.isEmpty(result)) {
+      return result;
+    }
     if(File.separator.equals("\\")) {
       result = result.replace("\\", "/");
     }

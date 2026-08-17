@@ -77,7 +77,7 @@ public class ExpressionEvaluationHandler {
     bindings.put("variableContext", variableContext);
 
     try {
-      if (scriptEngine instanceof Compilable) {
+      if (scriptEngine instanceof Compilable compilableScriptEngine) {
 
         CompiledScript compiledScript = cachedCompiledScriptSupport.getCachedCompiledScript();
         if (compiledScript == null) {
@@ -85,7 +85,6 @@ public class ExpressionEvaluationHandler {
             compiledScript = cachedCompiledScriptSupport.getCachedCompiledScript();
 
             if(compiledScript == null) {
-              Compilable compilableScriptEngine = (Compilable) scriptEngine;
               compiledScript = compilableScriptEngine.compile(expressionText);
 
               cachedCompiledScriptSupport.cacheCompiledScript(compiledScript);

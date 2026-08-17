@@ -56,7 +56,9 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessDefinition;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessInstance;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmScope;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmTransition;
+import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ActivityExecution;
+import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.AdHocCompositeActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.CompositeActivityBehavior;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ModificationObserverBehavior;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.SignallableActivityBehavior;
@@ -1033,6 +1035,24 @@ public abstract class PvmExecutionImpl extends CoreExecution implements
 
   @Override
   public void leaveActivityViaTransitions(List<PvmTransition> _transitions, List<? extends ActivityExecution> _recyclableExecutions) {
+    // if this is a direct child of an ad-hoc scope whose completion condition is
+    // already satisfied (with cancelRemainingInstances=true), end this execution
+    // instead of taking the transition: the regular end path then completes the
+    // ad-hoc scope and cancels its remaining children
+    if (_transitions != null && !_transitions.isEmpty() && isConcurrent() && !isScope() && getActivity() != null) {
+      ScopeImpl flowScope = getActivity().getFlowScope();
+      if (flowScope instanceof PvmActivity) {
+        ActivityBehavior flowScopeBehavior = ((PvmActivity) flowScope).getActivityBehavior();
+        PvmExecutionImpl scopeExecution = getParent();
+        if (flowScopeBehavior instanceof AdHocCompositeActivityBehavior
+            && scopeExecution != null
+            && ((AdHocCompositeActivityBehavior) flowScopeBehavior).shouldCompleteOnChildTransition(scopeExecution)) {
+          end(false);
+          return;
+        }
+      }
+    }
+
     List<? extends ActivityExecution> recyclableExecutions = Collections.emptyList();
     if (_recyclableExecutions != null) {
       recyclableExecutions = new ArrayList<>(_recyclableExecutions);

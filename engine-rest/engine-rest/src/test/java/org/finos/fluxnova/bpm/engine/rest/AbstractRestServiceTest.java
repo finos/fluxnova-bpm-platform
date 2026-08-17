@@ -25,9 +25,9 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.ServiceLoader;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
+import org.apache.hc.core5.http.ContentType;
 
-import org.apache.http.entity.ContentType;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ActivityInstanceImpl;
@@ -43,9 +43,10 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.BytesValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Before;
 
 import io.restassured.RestAssured;
+
+import org.junit.jupiter.api.BeforeEach;
 import io.restassured.http.Header;
 
 public abstract class AbstractRestServiceTest {
@@ -152,7 +153,7 @@ public abstract class AbstractRestServiceTest {
   private static Properties connectionProperties = null;
   private static MockedProcessEngineProvider processEngineProvider = null;
 
-  @Before
+  @BeforeEach
   public void setUp() throws IOException {
     setupTestScenario();
   }

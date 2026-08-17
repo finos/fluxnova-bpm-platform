@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.cfg.jta;
 
-import javax.transaction.Status;
-import javax.transaction.Synchronization;
-import javax.transaction.Transaction;
-import javax.transaction.TransactionManager;
+import jakarta.transaction.Status;
+import jakarta.transaction.Synchronization;
+import jakarta.transaction.Transaction;
+import jakarta.transaction.TransactionManager;
 import org.finos.fluxnova.bpm.engine.impl.cfg.TransactionListener;
 import org.finos.fluxnova.bpm.engine.impl.cfg.TransactionState;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;

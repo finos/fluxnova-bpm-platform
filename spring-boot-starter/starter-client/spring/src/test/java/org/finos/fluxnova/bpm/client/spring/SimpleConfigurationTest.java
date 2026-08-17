@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.client.spring;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleClientConfiguration;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleSubscriptionConfiguration;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskHandler;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 

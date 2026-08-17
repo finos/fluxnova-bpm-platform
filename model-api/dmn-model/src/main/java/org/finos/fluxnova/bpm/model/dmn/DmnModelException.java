@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.model.dmn;
 
+
+
 import org.finos.fluxnova.bpm.model.xml.ModelException;
 
 public class DmnModelException extends ModelException {

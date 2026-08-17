@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.junit.After;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.Date;
@@ -43,7 +43,7 @@ public class TimerChangeJobDefinitionTest {
   protected static final Date FIXED_DATE_THREE = new Date(1363607600000L);
   protected static final Date FIXED_DATE_FOUR = new Date(1363607700000L);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   @After

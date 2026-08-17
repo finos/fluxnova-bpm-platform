@@ -1,0 +1,17 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: mavenPropertiesMigration
+displayName: Maven Properties Migration
+recipeList:
+  - org.openrewrite.xml.ChangeTagName:
+      elementName: /project/properties/camunda.version
+      newName: fluxnova.version
+  - org.openrewrite.xml.ChangeTagValue:
+      elementName: /project/properties/fluxnova.version
+      newValue: {{TARGET_VERSION}}
+  - org.openrewrite.xml.ChangeTagValue:
+      elementName: /project/dependencies/dependency[groupId='org.camunda.bpm' or groupId='org.camunda.bpm.assert' or groupId='org.camunda.bpm.distro' or groupId='org.camunda.bpm.dmn' or groupId='org.camunda.bpm.example' or groupId='org.camunda.bpm.extension' or groupId='org.camunda.bpm.extension.dmn.scala' or groupId='org.camunda.bpm.extension.mockito' or groupId='org.camunda.bpm.extension.reactor' or groupId='org.camunda.bpm.getstarted' or groupId='org.camunda.bpm.identity' or groupId='org.camunda.bpm.javaee' or groupId='org.camunda.bpm.juel' or groupId='org.camunda.bpm.model' or groupId='org.camunda.bpm.qa' or groupId='org.camunda.bpm.quarkus' or groupId='org.camunda.bpm.run' or groupId='org.camunda.bpm.springboot' or groupId='org.camunda.bpm.springboot.project' or groupId='org.camunda.bpm.webapp' or groupId='org.camunda.bpm.wildfly' or groupId='org.camunda.commons' or groupId='org.camunda.connect' or groupId='org.camunda.feel' or groupId='org.camunda.spin' or groupId='org.camunda.template-engines']/version
+      newValue: ${fluxnova.version}
+  - org.openrewrite.xml.ChangeTagValue:
+      elementName: /project/dependencyManagement/dependencies/dependency[groupId='org.camunda.bpm' or groupId='org.camunda.bpm.assert' or groupId='org.camunda.bpm.distro' or groupId='org.camunda.bpm.dmn' or groupId='org.camunda.bpm.example' or groupId='org.camunda.bpm.extension' or groupId='org.camunda.bpm.extension.dmn.scala' or groupId='org.camunda.bpm.extension.mockito' or groupId='org.camunda.bpm.extension.reactor' or groupId='org.camunda.bpm.getstarted' or groupId='org.camunda.bpm.identity' or groupId='org.camunda.bpm.javaee' or groupId='org.camunda.bpm.juel' or groupId='org.camunda.bpm.model' or groupId='org.camunda.bpm.qa' or groupId='org.camunda.bpm.quarkus' or groupId='org.camunda.bpm.run' or groupId='org.camunda.bpm.springboot' or groupId='org.camunda.bpm.springboot.project' or groupId='org.camunda.bpm.webapp' or groupId='org.camunda.bpm.wildfly' or groupId='org.camunda.commons' or groupId='org.camunda.connect' or groupId='org.camunda.feel' or groupId='org.camunda.spin' or groupId='org.camunda.template-engines']/version
+      newValue: ${fluxnova.version}

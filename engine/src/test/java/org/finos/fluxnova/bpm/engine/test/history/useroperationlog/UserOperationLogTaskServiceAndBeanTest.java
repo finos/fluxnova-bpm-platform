@@ -30,12 +30,7 @@ import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.N
 import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.OWNER;
 import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.PARENT_TASK;
 import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.PRIORITY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -49,8 +44,9 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.task.DelegationState;
 import org.finos.fluxnova.bpm.engine.task.Task;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Danny Gräf
  */
@@ -58,7 +54,7 @@ public class UserOperationLogTaskServiceAndBeanTest extends AbstractUserOperatio
 
   protected Task task;
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
 
 

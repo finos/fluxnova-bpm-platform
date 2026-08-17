@@ -21,21 +21,21 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class BpmnBehaviorLoggerTest extends PluggableProcessEngineTest {
 
-  @After
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.setEnableExceptionsAfterUnhandledBpmnError(false);
   }
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule processEngineLoggingRule = new ProcessEngineLoggingRule().watch(
       "org.finos.fluxnova.bpm.engine.bpmn.behavior", Level.INFO);
 

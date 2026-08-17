@@ -25,9 +25,7 @@ import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties
 import org.finos.fluxnova.bpm.spring.boot.starter.property.ManagementProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.FluxnovaBpmVersion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +46,6 @@ import org.springframework.context.annotation.Primary;
 })
 @Configuration
 @ConditionalOnProperty(prefix = FluxnovaBpmProperties.PREFIX, name = "enabled", matchIfMissing = true)
-@AutoConfigureAfter(HibernateJpaAutoConfiguration.class)
 public class FluxnovaBpmAutoConfiguration {
 
   @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

@@ -33,9 +33,9 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.dmn.BuiltinAggregator;
 import org.finos.fluxnova.bpm.model.dmn.HitPolicy;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DmnDecisionTableEvaluationListenerTest extends DmnEngineTest {
 
@@ -50,12 +50,12 @@ public class DmnDecisionTableEvaluationListenerTest extends DmnEngineTest {
       .enableFeelLegacyBehavior(true);
   }
 
-  @BeforeClass
+  @BeforeAll
   public static void initHitPolicyHandlerRegistry() {
     hitPolicyHandlerRegistry = new DefaultHitPolicyHandlerRegistry();
   }
 
-  @Before
+  @BeforeEach
   public void initListener() {
     TestDecisionTableEvaluationListenerConfiguration configuration = (TestDecisionTableEvaluationListenerConfiguration) dmnEngine.getConfiguration();
     listener = configuration.testDecisionTableListener;

@@ -16,22 +16,21 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.sentry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.impl.cmmn.entity.runtime.CaseExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.execution.CaseExecutionState;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
-import org.junit.Ignore;
+
+import org.junit.jupiter.api.Disabled;
 
 /**
  * @author Roman Smirnov
  *
  */
-@Ignore
+@Disabled
 public class SentryCombinedEntryAndExitCriteriaTest extends CmmnTest {
 
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/cmmn/sentry/SentryCombinedEntryAndExitCriteriaTest.testParentResumeInsideStage.cmmn"})

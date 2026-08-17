@@ -16,15 +16,14 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.listener;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.delegate.CaseExecutionListener;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

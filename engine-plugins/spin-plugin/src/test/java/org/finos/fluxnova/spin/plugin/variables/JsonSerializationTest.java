@@ -21,13 +21,7 @@ import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectV
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertObjectValueDeserializedNull;
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertObjectValueSerializedNull;
 import static org.finos.fluxnova.spin.plugin.variables.TypedValueAssert.assertUntypedNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,9 +46,11 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.spin.DataFormats;
 import org.json.JSONException;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class JsonSerializationTest {
@@ -64,17 +60,19 @@ public class JsonSerializationTest {
 
   protected static final String JSON_FORMAT_NAME = DataFormats.JSON_DATAFORMAT_NAME;
 
-  @Rule
+  @RegisterExtension
+  @Order(1)
   public ProcessEngineRule engineRule = new ProcessEngineRule(true);
 
-  @Rule
+  @RegisterExtension
+  @Order(2)
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
   protected RuntimeService runtimeService;
 
   protected String originalSerializationFormat;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     runtimeService = engineRule.getRuntimeService();
   }

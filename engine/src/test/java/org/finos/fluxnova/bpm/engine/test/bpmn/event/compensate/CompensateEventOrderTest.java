@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.compensate;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -37,8 +37,8 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Association;
 import org.finos.fluxnova.bpm.model.bpmn.instance.BaseElement;
 import org.finos.fluxnova.bpm.model.bpmn.instance.BoundaryEvent;
 import org.finos.fluxnova.bpm.model.bpmn.instance.ServiceTask;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Svetlana Dorokhova
@@ -46,9 +46,9 @@ import org.junit.Test;
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_ACTIVITY)
 public class CompensateEventOrderTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
-  @Rule
+  @RegisterExtension
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
   @Test
@@ -94,7 +94,7 @@ public class CompensateEventOrderTest {
     assertNotEquals(-1, indexA);
     assertNotEquals(-1, indexB);
 
-    assertTrue("Compensation activities were executed in wrong order.", indexA > indexB);
+    assertTrue(indexA > indexB, "Compensation activities were executed in wrong order.");
 
   }
 

@@ -27,11 +27,14 @@ import org.finos.fluxnova.bpm.client.impl.ExternalTaskClientLogger;
 import org.finos.fluxnova.bpm.client.spi.DataFormat;
 import org.finos.fluxnova.bpm.client.variable.impl.format.TypeDetector;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.exc.StreamReadException;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.type.TypeFactory;
 
 public class JacksonJsonDataFormat implements DataFormat {
 
@@ -42,7 +45,9 @@ public class JacksonJsonDataFormat implements DataFormat {
   protected List<TypeDetector> typeDetectors;
 
   public JacksonJsonDataFormat(String name) {
-    this(name, new ObjectMapper());
+    this(name, JsonMapper.builder()
+            .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build());
   }
 
   public JacksonJsonDataFormat(String name, ObjectMapper objectMapper) {
@@ -75,7 +80,7 @@ public class JacksonJsonDataFormat implements DataFormat {
       objectMapper.writeValue(stringWriter, value);
       return stringWriter.toString();
     }
-    catch (IOException e) {
+    catch (JacksonException e) {
       throw LOG.unableToWriteValue(value, e);
     }
   }
@@ -96,13 +101,13 @@ public class JacksonJsonDataFormat implements DataFormat {
     try {
       return objectMapper.readValue(value, cls);
     }
-    catch (JsonParseException e) {
+    catch (StreamReadException e) {
       throw LOG.unableToReadValue(value, e);
     }
-    catch (JsonMappingException e) {
+    catch (DatabindException e) {
       throw LOG.unableToReadValue(value, e);
     }
-    catch (IOException e) {
+    catch (JacksonException e) {
       throw LOG.unableToReadValue(value, e);
     }
   }
@@ -111,20 +116,20 @@ public class JacksonJsonDataFormat implements DataFormat {
     try {
       return objectMapper.readValue(value, type);
     }
-    catch (JsonParseException e) {
+    catch (StreamReadException e) {
       throw LOG.unableToReadValue(value, e);
     }
-    catch (JsonMappingException e) {
+    catch (DatabindException e) {
       throw LOG.unableToReadValue(value, e);
     }
-    catch (IOException e) {
+    catch (JacksonException e) {
       throw LOG.unableToReadValue(value, e);
     }
   }
 
   public JavaType constructJavaTypeFromCanonicalString(String canonicalString) {
     try {
-      return TypeFactory.defaultInstance().constructFromCanonical(canonicalString);
+      return TypeFactory.createDefaultInstance().constructFromCanonical(canonicalString);
     }
     catch (IllegalArgumentException e) {
       throw LOG.unableToConstructJavaType(canonicalString, e);

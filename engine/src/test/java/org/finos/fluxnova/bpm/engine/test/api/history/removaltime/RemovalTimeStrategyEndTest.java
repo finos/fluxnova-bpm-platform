@@ -18,11 +18,12 @@ package org.finos.fluxnova.bpm.engine.test.api.history.removaltime;
 
 import static org.assertj.core.api.Assertions.tuple;
 import static org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration.HISTORY_REMOVAL_TIME_STRATEGY_END;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
@@ -76,16 +77,16 @@ import org.finos.fluxnova.bpm.engine.test.dmn.businessruletask.TestPojo;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tassilo Weidner
  */
 public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration
       .setHistoryRemovalTimeStrategy(HISTORY_REMOVAL_TIME_STRATEGY_END)
@@ -93,7 +94,7 @@ public class RemovalTimeStrategyEndTest extends AbstractRemovalTimeTest {
       .initHistoryRemovalTime();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     clearAuthorization();
   }

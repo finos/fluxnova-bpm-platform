@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineImpl;
@@ -23,10 +25,8 @@ import org.finos.fluxnova.bpm.engine.impl.SchemaOperationsProcessEngineBuild;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
-import org.junit.After;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -37,7 +37,7 @@ public class DmnDisabledTest {
   protected static ProcessEngineImpl processEngineImpl;
 
   // make sure schema is dropped
-  @After
+  @AfterEach
   public void cleanup() {
     TestHelper.dropSchema(processEngineImpl.getProcessEngineConfiguration());
     processEngineImpl.close();

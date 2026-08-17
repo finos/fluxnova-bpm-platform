@@ -22,7 +22,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ_HISTO
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
@@ -34,9 +34,9 @@ import org.finos.fluxnova.bpm.engine.history.HistoricIdentityLinkLogQuery;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoricIdentityLinkLogAuthorizationTest extends AuthorizationTest {
@@ -45,7 +45,7 @@ public class HistoricIdentityLinkLogAuthorizationTest extends AuthorizationTest 
   protected static final String CASE_KEY = "oneTaskCase";
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     testRule.deploy( "org/finos/fluxnova/bpm/engine/test/api/authorization/oneTaskProcess.bpmn20.xml",
     "org/finos/fluxnova/bpm/engine/test/api/authorization/oneTaskCase.cmmn");
@@ -53,7 +53,7 @@ public class HistoricIdentityLinkLogAuthorizationTest extends AuthorizationTest 
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnableHistoricInstancePermissions(false);

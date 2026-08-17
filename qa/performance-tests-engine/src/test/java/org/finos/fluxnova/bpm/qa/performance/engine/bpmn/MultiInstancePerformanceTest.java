@@ -21,7 +21,8 @@ import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEngineJobExecut
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.CountJobsStep;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.StartProcessInstanceStep;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.WaitStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author: Johannes Heinemann

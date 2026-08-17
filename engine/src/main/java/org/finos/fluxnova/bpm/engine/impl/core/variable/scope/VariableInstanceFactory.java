@@ -25,5 +25,5 @@ import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
  */
 public interface VariableInstanceFactory<T extends CoreVariableInstance> {
 
-  T build(String name, TypedValue value, boolean isTransient);
+  T build(String name, TypedValue value, boolean isTransient, boolean restricted);
 }

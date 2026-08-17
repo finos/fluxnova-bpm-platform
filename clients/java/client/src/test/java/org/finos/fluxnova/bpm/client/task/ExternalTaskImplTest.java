@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.client.task;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -30,7 +30,8 @@ import org.finos.fluxnova.bpm.client.variable.impl.ValueMappers;
 import org.finos.fluxnova.bpm.client.variable.impl.VariableValue;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tobias Metzke
@@ -164,16 +165,16 @@ public class ExternalTaskImplTest {
         + "processInstanceId=pii, "
         + "receivedVariableMap={"
           + "rv1=VariableValue [cachedValue=null, executionId=ei, variableName=variable1, typedValueField="
-            + "TypedValueField [type=string, value=value1, valueInfo={vi1=42, vi2=vi2}]], "
+            + "TypedValueField [type=string, value=value1, restricted=false, valueInfo={vi1=42, vi2=vi2}]], "
           + "rv2=VariableValue [cachedValue=null, executionId=ei, variableName=variable2, typedValueField="
-            + "TypedValueField [type=integer, value=99, valueInfo={vi1=42, vi2=vi2, vi3=87}]]"
+            + "TypedValueField [type=integer, value=99, restricted=false, valueInfo={vi1=42, vi2=vi2, vi3=87}]]"
         + "}, "
         + "retries=34, "
         + "tenantId=ti, "
         + "topicName=tn, "
         + "variables={"
-          + "v1=TypedValueField [type=string, value=value2, valueInfo={vi1=43, vi2=vi3}], "
-          + "v2=TypedValueField [type=integer, value=999, valueInfo={vi1=43, vi2=vi3, vi3=88}]"
+          + "v1=TypedValueField [type=string, value=value2, restricted=false, valueInfo={vi1=43, vi2=vi3}], "
+          + "v2=TypedValueField [type=integer, value=999, restricted=false, valueInfo={vi1=43, vi2=vi3, vi3=88}]"
         + "}, "
         + "workerId=wi]", task.toString());
   }

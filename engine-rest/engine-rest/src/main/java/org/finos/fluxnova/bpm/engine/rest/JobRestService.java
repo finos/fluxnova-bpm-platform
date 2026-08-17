@@ -16,18 +16,21 @@
  */
 package org.finos.fluxnova.bpm.engine.rest;
 
+import jakarta.ws.rs.core.Response;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.batch.BatchDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.JobSuspensionStateDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.SetJobRetriesDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.JobActivateSuspendDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.JobDeletionDto;
 import org.finos.fluxnova.bpm.engine.rest.sub.runtime.JobResource;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -74,4 +77,16 @@ public interface JobRestService {
   @Path("/suspended")
   @Consumes(MediaType.APPLICATION_JSON)
   void updateSuspensionState(JobSuspensionStateDto dto);
+
+  @POST
+  @Path("/suspended")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  Response updateSuspensionStateForJobs(JobActivateSuspendDto jobActivateSuspendDto);
+
+  @POST
+  @Path("/delete")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  Response deleteJobs(JobDeletionDto jobDeletionDto);
 }

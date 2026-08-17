@@ -31,11 +31,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.MigrationTestRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch.BatchMigrationHelper;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class BatchJobPriorityRangeTest {
 
@@ -43,8 +43,8 @@ public class BatchJobPriorityRangeTest {
   protected MigrationTestRule migrationRule = new MigrationTestRule(rule);
   protected BatchMigrationHelper helper = new BatchMigrationHelper(rule, migrationRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(migrationRule);
 
   ProcessEngineConfigurationImpl configuration;
 
@@ -54,7 +54,7 @@ public class BatchJobPriorityRangeTest {
   protected long defaultJobExecutorPriorityRangeMax;
   protected boolean defaultIsJobExecutorAcquireByPriority;
 
-  @Before
+  @BeforeEach
   public void setup() {
     configuration = rule.getProcessEngineConfiguration();
 
@@ -67,7 +67,7 @@ public class BatchJobPriorityRangeTest {
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     configuration.setBatchJobPriority(defaultBatchJobPriority);
     configuration.setBatchJobsPerSeed(defaultBatchJobsPerSeed);

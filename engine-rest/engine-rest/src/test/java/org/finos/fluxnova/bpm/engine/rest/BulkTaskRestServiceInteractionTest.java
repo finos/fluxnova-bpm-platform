@@ -16,8 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.finos.fluxnova.bpm.ProcessApplicationService;
@@ -38,14 +37,16 @@ import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.task.*;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
-import org.hamcrest.MatcherAssert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
+import tools.jackson.core.JacksonException;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -76,7 +77,7 @@ import static org.mockito.Mockito.when;
 public class BulkTaskRestServiceInteractionTest extends
     AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String BULK_TASK_SERVICE_URL = TEST_RESOURCE_ROOT_PATH + "/bulk/task";
@@ -102,7 +103,7 @@ public class BulkTaskRestServiceInteractionTest extends
   private Attachment mockTaskAttachment;
   private List<Attachment> mockTaskAttachments;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     taskServiceMock = mock(TaskService.class);
     when(processEngine.getTaskService()).thenReturn(taskServiceMock);
@@ -193,11 +194,11 @@ public class BulkTaskRestServiceInteractionTest extends
         .jsonPath()
         .getList("", TaskUpdateResponse.class);
 
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
+    assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
 
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
 
     // Verify that setAssignee was called twice
     verify(taskServiceMock, times(2)).setAssignee(anyString(),anyString());
@@ -221,11 +222,11 @@ public class BulkTaskRestServiceInteractionTest extends
         .jsonPath()
         .getList("", TaskUpdateResponse.class);
 
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo(null))));
+    assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+    assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo(null))));
 
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
 
     // Verify that setAssignee was called twice
     verify(taskServiceMock, times(2)).setAssignee(anyString(),anyString());
@@ -251,13 +252,13 @@ public class BulkTaskRestServiceInteractionTest extends
         .jsonPath()
         .getList("", TaskUpdateResponse.class);
 
-    MatcherAssert.assertThat(updateResponse.get(0).getTaskId(), equalTo(EXAMPLE_TASK_ID));
-    MatcherAssert.assertThat(updateResponse.get(0).getStatus(), equalTo(ResponseStatus.FAILURE));
-    MatcherAssert.assertThat(updateResponse.get(0).getErrorMessage(), equalTo("expected exception"));
+    assertThat(updateResponse.get(0).getTaskId(), equalTo(EXAMPLE_TASK_ID));
+    assertThat(updateResponse.get(0).getStatus(), equalTo(ResponseStatus.FAILURE));
+    assertThat(updateResponse.get(0).getErrorMessage(), equalTo("expected exception"));
 
-    MatcherAssert.assertThat(updateResponse.get(1).getTaskId(), equalTo(EXAMPLE_TASK_ID2));
-    MatcherAssert.assertThat(updateResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
-    MatcherAssert.assertThat(updateResponse.get(1).getErrorMessage(), equalTo(null));
+    assertThat(updateResponse.get(1).getTaskId(), equalTo(EXAMPLE_TASK_ID2));
+    assertThat(updateResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
+    assertThat(updateResponse.get(1).getErrorMessage(), equalTo(null));
 
     // Verify that setAssignee was called twice
     verify(taskServiceMock, times(2)).setAssignee(anyString(),anyString());
@@ -285,11 +286,11 @@ public class BulkTaskRestServiceInteractionTest extends
         .getList("", TaskUpdateResponse.class);
 
     // Asserts the response
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
-    MatcherAssert.assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
+    assertThat(updateResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(updateResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
 
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(updateResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID2))));
 
     // Verify that setAssignee was called twice
     verify(taskServiceMock, times(2)).setAssignee(anyString(),anyString());
@@ -734,7 +735,7 @@ public class BulkTaskRestServiceInteractionTest extends
     String jsonInString = null;
     try {
       jsonInString = mapper.writeValueAsString(completeTaskRequestDto);
-    } catch (JsonProcessingException e1) {
+    } catch (JacksonException e1) {
       e1.printStackTrace();
     }
 
@@ -749,13 +750,13 @@ public class BulkTaskRestServiceInteractionTest extends
     List<TaskCompleteResponseDto> completeResponse = restResponse.getBody()
         .jsonPath()
         .getList("", TaskCompleteResponseDto.class);
-    MatcherAssert.assertThat(completeResponse.get(0).getTaskId(), equalTo(EXAMPLE_TASK_ID));
-    MatcherAssert.assertThat(completeResponse.get(0).getStatus(), equalTo(ResponseStatus.SUCCESS));
-    MatcherAssert.assertThat(completeResponse.get(0).getErrorMessage(), equalTo(null));
-    MatcherAssert.assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(completeResponse.get(1).getTaskId(), equalTo(taskTwoId));
-    MatcherAssert.assertThat(completeResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
-    MatcherAssert.assertThat(completeResponse.get(1).getErrorMessage(), equalTo(null));
+    assertThat(completeResponse.get(0).getTaskId(), equalTo(EXAMPLE_TASK_ID));
+    assertThat(completeResponse.get(0).getStatus(), equalTo(ResponseStatus.SUCCESS));
+    assertThat(completeResponse.get(0).getErrorMessage(), equalTo(null));
+    assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(completeResponse.get(1).getTaskId(), equalTo(taskTwoId));
+    assertThat(completeResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
+    assertThat(completeResponse.get(1).getErrorMessage(), equalTo(null));
   }
 
   @Test
@@ -780,7 +781,7 @@ public class BulkTaskRestServiceInteractionTest extends
     String jsonInString = null;
     try {
       jsonInString = mapper.writeValueAsString(completeTaskRequestDto);
-    } catch (JsonProcessingException e1) {
+    } catch (JacksonException e1) {
       e1.printStackTrace();
     }
 
@@ -794,10 +795,10 @@ public class BulkTaskRestServiceInteractionTest extends
     List<TaskCompleteResponseDto> completeResponse = restResponse.getBody()
         .jsonPath()
         .getList("", TaskCompleteResponseDto.class);
-    MatcherAssert.assertThat(completeResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
-    MatcherAssert.assertThat(completeResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
-    MatcherAssert.assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(taskTwoId))));
+    assertThat(completeResponse, everyItem(hasProperty("status", equalTo(ResponseStatus.FAILURE))));
+    assertThat(completeResponse, everyItem(hasProperty("errorMessage", equalTo("expected exception"))));
+    assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(taskTwoId))));
   }
 
   @Test
@@ -824,7 +825,7 @@ public class BulkTaskRestServiceInteractionTest extends
     String jsonInString = null;
     try {
       jsonInString = mapper.writeValueAsString(completeTaskRequestDto);
-    } catch (JsonProcessingException e1) {
+    } catch (JacksonException e1) {
       e1.printStackTrace();
     }
 
@@ -838,12 +839,12 @@ public class BulkTaskRestServiceInteractionTest extends
     List<TaskCompleteResponseDto> completeResponse = restResponse.getBody()
         .jsonPath()
         .getList("", TaskCompleteResponseDto.class);
-    MatcherAssert.assertThat(completeResponse.get(0).getStatus(), equalTo(ResponseStatus.FAILURE));
-    MatcherAssert.assertThat(completeResponse.get(0).getErrorMessage(), equalTo("expected exception"));
-    MatcherAssert.assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
-    MatcherAssert.assertThat(completeResponse.get(1).getTaskId(), equalTo(taskTwoId));
-    MatcherAssert.assertThat(completeResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
-    MatcherAssert.assertThat(completeResponse.get(1).getErrorMessage(), equalTo(null));
+    assertThat(completeResponse.get(0).getStatus(), equalTo(ResponseStatus.FAILURE));
+    assertThat(completeResponse.get(0).getErrorMessage(), equalTo("expected exception"));
+    assertThat(completeResponse, hasItem(hasProperty("taskId", equalTo(EXAMPLE_TASK_ID))));
+    assertThat(completeResponse.get(1).getTaskId(), equalTo(taskTwoId));
+    assertThat(completeResponse.get(1).getStatus(), equalTo(ResponseStatus.SUCCESS));
+    assertThat(completeResponse.get(1).getErrorMessage(), equalTo(null));
 
   }
 }

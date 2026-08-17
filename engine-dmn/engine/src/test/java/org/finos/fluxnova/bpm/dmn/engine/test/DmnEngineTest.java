@@ -30,12 +30,12 @@ import org.finos.fluxnova.bpm.dmn.engine.test.asserts.DmnDecisionTableResultAsse
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public abstract class DmnEngineTest {
 
-  @Rule
+  @RegisterExtension
   public DmnEngineTestRule dmnEngineRule = new DmnEngineTestRule(getDmnEngineConfiguration());
 
   public DmnEngine dmnEngine;
@@ -46,17 +46,17 @@ public abstract class DmnEngineTest {
     return null;
   }
 
-  @Before
+  @BeforeEach
   public void initDmnEngine() {
     dmnEngine = dmnEngineRule.getDmnEngine();
   }
 
-  @Before
+  @BeforeEach
   public void initDecision() {
     decision = dmnEngineRule.getDecision();
   }
 
-  @Before
+  @BeforeEach
   public void initVariables() {
     variables = Variables.createVariables();
   }

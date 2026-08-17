@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.cdi.beans;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 @Named
 public class VersionTagBean {

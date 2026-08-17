@@ -22,20 +22,16 @@ import org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification.AbstractExe
 import org.finos.fluxnova.bpm.model.cmmn.instance.DiscretionaryItem;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Milestone;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanningTable;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Roman Smirnov
  *
  */
-@RunWith(Parameterized.class)
 public class MilestoneDiscretionaryItemExecutionListenerTest extends CmmnElementHandlerTest {
 
-  @Parameters(name = "testListener: {0}")
   public static Iterable<Object[]> data() {
     return ExecutionListenerCases.EVENTLISTENER_OR_MILESTONE_CASES;
   }
@@ -47,11 +43,11 @@ public class MilestoneDiscretionaryItemExecutionListenerTest extends CmmnElement
 
   protected AbstractExecutionListenerSpec testSpecification;
 
-  public MilestoneDiscretionaryItemExecutionListenerTest(AbstractExecutionListenerSpec testSpecification) {
+  public void initMilestoneDiscretionaryItemExecutionListenerTest(AbstractExecutionListenerSpec testSpecification) {
     this.testSpecification = testSpecification;
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     milestone = createElement(casePlanModel, "aMilestone", Milestone.class);
 
@@ -62,8 +58,10 @@ public class MilestoneDiscretionaryItemExecutionListenerTest extends CmmnElement
 
   }
 
-  @Test
-  public void testCaseExecutionListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "testListener: {0}")
+  public void testCaseExecutionListener(AbstractExecutionListenerSpec testSpecification) {
+    initMilestoneDiscretionaryItemExecutionListenerTest(testSpecification);
     // given:
     testSpecification.addListenerToElement(modelInstance, milestone);
 

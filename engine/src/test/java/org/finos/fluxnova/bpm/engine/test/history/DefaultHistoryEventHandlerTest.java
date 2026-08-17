@@ -29,36 +29,33 @@ import org.finos.fluxnova.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class DefaultHistoryEventHandlerTest {
 
-  @Parameterized.Parameters
   public static Iterable<Object> parameters() {
     return Arrays.asList(new Object[]{
         true, false
     });
   }
-
-  @Parameterized.Parameter
   public boolean isDefaultHandlerEnabled;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
     // given
     configuration.setEnableDefaultDbHistoryEventHandler(isDefaultHandlerEnabled);
     configuration.setCustomHistoryEventHandlers(Collections.singletonList(new CustomHistoryEventHandler()));
   });
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
-  @Test
-  public void shouldUseInstanceOfCompositeHistoryEventHandler() {
+  @MethodSource("parameters")
+  @ParameterizedTest
+  public void shouldUseInstanceOfCompositeHistoryEventHandler(boolean isDefaultHandlerEnabled) {
+    initDefaultHistoryEventHandlerTest(isDefaultHandlerEnabled);
     // when
     boolean useDefaultDbHandler = engineRule.getProcessEngineConfiguration()
         .isEnableDefaultDbHistoryEventHandler();
@@ -74,8 +71,10 @@ public class DefaultHistoryEventHandlerTest {
     }
   }
 
-  @Test
-  public void shouldProvideCustomHistoryEventHandlers() {
+  @MethodSource("parameters")
+  @ParameterizedTest
+  public void shouldProvideCustomHistoryEventHandlers(boolean isDefaultHandlerEnabled) {
+    initDefaultHistoryEventHandlerTest(isDefaultHandlerEnabled);
     // when
     List<HistoryEventHandler> eventHandlers = engineRule.getProcessEngineConfiguration().getCustomHistoryEventHandlers();
 
@@ -93,5 +92,9 @@ public class DefaultHistoryEventHandlerTest {
     @Override
     public void handleEvents(List<HistoryEvent> historyEvents) {
     }
+  }
+
+  public void initDefaultHistoryEventHandlerTest(boolean isDefaultHandlerEnabled) {
+    this.isDefaultHandlerEnabled = isDefaultHandlerEnabled;
   }
 }

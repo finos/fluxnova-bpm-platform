@@ -43,7 +43,8 @@ import org.finos.fluxnova.bpm.engine.variable.context.VariableContext;
 import org.finos.fluxnova.bpm.model.dmn.Dmn;
 import org.finos.fluxnova.bpm.model.dmn.DmnModelInstance;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Simple api test making sure the api methods are there and accept the right parameters

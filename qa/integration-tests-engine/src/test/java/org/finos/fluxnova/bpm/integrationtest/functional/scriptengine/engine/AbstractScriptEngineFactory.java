@@ -16,10 +16,12 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.scriptengine.engine;
 
+import java.io.BufferedReader;
 import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.script.AbstractScriptEngine;
 import javax.script.Bindings;
@@ -102,7 +104,10 @@ public abstract class AbstractScriptEngineFactory implements ScriptEngineFactory
 
       @Override
       public Object eval(Reader reader, ScriptContext context) throws ScriptException {
-        return null;
+          String script = new BufferedReader(reader)
+                  .lines()
+                  .collect(Collectors.joining("\n"));
+          return behavior.eval(script, context);
       }
 
       @Override

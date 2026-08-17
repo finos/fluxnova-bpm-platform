@@ -19,12 +19,11 @@ package org.finos.fluxnova.bpm.run.qa;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.CoreMatchers.is;
 import java.io.IOException;
-import javax.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.AfterClass;
-import org.junit.Test;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import io.restassured.response.Response;
 
@@ -32,7 +31,7 @@ public class ProductionConfigurationIT {
 
   static SpringBootManagedContainer container;
 
-  @AfterClass
+  @AfterAll
   public static void stopApp() {
     try {
       if (container != null) {
@@ -45,7 +44,7 @@ public class ProductionConfigurationIT {
     }
   }
 
-  @BeforeClass
+  @BeforeAll
   public static void runStartScript() throws IOException {
     container = new SpringBootManagedContainer("--production");
 
@@ -66,7 +65,7 @@ public class ProductionConfigurationIT {
 
     // then
     engineResponse.then()
-      .statusCode(Status.OK.getStatusCode())
+      .statusCode(200)
       .body("size()", is(1))
       .body("[0].name", is("production"));
   }

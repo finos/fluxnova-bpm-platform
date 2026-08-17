@@ -92,6 +92,8 @@ public class DbSqlSessionFactory implements SessionFactory {
 
   public static final Map<String, String> databaseSpecificDaysComparator = new HashMap<>();
 
+  public static final Map<String, String> databaseSpecificCoalesceForEndDate = new HashMap<>();
+
   public static final Map<String, String> databaseSpecificCollationForCaseSensitivity = new HashMap<>();
 
   public static final Map<String, String> databaseSpecificAuthJoinStart = new HashMap<>();
@@ -166,6 +168,8 @@ public class DbSqlSessionFactory implements SessionFactory {
 
     databaseSpecificDaysComparator.put(H2, "DATEDIFF(DAY, ${date}, #{currentTimestamp}) >= ${days}");
 
+    databaseSpecificCoalesceForEndDate.put(H2, "DATEDIFF(DAY, COALESCE(${preferredDate}, ${date}), #{currentTimestamp}) >= ${days}");
+
     databaseSpecificCollationForCaseSensitivity.put(H2, "");
 
     databaseSpecificAuthJoinStart.put(H2, defaultAuthOnStart);
@@ -229,6 +233,8 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(MYSQL, "IFNULL");
 
     databaseSpecificDaysComparator.put(MYSQL, "DATEDIFF(#{currentTimestamp}, ${date}) >= ${days}");
+
+    databaseSpecificCoalesceForEndDate.put(MYSQL, "DATEDIFF(#{currentTimestamp}, COALESCE(${preferredDate}, ${date})) >= ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(MYSQL, "");
 
@@ -484,6 +490,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     constants.put("constant.null.reporter", "CAST(NULL AS VARCHAR) AS REPORTER_");
     dbSpecificConstants.put(POSTGRES, constants);
     databaseSpecificDaysComparator.put(POSTGRES, "EXTRACT (DAY FROM #{currentTimestamp} - ${date}) >= ${days}");
+    databaseSpecificCoalesceForEndDate.put(POSTGRES, "EXTRACT (DAY FROM #{currentTimestamp} - COALESCE(${preferredDate}, ${date})) >= ${days}");
     databaseSpecificNumericCast.put(POSTGRES, "");
 
     // oracle
@@ -523,6 +530,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(ORACLE, "NVL");
 
     databaseSpecificDaysComparator.put(ORACLE, "${date} <= #{currentTimestamp} - ${days}");
+    databaseSpecificCoalesceForEndDate.put(ORACLE, "COALESCE(${preferredDate}, ${date}) <= #{currentTimestamp} - ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(ORACLE, "");
 
@@ -580,23 +588,21 @@ public class DbSqlSessionFactory implements SessionFactory {
     dbSpecificConstants.put(ORACLE, constants);
 
     // db2
-    databaseSpecificLimitBeforeStatements.put(DB2, "SELECT SUB.* FROM (");
+    databaseSpecificLimitBeforeStatements.put(DB2, "");
     optimizeDatabaseSpecificLimitBeforeWithoutOffsetStatements.put(DB2, "");
-    databaseSpecificInnerLimitAfterStatements.put(DB2, ")RES ) SUB WHERE SUB.rnk >= #{firstRow} AND SUB.rnk < #{lastRow}");
-    databaseSpecificLimitAfterStatements.put(DB2, databaseSpecificInnerLimitAfterStatements.get(DB2) + " ORDER BY SUB.rnk");
-    optimizeDatabaseSpecificLimitAfterWithoutOffsetStatements.put(DB2, "FETCH FIRST ${maxResults} ROWS ONLY");
-    String db2LimitBetweenWithoutColumns = ", row_number() over (ORDER BY ${internalOrderBy}) rnk FROM ( select distinct ";
-    databaseSpecificLimitBetweenStatements.put(DB2, db2LimitBetweenWithoutColumns + "RES.* ");
-    databaseSpecificLimitBetweenFilterStatements.put(DB2, db2LimitBetweenWithoutColumns + "RES.ID_, RES.REV_, RES.RESOURCE_TYPE_, RES.NAME_, RES.OWNER_ ");
-    databaseSpecificLimitBetweenAcquisitionStatements.put(DB2, db2LimitBetweenWithoutColumns
-        + "RES.ID_, RES.REV_, RES.TYPE_, RES.LOCK_EXP_TIME_, RES.LOCK_OWNER_, RES.EXCLUSIVE_, RES.ROOT_PROC_INST_ID_, RES.PROCESS_INSTANCE_ID_, RES.DUEDATE_, RES.PRIORITY_ ");
+    databaseSpecificLimitAfterStatements.put(DB2, "LIMIT #{maxResults} OFFSET #{firstResult}");
+    databaseSpecificInnerLimitAfterStatements.put(DB2, databaseSpecificLimitAfterStatements.get(DB2));
+    optimizeDatabaseSpecificLimitAfterWithoutOffsetStatements.put(DB2, "LIMIT #{maxResults}");
+    databaseSpecificLimitBetweenStatements.put(DB2, "");
+    databaseSpecificLimitBetweenFilterStatements.put(DB2, "");
+    databaseSpecificLimitBetweenAcquisitionStatements.put(DB2, "");
     databaseSpecificLimitBeforeInUpdate.put(DB2, "");
     databaseSpecificLimitAfterInUpdate.put(DB2, "");
     databaseSpecificLimitBeforeWithoutOffsetStatements.put(DB2, "");
-    databaseSpecificLimitAfterWithoutOffsetStatements.put(DB2, "FETCH FIRST ${maxResults} ROWS ONLY");
+    databaseSpecificLimitAfterWithoutOffsetStatements.put(DB2, "LIMIT #{maxResults}");
     databaseSpecificOrderByStatements.put(DB2, defaultOrderBy);
-    databaseSpecificLimitBeforeNativeQueryStatements.put(DB2, "SELECT SUB.* FROM ( select RES.* , row_number() over (ORDER BY ${internalOrderBy}) rnk FROM (");
-    databaseSpecificDistinct.put(DB2, "");
+    databaseSpecificLimitBeforeNativeQueryStatements.put(DB2, "");
+    databaseSpecificDistinct.put(DB2, "distinct");
     databaseSpecificNumericCast.put(DB2, "");
 
     databaseSpecificCountDistinctBeforeStart.put(DB2, defaultDistinctCountBeforeStart);
@@ -618,7 +624,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(DB2, "NVL");
 
     databaseSpecificDaysComparator.put(DB2, "${date} + ${days} DAYS <= #{currentTimestamp}");
-
+    databaseSpecificCoalesceForEndDate.put(DB2, "COALESCE(${preferredDate}, ${date}) + ${days} DAYS <= #{currentTimestamp}");
     databaseSpecificCollationForCaseSensitivity.put(DB2, "");
 
     databaseSpecificAuthJoinStart.put(DB2, defaultAuthOnStart);
@@ -717,6 +723,7 @@ public class DbSqlSessionFactory implements SessionFactory {
     databaseSpecificIfNull.put(MSSQL, "ISNULL");
 
     databaseSpecificDaysComparator.put(MSSQL, "DATEDIFF(DAY, ${date}, #{currentTimestamp}) >= ${days}");
+    databaseSpecificCoalesceForEndDate.put(MSSQL, "DATEDIFF(DAY, COALESCE(${preferredDate}, ${date}), #{currentTimestamp}) >= ${days}");
 
     databaseSpecificCollationForCaseSensitivity.put(MSSQL, "COLLATE Latin1_General_CS_AS");
 

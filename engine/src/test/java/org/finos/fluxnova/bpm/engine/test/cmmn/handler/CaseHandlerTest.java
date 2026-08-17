@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.handler;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.exception.NotValidException;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
@@ -30,9 +27,9 @@ import org.finos.fluxnova.bpm.engine.impl.cmmn.handler.CmmnHandlerContext;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.fluxnova.bpm.engine.impl.context.Context;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.DeploymentEntity;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -43,7 +40,7 @@ public class CaseHandlerTest extends CmmnElementHandlerTest {
   protected CaseHandler handler = new CaseHandler();
   protected CmmnHandlerContext context;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     context = new CmmnHandlerContext();
 
@@ -56,7 +53,7 @@ public class CaseHandlerTest extends CmmnElementHandlerTest {
     Context.setProcessEngineConfiguration(new StandaloneInMemProcessEngineConfiguration().setEnforceHistoryTimeToLive(false));
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     Context.removeProcessEngineConfiguration();
   }

@@ -16,14 +16,13 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-
 import org.finos.fluxnova.bpm.engine.rest.exception.ExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.exception.JsonMappingExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.exception.JsonParseExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.exception.ProcessEngineExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestExceptionHandler;
 import org.finos.fluxnova.bpm.engine.rest.hal.JacksonHalJsonProvider;
+import org.finos.fluxnova.bpm.engine.rest.mapper.FluxnovaJacksonJsonProvider;
 import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
 import org.finos.fluxnova.bpm.engine.rest.mapper.MultipartPayloadProvider;
 
@@ -47,7 +46,7 @@ public class FluxnovaRestResources {
     RESOURCE_CLASSES.add(DefaultProcessEngineRestServiceImpl.class);
 
     CONFIGURATION_CLASSES.add(JacksonConfigurator.class);
-    CONFIGURATION_CLASSES.add(JacksonJsonProvider.class);
+    CONFIGURATION_CLASSES.add(FluxnovaJacksonJsonProvider.class);
     CONFIGURATION_CLASSES.add(JsonMappingExceptionHandler.class);
     CONFIGURATION_CLASSES.add(JsonParseExceptionHandler.class);
     CONFIGURATION_CLASSES.add(ProcessEngineExceptionHandler.class);

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.webapp.impl.security;
 
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,8 +66,7 @@ public class SecurityActions {
       List<String> groupIds = null;
       List<String> tenantIds = null;
 
-      if (authentication instanceof UserAuthentication) {
-        UserAuthentication userAuthentication = (UserAuthentication) authentication;
+      if (authentication instanceof UserAuthentication userAuthentication) {
         groupIds = userAuthentication.getGroupIds();
         tenantIds = userAuthentication.getTenantIds();
       }

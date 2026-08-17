@@ -26,10 +26,10 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfig
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -41,19 +41,19 @@ public class ProcessDataLoggingContextMultipleEnginesTest {
 
   private static final String PROCESS = "process";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule().watch(PVM_LOGGER, DELEGATE_LOGGER).level(Level.DEBUG);
 
   protected ProcessEngine engine1;
   protected ProcessEngine engine2;
 
-  @Before
+  @BeforeEach
   public void startEngines() {
     engine1 = createProcessEngine("engine1");
     engine2 = createProcessEngine("engine2");
   }
 
-  @After
+  @AfterEach
   public void closeEngine1() {
     try {
       engine1.close();
@@ -63,7 +63,7 @@ public class ProcessDataLoggingContextMultipleEnginesTest {
     }
   }
 
-  @After
+  @AfterEach
   public void closeEngine2() {
     try {
       engine2.close();
@@ -121,7 +121,7 @@ public class ProcessDataLoggingContextMultipleEnginesTest {
     StandaloneInMemProcessEngineConfiguration processEngineConfiguration = new StandaloneInMemProcessEngineConfiguration();
 
     processEngineConfiguration.setProcessEngineName(name);
-    processEngineConfiguration.setJdbcUrl(String.format("jdbc:h2:mem:%s", name));
+    processEngineConfiguration.setJdbcUrl("jdbc:h2:mem:%s".formatted(name));
     processEngineConfiguration.setEnforceHistoryTimeToLive(false);
 
     return processEngineConfiguration.buildProcessEngine();

@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +27,8 @@ import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
 import org.apache.ibatis.logging.LogFactory;
+import org.opentest4j.AssertionFailedError;
+
 import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.DecisionService;
@@ -54,7 +58,10 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.slf4j.Logger;
 
-import junit.framework.AssertionFailedError;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.TestInfo;
 
 
 /**
@@ -69,7 +76,7 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
    *   * camunda-engine-spring
    *   * camunda-identity-ldap
    *
-   * It should be removed once those Test classes are migrated to JUnit 4.
+   * Migrated to JUnit 5.
    */
 
   private final static Logger LOG = TestLogger.TEST_LOGGER.getLogger();
@@ -100,46 +107,39 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
   protected ExternalTaskService externalTaskService;
   protected DecisionService decisionService;
 
+  // Store current test info for getName() method
+  protected TestInfo currentTestInfo;
+
   protected abstract void initializeProcessEngine();
 
   // Default: do nothing
   protected void closeDownProcessEngine() {
   }
 
-  @Override
-  public void runBare() throws Throwable {
+  @BeforeEach
+  public void setUp(TestInfo testInfo) throws Exception {
+    this.currentTestInfo = testInfo;
     initializeProcessEngine();
     if (repositoryService==null) {
       initializeServices();
     }
 
+    String methodName = testInfo.getTestMethod().isPresent()
+        ? testInfo.getTestMethod().get().getName()
+        : testInfo.getDisplayName();
+
+    boolean hasRequiredHistoryLevel = TestHelper.annotationRequiredHistoryLevelCheck(processEngine, getClass(), methodName);
+    boolean runsWithRequiredDatabase = TestHelper.annotationRequiredDatabaseCheck(processEngine, getClass(), methodName);
+
+    // ignore test case when current history level is too low or database doesn't match
+    if (hasRequiredHistoryLevel && runsWithRequiredDatabase) {
+      deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, getClass(), methodName);
+    }
+  }
+
+  @AfterEach
+  public void tearDown() throws Exception {
     try {
-
-      boolean hasRequiredHistoryLevel = TestHelper.annotationRequiredHistoryLevelCheck(processEngine, getClass(), getName());
-      boolean runsWithRequiredDatabase = TestHelper.annotationRequiredDatabaseCheck(processEngine, getClass(), getName());
-      // ignore test case when current history level is too low or database doesn't match
-      if (hasRequiredHistoryLevel && runsWithRequiredDatabase) {
-
-        deploymentId = TestHelper.annotationDeploymentSetUp(processEngine, getClass(), getName());
-
-        super.runBare();
-      }
-
-    }
-    catch (AssertionFailedError e) {
-      LOG.error("ASSERTION FAILED: " + e, e);
-      exception = e;
-      throw e;
-
-    }
-    catch (Throwable e) {
-      LOG.error("EXCEPTION: " + e, e);
-      exception = e;
-      throw e;
-
-    }
-    finally {
-
       identityService.clearAuthentication();
       processEngineConfiguration.setTenantCheckEnabled(true);
 
@@ -151,12 +151,24 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
       TestHelper.assertAndEnsureCleanDbAndCache(processEngine, exception == null);
       TestHelper.resetIdGenerator(processEngineConfiguration);
       ClockUtil.reset();
-
-      // Can't do this in the teardown, as the teardown will be called as part
-      // of the super.runBare
+    } finally {
       closeDownProcessEngine();
       clearServiceReferences();
+      exception = null;
+      currentTestInfo = null;
     }
+  }
+
+  protected String getName() {
+    // Return test method name if available, otherwise class name
+    if (currentTestInfo != null && currentTestInfo.getTestMethod().isPresent()) {
+      return currentTestInfo.getTestMethod().get().getName();
+    }
+    return getClass().getSimpleName();
+  }
+
+  protected void runTest() throws Throwable {
+    // subclasses or JUnit lifecycle will run the actual test
   }
 
   protected void deleteHistoryCleanupJobs() {
@@ -176,8 +188,8 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
       deploymentIds.add(deploymentId);
     }
 
-    for(String deploymentId : deploymentIds) {
-      TestHelper.annotationDeploymentTearDown(processEngine, deploymentId, getClass(), getName());
+    for(String id : deploymentIds) {
+      TestHelper.annotationDeploymentTearDown(processEngine, id, getClass(), getClass().getSimpleName());
     }
 
     deploymentId = null;
@@ -362,8 +374,8 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
     List<Job> jobs = managementService.createJobQuery().withRetriesLeft().list();
 
     if (jobs.isEmpty()) {
-      assertTrue("executed less jobs than expected. expected <" + expectedExecutions + "> actual <" + jobsExecuted + ">",
-          jobsExecuted == expectedExecutions || ignoreLessExecutions);
+      assertTrue(jobsExecuted == expectedExecutions || ignoreLessExecutions,
+          "executed less jobs than expected. expected <" + expectedExecutions + "> actual <" + jobsExecuted + ">");
       return;
     }
 
@@ -374,8 +386,8 @@ public abstract class AbstractProcessEngineTestCase extends PvmTestCase {
       } catch (Exception e) {}
     }
 
-    assertTrue("executed more jobs than expected. expected <" + expectedExecutions + "> actual <" + jobsExecuted + ">",
-        jobsExecuted <= expectedExecutions);
+    assertTrue(jobsExecuted <= expectedExecutions,
+        "executed more jobs than expected. expected <" + expectedExecutions + "> actual <" + jobsExecuted + ">");
 
     if (recursive) {
       executeAvailableJobs(jobsExecuted, expectedExecutions, ignoreLessExecutions, recursive);

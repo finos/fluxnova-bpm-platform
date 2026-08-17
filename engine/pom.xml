@@ -9,7 +9,7 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-database-settings</artifactId>
     <relativePath>../database</relativePath>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <dependencyManagement>
@@ -26,7 +26,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>${version.spring.framework6}</version>
+        <version>${version.spring.framework}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -85,6 +85,25 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-junit</artifactId>
+      <version>${version.hamcrest}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-junit</artifactId>
+      <version>${version.hamcrest}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.finos.fluxnova.commons</groupId>
@@ -94,6 +113,11 @@
     <dependency>
       <groupId>org.finos.fluxnova.commons</groupId>
       <artifactId>fluxnova-commons-typed-values</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -114,6 +138,12 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.15</version>
     </dependency>
 
     <!-- provided dependencies -->
@@ -156,7 +186,7 @@
     <dependency>
       <groupId>jakarta.transaction</groupId>
       <artifactId>jakarta.transaction-api</artifactId>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -168,12 +198,12 @@
     <dependency>
       <groupId>jakarta.ejb</groupId>
       <artifactId>jakarta.ejb-api</artifactId>
-      <scope>provided</scope>
+      <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>catalina</artifactId>
+      <artifactId>tomcat-catalina</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -186,14 +216,14 @@
 
     <dependency>
       <groupId>org.apache.commons</groupId>
-      <artifactId>commons-email</artifactId>
+      <artifactId>commons-email2-jakarta</artifactId>
       <scope>provided</scope>
+      <version>2.0.0-M1</version>
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
+      <groupId>com.cronutils</groupId>
+      <artifactId>cron-utils</artifactId>
     </dependency>
 
     <!-- test dependencies  -->
@@ -205,14 +235,21 @@
     </dependency>
 
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${version.mockito}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -286,7 +323,7 @@
 
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
+      <artifactId>wiremock-jre8</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -318,6 +355,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
       <scope>test</scope>
     </dependency>
 
@@ -340,6 +378,26 @@
       <version>0.24.0</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>${version.jakarta.activation}</version>
+      <scope>test</scope>
+    </dependency>
+  <dependency>
+   <groupId>jakarta.mail</groupId>
+   <artifactId>jakarta.mail-api</artifactId>
+   <scope>test</scope>
+  </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.angus</groupId>
+      <artifactId>angus-activation</artifactId>
+      <version>2.0.2</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
 
@@ -473,7 +531,7 @@
         <artifactId>maven-shade-plugin</artifactId>
         <configuration>
           <promoteTransitiveDependencies>false</promoteTransitiveDependencies>
-          <createSourcesJar>true</createSourcesJar>
+          <createSourcesJar>false</createSourcesJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
           <keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
           <artifactSet>
@@ -496,6 +554,10 @@
             <relocation>
               <pattern>com.google.gson</pattern>
               <shadedPattern>fluxnovajar.impl.com.google.gson</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.cronutils</pattern>
+              <shadedPattern>fluxnovajar.impl.com.cronutils</shadedPattern>
             </relocation>
           </relocations>
           <transformers>
@@ -570,14 +632,19 @@
       <id>distro</id>
       <build>
         <plugins>
-          <!-- Skip source plugin execution since maven-shade-plugin creates sources -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
               <execution>
-                <id>release-attach-sources</id>
-                <phase>none</phase>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+                <configuration>
+                  <skipSource>${releasePerform}</skipSource>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -708,7 +775,7 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>clirr-maven-plugin</artifactId>
             <configuration>
-              <comparisonVersion>${camunda.version.old}</comparisonVersion>
+              <comparisonVersion>${fluxnova.version.old}</comparisonVersion>
               <logResults>true</logResults>
               <excludes>
                 <exclude>org/finos/fluxnova/bpm/*/impl/**</exclude>

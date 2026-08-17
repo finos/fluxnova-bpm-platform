@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -41,9 +41,9 @@ import org.finos.fluxnova.bpm.engine.runtime.DeserializationTypeValidator;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 
 
 public abstract class AbstractVariablesResource implements VariableResource {
@@ -82,12 +82,12 @@ public abstract class AbstractVariablesResource implements VariableResource {
     } catch (AuthorizationException e) {
       throw e;
     } catch (ProcessEngineException e) {
-      String errorMessage = String.format("Cannot get %s variable %s: %s", getResourceTypeName(), variableName, e.getMessage());
+      String errorMessage = "Cannot get %s variable %s: %s".formatted(getResourceTypeName(), variableName, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
     }
 
     if (value == null) {
-      String errorMessage = String.format("%s variable with name %s does not exist", getResourceTypeName(), variableName);
+      String errorMessage = "%s variable with name %s does not exist".formatted(getResourceTypeName(), variableName);
       throw new InvalidRequestException(Status.NOT_FOUND, errorMessage);
     }
     return value;
@@ -107,15 +107,15 @@ public abstract class AbstractVariablesResource implements VariableResource {
 
     } catch (RestException e) {
       throw new InvalidRequestException(e.getStatus(), e,
-        String.format("Cannot put %s variable %s: %s", getResourceTypeName(), variableName, e.getMessage()));
+        "Cannot put %s variable %s: %s".formatted(getResourceTypeName(), variableName, e.getMessage()));
     } catch (BadUserRequestException e) {
       throw new RestException(Status.BAD_REQUEST, e,
-        String.format("Cannot put %s variable %s: %s", getResourceTypeName(), variableName, e.getMessage()));
+        "Cannot put %s variable %s: %s".formatted(getResourceTypeName(), variableName, e.getMessage()));
     } catch (AuthorizationException e) {
       throw e;
     } catch (ProcessEngineException e) {
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e,
-          String.format("Cannot put %s variable %s: %s", getResourceTypeName(), variableName, e.getMessage()));
+        "Cannot put %s variable %s: %s".formatted(getResourceTypeName(), variableName, e.getMessage()));
     }
   }
 
@@ -159,7 +159,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
       } catch (AuthorizationException e) {
         throw e;
       } catch (ProcessEngineException e) {
-        String errorMessage = String.format("Cannot put %s variable %s: %s", getResourceTypeName(), variableKey, e.getMessage());
+        String errorMessage = "Cannot put %s variable %s: %s".formatted(getResourceTypeName(), variableKey, e.getMessage());
         throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
       }
     }
@@ -167,7 +167,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
 
   protected Object deserializeJsonObject(String className, byte[] data) {
     try {
-      JavaType type = TypeFactory.defaultInstance().constructFromCanonical(className);
+      JavaType type = TypeFactory.createDefaultInstance().constructFromCanonical(className);
       validateType(type);
       return objectMapper.readValue(new String(data, Charset.forName("UTF-8")), type);
     } catch(Exception e) {
@@ -225,7 +225,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
     } catch (AuthorizationException e) {
       throw e;
     } catch (ProcessEngineException e) {
-      String errorMessage = String.format("Cannot delete %s variable %s: %s", getResourceTypeName(), variableName, e.getMessage());
+      String errorMessage = "Cannot delete %s variable %s: %s".formatted(getResourceTypeName(), variableName, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
     }
 
@@ -238,7 +238,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
       variableModifications = VariableValueDto.toMap(patch.getModifications(), engine, objectMapper);
 
     } catch (RestException e) {
-      String errorMessage = String.format("Cannot modify variables for %s: %s", getResourceTypeName(), e.getMessage());
+      String errorMessage = "Cannot modify variables for %s: %s".formatted(getResourceTypeName(), e.getMessage());
       throw new InvalidRequestException(e.getStatus(), e, errorMessage);
 
     }
@@ -250,7 +250,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
     } catch (AuthorizationException e) {
       throw e;
     } catch (ProcessEngineException e) {
-      String errorMessage = String.format("Cannot modify variables for %s %s: %s", getResourceTypeName(), resourceId, e.getMessage());
+      String errorMessage = "Cannot modify variables for %s %s: %s".formatted(getResourceTypeName(), resourceId, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
     }
 

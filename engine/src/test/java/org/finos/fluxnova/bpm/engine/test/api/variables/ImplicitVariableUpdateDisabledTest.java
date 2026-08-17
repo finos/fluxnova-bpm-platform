@@ -24,21 +24,20 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ImplicitVariableUpdateDisabledTest {
 
-  @ClassRule
+  @RegisterExtension
   public static final ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(
       c -> c.setImplicitVariableUpdateDetectionEnabled(false) // turn off implicit variable update detection.
   );
@@ -46,12 +45,12 @@ public class ImplicitVariableUpdateDisabledTest {
   private final ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   private final ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public final RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public final ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void createProcessEngine() {
     runtimeService = engineRule.getRuntimeService();
   }

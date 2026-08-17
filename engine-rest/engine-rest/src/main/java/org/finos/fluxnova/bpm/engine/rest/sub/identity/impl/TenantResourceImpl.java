@@ -22,9 +22,9 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.TENANT;
 
 import java.net.URI;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.identity.Tenant;
@@ -36,7 +36,7 @@ import org.finos.fluxnova.bpm.engine.rest.sub.identity.TenantGroupMembersResourc
 import org.finos.fluxnova.bpm.engine.rest.sub.identity.TenantResource;
 import org.finos.fluxnova.bpm.engine.rest.sub.identity.TenantUserMembersResource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;;
+import tools.jackson.databind.ObjectMapper;
 
 public class TenantResourceImpl extends AbstractIdentityResource implements TenantResource {
 

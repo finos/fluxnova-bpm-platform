@@ -16,8 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.concurrency;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 
@@ -32,10 +31,10 @@ import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 import org.slf4j.Logger;
 
 /**
@@ -49,8 +48,8 @@ public class ConcurrentVariableUpdateTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
@@ -59,7 +58,7 @@ public class ConcurrentVariableUpdateTest {
   protected static ControllableThread activeThread;
 
 
-  @Before
+  @BeforeEach
   public void initializeServices() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -155,6 +154,15 @@ public class ConcurrentVariableUpdateTest {
 
     assertNull(thread1.optimisticLockingException);
     assertNotNull(thread2.optimisticLockingException);
+    String msg = thread2.optimisticLockingException.getMessage();
+    assertTrue(msg.contains("Entity was updated by another transaction concurrently."));
+    assertTrue(msg.contains("TenantId:"));
+    assertTrue(msg.contains("ProcessDefinitionId:"));
+    assertTrue(msg.contains("ProcessInstanceId:"));
+    assertTrue(msg.contains("ExecutionId:"));
+    assertTrue(msg.contains("ActivityId:"));
+    assertTrue(msg.contains("ActivityName:"));
+    assertTrue(msg.contains("JobId:"));
 
     // succeeds
     taskService.complete(taskId);
@@ -184,6 +192,15 @@ public class ConcurrentVariableUpdateTest {
 
     assertNull(thread1.optimisticLockingException);
     assertNotNull(thread2.optimisticLockingException);
+    String msg = thread2.optimisticLockingException.getMessage();
+    assertTrue(msg.contains("Entity was updated by another transaction concurrently."));
+    assertTrue(msg.contains("TenantId:"));
+    assertTrue(msg.contains("ProcessDefinitionId:"));
+    assertTrue(msg.contains("ProcessInstanceId:"));
+    assertTrue(msg.contains("ExecutionId:"));
+    assertTrue(msg.contains("ActivityId:"));
+    assertTrue(msg.contains("ActivityName:"));
+    assertTrue(msg.contains("JobId:"));
 
     // succeeds
     taskService.complete(taskId);

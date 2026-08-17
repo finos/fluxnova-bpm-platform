@@ -21,21 +21,17 @@ import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification.AbstractExecutionListenerSpec;
 import org.finos.fluxnova.bpm.model.cmmn.instance.HumanTask;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 
 /**
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Parameterized.class)
 public class HumanTaskPlanItemExecutionListenerHandlerTest extends CmmnElementHandlerTest {
 
-  @Parameters(name = "testListener: {0}")
   public static Iterable<Object[]> data() {
     return ExecutionListenerCases.TASK_OR_STAGE_CASES;
   }
@@ -46,11 +42,11 @@ public class HumanTaskPlanItemExecutionListenerHandlerTest extends CmmnElementHa
 
   protected AbstractExecutionListenerSpec testSpecification;
 
-  public HumanTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
+  public void initHumanTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
     this.testSpecification = testSpecification;
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     humanTask = createElement(casePlanModel, "aHumanTask", HumanTask.class);
 
@@ -59,8 +55,10 @@ public class HumanTaskPlanItemExecutionListenerHandlerTest extends CmmnElementHa
 
   }
 
-  @Test
-  public void testCaseExecutionListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "testListener: {0}")
+  public void testCaseExecutionListener(AbstractExecutionListenerSpec testSpecification) {
+    initHumanTaskPlanItemExecutionListenerHandlerTest(testSpecification);
     // given:
     testSpecification.addListenerToElement(modelInstance, humanTask);
 

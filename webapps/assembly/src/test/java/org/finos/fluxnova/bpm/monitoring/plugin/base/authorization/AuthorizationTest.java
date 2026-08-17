@@ -40,8 +40,9 @@ import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Roman Smirnov
@@ -63,7 +64,7 @@ public abstract class AuthorizationTest extends AbstractMonitoringPluginTest {
   protected User user;
   protected Group group;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.before();
 
@@ -85,7 +86,7 @@ public abstract class AuthorizationTest extends AbstractMonitoringPluginTest {
     enableAuthorization();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     disableAuthorization();
     for (User user : identityService.createUserQuery().list()) {

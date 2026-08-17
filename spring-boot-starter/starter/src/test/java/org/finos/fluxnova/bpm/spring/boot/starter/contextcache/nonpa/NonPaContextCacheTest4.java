@@ -20,12 +20,11 @@ import org.finos.fluxnova.bpm.engine.ProcessEngines;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.spring.boot.starter.contextcache.AbstractContextCacheTest;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.AbstractAssertions.init;
@@ -38,7 +37,6 @@ import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.AbstractAsserti
  *
  * @author Nikola Koevski
  */
-@RunWith(SpringRunner.class)
 @ActiveProfiles("contextcaching")
 @SpringBootTest(
   classes = { TestApplication.class },
@@ -51,7 +49,7 @@ import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.AbstractAsserti
 )
 public class NonPaContextCacheTest4 extends AbstractContextCacheTest {
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.testName = "nonPaTest4";
     this.contextMap.put(this.testName, applicationContext.hashCode());

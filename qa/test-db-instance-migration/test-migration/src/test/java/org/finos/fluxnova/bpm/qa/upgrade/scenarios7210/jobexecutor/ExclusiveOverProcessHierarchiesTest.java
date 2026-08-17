@@ -33,7 +33,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.List;
@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Origin("7.20.0")
 public class ExclusiveOverProcessHierarchiesTest {
 
-    @Rule
+    @RegisterExtension
     public final UpgradeTestRule engineRule = new UpgradeTestRule();
 
     RuntimeService runtimeService;

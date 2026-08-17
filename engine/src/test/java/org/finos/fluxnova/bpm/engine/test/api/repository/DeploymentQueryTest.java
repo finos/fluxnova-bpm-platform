@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -31,9 +28,9 @@ import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentQuery;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -45,7 +42,7 @@ public class DeploymentQueryTest extends PluggableProcessEngineTest {
   private String deploymentOneId;
   private String deploymentTwoId;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     deploymentOneId = repositoryService
       .createDeployment()
@@ -65,7 +62,7 @@ public class DeploymentQueryTest extends PluggableProcessEngineTest {
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
 
     repositoryService.deleteDeployment(deploymentOneId, true);

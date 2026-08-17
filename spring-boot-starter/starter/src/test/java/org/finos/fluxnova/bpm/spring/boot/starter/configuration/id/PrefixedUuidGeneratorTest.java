@@ -17,16 +17,14 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.configuration.id;
 
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PrefixedUuidGeneratorTest {
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-  @Rule
-  public final ExpectedException thrown = ExpectedException.none();
+public class PrefixedUuidGeneratorTest {
 
   @Test
   public void prefixed_uuid() throws Exception {
@@ -37,10 +35,11 @@ public class PrefixedUuidGeneratorTest {
   }
 
   @Test
-  public void fails_on_null() throws Exception {
-    thrown.expect(NullPointerException.class);
-    thrown.expectMessage("spring.application.name");
+  public void fails_on_null() {
+    Throwable exception = assertThrows(NullPointerException.class, () -> {
 
-    new PrefixedUuidGenerator(null);
+      new PrefixedUuidGenerator(null);
+    });
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("spring.application.name"));
   }
 }

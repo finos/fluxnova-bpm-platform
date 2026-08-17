@@ -16,7 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl;
 
-import javax.ws.rs.core.Response.Status;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -25,6 +29,9 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.rest.dto.CreateIncidentDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.VariableValueDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.AdHocSubProcessCompletionDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.AdHocActivitiesTriggerDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.AdHocActivityTriggerInstructionDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ExecutionDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ExecutionTriggerDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.IncidentDto;
@@ -37,7 +44,7 @@ import org.finos.fluxnova.bpm.engine.runtime.Execution;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class ExecutionResourceImpl implements ExecutionResource {
 
@@ -71,7 +78,7 @@ public class ExecutionResourceImpl implements ExecutionResource {
       runtimeService.signal(executionId, variables);
 
     } catch (RestException e) {
-      String errorMessage = String.format("Cannot signal execution %s: %s", executionId, e.getMessage());
+      String errorMessage = "Cannot signal execution %s: %s".formatted(executionId, e.getMessage());
       throw new InvalidRequestException(e.getStatus(), e, errorMessage);
 
     } catch (AuthorizationException e) {
@@ -79,6 +86,70 @@ public class ExecutionResourceImpl implements ExecutionResource {
 
     } catch (ProcessEngineException e) {
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, "Cannot signal execution " + executionId + ": " + e.getMessage());
+
+    }
+  }
+
+  @Override
+  public void triggerAdHocActivities(AdHocActivitiesTriggerDto triggerDto) {
+    RuntimeService runtimeService = engine.getRuntimeService();
+    try {
+      Collection<String> activityIds = new ArrayList<>();
+      Map<String, Map<String, Object>> activityVariables = new LinkedHashMap<>();
+
+      if (triggerDto != null && triggerDto.getActivities() != null) {
+        for (AdHocActivityTriggerInstructionDto instruction : triggerDto.getActivities()) {
+          if (instruction == null) {
+            continue;
+          }
+
+          String activityId = instruction.getActivityId();
+          activityIds.add(activityId);
+
+          Map<String, VariableValueDto> variables = instruction.getVariables();
+          Map<String, Object> convertedVariables = VariableValueDto.toMap(variables, engine, objectMapper);
+          activityVariables.put(activityId, convertedVariables);
+        }
+      }
+
+      runtimeService.triggerAdHocActivities(executionId, activityIds, activityVariables);
+
+    } catch (RestException e) {
+      String errorMessage = String.format("Cannot trigger ad-hoc activities for execution %s: %s", executionId, e.getMessage());
+      throw new InvalidRequestException(e.getStatus(), e, errorMessage);
+
+    } catch (AuthorizationException e) {
+      throw e;
+
+    } catch (ProcessEngineException e) {
+      throw new RestException(Status.INTERNAL_SERVER_ERROR, e,
+          "Cannot trigger ad-hoc activities for execution " + executionId + ": " + e.getMessage());
+
+    }
+  }
+
+  @Override
+  public void completeAdHocSubProcess(AdHocSubProcessCompletionDto completionDto) {
+    RuntimeService runtimeService = engine.getRuntimeService();
+    try {
+      Map<String, VariableValueDto> variables = completionDto != null ? completionDto.getVariables() : null;
+      Map<String, Object> convertedVariables = VariableValueDto.toMap(variables, engine, objectMapper);
+      runtimeService.completeAdHocSubProcess(executionId, convertedVariables);
+
+    } catch (RestException e) {
+      String errorMessage = String.format("Cannot complete ad-hoc subprocess for execution %s: %s", executionId, e.getMessage());
+      throw new InvalidRequestException(e.getStatus(), e, errorMessage);
+
+    } catch (BadUserRequestException e) {
+      throw new InvalidRequestException(Status.BAD_REQUEST, e,
+          "Cannot complete ad-hoc subprocess for execution " + executionId + ": " + e.getMessage());
+
+    } catch (AuthorizationException e) {
+      throw e;
+
+    } catch (ProcessEngineException e) {
+      throw new RestException(Status.INTERNAL_SERVER_ERROR, e,
+          "Cannot complete ad-hoc subprocess for execution " + executionId + ": " + e.getMessage());
 
     }
   }

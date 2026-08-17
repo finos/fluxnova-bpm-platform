@@ -42,6 +42,10 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClassNameUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
+import org.finos.fluxnova.bpm.engine.impl.db.entitymanager.operation.DbEntityOperation;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
+import org.finos.fluxnova.bpm.engine.impl.context.Context;
 
 /**
  * @author Stefan Hentschel.
@@ -135,11 +139,62 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
   }
 
   public OptimisticLockingException concurrentUpdateDbEntityException(DbOperation operation) {
-    return new OptimisticLockingException(exceptionMessage(
-      "005",
-      "Execution of '{}' failed. Entity was updated by another transaction concurrently.",
-      operation
-    ));
+	DbEntity entity = null;
+	if (operation instanceof DbEntityOperation entityOperation) {
+	   entity = entityOperation.getEntity();
+	}
+
+	String activityId = null;
+	String activityName = null;
+	String processInstanceId = null;
+	String processDefinitionId = null;
+	String jobId = null;
+	String executionId = null;
+	String tenantId = null;
+	Map<String, Object> variables = null;
+		
+	if (entity instanceof ExecutionEntity execution) {
+       activityId = execution.getActivityId();
+	   activityName = execution.getActivity() != null ? execution.getActivity().getName() : null;
+	   processInstanceId = execution.getProcessInstanceId();
+	   processDefinitionId = execution.getProcessDefinitionId();
+	   tenantId = execution.getTenantId();
+	   executionId = execution.getId();
+	   variables = execution.getVariables();
+	} else if (entity instanceof JobEntity job) {
+	   jobId = job.getId();
+	   processInstanceId = job.getProcessInstanceId();
+	   processDefinitionId = job.getProcessDefinitionId();
+	   tenantId = job.getTenantId();
+	   executionId = job.getExecutionId();
+					
+	} else if (entity instanceof VariableInstanceEntity variable) {
+	   processInstanceId = variable.getProcessInstanceId();
+	   processDefinitionId = variable.getProcessDefinitionId();
+	   tenantId = variable.getTenantId();
+	   executionId = variable.getExecutionId();
+	   variables = Map.of(variable.getName(), variable.getTypedValue(false).getValue());
+		  	   
+	} else if(entity instanceof TaskEntity task) {
+	   processInstanceId = task.getProcessInstanceId();
+	   executionId = task.getExecutionId();
+	   processDefinitionId = task.getProcessDefinitionId();
+	   tenantId = task.getTenantId();
+	   variables = task.getVariables();
+    }
+	if (executionId != null && Context.getCommandContext() != null) {
+	    ExecutionEntity exec = Context.getCommandContext().getExecutionManager().findExecutionById(executionId);
+		  if (exec != null) {
+		    activityId = exec.getActivityId();
+		    activityName = exec.getActivity() != null ? exec.getActivity().getName() : null;
+		  }
+	}
+
+	return new OptimisticLockingException(exceptionMessage(
+	   "005", "Execution of '{}' failed. Entity was updated by another transaction concurrently.TenantId: {}, ProcessDefinitionId: {}, "
+		   + "ProcessInstanceId: {}, ExecutionId: {}, ActivityId: {}, ActivityName: {}, JobId: {}, Variables: {}",operation, 
+		   tenantId, processDefinitionId, processInstanceId, executionId, activityId, activityName, jobId, variables ));		 
+		 
   }
 
   public void flushedCacheState(List<CachedDbEntity> cachedEntities) {
@@ -169,8 +224,7 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
         message = "null";
       }
 
-      if(parameter instanceof DbEntity) {
-        DbEntity dbEntity = (DbEntity) parameter;
+      if(parameter instanceof DbEntity dbEntity) {
         message = ClassNameUtil.getClassNameWithoutPackage(dbEntity) + "[id=" + dbEntity.getId() + "]";
       }
 
@@ -261,10 +315,11 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
   public ProcessEngineException invokeSchemaResourceToolException(int length) {
     return new ProcessEngineException(exceptionMessage(
       "022",
-      "Schema resource tool was invoked with '{}' parameters." +
-      "Schema resource tool must be invoked with exactly 2 parameters:" +
-      "\n - 1st parameter is the process engine configuration file," +
-      "\n - 2nd parameter is the schema resource file name",
+      """
+      Schema resource tool was invoked with '{}' parameters.\
+      Schema resource tool must be invoked with exactly 2 parameters:
+       - 1st parameter is the process engine configuration file,
+       - 2nd parameter is the schema resource file name""",
       length
     ));
   }
@@ -807,14 +862,23 @@ public class EnginePersistenceLogger extends ProcessEngineLogger {
     );
   }
 
+  public void logFormKeyExpressionEvaluationException(String taskId, String expression, Exception cause) {
+    logWarn(
+      "111",
+      "Failed to evaluate form key expression '{}' for task '{}'. The form key will be set to null. Cause: {}",
+      expression,
+      taskId,
+      cause.getMessage()
+    );
+  }
+
   // exception code 110 is already taken. See requiredCamundaAdminOrPermissionException() for details.
 
   public static List<SQLException> findRelatedSqlExceptions(Throwable exception) {
     List<SQLException> sqlExceptionList = new ArrayList<>();
     Throwable cause = exception;
     do {
-      if (cause instanceof SQLException) {
-        SQLException sqlEx = (SQLException) cause;
+      if (cause instanceof SQLException sqlEx) {
         sqlExceptionList.add(sqlEx);
         while (sqlEx.getNextException() != null) {
           sqlExceptionList.add(sqlEx.getNextException());

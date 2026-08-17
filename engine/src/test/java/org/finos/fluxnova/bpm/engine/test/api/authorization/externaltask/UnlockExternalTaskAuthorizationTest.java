@@ -22,21 +22,21 @@ import org.finos.fluxnova.bpm.engine.externaltask.ExternalTask;
 import org.finos.fluxnova.bpm.engine.externaltask.LockedExternalTask;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Thorben Lindhauer
- *
  */
-@RunWith(Parameterized.class)
 public class UnlockExternalTaskAuthorizationTest extends HandleExternalTaskAuthorizationTest {
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/externaltask/oneExternalTaskProcess.bpmn20.xml")
-  public void testSetJobPriority() {
+  public void testSetJobPriority(AuthorizationScenario scenario) {
+    this.scenario = scenario;
 
     // given
     ProcessInstance processInstance = engineRule.getRuntimeService().startProcessInstanceByKey("oneExternalTaskProcess");
@@ -60,7 +60,7 @@ public class UnlockExternalTaskAuthorizationTest extends HandleExternalTaskAutho
     // then
     if (authRule.assertScenario(scenario)) {
       ExternalTask externalTask = engineRule.getExternalTaskService().createExternalTaskQuery().singleResult();
-      Assert.assertNull(externalTask.getLockExpirationTime());
+      Assertions.assertNull(externalTask.getLockExpirationTime());
     }
   }
 

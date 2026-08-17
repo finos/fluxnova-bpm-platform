@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 
 import java.net.URI;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;

@@ -7,6 +7,7 @@ runs:
       env:
         MAVEN_OPTS: "-Xmx8g"
         MAVEN_CONFIG: ~/.m2/repository
+        JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70.0"
       shell: bash
       run: |
-        mvn clean install -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2 -DargLine="-XX:MaxRAMPercentage=70.0" -s ./settings.xml
+        mvn -B -e verify -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2

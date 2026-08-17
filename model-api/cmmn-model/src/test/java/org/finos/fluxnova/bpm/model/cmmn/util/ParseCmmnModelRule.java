@@ -21,25 +21,18 @@ import java.io.InputStream;
 import org.finos.fluxnova.bpm.model.cmmn.Cmmn;
 import org.finos.fluxnova.bpm.model.cmmn.CmmnModelInstance;
 import org.finos.fluxnova.bpm.model.xml.impl.util.IoUtil;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-/**
- * @author Daniel Meyer
- * @author Roman Smirnov
- *
- */
-public class ParseCmmnModelRule extends TestWatcher {
+public class ParseCmmnModelRule implements BeforeEachCallback {
 
   protected CmmnModelInstance CmmnModelInstance;
 
   @Override
-  protected void starting(Description description) {
-
-    if(description.getAnnotation(CmmnModelResource.class) != null) {
-
-      Class<?> testClass = description.getTestClass();
-      String methodName = description.getMethodName();
+  public void beforeEach(ExtensionContext context) {
+    if (context.getRequiredTestMethod().getAnnotation(CmmnModelResource.class) != null) {
+      Class<?> testClass = context.getRequiredTestClass();
+      String methodName = context.getRequiredTestMethod().getName();
 
       String resourceFolderName = testClass.getName().replaceAll("\\.", "/");
       String cmmnResourceName = resourceFolderName + "." + methodName + ".cmmn";
@@ -50,13 +43,10 @@ public class ParseCmmnModelRule extends TestWatcher {
       } finally {
         IoUtil.closeSilently(resourceAsStream);
       }
-
     }
-
   }
 
   public CmmnModelInstance getCmmnModel() {
     return CmmnModelInstance;
   }
-
 }

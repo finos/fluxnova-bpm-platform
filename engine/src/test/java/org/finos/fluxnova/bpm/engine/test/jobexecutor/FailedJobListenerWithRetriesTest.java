@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,39 +38,30 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class FailedJobListenerWithRetriesTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule();
 
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
-
-  @Parameterized.Parameter(0)
   public int failedRetriesNumber;
-
-  @Parameterized.Parameter(1)
   public int jobRetries;
-
-  @Parameterized.Parameter(2)
   public boolean jobLocked;
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     processEngineConfiguration.setFailedJobCommandFactory(new OLEFailedJobCommandFactory());
@@ -80,7 +69,6 @@ public class FailedJobListenerWithRetriesTest {
     runtimeService = engineRule.getRuntimeService();
   }
 
-  @Parameterized.Parameters
   public static Collection<Object[]> scenarios() {
     return Arrays.asList(new Object[][] {
         { 4, 0, false },
@@ -89,9 +77,11 @@ public class FailedJobListenerWithRetriesTest {
     });
   }
 
-  @Test
+  @ParameterizedTest
   @org.finos.fluxnova.bpm.engine.test.Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/mgmt/IncidentTest.testShouldCreateOneIncident.bpmn"})
-  public void testFailedJobListenerRetries() {
+  @MethodSource("scenarios")
+  public void testFailedJobListenerRetries(int failedRetriesNumber, int jobRetries, boolean jobLocked) {
+    initFailedJobListenerWithRetriesTest(failedRetriesNumber, jobRetries, jobLocked);
     //given
     runtimeService.startProcessInstanceByKey("failingProcess");
 
@@ -173,5 +163,11 @@ public class FailedJobListenerWithRetriesTest {
       }
       return super.execute(commandContext);
     }
+  }
+
+  public void initFailedJobListenerWithRetriesTest(int failedRetriesNumber, int jobRetries, boolean jobLocked) {
+    this.failedRetriesNumber = failedRetriesNumber;
+    this.jobRetries = jobRetries;
+    this.jobLocked = jobLocked;
   }
 }

@@ -31,31 +31,25 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 public class FoxJobRetryCmdEventsTest {
 
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
-
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
   public RetryCmdDeployment deployment;
 
-  @Parameterized.Parameters(name = "deployment {index}")
   public static Collection<RetryCmdDeployment[]> scenarios() {
     return RetryCmdDeployment.asParameters(
         deployment()
@@ -71,20 +65,20 @@ public class FoxJobRetryCmdEventsTest {
 
   private Deployment currentDeployment;
 
-  @Before
-  public void setUp () {
-    currentDeployment = testRule.deploy(deployment.getBpmnModelInstances());
-  }
-
-  @Test
-  public void testFailedIntermediateThrowingSignalEventAsync () {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "deployment {index}")
+  public void testFailedIntermediateThrowingSignalEventAsync(RetryCmdDeployment deployment) {
+    initFoxJobRetryCmdEventsTest(deployment);
+    currentDeployment = testRule.deploy(this.deployment.getBpmnModelInstances());
     ProcessInstance pi = engineRule.getRuntimeService().startProcessInstanceByKey(RetryCmdDeployment.PROCESS_ID);
     assertJobRetries(pi);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
-    engineRule.getRepositoryService().deleteDeployment(currentDeployment.getId(),true,true);
+    if (currentDeployment != null) {
+      engineRule.getRepositoryService().deleteDeployment(currentDeployment.getId(),true,true);
+    }
   }
 
   protected void assertJobRetries(ProcessInstance pi) {
@@ -104,6 +98,10 @@ public class FoxJobRetryCmdEventsTest {
 
   protected Job fetchJob(String processInstanceId) {
     return engineRule.getManagementService().createJobQuery().processInstanceId(processInstanceId).singleResult();
+  }
+
+  public void initFoxJobRetryCmdEventsTest(RetryCmdDeployment deployment) {
+    this.deployment = deployment;
   }
 
 

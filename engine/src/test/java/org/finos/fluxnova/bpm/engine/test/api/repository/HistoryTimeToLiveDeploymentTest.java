@@ -37,11 +37,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class HistoryTimeToLiveDeploymentTest {
 
@@ -57,10 +57,10 @@ public class HistoryTimeToLiveDeploymentTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule()
       .watch(CONFIG_LOGGER)
       .level(Level.DEBUG);
@@ -72,7 +72,7 @@ public class HistoryTimeToLiveDeploymentTest {
 
   protected String historyTimeToLive;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngine = engineRule.getProcessEngine();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -83,7 +83,7 @@ public class HistoryTimeToLiveDeploymentTest {
     processEngineConfiguration.setEnforceHistoryTimeToLive(true);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     processEngineConfiguration.setHistoryTimeToLive(historyTimeToLive);
     processEngineConfiguration.setEnforceHistoryTimeToLive(false);
@@ -92,10 +92,10 @@ public class HistoryTimeToLiveDeploymentTest {
 
   @Test
   public void processWithoutHTTLShouldFail() {
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
       testRule.deploy(repositoryService.createDeployment()
-          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/version1.bpmn20.xml"));})
+          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/version1.bpmn20.xml")))
 
         // then
         .isInstanceOf(ParseException.class)
@@ -134,10 +134,10 @@ public class HistoryTimeToLiveDeploymentTest {
 
   @Test
   public void caseWithoutHTTLShouldFail() {
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
       testRule.deploy(repositoryService.createDeployment()
-          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/cmmn/oneTaskCase2.cmmn"));})
+          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/cmmn/oneTaskCase2.cmmn")))
 
         // then
         .isInstanceOf(ProcessEngineException.class)
@@ -160,11 +160,11 @@ public class HistoryTimeToLiveDeploymentTest {
 
   @Test
   public void decisionWithoutHTTLShouldFail() {
-    assertThatThrownBy(() -> {
+    assertThatThrownBy(() ->
       // when
       testRule.deploy(repositoryService
           .createDeployment()
-          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/dmn/Another_Example.dmn"));})
+          .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/dmn/Another_Example.dmn")))
 
         // then
         .isInstanceOf(ProcessEngineException.class)

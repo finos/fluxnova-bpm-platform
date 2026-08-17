@@ -34,18 +34,14 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.util.SignalEvent
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.util.TimerEventFactory;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Parameterized.class)
 public class MigrationBoundaryEventsParameterizedTest {
 
   public static final String AFTER_BOUNDARY_TASK = "afterBoundary";
@@ -64,7 +60,6 @@ public class MigrationBoundaryEventsParameterizedTest {
   public static final String USER_TASK_2_ID = "userTask2";
   public static final String SUB_PROCESS_ID = "subProcess";
 
-  @Parameters
   public static Collection<Object[]> data() {
       return Arrays.asList(new Object[][] {
                new Object[]{ new TimerEventFactory() },
@@ -73,21 +68,21 @@ public class MigrationBoundaryEventsParameterizedTest {
                new Object[]{ new ConditionalEventFactory() }
          });
   }
-
-  @Parameter
   public BpmnEventFactory eventFactory;
 
 
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   // tests ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  @Test
-  public void testMigrateBoundaryEventOnUserTask() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnUserTask(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.ONE_TASK_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -121,8 +116,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventOnUserTaskAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnUserTaskAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.ONE_TASK_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -155,8 +152,10 @@ public class MigrationBoundaryEventsParameterizedTest {
   }
 
 
-  @Test
-  public void testMigrateBoundaryEventOnConcurrentUserTask() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnConcurrentUserTask(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_GATEWAY_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -194,8 +193,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventOnConcurrentUserTaskAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnConcurrentUserTaskAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_GATEWAY_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -231,8 +232,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventOnConcurrentScopeUserTask() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnConcurrentScopeUserTask(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_SCOPE_TASKS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -270,8 +273,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventOnConcurrentScopeUserTaskAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventOnConcurrentScopeUserTaskAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_SCOPE_TASKS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -307,8 +312,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToSubProcess() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToSubProcess(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -343,8 +350,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToSubProcessAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToSubProcessAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -377,8 +386,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToSubProcessWithScopeUserTask() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToSubProcessWithScopeUserTask(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.SCOPE_TASK_SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -413,8 +424,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToSubProcessWithScopeUserTaskAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToSubProcessWithScopeUserTaskAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.SCOPE_TASK_SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -447,8 +460,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToParallelSubProcess() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToParallelSubProcess(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -486,8 +501,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMigrateBoundaryEventToParallelSubProcessAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateBoundaryEventToParallelSubProcessAndTriggerEvent(BpmnEventFactory eventFactory) {
+    initMigrationBoundaryEventsParameterizedTest(eventFactory);
     // given
     BpmnModelInstance sourceProcess = ProcessModels.PARALLEL_SUBPROCESS_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addBoundaryEvent(
@@ -521,6 +538,10 @@ public class MigrationBoundaryEventsParameterizedTest {
     testHelper.completeTask(AFTER_BOUNDARY_TASK);
     testHelper.completeTask(USER_TASK_2_ID);
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
+  }
+
+  public void initMigrationBoundaryEventsParameterizedTest(BpmnEventFactory eventFactory) {
+    this.eventFactory = eventFactory;
   }
 
 }

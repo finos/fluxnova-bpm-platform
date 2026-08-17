@@ -25,7 +25,8 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tassilo Weidner

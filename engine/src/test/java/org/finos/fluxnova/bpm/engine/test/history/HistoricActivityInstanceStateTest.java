@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -29,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -506,14 +504,14 @@ public class HistoricActivityInstanceStateTest extends PluggableProcessEngineTes
     for (HistoricActivityInstance instance : allInstances) {
       if (instance.getActivityId().equals(activityId)) {
         found++;
-        assertEquals(String.format("expect <%s> to be %scanceled", activityId, (canceled ? "" : "non-")), canceled, instance.isCanceled());
+        assertEquals(canceled, instance.isCanceled(), "expect <%s> to be %scanceled".formatted(activityId, (canceled ? "" : "non-")));
       }
     }
 
-    assertTrue("contains entry for activity <" + activityId + ">", found > 0);
+    assertTrue(found > 0, "contains entry for activity <" + activityId + ">");
 
     if (expectedCount != -1) {
-      assertTrue("contains <" + expectedCount + "> entries for activity <" + activityId + ">", found == expectedCount);
+      assertTrue(found == expectedCount, "contains <" + expectedCount + "> entries for activity <" + activityId + ">");
     }
   }
 
@@ -539,14 +537,14 @@ public class HistoricActivityInstanceStateTest extends PluggableProcessEngineTes
     for (HistoricActivityInstance instance : allInstances) {
       if (instance.getActivityId().equals(activityId)) {
         found++;
-        assertEquals(String.format("expect <%s> to be %scompleting", activityId, (completing ? "" : "non-")), completing, instance.isCompleteScope());
+        assertEquals(completing, instance.isCompleteScope(), "expect <%s> to be %scompleting".formatted(activityId, (completing ? "" : "non-")));
       }
     }
 
-    assertTrue("contains entry for activity <" + activityId + ">", found > 0);
+    assertTrue(found > 0, "contains entry for activity <" + activityId + ">");
 
     if (expectedCount != -1) {
-      assertTrue("contains <" + expectedCount + "> entries for activity <" + activityId + ">", found == expectedCount);
+      assertTrue(found == expectedCount, "contains <" + expectedCount + "> entries for activity <" + activityId + ">");
     }
   }
 

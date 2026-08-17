@@ -23,11 +23,11 @@ import org.finos.fluxnova.bpm.engine.rest.hal.Hal;
 import org.finos.fluxnova.bpm.engine.rest.sub.task.TaskReportResource;
 import org.finos.fluxnova.bpm.engine.rest.sub.task.TaskResource;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,12 +36,17 @@ public interface TaskRestService {
   public static final String PATH = "/task";
 
   @Path("/{id}")
-  TaskResource getTask(@PathParam("id") String id, @QueryParam("withCommentAttachmentInfo") boolean withCommentAttachmentInfo);
+  TaskResource getTask(@PathParam("id") String id,
+                       @QueryParam("withCommentAttachmentInfo") boolean withCommentAttachmentInfo,
+                       @QueryParam("withTaskVariablesInReturn") boolean withTaskVariablesInReturn,
+                       @QueryParam("withTaskLocalVariablesInReturn") boolean withTaskLocalVariablesInReturn,
+                       @QueryParam("evaluateFormKey") @DefaultValue("true") boolean evaluateFormKey);
 
   @GET
   @Produces({MediaType.APPLICATION_JSON, Hal.APPLICATION_HAL_JSON})
   Object getTasks(@Context Request request, @Context UriInfo uriInfo,
-                  @QueryParam("firstResult") Integer firstResult, @QueryParam("maxResults") Integer maxResults);
+                  @QueryParam("firstResult") Integer firstResult, @QueryParam("maxResults") Integer maxResults,
+                  @QueryParam("evaluateFormKey") @DefaultValue("true") boolean evaluateFormKey);
 
   /**
    * Expects the same parameters as {@link TaskRestService#getTasks(UriInfo, Integer, Integer)} (as

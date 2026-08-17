@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.im
 import org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.HeaderSecurityProvider;
 import org.finos.fluxnova.bpm.webapp.impl.util.ServletFilterUtil;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -91,7 +91,7 @@ public class ContentSecurityPolicyProvider extends HeaderSecurityProvider {
   public String getHeaderValue(final ServletContext servletContext) {
     final String nonce = generateNonce();
     servletContext.setAttribute(ATTR_CSP_FILTER_NONCE, nonce);
-    return value.replaceAll("\\" + HEADER_NONCE_PLACEHOLDER, String.format("'nonce-%s'", nonce));
+    return value.replaceAll("\\" + HEADER_NONCE_PLACEHOLDER, "'nonce-%s'".formatted(nonce));
   }
 
   protected String generateNonce() {

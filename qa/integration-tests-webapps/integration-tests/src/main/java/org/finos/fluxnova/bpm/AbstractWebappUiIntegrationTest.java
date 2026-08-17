@@ -22,11 +22,11 @@ import java.net.URISyntaxException;
 import java.util.Locale;
 
 import org.finos.fluxnova.bpm.util.SeleniumScreenshotRule;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -37,49 +37,34 @@ public class AbstractWebappUiIntegrationTest extends AbstractWebIntegrationTest 
 
   protected static WebDriver driver;
 
-  @Rule
+  @RegisterExtension
   public SeleniumScreenshotRule screenshotRule = new SeleniumScreenshotRule(driver);
 
-  @BeforeClass
+  @BeforeAll
   public static void createDriver() {
-    String chromeDriverExecutable = "";
-    String osName = System.getProperty("os.name").toLowerCase(Locale.US);
-    String osArch = System.getProperty("os.arch").toLowerCase(Locale.US);
-
-    if (osName.contains("windows")) {
-      if(osArch.contains("32")) {
-        chromeDriverExecutable = "chromedriver-win32/chromedriver.exe";
-      } else {
-        chromeDriverExecutable = "chromedriver-win64/chromedriver.exe";
-      }
-    } else if (osName.contains("mac")) {
-      if(osArch.contains("aarch64")) {
-        chromeDriverExecutable = "chromedriver-mac-arm64/chromedriver";
-      } else {
-        chromeDriverExecutable = "chromedriver-mac-x64/chromedriver";
-      }
-    } else {
-      chromeDriverExecutable = "chromedriver-linux64/chromedriver";
+    String chromeDriverExecutable = "chromedriver";
+    if (System.getProperty("os.name").toLowerCase(Locale.US).contains("windows")) {
+      chromeDriverExecutable += ".exe";
     }
 
-    File chromeDriver = new File("target/" + chromeDriverExecutable);
+    File chromeDriver = new File("target/chromedriver/" + chromeDriverExecutable);
     if (!chromeDriver.exists()) {
       throw new RuntimeException("chromedriver could not be located!");
     }
 
     ChromeDriverService chromeDriverService = new ChromeDriverService.Builder()
-        .withVerbose(true)
-        .usingAnyFreePort()
-        .usingDriverExecutable(chromeDriver)
-        .build();
+            .withVerbose(true)
+            .usingAnyFreePort()
+            .usingDriverExecutable(chromeDriver)
+            .build();
 
     ChromeOptions chromeOptions = new ChromeOptions()
-        .addArguments("--headless=new")
-        .addArguments("--window-size=1920,1200")
-        .addArguments("--disable-gpu")
-        .addArguments("--no-sandbox")
-        .addArguments("--disable-dev-shm-usage")
-        .addArguments("--remote-allow-origins=*");
+            .addArguments("--headless=new")
+            .addArguments("--window-size=1920,1200")
+            .addArguments("--disable-gpu")
+            .addArguments("--no-sandbox")
+            .addArguments("--disable-dev-shm-usage")
+            .addArguments("--remote-allow-origins=*");
 
     driver = new ChromeDriver(chromeDriverService, chromeOptions);
   }
@@ -110,19 +95,14 @@ public class AbstractWebappUiIntegrationTest extends AbstractWebIntegrationTest 
 
   }
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getWebappCtxPath());
     appUrl = testProperties.getApplicationPath("/" + getWebappCtxPath());
   }
 
-  @After
-  public void after() {
-    testUtil.destroy();
-  }
-
-  @AfterClass
+  @AfterAll
   public static void quitDriver() {
     driver.quit();
   }

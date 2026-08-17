@@ -35,15 +35,13 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class BatchModificationAuthorizationTest {
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
@@ -53,13 +51,10 @@ public class BatchModificationAuthorizationTest {
 
   protected ProcessDefinition processDefinition;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testRule);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testRule);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -95,17 +90,17 @@ public class BatchModificationAuthorizationTest {
     );
   }
 
-  @Before
+  @BeforeEach
   public void deployProcess() {
     processDefinition = testRule.deployAndGetDefinition(ProcessModels.TWO_TASKS_PROCESS);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @After
+  @AfterEach
   public void cleanBatch() {
     Batch batch = engineRule.getManagementService().createBatchQuery().singleResult();
     if (batch != null) {
@@ -120,13 +115,15 @@ public class BatchModificationAuthorizationTest {
     }
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @Test
-  public void executeAsyncModification() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void executeAsyncModification(AuthorizationScenario scenario) {
+    initBatchModificationAuthorizationTest(scenario);
     //given
     ProcessInstance processInstance1 = engineRule.getRuntimeService().startProcessInstanceByKey(ProcessModels.PROCESS_KEY);
     ProcessInstance processInstance2 = engineRule.getRuntimeService().startProcessInstanceByKey(ProcessModels.PROCESS_KEY);
@@ -161,8 +158,10 @@ public class BatchModificationAuthorizationTest {
     authRule.assertScenario(scenario);
   }
 
-  @Test
-  public void executeModification() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void executeModification(AuthorizationScenario scenario) {
+    initBatchModificationAuthorizationTest(scenario);
     //given
     ProcessInstance processInstance1 = engineRule.getRuntimeService().startProcessInstanceByKey(ProcessModels.PROCESS_KEY);
     ProcessInstance processInstance2 = engineRule.getRuntimeService().startProcessInstanceByKey(ProcessModels.PROCESS_KEY);
@@ -185,5 +184,9 @@ public class BatchModificationAuthorizationTest {
 
     // then
     authRule.assertScenario(scenario);
+  }
+
+  public void initBatchModificationAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

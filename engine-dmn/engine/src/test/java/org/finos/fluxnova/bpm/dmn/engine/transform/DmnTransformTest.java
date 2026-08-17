@@ -42,7 +42,8 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.model.dmn.Dmn;
 import org.finos.fluxnova.bpm.model.dmn.DmnModelInstance;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class DmnTransformTest extends DmnEngineTest {
 

@@ -17,9 +17,8 @@
 package org.finos.fluxnova.bpm.util;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +34,7 @@ import java.util.logging.Logger;
 /**
  * Allows to take screenshots in case of an selenium test error.
  */
-public class SeleniumScreenshotRule implements TestRule {
+public class SeleniumScreenshotRule implements TestExecutionExceptionHandler {
 
   private static final String OUTPUT_DIR_PROPERTY_NAME = "selenium.screenshot.directory";
 
@@ -52,44 +51,33 @@ public class SeleniumScreenshotRule implements TestRule {
   }
 
   @Override
-  public Statement apply(final Statement base, final Description description) {
-    return new Statement() {
+  public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
+    log.info("Test failed. Attempting to create a screenshot.");
+    captureScreenShot(context);
+    throw throwable;
+  }
 
-      @Override
-      public void evaluate() throws Throwable {
-        try {
-          base.evaluate();
-        } catch (Throwable t) {
-          log.info("Test failed. Attempting to create a screenshot.");
-          captureScreenShot(description);
-          throw t;
-        }
-      }
+  public void captureScreenShot(ExtensionContext context) {
+    String screenshotDirectory = System.getProperty(OUTPUT_DIR_PROPERTY_NAME);
 
-      public void captureScreenShot(Description describe) {
-        String screenshotDirectory = System.getProperty(OUTPUT_DIR_PROPERTY_NAME);
+    if (screenshotDirectory == null) {
+      log.info("No screenshot created, because no output directory is specified. "
+          + "Set the system property " + OUTPUT_DIR_PROPERTY_NAME + " to resolve this.");
+      return;
+    }
 
-        if (screenshotDirectory == null) {
-          log.info("No screenshot created, because no output directory is specified. "
-              + "Set the system property " + OUTPUT_DIR_PROPERTY_NAME + " to resolve this.");
-          return;
-        }
+    File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
+    String now = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
+    String scrFilename = context.getRequiredTestClass().getName() + "-" + context.getRequiredTestMethod().getName() + "-" + now + ".png";
+    File outputFile = new File(screenshotDirectory, scrFilename);
 
-        File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
-        String now = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
-        String scrFilename = describe.getClassName() + "-" + describe.getMethodName() + "-" + now + ".png";
-        File outputFile = new File(screenshotDirectory, scrFilename);
+    try {
+      FileUtils.copyFile(scrFile, outputFile);
+    } catch (IOException ioe) {
+      log.severe("No screenshot created due to an error on copying: " + ioe.getMessage());
+      return;
+    }
 
-        try {
-          FileUtils.copyFile(scrFile, outputFile);
-        } catch (IOException ioe) {
-          log.severe("No screenshot created due to an error on copying: " + ioe.getMessage());
-          return;
-        }
-
-        log.info("Screenshot created at: " + outputFile.getPath());
-      }
-
-    };
+    log.info("Screenshot created at: " + outputFile.getPath());
   }
 }

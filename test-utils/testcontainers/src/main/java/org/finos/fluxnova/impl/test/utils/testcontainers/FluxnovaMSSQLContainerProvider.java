@@ -17,8 +17,8 @@
 package org.finos.fluxnova.impl.test.utils.testcontainers;
 
 import org.testcontainers.containers.JdbcDatabaseContainer;
-import org.testcontainers.containers.MSSQLServerContainer;
 import org.testcontainers.containers.MSSQLServerContainerProvider;
+import org.testcontainers.mssqlserver.MSSQLServerContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class FluxnovaMSSQLContainerProvider extends MSSQLServerContainerProvider {

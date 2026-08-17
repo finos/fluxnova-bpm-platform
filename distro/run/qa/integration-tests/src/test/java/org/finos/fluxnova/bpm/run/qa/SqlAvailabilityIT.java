@@ -21,16 +21,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class SqlAvailabilityIT {
 
   @Test
   public void shouldFindSqlResources() throws URISyntaxException {
-    Path sqlDir = Paths.get(SpringBootManagedContainer.getRunHome(), "configuration", "sql");
+    Path sqlDir = Path.of(SpringBootManagedContainer.getRunHome(), "configuration", "sql");
 
     Path createDir = sqlDir.resolve("create");
     Path dropDir = sqlDir.resolve("drop");

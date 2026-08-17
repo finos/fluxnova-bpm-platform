@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -32,7 +32,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.rest.history.HistoryCleanupRestService;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class HistoryCleanupRestServiceImpl implements HistoryCleanupRestService {
 
@@ -46,6 +46,9 @@ public class HistoryCleanupRestServiceImpl implements HistoryCleanupRestService 
 
   public JobDto cleanupAsync(boolean immediatelyDue) {
     Job job = processEngine.getHistoryService().cleanUpHistoryAsync(immediatelyDue);
+    if (job == null) {
+      throw new RestException(Status.NOT_FOUND, "History cleanup job does not exist");
+    }
     return JobDto.fromJob(job);
   }
 

@@ -34,20 +34,16 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Philipp Ossler
  */
-@RunWith(Parameterized.class)
 public class EvaluateDecisionAuthorizationTest {
 
   protected static final String DMN_FILE = "org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn";
@@ -56,13 +52,10 @@ public class EvaluateDecisionAuthorizationTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
-
-  @Parameter
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
   public AuthorizationScenario scenario;
 
-  @Parameters(name = "scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -80,19 +73,22 @@ public class EvaluateDecisionAuthorizationTest {
       );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "scenario {index}")
   @Deployment(resources = DMN_FILE)
-  public void evaluateDecisionById() {
+  @MethodSource("scenarios")
+  public void evaluateDecisionById(AuthorizationScenario scenario) {
+
+    initEvaluateDecisionAuthorizationTest(scenario);
 
     // given
     DecisionDefinition decisionDefinition = engineRule.getRepositoryService().createDecisionDefinitionQuery().singleResult();
@@ -108,9 +104,12 @@ public class EvaluateDecisionAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "scenario {index}")
   @Deployment(resources = DMN_FILE)
-  public void evaluateDecisionByKey() {
+  @MethodSource("scenarios")
+  public void evaluateDecisionByKey(AuthorizationScenario scenario) {
+
+    initEvaluateDecisionAuthorizationTest(scenario);
 
     // given
     DecisionDefinition decisionDefinition = engineRule.getRepositoryService().createDecisionDefinitionQuery().singleResult();
@@ -126,9 +125,12 @@ public class EvaluateDecisionAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "scenario {index}")
   @Deployment(resources = DMN_FILE)
-  public void evaluateDecisionByKeyAndVersion() {
+  @MethodSource("scenarios")
+  public void evaluateDecisionByKeyAndVersion(AuthorizationScenario scenario) {
+
+    initEvaluateDecisionAuthorizationTest(scenario);
 
     // given
     DecisionDefinition decisionDefinition = engineRule.getRepositoryService().createDecisionDefinitionQuery().singleResult();
@@ -154,6 +156,10 @@ public class EvaluateDecisionAuthorizationTest {
     assertThat(decisionResult).hasSize(1);
     String value = decisionResult.getSingleResult().getFirstEntry();
     assertThat(value).isEqualTo("ok");
+  }
+
+  public void initEvaluateDecisionAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

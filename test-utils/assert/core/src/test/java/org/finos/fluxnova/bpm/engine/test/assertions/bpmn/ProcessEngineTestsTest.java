@@ -35,7 +35,8 @@ import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.BpmnAwareTests.
 import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.BpmnAwareTests.taskQuery;
 import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.BpmnAwareTests.taskService;
 import static org.finos.fluxnova.bpm.engine.test.assertions.cmmn.CmmnAwareTests.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -72,28 +73,32 @@ import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.test.assertions.cmmn.CaseDefinitionAssert;
 import org.finos.fluxnova.bpm.engine.test.assertions.cmmn.CaseExecutionAssert;
 import org.finos.fluxnova.bpm.engine.test.assertions.cmmn.CaseInstanceAssert;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-@RunWith(MockitoJUnitRunner.class)
+@MockitoSettings(strictness = Strictness.WARN)
+@ExtendWith(MockitoExtension.class)
 public class ProcessEngineTestsTest {
 
   ProcessEngine processEngine;
   MockedStatic<ProcessEngines> processEnginesMockedStatic;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngine = mock(ProcessEngine.class);
     processEnginesMockedStatic = mockStatic(ProcessEngines.class, CALLS_REAL_METHODS);
     init(processEngine);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     reset();
     processEnginesMockedStatic.close();
@@ -110,7 +115,7 @@ public class ProcessEngineTestsTest {
   @Test
   public void testNoProcessEngine_Failure() throws Exception {
     // Given
-    processEnginesMockedStatic.when(ProcessEngines::getProcessEngines).thenReturn(new HashMap<String,ProcessEngine>());
+    processEnginesMockedStatic.when(ProcessEngines::getProcessEngines).thenReturn(new HashMap<String, ProcessEngine>());
     reset();
     try {
       // When
@@ -125,7 +130,7 @@ public class ProcessEngineTestsTest {
   @Test
   public void testMultipleProcessEngine_Failure() throws Exception {
     // Given
-    Map<String,ProcessEngine> multipleEnginesMap = new HashMap<>();
+    Map<String, ProcessEngine> multipleEnginesMap = new HashMap<>();
     multipleEnginesMap.put("test1", mock(ProcessEngine.class));
     multipleEnginesMap.put("test2", mock(ProcessEngine.class));
     processEnginesMockedStatic.when(ProcessEngines::getProcessEngines).thenReturn(multipleEnginesMap);

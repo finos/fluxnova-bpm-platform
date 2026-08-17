@@ -1,0 +1,33 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: xmlBpmnMigration
+displayName: XML BPMN Files Migration
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: process-application
+      attributeName: xmlns
+      newValue: "http://www.fluxnova.finos.org/schema/1.0/ProcessApplication"
+  - org.openrewrite.xml.AddTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: xmlns:fluxnova
+      newValue: "http://fluxnova.finos.org/schema/1.0/bpmn"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: xmlns:modeler
+      newValue: "http://fluxnova.finos.org/schema/modeler/1.0/"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: modeler:executionPlatform
+      newValue: "Fluxnova Platform"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: modeler:executionPlatformVersion
+      newValue: {{TARGET_VERSION}}
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: exporter
+      newValue: "Fluxnova Modeler"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: bpmn:definitions
+      attributeName: exporterVersion
+      newValue: {{MODELER_VERSION}}

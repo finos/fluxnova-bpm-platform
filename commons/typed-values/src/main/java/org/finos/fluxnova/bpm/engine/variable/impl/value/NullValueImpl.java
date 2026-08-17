@@ -29,14 +29,22 @@ public class NullValueImpl implements TypedValue {
 
   private static final long serialVersionUID = 1L;
 
-  private boolean isTransient;
-
-  // null is always null
   public static final NullValueImpl INSTANCE = new NullValueImpl(false);
   public static final NullValueImpl INSTANCE_TRANSIENT = new NullValueImpl(true);
+  public static final NullValueImpl INSTANCE_RESTRICTED = new NullValueImpl(false, true);
+  public static final NullValueImpl INSTANCE_RESTRICTED_TRANSIENT = new NullValueImpl(true, true);
+
+  private boolean isTransient;
+  private boolean restricted;
+
 
   private NullValueImpl(boolean isTransient) {
+    this(isTransient, false);
+  }
+
+  private NullValueImpl(boolean isTransient, boolean restricted) {
     this.isTransient = isTransient;
+    this.restricted = restricted;
   }
 
   public Object getValue() {
@@ -48,7 +56,7 @@ public class NullValueImpl implements TypedValue {
   }
 
   public String toString() {
-    return "Untyped 'null' value";
+    return "Untyped 'null' value, isTransient=" + isTransient + ", restricted=" + restricted;
   }
 
   @Override
@@ -56,4 +64,8 @@ public class NullValueImpl implements TypedValue {
     return isTransient;
   }
 
+  @Override
+  public boolean isRestricted() {
+    return restricted;
+  }
 }

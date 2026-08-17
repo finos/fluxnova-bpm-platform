@@ -67,4 +67,10 @@ public class SerializedObjectValueBuilderImpl implements SerializedObjectValueBu
     return this;
   }
 
+  @Override
+  public TypedValueBuilder<ObjectValue> setRestricted(boolean restricted) {
+    variableValue.setRestricted(restricted);
+    return this;
+  }
+
 }

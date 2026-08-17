@@ -16,15 +16,17 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.pvm.verification;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.ExecutionListener;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class TransitionInstanceVerifyer extends Assert implements ExecutionListener {
+public class TransitionInstanceVerifyer implements ExecutionListener {
 
   public void notify(DelegateExecution execution) throws Exception {
     

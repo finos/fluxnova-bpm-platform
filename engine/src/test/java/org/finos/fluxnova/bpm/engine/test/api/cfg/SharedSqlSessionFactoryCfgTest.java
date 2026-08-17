@@ -16,11 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.mock;
 
 import javax.sql.DataSource;
@@ -29,9 +26,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -39,8 +36,8 @@ import org.junit.Test;
  */
 public class SharedSqlSessionFactoryCfgTest {
 
-  @Before
-  @After
+  @BeforeEach
+  @AfterEach
   public void cleanCachedSessionFactory() {
     ProcessEngineConfigurationImpl.cachedSqlSessionFactory = null;
   }

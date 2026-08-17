@@ -22,6 +22,12 @@ pipeline {
    }
   parameters {
     string name: 'EE_DOWNSTREAM', defaultValue: 'cambpm-ee-main-pr/' + cambpmDefaultBranch(), description: 'The name of the EE branch/PR to run the EE pipeline on, e.g. cambpm-ee-main/PR-333'
+    booleanParam name: 'SONAR_ENABLED', defaultValue: false, description: 'Run Sonar scan'
+    choice name: 'SONAR_PROVIDER', choices: ['sonarqube', 'sonarcloud'], description: 'Sonar backend provider'
+    string name: 'SONAR_HOST_URL_SECRET_ID', defaultValue: '', description: 'Jenkins Secret Text id for Sonar host URL (required when SONAR_PROVIDER=sonarqube)'
+    string name: 'SONAR_PROJECT_KEY_SECRET_ID', defaultValue: '', description: 'Jenkins Secret Text id for Sonar project key'
+    string name: 'SONAR_ORGANIZATION_SECRET_ID', defaultValue: '', description: 'Jenkins Secret Text id for Sonar organization (required when SONAR_PROVIDER=sonarcloud)'
+    string name: 'SONAR_TOKEN_SECRET_ID', defaultValue: 'sonar-token', description: 'Jenkins Secret Text id for Sonar token'
   }
   stages {
     stage('ASSEMBLY') {
@@ -105,7 +111,7 @@ pipeline {
               upstreamProjectName = "/" + env.JOB_NAME
               upstreamBuildNumber = env.BUILD_NUMBER
 
-              if (env.BRANCH_NAME == cambpmDefaultBranch() || cambpmWithLabels('webapp-integration', 'all-as', 'h2', 'websphere', 'weblogic', 'jbosseap', 'run', 'spring-boot', 'e2e')) {
+              if (env.BRANCH_NAME == cambpmDefaultBranch() || cambpmWithLabels('webapp-integration', 'all-as', 'h2', 'weblogic', 'jbosseap', 'run', 'spring-boot', 'e2e')) {
                 cambpmTriggerDownstream(
                   platformVersionDir + "/cambpm-ee/" + eeMainProjectBranch,
                   [string(name: 'UPSTREAM_PROJECT_NAME', value: upstreamProjectName),
@@ -231,7 +237,33 @@ pipeline {
             ])
           }
         }
-        stage('engine-IT-tomcat-9-postgresql-142') {
+      //stage('engine-IT-tomcat-9-postgresql-170') {
+      //  when {
+      //    expression {
+      //      cambpmWithLabels('all', 'all-as', 'tomcat')
+      //    }
+      //  }
+      //  steps {
+      //    cambpmConditionalRetry([
+      //      podSpec: [
+      //        cpu: 4,
+      //        images: ['maven:3.9.7-eclipse-temurin-11', 'postgres:17.0']
+      //      ],
+      //      runSteps: {
+      //        cambpmRunMaven('qa/',
+      //          'clean install -Ptomcat9,postgresql,engine-integration',
+      //          runtimeStash: true,
+      //          archiveStash: true,
+      //          jdkVersion: 'jdk-11-latest',
+      //          withPodSpec: true)
+      //      },
+      //      postFailure: {
+      //        cambpmPublishTestResult()
+      //      }
+      //    ])
+      //  }
+      //}
+        stage('engine-IT-tomcat-10-postgresql-170') {
           when {
             expression {
               cambpmWithLabels('all-as', 'tomcat')
@@ -239,31 +271,16 @@ pipeline {
           }
           steps {
             cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
+              podSpec: [
+                cpu: 4,
+                images: ['maven:3.9.7-eclipse-temurin-17', 'postgres:17.0']
+              ],
               runSteps: {
-                cambpmRunMaven('qa/',
-                'clean install -Ptomcat9,postgresql,engine-integration',
-                runtimeStash: true,
-                archiveStash: true,
-                jdkVersion: 'jdk-11-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-              }
-            ])
-          }
-        }
-        stage('engine-IT-tomcat-10-postgresql-142') {
-          when {
-            expression {
-              cambpmWithLabels('all-as', 'tomcat')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
-              runSteps: {
-                cambpmRunMaven('qa/', 'clean install -Ptomcat,postgresql,engine-integration-jakarta', runtimeStash: true, archiveStash: true, jdkVersion: 'jdk-17-latest')
+               cambpmRunMaven('qa/', 'clean install -Ptomcat,postgresql,engine-integration-jakarta',
+                 runtimeStash: true,
+                 archiveStash: true,
+                 jdkVersion: 'jdk-17-latest',
+                 withPodSpec: true)
               },
               postFailure: {
                 cambpmPublishTestResult()
@@ -272,7 +289,7 @@ pipeline {
             ])
           }
         }
-        stage('engine-IT-wildfly-postgresql-142') {
+        stage('engine-IT-wildfly-postgresql-170') {
           when {
             expression {
               cambpmWithLabels('all-as', 'wildfly')
@@ -280,14 +297,18 @@ pipeline {
           }
           steps {
             cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
+              podSpec: [
+                cpu: 4,
+                images: ['maven:3.9.7-eclipse-temurin-17', 'postgres:17.0']
+              ],
               runSteps: {
                 cambpmRunMaven('qa/', 
                   'clean install -Pwildfly,postgresql,engine-integration-jakarta', 
                   runtimeStash: true, 
                   archiveStash: true,
                   // we need to use JDK 17 for Spring 6
-                  jdkVersion: 'jdk-17-latest')
+                  jdkVersion: 'jdk-17-latest',
+                  withPodSpec: true)
               },
               postFailure: {
                 cambpmPublishTestResult()
@@ -297,31 +318,7 @@ pipeline {
             ])
           }
         }
-        stage('engine-IT-wildfly26-postgresql-142') {
-          when {
-            expression {
-              cambpmWithLabels('all-as', 'wildfly')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
-              runSteps: {
-                cambpmRunMaven('qa/',
-                'clean install -Pwildfly26,postgresql,engine-integration',
-                runtimeStash: true,
-                archiveStash: true,
-                jdkVersion: 'jdk-11-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-                cambpmAddFailedStageType(failedStageTypes, 'engine-IT-wildfly26')
-                cambpmArchiveArtifacts('qa/wildfly26-runtime/target/**/standalone/log/server.log')
-              }
-            ])
-          }
-        }
-        stage('engine-IT-XA-wildfly-postgresql-142') {
+        stage('engine-IT-XA-wildfly-postgresql-170') {
           when {
             expression {
               cambpmWithLabels('wildfly')
@@ -329,14 +326,18 @@ pipeline {
           }
           steps {
             cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
+              podSpec: [
+                cpu: 4,
+                images: ['maven:3.9.7-eclipse-temurin-17', 'postgres:17.0']
+              ],
               runSteps: {
                 cambpmRunMaven('qa/', 
                   'clean install -Pwildfly,postgresql,postgresql-xa,engine-integration-jakarta', 
                   runtimeStash: true, 
                   archiveStash: true,
                   // we need to use JDK 17 for Spring 6
-                  jdkVersion: 'jdk-17-latest')
+                  jdkVersion: 'jdk-17-latest',
+                  withPodSpec: true)
               },
               postFailure: {
                 cambpmPublishTestResult()
@@ -345,48 +346,29 @@ pipeline {
             ])
           }
         }
-        stage('engine-IT-XA-wildfly26-postgresql-142') {
-          when {
-            expression {
-              cambpmWithLabels('wildfly')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'postgresql_142',
-              runSteps: {
-                cambpmRunMaven('qa/', 'clean install -Pwildfly26,postgresql,postgresql-xa,engine-integration', runtimeStash: true, archiveStash: true, jdkVersion: 'jdk-11-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-                cambpmArchiveArtifacts('qa/wildfly26-runtime/target/**/standalone/log/server.log')
-              }
-            ])
-          }
-        }
-        stage('webapp-IT-tomcat-9-h2') {
-          when {
-            expression {
-              cambpmWithLabels('webapp-integration', 'h2')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'chrome_112',
-              runSteps: {
-                cambpmRunMaven('qa/',
-                'clean install -Ptomcat9,h2,webapps-integration',
-                runtimeStash: true,
-                archiveStash: true,
-                jdkVersion: 'jdk-17-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-                cambpmArchiveArtifacts('qa/integration-tests-webapps/shared-engine/target/selenium-screenshots/*')
-              }
-            ])
-          }
-        }
+        // stage('webapp-IT-tomcat-9-h2') {
+        //   when {
+        //     expression {
+        //       cambpmWithLabels('webapp-integration', 'h2')
+        //     }
+        //   }
+        //   steps {
+        //     cambpmConditionalRetry([
+        //       agentLabel: 'chrome_112',
+        //       runSteps: {
+        //         cambpmRunMaven('qa/',
+        //         'clean install -Ptomcat9,h2,webapps-integration',
+        //         runtimeStash: true,
+        //         archiveStash: true,
+        //         jdkVersion: 'jdk-17-latest')
+        //       },
+        //       postFailure: {
+        //         cambpmPublishTestResult()
+        //         cambpmArchiveArtifacts('qa/integration-tests-webapps/shared-engine/target/selenium-screenshots/*')
+        //       }
+        //     ])
+        //   }
+        // }
         stage('webapp-IT-tomcat-10-h2') {
           when {
             expression {
@@ -426,29 +408,6 @@ pipeline {
                   runtimeStash: true,
                   archiveStash: true,
                   jdkVersion: 'jdk-17-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-                cambpmArchiveArtifacts('qa/integration-tests-webapps/shared-engine/target/selenium-screenshots/*')
-              }
-            ])
-          }
-        }
-        stage('webapp-IT-wildfly26-h2') {
-          when {
-            expression {
-              cambpmWithLabels('webapp-integration', 'h2', 'wildfly')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'chrome_112',
-              runSteps: {
-                cambpmRunMaven('qa/',
-                  'clean install -Pwildfly26,h2,webapps-integration',
-                  runtimeStash: true,
-                  archiveStash: true,
-                  jdkVersion: 'jdk-11-latest')
               },
               postFailure: {
                 cambpmPublishTestResult()
@@ -560,7 +519,7 @@ pipeline {
         stage('webapp-UNIT-database-table-prefix') {
           when {
             expression {
-              cambpmIsNotFailedStageType(failedStageTypes, 'webapp-unit') && cambpmWithLabels()
+              cambpmIsNotFailedStageType(failedStageTypes, 'webapp-unit') && cambpmWithLabels('all', 'h2')
             }
           }
           steps {
@@ -621,42 +580,64 @@ pipeline {
             ])
           }
         }
-        stage('engine-IT-wildfly26-domain') {
-          when {
-            expression {
-              cambpmIsNotFailedStageType(failedStageTypes, 'engine-IT-wildfly26') && cambpmWithLabels('wildfly')
-            }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'h2',
-              runSteps: {
-                cambpmRunMaven('qa/', 'clean install -Pwildfly26-domain,h2,engine-integration', runtimeStash: true, archiveStash: true, jdkVersion: 'jdk-11-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
-              }
-            ])
-          }
+      }
+    }
+    stage('SONAR_SCAN') {
+      when {
+        expression {
+          params.SONAR_ENABLED && (env.BRANCH_NAME == cambpmDefaultBranch() || env.CHANGE_ID != null)
         }
-        stage('engine-IT-wildfly26-servlet') {
-          when {
-            expression {
-              cambpmIsNotFailedStageType(failedStageTypes, 'engine-IT-wildfly26') && cambpmWithLabels('wildfly')
+      }
+      steps {
+        cambpmConditionalRetry([
+          runSteps: {
+            def sonarCredentialsBindings = [string(credentialsId: params.SONAR_TOKEN_SECRET_ID, variable: 'SONAR_TOKEN')]
+            if (params.SONAR_PROJECT_KEY_SECRET_ID?.trim()) {
+              sonarCredentialsBindings << string(credentialsId: params.SONAR_PROJECT_KEY_SECRET_ID, variable: 'SONAR_PROJECT_KEY_SECRET')
             }
-          }
-          steps {
-            cambpmConditionalRetry([
-              agentLabel: 'h2',
-              runSteps: {
-                cambpmRunMaven('qa/', 'clean install -Pwildfly26,wildfly26-servlet,h2,engine-integration', runtimeStash: true, archiveStash: true, jdkVersion: 'jdk-11-latest')
-              },
-              postFailure: {
-                cambpmPublishTestResult()
+            if (params.SONAR_PROVIDER == 'sonarcloud' && params.SONAR_ORGANIZATION_SECRET_ID?.trim()) {
+              sonarCredentialsBindings << string(credentialsId: params.SONAR_ORGANIZATION_SECRET_ID, variable: 'SONAR_ORGANIZATION_SECRET')
+            }
+            if (params.SONAR_PROVIDER == 'sonarqube' && params.SONAR_HOST_URL_SECRET_ID?.trim()) {
+              sonarCredentialsBindings << string(credentialsId: params.SONAR_HOST_URL_SECRET_ID, variable: 'SONAR_HOST_URL_SECRET')
+            }
+
+            withCredentials(sonarCredentialsBindings) {
+              script {
+                def sonarProjectKey = env.SONAR_PROJECT_KEY_SECRET?.trim()
+                def sonarHostUrl = env.SONAR_HOST_URL_SECRET?.trim()
+                def sonarOrganization = env.SONAR_ORGANIZATION_SECRET?.trim()
+
+                if (!sonarProjectKey) {
+                  error('SONAR_PROJECT_KEY_SECRET_ID is required when SONAR_ENABLED=true')
+                }
+
+                def sonarProviderArgs = ''
+                if (params.SONAR_PROVIDER == 'sonarcloud') {
+                  if (!sonarOrganization) {
+                    error('SONAR_ORGANIZATION_SECRET_ID is required when SONAR_PROVIDER=sonarcloud')
+                  }
+                  sonarProviderArgs = "-Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=${sonarOrganization}"
+                } else {
+                  if (!sonarHostUrl) {
+                    error('SONAR_HOST_URL_SECRET_ID is required when SONAR_PROVIDER=sonarqube')
+                  }
+                  sonarProviderArgs = "-Dsonar.host.url=${sonarHostUrl}"
+                }
+
+                def qualityGateArgs = '-Dsonar.qualitygate.wait=false'
+
+                cambpmRunMaven('.',
+                  "package -Pcoverage-aggregate -DskipTests -DskipITs -Djacoco.skip=true sonar:sonar -Dsonar.projectKey=${sonarProjectKey} -Dsonar.token=\\$SONAR_TOKEN ${sonarProviderArgs} ${qualityGateArgs}",
+                  withCatch: false,
+                  jdkVersion: 'jdk-17-latest')
               }
-            ])
+            }
+          },
+          postFailure: {
+            cambpmPublishTestResult()
           }
-        }
+        ])
       }
     }
   }

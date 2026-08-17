@@ -16,8 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto.task;
 
+import org.finos.fluxnova.bpm.engine.form.CamundaFormRef;
 import org.finos.fluxnova.bpm.engine.form.FluxnovaFormRef;
 import org.finos.fluxnova.bpm.engine.form.FormData;
+import org.finos.fluxnova.bpm.engine.impl.form.CamundaFormRefImpl;
 
 /**
  *
@@ -27,6 +29,9 @@ public class FormDto {
 
   private String key;
   private FluxnovaFormRef fluxnovaFormRef;
+  /** @deprecated Use {@link #fluxnovaFormRef} instead. */
+  @Deprecated
+  private CamundaFormRef camundaFormRef;
   private String contextPath;
 
   public void setKey(String form) {
@@ -43,6 +48,13 @@ public class FormDto {
 
   public void setFluxnovaFormRef(FluxnovaFormRef fluxnovaFormRef) {
     this.fluxnovaFormRef = fluxnovaFormRef;
+    this.camundaFormRef = toCamundaFormRef(fluxnovaFormRef);
+  }
+
+  /** @deprecated Use {@link #getCamundaFormRef()} instead. */
+  @Deprecated
+  public CamundaFormRef getCamundaFormRef() {
+    return camundaFormRef;
   }
 
   public void setContextPath(String contextPath) {
@@ -59,8 +71,18 @@ public class FormDto {
     if (formData != null) {
       dto.key = formData.getFormKey();
       dto.fluxnovaFormRef = formData.getFluxnovaFormRef();
+      dto.camundaFormRef = toCamundaFormRef(formData.getFluxnovaFormRef());
     }
 
     return dto;
+  }
+
+  private static CamundaFormRef toCamundaFormRef(FluxnovaFormRef ref) {
+    if (ref == null) {
+      return null;
+    }
+    CamundaFormRefImpl camundaFormRef = new CamundaFormRefImpl(ref.getKey(), ref.getBinding());
+    camundaFormRef.setVersion(ref.getVersion());
+    return camundaFormRef;
   }
 }

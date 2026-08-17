@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.application.impl;
 
-import javax.ejb.EJBException;
+import jakarta.ejb.EJBException;
 import org.finos.fluxnova.bpm.application.ProcessApplicationInterface;
 import org.finos.fluxnova.bpm.application.ProcessApplicationReference;
 import org.finos.fluxnova.bpm.application.ProcessApplicationUnavailableException;

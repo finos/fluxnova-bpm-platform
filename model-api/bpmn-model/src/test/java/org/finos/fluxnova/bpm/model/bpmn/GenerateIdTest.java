@@ -22,7 +22,8 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Definitions;
 import org.finos.fluxnova.bpm.model.bpmn.instance.Process;
 import org.finos.fluxnova.bpm.model.bpmn.instance.StartEvent;
 import org.finos.fluxnova.bpm.model.bpmn.instance.UserTask;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class GenerateIdTest {
 

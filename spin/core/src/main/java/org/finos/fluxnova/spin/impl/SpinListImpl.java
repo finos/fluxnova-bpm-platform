@@ -19,6 +19,7 @@ package org.finos.fluxnova.spin.impl;
 import org.finos.fluxnova.spin.Spin;
 import org.finos.fluxnova.spin.SpinList;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 

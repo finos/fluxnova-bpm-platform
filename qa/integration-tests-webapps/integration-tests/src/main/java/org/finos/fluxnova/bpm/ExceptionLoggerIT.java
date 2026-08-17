@@ -16,17 +16,16 @@
  */
 package org.finos.fluxnova.bpm;
 
-import static org.junit.Assert.assertEquals;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 
-import javax.ws.rs.core.Response;
-
-import com.sun.jersey.api.client.ClientResponse;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ExceptionLoggerIT extends AbstractWebIntegrationTest {
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     createClient(getWebappCtxPath());
   }
@@ -34,13 +33,10 @@ public class ExceptionLoggerIT extends AbstractWebIntegrationTest {
   @Test
   public void shouldNotFailForUndefinedUser() {
     // when
-    ClientResponse response = client.resource(appBasePath + "app/admin/default/#/users/undefined?tab=profile")
-                                    .get(ClientResponse.class);
+    HttpResponse<String> response = Unirest.get(appBasePath + "app/admin/default/#/users/undefined?tab=profile").asString();
 
     // then
-    assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-
-    // cleanup
-    response.close();
+    assertEquals(200, response.getStatus());
   }
+
 }

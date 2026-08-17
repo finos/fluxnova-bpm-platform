@@ -20,13 +20,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.finos.fluxnova.spin.Spin.JSON;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.SpinList;
 import org.finos.fluxnova.spin.json.SpinJsonDataFormatException;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.json.SpinJsonPathException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel
@@ -35,7 +36,7 @@ public class JsonTreeJsonPathTest {
 
   protected SpinJsonNode jsonNode;
 
-  @Before
+  @BeforeEach
   public void readJson() {
     jsonNode = JSON(EXAMPLE_JSON);
   }
@@ -275,10 +276,12 @@ public class JsonTreeJsonPathTest {
     }
   }
 
-  @Test(expected = SpinJsonPathException.class)
+  @Test
   public void failOnNonExistingJsonPath() {
-    SpinJsonNode json = JSON("{\"a\": {\"id\": \"a\"}, \"b\": {\"id\": \"b\"}}");
-    json.jsonPath("$.c?(@.id)").element();
+    assertThrows(SpinJsonPathException.class, () -> {
+      SpinJsonNode json = JSON("{\"a\": {\"id\": \"a\"}, \"b\": {\"id\": \"b\"}}");
+      json.jsonPath("$.c?(@.id)").element();
+    });
   }
 
 }

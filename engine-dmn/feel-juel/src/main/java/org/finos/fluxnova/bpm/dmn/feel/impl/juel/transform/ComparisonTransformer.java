@@ -43,7 +43,7 @@ public class ComparisonTransformer implements FeelToJuelTransformer {
 
   protected String transformComparison(FeelToJuelTransform transform, String operator, String endpoint, String inputName) {
     String juelEndpoint = transform.transformEndpoint(endpoint, inputName);
-    return String.format("%s %s %s", inputName, operator, juelEndpoint);
+    return "%s %s %s".formatted(inputName, operator, juelEndpoint);
   }
 
 }

@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.gateway;
 
+
 import java.io.Serializable;
 
 
@@ -23,7 +24,7 @@ import java.io.Serializable;
  * @author Joram Barrez
  */
 public class ExclusiveGatewayTestOrder implements Serializable {
-  
+
   private static final long serialVersionUID = 1L;
   
   private int price;

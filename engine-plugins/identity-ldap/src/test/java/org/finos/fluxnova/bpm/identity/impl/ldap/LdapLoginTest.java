@@ -21,10 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.identity.ldap.util.LdapTestEnvironmentRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -32,14 +31,14 @@ import org.junit.Test;
  */
 public class LdapLoginTest {
 
-  @ClassRule
+  @RegisterExtension
   public static LdapTestEnvironmentRule ldapRule = new LdapTestEnvironmentRule();
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule();
 
   IdentityService identityService;
 
-  @Before
+  @BeforeEach
   public void setup() {
     identityService = engineRule.getIdentityService();
   }

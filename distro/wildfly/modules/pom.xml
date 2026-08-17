@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
     <artifactId>fluxnova-wildfly</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-wildfly-modules</artifactId>
@@ -39,6 +39,14 @@
           <groupId>commons-lang</groupId>
           <artifactId>commons-lang</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-email2-jakarta</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -59,7 +67,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.spin</groupId>
-      <artifactId>fluxnova-spin-dataformat-xml-dom-jakarta</artifactId>
+      <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
     </dependency>
 
     <dependency>
@@ -110,12 +118,12 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js-scriptengine</artifactId>
     </dependency>
-
     <!-- template engine dependencies -->
     <dependency>
       <groupId>org.freemarker</groupId>
@@ -241,7 +249,7 @@
                   <mapper>
                     <chainedmapper>
                       <regexpmapper from="^(.*)/([^/]+)/([^/]*)$$" to="\1/${version.jackson}/\3" handledirsep="yes" />
-                      <regexpmapper from="^(com.fasterxml.jackson.*)\/((jackson.*-)[0-9\.]*).*.jar$$" to="\1/\3${version.jackson}.jar" handledirsep="yes" />
+                      <regexpmapper from="^(tools.jackson.*)\/((jackson.*-)[0-9\.]*).*.jar$$" to="\1/\3${version.jackson}.jar" handledirsep="yes" />
                     </chainedmapper>
                   </mapper>
                 </copy>
@@ -290,7 +298,11 @@
                   <include name="**/module.xml" />
                 </replace>
 
-                <replace dir="target/modules" token="@version.httpclient@" value="${version.httpclient}">
+                <replace dir="target/modules" token="@version.httpclient5@" value="${version.httpclient5}">
+                  <include name="**/module.xml" />
+                </replace>
+
+                <replace dir="target/modules" token="@version.httpcore5@" value="${version.httpcore5}">
                   <include name="**/module.xml" />
                 </replace>
 

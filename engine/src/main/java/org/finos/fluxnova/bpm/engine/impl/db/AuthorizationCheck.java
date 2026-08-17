@@ -65,6 +65,7 @@ public class AuthorizationCheck implements Serializable {
   protected boolean historicInstancePermissionsEnabled = false;
 
   protected boolean useLeftJoin = true;
+  protected PermissionCheck restrictedVariablePermissionCheck;
 
   public AuthorizationCheck() {
   }
@@ -174,5 +175,13 @@ public class AuthorizationCheck implements Serializable {
 
   public void setUseLeftJoin(boolean useLeftJoin) {
     this.useLeftJoin = useLeftJoin;
+  }
+
+  public PermissionCheck getRestrictedVariablePermissionCheck() {
+    return restrictedVariablePermissionCheck;
+  }
+
+  public void setRestrictedVariablePermissionCheck(PermissionCheck restrictedVariablePermissionCheck) {
+    this.restrictedVariablePermissionCheck = restrictedVariablePermissionCheck;
   }
 }

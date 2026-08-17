@@ -42,8 +42,9 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
-import org.junit.After;
-import org.junit.AfterClass;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  * @author Tassilo Weidner
@@ -78,7 +79,7 @@ public abstract class AbstractHistoryCleanupSchedulerTest {
     engineConfiguration.initHistoryCleanup();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     clearMeterLog();
 
@@ -88,7 +89,7 @@ public abstract class AbstractHistoryCleanupSchedulerTest {
     }
   }
 
-  @AfterClass
+  @AfterAll
   public static void tearDownAfterAll() {
     if (engineConfiguration != null) {
       engineConfiguration

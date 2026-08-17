@@ -18,8 +18,8 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,8 +39,8 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Svetlana Dorokhova
@@ -48,8 +48,8 @@ import org.junit.Test;
 public class MessageCorrelationByLocalVariablesTest {
 
   public static final String TEST_MESSAGE_NAME = "TEST_MSG";
-  @Rule public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
-  @Rule public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
+  @RegisterExtension public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
+  @RegisterExtension public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
   @Test
   public void testReceiveTaskMessageCorrelation() {
@@ -262,7 +262,7 @@ public class MessageCorrelationByLocalVariablesTest {
     assertThatThrownBy(() -> engineRule.getRuntimeService().createMessageCorrelation(messageName)
         .localVariablesEqual(correlationKeys).setVariables(Variables.createVariables().putValue("newVar", "newValue")).correlateWithResult())
       .isInstanceOf(MismatchingMessageCorrelationException.class)
-      .hasMessageContaining(String.format("Cannot correlate a message with name '%s' to a single execution", TEST_MESSAGE_NAME));
+      .hasMessageContaining("Cannot correlate a message with name '%s' to a single execution".formatted(TEST_MESSAGE_NAME));
 
   }
 

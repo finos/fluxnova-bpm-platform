@@ -21,11 +21,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Conditional(ClientsNotConfiguredCondition.class)
+@Configuration
 public class FluxnovaBpmSpringSecurityDisableAutoConfiguration {
 
   private static final Logger logger = LoggerFactory.getLogger(FluxnovaBpmSpringSecurityDisableAutoConfiguration.class);

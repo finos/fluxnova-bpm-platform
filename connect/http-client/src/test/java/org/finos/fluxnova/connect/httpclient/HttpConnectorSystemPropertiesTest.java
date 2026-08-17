@@ -16,20 +16,24 @@
  */
 package org.finos.fluxnova.connect.httpclient;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.http.protocol.HTTP;
-import org.finos.fluxnova.connect.httpclient.impl.HttpConnectorImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
-
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.finos.fluxnova.connect.httpclient.impl.HttpConnectorImpl;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Since Apache HTTP client makes it extremely hard to test the proper configuration
@@ -42,19 +46,21 @@ public class HttpConnectorSystemPropertiesTest {
 
   public static final int PORT = 51234;
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(
-      WireMockConfiguration.wireMockConfig().port(PORT));
+  @RegisterExtension
+  static WireMockExtension wireMockRule = WireMockExtension.newInstance()
+      .options(WireMockConfiguration.wireMockConfig().port(PORT))
+      .configureStaticDsl(true)
+      .build();
 
   protected Set<String> updatedSystemProperties;
 
-  @Before
+  @BeforeEach
   public void setUp() {
-    updatedSystemProperties = new HashSet<String>();
+    updatedSystemProperties = new HashSet<>();
     wireMockRule.stubFor(get(urlEqualTo("/")).willReturn(aResponse().withStatus(200)));
   }
 
-  @After
+  @AfterEach
   public void clearCustomSystemProperties() {
     for (String property : updatedSystemProperties) {
       System.getProperties().remove(property);
@@ -65,8 +71,7 @@ public class HttpConnectorSystemPropertiesTest {
     if (!System.getProperties().containsKey(property)) {
       updatedSystemProperties.add(property);
       System.setProperty(property, value);
-    }
-    else {
+    } else {
       throw new RuntimeException("Cannot perform test: System property "
           + property + " is already set. Will not attempt to overwrite this property.");
     }
@@ -83,7 +88,7 @@ public class HttpConnectorSystemPropertiesTest {
     customConnector.createRequest().url("http://localhost:" + PORT).get().execute();
 
     // then
-    verify(getRequestedFor(urlEqualTo("/")).withHeader(HTTP.USER_AGENT, equalTo("foo")));
+    verify(getRequestedFor(urlEqualTo("/")).withHeader(HttpHeaders.USER_AGENT, equalTo("foo")));
 
   }
 }

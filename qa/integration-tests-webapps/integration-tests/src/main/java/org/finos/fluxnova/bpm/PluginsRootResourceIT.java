@@ -16,38 +16,27 @@
  */
 package org.finos.fluxnova.bpm;
 
-import com.sun.jersey.api.client.ClientResponse;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Parameterized.class)
 public class PluginsRootResourceIT extends AbstractWebIntegrationTest {
-
-  @Parameter(0)
   public String assetName;
-
-  @Parameter(1)
   public boolean assetAllowed;
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     createClient(getWebappCtxPath());
   }
 
-  @Parameters(name = "Test instance: {index}. Asset: {0}, Allowed: {1}")
   public static Collection<Object[]> getAssets() {
     return Arrays.asList(new Object[][]{
         {"app/plugin.js", true},
@@ -58,32 +47,32 @@ public class PluginsRootResourceIT extends AbstractWebIntegrationTest {
     });
   }
 
-  @Test
-  public void shouldGetAssetIfAllowed() {
+  @MethodSource("getAssets")
+  @ParameterizedTest(name = "Test instance: {index}. Asset: {0}, Allowed: {1}")
+  public void shouldGetAssetIfAllowed(String assetName, boolean assetAllowed) {
+    initPluginsRootResourceIT(assetName, assetAllowed);
     // when
-    ClientResponse response = getAsset("api/admin/plugin/adminPlugins/static/" + assetName);
+    HttpResponse<String> response = Unirest.get(appBasePath + "api/admin/plugin/adminPlugins/static/" + assetName).asString();
 
     // then
     assertResponse(assetName, response);
-
-    // cleanup
-    response.close();
   }
 
-  protected ClientResponse getAsset(String path) {
-    return client.resource(appBasePath + path).get(ClientResponse.class);
-  }
-
-  protected void assertResponse(String asset, ClientResponse response) {
+  protected void assertResponse(String asset, HttpResponse<String> response) {
     if (assetAllowed) {
-      assertEquals(Status.OK.getStatusCode(), response.getStatus());
+      assertEquals(200, response.getStatus());
     } else {
-      assertEquals(Status.FORBIDDEN.getStatusCode(), response.getStatus());
-      assertTrue(response.getType().toString().startsWith(MediaType.APPLICATION_JSON));
-      String responseEntity = response.getEntity(String.class);
+      assertEquals(403, response.getStatus());
+      assertTrue(response.getHeaders().getFirst("Content-Type").startsWith("application/json"));
+      String responseEntity = response.getBody();
       assertTrue(responseEntity.contains("\"type\":\"RestException\""));
       assertTrue(responseEntity.contains("\"message\":\"Not allowed to load the following file '" + asset + "'.\""));
     }
+  }
+
+  public void initPluginsRootResourceIT(String assetName, boolean assetAllowed) {
+    this.assetName = assetName;
+    this.assetAllowed = assetAllowed;
   }
 
 }

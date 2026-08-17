@@ -33,21 +33,21 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
 import org.finos.fluxnova.commons.testing.WatchLogger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class TelemetryConfigurationTest {
 
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule();
 
   protected ProcessEngineConfigurationImpl configuration;
@@ -56,14 +56,14 @@ public class TelemetryConfigurationTest {
 
   protected ProcessEngineConfigurationImpl inMemoryConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     configuration = engineRule.getProcessEngineConfiguration();
     managementService = configuration.getManagementService();
     identityService = configuration.getIdentityService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     identityService.clearAuthentication();
     if (inMemoryConfiguration != null) {

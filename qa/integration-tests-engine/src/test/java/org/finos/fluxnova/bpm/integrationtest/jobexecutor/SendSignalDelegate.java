@@ -18,8 +18,8 @@ package org.finos.fluxnova.bpm.integrationtest.jobexecutor;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.cdi.BusinessProcess;

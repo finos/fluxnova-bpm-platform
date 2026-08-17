@@ -25,7 +25,6 @@ import java.util.List;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.repository.FluxnovaFormDefinition;
 import org.finos.fluxnova.bpm.engine.test.form.deployment.FindFluxnovaFormDefinitionsCmd;
-import org.junit.rules.TemporaryFolder;
 
 public class FluxnovaFormUtils {
 
@@ -34,15 +33,21 @@ public class FluxnovaFormUtils {
         .execute(new FindFluxnovaFormDefinitionsCmd());
   }
 
-  public static FileInputStream writeTempFormFile(String fileName, String content, TemporaryFolder tempFolder) throws IOException {
-    File formFile = new File(tempFolder.getRoot(), fileName);
+  public static FileInputStream writeTempFormFile(String fileName, String content, File tempFolder) throws IOException {
+    File formFile = new File(tempFolder, fileName);
     if(!formFile.exists()) {
-      formFile = tempFolder.newFile(fileName);
+      formFile = newFile(tempFolder, fileName);
     }
 
     FileWriter writer = new FileWriter(formFile, false);
     writer.write(content);
     writer.close();
     return new FileInputStream(formFile.getAbsolutePath());
+  }
+
+  private static File newFile(File parent, String child) throws IOException {
+    File result = new File(parent, child);
+    result.createNewFile();
+    return result;
   }
 }

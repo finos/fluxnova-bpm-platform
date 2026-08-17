@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.Date;
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertThat;
  */
 public class RemovalTimeBatchTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   protected HistoryService historyService;

@@ -27,27 +27,19 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * This test should not be run on our CI, as it requires a Docker-in-Docker image to run successfully.
  */
-@Ignore
-@RunWith(Parameterized.class)
+@Disabled
 public class DatabaseContainerProviderTest {
-
-
-  @Parameterized.Parameter(0)
   public String jdbcUrl;
-  @Parameterized.Parameter(1)
   public String versionStatement;
-  @Parameterized.Parameter(2)
   public String dbVersion;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       // The Camunda PostgreSQL 13.2 image is compatible with Testcontainers.
@@ -67,8 +59,10 @@ public class DatabaseContainerProviderTest {
     });
   }
 
-  @Test
-  public void testJdbcTestcontainersUrl() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testJdbcTestcontainersUrl(String jdbcUrl, String versionStatement, String dbVersion) {
+    initDatabaseContainerProviderTest(jdbcUrl, versionStatement, dbVersion);
     // when
     try (Connection connection = DriverManager.getConnection(jdbcUrl)) {
       connection.setAutoCommit(false);
@@ -81,6 +75,12 @@ public class DatabaseContainerProviderTest {
     } catch (SQLException throwables) {
       fail("Testcontainers failed to spin up a Docker container: " + throwables.getMessage());
     }
+  }
+
+  public void initDatabaseContainerProviderTest(String jdbcUrl, String versionStatement, String dbVersion) {
+    this.jdbcUrl = jdbcUrl;
+    this.versionStatement = versionStatement;
+    this.dbVersion = dbVersion;
   }
 
 }

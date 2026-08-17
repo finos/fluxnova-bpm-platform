@@ -26,12 +26,12 @@ import org.finos.fluxnova.bpm.integrationtest.functional.ejb.request.beans.Invoc
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class JobExecutorRequestContextRemoteInvocationTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa", order=2)
@@ -80,7 +80,7 @@ public class JobExecutorRequestContextRemoteInvocationTest extends AbstractFoxPl
     waitForJobExecutorToProcessAllJobs();
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
 
     // set the variable back to 0
     runtimeService.setVariable(pi.getId(), "invocationCounter", 0);
@@ -94,6 +94,6 @@ public class JobExecutorRequestContextRemoteInvocationTest extends AbstractFoxPl
 
     variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // now it's '1' again! -> new instance of the bean
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
   }
 }

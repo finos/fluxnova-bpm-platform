@@ -18,12 +18,11 @@ package org.finos.fluxnova.bpm.dmn.engine.test;
 
 import org.finos.fluxnova.bpm.dmn.engine.DmnEngine;
 import org.finos.fluxnova.bpm.dmn.engine.DmnEngineConfiguration;
-import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * JUnit rule for {@link DmnEngine} initialization.
+ * JUnit extension for {@link DmnEngine} initialization.
  * <p>
  * Usage:
  * </p>
@@ -31,7 +30,7 @@ import org.junit.runner.Description;
  * <pre>
  * public class YourDmnTest {
  *
- *   &#64;Rule
+ *   &#64;RegisterExtension
  *   public DmnEngineRule dmnEngineRule = new DmnEngineRule();
  *
  *   ...
@@ -46,39 +45,29 @@ import org.junit.runner.Description;
  * {@link #DmnEngineRule(DmnEngineConfiguration)} constructor.
  * </p>
  */
-public class DmnEngineRule extends TestWatcher {
+public class DmnEngineRule implements BeforeEachCallback {
 
   protected DmnEngine dmnEngine;
   protected DmnEngineConfiguration dmnEngineConfiguration;
 
-  /**
-   * Creates a {@link DmnEngine} with the default {@link DmnEngineConfiguration}
-   */
   public DmnEngineRule() {
     this(null);
   }
 
-  /**
-   * Creates a {@link DmnEngine} with the given {@link DmnEngineConfiguration}
-   */
   public DmnEngineRule(DmnEngineConfiguration dmnEngineConfiguration) {
     if (dmnEngineConfiguration != null) {
       this.dmnEngineConfiguration = dmnEngineConfiguration;
-    }
-    else {
+    } else {
       this.dmnEngineConfiguration = DmnEngineConfiguration.createDefaultDmnEngineConfiguration();
     }
   }
 
-  /**
-   * @return the {@link DmnEngine}
-   */
   public DmnEngine getDmnEngine() {
     return dmnEngine;
   }
 
   @Override
-  protected void starting(Description description) {
+  public void beforeEach(ExtensionContext context) {
     if (dmnEngine == null) {
       dmnEngine = dmnEngineConfiguration.buildEngine();
     }

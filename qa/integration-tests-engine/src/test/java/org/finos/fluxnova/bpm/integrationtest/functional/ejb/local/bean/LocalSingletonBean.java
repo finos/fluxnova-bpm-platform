@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.local.bean;
 
-import javax.ejb.Local;
-import javax.ejb.Singleton;
+import jakarta.ejb.Local;
+import jakarta.ejb.Singleton;
 
 /**
  * A SingletonBean with a local business interface 

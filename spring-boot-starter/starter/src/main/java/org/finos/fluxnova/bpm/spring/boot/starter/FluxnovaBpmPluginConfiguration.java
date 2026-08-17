@@ -15,76 +15,20 @@
  * limitations under the License.
  */
 package org.finos.fluxnova.bpm.spring.boot.starter;
-
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.finos.fluxnova.bpm.spring.boot.starter.plugin.ApplicationContextClassloaderSwitchPlugin;
-import org.finos.fluxnova.bpm.spring.boot.starter.spin.FluxnovaJacksonFormatConfiguratorJSR310;
-import org.finos.fluxnova.bpm.spring.boot.starter.spin.FluxnovaJacksonFormatConfiguratorJdk8;
-import org.finos.fluxnova.bpm.spring.boot.starter.spin.FluxnovaJacksonFormatConfiguratorParameterNames;
 import org.finos.fluxnova.bpm.spring.boot.starter.spin.SpringBootSpinProcessEnginePlugin;
 import org.finos.fluxnova.connect.plugin.impl.ConnectProcessEnginePlugin;
 import org.finos.fluxnova.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.finos.fluxnova.spin.plugin.impl.SpinProcessEnginePlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.devtools.restart.ConditionalOnInitializedRestarter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FluxnovaBpmPluginConfiguration {
-
-  /*
-     When `camunda-spin-dataformat-all` is used as a dependency,
-     SpinDataFormatConfigurationJSR310, SpinDataFormatConfigurationParameterNames
-     and SpinDataFormatConfigurationJdk8 are not used. The `camunda-spin-dataformat-all`
-     artifact comes with a shaded Jackson ObjectMapper (prefixed with `spinjar`),
-     which breaks auto-configuration for Jackson Java 8 modules.
-  */
-
-  @ConditionalOnClass({JacksonJsonDataFormat.class, JavaTimeModule.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
-  @Configuration
-  static class SpinDataFormatConfigurationJSR310 {
-
-    @Bean
-    @ConditionalOnMissingBean(name = "spinDataFormatConfiguratorJSR310")
-    public static FluxnovaJacksonFormatConfiguratorJSR310 spinDataFormatConfiguratorJSR310() {
-      return new FluxnovaJacksonFormatConfiguratorJSR310();
-    }
-
-  }
-
-  @ConditionalOnClass({JacksonJsonDataFormat.class, ParameterNamesModule.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
-  @Configuration
-  static class SpinDataFormatConfigurationParameterNames {
-
-    @Bean
-    @ConditionalOnMissingBean(name = "spinDataFormatConfiguratorParameterNames")
-    public static FluxnovaJacksonFormatConfiguratorParameterNames spinDataFormatConfiguratorParameterNames() {
-      return new FluxnovaJacksonFormatConfiguratorParameterNames();
-    }
-
-  }
-
-  @ConditionalOnClass({JacksonJsonDataFormat.class, Jdk8Module.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
-  @Configuration
-  static class SpinDataFormatConfigurationJdk8 {
-
-    @Bean
-    @ConditionalOnMissingBean(name = "spinDataFormatConfiguratorJdk8")
-    public static FluxnovaJacksonFormatConfiguratorJdk8 spinDataFormatConfiguratorJdk8() {
-      return new FluxnovaJacksonFormatConfiguratorJdk8();
-    }
-
-  }
 
   @ConditionalOnClass(SpinProcessEnginePlugin.class)
   @Configuration

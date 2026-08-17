@@ -33,8 +33,8 @@ import org.finos.fluxnova.spin.impl.json.jackson.format.MapJacksonJsonTypeDetect
 import org.finos.fluxnova.spin.impl.json.jackson.format.SetJacksonJsonTypeDetector;
 import org.finos.fluxnova.spin.json.mapping.Customer;
 import org.finos.fluxnova.spin.json.mapping.RegularCustomer;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class JsonJacksonTreeTypeDetectionTest {
 
@@ -44,7 +44,7 @@ public class JsonJacksonTreeTypeDetectionTest {
   public JacksonJsonDataFormat dataFormatWithMapTypeDetector =
       new JacksonJsonDataFormat(DataFormats.JSON_DATAFORMAT_NAME);
 
-  @Before
+  @BeforeEach
   public void configure() {
     dataFormatWithSetTypeDetector.addTypeDetector(SetJacksonJsonTypeDetector.INSTANCE);
     dataFormatWithMapTypeDetector.addTypeDetector(MapJacksonJsonTypeDetector.INSTANCE);

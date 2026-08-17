@@ -22,15 +22,14 @@ import org.finos.fluxnova.bpm.client.dto.ProcessInstanceDto;
 import org.finos.fluxnova.bpm.client.exception.ExternalTaskClientException;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.util.RecordingExternalTaskHandler;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Date;
@@ -38,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.client.util.ProcessModels.*;
 
 /**
@@ -55,10 +55,9 @@ public class TopicSubscriptionIT {
 
   protected ClientRule clientRule = new ClientRule();
   protected EngineRule engineRule = new EngineRule();
-  protected ExpectedException thrown = ExpectedException.none();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule).around(thrown);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
@@ -66,7 +65,7 @@ public class TopicSubscriptionIT {
   protected ProcessDefinitionDto processDefinition2;
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
     handler.clear();
@@ -476,12 +475,10 @@ public class TopicSubscriptionIT {
     engineRule.startProcessInstance(processDefinition.getId());
 
     // then
-    thrown.expect(ExternalTaskClientException.class);
-
-    // when
-    client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
+    assertThatThrownBy(() -> client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .lockDuration(0)
-      .open();
+      .open())
+      .isInstanceOf(ExternalTaskClientException.class);
   }
 
   @Test
@@ -490,11 +487,9 @@ public class TopicSubscriptionIT {
     engineRule.startProcessInstance(processDefinition.getId());
 
     // then
-    thrown.expect(ExternalTaskClientException.class);
-
-    // when
-    client.subscribe(null)
-      .open();
+    assertThatThrownBy(() -> client.subscribe(null)
+      .open())
+      .isInstanceOf(ExternalTaskClientException.class);
   }
 
   @Test
@@ -503,11 +498,9 @@ public class TopicSubscriptionIT {
     engineRule.startProcessInstance(processDefinition.getId());
 
     // then
-    thrown.expect(ExternalTaskClientException.class);
-
-    // when
-    client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
-      .open();
+    assertThatThrownBy(() -> client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
+      .open())
+      .isInstanceOf(ExternalTaskClientException.class);
   }
 
   @Test
@@ -516,12 +509,10 @@ public class TopicSubscriptionIT {
     engineRule.startProcessInstance(processDefinition.getId());
 
     // then
-    thrown.expect(ExternalTaskClientException.class);
-
-    // when
-    client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
+    assertThatThrownBy(() -> client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(null)
-      .open();
+      .open())
+      .isInstanceOf(ExternalTaskClientException.class);
   }
 
   @Test
@@ -548,12 +539,10 @@ public class TopicSubscriptionIT {
       .open();
 
     // then
-    thrown.expect(ExternalTaskClientException.class);
-
-    // when
-    client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
+    assertThatThrownBy(() -> client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
       .handler(handler)
-      .open();
+      .open())
+      .isInstanceOf(ExternalTaskClientException.class);
   }
 
   @Test

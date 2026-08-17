@@ -19,7 +19,9 @@ package org.finos.fluxnova.bpm.client.spring.client.configuration;
 import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.spring.annotation.EnableExternalTaskClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 @EnableExternalTaskClient
 public class MultipleClientBeansConfiguration {
 

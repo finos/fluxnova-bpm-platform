@@ -19,7 +19,8 @@ package org.finos.fluxnova.bpm.engine.test.standalone.testing;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Checks if the test is ignored than the current history level is lower than

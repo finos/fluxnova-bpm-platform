@@ -22,7 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.finos.fluxnova.bpm.engine.impl.util.ImmutablePair;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class BatchElementConfigurationTest {
 

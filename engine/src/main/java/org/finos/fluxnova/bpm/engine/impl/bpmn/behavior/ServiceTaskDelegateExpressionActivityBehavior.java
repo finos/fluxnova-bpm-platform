@@ -79,8 +79,7 @@ public class ServiceTaskDelegateExpressionActivityBehavior extends TaskActivityB
     applyFieldDeclaration(fieldDeclarations, delegate);
     final ActivityBehavior activityBehaviorInstance = getActivityBehaviorInstance(execution, delegate);
 
-    if (activityBehaviorInstance instanceof CustomActivityBehavior) {
-      CustomActivityBehavior behavior = (CustomActivityBehavior) activityBehaviorInstance;
+    if (activityBehaviorInstance instanceof CustomActivityBehavior behavior) {
       ActivityBehavior delegateActivityBehavior = behavior.getDelegateActivityBehavior();
 
       if (!(delegateActivityBehavior instanceof SignallableActivityBehavior)) {
@@ -107,15 +106,15 @@ public class ServiceTaskDelegateExpressionActivityBehavior extends TaskActivityB
         Object delegate = expression.getValue(execution);
         applyFieldDeclaration(fieldDeclarations, delegate);
 
-        if (delegate instanceof ActivityBehavior) {
+        if (delegate instanceof ActivityBehavior behavior) {
           Context.getProcessEngineConfiguration()
             .getDelegateInterceptor()
-            .handleInvocation(new ActivityBehaviorInvocation((ActivityBehavior) delegate, execution));
+            .handleInvocation(new ActivityBehaviorInvocation(behavior, execution));
 
-        } else if (delegate instanceof JavaDelegate) {
+        } else if (delegate instanceof JavaDelegate javaDelegate) {
           Context.getProcessEngineConfiguration()
             .getDelegateInterceptor()
-            .handleInvocation(new JavaDelegateInvocation((JavaDelegate) delegate, execution));
+            .handleInvocation(new JavaDelegateInvocation(javaDelegate, execution));
           leave(execution);
 
         } else {
@@ -129,10 +128,10 @@ public class ServiceTaskDelegateExpressionActivityBehavior extends TaskActivityB
 
   protected ActivityBehavior getActivityBehaviorInstance(ActivityExecution execution, Object delegateInstance) {
 
-    if (delegateInstance instanceof ActivityBehavior) {
-      return new CustomActivityBehavior((ActivityBehavior) delegateInstance);
-    } else if (delegateInstance instanceof JavaDelegate) {
-      return new ServiceTaskJavaDelegateActivityBehavior((JavaDelegate) delegateInstance);
+    if (delegateInstance instanceof ActivityBehavior behavior) {
+      return new CustomActivityBehavior(behavior);
+    } else if (delegateInstance instanceof JavaDelegate delegate) {
+      return new ServiceTaskJavaDelegateActivityBehavior(delegate);
     } else {
       throw LOG.missingDelegateParentClassException(delegateInstance.getClass().getName(),
         JavaDelegate.class.getName(), ActivityBehavior.class.getName());

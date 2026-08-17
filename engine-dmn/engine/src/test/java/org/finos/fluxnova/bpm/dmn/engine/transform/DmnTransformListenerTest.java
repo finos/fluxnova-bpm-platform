@@ -39,8 +39,8 @@ import org.finos.fluxnova.bpm.model.dmn.instance.Input;
 import org.finos.fluxnova.bpm.model.dmn.instance.Output;
 import org.finos.fluxnova.bpm.model.dmn.instance.Rule;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -60,7 +60,7 @@ public class DmnTransformListenerTest extends DmnEngineTest {
     return new TestDmnTransformListenerConfiguration();
   }
 
-  @Before
+  @BeforeEach
   public void initListener() {
     TestDmnTransformListenerConfiguration configuration = (TestDmnTransformListenerConfiguration) dmnEngine.getConfiguration();
     listener = configuration.testDmnTransformListener;

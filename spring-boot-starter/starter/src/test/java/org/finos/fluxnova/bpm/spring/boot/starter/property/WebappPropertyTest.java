@@ -16,10 +16,11 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
-import org.junit.Test;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

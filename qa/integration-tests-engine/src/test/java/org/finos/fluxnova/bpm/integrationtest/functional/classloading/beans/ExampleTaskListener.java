@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.classloading.beans;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateTask;
 import org.finos.fluxnova.bpm.engine.delegate.TaskListener;

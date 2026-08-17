@@ -228,11 +228,11 @@ public class MigratingActivityInstance extends MigratingScopeInstance implements
 
   @Override
   public void addChild(MigratingScopeInstance migratingActivityInstance) {
-    if (migratingActivityInstance instanceof MigratingActivityInstance) {
-      addChild((MigratingActivityInstance) migratingActivityInstance);
+    if (migratingActivityInstance instanceof MigratingActivityInstance instance1) {
+      addChild(instance1);
     }
-    else if (migratingActivityInstance instanceof MigratingEventScopeInstance) {
-      addChild((MigratingEventScopeInstance) migratingActivityInstance);
+    else if (migratingActivityInstance instanceof MigratingEventScopeInstance instance) {
+      addChild(instance);
     }
     else {
       throw MIGRATION_LOGGER.cannotHandleChild(this, migratingActivityInstance);
@@ -241,11 +241,11 @@ public class MigratingActivityInstance extends MigratingScopeInstance implements
 
   @Override
   public void removeChild(MigratingScopeInstance child) {
-    if (child instanceof MigratingActivityInstance) {
-      removeChild((MigratingActivityInstance) child);
+    if (child instanceof MigratingActivityInstance instance1) {
+      removeChild(instance1);
     }
-    else if (child instanceof MigratingEventScopeInstance) {
-      removeChild((MigratingEventScopeInstance) child);
+    else if (child instanceof MigratingEventScopeInstance instance) {
+      removeChild(instance);
     }
     else {
       throw MIGRATION_LOGGER.cannotHandleChild(this, child);

@@ -17,14 +17,16 @@
 package org.finos.fluxnova.bpm.engine.rest.openapi.generator.impl;
 
 import java.io.File;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.ValidationMessage;
+import com.networknt.schema.dialect.Dialects;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import com.networknt.schema.Schema;
+import com.networknt.schema.SchemaRegistry;
+import com.networknt.schema.Error;
 
 public class SchemaValidator {
   public static void main(String[] args) throws Exception {
@@ -39,14 +41,14 @@ public class SchemaValidator {
     JsonNode schemaNode = mapper.readTree(new File(jsonSchemaPath));
     JsonNode inputNode = mapper.readTree(new File(inputFile));
 
-    JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
-    JsonSchema schema = factory.getSchema(schemaNode);
+    SchemaRegistry schemaRegistry = SchemaRegistry.withDialect(Dialects.getDraft4());
+    Schema schema = schemaRegistry.getSchema(schemaNode);
+    List<Error> errors = schema.validate(inputNode);
 
-    Set<ValidationMessage> errors = schema.validate(inputNode);
 
     if (errors.size() > 0) {
       String messages = errors.stream()
-                              .map(ValidationMessage::getMessage)
+                              .map(Error::getMessage)
                               .collect(Collectors.joining("\n"));
 
       throw new RuntimeException("Schema validation errors\n" + messages);

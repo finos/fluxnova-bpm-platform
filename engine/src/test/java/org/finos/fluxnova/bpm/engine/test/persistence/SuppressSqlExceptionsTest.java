@@ -56,19 +56,19 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class SuppressSqlExceptionsTest {
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule engineTestRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule);
 
   protected RuntimeService runtimeService;
   protected ManagementService managementService;
@@ -82,7 +82,7 @@ public class SuppressSqlExceptionsTest {
 
   protected Map<String, String> keptStatementMappings;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
@@ -95,7 +95,7 @@ public class SuppressSqlExceptionsTest {
     batchProcessingEnabled = engineConfig.isJdbcBatchProcessing();
   }
 
-  @Before
+  @BeforeEach
   public void keepStatementMappings() {
     Map<String, String> statementMappings = engineRule.getProcessEngineConfiguration()
         .getDbSqlSessionFactory()
@@ -111,7 +111,7 @@ public class SuppressSqlExceptionsTest {
             new HashMap<>(keptStatementMappings));
   }
 
-  @After
+  @AfterEach
   public void resetStatementMappings() {
     engineConfig.getDbSqlSessionFactory().setStatementMappings(keptStatementMappings);
   }
@@ -121,10 +121,9 @@ public class SuppressSqlExceptionsTest {
     // given
     failForSqlStatement("selectJob");
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      managementService.executeJob("anId");
-    });
+      managementService.executeJob("anId"));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -139,12 +138,11 @@ public class SuppressSqlExceptionsTest {
   public void shouldThrowExceptionOnSelectionWithListInReturn() {
     // given
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
       runtimeService.createNativeProcessInstanceQuery()
           .sql("foo")
-          .list();
-    });
+          .list());
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -160,10 +158,9 @@ public class SuppressSqlExceptionsTest {
     // given
     failForSqlStatement("selectDeploymentCountByQueryCriteria");
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      repositoryService.createDeploymentQuery().count();
-    });
+      repositoryService.createDeploymentQuery().count());
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -187,10 +184,9 @@ public class SuppressSqlExceptionsTest {
 
     String businessKey = generateString(1_000);
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      runtimeService.startProcessInstanceByKey("process", businessKey);
-    });
+      runtimeService.startProcessInstanceByKey("process", businessKey));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -225,10 +221,9 @@ public class SuppressSqlExceptionsTest {
     authorizationTwo.setResourceId("foo");
     authorizationTwo.setResource(Resources.TASK);
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      authorizationService.saveAuthorization(authorizationTwo);
-    });
+      authorizationService.saveAuthorization(authorizationTwo));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -257,10 +252,9 @@ public class SuppressSqlExceptionsTest {
     Filter foo = filterService.newTaskFilter("foo");
     filterService.saveFilter(foo);
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      filterService.deleteFilter(foo.getId());
-    });
+      filterService.deleteFilter(foo.getId()));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -291,10 +285,9 @@ public class SuppressSqlExceptionsTest {
     User user = identityService.newUser("foo");
     identityService.saveUser(user);
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
-      identityService.deleteUser("foo");
-    });
+      identityService.deleteUser("foo"));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -336,7 +329,7 @@ public class SuppressSqlExceptionsTest {
 
     CommandExecutor commandExecutor = engineConfig.getCommandExecutorTxRequired();
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
       commandExecutor.execute(c -> {
         runtimeService.setVariable(processInstanceId, "foo", variableValue);
@@ -346,9 +339,7 @@ public class SuppressSqlExceptionsTest {
         trimHistoricDetailValue(c);
 
         return null;
-      });
-
-    });
+      }));
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -389,12 +380,11 @@ public class SuppressSqlExceptionsTest {
 
     engineTestRule.deploy(modelInstance);
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
       repositoryService.updateProcessDefinitionSuspensionState()
           .byProcessDefinitionKey("process")
-          .suspend();
-    });
+          .suspend());
 
     // then
     assertThat(exceptionsByHierarchy.next())
@@ -431,12 +421,11 @@ public class SuppressSqlExceptionsTest {
         .endEvent()
         .done();
 
-    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() -> {
+    Iterator<Throwable> exceptionsByHierarchy = catchExceptionHierarchy(() ->
       // when
       repositoryService.createDeployment()
           .addModelInstance("process.bpmn", modelInstance)
-          .deploy();
-    });
+          .deploy());
 
     // then
     assertThat(exceptionsByHierarchy.next())

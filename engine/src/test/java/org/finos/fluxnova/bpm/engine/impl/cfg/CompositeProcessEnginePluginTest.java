@@ -24,8 +24,9 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.junit.Test;
 import org.mockito.InOrder;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class CompositeProcessEnginePluginTest {

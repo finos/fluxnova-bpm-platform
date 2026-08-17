@@ -26,8 +26,9 @@ import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties
 import org.finos.fluxnova.bpm.spring.boot.starter.test.helper.StandaloneInMemoryTestConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.SpringBootProcessEngineLogger;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -50,10 +51,10 @@ public class CreateAdminUserConfigurationTest {
 
   private final ProcessEngineConfigurationImpl processEngineConfiguration = new StandaloneInMemoryTestConfiguration(createAdminUserConfiguration);
 
-  @Rule
+  @RegisterExtension
   public final ProcessEngineRule processEngineRule = new ProcessEngineRule(processEngineConfiguration.buildProcessEngine());
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule()
       .watch(SpringBootProcessEngineLogger.PACKAGE);
 

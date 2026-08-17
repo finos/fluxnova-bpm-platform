@@ -17,29 +17,29 @@
 package org.finos.fluxnova.bpm.engine.test.standalone.testing;
 
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 @Deployment
 public class ProcessEngineRuleClassDeploymentTest {
 
-  @Rule
+  @RegisterExtension
   public final ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
 
   @Test
   public void testDeploymentOnClassLevel() {
-    assertNotNull("process is not deployed",processEngineRule.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("testHelperDeploymentTest").singleResult());
+    assertNotNull(processEngineRule.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("testHelperDeploymentTest").singleResult(),"process is not deployed");
   }
 
   @Test
   @Deployment
   public void testDeploymentOnMethodOverridesClass() {
-    assertNotNull("process is not deployed",processEngineRule.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("testHelperDeploymentTestOverride").singleResult());
+    assertNotNull(processEngineRule.getRepositoryService().createProcessDefinitionQuery().processDefinitionKey("testHelperDeploymentTestOverride").singleResult(),"process is not deployed");
   }
 
 }

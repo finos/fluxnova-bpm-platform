@@ -31,6 +31,7 @@ import java.net.URL;
 public abstract class ReflectUtil {
 
   public static InputStream getResourceAsStream(String name) {
+    validateResourceName(name);
     // Try the current Thread context class loader
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     InputStream resourceStream = classLoader.getResourceAsStream(name);
@@ -48,6 +49,7 @@ public abstract class ReflectUtil {
   }
 
   public static URL getResource(String name, ClassLoader classLoader) {
+    validateResourceName(name);
     if(classLoader == null) {
       // Try the current Thread context class loader
       classLoader = Thread.currentThread().getContextClassLoader();
@@ -60,6 +62,21 @@ public abstract class ReflectUtil {
     }
 
     return url;
+  }
+
+  /**
+   * Validates that a resource name does not contain path traversal sequences (CWE-22 fix).
+   */
+  private static void validateResourceName(String name) {
+    if (name == null) {
+      throw new ModelException("Resource name must not be null");
+    }
+    String normalized = name.replace('\\', '/');
+    for (String segment : normalized.split("/")) {
+      if ("..".equals(segment)) {
+        throw new ModelException("Resource name contains illegal path traversal sequence: " + name);
+      }
+    }
   }
 
   public static File getResourceAsFile(String path) {

@@ -17,18 +17,18 @@
 package org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec;
 
 import org.finos.fluxnova.bpm.webapp.impl.util.HeaderRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class ContentTypeOptionsTest {
 
   public static final String HEADER_NAME = "X-Content-Type-Options";
   public static final String HEADER_DEFAULT_VALUE = "nosniff";
 
-  @Rule
+  @RegisterExtension
   public HeaderRule headerRule = new HeaderRule();
 
   @Test

@@ -23,14 +23,15 @@ import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstance;
 import org.finos.fluxnova.bpm.engine.impl.HistoricProcessInstanceQueryImpl;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
-import org.junit.Before;
+
+import org.junit.jupiter.api.BeforeEach;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_AUDIT)
 @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
 public class HistoricProcessInstanceQueryVariableIgnoreCaseTest
     extends AbstractVariableIgnoreCaseTest<HistoricProcessInstanceQueryImpl, HistoricProcessInstance> {
 
-  @Before
+  @BeforeEach
   public void init() {
     engineRule.getRuntimeService().startProcessInstanceByKey("oneTaskProcess", VARIABLES);
     instance = engineRule.getHistoryService().createHistoricProcessInstanceQuery().singleResult();

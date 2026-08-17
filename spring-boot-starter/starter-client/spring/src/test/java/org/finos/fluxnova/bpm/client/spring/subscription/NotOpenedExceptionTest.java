@@ -19,21 +19,22 @@ package org.finos.fluxnova.bpm.client.spring.subscription;
 import org.finos.fluxnova.bpm.client.spring.exception.NotOpenedException;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.subscription.configuration.NotOpenedExceptionConfiguration;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class NotOpenedExceptionTest {
 
-  @Before
+  @BeforeEach
   public void setup() {
     MockedTest.mockClient();
   }
 
-  @After
+  @AfterEach
   public void reset() {
     MockedTest.close();
   }

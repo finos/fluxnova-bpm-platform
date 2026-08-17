@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.exception.NotFoundException;
 import org.finos.fluxnova.bpm.engine.rest.SignalRestService;
@@ -26,7 +26,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.runtime.SignalEventReceivedBuilder;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import java.util.Map;
 
 /**

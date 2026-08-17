@@ -21,8 +21,9 @@ import org.finos.fluxnova.bpm.client.backoff.BackoffStrategy;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.client.configuration.BackoffStrategyConfiguration;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleClientConfiguration;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.mockito.Mockito.verify;

@@ -43,7 +43,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.ServletContextAware;
 
 @Configuration
@@ -124,7 +124,7 @@ public class SpringBootProcessApplication extends SpringProcessApplication {
 
     @Override
     public void setServletContext(ServletContext servletContext) {
-      if (!StringUtils.isEmpty(servletContext.getContextPath())) {
+      if (!ObjectUtils.isEmpty(servletContext.getContextPath())) {
         contextPath = servletContext.getContextPath();
       }
     }

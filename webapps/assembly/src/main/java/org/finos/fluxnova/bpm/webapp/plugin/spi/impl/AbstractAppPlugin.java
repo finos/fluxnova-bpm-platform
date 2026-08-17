@@ -44,7 +44,7 @@ public abstract class AbstractAppPlugin implements AppPlugin {
    * @return the directory providing the plugins client side resources
    */
   public String getAssetDirectory() {
-    return String.format("plugin-webapp/%s", getId());
+    return "plugin-webapp/%s".formatted(getId());
   }
 
   public Set<Class<?>> getResourceClasses() {

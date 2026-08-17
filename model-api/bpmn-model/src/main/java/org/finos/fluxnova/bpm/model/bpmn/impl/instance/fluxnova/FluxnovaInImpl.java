@@ -39,6 +39,7 @@ public class FluxnovaInImpl extends BpmnModelElementInstanceImpl implements Flux
   protected static Attribute<String> camundaTargetAttribute;
   protected static Attribute<String> camundaBusinessKeyAttribute;
   protected static Attribute<Boolean> camundaLocalAttribute;
+  protected static Attribute<Boolean> fluxnovaRestrictedAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FluxnovaIn.class, CAMUNDA_ELEMENT_IN)
@@ -71,6 +72,10 @@ public class FluxnovaInImpl extends BpmnModelElementInstanceImpl implements Flux
 
     camundaLocalAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_LOCAL)
       .namespace(CAMUNDA_NS)
+      .build();
+
+    fluxnovaRestrictedAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_RESTRICTED)
+      .namespace(FLUXNOVA_NS)
       .build();
 
     typeBuilder.build();
@@ -126,6 +131,14 @@ public class FluxnovaInImpl extends BpmnModelElementInstanceImpl implements Flux
 
   public void setFluxnovaLocal(boolean camundaLocal) {
     camundaLocalAttribute.setValue(this, camundaLocal);
+  }
+
+  public boolean getFluxnovaRestricted() {
+    return fluxnovaRestrictedAttribute.getValue(this);
+  }
+
+  public void setFluxnovaRestricted(boolean fluxnovaRestricted) {
+    fluxnovaRestrictedAttribute.setValue(this, fluxnovaRestricted);
   }
 
 }

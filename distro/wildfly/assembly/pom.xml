@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.wildfly</groupId>
     <artifactId>fluxnova-wildfly</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-wildfly-assembly</artifactId>
@@ -34,7 +34,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.javaee</groupId>
-      <artifactId>fluxnova-ejb-client-jakarta</artifactId>
+      <artifactId>fluxnova-ejb-client</artifactId>
     </dependency>
     
     <dependency>
@@ -49,17 +49,17 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
+      <artifactId>fluxnova-engine-cdi</artifactId>
     </dependency>
     
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-spring-6</artifactId>
+      <artifactId>fluxnova-engine-spring</artifactId>
     </dependency>
     
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+      <artifactId>fluxnova-engine-rest</artifactId>
       <classifier>classes</classifier>
       <version>${project.version}</version>
     </dependency>
@@ -108,6 +108,7 @@
     <dependency>
       <groupId>org.graalvm.js</groupId>
       <artifactId>js</artifactId>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.graalvm.js</groupId>

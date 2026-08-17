@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -11,6 +11,7 @@
   <name>Large Data Tests</name>
 
   <properties>
+    <jacoco.skip>true</jacoco.skip>
     <skipTests>true</skipTests>
     <jdbcBatchProcessing>true</jdbcBatchProcessing>
   </properties>
@@ -29,6 +30,11 @@
       <scope>test</scope>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -42,17 +48,17 @@
       <artifactId>JUnitParams</artifactId>
       <version>1.1.1</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -102,6 +108,7 @@
       <id>large-data-tests</id>
 
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <skipTests>false</skipTests>
       </properties>
 
@@ -130,6 +137,7 @@
     <profile>
       <id>cfgJdbcBatchProcessingOff</id>
       <properties>
+        <jacoco.skip>true</jacoco.skip>
         <jdbcBatchProcessing>false</jdbcBatchProcessing>
       </properties>
     </profile>

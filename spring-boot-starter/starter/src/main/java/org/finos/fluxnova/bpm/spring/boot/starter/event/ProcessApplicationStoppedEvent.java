@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.event;
 
+
+
 public class ProcessApplicationStoppedEvent extends ProcessApplicationEvent {
 
   private static final long serialVersionUID = 8052917038949847157L;

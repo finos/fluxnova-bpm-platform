@@ -1,0 +1,37 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: propertiesFilesMigration
+displayName: Properties Files Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "camunda."
+      replace: "fluxnova."
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: "spring.camunda."
+      replace: "spring.fluxnova."
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: "CAMUNDA_"
+      replace: "FLUXNOVA_"
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: '=camunda-'
+      replace: '=fluxnova-'
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: 'camunda-'
+      replace: 'fluxnova-'
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: '/camunda'
+      replace: '/fluxnova'
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: '# Camunda'
+      replace: '# Fluxnova'
+      filePattern: '**/*.properties'
+  - org.openrewrite.text.FindAndReplace:
+      find: '=Camunda '
+      replace: '=Fluxnova '
+      filePattern: '**/*.properties'

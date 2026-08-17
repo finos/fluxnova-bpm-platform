@@ -23,28 +23,27 @@ import java.util.Properties;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestConfiguration;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestException;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * JUnit rule allowing to load the performance test configuration from a file
+ * JUnit 5 extension allowing to load the performance test configuration from a file
  *
  * @author Daniel Meyer
- *
  */
-public class PerfTestConfigurationRule extends TestWatcher {
+public class PerfTestConfigurationRule implements BeforeEachCallback {
 
   private static final String PROPERTY_FILE_NAME = "perf-test-config.properties";
 
   static PerfTestConfiguration perfTestConfiguration;
 
   @Override
-  protected void starting(Description description) {
-    if(perfTestConfiguration == null) {
+  public void beforeEach(ExtensionContext context) throws Exception {
+    if (perfTestConfiguration == null) {
 
       File file = IoUtil.getFile(PROPERTY_FILE_NAME);
-      if(!file.exists()) {
-        throw new PerfTestException("Cannot load file '"+PROPERTY_FILE_NAME+"': file does not exist.");
+      if (!file.exists()) {
+        throw new PerfTestException("Cannot load file '" + PROPERTY_FILE_NAME + "': file does not exist.");
       }
       FileInputStream propertyInputStream = null;
       try {
@@ -52,9 +51,8 @@ public class PerfTestConfigurationRule extends TestWatcher {
         Properties properties = new Properties();
         properties.load(propertyInputStream);
         perfTestConfiguration = new PerfTestConfiguration(properties);
-      } catch(Exception e) {
-        throw new PerfTestException("Cannot load properties from file "+PROPERTY_FILE_NAME+": "+e);
-
+      } catch (Exception e) {
+        throw new PerfTestException("Cannot load properties from file " + PROPERTY_FILE_NAME + ": " + e);
       } finally {
         IoUtil.closeSilently(propertyInputStream);
       }

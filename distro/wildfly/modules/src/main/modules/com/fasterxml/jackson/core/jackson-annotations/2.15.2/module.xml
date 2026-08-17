@@ -1,4 +1,4 @@
-<module xmlns="urn:jboss:module:1.0" name="com.fasterxml.jackson.core.jackson-annotations" slot="@version.jackson@" >
+<module xmlns="urn:jboss:module:1.0" name="tools.jackson.core.jackson-annotations" slot="@version.jackson@" >
   <resources>
     <resource-root path="jackson-annotations-@version.jackson@.jar" />
   </resources>
@@ -6,7 +6,7 @@
   <dependencies>
 
     <module name="java.base" />
-    <module name="com.fasterxml.jackson.core.jackson-core" slot="@version.jackson@" />
+    <module name="tools.jackson.core.jackson-core" slot="@version.jackson@" />
 
   </dependencies>
 </module>

@@ -17,6 +17,7 @@
 package org.finos.fluxnova.bpm.engine.rest.hal;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.net.URI;
 import java.util.List;
@@ -45,10 +46,12 @@ public abstract class HalResource<T extends HalResource<?>> {
     this.linker = Hal.getInstance().createLinker(this);
   }
 
+  @JsonProperty("_links")
   public Map<String, HalLink> get_links() {
     return _links;
   }
 
+  @JsonProperty("_embedded")
   public Map<String, Object> get_embedded() {
     return _embedded;
   }

@@ -117,10 +117,12 @@ public class CompensationUtil {
 
       // copy local variables to eventScopeExecution by value. This way,
       // the eventScopeExecution references a 'snapshot' of the local variables
-      Map<String, Object> variables = execution.getVariablesLocal();
-      for (Entry<String, Object> variable : variables.entrySet()) {
-        eventScopeExecution.setVariableLocal(variable.getKey(), variable.getValue());
-      }
+      org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext.executeAsInternalWrite(() -> {
+        Map<String, Object> variables = execution.getVariablesLocal();
+        for (Entry<String, Object> variable : variables.entrySet()) {
+          eventScopeExecution.setVariableLocal(variable.getKey(), variable.getValue());
+        }
+      });
 
       // set event subscriptions to the event scope execution:
       for (EventSubscriptionEntity eventSubscriptionEntity : eventSubscriptions) {

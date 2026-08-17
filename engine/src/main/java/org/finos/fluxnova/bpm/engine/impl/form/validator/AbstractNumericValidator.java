@@ -33,62 +33,62 @@ public abstract class AbstractNumericValidator implements FormFieldValidator {
 
     // Double
 
-    if (submittedValue instanceof Double) {
+    if (submittedValue instanceof Double double1) {
       Double configuration = null;
       try {
         configuration = Double.parseDouble(configurationString);
       } catch( NumberFormatException e) {
         throw new FormFieldConfigurationException(configurationString, "Cannot validate Double value "+submittedValue +": configuration "+configurationString+" cannot be parsed as Double.");
       }
-      return validate((Double) submittedValue, configuration);
+      return validate(double1, configuration);
     }
 
     // Float
 
-    if (submittedValue instanceof Float) {
+    if (submittedValue instanceof Float float1) {
       Float configuration = null;
       try {
         configuration = Float.parseFloat(configurationString);
       } catch( NumberFormatException e) {
         throw new FormFieldConfigurationException(configurationString, "Cannot validate Float value "+submittedValue +": configuration "+configurationString+" cannot be parsed as Float.");
       }
-      return validate((Float) submittedValue, configuration);
+      return validate(float1, configuration);
     }
 
     // Long
 
-    if (submittedValue instanceof Long) {
+    if (submittedValue instanceof Long long1) {
       Long configuration = null;
       try {
         configuration = Long.parseLong(configurationString);
       } catch(NumberFormatException e) {
         throw new FormFieldConfigurationException(configurationString, "Cannot validate Long value "+submittedValue +": configuration "+configurationString+" cannot be parsed as Long.");
       }
-      return validate((Long) submittedValue, configuration);
+      return validate(long1, configuration);
     }
 
     // Integer
 
-    if (submittedValue instanceof Integer) {
+    if (submittedValue instanceof Integer integer) {
       Integer configuration = null;
       try {
         configuration = Integer.parseInt(configurationString);
       } catch( NumberFormatException e) {
         throw new FormFieldConfigurationException(configurationString, "Cannot validate Integer value "+submittedValue +": configuration "+configurationString+" cannot be parsed as Integer.");
       }
-      return validate((Integer) submittedValue, configuration);
+      return validate(integer, configuration);
     }
 
     // Short
 
-    if (submittedValue instanceof Short) {
+    if (submittedValue instanceof Short short1) {
       Short configuration = null;
       try {
         configuration = Short.parseShort(configurationString);
       } catch( NumberFormatException e) {
         throw new FormFieldConfigurationException(configurationString, "Cannot validate Short value "+submittedValue +": configuration "+configurationString+" cannot be parsed as Short.");
       }
-      return validate((Short) submittedValue, configuration);
+      return validate(short1, configuration);
     }
 
     throw new FormFieldValidationException("Numeric validator "+getClass().getSimpleName()+" cannot be used on non-numeric value "+submittedValue);

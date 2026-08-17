@@ -28,11 +28,12 @@ import org.finos.fluxnova.bpm.engine.authorization.Permissions;
 import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class CreateDeleteProcessInstancesBatchAuthorizationTest extends BatchCreationAuthorizationTest {
-  @Parameterized.Parameters(name = "Scenario {index}")
+
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -52,8 +53,11 @@ public class CreateDeleteProcessInstancesBatchAuthorizationTest extends BatchCre
     );
   }
 
-  @Test
-  public void testBatchProcessInstanceDeletion() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
+  public void testBatchProcessInstanceDeletion(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     //given
     authRule
         .init(scenario)

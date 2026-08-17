@@ -20,13 +20,21 @@ import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.repository.DeploymentDto;
 import org.finos.fluxnova.bpm.engine.rest.mapper.MultipartFormData;
 import org.finos.fluxnova.bpm.engine.rest.sub.repository.DeploymentResource;
+import org.finos.fluxnova.bpm.engine.rest.dto.repository.DeleteDeploymentsDto;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.Set;
+import jakarta.ws.rs.Consumes;
 
 @Produces(MediaType.APPLICATION_JSON)
 public interface DeploymentRestService {
@@ -57,5 +65,11 @@ public interface DeploymentRestService {
   @Path("/registered")
   @Produces(MediaType.APPLICATION_JSON)
   Set<String> getRegisteredDeployments(@Context UriInfo uriInfo);
+
+  @POST
+  @Path("/delete")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  Response deleteDeployments(DeleteDeploymentsDto deleteDeploymentDto);
 
 }

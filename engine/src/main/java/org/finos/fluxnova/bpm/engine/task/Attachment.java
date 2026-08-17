@@ -67,4 +67,13 @@ public interface Attachment {
   /** The time the historic attachment will be removed. */
   Date getRemovalTime();
 
+  /** 
+   * The user who created this attachment.
+   * 
+   * @return the userId of the user who created the attachment, 
+   *         or null if no user was authenticated at creation time
+   *         or for attachments created before this field was added
+   */
+  String getCreatedBy();
+
 }

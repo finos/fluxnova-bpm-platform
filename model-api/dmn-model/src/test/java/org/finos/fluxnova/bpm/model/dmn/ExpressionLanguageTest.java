@@ -31,7 +31,8 @@ import org.finos.fluxnova.bpm.model.dmn.instance.OutputValues;
 import org.finos.fluxnova.bpm.model.dmn.instance.Rule;
 import org.finos.fluxnova.bpm.model.dmn.instance.Text;
 import org.finos.fluxnova.bpm.model.dmn.util.DmnModelResource;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ExpressionLanguageTest extends DmnModelTest {
 

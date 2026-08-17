@@ -18,10 +18,10 @@ package org.finos.fluxnova.bpm.model.bpmn.instance;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Collection;
+
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -55,11 +55,11 @@ public class DelegateExpressionTaskListener implements TaskListener {
     Object delegate = expression.getValue(variableScope);
     applyFieldDeclaration(fieldDeclarations, delegate);
 
-    if (delegate instanceof TaskListener) {
+    if (delegate instanceof TaskListener listener) {
       try {
         Context.getProcessEngineConfiguration()
           .getDelegateInterceptor()
-          .handleInvocation(new TaskListenerInvocation((TaskListener)delegate, delegateTask));
+          .handleInvocation(new TaskListenerInvocation(listener, delegateTask));
       }catch (Exception e) {
         throw new ProcessEngineException("Exception while invoking TaskListener: "+e.getMessage(), e);
       }

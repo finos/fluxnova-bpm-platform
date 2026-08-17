@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,21 +38,18 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
  * @author Anna Pazola
  *
  */
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoryCleanupBatchWindowForEveryDayTest {
 
@@ -62,7 +57,7 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
   protected String defaultEndTime;
   protected int defaultBatchSize;
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
     configuration.setHistoryCleanupBatchSize(20);
     configuration.setHistoryCleanupBatchThreshold(10);
@@ -72,31 +67,20 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private HistoryService historyService;
   private ManagementService managementService;
   private ProcessEngineConfigurationImpl processEngineConfiguration;
 
   private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-  @Parameterized.Parameter(0)
   public String startTime;
-
-  @Parameterized.Parameter(1)
   public String endTime;
-
-  @Parameterized.Parameter(2)
   public Date startDateForCheck;
-
-  @Parameterized.Parameter(3)
   public Date endDateForCheck;
-
-  @Parameterized.Parameter(4)
   public Date currentDate;
 
-  @Parameterized.Parameters
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
         // inside the batch window on the same day
@@ -115,7 +99,7 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
         { "22:00", "23:00", sdf.parse("2017-09-07T22:00:00"), sdf.parse("2017-09-07T23:00:00"), sdf.parse("2017-09-07T00:15:00")} });
   }
 
-  @Before
+  @BeforeEach
   public void init() {
     historyService = engineRule.getHistoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -126,7 +110,7 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
     defaultBatchSize = processEngineConfiguration.getHistoryCleanupBatchSize();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     //reset configuration changes
     processEngineConfiguration.setHistoryCleanupBatchWindowStartTime(defaultStartTime);
@@ -149,8 +133,10 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
     });
   }
 
-  @Test
-  public void testScheduleJobForBatchWindow() throws ParseException {
+  @MethodSource("scenarios")
+  @ParameterizedTest
+  public void testScheduleJobForBatchWindow(String startTime, String endTime, Date startDateForCheck, Date endDateForCheck, Date currentDate) throws ParseException {
+    initHistoryCleanupBatchWindowForEveryDayTest(startTime, endTime, startDateForCheck, endDateForCheck, currentDate);
     ClockUtil.setCurrentTime(currentDate);
 
     processEngineConfiguration.setHistoryCleanupBatchWindowStartTime(startTime);
@@ -162,5 +148,13 @@ public class HistoryCleanupBatchWindowForEveryDayTest {
 
     assertFalse(startDateForCheck.after(job.getDuedate())); // job due date is not before start date
     assertTrue(endDateForCheck.after(job.getDuedate()));
+  }
+
+  public void initHistoryCleanupBatchWindowForEveryDayTest(String startTime, String endTime, Date startDateForCheck, Date endDateForCheck, Date currentDate) {
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.startDateForCheck = startDateForCheck;
+    this.endDateForCheck = endDateForCheck;
+    this.currentDate = currentDate;
   }
 }

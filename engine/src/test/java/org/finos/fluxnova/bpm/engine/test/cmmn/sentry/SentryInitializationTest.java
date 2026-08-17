@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.sentry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -28,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnSentryDeclaration;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
 import org.finos.fluxnova.bpm.model.cmmn.VariableTransition;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

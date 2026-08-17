@@ -24,14 +24,14 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A {@link Filter} implementation that can be used to realize basic templating.
@@ -79,6 +79,9 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @return
    */
   protected boolean hasWebResource(String name) {
+    if (containsPathTraversal(name)) {
+      return false;
+    }
     try {
       URL resource = filterConfig.getServletContext().getResource(name);
       return resource != null;
@@ -99,6 +102,9 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @throws IOException
    */
   protected String getWebResourceContents(String name) throws IOException {
+    if (containsPathTraversal(name)) {
+      throw new IOException("Resource name contains illegal path traversal sequence: " + name);
+    }
 
     InputStream is = null;
 
@@ -121,5 +127,22 @@ public abstract class AbstractTemplateFilter implements Filter {
         try { is.close(); } catch (IOException e) { }
       }
     }
+  }
+
+  /**
+   * Returns true if the given resource name contains path traversal sequences (CWE-73 fix).
+   * Handles both forward slash and backslash variants.
+   */
+  private boolean containsPathTraversal(String name) {
+    if (name == null) {
+      return true;
+    }
+    String normalized = name.replace('\\', '/');
+    for (String segment : normalized.split("/")) {
+      if ("..".equals(segment)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

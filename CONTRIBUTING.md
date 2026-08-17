@@ -237,7 +237,7 @@ This will build all sub modules and execute unit tests.
 Furthermore, you can restrict the build to just the module you are changing by running the same command in the corresponding directory.
 Check the repository's or module's README for additional module-specific instructions.
 The `webapps` module requires NodeJS.
-You can exclude building them by running `mvn clean install -pl '!webapps,!webapps/assembly,!webapps/assembly-jakarta'`.
+You can exclude building them by running `mvn clean install -pl '!webapps,!webapps/assembly'`.
 
 #### Dependency Management
 

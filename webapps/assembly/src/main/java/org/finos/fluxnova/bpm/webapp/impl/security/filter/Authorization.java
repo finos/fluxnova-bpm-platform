@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.webapp.impl.security.filter;
 
 import java.util.Collection;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.Authentication;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.UserAuthentication;
@@ -64,8 +64,8 @@ public class Authorization {
         response.addHeader("X-Authorized-Engine", authentication.getProcessEngineName());
       }
 
-      if (authentication instanceof UserAuthentication) {
-        response.addHeader("X-Authorized-Apps", join(",", ((UserAuthentication) authentication).getAuthorizedApps()));
+      if (authentication instanceof UserAuthentication userAuthentication) {
+        response.addHeader("X-Authorized-Apps", join(",", userAuthentication.getAuthorizedApps()));
       }
     }
 

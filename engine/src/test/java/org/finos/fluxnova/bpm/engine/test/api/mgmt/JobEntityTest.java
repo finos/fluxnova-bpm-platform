@@ -18,9 +18,10 @@ package org.finos.fluxnova.bpm.engine.test.api.mgmt;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +39,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Tassilo Weidner
@@ -52,8 +53,8 @@ public class JobEntityTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected List<String> jobIds = new ArrayList<>();
 
@@ -65,7 +66,7 @@ public class JobEntityTest {
 
   protected String activityIdLoggingProperty;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     historyService = engineRule.getHistoryService();
     managementService = engineRule.getManagementService();
@@ -76,17 +77,17 @@ public class JobEntityTest {
     activityIdLoggingProperty = engineRule.getProcessEngineConfiguration().getLoggingContextActivityId();
   }
 
-  @Before
+  @BeforeEach
   public void setClock() {
     ClockUtil.setCurrentTime(CREATE_DATE);
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @After
+  @AfterEach
   public void cleanup() {
     for (String jobId : jobIds) {
       managementService.deleteJob(jobId);

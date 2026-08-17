@@ -124,7 +124,7 @@ public class CustomMarshaller {
 
       if (!(attribute instanceof ObjectTypeAttributeDefinition)) {
         throw new XMLStreamException(
-          String.format("Attribute of class %s is expected, but %s received", "ObjectTypeAttributeDefinition", attribute.getClass().getSimpleName())
+          "Attribute of class %s is expected, but %s received".formatted("ObjectTypeAttributeDefinition", attribute.getClass().getSimpleName())
         );
       }
 

@@ -16,13 +16,16 @@
  */
 package org.finos.fluxnova.bpm.dmn.engine.feel;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Date;
 import org.finos.fluxnova.bpm.dmn.engine.DmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
 import org.finos.fluxnova.bpm.dmn.feel.impl.juel.FeelEngineFactoryImpl;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class JuelFeelBehaviorTest extends FeelBehavior {
 
@@ -48,11 +51,10 @@ public class JuelFeelBehaviorTest extends FeelBehavior {
     // given
     getVariables().putValue("myDate", new Date());
 
-    // then
-    thrown.expect(FeelException.class);
+    assertThrows(FeelException.class, () ->
 
-    // when
-    evaluateDecision().getSingleEntry();
+      // when
+      evaluateDecision().getSingleEntry());
   }
 
 }

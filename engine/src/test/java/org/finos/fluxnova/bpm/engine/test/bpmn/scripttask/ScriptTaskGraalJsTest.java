@@ -18,8 +18,8 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.scripttask;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,18 +32,14 @@ import org.finos.fluxnova.bpm.engine.ScriptEvaluationException;
 import org.finos.fluxnova.bpm.engine.impl.scripting.engine.DefaultScriptEngineResolver;
 import org.finos.fluxnova.bpm.engine.impl.scripting.engine.ScriptEngineResolver;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import com.oracle.truffle.js.scriptengine.GraalJSEngineFactory;
 import com.oracle.truffle.js.scriptengine.GraalJSScriptEngine;
 
-@RunWith(Parameterized.class)
 public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
 
   private static final String GRAALJS = "graal.js";
@@ -51,28 +47,23 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
   protected ScriptEngineResolver defaultScriptEngineResolver;
   protected boolean spinEnabled = false;
 
-  @Before
+  @BeforeEach
   public void setup() {
+    defaultScriptEngineResolver = processEngineConfiguration.getScriptEngineResolver();
     spinEnabled = processEngineConfiguration.getEnvScriptResolvers().stream()
                     .anyMatch(resolver -> resolver.getClass().getSimpleName().equals("SpinScriptEnvResolver"));
-    defaultScriptEngineResolver = processEngineConfiguration.getScriptEngineResolver();
-    processEngineConfiguration.setConfigureScriptEngineHostAccess(configureHostAccess);
-    processEngineConfiguration.setEnableScriptEngineLoadExternalResources(enableExternalResources);
-    processEngineConfiguration.setEnableScriptEngineNashornCompatibility(enableNashornCompat);
-    // create custom script engine lookup to receive a fresh GraalVM JavaScript engine
-    processEngineConfiguration.setScriptEngineResolver(new TestScriptEngineResolver(
-        processEngineConfiguration.getScriptEngineResolver().getScriptEngineManager()));
   }
 
-  @After
+  @AfterEach
   public void resetConfiguration() {
     processEngineConfiguration.setConfigureScriptEngineHostAccess(true);
     processEngineConfiguration.setEnableScriptEngineNashornCompatibility(false);
     processEngineConfiguration.setEnableScriptEngineLoadExternalResources(false);
-    processEngineConfiguration.setScriptEngineResolver(defaultScriptEngineResolver);
+    if (defaultScriptEngineResolver != null) {
+      processEngineConfiguration.setScriptEngineResolver(defaultScriptEngineResolver);
+    }
   }
 
-  @Parameters
   public static Collection<Object[]> setups() {
     return Arrays.asList(new Object[][] {
       {false, false, false},
@@ -85,18 +76,16 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
       {true, true, true},
     });
   }
-
-  @Parameter(0)
   public boolean configureHostAccess;
-
-  @Parameter(1)
   public boolean enableExternalResources;
-
-  @Parameter(2)
   public boolean enableNashornCompat;
 
-  @Test
-  public void testJavascriptProcessVarVisibility() {
+  @MethodSource("setups")
+  @ParameterizedTest
+  public void testJavascriptProcessVarVisibility(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+
+    initScriptTaskGraalJsTest(configureHostAccess, enableExternalResources, enableNashornCompat);
+    applyEngineConfiguration();
 
     deployProcess(GRAALJS,
 
@@ -149,8 +138,12 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
     }
   }
 
-  @Test
-  public void testJavascriptFunctionInvocation() {
+  @MethodSource("setups")
+  @ParameterizedTest
+  public void testJavascriptFunctionInvocation(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+
+    initScriptTaskGraalJsTest(configureHostAccess, enableExternalResources, enableNashornCompat);
+    applyEngineConfiguration();
 
     deployProcess(GRAALJS,
 
@@ -189,8 +182,12 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
 
   }
 
-  @Test
-  public void testJsVariable() {
+  @MethodSource("setups")
+  @ParameterizedTest
+  public void testJsVariable(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+
+    initScriptTaskGraalJsTest(configureHostAccess, enableExternalResources, enableNashornCompat);
+    applyEngineConfiguration();
 
     String scriptText = "var foo = 1;";
 
@@ -212,8 +209,11 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
 
   }
 
-  @Test
-  public void testJavascriptVariableSerialization() {
+  @MethodSource("setups")
+  @ParameterizedTest
+  public void testJavascriptVariableSerialization(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+    initScriptTaskGraalJsTest(configureHostAccess, enableExternalResources, enableNashornCompat);
+    applyEngineConfiguration();
     deployProcess(GRAALJS,
         // GIVEN
         // setting Java classes as variables
@@ -240,8 +240,11 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
     }
   }
 
-  @Test
-  public void shouldLoadExternalScript() {
+  @MethodSource("setups")
+  @ParameterizedTest
+  public void shouldLoadExternalScript(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+    initScriptTaskGraalJsTest(configureHostAccess, enableExternalResources, enableNashornCompat);
+    applyEngineConfiguration();
       // GIVEN
       // an external JS file with a function
       deployProcess(GRAALJS,
@@ -286,12 +289,26 @@ public class ScriptTaskGraalJsTest extends AbstractScriptTaskTest {
     @Override
     protected ScriptEngine getScriptEngine(String language) {
       if (GRAALJS.equalsIgnoreCase(language)) {
-        GraalJSScriptEngine scriptEngine = new GraalJSEngineFactory().getScriptEngine();
+        GraalJSScriptEngine scriptEngine = (GraalJSScriptEngine) new GraalJSEngineFactory().getScriptEngine();
         configureScriptEngines(language, scriptEngine);
         return scriptEngine;
       }
       return super.getScriptEngine(language);
     }
+  }
+
+  public void initScriptTaskGraalJsTest(boolean configureHostAccess, boolean enableExternalResources, boolean enableNashornCompat) {
+    this.configureHostAccess = configureHostAccess;
+    this.enableExternalResources = enableExternalResources;
+    this.enableNashornCompat = enableNashornCompat;
+  }
+
+  private void applyEngineConfiguration() {
+    processEngineConfiguration.setConfigureScriptEngineHostAccess(configureHostAccess);
+    processEngineConfiguration.setEnableScriptEngineLoadExternalResources(enableExternalResources);
+    processEngineConfiguration.setEnableScriptEngineNashornCompatibility(enableNashornCompat);
+    processEngineConfiguration.setScriptEngineResolver(new TestScriptEngineResolver(
+    defaultScriptEngineResolver.getScriptEngineManager()));
   }
 
 }

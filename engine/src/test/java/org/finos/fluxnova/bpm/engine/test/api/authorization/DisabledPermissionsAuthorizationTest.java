@@ -25,10 +25,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ_INSTA
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,12 +62,12 @@ import org.finos.fluxnova.bpm.engine.test.api.identity.TestResource;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class DisabledPermissionsAuthorizationTest {
 
@@ -80,8 +77,8 @@ public class DisabledPermissionsAuthorizationTest {
   public AuthorizationTestBaseRule authRule = new AuthorizationTestBaseRule(engineRule);
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
 
   ProcessEngineConfigurationImpl processEngineConfiguration;
   RepositoryService repositoryService;
@@ -90,7 +87,7 @@ public class DisabledPermissionsAuthorizationTest {
   ManagementService managementService;
   TaskService taskService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authRule.createUserAndGroup(USER_ID, "group");
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -101,7 +98,7 @@ public class DisabledPermissionsAuthorizationTest {
     taskService = engineRule.getTaskService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.disableAuthorization();
     authRule.deleteUsersAndGroups();
@@ -258,11 +255,11 @@ public class DisabledPermissionsAuthorizationTest {
     List<DeploymentStatistics> statistics = query.list();
 
     for (DeploymentStatistics deploymentStatistics : statistics) {
-      assertEquals("Instances", 1, deploymentStatistics.getInstances());
-      assertEquals("Failed Jobs", 0, deploymentStatistics.getFailedJobs());
+      assertEquals(1, deploymentStatistics.getInstances(), "Instances");
+      assertEquals(0, deploymentStatistics.getFailedJobs(), "Failed Jobs");
 
       List<IncidentStatistics> incidentStatistics = deploymentStatistics.getIncidentStatistics();
-      assertTrue("Incidents supposed to be empty", incidentStatistics.isEmpty());
+      assertTrue(incidentStatistics.isEmpty(), "Incidents supposed to be empty");
     }
 
   }
@@ -291,7 +288,7 @@ public class DisabledPermissionsAuthorizationTest {
   }
 
   @Test
-  @Ignore("CAM-9888")
+  @Disabled("CAM-9888")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/externaltask/oneExternalTaskProcess.bpmn20.xml")
   public void testFetchAndLockIgnoreRead() {
     // given

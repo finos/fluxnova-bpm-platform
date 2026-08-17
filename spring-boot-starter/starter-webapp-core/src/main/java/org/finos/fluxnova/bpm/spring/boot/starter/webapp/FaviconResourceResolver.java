@@ -17,8 +17,9 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp;
 
 import java.io.IOException;
+
+import org.jspecify.annotations.NonNull;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 public class FaviconResourceResolver extends PathResourceResolver {

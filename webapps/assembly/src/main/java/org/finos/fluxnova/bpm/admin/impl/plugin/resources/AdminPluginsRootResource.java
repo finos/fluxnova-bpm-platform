@@ -19,8 +19,8 @@ package org.finos.fluxnova.bpm.admin.impl.plugin.resources;
 import org.finos.fluxnova.bpm.admin.impl.plugin.AdminPlugins;
 import org.finos.fluxnova.bpm.admin.resource.AbstractAdminPluginRootResource;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 
 /**
  * @author vale

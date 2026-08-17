@@ -214,13 +214,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.db.DbIdentityServiceProvider;
 import org.finos.fluxnova.bpm.engine.impl.incident.CompositeIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.DefaultIncidentHandler;
 import org.finos.fluxnova.bpm.engine.impl.incident.IncidentHandler;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContextFactory;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutorImpl;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.DelegateInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.ExceptionCodeInterceptor;
-import org.finos.fluxnova.bpm.engine.impl.interceptor.SessionFactory;
+import org.finos.fluxnova.bpm.engine.impl.interceptor.*;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.AsyncContinuationJobHandler;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultFailedJobCommandFactory;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultJobExecutor;
@@ -347,6 +341,8 @@ import org.finos.fluxnova.bpm.engine.impl.scripting.engine.ScriptingEngines;
 import org.finos.fluxnova.bpm.engine.impl.scripting.engine.VariableScopeResolverFactory;
 import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptEnvResolver;
 import org.finos.fluxnova.bpm.engine.impl.scripting.env.ScriptingEnvironment;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.CompositeScriptPreprocessor;
+import org.finos.fluxnova.bpm.engine.impl.scripting.preprocessor.ScriptPreprocessor;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.DatabaseImpl;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.InternalsImpl;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.JdkImpl;
@@ -373,6 +369,8 @@ import org.finos.fluxnova.bpm.engine.impl.variable.serializer.StringValueSeriali
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializerFactory;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.VariableSerializers;
+import org.finos.fluxnova.bpm.engine.impl.variable.DefaultRestrictedVariableInterceptor;
+import org.finos.fluxnova.bpm.engine.impl.variable.VariableInterceptor;
 import org.finos.fluxnova.bpm.engine.management.Metrics;
 import org.finos.fluxnova.bpm.engine.repository.CaseDefinition;
 import org.finos.fluxnova.bpm.engine.repository.DecisionDefinition;
@@ -608,6 +606,10 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected boolean enableScriptEngineNashornCompatibility = false;
   protected boolean configureScriptEngineHostAccess = true;
   protected boolean skipIsolationLevelCheck = false;
+  private volatile boolean enableScriptPreprocessing = false;
+  private volatile List<ScriptPreprocessor> scriptPreprocessors;
+  private volatile ScriptPreprocessor effectiveScriptPreprocessor;
+  private final Object scriptPreprocessorLock = new Object();
 
   /**
    * When set to false, the following behavior changes:
@@ -877,6 +879,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   protected List<CommandChecker> commandCheckers = null;
 
+  protected List<VariableInterceptor> variableInterceptors;
+
   protected List<String> adminGroups;
 
   protected List<String> adminUsers;
@@ -1016,6 +1020,10 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected String loggingContextProcessInstanceId = "processInstanceId";
   protected String loggingContextTenantId = "tenantId";
   protected String loggingContextEngineName = "engineName";
+  protected String loggingContextRootProcessInstanceId = "rootProcessInstanceId";
+
+  // custom MDC property providers
+  protected Map<String, MdcPropertyProvider> customMdcPropertyProviders = new HashMap<>();
 
   // logging levels (with default values)
   protected String logLevelBpmnStackTrace = "DEBUG";
@@ -1059,6 +1067,12 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
    * Size of batch in which removal time data will be updated. {@link ProcessSetRemovalTimeJobHandler#MAX_CHUNK_SIZE} must be respected.
    */
   protected int removalTimeUpdateChunkSize = 500;
+
+  /**
+   * This legacy behavior sets the retry counter to 3 in the context when running a the job for the first time.
+   * This has been patched up to fetch the correct counter value.
+   */
+  protected boolean legacyJobRetryBehaviorEnabled = false;
 
   /**
    * @return {@code true} if the exception code feature is disabled and vice-versa.
@@ -1179,6 +1193,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initDiagnostics();
     initMigration();
     initCommandCheckers();
+    initVariableInterceptors();
     initDefaultUserPermissionForTask();
     initHistoryRemovalTime();
     initHistoryCleanup();
@@ -1201,8 +1216,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     if (deserializationTypeValidator == null) {
       deserializationTypeValidator = new DefaultDeserializationTypeValidator();
     }
-    if (deserializationTypeValidator instanceof WhitelistingDeserializationTypeValidator) {
-      WhitelistingDeserializationTypeValidator validator = (WhitelistingDeserializationTypeValidator) deserializationTypeValidator;
+    if (deserializationTypeValidator instanceof WhitelistingDeserializationTypeValidator validator) {
       validator.setAllowedClasses(deserializationAllowedClasses);
       validator.setAllowedPackages(deserializationAllowedPackages);
     }
@@ -1222,7 +1236,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       !HISTORY_REMOVAL_TIME_STRATEGY_END.equals(historyRemovalTimeStrategy) &&
       !HISTORY_REMOVAL_TIME_STRATEGY_NONE.equals(historyRemovalTimeStrategy)) {
       throw LOG.invalidPropertyValue("historyRemovalTimeStrategy", String.valueOf(historyRemovalTimeStrategy),
-        String.format("history removal time strategy must be set to '%s', '%s' or '%s'", HISTORY_REMOVAL_TIME_STRATEGY_START, HISTORY_REMOVAL_TIME_STRATEGY_END, HISTORY_REMOVAL_TIME_STRATEGY_NONE));
+        "history removal time strategy must be set to '%s', '%s' or '%s'".formatted(HISTORY_REMOVAL_TIME_STRATEGY_START, HISTORY_REMOVAL_TIME_STRATEGY_END, HISTORY_REMOVAL_TIME_STRATEGY_NONE));
     }
   }
 
@@ -1238,7 +1252,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     //validate number of threads
     if (historyCleanupDegreeOfParallelism < 1 || historyCleanupDegreeOfParallelism > MAX_THREADS_NUMBER) {
       throw LOG.invalidPropertyValue("historyCleanupDegreeOfParallelism", String.valueOf(historyCleanupDegreeOfParallelism),
-        String.format("value for number of threads for history cleanup should be between 1 and %s", HistoryCleanupCmd.MAX_THREADS_NUMBER));
+        "value for number of threads for history cleanup should be between 1 and %s".formatted(HistoryCleanupCmd.MAX_THREADS_NUMBER));
     }
 
     if (historyCleanupBatchWindowStartTime != null) {
@@ -1253,7 +1267,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
     if (historyCleanupBatchSize > HistoryCleanupHandler.MAX_BATCH_SIZE || historyCleanupBatchSize <= 0) {
       throw LOG.invalidPropertyValue("historyCleanupBatchSize", String.valueOf(historyCleanupBatchSize),
-          String.format("value for batch size should be between 1 and %s", HistoryCleanupHandler.MAX_BATCH_SIZE));
+        "value for batch size should be between 1 and %s".formatted(HistoryCleanupHandler.MAX_BATCH_SIZE));
     }
 
     if (historyCleanupBatchThreshold < 0) {
@@ -1278,13 +1292,13 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     if (!HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED.equals(historyCleanupStrategy) &&
       !HISTORY_CLEANUP_STRATEGY_END_TIME_BASED.equals(historyCleanupStrategy)) {
       throw LOG.invalidPropertyValue("historyCleanupStrategy", String.valueOf(historyCleanupStrategy),
-        String.format("history cleanup strategy must be either set to '%s' or '%s'", HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED, HISTORY_CLEANUP_STRATEGY_END_TIME_BASED));
+        "history cleanup strategy must be either set to '%s' or '%s'".formatted(HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED, HISTORY_CLEANUP_STRATEGY_END_TIME_BASED));
     }
 
     if (HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED.equals(historyCleanupStrategy) &&
       HISTORY_REMOVAL_TIME_STRATEGY_NONE.equals(historyRemovalTimeStrategy)) {
       throw LOG.invalidPropertyValue("historyRemovalTimeStrategy", String.valueOf(historyRemovalTimeStrategy),
-        String.format("history removal time strategy cannot be set to '%s' in conjunction with '%s' history cleanup strategy", HISTORY_REMOVAL_TIME_STRATEGY_NONE, HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED));
+        "history removal time strategy cannot be set to '%s' in conjunction with '%s' history cleanup strategy".formatted(HISTORY_REMOVAL_TIME_STRATEGY_NONE, HISTORY_CLEANUP_STRATEGY_REMOVAL_TIME_BASED));
     }
   }
 
@@ -1528,7 +1542,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
     if (removalTimeUpdateChunkSize > ProcessSetRemovalTimeJobHandler.MAX_CHUNK_SIZE || removalTimeUpdateChunkSize <= 0) {
       throw LOG.invalidPropertyValue("removalTimeUpdateChunkSize", String.valueOf(removalTimeUpdateChunkSize),
-          String.format("value for chunk size should be between 1 and %s", ProcessSetRemovalTimeJobHandler.MAX_CHUNK_SIZE));
+        "value for chunk size should be between 1 and %s".formatted(ProcessSetRemovalTimeJobHandler.MAX_CHUNK_SIZE));
     }
   }
 
@@ -1631,11 +1645,11 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   protected void initService(Object service) {
-    if (service instanceof ServiceImpl) {
-      ((ServiceImpl) service).setCommandExecutor(commandExecutorTxRequired);
+    if (service instanceof ServiceImpl impl) {
+      impl.setCommandExecutor(commandExecutorTxRequired);
     }
-    if (service instanceof RepositoryServiceImpl) {
-      ((RepositoryServiceImpl) service).setDeploymentCharset(getDefaultCharset());
+    if (service instanceof RepositoryServiceImpl impl) {
+      impl.setDeploymentCharset(getDefaultCharset());
     }
   }
 
@@ -1680,9 +1694,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
         dataSource = pooledDataSource;
       }
 
-      if (dataSource instanceof PooledDataSource) {
+      if (dataSource instanceof PooledDataSource source) {
         // ACT-233: connection pool of Ibatis is not properely initialized if this is not called!
-        ((PooledDataSource) dataSource).forceCloseAll();
+        source.forceCloseAll();
       }
     }
 
@@ -1890,6 +1904,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       properties.put("dbSpecificIfNullFunction", DbSqlSessionFactory.databaseSpecificIfNull.get(databaseType));
 
       properties.put("dayComparator", DbSqlSessionFactory.databaseSpecificDaysComparator.get(databaseType));
+
+      properties.put("coalesceForEndDate", DbSqlSessionFactory.databaseSpecificCoalesceForEndDate.get(databaseType));
 
       properties.put("collationForCaseSensitivity", DbSqlSessionFactory.databaseSpecificCollationForCaseSensitivity.get(databaseType));
 
@@ -2636,8 +2652,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
       if (dmnElProvider != null) {
         dmnEngineConfigurationBuilder.elProvider(dmnElProvider);
-      } else if (expressionManager instanceof ElProviderCompatible) {
-        dmnEngineConfigurationBuilder.elProvider(((ElProviderCompatible)expressionManager).toElProvider());
+      } else if (expressionManager instanceof ElProviderCompatible compatible) {
+        dmnEngineConfigurationBuilder.elProvider(compatible.toElProvider());
       }
 
       dmnEngineConfiguration = dmnEngineConfigurationBuilder.build();
@@ -2714,6 +2730,13 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
       // add the default command checkers
       commandCheckers.add(new TenantCommandChecker());
       commandCheckers.add(new AuthorizationCommandChecker());
+    }
+  }
+
+  protected void initVariableInterceptors() {
+    if (variableInterceptors == null) {
+      variableInterceptors = new ArrayList<>();
+      variableInterceptors.add(new DefaultRestrictedVariableInterceptor());
     }
   }
 
@@ -2908,12 +2931,6 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   // getters and setters //////////////////////////////////////////////////////
-
-  @Override
-  public String getProcessEngineName() {
-    return processEngineName;
-  }
-
   public HistoryLevel getHistoryLevel() {
     return historyLevel;
   }
@@ -2935,8 +2952,42 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   }
 
   @Override
+  public String getProcessEngineName() {
+    return processEngineName;
+  }
+
+
+  @Override
   public ProcessEngineConfigurationImpl setProcessEngineName(String processEngineName) {
     this.processEngineName = processEngineName;
+    return this;
+  }
+
+  public String getProcessEngineDisplayName() {
+    return processEngineDisplayName;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineDisplayName(String processEngineDisplayName) {
+    this.processEngineDisplayName = processEngineDisplayName;
+    return this;
+  }
+
+  public String getProcessEngineGroup() {
+    return processEngineGroup;
+  }
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroup(String processEngineGroup) {
+    this.processEngineGroup = processEngineGroup;
+    return this;
+  }
+
+  public String getProcessEngineGroupDisplayName() {
+    return processEngineGroupDisplayName;
+  }
+
+
+  public ProcessEngineConfigurationImpl setProcessEngineGroupDisplayName(String processEngineGroupDisplayName) {
+    this.processEngineGroupDisplayName = processEngineGroupDisplayName;
     return this;
   }
 
@@ -3897,8 +3948,8 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   public void addIncidentHandler(IncidentHandler incidentHandler) {
     IncidentHandler existsHandler = incidentHandlers.get(incidentHandler.getIncidentHandlerType());
 
-    if (existsHandler instanceof CompositeIncidentHandler) {
-      ((CompositeIncidentHandler) existsHandler).add(incidentHandler);
+    if (existsHandler instanceof CompositeIncidentHandler handler) {
+      handler.add(incidentHandler);
     } else {
       incidentHandlers.put(incidentHandler.getIncidentHandlerType(), incidentHandler);
     }
@@ -4257,6 +4308,50 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     this.scriptFactory = scriptFactory;
   }
 
+  /**
+   * @return whether script preprocessing is enabled for script execution.
+   */
+  public boolean isEnableScriptPreprocessing() {
+    return enableScriptPreprocessing;
+  }
+
+  /**
+   * Enables/disables script preprocessing and resets the cached effective preprocessor.
+   */
+  public void setEnableScriptPreprocessing(boolean enableScriptPreprocessing) {
+    synchronized (scriptPreprocessorLock) {
+      this.enableScriptPreprocessing = enableScriptPreprocessing;
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+  /**
+   * @return a copy of configured preprocessors, or {@code null} when none are configured.
+   */
+  public List<ScriptPreprocessor> getScriptPreprocessors() {
+    synchronized (scriptPreprocessorLock) {
+      if (scriptPreprocessors == null) {
+        return null;
+      }
+      return new ArrayList<>(scriptPreprocessors);
+    }
+  }
+
+  /**
+   * Replaces configured preprocessors and resets the cached effective preprocessor.
+   */
+  public void setScriptPreprocessors(List<ScriptPreprocessor> scriptPreprocessors) {
+    synchronized (scriptPreprocessorLock) {
+      if (scriptPreprocessors == null) {
+        this.scriptPreprocessors = null;
+      } else {
+        this.scriptPreprocessors = new ArrayList<>(scriptPreprocessors);
+      }
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+
   public ScriptEngineResolver getScriptEngineResolver() {
     return scriptEngineResolver;
   }
@@ -4372,10 +4467,10 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public void close() {
     if (forceCloseMybatisConnectionPool
-        && dataSource instanceof PooledDataSource) {
+        && dataSource instanceof PooledDataSource source) {
 
       // ACT-233: connection pool of Ibatis is not properely initialized if this is not called!
-      ((PooledDataSource) dataSource).forceCloseAll();
+      source.forceCloseAll();
     }
   }
 
@@ -4714,6 +4809,14 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public void setCommandCheckers(List<CommandChecker> commandCheckers) {
     this.commandCheckers = commandCheckers;
+  }
+
+  public List<VariableInterceptor> getVariableInterceptors() {
+    return variableInterceptors;
+  }
+
+  public void setVariableInterceptors(List<VariableInterceptor> variableInterceptors) {
+    this.variableInterceptors = variableInterceptors;
   }
 
   public ProcessEngineConfigurationImpl setUseSharedSqlSessionFactory(boolean isUseSharedSqlSessionFactory) {
@@ -5207,6 +5310,35 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     this.loggingContextEngineName = loggingContextEngineName;
     return this;
   }
+  
+  public String getLoggingContextRootProcessInstanceId() {
+    return loggingContextRootProcessInstanceId;
+  }
+
+  public ProcessEngineConfigurationImpl setLoggingContextRootProcessInstanceId(String loggingContextRootProcessInstanceId) {
+    this.loggingContextRootProcessInstanceId = loggingContextRootProcessInstanceId;
+    return this;
+  }
+
+  public ProcessEngineConfigurationImpl addCustomMdcProperty(String propertyName, MdcPropertyProvider provider) {
+    if (propertyName == null || propertyName.trim().isEmpty()) {
+      throw new IllegalArgumentException("Property name cannot be null or empty");
+    }
+    if (provider == null) {
+      throw new IllegalArgumentException("Provider cannot be null");
+    }
+    customMdcPropertyProviders.put(propertyName, provider);
+    return this;
+  }
+
+  public Map<String, MdcPropertyProvider> getCustomMdcPropertyProviders() {
+    return Collections.unmodifiableMap(customMdcPropertyProviders);
+  }
+
+  public ProcessEngineConfigurationImpl clearCustomMdcProperties() {
+    customMdcPropertyProviders.clear();
+    return this;
+  }
 
   public String getLogLevelBpmnStackTrace() {
     return logLevelBpmnStackTrace;
@@ -5302,5 +5434,66 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   public ProcessEngineConfiguration setDiagnosticsRegistry(DiagnosticsRegistry diagnosticsRegistry) {
     this.diagnosticsRegistry = diagnosticsRegistry;
     return this;
+  }
+
+  public boolean isLegacyJobRetryBehaviorEnabled() {
+    return legacyJobRetryBehaviorEnabled;
+  }
+
+  public ProcessEngineConfiguration setLegacyJobRetryBehaviorEnabled(boolean legacyJobRetryBehaviorEnabled) {
+    this.legacyJobRetryBehaviorEnabled = legacyJobRetryBehaviorEnabled;
+    return this;
+  }
+
+  /**
+   * Adds a preprocessor to the configured chain and invalidates the cached effective preprocessor.
+   */
+  public void addScriptPreprocessor(ScriptPreprocessor scriptPreprocessor) {
+    if (scriptPreprocessor == null) {
+      return;
+    }
+    synchronized (scriptPreprocessorLock) {
+      List<ScriptPreprocessor> updatedScriptPreprocessors = this.scriptPreprocessors == null
+          ? new ArrayList<>()
+          : new ArrayList<>(this.scriptPreprocessors);
+      updatedScriptPreprocessors.add(scriptPreprocessor);
+      this.scriptPreprocessors = updatedScriptPreprocessors;
+      this.effectiveScriptPreprocessor = null;
+    }
+  }
+
+  /**
+   * Returns the effective preprocessor for runtime use.
+   *
+   * @return {@code null} when preprocessing is disabled or no preprocessors are configured.
+   */
+  public ScriptPreprocessor getEffectiveScriptPreprocessor() {
+    if (!enableScriptPreprocessing) {
+      return null;
+    }
+    ScriptPreprocessor cached = effectiveScriptPreprocessor;
+    if (cached != null) {
+      return cached;
+    }
+
+    synchronized (scriptPreprocessorLock) {
+      if (!enableScriptPreprocessing) {
+        return null;
+      }
+
+      if (effectiveScriptPreprocessor == null) {
+        List<ScriptPreprocessor> configuredScriptPreprocessors = scriptPreprocessors;
+        if (configuredScriptPreprocessors == null || configuredScriptPreprocessors.isEmpty()) {
+          return null;
+        }
+
+        if (configuredScriptPreprocessors.size() == 1) {
+          effectiveScriptPreprocessor = configuredScriptPreprocessors.get(0);
+        } else {
+          effectiveScriptPreprocessor = new CompositeScriptPreprocessor(new ArrayList<>(configuredScriptPreprocessors));
+        }
+      }
+      return effectiveScriptPreprocessor;
+    }
   }
 }

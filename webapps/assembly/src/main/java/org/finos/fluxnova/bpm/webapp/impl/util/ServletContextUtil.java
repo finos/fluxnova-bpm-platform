@@ -20,10 +20,10 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.AuthenticationFilter;
 import org.finos.fluxnova.bpm.webapp.impl.security.auth.UserAuthenticationResource;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.util.Date;
 
 /**

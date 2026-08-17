@@ -22,8 +22,9 @@ import java.util.List;
 
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunCorsProperty;
 import org.finos.fluxnova.bpm.run.test.AbstractRestTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -62,7 +63,7 @@ public class CorsConfigurationDisabledTest extends AbstractRestTest {
   /* TestRestTemplate does not follow same origin policy. With CORS disabled a cross-origin request
    * should not be allowed by the calling client (i.e. browser or TestRestTemplate). Testing this
    * manually in a browser should work.*/
-  @Ignore
+  @Disabled
   public void shouldFailCrossOriginRequest() {
     // given
     // cross origin

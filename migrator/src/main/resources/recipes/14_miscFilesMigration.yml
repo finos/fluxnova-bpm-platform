@@ -1,0 +1,63 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: miscFilesMigration
+displayName: Miscellaneous Files Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "org.camunda"
+      replace: "org.finos.fluxnova"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini,js,ts,py,groovy,jy}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "camunda\\.bpm"
+      replace: "fluxnova.bpm"
+      regex: true
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "CAMUNDA_"
+      replace: "FLUXNOVA_"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "camunda-"
+      replace: "fluxnova-"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "/camunda"
+      replace: "/fluxnova"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda BPM"
+      replace: "Fluxnova BPM"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda Platform"
+      replace: "Fluxnova Platform"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda Cockpit"
+      replace: "Fluxnova Cockpit"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Install Camunda"
+      replace: "Install Fluxnova"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Access Camunda"
+      replace: "Access Fluxnova"
+      filePattern: "**/*.{txt,md,sql,sh,bat,html,css,ftl,vm,conf,ini}"
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)\.camunda\.([a-zA-Z0-9_.]+)
+      replace: $1.fluxnova.$2
+      regex: true
+      filePattern: '**/*.{js,ts,py,groovy,jy,txt,xml}'
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)Camunda([A-Z][a-zA-Z0-9]*)\b
+      replace: $1Fluxnova$2
+      regex: true
+      caseSensitive: true
+      filePattern: "**/*.{js,ts,py,groovy,jy,txt,xml}"
+  - org.openrewrite.text.FindAndReplace:
+      find: (org\.finos\.fluxnova\.[a-zA-Z0-9_.]+)\.Camunda([A-Z][a-zA-Z0-9]*)\b
+      replace: $1Fluxnova$2
+      regex: true
+      caseSensitive: true
+      filePattern: "**/*.{js,ts,py,groovy,jy,txt,xml}"

@@ -20,11 +20,7 @@ import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.ca
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.caseExecutionByDefinitionKey;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.caseExecutionById;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.inverted;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,9 +37,9 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.NullTolerantComparator;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -58,7 +54,7 @@ public class CaseExecutionQueryTest extends PluggableProcessEngineTest {
    * Setup starts 4 case instances of oneTaskCase
    * and 1 instance of twoTaskCase
    */
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
 
     repositoryService.createDeployment()
@@ -78,7 +74,7 @@ public class CaseExecutionQueryTest extends PluggableProcessEngineTest {
       .create();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     for (org.finos.fluxnova.bpm.engine.repository.Deployment deployment : repositoryService.createDeploymentQuery().list()) {
       repositoryService.deleteDeployment(deployment.getId(), true);

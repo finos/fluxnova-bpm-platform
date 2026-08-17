@@ -23,8 +23,11 @@ import java.util.Date;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.batch.BatchEntity;
 import org.finos.fluxnova.bpm.engine.impl.batch.BatchJobContext;
+import org.finos.fluxnova.bpm.engine.impl.bpmn.parser.FailedJobRetryConfiguration;
+import org.finos.fluxnova.bpm.engine.impl.cmd.DefaultJobRetryCmd;
 import org.finos.fluxnova.bpm.engine.impl.context.Context;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.mapping.value.ParameterValueProvider;
+import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobDefinitionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
@@ -79,11 +82,10 @@ public abstract class JobDeclaration<S, T extends JobEntity> implements Serializ
     job.setJobDefinitionId(jobDefinitionId);
 
     //set batch id for monitor and seed jobs (BatchEntity) and batch execution jobs (BatchJobContext)
-    if (context instanceof BatchEntity) {
-      BatchEntity batch = ((BatchEntity) context);
+    if (context instanceof BatchEntity entity) {
+      BatchEntity batch = entity;
       job.setBatchId(batch.getId());
-    } else if (context instanceof BatchJobContext) {
-      BatchJobContext batchJobContext = (BatchJobContext) context;
+    } else if (context instanceof BatchJobContext batchJobContext) {
       job.setBatchId(batchJobContext.getBatch().getId());
     }
 
@@ -110,7 +112,32 @@ public abstract class JobDeclaration<S, T extends JobEntity> implements Serializ
     job.setJobHandlerConfiguration(resolveJobHandlerConfiguration(context));
     job.setJobHandlerType(resolveJobHandlerType(context));
     job.setExclusive(resolveExclusive(context));
-    job.setRetries(resolveRetries(context));
+
+    Integer retries = null;
+    CommandContext commandContext = Context.getCommandContext();
+
+    // use legacy behavior if it is enabled
+    // the legacy behavior sets the retries left value to 3 in the context regardless data in the database
+    if (Context.getProcessEngineConfiguration().isLegacyJobRetryBehaviorEnabled()) {
+      job.setRetries(resolveRetries(context));
+    } else {
+      DefaultJobRetryCmd defaultJobRetryCmd = new DefaultJobRetryCmd(job.getId(), null);
+      ActivityImpl currentActivity = defaultJobRetryCmd.getCurrentActivity(commandContext, job);
+      if (currentActivity != null) {
+        FailedJobRetryConfiguration retryConfiguration =
+                defaultJobRetryCmd.getFailedJobRetryConfiguration(job, currentActivity);
+        if (retryConfiguration != null) {
+          retries = retryConfiguration.getRetries();
+        }
+      }
+      // When expression has 0 retries, set initial retries to 1 to avoid immediately raising an incident
+      if (retries != null && retries == 0) {
+        retries = 1;
+      }
+
+      job.setRetries(retries == null ? resolveRetries(context) : retries);
+    }
+
     job.setDuedate(resolveDueDate(context));
 
 

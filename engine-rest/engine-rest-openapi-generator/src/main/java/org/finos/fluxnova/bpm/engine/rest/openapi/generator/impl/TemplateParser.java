@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -78,7 +78,7 @@ public class TemplateParser {
       // create intermediate json file before the formatting
       String path = createOutputFile(debugFile);
       FileUtils.forceMkdir(new File(debugFile));
-      Files.write(Paths.get(path), out.getBuffer().toString().getBytes());
+      Files.write(Path.of(path), out.getBuffer().toString().getBytes());
 
       // format json with Gson
       String jsonString = out.getBuffer().toString();

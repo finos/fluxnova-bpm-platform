@@ -17,12 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.callactivity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -55,7 +50,8 @@ import org.finos.fluxnova.bpm.model.bpmn.builder.CallActivityBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.instance.CallActivity;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaIn;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaOut;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez

@@ -24,7 +24,8 @@ import org.finos.fluxnova.bpm.engine.impl.errorcode.BuiltinExceptionCode;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.test.RequiredDatabase;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class BuiltinExceptionCodeForeignKeyConstraintViolationTest extends ConcurrencyTestCase {
 

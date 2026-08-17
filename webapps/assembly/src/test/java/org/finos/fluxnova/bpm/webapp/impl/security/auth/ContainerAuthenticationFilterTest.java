@@ -31,10 +31,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.ws.rs.core.Response.Status;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.IdentityService;
@@ -54,13 +54,12 @@ import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 import org.finos.fluxnova.bpm.engine.rest.spi.impl.MockedProcessEngineProvider;
 import org.finos.fluxnova.bpm.webapp.impl.util.ProcessEngineUtil;
 import org.finos.fluxnova.bpm.webapp.impl.util.ServletContextUtil;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
 import org.mockito.MockedStatic;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockFilterConfig;
@@ -68,7 +67,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
 
-@RunWith(Parameterized.class)
 public class ContainerAuthenticationFilterTest {
 
   protected static final String SERVICE_PATH = "/fluxnova";
@@ -90,7 +88,7 @@ public class ContainerAuthenticationFilterTest {
   private MockedStatic<AuthenticationUtil> authenticationUtilMockedStatic;
   private MockedStatic<ProcessEngineUtil> processEngineUtilMockedStatic;
 
-  public ContainerAuthenticationFilterTest(String requestUrl, String engineName, boolean alreadyAuthenticated, boolean authenticationExpected) {
+  public void initContainerAuthenticationFilterTest(String requestUrl, String engineName, boolean alreadyAuthenticated, boolean authenticationExpected) {
     this.requestUrl = requestUrl;
     this.engineName = engineName;
     if (engineName == null) {
@@ -98,9 +96,9 @@ public class ContainerAuthenticationFilterTest {
     }
     this.alreadyAuthenticated = alreadyAuthenticated;
     this.authenticationExpected = authenticationExpected;
+    setupProcessEngine();
   }
 
-  @Parameters
   public static Collection<Object[]> getRequestUrls() {
     return Arrays.asList(new Object[][]{
         {"/app/monitoring/default/", "default", false, true},
@@ -154,9 +152,8 @@ public class ContainerAuthenticationFilterTest {
     });
   }
 
-  @Before
+  @BeforeEach
   public void setup() throws ServletException {
-    setupProcessEngine();
     setupAuthentications();
     setupFilter();
   }
@@ -220,19 +217,27 @@ public class ContainerAuthenticationFilterTest {
     authenticationFilter.doFilter(request, response, filterChain);
   }
 
-  @After
+  @AfterEach
   public void teardown() {
-    authenticationUtilMockedStatic.close();
-    processEngineUtilMockedStatic.close();
+    if (authenticationUtilMockedStatic != null) {
+      authenticationUtilMockedStatic.close();
+    }
+    if (processEngineUtilMockedStatic != null) {
+      processEngineUtilMockedStatic.close();
+    }
   }
 
-  @Test
-  public void shouldCheckCustomApplicationPath() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void shouldCheckCustomApplicationPath(String requestUrl, String engineName, boolean alreadyAuthenticated, boolean authenticationExpected) throws IOException, ServletException {
+    initContainerAuthenticationFilterTest(requestUrl, engineName, alreadyAuthenticated, authenticationExpected);
     testContainerAuthenticationCheck("/my-custom/application/path");
   }
 
-  @Test
-  public void shouldCheckEmptyApplicationPath() throws IOException, ServletException {
+  @MethodSource("getRequestUrls")
+  @ParameterizedTest
+  public void shouldCheckEmptyApplicationPath(String requestUrl, String engineName, boolean alreadyAuthenticated, boolean authenticationExpected) throws IOException, ServletException {
+    initContainerAuthenticationFilterTest(requestUrl, engineName, alreadyAuthenticated, authenticationExpected);
     testContainerAuthenticationCheck("");
   }
 
@@ -266,7 +271,7 @@ public class ContainerAuthenticationFilterTest {
     request.setContextPath(SERVICE_PATH);
     applyFilter(request, response, MockProvider.EXAMPLE_USER_ID);
 
-    Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+    Assertions.assertEquals(Status.OK.getStatusCode(), response.getStatus());
 
     if (authenticationExpected) {
       verify(authentications).addOrReplace(any(UserAuthentication.class));

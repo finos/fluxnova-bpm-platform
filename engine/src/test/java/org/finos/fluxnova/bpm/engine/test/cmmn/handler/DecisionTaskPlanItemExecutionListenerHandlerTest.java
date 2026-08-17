@@ -21,20 +21,16 @@ import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification.AbstractExecutionListenerSpec;
 import org.finos.fluxnova.bpm.model.cmmn.instance.DecisionTask;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItem;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Roman Smirnov
  *
  */
-@RunWith(Parameterized.class)
 public class DecisionTaskPlanItemExecutionListenerHandlerTest extends CmmnElementHandlerTest {
 
-  @Parameters(name = "testListener: {0}")
   public static Iterable<Object[]> data() {
     return ExecutionListenerCases.TASK_OR_STAGE_CASES;
   }
@@ -45,11 +41,11 @@ public class DecisionTaskPlanItemExecutionListenerHandlerTest extends CmmnElemen
 
   protected AbstractExecutionListenerSpec testSpecification;
 
-  public DecisionTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
+  public void initDecisionTaskPlanItemExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
     this.testSpecification = testSpecification;
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     decisionTask = createElement(casePlanModel, "aDecisionTask", DecisionTask.class);
 
@@ -58,8 +54,10 @@ public class DecisionTaskPlanItemExecutionListenerHandlerTest extends CmmnElemen
 
   }
 
-  @Test
-  public void testCaseExecutionListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "testListener: {0}")
+  public void testCaseExecutionListener(AbstractExecutionListenerSpec testSpecification) {
+    initDecisionTaskPlanItemExecutionListenerHandlerTest(testSpecification);
     // given:
     testSpecification.addListenerToElement(modelInstance, decisionTask);
 

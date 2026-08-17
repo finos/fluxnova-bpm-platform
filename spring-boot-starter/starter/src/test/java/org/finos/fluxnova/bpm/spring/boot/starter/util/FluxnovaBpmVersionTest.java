@@ -17,8 +17,9 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.util;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.core.env.PropertiesPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +39,7 @@ public class FluxnovaBpmVersionTest {
     return new FluxnovaBpmVersion(pkg);
   }
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() throws IOException {
     currentVersion = ProcessEngine.class.getPackage().getImplementationVersion();
   }

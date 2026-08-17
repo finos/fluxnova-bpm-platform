@@ -49,22 +49,22 @@ public class DateDataTypeTransformer implements DmnDataTypeTransformer {
 
   @Override
   public TypedValue transform(Object value) throws IllegalArgumentException {
-    if (value instanceof Date) {
-      return Variables.dateValue((Date) value);
+    if (value instanceof Date date1) {
+      return Variables.dateValue(date1);
 
-    } else if (value instanceof String) {
-      Date date = transformString((String) value);
+    } else if (value instanceof String string) {
+      Date date = transformString(string);
       return Variables.dateValue(date);
 
-    } if (value instanceof ZonedDateTime) {
-      Instant instant = ((ZonedDateTime) value).toInstant();
+    } if (value instanceof ZonedDateTime time1) {
+      Instant instant = time1.toInstant();
       Date date = Date.from(instant);
 
       return Variables.dateValue(date);
 
-    } else if (value instanceof LocalDateTime) {
+    } else if (value instanceof LocalDateTime time) {
       ZoneId defaultTimeZone = ZoneId.systemDefault();
-      Instant instant = ((LocalDateTime) value)
+      Instant instant = time
         .atZone(defaultTimeZone)
         .toInstant();
 

@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,7 +113,7 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
         if (withinArchive != -1) {
           urlPath = urlPath.substring(0, withinArchive);
         } else {
-          File file = new File(urlPath);
+          File file = Paths.get(urlPath).normalize().toFile();
           urlPath = file.getParentFile().getParent();
         }
       }
@@ -154,7 +155,7 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
       urlPath = urlPath.substring(7);
     }
 
-    File file = new File(urlPath);
+    File file = Paths.get(urlPath).normalize().toFile();
     if (file.isDirectory()) {
       String path = file.getPath();
       String rootPath = path.endsWith(File.separator) ? path : path+File.separator;
@@ -260,12 +261,12 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
     InputStream inputStream = null;
 
     try {
-      if(source instanceof File) {
+      if(source instanceof File file) {
         try {
-          inputStream = new FileInputStream((File) source);
+          inputStream = new FileInputStream(file);
         }
         catch (IOException e) {
-          throw LOG.cannotOpenFileInputStream(((File) source).getAbsolutePath(), e);
+          throw LOG.cannotOpenFileInputStream(file.getAbsolutePath(), e);
         }
       }
       else {

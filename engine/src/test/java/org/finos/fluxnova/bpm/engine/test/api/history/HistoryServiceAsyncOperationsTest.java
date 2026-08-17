@@ -17,12 +17,13 @@
 package org.finos.fluxnova.bpm.engine.test.api.history;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,11 +50,10 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.collection.IsIn;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
@@ -66,13 +66,13 @@ public class HistoryServiceAsyncOperationsTest extends AbstractAsyncOperationsTe
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected TaskService taskService;
   protected List<String> historicProcessInstances;
 
-  @Before
+  @BeforeEach
   public void setup() {
     initDefaults(engineRule);
     taskService = engineRule.getTaskService();
@@ -345,7 +345,7 @@ public class HistoryServiceAsyncOperationsTest extends AbstractAsyncOperationsTe
 
   protected void assertNoHistoryForTasks() {
     if (!testRule.isHistoryLevelNone()) {
-      Assert.assertThat(historyService.createHistoricTaskInstanceQuery().count(), CoreMatchers.is(0L));
+      assertThat(historyService.createHistoricTaskInstanceQuery().count(), CoreMatchers.is(0L));
     }
   }
 

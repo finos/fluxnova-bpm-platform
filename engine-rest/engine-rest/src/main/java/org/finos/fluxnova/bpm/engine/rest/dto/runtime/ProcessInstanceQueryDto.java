@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.ProcessInstanceQueryImpl;
@@ -38,7 +38,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.VariableListConverter;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class ProcessInstanceQueryDto extends AbstractQueryDto<ProcessInstanceQuery> {
 
@@ -75,6 +75,7 @@ public class ProcessInstanceQueryDto extends AbstractQueryDto<ProcessInstanceQue
   private Set<String> processInstanceIds;
   private Boolean withIncident;
   private String incidentId;
+  private String rootProcessInstanceId;
   private String incidentType;
   private String incidentMessage;
   private String incidentMessageLike;
@@ -285,6 +286,15 @@ public class ProcessInstanceQueryDto extends AbstractQueryDto<ProcessInstanceQue
     this.incidentId = incidentId;
   }
 
+  public String getRootProcessInstanceId() {
+    return rootProcessInstanceId;
+  }
+
+  @FluxnovaQueryParam("rootProcessInstanceId")
+  public void setRootProcessInstanceId(String rootProcessInstanceId) {
+    this.rootProcessInstanceId = rootProcessInstanceId;
+  }
+
   public String getIncidentType() {
     return incidentType;
   }
@@ -441,6 +451,9 @@ public class ProcessInstanceQueryDto extends AbstractQueryDto<ProcessInstanceQue
     }
     if (incidentId != null) {
       query.incidentId(incidentId);
+    }
+    if (rootProcessInstanceId != null) {
+      query.rootProcessInstanceId(rootProcessInstanceId);
     }
     if (incidentType != null) {
       query.incidentType(incidentType);

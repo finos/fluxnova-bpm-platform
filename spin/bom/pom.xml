@@ -6,14 +6,14 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-root</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <groupId>org.finos.fluxnova.spin</groupId>
   <artifactId>fluxnova-spin-bom</artifactId>
   <name>fluxnova spin - bom</name>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>3.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <dependencyManagement>
@@ -51,8 +51,8 @@
             <artifactId>jakarta.xml.bind-api</artifactId>
           </exclusion>
           <exclusion>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -71,7 +71,7 @@
 
       <dependency>
         <groupId>org.finos.fluxnova.spin</groupId>
-        <artifactId>fluxnova-spin-dataformat-xml-dom-jakarta</artifactId>
+        <artifactId>fluxnova-spin-dataformat-xml-dom</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

@@ -16,11 +16,13 @@
  */
 package org.finos.fluxnova.bpm.container.impl.jboss.deployment.processor;
 
+import java.lang.reflect.Field;
 import java.util.function.Consumer;
 
 import org.finos.fluxnova.bpm.container.impl.jboss.deployment.marker.ProcessApplicationAttachments;
 import org.finos.fluxnova.bpm.container.impl.jboss.service.ProcessApplicationModuleService;
 import org.finos.fluxnova.bpm.container.impl.jboss.service.ServiceNames;
+import org.jboss.as.server.deployment.AttachmentKey;
 import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -40,26 +42,27 @@ import org.jboss.msc.service.ServiceName;
  * <p>This Processor creates implicit module dependencies for process applications</p>
  *
  * <p>Concretely speaking, this processor adds a module dependency from the process
- * application module (deployment unit) to the process engine module (and other camunda libraries
+ * application module (deployment unit) to the process engine module (and other fluxnova libraries
  * which are useful for process apps).</p>
  *
  * @author Daniel Meyer
- *
  */
 public class ModuleDependencyProcessor implements DeploymentUnitProcessor {
 
+  protected static final String MODULE_IDENTIFIER = "MODULE_IDENTIFIER";
+
   public static final int PRIORITY = 0x2300;
 
-  public static String MODULE_IDENTIFIER_PROCESS_ENGINE = "org.camunda.bpm.camunda-engine";
-  public static String MODULE_IDENTIFIER_XML_MODEL = "org.camunda.bpm.model.camunda-xml-model";
-  public static String MODULE_IDENTIFIER_BPMN_MODEL = "org.camunda.bpm.model.camunda-bpmn-model";
-  public static String MODULE_IDENTIFIER_CMMN_MODEL = "org.camunda.bpm.model.camunda-cmmn-model";
-  public static String MODULE_IDENTIFIER_DMN_MODEL = "org.camunda.bpm.model.camunda-dmn-model";
-  public static String MODULE_IDENTIFIER_SPIN = "org.camunda.spin.camunda-spin-core";
-  public static String MODULE_IDENTIFIER_CONNECT = "org.camunda.connect.camunda-connect-core";
-  public static String MODULE_IDENTIFIER_ENGINE_DMN = "org.camunda.bpm.dmn.camunda-engine-dmn";
+  public static String MODULE_IDENTIFIER_PROCESS_ENGINE = "org.finos.fluxnova.bpm.fluxnova-engine";
+  public static String MODULE_IDENTIFIER_XML_MODEL = "org.finos.fluxnova.bpm.model.fluxnova-xml-model";
+  public static String MODULE_IDENTIFIER_BPMN_MODEL = "org.finos.fluxnova.bpm.model.fluxnova-bpmn-model";
+  public static String MODULE_IDENTIFIER_CMMN_MODEL = "org.finos.fluxnova.bpm.model.fluxnova-cmmn-model";
+  public static String MODULE_IDENTIFIER_DMN_MODEL = "org.finos.fluxnova.bpm.model.fluxnova-dmn-model";
+  public static String MODULE_IDENTIFIER_SPIN = "org.finos.fluxnova.spin.fluxnova-spin-core";
+  public static String MODULE_IDENTIFIER_CONNECT = "org.finos.fluxnova.connect.fluxnova-connect-core";
+  public static String MODULE_IDENTIFIER_ENGINE_DMN = "org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn";
   public static String MODULE_IDENTIFIER_GRAAL_JS = "org.graalvm.js.js-scriptengine";
-  public static String MODULE_IDENTIFIER_JUEL = "org.camunda.bpm.juel.camunda-juel";
+  public static String MODULE_IDENTIFIER_JUEL = "org.finos.fluxnova.bpm.juel.fluxnova-juel";
 
   @Override
   public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
@@ -104,8 +107,7 @@ public class ModuleDependencyProcessor implements DeploymentUnitProcessor {
     }
 
     // install the pa-module service
-    ModuleIdentifier identifyer = deploymentUnit.getAttachment(Attachments.MODULE_IDENTIFIER);
-    String moduleName = identifyer.toString();
+    String moduleName = getModuleName(phaseContext.getDeploymentUnit());
 
     ServiceName serviceName = ServiceNames.forProcessApplicationModuleService(moduleName);
 
@@ -117,6 +119,23 @@ public class ModuleDependencyProcessor implements DeploymentUnitProcessor {
     serviceBuilder.setInstance(processApplicationModuleService);
     serviceBuilder.install();
 
+  }
+
+  /**
+   * {@link Attachments#MODULE_IDENTIFIER} is not available in WildFly 37 and {@link Attachments#MODULE_NAME} is not available in JBoss EAP 8.
+   * We first try to get the module identifier via reflection and if that fails we fallback to the module name.
+   */
+  protected String getModuleName(DeploymentUnit deploymentUnit) {
+    try {
+      // Try to get MODULE_IDENTIFIER first (for JBoss EAP 8 versions)
+      Field moduleIdentifierField = Attachments.class.getDeclaredField(MODULE_IDENTIFIER);
+      ModuleIdentifier identifier = deploymentUnit.getAttachment((AttachmentKey<ModuleIdentifier>) moduleIdentifierField.get(null));
+      return identifier.toString();
+
+    } catch (NoSuchFieldException | IllegalAccessException e) {
+      // Fallback to MODULE_NAME for newer WildFly versions
+      return deploymentUnit.getAttachment(Attachments.MODULE_NAME);
+    }
   }
 
   private void addSystemDependencies(ModuleLoader moduleLoader, final ModuleSpecification moduleSpecification) {

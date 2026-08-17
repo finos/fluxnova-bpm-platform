@@ -17,25 +17,21 @@
 package org.finos.fluxnova.commons.logging;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.MDC;
 
 public class MdcAccessTest {
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
-  @Before
+  @BeforeEach
   public void setUp() {
     MDC.clear();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     MDC.clear();
   }
@@ -61,10 +57,9 @@ public class MdcAccessTest {
 
   @Test
   public void shouldNotPutNullKeyToMdc() {
-    // then
-    thrown.expect(IllegalArgumentException.class);
-    // when
-    MdcAccess.put(null, "bar");
+    assertThrows(IllegalArgumentException.class, () ->
+      // when
+      MdcAccess.put(null, "bar"));
   }
 
   @Test
@@ -79,10 +74,9 @@ public class MdcAccessTest {
 
   @Test
   public void shouldNotGetNullKeyFromMdc() {
-    // then
-    thrown.expect(IllegalArgumentException.class);
-    // when
-    MdcAccess.get(null);
+    assertThrows(IllegalArgumentException.class, () ->
+      // when
+      MdcAccess.get(null));
   }
 
   @Test
@@ -99,10 +93,9 @@ public class MdcAccessTest {
 
   @Test
   public void shouldNotRemoveNullKeyFromMdc() {
-    // then
-    thrown.expect(IllegalArgumentException.class);
-    // when
-    MdcAccess.remove(null);
+    assertThrows(IllegalArgumentException.class, () ->
+      // when
+      MdcAccess.remove(null));
   }
 
 }

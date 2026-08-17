@@ -35,27 +35,27 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
 public class TaskLastUpdatedTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   TaskService taskService;
   RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     taskService = engineRule.getTaskService();
     runtimeService = engineRule.getRuntimeService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     List<Task> tasks = taskService.createTaskQuery().list();
     for (Task task : tasks) {

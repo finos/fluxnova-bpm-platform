@@ -42,7 +42,8 @@ import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
 import org.finos.fluxnova.bpm.dmn.feel.impl.juel.FeelEngineFactoryImpl;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.context.VariableContext;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class FeelIntegrationTest extends DmnEngineTest {
 

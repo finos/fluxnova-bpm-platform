@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.impl.cfg;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
 import org.finos.fluxnova.bpm.engine.impl.cfg.jta.JtaTransactionContextFactory;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandInterceptor;

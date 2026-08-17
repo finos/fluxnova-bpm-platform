@@ -9,8 +9,8 @@
   <context-root>/engine-rest</context-root>
   <container-descriptor>
     <prefer-application-packages>
-      <package-name>com.fasterxml.jackson.*</package-name>
-      <package-name>org.apache.commons.fileupload.*</package-name>
+      <package-name>com.fasterxml.*</package-name>
+      <package-name>org.apache.commons.fileupload2.*</package-name>
 
       <package-name>javax.ws.rs.*</package-name>
       <package-name>org.glassfish.jersey.*</package-name>

@@ -31,7 +31,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.CasePlanModel;
 import org.finos.fluxnova.bpm.model.cmmn.instance.CmmnModelElementInstance;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Definitions;
 import org.finos.fluxnova.bpm.model.cmmn.instance.ExtensionElements;
-import org.junit.Before;
+
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Roman Smirnov
@@ -45,7 +46,7 @@ public abstract class CmmnElementHandlerTest {
   protected CasePlanModel casePlanModel;
   protected CmmnHandlerContext context;
 
-  @Before
+  @BeforeEach
   public void setup() {
     modelInstance = Cmmn.createEmptyModel();
     definitions = modelInstance.newInstance(Definitions.class);

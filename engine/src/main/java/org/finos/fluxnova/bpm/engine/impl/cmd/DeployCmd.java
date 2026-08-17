@@ -567,7 +567,7 @@ public class DeployCmd implements Command<DeploymentWithDefinitions>, Serializab
       if (duplicate != null) {
         String deploymentId = resource.getDeploymentId();
         if (!deploymentId.equals(duplicate.getDeploymentId())) {
-          String message = String.format("The deployments with id '%s' and '%s' contain a resource with same name '%s'.", deploymentId, duplicate.getDeploymentId(), name);
+          String message = "The deployments with id '%s' and '%s' contain a resource with same name '%s'.".formatted(deploymentId, duplicate.getDeploymentId(), name);
           throw new NotValidException(message);
         }
       }

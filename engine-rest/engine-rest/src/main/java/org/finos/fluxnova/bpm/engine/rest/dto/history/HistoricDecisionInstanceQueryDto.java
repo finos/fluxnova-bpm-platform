@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInstanceQuery;
@@ -34,7 +34,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringListConverter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class HistoricDecisionInstanceQueryDto extends AbstractQueryDto<HistoricDecisionInstanceQuery> {
 

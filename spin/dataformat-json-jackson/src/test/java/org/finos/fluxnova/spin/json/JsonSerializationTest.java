@@ -18,8 +18,8 @@ package org.finos.fluxnova.spin.json;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.DataFormats.json;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,7 +41,8 @@ import org.finos.fluxnova.spin.json.mapping.dmn.DmnDecisionResultImpl;
 import org.finos.fluxnova.spin.spi.DataFormatMapper;
 import org.finos.fluxnova.spin.spi.DataFormatReader;
 import org.finos.fluxnova.spin.spi.DataFormatWriter;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class JsonSerializationTest {
 
@@ -159,9 +160,7 @@ public class JsonSerializationTest {
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     OutputStreamWriter outWriter = new OutputStreamWriter(out);
-    BufferedWriter bufferedWriter = new BufferedWriter(outWriter);
-
-    try {
+    try (BufferedWriter bufferedWriter = new BufferedWriter(outWriter)) {
       Object mappedObject = mapper.mapJavaToInternal(deserializedObject);
       writer.writeToWriter(bufferedWriter, mappedObject);
       return out.toByteArray();
@@ -169,7 +168,6 @@ public class JsonSerializationTest {
     finally {
       out.close();
       outWriter.close();
-      bufferedWriter.close();
     }
   }
 
@@ -179,15 +177,12 @@ public class JsonSerializationTest {
 
     ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
     InputStreamReader inReader = new InputStreamReader(bais);
-    BufferedReader bufferedReader = new BufferedReader(inReader);
-
-    try {
+    try (BufferedReader bufferedReader = new BufferedReader(inReader)) {
       Object mappedObject = reader.readInput(bufferedReader);
       return doDeserialization(mapper, mappedObject, objectTypeName);
     } finally {
       bais.close();
       inReader.close();
-      bufferedReader.close();
     }
   }
 

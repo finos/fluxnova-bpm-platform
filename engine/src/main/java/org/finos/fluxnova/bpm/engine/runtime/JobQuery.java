@@ -155,6 +155,12 @@ public interface JobQuery extends Query<JobQuery, Job> {
    */
   JobQuery includeJobsWithoutTenantId();
 
+  /** Only select jobs that belong to the given batch id. */
+  JobQuery batchId(String batchId);
+
+  /** Only select jobs that are part of a batch (batchId is not null). */
+  JobQuery inBatch();
+
   //sorting //////////////////////////////////////////
 
   /** Order by job id (needs to be followed by {@link #asc()} or {@link #desc()}). */
@@ -190,5 +196,11 @@ public interface JobQuery extends Query<JobQuery, Job> {
    * Note that the ordering of job without tenant id is database-specific.
    */
   JobQuery orderByTenantId();
+
+  /**
+   * Only select jobs that are currently being acquired,
+   * ie. lock expiration time is not null, lock expiration is in future
+   */
+  JobQuery acquired();
 
 }

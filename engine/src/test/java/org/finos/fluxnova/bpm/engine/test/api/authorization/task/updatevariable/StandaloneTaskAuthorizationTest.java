@@ -22,9 +22,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.TaskPermissions.UPDATE
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.revoke;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,32 +41,26 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Yana.Vasileva
  *
  */
-@RunWith(Parameterized.class)
 public class StandaloneTaskAuthorizationTest {
 
 
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
-
-  @Parameter
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
   public AuthorizationScenario scenario;
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -82,7 +74,6 @@ public class StandaloneTaskAuthorizationTest {
   protected static final String VARIABLE_VALUE = "aVariableValue";
   protected static final String PROCESS_KEY = "oneTaskProcess";
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -113,7 +104,7 @@ public class StandaloneTaskAuthorizationTest {
       );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     taskService = engineRule.getTaskService();
@@ -123,7 +114,7 @@ public class StandaloneTaskAuthorizationTest {
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
     taskService.deleteTask(taskId, true);
@@ -132,8 +123,10 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
-  public void testSetVariable() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testSetVariable(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -152,8 +145,10 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
-  public void testSetVariableLocal() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testSetVariableLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -172,8 +167,10 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
-  public void testSetVariables() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testSetVariables(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -192,8 +189,10 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
-  public void testSetVariablesLocal() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testSetVariablesLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -212,9 +211,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testRemoveVariable() {
+  public void testRemoveVariable(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -235,9 +236,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testRemoveVariableLocal() {
+  public void testRemoveVariableLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -258,9 +261,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testRemoveVariables() {
+  public void testRemoveVariables(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -281,9 +286,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testRemoveVariablesLocal() {
+  public void testRemoveVariablesLocal(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -304,9 +311,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesAdd() {
+  public void testUpdateVariablesAdd(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -325,9 +334,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesRemove() {
+  public void testUpdateVariablesRemove(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
     taskService.setVariable(taskId, VARIABLE_NAME, VARIABLE_VALUE);
@@ -347,9 +358,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesAddRemove() {
+  public void testUpdateVariablesAddRemove(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -368,9 +381,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesLocalAdd() {
+  public void testUpdateVariablesLocalAdd(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -389,9 +404,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesLocalRemove() {
+  public void testUpdateVariablesLocalRemove(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
     taskService.setVariableLocal(taskId, VARIABLE_NAME, VARIABLE_VALUE);
@@ -411,9 +428,11 @@ public class StandaloneTaskAuthorizationTest {
     }
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void testUpdateVariablesLocalAddRemove() {
+  public void testUpdateVariablesLocalAddRemove(AuthorizationScenario scenario) {
+    initStandaloneTaskAuthorizationTest(scenario);
     // given
     createTask(taskId);
 
@@ -441,7 +460,7 @@ public class StandaloneTaskAuthorizationTest {
     verifyVariableInstanceCount(0);
     assertNull(runtimeService.createVariableInstanceQuery().singleResult());
     HistoricVariableInstance deletedVariable = historyService.createHistoricVariableInstanceQuery().includeDeleted().singleResult();
-    Assert.assertEquals("DELETED", deletedVariable.getState());
+    Assertions.assertEquals("DELETED", deletedVariable.getState());
   }
 
   protected void verifyVariableInstanceCount(int count) {
@@ -456,6 +475,10 @@ public class StandaloneTaskAuthorizationTest {
 
   protected VariableMap getVariables() {
     return Variables.createVariables().putValue(VARIABLE_NAME, VARIABLE_VALUE);
+  }
+
+  public void initStandaloneTaskAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

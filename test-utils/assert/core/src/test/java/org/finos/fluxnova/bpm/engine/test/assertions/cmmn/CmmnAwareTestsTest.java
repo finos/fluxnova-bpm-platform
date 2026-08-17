@@ -17,6 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.assertions.cmmn;
 
 import static org.finos.fluxnova.bpm.engine.test.assertions.bpmn.BpmnAwareTests.withVariables;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
@@ -39,16 +41,16 @@ import org.finos.fluxnova.bpm.engine.runtime.CaseInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.assertions.bpmn.AbstractAssertions;
 import org.finos.fluxnova.bpm.engine.test.assertions.bpmn.BpmnAwareTests;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.CaseExecutionQueryFluentAnswer;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * You will notice that this test class does not cover all methods.
@@ -56,13 +58,11 @@ import org.mockito.junit.MockitoJUnitRunner;
  * That code is so simplistic, it is not expected to break easily.
  *
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class CmmnAwareTestsTest {
 
   public static final String ACTIVITY_ID = "FOO";
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   @Mock
   private CaseInstance caseInstance;
@@ -84,7 +84,7 @@ public class CmmnAwareTestsTest {
   private MockedStatic<CmmnAwareTests> cmmnAwareTestsMockedStatic;
   private MockedStatic<AbstractAssertions> abstractAssertionsMockedStatic;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     cmmnAwareTestsMockedStatic = mockStatic(CmmnAwareTests.class, CALLS_REAL_METHODS);
     abstractAssertionsMockedStatic = mockStatic(AbstractAssertions.class);
@@ -95,7 +95,7 @@ public class CmmnAwareTestsTest {
     when(caseService.createCaseExecutionQuery()).thenReturn(caseExecutionQuery);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     cmmnAwareTestsMockedStatic.close();
     abstractAssertionsMockedStatic.close();
@@ -285,9 +285,9 @@ public class CmmnAwareTestsTest {
 
   @Test
   public void completeCaseExecution_should_throw_IAE_for_null_arg() {
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    CmmnAwareTests.complete((CaseExecution) null);
+      CmmnAwareTests.complete((CaseExecution) null));
   }
 
   @Test
@@ -301,9 +301,9 @@ public class CmmnAwareTestsTest {
 
   @Test
   public void disableCaseExecution_should_throw_IAE_for_null_arg() {
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    CmmnAwareTests.disable((CaseExecution) null);
+      CmmnAwareTests.disable((CaseExecution) null));
   }
 
   @Test
@@ -317,9 +317,9 @@ public class CmmnAwareTestsTest {
 
   @Test
   public void manuallyStartCaseExecution_should_throw_IAE_for_null_arg() {
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    CmmnAwareTests.manuallyStart((CaseExecution) null);
+      CmmnAwareTests.manuallyStart((CaseExecution) null));
   }
 
   @Test
@@ -333,16 +333,16 @@ public class CmmnAwareTestsTest {
 
   @Test
   public void completeCaseExecutionWithVariables_should_throw_IAE_for_null_arg_caseExecution() {
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    CmmnAwareTests.complete((CaseExecution) null, withVariables("aVariable", "aValue"));
+      CmmnAwareTests.complete((CaseExecution) null, withVariables("aVariable", "aValue")));
   }
 
   @Test
   public void completeCaseExecutionWithVariables_should_throw_IAE_for_null_arg_valriables() {
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    CmmnAwareTests.complete(caseExecution, null);
+      CmmnAwareTests.complete(caseExecution, null));
   }
 
 }

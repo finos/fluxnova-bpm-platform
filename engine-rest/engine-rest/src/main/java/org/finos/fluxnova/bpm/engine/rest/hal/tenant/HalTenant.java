@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.hal.tenant;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.identity.Tenant;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;

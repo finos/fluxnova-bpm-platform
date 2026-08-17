@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +33,8 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.AcquiredJobs;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobManager;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tom Baeyens
@@ -97,7 +96,7 @@ public class JobExecutorTest extends JobExecutorTestCase {
     ProcessEngineConfiguration engineConfig1 =
         ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration();
 
-    assertTrue("default setting is true", engineConfig1.isHintJobExecutor());
+    assertTrue(engineConfig1.isHintJobExecutor(), "default setting is true");
 
     ProcessEngineConfiguration engineConfig2 =
         ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setHintJobExecutor(false);

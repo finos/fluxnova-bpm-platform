@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -35,6 +35,7 @@ import org.finos.fluxnova.bpm.engine.history.HistoricTaskInstance;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.identity.Authentication;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
+import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.ResponseStatus;
 import org.finos.fluxnova.bpm.engine.rest.dto.TaskCreateCommentResponse;
 import org.finos.fluxnova.bpm.engine.rest.dto.task.CommentDto;
@@ -94,6 +95,21 @@ public class TaskCommentResourceImpl implements TaskCommentResource, TaskComment
     }
 
     return CommentDto.fromComment(comment);
+  }
+
+  @Override
+  public CountResultDto getCommentsCount() {
+    if (!isHistoryEnabled()) {
+      return new CountResultDto(0);
+    }
+
+    ensureTaskExists(Status.NOT_FOUND);
+
+    long count = engine.getTaskService().getTaskCommentsCount(taskId);
+
+    CountResultDto result = new CountResultDto();
+    result.setCount(count);
+    return result;
   }
 
   public void deleteComment(String commentId) {

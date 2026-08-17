@@ -23,18 +23,16 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.AUTHORIZATION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.GROUP;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.USER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
 import org.finos.fluxnova.bpm.engine.authorization.Authorization;
 import org.finos.fluxnova.bpm.engine.impl.cfg.auth.DefaultAuthorizationProvider;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>Test authorizations provided by {@link DefaultAuthorizationProvider}</p>
@@ -44,7 +42,7 @@ import org.junit.Test;
  */
 public class DefaultAuthorizationProviderTest extends PluggableProcessEngineTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     // we are jonny
     identityService.setAuthenticatedUserId("jonny");
@@ -75,7 +73,7 @@ public class DefaultAuthorizationProviderTest extends PluggableProcessEngineTest
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     processEngineConfiguration.setAuthorizationEnabled(false);
     List<Authorization> jonnysAuths = authorizationService.createAuthorizationQuery().userIdIn("jonny").list();

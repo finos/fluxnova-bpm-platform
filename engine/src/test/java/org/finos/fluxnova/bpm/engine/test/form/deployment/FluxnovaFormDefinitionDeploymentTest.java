@@ -36,12 +36,13 @@ import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
+import java.nio.file.Path;
 
 public class FluxnovaFormDefinitionDeploymentTest {
 
@@ -52,21 +53,23 @@ public class FluxnovaFormDefinitionDeploymentTest {
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
-  protected TemporaryFolder tempFolder = new TemporaryFolder();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule).around(tempFolder);
+  @TempDir
+  Path tempFolder;
+
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   RepositoryService repositoryService;
   ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     repositoryService = engineRule.getRepositoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
     for (Deployment deployment : deployments) {
@@ -165,9 +168,8 @@ public class FluxnovaFormDefinitionDeploymentTest {
   @Test
   public void shouldFailDeploymentWithMultipleFormsDuplicateId() {
     // when
-    assertThatThrownBy(() -> {
-      createDeploymentBuilder(true).addClasspathResource(SIMPLE_FORM).addClasspathResource(SIMPLE_FORM_DUPLICATE).deploy();
-    }).isInstanceOf(ProcessEngineException.class)
+    assertThatThrownBy(() ->
+      createDeploymentBuilder(true).addClasspathResource(SIMPLE_FORM).addClasspathResource(SIMPLE_FORM_DUPLICATE).deploy()).isInstanceOf(ProcessEngineException.class)
     .hasMessageContaining("The deployment contains definitions with the same key 'simpleForm' (id attribute), this is not allowed");
   }
 
@@ -198,10 +200,10 @@ public class FluxnovaFormDefinitionDeploymentTest {
     String formContent1 = "{\"id\"=\"myForm\",\"type\": \"default\",\"components\":[{\"key\": \"button3\",\"label\": \"Button\",\"type\": \"button\"}]}";
     String formContent2 = "{\"id\"=\"myForm\",\"type\": \"default\",\"components\": []}";
 
-    createDeploymentBuilder(true).addInputStream(fileName, writeTempFormFile(fileName, formContent1, tempFolder)).deploy();
+    createDeploymentBuilder(true).addInputStream(fileName, writeTempFormFile(fileName, formContent1, tempFolder.toFile())).deploy();
 
     // when deploy changed file
-    createDeploymentBuilder(true).addInputStream(fileName, writeTempFormFile(fileName, formContent2, tempFolder)).deploy();
+    createDeploymentBuilder(true).addInputStream(fileName, writeTempFormFile(fileName, formContent2, tempFolder.toFile())).deploy();
 
     // then
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();
@@ -221,10 +223,10 @@ public class FluxnovaFormDefinitionDeploymentTest {
     String formContent1 = "{\"id\"=\"myForm\",\"type\": \"default\",\"components\":[{\"key\": \"button3\",\"label\": \"Button\",\"type\": \"button\"}]}";
     String formContent2 = "{\"id\"=\"myForm\",\"type\": \"default\",\"components\": []}";
 
-    createDeploymentBuilder(true).tenantId("tenant1").addInputStream(fileName, writeTempFormFile(fileName, formContent1, tempFolder)).deploy();
+    createDeploymentBuilder(true).tenantId("tenant1").addInputStream(fileName, writeTempFormFile(fileName, formContent1, tempFolder.toFile())).deploy();
 
     // when deploy changed file
-    createDeploymentBuilder(true).tenantId("tenant1").addInputStream(fileName, writeTempFormFile(fileName, formContent2, tempFolder)).deploy();
+    createDeploymentBuilder(true).tenantId("tenant1").addInputStream(fileName, writeTempFormFile(fileName, formContent2, tempFolder.toFile())).deploy();
 
     // then
     List<Deployment> deployments = repositoryService.createDeploymentQuery().list();

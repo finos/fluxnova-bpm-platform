@@ -17,6 +17,8 @@
 package org.finos.fluxnova.bpm.model.xml;
 
 
+
+
 /**
  * Thrown when an error is encountered during the model validation.
  *

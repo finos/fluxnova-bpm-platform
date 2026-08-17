@@ -38,6 +38,10 @@ public class ResourceExecutableScript extends SourceExecutableScript {
     this.scriptResource = scriptResource;
   }
 
+  public String getResource() {
+    return scriptResource;
+  }
+
   @Override
   public Object evaluate(ScriptEngine engine, VariableScope variableScope, Bindings bindings) {
     if (scriptSource == null) {

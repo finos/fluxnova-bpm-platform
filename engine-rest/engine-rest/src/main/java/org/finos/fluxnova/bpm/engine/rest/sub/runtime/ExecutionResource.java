@@ -17,13 +17,15 @@
 package org.finos.fluxnova.bpm.engine.rest.sub.runtime;
 
 import org.finos.fluxnova.bpm.engine.rest.dto.CreateIncidentDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.AdHocSubProcessCompletionDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.AdHocActivitiesTriggerDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ExecutionDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ExecutionTriggerDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.IncidentDto;
 import org.finos.fluxnova.bpm.engine.rest.sub.VariableResource;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 
 public interface ExecutionResource {
 
@@ -36,6 +38,18 @@ public interface ExecutionResource {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   void signalExecution(ExecutionTriggerDto triggerDto);
+
+  @POST
+  @Path("/ad-hoc-activities/trigger")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  void triggerAdHocActivities(AdHocActivitiesTriggerDto triggerDto);
+
+  @POST
+  @Path("/ad-hoc-activities/complete")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  void completeAdHocSubProcess(AdHocSubProcessCompletionDto completionDto);
   
   @Path("/localVariables")
   VariableResource getLocalVariables();

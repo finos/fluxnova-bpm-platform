@@ -16,9 +16,9 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 public class EventingPropertyDefaultsTest extends ParsePropertiesHelper {
 

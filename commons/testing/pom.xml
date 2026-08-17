@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.finos.fluxnova.commons</groupId>
     <artifactId>fluxnova-commons-root</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-commons-testing</artifactId>
@@ -22,10 +22,9 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
     </dependency>
 
     <!-- TEST -->
@@ -34,7 +33,6 @@
       <artifactId>fluxnova-commons-logging</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>

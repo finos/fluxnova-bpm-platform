@@ -19,8 +19,8 @@ package org.finos.fluxnova.bpm.integrationtest.functional.spin.dataformat;
 import org.finos.fluxnova.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.finos.fluxnova.spin.spi.DataFormatConfigurator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.datatype.joda.JodaModule;
 
 /**
  * @author Thorben Lindhauer
@@ -35,11 +35,11 @@ public class JodaJsonDataFormatConfigurator implements DataFormatConfigurator<Ja
 
   @Override
   public void configure(JacksonJsonDataFormat dataFormat) {
-    ObjectMapper objectMapper = dataFormat.getObjectMapper();
+    JsonMapper mapper = JsonMapper.builder()
+            .addModule(new JodaModule())
+            .build();
 
-    objectMapper.registerModule(new JodaModule());
-    objectMapper.configure(com.fasterxml.jackson.databind.SerializationFeature.
-        WRITE_DATES_AS_TIMESTAMPS , false);
+    dataFormat.setObjectMapper(mapper);
   }
 
 }

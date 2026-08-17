@@ -34,20 +34,20 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.describeExecutionTree;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Svetlana Dorokhova.
@@ -57,15 +57,15 @@ public class ProcessInstanceModificationSubProcessTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testHelper = new ProcessEngineTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   private RuntimeService runtimeService;
   private RepositoryService repositoryService;
   private TaskService taskService;
   private HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void init() {
     repositoryService = rule.getRepositoryService();
     runtimeService = rule.getRuntimeService();
@@ -73,7 +73,7 @@ public class ProcessInstanceModificationSubProcessTest {
     historyService = rule.getHistoryService();
   }
 
-  @Ignore("CAM-9354")
+  @Disabled("CAM-9354")
   @Test
   public void shouldHaveEqualParentActivityInstanceId() {
     // given
@@ -151,7 +151,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the process should be finished
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
   }
 
   @Test
@@ -189,10 +189,10 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
   }
 
   @Test
@@ -237,7 +237,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the process should be finished
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
 
   }
 
@@ -284,10 +284,10 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
 
   }
 
@@ -326,7 +326,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the process should be finished
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
 
   }
 
@@ -366,10 +366,10 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
 
   }
 
@@ -416,7 +416,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the process should be finished
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
   }
 
   @Test
@@ -463,10 +463,10 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
   }
 
   @Test
@@ -512,7 +512,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the process should be finished
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
   }
 
   @Test
@@ -559,10 +559,10 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
   }
 
   @Test
@@ -607,7 +607,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
   }
 
   @Test
@@ -657,7 +657,7 @@ public class ProcessInstanceModificationSubProcessTest {
       .execute();
 
     // then
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(0L));
   }
 
   @Test
@@ -700,7 +700,7 @@ public class ProcessInstanceModificationSubProcessTest {
           .processInstanceId(calledInstance.getId())
           .singleResult();
 
-      Assert.assertNull(calledInstanceAfterModification);
+      Assertions.assertNull(calledInstanceAfterModification);
 
       ExecutionTree executionTree = ExecutionTree.forExecution(callingInstance.getId(), rule.getProcessEngine());
       assertThat(executionTree)
@@ -749,11 +749,11 @@ public class ProcessInstanceModificationSubProcessTest {
                   .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
     assertNotNull(taskService.createTaskQuery().taskName("escalationTask").singleResult());
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
   }
 
   @Test
@@ -796,11 +796,11 @@ public class ProcessInstanceModificationSubProcessTest {
                   .execute();
 
     // then the parent process instance is still active
-    assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
+    org.hamcrest.MatcherAssert.assertThat(runtimeService.createProcessInstanceQuery().count(), is(1L));
     assertNotNull(taskService.createTaskQuery().taskName("errorTask").singleResult());
 
     Task task = taskService.createTaskQuery().singleResult();
-    assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
+    org.hamcrest.MatcherAssert.assertThat(task.getProcessInstanceId(), is(parentPI.getId()));
   }
 
 

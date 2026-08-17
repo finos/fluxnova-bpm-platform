@@ -16,15 +16,13 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.subprocess;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ActivityInstanceImpl;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.CollectionUtil;
 import org.finos.fluxnova.bpm.engine.runtime.ActivityInstance;
@@ -36,7 +34,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.bpmn.subprocess.util.GetActInstanceDelegate;
 import org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -485,6 +484,23 @@ public class SubProcessTest extends PluggableProcessEngineTest {
   public void testNestedSubProcessesWithoutEndEvents() {
     ProcessInstance pi = runtimeService.startProcessInstanceByKey("testNestedSubProcessesWithoutEndEvents");
     testRule.assertProcessEnded(pi.getId());
+  }
+
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/nestedSubProcess.bpmn20.xml", "org/finos/fluxnova/bpm/engine/test/bpmn/callactivity/simpleSubProcess.bpmn20.xml"})
+  @Test
+  public void testInstanceSubProcessInstanceIdSet() {
+    // given
+    ProcessInstance pi = runtimeService.startProcessInstanceByKey("nestedSimpleSubProcess");
+    ActivityInstance rootActivityInstance = runtimeService.getActivityInstance(pi.getProcessInstanceId());
+    ActivityInstance subProcessInstance = rootActivityInstance.getChildActivityInstances()[0];
+
+    // when
+    String subProcessInstanceId = ((ActivityInstanceImpl) subProcessInstance).getSubProcessInstanceId();
+
+    // then
+    assertNotNull(subProcessInstanceId);
+    ProcessInstance subProcess = runtimeService.createProcessInstanceQuery().processDefinitionKey("simpleSubProcess").singleResult();
+    assertEquals(subProcess.getId(), subProcessInstanceId);
   }
 
   @Deployment

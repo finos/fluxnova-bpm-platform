@@ -16,22 +16,23 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.scripttask;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
+
+import org.junit.jupiter.api.AfterEach;
 
 public abstract class AbstractScriptTaskTest extends PluggableProcessEngineTest {
 
   private List<String> deploymentIds = new ArrayList<>();
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     deploymentIds.forEach(deploymentId -> repositoryService.deleteDeployment(deploymentId, true));
   }
@@ -63,7 +64,7 @@ public abstract class AbstractScriptTaskTest extends PluggableProcessEngineTest 
 
   protected String getNormalizedResourcePath(String classPathResource) {
     try {
-      return Paths.get(getClass().getResource(classPathResource).toURI()).toString().replace('\\', '/');
+      return Path.of(getClass().getResource(classPathResource).toURI()).toString().replace('\\', '/');
     } catch (Exception e) {
       fail("Cannot read path of '" + classPathResource + "': " + e.getMessage());
       return null;

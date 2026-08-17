@@ -23,7 +23,8 @@ import java.util.List;
 import org.finos.fluxnova.bpm.monitoring.db.QueryParameters;
 import org.finos.fluxnova.bpm.monitoring.plugin.test.AbstractMonitoringPluginTest;
 import org.finos.fluxnova.bpm.engine.runtime.Execution;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *

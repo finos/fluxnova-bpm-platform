@@ -20,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.finos.fluxnova.bpm.engine.impl.history.AbstractHistoryLevel;
 import org.finos.fluxnova.bpm.engine.impl.history.event.HistoryEventType;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class AbstractHistoryLevelTest {
 

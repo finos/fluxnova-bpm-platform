@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.spin.impl.json.jackson.format;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.type.TypeFactory;
 
 import java.lang.reflect.TypeVariable;
 import java.util.Collection;
@@ -60,7 +60,7 @@ public class TypeHelper {
    * @return Java type.
    */
   static JavaType constructType(Object value) {
-    TypeFactory typeFactory = TypeFactory.defaultInstance();
+    TypeFactory typeFactory = TypeFactory.createDefaultInstance();
     if (value instanceof Collection<?>) {
       Collection<?> collection = (Collection<?>) value;
       int size = collection.size();

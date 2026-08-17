@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -38,9 +34,9 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.api.mgmt.AlwaysFailingDelegate;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tom Baeyens
@@ -51,13 +47,13 @@ public class JobExecutorCmdExceptionTest extends PluggableProcessEngineTest {
   protected TweetExceptionHandler tweetExceptionHandler = new TweetExceptionHandler();
   protected TweetNestedCommandExceptionHandler nestedCommandExceptionHandler = new TweetNestedCommandExceptionHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngineConfiguration.getJobHandlers().put(tweetExceptionHandler.getType(), tweetExceptionHandler);
     processEngineConfiguration.getJobHandlers().put(nestedCommandExceptionHandler.getType(), nestedCommandExceptionHandler);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     processEngineConfiguration.getJobHandlers().remove(tweetExceptionHandler.getType());
     processEngineConfiguration.getJobHandlers().remove(nestedCommandExceptionHandler.getType());
@@ -202,7 +198,7 @@ public class JobExecutorCmdExceptionTest extends PluggableProcessEngineTest {
 
     String stacktrace = managementService.getJobExceptionStacktrace(job.getId());
     assertNotNull(stacktrace);
-    assertTrue("unexpected stacktrace, was <" + stacktrace + ">", stacktrace.contains("java.lang.RuntimeException: exception in transaction listener"));
+    assertTrue(stacktrace.contains("java.lang.RuntimeException: exception in transaction listener"), "unexpected stacktrace, was <" + stacktrace + ">");
   }
 
   @Test
@@ -220,7 +216,7 @@ public class JobExecutorCmdExceptionTest extends PluggableProcessEngineTest {
 
     runtimeService.startProcessInstanceByKey("testProcess");
     Job job = managementService.createJobQuery().singleResult();
-    assertNotNull("Job should not be null", job);
+    assertNotNull(job, "Job should not be null");
     assertNull(job.getExceptionMessage());
     assertNull(((JobEntity) job).getException());
 
@@ -233,7 +229,7 @@ public class JobExecutorCmdExceptionTest extends PluggableProcessEngineTest {
 
     // then
     job = managementService.createJobQuery().singleResult();
-    assertNotNull("Job should not be null", job);
+    assertNotNull(job, "Job should not be null");
     //The message is obtained from the persistence layer.
     assertEquals(AlwaysFailingDelegate.MESSAGE, job.getExceptionMessage());
     //The exception at this point is null but already propagated to the Incident Handler.

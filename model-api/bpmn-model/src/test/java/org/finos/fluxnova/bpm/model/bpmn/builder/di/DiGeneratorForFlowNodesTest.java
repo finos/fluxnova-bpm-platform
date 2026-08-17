@@ -30,9 +30,7 @@ import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.TASK_ID;
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.TEST_CONDITION;
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.TRANSACTION_ID;
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.USER_TASK_ID;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -43,14 +41,14 @@ import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi.BpmnDiagram;
 import org.finos.fluxnova.bpm.model.bpmn.instance.bpmndi.BpmnShape;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class DiGeneratorForFlowNodesTest {
 
   private BpmnModelInstance instance;
 
-  @After
+  @AfterEach
   public void validateModel() throws IOException {
     if (instance != null) {
       Bpmn.validateModel(instance);

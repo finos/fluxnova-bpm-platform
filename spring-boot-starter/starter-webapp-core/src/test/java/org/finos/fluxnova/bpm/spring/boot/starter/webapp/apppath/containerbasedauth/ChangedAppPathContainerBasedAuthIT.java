@@ -16,38 +16,42 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp.apppath.containerbasedauth;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
-    classes = { ContainerBasedAuthTestApp.class },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+  classes = {ContainerBasedAuthTestApp.class},
+  webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-    "fluxnova.bpm.webapp.applicationPath=" + ChangedAppPathContainerBasedAuthIT.MY_APP_PATH
+  "fluxnova.bpm.webapp.applicationPath=" + ChangedAppPathContainerBasedAuthIT.MY_APP_PATH
 })
 public class ChangedAppPathContainerBasedAuthIT {
 
   protected static final String MY_APP_PATH = "/my/application/path";
 
-  @Autowired
-  protected TestRestTemplate testRestTemplate;
+  @LocalServerPort
+  public int port;
+
+  private RestTemplate testRestTemplate() {
+    return new RestTemplate();
+  }
 
   @Test
   public void shouldCheckContainerBasedAuthFilterAvailable() {
     // given
 
     // when
-    ResponseEntity<String> response = testRestTemplate.getForEntity(MY_APP_PATH +
+    ResponseEntity<String> response = testRestTemplate().getForEntity(MY_APP_PATH +
         "/app/welcome/default/", String.class);
 
     // then

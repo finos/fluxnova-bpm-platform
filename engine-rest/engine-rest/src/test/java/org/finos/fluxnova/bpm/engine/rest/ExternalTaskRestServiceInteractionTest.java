@@ -44,9 +44,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContextEvent;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ExternalTaskService;
@@ -82,9 +82,10 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -95,7 +96,7 @@ import org.mockito.Mockito;
  */
 public class ExternalTaskRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String EXTERNAL_TASK_URL = TEST_RESOURCE_ROOT_PATH + "/external-task";
@@ -127,7 +128,7 @@ public class ExternalTaskRestServiceInteractionTest extends AbstractRestServiceT
 
   protected UpdateExternalTaskRetriesBuilder updateRetriesBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     externalTaskService = mock(ExternalTaskService.class);
     when(processEngine.getExternalTaskService()).thenReturn(externalTaskService);
@@ -1593,6 +1594,7 @@ public class ExternalTaskRestServiceInteractionTest extends AbstractRestServiceT
       .body("executionId", equalTo(MockProvider.EXAMPLE_EXECUTION_ID))
       .body("id", equalTo(MockProvider.EXTERNAL_TASK_ID))
       .body("lockExpirationTime", equalTo(MockProvider.EXTERNAL_TASK_LOCK_EXPIRATION_TIME))
+      .body("createTime", equalTo(MockProvider.EXTERNAL_TASK_CREATE_TIME))
       .body("processDefinitionId", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID))
       .body("processDefinitionKey", equalTo(MockProvider.EXAMPLE_PROCESS_DEFINITION_KEY))
       .body("processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
@@ -2209,6 +2211,7 @@ public class ExternalTaskRestServiceInteractionTest extends AbstractRestServiceT
         .body("[0].topicName", equalTo(MockProvider.EXTERNAL_TASK_TOPIC_NAME))
         .body("[0].workerId", equalTo(MockProvider.EXTERNAL_TASK_WORKER_ID))
         .body("[0].lockExpirationTime", equalTo(MockProvider.EXTERNAL_TASK_LOCK_EXPIRATION_TIME))
+        .body("[0].createTime", equalTo(MockProvider.EXTERNAL_TASK_CREATE_TIME))
         .body("[0].processInstanceId", equalTo(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID))
         .body("[0].executionId", equalTo(MockProvider.EXAMPLE_EXECUTION_ID))
         .body("[0].activityId", equalTo(MockProvider.EXAMPLE_ACTIVITY_ID))

@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.webapp.impl;
 
 import java.util.Date;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;

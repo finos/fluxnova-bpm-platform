@@ -21,14 +21,15 @@ import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.impl.VariableInstanceQueryImpl;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Before;
+
+import org.junit.jupiter.api.BeforeEach;
 
 @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml" })
 public class VariableInstanceQueryVariableIgnoreCaseTest extends AbstractVariableIgnoreCaseTest<VariableInstanceQueryImpl, VariableInstance> {
 
   RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
 

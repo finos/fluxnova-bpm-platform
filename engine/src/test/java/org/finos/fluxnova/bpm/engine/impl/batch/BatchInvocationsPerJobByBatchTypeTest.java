@@ -33,14 +33,14 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class BatchInvocationsPerJobByBatchTypeTest {
 
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
 
   protected ManagementService managementService;
@@ -48,7 +48,7 @@ public class BatchInvocationsPerJobByBatchTypeTest {
   protected HistoryService historyService;
   protected ProcessEngineConfigurationImpl engineConfiguration;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     managementService = processEngineRule.getManagementService();
     runtimeService = processEngineRule.getRuntimeService();
@@ -56,7 +56,7 @@ public class BatchInvocationsPerJobByBatchTypeTest {
     engineConfiguration = processEngineRule.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     int defaultInvocationsPerJob =
         ProcessEngineConfigurationImpl.DEFAULT_INVOCATIONS_PER_BATCH_JOB;

@@ -50,7 +50,7 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     if (requestUri.equals(appPath)) {
       // only redirect from index ("/") if index redirect is enabled
       if(!requestUri.isEmpty() || webappProperty.isIndexRedirectEnabled()) {
-        response.sendRedirect(String.format("%s%s/app/%s/", contextPath, applicationPath, DEFAULT_REDIRECT_APP));
+        response.sendRedirect("%s%s/app/%s/".formatted(contextPath, applicationPath, DEFAULT_REDIRECT_APP));
         return;
       }
     }
@@ -60,6 +60,7 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
 
   @Override
   protected String getWebResourceContents(String name) throws IOException {
+    validateResourceName(name);
     InputStream is = null;
 
     try {
@@ -127,5 +128,17 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     input = StringUtils.trimTrailingCharacter(input, charachter);
 
     return input;
+  }
+
+  private static void validateResourceName(String name) throws IOException {
+    if (name == null) {
+      throw new IOException("Resource name must not be null");
+    }
+    String normalized = name.replace('\\', '/');
+    for (String segment : normalized.split("/")) {
+      if ("..".equals(segment)) {
+        throw new IOException("Resource name contains illegal path traversal sequence: " + name);
+      }
+    }
   }
 }

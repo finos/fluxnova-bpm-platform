@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.monitoring.impl.plugin.resources;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 
 import org.finos.fluxnova.bpm.monitoring.impl.plugin.MonitoringPlugins;
 import org.finos.fluxnova.bpm.monitoring.plugin.resource.AbstractMonitoringPluginRootResource;

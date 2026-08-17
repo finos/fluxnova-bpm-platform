@@ -17,13 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.timer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -55,10 +49,10 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
 import org.joda.time.LocalDateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez
@@ -71,12 +65,12 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
 
   protected boolean reevaluateTimeCycleWhenDue;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     reevaluateTimeCycleWhenDue = processEngineConfiguration.isReevaluateTimeCycleWhenDue();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.getBeans().remove("myCycleTimerBean");
     processEngineConfiguration.setReevaluateTimeCycleWhenDue(reevaluateTimeCycleWhenDue);
@@ -129,7 +123,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
   // FIXME: This test likes to run in an endless loop when invoking the
   // waitForJobExecutorOnCondition method
   @Deployment
-  @Ignore
+  @Disabled
   @Test
   public void testCycleDateStartTimerEvent() throws Exception {
     ClockUtil.setCurrentTime(new Date());
@@ -1729,7 +1723,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
   public void shouldReevaluateCronTimerCycleWhenDue() throws Exception {
     // given
     ClockUtil.setCurrentTime(START_DATE);
-    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * * *"); // every hour
+    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * *"); // every hour
     processEngineConfiguration.getBeans().put("myCycleTimerBean", myCycleTimerBean);
     processEngineConfiguration.setReevaluateTimeCycleWhenDue(true);
 
@@ -1738,7 +1732,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
     moveByHours(1); // execute first job
 
     // when bean changed and job is due
-    myCycleTimerBean.setCycle("0 0 0/2 ? * * *"); // at 0 minutes past the hour, every 2 hours
+    myCycleTimerBean.setCycle("0 0 0/2 ? * *"); // at 0 minutes past the hour, every 2 hours
     moveByHours(1); // execute second job
 
     // then one more job is left due in 2 hours
@@ -1759,7 +1753,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
     moveByHours(1); // execute first job
 
     // when bean changed and job is due
-    myCycleTimerBean.setCycle("0 0 0/2 ? * * *"); // at 0 minutes past the hour, every 2 hours
+    myCycleTimerBean.setCycle("0 0 0/2 ? * *"); // at 0 minutes past the hour, every 2 hours
     moveByHours(1); // execute second job
 
     // then one more job is left due in 2 hours
@@ -1772,7 +1766,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
   public void shouldReevaluateCronToRepeatingTimerCycle() throws Exception {
     // given
     ClockUtil.setCurrentTime(START_DATE);
-    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * * *"); // every hour
+    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * *"); // every hour
     processEngineConfiguration.getBeans().put("myCycleTimerBean", myCycleTimerBean);
     processEngineConfiguration.setReevaluateTimeCycleWhenDue(true);
 
@@ -1807,7 +1801,7 @@ public class StartTimerEventTest extends PluggableProcessEngineTest {
   public void shouldReevaluateCronToRepeatingTimerCycleWithDate() throws Exception {
     // given
     ClockUtil.setCurrentTime(START_DATE);
-    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * * *"); // every hour
+    MyCycleTimerBean myCycleTimerBean = new MyCycleTimerBean("0 0 * ? * *"); // every hour
     processEngineConfiguration.getBeans().put("myCycleTimerBean", myCycleTimerBean);
     processEngineConfiguration.setReevaluateTimeCycleWhenDue(true);
 

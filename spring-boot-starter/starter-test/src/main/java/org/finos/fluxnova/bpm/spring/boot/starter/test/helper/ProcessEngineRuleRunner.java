@@ -18,47 +18,44 @@ package org.finos.fluxnova.bpm.spring.boot.starter.test.helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.rules.TestRule;
-import org.junit.runner.notification.RunNotifier;
-import org.junit.runners.BlockJUnit4ClassRunner;
-import org.junit.runners.model.InitializationError;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
 /**
- * Runner that ensures closing process engines after test run.
+ * Extension that ensures closing process engines after test run.
  */
-public class ProcessEngineRuleRunner extends BlockJUnit4ClassRunner {
+public class ProcessEngineRuleRunner implements TestInstancePostProcessor {
 
   private final Collection<ProcessEngineRule> processEngineRules = new ArrayList<>();
 
-  public ProcessEngineRuleRunner(Class<?> klass) throws InitializationError {
-    super(klass);
+  @Override
+  public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
+    // Collect all ProcessEngineRule extensions from the test instance
+    context.getStore(ExtensionContext.Namespace.GLOBAL).getOrComputeIfAbsent(
+        ProcessEngineRule.class,
+        k -> {
+          // Register a close callback
+          context.getRoot().getStore(ExtensionContext.Namespace.GLOBAL).put("cleanup", new ExtensionContext.Store.CloseableResource() {
+            @Override
+            public void close() throws Throwable {
+              for (ProcessEngineRule processEngineRule : processEngineRules) {
+                try {
+                  processEngineRule.getProcessEngine().close();
+                } catch (Exception e) {
+                  // close quietly
+                }
+              }
+            }
+          });
+          return new Object();
+        }
+    );
   }
 
-  @Override
-  protected List<TestRule> getTestRules(Object target) {
-    List<TestRule> testRules = super.getTestRules(target);
-
-    testRules.stream()
-      .filter(t -> t instanceof ProcessEngineRule)
-      .map(t -> (ProcessEngineRule)t)
-      .forEach(processEngineRules::add);
-
-    return testRules;
-  }
-
-  @Override
-  public void run(RunNotifier notifier) {
-    super.run(notifier);
-    for (ProcessEngineRule processEngineRule : processEngineRules) {
-      try {
-        processEngineRule.getProcessEngine().close();
-      } catch (Exception e) {
-        // close quietly
-      }
-    }
+  public void addProcessEngineRule(ProcessEngineRule rule) {
+    processEngineRules.add(rule);
   }
 
 }

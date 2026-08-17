@@ -124,7 +124,7 @@ public class DefaultJobRetryCmd extends JobRetryCmd {
     }
   }
 
-  protected ActivityImpl getCurrentActivity(CommandContext commandContext, JobEntity job) {
+  public ActivityImpl getCurrentActivity(CommandContext commandContext, JobEntity job) {
     String type = job.getJobHandlerType();
     ActivityImpl activity = null;
 
@@ -147,7 +147,7 @@ public class DefaultJobRetryCmd extends JobRetryCmd {
                   .findExecutionById(executionId);
   }
 
-  protected FailedJobRetryConfiguration getFailedJobRetryConfiguration(JobEntity job, ActivityImpl activity) {
+  public FailedJobRetryConfiguration getFailedJobRetryConfiguration(JobEntity job, ActivityImpl activity) {
     FailedJobRetryConfiguration retryConfiguration = activity.getProperties().get(DefaultFailedJobParseListener.FAILED_JOB_CONFIGURATION);
 
     while (retryConfiguration != null && retryConfiguration.getExpression() != null) {
@@ -180,8 +180,8 @@ public class DefaultJobRetryCmd extends JobRetryCmd {
       LOG.exceptionWhileParsingExpression(jobId, e.getCause().getMessage());
     }
 
-    if (value instanceof String) {
-      return (String) value;
+    if (value instanceof String string) {
+      return string;
     }
     else
     {

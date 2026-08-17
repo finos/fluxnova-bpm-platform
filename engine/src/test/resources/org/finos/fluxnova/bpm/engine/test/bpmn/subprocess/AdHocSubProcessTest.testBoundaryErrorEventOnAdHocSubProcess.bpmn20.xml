@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="definitions"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  xmlns:fluxnova="http://fluxnova.finos.org/schema/1.0/bpmn"
+  targetNamespace="Examples">
+
+  <error id="businessError" errorCode="23" />
+
+  <process id="adHocSubProcessBoundaryError" isExecutable="true">
+
+    <startEvent id="start" />
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="adHocSubProcess" />
+
+    <adHocSubProcess id="adHocSubProcess">
+      <extensionElements>
+        <fluxnova:properties>
+          <fluxnova:property name="activeTasksCollection" value="taskA,errorTask" />
+        </fluxnova:properties>
+      </extensionElements>
+
+      <userTask id="taskA" name="Task A" />
+      <serviceTask id="errorTask" camunda:class="org.finos.fluxnova.bpm.engine.test.bpmn.event.error.ThrowBpmnErrorDelegate" />
+    </adHocSubProcess>
+
+    <boundaryEvent id="errorBoundary" attachedToRef="adHocSubProcess">
+      <errorEventDefinition errorRef="businessError" />
+    </boundaryEvent>
+
+    <sequenceFlow id="flowBoundary" sourceRef="errorBoundary" targetRef="boundaryTask" />
+    <userTask id="boundaryTask" name="Boundary Task" />
+    <sequenceFlow id="flowBoundaryToEnd" sourceRef="boundaryTask" targetRef="endBoundary" />
+    <endEvent id="endBoundary" />
+
+    <sequenceFlow id="flow2" sourceRef="adHocSubProcess" targetRef="taskAfter" />
+    <userTask id="taskAfter" name="Task After" />
+    <sequenceFlow id="flow3" sourceRef="taskAfter" targetRef="end" />
+    <endEvent id="end" />
+
+  </process>
+
+</definitions>

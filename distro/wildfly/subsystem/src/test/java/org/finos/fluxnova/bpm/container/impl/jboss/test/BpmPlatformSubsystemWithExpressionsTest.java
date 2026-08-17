@@ -23,8 +23,9 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.container.impl.jboss.extension.BpmPlatformExtension;
 import org.finos.fluxnova.bpm.container.impl.jboss.extension.ModelConstants;
 import org.jboss.as.subsystem.test.AbstractSubsystemBaseTest;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  *
@@ -47,12 +48,12 @@ public class BpmPlatformSubsystemWithExpressionsTest extends AbstractSubsystemBa
     super(ModelConstants.SUBSYSTEM_NAME, new BpmPlatformExtension());
   }
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     System.getProperties().putAll(PROPERTIES);
   }
   
-  @AfterClass
+  @AfterAll
   public static void tearDown() {
     for (String key : PROPERTIES.keySet()) {
       System.clearProperty(key);

@@ -27,6 +27,6 @@ package org.finos.fluxnova.connect.spi;
  */
 public interface CloseableConnectorResponse extends ConnectorResponse {
 
-  public void close();
+  void close();
 
 }

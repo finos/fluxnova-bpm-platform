@@ -26,8 +26,9 @@ import org.apache.hc.core5.util.Timeout;
 import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.UrlResolver;
 import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
-import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
+import org.junit.jupiter.api.Test;
 
 public class ExternalTaskClientBuilderImplTest {
 
@@ -89,6 +90,16 @@ public class ExternalTaskClientBuilderImplTest {
     public String getBaseUrl() {
       return baseUrl;
     }
+  }
+
+  @Test
+  public void testBuilderWithUnsetBaseUrl() {
+    // given unbuilt builder
+    ExternalTaskClientBuilderImpl builder = new ExternalTaskClientBuilderImpl();
+
+    // when getting base url and url resolver, then they are correctly initialized
+    assertThat(builder.getBaseUrl()).isNull();
+    assertThat(builder.urlResolver).isNotNull();
   }
 
 }

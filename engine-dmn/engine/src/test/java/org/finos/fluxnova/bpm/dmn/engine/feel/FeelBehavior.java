@@ -21,10 +21,8 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,10 +31,10 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public abstract class FeelBehavior extends DmnEngineTest {
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
+public abstract class FeelBehavior extends DmnEngineTest {
 
   @Test
   @DecisionResource(resource = "mixed_variable_types.dmn")
@@ -133,7 +131,7 @@ public abstract class FeelBehavior extends DmnEngineTest {
     .hasSingleEntryTyped(Variables.stringValue("foo"));
   }
 
-  @Ignore("CAM-11319")
+  @Disabled("CAM-11319")
   @Test
   @DecisionResource(resource = "compare_dates_non_typed.dmn")
   public void shouldCompareJodaLocalDateTimes() {
@@ -145,7 +143,7 @@ public abstract class FeelBehavior extends DmnEngineTest {
     .hasSingleEntryTyped(Variables.stringValue("foo"));
   }
 
-  @Ignore("CAM-11319")
+  @Disabled("CAM-11319")
   @Test
   @DecisionResource(resource = "compare_dates_non_typed.dmn")
   public void shouldCompareJodaDateTimes() {
@@ -191,12 +189,13 @@ public abstract class FeelBehavior extends DmnEngineTest {
     getVariables()
       .putValue("date1", org.joda.time.LocalDate.parse("2020-01-17"));
 
-    // then
-    thrown.expectMessage("DMN-01005 Invalid value '2020-01-17' for clause with type 'date'.");
-    thrown.expect(DmnEngineException.class);
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    evaluateDecision().getSingleEntry();
+      // when
+      evaluateDecision().getSingleEntry());
+
+    // then
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("DMN-01005 Invalid value '2020-01-17' for clause with type 'date'."));
   }
 
   @Test
@@ -206,13 +205,14 @@ public abstract class FeelBehavior extends DmnEngineTest {
     getVariables()
       .putValue("date1", LocalDate.parse("2020-01-17"));
 
-    // then
-    thrown.expectMessage("Unsupported type: 'java.time.LocalDate' " +
-      "cannot be converted to 'java.util.Date'");
-    thrown.expect(DmnEngineException.class);
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    evaluateDecision().getSingleEntry();
+      // when
+      evaluateDecision().getSingleEntry());
+
+    // then
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("Unsupported type: 'java.time.LocalDate' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   public static class Person {

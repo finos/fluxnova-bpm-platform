@@ -144,6 +144,7 @@
     "AUTHORIZATION_USER_AUTH_INFO": "Authorizations are not deleted automatically when you delete the user. Leftover authorizations are applied when creating a new user with the same id. Use 'group' authorizations instead.",
     "AUTHORIZATION_USER_GROUP": "User / Group",
     "AUTHORIZATION_USER_ID": "User ID",
+    "AUTHORIZATION_VARIABLE": "Variable",
     "AUTHORIZATION_GROUP_ID": "Group ID",
     "AUTHORIZATION_EMPTY": "There exist no authorizations.",
     "AUTH_AUTHENTICATION_FAILED": "Authentication failed. Your session might have expired, you need to login.",

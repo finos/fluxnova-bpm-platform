@@ -20,7 +20,7 @@ import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.ExternalTaskClientBuilder;
 import org.mockito.MockedStatic;
 
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.RETURNS_SELF;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -36,13 +36,13 @@ public class MockHelper {
 
     mockedStatic = mockStatic(ExternalTaskClient.class);
     clientBuilder = mock(ExternalTaskClientBuilder.class, RETURNS_SELF);
-    when(ExternalTaskClient.create()).thenReturn(clientBuilder);
+    mockedStatic.when(() -> ExternalTaskClient.create()).thenReturn(clientBuilder);
     ExternalTaskClient client = mock(ExternalTaskClient.class);
     when(clientBuilder.build()).thenReturn(client);
   }
 
   public static void reset() {
-    if(jdkSupportsMockito()) {
+    if (jdkSupportsMockito()) {
       mockedStatic.close();
     }
   }

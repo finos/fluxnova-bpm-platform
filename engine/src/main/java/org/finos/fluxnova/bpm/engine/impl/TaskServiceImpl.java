@@ -29,51 +29,7 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.TaskService;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddGroupIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AddUserIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.AssignTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.ClaimTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CompleteTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CreateAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.CreateTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DelegateTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteGroupIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteProcessInstanceCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteTaskCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.DeleteUserIdentityLinkCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetAttachmentContentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetIdentityLinksForTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetProcessInstanceAttachmentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetProcessInstanceCommentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetSubTasksCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentContentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskAttachmentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskCommentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskCommentsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskEventsCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariableCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariableCmdTyped;
-import org.finos.fluxnova.bpm.engine.impl.cmd.GetTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.HandleTaskBpmnErrorCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.HandleTaskEscalationCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.PatchTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.RemoveTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.ResolveTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SaveAttachmentCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SaveTaskCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskDescriptionCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskDueDateCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskFollowUpDateCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskNameCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskOwnerCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskPriorityCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.SetTaskVariablesCmd;
-import org.finos.fluxnova.bpm.engine.impl.cmd.UpdateCommentCmd;
+import org.finos.fluxnova.bpm.engine.impl.cmd.*;
 import org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil;
 import org.finos.fluxnova.bpm.engine.task.Attachment;
 import org.finos.fluxnova.bpm.engine.task.Comment;
@@ -85,6 +41,7 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.task.TaskReport;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 
@@ -303,31 +260,55 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
     return (T) commandExecutor.execute(new GetTaskVariableCmdTyped(taskId, variableName, isLocal, deserializeValue));
   }
 
+  @Override
   public void setVariable(String taskId, String variableName, Object value) {
+    setVariable(taskId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariable(String taskId, String variableName, Object value, boolean restricted) {
+    setVariable(taskId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariable(String taskId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<>();
     variables.put(variableName, value);
-    setVariables(taskId, variables, false);
+    setVariables(taskId, variables, false, variableOptions);
   }
 
+  @Override
   public void setVariableLocal(String taskId, String variableName, Object value) {
+    setVariableLocal(taskId, variableName, value, false);
+  }
+
+  @Override
+  public void setVariableLocal(String taskId, String variableName, Object value, boolean restricted) {
+    setVariableLocal(taskId, variableName, value, VariableOptions.options(false, restricted));
+  }
+
+  @Override
+  public void setVariableLocal(String taskId, String variableName, Object value, VariableOptions variableOptions) {
     ensureNotNull("variableName", variableName);
     Map<String, Object> variables = new HashMap<>();
     variables.put(variableName, value);
-    setVariables(taskId, variables, true);
+    setVariables(taskId, variables, true, variableOptions);
   }
 
+  @Override
   public void setVariables(String taskId, Map<String, ? extends Object> variables) {
-    setVariables(taskId, variables, false);
+    setVariables(taskId, variables, false, VariableOptions.options(false, false));
   }
 
+  @Override
   public void setVariablesLocal(String taskId, Map<String, ? extends Object> variables) {
-    setVariables(taskId, variables, true);
+    setVariables(taskId, variables, true, VariableOptions.options(false, false));
   }
 
-  protected void setVariables(String taskId, Map<String, ? extends Object> variables, boolean local) {
+  protected void setVariables(String taskId, Map<String, ? extends Object> variables, boolean local, VariableOptions variableOptions) {
     try {
-      commandExecutor.execute(new SetTaskVariablesCmd(taskId, variables, local));
+      commandExecutor.execute(new SetTaskVariablesCmd(taskId, variables, local, variableOptions));
     } catch (ProcessEngineException ex) {
       if (ExceptionUtil.checkValueTooLongException(ex)) {
         throw new BadUserRequestException("Variable value is too long", ex);
@@ -411,6 +392,10 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
     return commandExecutor.execute(new GetTaskCommentsCmd(taskId));
   }
 
+  public long getTaskCommentsCount(String taskId) {
+    return commandExecutor.execute(new GetTaskCommentsCountCmd(taskId));
+  }
+
   public Comment getTaskComment(String taskId, String commentId) {
     return commandExecutor.execute(new GetTaskCommentCmd(taskId, commentId));
   }
@@ -457,6 +442,10 @@ public class TaskServiceImpl extends ServiceImpl implements TaskService {
 
   public List<Attachment> getTaskAttachments(String taskId) {
     return commandExecutor.execute(new GetTaskAttachmentsCmd(taskId));
+  }
+
+   public long getTaskAttachmentsCount(String taskId) {
+    return commandExecutor.execute(new GetTaskAttachmentsCountCmd(taskId));
   }
 
   public List<Attachment> getProcessInstanceAttachments(String processInstanceId) {

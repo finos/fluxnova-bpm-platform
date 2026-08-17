@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public class SetRemovalTimeToProcessInstanceTest {
 
   Logger LOG = LoggerFactory.getLogger(SetRemovalTimeToProcessInstanceTest.class);
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule engineRule = new UpgradeTestRule();
 
   HistoryService historyService;

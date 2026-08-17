@@ -18,10 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization;
 
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Comment;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskCommentAuthorizationTest extends AuthorizationTest {
 
@@ -110,7 +108,7 @@ public class TaskCommentAuthorizationTest extends AuthorizationTest {
 
     // then
     List<Comment> comments = taskService.getTaskComments(TASK_ID);
-    assertEquals("The comments list should be empty", Collections.emptyList(), comments);
+    assertEquals(Collections.emptyList(), comments, "The comments list should be empty");
 
     // triggers a db clean up
     deleteTask(TASK_ID, true);
@@ -151,7 +149,7 @@ public class TaskCommentAuthorizationTest extends AuthorizationTest {
 
     // then
     List<Comment> comments = taskService.getTaskComments(TASK_ID);
-    assertFalse("The comments list should not be empty", comments.isEmpty());
+    assertFalse(comments.isEmpty(), "The comments list should not be empty");
     assertEquals(updatedMessage, comments.get(0).getFullMessage());
 
     // triggers a db clean up
@@ -232,7 +230,7 @@ public class TaskCommentAuthorizationTest extends AuthorizationTest {
 
     // then
     List<Comment> comments = taskService.getTaskComments(task.getId());
-    assertEquals("The comments list should be empty", Collections.emptyList(), comments);
+    assertEquals(Collections.emptyList(), comments, "The comments list should be empty");
   }
 
   @Test
@@ -274,7 +272,7 @@ public class TaskCommentAuthorizationTest extends AuthorizationTest {
 
     // then
     List<Comment> comments = taskService.getTaskComments(task.getId());
-    assertFalse("The comments list should not be empty", comments.isEmpty());
+    assertFalse(comments.isEmpty(), "The comments list should not be empty");
     assertEquals(updatedMessage, comments.get(0).getFullMessage());
   }
 

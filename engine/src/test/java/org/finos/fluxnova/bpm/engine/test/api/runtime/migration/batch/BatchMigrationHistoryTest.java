@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -44,15 +41,13 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.MigrationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class BatchMigrationHistoryTest {
 
@@ -71,14 +66,9 @@ public class BatchMigrationHistoryTest {
   protected ProcessDefinition targetProcessDefinition;
 
   protected boolean defaultEnsureJobDueDateSet;
-
-  @Parameterized.Parameter(0)
   public boolean ensureJobDueDateSet;
-
-  @Parameterized.Parameter(1)
   public Date currentTime;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false, null },
@@ -86,45 +76,46 @@ public class BatchMigrationHistoryTest {
     });
   }
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule);
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
     historyService = engineRule.getHistoryService();
   }
 
-  @Before
+  @BeforeEach
   public void setupConfiguration() {
     configuration = engineRule.getProcessEngineConfiguration();
     defaultEnsureJobDueDateSet = configuration.isEnsureJobDueDateNotNull();
-    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
-  @Before
+  @BeforeEach
   public void setClock() {
     ClockUtil.setCurrentTime(START_DATE);
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void resetConfiguration() {
     configuration.setEnsureJobDueDateNotNull(defaultEnsureJobDueDateSet);
   }
 
-  @Test
-  public void testHistoricBatchCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     // when
     Batch batch = helper.migrateProcessInstancesAsync(10);
 
@@ -145,8 +136,10 @@ public class BatchMigrationHistoryTest {
     assertNull(historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricBatchCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
     helper.completeSeedJobs(batch);
     helper.executeJobs(batch);
@@ -162,8 +155,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(endDate, historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricSeedJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     // when
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
@@ -199,8 +194,10 @@ public class BatchMigrationHistoryTest {
 
   }
 
-  @Test
-  public void testHistoricMonitorJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
     // when the seed job is executed
@@ -259,8 +256,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(monitorJobDueDate, jobLog.getJobDueDate());
   }
 
-  @Test
-  public void testHistoricBatchJobLog() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLog(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
     helper.completeSeedJobs(batch);
 
@@ -296,8 +295,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(currentTime, jobLog.getJobDueDate());
   }
 
-  @Test
-  public void testHistoricBatchForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
     // when
@@ -310,8 +311,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(deletionDate, historicBatch.getEndTime());
   }
 
-  @Test
-  public void testHistoricSeedJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
     // when
@@ -325,8 +328,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testHistoricMonitorJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
     helper.completeSeedJobs(batch);
 
@@ -341,8 +346,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testHistoricBatchJobLogForBatchDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLogForBatchDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
     helper.completeSeedJobs(batch);
 
@@ -357,8 +364,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(deletionDate, jobLog.getTimestamp());
   }
 
-  @Test
-  public void testDeleteHistoricBatch() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testDeleteHistoricBatch(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(1);
     helper.completeSeedJobs(batch);
     helper.executeJobs(batch);
@@ -375,8 +384,10 @@ public class BatchMigrationHistoryTest {
     assertTrue(helper.getHistoricBatchJobLog(batch).isEmpty());
   }
 
-  @Test
-  public void testHistoricSeedJobIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricSeedJobIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
@@ -393,8 +404,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testHistoricMonitorJobIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricMonitorJobIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     Batch batch = helper.migrateProcessInstancesAsync(1);
 
@@ -412,8 +425,10 @@ public class BatchMigrationHistoryTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testHistoricBatchJobLogIncidentDeletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testHistoricBatchJobLogIncidentDeletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationHistoryTest(ensureJobDueDateSet, currentTime);
     // given
     Batch batch = helper.migrateProcessInstancesAsync(3);
 
@@ -438,6 +453,12 @@ public class BatchMigrationHistoryTest {
     assertNull(jobLog.getDeploymentId());
     assertNull(jobLog.getProcessDefinitionId());
     assertNull(jobLog.getExecutionId());
+  }
+
+  public void initBatchMigrationHistoryTest(boolean ensureJobDueDateSet, Date currentTime) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    this.currentTime = currentTime;
+    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
 

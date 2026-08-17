@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.MismatchingMessageCorrelationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -31,11 +31,11 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.runtime.MessageCorrelationBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.finos.fluxnova.bpm.engine.rest.dto.message.MessageCorrelationResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.message.MessageCorrelationResultWithVariableDto;
 import org.finos.fluxnova.bpm.engine.runtime.MessageCorrelationResult;

@@ -17,9 +17,11 @@
 package org.finos.fluxnova.bpm.integrationtest.functional.delegation;
 
 import org.finos.fluxnova.bpm.integrationtest.functional.delegation.beans.DelegateVarMapping;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
-import static junit.framework.TestCase.assertEquals;
+
+import jakarta.enterprise.inject.spi.BeanManager;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import jakarta.inject.Inject;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
@@ -29,17 +31,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.TestConstants;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  *
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class DelegatedVariableMappingTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name = "mainDeployment")

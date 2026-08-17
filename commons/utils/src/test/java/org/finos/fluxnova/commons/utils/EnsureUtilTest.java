@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.commons.utils;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel.

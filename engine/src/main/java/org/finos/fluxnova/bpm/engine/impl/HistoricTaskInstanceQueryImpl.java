@@ -133,7 +133,6 @@ public class HistoricTaskInstanceQueryImpl extends AbstractQuery<HistoricTaskIns
       .findHistoricTaskInstancesByQueryCriteria(this, page);
   }
 
-
   public HistoricTaskInstanceQueryImpl processInstanceId(String processInstanceId) {
     this.processInstanceId = processInstanceId;
     return this;

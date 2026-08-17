@@ -20,12 +20,14 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,8 +43,8 @@ import org.finos.fluxnova.bpm.engine.variable.impl.type.FileValueTypeImpl;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Ronny Bräunlich
@@ -52,7 +54,7 @@ public class FileValueTypeImplTest {
 
   private FileValueTypeImpl type;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     type = new FileValueTypeImpl();
   }
@@ -83,9 +85,10 @@ public class FileValueTypeImplTest {
     assertThat(type.canConvertFromTypedValue(null), is(false));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void convertingThrowsException() {
-    type.convertFromTypedValue(Variables.untypedNullValue());
+    assertThrows(IllegalArgumentException.class, () ->
+      type.convertFromTypedValue(Variables.untypedNullValue()));
   }
 
   @Test
@@ -115,9 +118,10 @@ public class FileValueTypeImplTest {
     checkStreamFromValue(value, "text");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void createValueFromObject() throws IOException, URISyntaxException {
-    type.createValue(new Object(), Collections.<String, Object> singletonMap(FileValueTypeImpl.VALUE_INFO_FILE_NAME, "simpleFile.txt"));
+    assertThrows(IllegalArgumentException.class, () ->
+      type.createValue(new Object(), Collections.<String, Object>singletonMap(FileValueTypeImpl.VALUE_INFO_FILE_NAME, "simpleFile.txt")));
   }
 
   @Test
@@ -173,16 +177,20 @@ public class FileValueTypeImplTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void cannotCreateFileWithoutName() {
-    InputStream file = this.getClass().getClassLoader().getResourceAsStream("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt");
-    type.createValue(file, Collections.<String, Object> emptyMap());
+    assertThrows(IllegalArgumentException.class, () -> {
+      InputStream file = this.getClass().getClassLoader().getResourceAsStream("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt");
+      type.createValue(file, Collections.<String, Object>emptyMap());
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void cannotCreateFileWithoutValueInfo() {
-    InputStream file = this.getClass().getClassLoader().getResourceAsStream("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt");
-    type.createValue(file, null);
+    assertThrows(IllegalArgumentException.class, () -> {
+      InputStream file = this.getClass().getClassLoader().getResourceAsStream("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt");
+      type.createValue(file, null);
+    });
   }
 
   @Test

@@ -17,23 +17,21 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.property;
 
 import org.finos.fluxnova.bpm.engine.identity.User;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class AdminUserPropertyTest {
 
-  @Rule
-  public final ExpectedException thrown = ExpectedException.none();
-
   @Test
-  public void fillMissingFields_fail_no_id() throws Exception {
-    thrown.expect(NullPointerException.class);
-    thrown.expectMessage("missing field: fluxnova.bpm.admin-user.id");
+  public void fillMissingFields_fail_no_id() {
+    Throwable exception = assertThrows(NullPointerException.class, () ->
 
-    adminUser(null, null, null, null, null).init();
+      adminUser(null, null, null, null, null).init());
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("missing field: fluxnova.bpm.admin-user.id"));
   }
 
   @Test

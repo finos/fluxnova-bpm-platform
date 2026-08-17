@@ -41,7 +41,7 @@ public class NumberOperations {
 	}
 
 	private final static boolean isDotEe(Object value) {
-		return value instanceof String && isDotEe((String)value);
+		return value instanceof String s && isDotEe(s);
 	}
 
 	private static final boolean isFloatOrDouble(Object value) {
@@ -144,35 +144,35 @@ public class NumberOperations {
 		if (value == null) {
 			return LONG_ZERO;
 		}
-		if (value instanceof BigDecimal) {
-			return ((BigDecimal)value).negate();
+		if (value instanceof BigDecimal decimal) {
+			return decimal.negate();
 		}
-		if (value instanceof BigInteger) {
-			return ((BigInteger)value).negate();
+		if (value instanceof BigInteger integer) {
+			return integer.negate();
 		}
-		if (value instanceof Double) {
-			return -((Double) value).doubleValue();
+		if (value instanceof Double double1) {
+			return -double1.doubleValue();
 		}
-		if (value instanceof Float) {
-			return -((Float) value).floatValue();
+		if (value instanceof Float float1) {
+			return -float1.floatValue();
 		}
-		if (value instanceof String) {
-			if (isDotEe((String)value)) {
+		if (value instanceof String string) {
+			if (isDotEe(string)) {
 				return -converter.convert(value, Double.class).doubleValue();
 			}
 			return -converter.convert(value, Long.class).longValue();
 		}
-		if (value instanceof Long) {
-			return -((Long) value).longValue();
+		if (value instanceof Long long1) {
+			return -long1.longValue();
 		}
-		if (value instanceof Integer) {
-			return -((Integer) value).intValue();
+		if (value instanceof Integer integer) {
+			return -integer.intValue();
 		}
-		if (value instanceof Short) {
-			return (short) -((Short) value).shortValue();
+		if (value instanceof Short short1) {
+			return (short) -short1.shortValue();
 		}
-		if (value instanceof Byte) {
-			return (byte) -((Byte) value).byteValue();
+		if (value instanceof Byte byte1) {
+			return (byte) -byte1.byteValue();
 		}
 		throw new ELException(LocalMessages.get("error.negate", value.getClass()));
 	}

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.hal.processDefinition;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;

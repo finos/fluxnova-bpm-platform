@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.application.impl.event;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,11 +39,10 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -51,10 +50,10 @@ import org.junit.Test;
  */
 public class ProcessApplicationEventListenerTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(
       "org/finos/fluxnova/bpm/application/impl/event/pa.event.listener.camunda.cfg.xml");
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -65,7 +64,7 @@ public class ProcessApplicationEventListenerTest {
 
   protected String deploymentId;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -75,7 +74,7 @@ public class ProcessApplicationEventListenerTest {
     deploymentId = repositoryService.createDeploymentQuery().singleResult().getId();
   }
 
-  @After
+  @AfterEach
   public void closeDownProcessEngine() {
     managementService.unregisterProcessApplication(deploymentId, false);
   }

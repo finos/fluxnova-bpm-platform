@@ -18,25 +18,22 @@ package org.finos.fluxnova.bpm.engine.rest;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.batch.BatchDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceQueryDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceSuspensionStateAsyncDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.ProcessInstanceSuspensionStateDto;
-import org.finos.fluxnova.bpm.engine.rest.dto.runtime.SetJobRetriesByProcessDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.ProcessInstanceCountStatisticsDto;
+import org.finos.fluxnova.bpm.engine.rest.dto.runtime.*;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.SetVariablesAsyncDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.CorrelationMessageAsyncDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.batch.DeleteProcessInstancesDto;
@@ -139,5 +136,24 @@ public interface ProcessInstanceRestService {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   BatchDto correlateMessageAsync(CorrelationMessageAsyncDto correlationMessageAsyncDto);
+
+  /**
+   * Retrieves statistics about process instance counts based on the provided request criteria.
+   * <p>
+   * This endpoint accepts a {@link ProcessInstanceCountRequestDto} in the request body, which can specify
+   * various filters and grouping options. The response is a list of {@link ProcessInstanceCountStatisticsDto}
+   * objects, each representing aggregated statistics for process instances matching the criteria.
+   * <p>
+   * Typical use cases include reporting, monitoring, or dashboarding scenarios where grouped or filtered
+   * process instance counts are required.
+   *
+   * @param request the request object containing filtering and grouping criteria
+   * @return a list of statistics objects, each containing count information for a group of process instances
+   */
+  @POST
+  @Path("/instance-counts")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
+  List<ProcessInstanceCountStatisticsDto> getProcessInstanceStatistics(ProcessInstanceCountRequestDto request);
 
 }

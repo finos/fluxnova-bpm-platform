@@ -34,15 +34,15 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.batch.creation.Batch
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Tassilo Weidner
  */
 public class SetRemovalTimeForHistoricDecisionInstancesBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -66,12 +66,15 @@ public class SetRemovalTimeForHistoricDecisionInstancesBatchAuthorizationTest ex
     );
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
   @Deployment(resources = {
     "org/finos/fluxnova/bpm/engine/test/dmn/deployment/drdDish.dmn11.xml"
   })
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void shouldAuthorizeSetRemovalTimeForHistoricDecisionInstancesBatch() {
+  public void shouldAuthorizeSetRemovalTimeForHistoricDecisionInstancesBatch(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     // given
     setupHistory();
 

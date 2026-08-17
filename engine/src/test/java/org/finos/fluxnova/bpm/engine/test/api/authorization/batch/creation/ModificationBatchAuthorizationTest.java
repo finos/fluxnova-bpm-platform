@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.batch.creation;
 
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,12 +34,12 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSc
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class ModificationBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -59,8 +59,11 @@ public class ModificationBatchAuthorizationTest extends BatchCreationAuthorizati
     );
   }
 
-  @Test
-  public void createBatchModification() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
+  public void createBatchModification(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     //given
     BpmnModelInstance instance = Bpmn.createExecutableProcess("process1").startEvent().userTask("user1").userTask("user2").endEvent().done();
     ProcessDefinition processDefinition = testHelper.deployAndGetDefinition(instance);
@@ -86,6 +89,4 @@ public class ModificationBatchAuthorizationTest extends BatchCreationAuthorizati
       assertEquals("userId", batch.getCreateUserId());
     }
   }
-
-
 }

@@ -86,6 +86,7 @@ public class CreateAttachmentCmd implements Command<Attachment> {
     attachment.setProcessInstanceId(processInstanceId);
     attachment.setUrl(url);
     attachment.setCreateTime(ClockUtil.getCurrentTime());
+    attachment.setCreatedBy(commandContext.getAuthenticatedUserId());
 
     if (task != null) {
       ExecutionEntity execution = task.getExecution();

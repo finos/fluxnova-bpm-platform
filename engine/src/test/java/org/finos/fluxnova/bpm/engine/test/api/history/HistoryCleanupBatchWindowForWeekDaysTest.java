@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,20 +39,18 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
  * @author Svetlana Dorokhova
  *
  */
-@RunWith(Parameterized.class)
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class HistoryCleanupBatchWindowForWeekDaysTest {
 
@@ -82,31 +78,20 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(bootstrapRule).around(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(bootstrapRule).around(engineRule).around(testRule);
 
   private HistoryService historyService;
   private ManagementService managementService;
   private ProcessEngineConfigurationImpl processEngineConfiguration;
 
   private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-  @Parameterized.Parameter(0)
   public Date currentDate;
-
-  @Parameterized.Parameter(1)
   public Date startDateForCheck;
-
-  @Parameterized.Parameter(2)
   public Date endDateForCheck;
-
-  @Parameterized.Parameter(3)
   public Date startDateForCheckWithDefaultValues;
-
-  @Parameterized.Parameter(4)
   public Date endDateForCheckWithDefaultValues;
 
-  @Parameterized.Parameters
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
         {  sdf.parse("2018-05-14T10:00:00"), sdf.parse("2018-05-14T22:00:00"), sdf.parse("2018-05-15T01:00:00"), null, null},  //monday
@@ -119,7 +104,7 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
         {  sdf.parse("2018-05-20T09:00:00"), sdf.parse("2018-05-20T10:00:00"), sdf.parse("2018-05-20T20:00:00"), null, null }} ); //sunday
   }
 
-  @Before
+  @BeforeEach
   public void init() {
     historyService = engineRule.getHistoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -131,7 +116,7 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
     defaultBatchSize = processEngineConfiguration.getHistoryCleanupBatchSize();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     //reset configuration changes
     processEngineConfiguration.setHistoryCleanupBatchWindowStartTime(defaultStartTime);
@@ -154,8 +139,11 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
     });
   }
 
-  @Test
-  public void testScheduleJobForBatchWindow() throws ParseException {
+  @MethodSource("scenarios")
+  @ParameterizedTest
+  public void testScheduleJobForBatchWindow(Date currentDate, Date startDateForCheck, Date endDateForCheck, Date startDateForCheckWithDefaultValues, Date endDateForCheckWithDefaultValues) throws ParseException {
+
+    initHistoryCleanupBatchWindowForWeekDaysTest(currentDate, startDateForCheck, endDateForCheck, startDateForCheckWithDefaultValues, endDateForCheckWithDefaultValues);
 
     ClockUtil.setCurrentTime(currentDate);
     processEngineConfiguration.initHistoryCleanup();
@@ -178,8 +166,10 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
     assertTrue(endDateForCheck.before(job.getDuedate()));
   }
 
-  @Test
-  public void testScheduleJobForBatchWindowWithDefaultWindowConfigured() throws ParseException {
+  @MethodSource("scenarios")
+  @ParameterizedTest
+  public void testScheduleJobForBatchWindowWithDefaultWindowConfigured(Date currentDate, Date startDateForCheck, Date endDateForCheck, Date startDateForCheckWithDefaultValues, Date endDateForCheckWithDefaultValues) throws ParseException {
+    initHistoryCleanupBatchWindowForWeekDaysTest(currentDate, startDateForCheck, endDateForCheck, startDateForCheckWithDefaultValues, endDateForCheckWithDefaultValues);
     ClockUtil.setCurrentTime(currentDate);
     processEngineConfiguration.setHistoryCleanupBatchWindowStartTime("23:00");
     processEngineConfiguration.setHistoryCleanupBatchWindowEndTime("00:00");
@@ -212,8 +202,10 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
     assertTrue(endDateForCheckWithDefaultValues.before(job.getDuedate()));
   }
 
-  @Test
-  public void testScheduleJobForBatchWindowWithShortcutConfiguration() throws ParseException {
+  @MethodSource("scenarios")
+  @ParameterizedTest
+  public void testScheduleJobForBatchWindowWithShortcutConfiguration(Date currentDate, Date startDateForCheck, Date endDateForCheck, Date startDateForCheckWithDefaultValues, Date endDateForCheckWithDefaultValues) throws ParseException {
+    initHistoryCleanupBatchWindowForWeekDaysTest(currentDate, startDateForCheck, endDateForCheck, startDateForCheckWithDefaultValues, endDateForCheckWithDefaultValues);
     ClockUtil.setCurrentTime(currentDate);
     processEngineConfiguration.setThursdayHistoryCleanupBatchWindowStartTime("23:00");
     processEngineConfiguration.setThursdayHistoryCleanupBatchWindowEndTime("00:00");
@@ -246,6 +238,14 @@ public class HistoryCleanupBatchWindowForWeekDaysTest {
     job = historyService.cleanUpHistoryAsync();
 
     assertTrue(endDateForCheckWithDefaultValues.before(job.getDuedate()));
+  }
+
+  public void initHistoryCleanupBatchWindowForWeekDaysTest(Date currentDate, Date startDateForCheck, Date endDateForCheck, Date startDateForCheckWithDefaultValues, Date endDateForCheckWithDefaultValues) {
+    this.currentDate = currentDate;
+    this.startDateForCheck = startDateForCheck;
+    this.endDateForCheck = endDateForCheck;
+    this.startDateForCheckWithDefaultValues = startDateForCheckWithDefaultValues;
+    this.endDateForCheckWithDefaultValues = endDateForCheckWithDefaultValues;
   }
 
 }

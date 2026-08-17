@@ -19,14 +19,15 @@ package org.finos.fluxnova.bpm.monitoring.plugin.base.authorization;
 import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.dto.ProcessDefinitionStatisticsDto;
 import org.finos.fluxnova.bpm.monitoring.impl.plugin.resources.ProcessDefinitionRestService;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +46,7 @@ public class ProcessDefinitionRestServiceAuthorizationTest  extends Authorizatio
   private final MultivaluedMap<String, String> queryParameters = new MultivaluedHashMap<>();
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     super.setUp();
 
@@ -63,7 +64,7 @@ public class ProcessDefinitionRestServiceAuthorizationTest  extends Authorizatio
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     queryParameters.clear();
     deleteDeployment(deploymentId);

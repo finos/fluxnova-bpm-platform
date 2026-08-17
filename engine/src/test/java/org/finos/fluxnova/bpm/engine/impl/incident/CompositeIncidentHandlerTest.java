@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.engine.impl.incident;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.exception.NullValueException;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
-import org.junit.Test;
 import org.mockito.internal.verification.Times;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;

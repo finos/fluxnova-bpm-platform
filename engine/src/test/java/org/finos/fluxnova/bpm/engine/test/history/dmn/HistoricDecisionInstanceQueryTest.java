@@ -17,7 +17,10 @@
 package org.finos.fluxnova.bpm.engine.test.history.dmn;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.inverted;
+import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.propertyComparator;
+import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySorting;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.List;
@@ -40,9 +43,9 @@ import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Philipp Ossler
@@ -64,7 +67,7 @@ public class HistoricDecisionInstanceQueryTest extends PluggableProcessEngineTes
   protected static final String DECISION_DEFINITION_KEY = "testDecision";
   protected static final String DISH_DECISION = "dish-decision";
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();
@@ -76,7 +79,7 @@ public class HistoricDecisionInstanceQueryTest extends PluggableProcessEngineTes
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();
@@ -176,6 +179,28 @@ public class HistoricDecisionInstanceQueryTest extends PluggableProcessEngineTes
 
     List<HistoricDecisionInstance> orderDesc = historyService.createHistoricDecisionInstanceQuery().orderByEvaluationTime().desc().list();
     assertThat(orderDesc.get(0).getEvaluationTime().after(orderDesc.get(1).getEvaluationTime())).isTrue();
+  }
+
+  @Deployment(resources = { DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN })
+  @Test
+  public void testQuerySortByDecisionInstanceId() {
+    for (int i = 0; i < 5; i++) {
+      startProcessInstanceAndEvaluateDecision();
+    }
+
+    List<HistoricDecisionInstance> orderAsc = historyService.createHistoricDecisionInstanceQuery()
+            .orderByDecisionInstanceId()
+            .asc()
+            .list();
+    assertThat(orderAsc.size()).isEqualTo(5);
+    verifySorting(orderAsc, propertyComparator(HistoricDecisionInstance::getId));
+
+    List<HistoricDecisionInstance> orderDesc = historyService.createHistoricDecisionInstanceQuery()
+            .orderByDecisionInstanceId()
+            .desc()
+            .list();
+    assertThat(orderDesc.size()).isEqualTo(5);
+    verifySorting(orderDesc, inverted(propertyComparator(HistoricDecisionInstance::getId)));
   }
 
   @Deployment(resources = { DECISION_PROCESS, DECISION_SINGLE_OUTPUT_DMN })

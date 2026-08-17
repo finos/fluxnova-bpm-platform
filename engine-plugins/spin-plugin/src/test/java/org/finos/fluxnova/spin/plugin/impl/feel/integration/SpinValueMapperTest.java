@@ -39,18 +39,18 @@ import org.finos.fluxnova.feel.valuemapper.ValueMapper;
 import org.finos.fluxnova.spin.Spin;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class SpinValueMapperTest {
 
   protected static ValueMapper valueMapper;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule();
 
-  @BeforeClass
+  @BeforeAll
   public static void setUp() {
     DefaultValueMapper defaultValueMapper = DefaultValueMapper.instance();
     SpinValueMapper spinValueMapper = new SpinValueMapper();

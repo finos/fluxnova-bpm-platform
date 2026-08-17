@@ -41,10 +41,10 @@ public class DbHistoryEventHandler implements HistoryEventHandler {
 
   public void handleEvent(HistoryEvent historyEvent) {
 
-    if (historyEvent instanceof HistoricVariableUpdateEventEntity) {
-      insertHistoricVariableUpdateEntity((HistoricVariableUpdateEventEntity) historyEvent);
-    } else if(historyEvent instanceof HistoricDecisionEvaluationEvent) {
-      insertHistoricDecisionEvaluationEvent((HistoricDecisionEvaluationEvent) historyEvent);
+    if (historyEvent instanceof HistoricVariableUpdateEventEntity entity) {
+      insertHistoricVariableUpdateEntity(entity);
+    } else if(historyEvent instanceof HistoricDecisionEvaluationEvent event) {
+      insertHistoricDecisionEvaluationEvent(event);
     } else {
       insertOrUpdate(historyEvent);
     }
@@ -66,11 +66,10 @@ public class DbHistoryEventHandler implements HistoryEventHandler {
       dbEntityManager.insert(historyEvent);
     } else {
       if(dbEntityManager.getCachedEntity(historyEvent.getClass(), historyEvent.getId()) == null) {
-        if (historyEvent instanceof HistoricScopeInstanceEvent) {
+        if (historyEvent instanceof HistoricScopeInstanceEvent historicScopeInstanceEvent) {
           // if this is a scope, get start time from existing event in DB
           HistoricScopeInstanceEvent existingEvent = (HistoricScopeInstanceEvent) dbEntityManager.selectById(historyEvent.getClass(), historyEvent.getId());
           if(existingEvent != null) {
-            HistoricScopeInstanceEvent historicScopeInstanceEvent = (HistoricScopeInstanceEvent) historyEvent;
             historicScopeInstanceEvent.setStartTime(existingEvent.getStartTime());
           }
         }

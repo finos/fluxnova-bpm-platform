@@ -25,9 +25,7 @@ import static org.finos.fluxnova.bpm.engine.test.api.identity.TestPermissions.CR
 import static org.finos.fluxnova.bpm.engine.test.api.identity.TestPermissions.DELETE;
 import static org.finos.fluxnova.bpm.engine.test.api.identity.TestPermissions.READ;
 import static org.finos.fluxnova.bpm.engine.test.api.identity.TestPermissions.UPDATE;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,22 +36,22 @@ import org.finos.fluxnova.bpm.engine.authorization.Resource;
 import org.finos.fluxnova.bpm.engine.exception.NullValueException;
 import org.finos.fluxnova.bpm.engine.identity.User;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel.
  */
 public class AuthorizationServiceWithEnabledAuthorizationTest extends PluggableProcessEngineTest {
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
 
     processEngineConfiguration.setAuthorizationEnabled(true);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     processEngineConfiguration.setAuthorizationEnabled(false);
     cleanupAfterTest();

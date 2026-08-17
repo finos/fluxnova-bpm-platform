@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.model.bpmn;
 
+
+
 import org.finos.fluxnova.bpm.model.xml.ModelException;
 
 /**

@@ -20,9 +20,7 @@ import static org.finos.fluxnova.bpm.container.impl.deployment.AbstractParseBpmP
 import static org.finos.fluxnova.bpm.container.impl.deployment.AbstractParseBpmPlatformXmlStep.BPM_PLATFORM_XML_LOCATION;
 import static org.finos.fluxnova.bpm.container.impl.deployment.AbstractParseBpmPlatformXmlStep.BPM_PLATFORM_XML_SYSTEM_PROPERTY;
 import static org.finos.fluxnova.bpm.container.impl.tomcat.deployment.TomcatParseBpmPlatformXmlStep.CATALINA_HOME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -35,9 +33,9 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 import org.finos.fluxnova.bpm.container.impl.tomcat.deployment.TomcatParseBpmPlatformXmlStep;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Checks the correct retrieval of bpm-platform.xml file through JNDI,
@@ -65,12 +63,12 @@ public class BpmPlatformXmlLocationTest {
 
   protected Context context;
 
-  @Before
+  @BeforeEach
   public void setUp() throws NamingException {
     context = new InitialContext();
   }
 
-  @After
+  @AfterEach
   public void close() throws NamingException {
     if (context != null) {
       context.close();
@@ -98,13 +96,13 @@ public class BpmPlatformXmlLocationTest {
     TomcatParseBpmPlatformXmlStep tomcatParseBpmPlatformXmlStep = new TomcatParseBpmPlatformXmlStep();
 
     URL url = tomcatParseBpmPlatformXmlStep.checkValidFileLocation(BPM_PLATFORM_XML_LOCATION_RELATIVE_PATH);
-    assertNull("Relative path is invalid.", url);
+    assertNull(url, "Relative path is invalid.");
 
     url = tomcatParseBpmPlatformXmlStep.checkValidFileLocation(BPM_PLATFORM_XML_FILE_ABSOLUTE_LOCATION);
     assertEquals(new File(BPM_PLATFORM_XML_FILE_ABSOLUTE_LOCATION).toURI().toURL(), url);
 
     url = tomcatParseBpmPlatformXmlStep.checkValidFileLocation(BPM_PLATFORM_XML_LOCATION_FILE_INVALID_PATH_WINDOWS);
-    assertNull("Path is invalid.", url);
+    assertNull(url, "Path is invalid.");
 
     assertNull(tomcatParseBpmPlatformXmlStep.checkValidFileLocation(BPM_PLATFORM_XML_LOCATION_URL_HTTP_PROTOCOL));
     assertNull(tomcatParseBpmPlatformXmlStep.checkValidFileLocation(BPM_PLATFORM_XML_LOCATION_URL_HTTPS_PROTOCOL));
@@ -176,7 +174,7 @@ public class BpmPlatformXmlLocationTest {
     String classPathResourceLocation = BpmPlatformXmlLocationTest.class.getPackage().getName().replace(".", "/") + "/conf/" + BPM_PLATFORM_XML_FILE;
 
     URL url = new TomcatParseBpmPlatformXmlStep().lookupBpmPlatformXmlFromClassPath(classPathResourceLocation);
-    assertNotNull("Url should point to a bpm-platform.xml file.", url);
+    assertNotNull(url, "Url should point to a bpm-platform.xml file.");
   }
 
   @Test

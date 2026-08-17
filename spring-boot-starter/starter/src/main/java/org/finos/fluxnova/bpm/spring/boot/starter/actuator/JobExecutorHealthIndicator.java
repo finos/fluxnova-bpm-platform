@@ -24,8 +24,8 @@ import java.util.Set;
 
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineImpl;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.health.contributor.AbstractHealthIndicator;
+import org.springframework.boot.health.contributor.Health.Builder;
 
 public class JobExecutorHealthIndicator extends AbstractHealthIndicator {
 

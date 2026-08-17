@@ -16,18 +16,25 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.actuator;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+
+import org.springframework.boot.health.contributor.Health;
+import org.springframework.boot.health.contributor.Status;
+
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class ProcessEngineHealthIndicatorTest {
 
   private static final String PROCESS_ENGINE_NAME = "process engine name";
@@ -35,9 +42,11 @@ public class ProcessEngineHealthIndicatorTest {
   @Mock
   private ProcessEngine processEngine;
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void nullTest() {
-    new ProcessEngineHealthIndicator(null);
+    assertThrows(IllegalArgumentException.class, () -> {
+      new ProcessEngineHealthIndicator(null);
+    });
   }
 
   @Test

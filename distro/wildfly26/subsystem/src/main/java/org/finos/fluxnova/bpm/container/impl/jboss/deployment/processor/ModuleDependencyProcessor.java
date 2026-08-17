@@ -38,7 +38,7 @@ import org.jboss.msc.service.ServiceName;
  * <p>This Processor creates implicit module dependencies for process applications</p>
  *
  * <p>Concretely speaking, this processor adds a module dependency from the process
- * application module (deployment unit) to the process engine module (and other camunda libraries
+ * application module (deployment unit) to the process engine module (and other fluxnova libraries
  * which are useful for process apps).</p>
  *
  * @author Daniel Meyer
@@ -48,16 +48,16 @@ public class ModuleDependencyProcessor implements DeploymentUnitProcessor {
 
   public static final int PRIORITY = 0x2300;
 
-  public static ModuleIdentifier MODULE_IDENTIFYER_PROCESS_ENGINE = ModuleIdentifier.create("org.finos.fluxnova.bpm.camunda-engine");
-  public static ModuleIdentifier MODULE_IDENTIFYER_XML_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.camunda-xml-model");
-  public static ModuleIdentifier MODULE_IDENTIFYER_BPMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.camunda-bpmn-model");
-  public static ModuleIdentifier MODULE_IDENTIFYER_CMMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.camunda-cmmn-model");
-  public static ModuleIdentifier MODULE_IDENTIFYER_DMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.camunda-dmn-model");
-  public static ModuleIdentifier MODULE_IDENTIFYER_SPIN = ModuleIdentifier.create("org.camunda.spin.camunda-spin-core");
-  public static ModuleIdentifier MODULE_IDENTIFYER_CONNECT = ModuleIdentifier.create("org.camunda.connect.camunda-connect-core");
-  public static ModuleIdentifier MODULE_IDENTIFYER_ENGINE_DMN = ModuleIdentifier.create("org.finos.fluxnova.bpm.dmn.camunda-engine-dmn");
+  public static ModuleIdentifier MODULE_IDENTIFYER_PROCESS_ENGINE = ModuleIdentifier.create("org.finos.fluxnova.bpm.fluxnova-engine");
+  public static ModuleIdentifier MODULE_IDENTIFYER_XML_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.fluxnova-xml-model");
+  public static ModuleIdentifier MODULE_IDENTIFYER_BPMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.fluxnova-bpmn-model");
+  public static ModuleIdentifier MODULE_IDENTIFYER_CMMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.fluxnova-cmmn-model");
+  public static ModuleIdentifier MODULE_IDENTIFYER_DMN_MODEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.model.fluxnova-dmn-model");
+  public static ModuleIdentifier MODULE_IDENTIFYER_SPIN = ModuleIdentifier.create("org.finos.fluxnova.spin.fluxnova-spin-core");
+  public static ModuleIdentifier MODULE_IDENTIFYER_CONNECT = ModuleIdentifier.create("org.finos.fluxnova.connect.fluxnova-connect-core");
+  public static ModuleIdentifier MODULE_IDENTIFYER_ENGINE_DMN = ModuleIdentifier.create("org.finos.fluxnova.bpm.dmn.fluxnova-engine-dmn");
   public static ModuleIdentifier MODULE_IDENTIFYER_GRAAL_JS = ModuleIdentifier.create("org.graalvm.js.js-scriptengine");
-  public static ModuleIdentifier MODULE_IDENTIFYER_JUEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.juel.camunda-juel");
+  public static ModuleIdentifier MODULE_IDENTIFYER_JUEL = ModuleIdentifier.create("org.finos.fluxnova.bpm.juel.fluxnova-juel");
 
   public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
 

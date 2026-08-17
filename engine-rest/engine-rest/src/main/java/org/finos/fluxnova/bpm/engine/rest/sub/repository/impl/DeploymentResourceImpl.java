@@ -19,10 +19,10 @@ package org.finos.fluxnova.bpm.engine.rest.sub.repository.impl;
 import java.net.URI;
 import java.util.List;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.RepositoryService;
@@ -40,7 +40,7 @@ import org.finos.fluxnova.bpm.engine.rest.impl.AbstractRestProcessEngineAware;
 import org.finos.fluxnova.bpm.engine.rest.sub.repository.DeploymentResource;
 import org.finos.fluxnova.bpm.engine.rest.sub.repository.DeploymentResourcesResource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class DeploymentResourceImpl extends AbstractRestProcessEngineAware implements DeploymentResource {
 
@@ -114,7 +114,10 @@ public class DeploymentResourceImpl extends AbstractRestProcessEngineAware imple
   }
 
   protected DeploymentBuilder addRedeploymentResources(DeploymentBuilder builder, RedeploymentDto redeployment) {
-    builder.source(redeployment.getSource());
+    String source = redeployment.getSource();
+    // Always call source() — even with null — so that the deployment source is explicitly
+    // set (or cleared) on the builder, as required by the REST API contract.
+    builder.source(source);
 
     List<String> resourceIds = redeployment.getResourceIds();
     List<String> resourceNames = redeployment.getResourceNames();
@@ -161,7 +164,7 @@ public class DeploymentResourceImpl extends AbstractRestProcessEngineAware imple
   }
 
   protected InvalidRequestException createInvalidRequestException(String action, Status status, ProcessEngineException cause) {
-    String errorMessage = String.format("Cannot %s deployment '%s': %s", action, deploymentId, cause.getMessage());
+    String errorMessage = "Cannot %s deployment '%s': %s".formatted(action, deploymentId, cause.getMessage());
     return new InvalidRequestException(status, cause, errorMessage);
   }
 

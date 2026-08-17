@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.task;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,17 +46,17 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tassilo Weidner
  */
 public class TaskQueryOrTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
 
   protected RuntimeService runtimeService;
@@ -65,7 +65,7 @@ public class TaskQueryOrTest {
   protected RepositoryService repositoryService;
   protected FilterService filterService;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = processEngineRule.getRuntimeService();
     taskService = processEngineRule.getTaskService();
@@ -74,7 +74,7 @@ public class TaskQueryOrTest {
     filterService = processEngineRule.getFilterService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     for (org.finos.fluxnova.bpm.engine.repository.Deployment deployment:
       repositoryService.createDeploymentQuery().list()) {

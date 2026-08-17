@@ -34,8 +34,9 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.TransactionMethod;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ReflectUtil;
-import org.junit.Test;
 import org.w3c.dom.Document;
+
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;

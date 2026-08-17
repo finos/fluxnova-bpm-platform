@@ -35,12 +35,12 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessMo
 import org.finos.fluxnova.bpm.engine.test.bpmn.executionlistener.RecorderExecutionListener;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -51,11 +51,11 @@ public class MigrationCompensationRemoveSubProcessTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
-  @Before
-  @After
+  @BeforeEach
+  @AfterEach
   public void clearExecutionListener() {
     RecorderExecutionListener.clear();
   }
@@ -303,7 +303,7 @@ public class MigrationCompensationRemoveSubProcessTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(0, rule.getRuntimeService().createVariableInstanceQuery().count());
+    Assertions.assertEquals(0, rule.getRuntimeService().createVariableInstanceQuery().count());
   }
 
   @Test
@@ -336,11 +336,11 @@ public class MigrationCompensationRemoveSubProcessTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, testHelper.snapshotAfterMigration.getVariables().size());
+    Assertions.assertEquals(1, testHelper.snapshotAfterMigration.getVariables().size());
 
     VariableInstance migratedVariable = testHelper.snapshotAfterMigration.getSingleVariable("innerVariable");
-    Assert.assertNotNull(migratedVariable);
-    Assert.assertEquals("innerValue", migratedVariable.getValue());
+    Assertions.assertNotNull(migratedVariable);
+    Assertions.assertEquals("innerValue", migratedVariable.getValue());
   }
 
   @Test
@@ -367,7 +367,7 @@ public class MigrationCompensationRemoveSubProcessTest {
 
     // then
     // the listener was only called once when the sub process completed properly
-    Assert.assertEquals(1, RecorderExecutionListener.getRecordedEvents().size());
+    Assertions.assertEquals(1, RecorderExecutionListener.getRecordedEvents().size());
   }
 
   @Test
@@ -394,8 +394,8 @@ public class MigrationCompensationRemoveSubProcessTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then "foo" has not been set to "value2"
-    Assert.assertEquals(2, testHelper.snapshotAfterMigration.getVariables().size()); // "foo" and "bar"
+    Assertions.assertEquals(2, testHelper.snapshotAfterMigration.getVariables().size()); // "foo" and "bar"
     VariableInstance variableInstance = testHelper.snapshotAfterMigration.getSingleVariable("foo");
-    Assert.assertEquals("value1", variableInstance.getValue());
+    Assertions.assertEquals("value1", variableInstance.getValue());
   }
 }

@@ -18,13 +18,15 @@ package org.finos.fluxnova.spin.xml.dom;
 
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.EXAMPLE_VALIDATION_XML_FILE_NAME;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.assertIsExampleOrder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.impl.test.ScriptVariable;
 import org.finos.fluxnova.spin.xml.SpinXmlDataFormatException;
 import org.finos.fluxnova.spin.xml.mapping.Order;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefan Hentschel.
@@ -39,11 +41,12 @@ public abstract class XmlDomMapXmlToJavaScriptTest extends ScriptTest {
     assertIsExampleOrder(order);
   }
 
-  @Test(expected = SpinXmlDataFormatException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_VALIDATION_XML_FILE_NAME)
   public void shouldFailMappingMalformedTypeString() throws Throwable {
-    failingWithException();
+    assertThrows(SpinXmlDataFormatException.class, () ->
+      failingWithException());
   }
 
 }

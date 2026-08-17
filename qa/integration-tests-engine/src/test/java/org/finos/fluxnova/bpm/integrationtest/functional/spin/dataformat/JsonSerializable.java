@@ -17,7 +17,9 @@
 package org.finos.fluxnova.bpm.integrationtest.functional.spin.dataformat;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author Thorben Lindhauer
@@ -59,15 +61,15 @@ public class JsonSerializable {
   }
 
   /**
-   * Serializes the value as milliseconds
+   * Serializes the value as ISO-8601 (Jackson 3 default for java.util.Date)
    */
   public String toExpectedJsonString() {
+    SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    isoFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     StringBuilder jsonBuilder = new StringBuilder();
-
-    jsonBuilder.append("{\"dateProperty\":");
-    jsonBuilder.append(Long.toString(dateProperty.getTime()));
-    jsonBuilder.append("}");
-
+    jsonBuilder.append("{\"dateProperty\":\"");
+    jsonBuilder.append(isoFormat.format(dateProperty));
+    jsonBuilder.append("\"}");
     return jsonBuilder.toString();
   }
 

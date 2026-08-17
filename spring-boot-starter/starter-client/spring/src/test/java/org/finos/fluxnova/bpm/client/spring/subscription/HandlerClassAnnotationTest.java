@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.client.spring.subscription;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.configuration.SimpleClientConfiguration;
 import org.finos.fluxnova.bpm.client.spring.subscription.configuration.HandlerClassAnnotationConfiguration;
-import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
+
+import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

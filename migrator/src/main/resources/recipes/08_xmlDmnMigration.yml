@@ -1,0 +1,33 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: xmlDmnMigration
+displayName: XML DMN Files Migration
+recipeList:
+  - org.openrewrite.xml.AddTagAttribute:
+      elementName: definitions
+      attributeName: xmlns:fluxnova
+      newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: xmlns:modeler
+      newValue: "http://fluxnova.finos.org/schema/modeler/1.0"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: namespace
+      newValue: "http://fluxnova.finos.org/schema/1.0/dmn"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: exporter
+      newValue: "Fluxnova Modeler"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: exporterVersion
+      newValue: {{MODELER_VERSION}}
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: modeler:executionPlatform
+      newValue: "Fluxnova Platform"
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: definitions
+      attributeName: modeler:executionPlatformVersion
+      newValue: {{TARGET_VERSION}}

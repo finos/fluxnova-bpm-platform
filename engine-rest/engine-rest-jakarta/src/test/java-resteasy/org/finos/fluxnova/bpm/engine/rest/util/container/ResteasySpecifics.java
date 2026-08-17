@@ -20,6 +20,8 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import jakarta.servlet.DispatcherType;
 import jakarta.ws.rs.core.Application;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import org.finos.fluxnova.bpm.engine.rest.CustomJacksonDateFormatTest;
@@ -33,10 +35,9 @@ import org.finos.fluxnova.bpm.engine.rest.standalone.ServletEmptyBodyFilterTest;
 import org.jboss.resteasy.plugins.server.servlet.FilterDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
-import org.junit.rules.ExternalResource;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.Extension;
 
 /**
  * @author Thorben Lindhauer
@@ -125,7 +126,7 @@ public class ResteasySpecifics implements ContainerSpecifics {
   }
 
   @Override
-  public TestRule getTestRule(Class<?> testClass) {
+  public Extension getTestExtension(Class<?> testClass) {
     TestRuleFactory ruleFactory = DEFAULT_RULE_FACTORY;
 
     if (TEST_RULE_FACTORIES.containsKey(testClass)) {
@@ -144,19 +145,14 @@ public class ResteasySpecifics implements ContainerSpecifics {
     }
 
     @Override
-    public TestRule createTestRule() {
-      return new ExternalResource() {
-
-        ResteasyServerBootstrap bootstrap = new ResteasyServerBootstrap(jaxRsApplication);
+    public Extension createTestRule() {
+      return new BeforeEachCallback() {
+        private ResteasyServerBootstrap bootstrap;
 
         @Override
-        protected void before() throws Throwable {
+        public void beforeEach(ExtensionContext context) throws Exception {
+          bootstrap = new ResteasyServerBootstrap(jaxRsApplication);
           bootstrap.start();
-        }
-
-        @Override
-        protected void after() {
-          bootstrap.stop();
         }
       };
     }
@@ -171,23 +167,18 @@ public class ResteasySpecifics implements ContainerSpecifics {
     }
 
     @Override
-    public TestRule createTestRule() {
-      final TemporaryFolder tempFolder = new TemporaryFolder();
-
-      return RuleChain.outerRule(tempFolder).around(new ExternalResource() {
-
-        final AbstractServerBootstrap bootstrap = new ResteasyUndertowServerBootstrap(deploymentInfo);
+    public Extension createTestRule() {
+      return new BeforeEachCallback() {
+        private File tempFolder;
+        private AbstractServerBootstrap bootstrap;
 
         @Override
-        protected void before() {
+        public void beforeEach(ExtensionContext context) throws Exception {
+          tempFolder = Files.createTempDirectory("junit").toFile();
+          bootstrap = new ResteasyUndertowServerBootstrap(deploymentInfo);
           bootstrap.start();
         }
-
-        @Override
-        protected void after() {
-          bootstrap.stop();
-        }
-      });
+      };
     }
 
   }

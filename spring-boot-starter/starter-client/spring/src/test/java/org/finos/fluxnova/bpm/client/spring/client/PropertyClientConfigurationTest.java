@@ -19,8 +19,9 @@ package org.finos.fluxnova.bpm.client.spring.client;
 import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.client.configuration.PropertyPlaceholderConfiguration;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.mockito.Mockito.verify;

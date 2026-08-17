@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.conditional;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,9 +35,9 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -89,7 +86,7 @@ public abstract class AbstractConditionalEventTestCase {
 
   protected List<Task> tasksAfterVariableIsSet;
 
-  @Rule
+  @RegisterExtension
   public final ProcessEngineRule engine = new ProvidedProcessEngineRule();
 
   protected RuntimeService runtimeService;
@@ -99,7 +96,7 @@ public abstract class AbstractConditionalEventTestCase {
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected EventSubscriptionQueryImpl conditionEventSubscriptionQuery;
 
-  @Before
+  @BeforeEach
   public void init() {
     this.runtimeService = engine.getRuntimeService();
     this.taskService = engine.getTaskService();
@@ -109,7 +106,7 @@ public abstract class AbstractConditionalEventTestCase {
     this.conditionEventSubscriptionQuery = new EventSubscriptionQueryImpl(processEngineConfiguration.getCommandExecutorTxRequired()).eventType(EventType.CONDITONAL.name());
   }
 
-  @After
+  @AfterEach
   public void checkIfProcessCanBeFinished() {
     //given tasks after variable was set
     assertNotNull(tasksAfterVariableIsSet);

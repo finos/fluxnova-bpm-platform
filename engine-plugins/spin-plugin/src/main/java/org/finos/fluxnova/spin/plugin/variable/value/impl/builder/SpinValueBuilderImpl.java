@@ -54,4 +54,10 @@ public abstract class SpinValueBuilderImpl<T extends SpinValue> implements SpinV
     return this;
   }
 
+  @Override
+  public TypedValueBuilder<T> setRestricted(boolean restricted) {
+    ((AbstractTypedValue<?>) variableValue).setRestricted(restricted);
+    return this;
+  }
+
 }

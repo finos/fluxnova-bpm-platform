@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt.metrics;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 import java.util.Map;
@@ -28,7 +28,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.instance.CallActivity;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class RootProcessInstanceMetricsTest extends AbstractMetricsTest {
 

@@ -16,8 +16,6 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.deployment.war;
 
-import org.junit.Assert;
-
 import org.finos.fluxnova.bpm.engine.repository.DeploymentQuery;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
@@ -25,13 +23,14 @@ import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.finos.fluxnova.bpm.integrationtest.util.TestHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -51,7 +50,7 @@ import org.junit.runner.RunWith;
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TestWarDeploymentWithMultiplePasAsSubdeployment3 extends AbstractFoxPlatformIntegrationTest {
   
   public final static String PROCESSES_XML =       
@@ -115,7 +114,7 @@ public class TestWarDeploymentWithMultiplePasAsSubdeployment3 extends AbstractFo
         .processDefinitionKey(processKey)
         .count();
     
-    Assert.assertEquals("Process with key "+processKey+ " should not be deployed", 0, count);
+    Assertions.assertEquals(0, count, "Process with key "+processKey+ " should not be deployed");
   }
 
   protected void assertProcessDeployed(String processKey, String expectedDeploymentName) {
@@ -130,7 +129,7 @@ public class TestWarDeploymentWithMultiplePasAsSubdeployment3 extends AbstractFo
         .createDeploymentQuery()
         .deploymentId(processDefinition.getDeploymentId());
     
-    Assert.assertEquals(expectedDeploymentName, deploymentQuery.singleResult().getName());
+    Assertions.assertEquals(expectedDeploymentName, deploymentQuery.singleResult().getName());
     
   }
   

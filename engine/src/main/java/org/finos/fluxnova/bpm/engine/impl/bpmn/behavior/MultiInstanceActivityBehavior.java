@@ -145,10 +145,10 @@ public abstract class MultiInstanceActivityBehavior extends AbstractBpmnActivity
   protected int resolveLoopCardinality(ActivityExecution execution) {
     // Using Number since expr can evaluate to eg. Long (which is also the default for Juel)
     Object value = loopCardinalityExpression.getValue(execution);
-    if (value instanceof Number) {
-      return ((Number) value).intValue();
-    } else if (value instanceof String) {
-      return Integer.parseInt((String) value);
+    if (value instanceof Number number) {
+      return number.intValue();
+    } else if (value instanceof String string) {
+      return Integer.parseInt(string);
     } else {
       throw LOG.expressionNotANumberException("loopCardinality", loopCardinalityExpression.getExpressionText());
     }

@@ -386,6 +386,10 @@
     order by TIME_ desc
   </select>
 
+  <select id="countCommentsByTaskId" parameterType="string" resultType="long">
+    select count(*) from ${prefix}ACT_HI_COMMENT where TASK_ID_ = #{taskId}
+  </select>
+
   <select id="selectCommentsByTaskId_postgres" parameterType="org.finos.fluxnova.bpm.engine.impl.db.ListQueryParameterObject" resultMap="commentResultMap_postgres">
     select *
     from ${prefix}ACT_HI_COMMENT

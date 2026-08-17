@@ -50,7 +50,7 @@ public class FluxnovaBpmProperties {
 
     final Set<String> patterns = new HashSet<>();
     for (String suffix : suffixes) {
-      patterns.add(String.format("%s**/*.%s", CLASSPATH_ALL_URL_PREFIX, suffix));
+      patterns.add("%s**/*.%s".formatted(CLASSPATH_ALL_URL_PREFIX, suffix));
     }
 
     return patterns.toArray(new String[patterns.size()]);
@@ -140,6 +140,12 @@ public class FluxnovaBpmProperties {
    */
   @NestedConfigurationProperty
   private WebappProperty webapp = new WebappProperty();
+
+  /**
+   * REST API configuration
+   */
+  @NestedConfigurationProperty
+  private RestApiProperty restApi = new RestApiProperty();
 
   @NestedConfigurationProperty
   private AuthorizationProperty authorization = new AuthorizationProperty();
@@ -249,6 +255,14 @@ public class FluxnovaBpmProperties {
     this.webapp = webapp;
   }
 
+  public RestApiProperty getRestApi() {
+    return restApi;
+  }
+
+  public void setRestApi(RestApiProperty restApi) {
+    this.restApi = restApi;
+  }
+
   public AuthorizationProperty getAuthorization() {
     return authorization;
   }
@@ -346,6 +360,7 @@ public class FluxnovaBpmProperties {
       .add("database=" + database)
       .add("jobExecution=" + jobExecution)
       .add("webapp=" + webapp)
+      .add("restApi=" + restApi)
       .add("authorization=" + authorization)
       .add("genericProperties=" + genericProperties)
       .add("adminUser=" + adminUser)

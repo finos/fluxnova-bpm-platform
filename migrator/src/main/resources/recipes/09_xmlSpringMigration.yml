@@ -1,0 +1,10 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: xmlSpringMigration
+displayName: XML Spring Configuration Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: '(class|value)="org\.camunda\.([^"]+)"'
+      replace: '$1="org.finos.fluxnova.$2"'
+      regex: true
+      filePattern: "**/*{applicationContext,spring-config,context,configuration}.xml"

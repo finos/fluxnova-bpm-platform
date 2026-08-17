@@ -1,0 +1,65 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: frontendJsTsMigration
+displayName: Frontend JavaScript/TypeScript Migration
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "CamundaClient"
+      replace: "FluxnovaClient"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "CamundaFormSDK"
+      replace: "FluxnovaFormSDK"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "from '@camunda/"
+      replace: "from '@finos/fluxnova-"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "from 'camunda-"
+      replace: "from '@finos/fluxnova-"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "require(\"camunda-"
+      replace: "require(\"@finos/fluxnova-"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "require(\"@camunda/"
+      replace: "require(\"@finos/fluxnova-"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "/camunda/api"
+      replace: "/fluxnova/api"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "// Camunda"
+      replace: "// Fluxnova"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "/* Camunda"
+      replace: "/* Fluxnova"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: " * Camunda "
+      replace: " * Fluxnova "
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda imports"
+      replace: "Fluxnova imports"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Handles all Camunda BPM operations"
+      replace: "Handles all Fluxnova BPM operations"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda process"
+      replace: "Fluxnova process"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda task"
+      replace: "Fluxnova task"
+      filePattern: "**/*.{js,ts,jsx,tsx}"
+  - org.openrewrite.text.FindAndReplace:
+      find: "Camunda BPM"
+      replace: "Fluxnova BPM"
+      filePattern: "**/*.{js,ts,jsx,tsx}"

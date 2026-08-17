@@ -17,37 +17,33 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.escalation;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import junit.framework.AssertionFailedError;
 import org.finos.fluxnova.bpm.engine.ParseException;
 import org.finos.fluxnova.bpm.engine.Problem;
 import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import org.opentest4j.AssertionFailedError;
 
 /**
  * Parse an invalid process definition and assert the error message.
  *
  * @author Philipp Ossler
  */
-@RunWith(Parameterized.class)
 public class EscalationEventParseInvalidProcessTest {
 
   private static final String PROCESS_DEFINITION_DIRECTORY = "org/finos/fluxnova/bpm/engine/test/bpmn/event/escalation/";
 
-  @Parameters(name = "{index}: process definition = {0}, expected error message = {1}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
         { "EscalationEventParseInvalidProcessTest.missingIdOnEscalation.bpmn20.xml", "escalation must have an id", new String[] {} },
@@ -69,28 +65,24 @@ public class EscalationEventParseInvalidProcessTest {
         { "EscalationEventParseInvalidProcessTest.multipleEscalationEventSubprocessWithoutEscalationCode.bpmn20.xml", "The same scope can not contains more than one escalation event subprocess without escalation code.", new String[] { "escalationStartEvent2" } }
     });
   }
-
-  @Parameter(0)
   public String processDefinitionResource;
-
-  @Parameter(1)
   public String expectedErrorMessage;
-
-  @Parameter(2)
   public String[] bpmnElementIds;
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
   protected RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     repositoryService = rule.getRepositoryService();
   }
 
-  @Test
-  public void testParseInvalidProcessDefinition() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: process definition = {0}, expected error message = {1}")
+  public void testParseInvalidProcessDefinition(String processDefinitionResource, String expectedErrorMessage, String[] bpmnElementIds) {
+    initEscalationEventParseInvalidProcessTest(processDefinitionResource, expectedErrorMessage, bpmnElementIds);
     try {
       String deploymentId = repositoryService.createDeployment()
         .addClasspathResource(PROCESS_DEFINITION_DIRECTORY + processDefinitionResource)
@@ -114,5 +106,11 @@ public class EscalationEventParseInvalidProcessTest {
     if (actualMessage == null || !actualMessage.contains(expectedMessage)) {
       throw new AssertionFailedError("expected presence of [" + expectedMessage + "], but was [" + actualMessage + "]");
     }
+  }
+
+  public void initEscalationEventParseInvalidProcessTest(String processDefinitionResource, String expectedErrorMessage, String[] bpmnElementIds) {
+    this.processDefinitionResource = processDefinitionResource;
+    this.expectedErrorMessage = expectedErrorMessage;
+    this.bpmnElementIds = bpmnElementIds;
   }
 }

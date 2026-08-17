@@ -18,14 +18,15 @@ package org.finos.fluxnova.spin.json;
 
 import org.finos.fluxnova.spin.DeserializationTypeValidator;
 import org.finos.fluxnova.spin.spi.DataFormatMapper;
-import org.junit.Before;
 import org.mockito.Mockito;
+
+import org.junit.jupiter.api.BeforeEach;
 
 public class JsonSerializationWithValidationTest extends JsonSerializationTest {
 
   protected DeserializationTypeValidator validator;
 
-  @Before
+  @BeforeEach
   public void setUpValidator() {
     validator = Mockito.mock(DeserializationTypeValidator.class);
     Mockito.when(validator.validate(Mockito.anyString())).thenReturn(true);

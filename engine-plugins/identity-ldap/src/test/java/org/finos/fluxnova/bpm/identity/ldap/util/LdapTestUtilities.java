@@ -19,9 +19,9 @@ package org.finos.fluxnova.bpm.identity.ldap.util;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotSame;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.identity.Group;
 import org.finos.fluxnova.bpm.engine.identity.User;

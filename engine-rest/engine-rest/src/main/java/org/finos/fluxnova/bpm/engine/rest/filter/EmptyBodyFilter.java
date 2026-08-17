@@ -16,9 +16,9 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.filter;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PushbackInputStream;
@@ -39,10 +39,30 @@ public class EmptyBodyFilter extends AbstractEmptyBodyFilter {
         return new ServletInputStream() {
 
           final InputStream inputStream = getRequestBody(isBodyEmpty, requestBody);
+          boolean finished = false;
+
+          @Override
+          public boolean isFinished() {
+            return this.finished;
+          }
+
+          @Override
+          public boolean isReady() {
+            return true;
+          }
+
+          @Override
+          public void setReadListener(jakarta.servlet.ReadListener readListener) {
+            throw new UnsupportedOperationException();
+          }
 
           @Override
           public int read() throws IOException {
-            return inputStream.read();
+            int data = this.inputStream.read();
+            if (data == -1) {
+              this.finished = true;
+            }
+            return data;
           }
 
           @Override

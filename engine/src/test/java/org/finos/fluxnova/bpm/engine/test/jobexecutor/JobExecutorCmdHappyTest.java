@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +33,8 @@ import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.MessageEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TimerEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tom Baeyens

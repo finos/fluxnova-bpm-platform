@@ -25,16 +25,16 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.entity.runtime.CaseExecutionQueryImpl;
 import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CaseExecutionQueryVariableIgnoreCaseTest extends AbstractVariableIgnoreCaseTest<CaseExecutionQueryImpl, CaseExecution> {
 
   CaseService caseService;
   RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void init() {
     caseService = engineRule.getCaseService();
     repositoryService = engineRule.getRepositoryService();
@@ -43,7 +43,7 @@ public class CaseExecutionQueryVariableIgnoreCaseTest extends AbstractVariableIg
     instance = caseService.withCaseDefinitionByKey("oneTaskCase").setVariables(VARIABLES).businessKey("oneTaskCase").create();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     for (Deployment deployment : repositoryService.createDeploymentQuery().list()) {
       repositoryService.deleteDeployment(deployment.getId(), true);

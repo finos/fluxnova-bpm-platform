@@ -22,13 +22,14 @@ import org.finos.fluxnova.bpm.model.bpmn.FluxnovaExtensionsTest;
 import org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.finos.fluxnova.bpm.model.bpmn.impl.instance.ProcessImpl;
 import org.finos.fluxnova.bpm.model.bpmn.instance.ExtensionElements;
-import org.junit.Test;
 
 import java.util.Collection;
 
+import org.junit.jupiter.api.Test;
+
 import static org.finos.fluxnova.bpm.model.bpmn.BpmnTestConstants.PROCESS_ID;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Test to check the interoperability when changing elements and attributes with

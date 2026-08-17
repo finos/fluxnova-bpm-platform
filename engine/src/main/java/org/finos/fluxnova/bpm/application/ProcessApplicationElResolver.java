@@ -26,7 +26,7 @@ import org.finos.fluxnova.bpm.impl.juel.jakarta.el.ELResolver;
  *
  * <p>Implementations of this interface are looked up through the Java SE {@link ServiceLoader} facilities.
  * If you want to provide a custom implementation in your application, place a file named
- * <code>META-INF/org.camunda.bpm.application.ProcessApplicationElResolver</code> inside your application
+ * <code>META-INF/org.finos.fluxnova.bpm.application.ProcessApplicationElResolver</code> inside your application
  * which contains the fully qualified classname of your implementation.</p>
  *
  * @author Daniel Meyer

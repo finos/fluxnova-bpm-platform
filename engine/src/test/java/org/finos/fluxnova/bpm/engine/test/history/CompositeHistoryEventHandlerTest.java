@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.impl.history.handler.CompositeHistoryEventH
 import org.finos.fluxnova.bpm.engine.impl.history.handler.DbHistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Alexander Tyatenkov

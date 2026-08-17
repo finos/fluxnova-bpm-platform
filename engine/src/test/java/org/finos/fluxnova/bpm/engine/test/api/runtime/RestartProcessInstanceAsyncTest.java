@@ -20,11 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -68,12 +64,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
@@ -89,8 +84,8 @@ public class RestartProcessInstanceAsyncTest {
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
   protected BatchRestartHelper helper = new BatchRestartHelper(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
@@ -100,7 +95,7 @@ public class RestartProcessInstanceAsyncTest {
   protected TenantIdProvider defaultTenantIdProvider;
   protected boolean defaultEnsureJobDueDateSet;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -112,14 +107,14 @@ public class RestartProcessInstanceAsyncTest {
     defaultEnsureJobDueDateSet = processEngineConfiguration.isEnsureJobDueDateNotNull();
   }
 
-  @After
+  @AfterEach
   public void reset() {
     helper.removeAllRunningAndHistoricBatches();
     processEngineConfiguration.setTenantIdProvider(defaultTenantIdProvider);
     processEngineConfiguration.setEnsureJobDueDateNotNull(defaultEnsureJobDueDateSet);
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
@@ -242,11 +237,11 @@ public class RestartProcessInstanceAsyncTest {
     List<ProcessInstance> restartedProcessInstances = runtimeService.createProcessInstanceQuery().active().list();
     ProcessInstance restartedProcessInstance = restartedProcessInstances.get(0);
     Task restartedTask = engineRule.getTaskService().createTaskQuery().processInstanceId(restartedProcessInstance.getId()).active().singleResult();
-    Assert.assertEquals(task1.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
+    org.junit.jupiter.api.Assertions.assertEquals(task1.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
 
     restartedProcessInstance = restartedProcessInstances.get(1);
     restartedTask = engineRule.getTaskService().createTaskQuery().processInstanceId(restartedProcessInstance.getId()).active().singleResult();
-    Assert.assertEquals(task2.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
+    org.junit.jupiter.api.Assertions.assertEquals(task2.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
   }
 
   @Test
@@ -521,11 +516,11 @@ public class RestartProcessInstanceAsyncTest {
     List<ProcessInstance> restartedProcessInstances = runtimeService.createProcessInstanceQuery().active().list();
     ProcessInstance restartedProcessInstance = restartedProcessInstances.get(0);
     Task restartedTask = taskService.createTaskQuery().processInstanceId(restartedProcessInstance.getId()).active().singleResult();
-    Assert.assertEquals(task1.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
+    org.junit.jupiter.api.Assertions.assertEquals(task1.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
 
     restartedProcessInstance = restartedProcessInstances.get(1);
     restartedTask = taskService.createTaskQuery().processInstanceId(restartedProcessInstance.getId()).active().singleResult();
-    Assert.assertEquals(task2.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
+    org.junit.jupiter.api.Assertions.assertEquals(task2.getTaskDefinitionKey(), restartedTask.getTaskDefinitionKey());
   }
 
   @Test

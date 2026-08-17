@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON_COLLECTION;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON_FILE_NAME;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.assertIsExampleOrder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,8 @@ import org.finos.fluxnova.spin.json.SpinJsonDataFormatException;
 import org.finos.fluxnova.spin.json.SpinJsonException;
 import org.finos.fluxnova.spin.json.mapping.Order;
 import org.finos.fluxnova.spin.json.mapping.RegularCustomer;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public abstract class JsonTreeMapJsonToJavaScriptTest extends ScriptTest {
 
@@ -49,15 +51,17 @@ public abstract class JsonTreeMapJsonToJavaScriptTest extends ScriptTest {
     assertIsExampleOrder(order);
   }
 
-  @Test(expected = SpinJsonException.class)
+  @Test
   @Script(
     name = "JsonTreeMapJsonToJavaScriptTest.mapToType",
     execute = false
   )
   @ScriptVariable(name = "input", file=EXAMPLE_JSON_FILE_NAME)
   public void shouldFailMappingToMismatchingClass() throws Throwable {
-    Map<String, Object> variables = newMap("mapToType", RegularCustomer.class);
-    failingWithException(variables);
+    assertThrows(SpinJsonException.class, () -> {
+      Map<String, Object> variables = newMap("mapToType", RegularCustomer.class);
+      failingWithException(variables);
+    });
   }
 
   @Test
@@ -89,7 +93,7 @@ public abstract class JsonTreeMapJsonToJavaScriptTest extends ScriptTest {
     assertIsExampleOrder(orders.get(0));
   }
 
-  @Test(expected = SpinJsonDataFormatException.class)
+  @Test
   @Script(
     name = "JsonTreeMapJsonToJavaScriptTest.mapToType",
     variables = {
@@ -99,7 +103,8 @@ public abstract class JsonTreeMapJsonToJavaScriptTest extends ScriptTest {
     execute = false
   )
   public void shouldFailForMalformedTypeString() throws Throwable {
-    failingWithException();
+    assertThrows(SpinJsonDataFormatException.class, () ->
+      failingWithException());
   }
 
   protected Map<String, Object> newMap(String key, Object value) {

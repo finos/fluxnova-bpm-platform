@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.webapp.impl.security.auth;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;

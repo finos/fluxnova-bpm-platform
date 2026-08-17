@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -31,7 +31,7 @@ import org.finos.fluxnova.bpm.engine.rest.sub.runtime.EventSubscriptionResource;
 import org.finos.fluxnova.bpm.engine.runtime.EventSubscription;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class MessageEventSubscriptionResource implements EventSubscriptionResource {
 
@@ -57,7 +57,7 @@ public class MessageEventSubscriptionResource implements EventSubscriptionResour
         .executionId(executionId).eventName(messageName).eventType(MESSAGE_EVENT_TYPE).singleResult();
 
     if (eventSubscription == null) {
-      String errorMessage = String.format("Message event subscription for execution %s named %s does not exist", executionId, messageName);
+      String errorMessage = "Message event subscription for execution %s named %s does not exist".formatted(executionId, messageName);
       throw new InvalidRequestException(Status.NOT_FOUND, errorMessage);
     }
 
@@ -76,11 +76,11 @@ public class MessageEventSubscriptionResource implements EventSubscriptionResour
     } catch (AuthorizationException e) {
       throw e;
     } catch (ProcessEngineException e) {
-      throw new RestException(Status.INTERNAL_SERVER_ERROR, e, String.format("Cannot trigger message %s for execution %s: %s",
+      throw new RestException(Status.INTERNAL_SERVER_ERROR, e, "Cannot trigger message %s for execution %s: %s".formatted(
         messageName, executionId, e.getMessage()));
 
     } catch (RestException e) {
-      String errorMessage = String.format("Cannot trigger message %s for execution %s: %s", messageName, executionId, e.getMessage());
+      String errorMessage = "Cannot trigger message %s for execution %s: %s".formatted(messageName, executionId, e.getMessage());
       throw new InvalidRequestException(e.getStatus(), e, errorMessage);
 
     }

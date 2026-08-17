@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.spi;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,5 +43,10 @@ public interface ProcessEngineProvider {
    * Returns the name of all known process engines. Returns an empty set if no engines are accessible.
    */
   Set<String> getProcessEngineNames();
+
+  /**
+   * Returns engine objects that are accessible through this provider, keyed by engine name.
+   */
+  Map<String, ProcessEngine> getProcessEngines();
 
 }

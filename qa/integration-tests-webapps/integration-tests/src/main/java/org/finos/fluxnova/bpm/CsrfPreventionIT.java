@@ -16,38 +16,39 @@
  */
 package org.finos.fluxnova.bpm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import jakarta.ws.rs.core.MediaType;
 
-import javax.ws.rs.core.MediaType;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import com.sun.jersey.api.client.ClientResponse;
+import java.util.concurrent.TimeUnit;
 
 public class CsrfPreventionIT extends AbstractWebIntegrationTest {
 
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getWebappCtxPath());
   }
 
-  @Test(timeout=10000)
+  @Test
+  @Timeout(value = 10000, unit = TimeUnit.MILLISECONDS)
   public void shouldCheckPresenceOfCsrfPreventionCookie() {
     // given
 
     // when
-    ClientResponse response = client.resource(appBasePath + TASKLIST_PATH)
-        .get(ClientResponse.class);
+    HttpResponse<String> response = Unirest.get(appBasePath + TASKLIST_PATH)
+            .asString();
 
     // then
     assertEquals(200, response.getStatus());
     String xsrfTokenHeader = getXsrfTokenHeader(response);
     String xsrfCookieValue = getXsrfCookieValue(response);
-    response.close();
     
     assertNotNull(xsrfTokenHeader);
     assertEquals(32, xsrfTokenHeader.length());
@@ -55,16 +56,17 @@ public class CsrfPreventionIT extends AbstractWebIntegrationTest {
     assertTrue(xsrfCookieValue.contains(";SameSite=Lax"));
   }
 
-  @Test(timeout=10000)
+  @Test
+  @Timeout(value = 10000, unit = TimeUnit.MILLISECONDS)
   public void shouldRejectModifyingRequest() {
     // given
     String baseUrl = testProperties.getApplicationPath("/" + getWebappCtxPath());
     String modifyingRequestPath = "api/admin/auth/user/default/login/welcome";
 
     // when
-    ClientResponse response = client.resource(baseUrl + modifyingRequestPath)
-        .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_TYPE)
-        .post(ClientResponse.class);
+    HttpResponse<String> response = Unirest.post(baseUrl + modifyingRequestPath)
+            .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
+            .asString();
 
     // then
     assertEquals(403, response.getStatus());

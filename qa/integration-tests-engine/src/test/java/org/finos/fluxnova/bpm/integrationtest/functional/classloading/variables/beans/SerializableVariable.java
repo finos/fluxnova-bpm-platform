@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.classloading.variables.beans;
 
+
 import java.io.Serializable;
 
 /**

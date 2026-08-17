@@ -17,8 +17,9 @@
 package org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec;
 
 import org.finos.fluxnova.bpm.webapp.impl.util.HeaderRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.impl.ContentSecurityPolicyProvider.HEADER_DEFAULT_VALUE;
@@ -27,7 +28,7 @@ import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provi
 
 public class ContentSecurityPolicyTest {
 
-  @Rule
+  @RegisterExtension
   public HeaderRule headerRule = new HeaderRule();
 
   @Test

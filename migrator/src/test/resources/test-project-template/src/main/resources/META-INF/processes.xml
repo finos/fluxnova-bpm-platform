@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-application
+        xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
+
+    <process-archive name="tenant-a-processes">
+        <process-engine>default</process-engine>
+        <resource>tenants/tenant-a/processes/*.bpmn</resource>
+        <properties>
+            <property name="isDeleteUponUndeploy">false</property>
+            <property name="isScanForProcessDefinitions">false</property>
+        </properties>
+    </process-archive>
+
+    <process-archive name="tenant-b-processes" tenantId="tenant-b">
+        <process-engine>default</process-engine>
+        <resource>tenants/tenant-b/processes/*.bpmn</resource>
+        <properties>
+            <property name="isDeleteUponUndeploy">false</property>
+            <property name="isScanForProcessDefinitions">false</property>
+        </properties>
+    </process-archive>
+
+</process-application>

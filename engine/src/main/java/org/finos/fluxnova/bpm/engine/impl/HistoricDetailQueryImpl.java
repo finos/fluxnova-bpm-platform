@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.engine.impl;
 
 import static org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil.ensureNotNull;
 
+
 import java.util.Date;
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.history.HistoricDetail;
@@ -231,8 +232,7 @@ public class HistoricDetailQueryImpl extends AbstractQuery<HistoricDetailQuery, 
       .findHistoricDetailsByQueryCriteria(this, page);
     if (historicDetails!=null) {
       for (HistoricDetail historicDetail: historicDetails) {
-        if (historicDetail instanceof HistoricDetailVariableInstanceUpdateEntity) {
-          HistoricDetailVariableInstanceUpdateEntity entity = (HistoricDetailVariableInstanceUpdateEntity) historicDetail;
+        if (historicDetail instanceof HistoricDetailVariableInstanceUpdateEntity entity) {
           if (shouldFetchValue(entity)) {
             try {
               entity.getTypedValue(isCustomObjectDeserializationEnabled);

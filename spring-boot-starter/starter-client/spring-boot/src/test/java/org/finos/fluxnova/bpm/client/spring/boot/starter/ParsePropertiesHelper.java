@@ -17,17 +17,14 @@
 package org.finos.fluxnova.bpm.client.spring.boot.starter;
 
 import org.finos.fluxnova.bpm.client.spring.impl.subscription.SubscriptionConfiguration;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import jakarta.annotation.PostConstruct;
 import java.util.Map;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ParsePropertiesHelper.TestConfig.class)
+@SpringJUnitConfig(classes = ParsePropertiesHelper.TestConfig.class)
 public abstract class ParsePropertiesHelper {
 
   @EnableConfigurationProperties(ClientProperties.class)

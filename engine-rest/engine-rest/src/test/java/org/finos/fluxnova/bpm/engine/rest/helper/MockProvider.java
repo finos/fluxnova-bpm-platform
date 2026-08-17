@@ -223,6 +223,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_TASK_ATTACHMENT_CREATE_DATE = withTimezone("2018-07-19T15:02:36");
   public static final String EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE = withTimezone("2018-10-17T13:35:07");
   public static final String EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID = "aRootProcInstId";
+  public static final String EXAMPLE_TASK_ATTACHMENT_CREATED_BY = "demo";
 
   // task count by candidate group
 
@@ -248,6 +249,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY = "aKey";
   public static final String EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY_LIKE = "aKeyLike";
   public static final String EXAMPLE_PROCESS_INSTANCE_ID = "aProcInstId";
+  public static final String EXAMPLE_ROOT_PROCESS_INSTANCE_ID = "aRootProcessInstanceId";
   public static final String EXAMPLE_ROOT_HISTORIC_PROCESS_INSTANCE_ID = "aRootProcInstId";
   public static final String ANOTHER_EXAMPLE_PROCESS_INSTANCE_ID = "anotherId";
   public static final boolean EXAMPLE_PROCESS_INSTANCE_IS_SUSPENDED = false;
@@ -531,7 +533,10 @@ public abstract class MockProvider {
 
   public static final String EXAMPLE_AUTHORIZATION_ID = "someAuthorizationId";
   public static final int EXAMPLE_AUTHORIZATION_TYPE = 0;
+  public static final int MAX_JOBS_ALLOWED_FOR_SUSPEND_RESUME_OPERATION = 200;
+  public static final int MAX_JOBS_ALLOWED_FOR_DELETE_OPERATION = 200;
   public static final String EXAMPLE_AUTHORIZATION_TYPE_STRING = "0";
+  public static final Boolean EXAMPLE_ACQUIRED = true;
 
   // process applications
   public static final String EXAMPLE_PROCESS_APPLICATION_NAME = "aProcessApplication";
@@ -749,6 +754,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_HIST_INCIDENT_PROC_DEF_KEY = "aProcDefKey";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID = "aRootProcInstId";
   public static final String EXAMPLE_HIST_INCIDENT_CAUSE_INCIDENT_ID = "aCauseIncidentId";
+  public static final String EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG = "aRootCauseIncidentMessage";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_CAUSE_INCIDENT_ID = "aRootCauseIncidentId";
   public static final String EXAMPLE_HIST_INCIDENT_CONFIGURATION = "aConfiguration";
   public static final String EXAMPLE_HIST_INCIDENT_HISTORY_CONFIGURATION = "aHistoryConfiguration";
@@ -920,6 +926,7 @@ public abstract class MockProvider {
   public static final String EXTERNAL_TASK_ID_LIST = EXTERNAL_TASK_ID + "," + EXTERNAL_TASK_ANOTHER_ID;
   public static final String EXTERNAL_TASK_ERROR_MESSAGE = "some error";
   public static final String EXTERNAL_TASK_LOCK_EXPIRATION_TIME = withTimezone("2015-10-05T13:25:00");
+  public static final String EXTERNAL_TASK_CREATE_TIME = withTimezone("2015-10-05T12:25:00");
   public static final Integer EXTERNAL_TASK_RETRIES = 5;
   public static final boolean EXTERNAL_TASK_SUSPENDED = true;
   public static final String EXTERNAL_TASK_TOPIC_NAME = "aTopic";
@@ -1070,7 +1077,6 @@ public abstract class MockProvider {
       .fluxnovaFormRef(EXAMPLE_FORM_KEY, EXAMPLE_FORM_REF_BINDING, EXAMPLE_FORM_REF_VERSION)
       .tenantId(EXAMPLE_TENANT_ID)
       .taskState(EXAMPLE_HISTORIC_TASK_STATE)
-      .tenantId(EXAMPLE_TENANT_ID)
       .hasAttachment(EXAMPLE_TASK_ATTACHMENT_STATE)
       .hasComment(EXAMPLE_TASK_COMMENT_STATE);
   }
@@ -1170,6 +1176,7 @@ public abstract class MockProvider {
     when(mockAttachment.getCreateTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_CREATE_DATE));
     when(mockAttachment.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE));
     when(mockAttachment.getRootProcessInstanceId()).thenReturn(EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID);
+    when(mockAttachment.getCreatedBy()).thenReturn(EXAMPLE_TASK_ATTACHMENT_CREATED_BY);
 
     return mockAttachment;
   }
@@ -2670,8 +2677,21 @@ public abstract class MockProvider {
     when(incident.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_HIST_INCIDENT_REMOVAL_TIME));
     when(incident.getRootProcessInstanceId()).thenReturn(EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID);
     when(incident.getAnnotation()).thenReturn(EXAMPLE_USER_OPERATION_ANNOTATION);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG);
 
     return incident;
+  }
+
+  public static HistoricIncident createMockHistoricIncidentWithoutRootCauseIncidentMessage() {
+    HistoricIncident incident = createMockHistoricIncident(EXAMPLE_TENANT_ID);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(null);
+    return incident;
+  }
+
+  public static List<HistoricIncident> createMockHistoricIncidentsWithoutRootCauseIncidentMessage() {
+    List<HistoricIncident> entries = new ArrayList<>();
+    entries.add(createMockHistoricIncidentWithoutRootCauseIncidentMessage());
+    return entries;
   }
 
   public static List<HistoricIncident> createMockHistoricIncidents() {
@@ -3138,6 +3158,7 @@ public abstract class MockProvider {
       .errorMessage(EXTERNAL_TASK_ERROR_MESSAGE)
       .executionId(EXAMPLE_EXECUTION_ID)
       .lockExpirationTime(DateTimeUtil.parseDate(EXTERNAL_TASK_LOCK_EXPIRATION_TIME))
+      .createTime(DateTimeUtil.parseDate(EXTERNAL_TASK_CREATE_TIME))
       .processDefinitionId(EXAMPLE_PROCESS_DEFINITION_ID)
       .processDefinitionKey(EXAMPLE_PROCESS_DEFINITION_KEY)
       .processDefinitionVersionTag(EXAMPLE_PROCESS_DEFINITION_VERSION_TAG)

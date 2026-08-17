@@ -22,7 +22,8 @@ import org.finos.fluxnova.bpm.dmn.engine.DmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.impl.DefaultDmnEngineConfiguration;
 import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class EvaluateDecisionTest extends DmnEngineTest {
 

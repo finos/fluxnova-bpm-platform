@@ -39,19 +39,19 @@ import org.finos.fluxnova.bpm.engine.test.api.identity.util.MyCustomPasswordEncr
 import org.finos.fluxnova.bpm.engine.test.api.identity.util.MyCustomPasswordEncryptorCreatingPrefixThatCannotBeResolved;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class PasswordHashingTest {
 
   protected static ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected static ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected final static String PASSWORD = "password";
   protected final static String USER_NAME = "johndoe";
@@ -66,7 +66,7 @@ public class PasswordHashingTest {
   protected SaltGenerator camundaDefaultSaltGenerator;
 
 
-  @Before
+  @BeforeEach
   public void initialize() {
     runtimeService = engineRule.getRuntimeService();
     identityService = engineRule.getIdentityService();
@@ -76,7 +76,7 @@ public class PasswordHashingTest {
     camundaDefaultSaltGenerator = processEngineConfiguration.getSaltGenerator();
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     removeAllUser();
     resetEngineConfiguration();

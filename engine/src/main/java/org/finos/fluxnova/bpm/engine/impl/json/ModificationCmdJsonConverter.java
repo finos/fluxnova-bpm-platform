@@ -44,28 +44,28 @@ public class ModificationCmdJsonConverter extends JsonObjectConverter<AbstractPr
   public JsonObject toJsonObject(AbstractProcessInstanceModificationCommand command) {
     JsonObject json = JsonUtil.createObject();
 
-    if (command instanceof ActivityAfterInstantiationCmd) {
-      JsonUtil.addField(json, START_AFTER, ((ActivityAfterInstantiationCmd) command).getTargetElementId());
+    if (command instanceof ActivityAfterInstantiationCmd cmd5) {
+      JsonUtil.addField(json, START_AFTER, cmd5.getTargetElementId());
       JsonUtil.addField(json, ANCESTOR_ACTIVITY_INSTANCE_ID,
-          ((ActivityAfterInstantiationCmd) command).getAncestorActivityInstanceId());
-    } else if (command instanceof ActivityBeforeInstantiationCmd) {
-      JsonUtil.addField(json, START_BEFORE, ((ActivityBeforeInstantiationCmd) command).getTargetElementId());
+          cmd5.getAncestorActivityInstanceId());
+    } else if (command instanceof ActivityBeforeInstantiationCmd cmd4) {
+      JsonUtil.addField(json, START_BEFORE, cmd4.getTargetElementId());
       JsonUtil.addField(json, ANCESTOR_ACTIVITY_INSTANCE_ID,
-          ((ActivityBeforeInstantiationCmd) command).getAncestorActivityInstanceId());
-    } else if (command instanceof TransitionInstantiationCmd) {
-      JsonUtil.addField(json, START_TRANSITION, ((TransitionInstantiationCmd) command).getTargetElementId());
-    } else if (command instanceof ActivityCancellationCmd) {
-      JsonUtil.addField(json, CANCEL_ALL, ((ActivityCancellationCmd) command).getActivityId());
+          cmd4.getAncestorActivityInstanceId());
+    } else if (command instanceof TransitionInstantiationCmd cmd3) {
+      JsonUtil.addField(json, START_TRANSITION, cmd3.getTargetElementId());
+    } else if (command instanceof ActivityCancellationCmd cmd2) {
+      JsonUtil.addField(json, CANCEL_ALL, cmd2.getActivityId());
       JsonUtil.addField(json, CANCEL_CURRENT,
-          ((ActivityCancellationCmd) command).isCancelCurrentActiveActivityInstances());
-    } else if (command instanceof ActivityInstanceCancellationCmd) {
+          cmd2.isCancelCurrentActiveActivityInstances());
+    } else if (command instanceof ActivityInstanceCancellationCmd cmd1) {
       JsonUtil.addField(json, CANCEL_ACTIVITY_INSTANCES,
-          ((ActivityInstanceCancellationCmd) command).getActivityInstanceId());
-      JsonUtil.addField(json, PROCESS_INSTANCE, ((ActivityInstanceCancellationCmd) command).getProcessInstanceId());
-    } else if (command instanceof TransitionInstanceCancellationCmd) {
+          cmd1.getActivityInstanceId());
+      JsonUtil.addField(json, PROCESS_INSTANCE, cmd1.getProcessInstanceId());
+    } else if (command instanceof TransitionInstanceCancellationCmd cmd) {
       JsonUtil.addField(json, CANCEL_TRANSITION_INSTANCES,
-          ((TransitionInstanceCancellationCmd) command).getTransitionInstanceId());
-      JsonUtil.addField(json, PROCESS_INSTANCE, ((TransitionInstanceCancellationCmd) command).getProcessInstanceId());
+          cmd.getTransitionInstanceId());
+      JsonUtil.addField(json, PROCESS_INSTANCE, cmd.getProcessInstanceId());
     }
 
     return json;

@@ -137,8 +137,7 @@ public class StartProcessInstanceAtActivitiesCmd implements Command<ProcessInsta
       ProcessInstanceModificationBuilderImpl modificationBuilder) {
     AbstractProcessInstanceModificationCommand firstInstruction = modificationBuilder.getModificationOperations().get(0);
 
-    if (firstInstruction instanceof AbstractInstantiationCmd) {
-      AbstractInstantiationCmd instantiationInstruction = (AbstractInstantiationCmd) firstInstruction;
+    if (firstInstruction instanceof AbstractInstantiationCmd instantiationInstruction) {
       CoreModelElement targetElement = instantiationInstruction.getTargetElement(processDefinition);
 
       ensureNotNull(NotValidException.class,
@@ -146,11 +145,11 @@ public class StartProcessInstanceAtActivitiesCmd implements Command<ProcessInsta
           "targetElement",
           targetElement);
 
-      if (targetElement instanceof ActivityImpl) {
-        return (ActivityImpl) targetElement;
+      if (targetElement instanceof ActivityImpl impl1) {
+        return impl1;
       }
-      else if (targetElement instanceof TransitionImpl) {
-        return (ActivityImpl) ((TransitionImpl) targetElement).getDestination();
+      else if (targetElement instanceof TransitionImpl impl) {
+        return (ActivityImpl) impl.getDestination();
       }
 
     }

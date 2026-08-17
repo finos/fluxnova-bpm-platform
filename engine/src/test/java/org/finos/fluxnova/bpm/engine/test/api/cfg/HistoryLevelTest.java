@@ -22,8 +22,8 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.history.HistoryLevel;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class HistoryLevelTest {
 
@@ -67,7 +67,7 @@ public class HistoryLevelTest {
     return (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void closeEngine() {
     processEngine.close();
   }

@@ -20,8 +20,9 @@ import org.finos.fluxnova.bpm.client.spring.SpringTopicSubscription;
 import org.finos.fluxnova.bpm.client.spring.MockedTest;
 import org.finos.fluxnova.bpm.client.spring.configuration.FullConfiguration;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskHandler;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;

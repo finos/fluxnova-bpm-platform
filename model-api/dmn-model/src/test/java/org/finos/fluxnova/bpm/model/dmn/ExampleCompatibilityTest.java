@@ -41,19 +41,16 @@ import org.finos.fluxnova.bpm.model.dmn.instance.OutputEntry;
 import org.finos.fluxnova.bpm.model.dmn.instance.OutputValues;
 import org.finos.fluxnova.bpm.model.dmn.instance.Rule;
 import org.finos.fluxnova.bpm.model.dmn.instance.Text;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class ExampleCompatibilityTest extends DmnModelTest {
 
   public static final String EXAMPLE_DMN = "org/finos/fluxnova/bpm/model/dmn/Example.dmn";
 
-  private final DmnModelInstance originalModelInstance;
+  private DmnModelInstance originalModelInstance;
 
-   @Parameterized.Parameters(name="Namespace: {0}")
    public static Collection<Object[]> parameters(){
      return Arrays.asList(new Object[][]{
          {Dmn.readModelFromStream(ExampleCompatibilityTest.class.getResourceAsStream("Example.dmn"))},
@@ -70,17 +67,16 @@ public class ExampleCompatibilityTest extends DmnModelTest {
      });
    }
 
-  public ExampleCompatibilityTest(DmnModelInstance originalModelInstance) {
+  public void initExampleCompatibilityTest(DmnModelInstance originalModelInstance) {
     this.originalModelInstance = originalModelInstance;
-  }
-
-  @Before
-  public void parseModel() {
     modelInstance = originalModelInstance.clone();
   }
 
-  @Test
-  public void shouldGetElements() {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void shouldGetElements(DmnModelInstance originalModelInstance) {
+
+    initExampleCompatibilityTest(originalModelInstance);
 
     // Definitions
     Definitions definitions = modelInstance.getDefinitions();
@@ -219,8 +215,10 @@ public class ExampleCompatibilityTest extends DmnModelTest {
     assertThat(businessContextElements).isEmpty();
   }
 
-  @Test
-  public void shouldWriteElements() throws Exception {
+  @MethodSource("parameters")
+  @ParameterizedTest(name = "Namespace: {0}")
+  public void shouldWriteElements(DmnModelInstance originalModelInstance) throws Exception {
+    initExampleCompatibilityTest(originalModelInstance);
     modelInstance = Dmn.createEmptyModel();
 
     // Definitions

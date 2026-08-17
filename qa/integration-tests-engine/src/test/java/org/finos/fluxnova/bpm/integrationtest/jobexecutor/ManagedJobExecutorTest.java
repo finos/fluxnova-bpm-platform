@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.jobexecutor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,15 +31,15 @@ import org.finos.fluxnova.bpm.integrationtest.jobexecutor.beans.ManagedJobExecut
 import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ManagedJobExecutorTest {
 
   @Deployment
@@ -60,14 +60,14 @@ public class ManagedJobExecutorTest {
   protected ManagementService managementService;
   protected RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void setUpCdiProcessEngineTestCase() throws Exception {
     processEngine = (ProgrammaticBeanLookup.lookup(ManagedJobExecutorBean.class)).getProcessEngine();
     managementService = processEngine.getManagementService();
     runtimeService = processEngine.getRuntimeService();
   }
 
-  @After
+  @AfterEach
   public void tearDownCdiProcessEngineTestCase() throws Exception {
     processEngine = null;
     managementService = null;

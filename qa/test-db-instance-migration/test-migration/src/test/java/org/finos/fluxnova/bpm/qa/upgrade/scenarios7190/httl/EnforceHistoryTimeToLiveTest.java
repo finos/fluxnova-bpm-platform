@@ -32,7 +32,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 @ScenarioUnderTest("EnforceHistoryTimeToLiveScenario")
@@ -43,7 +43,7 @@ public class EnforceHistoryTimeToLiveTest {
   private static final String SCENARIO_DECISION = "decisionWithoutHTTL";
   private static final String SCENARIO_CASE = "caseWithoutHTTL";
 
-  @Rule
+  @RegisterExtension
   public final UpgradeTestRule engineRule = new UpgradeTestRule();
 
   ManagementService managementService;

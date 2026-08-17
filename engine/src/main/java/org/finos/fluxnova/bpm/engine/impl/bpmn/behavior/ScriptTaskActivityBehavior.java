@@ -73,8 +73,8 @@ public class ScriptTaskActivityBehavior extends TaskActivityBehavior {
    *         BpmnError was found
    */
   protected BpmnError checkIfCauseOfExceptionIsBpmnError(Throwable e) {
-    if (e instanceof BpmnError) {
-      return (BpmnError) e;
+    if (e instanceof BpmnError error) {
+      return error;
     } else if (e.getCause() == null) {
       return null;
     }

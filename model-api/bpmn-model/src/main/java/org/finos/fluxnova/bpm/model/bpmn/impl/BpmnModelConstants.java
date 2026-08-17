@@ -183,6 +183,7 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_RENDERING = "rendering";
   public static final String BPMN_ELEMENT_BOUNDARY_EVENT = "boundaryEvent";
   public static final String BPMN_ELEMENT_SUB_PROCESS = "subProcess";
+  public static final String BPMN_ELEMENT_AD_HOC_SUB_PROCESS = "adHocSubProcess";
   public static final String BPMN_ELEMENT_TRANSACTION = "transaction";
   public static final String BPMN_ELEMENT_GATEWAY = "gateway";
   public static final String BPMN_ELEMENT_PARALLEL_GATEWAY = "parallelGateway";
@@ -357,6 +358,8 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_CANCEL_ACTIVITY = "cancelActivity";
   public static final String BPMN_ATTRIBUTE_ATTACHED_TO_REF = "attachedToRef";
   public static final String BPMN_ATTRIBUTE_TRIGGERED_BY_EVENT = "triggeredByEvent";
+  public static final String BPMN_ATTRIBUTE_ORDERING = "ordering";
+  public static final String BPMN_ATTRIBUTE_CANCEL_REMAINING_INSTANCES = "cancelRemainingInstances";
   public static final String BPMN_ATTRIBUTE_GATEWAY_DIRECTION = "gatewayDirection";
   public static final String BPMN_ATTRIBUTE_CALLED_ELEMENT = "calledElement";
   public static final String BPMN_ATTRIBUTE_MINIMUM = "minimum";
@@ -465,10 +468,12 @@ public final class BpmnModelConstants {
   public static final String CAMUNDA_ATTRIBUTE_LABEL = "label";
   public static final String CAMUNDA_ATTRIBUTE_LOCAL = "local";
   public static final String CAMUNDA_ATTRIBUTE_MAP_DECISION_RESULT = "mapDecisionResult";
+  public static final String CAMUNDA_ATTRIBUTE_IS_TRANSIENT = "isTransient";
   public static final String CAMUNDA_ATTRIBUTE_NAME = "name";
   public static final String CAMUNDA_ATTRIBUTE_PRIORITY = "priority";
   public static final String CAMUNDA_ATTRIBUTE_READABLE = "readable";
   public static final String CAMUNDA_ATTRIBUTE_REQUIRED = "required";
+  public static final String CAMUNDA_ATTRIBUTE_RESTRICTED = "restricted";
   public static final String CAMUNDA_ATTRIBUTE_RESOURCE = "resource";
   public static final String CAMUNDA_ATTRIBUTE_RESULT_VARIABLE = "resultVariable";
   public static final String CAMUNDA_ATTRIBUTE_SCRIPT_FORMAT = "scriptFormat";

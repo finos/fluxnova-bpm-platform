@@ -20,16 +20,16 @@ import org.finos.fluxnova.bpm.model.xml.ModelInstance;
 import org.finos.fluxnova.bpm.model.xml.impl.ModelInstanceImpl;
 import org.finos.fluxnova.bpm.model.xml.impl.parser.AbstractModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.*;
-import org.junit.After;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.TestInstance;
 
 import java.io.InputStream;
 
 /**
  * @author Sebastian Menski
  */
-@RunWith(Parameterized.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class TestModelTest {
 
   protected final String testName;
@@ -43,6 +43,10 @@ public abstract class TestModelTest {
     this.testName = testName;
     this.testModelInstance = testModelInstance;
     this.modelParser = modelParser;
+  }
+
+  public TestModelTest(String testName, Object[] modelData) {
+    this(testName, (ModelInstance) modelData[1], (AbstractModelParser) modelData[2]);
   }
 
   public ModelInstance cloneModelInstance() {
@@ -82,7 +86,7 @@ public abstract class TestModelTest {
     return egg;
   }
 
-  @After
+  @AfterEach
   public void validateModel() {
     modelParser.validateModel(modelInstance.getDocument());
   }

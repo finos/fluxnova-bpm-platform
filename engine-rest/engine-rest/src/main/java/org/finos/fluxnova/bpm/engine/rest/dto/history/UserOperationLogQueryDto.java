@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.dto.history;
 import java.util.Date;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.UserOperationLogQuery;
@@ -28,7 +28,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.FluxnovaQueryParam;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.DateConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringArrayConverter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Danny Gräf

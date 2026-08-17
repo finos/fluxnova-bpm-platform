@@ -27,15 +27,14 @@ import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelTest;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.*;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
 import org.finos.fluxnova.bpm.model.xml.type.attribute.Attribute;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.finos.fluxnova.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
-import static org.junit.Assert.fail;
-import static org.junit.runners.Parameterized.Parameters;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Sebastian Menski
@@ -54,14 +53,8 @@ public class ReferenceTest extends TestModelTest {
   private AttributeReferenceImpl<Animal> motherReference;
   private ElementReferenceCollection<FlyingAnimal, FlightPartnerRef> flightPartnerRefsColl;
 
-  public ReferenceTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
-  }
-
-  @Parameters(name="Model {0}")
-  public static Collection<Object[]> models() {
-    Object[][] models = {createModel(), parseModel(ReferenceTest.class)};
-    return Arrays.asList(models);
+  public ReferenceTest() {
+    super("parsed", parseModel(ReferenceTest.class));
   }
 
   public static Object[] createModel() {
@@ -84,7 +77,7 @@ public class ReferenceTest extends TestModelTest {
     return new Object[]{"created", modelInstance, modelParser};
   }
 
-  @Before
+  @BeforeEach
   @SuppressWarnings("unchecked")
   public void copyModelInstance() {
     modelInstance = cloneModelInstance();

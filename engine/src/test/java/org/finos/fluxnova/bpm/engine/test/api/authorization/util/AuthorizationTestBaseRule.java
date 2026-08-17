@@ -24,15 +24,17 @@ import org.finos.fluxnova.bpm.engine.authorization.Resource;
 import org.finos.fluxnova.bpm.engine.identity.Group;
 import org.finos.fluxnova.bpm.engine.identity.User;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.Assert;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.AfterEachCallback;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-public class AuthorizationTestBaseRule extends TestWatcher {
+public class AuthorizationTestBaseRule implements BeforeEachCallback, AfterEachCallback {
 
   protected ProcessEngineRule engineRule;
 
@@ -42,6 +44,11 @@ public class AuthorizationTestBaseRule extends TestWatcher {
 
   public AuthorizationTestBaseRule(ProcessEngineRule engineRule) {
     this.engineRule = engineRule;
+  }
+
+  @Override
+  public void beforeEach(ExtensionContext context) throws Exception {
+    // nothing to do by default; subclasses may override
   }
 
   public void enableAuthorization(String userId) {
@@ -57,15 +64,14 @@ public class AuthorizationTestBaseRule extends TestWatcher {
   }
 
   @Override
-  protected void finished(Description description) {
+  public void afterEach(ExtensionContext context) throws Exception {
     engineRule.getIdentityService().clearAuthentication();
 
     deleteManagedAuthorizations();
 
-    super.finished(description);
 
-    Assert.assertTrue("Users have been created but not deleted", users.isEmpty());
-    Assert.assertTrue("Groups have been created but not deleted", groups.isEmpty());
+    Assertions.assertTrue(users.isEmpty(), "Users have been created but not deleted");
+    Assertions.assertTrue(groups.isEmpty(), "Groups have been created but not deleted");
   }
 
   public void manageAuthorization(Authorization authorization) {
