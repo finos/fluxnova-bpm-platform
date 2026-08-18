@@ -113,11 +113,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-cdi-jakarta</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.finos.fluxnova.bpm.dmn</groupId>
       <artifactId>fluxnova-engine-feel-juel</artifactId>
       <version>${project.version}</version>

@@ -145,7 +145,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
-      <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+      <artifactId>fluxnova-engine-rest</artifactId>
       <scope>test</scope>
       <type>war</type>
       <classifier>tomcat</classifier>
@@ -296,7 +296,7 @@
           <deployables>
             <deployable>
               <groupId>org.finos.fluxnova.bpm</groupId>
-              <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+              <artifactId>fluxnova-engine-rest</artifactId>
               <type>war</type>
               <classifier>tomcat</classifier>
               <pingURL>

@@ -103,24 +103,6 @@
       <artifactId>arquillian-protocol-servlet</artifactId>
       <scope>test</scope>
     </dependency>
-
-<!--    <dependency>-->
-<!--      <groupId>org.jboss.spec</groupId>-->
-<!--      <artifactId>jboss-javaee-6.0</artifactId>-->
-<!--      <type>pom</type>-->
-<!--      <scope>provided</scope>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <artifactId>xalan</artifactId>-->
-<!--          <groupId>org.apache.xalan</groupId>-->
-<!--        </exclusion>-->
-<!--        &lt;!&ndash; exclude old javax.activation to use Jakarta activation instead &ndash;&gt;-->
-<!--        <exclusion>-->
-<!--          <groupId>javax.activation</groupId>-->
-<!--          <artifactId>activation</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
     
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>

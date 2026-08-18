@@ -21,7 +21,7 @@
     </dependency>
     <dependency>
       <groupId>org.finos.fluxnova.bpm.example</groupId>
-      <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+      <artifactId>fluxnova-example-invoice</artifactId>
       <version>${project.version}</version>
       <classifier>classes</classifier>
       <scope>compile</scope>

@@ -22,7 +22,7 @@
 
     <dependency>
       <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-      <artifactId>fluxnova-webapp-jakarta</artifactId>
+      <artifactId>fluxnova-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
       <scope>runtime</scope>
