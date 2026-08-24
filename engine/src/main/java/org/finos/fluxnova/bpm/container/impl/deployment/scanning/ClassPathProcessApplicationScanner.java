@@ -108,7 +108,7 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
     if(isPaLocal) {
 
       if (urlPath.startsWith("file:") || urlPath.startsWith("jar:") || urlPath.startsWith("wsjar:") || urlPath.startsWith("zip:")) {
-        urlPath = url.getPath();
+        urlPath = normalizeWindowsPath(url.getPath());
         int withinArchive = urlPath.indexOf('!');
         if (withinArchive != -1) {
           urlPath = urlPath.substring(0, withinArchive);
@@ -120,7 +120,7 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
 
     } else {
       if (urlPath.startsWith("file:") || urlPath.startsWith("jar:") || urlPath.startsWith("wsjar:") || urlPath.startsWith("zip:")) {
-        urlPath = url.getPath();
+        urlPath = normalizeWindowsPath(url.getPath());
         int withinArchive = urlPath.indexOf('!');
         if (withinArchive != -1) {
           urlPath = urlPath.substring(0, withinArchive);
@@ -140,6 +140,22 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
 
     scanPath(urlPath, paResourceRootPath, isPaLocal, additionalResourceSuffixes, resourceMap);
 
+  }
+
+  protected String normalizeWindowsPath(String path) {
+    return normalizeWindowsPath(path, File.separatorChar);
+  }
+
+  protected String normalizeWindowsPath(String path, char separatorChar) {
+    if (separatorChar == '\\'
+        && path.length() > 2
+        && path.charAt(0) == '/'
+        && Character.isLetter(path.charAt(1))
+        && path.charAt(2) == ':') {
+      return path.substring(1);
+    }
+
+    return path;
   }
 
   protected void scanPath(String urlPath, String paResourceRootPath, boolean isPaLocal, String[] additionalResourceSuffixes, Map<String, byte[]> resourceMap) {
