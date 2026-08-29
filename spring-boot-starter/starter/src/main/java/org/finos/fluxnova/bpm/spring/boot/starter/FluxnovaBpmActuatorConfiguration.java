@@ -16,8 +16,13 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.MeterBinder;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
+import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
+import org.finos.fluxnova.bpm.spring.boot.starter.actuator.FluxnovaMetricsBinder;
 import org.finos.fluxnova.bpm.spring.boot.starter.actuator.JobExecutorHealthIndicator;
 import org.finos.fluxnova.bpm.spring.boot.starter.actuator.ProcessEngineHealthIndicator;
 import org.springframework.boot.health.contributor.HealthIndicator;
@@ -46,5 +51,13 @@ public class FluxnovaBpmActuatorConfiguration {
   @ConditionalOnMissingBean(name = "processEngineHealthIndicator")
   public HealthIndicator processEngineHealthIndicator(ProcessEngine processEngine) {
     return new ProcessEngineHealthIndicator(processEngine);
+  }
+
+  @Bean
+  @ConditionalOnClass({MeterRegistry.class, MeterBinder.class})
+  @ConditionalOnMissingBean(FluxnovaMetricsBinder.class)
+  @ConditionalOnProperty(prefix = "management.metrics.fluxnova", name = "enabled", matchIfMissing = true)
+  public FluxnovaMetricsBinder fluxnovaMetricsBinder(ProcessEngineConfigurationImpl processEngineConfiguration) {
+    return new FluxnovaMetricsBinder(processEngineConfiguration);
   }
 }
