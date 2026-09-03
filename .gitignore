@@ -24,6 +24,3 @@ camunda-h2-dbs
 
 *.DS_Store
 .vscode/
-
-internal
-configuration
