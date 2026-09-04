@@ -154,13 +154,13 @@ public class JwtAuthenticationProviderTest {
   }
 
   @Test
-  public void testPrefixWithoutSpaceThrowsError() {
-    assertThrows(IllegalArgumentException.class, () ->
-        new JwtAuthenticationProvider(
-            TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
-            "Authorization", "Bearer", "sub", null
-        )
+  public void testPrefixWithoutSpaceIsAccepted() {
+    JwtAuthenticationProvider provider = new JwtAuthenticationProvider(
+        TEST_JWKS_URL, TEST_ISSUER, TEST_AUDIENCE,
+        "Authorization", "Bearer", "sub", null
     );
+
+    assertNotNull(provider);
   }
 
 

@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,7 +83,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     
     this.jwtProcessor = createJwtProcessor(jwksUrl);
     
-    LOG.log(Level.INFO, "Initialized JWT authentication provider with JWKS URL: {0}", jwksUrl);
+    LOG.log(Level.INFO, "JWT authentication provider initialised — header: ''{0}'', prefix: ''{1}'', issuer: ''{2}'', audience: ''{3}'', userClaim: ''{4}'', groupsClaim: ''{5}''",
+        new Object[]{headerName, headerPrefix.trim(), expectedIssuer, expectedAudience, userClaimName, groupsClaimName});
   }
 
   /**
@@ -108,33 +110,45 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     try {
       String token = extractToken(request);
       if (token == null) {
-        LOG.log(Level.FINE, "No JWT token found in request");
+        String headerValue = request.getHeader(headerName);
+        if (headerValue == null) {
+          LOG.log(Level.WARNING, "JWT auth failed: header ''{0}'' not present in request.",
+              new Object[]{headerName});
+        } else {
+          LOG.log(Level.WARNING, "JWT auth failed: header ''{0}'' present but does not start with expected prefix ''{1}''",
+              new Object[]{headerName, headerPrefix.trim()});
+        }
         return AuthenticationResult.unsuccessful();
       }
 
-      JWTClaimsSet claims = jwtProcessor.process(token, null);
+      JWTClaimsSet claims;
+      try {
+        claims = jwtProcessor.process(token, null);
+      } catch (Exception e) {
+        LOG.log(Level.WARNING, "JWT auth failed: token processing error — " + e.getMessage(), e);
+        return AuthenticationResult.unsuccessful();
+      }
 
       if (!expectedIssuer.equals(claims.getIssuer())) {
-        LOG.log(Level.WARNING, "Invalid issuer: {0}, expected: {1}", 
+        LOG.log(Level.WARNING, "JWT auth failed: issuer mismatch — token has ''{0}'', expected ''{1}''",
             new Object[]{claims.getIssuer(), expectedIssuer});
         return AuthenticationResult.unsuccessful();
       }
 
       List<String> audience = claims.getAudience();
       if (audience == null || !audience.contains(expectedAudience)) {
-        LOG.log(Level.WARNING, "Invalid audience: {0}, expected: {1}", 
+        LOG.log(Level.WARNING, "JWT auth failed: audience mismatch — token has {0}, expected ''{1}''",
             new Object[]{audience, expectedAudience});
         return AuthenticationResult.unsuccessful();
       }
 
       String userId = claims.getStringClaim(userClaimName);
       if (userId == null || userId.isEmpty()) {
-        LOG.log(Level.WARNING, "Missing or empty user claim: {0}", userClaimName);
+        LOG.log(Level.WARNING, "JWT auth failed: claim ''{0}'' missing or empty. Available claims: {1}",
+            new Object[]{userClaimName, claims.getClaims().keySet()});
         return AuthenticationResult.unsuccessful();
       }
 
-      LOG.log(Level.INFO, "Successfully authenticated user: {0}", userId);
-      
       List<String> groups = extractGroups(claims);
 
       AuthenticationResult result = new AuthenticationResult(userId, true);
@@ -142,7 +156,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
       return result;
 
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "JWT authentication failed", e);
+      LOG.log(Level.WARNING, "JWT authentication failed with unexpected error", e);
       return AuthenticationResult.unsuccessful();
     }
   }
@@ -202,23 +216,15 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
    * Validates and normalizes the token prefix.
    * - Empty string: returns empty string (no prefix expected)
    * - Null: returns empty string (no prefix expected)
-   * - Non-empty: must end with space, otherwise throws IllegalArgumentException
+   * - Non-empty: ensures a trailing space is present
    * 
    * @param prefix the configured token prefix
    * @return normalized prefix
-   * @throws IllegalArgumentException if prefix format is invalid
    */
   private static String normalizePrefix(String prefix) {
     if (prefix == null || prefix.isEmpty()) {
       return "";
     }
-    if (!prefix.endsWith(" ")) {
-      throw new IllegalArgumentException(
-        "Invalid token prefix configuration: '" + prefix + "'. " +
-        "Prefix must end with a space (e.g., 'Bearer ', not 'Bearer'). " +
-        "Use empty string for no prefix."
-      );
-    }
-    return prefix;
+    return prefix.endsWith(" ") ? prefix : prefix + " ";
   }
 }

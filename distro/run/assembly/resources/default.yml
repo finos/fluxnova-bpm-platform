@@ -20,6 +20,27 @@ fluxnova.bpm:
 # https://docs.camunda.org/manual/latest/user-guide/camunda-bpm-run/#example-application
     example:
       enabled: true
+# Authentication - uncomment one of the following sections to enable REST API authentication
+#
+# Option 1: HTTP Basic authentication
+#   run:
+#     auth:
+#       enabled: true
+#       authentication: basic
+#
+# Option 2: OAuth2/OIDC JWT authentication
+# All values can be supplied as environment variables, e.g. FLUXNOVA_BPM_JWT_JWKS_URL=...
+#   run:
+#     auth:
+#       enabled: true
+#       authentication: jwt
+#   jwt:
+#     jwks-url: https://login.microsoftonline.com/{tenant}/discovery/v2.0/keys
+#     issuer: https://login.microsoftonline.com/{tenant}/v2.0
+#     audience: api://your-client-id
+#     user-claim-name: preferred_username   # default: sub
+#     groups-claim-name: groups             # optional
+#     header-prefix: "Bearer"              # trailing space added automatically; default: "Bearer"
 
 # datasource configuration is required
 spring.datasource:
