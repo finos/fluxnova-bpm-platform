@@ -24,6 +24,8 @@ import org.finos.fluxnova.spin.impl.util.SpinIoUtil;
 import javax.script.ScriptEngine;
 
 import java.io.InputStream;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,13 +94,24 @@ public class SpinScriptEnv {
 
   protected static String loadScriptEnv(String language, String extension) {
     String scriptEnvPath = String.format(ENV_PATH_TEMPLATE, language, extension);
-    // Validate the constructed path contains no traversal sequences
-    for (String segment : scriptEnvPath.split("/")) {
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(scriptEnvPath, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw LOG.noScriptEnvFoundForLanguage(language, scriptEnvPath);
+    }
+
+    String safePath = decoded.replace('\\', '/');
+    for (String segment : safePath.split("/", -1)) {
       if ("..".equals(segment)) {
         throw LOG.noScriptEnvFoundForLanguage(language, scriptEnvPath);
       }
     }
-    InputStream envResource = SpinScriptException.class.getClassLoader().getResourceAsStream(scriptEnvPath);
+
+    InputStream envResource = SpinScriptException.class.getClassLoader()
+        .getResourceAsStream(safePath);
 
     if(envResource == null) {
       throw LOG.noScriptEnvFoundForLanguage(language, scriptEnvPath);

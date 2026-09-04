@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.WebappProperty;
 
 import org.finos.fluxnova.bpm.webapp.impl.engine.ProcessEnginesFilter;
@@ -60,11 +62,18 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
 
   @Override
   protected String getWebResourceContents(String name) throws IOException {
-    validateResourceName(name);
-    InputStream is = null;
-
+    String safeName;
     try {
-      Resource resource = resourceLoader.getResource("classpath:"+webappProperty.getWebjarClasspath() + name);
+      safeName = validateResourceName(name);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IOException(e.getMessage());
+    }
+
+    InputStream is = null;
+    try {
+      Resource resource = resourceLoader.getResource(
+          "classpath:" + webappProperty.getWebjarClasspath() + safeName);
       is = resource.getInputStream();
 
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -130,15 +139,28 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     return input;
   }
 
-  private static void validateResourceName(String name) throws IOException {
+  private static String validateResourceName(String name) {
     if (name == null) {
-      throw new IOException("Resource name must not be null");
+      throw new IllegalArgumentException("Resource name must not be null");
     }
-    String normalized = name.replace('\\', '/');
-    for (String segment : normalized.split("/")) {
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(name, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+          "Resource name contains malformed encoding: " + name);
+    }
+
+    String normalized = decoded.replace('\\', '/');
+    for (String segment : normalized.split("/", -1)) {
       if ("..".equals(segment)) {
-        throw new IOException("Resource name contains illegal path traversal sequence: " + name);
+        throw new IllegalArgumentException(
+            "Resource name contains illegal path traversal sequence: " + name);
       }
     }
+
+    return normalized;
   }
 }
