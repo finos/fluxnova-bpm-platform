@@ -98,6 +98,11 @@ public interface HistoricVariableInstance {
   String getProcessInstanceId();
 
   /**
+   * The business key of the process instance this variable belongs to.
+   */
+  String getBusinessKey();
+
+  /**
    * Return the corresponding execution id.
    */
   String getExecutionId();

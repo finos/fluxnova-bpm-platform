@@ -62,6 +62,18 @@ public interface VariableInstanceQuery extends Query<VariableInstanceQuery, Vari
   VariableInstanceQuery processInstanceIdIn(String... processInstanceIds);
 
   /**
+   * Only select variable instances that belong to process instances with the given business key.
+   **/
+  VariableInstanceQuery businessKey(String businessKey);
+
+  /**
+   * Only select variable instances that belong to process instances with business keys matching the pattern.
+   * The string can include the wildcard character '%' to express like-strategy:
+   * starts with (string%), ends with (%string) or contains (%string%).
+   **/
+  VariableInstanceQuery businessKeyLike(String businessKeyLike);
+
+  /**
    * Only select variable instances which have one of the case execution ids.
    **/
   VariableInstanceQuery caseExecutionIdIn(String... caseExecutionIds);

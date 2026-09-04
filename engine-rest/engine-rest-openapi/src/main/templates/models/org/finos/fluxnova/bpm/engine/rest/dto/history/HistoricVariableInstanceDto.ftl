@@ -113,6 +113,12 @@
         type = "string"
         desc = "The process instance id of the root process instance that initiated the process
                 containing this variable."
+    />
+
+    <@lib.property
+        name = "businessKey"
+        type = "string"
+        desc = "The business key of the process instance that this variable instance belongs to."
         last = true
     />
 

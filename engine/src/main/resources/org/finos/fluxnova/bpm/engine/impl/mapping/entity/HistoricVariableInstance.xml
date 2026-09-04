@@ -329,6 +329,7 @@
     <result property="processDefinitionId" column="PROC_DEF_ID_" jdbcType="VARCHAR" />
     <result property="rootProcessInstanceId" column="ROOT_PROC_INST_ID_" jdbcType="VARCHAR" />
     <result property="processInstanceId" column="PROC_INST_ID_" jdbcType="VARCHAR" />
+    <result property="businessKey" column="PROC_INST_BUSINESS_KEY_" jdbcType="VARCHAR" />
     <result property="executionId" column="EXECUTION_ID_" jdbcType="VARCHAR" />
     <result property="activityInstanceId" column="ACT_INST_ID_" jdbcType="VARCHAR" />
     <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
@@ -357,6 +358,7 @@
     <result property="processDefinitionId" column="PROC_DEF_ID_" jdbcType="VARCHAR" />
     <result property="rootProcessInstanceId" column="ROOT_PROC_INST_ID_" jdbcType="VARCHAR" />
     <result property="processInstanceId" column="PROC_INST_ID_" jdbcType="VARCHAR" />
+    <result property="businessKey" column="PROC_INST_BUSINESS_KEY_" jdbcType="VARCHAR" />
     <result property="executionId" column="EXECUTION_ID_" jdbcType="VARCHAR" />
     <result property="activityInstanceId" column="ACT_INST_ID_" jdbcType="VARCHAR" />
     <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
@@ -404,7 +406,7 @@
   <select id="selectHistoricVariableInstanceByQueryCriteria" parameterType="org.finos.fluxnova.bpm.engine.impl.HistoricVariableInstanceQueryImpl" resultMap="historicVariableInstanceResultMap">
   	<include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.Commons.bindOrderBy"/>
     ${limitBefore}
-    select ${distinct} RES.*
+    select ${distinct} RES.*, PROC_INST.BUSINESS_KEY_ PROC_INST_BUSINESS_KEY_
     ${limitBetween}
     <include refid="selectHistoricVariableInstanceByQueryCriteriaSql"/>
     ${orderBy}
@@ -444,6 +446,8 @@
       INNER JOIN ${prefix}ACT_HI_CASEACTINST HCAI
       ON RES.ACT_INST_ID_ = HCAI.ID_
     </if>
+    left join ${prefix}ACT_HI_PROCINST PROC_INST
+    on PROC_INST.PROC_INST_ID_ = RES.PROC_INST_ID_
 
     <where>
       <if test="variableNameIn != null">
@@ -508,6 +512,26 @@
                  open="(" separator="," close=")">
           #{item}
         </foreach>
+      </if>
+
+      <!-- businessKey -->
+      <if test="businessKey != null">
+        and exists (
+          select 1
+          from ${prefix}ACT_HI_PROCINST PROC_INST
+          where PROC_INST.PROC_INST_ID_ = RES.PROC_INST_ID_
+            and PROC_INST.BUSINESS_KEY_ = #{businessKey}
+        )
+      </if>
+
+      <!-- businessKeyLike -->
+      <if test="businessKeyLike != null">
+        and exists (
+          select 1
+          from ${prefix}ACT_HI_PROCINST PROC_INST
+          where PROC_INST.PROC_INST_ID_ = RES.PROC_INST_ID_
+            and PROC_INST.BUSINESS_KEY_ like #{businessKeyLike} ESCAPE ${escapeChar}
+        )
       </if>
 
       <!-- taskIds -->

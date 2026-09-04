@@ -41,6 +41,7 @@ public class HistoricVariableInstanceDto extends VariableValueDto {
   private Date createTime;
   private Date removalTime;
   private String rootProcessInstanceId;
+  private String businessKey;
 
   public String getId() {
     return id;
@@ -114,6 +115,10 @@ public class HistoricVariableInstanceDto extends VariableValueDto {
     return rootProcessInstanceId;
   }
 
+  public String getBusinessKey() {
+    return businessKey;
+  }
+
   public static HistoricVariableInstanceDto fromHistoricVariableInstance(HistoricVariableInstance historicVariableInstance) {
 
     HistoricVariableInstanceDto dto = new HistoricVariableInstanceDto();
@@ -135,6 +140,7 @@ public class HistoricVariableInstanceDto extends VariableValueDto {
     dto.createTime = historicVariableInstance.getCreateTime();
     dto.removalTime = historicVariableInstance.getRemovalTime();
     dto.rootProcessInstanceId = historicVariableInstance.getRootProcessInstanceId();
+    dto.businessKey = historicVariableInstance.getBusinessKey();
 
     if(historicVariableInstance.getErrorMessage() == null) {
       VariableValueDto.fromTypedValue(dto, historicVariableInstance.getTypedValue());

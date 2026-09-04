@@ -395,6 +395,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     queryParameters.put("variableNameLike", "aVariableNameLike");
     queryParameters.put("executionIdIn", "anExecutionId");
     queryParameters.put("processInstanceIdIn", "aProcessInstanceId");
+    queryParameters.put("businessKey", "aBusinessKey");
+    queryParameters.put("businessKeyLike", "aBusinessKey%");
     queryParameters.put("caseExecutionIdIn", "aCaseExecutionId");
     queryParameters.put("caseInstanceIdIn", "aCaseInstanceId");
     queryParameters.put("taskIdIn", "aTaskId");
@@ -410,6 +412,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     verify(mockedQuery).variableName(queryParameters.get("variableName"));
     verify(mockedQuery).variableNameLike(queryParameters.get("variableNameLike"));
     verify(mockedQuery).processInstanceIdIn(queryParameters.get("processInstanceIdIn"));
+    verify(mockedQuery).businessKey(queryParameters.get("businessKey"));
+    verify(mockedQuery).businessKeyLike(queryParameters.get("businessKeyLike"));
     verify(mockedQuery).executionIdIn(queryParameters.get("executionIdIn"));
     verify(mockedQuery).caseInstanceIdIn(queryParameters.get("caseInstanceIdIn"));
     verify(mockedQuery).caseExecutionIdIn(queryParameters.get("caseExecutionIdIn"));
@@ -432,6 +436,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     String aVariableName = "aVariableName";
     String aVariableNameLike = "aVariableNameLike";
     String aProcessInstanceId = "aProcessInstanceId";
+    String aBusinessKey = "aBusinessKey";
+    String aBusinessKeyLike = "aBusinessKey%";
     String anExecutionId = "anExecutionId";
     String aTaskId = "aTaskId";
     String aBatchId = "aBatchId";
@@ -453,6 +459,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     List<String> processInstanceIdIn = new ArrayList<String>();
     processInstanceIdIn.add(aProcessInstanceId);
     queryParameters.put("processInstanceIdIn", processInstanceIdIn);
+    queryParameters.put("businessKey", aBusinessKey);
+    queryParameters.put("businessKeyLike", aBusinessKeyLike);
 
     List<String> caseExecutionIdIn = new ArrayList<String>();
     caseExecutionIdIn.add(aCaseExecutionId);
@@ -489,6 +497,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     verify(mockedQuery).variableName(aVariableName);
     verify(mockedQuery).variableNameLike(aVariableNameLike);
     verify(mockedQuery).processInstanceIdIn(aProcessInstanceId);
+    verify(mockedQuery).businessKey(aBusinessKey);
+    verify(mockedQuery).businessKeyLike(aBusinessKeyLike);
     verify(mockedQuery).executionIdIn(anExecutionId);
     verify(mockedQuery).taskIdIn(aTaskId);
     verify(mockedQuery).batchIdIn(aBatchId);

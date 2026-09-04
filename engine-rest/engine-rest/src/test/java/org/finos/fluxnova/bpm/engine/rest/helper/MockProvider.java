@@ -2335,7 +2335,8 @@ public abstract class MockProvider {
         .errorMessage(null)
         .createTime(DateTimeUtil.parseDate(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_CREATE_TIME))
         .removalTime(DateTimeUtil.parseDate(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_REMOVAL_TIME))
-        .rootProcessInstanceId(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_ROOT_PROC_INST_ID);
+        .rootProcessInstanceId(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_ROOT_PROC_INST_ID)
+        .businessKey(EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY);
   }
 
   public static List<ProcessInstance> createAnotherMockProcessInstanceList() {

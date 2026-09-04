@@ -469,6 +469,28 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
 
   @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
   @Test
+  public void testHistoricVariableInstanceQueryByProcessBusinessKey() {
+    Map<String, Object> variables1 = new HashMap<>();
+    variables1.put("first", "value1");
+    runtimeService.startProcessInstanceByKey("oneTaskProcess", "a-business-key", variables1);
+
+    Map<String, Object> variables2 = new HashMap<>();
+    variables2.put("second", "value2");
+    runtimeService.startProcessInstanceByKey("oneTaskProcess", "another-business-key", variables2);
+
+    HistoricVariableInstanceQuery exactMatchQuery = historyService.createHistoricVariableInstanceQuery()
+        .businessKey("a-business-key");
+    assertEquals(1, exactMatchQuery.count());
+    assertEquals(1, exactMatchQuery.list().size());
+
+    HistoricVariableInstanceQuery likeQuery = historyService.createHistoricVariableInstanceQuery()
+        .businessKeyLike("%business-key");
+    assertEquals(2, likeQuery.count());
+    assertEquals(2, likeQuery.list().size());
+  }
+
+  @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
+  @Test
   public void testHistoricVariableInstanceQueryByExecutionIds() {
     // given
     Map<String, Object> variables1 = new HashMap<>();

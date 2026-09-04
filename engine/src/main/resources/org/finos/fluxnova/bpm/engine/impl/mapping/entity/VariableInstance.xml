@@ -126,6 +126,7 @@
       <result property="isConcurrentLocal" column="IS_CONCURRENT_LOCAL_" jdbcType="BOOLEAN"/>
       <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR"/>
       <result property="restricted" column="RESTRICTED_" jdbcType="BOOLEAN"/>
+      <result property="businessKey" column="PROC_INST_BUSINESS_KEY_" jdbcType="VARCHAR"/>
 	</resultMap>
 
   <!-- VARIABLE INSTANCE SELECT -->
@@ -325,7 +326,8 @@
     from (
           select
             RES.*,
-            (<include refid="actInstIdColumn"/>) ACT_INST_ID_
+            (<include refid="actInstIdColumn"/>) ACT_INST_ID_,
+            PROC_INST_EXEC.BUSINESS_KEY_ PROC_INST_BUSINESS_KEY_
 
           from ${prefix}ACT_RU_VARIABLE RES
 
@@ -334,6 +336,9 @@
 
           left join ${prefix}ACT_RU_EXECUTION PARENT_EXECUTION
           on EXECUTION.PARENT_ID_ = PARENT_EXECUTION.ID_
+
+          left join ${prefix}ACT_RU_EXECUTION PROC_INST_EXEC
+          on PROC_INST_EXEC.ID_ = RES.PROC_INST_ID_
 
           <if test="authCheck.shouldPerformAuthorizatioCheck &amp;&amp; authCheck.authUserId != null">
             left join ${prefix}ACT_RU_EXECUTION PROC_EXECUTION
@@ -394,6 +399,26 @@
                        open="(" separator="," close=")">
                 #{item}
               </foreach>
+            </if>
+
+            <!-- businessKey -->
+            <if test="businessKey != null">
+              and exists (
+                select 1
+                from ${prefix}ACT_RU_EXECUTION PROC_INST
+                where PROC_INST.ID_ = RES.PROC_INST_ID_
+                  and PROC_INST.BUSINESS_KEY_ = #{businessKey}
+              )
+            </if>
+
+            <!-- businessKeyLike -->
+            <if test="businessKeyLike != null">
+              and exists (
+                select 1
+                from ${prefix}ACT_RU_EXECUTION PROC_INST
+                where PROC_INST.ID_ = RES.PROC_INST_ID_
+                  and PROC_INST.BUSINESS_KEY_ like #{businessKeyLike} ESCAPE ${escapeChar}
+              )
             </if>
 
             <!-- caseExecutionIds -->

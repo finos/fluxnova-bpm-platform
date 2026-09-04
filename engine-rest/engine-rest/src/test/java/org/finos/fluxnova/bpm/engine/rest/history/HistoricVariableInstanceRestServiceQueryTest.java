@@ -666,6 +666,38 @@ public class HistoricVariableInstanceRestServiceQueryTest extends AbstractRestSe
   }
 
   @Test
+  public void testHistoricVariableQueryByBusinessKey() {
+    String businessKey = "aBusinessKey";
+    String businessKeyLike = "aBusinessKey%";
+
+    given()
+        .queryParam("businessKey", businessKey)
+        .queryParam("businessKeyLike", businessKeyLike)
+        .then().expect().statusCode(Status.OK.getStatusCode())
+        .when().get(HISTORIC_VARIABLE_INSTANCE_RESOURCE_URL);
+
+    verify(mockedQuery).businessKey(businessKey);
+    verify(mockedQuery).businessKeyLike(businessKeyLike);
+  }
+
+  @Test
+  public void testHistoricVariableQueryByBusinessKeyAsPost() {
+    String businessKey = "aBusinessKey";
+    String businessKeyLike = "aBusinessKey%";
+
+    Map<String, Object> json = new HashMap<String, Object>();
+    json.put("businessKey", businessKey);
+    json.put("businessKeyLike", businessKeyLike);
+
+    given().contentType(POST_JSON_CONTENT_TYPE).body(json)
+            .then().expect().statusCode(Status.OK.getStatusCode())
+            .when().post(HISTORIC_VARIABLE_INSTANCE_RESOURCE_URL);
+
+    verify(mockedQuery).businessKey(businessKey);
+    verify(mockedQuery).businessKeyLike(businessKeyLike);
+  }
+
+  @Test
   public void testHistoricVariableQueryByActivityInstanceIds() {
       String anActivityInstanceId = "anActivityInstanceId";
       String anotherActivityInstanceId = "anotherActivityInstanceId";

@@ -115,6 +115,7 @@ public class HistoricVariableInstanceRestServiceInteractionTest extends Abstract
       .body("createTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_CREATE_TIME))
       .body("removalTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_REMOVAL_TIME))
       .body("rootProcessInstanceId", equalTo(builder.getRootProcessInstanceId()))
+      .body("businessKey", equalTo(builder.getBusinessKey()))
     .when().get(VARIABLE_INSTANCE_URL);
 
     verify(variableInstanceQueryMock, times(1)).disableBinaryFetching();
@@ -159,6 +160,7 @@ public class HistoricVariableInstanceRestServiceInteractionTest extends Abstract
       .body("createTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_CREATE_TIME))
       .body("removalTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_REMOVAL_TIME))
       .body("rootProcessInstanceId", equalTo(builder.getRootProcessInstanceId()))
+      .body("businessKey", equalTo(builder.getBusinessKey()))
     .when().get(VARIABLE_INSTANCE_URL);
 
     verify(variableInstanceQueryMock, times(1)).disableBinaryFetching();
@@ -204,6 +206,7 @@ public class HistoricVariableInstanceRestServiceInteractionTest extends Abstract
       .body("createTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_CREATE_TIME))
       .body("removalTime", equalTo(MockProvider.EXAMPLE_HISTORIC_VARIABLE_INSTANCE_REMOVAL_TIME))
       .body("rootProcessInstanceId", equalTo(builder.getRootProcessInstanceId()))
+      .body("businessKey", equalTo(builder.getBusinessKey()))
     .when().get(VARIABLE_INSTANCE_URL);
 
     verify(variableInstanceQueryMock, times(1)).disableBinaryFetching();

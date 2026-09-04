@@ -60,6 +60,8 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
   protected String[] caseExecutionIds;
   protected String[] caseActivityIds;
   protected String[] activityInstanceIds;
+  protected String businessKey;
+  protected String businessKeyLike;
 
   protected String[] tenantIds;
   protected boolean isTenantIdSet;
@@ -164,6 +166,19 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
   public HistoricVariableInstanceQuery processInstanceIdIn(String... processInstanceIds) {
     ensureNotNull("Process Instance Ids", (Object[]) processInstanceIds);
     this.processInstanceIds = processInstanceIds;
+    return this;
+  }
+
+  @Override
+  public HistoricVariableInstanceQuery businessKey(String businessKey) {
+    ensureNotNull("Business key", businessKey);
+    this.businessKey = businessKey;
+    return this;
+  }
+
+  @Override
+  public HistoricVariableInstanceQuery businessKeyLike(String businessKeyLike) {
+    this.businessKeyLike = businessKeyLike;
     return this;
   }
 
@@ -331,6 +346,14 @@ public class HistoricVariableInstanceQueryImpl extends AbstractQuery<HistoricVar
 
   public String[] getProcessInstanceIds() {
     return processInstanceIds;
+  }
+
+  public String getBusinessKey() {
+    return businessKey;
+  }
+
+  public String getBusinessKeyLike() {
+    return businessKeyLike;
   }
 
   public String[] getTaskIds() {
