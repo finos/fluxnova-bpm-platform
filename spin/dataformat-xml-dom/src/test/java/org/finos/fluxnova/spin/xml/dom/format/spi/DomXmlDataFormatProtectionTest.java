@@ -18,8 +18,12 @@ package org.finos.fluxnova.spin.xml.dom.format.spi;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.impl.xml.dom.format.DomXmlDataFormat;
@@ -68,6 +72,51 @@ public class DomXmlDataFormatProtectionTest {
         .hasMessageContaining("SPIN/DOM-XML-01009 Unable to parse input into DOM document")
         .hasStackTraceContaining("DOCTYPE")
         .hasStackTraceContaining("http://apache.org/xml/features/disallow-doctype-decl");
+  }
+
+  /*
+   * Verifies that the TransformerFactory used by the writer is hardened against CWE-611
+   * (XML External Entity Reference). The test simulates an attacker-controlled XSL
+   * that attempts to include an external stylesheet via xsl:include (file URI).
+   * With ACCESS_EXTERNAL_STYLESHEET set to "" and FEATURE_SECURE_PROCESSING enabled,
+   * the transformer must reject external resource resolution and throw SpinXmlDataFormatException.
+   */
+  @Test
+  public void shouldDenyExternalStylesheetAccessInFormattingConfiguration() throws Exception {
+    // given
+    // A minimal valid XSL file on disk, simulating an external resource an attacker
+    // could reference.
+    Path importedStylesheet = Files.createTempFile("spin-dom-xml-external-", ".xsl");
+    Files.write(
+      importedStylesheet,
+      ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+        + "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+        + "<xsl:template match=\"/\">"
+        + "<included/>"
+        + "</xsl:template>"
+        + "</xsl:stylesheet>")
+        .getBytes(StandardCharsets.UTF_8));
+
+    // The security-sensitive line: xsl:include with an external file:// URI.
+    // This is the attack vector that must be blocked by the hardened TransformerFactory.
+    String stylesheetWithExternalIncluded = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+      + "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+      + "<xsl:include href=\"" + importedStylesheet.toUri() + "\"/>"
+      + "</xsl:stylesheet>";
+
+    // when / then
+    // Setting this as the formatting configuration triggers template compilation, at which
+    // point the transformer attempts to resolve the external include and must fail.
+    try {
+      assertThatThrownBy(() ->
+        format.setFormattingConfiguration(
+          new ByteArrayInputStream(stylesheetWithExternalIncluded.getBytes(StandardCharsets.UTF_8))))
+        .isInstanceOf(SpinXmlDataFormatException.class)
+        .hasMessageContaining("SPIN/DOM-XML-01038 Failed to get formatting templates")
+        .hasStackTraceContaining("accessExternalStylesheet");
+    } finally {
+      Files.deleteIfExists(importedStylesheet);
+    }
   }
 
 }
