@@ -23,7 +23,8 @@ public class FluxnovaBpmRunAuthenticationProperties {
 
   public static final String PREFIX = FluxnovaBpmRunProperties.PREFIX + ".auth";
   public static final String DEFAULT_AUTH = "basic";
-  public static final List<String> AUTH_METHODS = Arrays.asList(DEFAULT_AUTH);
+  public static final String JWT_AUTH = "jwt";
+  public static final List<String> AUTH_METHODS = Arrays.asList(DEFAULT_AUTH, JWT_AUTH);
 
   boolean enabled;
   String authentication = DEFAULT_AUTH;

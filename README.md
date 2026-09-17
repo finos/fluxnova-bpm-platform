@@ -59,6 +59,40 @@ Most of the components that make up the platform can even be completely embedded
 | Merge to `main` | [GHCR](https://ghcr.io) (`ghcr.io/finos/fluxnova-bpm-platform`) | `<run>-<sha>` e.g. `127-a3f9c21` |
 | Release (`release/x.y.z`) | [Docker Hub](https://hub.docker.com/r/finos/fluxnova-bpm-platform) (`finos/fluxnova-bpm-platform`) | `x.y.z` + `latest` |
 
+### Local builds with `docker buildx bake`
+
+The repository includes `docker-bake.hcl` with two targets:
+
+- `corretto21` (Amazon Corretto 21, DNF-based image)
+- `corretto21_alpine` (Amazon Corretto 21 Alpine image)
+
+The `corretto21` Dockerfile target supports optional BuildKit secrets:
+
+- `dnf_repo`: optional DNF repo file mounted as `/run/secrets/dnf_repo`
+- `trust_cert`: optional CA cert mounted as `/run/secrets/trust_cert` (trust store is updated only when provided)
+
+#### Basic builds (no args, no secrets)
+
+```bash
+docker buildx bake -f ./docker-bake.hcl
+```
+
+```bash
+docker buildx bake -f ./docker-bake.hcl corretto21
+```
+
+#### Build with Optional Build Args and Secrets
+
+```bash
+IMAGE_NAME=<docker-registry-host>/fluxnova-bpm-platform \
+VERSION=<version> \
+docker buildx bake -f ./docker-bake.hcl [target] \
+  --set '*.args.DOCKER_REGISTRY=<docker-registry-host>' \
+  --set '*.args.ALPINE_REGISTRY=<alpine-registry-url>' \
+  --set 'corretto21.secrets=id=dnf_repo,src=<path-to-dnf-repo-file>' \
+  --set 'corretto21.secrets=id=trust_cert,src=<path-to-ca-cert>'
+```
+
 ## Contributing
 
 Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.

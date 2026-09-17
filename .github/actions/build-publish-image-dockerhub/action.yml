@@ -21,18 +21,8 @@ runs:
         username: ${{ env.DOCKER_USERNAME }}
         password: ${{ env.DOCKER_PASSWORD }}
 
-    - name: Set Docker Image Tag
-      id: tags
+    - name: Build and Push Docker Images
       shell: bash
       run: |
-        echo "tags=${{ inputs.image_name }}:${{ inputs.release_tag }},${{ inputs.image_name }}:latest" >> $GITHUB_OUTPUT
-
-    - name: Build and Push Docker Image
-      uses: docker/build-push-action@v7
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: ${{ steps.tags.outputs.tags }}
-        provenance: true
-        platforms: linux/amd64,linux/arm64
+        IMAGE_NAME='${{ inputs.image_name }}' VERSION='${{ inputs.release_tag }}' \
+          docker buildx bake -f ./docker-bake.hcl --push

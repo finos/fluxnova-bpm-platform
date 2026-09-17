@@ -40,7 +40,7 @@ This document describes how to prepare, perform, and publish a new release of Fl
 - Runs `mvn release:perform` to build and deploy artifacts to Sonatype (Maven Central).
 - Exposes `release_version` as an output so downstream jobs (Docker) receive the tag.
 - Builds the distro ZIP (at `distro/run/distro/target/fluxnova-bpm-run-*.zip`).
-- Builds and pushes a Docker image tagged with `RELEASE_VERSION` to GHCR.
+- Builds and pushes two Docker images tagged with `RELEASE_VERSION` to Docker Hub: one based on `amazoncorretto:21` and one on `amazoncorretto:21-alpine`.
 
 ---
 
@@ -80,16 +80,17 @@ mvn -B \
 mvn -B -DskipTests -pl distro/run/distro -am package
 ```
 
-- Build/push Docker image (via composite action):
-  - Images: `ghcr.io/<org>/<repo>`
-  - Tag: `${{ inputs.version }}` (e.g., `1.15.0`)
+- Build/push Docker images (via composite action):
+  - Images: `finos/fluxnova-bpm-platform`
+  - Tags: `${{ inputs.version }}-corretto21` and `${{ inputs.version }}-corretto21-alpine`
+  - Implementation: `IMAGE_NAME=finos/fluxnova-bpm-platform VERSION=${RELEASE_VERSION} docker buildx bake -f ./docker-bake.hcl --push`
 
 ---
 
 ### Docker Image Tagging
 - The Docker job consumes `needs.publish-central.outputs.release_version` and passes it to the composite action `build-publish-image`.
 - docker/metadata-action composes tags and labels; we explicitly include the literal tag equal to the release version.
-- Result: image pushed to `ghcr.io/<org>/<repo>:<RELEASE_VERSION>`.
+- Result: images pushed to `finos/fluxnova-bpm-platform:<RELEASE_VERSION>-corretto21` and `finos/fluxnova-bpm-platform:<RELEASE_VERSION>-corretto21-alpine`.
 
 ---
 

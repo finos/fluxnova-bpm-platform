@@ -52,4 +52,12 @@ public class FluxnovaBpmRunLogger extends BaseLogger {
                          pluginName, e.getMessage(), e));
   }
 
+  public void authenticationEnabled(String type) {
+    logInfo("004", "REST API authentication is enabled with type '{}'.", type);
+  }
+
+  public void authenticationDisabled() {
+    logInfo("005", "REST API authentication is disabled. All REST API endpoints are unprotected.");
+  }
+
 }

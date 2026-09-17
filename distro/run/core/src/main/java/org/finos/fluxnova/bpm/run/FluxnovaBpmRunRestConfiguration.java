@@ -19,12 +19,16 @@ package org.finos.fluxnova.bpm.run;
 import jakarta.servlet.Filter;
 import org.apache.catalina.filters.CorsFilter;
 import org.finos.fluxnova.bpm.engine.rest.security.auth.ProcessEngineAuthenticationFilter;
+import org.finos.fluxnova.bpm.engine.rest.security.auth.impl.JwtAuthenticationPlugin;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunAuthenticationProperties;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunCorsProperty;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.FluxnovaBpmAutoConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.rest.FluxnovaBpmRestInitializer;
 import org.finos.fluxnova.bpm.spring.boot.starter.rest.FluxnovaJerseyResourceConfig;
+import org.finos.fluxnova.bpm.spring.boot.starter.rest.JwtAuthenticationProperties;
+import org.finos.fluxnova.bpm.spring.boot.starter.rest.RestAuthenticationConfigurationSupport;
+import org.finos.fluxnova.bpm.run.utils.FluxnovaBpmRunLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -37,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 
-@EnableConfigurationProperties(FluxnovaBpmRunProperties.class)
+@EnableConfigurationProperties({ FluxnovaBpmRunProperties.class, JwtAuthenticationProperties.class })
 @Configuration
 @AutoConfigureAfter({ FluxnovaBpmAutoConfiguration.class })
 @ConditionalOnClass(FluxnovaBpmRestInitializer.class)
@@ -45,6 +49,9 @@ public class FluxnovaBpmRunRestConfiguration {
 
   @Autowired
   FluxnovaBpmRunProperties fluxnovaBpmRunProperties;
+
+  @Autowired
+  JwtAuthenticationProperties jwtAuthenticationProperties;
 
   /*
    * The CORS and Authentication filters need to run before other camunda
@@ -62,22 +69,32 @@ public class FluxnovaBpmRunRestConfiguration {
   private static int CORS_FILTER_PRECEDENCE = 0;
   private static int AUTH_FILTER_PRECEDENCE = 1;
 
+  private static final FluxnovaBpmRunLogger LOG = FluxnovaBpmRunLogger.LOG;
+
   @Bean
   @ConditionalOnProperty(name = "enabled", havingValue = "true", prefix = FluxnovaBpmRunAuthenticationProperties.PREFIX)
   public FilterRegistrationBean<Filter> processEngineAuthenticationFilter(JerseyApplicationPath applicationPath) {
     FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
     registration.setName("fluxnova-auth");
-    registration.setFilter(new ProcessEngineAuthenticationFilter());
     registration.setOrder(AUTH_FILTER_PRECEDENCE);
 
     String restApiPathPattern = applicationPath.getUrlMapping();
     registration.addUrlPatterns(restApiPathPattern);
 
-    // if nothing is set, use Http Basic authentication
     FluxnovaBpmRunAuthenticationProperties properties = fluxnovaBpmRunProperties.getAuth();
-    if (properties.getAuthentication() == null || FluxnovaBpmRunAuthenticationProperties.DEFAULT_AUTH.equals(properties.getAuthentication())) {
-      registration.addInitParameter("authentication-provider", "org.finos.fluxnova.bpm.engine.rest.security.auth.impl.HttpBasicAuthenticationProvider");
+
+    if (FluxnovaBpmRunAuthenticationProperties.JWT_AUTH.equals(properties.getAuthentication())) {
+      LOG.authenticationEnabled(FluxnovaBpmRunAuthenticationProperties.JWT_AUTH);
+      JwtAuthenticationPlugin plugin =
+          RestAuthenticationConfigurationSupport.createJwtAuthenticationPlugin(jwtAuthenticationProperties);
+
+      registration.setFilter(RestAuthenticationConfigurationSupport.createJwtAuthenticationFilter(plugin));
+    } else {
+      LOG.authenticationEnabled(FluxnovaBpmRunAuthenticationProperties.DEFAULT_AUTH);
+      registration.setFilter(RestAuthenticationConfigurationSupport.createBasicAuthenticationFilter());
+      RestAuthenticationConfigurationSupport.applyBasicAuthenticationProvider(registration);
     }
+
     return registration;
   }
 
