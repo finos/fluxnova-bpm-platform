@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
 @EnableConfigurationProperties({
   FluxnovaBpmProperties.class,
@@ -45,6 +46,7 @@ import org.springframework.context.annotation.Primary;
   SpringProcessEngineServicesConfiguration.class
 })
 @Configuration
+@PropertySource("classpath:fluxnova-defaults.properties")
 @ConditionalOnProperty(prefix = FluxnovaBpmProperties.PREFIX, name = "enabled", matchIfMissing = true)
 public class FluxnovaBpmAutoConfiguration {
 
