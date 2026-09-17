@@ -2236,6 +2236,9 @@ public class BpmnParse extends Parse {
       // for backwards compatible reasons
       resultVariableName = element.attributeNS(CAMUNDA_BPMN_EXTENSIONS_NS, "resultVariableName");
     }
+    if (resultVariableName != null && resultVariableName.trim().isEmpty()) {
+      resultVariableName = null;
+    }
     return resultVariableName;
   }
 

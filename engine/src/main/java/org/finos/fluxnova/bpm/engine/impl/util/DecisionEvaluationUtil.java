@@ -81,7 +81,7 @@ public class DecisionEvaluationUtil {
       TypedValue typedValue = Variables.untypedValue(result, true);
       execution.setVariableLocal(DECISION_RESULT_VARIABLE, typedValue);
 
-      if (resultVariable != null && decisionResultMapper != null) {
+      if (resultVariable != null && !resultVariable.trim().isEmpty() && decisionResultMapper != null) {
         Object mappedDecisionResult = decisionResultMapper.mapDecisionResult(result);
         execution.setVariable(resultVariable, mappedDecisionResult);
       }
