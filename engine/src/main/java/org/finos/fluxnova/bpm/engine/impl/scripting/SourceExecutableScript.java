@@ -166,6 +166,7 @@ public class SourceExecutableScript extends CompiledExecutableScript {
    *          the new script source code
    */
   public synchronized void setScriptSource(String scriptSource) {
+   ScriptEvaluationUtil.validateScriptSource(scriptSource);
     invalidateCompiledScript();
     this.scriptSource = scriptSource;
   }

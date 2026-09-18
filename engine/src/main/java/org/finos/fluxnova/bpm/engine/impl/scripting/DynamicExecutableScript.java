@@ -46,11 +46,12 @@ public abstract class DynamicExecutableScript extends ExecutableScript {
     }
     source = preprocessScript(source, variableScope);
     try {
-        return ScriptEvaluationUtil.evaluate(scriptEngine, source, bindings);
+      return ScriptEvaluationUtil.evaluate(scriptEngine, source, bindings);
     }
     catch (ScriptException e) {
       String activityIdMessage = getActivityIdExceptionMessage(variableScope);
-      throw new ScriptEvaluationException("Unable to evaluate script" + activityIdMessage + ": " + e.getMessage(), e);
+      throw new ScriptEvaluationException(
+          "Unable to evaluate script" + activityIdMessage + ": " + e.getMessage(), e);
     }
   }
 

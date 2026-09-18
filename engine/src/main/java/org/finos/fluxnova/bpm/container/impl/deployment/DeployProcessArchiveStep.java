@@ -89,12 +89,12 @@ public class DeployProcessArchiveStep extends DeploymentOperationStep {
     // add all processes listed in the processes.xml
     List<String> listedProcessResources = processArchive.getProcessResourceNames();
     for (String processResource : listedProcessResources) {
-      ReflectUtil.validateResourceName(processResource);
+      String safeResource = ReflectUtil.validateResourceName(processResource);
       InputStream resourceAsStream = null;
       try {
-        resourceAsStream = processApplicationClassloader.getResourceAsStream(processResource);
-        byte[] bytes = IoUtil.readInputStream(resourceAsStream, processResource);
-        deploymentMap.put(processResource, bytes);
+        resourceAsStream = processApplicationClassloader.getResourceAsStream(safeResource);
+        byte[] bytes = IoUtil.readInputStream(resourceAsStream, safeResource);
+        deploymentMap.put(safeResource, bytes);
       } finally {
         IoUtil.closeSilently(resourceAsStream);
       }
