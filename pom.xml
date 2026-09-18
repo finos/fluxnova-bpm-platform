@@ -35,11 +35,11 @@
   <maven.compiler.release>17</maven.compiler.release>
 
     <!-- These properties are used in both the BOM as well as fluxnova-parent and subprojects -->
-    <version.mybatis>3.5.15</version.mybatis>
+    <version.mybatis>3.5.19</version.mybatis>
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
     <version.feel-scala>2.0.0</version.feel-scala>
-    <version.jacoco>0.8.14</version.jacoco>
+    <version.jacoco>0.8.15</version.jacoco>
     <version.sonar.plugin>5.5.0.6356</version.sonar.plugin>
     <releasePerform>false</releasePerform>
   </properties>
