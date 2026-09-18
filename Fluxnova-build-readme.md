@@ -83,81 +83,9 @@ The `fluxnova-bpm-platform` project uses GitHub Actions for automated CI/CD on F
 5. **Download Dependencies:**  
    Resolves and downloads all Maven dependencies and plugins.
 6. **Build and Deploy:**  
-   Builds the project and deploys artifacts to GitHub Packages.
+   Builds the project and deploys artifacts to maven central.
 7. **Run Tests:**  
    Runs unit and integration tests in separate jobs.
-
-### Deployment to GitHub Packages
-
-The deployment of artifacts to GitHub Packages is configured in the root `pom.xml` using the `<distributionManagement>` and `<repositories>` tags.
-
-- **`<distributionManagement>`**:  
-  Specifies where Maven should deploy release and snapshot artifacts. For this project, both releases and snapshots are deployed to GitHub Packages.
-
-- **`<repositories>`**:  
-  Lists the Maven repositories (including GitHub Packages for all Fluxnova dependencies) from which dependencies are resolved during the build.
-
-Example configuration in the root `pom.xml`:
-
-```xml
-<repositories>
-  <repository>
-    <id>fluxnova-bpm-platform</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-feel-scala</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-feel-scala</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-bpm-release-parent</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-bpm-release-parent</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-release-parent</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-release-parent</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-</repositories>
-
-<distributionManagement>
-<repository>
-   <id>fluxnova-bpm-platform</id>
-   <name>GitHub Fluxnova Maven Packages</name>
-   <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-</repository>
-<snapshotRepository>
-   <id>fluxnova-bpm-platform</id>
-   <name>GitHub Fluxnova Maven Packages</name>
-   <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-</snapshotRepository>
-</distributionManagement>
-```
-
-This setup ensures that all builds and deployments use GitHub Packages for both publishing and resolving dependencies. The workflow uses the `GH_TOKEN` for authentication.
-
-### Dependency Management
-
-When building on GitHub Actions, you do **not** need to build dependent projects locally. All dependencies are already
-built and published to GitHub Packages from their respective repositories. The workflow uses the `GH_TOKEN` (a GitHub Personal Access Token)
-to access these packages securely.
-
-### Viewing Packages
-
-- Go to the [Packages](https://github.com/orgs/finos/packages?q=org.fluxnova&tab=packages&q=org.finos.fluxnova) section of the repository on GitHub to view published artifacts.
-- These packages can be used as dependencies in other projects via GitHub Packages.
-
 
 ## Running Fluxnova BPM Platform
 

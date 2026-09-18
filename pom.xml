@@ -1,14 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.finos.fluxnova</groupId>
-    <artifactId>fluxnova-bpm-release-parent</artifactId>
-    <version>2.0.0</version>
-    <!-- do not remove empty tag - http://jira.codehaus.org/browse/MNG-4687 -->
-    <relativePath />
-  </parent>
-
   <groupId>org.finos.fluxnova.bpm</groupId>
   <artifactId>fluxnova-root</artifactId>
   <version>3.1.0-SNAPSHOT</version>
@@ -17,11 +9,25 @@
   <inceptionYear>2013</inceptionYear>
 
   <description>
-    This pom defines the modules that make up the build.
-    The parent pom for all Fluxnova Platform projects can be found in the parent directory relative to this file.
+    The Fluxnova BPM Platform is a flexible, extensible framework for workflow and business process automation.
+    This is the root pom that aggregates all modules and defines the shared dependency, plugin, and profile configuration for the build.
   </description>
 
   <url>https://github.com/finos/fluxnova-bpm-platform</url>
+
+  <organization>
+    <name>Fluxnova Community</name>
+    <url>https://fluxnova.finos.org</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>fluxnova.finos.org</id>
+      <name>Fluxnova Community</name>
+      <organization>fluxnova.finos.org</organization>
+      <organizationUrl>https://fluxnova.finos.org</organizationUrl>
+    </developer>
+  </developers>
 
   <scm>
     <connection>scm:git:https://github.com/finos/fluxnova-bpm-platform.git</connection>
@@ -31,8 +37,46 @@
   </scm>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <license.includeTransitiveDependencies>false</license.includeTransitiveDependencies>
-  <maven.compiler.release>17</maven.compiler.release>
+    <version.java>21</version.java>
+    <version.ejb>3.1</version.ejb>
+
+    <plugin.version.clean>2.6.1</plugin.version.clean>
+    <plugin.version.source>3.3.1</plugin.version.source>
+    <plugin.version.compiler>3.14.0</plugin.version.compiler>
+    <plugin.version.jar>2.6</plugin.version.jar>
+    <plugin.version.javadoc>3.10.0</plugin.version.javadoc>
+    <plugin.version.maven-bundle>5.1.9</plugin.version.maven-bundle>
+    <plugin.version.deploy>3.1.4</plugin.version.deploy>
+    <plugin.version.assembly>2.6</plugin.version.assembly>
+    <plugin.version.ejb>2.4</plugin.version.ejb>
+    <plugin.version.war>2.4</plugin.version.war>
+    <plugin.version.rar>2.4</plugin.version.rar>
+    <plugin.version.gpg>3.2.7</plugin.version.gpg>
+    <plugin.version.release>3.3.1</plugin.version.release>
+    <plugin.version.publish>0.11.0</plugin.version.publish>
+
+    <!-- properties required for publishing to maven central (formerly in fluxnova-release-parent) -->
+    <gpg.executable>gpg</gpg.executable>
+    <publish.server.id>ossrh</publish.server.id>
+    <release.goals>install org.sonatype.central:central-publishing-maven-plugin:0.11.0:publish</release.goals>
+    <skip.source.attach>false</skip.source.attach>
+
+    <!-- plugin versions previously defined in fluxnova-bpm-release-parent -->
+    <plugin.version.license>5.0.0</plugin.version.license>
+
+    <!-- Properties for license book generation -->
+    <!-- These properties can be overridden by inheriting modules
+      to generate a list of dependencies (called BOM here)
+      and attach it as a Maven artifact -->
+
+    <!-- set to false to generate a third party dependency bom -->
+    <skip-third-party-bom>true</skip-third-party-bom>
+    <!-- set the Maven scopes that should be included in the dependency bom.
+      Must be a pipe-separated (|) list of Maven scopes -->
+    <third-party-bom-scopes>compile</third-party-bom-scopes>
 
     <!-- These properties are used in both the BOM as well as fluxnova-parent and subprojects -->
     <version.mybatis>3.5.15</version.mybatis>
@@ -45,6 +89,219 @@
   </properties>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <!-- ==== formerly defined in fluxnova-release-parent ==== -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${plugin.version.clean}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${plugin.version.jar}</version>
+          <configuration>
+            <useDefaultManifestFile>true</useDefaultManifestFile>
+            <archive>
+              <!-- explicitly specify manifestFile because otherwise it overrides the generated one from bundle-plugin -->
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${plugin.version.war}</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ejb-plugin</artifactId>
+          <version>${plugin.version.ejb}</version>
+          <configuration>
+            <ejbVersion>${version.ejb}</ejbVersion>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-rar-plugin</artifactId>
+          <version>${plugin.version.rar}</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>${plugin.version.assembly}</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${plugin.version.release}</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>${release.goals}</goals>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${plugin.version.publish}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <publishingServerId>${publish.server.id}</publishingServerId>
+            <!-- TODO: its set to false to manually validate the artifacts before publishing, set it to true once successfully tested with all dependent projects-->
+            <autoPublish>false</autoPublish>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${plugin.version.deploy}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${plugin.version.source}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${plugin.version.javadoc}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${plugin.version.gpg}</version>
+          <configuration>
+            <useAgent>false</useAgent>
+            <gpgArguments>
+              <arg>--digest-algo=SHA512</arg>
+            </gpgArguments>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>${plugin.version.maven-bundle}</version>
+          <extensions>true</extensions>
+        </plugin>
+
+        <!-- ==== formerly defined in fluxnova-bpm-release-parent ==== -->
+        <!-- define common configuration for license checks -->
+        <!-- license plugin -->
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>${plugin.version.license}</version>
+          <configuration>
+            <skipExistingHeaders>false</skipExistingHeaders>
+            <includes>
+              <include>**/*.java</include>
+              <include>**/*.sql</include>
+              <include>**/main/**/engine/**/*.xml</include>
+              <include>**/BpmPlatform.xsd</include>
+              <include>**/ProcessApplication.xsd</include>
+            </includes>
+            <excludes>
+              <exclude>**/org/finos/fluxnova/bpm/engine/impl/calendar/CronExpression.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/engine/impl/juel/*.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/engine/impl/javax/el/*.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/engine/spring/components/**/*.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/engine/spring/annotations/*.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/engine/impl/digest/_apacheCommonsCodec/*.java</exclude>
+              <exclude>**/org/finos/fluxnova/bpm/licensecheck/_apacheCommonsCodec/*.java</exclude>
+              <exclude>**/node_modules/**</exclude>
+              <exclude>.mvn/wrapper/MavenWrapperDownloader.java</exclude>
+            </excludes>
+            <mapping>
+              <java>SLASHSTAR_STYLE</java>
+            </mapping>
+          </configuration>
+          <executions>
+            <execution>
+              <id>add-license-header</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>format</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- third party license handling -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>3.6.1</version>
+          <configuration>
+            <!-- Whenever we shade dependencies, concatenate their NOTICE files -->
+            <transformers combine.children="append">
+              <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                <addHeader>false</addHeader>
+              </transformer>
+            </transformers>
+          </configuration>
+        </plugin>
+        <!-- Configuration to set Java Version for the Compiler Plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${plugin.version.compiler}</version>
+          <configuration>
+            <release>${version.java}</release>
+          </configuration>
+        </plugin>
+        <!-- plugin configuration to Enforce minimum required Java Version -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.6.2</version>
+          <executions>
+            <execution>
+              <id>enforce-java</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireJavaVersion>
+                    <version>[${version.java},)</version>
+                  </requireJavaVersion>
+                </rules>
+                <failFast>true</failFast>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -83,6 +340,97 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
       </plugin>
+
+      <!-- ==== formerly declared in fluxnova-bpm-release-parent ==== -->
+      <!-- Plugins used in the context of creating a license book: if activated (see properties),
+        these plugins create a list of non-Fluxnova dependencies and attach it as an artifact to
+        the build. The license book generator uses these files to create the book. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.10</version>
+        <executions>
+          <execution>
+            <id>list-deps</id>
+            <goals>
+              <goal>list</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <skip>${skip-third-party-bom}</skip>
+              <includeScope>test</includeScope><!-- Gives all dependencies; scopes filtering is applied in the ant step -->
+              <sort>true</sort>
+              <excludeGroupIds>org.finos.fluxnova</excludeGroupIds>
+              <outputFile>${project.build.directory}/dependencies/dependencies-generated.txt</outputFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <!-- Reformats the dependency list:
+            - into a plain list (no header line, no indentation)
+            - Filters all dependencies in unwanted scopes -->
+          <execution>
+            <id>reformat-dependencies</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+                <skip>${skip-third-party-bom}</skip>
+                <target>
+                  <copy file="${project.build.directory}/dependencies/dependencies-generated.txt" tofile="${project.build.directory}/dependencies.txt">
+                    <filterchain>
+                      <linecontains negate="true"><!-- Remove header line -->
+                        <contains value="The following files have been resolved" />
+                      </linecontains>
+                      <linecontainsregexp><!-- only keep the desired scopes -->
+                        <regexp pattern=":(?:${third-party-bom-scopes})$" />
+                      </linecontainsregexp>
+                      <tokenfilter>
+                        <replaceregex pattern=":(?:${third-party-bom-scopes})$" replace="" /> <!-- Remove scope -->
+                        <trim /><!-- Remove whitespace -->
+                        <ignoreblank />
+                      </tokenfilter>
+                    </filterchain>
+                  </copy>
+                </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.12</version>
+        <executions>
+          <!-- Attaches the dependency BOM to the Maven build so
+            that it can be consumed as a Maven artifact in the license book
+            module -->
+          <execution>
+            <id>attach-deps</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <skipAttach>${skip-third-party-bom}</skipAttach>
+              <artifacts>
+                <artifact>
+                  <file>${project.build.directory}/dependencies.txt</file>
+                  <type>txt</type>
+                  <classifier>third-party-bom</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
   </plugins>
 </build>
 
@@ -345,6 +693,57 @@
       </build>
     </profile>
 
+    <!-- formerly defined in fluxnova-release-parent: activated by maven-release-plugin during a release build -->
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-release-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- Same as attach-sources profile -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <configuration>
+              <skipSource>${skip.source.attach}</skipSource>
+            </configuration>
+            <executions>
+              <execution>
+                <id>release-attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 
   <repositories>
@@ -382,7 +781,7 @@
 
 
   <issueManagement>
-    <system>Jira</system>
+    <system>GitHub Issues</system>
     <url>https://github.com/orgs/finos/projects/116</url>
   </issueManagement>
 

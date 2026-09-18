@@ -60,12 +60,6 @@ You can find the [full list of FINOS hosted Fluxnova projects here](https://gith
 
 ### Building Fluxnova BPM Platform Locally
 
-#### Important Note
-
-Currently, not all Fluxnova packages on FINOS are public. To build `fluxnova-bpm-platform`, you must first clone and build
-all dependent repositories locally. Once all packages are public, you will be able to build `fluxnova-bpm-platform` directly
-without building dependencies locally.
-
 #### Build Prerequisites
 
 * Java 17+
@@ -74,27 +68,7 @@ without building dependencies locally.
 
 #### Build Order and Steps
 
-1. **Clone and Build `fluxnova-release-parent` Repository**
-
-   This repository contains the parent POM used by other Fluxnova projects.
-
-   ```bash
-   git clone https://github.com/finos/fluxnova-release-parent
-   cd fluxnova-release-parent
-   mvn clean install -o
-   ```
-
-2. **Clone and Build `fluxnova-bpm-release-parent` Repository**
-
-   This repository is the next-level parent POM, used by downstream projects.
-
-   ```bash
-   git clone https://github.com/finos/fluxnova-bpm-release-parent
-   cd fluxnova-bpm-release-parent
-   mvn clean install -o
-   ```
-
-3. **Clone and Build `fluxnova-feel-scala` Repository**
+1. **Clone and Build `fluxnova-feel-scala` Repository**
 
    This repository is a dependency for `fluxnova-bpm-platform`.
 
@@ -108,7 +82,7 @@ without building dependencies locally.
    mvn clean install -o
    ```
 
-4. **Clone and Build `fluxnova-bpm-platform` Repository**
+2. **Clone and Build `fluxnova-bpm-platform` Repository**
 
    Finally, build the main project. You can skip tests or run them as needed.
 
@@ -170,67 +144,10 @@ The `fluxnova-bpm-platform` project uses GitHub Actions for automated CI/CD on F
 5. **Download Dependencies:**  
    Resolves and downloads all Maven dependencies and plugins.
 6. **Build and Deploy:**  
-   Builds the project and deploys artifacts to GitHub Packages.
+   Builds the project and deploys artifacts to maven central.
 7. **Run Tests:**  
    Runs unit and integration tests in separate jobs.
 
-#### Deployment to GitHub Packages
-
-The deployment of artifacts to GitHub Packages is configured in the root `pom.xml` using the `<distributionManagement>` and `<repositories>` tags.
-
-* **`<distributionManagement>`**:  
-  Specifies where Maven should deploy release and snapshot artifacts. For this project, both releases and snapshots are deployed to GitHub Packages.
-
-* **`<repositories>`**:  
-  Lists the Maven repositories (including GitHub Packages for all Fluxnova dependencies) from which dependencies are resolved during the build.
-
-Example configuration in the root `pom.xml`:
-
-```xml
-<repositories>
-  <repository>
-    <id>fluxnova-bpm-platform</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-feel-scala</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-feel-scala</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-bpm-release-parent</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-bpm-release-parent</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-  <repository>
-    <id>fluxnova-release-parent</id>
-    <url>https://maven.pkg.github.com/finos/fluxnova-release-parent</url>
-    <snapshots>
-      <enabled>true</enabled>
-    </snapshots>
-  </repository>
-</repositories>
-
-<distributionManagement>
-<repository>
-   <id>fluxnova-bpm-platform</id>
-   <name>GitHub Fluxnova Maven Packages</name>
-   <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-</repository>
-<snapshotRepository>
-   <id>fluxnova-bpm-platform</id>
-   <name>GitHub Fluxnova Maven Packages</name>
-   <url>https://maven.pkg.github.com/finos/fluxnova-bpm-platform</url>
-</snapshotRepository>
-</distributionManagement>
-```
 
 An entire repository can then be built by running `mvn clean install` in the root directory.
 This will build all sub modules and execute unit tests.
@@ -238,17 +155,6 @@ Furthermore, you can restrict the build to just the module you are changing by r
 Check the repository's or module's README for additional module-specific instructions.
 The `webapps` module requires NodeJS.
 You can exclude building them by running `mvn clean install -pl '!webapps,!webapps/assembly'`.
-
-#### Dependency Management
-
-When building on GitHub Actions, you do **not** need to build dependent projects locally. All dependencies are already
-built and published to GitHub Packages from their respective repositories. The workflow uses the `GH_TOKEN` (a GitHub Personal Access Token)
-to access these packages securely.
-
-#### Viewing Packages
-
-* Go to the [Packages](https://github.com/orgs/finos/packages?tab=packages&q=org.fluxnova) section of the repository on GitHub to view published artifacts.
-* These packages can be used as dependencies in other projects via GitHub Packages.
 
 
 ### Running Fluxnova BPM Platform
