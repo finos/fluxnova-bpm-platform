@@ -123,4 +123,8 @@ public class ClassDelegateActivityBehavior extends AbstractBpmnActivityBehavior 
     }
   }
 
+  public String getClassName() {
+    return className;
+  }
+
 }

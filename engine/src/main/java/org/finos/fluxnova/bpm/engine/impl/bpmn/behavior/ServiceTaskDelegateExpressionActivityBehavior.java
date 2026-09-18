@@ -138,4 +138,8 @@ public class ServiceTaskDelegateExpressionActivityBehavior extends TaskActivityB
     }
   }
 
+  public String getExpressionText() {
+    return expression.getExpressionText();
+  }
+
 }
