@@ -76,5 +76,12 @@ public interface ProcessEngine extends ProcessEngineServices {
 
   void close();
 
+  /**
+   * Returns the process engine's {@link ConfigurationService}.
+   *
+   * @return the {@link ConfigurationService} object.
+   */
+  ConfigurationService getConfigurationService();
+
   ProcessEngineConfiguration getProcessEngineConfiguration();
 }

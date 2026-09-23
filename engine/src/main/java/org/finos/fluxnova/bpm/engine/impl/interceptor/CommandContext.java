@@ -56,6 +56,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.WritableIdentityProvider;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.FailedJobCommandFactory;
 import org.finos.fluxnova.bpm.engine.impl.optimize.OptimizeManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AttachmentManager;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.BatchManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayManager;
@@ -406,6 +407,10 @@ public class CommandContext {
 
   public AttachmentManager getAttachmentManager() {
     return getSession(AttachmentManager.class);
+  }
+
+  public ConfigurationManager getConfigurationManager() {
+    return getSession(ConfigurationManager.class);
   }
 
   public TableDataManager getTableDataManager() {

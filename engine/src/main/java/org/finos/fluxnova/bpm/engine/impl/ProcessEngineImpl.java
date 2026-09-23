@@ -22,6 +22,7 @@ import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.DecisionService;
 import org.finos.fluxnova.bpm.engine.ExternalTaskService;
+import org.finos.fluxnova.bpm.engine.ConfigurationService;
 import org.finos.fluxnova.bpm.engine.FilterService;
 import org.finos.fluxnova.bpm.engine.FormService;
 import org.finos.fluxnova.bpm.engine.HistoryService;
@@ -69,6 +70,7 @@ public class ProcessEngineImpl implements ProcessEngine {
   protected AuthorizationService authorizationService;
   protected CaseService caseService;
   protected FilterService filterService;
+  protected ConfigurationService configurationService;
   protected ExternalTaskService externalTaskService;
   protected DecisionService decisionService;
 
@@ -101,6 +103,7 @@ public class ProcessEngineImpl implements ProcessEngine {
     this.authorizationService = processEngineConfiguration.getAuthorizationService();
     this.caseService = processEngineConfiguration.getCaseService();
     this.filterService = processEngineConfiguration.getFilterService();
+    this.configurationService = processEngineConfiguration.getConfigurationService();
     this.externalTaskService = processEngineConfiguration.getExternalTaskService();
     this.decisionService = processEngineConfiguration.getDecisionService();
 
@@ -257,6 +260,11 @@ public class ProcessEngineImpl implements ProcessEngine {
   @Override
   public FilterService getFilterService() {
     return filterService;
+  }
+
+  @Override
+  public ConfigurationService getConfigurationService() {
+    return configurationService;
   }
 
   @Override

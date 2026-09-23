@@ -194,4 +194,5 @@ drop table if exists ACT_RU_METER_LOG;
 drop table if exists ACT_RU_TASK_METER_LOG;
 drop table if exists ACT_RU_EXT_TASK;
 drop table if exists ACT_RU_BATCH;
+drop table if exists ACT_GE_CONFIGURATION;
 drop table if exists ACT_GE_SCHEMA_LOG;

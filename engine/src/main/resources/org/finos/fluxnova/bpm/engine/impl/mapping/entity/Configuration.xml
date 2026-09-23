@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright Camunda Services GmbH and/or licensed to Camunda Services GmbH
+    under one or more contributor license agreements. See the NOTICE file
+    distributed with this work for additional information regarding copyright
+    ownership. Camunda licenses this file to you under the Apache License,
+    Version 2.0; you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+
+  <!-- CONFIGURATION INSERT -->
+
+  <insert id="insertConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    insert into ${prefix}ACT_GE_CONFIGURATION (ID_, CONFIG_KEY_, TENANT_ID_, CONFIG_VALUE_, VERSION_, STATUS_, CREATED_BY_, CREATED_AT_, UPDATED_BY_, UPDATED_AT_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      #{configKey ,jdbcType=VARCHAR},
+      #{tenantId ,jdbcType=VARCHAR},
+      #{configValue ,jdbcType=VARCHAR},
+      #{version ,jdbcType=INTEGER},
+      #{status ,jdbcType=VARCHAR},
+      #{createdBy ,jdbcType=VARCHAR},
+      #{createdAt ,jdbcType=TIMESTAMP},
+      #{updatedBy ,jdbcType=VARCHAR},
+      #{updatedAt ,jdbcType=TIMESTAMP}
+    )
+  </insert>
+
+  <!-- CONFIGURATION UPDATE -->
+
+  <update id="updateConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    update ${prefix}ACT_GE_CONFIGURATION
+    set
+      CONFIG_VALUE_ = #{configValue, jdbcType=VARCHAR},
+      VERSION_ = #{version, jdbcType=INTEGER},
+      STATUS_ = #{status, jdbcType=VARCHAR},
+      UPDATED_BY_ = #{updatedBy, jdbcType=VARCHAR},
+      UPDATED_AT_ = #{updatedAt, jdbcType=TIMESTAMP}
+    where ID_ = #{id}
+  </update>
+
+  <!-- CONFIGURATION DELETE -->
+
+  <delete id="deleteConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    delete from ${prefix}ACT_GE_CONFIGURATION where ID_ = #{id}
+  </delete>
+
+  <!-- CONFIGURATION RESULTMAP -->
+
+  <resultMap id="configurationResultMap" type="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="configKey" column="CONFIG_KEY_" jdbcType="VARCHAR" />
+    <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
+    <result property="configValue" column="CONFIG_VALUE_" jdbcType="VARCHAR" />
+    <result property="version" column="VERSION_" jdbcType="INTEGER" />
+    <result property="status" column="STATUS_" jdbcType="VARCHAR" />
+    <result property="createdBy" column="CREATED_BY_" jdbcType="VARCHAR" />
+    <result property="createdAt" column="CREATED_AT_" jdbcType="TIMESTAMP" />
+    <result property="updatedBy" column="UPDATED_BY_" jdbcType="VARCHAR" />
+    <result property="updatedAt" column="UPDATED_AT_" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- CONFIGURATION SELECT -->
+
+  <select id="selectConfiguration" parameterType="string" resultMap="configurationResultMap">
+    select * from ${prefix}ACT_GE_CONFIGURATION where ID_ = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectActiveConfigurationCount" parameterType="java.util.Map" resultType="long">
+    select count(*)
+    from ${prefix}ACT_GE_CONFIGURATION
+    where CONFIG_KEY_ = #{configKey, jdbcType=VARCHAR}
+      and STATUS_ = #{status, jdbcType=VARCHAR}
+    <choose>
+      <when test="tenantId != null">
+        and TENANT_ID_ = #{tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+  </select>
+
+</mapper>

@@ -60,6 +60,7 @@ import org.finos.fluxnova.bpm.engine.rest.SchemaLogRestService;
 import org.finos.fluxnova.bpm.engine.rest.SignalRestService;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.TelemetryRestService;
+import org.finos.fluxnova.bpm.engine.rest.ConfigurationRestService;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;
 import org.finos.fluxnova.bpm.engine.rest.UserRestService;
 import org.finos.fluxnova.bpm.engine.rest.VariableInstanceRestService;
@@ -235,6 +236,12 @@ public class NamedProcessEngineRestServiceImpl extends AbstractProcessEngineRest
   @Path("/{name}" + BatchRestService.PATH)
   public BatchRestService getBatchRestService(@PathParam("name") String engineName) {
     return super.getBatchRestService(engineName);
+  }
+
+  @Override
+  @Path("/{name}" + ConfigurationRestService.PATH)
+  public ConfigurationRestService getConfigurationRestService(@PathParam("name") String engineName) {
+    return super.getConfigurationRestService(engineName);
   }
 
   @Override

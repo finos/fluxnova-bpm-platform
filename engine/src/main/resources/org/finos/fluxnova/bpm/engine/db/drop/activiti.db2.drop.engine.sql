@@ -210,4 +210,5 @@ drop table ACT_RU_METER_LOG;
 drop table ACT_RU_TASK_METER_LOG;
 drop table ACT_RU_EXT_TASK;
 drop table ACT_RU_BATCH;
+drop table ACT_GE_CONFIGURATION;
 drop table ACT_GE_SCHEMA_LOG;

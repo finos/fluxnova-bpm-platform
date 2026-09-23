@@ -62,6 +62,7 @@ import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.DecisionService;
 import org.finos.fluxnova.bpm.engine.ExternalTaskService;
+import org.finos.fluxnova.bpm.engine.ConfigurationService;
 import org.finos.fluxnova.bpm.engine.FilterService;
 import org.finos.fluxnova.bpm.engine.FormService;
 import org.finos.fluxnova.bpm.engine.HistoryService;
@@ -80,6 +81,7 @@ import org.finos.fluxnova.bpm.engine.impl.AuthorizationServiceImpl;
 import org.finos.fluxnova.bpm.engine.impl.DecisionServiceImpl;
 import org.finos.fluxnova.bpm.engine.impl.DefaultArtifactFactory;
 import org.finos.fluxnova.bpm.engine.impl.ExternalTaskServiceImpl;
+import org.finos.fluxnova.bpm.engine.impl.ConfigurationServiceImpl;
 import org.finos.fluxnova.bpm.engine.impl.FilterServiceImpl;
 import org.finos.fluxnova.bpm.engine.impl.FormServiceImpl;
 import org.finos.fluxnova.bpm.engine.impl.HistoryServiceImpl;
@@ -292,6 +294,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.DeploymentManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.EventSubscriptionManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExternalTaskManager;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.FilterManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricActivityInstanceManager;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricBatchManager;
@@ -430,6 +433,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
   protected AuthorizationService authorizationService = new AuthorizationServiceImpl();
   protected CaseService caseService = new CaseServiceImpl();
   protected FilterService filterService = new FilterServiceImpl();
+  protected ConfigurationService configurationService = new ConfigurationServiceImpl();
   protected ExternalTaskService externalTaskService = new ExternalTaskServiceImpl();
   protected DecisionService decisionService = new DecisionServiceImpl();
   protected OptimizeService optimizeService = new OptimizeService();
@@ -1639,6 +1643,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
     initService(authorizationService);
     initService(caseService);
     initService(filterService);
+    initService(configurationService);
     initService(externalTaskService);
     initService(decisionService);
     initService(optimizeService);
@@ -1949,6 +1954,7 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
       addSessionFactory(new GenericManagerFactory(AttachmentManager.class));
       addSessionFactory(new GenericManagerFactory(CommentManager.class));
+      addSessionFactory(new GenericManagerFactory(ConfigurationManager.class));
       addSessionFactory(new GenericManagerFactory(DeploymentManager.class));
       addSessionFactory(new GenericManagerFactory(ExecutionManager.class));
       addSessionFactory(new GenericManagerFactory(HistoricActivityInstanceManager.class));
@@ -3144,6 +3150,15 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
   public FilterService getFilterService() {
     return filterService;
+  }
+
+  public ConfigurationService getConfigurationService() {
+    return configurationService;
+  }
+
+  public ProcessEngineConfigurationImpl setConfigurationService(ConfigurationService configurationService) {
+    this.configurationService = configurationService;
+    return this;
   }
 
   public void setFilterService(FilterService filterService) {

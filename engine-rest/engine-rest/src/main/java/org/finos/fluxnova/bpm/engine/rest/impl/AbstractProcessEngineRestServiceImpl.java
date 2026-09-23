@@ -51,6 +51,7 @@ import org.finos.fluxnova.bpm.engine.rest.SchemaLogRestService;
 import org.finos.fluxnova.bpm.engine.rest.SignalRestService;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.TelemetryRestService;
+import org.finos.fluxnova.bpm.engine.rest.ConfigurationRestService;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;
 import org.finos.fluxnova.bpm.engine.rest.UserRestService;
 import org.finos.fluxnova.bpm.engine.rest.VariableInstanceRestService;
@@ -263,6 +264,13 @@ public abstract class AbstractProcessEngineRestServiceImpl {
   public BatchRestService getBatchRestService(String engineName) {
     String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
     BatchRestServiceImpl subResource = new BatchRestServiceImpl(engineName, getObjectMapper());
+    subResource.setRelativeRootResourceUri(rootResourcePath);
+    return subResource;
+  }
+
+  public ConfigurationRestService getConfigurationRestService(String engineName) {
+    String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
+    ConfigurationRestServiceImpl subResource = new ConfigurationRestServiceImpl(engineName, getObjectMapper());
     subResource.setRelativeRootResourceUri(rootResourcePath);
     return subResource;
   }
