@@ -90,6 +90,18 @@
       <artifactId>js-scriptengine</artifactId>
     </dependency>
 
+    <!-- Micrometer Prometheus registry - enables /actuator/prometheus scraping endpoint -->
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+    </dependency>
+
+    <!-- Actuator - required for /actuator/prometheus and /actuator/health endpoints -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
     <!-- Testing -->
     <dependency>
       <groupId>com.h2database</groupId>
