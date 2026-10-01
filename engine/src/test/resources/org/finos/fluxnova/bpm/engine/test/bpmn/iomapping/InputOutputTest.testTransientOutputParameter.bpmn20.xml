@@ -8,7 +8,8 @@
   <bpmn:serviceTask id="task" camunda:class="org.finos.fluxnova.bpm.engine.test.bpmn.iomapping.VariableLogDelegate">
     <bpmn:extensionElements>
       <camunda:inputOutput>
-        <camunda:outputParameter name="transientVar" camunda:isTransient="true">${'outValue'}</camunda:outputParameter>
+        <camunda:outputParameter name="transientVar" isTransient="true">${'outValue'}</camunda:outputParameter>
+        <camunda:outputParameter name="AnotherTransientVar" camunda:isTransient="true">${'outputTestValue'}</camunda:outputParameter>
       </camunda:inputOutput>
     </bpmn:extensionElements>
   </bpmn:serviceTask>

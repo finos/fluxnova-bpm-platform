@@ -8,7 +8,8 @@
     <bpmn:userTask id="task">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="transientVar" camunda:isTransient="true">mappedValue</camunda:inputParameter>
+          <camunda:inputParameter name="transientVar" isTransient="true">mappedValue</camunda:inputParameter>
+          <camunda:inputParameter name="AnotherTransientVar" camunda:isTransient="true">inputTestValue</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
     </bpmn:userTask>

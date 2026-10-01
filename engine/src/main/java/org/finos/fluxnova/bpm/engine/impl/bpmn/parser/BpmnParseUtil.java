@@ -126,6 +126,19 @@ public final class BpmnParseUtil {
   }
 
   /**
+   * Extracts the isTransient attribute from a BPMN element. The attribute is read from the Fluxnova
+   * extensions namespace first, falling back to the (legacy) Camunda namespace and finally to a
+   * non-namespaced attribute, for backwards compatibility with existing models.
+   */
+  public static boolean isTransient(Element element) {
+    String isTransient = element.attributeNS(BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS, "isTransient");
+    if (isTransient == null) {
+      isTransient = element.attribute("isTransient");
+    }
+    return isTransient != null && Boolean.parseBoolean(isTransient.trim());
+  }
+
+  /**
    * Parses a input parameter and adds it to the {@link IoMapping}.
    *
    * @param inputParameterElement the input parameter element
@@ -134,7 +147,7 @@ public final class BpmnParseUtil {
    */
   public static void parseInputParameterElement(Element inputParameterElement, IoMapping ioMapping) {
     String nameAttribute = inputParameterElement.attribute("name");
-    boolean isTransient = Boolean.parseBoolean(inputParameterElement.attributeNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "isTransient"));
+    boolean isTransient = isTransient(inputParameterElement);
     if(nameAttribute == null || nameAttribute.isEmpty()) {
       throw new BpmnParseException("Missing attribute 'name' for inputParameter", inputParameterElement);
     }
@@ -155,7 +168,7 @@ public final class BpmnParseUtil {
    */
   public static void parseOutputParameterElement(Element outputParameterElement, IoMapping ioMapping) {
     String nameAttribute = outputParameterElement.attribute("name");
-    boolean isTransient = Boolean.parseBoolean(outputParameterElement.attributeNS(BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS, "isTransient"));
+    boolean isTransient = isTransient(outputParameterElement);
     if(nameAttribute == null || nameAttribute.isEmpty()) {
       throw new BpmnParseException("Missing attribute 'name' for outputParameter", outputParameterElement);
     }
