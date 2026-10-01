@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.9.16
+Built-By: runner
+Build-Jdk: 21.0.12.1
+Implementation-Title: Fluxnova Platform - engine - REST - OpenAPI
+Implementation-Version: 3.1.0-SNAPSHOT
+Implementation-Vendor-Id: org.finos.fluxnova.bpm
+Implementation-Vendor: Fluxnova Community
+Implementation-URL: https://github.com/finos/fluxnova-bpm-platform/fluxn
+ ova-parent/fluxnova-database-settings/fluxnova-engine-rest-root/fluxnov
+ a-engine-rest-openapi
+
