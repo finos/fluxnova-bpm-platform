@@ -7,7 +7,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
 WORKDIR /fluxnova
 
 # Install packages
-RUN yum install -y jq curl shadow-utils unzip
+RUN yum install -y jq shadow-utils unzip
 
 # Expose port
 EXPOSE 8080

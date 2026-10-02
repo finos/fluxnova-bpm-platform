@@ -1,7 +1,7 @@
 # Fluxnova - The open source BPMN platform
 [![FINOS - Incubating](https://cdn.jsdelivr.net/gh/finos/contrib-toolbox@master/images/badge-incubating.svg)](https://community.finos.org/docs/governance/Software-Projects/stages/incubating)
-[![Build CI](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml?query=branch%3Amain) 
-[![Manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.fluxnova.finos.org/) 
+[![Build CI](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml?query=branch%3Amain)
+[![Manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.fluxnova.finos.org/)
 [![License](https://img.shields.io/github/license/finos/fluxnova-bpm-platform?color=blue&logo=apache)](https://github.com/finos/fluxnova-bpm-platform/blob/main/LICENSE)
 
 Fluxnova is a flexible framework for workflow and process automation. Its core is a native BPMN 2.0 process engine that runs inside the Java Virtual Machine. It can be embedded inside any Java application and any Runtime Container. It integrates with Java EE 6 and is a perfect match for the Spring Framework. On top of the process engine, you can choose from a stack of tools for human workflow management, operations and monitoring.
@@ -57,7 +57,13 @@ Most of the components that make up the platform can even be completely embedded
 | Event | Registry | Image tag |
 |---|---|---|
 | Merge to `main` | [GHCR](https://ghcr.io) (`ghcr.io/finos/fluxnova-bpm-platform`) | `<run>-<sha>` e.g. `127-a3f9c21` |
-| Release (`release/x.y.z`) | [Docker Hub](https://hub.docker.com/r/finos/fluxnova-bpm-platform) (`finos/fluxnova-bpm-platform`) | `x.y.z` + `latest` |
+| Release (`release/major`, `release/minor`, or `release/patch`) | [Docker Hub](https://hub.docker.com/r/finos/fluxnova-bpm-platform) (`finos/fluxnova-bpm-platform`) | `<release-version>` + `latest` |
+
+## Release
+
+Releases are manually triggered from `release/*` branches through GitHub Actions using the workflow in `.github/workflows/release.yml`.
+
+For release instructions, including how to create major, minor, and patch release branches and run the workflow manually, see [RELEASE.md](RELEASE.md).
 
 ## Contributing
 

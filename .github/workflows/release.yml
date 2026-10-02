@@ -1,10 +1,15 @@
 # Workflow: Release and publish artifacts to Maven Central
 # Purpose: Builds, signs, and publishes Maven artifacts to Sonatype OSSRH, then tags the released version.
-# Prerequisites: pom.xml must be on a *-SNAPSHOT version; We need to change logic for non-SNAPSHOT versions.
+# Prerequisites: pom.xml must be on a *-SNAPSHOT version.
+# Trigger: manual only. Jobs run only when the selected branch starts with release/.
 # Notes:
-#   - release/* branches: major version increment (e.g., 1.2.3-SNAPSHOT to 2.0.0-SNAPSHOT)
-#   - hotfix/* branches: minor version increment (e.g., 1.2.3-SNAPSHOT to 1.3.0-SNAPSHOT)
-# Adjust version computation logic if patch releases are desired instead of minor bumps (e.g., 1.2.3-SNAPSHOT to 1.3.0-SNAPSHOT).
+#   - release/major or release/major/*: release current version and prepare next major version
+#     (e.g., 2.0.0-SNAPSHOT releases 2.0.0, then prepares 3.0.0-SNAPSHOT)
+#   - release/minor or release/minor/*: release current version and prepare next minor version
+#     (e.g., 2.0.0-SNAPSHOT releases 2.0.0, then prepares 2.1.0-SNAPSHOT)
+#   - release/patch or release/patch/*: release current patch line and prepare next patch version
+#     (e.g., 1.0.0-SNAPSHOT releases 1.0.0, then prepares 1.0.1-SNAPSHOT)
+#   - After a patch release, merge or cherry-pick the patch changes back into main or the current development branch.
 
 name: "Release and publish artifacts to Maven Central and creates docker image in Docker Hub"
 
@@ -18,10 +23,6 @@ env:
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'release/*'
-      - 'hotfix/*'
 
 permissions:
   contents: write
@@ -29,6 +30,7 @@ permissions:
 jobs:
   publish-central:
     name: Publish to Maven Central
+    if: startsWith(github.ref, 'refs/heads/release/')
     runs-on: ubuntu-latest
     outputs:
       release_version: ${{ steps.set-vars.outputs.release_version }}
@@ -71,10 +73,10 @@ jobs:
 
           # Set as environment variable
           echo "RELEASE_VERSION=${releaseVersion}" >> $GITHUB_ENV
-          
+
           # Expose as job output
           echo "release_version=${releaseVersion}" >> $GITHUB_OUTPUT
-          
+
           # Set tag name
           TAG="v${releaseVersion}"
           echo "TAG=$TAG" >> $GITHUB_ENV
@@ -86,21 +88,31 @@ jobs:
           # Extract numeric components for computing next development version
           n=${releaseVersion//[!0-9]/ }
           a=(${n//\./ })
-          
+
           # Determine version increment based on branch name
-          if [[ "$BRANCH_NAME" == release/* ]]; then
-            # Major version increment for release branches
+          if [[ "$BRANCH_NAME" == "release/major" || "$BRANCH_NAME" == release/major/* ]]; then
+            # Major version increment
             nextMajor=$((${a[0]} + 1))
             developmentVersion="${nextMajor}.0.0-SNAPSHOT"
-            echo "Branch type: Release - Incrementing major version: ${releaseVersion} → ${developmentVersion}"
-          elif [[ "$BRANCH_NAME" == hotfix/* ]]; then
-            # Minor version increment for hotfix branches
-            currentMajor=${a[0]}
+            echo "Branch type: Major Release - ${releaseVersion} → ${developmentVersion}"
+
+          elif [[ "$BRANCH_NAME" == "release/minor" || "$BRANCH_NAME" == release/minor/* ]]; then
+            # Minor version increment
             nextMinor=$((${a[1]} + 1))
-            developmentVersion="${currentMajor}.${nextMinor}.0-SNAPSHOT"
-            echo "Branch type: Hotfix - Incrementing minor version: ${releaseVersion} → ${developmentVersion}"
+            developmentVersion="${a[0]}.${nextMinor}.0-SNAPSHOT"
+            echo "Branch type: Minor Release - ${releaseVersion} → ${developmentVersion}"
+
+          elif [[ "$BRANCH_NAME" == "release/patch" || "$BRANCH_NAME" == release/patch/* ]]; then
+            # Patch version increment
+            nextPatch=$((${a[2]} + 1))
+            developmentVersion="${a[0]}.${a[1]}.${nextPatch}-SNAPSHOT"
+            echo "Branch type: Patch Release - ${releaseVersion} → ${developmentVersion}"
+
+          else
+            echo "Unsupported branch name: ${BRANCH_NAME}"
+            exit 1
           fi
-          
+
           echo "DEVELOPMENT_VERSION=${developmentVersion}" >> $GITHUB_ENV
 
           minorVersion="${a[0]}.${a[1]}"
@@ -111,7 +123,6 @@ jobs:
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
       - name: Prepare release
-        continue-on-error: true
         run: |
           mvn -B \
             -DpreparationGoals=clean \
@@ -124,7 +135,6 @@ jobs:
             -DinteractiveMode=false
 
       - name: Perform release
-        continue-on-error: true
         run: |
           mvn -B \
             -DinteractiveMode=false \
@@ -140,7 +150,7 @@ jobs:
         run: mvn -B -e -DskipTests -pl distro/run/distro -am package -s ./settings.xml
 
       - name: Build and publish Docker image
-        if: startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/')
+        if: startsWith(github.ref, 'refs/heads/release/')
         uses: ./.github/actions/build-publish-image-dockerhub
         with:
           image_name: finos/fluxnova-bpm-platform
@@ -179,7 +189,7 @@ jobs:
             -pl '!engine-rest/engine-rest-openapi' \
             -DskipTests=true -DskipITs=true -Dskip.frontend.build=true \
             -s ./settings.xml -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
-          
+
       - name: Publish Javadoc to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -213,7 +223,7 @@ jobs:
         run: |
           cd engine-rest && \
           mvn -B -e package  -pl '!engine-rest,!assembly' \
-           -s ../settings.xml -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false 
+           -s ../settings.xml -Dmaven.test.skip -Dmaven.resolver.transport=wagon -Dmaven.wagon.http.pool=false
 
       - name: Publish OpenAPI Spec to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
