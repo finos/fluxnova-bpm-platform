@@ -23,6 +23,7 @@ import org.finos.fluxnova.bpm.spring.boot.starter.configuration.FluxnovaDatasour
 import org.finos.fluxnova.bpm.spring.boot.starter.property.DatabaseProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.ObjectUtils;
 
@@ -42,6 +43,9 @@ public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguratio
   @Qualifier("camundaBpmDataSource")
   protected DataSource camundaDataSource;
 
+  @Value("${spring.liquibase.enabled:false}")
+  protected boolean liquibaseEnabled;
+
   @Override
   public void preInit(SpringProcessEngineConfiguration configuration) {
     final DatabaseProperty database = camundaBpmProperties.getDatabase();
@@ -59,7 +63,12 @@ public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguratio
     }
 
     configuration.setDatabaseType(database.getType());
-    configuration.setDatabaseSchemaUpdate(database.getSchemaUpdate());
+
+    if (liquibaseEnabled) {
+      configuration.setDatabaseSchemaUpdate("false");
+    } else {
+      configuration.setDatabaseSchemaUpdate(database.getSchemaUpdate());
+    }
 
     if (!ObjectUtils.isEmpty(database.getTablePrefix())) {
       configuration.setDatabaseTablePrefix(database.getTablePrefix());
