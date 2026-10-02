@@ -57,4 +57,8 @@ public class ServiceTaskExpressionActivityBehavior extends TaskActivityBehavior 
     });
 
   }
+
+  public String getExpressionText() {
+    return expression.getExpressionText();
+  }
 }

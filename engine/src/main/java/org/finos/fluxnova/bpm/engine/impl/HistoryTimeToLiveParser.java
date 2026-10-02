@@ -18,6 +18,7 @@
 package org.finos.fluxnova.bpm.engine.impl;
 
 import static org.finos.fluxnova.bpm.engine.impl.bpmn.parser.BpmnParse.CAMUNDA_BPMN_EXTENSIONS_NS;
+import static org.finos.fluxnova.bpm.engine.impl.bpmn.parser.BpmnParse.FLUXNOVA_BPMN_EXTENSIONS_NS;
 
 import java.util.Objects;
 import org.finos.fluxnova.bpm.engine.exception.NotAllowedException;
@@ -73,7 +74,12 @@ public class HistoryTimeToLiveParser {
   }
 
   public Integer parse(Element processElement, String definitionKey, boolean skipEnforceTtl) {
+    // Check camunda namespace first for backward compatibility
     String historyTimeToLiveString = processElement.attributeNS(CAMUNDA_BPMN_EXTENSIONS_NS, "historyTimeToLive");
+    if (historyTimeToLiveString == null) {
+      // Fallback to fluxnova namespace
+      historyTimeToLiveString = processElement.attributeNS(FLUXNOVA_BPMN_EXTENSIONS_NS, "historyTimeToLive");
+    }
 
     return parseAndValidate(historyTimeToLiveString, definitionKey, skipEnforceTtl);
   }
