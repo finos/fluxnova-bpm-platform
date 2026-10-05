@@ -1,0 +1,9 @@
+fluxnova.bpm.run.auth:
+  enabled: true
+  authentication: jwt
+fluxnova.bpm.jwt:
+  jwks-url: https://idp.example.com/.well-known/jwks.json
+  issuer: https://idp.example.com
+  audience: test-api
+  user-claim-name: preferred_username
+  groups-claim-name: groups
