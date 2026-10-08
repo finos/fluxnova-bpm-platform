@@ -16,30 +16,76 @@
  */
 package org.finos.fluxnova.bpm.run.test.util;
 
+import java.io.InputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
+import java.security.KeyStore;
+import java.security.SecureRandom;
 
+import jakarta.annotation.Nonnull;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
-public class TestUtils {
-  public static void trustSelfSignedSSL() throws NoSuchAlgorithmException, KeyManagementException {
-    SSLContext ctx = SSLContext.getInstance("SSL");
-    X509TrustManager tm = new X509TrustManager() {
+public final class TestUtils {
 
-      public void checkClientTrusted(X509Certificate[] xcs, String string) {
+  private TestUtils() {
+  }
+
+  /**
+   * Creates a {@link RestTemplate} with a request factory that trusts the self-signed HTTPS
+   * certificate used by the test server.
+   *
+   * <p>This helper keeps the SSL override scoped to the client instance instead of mutating
+   * JVM-wide SSL defaults, which makes the HTTPS test stable even when the Surefire fork is
+   * reused across multiple test classes.</p>
+   */
+  public static RestTemplate createTrustSelfSignedRestTemplate() {
+    return new RestTemplate(new TrustSelfSignedClientHttpRequestFactory());
+  }
+
+  /**
+   * Custom request factory that applies a trust-all SSL socket factory and hostname verifier
+   * only for HTTPS connections created by this test client.
+   */
+  private static class TrustSelfSignedClientHttpRequestFactory extends SimpleClientHttpRequestFactory {
+
+    private final javax.net.ssl.SSLSocketFactory sslSocketFactory;
+
+    private TrustSelfSignedClientHttpRequestFactory() {
+      try {
+        KeyStore trustStore = KeyStore.getInstance("PKCS12");
+        try (InputStream trustStoreStream = getClass().getClassLoader().getResourceAsStream("keystore.p12")) {
+          if (trustStoreStream == null) {
+            throw new IllegalStateException("Could not load test keystore keystore.p12 from classpath");
+          }
+          trustStore.load(trustStoreStream, "camunda".toCharArray());
+        }
+
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init(trustStore);
+
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
+        this.sslSocketFactory = sslContext.getSocketFactory();
+      } catch (NoSuchAlgorithmException | KeyManagementException e) {
+        throw new IllegalStateException("Could not create trust-self-signed SSL context", e);
+      } catch (Exception e) {
+        throw new IllegalStateException("Could not load test keystore keystore.p12", e);
       }
+    }
 
-      public void checkServerTrusted(X509Certificate[] xcs, String string) {
-      }
+    @Override
+    protected void prepareConnection(@Nonnull HttpURLConnection connection, @Nonnull String httpMethod) throws IOException {
+      super.prepareConnection(connection, httpMethod);
 
-      public X509Certificate[] getAcceptedIssuers() {
-        return null;
+      if (connection instanceof HttpsURLConnection httpsConnection) {
+        httpsConnection.setSSLSocketFactory(sslSocketFactory);
       }
-    };
-    ctx.init(null, new TrustManager[] { tm }, null);
-    SSLContext.setDefault(ctx);
+    }
   }
 }
