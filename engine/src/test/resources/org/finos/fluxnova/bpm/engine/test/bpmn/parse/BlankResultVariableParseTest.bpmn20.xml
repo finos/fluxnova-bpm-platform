@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="resultVariableBlankNormalizationProcesses"
+  xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+  targetNamespace="Examples">
+
+  <!-- ServiceTask with blank resultVariable -->
+  <process id="serviceTaskBlankResultProcess" isExecutable="true">
+    <startEvent id="svc_start"/>
+    <sequenceFlow id="svc_flow1" sourceRef="svc_start" targetRef="svc_task" />
+    <serviceTask id="svc_task" name="Service Task"
+      camunda:expression="${'serviceTaskResult'}"
+      camunda:resultVariable="" />
+    <sequenceFlow id="svc_flow2" sourceRef="svc_task" targetRef="svc_userTask" />
+    <userTask id="svc_userTask" name="User Task" />
+    <sequenceFlow id="svc_flow3" sourceRef="svc_userTask" targetRef="svc_end" />
+    <endEvent id="svc_end" />
+  </process>
+
+  <!-- ServiceTask with space resultVariable -->
+  <process id="serviceTaskSpaceResultProcess" isExecutable="true">
+    <startEvent id="svcValid_start"/>
+    <sequenceFlow id="svcValid_flow1" sourceRef="svcValid_start" targetRef="svcValid_task" />
+    <serviceTask id="svcValid_task" name="Service Task"
+      camunda:expression="${'serviceTaskResult'}"
+      camunda:resultVariable="  " />
+    <sequenceFlow id="svcValid_flow2" sourceRef="svcValid_task" targetRef="svcValid_userTask" />
+    <userTask id="svcValid_userTask" name="User Task" />
+    <sequenceFlow id="svcValid_flow3" sourceRef="svcValid_userTask" targetRef="svcValid_end" />
+    <endEvent id="svcValid_end" />
+  </process>
+
+  <!-- ScriptTask with blank resultVariable -->
+  <process id="scriptTaskBlankResultProcess" isExecutable="true">
+    <startEvent id="scriptBlank_start"/>
+    <sequenceFlow id="scriptBlank_flow1" sourceRef="scriptBlank_start" targetRef="scriptBlank_task" />
+    <scriptTask id="scriptBlank_task" name="Script Task" scriptFormat="groovy" camunda:resultVariable="">
+      <script>1 + 1</script>
+    </scriptTask>
+    <sequenceFlow id="scriptBlank_flow2" sourceRef="scriptBlank_task" targetRef="scriptBlank_userTask" />
+    <userTask id="scriptBlank_userTask" name="User Task" />
+    <sequenceFlow id="scriptBlank_flow3" sourceRef="scriptBlank_userTask" targetRef="scriptBlank_end" />
+    <endEvent id="scriptBlank_end" />
+  </process>
+
+  <!-- ScriptTask with space resultVariable -->
+  <process id="scriptTaskSpaceResultProcess" isExecutable="true">
+    <startEvent id="scriptValid_start"/>
+    <sequenceFlow id="scriptValid_flow1" sourceRef="scriptValid_start" targetRef="scriptValid_task" />
+    <scriptTask id="scriptValid_task" name="Script Task" scriptFormat="groovy" camunda:resultVariable="  ">
+      <script>1 + 1</script>
+    </scriptTask>
+    <sequenceFlow id="scriptValid_flow2" sourceRef="scriptValid_task" targetRef="scriptValid_userTask" />
+    <userTask id="scriptValid_userTask" name="User Task" />
+    <sequenceFlow id="scriptValid_flow3" sourceRef="scriptValid_userTask" targetRef="scriptValid_end" />
+    <endEvent id="scriptValid_end" />
+  </process>
+
+  <!-- BusinessRuleTask with blank resultVariable -->
+  <process id="businessRuleTaskBlankResultProcess" isExecutable="true">
+    <startEvent id="rule_start"/>
+    <sequenceFlow id="rule_flow1" sourceRef="rule_start" targetRef="rule_task" />
+    <businessRuleTask id="rule_task" name="Business Rule Task"
+      camunda:expression="${'businessRuleTaskResult'}"
+      camunda:resultVariable="" />
+    <sequenceFlow id="rule_flow2" sourceRef="rule_task" targetRef="rule_userTask" />
+    <userTask id="rule_userTask" name="User Task" />
+    <sequenceFlow id="rule_flow3" sourceRef="rule_userTask" targetRef="rule_end" />
+    <endEvent id="rule_end" />
+  </process>
+
+  <!-- IntermediateThrowEvent (Message) with blank resultVariable -->
+  <process id="messageThrowEventBlankResultProcess" isExecutable="true">
+    <startEvent id="msgThrow_start"/>
+    <sequenceFlow id="msgThrow_flow1" sourceRef="msgThrow_start" targetRef="msgThrow_event" />
+    <intermediateThrowEvent id="msgThrow_event" name="Message Throw Event">
+      <messageEventDefinition
+        camunda:expression="${'messageThrowEventResult'}"
+        camunda:resultVariable="" />
+    </intermediateThrowEvent>
+    <sequenceFlow id="msgThrow_flow2" sourceRef="msgThrow_event" targetRef="msgThrow_userTask" />
+    <userTask id="msgThrow_userTask" name="User Task" />
+    <sequenceFlow id="msgThrow_flow3" sourceRef="msgThrow_userTask" targetRef="msgThrow_end" />
+    <endEvent id="msgThrow_end" />
+  </process>
+
+  <!-- EndEvent (Message) with blank resultVariable -->
+  <process id="endMessageEventBlankResultProcess" isExecutable="true">
+    <startEvent id="msgEnd_start"/>
+    <sequenceFlow id="msgEnd_flow1" sourceRef="msgEnd_start" targetRef="msgEnd_userTask" />
+    <userTask id="msgEnd_userTask" name="User Task" />
+    <sequenceFlow id="msgEnd_flow2" sourceRef="msgEnd_userTask" targetRef="msgEnd_endEvent" />
+    <endEvent id="msgEnd_endEvent" name="Message End Event">
+      <messageEventDefinition
+        id="msgEnd_msgDef"
+        camunda:expression="${'endMessageEventResult'}"
+        camunda:resultVariable="" />
+    </endEvent>
+  </process>
+
+</definitions>
+
