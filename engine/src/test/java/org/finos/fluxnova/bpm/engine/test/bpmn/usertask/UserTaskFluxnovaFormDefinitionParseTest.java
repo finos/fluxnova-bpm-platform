@@ -148,6 +148,23 @@ public class UserTaskFluxnovaFormDefinitionParseTest {
   }
 
   @Test
+  @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/usertask/UserTaskFluxnovaFormDefinitionParseTest.shouldPreferFluxnovaFormDefinitionOverCamundaFormDefinition.bpmn20.xml")
+  public void shouldPreferFluxnovaFormDefinitionOverCamundaFormDefinition() {
+    // given a deployed process with both Fluxnova and Camunda form-ref attributes
+    TaskDefinition taskDefinition = findUserTaskDefinition("UserTask");
+    FormDefinition formDefinition = taskDefinition.getFormDefinition();
+
+    assertThat(taskDefinition.getFluxnovaFormDefinitionKey().getExpressionText()).isEqualTo("fluxnovaFormId");
+    assertThat(formDefinition.getFluxnovaFormDefinitionKey().getExpressionText()).isEqualTo("fluxnovaFormId");
+
+    assertThat(taskDefinition.getFluxnovaFormDefinitionBinding()).isEqualTo("version");
+    assertThat(formDefinition.getFluxnovaFormDefinitionBinding()).isEqualTo("version");
+
+    assertThat(taskDefinition.getFluxnovaFormDefinitionVersion().getExpressionText()).isEqualTo("7");
+    assertThat(formDefinition.getFluxnovaFormDefinitionVersion().getExpressionText()).isEqualTo("7");
+  }
+
+  @Test
   public void shouldNotParseFluxnovaFormDefinitionUnsupportedBinding() {
     // given a deployed process with a UserTask containing a Camunda Form definition with unsupported binding
     String resource = TestHelper.getBpmnProcessDefinitionResource(getClass(), "shouldNotParseFluxnovaFormDefinitionUnsupportedBinding");
