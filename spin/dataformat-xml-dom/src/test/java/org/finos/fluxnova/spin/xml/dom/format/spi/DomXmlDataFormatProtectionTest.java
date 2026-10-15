@@ -107,9 +107,13 @@ public class DomXmlDataFormatProtectionTest {
     // when / then
     // Setting this as the formatting configuration triggers template compilation, at which
     // point the transformer attempts to resolve the external include and must fail.
+    // A fresh instance is used (not the shared one) so the failed call does not leave a
+    // consumed stream as formatting configuration on shared state, and so the default
+    // TransformerFactory is exercised directly.
+    DomXmlDataFormat isolatedFormat = new DomXmlDataFormat(DataFormats.XML_DATAFORMAT_NAME);
     try {
       assertThatThrownBy(() ->
-        format.setFormattingConfiguration(
+        isolatedFormat.setFormattingConfiguration(
           new ByteArrayInputStream(stylesheetWithExternalIncluded.getBytes(StandardCharsets.UTF_8))))
         .isInstanceOf(SpinXmlDataFormatException.class)
         .hasMessageContaining("SPIN/DOM-XML-01038 Failed to get formatting templates")

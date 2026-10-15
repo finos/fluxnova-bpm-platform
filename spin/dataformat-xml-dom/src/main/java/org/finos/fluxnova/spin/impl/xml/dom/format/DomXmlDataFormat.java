@@ -288,18 +288,27 @@ public class DomXmlDataFormat implements DataFormat<SpinXmlElement> {
   /*
    * Configures the TransformerFactory to process XML securely.
    * Disables external DTD and stylesheet resolution to prevent XXE attacks (CWE-611).
-   * If the implementing transformer does not support one or multiple features,
-   * the failed feature is ignored. The transformer might not be protected,
-   * if the feature assignment fails.
+   * Each setting is applied independently: if the implementing transformer does not
+   * support one of them, that setting is ignored and the remaining ones are still applied.
+   * The transformer might not be fully protected if a setting is not supported.
    *
    * @param transformerFactory The factory to configure.
    */
   protected static void enableSecureProcessing(TransformerFactory transformerFactory) {
     try {
       transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-      transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
-    } catch (TransformerConfigurationException | IllegalArgumentException ignored) {
+    } catch (TransformerConfigurationException ignored) {
+      // ignored
+    }
+
+    setAttributeIfSupported(transformerFactory, XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    setAttributeIfSupported(transformerFactory, XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+  }
+
+  protected static void setAttributeIfSupported(TransformerFactory transformerFactory, String name, Object value) {
+    try {
+      transformerFactory.setAttribute(name, value);
+    } catch (IllegalArgumentException ignored) {
       // ignored
     }
   }
