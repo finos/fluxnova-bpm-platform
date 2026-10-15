@@ -42,7 +42,7 @@
     <version.xml.jaxb-impl>2.3.6</version.xml.jaxb-impl>
     <version.xml.jaxb-impl4>4.0.5</version.xml.jaxb-impl4>
     <version.jakarta.xml.bind-api>4.0.5</version.jakarta.xml.bind-api>
-    <version.httpclient5>5.4.3</version.httpclient5>
+    <version.httpclient5>5.6.3</version.httpclient5>
     <version.httpcore5>5.3.4</version.httpcore5>
     <version.cronutils>9.2.1</version.cronutils>
     <version.jaxb-runtime>4.0.5</version.jaxb-runtime>
