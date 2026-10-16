@@ -54,7 +54,7 @@
     <plugin.version.ejb>2.4</plugin.version.ejb>
     <plugin.version.war>2.4</plugin.version.war>
     <plugin.version.rar>2.4</plugin.version.rar>
-    <plugin.version.gpg>3.2.7</plugin.version.gpg>
+    <plugin.version.gpg>3.2.8</plugin.version.gpg>
     <plugin.version.release>3.3.1</plugin.version.release>
     <plugin.version.publish>0.11.0</plugin.version.publish>
 
@@ -79,11 +79,11 @@
     <third-party-bom-scopes>compile</third-party-bom-scopes>
 
     <!-- These properties are used in both the BOM as well as fluxnova-parent and subprojects -->
-    <version.mybatis>3.5.15</version.mybatis>
+    <version.mybatis>3.5.19</version.mybatis>
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
     <version.feel-scala>2.0.0</version.feel-scala>
-    <version.jacoco>0.8.14</version.jacoco>
+    <version.jacoco>0.8.15</version.jacoco>
     <version.sonar.plugin>5.5.0.6356</version.sonar.plugin>
     <releasePerform>false</releasePerform>
   </properties>
@@ -259,7 +259,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
-          <version>3.6.1</version>
+          <version>3.6.2</version>
           <configuration>
             <!-- Whenever we shade dependencies, concatenate their NOTICE files -->
             <transformers combine.children="append">
@@ -282,7 +282,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.6.2</version>
+          <version>3.6.3</version>
           <executions>
             <execution>
               <id>enforce-java</id>
