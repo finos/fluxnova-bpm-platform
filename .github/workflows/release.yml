@@ -25,13 +25,20 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
+  license-check:
+    name: License Check
+    uses: ./.github/workflows/license-scanning.yml
+
   publish-central:
+    needs: license-check
     name: Publish to Maven Central
     if: startsWith(github.ref, 'refs/heads/release/')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       release_version: ${{ steps.set-vars.outputs.release_version }}
       tag: ${{ steps.set-vars.outputs.tag }}

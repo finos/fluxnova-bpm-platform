@@ -1,0 +1,219 @@
+name: License Scanning
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  scan-maven:
+    name: Scan Maven Licenses
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-license-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-license-
+            ${{ runner.os }}-maven-
+
+      - name: Generate third-party license report
+        run: |
+          # Use sonatype-oss-release profile to scan only modules that are published
+          # to Maven Central. This excludes qa/* modules (test infrastructure) and
+          # avoids false positives from test-only dependencies like jython.
+          mvn -B \
+            org.codehaus.mojo:license-maven-plugin:2.4.0:aggregate-add-third-party \
+            -Psonatype-oss-release \
+            -Dlicense.includedScopes=compile,runtime \
+            -Dlicense.excludedScopes=test,provided,system \
+            -Dlicense.sortArtifactByName=true \
+            -Dlicense.outputDirectory=target \
+            -Dlicense.thirdPartyFilename=THIRD-PARTY.txt
+
+      - name: Validate licenses against FINOS Category A policy
+        shell: bash
+        run: |
+          THIRD_PARTY_FILE="target/THIRD-PARTY.txt"
+
+          if [[ ! -f "$THIRD_PARTY_FILE" ]]; then
+            echo "No third-party dependencies found (or file not generated)"
+            exit 0
+          fi
+
+          echo "=== Third-party Maven licenses ==="
+          cat "$THIRD_PARTY_FILE"
+          echo ""
+          echo "=== Validating against FINOS Category A allowed licenses ==="
+
+          # FINOS Category A approved license patterns (case-insensitive grep -E patterns)
+          # Reference: https://community.finos.org/docs/governance/software-projects/license-categories/
+          # Category A: Apache-2.0, Apache-1.1, MIT, ISC, BSD-2-Clause, BSD-3-Clause, 0BSD, Unlicense,
+          #             Python-2.0, PostgreSQL, BSL-1.0, W3C, WTFPL, Xnet, NCSA, ZPL-2.0, zlib
+          # EPL (Eclipse Public License) 1.0 and 2.0: Approved by FINOS
+          # NOTE: LGPL, GPL, MPL, CDDL, CC-*, OFL are NOT allowed
+          # Dual-licensed dependencies pass if one option is Category A (e.g., EPL/LGPL passes on EPL)
+          ALLOWED_PATTERN='Apache|MIT|ISC|BSD|0BSD|Unlicense|Python-2|PostgreSQL|BSL-1|Boost Software License|W3C|WTFPL|Xnet|NCSA|ZPL-2|zlib|Public Domain|EPL|Eclipse Public License|Eclipse Distribution License|EDL|BlueOak-1|CC0-1|CC-BY-4'
+
+          # Per-package exceptions (approved artifacts not matching global allow-list)
+          # Format: "groupId:artifactId" entries, checked against artifact string
+          APPROVED_EXCEPTIONS=(
+            # UPL-1.0: Approved exception for GraalVM JavaScript engine
+            # Copyright (c) 2019, Oracle and/or its affiliates. Licensed under UPL-1.0.
+            "org.graalvm.js:js-scriptengine"
+            # EDL-1.0: Eclipse Distribution License is BSD-3-Clause equivalent
+            # Copyright (c) 2017, 2018 Oracle and/or its affiliates. Licensed under EDL-1.0.
+            # See: https://github.com/jakartaee/jaxb-api
+            "jakarta.xml.bind:jakarta.xml.bind-api"
+          )
+
+          FAILED=0
+          CHECKED=0
+
+          while IFS= read -r line; do
+            [[ -z "$line" ]] && continue
+            [[ "$line" == *"Lists of"* ]] && continue
+
+            trimmed="${line#"${line%%[![:space:]]*}"}"
+            if [[ "$trimmed" =~ ^\(([^\)]+)\) ]]; then
+              LICENSE="${BASH_REMATCH[1]}"
+              ARTIFACT="${trimmed#*) }"
+              CHECKED=$((CHECKED + 1))
+
+              # Check if license matches allowed pattern
+              if echo "$LICENSE" | grep -qiE "$ALLOWED_PATTERN"; then
+                continue
+              fi
+
+              # Check per-package exceptions
+              IS_EXCEPTION=false
+              for exception in "${APPROVED_EXCEPTIONS[@]}"; do
+                if [[ "$ARTIFACT" == *"$exception"* ]]; then
+                  IS_EXCEPTION=true
+                  echo "APPROVED EXCEPTION: $LICENSE -> $ARTIFACT"
+                  break
+                fi
+              done
+
+              if [[ "$IS_EXCEPTION" == "false" ]]; then
+                echo "DISALLOWED: $LICENSE -> $ARTIFACT"
+                FAILED=$((FAILED + 1))
+              fi
+            fi
+          done < "$THIRD_PARTY_FILE"
+
+          echo ""
+          echo "=== Summary ==="
+          echo "Checked: $CHECKED dependencies"
+          echo "Disallowed: $FAILED"
+
+          if [[ $FAILED -gt 0 ]]; then
+            echo ""
+            echo "ERROR: Found $FAILED dependencies with disallowed licenses."
+            echo "Please review and either:"
+            echo "  1. Replace the dependency with an alternative that has an approved license"
+            echo "  2. Request an exception via FINOS governance if the license is acceptable"
+            exit 1
+          fi
+
+          echo "All Maven licenses are compliant with FINOS Category A policy."
+
+  scan-npm:
+    name: Scan npm Licenses (${{ matrix.name }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: webapps-frontend
+            path: webapps/frontend
+            lockfile: package-lock.json
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install production dependencies (npm)
+        if: matrix.lockfile == 'package-lock.json'
+        working-directory: ${{ matrix.path }}
+        run: npm install --omit=dev --ignore-scripts
+
+      - name: Install production dependencies (yarn)
+        if: matrix.lockfile == 'yarn.lock'
+        working-directory: ${{ matrix.path }}
+        run: yarn install --production --ignore-scripts
+
+      - name: Install license-checker
+        run: npm install -g license-checker-rseidelsohn@5.0.1
+
+      - name: Get package info
+        id: pkg
+        working-directory: ${{ matrix.path }}
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name || 'unknown'")
+          PKG_VERSION=$(node -p "require('./package.json').version || '0.0.0'")
+          echo "exclude=${PKG_NAME}@${PKG_VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Run license scan
+        working-directory: ${{ matrix.path }}
+        run: |
+          # FINOS Category A licenses + approved additions
+          # Reference: https://community.finos.org/docs/governance/software-projects/license-categories/
+          # NOTE: LGPL, GPL, MPL, CDDL, CC-* are NOT allowed per FINOS Category A
+          # EPL allowed per FINOS (Juan approval)
+          # OFL-1.1 allowed per FINOS (Juan approval) - for font packages like @ibm/plex
+
+          ALLOWED_LICENSES='Apache-2.0;Apache-1.1;MIT;ISC;BSD-2-Clause;BSD-3-Clause;0BSD;Unlicense;Python-2.0;PostgreSQL;BSL-1.0;W3C;WTFPL;Xnet;NCSA;ZPL-2.0;Zlib;EPL-1.0;EPL-2.0;BlueOak-1.0.0;CC0-1.0;CC-BY-4.0;OFL-1.1'
+
+          EXCLUSIONS="${{ steps.pkg.outputs.exclude }}"
+
+          # bpmn.io-licensed packages: excluded with watermark retention requirement
+          # These packages use MIT with a bpmn.io watermark clause (must retain watermark)
+          # See: https://github.com/bpmn-io/bpmn-js/blob/main/LICENSE
+          EXCLUSIONS="${EXCLUSIONS};bpmn-js@16.5.0"
+          EXCLUSIONS="${EXCLUSIONS};cmmn-js@0.20.0"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js@15.1.0"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js-decision-table@15.1.0"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js-drd@15.1.0"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js-literal-expression@15.1.0"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js-properties-panel@3.2.1"
+          EXCLUSIONS="${EXCLUSIONS};dmn-js-shared@15.1.0"
+          EXCLUSIONS="${EXCLUSIONS};camunda-dmn-js@1.8.0"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/dmn-migrate@0.5.0"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/form-js@1.8.7"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/form-js-editor@1.8.7"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/form-js-viewer@1.8.7"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/form-js-playground@1.8.7"
+          EXCLUSIONS="${EXCLUSIONS};@bpmn-io/form-js-carbon-styles@1.8.7"
+
+          license-checker-rseidelsohn \
+            --production \
+            --excludePrivatePackages \
+            --onlyAllow "$ALLOWED_LICENSES" \
+            --excludePackages "$EXCLUSIONS"
