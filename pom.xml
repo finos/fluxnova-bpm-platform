@@ -56,12 +56,13 @@
     <plugin.version.rar>2.4</plugin.version.rar>
     <plugin.version.gpg>3.2.7</plugin.version.gpg>
     <plugin.version.release>3.3.1</plugin.version.release>
-    <plugin.version.publish>0.11.0</plugin.version.publish>
+    <plugin.version.publish>0.12.0</plugin.version.publish>
+    <plugin.version.cyclonedx-maven>2.9.1</plugin.version.cyclonedx-maven>
 
     <!-- properties required for publishing to maven central (formerly in fluxnova-release-parent) -->
     <gpg.executable>gpg</gpg.executable>
     <publish.server.id>ossrh</publish.server.id>
-    <release.goals>install org.sonatype.central:central-publishing-maven-plugin:0.11.0:publish</release.goals>
+    <release.goals>install org.sonatype.central:central-publishing-maven-plugin:${plugin.version.publish}:publish</release.goals>
     <skip.source.attach>false</skip.source.attach>
 
     <!-- plugin versions previously defined in fluxnova-bpm-release-parent -->
@@ -82,7 +83,7 @@
     <version.mybatis>3.5.15</version.mybatis>
     <version.joda-time>2.12.5</version.joda-time>
     <version.uuid-generator>4.3.0</version.uuid-generator>
-    <version.feel-scala>2.0.0</version.feel-scala>
+    <version.feel-scala>3.0.0</version.feel-scala>
     <version.jacoco>0.8.14</version.jacoco>
     <version.sonar.plugin>5.5.0.6356</version.sonar.plugin>
     <releasePerform>false</releasePerform>
@@ -430,7 +431,6 @@
           </execution>
         </executions>
       </plugin>
-
   </plugins>
 </build>
 
@@ -679,6 +679,32 @@
         <module>parent</module>
         <module>bom</module>
       </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.cyclonedx</groupId>
+            <artifactId>cyclonedx-maven-plugin</artifactId>
+            <version>${plugin.version.cyclonedx-maven}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>makeAggregateBom</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <projectType>library</projectType>
+              <schemaVersion>1.6</schemaVersion>
+              <outputFormat>all</outputFormat>
+              <outputName>fluxnova-sbom</outputName>
+              <outputReactorProjects>true</outputReactorProjects>
+              <skipAttach>false</skipAttach>
+              <skipNotDeployed>false</skipNotDeployed>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <profile>
