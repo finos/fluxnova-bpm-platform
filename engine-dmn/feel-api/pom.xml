@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.dmn</groupId>
     <artifactId>fluxnova-engine-dmn-root</artifactId>
-    <version>3.1.0</version>
+    <version>3.1.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>fluxnova-engine-feel-api</artifactId>
