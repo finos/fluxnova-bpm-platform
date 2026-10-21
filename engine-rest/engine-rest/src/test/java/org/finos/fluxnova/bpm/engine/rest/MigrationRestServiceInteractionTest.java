@@ -556,6 +556,29 @@ public class MigrationRestServiceInteractionTest extends AbstractRestServiceTest
   }
 
   @Test
+  public void executeMigrationPlanWithNullSkipFlags() {
+    // null for skipCustomListeners/skipIoMappings (primitive booleans) must fall back to defaults, not fail deserialization
+    Map<String, Object> migrationExecution = new MigrationExecutionDtoBuilder()
+      .migrationPlan(EXAMPLE_PROCESS_DEFINITION_ID, ANOTHER_EXAMPLE_PROCESS_DEFINITION_ID)
+        .instruction(EXAMPLE_ACTIVITY_ID, ANOTHER_EXAMPLE_ACTIVITY_ID)
+      .done()
+      .processInstances(EXAMPLE_PROCESS_INSTANCE_ID)
+      .build();
+    migrationExecution.put(MigrationExecutionDtoBuilder.PROP_SKIP_CUSTOM_LISTENERS, null);
+    migrationExecution.put(MigrationExecutionDtoBuilder.PROP_SKIP_IO_MAPPINGS, null);
+
+    given()
+      .contentType(POST_JSON_CONTENT_TYPE)
+      .body(migrationExecution)
+    .then().expect()
+      .statusCode(Status.NO_CONTENT.getStatusCode())
+    .when()
+      .post(EXECUTE_MIGRATION_URL);
+
+    verifyMigrationPlanExecutionInteraction(migrationExecution);
+  }
+
+  @Test
   public void executeMigrationPlanWithNullInstructions() {
     MigrationInstructionValidationReport instructionReport = mock(MigrationInstructionValidationReport.class);
     when(instructionReport.getMigrationInstruction()).thenReturn(null);

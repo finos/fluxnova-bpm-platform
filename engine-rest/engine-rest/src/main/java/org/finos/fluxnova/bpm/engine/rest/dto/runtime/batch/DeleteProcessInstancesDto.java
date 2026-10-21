@@ -77,7 +77,7 @@ public class DeleteProcessInstancesDto {
     return skipSubprocesses;
   }
 
-  public void setSkipSubprocesses(Boolean skipSubprocesses) {
+  public void setSkipSubprocesses(boolean skipSubprocesses) {
     this.skipSubprocesses = skipSubprocesses;
   }
 

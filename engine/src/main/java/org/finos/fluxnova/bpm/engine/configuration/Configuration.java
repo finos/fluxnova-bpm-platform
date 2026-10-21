@@ -14,6 +14,9 @@ public interface Configuration {
   /** Lifecycle status of an entry which has been soft-deleted. */
   String STATUS_DELETED = "DELETED";
 
+  /** Lifecycle status of an entry which has been superseded by a newer version. */
+  String STATUS_INACTIVE = "INACTIVE";
+
   /** @return the id of the configuration entry */
   String getId();
 
@@ -29,7 +32,10 @@ public interface Configuration {
   /** @return the version of this entry, starting at 1 */
   int getVersion();
 
-  /** @return the lifecycle status, either {@link #STATUS_ACTIVE} or {@link #STATUS_DELETED} */
+  /**
+   * @return the lifecycle status: {@link #STATUS_ACTIVE}, {@link #STATUS_INACTIVE}
+   *         or {@link #STATUS_DELETED}
+   */
   String getStatus();
 
   /** @return the id of the user who created this entry */

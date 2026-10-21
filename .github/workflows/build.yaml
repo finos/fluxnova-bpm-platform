@@ -48,10 +48,13 @@ jobs:
       - name: Download deps and plugins
         run: mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies -s ./settings.xml
 
-      - name: Collect Workflow Telemetry
-        uses: catchpoint/workflow-telemetry-action@94c3c3d9567a0205de6da68a76c428ce4e769af1
-        with:
-          theme: dark
+      # Temporary disable: catchpoint/workflow-telemetry-action currently returns 404 from GitHub,
+      # so this step is commented out until a valid alternative action is identified.
+      # See: https://github.com/catchpoint/workflow-telemetry-action
+      # - name: Collect Workflow Telemetry
+      #   uses: catchpoint/workflow-telemetry-action@94c3c3d9567a0205de6da68a76c428ce4e769af1
+      #   with:
+      #     theme: dark
 
       - name: Build
         uses: ./.github/actions/build-deploy

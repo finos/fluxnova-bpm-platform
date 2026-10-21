@@ -28,4 +28,4 @@ create unique index ACT_UNIQ_GE_CONFIG
 
 
 insert into ACT_GE_SCHEMA_LOG
-values ('1600', CURRENT_TIMESTAMP, '3.1.0');
+values ('1600', CURRENT_TIMESTAMP, '3.1.1');

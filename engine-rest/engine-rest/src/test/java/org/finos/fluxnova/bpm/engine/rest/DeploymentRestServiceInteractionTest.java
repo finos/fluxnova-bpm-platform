@@ -1959,6 +1959,34 @@ public class DeploymentRestServiceInteractionTest extends AbstractRestServiceTes
   }
 
   @Test
+  public void testDeleteDeploymentsWithNullFlags() throws ParseException {
+    // null for cascade/skipCustomListeners/skipIoMappings (primitive booleans) must fall back to defaults
+    List<String> idsToBeDeleted = List.of(MockProvider.EXAMPLE_DEPLOYMENT_ID);
+
+    Map<String, Object> requestBody = new HashMap<>();
+    requestBody.put("deploymentIds", idsToBeDeleted);
+    requestBody.put("cascade", null);
+    requestBody.put("skipCustomListeners", null);
+    requestBody.put("skipIoMappings", null);
+
+    Response restResponse = given().body(requestBody)
+        .contentType(ContentType.JSON)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when()
+        .post(DEPLOYMENT_DELETE_DEPLOYMENTS_URL);
+
+    List<DeleteDeploymentResponse> deleteDeploymentResponses = restResponse.getBody()
+        .jsonPath()
+        .getList("", DeleteDeploymentResponse.class);
+
+    assertThat(deleteDeploymentResponses, everyItem(hasProperty("status", equalTo(ResponseStatus.SUCCESS))));
+
+    verify(mockRepositoryService, times(1)).deleteDeployment(MockProvider.EXAMPLE_DEPLOYMENT_ID, false, false, false);
+  }
+
+  @Test
   public void testDeleteDeploymentsSkipListeners() throws ParseException {
     boolean cascade = false, skipCustomListeners = true, skipIoMappings = false;
 

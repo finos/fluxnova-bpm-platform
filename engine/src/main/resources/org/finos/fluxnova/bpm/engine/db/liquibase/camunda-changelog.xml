@@ -203,4 +203,16 @@
       <tagDatabase tag="3.1.0"/>
     </changeSet>
 
+    <changeSet author="Fluxnova" id="3.1.0-to-3.1.1">
+      <update tableName="ACT_GE_SCHEMA_LOG">
+        <column name="VERSION_" value="3.1.1"/>
+        <column name="TIMESTAMP_" valueComputed="CURRENT_TIMESTAMP"/>
+        <where>ID_ = '1600' AND VERSION_ = '3.1.0'</where>
+      </update>
+    </changeSet>
+
+    <changeSet author="Fluxnova" id="3.1.1-tag">
+      <tagDatabase tag="3.1.1"/>
+    </changeSet>
+
 </databaseChangeLog>
