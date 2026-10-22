@@ -29,7 +29,7 @@ package org.finos.fluxnova.bpm.engine.telemetry;
 public interface Product {
 
   /**
-   * The name of the product (i.e., Camunda BPM Runtime).
+   * The name of the product (i.e., Fluxnova BPM Runtime).
    */
   public String getName();
 

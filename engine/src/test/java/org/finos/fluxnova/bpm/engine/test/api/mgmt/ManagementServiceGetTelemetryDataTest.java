@@ -132,7 +132,7 @@ public class ManagementServiceGetTelemetryDataTest {
     TelemetryData telemetryData = managementService.getTelemetryData();
 
     // then
-    assertThat(telemetryData.getProduct().getName()).isEqualTo("Camunda BPM Runtime");
+    assertThat(telemetryData.getProduct().getName()).isEqualTo("Fluxnova BPM Runtime");
     assertThat(telemetryData.getProduct().getEdition()).isEqualTo("community");
     assertThat(telemetryData.getProduct().getVersion()).isEqualTo(ParseUtil.parseProcessEngineVersion(true).getVersion());
   }
