@@ -3,7 +3,7 @@
   "info": {
     "title": "Fluxnova Platform REST API",
     "description": "OpenApi Spec for Fluxnova Platform REST API.",
-    "version": "3.1.0-SNAPSHOT",
+    "version": "3.1.1-SNAPSHOT",
     "license": {
       "name": "Apache License 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -2443,6 +2443,94 @@
       }
     },
     "/configurations": {
+      "get": {
+        "operationId": "getConfigurations",
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Get Configurations",
+        "description": "Retrieves the configurations applicable to a tenant.\n\nIf `tenantId` is omitted or blank, global default configurations are returned.\nIf `tenantId` is set, active global configurations are returned, and the tenant\u0027s\nactive entry replaces the global entry for the same `configKey`.\n\nBy default, only configurations with status `ACTIVE` are returned. Set\n`includeInactive` to `true` to return all entries of every status without\nmerging: the global entries and, if `tenantId` is set, the tenant\u0027s entries.\nResults are ordered by `configKey`, then global before tenant, then `version`.",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The tenant whose applicable configurations to retrieve. Tenant entries override global entries with the same key. If omitted or blank, retrieves global defaults only."
+          },
+          {
+            "name": "includeInactive",
+            "in": "query",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            },
+            "description": "Whether to return all entries of every status for the global scope and the tenant, without merging. By default, only the applicable active configurations are returned."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConfigurationDto"
+                  }
+                },
+                "examples": {
+                  "global-configurations": {
+                    "summary": "GET `/configurations`",
+                    "value": [
+                      {
+                        "id": "8a6cf4aa-6db5-4b95-9871-1f0f9ef8b2f5",
+                        "configKey": "mail.from",
+                        "configValue": "noreply@example.org",
+                        "version": 1,
+                        "status": "ACTIVE",
+                        "createdBy": "demo",
+                        "createdAt": "2026-08-20T14:00:00.000+0000",
+                        "updatedBy": "demo",
+                        "updatedAt": "2026-08-20T14:00:00.000+0000"
+                      }
+                    ]
+                  },
+                  "tenant-configurations": {
+                    "summary": "GET `/configurations?tenantId\u003dtenant-a`",
+                    "value": [
+                      {
+                        "id": "8a6cf4aa-6db5-4b95-9871-1f0f9ef8b2f5",
+                        "configKey": "mail.from",
+                        "tenantId": "tenant-a",
+                        "configValue": "noreply@tenant-a.example.org",
+                        "version": 1,
+                        "status": "ACTIVE",
+                        "createdBy": "demo",
+                        "createdAt": "2026-08-20T14:00:00.000+0000",
+                        "updatedBy": "demo",
+                        "updatedAt": "2026-08-20T14:00:00.000+0000"
+                      },
+                      {
+                        "id": "bf77b760-4b6e-40a7-a3ad-0c8d026270c8",
+                        "configKey": "mail.replyTo",
+                        "configValue": "support@example.org",
+                        "version": 1,
+                        "status": "ACTIVE",
+                        "createdBy": "demo",
+                        "createdAt": "2026-08-19T14:00:00.000+0000",
+                        "updatedBy": "demo",
+                        "updatedAt": "2026-08-19T14:00:00.000+0000"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "description": "Request successful."
+          }
+        }
+      },
       "post": {
         "operationId": "createConfiguration",
         "tags": [
@@ -2533,6 +2621,205 @@
               }
             },
             "description": "The configuration could not be created due to an internal server error."
+          }
+        }
+      }
+    },
+    "/configurations/{id}": {
+      "delete": {
+        "operationId": "deleteConfiguration",
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Delete Configuration",
+        "description": "Soft-deletes an active configuration by marking it `DELETED`.\n\nThe entry is retained and can still be retrieved by id or by listing\nconfigurations with `includeInactive\u003dtrue`.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The id of the active configuration to delete."
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Request successful. This method returns no content."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Configuration with the given id does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Returned if the configuration is not active."
+          }
+        }
+      },
+      "get": {
+        "operationId": "getConfiguration",
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Get Configuration",
+        "description": "Retrieves a configuration by id. Both active and inactive configurations can be retrieved.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The id of the configuration to retrieve."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurationDto"
+                },
+                "examples": {
+                  "configuration": {
+                    "summary": "GET `/configurations/8a6cf4aa-6db5-4b95-9871-1f0f9ef8b2f5`",
+                    "value": {
+                      "id": "8a6cf4aa-6db5-4b95-9871-1f0f9ef8b2f5",
+                      "configKey": "mail.from",
+                      "tenantId": "tenant-a",
+                      "configValue": "noreply@example.org",
+                      "version": 1,
+                      "status": "ACTIVE",
+                      "createdBy": "demo",
+                      "createdAt": "2026-08-20T14:00:00.000+0000",
+                      "updatedBy": "demo",
+                      "updatedAt": "2026-08-20T14:00:00.000+0000"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Configuration with the given id does not exist."
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateConfiguration",
+        "tags": [
+          "Configuration"
+        ],
+        "summary": "Update Configuration",
+        "description": "Updates an active configuration by creating a new version.\n\nThe existing entry is marked `INACTIVE` and a new `ACTIVE` entry with the same\n`configKey` and `tenantId` is created. The new entry receives a new `id` and a\n`version` one greater than the highest existing version for that key and scope.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The id of the active configuration to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateConfigurationDto"
+              },
+              "examples": {
+                "example-1": {
+                  "summary": "PUT `/configurations/8a6cf4aa-6db5-4b95-9871-1f0f9ef8b2f5`",
+                  "value": {
+                    "configValue": "notifications@example.org"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurationDto"
+                },
+                "examples": {
+                  "example-1": {
+                    "summary": "Status 200.",
+                    "value": {
+                      "id": "3d9b1c22-8f0e-4a7c-9b61-2f4e5c7a1d90",
+                      "configKey": "mail.from",
+                      "tenantId": "tenant-a",
+                      "configValue": "notifications@example.org",
+                      "version": 2,
+                      "status": "ACTIVE",
+                      "createdBy": "demo",
+                      "createdAt": "2026-09-29T14:00:00.000+0000",
+                      "updatedBy": "demo",
+                      "updatedAt": "2026-09-29T14:00:00.000+0000"
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Request successful. Returns the newly created active version."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Returned if the request body is missing or `configValue` is missing or blank."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Configuration with the given id does not exist."
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExceptionDto"
+                }
+              }
+            },
+            "description": "Returned if the configuration is not active or was modified concurrently."
           }
         }
       }
@@ -45608,6 +45895,7 @@
             "nullable": true,
             "enum": [
               "ACTIVE",
+              "INACTIVE",
               "DELETED"
             ],
             "description": "The status of the configuration entry."
@@ -54628,6 +54916,18 @@
             "$ref": "#/components/schemas/VariableValueDto"
           }
         ]
+      },
+      "UpdateConfigurationDto": {
+        "type": "object",
+        "required": [
+          "configValue"
+        ],
+        "properties": {
+          "configValue": {
+            "type": "string",
+            "description": "The new configuration value."
+          }
+        }
       },
       "UserCredentialsDto": {
         "type": "object",
