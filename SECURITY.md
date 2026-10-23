@@ -15,6 +15,8 @@ If you find something you believe to be a security issue, we encourage and appre
 2. The project team will acknowledge receipt of your report and triage the issue. If a vulnerability is confirmed, the team will work with you to investigate and resolve it. *(Note: Maintainers must review the escalation requirements below during triage).*
 3. Once a fix is available, a release will be made and the vulnerability will be publicly disclosed in accordance with the [FINOS policy](https://community.finos.org/docs/governance/Software-Projects/cve-responsible-disclosure).
 
+Response and fix timeframes are listed in the [coordinated disclosure timeline](SUPPORT.md#coordinated-disclosure-timeline) and [security update SLA](SUPPORT.md#security-update-sla) in SUPPORT.md.
+
 ## CRA Escalation (For Maintainers)
 
 CRA stewardship: This project is supported under the Linux Foundation CRA stewardship framework. Security vulnerabilities should be reported through the mechanisms described in this file, which we will coordinate with our CRA steward. For actively exploited vulnerabilities and severe incidents that may require CRA escalation, please use the project's emergency security reporting mechanisms as appropriate. Read more at https://www.linuxfoundation.org/security .
