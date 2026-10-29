@@ -1,9 +1,10 @@
 package org.finos.fluxnova.bpm.engine.test.api.variables;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.Execution;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
@@ -12,8 +13,8 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Yusuf
@@ -60,11 +61,11 @@ public class RestrictedVariableTest extends PluggableProcessEngineTest {
     runtimeService.setVariable(processInstanceId, "var", Variables.stringValue("v1", VariableOptions.options(false, true)));
         assertTrue(runtimeService.createVariableInstanceQuery().variableName("var").singleResult().isRestricted());
 
-    // Update
+    // The restricted flag is taken at face value: a plain value un-restricts the variable.
     runtimeService.setVariable(processInstanceId, "var", "v2");
     VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("var").singleResult();
 
-        assertEquals(false, variableInstance.isRestricted());
+        assertFalse(variableInstance.isRestricted());
     assertEquals("v2", variableInstance.getValue());
   }
 
@@ -147,7 +148,7 @@ public class RestrictedVariableTest extends PluggableProcessEngineTest {
     assertEquals("test.txt", ((org.finos.fluxnova.bpm.engine.variable.value.FileValue)variableInstance.getTypedValue()).getFilename());
   }
 
-  @After
+  @AfterEach
   public void cleanup() {
     processEngineConfiguration.setJavaSerializationFormatEnabled(false);
   }
@@ -175,18 +176,19 @@ public class RestrictedVariableTest extends PluggableProcessEngineTest {
 
   @Test
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
-  public void testUpdateRestrictedWithSameValuePreservesRestriction() {
+  public void testUpdateRestrictedWithSameValueButDroppedFlagBecomesUnrestricted() {
     String processInstanceId = runtimeService.startProcessInstanceByKey("oneTaskProcess").getId();
 
     runtimeService.setVariable(processInstanceId, "var", Variables.stringValue("v1", VariableOptions.options(false, true)));
     assertTrue(runtimeService.createVariableInstanceQuery().variableName("var").singleResult().isRestricted());
 
     // Re-submit the unchanged value as a non-restricted typed value, as a task form / REST submit would
-    // (same value and type, restricted flag dropped). The restriction must be preserved, not lost.
+    // (same value and type, restricted flag dropped). The flag is taken at face value, so the
+    // variable becomes unrestricted - callers are responsible for re-asserting it explicitly.
     runtimeService.setVariable(processInstanceId, "var", Variables.stringValue("v1"));
     VariableInstance variableInstance = runtimeService.createVariableInstanceQuery().variableName("var").singleResult();
 
-    assertTrue(variableInstance.isRestricted());
+    assertFalse(variableInstance.isRestricted());
     assertEquals("v1", variableInstance.getValue());
   }
 

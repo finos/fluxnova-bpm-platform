@@ -1068,12 +1068,16 @@
       <bind name="authUserId" value="authCheck.authUserId" />
       <bind name="authGroupIds" value="authCheck.authGroupIds" />
       <bind name="revokeAuthorizationCheckEnabled" value="authCheck.revokeAuthorizationCheckEnabled" />
-      <bind name="permCheck" value="authCheck.restrictedVariablePermissionCheck" />
       <bind name="restrictedValue" value="true" />
       <choose>
-        <when test="permCheck != null">
+        <when test="authCheck.restrictedVariablePermissionCheck != null &amp;&amp; authCheck.restrictedVariablePermissionCheck.atomicChecks.size > 0">
           case when RES.RESTRICTED_ = #{restrictedValue, jdbcType=BOOLEAN} then
-            (<include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.authCheck"/>)
+            <!-- disjunctive: any one atomic check (e.g. READ_RESTRICTED or UPDATE_RESTRICTED) is enough -->
+            case when (
+              <foreach item="permCheck" collection="authCheck.restrictedVariablePermissionCheck.atomicChecks" separator=" or ">
+                (<include refid="org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity.authCheck"/>) = 1
+              </foreach>
+            ) then 1 else 0 end
           else 1 end
         </when>
         <otherwise>

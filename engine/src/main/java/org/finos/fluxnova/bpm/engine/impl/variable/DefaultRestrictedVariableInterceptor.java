@@ -9,10 +9,11 @@ import org.finos.fluxnova.bpm.engine.authorization.VariablePermissions;
 import org.finos.fluxnova.bpm.engine.history.HistoricVariableInstance;
 import org.finos.fluxnova.bpm.engine.impl.context.Context;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.CoreVariableInstance;
+import org.finos.fluxnova.bpm.engine.impl.db.CompositePermissionCheck;
+import org.finos.fluxnova.bpm.engine.impl.db.PermissionCheckBuilder;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationManager;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
-import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -26,7 +27,7 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
     if (InternalVariableContext.isInternalWrite() || InternalVariableContext.isInternalRead()) {
       return value;
     }
-    if (variableInstance.isRestricted() && !isAuthorized(VariablePermissions.READ_RESTRICTED)) {
+    if (variableInstance.isRestricted() && !isAuthorizedToReadRestricted()) {
       return null;
     }
     return value;
@@ -57,13 +58,15 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
 
     if (restricted
         && hasNoEffectiveChange(variableInstance, newValue)
-        && isAuthorized(VariablePermissions.READ_RESTRICTED)) {
-      // Preserve the restricted flag: a resubmit that lost the metadata (e.g. a task form echoing
-      // the value back as a plain value) must not silently un-restrict the variable.
-      return Variables.untypedValue(newValue, newValue.isTransient(), true);
+        && isAuthorizedToReadRestricted()) {
+      // No-op resubmit (same value, same restricted flag): UPDATE_RESTRICTED is not required.
+      return newValue;
     }
 
     checkAuthorization(VariablePermissions.UPDATE_RESTRICTED, restricted);
+
+    // The restricted flag is taken at face value from the payload: callers (and their UI) are
+    // responsible for explicitly re-asserting it on every update; it is not preserved implicitly.
     return newValue;
   }
 
@@ -120,15 +123,42 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
     return true;
   }
 
+  // UPDATE_RESTRICTED implies READ_RESTRICTED: being authorized to update a restricted
+  // variable's value also authorizes seeing it, so the two permissions are checked disjunctively.
+  protected boolean isAuthorizedToReadRestricted() {
+    CommandContext commandContext = Context.getCommandContext();
+    if (commandContext != null) {
+      AuthorizationManager authorizationManager = commandContext.getAuthorizationManager();
+      if (authorizationManager != null) {
+        boolean wasAuthorizationCheckEnabled = commandContext.isAuthorizationCheckEnabled();
+        try {
+          if (authorizationManager.isAuthorizationEnabled()) {
+            commandContext.enableAuthorizationCheck();
+          }
+          CompositePermissionCheck check = new PermissionCheckBuilder()
+              .disjunctive()
+              .atomicCheckForResourceId(Resources.VARIABLE, ANY, VariablePermissions.READ_RESTRICTED)
+              .atomicCheckForResourceId(Resources.VARIABLE, ANY, VariablePermissions.UPDATE_RESTRICTED)
+              .build();
+          return authorizationManager.isAuthorized(check);
+        } finally {
+          if (!wasAuthorizationCheckEnabled) {
+            commandContext.disableAuthorizationCheck();
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   protected boolean hasNoEffectiveChange(CoreVariableInstance variableInstance, TypedValue newValue) {
     if (newValue == null) {
       return false;
     }
 
-    final TypedValue[] currentValueHolder = new TypedValue[1];
-    InternalVariableContext.executeAsInternalRead(() -> currentValueHolder[0] = variableInstance.getTypedValue(false));
-
-    TypedValue currentValue = currentValueHolder[0];
+    // No internal-read bypass needed here: UPDATE_RESTRICTED implies READ_RESTRICTED, so a user
+    // who reaches this point (authorized to update) is also authorized to read the current value.
+    TypedValue currentValue = variableInstance.getTypedValue(false);
     if (currentValue == null) {
       return false;
     }
@@ -137,10 +167,9 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
       return false;
     }
 
+    // a change to the restricted flag is itself a real, privileged change, never a no-op
     if (variableInstance.isRestricted() != newValue.isRestricted()) {
-      if (!(variableInstance.isRestricted() && !newValue.isRestricted())) {
-        return false;
-      }
+      return false;
     }
 
     String currentTypeName = currentValue.getType() != null ? currentValue.getType().getName() : null;

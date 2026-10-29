@@ -1,8 +1,8 @@
 package org.finos.fluxnova.bpm.engine.impl.variable;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.CREATE_RESTRICTED;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -12,7 +12,7 @@ import org.finos.fluxnova.bpm.engine.impl.core.variable.CoreVariableInstance;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DefaultRestrictedVariableInterceptorTest {
 
@@ -60,6 +60,11 @@ public class DefaultRestrictedVariableInterceptorTest {
 
     @Override
     protected boolean isAuthorized(VariablePermissions permission) {
+      return authorized;
+    }
+
+    @Override
+    protected boolean isAuthorizedToReadRestricted() {
       return authorized;
     }
 

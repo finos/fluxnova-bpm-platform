@@ -65,7 +65,8 @@ public class AuthorizationCheck implements Serializable {
   protected boolean historicInstancePermissionsEnabled = false;
 
   protected boolean useLeftJoin = true;
-  protected PermissionCheck restrictedVariablePermissionCheck;
+  // disjunctive: any one atomic check (e.g. READ_RESTRICTED or UPDATE_RESTRICTED) is enough
+  protected CompositePermissionCheck restrictedVariablePermissionCheck;
 
   public AuthorizationCheck() {
   }
@@ -177,11 +178,11 @@ public class AuthorizationCheck implements Serializable {
     this.useLeftJoin = useLeftJoin;
   }
 
-  public PermissionCheck getRestrictedVariablePermissionCheck() {
+  public CompositePermissionCheck getRestrictedVariablePermissionCheck() {
     return restrictedVariablePermissionCheck;
   }
 
-  public void setRestrictedVariablePermissionCheck(PermissionCheck restrictedVariablePermissionCheck) {
+  public void setRestrictedVariablePermissionCheck(CompositePermissionCheck restrictedVariablePermissionCheck) {
     this.restrictedVariablePermissionCheck = restrictedVariablePermissionCheck;
   }
 }
