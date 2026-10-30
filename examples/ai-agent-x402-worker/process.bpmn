@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_CreditRisk"
+                  targetNamespace="http://finos.org/bpmn/fluxnova"
+                  exporter="FINOS Fluxnova Modeler"
+                  exporterVersion="1.0.0">
+  <bpmn:process id="Process_AiCreditRiskAssessment" name="AI Agent Governed Credit Risk Assessment" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_ApplicationReceived" name="Loan Application Received">
+      <bpmn:outgoing>Flow_ToAssessment</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_AiCreditAssessment"
+                      name="Autonomous AI Risk Evaluation (x402 Micro-Metered)"
+                      camunda:type="external"
+                      camunda:topic="ai-credit-assessment">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="maxSingleSpendUsd">0.10</camunda:inputParameter>
+          <camunda:inputParameter name="maxCumulativeSpendUsd">1.00</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ToAssessment</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToReview</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:exclusiveGateway id="Gateway_RiskCheck" name="Risk Score OK?">
+      <bpmn:incoming>Flow_ToReview</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approved</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ManualReview</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:endEvent id="EndEvent_AutoApproved" name="Loan Approved with SCITT Audit Receipt">
+      <bpmn:incoming>Flow_Approved</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:userTask id="Task_ManualComplianceReview" name="Manual Compliance Review">
+      <bpmn:incoming>Flow_ManualReview</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToEnd</bpmn:outgoing>
+    </bpmn:userTask>
+
+    <bpmn:endEvent id="EndEvent_ReviewComplete" name="Process Complete">
+      <bpmn:incoming>Flow_ToEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_ToAssessment" sourceRef="StartEvent_ApplicationReceived" targetRef="Task_AiCreditAssessment" />
+    <bpmn:sequenceFlow id="Flow_ToReview" sourceRef="Task_AiCreditAssessment" targetRef="Gateway_RiskCheck" />
+    <bpmn:sequenceFlow id="Flow_Approved" name="Score >= 700" sourceRef="Gateway_RiskCheck" targetRef="EndEvent_AutoApproved">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        ${task_output.prop("riskScore").numberValue() >= 700}
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ManualReview" name="Score < 700" sourceRef="Gateway_RiskCheck" targetRef="Task_ManualComplianceReview">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        ${task_output.prop("riskScore").numberValue() < 700}
+      </bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ToEnd" sourceRef="Task_ManualComplianceReview" targetRef="EndEvent_ReviewComplete" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CreditRisk">
+    <bpmndi:BPMNPlane id="BPMNPlane_CreditRisk" bpmnElement="Process_AiCreditRiskAssessment">
+      <bpmndi:BPMNShape id="StartEvent_ApplicationReceived_di" bpmnElement="StartEvent_ApplicationReceived">
+        <dc:Bounds x="160" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="136" y="143" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AiCreditAssessment_di" bpmnElement="Task_AiCreditAssessment">
+        <dc:Bounds x="260" y="78" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_RiskCheck_di" bpmnElement="Gateway_RiskCheck" isMarkerVisible="true">
+        <dc:Bounds x="485" y="93" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_AutoApproved_di" bpmnElement="EndEvent_AutoApproved">
+        <dc:Bounds x="632" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ManualComplianceReview_di" bpmnElement="Task_ManualComplianceReview">
+        <dc:Bounds x="570" y="210" width="160" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_ReviewComplete_di" bpmnElement="EndEvent_ReviewComplete">
+        <dc:Bounds x="782" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_ToAssessment_di" bpmnElement="Flow_ToAssessment">
+        <di:waypoint x="196" y="118" />
+        <di:waypoint x="260" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToReview_di" bpmnElement="Flow_ToReview">
+        <di:waypoint x="420" y="118" />
+        <di:waypoint x="485" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Approved_di" bpmnElement="Flow_Approved">
+        <di:waypoint x="535" y="118" />
+        <di:waypoint x="632" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ManualReview_di" bpmnElement="Flow_ManualReview">
+        <di:waypoint x="510" y="143" />
+        <di:waypoint x="510" y="250" />
+        <di:waypoint x="570" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToEnd_di" bpmnElement="Flow_ToEnd">
+        <di:waypoint x="730" y="250" />
+        <di:waypoint x="782" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
