@@ -107,6 +107,26 @@ Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issue
 
 To run the tests in this repository, please see our [testing tips and tricks](TESTING.md).
 
+## Fluxnova Repositories
+
+The Fluxnova project spans multiple repositories in the [finos](https://github.com/finos) GitHub organization:
+
+| Repository | Description |
+|------------|-------------|
+| [fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform) | The core Fluxnova BPM platform and process engine |
+| [fluxnova-modeler](https://github.com/finos/fluxnova-modeler) | An integrated modeling solution for BPMN, DMN and Forms based on bpmn.io |
+| [fluxnova-control-center](https://github.com/finos/fluxnova-control-center) | Web application for Fluxnova process monitoring and administration |
+| [fluxnova-docs-manual](https://github.com/finos/fluxnova-docs-manual) | Sources of the docs.fluxnova.finos.org site |
+| [fluxnova-website](https://github.com/finos/fluxnova-website) | Sources of the fluxnova.finos.org site |
+| [fluxnova-feel-scala](https://github.com/finos/fluxnova-feel-scala) | FEEL parser and interpreter written in Scala |
+| [fluxnova-examples](https://github.com/finos/fluxnova-examples) | Example projects and use cases for Fluxnova |
+| [fluxnova-plugins](https://github.com/finos/fluxnova-plugins) | Community and extension plugins for Fluxnova |
+| [fluxnova-modeler-plugins](https://github.com/finos/fluxnova-modeler-plugins) | Plugins for the Fluxnova Modeler |
+| [fluxnova-testing-framework](https://github.com/finos/fluxnova-testing-framework) | Testing framework and utilities for Fluxnova applications |
+| [fluxnova-deploy](https://github.com/finos/fluxnova-deploy) | Deployment configurations and tools for Fluxnova |
+| [fluxnova-docs-theme](https://github.com/finos/fluxnova-docs-theme) | Theme and styling for Fluxnova documentation |
+| [fluxnova-ai](https://github.com/finos/fluxnova-ai) | Fluxnova AI Working Group |
+
 ## Get Involved
 
 Join the Fluxnova public mailing list by sending an email to [fluxnova+subscribe@lists.finos.org](mailto:fluxnova+subscribe@lists.finos.org).

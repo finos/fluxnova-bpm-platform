@@ -2082,6 +2082,26 @@ public class ProcessDefinitionRestServiceInteractionTest extends AbstractRestSer
   }
 
   @Test
+  public void testActivateProcessDefinitionWithNullFlags() {
+    // null for suspended/includeProcessInstances (primitive booleans) must fall back to defaults, not fail deserialization
+    Map<String, Object> params = new HashMap<>();
+    params.put("suspended", null);
+    params.put("includeProcessInstances", null);
+
+    given()
+      .pathParam("id", MockProvider.EXAMPLE_PROCESS_DEFINITION_ID)
+      .contentType(ContentType.JSON)
+      .body(params)
+    .then()
+      .expect()
+        .statusCode(Status.NO_CONTENT.getStatusCode())
+      .when()
+        .put(SINGLE_PROCESS_DEFINITION_SUSPENDED_URL);
+
+    verify(repositoryServiceMock).activateProcessDefinitionById(MockProvider.EXAMPLE_PROCESS_DEFINITION_ID, false, null);
+  }
+
+  @Test
   public void testDelayedActivateProcessDefinitionExcludingInstances() {
     Map<String, Object> params = new HashMap<>();
     params.put("suspended", false);

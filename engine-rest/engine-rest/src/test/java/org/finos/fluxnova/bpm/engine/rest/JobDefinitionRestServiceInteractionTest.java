@@ -248,6 +248,32 @@ public class JobDefinitionRestServiceInteractionTest extends AbstractRestService
   }
 
   @Test
+  public void testDelayedActivateJobDefinitionWithNullFlags() {
+    // null for suspended/includeJobs (primitive booleans) must fall back to defaults, not fail deserialization
+    Map<String, Object> params = new HashMap<>();
+    params.put("suspended", null);
+    params.put("includeJobs", null);
+    params.put("executionDate", MockProvider.EXAMPLE_JOB_DEFINITION_DELAYED_EXECUTION);
+
+    Date executionDate = DateTimeUtil.parseDate(MockProvider.EXAMPLE_JOB_DEFINITION_DELAYED_EXECUTION);
+
+    given()
+      .pathParam("id", MockProvider.EXAMPLE_JOB_DEFINITION_ID)
+      .contentType(ContentType.JSON)
+      .body(params)
+    .then()
+      .expect()
+        .statusCode(Status.NO_CONTENT.getStatusCode())
+      .when()
+        .put(SINGLE_JOB_DEFINITION_SUSPENDED_URL);
+
+    verify(mockSuspensionStateSelectBuilder).byJobDefinitionId(MockProvider.EXAMPLE_JOB_DEFINITION_ID);
+    verify(mockSuspensionStateBuilder).executionDate(executionDate);
+    verify(mockSuspensionStateBuilder).includeJobs(false);
+    verify(mockSuspensionStateBuilder).activate();
+  }
+
+  @Test
   public void testActivateJobDefinitionIncludingInstances() {
     Map<String, Object> params = new HashMap<>();
     params.put("suspended", false);

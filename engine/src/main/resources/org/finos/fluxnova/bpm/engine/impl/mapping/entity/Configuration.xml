@@ -76,4 +76,36 @@
     </choose>
   </select>
 
+  <select id="selectMaxConfigurationVersion" parameterType="java.util.Map" resultType="int">
+    select max(VERSION_)
+    from ${prefix}ACT_GE_CONFIGURATION
+    where CONFIG_KEY_ = #{configKey, jdbcType=VARCHAR}
+    <choose>
+      <when test="tenantId != null">
+        and TENANT_ID_ = #{tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="selectConfigurations" parameterType="java.util.Map" resultMap="configurationResultMap">
+    select *
+    from ${prefix}ACT_GE_CONFIGURATION
+    where 1 = 1
+    <if test="!parameter.includeInactive">
+      and STATUS_ = 'ACTIVE'
+    </if>
+    <choose>
+      <when test="parameter.tenantId != null">
+        and TENANT_ID_ = #{parameter.tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+    order by CONFIG_KEY_
+  </select>
+
 </mapper>

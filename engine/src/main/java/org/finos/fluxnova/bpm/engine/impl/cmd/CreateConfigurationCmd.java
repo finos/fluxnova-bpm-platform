@@ -13,6 +13,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.Authentication;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity;
+import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationManager;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 
 public class CreateConfigurationCmd implements Command<Configuration>, Serializable {
@@ -32,8 +33,12 @@ public class CreateConfigurationCmd implements Command<Configuration>, Serializa
   public Configuration execute(CommandContext commandContext) {
     ensureNotNull(NotValidException.class, "configKey is mandatory", "configKey", configKey);
     ensureNotNull(NotValidException.class, "configValue is mandatory", "configValue", configValue);
+    if (configValue.trim().isEmpty()) {
+      throw new NotValidException("configValue must not be blank");
+    }
 
-    if (commandContext.getConfigurationManager().existsActiveConfiguration(configKey, tenantId)) {
+    ConfigurationManager configurationManager = commandContext.getConfigurationManager();
+    if (configurationManager.existsActiveConfiguration(configKey, tenantId)) {
       String scope = tenantId == null ? "the global scope" : "tenant '" + tenantId + "'";
       throw new BadUserRequestException(
           "An active configuration with key '" + configKey + "' already exists for " + scope);
@@ -44,14 +49,15 @@ public class CreateConfigurationCmd implements Command<Configuration>, Serializa
     String userId =  authentication == null ? null : authentication.getUserId();
 
     ConfigurationEntity configuration = new ConfigurationEntity(configKey, configValue, tenantId);
-    configuration.setVersion(1);
+    // Re-created keys continue the version sequence of their deleted predecessors
+    configuration.setVersion(configurationManager.findMaxConfigurationVersion(configKey, tenantId) + 1);
     configuration.setStatus(Configuration.STATUS_ACTIVE);
     configuration.setCreatedBy(userId);
     configuration.setCreatedAt(now);
     configuration.setUpdatedBy(userId);
     configuration.setUpdatedAt(now);
 
-    commandContext.getConfigurationManager().insertConfiguration(configuration);
+    configurationManager.insertConfiguration(configuration);
 
     return configuration;
   }
