@@ -11,6 +11,7 @@ Please also see our [Governance guidelines](https://github.com/finos/fluxnova-bp
 * [Build from source](#build-from-source)
 * [Create a pull request](#create-a-pull-request)
 * [Contribution checklist](#contribution-checklist)
+* [Binary files](#binary-files)
 * [Contributor License Agreement (CLA)](#contributor-license-agreement-cla)
 * [Commit message conventions](#commit-message-conventions)
 * [License headers](#license-headers)
@@ -46,10 +47,10 @@ Try to apply our best practices for creating issues:
 You can contribute code that fixes bugs and/or implements features. Here is how it works:
 
 1. Select an issue that you would like to work on. Have a look at [our Project Board](https://github.com/orgs/finos/projects/116) or the issues lists for the individual projects, e.g.  [Fluxnova-BPM-Platform Issues](https://github.com/finos/fluxnova-bpm-platform/issues) if you need inspiration. Be aware that some of the issues need good knowledge of the surrounding code.
-1. [Create a fork of the project](https://github.com/finos/fluxnova-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes.
-1. Check your code changes against our [contribution checklist](#contribution-checklist)
+2. [Create a fork of the project](https://github.com/finos/fluxnova-bpm-platform/fork) to contribute from. Create a feature branch in your fork to hold your changes.
+3. Check your code changes against our [contribution checklist](#contribution-checklist)
     1. For large changes, open a draft PR before you have finished your implementation to get feedback.
-1. [Create a pull request](https://github.com/finos/fluxnova-bpm-platform/pulls). 
+4. [Create a pull request](https://github.com/finos/fluxnova-bpm-platform/pulls). 
 
 ## Browse our issues
 
@@ -200,10 +201,10 @@ In order to show us your code, you can create a pull request on Github. Do this 
 A pull request can be submitted as follows: 
 
 1. [Fork the Fluxnova repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) you are contributing to
-1. Commit and push your changes to a branch in your fork
-1. [Submit a Pull Request to the Fluxnova repository](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). As the *base* branch (the one that you contribute to), select `main`. This should also be the default in the Github UI.
+2. Commit and push your changes to a branch in your fork
+3. [Submit a Pull Request to the Fluxnova repository](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork). As the *base* branch (the one that you contribute to), select `main`. This should also be the default in the Github UI.
 
-1. In the pull request description, reference the github issue that your pull request addresses.
+4. In the pull request description, reference the github issue that your pull request addresses.
 
 ## Contribution checklist
 
@@ -212,13 +213,37 @@ Before submitting your pull request for code review, please go through the follo
 1. Is your code formatted according to our code style guidelines?
     * Java: Please check our [Java Code Style Guidelines](https://github.com/camunda/camunda-bpm-platform/wiki/Coding-Style-Java). You can also import [our template and settings files](https://github.com/finos/fluxnova-bpm-platform/tree/master/settings) into your IDE before you start coding.
     * Javascript: Your code is automatically formatted whenever you commit.
-1. Is your code covered by unit tests?
+2. Is your code covered by unit tests?
     * Ask us if you are not sure where to write the tests or what kind of tests you should write.
     * Java: Please follow our [testing best practices](https://github.com/camunda/camunda-bpm-platform/wiki/Testing-Best-Practices-Java).
     * Have a look at other tests in the same module for how it works.
     * In rare cases, it is not feasible to write an automated test. Please ask us if you think that is the case for your contribution.
-1. Do your commits follow our [commit message conventions](#commit-message-conventions)?
-1. Does your code use the [correct license headers](#license-headers)?
+3. Do your commits follow our [commit message conventions](#commit-message-conventions)?
+4. Does your code use the [correct license headers](#license-headers)? 
+5. Does your contribution comply with our [binary files policy](#binary-files)?
+
+## Binary files
+
+To keep the repository reviewable and free of generated/compiled artifacts (see
+[OpenSSF Security Baseline OSPS-QA-05.01 and OSPS-QA-05.02](https://www.bestpractices.dev/en)),
+only the following binary asset types MAY be committed to version control:
+
+* Images: `.png`, `.jpg`, `.jpeg`, `.gif`, `.ico`
+* Fonts: `.otf`, `.ttf`, `.woff`, `.woff2`, `.eot`
+* Example documents: `.pdf` (used only as static example input/output fixtures)
+
+The following MUST NOT be committed, and must instead be generated at build time or test
+time (e.g. via `keytool`, the `maven-antrun-plugin`, or by zipping/packaging sources that
+are themselves committed as plain, reviewable files):
+
+* Compiled/generated executables and archives: `.jar`, `.class`, `.war`, `.ear`, `.zip`
+  (including vendor-specific archive formats such as Signavio `.sgx` exports)
+* Keystores and other cryptographic material: `.p12`, `.jks`, `.pfx`, `.pem` (unless they
+  are public, non-sensitive test fixtures that are themselves generated at build/test time)
+* Any other unreviewable, non-text binary artifact not listed above
+
+If your contribution requires a new binary file, please check with the maintainers first
+whether the asset type should be added to the allow-list above.
 
 ## Contributor License Agreement (CLA)
 

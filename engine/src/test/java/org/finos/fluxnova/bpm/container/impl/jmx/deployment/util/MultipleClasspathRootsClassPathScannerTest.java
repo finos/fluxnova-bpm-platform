@@ -19,9 +19,11 @@ package org.finos.fluxnova.bpm.container.impl.jmx.deployment.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,15 +38,24 @@ import org.junit.jupiter.api.Test;
  */
 public class MultipleClasspathRootsClassPathScannerTest {
 
+  private static final String RESOURCE_ROOT =
+      "src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/";
+
   @Test
   public void testScanClassPath_multipleRoots() throws MalformedURLException {
+
+    // build the jar fixture at test execution time instead of committing a
+    // generated binary artifact (see OSPS-QA-05.01 / OSPS-QA-05.02)
+    File jarFile = TestJarBuilder.createJarFromDirectory(
+        Paths.get(RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursiveTwoDirectories"),
+        "testScanClassPathRecursiveTwoDirectories");
 
     // define a classloader with multiple roots.
     URLClassLoader classLoader = new URLClassLoader(
       new URL[]{
-        new URL("file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFiles/"),
-        new URL("file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFilesRecursive/"),
-        new URL("file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathRecursiveTwoDirectories.jar")
+        new URL("file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFiles/"),
+        new URL("file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursive/"),
+        new URL("file:" + jarFile.getAbsolutePath())
       });
 
     ClassPathProcessApplicationScanner scanner = new ClassPathProcessApplicationScanner();
@@ -65,7 +76,7 @@ public class MultipleClasspathRootsClassPathScannerTest {
     assertEquals(2, scanResult.size()); // only finds two files since the resource name of the processes (and diagrams) is the same
 
     scanResult.clear();
-    scanner.scanPaResourceRootPath(classLoader, new URL("file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFilesRecursive/META-INF/processes.xml"), "pa:directory/", scanResult);
+    scanner.scanPaResourceRootPath(classLoader, new URL("file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursive/META-INF/processes.xml"), "pa:directory/", scanResult);
 
     assertTrue(contains(scanResult, "testDeployProcessArchive.bpmn20.xml"), "'testDeployProcessArchive.bpmn20.xml' not found");
     assertTrue(contains(scanResult, "testDeployProcessArchive.png"), "'testDeployProcessArchive.png' not found");

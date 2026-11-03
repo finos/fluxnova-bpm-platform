@@ -1,0 +1,83 @@
+name: "Binary File Check"
+
+# Enforces OpenSSF Security Baseline OSPS-QA-05.01 / OSPS-QA-05.02:
+# - The version control system MUST NOT contain generated executable artifacts.
+# - The version control system MUST NOT contain unreviewable binary artifacts.
+#
+# See CONTRIBUTING.md#binary-files for the list of allowed binary asset types.
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check-binaries:
+    name: Block disallowed binary files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: List files added/changed in this PR
+        id: diff
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          git diff --diff-filter=ACMR --name-only "origin/${{ github.base_ref }}"...HEAD > changed_files.txt
+          cat changed_files.txt
+
+      - name: Fail on disallowed generated executables / archives
+        run: |
+          set -e
+          # Explicitly disallowed: compiled/generated executables & archives, and
+          # vendor-specific archive exports (e.g. Signavio .sgx), keystores, etc.
+          DISALLOWED_PATTERN='\.(jar|class|war|ear|zip|sgx|p12|jks|pfx|pem|exe|dll|so|dylib|o|a)$'
+
+          violations=$(grep -iE "$DISALLOWED_PATTERN" changed_files.txt || true)
+
+          if [ -n "$violations" ]; then
+            echo "::error::Disallowed binary/generated-executable files were added or modified:"
+            echo "$violations"
+            echo ""
+            echo "Generated executables, archives (jar/class/war/ear/zip), vendor exports (.sgx)"
+            echo "and keystores (.p12/.jks/.pfx/.pem) must not be committed to version control."
+            echo "They must be produced at build/test time instead. See CONTRIBUTING.md#binary-files."
+            exit 1
+          fi
+
+          echo "No disallowed binary files found."
+
+      - name: Fail on other non-allow-listed binary files
+        run: |
+          set -e
+          # Allow-listed binary asset types per CONTRIBUTING.md#binary-files
+          ALLOWED_PATTERN='\.(png|jpg|jpeg|gif|ico|otf|ttf|woff|woff2|eot|pdf)$'
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ -f "$file" ] || continue
+
+            # Skip text files quickly
+            if file --mime "$file" | grep -q 'charset=binary'; then
+              if ! echo "$file" | grep -iqE "$ALLOWED_PATTERN"; then
+                echo "::error::Unreviewable binary file added: $file"
+                echo "VIOLATION"
+              fi
+            fi
+          done < changed_files.txt > violations.txt || true
+
+          if grep -q VIOLATION violations.txt; then
+            echo ""
+            echo "One or more binary files outside the allowed asset types were added."
+            echo "Allowed types: images (png/jpg/jpeg/gif/ico), fonts (otf/ttf/woff/woff2/eot),"
+            echo "and example PDFs. See CONTRIBUTING.md#binary-files for details."
+            exit 1
+          fi
+
+          echo "No unreviewable binary files found."
+
