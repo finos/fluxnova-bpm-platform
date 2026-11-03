@@ -15,7 +15,7 @@
 
   <description>Fluxnova Platform core internal bill of material for dependencies</description>
   <properties>
-    <version.wiremock>2.35.2</version.wiremock>
+    <version.wiremock>3.0.1</version.wiremock>
   </properties>
 
   <dependencyManagement>
