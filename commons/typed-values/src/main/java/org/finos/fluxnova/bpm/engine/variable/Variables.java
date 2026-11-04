@@ -452,6 +452,10 @@ public class Variables {
       } else if (value instanceof AbstractTypedValue<?>) {
         ((AbstractTypedValue<?>) transientValue).setTransient(isTransient);
         ((AbstractTypedValue<?>) transientValue).setRestricted(restricted);
+      } else if (value instanceof UntypedValueImpl) {
+        // UntypedValueImpl implements TypedValue directly, not via AbstractTypedValue
+        ((UntypedValueImpl) transientValue).setTransient(isTransient);
+        ((UntypedValueImpl) transientValue).setRestricted(restricted);
       }
       return transientValue;
     }

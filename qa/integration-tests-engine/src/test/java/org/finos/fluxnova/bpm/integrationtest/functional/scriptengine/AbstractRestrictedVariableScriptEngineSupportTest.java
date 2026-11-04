@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
@@ -110,7 +111,7 @@ public abstract class AbstractRestrictedVariableScriptEngineSupportTest extends 
   }
 
   @Test
-  public void shouldPreserveRestrictionWhenResubmittingUnchangedValueAsPlainValue() {
+  public void shouldClearRestrictionWhenResubmittingUnchangedValueAsPlainValue() {
     String processInstanceId = runtimeService.startProcessInstanceByKey(CREATE_PROCESS_ID).getId();
 
     // the script created a restricted variable
@@ -120,9 +121,31 @@ public abstract class AbstractRestrictedVariableScriptEngineSupportTest extends 
         .singleResult()
         .isRestricted());
 
-    // re-submit the unchanged value as a non-restricted (plain) typed value, as a task form would.
-    // The restriction must be preserved rather than silently dropped.
+    // Dropping the restricted flag is an explicit update, even when the value is unchanged.
     runtimeService.setVariable(processInstanceId, RESTRICTED_VAR, Variables.stringValue(SECRET_VALUE));
+
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult();
+
+    assertNotNull(variableInstance);
+    assertEquals(SECRET_VALUE, variableInstance.getValue());
+    assertFalse(variableInstance.isRestricted());
+  }
+
+  @Test
+  public void shouldPreserveRestrictionWhenResubmittingUnchangedValueAsRestrictedValue() {
+    String processInstanceId = runtimeService.startProcessInstanceByKey(CREATE_PROCESS_ID).getId();
+
+    assertTrue(runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstanceId)
+        .variableName(RESTRICTED_VAR)
+        .singleResult()
+        .isRestricted());
+
+    runtimeService.setVariable(processInstanceId, RESTRICTED_VAR,
+        Variables.stringValue(SECRET_VALUE, VariableOptions.options(false, true)));
 
     VariableInstance variableInstance = runtimeService.createVariableInstanceQuery()
         .processInstanceIdIn(processInstanceId)

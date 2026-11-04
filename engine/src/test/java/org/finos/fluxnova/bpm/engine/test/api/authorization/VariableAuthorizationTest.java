@@ -10,11 +10,11 @@ import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.CR
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.DELETE_RESTRICTED;
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.READ_RESTRICTED;
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.UPDATE_RESTRICTED;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,7 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for Resources.VARIABLE and VariablePermissions.
