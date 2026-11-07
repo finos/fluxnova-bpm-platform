@@ -1,869 +1,273 @@
-export type ByteArrayId = string;
-export type MeterLogId = string;
-export type PropertyName = string;
-export type SchemaLogEntryId = string;
-export type TaskMeterLogId = string;
-export type AuthorizationId = string;
-export type GroupId = string;
-export type IdentityInfoId = string;
-export type IdentityLinkId = string;
-export type TenantId = string;
-export type TenantMembershipId = string;
-export type UserId = string;
-export type CaseExecutionId = string;
-export type CaseSentryPartId = string;
-export type EventSubscriptionId = string;
-export type ExecutionId = string;
-export type ExternalTaskId = string;
-export type IncidentId = string;
-export type TaskId = string;
-export type VariableInstanceId = string;
-export type AttachmentId = string;
-export type CommentId = string;
-export type FilterId = string;
-export type CaseDefinitionId = string;
-export type DecisionDefinitionId = string;
-export type DecisionRequirementsDefinitionId = string;
-export type DeploymentId = string;
-export type FormDefinitionId = string;
-export type ProcessDefinitionId = string;
-export type ResourceDefinitionId = string;
-export type BatchId = string;
-export type JobId = string;
-export type JobDefinitionId = string;
-export type HistoricActivityInstanceId = string;
-export type HistoricBatchId = string;
-export type HistoricCaseActivityInstanceId = string;
-export type HistoricCaseInstanceId = string;
-export type HistoricDecisionInputInstanceId = string;
-export type HistoricDecisionInstanceId = string;
-export type HistoricDecisionOutputInstanceId = string;
-export type HistoricDetailId = string;
-export type HistoricExternalTaskLogId = string;
-export type HistoricIdentityLinkId = string;
-export type HistoricIncidentId = string;
-export type HistoricJobLogId = string;
-export type HistoricProcessInstanceId = string;
-export type HistoricScopeInstanceId = string;
-export type HistoricTaskInstanceId = string;
-export type HistoricVariableInstanceId = string;
-export type UserOperationLogEntryId = string;
-export type DiagramId = string;
-export type DiagramElementId = string;
-export type EdgeId = string;
-export type LabelId = string;
-export type LabeledEdgeId = string;
-export type LabeledShapeId = string;
-export type NodeId = string;
-export type PlaneId = string;
-export type ShapeId = string;
-export type StyleId = string;
-export type ActivationConditionId = string;
-export type ActivityId = string;
-export type ArtifactId = string;
-export type AssignmentId = string;
-export type AssociationId = string;
-export type AuditingId = string;
-export type BaseElementId = string;
-export type BoundaryEventId = string;
-export type BusinessRuleTaskId = string;
-export type CallActivityId = string;
-export type CallConversationId = string;
-export type CallableElementId = string;
-export type CancelEventDefinitionId = string;
-export type CatchEventId = string;
-export type CategoryId = string;
-export type CategoryValueId = string;
-export type CollaborationId = string;
-export type CompensateEventDefinitionId = string;
-export type CompletionConditionId = string;
-export type ComplexBehaviorDefinitionId = string;
-export type ComplexGatewayId = string;
-export type ConditionId = string;
-export type ConditionExpressionId = string;
-export type ConditionalEventDefinitionId = string;
-export type ConversationId = string;
-export type ConversationAssociationId = string;
-export type ConversationLinkId = string;
-export type ConversationNodeId = string;
-export type CorrelationKeyId = string;
-export type CorrelationPropertyId = string;
-export type CorrelationPropertyBindingId = string;
-export type CorrelationPropertyRetrievalExpressionId = string;
-export type CorrelationSubscriptionId = string;
-export type DataAssociationId = string;
-export type DataInputId = string;
-export type DataInputAssociationId = string;
-export type DataObjectId = string;
-export type DataObjectReferenceId = string;
-export type DataOutputId = string;
-export type DataOutputAssociationId = string;
-export type DataStateId = string;
-export type DataStoreId = string;
-export type DataStoreReferenceId = string;
-export type DefinitionsId = string;
-export type DocumentationId = string;
-export type EndEventId = string;
-export type EndPointId = string;
-export type ErrorId = string;
-export type ErrorEventDefinitionId = string;
-export type EscalationId = string;
-export type EscalationEventDefinitionId = string;
-export type EventId = string;
-export type EventBasedGatewayId = string;
-export type EventDefinitionId = string;
-export type ExclusiveGatewayId = string;
-export type ExpressionId = string;
-export type FlowElementId = string;
-export type FlowNodeId = string;
-export type FormalExpressionId = string;
-export type GatewayId = string;
-export type GlobalConversationId = string;
-export type BpmnGroupId = string;
-export type HumanPerformerId = string;
-export type InclusiveGatewayId = string;
-export type InputDataItemId = string;
-export type InputSetId = string;
-export type InteractionNodeId = string;
-export type InterfaceId = string;
-export type IntermediateCatchEventId = string;
-export type IntermediateThrowEventId = string;
-export type IoBindingId = string;
-export type IoSpecificationId = string;
-export type ItemAwareElementId = string;
-export type ItemDefinitionId = string;
-export type LaneId = string;
-export type LaneSetId = string;
-export type LinkEventDefinitionId = string;
-export type LoopCardinalityId = string;
-export type LoopCharacteristicsId = string;
-export type ManualTaskId = string;
-export type MessageId = string;
-export type MessageEventDefinitionId = string;
-export type MessageFlowId = string;
-export type MessageFlowAssociationId = string;
-export type MonitoringId = string;
-export type MultiInstanceLoopCharacteristicsId = string;
-export type OperationId = string;
-export type OutputDataItemId = string;
-export type OutputSetId = string;
-export type ParallelGatewayId = string;
-export type ParticipantId = string;
-export type ParticipantAssociationId = string;
-export type ParticipantMultiplicityId = string;
-export type PerformerId = string;
-export type PotentialOwnerId = string;
-export type ProcessId = string;
-export type BpmnPropertyId = string;
-export type ReceiveTaskId = string;
-export type RelationshipId = string;
-export type RenderingId = string;
-export type ResourceId = string;
-export type ResourceAssignmentExpressionId = string;
-export type ResourceParameterId = string;
-export type ResourceParameterBindingId = string;
-export type ResourceRoleId = string;
-export type RootElementId = string;
-export type ScriptTaskId = string;
-export type SendTaskId = string;
-export type SequenceFlowId = string;
-export type ServiceTaskId = string;
-export type SignalId = string;
-export type SignalEventDefinitionId = string;
-export type StartEventId = string;
-export type SubConversationId = string;
-export type SubProcessId = string;
-export type BpmnTaskId = string;
-export type TerminateEventDefinitionId = string;
-export type TextAnnotationId = string;
-export type ThrowEventId = string;
-export type TimeCycleId = string;
-export type TimeDateId = string;
-export type TimeDurationId = string;
-export type TimerEventDefinitionId = string;
-export type TransactionId = string;
-export type UserTaskId = string;
-export type BpmnDiagramId = string;
-export type BpmnEdgeId = string;
-export type BpmnLabelId = string;
-export type BpmnLabelStyleId = string;
-export type BpmnPlaneId = string;
-export type BpmnShapeId = string;
-export type FluxnovaErrorEventDefinitionId = string;
-export type AiAgentId = string;
-export type AiModelDescriptorId = string;
-export type AiToolDefinitionId = string;
-export type AgentLoopRunId = string;
-export type AiModelInvocationId = string;
-export type PromptMessageId = string;
-export type ToolCallId = string;
-export type EvaluationResultId = string;
-export type AiDatasetId = string;
-export type ModelArtifactId = string;
-export type NamedThingId = string;
-export type ProvenanceBundleId = string;
-export type WorkflowDefinitionId = string;
-export type StepDefinitionId = string;
-export type ParameterDefinitionId = string;
-export type AgentId = string;
-export type EnvironmentId = string;
-export type RuntimeComponentId = string;
-export type WorkflowArtifactId = string;
-export type WorkflowRunId = string;
-export type StepRunId = string;
-export type ParameterValueId = string;
-export type ResourceUsageId = string;
-export type ExecutionResourceId = string;
-export type ProvenanceIncidentId = string;
+export type FluxnovaAttachmentId = string;
+export type FluxnovaAuthorizationId = string;
+export type FluxnovaBatchId = string;
+export type FluxnovaByteArrayId = string;
+export type FluxnovaCaseDefinitionId = string;
+export type FluxnovaCaseExecutionId = string;
+export type FluxnovaCaseSentryPartId = string;
+export type FluxnovaCommentId = string;
+export type FluxnovaConfigurationId = string;
+export type FluxnovaDecisionDefinitionId = string;
+export type FluxnovaDecisionRequirementsDefinitionId = string;
+export type FluxnovaDeploymentId = string;
+export type FluxnovaEventSubscriptionId = string;
+export type FluxnovaExecutionId = string;
+export type FluxnovaExternalTaskId = string;
+export type FluxnovaFilterId = string;
+export type FluxnovaFormDefinitionId = string;
+export type FluxnovaGroupId = string;
+export type FluxnovaHistoricActivityInstanceId = string;
+export type FluxnovaHistoricBatchId = string;
+export type FluxnovaHistoricCaseActivityInstanceId = string;
+export type FluxnovaHistoricCaseInstanceId = string;
+export type FluxnovaHistoricDecisionInputInstanceId = string;
+export type FluxnovaHistoricDecisionInstanceId = string;
+export type FluxnovaHistoricDecisionOutputInstanceId = string;
+export type FluxnovaHistoricDetailId = string;
+export type FluxnovaHistoricExternalTaskLogId = string;
+export type FluxnovaHistoricIdentityLinkId = string;
+export type FluxnovaHistoricIncidentId = string;
+export type FluxnovaHistoricJobLogId = string;
+export type FluxnovaHistoricProcessInstanceId = string;
+export type FluxnovaHistoricScopeInstanceId = string;
+export type FluxnovaHistoricTaskInstanceId = string;
+export type FluxnovaHistoricVariableInstanceId = string;
+export type FluxnovaIdentityInfoId = string;
+export type FluxnovaIdentityLinkId = string;
+export type FluxnovaIncidentId = string;
+export type FluxnovaJobId = string;
+export type FluxnovaJobDefinitionId = string;
+export type FluxnovaMeterLogId = string;
+export type FluxnovaProcessDefinitionId = string;
+export type FluxnovaEnginePropertyName = string;
+export type FluxnovaResourceDefinitionId = string;
+export type FluxnovaSchemaLogEntryId = string;
+export type FluxnovaTaskId = string;
+export type FluxnovaTaskMeterLogId = string;
+export type FluxnovaTenantId = string;
+export type FluxnovaTenantMembershipId = string;
+export type FluxnovaUserId = string;
+export type FluxnovaUserOperationLogEntryId = string;
+export type FluxnovaVariableInstanceId = string;
 /**
-* Whether an entity is active or suspended.
+* The state a historic process instance records.
 */
-export enum SuspensionState {
+export enum HistoricProcessInstanceState {
     
-    /** The entity is active. */
+    /** The process instance is running. */
     ACTIVE = "ACTIVE",
-    /** The entity is suspended. */
+    /** The process instance is suspended. */
     SUSPENDED = "SUSPENDED",
-};
-/**
-* Delegation states of a task.
-*/
-export enum DelegationState {
-    
-    /** The task has been delegated and is awaiting resolution. */
-    PENDING = "PENDING",
-    /** The delegated task has been resolved by the assignee. */
-    RESOLVED = "RESOLVED",
-};
-/**
-* State of an activity instance.
-*/
-export enum ActivityInstanceState {
-    
-    /** The activity instance is running normally. */
-    DEFAULT = "DEFAULT",
-    /** The scope of the activity instance is complete. */
-    SCOPE_COMPLETE = "SCOPE_COMPLETE",
-    /** The activity instance was canceled. */
-    CANCELED = "CANCELED",
-    /** The activity instance is starting. */
-    STARTING = "STARTING",
-    /** The activity instance is ending. */
-    ENDING = "ENDING",
-};
-/**
-* State of a historic incident.
-*/
-export enum IncidentState {
-    
-    /** The incident is open. */
-    OPEN = "OPEN",
-    /** The incident has been deleted. */
-    DELETED = "DELETED",
-    /** The incident has been resolved. */
-    RESOLVED = "RESOLVED",
-};
-/**
-* State of a historic job log entry.
-*/
-export enum JobState {
-    
-    /** The job was created. */
-    CREATED = "CREATED",
-    /** The job execution failed. */
-    FAILED = "FAILED",
-    /** The job executed successfully. */
-    SUCCESSFUL = "SUCCESSFUL",
-    /** The job was deleted. */
-    DELETED = "DELETED",
-};
-/**
-* General state of an entity (e.g. variable, process instance).
-*/
-export enum EntityState {
-    
-    /** Active. */
-    ACTIVE = "ACTIVE",
-    /** Suspended. */
-    SUSPENDED = "SUSPENDED",
-    /** Completed. */
+    /** The process instance reached an end event. */
     COMPLETED = "COMPLETED",
-    /** Terminated externally. */
+    /** The process instance was ended from outside, such as through the REST API. */
     EXTERNALLY_TERMINATED = "EXTERNALLY_TERMINATED",
-    /** Terminated internally. */
+    /** The process instance was ended from within, such as by a terminate end event. */
     INTERNALLY_TERMINATED = "INTERNALLY_TERMINATED",
 };
 /**
-* Type of authorization rule.
+* Whether a historic variable instance still exists.
 */
-export enum AuthorizationType {
+export enum HistoricVariableInstanceState {
     
-    /** Applies to all users. */
-    GLOBAL = "GLOBAL",
-    /** Grants permission. */
-    GRANT = "GRANT",
-    /** Revokes permission. */
-    REVOKE = "REVOKE",
+    /** The variable exists. */
+    CREATED = "CREATED",
+    /** The variable was deleted. */
+    DELETED = "DELETED",
 };
 /**
-* The BPMN tAssociationDirection type
+* Whether a configuration entry is in effect.
 */
-export enum AssociationDirection {
+export enum ConfigurationStatus {
     
-    /** None */
-    None = "None",
-    /** One */
-    One = "One",
-    /** Both */
-    Both = "Both",
+    /** The entry is in effect. */
+    ACTIVE = "ACTIVE",
+    /** A newer version of the entry replaced it. */
+    INACTIVE = "INACTIVE",
+    /** The entry was deleted, and is kept. */
+    DELETED = "DELETED",
 };
 /**
-* The BPMN tEventBasedGatewayType simpleType
+* Where a delegated task stands.
 */
-export enum EventBasedGatewayType {
+export enum DelegationState {
     
-    /** Exclusive */
-    Exclusive = "Exclusive",
-    /** Parallel */
-    Parallel = "Parallel",
+    /** The task was delegated and waits for the delegate to resolve it. */
+    PENDING = "PENDING",
+    /** The delegate resolved the task and handed it back to its owner. */
+    RESOLVED = "RESOLVED",
 };
 /**
-* The BPMN tGatewayDirection simpleType
+* Whether the message on a message flow is drawn as the one that starts the exchange.
 */
-export enum GatewayDirection {
+export enum BpmnMessageVisibleKind {
     
-    /** Unspecified */
-    Unspecified = "Unspecified",
-    /** Converging */
-    Converging = "Converging",
-    /** Diverging */
-    Diverging = "Diverging",
-    /** Mixed */
-    Mixed = "Mixed",
-};
-/**
-* The BPMN tItemKind simple type
-*/
-export enum ItemKind {
-    
-    /** Information */
-    Information = "Information",
-    /** Physical */
-    Physical = "Physical",
-};
-/**
-* The BPMN 2.0 tMultiInstanceFlowCondition simple type
-*/
-export enum MultiInstanceFlowCondition {
-    
-    /** None */
-    None = "None",
-    /** One */
-    One = "One",
-    /** All */
-    All = "All",
-    /** Complex */
-    Complex = "Complex",
-};
-/**
-* The BPMN tProcessType simple type
-*/
-export enum ProcessType {
-    
-    /** None */
-    None = "None",
-    /** Public */
-    Public = "Public",
-    /** Private */
-    Private = "Private",
-};
-/**
-* The BPMN tRelationshipDirection type
-*/
-export enum RelationshipDirection {
-    
-    /** None */
-    None = "None",
-    /** Forward */
-    Forward = "Forward",
-    /** Backward */
-    Backward = "Backward",
-    /** Both */
-    Both = "Both",
-};
-/**
-* BPMN TransactionMethod enumeration.
-*/
-export enum TransactionMethod {
-    
-    /** Compensate */
-    Compensate = "Compensate",
-    /** Image */
-    Image = "Image",
-    /** Store */
-    Store = "Store",
-};
-/**
-* The BPMNDI MessageVisibleKind simpleType
-*/
-export enum MessageVisibleKind {
-    
-    /** Initiating */
+    /** The message starts the exchange. */
     initiating = "initiating",
-    /** Non initiating */
+    /** The message answers one that started the exchange. */
     non_initiating = "non_initiating",
 };
 /**
-* The BPMNDI ParticipantBandKind simpleType
+* Where a participant band sits on a choreography activity, and whether its participant initiates.
 */
-export enum ParticipantBandKind {
+export enum BpmnParticipantBandKind {
     
-    /** Top initiating */
+    /** The top band, of the initiating participant. */
     top_initiating = "top_initiating",
-    /** Middle initiating */
+    /** A middle band, of the initiating participant. */
     middle_initiating = "middle_initiating",
-    /** Bottom initiating */
+    /** The bottom band, of the initiating participant. */
     bottom_initiating = "bottom_initiating",
-    /** Top non initiating */
+    /** The top band, of a participant that does not initiate. */
     top_non_initiating = "top_non_initiating",
-    /** Middle non initiating */
+    /** A middle band, of a participant that does not initiate. */
     middle_non_initiating = "middle_non_initiating",
-    /** Bottom non initiating */
+    /** The bottom band, of a participant that does not initiate. */
     bottom_non_initiating = "bottom_non_initiating",
 };
 /**
-* Conversational role of a prompt or response message.
+* Which ends of an association an arrow is drawn at.
 */
-export enum MessageRole {
+export enum BpmnAssociationDirection {
     
-    /** System-level instruction or persona-setting message. */
-    SYSTEM = "SYSTEM",
-    /** End-user input message. */
-    USER = "USER",
-    /** Model-generated response message. */
-    ASSISTANT = "ASSISTANT",
-    /** Tool / function result message returned to the model. */
-    TOOL = "TOOL",
+    /** No arrow is drawn. */
+    None = "None",
+    /** An arrow points at the target. */
+    One = "One",
+    /** Arrows point at both ends. */
+    Both = "Both",
 };
 /**
-* Input or output modality supported by an AI model.
+* How an event-based gateway that starts a process waits for its events.
 */
-export enum AiModality {
+export enum BpmnEventBasedGatewayType {
     
-    /** Natural-language text. */
-    TEXT = "TEXT",
-    /** Still image content. */
-    IMAGE = "IMAGE",
-    /** Audio content. */
-    AUDIO = "AUDIO",
-    /** Video content. */
-    VIDEO = "VIDEO",
-    /** Combined modalities in a single input or output. */
-    MULTIMODAL = "MULTIMODAL",
-    /** Numeric vector embedding. */
-    EMBEDDING = "EMBEDDING",
+    /** The first event starts the instance, and the others are no longer waited for. */
+    Exclusive = "Exclusive",
+    /** Each event starts an instance, or joins the one already started. */
+    Parallel = "Parallel",
 };
 /**
-* Kind of AI model invocation performed from a workflow step.
+* Whether a gateway splits flows, joins them or does both.
 */
-export enum AiInvocationKind {
+export enum BpmnGatewayDirection {
     
-    /** Multi-turn chat completion call. */
-    CHAT_COMPLETION = "CHAT_COMPLETION",
-    /** Single-turn text completion call. */
-    COMPLETION = "COMPLETION",
-    /** Embedding generation call. */
-    EMBEDDING = "EMBEDDING",
-    /** Invocation that includes tool / function calling. */
-    TOOL_USE = "TOOL_USE",
-    /** Agentic loop with multiple model + tool turns. */
-    AGENT_LOOP = "AGENT_LOOP",
-    /** Retrieval-augmented generation lookup. */
-    RETRIEVAL = "RETRIEVAL",
-    /** Guardrail or policy-check invocation. */
-    GUARDRAIL = "GUARDRAIL",
+    /** The model does not say. */
+    Unspecified = "Unspecified",
+    /** The gateway joins incoming flows into one. */
+    Converging = "Converging",
+    /** The gateway splits one flow into several. */
+    Diverging = "Diverging",
+    /** The gateway both joins and splits. */
+    Mixed = "Mixed",
 };
 /**
-* Safety, policy, or guardrail flag raised by the model, the provider, or
-a local guardrail layer during an AI model invocation. Mapped to
-dpv-risk terms where a stable upstream match exists.
+* Whether an item is information or a physical thing.
 */
-export enum SafetyFlag {
+export enum BpmnItemKind {
     
-    /** No safety flag was raised. */
-    NONE = "NONE",
-    /** Output or input violates a configured content policy. */
-    POLICY_VIOLATION = "POLICY_VIOLATION",
-    /** Output was flagged as likely hallucinated or unsupported by retrieved evidence. */
-    HALLUCINATION_SUSPECTED = "HALLUCINATION_SUSPECTED",
-    /** Input was flagged as attempting to bypass the system instruction. */
-    JAILBREAK_ATTEMPT = "JAILBREAK_ATTEMPT",
-    /** Output or input contained personally identifiable information. */
-    PII_LEAK = "PII_LEAK",
-    /** Input was flagged as attempting to override the system instruction. */
-    PROMPT_INJECTION = "PROMPT_INJECTION",
-    /** Output or input was flagged as toxic. */
-    TOXICITY = "TOXICITY",
+    /** The item is information. */
+    Information = "Information",
+    /** The item is a physical thing. */
+    Physical = "Physical",
 };
 /**
-* Role of a dataset relative to an AI model.
+* When a multi-instance activity throws an event as its instances complete.
 */
-export enum DatasetKind {
+export enum BpmnMultiInstanceFlowCondition {
     
-    /** Used to train the model. */
-    TRAINING = "TRAINING",
-    /** Used to fine-tune the model. */
-    FINE_TUNING = "FINE_TUNING",
-    /** Used to evaluate the model. */
-    EVALUATION = "EVALUATION",
-    /** Used as a retrieval corpus at inference time. */
-    RAG_CORPUS = "RAG_CORPUS",
-    /** Used as ground-truth labels for evaluation or supervised tuning. */
-    GROUND_TRUTH = "GROUND_TRUTH",
+    /** An event is thrown for each instance that completes. */
+    None = "None",
+    /** An event is thrown when the first instance completes. */
+    One = "One",
+    /** No event is thrown. */
+    All = "All",
+    /** The complex behavior definitions decide which events are thrown. */
+    Complex = "Complex",
 };
 /**
-* Kind of evaluator that produced an EvaluationResult.
+* Whether a process is private to its participant, public, or neither.
 */
-export enum EvaluatorKind {
+export enum BpmnProcessType {
     
-    /** Human reviewer-assigned score or pass/fail. */
-    HUMAN_REVIEW = "HUMAN_REVIEW",
-    /** A separate LLM invocation that scored the evaluated invocation. */
-    LLM_AS_JUDGE = "LLM_AS_JUDGE",
-    /** A deterministic numeric metric (ROUGE, BLEU, exact match, etc.). */
-    METRIC = "METRIC",
-    /** A guardrail or policy-check layer. */
-    GUARDRAIL = "GUARDRAIL",
-    /** A static rule check (regex, schema validation, etc.). */
-    STATIC_RULE = "STATIC_RULE",
+    /** The model does not say. */
+    None = "None",
+    /** The process shows only what its participant exchanges with others. */
+    Public = "Public",
+    /** The process is internal to its participant. */
+    Private = "Private",
 };
 /**
-* Lifecycle status of a workflow run or step run.
+* Which way a relationship points.
 */
-export enum RunStatus {
+export enum BpmnRelationshipDirection {
     
-    /** Scheduled but not yet started. */
-    PENDING = "PENDING",
-    /** Currently executing. */
-    ACTIVE = "ACTIVE",
-    /** Finished successfully. */
-    COMPLETED = "COMPLETED",
-    /** Terminated with an error. */
-    FAILED = "FAILED",
-    /** Cancelled before completion. */
-    CANCELLED = "CANCELLED",
-    /** Paused; can be resumed. */
-    SUSPENDED = "SUSPENDED",
+    /** It has no direction. */
+    None = "None",
+    /** From its sources to its targets. */
+    Forward = "Forward",
+    /** From its targets to its sources. */
+    Backward = "Backward",
+    /** Both ways. */
+    Both = "Both",
 };
 /**
-* Lifecycle status of an incident.
+* How a transaction commits or cancels, by the three values BPMN keeps from BPMN 1.1.
 */
-export enum IncidentStatus {
+export enum BpmnTransactionMethod {
     
-    /** Newly reported, not yet investigated. */
-    OPEN = "OPEN",
-    /** Currently being investigated or worked on. */
-    INVESTIGATING = "INVESTIGATING",
-    /** Resolved successfully. */
-    RESOLVED = "RESOLVED",
-    /** Acknowledged but not actioned. */
-    IGNORED = "IGNORED",
-};
-/**
-* Direction of data flow for a parameter.
-*/
-export enum DirectionEnum {
-    
-    /** Input parameter consumed by the workflow or step. */
-    IN = "IN",
-    /** Output parameter produced by the workflow or step. */
-    OUT = "OUT",
-    /** Read and updated by the workflow or step. */
-    INOUT = "INOUT",
-    /** Internal local variable not exposed at the boundary. */
-    LOCAL = "LOCAL",
-};
-/**
-* Scope at which a parameter or variable is defined.
-*/
-export enum ParameterScope {
-    
-    /** Scoped to the entire workflow. */
-    WORKFLOW = "WORKFLOW",
-    /** Scoped to a single step / activity. */
-    STEP = "STEP",
-    /** Scoped to a user or service task. */
-    TASK = "TASK",
-    /** Scoped to a DMN decision. */
-    DECISION = "DECISION",
-    /** Scoped to a human-task form. */
-    FORM = "FORM",
-};
-/**
-* Kind of agent participating in workflow execution.
-*/
-export enum AgentKind {
-    
-    /** A natural person. */
-    PERSON = "PERSON",
-    /** An organizational entity. */
-    ORGANIZATION = "ORGANIZATION",
-    /** A software system or automated component. */
-    SYSTEM = "SYSTEM",
-    /** A non-human service account identity. */
-    SERVICE_ACCOUNT = "SERVICE_ACCOUNT",
-};
-/**
-* Kind of runtime component participating in orchestration.
-*/
-export enum RuntimeComponentKind {
-    
-    /** The BPMN process engine itself. */
-    ENGINE = "ENGINE",
-    /** REST API surface fronting the engine. */
-    REST_API = "REST_API",
-    /** Asynchronous job execution component. */
-    JOB_EXECUTOR = "JOB_EXECUTOR",
-    /** Component that exports historic data. */
-    HISTORY_EXPORTER = "HISTORY_EXPORTER",
-    /** Engine plugin or extension. */
-    PLUGIN = "PLUGIN",
-    /** Integration connector to an external system. */
-    CONNECTOR = "CONNECTOR",
-    /** Deployment-time modeler/deployer tool. */
-    MODELER_DEPLOYER = "MODELER_DEPLOYER",
-};
-/**
-* Classifier for the kind of artifact referenced.
-*/
-export enum ArtifactKind {
-    
-    /** BPMN 2.0 XML process model. */
-    BPMN_XML = "BPMN_XML",
-    /** DMN XML decision model. */
-    DMN_XML = "DMN_XML",
-    /** Form schema (e.g. JSON Schema, embedded form). */
-    FORM_SCHEMA = "FORM_SCHEMA",
-    /** Request/response payload for an integration call. */
-    PAYLOAD = "PAYLOAD",
-    /** Business document handled by the workflow. */
-    DOCUMENT = "DOCUMENT",
-    /** Diagnostic log file. */
-    LOG = "LOG",
-    /** Provenance export bundle file. */
-    EXPORT_BUNDLE = "EXPORT_BUNDLE",
-    /** Screenshot artifact. */
-    SCREENSHOT = "SCREENSHOT",
-    /** Unclassified artifact kind. */
-    OTHER = "OTHER",
-};
-/**
-* Normalized implementation strategy for a step.
-*/
-export enum ImplementationKind {
-    
-    /** Human user task. */
-    USER_TASK = "USER_TASK",
-    /** Java delegate class implementation. */
-    JAVA_DELEGATE = "JAVA_DELEGATE",
-    /** Engine expression evaluation. */
-    EXPRESSION = "EXPRESSION",
-    /** Inline or referenced script. */
-    SCRIPT = "SCRIPT",
-    /** Connector configuration. */
-    CONNECTOR = "CONNECTOR",
-    /** Call to another process. */
-    CALL_ACTIVITY = "CALL_ACTIVITY",
-    /** DMN business rule evaluation. */
-    BUSINESS_RULE = "BUSINESS_RULE",
-    /** External worker topic (external task pattern). */
-    EXTERNAL_SERVICE = "EXTERNAL_SERVICE",
-    /** BPMN event handler. */
-    EVENT = "EVENT",
-    /** BPMN gateway routing. */
-    GATEWAY = "GATEWAY",
-    /** Embedded subprocess. */
-    SUBPROCESS = "SUBPROCESS",
-    /** Autonomous AI agent loop hosted by an (ad-hoc) subprocess: the step
-repeatedly calls an AI model and dispatches model-requested tool
-activities until the model returns a terminal response. */
-    AGENT_LOOP = "AGENT_LOOP",
-};
-/**
-* Kind of execution resource.
-*/
-export enum ResourceKind {
-    
-    /** A physical or virtual host. */
-    HOST = "HOST",
-    /** A container instance. */
-    CONTAINER = "CONTAINER",
-    /** A Kubernetes pod. */
-    POD = "POD",
-    /** A cluster node. */
-    NODE = "NODE",
-    /** A database instance. */
-    DATABASE = "DATABASE",
-    /** A message queue. */
-    QUEUE = "QUEUE",
-    /** A cluster of nodes. */
-    CLUSTER = "CLUSTER",
-    /** An in-process thread pool. */
-    THREAD_POOL = "THREAD_POOL",
-    /** An external API endpoint. */
-    EXTERNAL_API = "EXTERNAL_API",
-};
-/**
-* Normalized BPMN element type for a step definition.
-*/
-export enum BPMNElementType {
-    
-    /** A BPMN process element. */
-    PROCESS = "PROCESS",
-    /** Start event. */
-    START_EVENT = "START_EVENT",
-    /** End event. */
-    END_EVENT = "END_EVENT",
-    /** User task. */
-    USER_TASK = "USER_TASK",
-    /** Service task. */
-    SERVICE_TASK = "SERVICE_TASK",
-    /** Script task. */
-    SCRIPT_TASK = "SCRIPT_TASK",
-    /** Business rule (DMN) task. */
-    BUSINESS_RULE_TASK = "BUSINESS_RULE_TASK",
-    /** Manual task. */
-    MANUAL_TASK = "MANUAL_TASK",
-    /** Call activity. */
-    CALL_ACTIVITY = "CALL_ACTIVITY",
-    /** Sub-process. */
-    SUB_PROCESS = "SUB_PROCESS",
-    /** Ad-hoc sub-process: an unordered collection of activities executed on
-demand. Used as the scope for an autonomous AI agent loop, where child
-activities are advertised to the model as callable tools. */
-    AD_HOC_SUB_PROCESS = "AD_HOC_SUB_PROCESS",
-    /** Exclusive (XOR) gateway. */
-    EXCLUSIVE_GATEWAY = "EXCLUSIVE_GATEWAY",
-    /** Parallel (AND) gateway. */
-    PARALLEL_GATEWAY = "PARALLEL_GATEWAY",
-    /** Event-based gateway. */
-    EVENT_BASED_GATEWAY = "EVENT_BASED_GATEWAY",
-    /** Intermediate catch event. */
-    INTERMEDIATE_CATCH_EVENT = "INTERMEDIATE_CATCH_EVENT",
-    /** Intermediate throw event. */
-    INTERMEDIATE_THROW_EVENT = "INTERMEDIATE_THROW_EVENT",
-    /** Boundary event. */
-    BOUNDARY_EVENT = "BOUNDARY_EVENT",
-    /** Sequence flow. */
-    SEQUENCE_FLOW = "SEQUENCE_FLOW",
-};
-/**
-* Sensitivity / data-classification label for a parameter value.
-*/
-export enum DataClassification {
-    
-    /** Information that may be disclosed publicly. */
-    PUBLIC = "PUBLIC",
-    /** For internal use only. */
-    INTERNAL = "INTERNAL",
-    /** Confidential information. */
-    CONFIDENTIAL = "CONFIDENTIAL",
-    /** Restricted / regulated information requiring strict access controls. */
-    RESTRICTED = "RESTRICTED",
+    /** The transaction is cancelled by compensation; the default. */
+    Compensate = "##Compensate",
+    /** The method BPMN 1.1 called image. */
+    Image = "##Image",
+    /** The method BPMN 1.1 called store. */
+    Store = "##Store",
 };
 
 
 /**
- * Byte Array entity in the engine infrastructure.
+ * Any type of content that is be associated with a task or with a process instance.
  */
-export interface ByteArray {
+export interface FluxnovaAttachment {
     /** Unique identifier. */
     id: string,
+    /** Reference to a user. */
+    user_id?: string,
     /** Human-readable name. */
     name?: string,
-    /** Reference to the deployment. */
-    deployment_id?: string,
-    /** Serialized binary content. */
-    bytes?: string,
-    /** Whether this entity is generated. */
-    is_generated?: boolean,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
+    /** Human-readable description. */
+    description?: string,
     /** Type discriminator. */
-    type?: number,
-    /** Creation timestamp. */
-    create_time?: string,
+    type?: string,
+    /** Reference to the task. */
+    task_id?: string,
     /** Root process instance for history cleanup. */
     root_process_instance_id?: string,
+    /** Reference to the process instance. */
+    process_instance_id?: string,
+    /** The remote URL in case this is remote content. */
+    url?: string,
+    /** Reference to the content. */
+    content_id?: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Creation timestamp. */
+    create_time?: string,
     /** Timestamp when this entity is eligible for removal. */
     removal_time?: string,
+    /** The user who created this attachment. */
+    created_by?: string,
 }
 
 
 /**
- * Meter Log entity in the engine infrastructure.
+ * An Authorization assigns a set of Permissions to an identity to interact with a given Resource.
  */
-export interface MeterLog {
-    /** Unique identifier. */
-    id: string,
-    /** Human-readable name. */
-    name: string,
-    /** Identifier of the reporting node. */
-    reporter?: string,
-    /** Value of this variable instance. */
-    value?: number,
-    /** Time when this log occurred. */
-    timestamp?: string,
-    /** The milliseconds. */
-    milliseconds?: number,
-}
-
-
-/**
- * Property entity in the engine infrastructure.
- */
-export interface Property {
-    /** Human-readable name. */
-    name: string,
-    /** Value of this variable instance. */
-    value?: string,
-}
-
-
-/**
- * Schema Log Entry entity in the engine infrastructure.
- */
-export interface SchemaLogEntry {
-    /** Unique identifier. */
-    id: string,
-    /** Time when this log occurred. */
-    timestamp?: string,
-    /** Version number. */
-    version?: string,
-}
-
-
-/**
- * Task Meter Log entity in the engine infrastructure.
- */
-export interface TaskMeterLog {
-    /** Unique identifier. */
-    id: string,
-    /** Hash of the assignee for aggregation. */
-    assignee_hash?: number,
-    /** Time when this log occurred. */
-    timestamp?: string,
-}
-
-
-/**
- * An Authorization assigns a set of Permission Permissions to an identity to interact with a given Resource. EXAMPLES: Nobody is allowed to edit process variables in the cockpit application, except t...
- */
-export interface Authorization {
+export interface FluxnovaAuthorization {
     /** Unique identifier. */
     id: string,
     /** Type discriminator. */
-    type: string,
+    type: number,
     /** Reference to a group. */
     group_id?: string,
     /** Reference to a user. */
@@ -882,130 +286,84 @@ export interface Authorization {
 
 
 /**
- * Represents a group, used in IdentityService.
+ * A batch represents a number of jobs which execute a number of commands asynchronously.
  */
-export interface Group {
+export interface FluxnovaBatch {
     /** Unique identifier. */
     id: string,
-    /** Human-readable name. */
-    name?: string,
     /** Type discriminator. */
     type?: string,
-}
-
-
-/**
- * Identity Info entity in the identity and access management.
- */
-export interface IdentityInfo {
-    /** Unique identifier. */
-    id: string,
-    /** Reference to a user. */
-    user_id?: string,
-    /** Type discriminator. */
-    type?: string,
-    /** Business key for the definition. */
-    key?: string,
-    /** Value of this variable instance. */
-    value?: string,
-    /** Hashed password. */
-    password?: string,
-    /** Reference to a CaseExecution. */
-    parent_id?: string,
-}
-
-
-/**
- * An identity link is used to associate a task with a certain identity. For example: - a user can be an assignee (= identity link type) for a task - a group can be a candidate-group (= identity link ...
- */
-export interface IdentityLink {
-    /** Unique identifier. */
-    id: string,
-    /** Reference to a group. */
-    group_id?: string,
-    /** Type discriminator. */
-    type?: string,
-    /** Reference to a user. */
-    user_id?: string,
-    /** Reference to the task. */
-    task_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
+    /** Total number of jobs. */
+    total_jobs?: number,
+    /** The jobs created. */
+    jobs_created?: number,
+    /** The jobs per seed. */
+    jobs_per_seed?: number,
+    /** The invocations per job. */
+    invocations_per_job?: number,
+    /** Reference to a JobDefinition. */
+    seed_job_definition_id?: FluxnovaJobDefinitionId,
+    /** Reference to a JobDefinition. */
+    batch_job_definition_id?: FluxnovaJobDefinitionId,
+    /** Reference to a JobDefinition. */
+    monitor_job_definition_id?: FluxnovaJobDefinitionId,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Payload of this incident. */
+    configuration?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
+    /** The authenticated user that created this case instance. */
+    create_user_id?: string,
+    /** Start timestamp. */
+    start_time?: string,
+    /** Timestamp when this started. */
+    execution_start_time?: string,
 }
 
 
 /**
- * Association entity in identity and access management.
+ * Byte Array entity in the engine infrastructure.
  */
-export interface Membership {
-    /** Reference to a user. */
-    user_id: string,
-    /** Reference to a group. */
-    group_id: string,
-}
-
-
-/**
- * Represents a tenant, used in IdentityService.
- */
-export interface Tenant {
+export interface FluxnovaByteArray {
     /** Unique identifier. */
     id: string,
     /** Human-readable name. */
     name?: string,
-}
-
-
-/**
- * Association entity in identity and access management.
- */
-export interface TenantMembership {
-    /** Unique identifier. */
-    id: string,
+    /** Reference to the deployment. */
+    deployment_id?: FluxnovaDeploymentId,
+    /** Serialized binary content. */
+    bytes?: string,
+    /** Whether this entity is generated. */
+    is_generated?: boolean,
     /** Multi-tenancy discriminator. */
-    tenant_id: string,
-    /** Reference to a user. */
-    user_id?: string,
-    /** Reference to a group. */
-    group_id?: string,
+    tenant_id?: string,
+    /** Type discriminator. */
+    type?: number,
+    /** Creation timestamp. */
+    create_time?: string,
+    /** Root process instance for history cleanup. */
+    root_process_instance_id?: string,
+    /** Timestamp when this entity is eligible for removal. */
+    removal_time?: string,
 }
 
 
 /**
- * Represents a user, used in IdentityService.
+ * A deployed case definition in the process repository.
  */
-export interface User {
-    /** Unique identifier. */
-    id: string,
-    /** First name. */
-    first_name?: string,
-    /** Last name. */
-    last_name?: string,
-    /** Email address. */
-    email?: string,
-    /** Hashed password. */
-    password?: string,
-    /** Cryptographic salt for password hashing. */
-    salt?: string,
-    /** Time at which the lock expires. */
-    lock_expiration_time?: string,
-    /** Number of failed login attempts. */
-    attempts?: number,
-    /** Reference to the picture. */
-    picture_id?: string,
+export interface FluxnovaCaseDefinition extends FluxnovaResourceDefinition {
 }
 
 
 /**
  * Case Execution entity in the process execution runtime.
  */
-export interface CaseExecution {
+export interface FluxnovaCaseExecution {
     /** Unique identifier. */
     id: string,
     /** Reference to the case instance. */
-    case_instance_id?: string,
+    case_instance_id?: FluxnovaCaseExecutionId,
     /** Reference to the super case execution. */
     super_case_execution_id?: string,
     /** Reference to the super execution. */
@@ -1013,9 +371,9 @@ export interface CaseExecution {
     /** Domain-specific business key. */
     business_key?: string,
     /** Reference to a CaseExecution. */
-    parent_id?: string,
+    parent_id?: FluxnovaCaseExecutionId,
     /** Reference to the case definition. */
-    case_definition_id?: string,
+    case_definition_id?: FluxnovaCaseDefinitionId,
     /** BPMN activity element identifier. */
     activity_id?: string,
     /** The previous state. */
@@ -1032,13 +390,13 @@ export interface CaseExecution {
 /**
  * Case Sentry Part entity in the process execution runtime.
  */
-export interface CaseSentryPart {
+export interface FluxnovaCaseSentryPart {
     /** Unique identifier. */
     id: string,
     /** Reference to the case instance. */
-    case_instance_id?: string,
+    case_instance_id?: FluxnovaCaseExecutionId,
     /** Reference to the case execution. */
-    case_execution_id?: string,
+    case_execution_id?: FluxnovaCaseExecutionId,
     /** Reference to the sentry. */
     sentry_id?: string,
     /** Type discriminator. */
@@ -1061,290 +419,9 @@ export interface CaseSentryPart {
 
 
 /**
- * A message event subscription exists, if an Execution waits for an event like a message.
- */
-export interface EventSubscription {
-    /** Unique identifier. */
-    id: string,
-    /** The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal event subscription, "compensation" identifies event subscriptions used for compensation ev... */
-    event_type: string,
-    /** The name of the event this subscription belongs to as defined in the process model. */
-    event_name?: string,
-    /** Reference to the execution. */
-    execution_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** BPMN activity element identifier. */
-    activity_id?: string,
-    /** Payload of this incident. */
-    configuration?: string,
-    /** The time this event subscription was created. */
-    created: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-}
-
-
-/**
- * Represent a 'path of execution' in a process instance. Note that a ProcessInstance also is an execution.
- */
-export interface Execution {
-    /** Unique identifier. */
-    id: string,
-    /** Root process instance for history cleanup. */
-    root_process_instance_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Domain-specific business key. */
-    business_key?: string,
-    /** Reference to a CaseExecution. */
-    parent_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Reference to the super execution. */
-    super_execution_id?: string,
-    /** Reference to the super case execution. */
-    super_case_execution_id?: string,
-    /** Reference to the case instance. */
-    case_instance_id?: string,
-    /** Runtime activity instance identifier. */
-    activity_instance_id?: string,
-    /** BPMN activity element identifier. */
-    activity_id?: string,
-    /** Whether this entity is active. */
-    is_active?: boolean,
-    /** Whether this entity is concurrent. */
-    is_concurrent?: boolean,
-    /** Whether this entity is scope. */
-    is_scope?: boolean,
-    /** Whether this entity is event scope. */
-    is_event_scope?: boolean,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
-    /** Bitmask caching associated entity existence. */
-    cached_entity_state?: number,
-    /** Monotonically increasing counter for ordering. */
-    sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Key of the process definition. */
-    process_definition_key?: string,
-}
-
-
-/**
- * Represents an instance of an external task that is created when a service-task like activity (i.e. service task, send task, ...) with attribute camunda:type="external" is executed.
- */
-export interface ExternalTask {
-    /** Unique identifier. */
-    id: string,
-    /** Id of the worker that fetched the external task most recently. */
-    worker_id?: string,
-    /** Topic name of the associated external task. */
-    topic_name?: string,
-    /** Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu... */
-    retries?: number,
-    /** If the variable value could not be loaded, this returns the error message. */
-    error_message?: string,
-    /** Reference to a ByteArray. */
-    error_details_id?: string,
-    /** Time at which the lock expires. */
-    lock_expiration_time?: string,
-    /** Creation timestamp. */
-    create_time?: string,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
-    /** Reference to the execution. */
-    execution_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Key of the process definition. */
-    process_definition_key?: string,
-    /** BPMN activity element identifier. */
-    activity_id?: string,
-    /** Runtime activity instance identifier. */
-    activity_instance_id?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5... */
-    priority: number,
-    /** Reference to the last failure log. */
-    last_failure_log_id?: string,
-}
-
-
-/**
- * An Incident represents a failure in the execution of a process instance. A possible failure could be for example a failed Job during the execution, so that the job retry is equal zero (job.retries ...
- */
-export interface Incident {
-    /** Unique identifier. */
-    id: string,
-    /** Time when the incident happened. */
-    incident_timestamp: string,
-    /** Incident message. */
-    incident_message?: string,
-    /** Type of this incident to identify the kind of incident. For example: failedJobs will be returned in the case of an incident, which identify failed job during the execution of a process instance. */
-    incident_type: string,
-    /** Reference to the execution. */
-    execution_id?: string,
-    /** BPMN activity element identifier. */
-    activity_id?: string,
-    /** Id of the activity on which the last exception occurred. */
-    failed_activity_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Id of the incident on which this incident has been triggered. */
-    cause_incident_id?: string,
-    /** Id of the root incident on which this transitive incident has been triggered. */
-    root_cause_incident_id?: string,
-    /** Payload of this incident. */
-    configuration?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Reference to the job definition. */
-    job_definition_id?: string,
-    /** Annotation of this incident */
-    annotation?: string,
-}
-
-
-/**
- * Represents one task for a human user.
- */
-export interface Task {
-    /** Unique identifier. */
-    id: string,
-    /** Reference to the execution. */
-    execution_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Reference to the case execution. */
-    case_execution_id?: string,
-    /** Reference to the case instance. */
-    case_instance_id?: string,
-    /** Reference to the case definition. */
-    case_definition_id?: string,
-    /** Human-readable name. */
-    name?: string,
-    /** The parent task for which this task is a subtask */
-    parent_task_id?: string,
-    /** Human-readable description. */
-    description?: string,
-    /** The id of the activity in the process defining this task or null if this is not related to a process */
-    task_definition_key?: string,
-    /** The userId of the person that is responsible for this task. This is used when a task is delegated. */
-    owner?: string,
-    /** The userId of the person to which this task is assigned or delegated. */
-    assignee?: string,
-    /** The current DelegationState for this task. */
-    delegation_state?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5... */
-    priority: number,
-    /** Creation timestamp. */
-    create_time?: string,
-    /** The date/time when this task was last updated. All operations that fire count as an update to the task. Returns null if the task was never updated before (i.e. it was only created). */
-    last_updated?: string,
-    /** Due date of the task. */
-    due_date?: string,
-    /** Follow-up date of the task. */
-    follow_up_date?: string,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Task's state. */
-    task_state?: string,
-}
-
-
-/**
- * A VariableInstance represents a variable in the execution of a process instance.
- */
-export interface VariableInstance {
-    /** Unique identifier. */
-    id: string,
-    /** Type discriminator. */
-    type: string,
-    /** Human-readable name. */
-    name: string,
-    /** Reference to the execution. */
-    execution_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Reference to the case execution. */
-    case_execution_id?: string,
-    /** Reference to the case instance. */
-    case_instance_id?: string,
-    /** Reference to the task. */
-    task_id?: string,
-    /** Reference to a batch. */
-    batch_id?: string,
-    /** Reference to the byte array. */
-    byte_array_id?: string,
-    /** Variable value stored as double. */
-    double_value?: number,
-    /** Variable value stored as long. */
-    long_value?: number,
-    /** Variable value stored as text. */
-    text_value?: string,
-    /** Variable value stored as text2. */
-    text2_value?: string,
-    /** Reference to the variable scope. */
-    variable_scope_id: string,
-    /** Monotonically increasing counter for ordering. */
-    sequence_counter?: number,
-    /** Whether this entity is concurrent local. */
-    is_concurrent_local?: boolean,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-}
-
-
-/**
- * Any type of content that is be associated with a task or with a process instance.
- */
-export interface Attachment {
-    /** Unique identifier. */
-    id: string,
-    /** Reference to a user. */
-    user_id?: string,
-    /** Human-readable name. */
-    name?: string,
-    /** Human-readable description. */
-    description?: string,
-    /** Type discriminator. */
-    type?: string,
-    /** Reference to the task. */
-    task_id?: string,
-    /** Root process instance for history cleanup. */
-    root_process_instance_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** The remote URL in case this is remote content. If the attachment content was uploaded with an input stream, then this method returns null and the content can be fetched with . */
-    url?: string,
-    /** Reference to the content. */
-    content_id?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Creation timestamp. */
-    create_time?: string,
-    /** Timestamp when this entity is eligible for removal. */
-    removal_time?: string,
-}
-
-
-/**
  * User comments that form discussions around tasks.
  */
-export interface Comment {
+export interface FluxnovaComment {
     /** Unique identifier. */
     id: string,
     /** Type discriminator. */
@@ -1363,7 +440,7 @@ export interface Comment {
     action?: string,
     /** Short message or summary. */
     message?: string,
-    /** The full comment message the user had related to the task and/or process instance */
+    /** The full comment message the user had related to the task and/or process instance. */
     full_message?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
@@ -1373,38 +450,39 @@ export interface Comment {
 
 
 /**
- * Filter entity in the user collaboration.
+ * A process configuration entry: a key/value pair which is either global or scoped to a single tenant.
  */
-export interface Filter {
+export interface FluxnovaConfiguration {
     /** Unique identifier. */
     id: string,
-    /** Numeric type of the authorized resource. */
-    resource_type: string,
-    /** Human-readable name. */
-    name: string,
-    /** The userId of the person that is responsible for this task. This is used when a task is delegated. */
-    owner?: string,
-    /** Serialized query expression. */
-    query: string,
-    /** Serialized properties. */
-    properties?: string,
+    /** The configuration key. */
+    configuration_key: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** The configuration value. */
+    configuration_value: string,
+    /** Version number. */
+    version: number,
+    /** The status. */
+    status: string,
+    /** The user who created this attachment. */
+    created_by?: string,
+    /** Timestamp when this was created. */
+    created_at?: string,
+    /** The updated by. */
+    updated_by?: string,
+    /** Timestamp for updated at. */
+    updated_at?: string,
 }
 
 
 /**
- * A deployed case definition in the process repository.
+ * Definition of a decision resource.
  */
-export interface CaseDefinition extends ResourceDefinition {
-}
-
-
-/**
- * Definition of a decision resource
- */
-export interface DecisionDefinition extends ResourceDefinition {
-    /** Id of the related decision requirements definition. Can be null if the decision has no relations to other decisions. */
-    decision_requirements_definition_id?: string,
-    /** Key of the related decision requirements definition. Can be null if the decision has no relations to other decisions. */
+export interface FluxnovaDecisionDefinition extends FluxnovaResourceDefinition {
+    /** Id of the related decision requirements definition. */
+    decision_requirements_definition_id?: FluxnovaDecisionRequirementsDefinitionId,
+    /** Key of the related decision requirements definition. */
     decision_requirements_definition_key?: string,
     /** Version tag of the process definition. */
     version_tag?: string,
@@ -1414,14 +492,14 @@ export interface DecisionDefinition extends ResourceDefinition {
 /**
  * Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
  */
-export interface DecisionRequirementsDefinition extends ResourceDefinition {
+export interface FluxnovaDecisionRequirementsDefinition extends FluxnovaResourceDefinition {
 }
 
 
 /**
- * Represents a deployment that is already present in the process repository. A deployment is a container for resources such as process definitions, images, forms, etc. When a deployment is 'deployed'...
+ * Represents a deployment that is already present in the process repository.
  */
-export interface Deployment {
+export interface FluxnovaDeployment {
     /** Unique identifier. */
     id: string,
     /** Human-readable name. */
@@ -1436,186 +514,164 @@ export interface Deployment {
 
 
 /**
- * An object structure representing a Camunda Form used to present forms to users either when starting a process instance or when assigned to a User Task. Camunda Forms are usually composed with the h...
+ * A message event subscription exists, if an Execution waits for an event like a message.
  */
-export interface FormDefinition extends ResourceDefinition {
-}
-
-
-/**
- * An object structure representing an executable process composed of activities and transitions. Business processes are often created with graphical editors that store the process definition in certa...
- */
-export interface ProcessDefinition extends ResourceDefinition {
-    /** The has start form key. */
-    has_start_form_key?: boolean,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
-    /** Version tag of the process definition. */
-    version_tag?: string,
-    /** Whether this entity is startable. */
-    is_startable: boolean,
-}
-
-
-/**
- * Abstract base for deployable resource definitions (process, case, decision, form).
- */
-export interface ResourceDefinition {
+export interface FluxnovaEventSubscription {
     /** Unique identifier. */
     id: string,
-    /** Business key for the definition. */
-    key?: string,
-    /** Human-readable name. */
-    name?: string,
-    /** Version number. */
-    version?: number,
-    /** Category classification. */
-    category?: string,
-    /** Reference to the deployment. */
-    deployment_id?: string,
-    /** Name of the deployed resource file. */
-    resource_name?: string,
-    /** Name of the diagram resource file. */
-    diagram_resource_name?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Days to retain history before cleanup. */
-    history_time_to_live?: number,
-}
-
-
-/**
- * A batch represents a number of jobs which execute a number of commands asynchronously. Batches have three types of jobs: Seed jobs: Create execution jobs Execution jobs: Execute the actual action M...
- */
-export interface Batch {
-    /** Unique identifier. */
-    id: string,
-    /** Type discriminator. */
-    type?: string,
-    /** Total number of jobs. */
-    total_jobs?: number,
-    /** The jobs created. */
-    jobs_created?: number,
-    /** The jobs per seed. */
-    jobs_per_seed?: number,
-    /** The invocations per job. */
-    invocations_per_job?: number,
-    /** Reference to a JobDefinition. */
-    seed_job_definition_id?: string,
-    /** Reference to a JobDefinition. */
-    batch_job_definition_id?: string,
-    /** Reference to a JobDefinition. */
-    monitor_job_definition_id?: string,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
+    /** The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal event subscription, "compensation" identifies event subscriptions used for compensation events. */
+    event_type: string,
+    /** The name of the event this subscription belongs to as defined in the process model. */
+    event_name?: string,
+    /** Reference to the execution. */
+    execution_id?: FluxnovaExecutionId,
+    /** Reference to the process instance. */
+    process_instance_id?: string,
+    /** BPMN activity element identifier. */
+    activity_id?: string,
     /** Payload of this incident. */
     configuration?: string,
+    /** The time this event subscription was created. */
+    created: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** The authenticated user that created this case instance. */
-    create_user_id?: string,
-    /** Start timestamp. */
-    start_time?: string,
-    /** Timestamp when this started. */
-    execution_start_time?: string,
 }
 
 
 /**
- * Represents one job (timer, message, etc.).
+ * Represent a 'path of execution' in a process instance.
  */
-export interface Job {
+export interface FluxnovaExecution {
     /** Unique identifier. */
     id: string,
-    /** Type discriminator. */
-    type: string,
-    /** Time at which the lock expires. */
-    lock_expiration_time?: string,
-    /** Identifier of the node that acquired the lock. */
-    lock_owner?: string,
-    /** Whether this entity is exclusive. */
-    is_exclusive?: boolean,
-    /** Reference to the execution. */
-    execution_id?: string,
     /** Root process instance for history cleanup. */
     root_process_instance_id?: string,
+    /** Reference to the process instance. */
+    process_instance_id?: FluxnovaExecutionId,
+    /** Domain-specific business key. */
+    business_key?: string,
+    /** Reference to a CaseExecution. */
+    parent_id?: FluxnovaExecutionId,
+    /** Reference to the process definition. */
+    process_definition_id?: FluxnovaProcessDefinitionId,
+    /** Reference to the super execution. */
+    super_execution_id?: FluxnovaExecutionId,
+    /** Reference to the super case execution. */
+    super_case_execution_id?: string,
+    /** Reference to the case instance. */
+    case_instance_id?: string,
+    /** Runtime activity instance identifier. */
+    activity_instance_id?: string,
+    /** BPMN activity element identifier. */
+    activity_id?: string,
+    /** Whether this entity is active. */
+    is_active?: boolean,
+    /** Whether this entity is concurrent. */
+    is_concurrent?: boolean,
+    /** Whether this entity is scope. */
+    is_scope?: boolean,
+    /** Whether this entity is event scope. */
+    is_event_scope?: boolean,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Bitmask caching associated entity existence. */
+    cached_entity_state?: number,
+    /** Monotonically increasing counter for ordering. */
+    sequence_counter?: number,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Key of the process definition. */
+    process_definition_key?: string,
+}
+
+
+/**
+ * Represents an instance of an external task that is created when a service-task like activity (i.e. service task, send task, ...) with attribute camunda:type="external" is executed.
+ */
+export interface FluxnovaExternalTask {
+    /** Unique identifier. */
+    id: string,
+    /** Id of the worker that fetched the external task most recently. */
+    worker_id?: string,
+    /** Topic name of the associated external task. */
+    topic_name?: string,
+    /** Number of retries this job has left. */
+    retries?: number,
+    /** If the variable value could not be loaded, this returns the error message. */
+    error_message?: string,
+    /** Reference to a ByteArray. */
+    error_details_id?: FluxnovaByteArrayId,
+    /** Time at which the lock expires. */
+    lock_expiration_time?: string,
+    /** Creation timestamp. */
+    create_time?: string,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Reference to the execution. */
+    execution_id?: FluxnovaExecutionId,
     /** Reference to the process instance. */
     process_instance_id?: string,
     /** Reference to the process definition. */
     process_definition_id?: string,
     /** Key of the process definition. */
     process_definition_key?: string,
-    /** Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu... */
-    retries?: number,
-    /** Reference to a ByteArray. */
-    exception_stack_id?: string,
-    /** Message of the exception that occurred, the last time the job was executed. Returns null when no exception occurred. To get the full exception stacktrace, use */
-    exception_message?: string,
-    /** Id of the activity on which the last exception occurred. */
-    failed_activity_id?: string,
-    /** Due date of the task. */
-    due_date?: string,
-    /** Repeat/recurrence expression (ISO 8601). */
-    repeat?: string,
-    /** Offset applied to repeat interval calculation. */
-    repeat_offset?: number,
-    /** Type of handler that processes this entity. */
-    handler_type?: string,
-    /** Configuration for the handler. */
-    handler_configuration?: string,
-    /** Reference to the deployment. */
-    deployment_id?: string,
-    /** Whether the entity is active or suspended. */
-    suspension_state: string,
-    /** Reference to the job definition. */
-    job_definition_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5... */
-    priority: number,
-    /** Monotonically increasing counter for ordering. */
-    sequence_counter?: number,
+    /** BPMN activity element identifier. */
+    activity_id?: string,
+    /** Runtime activity instance identifier. */
+    activity_instance_id?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Creation timestamp. */
-    create_time?: string,
+    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    priority: number,
     /** Reference to the last failure log. */
     last_failure_log_id?: string,
-    /** Reference to a batch. */
-    batch_id?: string,
 }
 
 
 /**
- * A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process engine. Each Job Definition corresponds to a Timer or Asynchronous continuation job inst...
+ * Filter entity in the user collaboration.
  */
-export interface JobDefinition {
+export interface FluxnovaFilter {
     /** Unique identifier. */
     id: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Key of the process definition. */
-    process_definition_key?: string,
-    /** BPMN activity element identifier. */
-    activity_id?: string,
-    /** The Type of a job. Asynchronous continuation, timer, ... */
-    job_type: string,
-    /** The configuration of a job definition provides details about the jobs which will be created. For timer jobs this method returns the timer configuration. */
-    job_configuration?: string,
-    /** Whether the entity is active or suspended. */
-    suspension_state?: string,
-    /** Priority of the associated job when this log entry was created. */
-    job_priority: number,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Reference to the deployment. */
-    deployment_id?: string,
+    /** Numeric type of the authorized resource. */
+    resource_type: string,
+    /** Human-readable name. */
+    name: string,
+    /** The userId of the person that is responsible for this task. */
+    owner?: string,
+    /** Serialized query expression. */
+    query: string,
+    /** Serialized properties. */
+    properties?: string,
+}
+
+
+/**
+ * An object structure representing a Camunda Form used to present forms to users either when starting a process instance or when assigned to a User Task.
+ */
+export interface FluxnovaFormDefinition extends FluxnovaResourceDefinition {
+}
+
+
+/**
+ * Represents a group, used in IdentityService.
+ */
+export interface FluxnovaGroup {
+    /** Unique identifier. */
+    id: string,
+    /** Human-readable name. */
+    name?: string,
+    /** Type discriminator. */
+    type?: string,
 }
 
 
 /**
  * Represents one execution of an activity and it's stored permanent for statistics, audit and other business intelligence purposes.
  */
-export interface HistoricActivityInstance extends HistoricScopeInstance {
-    /** Id of the parent activity instance */
+export interface FluxnovaHistoricActivityInstance extends FluxnovaHistoricScopeInstance {
+    /** Id of the parent activity instance. */
     parent_activity_instance_id?: string,
     /** Reference to the execution. */
     execution_id: string,
@@ -1623,18 +679,18 @@ export interface HistoricActivityInstance extends HistoricScopeInstance {
     activity_id: string,
     /** Reference to the task. */
     task_id?: string,
-    /** The called process instance in case of call activity */
+    /** The called process instance in case of call activity. */
     called_process_instance_id?: string,
-    /** The called case instance in case of (case) call activity */
+    /** The called case instance in case of (case) call activity. */
     called_case_instance_id?: string,
-    /** The display name for the activity */
+    /** The display name for the activity. */
     activity_name?: string,
-    /** The activity type of the activity. Typically the activity type correspond to the XML tag used in the BPMN 2.0 process definition file. All activity types are available in org.finos.fluxnova.bpm.eng... */
+    /** The activity type of the activity. */
     activity_type: string,
-    /** The userId of the person to which this task is assigned or delegated. */
+    /** The userId of the person to which this task is String) assigned or String) delegated. */
     assignee?: string,
     /** The activity instance state. */
-    activity_instance_state?: string,
+    activity_instance_state?: number,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
     /** Multi-tenancy discriminator. */
@@ -1643,9 +699,9 @@ export interface HistoricActivityInstance extends HistoricScopeInstance {
 
 
 /**
- * Historic representation of a org.finos.fluxnova.bpm.engine.batch.Batch.
+ * Historic representation of a Batch.
  */
-export interface HistoricBatch {
+export interface FluxnovaHistoricBatch {
     /** Unique identifier. */
     id: string,
     /** Type discriminator. */
@@ -1680,8 +736,8 @@ export interface HistoricBatch {
 /**
  * Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.
  */
-export interface HistoricCaseActivityInstance extends HistoricScopeInstance {
-    /** Id of the parent activity instance */
+export interface FluxnovaHistoricCaseActivityInstance extends FluxnovaHistoricScopeInstance {
+    /** Id of the parent activity instance. */
     parent_activity_instance_id?: string,
     /** Reference to the case definition. */
     case_definition_id: string,
@@ -1691,9 +747,9 @@ export interface HistoricCaseActivityInstance extends HistoricScopeInstance {
     case_activity_id: string,
     /** Reference to the task. */
     task_id?: string,
-    /** The called process instance in case of call activity */
+    /** The called process instance in case of call activity. */
     called_process_instance_id?: string,
-    /** The called case instance in case of (case) call activity */
+    /** The called case instance in case of (case) call activity. */
     called_case_instance_id?: string,
     /** The display name for the case activity. */
     case_activity_name?: string,
@@ -1701,8 +757,8 @@ export interface HistoricCaseActivityInstance extends HistoricScopeInstance {
     case_activity_type?: string,
     /** Creation timestamp. */
     create_time: string,
-    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STA... */
-    state?: string,
+    /** The row's state; which values it takes depends on its table. */
+    state?: number,
     /** Whether this entity is required. */
     is_required?: boolean,
     /** Multi-tenancy discriminator. */
@@ -1713,7 +769,7 @@ export interface HistoricCaseActivityInstance extends HistoricScopeInstance {
 /**
  * A single execution of a case definition that is stored permanently.
  */
-export interface HistoricCaseInstance extends HistoricScopeInstance {
+export interface FluxnovaHistoricCaseInstance extends FluxnovaHistoricScopeInstance {
     /** Reference to the case instance. */
     case_instance_id: string,
     /** Domain-specific business key. */
@@ -1724,13 +780,13 @@ export interface HistoricCaseInstance extends HistoricScopeInstance {
     create_time: string,
     /** The time the case was closed. */
     close_time?: string,
-    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STA... */
-    state?: string,
+    /** The row's state; which values it takes depends on its table. */
+    state?: number,
     /** The authenticated user that created this case instance. */
     create_user_id?: string,
-    /** The case instance id of a potential super case instance or null if no super case instance exists */
+    /** The case instance id of a potential super case instance or null if no super case instance exists. */
     super_case_instance_id?: string,
-    /** The process instance id of a potential super process instance or null if no super process instance exists */
+    /** The process instance id of a potential super process instance or null if no super process instance exists. */
     super_process_instance_id?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
@@ -1740,14 +796,14 @@ export interface HistoricCaseInstance extends HistoricScopeInstance {
 /**
  * Represents one input variable of a decision evaluation.
  */
-export interface HistoricDecisionInputInstance {
+export interface FluxnovaHistoricDecisionInputInstance {
     /** Unique identifier. */
     id: string,
     /** The unique identifier of the historic decision instance. */
     decision_instance_id: string,
-    /** The unique identifier of the clause that the value is assigned for. Can be null if the decision is not implemented as decision table. */
+    /** The unique identifier of the clause that the value is assigned for. */
     clause_id?: string,
-    /** The name of the clause that the value is assigned for. Can be null if the decision is not implemented as decision table. */
+    /** The name of the clause that the value is assigned for. */
     clause_name?: string,
     /** The variable type. */
     variable_type?: string,
@@ -1775,14 +831,14 @@ export interface HistoricDecisionInputInstance {
 /**
  * Represents one evaluation of a decision.
  */
-export interface HistoricDecisionInstance {
+export interface FluxnovaHistoricDecisionInstance {
     /** Unique identifier. */
     id: string,
     /** The decision definition reference. */
     decision_definition_id: string,
-    /** The unique identifier of the decision definition */
+    /** The unique identifier of the decision definition. */
     decision_definition_key: string,
-    /** The name of the decision definition */
+    /** The name of the decision definition. */
     decision_definition_name?: string,
     /** Key of the process definition. */
     process_definition_key?: string,
@@ -1808,13 +864,13 @@ export interface HistoricDecisionInstance {
     collect_result_value?: number,
     /** Reference to a user. */
     user_id?: string,
-    /** The unique identifier of the historic decision instance of the evaluated root decision. Can be null if this instance is the root decision instance of the evaluation. */
+    /** The unique identifier of the historic decision instance of the evaluated root decision. */
     root_decision_instance_id?: string,
     /** Root process instance for history cleanup. */
     root_process_instance_id?: string,
-    /** Id of the related decision requirements definition. Can be null if the decision has no relations to other decisions. */
+    /** Id of the related decision requirements definition. */
     decision_requirements_definition_id?: string,
-    /** Key of the related decision requirements definition. Can be null if the decision has no relations to other decisions. */
+    /** Key of the related decision requirements definition. */
     decision_requirements_definition_key?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
@@ -1824,18 +880,18 @@ export interface HistoricDecisionInstance {
 /**
  * Represents one output variable of a decision evaluation.
  */
-export interface HistoricDecisionOutputInstance {
+export interface FluxnovaHistoricDecisionOutputInstance {
     /** Unique identifier. */
     id: string,
     /** The unique identifier of the historic decision instance. */
     decision_instance_id: string,
-    /** The unique identifier of the clause that the value is assigned for. Can be null if the decision is not implemented as decision table. */
+    /** The unique identifier of the clause that the value is assigned for. */
     clause_id?: string,
-    /** The name of the clause that the value is assigned for. Can be null if the decision is not implemented as decision table. */
+    /** The name of the clause that the value is assigned for. */
     clause_name?: string,
-    /** The unique identifier of the rule that is matched. Can be null if the decision is not implemented as decision table. */
+    /** The unique identifier of the rule that is matched. */
     rule_id?: string,
-    /** The order of the rule that is matched. Can be null if the decision is not implemented as decision table. */
+    /** The order of the rule that is matched. */
     rule_order?: number,
     /** The name of the output variable. */
     variable_name?: string,
@@ -1865,7 +921,7 @@ export interface HistoricDecisionOutputInstance {
 /**
  * Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
  */
-export interface HistoricDetail {
+export interface FluxnovaHistoricDetail {
     /** Unique identifier. */
     id: string,
     /** Type discriminator. */
@@ -1914,7 +970,7 @@ export interface HistoricDetail {
     sequence_counter?: number,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** The unique identifier of this operation. If an operation modifies multiple properties, multiple UserOperationLogEntry instances will be created with a common operationId. This allows grouping multi... */
+    /** The unique identifier of this operation. */
     operation_id?: string,
     /** Timestamp when this entity is eligible for removal. */
     removal_time?: string,
@@ -1924,22 +980,22 @@ export interface HistoricDetail {
 
 
 /**
- * The HistoricExternalTaskLog is used to have a log containing information about ExternalTask task execution. The log provides details about the last lifecycle state of a ExternalTask task: An instan...
+ * The HistoricExternalTaskLog is used to have a log containing information about task execution.
  */
-export interface HistoricExternalTaskLog {
+export interface FluxnovaHistoricExternalTaskLog {
     /** Unique identifier. */
     id: string,
     /** Time when this log occurred. */
     timestamp: string,
     /** Id of the associated external task. */
     external_task_id: string,
-    /** Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu... */
+    /** Number of retries this job has left. */
     retries?: number,
     /** Topic name of the associated external task. */
     topic_name?: string,
     /** Id of the worker that fetched the external task most recently. */
     worker_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5... */
+    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
     priority: number,
     /** If the variable value could not be loaded, this returns the error message. */
     error_message?: string,
@@ -1961,17 +1017,17 @@ export interface HistoricExternalTaskLog {
     process_definition_key?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STA... */
-    state?: string,
+    /** The row's state; which values it takes depends on its table. */
+    state?: number,
     /** Timestamp when this entity is eligible for removal. */
     removal_time?: string,
 }
 
 
 /**
- * An historic identity link stores the association of a task with a certain identity. For example, historic identity link is logged on the following conditions: - a user can be an assignee/Candidate/...
+ * An historic identity link stores the association of a task with a certain identity.
  */
-export interface HistoricIdentityLink {
+export interface FluxnovaHistoricIdentityLink {
     /** Unique identifier. */
     id: string,
     /** Time when this log occurred. */
@@ -1988,9 +1044,9 @@ export interface HistoricIdentityLink {
     root_process_instance_id?: string,
     /** Reference to the process definition. */
     process_definition_id?: string,
-    /** Type of identity link history (add or delete identity link) */
+    /** Type of identity link history (add or delete identity link). */
     operation_type?: string,
-    /** UserId of the user who assigns a task to the user */
+    /** UserId of the user who assigns a task to the user. */
     assigner_id?: string,
     /** Key of the process definition. */
     process_definition_key?: string,
@@ -2002,9 +1058,9 @@ export interface HistoricIdentityLink {
 
 
 /**
- * Represents a historic Incident incident that is stored permanently.
+ * Represents a historic incident that is stored permanently.
  */
-export interface HistoricIncident {
+export interface FluxnovaHistoricIncident {
     /** Unique identifier. */
     id: string,
     /** Key of the process definition. */
@@ -2023,7 +1079,7 @@ export interface HistoricIncident {
     end_time?: string,
     /** Incident message. */
     incident_message?: string,
-    /** Type of this incident to identify the kind of incident. For example: failedJobs will be returned in the case of an incident, which identify failed job during the execution of a process instance. */
+    /** Type of this incident to identify the kind of incident. */
     incident_type: string,
     /** BPMN activity element identifier. */
     activity_id?: string,
@@ -2038,12 +1094,12 @@ export interface HistoricIncident {
     /** History payload of this incident. */
     history_configuration?: string,
     /** The incident state. */
-    incident_state?: string,
+    incident_state?: number,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
     /** Reference to the job definition. */
     job_definition_id?: string,
-    /** Annotation of this incident */
+    /** Annotation of this incident. */
     annotation?: string,
     /** Timestamp when this entity is eligible for removal. */
     removal_time?: string,
@@ -2051,9 +1107,9 @@ export interface HistoricIncident {
 
 
 /**
- * The HistoricJobLog is used to have a log containing information about Job job execution. The log provides details about the complete lifecycle of a Job job: An instance of HistoricJobLog represents...
+ * The HistoricJobLog is used to have a log containing information about job execution.
  */
-export interface HistoricJobLog {
+export interface FluxnovaHistoricJobLog {
     /** Unique identifier. */
     id: string,
     /** Time when this log occurred. */
@@ -2066,12 +1122,12 @@ export interface HistoricJobLog {
     job_retries?: number,
     /** Priority of the associated job when this log entry was created. */
     job_priority: number,
-    /** Message of the exception that occurred by executing the associated job. To get the full exception stacktrace, use */
+    /** Message of the exception that occurred by executing the associated job. */
     job_exception_message?: string,
     /** Reference to the job exception stack. */
     job_exception_stack_id?: string,
     /** The job state. */
-    job_state?: string,
+    job_state?: number,
     /** Reference to the job definition. */
     job_definition_id?: string,
     /** Job definition type of the associated job. */
@@ -2110,7 +1166,7 @@ export interface HistoricJobLog {
 /**
  * A single execution of a whole process definition that is stored permanently.
  */
-export interface HistoricProcessInstance extends HistoricScopeInstance {
+export interface FluxnovaHistoricProcessInstance extends FluxnovaHistoricScopeInstance {
     /** Domain-specific business key. */
     business_key?: string,
     /** The authenticated user that started this process instance. */
@@ -2119,9 +1175,9 @@ export interface HistoricProcessInstance extends HistoricScopeInstance {
     start_activity_id?: string,
     /** Reference to the end activity. */
     end_activity_id?: string,
-    /** The process instance id of a potential super process instance or null if no super process instance exists */
+    /** The process instance id of a potential super process instance or null if no super process instance exists. */
     super_process_instance_id?: string,
-    /** The case instance id of a potential super case instance or null if no super case instance exists */
+    /** The case instance id of a potential super case instance or null if no super case instance exists. */
     super_case_instance_id?: string,
     /** Reference to the case instance. */
     case_instance_id?: string,
@@ -2129,7 +1185,7 @@ export interface HistoricProcessInstance extends HistoricScopeInstance {
     delete_reason?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STA... */
+    /** The row's state; which values it takes depends on its table. */
     state?: string,
     /** The id of the original process instance which was restarted. */
     restarted_process_instance_id?: string,
@@ -2139,7 +1195,7 @@ export interface HistoricProcessInstance extends HistoricScopeInstance {
 /**
  * Abstract base for historic entities with start/end time and duration.
  */
-export interface HistoricScopeInstance {
+export interface FluxnovaHistoricScopeInstance {
     /** Unique identifier. */
     id: string,
     /** Root process instance for history cleanup. */
@@ -2164,8 +1220,8 @@ export interface HistoricScopeInstance {
 /**
  * Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
  */
-export interface HistoricTaskInstance extends HistoricScopeInstance {
-    /** The id of the activity in the process defining this task or null if this is not related to a process */
+export interface FluxnovaHistoricTaskInstance extends FluxnovaHistoricScopeInstance {
+    /** The id of the activity in the process defining this task or null if this is not related to a process. */
     task_definition_key?: string,
     /** Reference to the execution. */
     execution_id?: string,
@@ -2181,17 +1237,17 @@ export interface HistoricTaskInstance extends HistoricScopeInstance {
     activity_instance_id?: string,
     /** Human-readable name. */
     name?: string,
-    /** The parent task for which this task is a subtask */
+    /** The parent task for which this task is a subtask. */
     parent_task_id?: string,
     /** Human-readable description. */
     description?: string,
-    /** The userId of the person that is responsible for this task. This is used when a task is delegated. */
+    /** The userId of the person that is responsible for this task. */
     owner?: string,
-    /** The userId of the person to which this task is assigned or delegated. */
+    /** The userId of the person to which this task is String) assigned or String) delegated. */
     assignee?: string,
     /** Obtains the reason for the process instance's deletion. */
     delete_reason?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..5... */
+    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
     priority: number,
     /** Due date of the task. */
     due_date?: string,
@@ -2205,9 +1261,9 @@ export interface HistoricTaskInstance extends HistoricScopeInstance {
 
 
 /**
- * A single process variable containing the last value when its process instance has finished. It is only available when HISTORY_LEVEL is set >= AUDIT
+ * A single process variable containing the last value when its process instance has finished.
  */
-export interface HistoricVariableInstance {
+export interface FluxnovaHistoricVariableInstance {
     /** Unique identifier. */
     id: string,
     /** Key of the process definition. */
@@ -2250,17 +1306,399 @@ export interface HistoricVariableInstance {
     text2_value?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STA... */
+    /** The row's state; which values it takes depends on its table. */
     state?: string,
     /** Timestamp when this entity is eligible for removal. */
     removal_time?: string,
+    /** Whether this variable is restricted. */
+    restricted?: boolean,
 }
 
 
 /**
- * Log entry about an operation performed by a user. This is used for logging actions such as creating a new task, completing a task, canceling a process instance, ... The type of the operation which ...
+ * Identity Info entity in the identity and access management.
  */
-export interface UserOperationLogEntry {
+export interface FluxnovaIdentityInfo {
+    /** Unique identifier. */
+    id: string,
+    /** Reference to a user. */
+    user_id?: string,
+    /** Type discriminator. */
+    type?: string,
+    /** Business key for the definition. */
+    key?: string,
+    /** Value of this variable instance. */
+    value?: string,
+    /** Hashed password. */
+    password?: string,
+    /** Reference to a CaseExecution. */
+    parent_id?: string,
+}
+
+
+/**
+ * An identity link is used to associate a task with a certain identity.
+ */
+export interface FluxnovaIdentityLink {
+    /** Unique identifier. */
+    id: string,
+    /** Reference to a group. */
+    group_id?: string,
+    /** Type discriminator. */
+    type?: string,
+    /** Reference to a user. */
+    user_id?: string,
+    /** Reference to the task. */
+    task_id?: FluxnovaTaskId,
+    /** Reference to the process definition. */
+    process_definition_id?: FluxnovaProcessDefinitionId,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+}
+
+
+/**
+ * An Incident represents a failure in the execution of a process instance.
+ */
+export interface FluxnovaIncident {
+    /** Unique identifier. */
+    id: string,
+    /** Time when the incident happened. */
+    incident_timestamp: string,
+    /** Incident message. */
+    incident_message?: string,
+    /** Type of this incident to identify the kind of incident. */
+    incident_type: string,
+    /** Reference to the execution. */
+    execution_id?: FluxnovaExecutionId,
+    /** BPMN activity element identifier. */
+    activity_id?: string,
+    /** Id of the activity on which the last exception occurred. */
+    failed_activity_id?: string,
+    /** Reference to the process instance. */
+    process_instance_id?: FluxnovaExecutionId,
+    /** Reference to the process definition. */
+    process_definition_id?: FluxnovaProcessDefinitionId,
+    /** Id of the incident on which this incident has been triggered. */
+    cause_incident_id?: FluxnovaIncidentId,
+    /** Id of the root incident on which this transitive incident has been triggered. */
+    root_cause_incident_id?: FluxnovaIncidentId,
+    /** Payload of this incident. */
+    configuration?: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Reference to the job definition. */
+    job_definition_id?: FluxnovaJobDefinitionId,
+    /** Annotation of this incident. */
+    annotation?: string,
+}
+
+
+/**
+ * Represents one job (timer, message, etc.).
+ */
+export interface FluxnovaJob {
+    /** Unique identifier. */
+    id: string,
+    /** Type discriminator. */
+    type: string,
+    /** Time at which the lock expires. */
+    lock_expiration_time?: string,
+    /** Identifier of the node that acquired the lock. */
+    lock_owner?: string,
+    /** Whether this entity is exclusive. */
+    is_exclusive?: boolean,
+    /** Reference to the execution. */
+    execution_id?: string,
+    /** Root process instance for history cleanup. */
+    root_process_instance_id?: string,
+    /** Reference to the process instance. */
+    process_instance_id?: string,
+    /** Reference to the process definition. */
+    process_definition_id?: string,
+    /** Key of the process definition. */
+    process_definition_key?: string,
+    /** Number of retries this job has left. */
+    retries?: number,
+    /** Reference to a ByteArray. */
+    exception_stack_id?: FluxnovaByteArrayId,
+    /** Message of the exception that occurred, the last time the job was executed. */
+    exception_message?: string,
+    /** Id of the activity on which the last exception occurred. */
+    failed_activity_id?: string,
+    /** Due date of the task. */
+    due_date?: string,
+    /** Repeat/recurrence expression (ISO 8601). */
+    repeat?: string,
+    /** Offset applied to repeat interval calculation. */
+    repeat_offset?: number,
+    /** Type of handler that processes this entity. */
+    handler_type?: string,
+    /** Configuration for the handler. */
+    handler_configuration?: string,
+    /** Reference to the deployment. */
+    deployment_id?: string,
+    /** Whether the entity is active or suspended. */
+    suspension_state: number,
+    /** Reference to the job definition. */
+    job_definition_id?: string,
+    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    priority: number,
+    /** Monotonically increasing counter for ordering. */
+    sequence_counter?: number,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Creation timestamp. */
+    create_time?: string,
+    /** Reference to the last failure log. */
+    last_failure_log_id?: string,
+    /** Reference to a batch. */
+    batch_id?: string,
+}
+
+
+/**
+ * A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process engine.
+ */
+export interface FluxnovaJobDefinition {
+    /** Unique identifier. */
+    id: string,
+    /** Reference to the process definition. */
+    process_definition_id?: string,
+    /** Key of the process definition. */
+    process_definition_key?: string,
+    /** BPMN activity element identifier. */
+    activity_id?: string,
+    /** The Type of a job. */
+    job_type: string,
+    /** The configuration of a job definition provides details about the jobs which will be created. */
+    job_configuration?: string,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Priority of the associated job when this log entry was created. */
+    job_priority: number,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Reference to the deployment. */
+    deployment_id?: string,
+}
+
+
+/**
+ * Association entity in identity and access management.
+ */
+export interface FluxnovaMembership {
+    /** Reference to a user. */
+    user_id: FluxnovaUserId,
+    /** Reference to a group. */
+    group_id: FluxnovaGroupId,
+}
+
+
+/**
+ * Meter Log entity in the engine infrastructure.
+ */
+export interface FluxnovaMeterLog {
+    /** Unique identifier. */
+    id: string,
+    /** Human-readable name. */
+    name: string,
+    /** Identifier of the reporting node. */
+    reporter?: string,
+    /** Value of this variable instance. */
+    value?: number,
+    /** Time when this log occurred. */
+    timestamp?: string,
+    /** The milliseconds. */
+    milliseconds?: number,
+}
+
+
+/**
+ * An object structure representing an executable process composed of activities and transitions.
+ */
+export interface FluxnovaProcessDefinition extends FluxnovaResourceDefinition {
+    /** The has start form key. */
+    has_start_form_key?: boolean,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Version tag of the process definition. */
+    version_tag?: string,
+    /** Whether this entity is startable. */
+    is_startable: boolean,
+}
+
+
+/**
+ * Property entity in the engine infrastructure.
+ */
+export interface FluxnovaEngineProperty {
+    /** Human-readable name. */
+    name: string,
+    /** Value of this variable instance. */
+    value?: string,
+}
+
+
+/**
+ * Abstract base for deployable resource definitions (process, case, decision, form).
+ */
+export interface FluxnovaResourceDefinition {
+    /** Unique identifier. */
+    id: string,
+    /** Business key for the definition. */
+    key?: string,
+    /** Human-readable name. */
+    name?: string,
+    /** Version number. */
+    version?: number,
+    /** Category classification. */
+    category?: string,
+    /** Reference to the deployment. */
+    deployment_id?: string,
+    /** Name of the deployed resource file. */
+    resource_name?: string,
+    /** Name of the diagram resource file. */
+    diagram_resource_name?: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Days to retain history before cleanup. */
+    history_time_to_live?: number,
+}
+
+
+/**
+ * Schema Log Entry entity in the engine infrastructure.
+ */
+export interface FluxnovaSchemaLogEntry {
+    /** Unique identifier. */
+    id: string,
+    /** Time when this log occurred. */
+    timestamp?: string,
+    /** Version number. */
+    version?: string,
+}
+
+
+/**
+ * Represents one task for a human user.
+ */
+export interface FluxnovaTask {
+    /** Unique identifier. */
+    id: string,
+    /** Reference to the execution. */
+    execution_id?: FluxnovaExecutionId,
+    /** Reference to the process instance. */
+    process_instance_id?: FluxnovaExecutionId,
+    /** Reference to the process definition. */
+    process_definition_id?: FluxnovaProcessDefinitionId,
+    /** Reference to the case execution. */
+    case_execution_id?: FluxnovaCaseExecutionId,
+    /** Reference to the case instance. */
+    case_instance_id?: string,
+    /** Reference to the case definition. */
+    case_definition_id?: FluxnovaCaseDefinitionId,
+    /** Human-readable name. */
+    name?: string,
+    /** The parent task for which this task is a subtask. */
+    parent_task_id?: string,
+    /** Human-readable description. */
+    description?: string,
+    /** The id of the activity in the process defining this task or null if this is not related to a process. */
+    task_definition_key?: string,
+    /** The userId of the person that is responsible for this task. */
+    owner?: string,
+    /** The userId of the person to which this task is String) assigned or String) delegated. */
+    assignee?: string,
+    /** The current DelegationState for this task. */
+    delegation_state?: string,
+    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    priority: number,
+    /** Creation timestamp. */
+    create_time?: string,
+    /** The date/time when this task was last updated. */
+    last_updated?: string,
+    /** Due date of the task. */
+    due_date?: string,
+    /** Follow-up date of the task. */
+    follow_up_date?: string,
+    /** Whether the entity is active or suspended. */
+    suspension_state?: number,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Task's state. */
+    task_state?: string,
+}
+
+
+/**
+ * Task Meter Log entity in the engine infrastructure.
+ */
+export interface FluxnovaTaskMeterLog {
+    /** Unique identifier. */
+    id: string,
+    /** Hash of the assignee for aggregation. */
+    assignee_hash?: number,
+    /** Time when this log occurred. */
+    timestamp?: string,
+}
+
+
+/**
+ * Represents a tenant, used in IdentityService.
+ */
+export interface FluxnovaTenant {
+    /** Unique identifier. */
+    id: string,
+    /** Human-readable name. */
+    name?: string,
+}
+
+
+/**
+ * Association entity in identity and access management.
+ */
+export interface FluxnovaTenantMembership {
+    /** Unique identifier. */
+    id: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id: FluxnovaTenantId,
+    /** Reference to a user. */
+    user_id?: FluxnovaUserId,
+    /** Reference to a group. */
+    group_id?: FluxnovaGroupId,
+}
+
+
+/**
+ * Represents a user, used in IdentityService.
+ */
+export interface FluxnovaUser {
+    /** Unique identifier. */
+    id: string,
+    /** First name. */
+    first_name?: string,
+    /** Last name. */
+    last_name?: string,
+    /** Email address. */
+    email?: string,
+    /** Hashed password. */
+    password?: string,
+    /** Cryptographic salt for password hashing. */
+    salt?: string,
+    /** Time at which the lock expires. */
+    lock_expiration_time?: string,
+    /** Number of failed login attempts. */
+    attempts?: number,
+    /** Reference to the picture. */
+    picture_id?: string,
+}
+
+
+/**
+ * Log entry about an operation performed by a user.
+ */
+export interface FluxnovaUserOperationLogEntry {
     /** Unique identifier. */
     id: string,
     /** Reference to the deployment. */
@@ -2293,9 +1731,9 @@ export interface UserOperationLogEntry {
     user_id?: string,
     /** Time when this log occurred. */
     timestamp: string,
-    /** Type of identity link history (add or delete identity link) */
+    /** Type of identity link history (add or delete identity link). */
     operation_type?: string,
-    /** The unique identifier of this operation. If an operation modifies multiple properties, multiple UserOperationLogEntry instances will be created with a common operationId. This allows grouping multi... */
+    /** The unique identifier of this operation. */
     operation_id?: string,
     /** The type of the entity on which this operation was executed. */
     entity_type?: string,
@@ -2313,2850 +1751,2382 @@ export interface UserOperationLogEntry {
     category?: string,
     /** Id of the associated external task. */
     external_task_id: string,
-    /** Annotation of this incident */
+    /** Annotation of this incident. */
     annotation?: string,
 }
 
 
 /**
- * The DC bounds element
+ * A VariableInstance represents a variable in the execution of a process instance.
  */
-export interface Bounds extends BpmnModelElementInstance {
-    /** X coordinate (horizontal offset) of this element's bounds. */
-    x?: number,
-    /** Y coordinate (vertical offset) of this element's bounds. */
-    y?: number,
-    /** Width of this element's bounding rectangle. */
-    width?: number,
-    /** Height of this element's bounding rectangle. */
-    height?: number,
-}
-
-
-/**
- * The DC font element
- */
-export interface Font extends BpmnModelElementInstance {
+export interface FluxnovaVariableInstance {
+    /** Unique identifier. */
+    id: string,
+    /** Type discriminator. */
+    type: string,
     /** Human-readable name. */
-    name?: string,
-    /** Font size in points. */
-    size?: number,
-    /** Whether the font is rendered in bold. */
-    bold?: boolean,
-    /** Whether the font is rendered in italic. */
-    italic?: boolean,
-    /** Whether the font is underlined. */
-    underline?: boolean,
-    /** Whether the font has a strike-through decoration. */
-    strike_through?: boolean,
+    name: string,
+    /** Reference to the execution. */
+    execution_id?: FluxnovaExecutionId,
+    /** Reference to the process instance. */
+    process_instance_id?: FluxnovaExecutionId,
+    /** Reference to the process definition. */
+    process_definition_id?: string,
+    /** Reference to the case execution. */
+    case_execution_id?: FluxnovaCaseExecutionId,
+    /** Reference to the case instance. */
+    case_instance_id?: FluxnovaCaseExecutionId,
+    /** Reference to the task. */
+    task_id?: string,
+    /** Reference to a batch. */
+    batch_id?: FluxnovaBatchId,
+    /** Reference to the byte array. */
+    byte_array_id?: FluxnovaByteArrayId,
+    /** Variable value stored as double. */
+    double_value?: number,
+    /** Variable value stored as long. */
+    long_value?: number,
+    /** Variable value stored as text. */
+    text_value?: string,
+    /** Variable value stored as text2. */
+    text2_value?: string,
+    /** Reference to the variable scope. */
+    variable_scope_id: string,
+    /** Monotonically increasing counter for ordering. */
+    sequence_counter?: number,
+    /** Whether this entity is concurrent local. */
+    is_concurrent_local?: boolean,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
+    /** Whether this variable is restricted. */
+    restricted?: boolean,
 }
 
 
 /**
- * The DC point element
- */
-export interface Point extends BpmnModelElementInstance {
-    /** X coordinate (horizontal offset) of this element's bounds. */
-    x?: number,
-    /** Y coordinate (vertical offset) of this element's bounds. */
-    y?: number,
-}
-
-
-/**
- * The DI Diagram element
- */
-export interface Diagram extends BpmnModelElementInstance {
-    /** Human-readable name. */
-    name?: string,
-    /** Human-readable documentation attached to this element. */
-    documentation?: string,
-    /** The resolution of this element. */
-    resolution?: number,
-    /** Unique identifier. */
-    id: string,
-}
-
-
-/**
- * The DI DiagramElement element
- */
-export interface DiagramElement extends BpmnModelElementInstance {
-    /** Unique identifier. */
-    id: string,
-    /** Extension element containing additional diagram information. */
-    extension?: Extension,
-}
-
-
-/**
- * The DI Edge element
- */
-export interface Edge extends DiagramElement {
-    /** Ordered list of waypoints defining the visual path of this edge. */
-    waypoints?: Waypoint[],
-}
-
-
-/**
- * The DI extension element of the DI DiagramElement type
- */
-export interface Extension extends BpmnModelElementInstance {
-}
-
-
-/**
- * The DI Label element
- */
-export interface Label extends Node {
-    /** Bounding rectangle giving position and size of this diagram element. */
-    bounds?: Bounds,
-}
-
-
-/**
- * The DI LabeledEdge element
- */
-export interface LabeledEdge extends Edge {
-}
-
-
-/**
- * The DI LabeledShape element
- */
-export interface LabeledShape extends Shape {
-}
-
-
-/**
- * The DI Node element
- */
-export interface Node extends DiagramElement {
-}
-
-
-/**
- * The DI Plane element
- */
-export interface Plane extends Node {
-    /** All diagram elements contained within this plane. */
-    diagram_elements?: DiagramElement[],
-}
-
-
-/**
- * The DI Shape element
- */
-export interface Shape extends Node {
-    /** Bounding rectangle giving position and size of this diagram element. */
-    bounds?: Bounds,
-}
-
-
-/**
- * The DI Style element
- */
-export interface Style extends BpmnModelElementInstance {
-    /** Unique identifier. */
-    id: string,
-}
-
-
-/**
- * The DI waypoint element of the DI Edge type
- */
-export interface Waypoint extends Point {
-}
-
-
-/**
- * The BPMN element activationCondition of the BPMN tComplexGateway type
- */
-export interface ActivationCondition extends Expression {
-}
-
-
-/**
- * The BPMN activity element
- */
-export interface Activity extends FlowNode, InteractionNode {
-    /** Whether this activity is used for compensation handling. */
-    for_compensation?: boolean,
-    /** Minimum number of tokens required to start this activity. */
-    start_quantity?: number,
-    /** Number of tokens produced when this activity completes. */
-    completion_quantity?: number,
-    /** Default sequence flow taken when no other outgoing condition is satisfied. */
-    default?: SequenceFlowId,
-    /** Input and output specification of this activity. */
-    io_specification?: IoSpecificationId,
-    /** Serialized properties. */
-    properties?: BpmnProperty[],
-    /** Data associations that feed input data into this activity. */
-    data_input_associations?: DataInputAssociation[],
-    /** Data associations that move output data out of this activity. */
-    data_output_associations?: DataOutputAssociation[],
-    /** Resources (performers, potential owners) assigned to this activity. */
-    resource_roles?: ResourceRole[],
-    /** Loop or multi-instance characteristics of this activity. */
-    loop_characteristics?: LoopCharacteristicsId,
-}
-
-
-/**
- * The BPMN artifact element
- */
-export interface Artifact extends BaseElement {
-}
-
-
-/**
- * The BPMN assignment element
- */
-export interface Assignment extends BaseElement {
-    /** The source expression of this assignment. */
-    from_?: string,
-    /** The target expression of this assignment. */
-    to_?: string,
-}
-
-
-/**
- * The BPMN association element
- */
-export interface Association extends Artifact {
-    /** The source. */
-    source?: BaseElementId,
-    /** The catching link event that receives this link. */
-    target?: BaseElementId,
-    /** The association direction of this element. */
-    association_direction?: string,
-}
-
-
-/**
- * The BPMN auditing element
- */
-export interface Auditing extends BaseElement {
-}
-
-
-/**
- * The BPMN baseElement element
- */
-export interface BaseElement extends BpmnModelElementInstance {
-    /** Unique identifier. */
-    id: string,
-    /** Collection of documentation elements associated with this element. */
-    documentations?: Documentation[],
-    /** Extension elements holding vendor-specific metadata. */
-    extension_elements?: ExtensionElements,
-    /** The diagram element that visually represents this BPMN element. */
-    diagram_element?: DiagramElementId,
-}
-
-
-/**
- * The BPMN boundaryEvent element
- */
-export interface BoundaryEvent extends CatchEvent {
-    /** The activity to which this boundary event is attached. */
-    attached_to?: ActivityId,
-}
-
-
-/**
- * Interface implemented by all elements in a BPMN Model
+ * Any element of a BPMN document that Fluxnova's model API reads, the base of every BPMN class here.
  */
 export interface BpmnModelElementInstance {
-    /** Tests if the element is a scope like process or sub-process. */
-    scope?: BpmnModelElementInstance,
+    /** The name of the class an element is, which says which element it is when a slot's range admits several. */
+    element_type?: string,
 }
 
 
 /**
- * The BPMN businessRuleTask element
+ * A rectangle, by its top-left corner and its size, that places a shape on a diagram.
  */
-export interface BusinessRuleTask extends BpmnTask {
-    /** Implementation technology of this service or send/receive task. */
-    implementation?: string,
-    /** Camunda extensions */
-    fluxnova_class?: string,
-    /** Expression resolving to a JavaDelegate. */
-    fluxnova_delegate_expression?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Process variable to store the expression result. */
-    fluxnova_result_variable?: string,
-    /** Type name for this form field or listener. */
-    fluxnova_type?: string,
-    /** External task topic name. */
-    fluxnova_topic?: string,
-    /** Fluxnova extension property: decision ref. */
-    fluxnova_decision_ref?: string,
-    /** Fluxnova extension property: decision ref binding. */
-    fluxnova_decision_ref_binding?: string,
-    /** Fluxnova extension property: decision ref version. */
-    fluxnova_decision_ref_version?: string,
-    /** Fluxnova extension property: decision ref version tag. */
-    fluxnova_decision_ref_version_tag?: string,
-    /** Fluxnova extension property: decision ref tenant id. */
-    fluxnova_decision_ref_tenant_id?: string,
-    /** Fluxnova extension property: map decision result. */
-    fluxnova_map_decision_result?: string,
-    /** Fluxnova extension property: task priority. */
-    fluxnova_task_priority?: string,
+export interface DcBounds extends BpmnModelElementInstance {
+    /** The horizontal coordinate. */
+    x: number,
+    /** The vertical coordinate. */
+    y: number,
+    /** The width of the rectangle. */
+    width: number,
+    /** The height of the rectangle. */
+    height: number,
 }
 
 
 /**
- * The BPMN callActivity element
+ * The font a diagram label is drawn in.
  */
-export interface CallActivity extends Activity {
-    /** The global task or process called by this call activity. */
-    called_element?: string,
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-    /** Fluxnova extension property: called element binding. */
-    fluxnova_called_element_binding?: string,
-    /** Fluxnova extension property: called element version. */
-    fluxnova_called_element_version?: string,
-    /** Fluxnova extension property: called element version tag. */
-    fluxnova_called_element_version_tag?: string,
-    /** Fluxnova extension property: case ref. */
-    fluxnova_case_ref?: string,
-    /** Fluxnova extension property: case binding. */
-    fluxnova_case_binding?: string,
-    /** Fluxnova extension property: case version. */
-    fluxnova_case_version?: string,
-    /** Fluxnova extension property: called element tenant id. */
-    fluxnova_called_element_tenant_id?: string,
-    /** Fluxnova extension property: case tenant id. */
-    fluxnova_case_tenant_id?: string,
-    /** Fluxnova extension property: variable mapping class. */
-    fluxnova_variable_mapping_class?: string,
-    /** Fluxnova extension property: variable mapping delegate expression. */
-    fluxnova_variable_mapping_delegate_expression?: string,
-}
-
-
-/**
- * The BPMN callConversation element
- */
-export interface CallConversation extends ConversationNode {
-    /** The collaboration element called by this call conversation. */
-    called_collaboration?: GlobalConversationId,
-    /** Associations between participants. */
-    participant_associations?: ParticipantAssociation[],
-}
-
-
-/**
- * The BPMN callableElement element
- */
-export interface CallableElement extends RootElement {
-    /** Human-readable name. */
+export interface DcFont extends BpmnModelElementInstance {
+    /** The element's name. */
     name?: string,
-    /** Collection of interface elements associated with this element. */
-    supported_interfaces?: Interface[],
-    /** Input and output specification of this activity. */
-    io_specification?: IoSpecificationId,
-    /** Collection of io binding elements associated with this element. */
-    io_bindings?: IoBinding[],
+    /** The font's size. */
+    size?: number,
+    /** Whether the font is bold. */
+    is_bold?: boolean,
+    /** Whether the font is italic. */
+    is_italic?: boolean,
+    /** Whether the font is underlined. */
+    is_underline?: boolean,
+    /** Whether the font is struck through. */
+    is_strike_through?: boolean,
 }
 
 
 /**
- * The BPMN cancelEventDefinition element
+ * A point on a diagram, by its x and y coordinates.
  */
-export interface CancelEventDefinition extends EventDefinition {
+export interface DcPoint extends BpmnModelElementInstance {
+    /** The horizontal coordinate. */
+    x: number,
+    /** The vertical coordinate. */
+    y: number,
 }
 
 
 /**
- * The BPMN catchEvent element
+ * A diagram of a model, the root of what Diagram Interchange draws.
  */
-export interface CatchEvent extends Event {
-    /** Whether all event triggers must occur (parallel) rather than any one. */
-    parallel_multiple?: boolean,
-    /** Output data elements of this specification. */
-    data_outputs?: DataOutput[],
-    /** Data associations that move output data out of this activity. */
-    data_output_associations?: DataOutputAssociation[],
-    /** The output set associated with this output data. */
-    output_set?: OutputSetId,
-    /** Event definitions that specify the event trigger type. */
-    event_definitions?: EventDefinition[],
-    /** Collection of event definition elements associated with this element. */
-    event_definition_refs?: EventDefinition[],
-}
-
-
-/**
- * A named grouping used to categorise BPMN elements via CategoryValue references.
- */
-export interface Category extends RootElement {
-    /** Human-readable name. */
+export interface DiDiagram extends BpmnModelElementInstance {
+    /** The element's name. */
     name?: string,
-    /** Category values contained in this category. */
-    category_values?: CategoryValue[],
+    /** Text that documents the element. */
+    documentation?: string,
+    /** The resolution of the diagram, in units per inch. */
+    resolution?: number,
+    /** The element's id, unique within its document. */
+    id?: string,
 }
 
 
 /**
- * The BPMN categoryValue element
+ * Any element drawn on a diagram.
  */
-export interface CategoryValue extends BaseElement {
-    /** Value of this variable instance. */
-    value?: string,
+export interface DiDiagramElement extends BpmnModelElementInstance {
+    /** The element's id, unique within its document. */
+    id?: string,
+    /** Tool-specific content of the diagram element. */
+    extension?: DiExtension,
 }
 
 
 /**
- * The BPMN collaboration element
+ * A diagram element drawn as a line through waypoints between two elements.
  */
-export interface Collaboration extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Whether closed. */
-    closed?: boolean,
-    /** Participants (pools) in this collaboration. */
-    participants?: Participant[],
-    /** Message flows between participants in this collaboration. */
-    message_flows?: MessageFlow[],
-    /** Artifacts (text annotations, groups, associations) in this process. */
-    artifacts?: Artifact[],
-    /** Conversation nodes in this collaboration. */
-    conversation_nodes?: ConversationNode[],
-    /** Associations linking conversation nodes to other elements. */
-    conversation_associations?: ConversationAssociation[],
-    /** Associations between participants. */
-    participant_associations?: ParticipantAssociation[],
-    /** Associations between message flows. */
-    message_flow_associations?: MessageFlowAssociation[],
-    /** Correlation keys used to correlate messages in this collaboration. */
-    correlation_keys?: CorrelationKey[],
-    /** TODO: choreographyRef */
-    conversation_links?: ConversationLink[],
+export interface DiEdge extends DiDiagramElement {
+    /** The points the edge passes through, in order. */
+    waypoints: DiWaypoint[],
 }
 
 
 /**
- * The BPMN compensateEventDefinition element
+ * Tool-specific content attached to a diagram element.
  */
-export interface CompensateEventDefinition extends EventDefinition {
-    /** Whether to wait for the compensation to complete. */
-    wait_for_completion?: boolean,
-    /** The activity of this element. */
-    activity?: ActivityId,
+export interface DiExtension extends BpmnModelElementInstance {
 }
 
 
 /**
- * The BPMN 2.0 completionCondition element from the tMultiInstanceLoopCharacteristics type
+ * A diagram element that shows text, placed by its bounds.
  */
-export interface CompletionCondition extends Expression {
+export interface DiLabel extends DiNode {
+    /** Where the element is drawn, and how large. */
+    bounds?: DcBounds,
 }
 
 
 /**
- * Note: Currently not implemented, because both child elements are defined with a name already used in the BPMN model API and it is currently not supported by the model API to define elements with th...
+ * An edge that can carry labels.
  */
-export interface ComplexBehaviorDefinition extends BaseElement {
+export interface DiLabeledEdge extends DiEdge {
 }
 
 
 /**
- * The BPMN complexGateway element
+ * A shape that can carry labels.
  */
-export interface ComplexGateway extends Gateway {
-    /** Default sequence flow taken when no other outgoing condition is satisfied. */
-    default?: SequenceFlowId,
-    /** Condition that activates this complex gateway. */
-    activation_condition?: ActivationConditionId,
+export interface DiLabeledShape extends DiShape {
 }
 
 
 /**
- * The BPMN condition element of the BPMN tConditionalEventDefinition type
+ * A diagram element that other elements can connect to.
  */
-export interface Condition extends Expression {
+export interface DiNode extends DiDiagramElement {
 }
 
 
 /**
- * The BPMN conditionExpression element of the BPMN tSequenceFlow type
+ * A diagram's drawing surface, which holds its shapes and edges.
  */
-export interface ConditionExpression extends FormalExpression {
-    /** Type discriminator. */
-    type?: string,
-    /** Camunda extensions */
-    fluxnova_resource?: string,
+export interface DiPlane extends DiNode {
+    /** The shapes and edges on this plane. */
+    diagram_elements?: DiDiagramElement[],
 }
 
 
 /**
- * The BPMN conditionalEventDefinition element
+ * A diagram element drawn as a figure inside its bounds.
  */
-export interface ConditionalEventDefinition extends EventDefinition {
-    /** Condition guard expression. */
-    condition?: ConditionId,
-    /** Fluxnova extension property: variable name. */
-    fluxnova_variable_name?: string,
-    /** Fluxnova extension property: variable events. */
-    fluxnova_variable_events?: string,
-    /** Fluxnova extension property: variable events list. */
-    fluxnova_variable_events_list?: string[],
+export interface DiShape extends DiNode {
+    /** Where the element is drawn, and how large. */
+    bounds: DcBounds,
 }
 
 
 /**
- * The BPMN conversation element
+ * How a diagram element looks, such as its font or colour.
  */
-export interface Conversation extends ConversationNode {
+export interface DiStyle extends BpmnModelElementInstance {
+    /** The element's id, unique within its document. */
+    id?: string,
 }
 
 
 /**
- * The BPMN conversationAssociation element
+ * A point an edge passes through.
  */
-export interface ConversationAssociation extends BaseElement {
-    /** The inner conversation node of this element. */
-    inner_conversation_node?: ConversationNodeId,
-    /** The outer conversation node of this element. */
-    outer_conversation_node?: ConversationNodeId,
+export interface DiWaypoint extends DcPoint {
 }
 
 
 /**
- * The BPMN conversationLink element
+ * A diagram of BPMN elements, with its plane and the label styles it uses.
  */
-export interface ConversationLink extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The source. */
-    source?: InteractionNodeId,
-    /** The catching link event that receives this link. */
-    target?: InteractionNodeId,
-}
-
-
-/**
- * The BPMN conversationNode element
- */
-export interface ConversationNode extends BaseElement, InteractionNode {
-    /** Human-readable name. */
-    name?: string,
-    /** Participants (pools) in this collaboration. */
-    participants?: Participant[],
-    /** Message flows between participants in this collaboration. */
-    message_flows?: MessageFlow[],
-    /** Correlation keys used to correlate messages in this collaboration. */
-    correlation_keys?: CorrelationKey[],
-}
-
-
-/**
- * The BPMN correlationKey element
- */
-export interface CorrelationKey extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Correlation properties defined in this collaboration. */
-    correlation_properties?: CorrelationProperty[],
-}
-
-
-/**
- * The BPMN correlationProperty element
- */
-export interface CorrelationProperty extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Type discriminator. */
-    type?: ItemDefinitionId,
-    /** Retrieval expressions for this correlation property. */
-    correlation_property_retrieval_expressions?: CorrelationPropertyRetrievalExpression[],
-}
-
-
-/**
- * The BPMN correlationPropertyBinding element
- */
-export interface CorrelationPropertyBinding extends BaseElement {
-    /** The correlation property this binding is based on. */
-    correlation_property?: CorrelationPropertyId,
-    /** XPath expression navigating to the relevant data node. */
-    data_path?: string,
-}
-
-
-/**
- * The BPMN correlationPropertyRetrievalExpression element
- */
-export interface CorrelationPropertyRetrievalExpression extends BaseElement {
-    /** Short message or summary. */
-    message?: MessageId,
-    /** The message path of this element. */
-    message_path?: string,
-}
-
-
-/**
- * The BPMN correlationSubscription element
- */
-export interface CorrelationSubscription extends BaseElement {
-    /** Correlation key grouping correlation properties. */
-    correlation_key?: CorrelationKeyId,
-    /** Bindings mapping correlation properties to data paths. */
-    correlation_property_bindings?: CorrelationPropertyBinding[],
-}
-
-
-/**
- * The BPMN dataAssociation element
- */
-export interface DataAssociation extends BaseElement {
-    /** The throwing link events that send to this link target. */
-    sources?: ItemAwareElement[],
-    /** The catching link event that receives this link. */
-    target?: ItemAwareElementId,
-    /** Transformation expression applied during data association. */
-    transformation?: FormalExpressionId,
-    /** Data assignments (from/to) within this data association. */
-    assignments?: Assignment[],
-}
-
-
-/**
- * The BPMN dataInput element
- */
-export interface DataInput extends ItemAwareElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Whether collection. */
-    collection?: boolean,
-}
-
-
-/**
- * The BPMN dataInputAssociation element
- */
-export interface DataInputAssociation extends DataAssociation {
-}
-
-
-/**
- * The BPMN dataObject element
- */
-export interface DataObject extends FlowElement, ItemAwareElement {
-    /** Whether collection. */
-    collection?: boolean,
-}
-
-
-/**
- * The BPMN dataObjectReference element
- */
-export interface DataObjectReference extends FlowElement, ItemAwareElement {
-    /** The data object that this reference points to. */
-    data_object?: DataObjectId,
-}
-
-
-/**
- * The BPMN dataOutput element
- */
-export interface DataOutput extends ItemAwareElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Whether collection. */
-    collection?: boolean,
-}
-
-
-/**
- * The BPMN dataOutputAssociation element
- */
-export interface DataOutputAssociation extends DataAssociation {
-}
-
-
-/**
- * The BPMN dataState element
- */
-export interface DataState extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-}
-
-
-/**
- * The BPMN dataStore element
- */
-export interface DataStore extends RootElement, ItemAwareElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Maximum number of items this data store can hold. */
-    capacity?: number,
-    /** Whether unlimited. */
-    unlimited?: boolean,
-}
-
-
-/**
- * The BPMN dataStoreReference element
- */
-export interface DataStoreReference extends FlowElement, ItemAwareElement {
-    /** The data store that this reference points to. */
-    data_store?: DataStoreId,
-}
-
-
-/**
- * The BPMN definitions element
- */
-export interface Definitions extends BpmnModelElementInstance {
-    /** Unique identifier. */
-    id: string,
-    /** Human-readable name. */
-    name?: string,
-    /** Namespace URI for elements defined in this document. */
-    target_namespace?: string,
-    /** Default expression language used in this definitions element. */
-    expression_language?: string,
-    /** Default type language used for item definitions. */
-    type_language?: string,
-    /** Name of the tool that exported this BPMN document. */
-    exporter?: string,
-    /** Version of the exporting tool. */
-    exporter_version?: string,
-    /** Import declarations referencing external definitions. */
-    imports?: Import[],
-    /** Extension elements attached to this definitions element. */
-    extensions?: Extension[],
-    /** Top-level elements (processes, messages, signals, etc.) in this definitions. */
-    root_elements?: RootElement[],
-    /** BPMN diagram elements (BPMNDiagram) in the root definitions. */
-    bpm_diagrams?: string[],
-    /** Informal relationships between elements in this model. */
-    relationships?: Relationship[],
-}
-
-
-/**
- * The BPMN documentation element
- */
-export interface Documentation extends BpmnModelElementInstance {
-    /** Unique identifier. */
-    id: string,
-    /** MIME type or format of the documentation text. */
-    text_format?: string,
-}
-
-
-/**
- * The BPMN endEvent element
- */
-export interface EndEvent extends ThrowEvent {
-}
-
-
-/**
- * The BPMN endPoint element
- */
-export interface EndPoint extends RootElement {
-}
-
-
-/**
- * The BPMN error element
- */
-export interface Error extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The error code identifying this error. */
-    error_code?: string,
-    /** Fluxnova extension property: error message. */
-    fluxnova_error_message?: string,
-    /** The structure of this element. */
-    structure?: ItemDefinitionId,
-}
-
-
-/**
- * The BPMN errorEventDefinition element
- */
-export interface ErrorEventDefinition extends EventDefinition {
-    /** The error of this element. */
-    error?: ErrorId,
-    /** Process variable to receive the error code. */
-    fluxnova_error_code_variable?: string,
-    /** Process variable to receive the error message. */
-    fluxnova_error_message_variable?: string,
-}
-
-
-/**
- * The BPMN escalation element
- */
-export interface Escalation extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The escalation code identifying this escalation. */
-    escalation_code?: string,
-    /** The structure of this element. */
-    structure?: ItemDefinitionId,
-}
-
-
-/**
- * The BPMN escalationEventDefinition element
- */
-export interface EscalationEventDefinition extends EventDefinition {
-    /** The escalation of this element. */
-    escalation?: EscalationId,
-}
-
-
-/**
- * The BPMN event element
- */
-export interface Event extends FlowNode, InteractionNode {
-    /** Serialized properties. */
-    properties?: BpmnProperty[],
-}
-
-
-/**
- * The BPMN eventBasedGateway element
- */
-export interface EventBasedGateway extends Gateway {
-    /** Whether receiving this message creates a new process instance. */
-    instantiate?: boolean,
-    /** The event gateway type of this element. */
-    event_gateway_type?: string,
-}
-
-
-/**
- * The BPMN eventDefinition element
- */
-export interface EventDefinition extends RootElement {
-}
-
-
-/**
- * The BPMN exclusiveGateway element
- */
-export interface ExclusiveGateway extends Gateway {
-    /** Default sequence flow taken when no other outgoing condition is satisfied. */
-    default?: SequenceFlowId,
-}
-
-
-/**
- * The BPMN expression element
- */
-export interface Expression extends BaseElement {
-}
-
-
-/**
- * The BPMN extensionElements element
- */
-export interface ExtensionElements extends BpmnModelElementInstance {
-    /** Collection of elements values. */
-    elements?: string[],
-    /** The elements query of this element. */
-    elements_query?: string,
-}
-
-
-/**
- * The BPMN flowElement element
- */
-export interface FlowElement extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Auditing information attached to this flow element. */
-    auditing?: AuditingId,
-    /** Monitoring information attached to this flow element. */
-    monitoring?: MonitoringId,
-    /** Category values associated with this flow element. */
-    category_value_refs?: CategoryValue[],
-}
-
-
-/**
- * The BPMN flowNode element
- */
-export interface FlowNode extends FlowElement {
-    /** Sequence flows entering this flow node. */
-    incoming?: SequenceFlow[],
-    /** Sequence flows leaving this flow node. */
-    outgoing?: SequenceFlow[],
-    /** The previous nodes of this element. */
-    previous_nodes?: FlowNodeId,
-    /** The succeeding nodes of this element. */
-    succeeding_nodes?: FlowNodeId,
-    /** Whether this element is executed asynchronously before its start. */
-    fluxnova_async_before?: boolean,
-    /** Whether this element is executed asynchronously after its end. */
-    fluxnova_async_after?: boolean,
-    /** Whether this element participates in an exclusive job execution. */
-    fluxnova_exclusive?: boolean,
-    /** Priority assigned to async continuation jobs for this element. */
-    fluxnova_job_priority?: string,
-}
-
-
-/**
- * The BPMN formalExpression element
- */
-export interface FormalExpression extends Expression {
-    /** The language of this element. */
-    language?: string,
-    /** The evaluates to type of this element. */
-    evaluates_to_type?: ItemDefinitionId,
-}
-
-
-/**
- * The BPMN gateway element
- */
-export interface Gateway extends FlowNode {
-    /** Convergence/divergence direction of token routing through this gateway. */
-    gateway_direction?: string,
-}
-
-
-/**
- * The BPMN globalConversation element
- */
-export interface GlobalConversation extends Collaboration {
-}
-
-
-/**
- * An artifact that visually groups flow elements without affecting the process semantics.
- */
-export interface BpmnGroup extends Artifact {
-    /** Category classification. */
-    category?: CategoryValueId,
-}
-
-
-/**
- * The BPMN humanPerformer element
- */
-export interface HumanPerformer extends Performer {
-}
-
-
-/**
- * The BPMN Import element
- */
-export interface Import extends BpmnModelElementInstance {
-    /** The namespace of this element. */
-    namespace?: string,
-    /** The location of this element. */
-    location?: string,
-    /** The import type of this element. */
-    import_type?: string,
-}
-
-
-/**
- * The BPMN inclusiveGateway element
- */
-export interface InclusiveGateway extends Gateway {
-    /** Default sequence flow taken when no other outgoing condition is satisfied. */
-    default?: SequenceFlowId,
-}
-
-
-/**
- * The BPMN 2.0 inputDataItem from the tMultiInstanceLoopCharacteristics type
- */
-export interface InputDataItem extends DataInput {
-}
-
-
-/**
- * The BPMN inputSet element
- */
-export interface InputSet extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Input data elements of this specification. */
-    data_inputs?: DataInput[],
-    /** Collection of data input elements associated with this element. */
-    optional_inputs?: DataInput[],
-    /** Collection of data input elements associated with this element. */
-    while_executing_input?: DataInput[],
-    /** Output sets grouping produced output data. */
-    output_sets?: OutputSet[],
-}
-
-
-/**
- * The BPMN interactionNode interface
- */
-export interface InteractionNode {
-    /** Unique identifier. */
-    id: string,
-}
-
-
-/**
- * The BPMN interface element
- */
-export interface Interface extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The implementation ref of this element. */
-    implementation_ref?: string,
-    /** Operations defined by this interface. */
-    operations?: Operation[],
-}
-
-
-/**
- * The BPMN intermediateCatchEvent element
- */
-export interface IntermediateCatchEvent extends CatchEvent {
-}
-
-
-/**
- * The BPMN intermediateThrowEvent element
- */
-export interface IntermediateThrowEvent extends ThrowEvent {
-}
-
-
-/**
- * The BPMN ioBinding element
- */
-export interface IoBinding extends BaseElement {
-    /** The operation of this element. */
-    operation?: OperationId,
-    /** The input data of this element. */
-    input_data?: DataInputId,
-    /** The output data of this element. */
-    output_data?: DataOutputId,
-}
-
-
-/**
- * The BPMN inputOutputSpecification element
- */
-export interface IoSpecification extends BaseElement {
-    /** Input data elements of this specification. */
-    data_inputs?: DataInput[],
-    /** Output data elements of this specification. */
-    data_outputs?: DataOutput[],
-    /** Input sets grouping required input data. */
-    input_sets?: InputSet[],
-    /** Output sets grouping produced output data. */
-    output_sets?: OutputSet[],
-}
-
-
-/**
- * The BPMN itemAwareElement element
- */
-export interface ItemAwareElement extends BaseElement {
-    /** The item subject of this element. */
-    item_subject?: ItemDefinitionId,
-    /** Current state of this data object or data store reference. */
-    data_state?: DataStateId,
-}
-
-
-/**
- * The BPMN itemDefinition element
- */
-export interface ItemDefinition extends RootElement {
-    /** The item definition describing the data structure. */
-    structure_ref?: string,
-    /** Whether collection. */
-    collection?: boolean,
-    /** The item kind of this element. */
-    item_kind?: string,
-}
-
-
-/**
- * The BPMN lane element
- */
-export interface Lane extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The partitioning element (e.g. performer) represented by this lane. */
-    partition_element?: string,
-    /** The partition element child of this element. */
-    partition_element_child?: string,
-    /** Flow nodes allocated to this lane. */
-    flow_node_refs?: FlowNode[],
-    /** The child lane set contained within this lane. */
-    child_lane_set?: string,
-}
-
-
-/**
- * The BPMN laneSet element
- */
-export interface LaneSet extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Sub-lanes contained in this lane. */
-    lanes?: Lane[],
-}
-
-
-/**
- * The BPMN linkEventDefinition element
- */
-export interface LinkEventDefinition extends EventDefinition {
-    /** Human-readable name. */
-    name?: string,
-    /** The throwing link events that send to this link target. */
-    sources?: LinkEventDefinition[],
-    /** The catching link event that receives this link. */
-    target?: LinkEventDefinitionId,
-}
-
-
-/**
- * The loopCardinality element from the tMultiInstanceLoopCharacteristics complex type
- */
-export interface LoopCardinality extends Expression {
-}
-
-
-/**
- * The BPMN loopCharacteristics element
- */
-export interface LoopCharacteristics extends BaseElement {
-}
-
-
-/**
- * The BPMN manualTask element
- */
-export interface ManualTask extends BpmnTask {
-}
-
-
-/**
- * The BPMN message element
- */
-export interface Message extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The item of this element. */
-    item?: ItemDefinitionId,
-}
-
-
-/**
- * The BPMN messageEventDefinition element
- */
-export interface MessageEventDefinition extends EventDefinition {
-    /** Short message or summary. */
-    message?: MessageId,
-    /** The operation of this element. */
-    operation?: OperationId,
-    /** Camunda extensions */
-    fluxnova_class?: string,
-    /** Expression resolving to a JavaDelegate. */
-    fluxnova_delegate_expression?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Process variable to store the expression result. */
-    fluxnova_result_variable?: string,
-    /** External task topic name. */
-    fluxnova_topic?: string,
-    /** Type name for this form field or listener. */
-    fluxnova_type?: string,
-    /** Fluxnova extension property: task priority. */
-    fluxnova_task_priority?: string,
-}
-
-
-/**
- * The BPMN messageFlow element
- */
-export interface MessageFlow extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The source. */
-    source?: InteractionNodeId,
-    /** The catching link event that receives this link. */
-    target?: InteractionNodeId,
-    /** Short message or summary. */
-    message?: MessageId,
-}
-
-
-/**
- * The BPMN messageFlowAssociation element
- */
-export interface MessageFlowAssociation extends BaseElement {
-    /** The inner message flow of this element. */
-    inner_message_flow?: MessageFlowId,
-    /** The outer message flow of this element. */
-    outer_message_flow?: MessageFlowId,
-}
-
-
-/**
- * The BPMN monitoring element
- */
-export interface Monitoring extends BaseElement {
-}
-
-
-/**
- * The BPMN 2.0 multiInstanceLoopCharacteristics element type
- */
-export interface MultiInstanceLoopCharacteristics extends LoopCharacteristics {
-    /** Expression evaluating to the number of loop iterations. */
-    loop_cardinality?: LoopCardinalityId,
-    /** The loop data input ref of this element. */
-    loop_data_input_ref?: DataInputId,
-    /** The loop data output ref of this element. */
-    loop_data_output_ref?: DataOutputId,
-    /** Loop input data item variable. */
-    input_data_item?: InputDataItemId,
-    /** Loop output data item variable. */
-    output_data_item?: OutputDataItemId,
-    /** Rules defining complex multi-instance completion behavior. */
-    complex_behavior_definitions?: ComplexBehaviorDefinition[],
-    /** Condition that, when true, terminates remaining instances. */
-    completion_condition?: CompletionConditionId,
-    /** Whether sequential. */
-    sequential?: boolean,
-    /** Behavior governing how completion events are thrown. */
-    behavior?: string,
-    /** The one behavior event ref of this element. */
-    one_behavior_event_ref?: EventDefinitionId,
-    /** The none behavior event ref of this element. */
-    none_behavior_event_ref?: EventDefinitionId,
-    /** Fluxnova extension property: collection. */
-    fluxnova_collection?: string,
-    /** Fluxnova extension property: element variable. */
-    fluxnova_element_variable?: string,
-    /** Whether this element is executed asynchronously before its start. */
-    fluxnova_async_before?: boolean,
-    /** Whether this element is executed asynchronously after its end. */
-    fluxnova_async_after?: boolean,
-    /** Whether this element participates in an exclusive job execution. */
-    fluxnova_exclusive?: boolean,
-}
-
-
-/**
- * The BPMN operation element
- */
-export interface Operation extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The implementation ref of this element. */
-    implementation_ref?: string,
-    /** The in message of this element. */
-    in_message?: MessageId,
-    /** The out message of this element. */
-    out_message?: MessageId,
-    /** Collection of error elements associated with this element. */
-    errors?: Error[],
-}
-
-
-/**
- * The BPMN 2.0 outputDataItem from the tMultiInstanceLoopCharacteristics type
- */
-export interface OutputDataItem extends DataOutput {
-}
-
-
-/**
- * The BPMN outputSet element
- */
-export interface OutputSet extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Produced output data references for this output set. */
-    data_output_refs?: DataOutput[],
-    /** Output data that may or may not be produced. */
-    optional_output_refs?: DataOutput[],
-    /** Output data produced during execution before completion. */
-    while_executing_output_refs?: DataOutput[],
-    /** Collection of input set elements associated with this element. */
-    input_set_refs?: InputSet[],
-}
-
-
-/**
- * The BPMN parallelGateway element
- */
-export interface ParallelGateway extends Gateway {
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-}
-
-
-/**
- * The BPMN participant element
- */
-export interface Participant extends BaseElement, InteractionNode {
-    /** Human-readable name. */
-    name?: string,
-    /** The process of this element. */
-    process?: ProcessId,
-    /** Collection of interface elements associated with this element. */
-    interfaces?: Interface[],
-    /** Endpoints associated with this process or service. */
-    end_points?: EndPoint[],
-    /** Multiplicity configuration of this participant. */
-    participant_multiplicity?: ParticipantMultiplicityId,
-}
-
-
-/**
- * The BPMN participantAssociation element
- */
-export interface ParticipantAssociation extends BaseElement {
-    /** The inner participant of this element. */
-    inner_participant?: ParticipantId,
-    /** The outer participant of this element. */
-    outer_participant?: ParticipantId,
-}
-
-
-/**
- * The BPMN participantMultiplicity element
- */
-export interface ParticipantMultiplicity extends BaseElement {
-    /** Minimum number of instances for this participant multiplicity. */
-    minimum?: number,
-    /** Maximum number of instances for this participant multiplicity. */
-    maximum?: number,
-}
-
-
-/**
- * The BPMN performer element
- */
-export interface Performer extends ResourceRole {
-}
-
-
-/**
- * The BPMN potentialOwner element
- */
-export interface PotentialOwner extends HumanPerformer {
-}
-
-
-/**
- * The BPMN process element
- */
-export interface Process extends CallableElement {
-    /** Whether this process is a public, private, or collaboration process. */
-    process_type?: string,
-    /** Whether closed. */
-    closed?: boolean,
-    /** Whether executable. */
-    executable?: boolean,
-    /** Auditing information attached to this flow element. */
-    auditing?: AuditingId,
-    /** Monitoring information attached to this flow element. */
-    monitoring?: MonitoringId,
-    /** Serialized properties. */
-    properties?: BpmnProperty[],
-    /** Lane sets partitioning this process into swimlanes. */
-    lane_sets?: LaneSet[],
-    /** Flow elements (tasks, gateways, events, sequence flows) in this process. */
-    flow_elements?: FlowElement[],
-    /** Artifacts (text annotations, groups, associations) in this process. */
-    artifacts?: Artifact[],
-    /** Correlation subscriptions associated with this process. */
-    correlation_subscriptions?: CorrelationSubscription[],
-    /** Resources (performers, potential owners) assigned to this activity. */
-    resource_roles?: ResourceRole[],
-    /** Interfaces that this process is declared to support. */
-    supports?: Process[],
-    /** Camunda extensions */
-    fluxnova_candidate_starter_groups?: string,
-    /** Fluxnova extension property: candidate starter groups list. */
-    fluxnova_candidate_starter_groups_list?: string[],
-    /** Fluxnova extension property: candidate starter users. */
-    fluxnova_candidate_starter_users?: string,
-    /** Fluxnova extension property: candidate starter users list. */
-    fluxnova_candidate_starter_users_list?: string[],
-    /** Priority assigned to async continuation jobs for this element. */
-    fluxnova_job_priority?: string,
-    /** Fluxnova extension property: task priority. */
-    fluxnova_task_priority?: string,
-    /** Fluxnova extension property: history time to live. */
-    fluxnova_history_time_to_live?: number,
-    /** Fluxnova extension property: history time to live string. */
-    fluxnova_history_time_to_live_string?: string,
-    /** Fluxnova extension property: startable in tasklist. */
-    fluxnova_startable_in_tasklist?: boolean,
-    /** Fluxnova extension property: version tag. */
-    fluxnova_version_tag?: string,
-}
-
-
-/**
- * The BPMN property element
- */
-export interface BpmnProperty extends ItemAwareElement {
-    /** Human-readable name. */
-    name?: string,
-}
-
-
-/**
- * The BPMN receiveTask element
- */
-export interface ReceiveTask extends BpmnTask {
-    /** Implementation technology of this service or send/receive task. */
-    implementation?: string,
-    /** Short message or summary. */
-    message?: MessageId,
-    /** The operation of this element. */
-    operation?: OperationId,
-}
-
-
-/**
- * The BPMN relationship element
- */
-export interface Relationship extends BaseElement {
-    /** Type discriminator. */
-    type?: string,
-    /** Direction of this relationship. */
-    direction?: string,
-    /** The throwing link events that send to this link target. */
-    sources?: string[],
-    /** Collection of targets values. */
-    targets?: string[],
-}
-
-
-/**
- * The BPMN rendering element
- */
-export interface Rendering extends BaseElement {
-}
-
-
-/**
- * The BPMN resource element
- */
-export interface Resource extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Parameters defined on this resource. */
-    resource_parameters?: ResourceParameter[],
-}
-
-
-/**
- * The BPMN resourceAssignmentExpression element
- */
-export interface ResourceAssignmentExpression extends BaseElement {
-    /** The expression of this element. */
-    expression?: ExpressionId,
-}
-
-
-/**
- * The BPMN resourceParameter element
- */
-export interface ResourceParameter extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** Type discriminator. */
-    type?: ItemDefinitionId,
-    /** Whether required. */
-    required?: boolean,
-}
-
-
-/**
- * The BPMN resourceParameterBinding element
- */
-export interface ResourceParameterBinding extends BaseElement {
-    /** The parameter of this element. */
-    parameter?: ResourceParameterId,
-    /** The expression of this element. */
-    expression?: ExpressionId,
-}
-
-
-/**
- * The BPMN resourceRole element
- */
-export interface ResourceRole extends BaseElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The resource of this element. */
-    resource?: ResourceId,
-    /** Collection of resource parameter binding elements associated with this element. */
-    resource_parameter_binding?: ResourceParameterBinding[],
-    /** Expression used to resolve the assigned resource. */
-    resource_assignment_expression?: ResourceAssignmentExpressionId,
-}
-
-
-/**
- * The BPMN rootElement element
- */
-export interface RootElement extends BaseElement {
-}
-
-
-/**
- * The BPMN script element
- */
-export interface Script extends BpmnModelElementInstance {
-}
-
-
-/**
- * The BPMN scriptTask element
- */
-export interface ScriptTask extends BpmnTask {
-    /** MIME type or language of the script (e.g. application/javascript). */
-    script_format?: string,
-    /** Script code of this script task. */
-    script?: Script,
-    /** Process variable to store the expression result. */
-    fluxnova_result_variable?: string,
-    /** Camunda extensions */
-    fluxnova_resource?: string,
-}
-
-
-/**
- * The BPMN sendTask element
- */
-export interface SendTask extends BpmnTask {
-    /** Implementation technology of this service or send/receive task. */
-    implementation?: string,
-    /** Short message or summary. */
-    message?: MessageId,
-    /** The operation of this element. */
-    operation?: OperationId,
-    /** Camunda extensions */
-    fluxnova_class?: string,
-    /** Expression resolving to a JavaDelegate. */
-    fluxnova_delegate_expression?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Process variable to store the expression result. */
-    fluxnova_result_variable?: string,
-    /** Type name for this form field or listener. */
-    fluxnova_type?: string,
-    /** External task topic name. */
-    fluxnova_topic?: string,
-    /** Fluxnova extension property: task priority. */
-    fluxnova_task_priority?: string,
-}
-
-
-/**
- * The BPMN sequenceFlow element
- */
-export interface SequenceFlow extends FlowElement {
-    /** The source. */
-    source?: FlowNodeId,
-    /** The catching link event that receives this link. */
-    target?: FlowNodeId,
-    /** Whether immediate. */
-    immediate?: boolean,
-    /** Expression evaluated to decide whether this flow is taken. */
-    condition_expression?: ConditionExpressionId,
-}
-
-
-/**
- * The BPMN serviceTask element
- */
-export interface ServiceTask extends BpmnTask {
-    /** Implementation technology of this service or send/receive task. */
-    implementation?: string,
-    /** The operation of this element. */
-    operation?: OperationId,
-    /** Camunda extensions */
-    fluxnova_class?: string,
-    /** Expression resolving to a JavaDelegate. */
-    fluxnova_delegate_expression?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Process variable to store the expression result. */
-    fluxnova_result_variable?: string,
-    /** Type name for this form field or listener. */
-    fluxnova_type?: string,
-    /** External task topic name. */
-    fluxnova_topic?: string,
-    /** Fluxnova extension property: task priority. */
-    fluxnova_task_priority?: string,
-}
-
-
-/**
- * The BPMN signal element
- */
-export interface Signal extends RootElement {
-    /** Human-readable name. */
-    name?: string,
-    /** The structure of this element. */
-    structure?: ItemDefinitionId,
-}
-
-
-/**
- * The BPMN signalEventDefinition element
- */
-export interface SignalEventDefinition extends EventDefinition {
-    /** The signal of this element. */
-    signal?: SignalId,
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-}
-
-
-/**
- * The BPMN startEvent element
- */
-export interface StartEvent extends CatchEvent {
-    /** Whether this start event interrupts the parent sub-process. */
-    interrupting?: boolean,
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-    /** Fluxnova extension property: form handler class. */
-    fluxnova_form_handler_class?: string,
-    /** Fluxnova extension property: form key. */
-    fluxnova_form_key?: string,
-    /** Fluxnova extension property: form ref. */
-    fluxnova_form_ref?: string,
-    /** Fluxnova extension property: form ref binding. */
-    fluxnova_form_ref_binding?: string,
-    /** Fluxnova extension property: form ref version. */
-    fluxnova_form_ref_version?: string,
-    /** Fluxnova extension property: initiator. */
-    fluxnova_initiator?: string,
-}
-
-
-/**
- * The BPMN subConversation element
- */
-export interface SubConversation extends ConversationNode {
-    /** Conversation nodes in this collaboration. */
-    conversation_nodes?: ConversationNode[],
-}
-
-
-/**
- * The BPMN subProcess element
- */
-export interface SubProcess extends Activity {
-    /** Lane sets partitioning this process into swimlanes. */
-    lane_sets?: LaneSet[],
-    /** Flow elements (tasks, gateways, events, sequence flows) in this process. */
-    flow_elements?: FlowElement[],
-    /** Artifacts (text annotations, groups, associations) in this process. */
-    artifacts?: Artifact[],
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-}
-
-
-/**
- * The BPMN task element
- */
-export interface BpmnTask extends Activity {
-    /** Camunda extensions */ /** */
-    fluxnova_async?: boolean,
-}
-
-
-/**
- * The BPMN terminateEventDefinition element
- */
-export interface TerminateEventDefinition extends EventDefinition {
-}
-
-
-/**
- * The BPMN 2.0 text element from the tTextAnnotation complex type
- */
-export interface Text extends BpmnModelElementInstance {
-}
-
-
-/**
- * The BPMN 2.0 textAnnotation element
- */
-export interface TextAnnotation extends Artifact {
-    /** MIME type or format of the documentation text. */
-    text_format?: string,
-    /** Textual content of this element. */
-    text?: Text,
-}
-
-
-/**
- * The BPMN throwEvent element
- */
-export interface ThrowEvent extends Event {
-    /** Input data elements of this specification. */
-    data_inputs?: DataInput[],
-    /** Data associations that feed input data into this activity. */
-    data_input_associations?: DataInputAssociation[],
-    /** The input set associated with this input data. */
-    input_set?: InputSetId,
-    /** Event definitions that specify the event trigger type. */
-    event_definitions?: EventDefinition[],
-    /** Collection of event definition elements associated with this element. */
-    event_definition_refs?: EventDefinition[],
-}
-
-
-/**
- * The BPMN timeCycle element of the BPMN tTimerEventDefinition type
- */
-export interface TimeCycle extends Expression {
-}
-
-
-/**
- * The BPMN timeDate element of the BPMN tTimerEventDefinition type
- */
-export interface TimeDate extends Expression {
-}
-
-
-/**
- * The BPMN timeDuration element of the BPMN tTimerEventDefinition type
- */
-export interface TimeDuration extends Expression {
-}
-
-
-/**
- * The BPMN timerEventDefinition element
- */
-export interface TimerEventDefinition extends EventDefinition {
-    /** Specific date and time at which this timer fires. */
-    time_date?: TimeDateId,
-    /** Duration expression for this timer. */
-    time_duration?: TimeDurationId,
-    /** Repeating cycle expression for this timer. */
-    time_cycle?: TimeCycleId,
-}
-
-
-/**
- * A sub-process that executes as an atomic unit with compensation support.
- */
-export interface Transaction extends SubProcess {
-    /** The method of this element. */
-    method?: string,
-}
-
-
-/**
- * The BPMN userTask element
- */
-export interface UserTask extends BpmnTask {
-    /** Implementation technology of this service or send/receive task. */
-    implementation?: string,
-    /** Rendering hints for this event. */
-    renderings?: Rendering[],
-    /** Camunda extensions */
-    fluxnova_assignee?: string,
-    /** Fluxnova extension property: candidate groups. */
-    fluxnova_candidate_groups?: string,
-    /** Fluxnova extension property: candidate groups list. */
-    fluxnova_candidate_groups_list?: string[],
-    /** Fluxnova extension property: candidate users. */
-    fluxnova_candidate_users?: string,
-    /** Fluxnova extension property: candidate users list. */
-    fluxnova_candidate_users_list?: string[],
-    /** Fluxnova extension property: due date. */
-    fluxnova_due_date?: string,
-    /** Fluxnova extension property: follow up date. */
-    fluxnova_follow_up_date?: string,
-    /** Fluxnova extension property: form handler class. */
-    fluxnova_form_handler_class?: string,
-    /** Fluxnova extension property: form key. */
-    fluxnova_form_key?: string,
-    /** Fluxnova extension property: form ref. */
-    fluxnova_form_ref?: string,
-    /** Fluxnova extension property: form ref binding. */
-    fluxnova_form_ref_binding?: string,
-    /** Fluxnova extension property: form ref version. */
-    fluxnova_form_ref_version?: string,
-    /** Fluxnova extension property: priority. */
-    fluxnova_priority?: string,
-}
-
-
-/**
- * The BPMNDI BPMNDiagram element
- */
-export interface BpmnDiagram extends Diagram {
-    /** The plane element containing the shapes and edges of this diagram. */
-    bpmn_plane?: BpmnPlaneId,
-    /** Label style definitions available in this BPMN diagram. */
+export interface BpmnDiagram extends DiDiagram {
+    /** The plane that holds this diagram's shapes and edges. */
+    bpmn_plane: BpmnPlane,
+    /** The label styles this diagram's labels use. */
     bpmn_label_styles?: BpmnLabelStyle[],
 }
 
 
 /**
- * The BPMNDI BPMNEdge element
+ * The line that draws a connecting BPMN element, such as a sequence flow, message flow or association.
  */
-export interface BpmnEdge extends LabeledEdge {
-    /** The BPMN model element this diagram element represents. */
+export interface BpmnEdge extends DiLabeledEdge {
+    /** The QName of the BPMN element this diagram element draws. */
     bpmn_element?: string,
-    /** The source element of this element. */
-    source_element?: DiagramElementId,
-    /** The target element of this element. */
-    target_element?: DiagramElementId,
-    /** Visibility kind of the message flow in this edge. */
+    /** The QName of the diagram element the edge starts at. */
+    source_element?: string,
+    /** The QName of the diagram element the edge ends at. */
+    target_element?: string,
+    /** Whether the message the edge carries is drawn as initiating or not. */
     message_visible_kind?: string,
-    /** The label element attached to this shape or edge. */
-    bpmn_label?: BpmnLabelId,
+    /** The label drawn with this shape or edge. */
+    bpmn_label?: BpmnLabel,
 }
 
 
 /**
- * The BPMNDI BPMNLabel element
+ * The label of a BPMN shape or edge, where its text is drawn.
  */
-export interface BpmnLabel extends Label {
-    /** The label style of this element. */
-    label_style?: BpmnLabelStyleId,
+export interface BpmnLabel extends DiLabel {
+    /** The QName of the label style the label uses. */
+    label_style?: string,
 }
 
 
 /**
- * The BPMNDI BPMNLabelStyle element
+ * A font that BPMN labels share.
  */
-export interface BpmnLabelStyle extends Style {
-    /** The font of this element. */
-    font?: Font,
+export interface BpmnLabelStyle extends DiStyle {
+    /** The font the labels are drawn in. */
+    font: DcFont,
 }
 
 
 /**
- * The BPMNDI BPMNPlane element
+ * The plane of a BPMN diagram, drawing one process, collaboration or sub-process.
  */
-export interface BpmnPlane extends Plane {
-    /** The BPMN model element this diagram element represents. */
+export interface BpmnPlane extends DiPlane {
+    /** The QName of the BPMN element this diagram element draws. */
     bpmn_element?: string,
 }
 
 
 /**
- * The BPMNDI BPMNShape element
+ * The figure that draws a BPMN element such as a task, event, gateway, pool or lane.
  */
-export interface BpmnShape extends LabeledShape {
-    /** The BPMN model element this diagram element represents. */
+export interface BpmnShape extends DiLabeledShape {
+    /** The QName of the BPMN element this diagram element draws. */
     bpmn_element?: string,
-    /** Whether this pool or lane is oriented horizontally. */
-    horizontal?: boolean,
-    /** Whether this sub-process shape is shown in expanded form. */
-    expanded?: boolean,
-    /** Whether the loop or multi-instance marker is displayed. */
-    marker_visible?: boolean,
-    /** Whether the message flow envelope icon is visible. */
-    message_visible?: boolean,
-    /** Indicates the initiating/non-initiating role of this participant band. */
+    /** Whether a pool or lane is drawn horizontally. */
+    is_horizontal?: boolean,
+    /** Whether a sub-process or call activity is drawn expanded. */
+    is_expanded?: boolean,
+    /** Whether an exclusive gateway is drawn with its marker. */
+    is_marker_visible?: boolean,
+    /** Whether a participant band is drawn with its message. */
+    is_message_visible?: boolean,
+    /** Where a participant band sits on a choreography activity, and whether it initiates. */
     participant_band_kind?: string,
-    /** Shape of the associated choreography activity. */
-    choreography_activity_shape?: BpmnShapeId,
-    /** The label element attached to this shape or edge. */
-    bpmn_label?: BpmnLabelId,
+    /** The QName of the choreography activity shape this participant band belongs to. */
+    choreography_activity_shape?: string,
+    /** The label drawn with this shape or edge. */
+    bpmn_label?: BpmnLabel,
 }
 
 
 /**
- * The BPMN connector camunda extension element
+ * The condition a complex gateway checks to decide when enough incoming flows have arrived to continue.
  */
-export interface FluxnovaConnector extends BpmnModelElementInstance {
-    /** The unique identifier of this connector configuration. */
-    fluxnova_connector_id?: FluxnovaConnectorId,
-    /** Input/output parameter container for this connector. */
-    fluxnova_input_output?: FluxnovaInputOutput,
+export interface BpmnActivationCondition extends BpmnExpression {
 }
 
 
 /**
- * The BPMN connectorId camunda extension element
+ * Work a process performs, either a task or a sub-process.
  */
-export interface FluxnovaConnectorId extends BpmnModelElementInstance {
+export interface BpmnActivity extends BpmnFlowNode, BpmnInteractionNode {
+    /** Whether the activity runs only to compensate another. */
+    is_for_compensation?: boolean,
+    /** How many tokens must arrive before the activity starts. */
+    start_quantity?: number,
+    /** How many tokens the activity sends on when it completes. */
+    completion_quantity?: number,
+    /** The id of the sequence flow taken when no other outgoing flow's condition holds. */
+    default?: string,
+    /** The element's data inputs and outputs. */
+    io_specification?: BpmnIoSpecification,
+    /** The element's properties. */
+    properties?: BpmnProperty[],
+    /** How data reaches the element's inputs. */
+    data_input_associations?: BpmnDataInputAssociation[],
+    /** How data leaves the element's outputs. */
+    data_output_associations?: BpmnDataOutputAssociation[],
+    /** The roles resources play in the element, such as its performers. */
+    resource_roles?: BpmnResourceRole[],
+    /** How the activity repeats. */
+    loop_characteristics?: BpmnLoopCharacteristics,
 }
 
 
 /**
- * The BPMN constraint camunda extension element
+ * A sub-process whose inner activities run in no fixed order, as its performers choose.
  */
-export interface FluxnovaConstraint extends BpmnModelElementInstance {
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
-    /** Fluxnova extension property: config. */
-    fluxnova_config?: string,
+export interface BpmnAdHocSubProcess extends BpmnSubProcess {
+    /** Whether the inner activities run in parallel or one after another. */
+    ordering?: string,
+    /** Whether the activities still running are cancelled once the completion condition holds. */
+    cancel_remaining_instances?: boolean,
+    /** The condition that ends the activity early when it holds. */
+    completion_condition?: BpmnCompletionCondition,
 }
 
 
 /**
- * The BPMN camundaEntry camunda extension element
+ * An element that adds information to a diagram without changing how the process runs.
  */
-export interface FluxnovaEntry extends BpmnModelElementInstance, FluxnovaGenericValueElement {
-    /** Fluxnova extension property: key. */
-    fluxnova_key?: string,
+export interface BpmnArtifact extends BpmnBaseElement {
 }
 
 
 /**
- * Fluxnova extension that augments an end event error definition with engine-specific variables.
+ * A copy of a value from one expression to another within a data association.
  */
-export interface FluxnovaErrorEventDefinition extends ErrorEventDefinition {
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
+export interface BpmnAssignment extends BpmnBaseElement {
+    /** The expression the value is copied from. */
+    from: BpmnFrom,
+    /** The expression the value is copied to. */
+    to: BpmnTo,
 }
 
 
 /**
- * The BPMN executionListener camunda extension element
+ * A link between an artifact, such as a text annotation, and another element.
  */
-export interface FluxnovaExecutionListener extends BpmnModelElementInstance {
-    /** Event that triggers this execution listener. */
-    fluxnova_event?: string,
-    /** Camunda extensions */
+export interface BpmnAssociation extends BpmnArtifact {
+    /** The id or QName of the element the connection starts at. */
+    source_ref: string,
+    /** The id or QName of the element the connection ends at. */
+    target_ref: string,
+    /** Which ends of the association an arrow is drawn at. */
+    association_direction?: string,
+}
+
+
+/**
+ * A hook for auditing a process or flow element, left to the implementation.
+ */
+export interface BpmnAuditing extends BpmnBaseElement {
+}
+
+
+/**
+ * The base of nearly every BPMN element, giving it an id, documentation and extensions.
+ */
+export interface BpmnBaseElement extends BpmnModelElementInstance {
+    /** The element's id, unique within its document. */
+    id?: string,
+    /** Text that documents the element. */
+    documentation?: BpmnDocumentation[],
+    /** The element's extension content, such as Fluxnova's settings. */
+    extension_elements?: BpmnExtensionElements,
+}
+
+
+/**
+ * An event attached to the boundary of an activity, which can interrupt it.
+ */
+export interface BpmnBoundaryEvent extends BpmnCatchEvent {
+    /** Whether the event, when it fires, interrupts the activity it is attached to. */
+    cancel_activity?: boolean,
+    /** The QName of the activity this event is attached to. */
+    attached_to_ref: string,
+}
+
+
+/**
+ * A task that hands data to a business rules engine and receives its result.
+ */
+export interface BpmnBusinessRuleTask extends BpmnTask {
+    /** The technology that runs the task, as a URI; the engine reads its own settings instead. */
+    implementation?: string,
+    /** The Java class the engine instantiates to run the element. */
     fluxnova_class?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Expression resolving to a JavaDelegate. */
+    /** An expression that gives the delegate object the engine calls. */
     fluxnova_delegate_expression?: string,
-    /** Field elements of this connector or form. */
-    fluxnova_fields?: FluxnovaField[],
-    /** Inline script for this element. */
-    fluxnova_script?: FluxnovaScript,
-}
-
-
-/**
- * The BPMN expression camunda extension element
- */
-export interface FluxnovaExpression extends BpmnModelElementInstance {
-}
-
-
-/**
- * The BPMN failedJobRetryTimeCycle camunda extension element
- */
-export interface FluxnovaFailedJobRetryTimeCycle extends BpmnModelElementInstance {
-}
-
-
-/**
- * The BPMN field camunda extension element
- */
-export interface FluxnovaField extends BpmnModelElementInstance {
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
-    /** EL expression for this element. */
+    /** An expression the engine evaluates to run the element. */
     fluxnova_expression?: string,
-    /** Fluxnova extension property: string value. */
-    fluxnova_string_value?: string,
-    /** Inline string value. */
-    fluxnova_string?: FluxnovaString,
-    /** Fluxnova extension property: expression child. */
-    fluxnova_expression_child?: FluxnovaExpression,
-}
-
-
-/**
- * The BPMN formData camunda extension element
- */
-export interface FluxnovaFormData extends BpmnModelElementInstance {
-    /** Form fields defined in this form data. */
-    fluxnova_form_fields?: FluxnovaFormField[],
-}
-
-
-/**
- * The BPMN formField camunda extension element
- */
-export interface FluxnovaFormField extends BpmnModelElementInstance {
-    /** Identifier for this Fluxnova extension element. */
-    fluxnova_id?: string,
-    /** Display label for this form field. */
-    fluxnova_label?: string,
-    /** Type name for this form field or listener. */
+    /** The variable the result is stored in. */
+    fluxnova_result_variable?: string,
+    /** The topic of the external task the element creates. */
+    fluxnova_topic?: string,
+    /** The element's type, such as external for an external task or the form field's value type. */
     fluxnova_type?: string,
-    /** Date pattern for date-typed form fields. */
-    fluxnova_date_pattern?: string,
-    /** Default value for this form field. */
-    fluxnova_default_value?: string,
-    /** Fluxnova extension properties container. */
-    fluxnova_properties?: FluxnovaProperties,
-    /** Validation rules for this form field. */
-    fluxnova_validation?: FluxnovaValidation,
-    /** Permissible value options for this form field. */
-    fluxnova_values?: FluxnovaValue[],
+    /** The key of the decision to evaluate. */
+    fluxnova_decision_ref?: string,
+    /** Which version of the decision to use. */
+    fluxnova_decision_ref_binding?: string,
+    /** The version of the decision, when the binding asks for one. */
+    fluxnova_decision_ref_version?: string,
+    /** The version tag of the decision, when the binding asks for one. */
+    fluxnova_decision_ref_version_tag?: string,
+    /** The tenant whose decision to use. */
+    fluxnova_decision_ref_tenant_id?: string,
+    /** How the decision's result is mapped into a variable. */
+    fluxnova_map_decision_result?: string,
+    /** The priority of the external tasks the element creates. */
+    fluxnova_task_priority?: string,
 }
 
 
 /**
- * The BPMN formProperty camunda extension element
+ * An activity that calls a separate process or global task.
  */
-export interface FluxnovaFormProperty extends BpmnModelElementInstance {
-    /** Identifier for this Fluxnova extension element. */
-    fluxnova_id?: string,
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
-    /** Type name for this form field or listener. */
-    fluxnova_type?: string,
-    /** Fluxnova extension property: required. */
-    fluxnova_required?: boolean,
-    /** Fluxnova extension property: readable. */
-    fluxnova_readable?: boolean,
-    /** Fluxnova extension property: writeable. */
-    fluxnova_writeable?: boolean,
-    /** Fluxnova extension property: variable. */
-    fluxnova_variable?: string,
-    /** EL expression for this element. */
-    fluxnova_expression?: string,
-    /** Date pattern for date-typed form fields. */
-    fluxnova_date_pattern?: string,
-    /** Fluxnova extension property: default. */
-    fluxnova_default?: string,
-    /** Permissible value options for this form field. */
-    fluxnova_values?: FluxnovaValue[],
+export interface BpmnCallActivity extends BpmnActivity {
+    /** The id of the process or global task this activity calls. */
+    called_element?: string,
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+    /** Which version of the called process to use, such as the latest or the one deployed with this one. */
+    fluxnova_called_element_binding?: string,
+    /** The version of the called process, when the binding asks for one. */
+    fluxnova_called_element_version?: string,
+    /** The version tag of the called process, when the binding asks for one. */
+    fluxnova_called_element_version_tag?: string,
+    /** The key of the case definition to call. */
+    fluxnova_case_ref?: string,
+    /** Which version of the called case to use. */
+    fluxnova_case_binding?: string,
+    /** The version of the called case, when the binding asks for one. */
+    fluxnova_case_version?: string,
+    /** The tenant whose called process to use. */
+    fluxnova_called_element_tenant_id?: string,
+    /** The tenant whose called case to use. */
+    fluxnova_case_tenant_id?: string,
+    /** The Java class that maps variables into and out of the called process. */
+    fluxnova_variable_mapping_class?: string,
+    /** An expression giving the delegate that maps variables into and out of the called process. */
+    fluxnova_variable_mapping_delegate_expression?: string,
 }
 
 
 /**
- * A helper interface for camunda extension elements which hold a generic child element like camunda:inputParameter, camunda:outputParameter and camunda:entry.
+ * A conversation that calls a collaboration or global conversation defined elsewhere.
  */
-export interface FluxnovaGenericValueElement {
-    /** Value of this variable instance. */
+export interface BpmnCallConversation extends BpmnConversationNode {
+    /** The QName of the collaboration or global conversation this conversation calls. */
+    called_collaboration_ref?: string,
+    /** The links between participants and those in called collaborations. */
+    participant_associations?: BpmnParticipantAssociation[],
+}
+
+
+/**
+ * An element another process can call, such as a process.
+ */
+export interface BpmnCallableElement extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The QNames of the interfaces the element supports. */
+    supported_interface_refs?: string[],
+    /** The element's data inputs and outputs. */
+    io_specification?: BpmnIoSpecification,
+    /** How the element's operations map to its input and output sets. */
+    io_bindings?: BpmnIoBinding[],
+}
+
+
+/**
+ * The trigger of an event that cancels a transaction sub-process.
+ */
+export interface BpmnCancelEventDefinition extends BpmnEventDefinition {
+}
+
+
+/**
+ * An event that waits for a trigger, such as a start or intermediate catch event.
+ */
+export interface BpmnCatchEvent extends BpmnEvent {
+    /** Whether all of the event's triggers must happen, rather than any one. */
+    parallel_multiple?: boolean,
+    /** The data outputs. */
+    data_outputs?: BpmnDataOutput[],
+    /** How data leaves the element's outputs. */
+    data_output_associations?: BpmnDataOutputAssociation[],
+    /** The output set the event's data outputs make up. */
+    output_set?: BpmnOutputSet,
+    /** The event definitions that trigger this event. */
+    event_definitions?: BpmnEventDefinition[],
+    /** The QNames of event definitions, defined elsewhere in the document, that trigger this event. */
+    event_definition_refs?: string[],
+}
+
+
+/**
+ * A named set of category values that groups elements.
+ */
+export interface BpmnCategory extends BpmnRootElement {
+    /** The element's name. */
+    name: string,
+    /** The values of this category. */
+    category_values?: BpmnCategoryValue[],
+}
+
+
+/**
+ * One value of a category, which a group shows.
+ */
+export interface BpmnCategoryValue extends BpmnBaseElement {
+    /** The category value's text. */
     value?: string,
 }
 
 
 /**
- * The BPMN in camunda extension element
+ * The lanes a lane is divided into.
  */
-export interface FluxnovaIn extends BpmnModelElementInstance {
-    /** Fluxnova extension property: source. */
-    fluxnova_source?: string,
-    /** Fluxnova extension property: source expression. */
-    fluxnova_source_expression?: string,
-    /** Fluxnova extension property: variables. */
-    fluxnova_variables?: string,
-    /** Fluxnova extension property: target. */
-    fluxnova_target?: string,
-    /** Fluxnova extension property: business key. */
-    fluxnova_business_key?: string,
-    /** Fluxnova extension property: local. */
-    fluxnova_local?: boolean,
+export interface BpmnChildLaneSet extends BpmnLaneSet {
 }
 
 
 /**
- * The BPMN inputOutput camunda extension element
+ * The participants of a model and the messages and conversations between them.
  */
-export interface FluxnovaInputOutput extends BpmnModelElementInstance {
-    /** Input parameters passed to this connector or script. */
-    fluxnova_input_parameters?: FluxnovaInputParameter[],
-    /** Output parameters produced by this connector or script. */
-    fluxnova_output_parameters?: FluxnovaOutputParameter[],
+export interface BpmnCollaboration extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** Whether no interactions occur other than those the model shows. */
+    is_closed?: boolean,
+    /** The participants, usually drawn as pools. */
+    participants?: BpmnParticipant[],
+    /** The message flows between the participants. */
+    message_flows?: BpmnMessageFlow[],
+    /** The artifacts, such as text annotations and groups, this element holds. */
+    artifacts?: BpmnArtifact[],
+    /** The conversations and sub-conversations this element holds. */
+    conversation_nodes?: BpmnConversationNode[],
+    /** The links between conversation nodes and the ones that refine them. */
+    conversation_associations?: BpmnConversationAssociation[],
+    /** The links between participants and those in called collaborations. */
+    participant_associations?: BpmnParticipantAssociation[],
+    /** The links between message flows and the ones that refine them. */
+    message_flow_associations?: BpmnMessageFlowAssociation[],
+    /** The correlation keys this element defines. */
+    correlation_keys?: BpmnCorrelationKey[],
+    /** The links between participants and conversation nodes. */
+    conversation_links?: BpmnConversationLink[],
 }
 
 
 /**
- * The BPMN inputParameter camunda extension element
+ * The trigger of an event that starts or catches compensation.
  */
-export interface FluxnovaInputParameter extends BpmnModelElementInstance, FluxnovaGenericValueElement {
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
+export interface BpmnCompensateEventDefinition extends BpmnEventDefinition {
+    /** Whether the throwing event waits for the compensation to finish. */
+    wait_for_completion?: boolean,
+    /** The id of the activity to compensate; when absent, every compensable activity in scope is. */
+    activity_ref?: string,
 }
 
 
 /**
- * The BPMN camundaList extension element
+ * The condition that ends a multi-instance activity or an ad-hoc sub-process early.
  */
-export interface FluxnovaList extends BpmnModelElementInstance {
-    /** The values of this element. */
-    values?: string,
+export interface BpmnCompletionCondition extends BpmnExpression {
 }
 
 
 /**
- * The BPMN camundaMap extension element
+ * A rule of a multi-instance activity that throws an event when its condition holds as instances complete.
  */
-export interface FluxnovaMap extends BpmnModelElementInstance {
-    /** Key-value entries in this Fluxnova map. */
-    fluxnova_entries?: FluxnovaEntry[],
+export interface BpmnComplexBehaviorDefinition extends BpmnBaseElement {
 }
 
 
 /**
- * The BPMN out camunda extension element
+ * A gateway that splits or joins flows by conditions of its own.
  */
-export interface FluxnovaOut extends BpmnModelElementInstance {
-    /** Fluxnova extension property: source. */
-    fluxnova_source?: string,
-    /** Fluxnova extension property: source expression. */
-    fluxnova_source_expression?: string,
-    /** Fluxnova extension property: variables. */
-    fluxnova_variables?: string,
-    /** Fluxnova extension property: target. */
-    fluxnova_target?: string,
-    /** Fluxnova extension property: local. */
-    fluxnova_local?: boolean,
+export interface BpmnComplexGateway extends BpmnGateway {
+    /** The id of the sequence flow taken when no other outgoing flow's condition holds. */
+    default?: string,
+    /** The condition that decides when the gateway may continue. */
+    activation_condition?: BpmnActivationCondition,
 }
 
 
 /**
- * The BPMN outputParameter camunda extension element
+ * The expression a conditional event evaluates.
  */
-export interface FluxnovaOutputParameter extends BpmnModelElementInstance, FluxnovaGenericValueElement {
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
+export interface BpmnCondition extends BpmnExpression {
 }
 
 
 /**
- * The BPMN potentialStarter camunda extension
+ * The expression that decides whether a sequence flow is taken.
  */
-export interface FluxnovaPotentialStarter extends BpmnModelElementInstance {
-    /** Expression used to resolve the assigned resource. */
-    resource_assignment_expression?: ResourceAssignmentExpressionId,
-}
-
-
-/**
- * The BPMN properties camunda extension element
- */
-export interface FluxnovaProperties extends BpmnModelElementInstance {
-    /** Fluxnova extension properties container. */
-    fluxnova_properties?: FluxnovaProperty,
-}
-
-
-/**
- * The BPMN property camunda extension element
- */
-export interface FluxnovaProperty extends BpmnModelElementInstance {
-    /** Identifier for this Fluxnova extension element. */
-    fluxnova_id?: string,
-    /** Name attribute of this Fluxnova extension element. */
-    fluxnova_name?: string,
-    /** Value of this Fluxnova extension element. */
-    fluxnova_value?: string,
-}
-
-
-/**
- * The BPMN script camunda extension element
- */
-export interface FluxnovaScript extends BpmnModelElementInstance {
-    /** Fluxnova extension property: script format. */
-    fluxnova_script_format?: string,
-    /** Camunda extensions */
+export interface BpmnConditionExpression extends BpmnFormalExpression {
+    /** The XML Schema type of the expression, a formal expression unless the document says otherwise. */
+    xsi_type?: string,
+    /** A resource that holds the script of a script condition. */
     fluxnova_resource?: string,
 }
 
 
 /**
- * The BPMN string camunda extension element
+ * The trigger of an event that fires when a condition becomes true.
+ */
+export interface BpmnConditionalEventDefinition extends BpmnEventDefinition {
+    /** The variable whose changes make the engine check the condition. */
+    fluxnova_variable_name?: string,
+    /** The variable events, such as create or update, that make the engine check the condition. */
+    fluxnova_variable_events?: string,
+    /** The condition the event waits for. */
+    condition: BpmnCondition,
+}
+
+
+/**
+ * A set of message flows between participants that belong together.
+ */
+export interface BpmnConversation extends BpmnConversationNode {
+}
+
+
+/**
+ * A link between a conversation node and one that refines it.
+ */
+export interface BpmnConversationAssociation extends BpmnBaseElement {
+    /** The QName of the conversation node that refines the outer one. */
+    inner_conversation_node_ref: string,
+    /** The QName of the conversation node being refined. */
+    outer_conversation_node_ref: string,
+}
+
+
+/**
+ * A link between a participant and a conversation node.
+ */
+export interface BpmnConversationLink extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The id or QName of the element the connection starts at. */
+    source_ref: string,
+    /** The id or QName of the element the connection ends at. */
+    target_ref: string,
+}
+
+
+/**
+ * Any node of a conversation diagram, such as a conversation or sub-conversation.
+ */
+export interface BpmnConversationNode extends BpmnBaseElement, BpmnInteractionNode {
+    /** The element's name. */
+    name?: string,
+    /** The QNames of the participants in the conversation. */
+    participant_refs?: string[],
+    /** The QNames of the message flows the conversation node groups. */
+    message_flow_refs?: string[],
+    /** The correlation keys this element defines. */
+    correlation_keys?: BpmnCorrelationKey[],
+}
+
+
+/**
+ * A set of correlation properties that together identify a conversation.
+ */
+export interface BpmnCorrelationKey extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The QNames of the correlation properties that make up this key. */
+    correlation_property_refs?: string[],
+}
+
+
+/**
+ * A value read from messages that ties them to one conversation.
+ */
+export interface BpmnCorrelationProperty extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the property's type. */
+    type?: string,
+    /** How the property is read from each kind of message. */
+    correlation_property_retrieval_expressions: BpmnCorrelationPropertyRetrievalExpression[],
+}
+
+
+/**
+ * The expression that gives a correlation property its value in a process.
+ */
+export interface BpmnCorrelationPropertyBinding extends BpmnBaseElement {
+    /** The QName of the correlation property this binding gives a value. */
+    correlation_property_ref: string,
+    /** The expression that finds the value in process data. */
+    data_path: BpmnDataPath,
+}
+
+
+/**
+ * The expression that reads a correlation property from one message.
+ */
+export interface BpmnCorrelationPropertyRetrievalExpression extends BpmnBaseElement {
+    /** The QName of the message sent or received. */
+    message_ref: string,
+    /** The expression that finds the value in the message. */
+    message_path: BpmnMessagePath,
+}
+
+
+/**
+ * How a process instance subscribes to messages by a correlation key.
+ */
+export interface BpmnCorrelationSubscription extends BpmnBaseElement {
+    /** The QName of the correlation key this subscription uses. */
+    correlation_key_ref: string,
+    /** How the process gives each correlation property its value. */
+    correlation_property_bindings?: BpmnCorrelationPropertyBinding[],
+}
+
+
+/**
+ * A copy of data from sources to a target as an activity or event runs.
+ */
+export interface BpmnDataAssociation extends BpmnBaseElement {
+    /** The ids of the data the association copies from. */
+    source_refs?: string[],
+    /** The id or QName of the element the connection ends at. */
+    target_ref: string,
+    /** The expression that changes the data as it is copied. */
+    transformation?: BpmnTransformation,
+    /** The copies of values this data association makes. */
+    assignments?: BpmnAssignment[],
+}
+
+
+/**
+ * A piece of data an activity, process or event needs.
+ */
+export interface BpmnDataInput extends BpmnItemAwareElement {
+    /** The element's name. */
+    name?: string,
+    /** Whether the element holds a collection of items. */
+    is_collection?: boolean,
+}
+
+
+/**
+ * A data association that feeds a data input.
+ */
+export interface BpmnDataInputAssociation extends BpmnDataAssociation {
+}
+
+
+/**
+ * Data a process creates or uses while it runs.
+ */
+export interface BpmnDataObject extends BpmnFlowElement {
+    /** The QName of the item definition of the data. */
+    item_subject_ref?: string,
+    /** Whether the element holds a collection of items. */
+    is_collection?: boolean,
+    /** The state the data is in. */
+    data_state?: BpmnDataState,
+}
+
+
+/**
+ * A use of a data object at one place in a process.
+ */
+export interface BpmnDataObjectReference extends BpmnFlowElement {
+    /** The QName of the item definition of the data. */
+    item_subject_ref?: string,
+    /** The id of the data object this reference uses. */
+    data_object_ref?: string,
+    /** The state the data is in. */
+    data_state?: BpmnDataState,
+}
+
+
+/**
+ * A piece of data an activity, process or event produces.
+ */
+export interface BpmnDataOutput extends BpmnItemAwareElement {
+    /** The element's name. */
+    name?: string,
+    /** Whether the element holds a collection of items. */
+    is_collection?: boolean,
+}
+
+
+/**
+ * A data association that carries a data output on.
+ */
+export interface BpmnDataOutputAssociation extends BpmnDataAssociation {
+}
+
+
+/**
+ * The expression that finds a correlation property's value in process data.
+ */
+export interface BpmnDataPath extends BpmnFormalExpression {
+}
+
+
+/**
+ * The state of a data object or data store, such as draft or approved.
+ */
+export interface BpmnDataState extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+}
+
+
+/**
+ * Data that lasts beyond one process instance, such as a database.
+ */
+export interface BpmnDataStore extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** How many items the data store can hold. */
+    capacity?: number,
+    /** Whether the data store's capacity has no limit. */
+    is_unlimited?: boolean,
+    /** The QName of the item definition of the data. */
+    item_subject_ref?: string,
+    /** The state the data is in. */
+    data_state?: BpmnDataState,
+}
+
+
+/**
+ * A use of a data store at one place in a process.
+ */
+export interface BpmnDataStoreReference extends BpmnFlowElement {
+    /** The QName of the item definition of the data. */
+    item_subject_ref?: string,
+    /** The QName of the data store this reference uses. */
+    data_store_ref?: string,
+    /** The state the data is in. */
+    data_state?: BpmnDataState,
+}
+
+
+/**
+ * The root of a BPMN document, which holds its processes, collaborations and diagrams.
+ */
+export interface BpmnDefinitions extends BpmnModelElementInstance {
+    /** The document's id. */
+    id?: string,
+    /** The document's name. */
+    name?: string,
+    /** The namespace of the elements this document defines. */
+    target_namespace: string,
+    /** The language the document's expressions are written in unless one says otherwise, as a URI. */
+    expression_language?: string,
+    /** The language the document's types are written in, as a URI. */
+    type_language?: string,
+    /** The tool that wrote the document. */
+    exporter?: string,
+    /** The version of the tool that wrote the document. */
+    exporter_version?: string,
+    /** The documents whose elements this one imports. */
+    imports?: BpmnImport[],
+    /** The extensions the document uses. */
+    extensions?: BpmnExtension[],
+    /** The processes, collaborations, messages, signals and other elements of the document. */
+    root_elements?: BpmnRootElement[],
+    /** The diagrams of the document. */
+    bpmn_diagrams?: BpmnDiagram[],
+    /** The relationships between this document's elements and others. */
+    relationships?: BpmnRelationship[],
+}
+
+
+/**
+ * Text that documents an element.
+ */
+export interface BpmnDocumentation extends BpmnModelElementInstance {
+    /** The element's id, unique within its document. */
+    id?: string,
+    /** The format of the text, as a MIME type. */
+    text_format?: string,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * An event that ends a path of a process.
+ */
+export interface BpmnEndEvent extends BpmnThrowEvent {
+}
+
+
+/**
+ * A place where a participant can be reached for messages.
+ */
+export interface BpmnEndPoint extends BpmnRootElement {
+}
+
+
+/**
+ * An error that an activity can throw and an event can catch.
+ */
+export interface BpmnError extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The code that identifies the error. */
+    error_code?: string,
+    /** The message of the error. */
+    fluxnova_error_message?: string,
+    /** The QName of the type of the data, such as an XML Schema type. */
+    structure_ref?: string,
+}
+
+
+/**
+ * The trigger of an event that throws or catches an error.
+ */
+export interface BpmnErrorEventDefinition extends BpmnEventDefinition {
+    /** The QName of the error thrown or caught. */
+    error_ref?: string,
+    /** The variable the caught error's code is stored in. */
+    fluxnova_error_code_variable?: string,
+    /** The variable the caught error's message is stored in. */
+    fluxnova_error_message_variable?: string,
+}
+
+
+/**
+ * An escalation that an activity can throw and an event can catch.
+ */
+export interface BpmnEscalation extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The code that identifies the escalation. */
+    escalation_code?: string,
+    /** The QName of the type of the data, such as an XML Schema type. */
+    structure_ref?: string,
+}
+
+
+/**
+ * The trigger of an event that throws or catches an escalation.
+ */
+export interface BpmnEscalationEventDefinition extends BpmnEventDefinition {
+    /** The QName of the escalation thrown or caught. */
+    escalation_ref?: string,
+}
+
+
+/**
+ * Something that happens while a process runs, such as a start, a message or a timer.
+ */
+export interface BpmnEvent extends BpmnFlowNode, BpmnInteractionNode {
+    /** The element's properties. */
+    properties?: BpmnProperty[],
+}
+
+
+/**
+ * A gateway that takes the path of whichever following event happens first.
+ */
+export interface BpmnEventBasedGateway extends BpmnGateway {
+    /** Whether the element starts a new process instance. */
+    instantiate?: boolean,
+    /** Whether the gateway starts one process instance for the first event or waits for all of them. */
+    event_gateway_type?: string,
+}
+
+
+/**
+ * What triggers an event, such as a message, timer or signal.
+ */
+export interface BpmnEventDefinition extends BpmnRootElement {
+}
+
+
+/**
+ * A gateway that takes exactly one of its outgoing flows.
+ */
+export interface BpmnExclusiveGateway extends BpmnGateway {
+    /** The id of the sequence flow taken when no other outgoing flow's condition holds. */
+    default?: string,
+}
+
+
+/**
+ * An expression whose language and body the model leaves open.
+ */
+export interface BpmnExpression extends BpmnBaseElement {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A declaration that a document uses an extension, by its definition.
+ */
+export interface BpmnExtension extends BpmnModelElementInstance {
+    /** The QName of the extension's definition. */
+    definition?: string,
+    /** Whether a tool reading the document must understand the extension. */
+    must_understand?: boolean,
+    /** Text that documents the element. */
+    documentation?: BpmnDocumentation[],
+}
+
+
+/**
+ * The container for an element's extension content, such as Fluxnova's settings.
+ */
+export interface BpmnExtensionElements extends BpmnModelElementInstance {
+}
+
+
+/**
+ * An element that takes part in the flow of a process, such as an activity or sequence flow.
+ */
+export interface BpmnFlowElement extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The element's auditing hook. */
+    auditing?: BpmnAuditing,
+    /** The element's monitoring hook. */
+    monitoring?: BpmnMonitoring,
+    /** The QNames of the category values this element belongs to. */
+    category_value_refs?: string[],
+}
+
+
+/**
+ * A flow element that sequence flows connect, such as an activity, event or gateway.
+ */
+export interface BpmnFlowNode extends BpmnFlowElement {
+    /** Whether the engine commits and continues asynchronously after the element. */
+    fluxnova_async_after?: boolean,
+    /** Whether the engine commits and continues asynchronously before the element. */
+    fluxnova_async_before?: boolean,
+    /** Whether the element's jobs run one at a time within a process instance. */
+    fluxnova_exclusive?: boolean,
+    /** The priority of the element's jobs. */
+    fluxnova_job_priority?: string,
+    /** The QNames of the sequence flows that enter this node. */
+    incoming?: string[],
+    /** The QNames of the sequence flows that leave this node. */
+    outgoing?: string[],
+}
+
+
+/**
+ * An expression in a stated language, with the type it evaluates to.
+ */
+export interface BpmnFormalExpression extends BpmnExpression {
+    /** The language the expression is written in, as a URI. */
+    language?: string,
+    /** The QName of the item definition the expression's result has. */
+    evaluates_to_type_ref?: string,
+}
+
+
+/**
+ * The expression an assignment copies a value from.
+ */
+export interface BpmnFrom extends BpmnExpression {
+}
+
+
+/**
+ * A point where a process's flows split or join.
+ */
+export interface BpmnGateway extends BpmnFlowNode {
+    /** Whether the gateway splits flows, joins them, does both, or is not said. */
+    gateway_direction?: string,
+}
+
+
+/**
+ * A conversation defined on its own so that collaborations can call it.
+ */
+export interface BpmnGlobalConversation extends BpmnCollaboration {
+}
+
+
+/**
+ * An artifact that draws a box around elements of one category value.
+ */
+export interface BpmnGroup extends BpmnArtifact {
+    /** The QName of the category value this group shows. */
+    category_value_ref?: string,
+}
+
+
+/**
+ * The person who performs an activity.
+ */
+export interface BpmnHumanPerformer extends BpmnPerformer {
+}
+
+
+/**
+ * A document the definitions import elements from.
+ */
+export interface BpmnImport extends BpmnModelElementInstance {
+    /** The namespace of the imported document. */
+    namespace: string,
+    /** Where the imported document is. */
+    location: string,
+    /** The kind of document imported, as the URI of its language. */
+    import_type: string,
+}
+
+
+/**
+ * A gateway that takes every outgoing flow whose condition holds.
+ */
+export interface BpmnInclusiveGateway extends BpmnGateway {
+    /** The id of the sequence flow taken when no other outgoing flow's condition holds. */
+    default?: string,
+}
+
+
+/**
+ * The data input each instance of a multi-instance activity receives.
+ */
+export interface BpmnInputDataItem extends BpmnDataInput {
+}
+
+
+/**
+ * A set of data inputs that is enough for an activity or event to start.
+ */
+export interface BpmnInputSet extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The ids of the data inputs this set holds. */
+    data_input_refs?: string[],
+    /** The ids of inputs the set may do without. */
+    optional_input_refs?: string[],
+    /** The ids of inputs the element can take while it runs. */
+    while_executing_input_refs?: string[],
+    /** The ids of the output sets this input set can lead to. */
+    output_set_refs?: string[],
+}
+
+
+/**
+ * An element a message flow or conversation link can connect, such as a participant, task or event.
+ */
+export interface BpmnInteractionNode {
+    /** The element's id, unique within its document. */
+    id?: string,
+}
+
+
+/**
+ * A set of operations a participant offers.
+ */
+export interface BpmnInterface extends BpmnRootElement {
+    /** The element's name. */
+    name: string,
+    /** The QName of what implements the element. */
+    implementation_ref?: string,
+    /** The interface's operations. */
+    operations: BpmnOperation[],
+}
+
+
+/**
+ * An event on a process's path that waits for a trigger.
+ */
+export interface BpmnIntermediateCatchEvent extends BpmnCatchEvent {
+}
+
+
+/**
+ * An event on a process's path that throws a trigger.
+ */
+export interface BpmnIntermediateThrowEvent extends BpmnThrowEvent {
+}
+
+
+/**
+ * A link between an operation's messages and a callable element's input and output sets.
+ */
+export interface BpmnIoBinding extends BpmnBaseElement {
+    /** The QName of the operation the element calls or implements. */
+    operation_ref: string,
+    /** The id of the input set the binding uses. */
+    input_data_ref: string,
+    /** The id of the output set the binding uses. */
+    output_data_ref: string,
+}
+
+
+/**
+ * The data inputs and outputs of an activity or process, and their sets.
+ */
+export interface BpmnIoSpecification extends BpmnBaseElement {
+    /** The data inputs. */
+    data_inputs?: BpmnDataInput[],
+    /** The data outputs. */
+    data_outputs?: BpmnDataOutput[],
+    /** The sets of inputs, each enough to start. */
+    input_sets: BpmnInputSet[],
+    /** The sets of outputs. */
+    output_sets: BpmnOutputSet[],
+}
+
+
+/**
+ * An element that holds data of an item definition, such as a data object or data input.
+ */
+export interface BpmnItemAwareElement extends BpmnBaseElement {
+    /** The QName of the item definition of the data. */
+    item_subject_ref?: string,
+    /** The state the data is in. */
+    data_state?: BpmnDataState,
+}
+
+
+/**
+ * The type of data an element holds or a message carries.
+ */
+export interface BpmnItemDefinition extends BpmnRootElement {
+    /** The QName of the type of the data, such as an XML Schema type. */
+    structure_ref?: string,
+    /** Whether the element holds a collection of items. */
+    is_collection?: boolean,
+    /** Whether the item is information or a physical thing. */
+    item_kind?: string,
+}
+
+
+/**
+ * A partition of a process that groups flow nodes, often by who performs them.
+ */
+export interface BpmnLane extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the element the lane stands for. */
+    partition_element_ref?: string,
+    /** The element the lane stands for. */
+    partition_element?: BpmnPartitionElement,
+    /** The ids of the flow nodes in this lane. */
+    flow_node_refs?: string[],
+    /** The lanes this lane is divided into. */
+    child_lane_set?: BpmnChildLaneSet,
+}
+
+
+/**
+ * The lanes that divide a process or sub-process.
+ */
+export interface BpmnLaneSet extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The lanes of the set. */
+    lanes?: BpmnLane[],
+}
+
+
+/**
+ * The trigger of a pair of events that join two paths of a process like a jump.
+ */
+export interface BpmnLinkEventDefinition extends BpmnEventDefinition {
+    /** The element's name. */
+    name: string,
+    /** The QNames of the throwing link events that jump to this one. */
+    sources?: string[],
+    /** The QName of the catching link event this one jumps to. */
+    target?: string,
+}
+
+
+/**
+ * The expression that says how many instances a multi-instance activity creates.
+ */
+export interface BpmnLoopCardinality extends BpmnExpression {
+}
+
+
+/**
+ * How an activity repeats.
+ */
+export interface BpmnLoopCharacteristics extends BpmnBaseElement {
+}
+
+
+/**
+ * A task done by a person without any system's help.
+ */
+export interface BpmnManualTask extends BpmnTask {
+}
+
+
+/**
+ * What one participant sends another.
+ */
+export interface BpmnMessage extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the item definition the message carries. */
+    item_ref?: string,
+}
+
+
+/**
+ * The trigger of an event that sends or receives a message.
+ */
+export interface BpmnMessageEventDefinition extends BpmnEventDefinition {
+    /** The QName of the message sent or received. */
+    message_ref?: string,
+    /** The Java class the engine instantiates to run the element. */
+    fluxnova_class?: string,
+    /** An expression that gives the delegate object the engine calls. */
+    fluxnova_delegate_expression?: string,
+    /** An expression the engine evaluates to run the element. */
+    fluxnova_expression?: string,
+    /** The variable the result is stored in. */
+    fluxnova_result_variable?: string,
+    /** The topic of the external task the element creates. */
+    fluxnova_topic?: string,
+    /** The element's type, such as external for an external task or the form field's value type. */
+    fluxnova_type?: string,
+    /** The priority of the external tasks the element creates. */
+    fluxnova_task_priority?: string,
+    /** The QName of the operation the element calls or implements. */
+    operation_ref?: string,
+}
+
+
+/**
+ * The path of a message between two participants.
+ */
+export interface BpmnMessageFlow extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The id or QName of the element the connection starts at. */
+    source_ref: string,
+    /** The id or QName of the element the connection ends at. */
+    target_ref: string,
+    /** The QName of the message sent or received. */
+    message_ref?: string,
+}
+
+
+/**
+ * A link between a message flow and one that refines it.
+ */
+export interface BpmnMessageFlowAssociation extends BpmnBaseElement {
+    /** The QName of the message flow that refines the outer one. */
+    inner_message_flow_ref: string,
+    /** The QName of the message flow being refined. */
+    outer_message_flow_ref: string,
+}
+
+
+/**
+ * The expression that finds a correlation property's value in a message.
+ */
+export interface BpmnMessagePath extends BpmnFormalExpression {
+}
+
+
+/**
+ * A hook for monitoring a process or flow element, left to the implementation.
+ */
+export interface BpmnMonitoring extends BpmnBaseElement {
+}
+
+
+/**
+ * How an activity runs once for each item of a collection, in sequence or in parallel.
+ */
+export interface BpmnMultiInstanceLoopCharacteristics extends BpmnLoopCharacteristics {
+    /** Whether the instances run one after another rather than at once. */
+    is_sequential?: boolean,
+    /** When the multi-instance activity throws an event as its instances complete. */
+    behavior?: string,
+    /** The QName of the event thrown when the first instance completes. */
+    one_behavior_event_ref?: string,
+    /** The QName of the event thrown when no instance's completion matches. */
+    none_behavior_event_ref?: string,
+    /** Whether the engine continues asynchronously after each instance. */
+    fluxnova_async_after?: boolean,
+    /** Whether each instance starts asynchronously. */
+    fluxnova_async_before?: boolean,
+    /** Whether the instances' jobs run one at a time. */
+    fluxnova_exclusive?: boolean,
+    /** The collection, or the expression giving it, whose items each instance receives. */
+    fluxnova_collection?: string,
+    /** The variable each instance receives its item of the collection in. */
+    fluxnova_element_variable?: string,
+    /** How many instances to create. */
+    loop_cardinality?: BpmnLoopCardinality,
+    /** The id of the collection the instances are created from. */
+    loop_data_input_ref?: string,
+    /** The id of the collection the instances' outputs go to. */
+    loop_data_output_ref?: string,
+    /** The data output of each instance. */
+    output_data_item?: BpmnOutputDataItem,
+    /** The data input of each instance. */
+    input_data_item?: BpmnInputDataItem,
+    /** The rules that throw events as instances complete. */
+    complex_behavior_definitions?: BpmnComplexBehaviorDefinition[],
+    /** The condition that ends the activity early when it holds. */
+    completion_condition?: BpmnCompletionCondition,
+}
+
+
+/**
+ * An operation of an interface, with the messages it takes and returns.
+ */
+export interface BpmnOperation extends BpmnBaseElement {
+    /** The element's name. */
+    name: string,
+    /** The QName of what implements the element. */
+    implementation_ref?: string,
+    /** The QName of the message the operation takes. */
+    in_message_ref: string,
+    /** The QName of the message the operation returns. */
+    out_message_ref?: string,
+    /** The QNames of the errors the operation can raise. */
+    error_refs?: string[],
+}
+
+
+/**
+ * The data output each instance of a multi-instance activity produces.
+ */
+export interface BpmnOutputDataItem extends BpmnDataOutput {
+}
+
+
+/**
+ * A set of data outputs an activity or event produces together.
+ */
+export interface BpmnOutputSet extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The ids of the data outputs this set holds. */
+    data_output_refs?: string[],
+    /** The ids of outputs the set may leave out. */
+    optional_output_refs?: string[],
+    /** The ids of outputs the element can produce while it runs. */
+    while_executing_output_refs?: string[],
+    /** The ids of the input sets this output set can be produced from. */
+    input_set_refs?: string[],
+}
+
+
+/**
+ * A gateway that takes all its outgoing flows, or waits for all its incoming ones.
+ */
+export interface BpmnParallelGateway extends BpmnGateway {
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+}
+
+
+/**
+ * A party in a collaboration, usually drawn as a pool, and the process it runs.
+ */
+export interface BpmnParticipant extends BpmnBaseElement, BpmnInteractionNode {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the process the participant runs. */
+    process_ref?: string,
+    /** The QNames of the interfaces the participant offers. */
+    interface_refs?: string[],
+    /** The QNames of the end points where the participant can be reached. */
+    end_point_refs?: string[],
+    /** How many instances of the participant take part. */
+    participant_multiplicity?: BpmnParticipantMultiplicity,
+}
+
+
+/**
+ * A link between a participant and one that a called collaboration defines.
+ */
+export interface BpmnParticipantAssociation extends BpmnBaseElement {
+    /** The QName of the participant inside the called collaboration. */
+    inner_participant_ref: string,
+    /** The QName of the participant in the calling collaboration. */
+    outer_participant_ref: string,
+}
+
+
+/**
+ * How many instances of a participant take part, from a minimum to a maximum.
+ */
+export interface BpmnParticipantMultiplicity extends BpmnBaseElement {
+    /** The fewest instances that take part. */
+    minimum?: number,
+    /** The most instances that take part. */
+    maximum?: number,
+}
+
+
+/**
+ * The element a lane stands for, such as a performer.
+ */
+export interface BpmnPartitionElement extends BpmnBaseElement {
+}
+
+
+/**
+ * The resource that performs an activity.
+ */
+export interface BpmnPerformer extends BpmnResourceRole {
+}
+
+
+/**
+ * A person who may claim and perform a user task.
+ */
+export interface BpmnPotentialOwner extends BpmnHumanPerformer {
+}
+
+
+/**
+ * A sequence of activities, events and gateways that a participant performs.
+ */
+export interface BpmnProcess extends BpmnCallableElement {
+    /** Whether the process is private to its participant, public, or neither. */
+    process_type?: string,
+    /** Whether no interactions occur other than those the model shows. */
+    is_closed?: boolean,
+    /** Whether the process is meant to be run by an engine. */
+    is_executable?: boolean,
+    /** The groups whose members may start the process. */
+    fluxnova_candidate_starter_groups?: string,
+    /** The users who may start the process. */
+    fluxnova_candidate_starter_users?: string,
+    /** The default priority of the process's jobs. */
+    fluxnova_job_priority?: string,
+    /** The default priority of the process's external tasks. */
+    fluxnova_task_priority?: string,
+    /** How long the engine keeps the process's history before it may remove it. */
+    fluxnova_history_time_to_live?: string,
+    /** Whether the tasklist offers the process to be started. */
+    fluxnova_is_startable_in_tasklist?: boolean,
+    /** The tag the process version carries. */
+    fluxnova_version_tag?: string,
+    /** The element's auditing hook. */
+    auditing?: BpmnAuditing,
+    /** The element's monitoring hook. */
+    monitoring?: BpmnMonitoring,
+    /** The element's properties. */
+    properties?: BpmnProperty[],
+    /** The lane sets that divide the element. */
+    lane_sets?: BpmnLaneSet[],
+    /** The activities, events, gateways, sequence flows and data this element holds. */
+    flow_elements?: BpmnFlowElement[],
+    /** The artifacts, such as text annotations and groups, this element holds. */
+    artifacts?: BpmnArtifact[],
+    /** The roles resources play in the element, such as its performers. */
+    resource_roles?: BpmnResourceRole[],
+    /** The correlation subscriptions of the process. */
+    correlation_subscriptions?: BpmnCorrelationSubscription[],
+    /** The QNames of the processes this one supports. */
+    supports?: string[],
+}
+
+
+/**
+ * A variable of a process, activity or event.
+ */
+export interface BpmnProperty extends BpmnItemAwareElement {
+    /** The element's name. */
+    name?: string,
+}
+
+
+/**
+ * A task that waits for a message.
+ */
+export interface BpmnReceiveTask extends BpmnTask {
+    /** The technology that runs the task, as a URI; the engine reads its own settings instead. */
+    implementation?: string,
+    /** Whether the element starts a new process instance. */
+    instantiate?: boolean,
+    /** The QName of the message sent or received. */
+    message_ref?: string,
+    /** The QName of the operation the element calls or implements. */
+    operation_ref?: string,
+}
+
+
+/**
+ * An informal link between elements of different models.
+ */
+export interface BpmnRelationship extends BpmnBaseElement {
+    /** What kind of relationship it is. */
+    type: string,
+    /** Which way the relationship points. */
+    direction?: string,
+    /** The QNames of the elements the relationship starts from. */
+    sources: BpmnSource[],
+    /** The QNames of the elements the relationship leads to. */
+    targets: BpmnTarget[],
+}
+
+
+/**
+ * A hint for how a user task appears to the person who performs it.
+ */
+export interface BpmnRendering extends BpmnBaseElement {
+}
+
+
+/**
+ * A resource, such as a person or role, that can perform activities.
+ */
+export interface BpmnResource extends BpmnRootElement {
+    /** The element's name. */
+    name: string,
+    /** The resource's parameters. */
+    resource_parameters?: BpmnResourceParameter[],
+}
+
+
+/**
+ * The expression that chooses who performs an activity.
+ */
+export interface BpmnResourceAssignmentExpression extends BpmnBaseElement {
+    /** The expression that chooses the resource. */
+    expression: BpmnExpression,
+}
+
+
+/**
+ * A parameter that narrows which resources a resource stands for.
+ */
+export interface BpmnResourceParameter extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the parameter's type. */
+    type?: string,
+    /** Whether the parameter must be given a value. */
+    is_required?: boolean,
+}
+
+
+/**
+ * The value a resource role gives a resource parameter.
+ */
+export interface BpmnResourceParameterBinding extends BpmnBaseElement {
+    /** The QName of the parameter given a value. */
+    parameter_ref: string,
+    /** The expression that gives the parameter its value. */
+    expression: BpmnExpression,
+}
+
+
+/**
+ * The role a resource plays in an activity or process.
+ */
+export interface BpmnResourceRole extends BpmnBaseElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the resource that plays the role. */
+    resource_ref?: string,
+    /** The values given to the resource's parameters. */
+    resource_parameter_bindings?: BpmnResourceParameterBinding[],
+    /** The expression that chooses the resource. */
+    resource_assignment_expression?: BpmnResourceAssignmentExpression,
+}
+
+
+/**
+ * An element that can sit directly in a document's definitions, such as a process or message.
+ */
+export interface BpmnRootElement extends BpmnBaseElement {
+}
+
+
+/**
+ * The body of a script task's script.
+ */
+export interface BpmnScript extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A task that runs a script.
+ */
+export interface BpmnScriptTask extends BpmnTask {
+    /** The language the script is written in, such as groovy or javascript. */
+    script_format?: string,
+    /** The variable the result is stored in. */
+    fluxnova_result_variable?: string,
+    /** A resource that holds the script, instead of the script's text. */
+    fluxnova_resource?: string,
+    /** The script the task runs. */
+    script?: BpmnScript,
+}
+
+
+/**
+ * A task that sends a message.
+ */
+export interface BpmnSendTask extends BpmnTask {
+    /** The technology that runs the task, as a URI; the engine reads its own settings instead. */
+    implementation?: string,
+    /** The QName of the message sent or received. */
+    message_ref?: string,
+    /** The QName of the operation the element calls or implements. */
+    operation_ref?: string,
+    /** The Java class the engine instantiates to run the element. */
+    fluxnova_class?: string,
+    /** An expression that gives the delegate object the engine calls. */
+    fluxnova_delegate_expression?: string,
+    /** An expression the engine evaluates to run the element. */
+    fluxnova_expression?: string,
+    /** The variable the result is stored in. */
+    fluxnova_result_variable?: string,
+    /** The topic of the external task the element creates. */
+    fluxnova_topic?: string,
+    /** The element's type, such as external for an external task or the form field's value type. */
+    fluxnova_type?: string,
+    /** The priority of the external tasks the element creates. */
+    fluxnova_task_priority?: string,
+}
+
+
+/**
+ * The order of two flow nodes in a process, from a source to a target.
+ */
+export interface BpmnSequenceFlow extends BpmnFlowElement {
+    /** The id or QName of the element the connection starts at. */
+    source_ref: string,
+    /** The id or QName of the element the connection ends at. */
+    target_ref: string,
+    /** Whether the flow's target follows its source with no other activity between them. */
+    is_immediate?: boolean,
+    /** The condition that decides whether the flow is taken. */
+    condition_expression?: BpmnConditionExpression,
+}
+
+
+/**
+ * A task that calls a service, such as a web service or application code.
+ */
+export interface BpmnServiceTask extends BpmnTask {
+    /** The technology that runs the task, as a URI; the engine reads its own settings instead. */
+    implementation?: string,
+    /** The QName of the operation the element calls or implements. */
+    operation_ref?: string,
+    /** The Java class the engine instantiates to run the element. */
+    fluxnova_class?: string,
+    /** An expression that gives the delegate object the engine calls. */
+    fluxnova_delegate_expression?: string,
+    /** An expression the engine evaluates to run the element. */
+    fluxnova_expression?: string,
+    /** The variable the result is stored in. */
+    fluxnova_result_variable?: string,
+    /** The topic of the external task the element creates. */
+    fluxnova_topic?: string,
+    /** The element's type, such as external for an external task or the form field's value type. */
+    fluxnova_type?: string,
+    /** The priority of the external tasks the element creates. */
+    fluxnova_task_priority?: string,
+}
+
+
+/**
+ * A signal that is broadcast to every event waiting for it.
+ */
+export interface BpmnSignal extends BpmnRootElement {
+    /** The element's name. */
+    name?: string,
+    /** The QName of the type of the data, such as an XML Schema type. */
+    structure_ref?: string,
+}
+
+
+/**
+ * The trigger of an event that sends or receives a signal.
+ */
+export interface BpmnSignalEventDefinition extends BpmnEventDefinition {
+    /** The QName of the signal sent or received. */
+    signal_ref?: string,
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+}
+
+
+/**
+ * An element a relationship starts from.
+ */
+export interface BpmnSource extends BpmnModelElementInstance {
+}
+
+
+/**
+ * An event that starts a process or sub-process.
+ */
+export interface BpmnStartEvent extends BpmnCatchEvent {
+    /** Whether the event, when it starts an event sub-process, interrupts its parent. */
+    is_interrupting?: boolean,
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+    /** The Java class that handles the form. */
+    fluxnova_form_handler_class?: string,
+    /** The key of the form to show. */
+    fluxnova_form_key?: string,
+    /** The key of the deployed form to show. */
+    fluxnova_form_ref?: string,
+    /** Which version of the deployed form to use. */
+    fluxnova_form_ref_binding?: string,
+    /** The version of the deployed form, when the binding asks for one. */
+    fluxnova_form_ref_version?: string,
+    /** The variable the id of the user who started the process is stored in. */
+    fluxnova_initiator?: string,
+}
+
+
+/**
+ * A conversation node that groups other conversation nodes.
+ */
+export interface BpmnSubConversation extends BpmnConversationNode {
+    /** The conversations and sub-conversations this element holds. */
+    conversation_nodes?: BpmnConversationNode[],
+}
+
+
+/**
+ * An activity that holds a process of its own.
+ */
+export interface BpmnSubProcess extends BpmnActivity {
+    /** Whether the sub-process is an event sub-process, started by an event. */
+    triggered_by_event?: boolean,
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+    /** The lane sets that divide the element. */
+    lane_sets?: BpmnLaneSet[],
+    /** The activities, events, gateways, sequence flows and data this element holds. */
+    flow_elements?: BpmnFlowElement[],
+    /** The artifacts, such as text annotations and groups, this element holds. */
+    artifacts?: BpmnArtifact[],
+}
+
+
+/**
+ * An element a relationship leads to.
+ */
+export interface BpmnTarget extends BpmnModelElementInstance {
+}
+
+
+/**
+ * An atomic activity, one that is not broken down further.
+ */
+export interface BpmnTask extends BpmnActivity {
+    /** Whether the engine continues asynchronously before the element; superseded by asyncBefore. */
+    fluxnova_async?: boolean,
+}
+
+
+/**
+ * The trigger of an end event that ends the whole process instance at once.
+ */
+export interface BpmnTerminateEventDefinition extends BpmnEventDefinition {
+}
+
+
+/**
+ * The text of a text annotation.
+ */
+export interface BpmnText extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * An artifact that adds a note to a diagram.
+ */
+export interface BpmnTextAnnotation extends BpmnArtifact {
+    /** The format of the text, as a MIME type. */
+    text_format?: string,
+    /** The annotation's text. */
+    text?: BpmnText,
+}
+
+
+/**
+ * An event that throws a trigger, such as an end or intermediate throw event.
+ */
+export interface BpmnThrowEvent extends BpmnEvent {
+    /** The data inputs. */
+    data_inputs?: BpmnDataInput[],
+    /** How data reaches the element's inputs. */
+    data_input_associations?: BpmnDataInputAssociation[],
+    /** The input set the event's data inputs make up. */
+    input_set?: BpmnInputSet,
+    /** The event definitions that trigger this event. */
+    event_definitions?: BpmnEventDefinition[],
+    /** The QNames of event definitions, defined elsewhere in the document, that trigger this event. */
+    event_definition_refs?: string[],
+}
+
+
+/**
+ * The expression for a timer that fires repeatedly.
+ */
+export interface BpmnTimeCycle extends BpmnExpression {
+}
+
+
+/**
+ * The expression for a timer that fires at a point in time.
+ */
+export interface BpmnTimeDate extends BpmnExpression {
+}
+
+
+/**
+ * The expression for a timer that fires once a duration has passed.
+ */
+export interface BpmnTimeDuration extends BpmnExpression {
+}
+
+
+/**
+ * The trigger of an event that fires at a time, after a duration or on a cycle.
+ */
+export interface BpmnTimerEventDefinition extends BpmnEventDefinition {
+    /** The timer's point in time. */
+    time_date?: BpmnTimeDate,
+    /** The timer's duration. */
+    time_duration?: BpmnTimeDuration,
+    /** The timer's cycle. */
+    time_cycle?: BpmnTimeCycle,
+}
+
+
+/**
+ * The expression an assignment copies a value to.
+ */
+export interface BpmnTo extends BpmnExpression {
+}
+
+
+/**
+ * A sub-process whose activities succeed or are undone together.
+ */
+export interface BpmnTransaction extends BpmnSubProcess {
+    /** How the transaction commits or cancels; compensation unless the document says otherwise. */
+    method?: string,
+}
+
+
+/**
+ * The expression that changes data as a data association copies it.
+ */
+export interface BpmnTransformation extends BpmnFormalExpression {
+}
+
+
+/**
+ * A task a person performs with the help of a software application.
+ */
+export interface BpmnUserTask extends BpmnTask {
+    /** The technology that runs the task, as a URI. */
+    implementation?: string,
+    /** The user the task is assigned to, as a user id or an expression. */
+    fluxnova_assignee?: string,
+    /** The groups whose members may claim the task, as a comma-separated list or an expression. */
+    fluxnova_candidate_groups?: string,
+    /** The users who may claim the task, as a comma-separated list or an expression. */
+    fluxnova_candidate_users?: string,
+    /** When the task is due, as a date or an expression. */
+    fluxnova_due_date?: string,
+    /** When the task should be looked at again, as a date or an expression. */
+    fluxnova_follow_up_date?: string,
+    /** The Java class that handles the form. */
+    fluxnova_form_handler_class?: string,
+    /** The key of the form to show. */
+    fluxnova_form_key?: string,
+    /** The key of the deployed form to show. */
+    fluxnova_form_ref?: string,
+    /** Which version of the deployed form to use. */
+    fluxnova_form_ref_binding?: string,
+    /** The version of the deployed form, when the binding asks for one. */
+    fluxnova_form_ref_version?: string,
+    /** The task's priority, as a number or an expression. */
+    fluxnova_priority?: string,
+    /** Hints for how the task appears to its performer. */
+    renderings?: BpmnRendering[],
+}
+
+
+/**
+ * A connector that a service task or message event calls, with its id and its inputs and outputs.
+ */
+export interface FluxnovaConnector extends BpmnModelElementInstance {
+    /** The id of the connector to call. */
+    connector_id: FluxnovaConnectorId,
+    /** The connector's input and output parameters. */
+    input_output?: FluxnovaInputOutput,
+}
+
+
+/**
+ * The id of the connector to call.
+ */
+export interface FluxnovaConnectorId extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A rule a form field's value must meet, such as required or a maximum length.
+ */
+export interface FluxnovaConstraint extends BpmnModelElementInstance {
+    /** The constraint's name, such as required, minlength or max. */
+    fluxnova_name?: string,
+    /** The constraint's setting, such as the maximum length. */
+    fluxnova_config?: string,
+}
+
+
+/**
+ * One key and value of a map.
+ */
+export interface FluxnovaEntry extends BpmnModelElementInstance {
+    /** The entry's key. */
+    fluxnova_key: string,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * An error event definition on an external service task, raised when its expression holds.
+ */
+export interface FluxnovaErrorEventDefinition extends BpmnModelElementInstance {
+    /** The expression that, when true, raises the error. */
+    fluxnova_expression?: string,
+}
+
+
+/**
+ * Code the engine runs when an execution passes an event of an element, such as its start or end.
+ */
+export interface FluxnovaExecutionListener extends BpmnModelElementInstance {
+    /** The event the listener runs on, such as start, end, take, create or complete. */
+    fluxnova_event?: string,
+    /** The Java class the engine instantiates to run the element. */
+    fluxnova_class?: string,
+    /** An expression the engine evaluates when the listener runs. */
+    fluxnova_expression?: string,
+    /** An expression that gives the delegate object the engine calls. */
+    fluxnova_delegate_expression?: string,
+    /** The fields injected into the listener's delegate class. */
+    fields?: FluxnovaField[],
+    /** The script the listener runs. */
+    script?: FluxnovaScript,
+}
+
+
+/**
+ * An expression a field injects.
+ */
+export interface FluxnovaExpression extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * How often, and how many times, the engine retries a failed job.
+ */
+export interface FluxnovaFailedJobRetryTimeCycle extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A value injected into a field of a delegate class, as a string or an expression.
+ */
+export interface FluxnovaField extends BpmnModelElementInstance {
+    /** The name of the field to inject. */
+    fluxnova_name?: string,
+    /** The expression injected into the field. */
+    fluxnova_expression?: string,
+    /** The string injected into the field. */
+    fluxnova_string_value?: string,
+    /** The expression injected into the field. */
+    expression?: FluxnovaExpression,
+    /** The string injected into the field. */
+    string?: FluxnovaString,
+}
+
+
+/**
+ * The form fields of a generated task or start form.
+ */
+export interface FluxnovaFormData extends BpmnModelElementInstance {
+    /** The fields of the form. */
+    form_fields?: FluxnovaFormField[],
+}
+
+
+/**
+ * One field of a generated form.
+ */
+export interface FluxnovaFormField extends BpmnModelElementInstance {
+    /** The field's id, which names the variable it is stored in. */
+    fluxnova_id?: string,
+    /** The label shown with the field. */
+    fluxnova_label?: string,
+    /** The type of the field's value, such as string, long, boolean, date or enum. */
+    fluxnova_type?: string,
+    /** The pattern a date value is written in. */
+    fluxnova_date_pattern?: string,
+    /** The field's default value. */
+    fluxnova_default_value?: string,
+    /** The field's properties. */
+    properties?: FluxnovaProperties,
+    /** The rules the field's value must meet. */
+    validation?: FluxnovaValidation,
+    /** The options of an enumerated field. */
+    values?: FluxnovaValue[],
+}
+
+
+/**
+ * A form property, the older way of declaring a generated form's fields.
+ */
+export interface FluxnovaFormProperty extends BpmnModelElementInstance {
+    /** The property's id. */
+    fluxnova_id?: string,
+    /** The property's label. */
+    fluxnova_name?: string,
+    /** The type of the property's value. */
+    fluxnova_type?: string,
+    /** Whether the property must be given a value. */
+    fluxnova_required?: boolean,
+    /** Whether the property can be read. */
+    fluxnova_readable?: boolean,
+    /** Whether the property can be written. */
+    fluxnova_writeable?: boolean,
+    /** The variable the property is bound to. */
+    fluxnova_variable?: string,
+    /** An expression that gives the property's value. */
+    fluxnova_expression?: string,
+    /** The pattern a date value is written in. */
+    fluxnova_date_pattern?: string,
+    /** The property's default value. */
+    fluxnova_default?: string,
+    /** The options of an enumerated field. */
+    values?: FluxnovaValue[],
+}
+
+
+/**
+ * A variable or business key passed into a called process or case.
+ */
+export interface FluxnovaIn extends BpmnModelElementInstance {
+    /** The variable in the source scope to pass. */
+    fluxnova_source?: string,
+    /** The expression whose value is passed. */
+    fluxnova_source_expression?: string,
+    /** Which variables are passed; all passes every one. */
+    fluxnova_variables?: string,
+    /** The variable in the target scope that receives the value. */
+    fluxnova_target?: string,
+    /** The business key passed to the called process. */
+    fluxnova_business_key?: string,
+    /** Whether only the local variables of the calling scope are passed. */
+    fluxnova_local?: boolean,
+    /** Whether the mapping is restricted, a setting Fluxnova adds in its own namespace. */
+    fluxnova_restricted?: boolean,
+}
+
+
+/**
+ * The input and output parameters of an activity or connector.
+ */
+export interface FluxnovaInputOutput extends BpmnModelElementInstance {
+    /** The input parameters. */
+    input_parameters?: FluxnovaInputParameter[],
+    /** The output parameters. */
+    output_parameters?: FluxnovaOutputParameter[],
+}
+
+
+/**
+ * A variable set in an activity's scope before it starts.
+ */
+export interface FluxnovaInputParameter extends BpmnModelElementInstance {
+    /** The variable the parameter sets. */
+    fluxnova_name: string,
+    /** Whether the mapping is restricted, a setting Fluxnova adds in its own namespace. */
+    fluxnova_restricted?: boolean,
+    /** Whether the variable is kept only while the transaction runs. */
+    fluxnova_is_transient?: boolean,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A list value of a parameter.
+ */
+export interface FluxnovaList extends BpmnModelElementInstance {
+}
+
+
+/**
+ * A map value of a parameter.
+ */
+export interface FluxnovaMap extends BpmnModelElementInstance {
+    /** The map's entries. */
+    entries?: FluxnovaEntry[],
+}
+
+
+/**
+ * A variable passed back from a called process or case.
+ */
+export interface FluxnovaOut extends BpmnModelElementInstance {
+    /** The variable in the source scope to pass. */
+    fluxnova_source?: string,
+    /** The expression whose value is passed. */
+    fluxnova_source_expression?: string,
+    /** Which variables are passed; all passes every one. */
+    fluxnova_variables?: string,
+    /** The variable in the target scope that receives the value. */
+    fluxnova_target?: string,
+    /** Whether only the local variables of the calling scope are passed. */
+    fluxnova_local?: boolean,
+    /** Whether the mapping is restricted, a setting Fluxnova adds in its own namespace. */
+    fluxnova_restricted?: boolean,
+}
+
+
+/**
+ * A variable set outside an activity once it ends.
+ */
+export interface FluxnovaOutputParameter extends BpmnModelElementInstance {
+    /** The variable the parameter sets. */
+    fluxnova_name: string,
+    /** Whether the mapping is restricted, a setting Fluxnova adds in its own namespace. */
+    fluxnova_restricted?: boolean,
+    /** Whether the variable is kept only while the transaction runs. */
+    fluxnova_is_transient?: boolean,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * The users or groups who may start a process.
+ */
+export interface FluxnovaPotentialStarter extends BpmnModelElementInstance {
+    /** The expression that chooses the resource. */
+    resource_assignment_expression?: BpmnResourceAssignmentExpression,
+}
+
+
+/**
+ * A set of key and value properties on an element.
+ */
+export interface FluxnovaProperties extends BpmnModelElementInstance {
+    /** The properties. */
+    properties?: FluxnovaProperty[],
+}
+
+
+/**
+ * One key and value property.
+ */
+export interface FluxnovaProperty extends BpmnModelElementInstance {
+    /** The property's id. */
+    fluxnova_id?: string,
+    /** The property's name. */
+    fluxnova_name?: string,
+    /** The property's value. */
+    fluxnova_value?: string,
+}
+
+
+/**
+ * A script whose result is a value, such as a parameter's or a listener's.
+ */
+export interface FluxnovaScript extends BpmnModelElementInstance {
+    /** The language the script is written in, such as groovy or javascript. */
+    script_format: string,
+    /** A resource that holds the script, instead of the script's text. */
+    resource?: string,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
+}
+
+
+/**
+ * A string a field injects.
  */
 export interface FluxnovaString extends BpmnModelElementInstance {
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
 }
 
 
 /**
- * The BPMN taskListener camunda extension element
+ * Code the engine runs when a user task reaches an event, such as its creation or completion.
  */
 export interface FluxnovaTaskListener extends BpmnModelElementInstance {
-    /** Event that triggers this execution listener. */
+    /** The event the listener runs on, such as start, end, take, create or complete. */
     fluxnova_event?: string,
-    /** Camunda extensions */
+    /** The Java class the engine instantiates to run the element. */
     fluxnova_class?: string,
-    /** EL expression for this element. */
+    /** An expression the engine evaluates when the listener runs. */
     fluxnova_expression?: string,
-    /** Expression resolving to a JavaDelegate. */
+    /** An expression that gives the delegate object the engine calls. */
     fluxnova_delegate_expression?: string,
-    /** Field elements of this connector or form. */
-    fluxnova_fields?: FluxnovaField[],
-    /** Inline script for this element. */
-    fluxnova_script?: FluxnovaScript,
-    /** Collection of timer event definition elements associated with this element. */
-    timeouts?: TimerEventDefinition[],
+    /** The fields injected into the listener's delegate class. */
+    fields?: FluxnovaField[],
+    /** The script the listener runs. */
+    script?: FluxnovaScript,
+    /** The timer of a listener that runs on a timeout. */
+    timer_event_definition?: BpmnTimerEventDefinition,
 }
 
 
 /**
- * The BPMN validation camunda extension element
+ * The constraints of a form field.
  */
 export interface FluxnovaValidation extends BpmnModelElementInstance {
-    /** Validation constraints for this form field. */
-    fluxnova_constraints?: FluxnovaConstraint[],
+    /** The constraints the value must meet. */
+    constraints?: FluxnovaConstraint[],
 }
 
 
 /**
- * The BPMN value camunda extension element
+ * One option of an enumerated form field.
  */
 export interface FluxnovaValue extends BpmnModelElementInstance {
-    /** Identifier for this Fluxnova extension element. */
+    /** The option's id, its stored value. */
     fluxnova_id?: string,
-    /** Name attribute of this Fluxnova extension element. */
+    /** The option's label. */
     fluxnova_name?: string,
-}
-
-
-/**
- * Root container for a parsed BPMN model, providing access to the Definitions element.
- */
-export interface BpmnModelInstance {
-    /** The root BPMN Definitions element of this model. */
-    definitions?: DefinitionsId,
-}
-
-
-/**
- * Enumeration-like interface representing the BPMN model type.
- */
-export interface BpmnModelType {
-}
-
-
-/**
- * Autonomous or semi-autonomous AI agent that acts as an Agent in a Fluxnova
-workflow. Concrete embodiment of one or more AI models exposed through a
-provider endpoint. Distinct from the human, organizational, or system Agent
-kinds declared in the base provenance module.
- */
-export interface AiAgent extends Agent {
-    /** Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B"). */
-    model_family?: string,
-    /** Concrete model name (e.g. "gpt-4o-2024-05-13", "claude-3-5-sonnet-20240620"). */
-    model_name?: string,
-    /** Released or pinned version identifier for the model. */
-    model_version?: string,
-    /** Provider or vendor that hosts the model endpoint (e.g. "openai", "anthropic",
-"azure-openai", "vertex-ai", "self-hosted-vllm"). */
-    provider?: string,
-    /** API or service endpoint URL. */
-    endpoint?: string,
-    /** Number of model parameters (where disclosed). */
-    parameter_count?: number,
-    /** Maximum input context window in tokens. */
-    context_window_tokens?: number,
-    /** Modalities the model accepts as input. */
-    input_modalities?: string,
-    /** Modalities the model produces as output. */
-    output_modalities?: string,
-    /** External CURIE or URI reference to a larger AI system this agent belongs
-to (typically modeled in an AI governance vocabulary such as nexus:AiSystem
-or airo:AISystem). String reference rather than typed slot so the AI
-provenance overlay does not pull in a governance ontology. */
-    is_part_of_ai_system?: string,
-}
-
-
-/**
- * Descriptor of an AI model used as a runtime component. Captures static
-characteristics of the model (family, architecture, parameter count,
-training tokens, context window, supported languages) without prescribing
-how an individual call was made.
- */
-export interface AiModelDescriptor extends RuntimeComponent {
-    /** Model family or product line (e.g. "GPT-4", "Claude 3", "Llama 3", "Mistral 7B"). */
-    model_family?: string,
-    /** Architecture family (e.g. "transformer-decoder", "moe", "mamba", "diffusion"). */
-    architecture?: string,
-    /** Number of model parameters (where disclosed). */
-    parameter_count?: number,
-    /** Number of tokens used to train the model (where disclosed). */
-    training_token_count?: number,
-    /** Maximum input context window in tokens. */
-    context_window_tokens?: number,
-    /** Free-text description of fine-tuning applied to the model. */
-    fine_tuning_description?: string,
-    /** ISO 639 language tags supported by the model. */
-    supported_languages?: string[],
-}
-
-
-/**
- * Prospective definition of a tool advertised to an AI agent. Corresponds to
-a child activity of an ad-hoc agent subprocess that is exposed to the model
-as a callable function. Captures the tool description and the process
-variables the tool reads and writes, and links to the backing step
-definition. Distinct from ToolCall, which records a concrete invocation of
-such a tool during a run.
- */
-export interface AiToolDefinition extends NamedThing {
-    /** Human- or model-facing description of what the tool does. */
-    tool_description?: string,
-    /** Process variables the tool reads as input. */
-    reads_variables?: string[],
-    /** Process variables the tool writes as output. */
-    writes_variables?: string[],
-    /** Step definition (typically a child service task of the ad-hoc agent
-subprocess) that implements the tool. */
-    backing_step_definition?: StepDefinitionId,
-}
-
-
-/**
- * One run of an autonomous AI agent loop hosted by an (ad-hoc) subprocess.
-Owns the ordered sequence of AiModelInvocation turns performed during the
-loop, together with the tools advertised to the model. Each turn is a
-single model call; tool calls made in a turn may materialize child step
-runs. Inherits status, timestamps, parent workflow run, sequence number,
-and incident linkage from StepRun.
-
-Use this as the parent record for an agentic subprocess: the loop is a
-single StepDefinition of bpmn_type AD_HOC_SUB_PROCESS and
-implementation_kind AGENT_LOOP, and each individual model call is a child
-AiModelInvocation with a turn_index.
- */
-export interface AgentLoopRun extends StepRun {
-    /** AI agent that was invoked to produce the step result. */
-    invoked_model?: AiAgentId,
-    /** Tools advertised to the model for the duration of the agent loop. */
-    available_tools?: AiToolDefinition[],
-    /** Ordered sequence of model invocation turns performed during an agent loop. */
-    model_invocations?: AiModelInvocation[],
-}
-
-
-/**
- * One concrete invocation of an AI model from a workflow step. Captures the
-runtime call (kind, parameters, prompts, tool calls, response), the
-consumption telemetry (token counts, cost), any safety flags raised, and
-any evaluation results attached. Inherits status, timestamps, parent
-workflow run, sequence number, and incident linkage from StepRun.
-
-A single stand-alone call sets invocation_kind to CHAT_COMPLETION,
-TOOL_USE, etc. When it is one turn of an agentic loop it links back to its
-AgentLoopRun via parent_agent_loop and carries a turn_index.
- */
-export interface AiModelInvocation extends StepRun {
-    /** AI agent that was invoked to produce the step result. */
-    invoked_model?: AiAgentId,
-    /** Kind of invocation (chat completion, tool use, embedding, etc.). */
-    invocation_kind?: string,
-    /** Agent loop run that owns this model invocation as one of its turns. */
-    parent_agent_loop?: AgentLoopRunId,
-    /** Zero-based position of this invocation within its parent agent loop. */
-    turn_index?: number,
-    /** Ordered sequence of prompt messages sent to the model. */
-    prompt_messages?: PromptMessage[],
-    /** Tool / function calls performed by the model during the invocation. */
-    tool_calls?: ToolCall[],
-    /** Assistant or tool message returned by the model as the response.
-Inlined as a single PromptMessage with role ASSISTANT or TOOL. */
-    response_message?: PromptMessage,
-    /** Sampling temperature requested for the invocation. */
-    temperature?: string,
-    /** Top-p nucleus sampling parameter. */
-    top_p?: string,
-    /** Maximum tokens the model was permitted to generate. */
-    max_tokens?: number,
-    /** Total prompt / input tokens consumed by the invocation. */
-    total_input_tokens?: number,
-    /** Total completion / output tokens produced by the invocation. */
-    total_output_tokens?: number,
-    /** Direct provider cost in USD for the invocation, where reported by the
-provider or computed locally from billing rates. */
-    cost_usd?: string,
-    /** Safety, policy, or guardrail flags raised by the model, provider, or
-local guardrail layer during the invocation. */
-    safety_flags?: string,
-    /** Evaluation results attached to the invocation. */
-    evaluation_results?: EvaluationResult[],
-}
-
-
-/**
- * A single message turn in an AI model invocation (system, user, assistant,
-or tool turn). Records the role, the (possibly redacted) content, an
-ordering index inside the invocation, and a data classification.
- */
-export interface PromptMessage extends NamedThing {
-    /** Conversational role of the message (system, user, assistant, tool). */
-    message_role?: string,
-    /** Message content (may be redacted in export). */
-    content?: string,
-    /** Hash of the message content (algorithm-prefixed, e.g. "sha256:...").
-Used to deduplicate or to attest to a message that has been redacted. */
-    content_hash?: string,
-    /** Exporter-assigned ordering number for deterministic serialization. */
-    sequence_no?: number,
-    /** Whether the serialized value has been redacted for export. */
-    redacted?: boolean,
-    /** Data classification of the value (public, internal, confidential, restricted). */
-    classification?: string,
-    /** AI model invocation that produced or owns this message or tool call. */
-    parent_invocation?: AiModelInvocationId,
-}
-
-
-/**
- * A single tool / function call made by an AI agent during an invocation.
-Captures the tool name, the provider-assigned call identifier, the
-arguments passed, the result returned, the status of the call, and an
-optional link to the step run that materialized the call.
- */
-export interface ToolCall extends NamedThing {
-    /** Tool or function name as exposed to the model. */
-    tool_name?: string,
-    /** Provider-assigned identifier for the tool call. */
-    tool_call_id?: string,
-    /** Prospective tool definition that this call is an invocation of. */
-    tool_definition?: AiToolDefinitionId,
-    /** JSON-serialized arguments passed to the tool. */
-    arguments_json?: string,
-    /** JSON-serialized result returned by the tool. */
-    result_json?: string,
-    /** Optional artifact reference for large tool outputs. */
-    result_artifact?: WorkflowArtifactId,
-    /** Step run that was materialized to execute the tool call, if any. */
-    called_step_run?: StepRunId,
-    /** Timestamp when execution started. */
-    started_at?: string,
-    /** Timestamp when execution ended (absent for running instances). */
-    ended_at?: string,
-    /** Status of the workflow run or step run. */
-    status?: string,
-    /** AI model invocation that produced or owns this message or tool call. */
-    parent_invocation?: AiModelInvocationId,
-}
-
-
-/**
- * Result of a quality or safety evaluation against an AI model invocation.
-Supports human review, LLM-as-judge, deterministic metrics, guardrails,
-and static rule checks. Distinct from offline benchmark scoring such as
-nexus:AiEvalResult (a related but coarser concept).
- */
-export interface EvaluationResult extends NamedThing {
-    /** Name of the evaluator (rubric name, judge model name, metric name). */
-    evaluator_name?: string,
-    /** Kind of evaluator (human, LLM-as-judge, metric, guardrail, static rule). */
-    evaluator_kind?: string,
-    /** Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in). */
-    metric_name?: string,
-    /** Metric numeric value. */
-    metric_value?: string,
-    /** UCUM or local unit string for the metric. */
-    metric_unit?: string,
-    /** Whether the evaluation was considered passing. */
-    passing?: boolean,
-    /** Timestamp when the evaluation was performed. */
-    evaluated_at?: string,
-    /** AI model invocation that was evaluated. */
-    evaluated_invocation?: AiModelInvocationId,
-}
-
-
-/**
- * Dataset artifact associated with an AI model invocation, an evaluation,
-a training run, or a fine-tuning step. Extends the generic WorkflowArtifact
-class with AI-specific metadata such as dataset kind, record count, license,
-and data classification.
- */
-export interface AiDataset extends WorkflowArtifact {
-    /** Role of the dataset (training, fine-tuning, evaluation, RAG corpus, ground truth). */
-    dataset_kind?: string,
-    /** Number of records in the dataset. */
-    record_count?: number,
-    /** URI of the dataset license (e.g. SPDX license URL). */
-    license_uri?: string,
-    /** Data classification of the value (public, internal, confidential, restricted). */
-    classification?: string,
-}
-
-
-/**
- * Persistent model artifact such as a checkpoint, weights file, or model
-card publication. Distinct from AiModelDescriptor: this is a concrete
-file or URI, while AiModelDescriptor is the runtime component used
-during invocation.
- */
-export interface ModelArtifact extends WorkflowArtifact {
-    /** URI of the model card or model documentation. */
-    model_card_uri?: string,
-    /** URI of the model weights or checkpoint. */
-    weights_uri?: string,
-    /** Datasets used to train or fine-tune the model. */
-    training_datasets?: AiDatasetId[],
-    /** Upstream base model artifact this artifact derives from. */
-    base_model?: ModelArtifactId,
-    /** Number of model parameters (where disclosed). */
-    parameter_count?: number,
-}
-
-
-/**
- * Abstract identifiable provenance entity with optional human-readable name and external reference.
- */
-export interface NamedThing {
-    /** Unique identifier. */
-    id: string,
-    /** Human-readable name. */
-    name?: string,
-    /** External URI, engine identifier, or source reference for this entity. */
-    external_ref?: string,
-}
-
-
-/**
- * Top-level export package for Fluxnova provenance.
- */
-export interface ProvenanceBundle {
-    /** Unique identifier. */
-    id: string,
-    /** Human-readable name. */
-    name?: string,
-    /** Timestamp at which the provenance bundle was produced. */
-    generated_at?: string,
-    /** Name or identifier of the system that produced the provenance bundle. */
-    source_system?: string,
-    /** Version of the provenance schema used for the bundle. */
-    schema_version?: string,
-    /** Workflow definitions exported in the bundle. */
-    workflow_definitions?: WorkflowDefinition[],
-    /** Workflow runs exported in the bundle. */
-    workflow_runs?: WorkflowRun[],
-    /** Agents referenced by the bundle. */
-    agents?: Agent[],
-    /** Environments referenced by the bundle. */
-    environments?: Environment[],
-    /** Runtime components referenced by the bundle. */
-    runtime_components?: RuntimeComponent[],
-    /** Workflow artifacts referenced by the bundle. */
-    workflow_artifacts?: WorkflowArtifact[],
-    /** Parameter value observations referenced by the bundle's workflow_runs and step_runs. */
-    parameter_values?: ParameterValue[],
-    /** Execution resources (workers, pods, queues, hosts) referenced by the bundle's step_runs. */
-    resources?: ExecutionResource[],
-}
-
-
-/**
- * BPMN workflow / process definition (prospective provenance).
- */
-export interface WorkflowDefinition extends NamedThing {
-    /** Version string of the workflow or step definition (semantic version of the BPMN model). */
-    definition_version?: string,
-    /** Stable engine definition key (BPMN process key). */
-    definition_key?: string,
-    /** Reference to the deployment. */
-    deployment_id?: string,
-    /** Reference to the source BPMN/DMN/CMMN model artifact. */
-    source_model_ref?: WorkflowArtifactId,
-    /** Engine or runtime component associated with the entity. */
-    runtime_component?: RuntimeComponentId,
-    /** Step definitions belonging to a workflow definition. */
-    steps?: StepDefinition[],
-    /** Authors or owners of the workflow definition (by-reference; declare full agents under ProvenanceBundle.agents). */
-    authors?: AgentId[],
-    /** Free-form tag labels. */
-    tags?: string[],
-}
-
-
-/**
- * BPMN step / activity / event / gateway definition within a workflow.
- */
-export interface StepDefinition extends NamedThing {
-    /** Reference to the owning workflow definition. */
-    workflow_definition?: WorkflowDefinitionId,
-    /** Normalized BPMN element type for the step. */
-    bpmn_type?: string,
-    /** Normalized implementation strategy for the step. */
-    implementation_kind?: string,
-    /** The implementation ref of this element. */
-    implementation_ref?: string,
-    /** The global task or process called by this call activity. */
-    called_element?: string,
-    /** DMN decision or decision service reference for business rule tasks. */
-    decision_ref?: string,
-    /** Form reference for human tasks. */
-    form_ref?: string,
-    /** Formal input parameter contracts for the step. */
-    input_parameters?: ParameterDefinition[],
-    /** Formal output parameter contracts for the step. */
-    output_parameters?: ParameterDefinition[],
-    /** Names or identifiers of BPMN extension elements used by the step. */
-    bpmn_extension_names?: string[],
-}
-
-
-/**
- * Formal parameter or variable contract for a workflow or step.
- */
-export interface ParameterDefinition extends NamedThing {
-    /** Scope at which the parameter applies (workflow, step, task, decision, form). */
-    parameter_scope?: string,
-    /** Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL). */
-    parameter_direction?: string,
-    /** Declared variable/parameter type as a string. */
-    declared_type?: string,
-    /** Whether this entity is required. */
-    is_required?: boolean,
-    /** Default value for the parameter in string/JSON form. */
-    default_value?: string,
-    /** Indicates that values for this parameter must be redacted on export. */
-    secret?: boolean,
-    /** Enumerated allowed values for the parameter, if constrained. */
-    allowed_values?: string[],
-}
-
-
-/**
- * Person, organization, system, or service account participating in workflow execution.
- */
-export interface Agent extends NamedThing {
-    /** Kind of agent (person, organization, system, service account). */
-    agent_kind?: string,
-    /** Email address. */
-    email?: string,
-    /** Roles played by the agent in this context. */
-    role?: string[],
-}
-
-
-/**
- * Runtime environment for process execution or export generation.
- */
-export interface Environment extends NamedThing {
-    /** Runtime/platform name (e.g. "Fluxnova BPM Platform"). */
-    runtime_name?: string,
-    /** Runtime/platform version. */
-    runtime_version?: string,
-    /** Hostname or logical host. */
-    host?: string,
-    /** Region or availability zone. */
-    region?: string,
-    /** Deployment reference or release identifier (Helm chart URI, image tag, etc.). */
-    deployment_ref?: string,
-    /** Reference to an artifact containing applied configuration. */
-    configuration_ref?: WorkflowArtifactId,
-}
-
-
-/**
- * Engine, plugin, or service component involved in orchestration.
- */
-export interface RuntimeComponent extends NamedThing {
-    /** Kind of runtime component (engine, REST API, executor, plugin, connector, etc.). */
-    component_kind?: string,
-    /** Version string of the workflow or step definition (semantic version of the BPMN model). */
-    definition_version?: string,
-    /** API or service endpoint URL. */
-    endpoint?: string,
-}
-
-
-/**
- * File, payload, or URI referenced by a process definition or execution.
- */
-export interface WorkflowArtifact extends NamedThing {
-    /** Classifier for the kind of artifact (BPMN XML, payload, document, log, etc.). */
-    artifact_kind?: string,
-    /** IANA media type / MIME type of the artifact. */
-    media_type?: string,
-    /** File path or URI locating the artifact content. */
-    path_or_uri?: string,
-    /** Content hash or checksum string (algorithm-prefixed, e.g. "sha256:..."). */
-    hash?: string,
-    /** Size of the artifact content in bytes. */
-    size_in_bytes?: number,
-    /** Step run that produced this artifact or parameter value. */
-    produced_by_step_run?: StepRunId,
-    /** Step runs that consumed this artifact or parameter value (by-reference). */
-    consumed_by_step_runs?: StepRunId[],
-}
-
-
-/**
- * Concrete execution of a WorkflowDefinition (retrospective provenance).
- */
-export interface WorkflowRun extends NamedThing {
-    /** Reference to the owning workflow definition. */
-    workflow_definition?: WorkflowDefinitionId,
-    /** Domain-specific business key. */
-    business_key?: string,
-    /** Parent workflow run when the run is a sub-process invocation. */
-    parent_workflow_run?: WorkflowRunId,
-    /** Status of the workflow run or step run. */
-    status?: string,
-    /** Timestamp when execution started. */
-    started_at?: string,
-    /** Timestamp when execution ended (absent for running instances). */
-    ended_at?: string,
-    /** Agent that initiated the workflow run. */
-    started_by?: AgentId,
-    /** Runtime environment in which the run took place. */
-    environment?: EnvironmentId,
-    /** Engine or runtime component associated with the entity. */
-    runtime_component?: RuntimeComponentId,
-    /** Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
-    input_values?: ParameterValueId[],
-    /** Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
-    output_values?: ParameterValueId[],
-    /** Step run executions belonging to the workflow run. */
-    step_runs?: StepRun[],
-    /** Incidents recorded against the workflow run. */
-    incidents?: ProvenanceIncident[],
-    /** Resource usage measurements for the run. */
-    resource_usage?: ResourceUsage[],
-    /** Free-form tag labels. */
-    tags?: string[],
-}
-
-
-/**
- * Concrete execution of a StepDefinition (retrospective provenance).
- */
-export interface StepRun extends NamedThing {
-    /** Parent workflow run for the step run. */
-    workflow_run?: WorkflowRunId,
-    /** Step definition this run instantiates. */
-    step_definition?: StepDefinitionId,
-    /** Runtime activity instance identifier. */
-    activity_instance_id?: string,
-    /** Parent step run for nested step executions. */
-    parent_step_run?: StepRunId,
-    /** Step runs whose completion preceded and informed this step run (by-reference). */
-    informed_by?: StepRunId[],
-    /** Status of the workflow run or step run. */
-    status?: string,
-    /** Timestamp when execution started. */
-    started_at?: string,
-    /** Timestamp when execution ended (absent for running instances). */
-    ended_at?: string,
-    /** Agent (assignee, service account, system) that executed the step. */
-    executed_by?: AgentId,
-    /** Runtime environment in which the run took place. */
-    environment?: EnvironmentId,
-    /** Resource (pod, container, node, queue) used to execute the step. */
-    execution_resource?: ExecutionResourceId,
-    /** Observed input parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
-    input_values?: ParameterValueId[],
-    /** Observed output parameter values at the workflow or step boundary (by-reference; declare full values under ProvenanceBundle.parameter_values). */
-    output_values?: ParameterValueId[],
-    /** Artifacts consumed by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts). */
-    consumed_artifacts?: WorkflowArtifactId[],
-    /** Artifacts produced by the step run (by-reference; declare full artifacts under ProvenanceBundle.artifacts). */
-    produced_artifacts?: WorkflowArtifactId[],
-    /** Incident message. */
-    incident_message?: string,
-    /** Number of retries this job has left. Whenever the jobexecutor fails to execute the job, this value is decremented. When it hits zero, the job is supposed to be dead and not retried again (ie a manu... */
-    retries?: number,
-    /** Exporter-assigned ordering number for deterministic serialization. */
-    sequence_no?: number,
-}
-
-
-/**
- * Actual observed runtime value of a variable or parameter.
- */
-export interface ParameterValue extends NamedThing {
-    /** Formal parameter definition this value instantiates. */
-    parameter_definition?: ParameterDefinitionId,
-    /** Runtime-observed concrete type for the actual value. */
-    observed_type?: string,
-    /** Direction of data flow for a parameter (IN, OUT, INOUT, LOCAL). */
-    parameter_direction?: string,
-    /** Export-safe serialized value (JSON scalar/string/external reference). */
-    serialized_value?: string,
-    /** Hash of the serialized value for deduplication or comparison. */
-    value_hash?: string,
-    /** Timestamp when the value or event was observed. */
-    observed_at?: string,
-    /** Step run that produced this artifact or parameter value. */
-    produced_by_step_run?: StepRunId,
-    /** Step runs that consumed this artifact or parameter value (by-reference). */
-    consumed_by_step_runs?: StepRunId[],
-    /** Upstream parameter values from which this value was derived (by-reference). */
-    derived_from?: ParameterValueId[],
-    /** Whether the serialized value has been redacted for export. */
-    redacted?: boolean,
-    /** Data classification of the value (public, internal, confidential, restricted). */
-    classification?: string,
-}
-
-
-/**
- * Resource usage measurement for a workflow run or step run.
- */
-export interface ResourceUsage extends NamedThing {
-    /** Metric name (e.g. duration_ms, queue_wait_ms, cpu_seconds, tokens_in). */
-    metric_name?: string,
-    /** Metric numeric value. */
-    metric_value?: string,
-    /** UCUM or local unit string for the metric. */
-    metric_unit?: string,
-    /** Workflow run the measurement is associated with. */
-    measured_for_workflow_run?: WorkflowRunId,
-    /** Step run the measurement is associated with. */
-    measured_for_step_run?: StepRunId,
-    /** Resource (pod, container, node, queue) used to execute the step. */
-    execution_resource?: ExecutionResourceId,
-}
-
-
-/**
- * Execution resource such as worker, node, queue, container, or database.
- */
-export interface ExecutionResource extends NamedThing {
-    /** Kind of execution resource. */
-    resource_kind?: string,
-    /** Hostname or logical host. */
-    host?: string,
-    /** API or service endpoint URL. */
-    endpoint?: string,
-    /** Free-form key=value labels on the resource. */
-    labels?: string[],
-}
-
-
-/**
- * Error, escalation, or operational event attached to a workflow run or step run.
- */
-export interface ProvenanceIncident extends NamedThing {
-    /** Lifecycle status of an incident. */
-    incident_status?: string,
-    /** Short message or summary. */
-    message?: string,
-    /** Incident or error code. */
-    code?: string,
-    /** Timestamp when the value or event was observed. */
-    observed_at?: string,
-    /** Step run the incident is related to. */
-    related_step_run?: StepRunId,
-    /** Workflow run the incident is related to. */
-    related_workflow_run?: WorkflowRunId,
+    /** The element's text, such as the body of an expression or a script. */
+    text_content?: string,
 }
 
 
@@ -5165,21 +4135,21 @@ export interface ProvenanceIncident extends NamedThing {
  */
 export interface FluxnovaPlatformData {
     /** Deployed resources. */
-    deployments?: Deployment[],
+    deployments?: FluxnovaDeployment[],
     /** Process definitions. */
-    process_definitions?: ProcessDefinition[],
+    process_definitions?: FluxnovaProcessDefinition[],
     /** Process execution instances. */
-    executions?: Execution[],
+    executions?: FluxnovaExecution[],
     /** User tasks. */
-    tasks?: Task[],
+    tasks?: FluxnovaTask[],
     /** Asynchronous jobs. */
-    jobs?: Job[],
+    jobs?: FluxnovaJob[],
     /** Identity users. */
-    users?: User[],
+    users?: FluxnovaUser[],
     /** Identity groups. */
-    groups?: Group[],
+    groups?: FluxnovaGroup[],
     /** Batch operations. */
-    batches?: Batch[],
+    batches?: FluxnovaBatch[],
 }
 
 

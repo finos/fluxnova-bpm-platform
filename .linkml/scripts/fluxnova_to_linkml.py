@@ -21,13 +21,15 @@ from __future__ import annotations
 import argparse
 import re
 import sys
-import xml.etree.ElementTree as ET
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from edition import EDITION  # noqa: E402
+from schema_yaml import dump_schema  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -43,30 +45,24 @@ DEFAULT_ENGINE_ENTITY_DIR = (
     / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/persistence/entity"
 )
 DEFAULT_CMMN_DIR = (
-    REPO_ROOT
-    / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/cmmn/entity"
+    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/cmmn/entity"
 )
 DEFAULT_DMN_DIR = (
-    REPO_ROOT
-    / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/dmn/entity"
+    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/dmn/entity"
 )
 DEFAULT_HISTORY_DIR = (
-    REPO_ROOT
-    / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/history/event"
+    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/history/event"
 )
 DEFAULT_BATCH_DIR = (
-    REPO_ROOT
-    / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/batch"
+    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/batch"
 )
 DEFAULT_SQL_DIR = (
-    REPO_ROOT
-    / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create"
+    REPO_ROOT / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create"
 )
 DEFAULT_MYBATIS_DIR = (
     REPO_ROOT
     / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/impl/mapping/entity"
 )
-DEFAULT_POM_PATH = REPO_ROOT / "pom.xml"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "src/fluxnova_bpm_platform/schema"
 
 # Java type -> LinkML range
@@ -150,6 +146,7 @@ TABLE_TO_CLASS: dict[str, tuple[str, str]] = {
     "ACT_RU_FILTER": ("Filter", "collaboration"),
     # General
     "ACT_GE_BYTEARRAY": ("ByteArray", "base"),
+    "ACT_GE_CONFIGURATION": ("Configuration", "base"),
     "ACT_GE_PROPERTY": ("Property", "base"),
     "ACT_GE_SCHEMA_LOG": ("SchemaLogEntry", "base"),
     # Meters
@@ -179,20 +176,73 @@ TABLE_TO_CLASS: dict[str, tuple[str, str]] = {
     "ACT_HI_CASEACTINST": ("HistoricCaseActivityInstance", "history"),
 }
 
-# Columns that map to enums (column_name -> enum_name)
-ENUM_COLUMNS: dict[str, str] = {
-    "SUSPENSION_STATE_": "SuspensionState",
-    "DELEGATION_": "DelegationState",
-    "ACT_INST_STATE_": "ActivityInstanceState",
-    "INCIDENT_STATE_": "IncidentState",
-    "JOB_STATE_": "JobState",
-    "STATE_": "EntityState",
+# Columns whose text values the engine names, by (table, column): the enum that lists
+# them. Each enum's values are the strings the engine writes, as its Java constants
+# give them (see generate_enums).
+ENUM_COLUMNS: dict[tuple[str, str], str] = {
+    ("ACT_HI_PROCINST", "STATE_"): "HistoricProcessInstanceState",
+    ("ACT_HI_VARINST", "STATE_"): "HistoricVariableInstanceState",
+    ("ACT_RU_TASK", "DELEGATION_"): "DelegationState",
+    ("ACT_GE_CONFIGURATION", "STATUS_"): "ConfigurationStatus",
 }
 
-# Table-specific enum column overrides: (table_name, column_name) -> enum_name
-TABLE_ENUM_COLUMNS: dict[tuple[str, str], str] = {
-    ("ACT_RU_AUTHORIZATION", "TYPE_"): "AuthorizationType",
+# Columns that hold one of the engine's integer state codes, by (table, column), with
+# "*" for any table: the Java class that defines the codes, the lowest and highest
+# code, and what each code means. The column stays an integer, bounded by the codes.
+_CASE_STATE = (
+    "engine/impl/cmmn/execution/CaseExecutionState.java",
+    0,
+    14,
+    "0 new, 1 available, 2 enabled, 3 disabled, 4 active, 5 suspended, 6 terminated, "
+    "7 completed, 8 failed, 9 closed, 10 terminating on termination, 11 terminating "
+    "on parent termination, 12 terminating on exit, 13 suspending on suspension, "
+    "14 suspending on parent suspension",
+)
+_TASK_LOG_STATE = (0, 3, "0 created, 1 failed, 2 successful, 3 deleted")
+CODED_COLUMNS: dict[tuple[str, str], tuple[str, int, int, str]] = {
+    ("*", "SUSPENSION_STATE_"): (
+        "engine/impl/persistence/entity/SuspensionState.java",
+        1,
+        2,
+        "1 active, 2 suspended",
+    ),
+    ("ACT_HI_ACTINST", "ACT_INST_STATE_"): (
+        "engine/impl/pvm/runtime/ActivityInstanceState.java",
+        0,
+        4,
+        "0 default, 1 scope complete, 2 canceled, 3 starting, 4 ending",
+    ),
+    ("ACT_HI_INCIDENT", "INCIDENT_STATE_"): (
+        "engine/history/IncidentState.java",
+        0,
+        2,
+        "0 open, 1 resolved, 2 deleted",
+    ),
+    ("ACT_HI_JOB_LOG", "JOB_STATE_"): (
+        "engine/history/JobState.java",
+        *_TASK_LOG_STATE,
+    ),
+    ("ACT_HI_EXT_TASK_LOG", "STATE_"): (
+        "engine/history/ExternalTaskState.java",
+        *_TASK_LOG_STATE,
+    ),
+    ("ACT_RU_AUTHORIZATION", "TYPE_"): (
+        "engine/authorization/Authorization.java",
+        0,
+        2,
+        "0 global, 1 grant, 2 revoke",
+    ),
+    ("ACT_HI_CASEINST", "STATE_"): _CASE_STATE,
+    ("ACT_HI_CASEACTINST", "STATE_"): _CASE_STATE,
+    ("ACT_RU_CASE_EXECUTION", "CURRENT_STATE_"): _CASE_STATE,
+    ("ACT_RU_CASE_EXECUTION", "PREV_STATE_"): _CASE_STATE,
 }
+
+
+def coded_column(table_name: str, column: str) -> tuple[str, int, int, str] | None:
+    """The engine's codes for an integer state column, if it holds them."""
+    return CODED_COLUMNS.get((table_name, column)) or CODED_COLUMNS.get(("*", column))
+
 
 # Class inheritance map (class_name -> parent_class_name)
 CLASS_INHERITANCE: dict[str, str] = {
@@ -250,7 +300,14 @@ PLATFORM_SUBSET = "platform"
 # definitions (range: string, plus optional sql_column annotation) are used
 # verbatim; the BPMN side refines via slot_usage where it needs object ranges.
 SHARED_SLOTS: set[str] = {
-    "id", "name", "category", "message", "properties", "source", "type", "value",
+    "id",
+    "name",
+    "category",
+    "message",
+    "properties",
+    "source",
+    "type",
+    "value",
 }
 
 COMMON_SCHEMA_NAME = "fluxnova_common"
@@ -293,6 +350,8 @@ CLASS_JAVA_INTERFACES: dict[str, str] = {
     "Attachment": f"{_ENGINE_BASE}/task/Attachment.java",
     "Comment": f"{_ENGINE_BASE}/task/Comment.java",
     "Filter": f"{_ENGINE_BASE}/filter/Filter.java",
+    # General
+    "Configuration": f"{_ENGINE_BASE}/configuration/Configuration.java",
     # History
     "HistoricActivityInstance": f"{_ENGINE_BASE}/history/HistoricActivityInstance.java",
     "HistoricProcessInstance": f"{_ENGINE_BASE}/history/HistoricProcessInstance.java",
@@ -344,7 +403,11 @@ def _generate_slot_description(
         return f"Whether this entity is {remainder}."
 
     # Timestamp patterns
-    if sql_type in ("timestamp", "datetime") or slot_name.endswith("_time") or slot_name.endswith("_date"):
+    if (
+        sql_type in ("timestamp", "datetime")
+        or slot_name.endswith("_time")
+        or slot_name.endswith("_date")
+    ):
         if "start" in slot_name:
             return "Timestamp when this started."
         if "end" in slot_name:
@@ -464,7 +527,6 @@ def _generate_class_description(
     # Check columns for hints
     col_names = {c.name for c in table.columns}
     has_key = "KEY_" in col_names
-    has_deploy_time = "DEPLOY_TIME_" in col_names
     has_version = "VERSION_" in col_names
 
     if has_key and has_version:
@@ -488,9 +550,7 @@ def _generate_class_description(
 RE_JAVADOC = re.compile(r"/\*\*(.*?)\*/", re.DOTALL)
 
 # Regex to match a method signature (interface getter)
-RE_METHOD = re.compile(
-    r"^\s*(?:\w+\s+)*(\w+)\s+(\w+)\s*\(\s*\)", re.MULTILINE
-)
+RE_METHOD = re.compile(r"^\s*(?:\w+\s+)*(\w+)\s+(\w+)\s*\(\s*\)", re.MULTILINE)
 
 
 def _clean_javadoc(raw: str) -> str:
@@ -517,8 +577,14 @@ def _clean_javadoc(raw: str) -> str:
     result = " ".join(cleaned)
     # Remove inline HTML tags
     result = re.sub(r"<[^>]+>", "", result)
-    # Remove {@link ...} and {@code ...} keeping just the display text
-    result = re.sub(r"\{@\w+\s+([^}]+)\}", r"\1", result)
+    # Replace {@link Target label} by its label, or by the target's simple name
+    result = re.sub(
+        r"\{@\w+\s+([^\s}]+)(?:\s+([^}]+))?\}",
+        lambda m: m.group(2) or re.split(r"[.#]", m.group(1))[-1],
+        result,
+    )
+    # A fully qualified Java name reads as its simple name
+    result = re.sub(r"\b(?:[a-z]\w*\.){2,}([A-Z]\w*)", r"\1", result)
     # Clean up Java-style references: Class#method(args) -> just the method concept
     result = re.sub(r"\w+#\w+\([^)]*\)\s*", "", result)
     result = re.sub(r"\w+#\w+", "", result)
@@ -529,9 +595,14 @@ def _clean_javadoc(raw: str) -> str:
     # Capitalize first letter
     if result and result[0].islower():
         result = result[0].upper() + result[1:]
-    # Truncate very long descriptions to keep schema readable
-    if len(result) > 200:
-        result = result[:197] + "..."
+    # Keep the first sentence: a description says what the element is, and the
+    # Javadoc's later sentences are usage notes. A sentence ends at a full stop that
+    # is followed by a capital, so "e.g. the" and "1.0" do not end one.
+    result = re.split(
+        r"(?<=[a-z0-9)\]'])(?<!i\.e)(?<!e\.g)\.\s+(?=[A-Z])", result, maxsplit=1
+    )[0].strip()
+    if result and not result.endswith((".", "?", "!")):
+        result += "."
     return result
 
 
@@ -552,6 +623,7 @@ def _getter_to_slot_name(method_name: str) -> str:
 @dataclass
 class JavadocInfo:
     """Extracted Javadoc information for a Java interface."""
+
     class_description: str = ""
     method_descriptions: dict[str, str] = field(default_factory=dict)
     # Maps slot_name -> description
@@ -587,7 +659,7 @@ def parse_javadoc_file(filepath: Path) -> JavadocInfo:
     for jd_match in RE_JAVADOC.finditer(remaining):
         jd_end = jd_match.end()
         # Look for a method signature after this Javadoc (within ~200 chars)
-        after_jd = remaining[jd_end: jd_end + 300]
+        after_jd = remaining[jd_end : jd_end + 300]
         method_match = RE_METHOD.match(after_jd.lstrip())
         if method_match:
             method_name = method_match.group(2)
@@ -611,26 +683,13 @@ def parse_all_javadoc(repo_root: Path) -> dict[str, JavadocInfo]:
     return results
 
 
-def read_project_version(pom_path: Path) -> str:
-    """Read the project version from the root Maven POM."""
-    if not pom_path.is_file():
-        return ""
-
-    try:
-        root = ET.fromstring(pom_path.read_text(encoding="utf-8"))
-    except (ET.ParseError, OSError):
-        return ""
-
-    version = root.findtext("./{*}version")
-    return version.strip() if version else ""
-
-
 def _repo_relative(path: Path) -> str:
     """Return a stable repository-relative path when possible."""
     try:
         return str(path.relative_to(REPO_ROOT))
     except ValueError:
         return str(path)
+
 
 # ---------------------------------------------------------------------------
 # IR Dataclasses
@@ -698,21 +757,15 @@ class ClassDef:
 # SQL DDL Parser
 # ---------------------------------------------------------------------------
 
-RE_CREATE_TABLE = re.compile(
-    r"create\s+table\s+(\w+)\s*\(", re.IGNORECASE
-)
+RE_CREATE_TABLE = re.compile(r"create\s+table\s+(\w+)\s*\(", re.IGNORECASE)
 RE_COLUMN = re.compile(
     r"^\s+(\w+)\s+([\w\s\(\)]+?)(?:\s+(NOT\s+NULL))?"
     r"(?:\s+DEFAULT\s+\S+)?"
     r"\s*(?:,\s*)?$",
     re.IGNORECASE,
 )
-RE_PK = re.compile(
-    r"primary\s+key\s*\(([^)]+)\)", re.IGNORECASE
-)
-RE_UNIQUE = re.compile(
-    r"unique\s*\(([^)]+)\)", re.IGNORECASE
-)
+RE_PK = re.compile(r"primary\s+key\s*\(([^)]+)\)", re.IGNORECASE)
+RE_UNIQUE = re.compile(r"unique\s*\(([^)]+)\)", re.IGNORECASE)
 RE_FK = re.compile(
     r"alter\s+table\s+(\w+)\s+add\s+constraint\s+\w+\s+"
     r"foreign\s+key\s*\((\w+)\)\s*references\s+(\w+)",
@@ -735,7 +788,9 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
 
         # Extract foreign key ALTER TABLE statements
         for m in RE_FK.finditer(content):
-            fk_stmts.append((m.group(1).upper(), m.group(2).upper(), m.group(3).upper()))
+            fk_stmts.append(
+                (m.group(1).upper(), m.group(2).upper(), m.group(3).upper())
+            )
 
         # Parse CREATE TABLE blocks
         for ct_match in RE_CREATE_TABLE.finditer(content):
@@ -765,6 +820,12 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
             for line in block.split("\n"):
                 line_stripped = line.strip()
                 if not line_stripped or line_stripped.lower().startswith("primary"):
+                    continue
+                # A computed column holds what the database derives from other
+                # columns, for an index; the engine never writes it.
+                if re.search(
+                    r"\bgenerated\s+always\s+as\b", line_stripped, re.IGNORECASE
+                ):
                     continue
                 if line_stripped.lower().startswith("unique"):
                     continue
@@ -930,7 +991,6 @@ COLUMN_SLOT_OVERRIDES: dict[str, str] = {
     "PROCESS_INSTANCE_ID_": "process_instance_id",
     "PROCESS_DEF_ID_": "process_definition_id",
     "PROCESS_DEF_KEY_": "process_definition_key",
-    "ROOT_PROC_INST_ID_": "root_process_instance_id",
     "USER_ID_": "user_id",
     "GROUP_ID_": "group_id",
     "PERMS_": "permissions",
@@ -1036,7 +1096,6 @@ COLUMN_SLOT_OVERRIDES: dict[str, str] = {
     "JOB_ID_": "job_id",
     "JOB_DUEDATE_": "job_due_date",
     "JOB_RETRIES_": "job_retries",
-    "JOB_PRIORITY_": "job_priority",
     "JOB_EXCEPTION_MSG_": "job_exception_message",
     "JOB_EXCEPTION_STACK_ID_": "job_exception_stack_id",
     "JOB_STATE_": "job_state",
@@ -1139,7 +1198,6 @@ class LinkMLGenerator:
         """Return deterministic schema-level annotations for the root schema."""
         annotations: OrderedDict[str, object] = OrderedDict()
         annotations["generated_by"] = "scripts/fluxnova_to_linkml.py"
-        annotations["source_pom"] = _repo_relative(DEFAULT_POM_PATH)
         annotations["source_sql_dir"] = _repo_relative(self.source_sql_dir)
         annotations["source_sql_file_count"] = len(self.source_sql_files)
         annotations["source_sql_files"] = ", ".join(self.source_sql_files)
@@ -1174,8 +1232,13 @@ class LinkMLGenerator:
         one module YAML file, and that module imports work correctly.
         """
         MODULE_ORDER = [
-            "base", "repository", "runtime", "job", "identity",
-            "collaboration", "history",
+            "base",
+            "repository",
+            "runtime",
+            "job",
+            "identity",
+            "collaboration",
+            "history",
         ]
         # Collect: for each slot, which modules actually use it
         slot_modules: dict[str, list[str]] = {}
@@ -1201,6 +1264,12 @@ class LinkMLGenerator:
             if sn not in self._slot_owner:
                 self._slot_owner[sn] = "base"
 
+    # Slots whose meaning differs from table to table, so that no one table's Javadoc
+    # describes them.
+    SHARED_DESCRIPTIONS = {
+        "state": "The row's state; which values it takes depends on its table.",
+    }
+
     def _apply_javadoc_descriptions(self) -> None:
         """Apply extracted Javadoc descriptions to classes and slots.
 
@@ -1224,7 +1293,13 @@ class LinkMLGenerator:
         for class_name, cls in self.classes.items():
             if not cls.description and cls.sql_table and cls.sql_table in self.tables:
                 table = self.tables[cls.sql_table]
-                cls.description = _generate_class_description(class_name, cls.module, table)
+                cls.description = _generate_class_description(
+                    class_name, cls.module, table
+                )
+
+        for slot_name, description in self.SHARED_DESCRIPTIONS.items():
+            if slot_name in self.all_slots:
+                self.all_slots[slot_name].description = description
 
         # Apply dynamically generated slot descriptions (for slots without Javadoc)
         # Build a mapping of slot_name -> (sql_col_name, sql_type, table_name, fk_constraints)
@@ -1233,9 +1308,16 @@ class LinkMLGenerator:
                 continue
             for col in table.columns:
                 slot_name = col_to_slot(col.name)
-                if slot_name in self.all_slots and not self.all_slots[slot_name].description:
+                if (
+                    slot_name in self.all_slots
+                    and not self.all_slots[slot_name].description
+                ):
                     desc = _generate_slot_description(
-                        slot_name, col.name, col.sql_type, table_name, table.fk_constraints
+                        slot_name,
+                        col.name,
+                        col.sql_type,
+                        table_name,
+                        table.fk_constraints,
                     )
                     self.all_slots[slot_name].description = desc
 
@@ -1251,9 +1333,16 @@ class LinkMLGenerator:
             description="Abstract base for deployable resource definitions (process, case, decision, form).",
             abstract=True,
             slots=[
-                "id", "key", "name", "version", "category",
-                "deployment_id", "resource_name", "diagram_resource_name",
-                "tenant_id", "history_time_to_live",
+                "id",
+                "key",
+                "name",
+                "version",
+                "category",
+                "deployment_id",
+                "resource_name",
+                "diagram_resource_name",
+                "tenant_id",
+                "history_time_to_live",
             ],
             in_subset=["repository", MODEL_SUBSET],
         )
@@ -1266,9 +1355,15 @@ class LinkMLGenerator:
             description="Abstract base for historic entities with start/end time and duration.",
             abstract=True,
             slots=[
-                "id", "root_process_instance_id", "process_instance_id",
-                "process_definition_id", "process_definition_key",
-                "start_time", "end_time", "duration", "removal_time",
+                "id",
+                "root_process_instance_id",
+                "process_instance_id",
+                "process_definition_id",
+                "process_definition_key",
+                "start_time",
+                "end_time",
+                "duration",
+                "removal_time",
             ],
             in_subset=["history", MODEL_SUBSET],
         )
@@ -1276,55 +1371,117 @@ class LinkMLGenerator:
 
         # Register base slots
         base_slots = [
-            SlotDef("id", "string", required=True, identifier=True,
-                    description="Unique identifier.", slot_uri="schema:identifier"),
+            SlotDef(
+                "id",
+                "string",
+                required=True,
+                identifier=True,
+                description="Unique identifier.",
+                slot_uri="schema:identifier",
+            ),
             SlotDef("key", "string", description="Business key for the definition."),
-            SlotDef("name", "string", description="Human-readable name.", slot_uri="schema:name"),
-            SlotDef("description", "string", description="Human-readable description.",
-                    slot_uri="schema:description"),
+            SlotDef(
+                "name",
+                "string",
+                description="Human-readable name.",
+                slot_uri="schema:name",
+            ),
+            SlotDef(
+                "description",
+                "string",
+                description="Human-readable description.",
+                slot_uri="schema:description",
+            ),
             SlotDef("version", "integer", description="Version number."),
             SlotDef("category", "string", description="Category classification."),
-            SlotDef("deployment_id", "string", description="Reference to the deployment."),
-            SlotDef("resource_name", "string", description="Name of the deployed resource file."),
-            SlotDef("diagram_resource_name", "string",
-                    description="Name of the diagram resource file."),
+            SlotDef(
+                "deployment_id", "string", description="Reference to the deployment."
+            ),
+            SlotDef(
+                "resource_name",
+                "string",
+                description="Name of the deployed resource file.",
+            ),
+            SlotDef(
+                "diagram_resource_name",
+                "string",
+                description="Name of the diagram resource file.",
+            ),
             SlotDef("tenant_id", "string", description="Multi-tenancy discriminator."),
-            SlotDef("history_time_to_live", "integer",
-                    description="Days to retain history before cleanup."),
+            SlotDef(
+                "history_time_to_live",
+                "integer",
+                description="Days to retain history before cleanup.",
+            ),
             SlotDef("revision", "integer", description="Optimistic locking revision."),
-            SlotDef("removal_time", "datetime",
-                    description="Timestamp when this entity is eligible for removal."),
-            SlotDef("root_process_instance_id", "string",
-                    description="Root process instance for history cleanup."),
-            SlotDef("process_instance_id", "string",
-                    description="Reference to the process instance."),
-            SlotDef("process_definition_id", "string",
-                    description="Reference to the process definition."),
-            SlotDef("process_definition_key", "string",
-                    description="Key of the process definition."),
-            SlotDef("execution_id", "string",
-                    description="Reference to the execution."),
+            SlotDef(
+                "removal_time",
+                "datetime",
+                description="Timestamp when this entity is eligible for removal.",
+            ),
+            SlotDef(
+                "root_process_instance_id",
+                "string",
+                description="Root process instance for history cleanup.",
+            ),
+            SlotDef(
+                "process_instance_id",
+                "string",
+                description="Reference to the process instance.",
+            ),
+            SlotDef(
+                "process_definition_id",
+                "string",
+                description="Reference to the process definition.",
+            ),
+            SlotDef(
+                "process_definition_key",
+                "string",
+                description="Key of the process definition.",
+            ),
+            SlotDef(
+                "execution_id", "string", description="Reference to the execution."
+            ),
             SlotDef("start_time", "datetime", description="Start timestamp."),
             SlotDef("end_time", "datetime", description="End timestamp."),
             SlotDef("duration", "integer", description="Duration in milliseconds."),
             SlotDef("create_time", "datetime", description="Creation timestamp."),
-            SlotDef("activity_id", "string", description="BPMN activity element identifier."),
-            SlotDef("activity_instance_id", "string",
-                    description="Runtime activity instance identifier."),
+            SlotDef(
+                "activity_id", "string", description="BPMN activity element identifier."
+            ),
+            SlotDef(
+                "activity_instance_id",
+                "string",
+                description="Runtime activity instance identifier.",
+            ),
             SlotDef("task_id", "string", description="Reference to the task."),
-            SlotDef("case_definition_id", "string",
-                    description="Reference to the case definition."),
-            SlotDef("case_instance_id", "string",
-                    description="Reference to the case instance."),
-            SlotDef("case_execution_id", "string",
-                    description="Reference to the case execution."),
+            SlotDef(
+                "case_definition_id",
+                "string",
+                description="Reference to the case definition.",
+            ),
+            SlotDef(
+                "case_instance_id",
+                "string",
+                description="Reference to the case instance.",
+            ),
+            SlotDef(
+                "case_execution_id",
+                "string",
+                description="Reference to the case execution.",
+            ),
             SlotDef("user_id", "string", description="Reference to a user."),
             SlotDef("group_id", "string", description="Reference to a group."),
             SlotDef("batch_id", "string", description="Reference to a batch."),
-            SlotDef("job_definition_id", "string",
-                    description="Reference to the job definition."),
+            SlotDef(
+                "job_definition_id",
+                "string",
+                description="Reference to the job definition.",
+            ),
             SlotDef("type", "string", description="Type discriminator."),
-            SlotDef("business_key", "string", description="Domain-specific business key."),
+            SlotDef(
+                "business_key", "string", description="Domain-specific business key."
+            ),
         ]
         for s in base_slots:
             self._register_slot(s, "base")
@@ -1363,18 +1520,14 @@ class LinkMLGenerator:
                 slot_name = col_to_slot(col.name)
                 linkml_range = sql_type_to_range(col.sql_type)
 
-                # Check if this column maps to an enum
-                if (table_name, col.name) in TABLE_ENUM_COLUMNS:
-                    linkml_range = TABLE_ENUM_COLUMNS[(table_name, col.name)]
-                elif col.name in ENUM_COLUMNS:
-                    linkml_range = ENUM_COLUMNS[col.name]
+                # A column of the engine's text values takes their enum
+                if (table_name, col.name) in ENUM_COLUMNS:
+                    linkml_range = ENUM_COLUMNS[(table_name, col.name)]
 
                 # Build slot if not already registered
                 # Only 'id' can be an identifier; other PK columns use unique_keys
                 is_identifier = (
-                    col.is_pk
-                    and len(table.pk_columns) == 1
-                    and slot_name == "id"
+                    col.is_pk and len(table.pk_columns) == 1 and slot_name == "id"
                 )
                 slot = SlotDef(
                     name=slot_name,
@@ -1393,11 +1546,17 @@ class LinkMLGenerator:
                     cls.slots.append(slot_name)
                     # Add slot_usage for range overrides or non-id identifiers
                     if range_override:
-                        cls.slot_usage.setdefault(slot_name, {})["range"] = range_override
+                        cls.slot_usage.setdefault(slot_name, {})["range"] = (
+                            range_override
+                        )
                     if col.is_pk and len(table.pk_columns) == 1 and slot_name != "id":
                         cls.slot_usage.setdefault(slot_name, {})["identifier"] = True
                         cls.slot_usage.setdefault(slot_name, {})["required"] = True
-                    elif not col.nullable and slot_name != "id" and not self.all_slots[slot_name].required:
+                    elif (
+                        not col.nullable
+                        and slot_name != "id"
+                        and not self.all_slots[slot_name].required
+                    ):
                         cls.slot_usage.setdefault(slot_name, {})["required"] = True
                 else:
                     # Slot inherited - use slot_usage only if we refine it
@@ -1409,10 +1568,26 @@ class LinkMLGenerator:
                     if usage:
                         cls.slot_usage[slot_name] = usage
 
+            for col in table.columns:
+                if col.name in SKIP_COLUMNS:
+                    continue
+                slot_name = col_to_slot(col.name)
+                # A foreign key refers to the row of the class its table renders.
+                target = table.fk_constraints.get(col.name)
+                if target in TABLE_TO_CLASS:
+                    cls.slot_usage.setdefault(slot_name, {})["range"] = TABLE_TO_CLASS[
+                        target
+                    ][0]
+                coded = coded_column(table_name, col.name)
+                if coded:
+                    source, low, high, meanings = coded
+                    usage = cls.slot_usage.setdefault(slot_name, {})
+                    usage["minimum_value"] = low
+                    usage["maximum_value"] = high
+                    usage["comments"] = [f"Codes, from {source}: {meanings}."]
+
             # Only add 'id' if the table actually has an ID_ column as PK
-            has_id_pk = any(
-                c.name == "ID_" and c.is_pk for c in table.columns
-            )
+            has_id_pk = any(c.name == "ID_" and c.is_pk for c in table.columns)
             if has_id_pk and "id" not in cls.slots and "id" not in inherited_slots:
                 cls.slots.insert(0, "id")
 
@@ -1429,89 +1604,78 @@ class LinkMLGenerator:
             self.classes[class_name] = cls
 
     def generate_enums(self) -> dict:
-        """Generate enum definitions."""
-        enums: dict[str, dict] = {}
+        """The enums of the columns that hold the engine's text values.
 
-        enums["SuspensionState"] = {
-            "description": "Whether an entity is active or suspended.",
-            "permissible_values": {
-                "ACTIVE": {"description": "The entity is active.", "meaning": "fluxnova_bpm_platform:SuspensionState/1"},
-                "SUSPENDED": {"description": "The entity is suspended.", "meaning": "fluxnova_bpm_platform:SuspensionState/2"},
+        Each value is the string the engine writes, from the Java constants named in
+        its enum's comment.
+        """
+        return {
+            "HistoricProcessInstanceState": {
+                "description": "The state a historic process instance records.",
+                "comments": [
+                    "Values from engine/history/HistoricProcessInstance.java."
+                ],
+                "permissible_values": {
+                    "ACTIVE": {"description": "The process instance is running."},
+                    "SUSPENDED": {"description": "The process instance is suspended."},
+                    "COMPLETED": {
+                        "description": "The process instance reached an end event."
+                    },
+                    "EXTERNALLY_TERMINATED": {
+                        "description": "The process instance was ended from outside, such as through the REST API."
+                    },
+                    "INTERNALLY_TERMINATED": {
+                        "description": "The process instance was ended from within, such as by a terminate end event."
+                    },
+                },
+            },
+            "HistoricVariableInstanceState": {
+                "description": "Whether a historic variable instance still exists.",
+                "comments": [
+                    "Values from engine/history/HistoricVariableInstance.java."
+                ],
+                "permissible_values": {
+                    "CREATED": {"description": "The variable exists."},
+                    "DELETED": {"description": "The variable was deleted."},
+                },
+            },
+            "ConfigurationStatus": {
+                "description": "Whether a configuration entry is in effect.",
+                "comments": ["Values from engine/configuration/Configuration.java."],
+                "permissible_values": {
+                    "ACTIVE": {"description": "The entry is in effect."},
+                    "INACTIVE": {
+                        "description": "A newer version of the entry replaced it."
+                    },
+                    "DELETED": {"description": "The entry was deleted, and is kept."},
+                },
+            },
+            "DelegationState": {
+                "description": "Where a delegated task stands.",
+                "comments": ["Values from engine/task/DelegationState.java."],
+                "permissible_values": {
+                    "PENDING": {
+                        "description": "The task was delegated and waits for the delegate to resolve it."
+                    },
+                    "RESOLVED": {
+                        "description": "The delegate resolved the task and handed it back to its owner."
+                    },
+                },
             },
         }
-
-        enums["DelegationState"] = {
-            "description": "Delegation states of a task.",
-            "permissible_values": {
-                "PENDING": {"description": "The task has been delegated and is awaiting resolution."},
-                "RESOLVED": {"description": "The delegated task has been resolved by the assignee."},
-            },
-        }
-
-        enums["ActivityInstanceState"] = {
-            "description": "State of an activity instance.",
-            "permissible_values": {
-                "DEFAULT": {"description": "The activity instance is running normally.", "meaning": "fluxnova_bpm_platform:ActivityInstanceState/0"},
-                "SCOPE_COMPLETE": {"description": "The scope of the activity instance is complete.", "meaning": "fluxnova_bpm_platform:ActivityInstanceState/1"},
-                "CANCELED": {"description": "The activity instance was canceled.", "meaning": "fluxnova_bpm_platform:ActivityInstanceState/2"},
-                "STARTING": {"description": "The activity instance is starting.", "meaning": "fluxnova_bpm_platform:ActivityInstanceState/3"},
-                "ENDING": {"description": "The activity instance is ending.", "meaning": "fluxnova_bpm_platform:ActivityInstanceState/4"},
-            },
-        }
-
-        enums["IncidentState"] = {
-            "description": "State of a historic incident.",
-            "permissible_values": {
-                "OPEN": {"description": "The incident is open."},
-                "DELETED": {"description": "The incident has been deleted."},
-                "RESOLVED": {"description": "The incident has been resolved."},
-            },
-        }
-
-        enums["JobState"] = {
-            "description": "State of a historic job log entry.",
-            "permissible_values": {
-                "CREATED": {"description": "The job was created."},
-                "FAILED": {"description": "The job execution failed."},
-                "SUCCESSFUL": {"description": "The job executed successfully."},
-                "DELETED": {"description": "The job was deleted."},
-            },
-        }
-
-        enums["EntityState"] = {
-            "description": "General state of an entity (e.g. variable, process instance).",
-            "permissible_values": {
-                "ACTIVE": {"description": "Active."},
-                "SUSPENDED": {"description": "Suspended."},
-                "COMPLETED": {"description": "Completed."},
-                "EXTERNALLY_TERMINATED": {"description": "Terminated externally."},
-                "INTERNALLY_TERMINATED": {"description": "Terminated internally."},
-            },
-        }
-
-        enums["AuthorizationType"] = {
-            "description": "Type of authorization rule.",
-            "permissible_values": {
-                "GLOBAL": {"description": "Applies to all users.", "meaning": "fluxnova_bpm_platform:AuthorizationType/0"},
-                "GRANT": {"description": "Grants permission.", "meaning": "fluxnova_bpm_platform:AuthorizationType/1"},
-                "REVOKE": {"description": "Revokes permission.", "meaning": "fluxnova_bpm_platform:AuthorizationType/2"},
-            },
-        }
-
-        return enums
 
     def generate_subsets(self) -> dict:
         """Generate subset definitions for the root schema only.
-        
+
         Per-module schemas do NOT declare subsets to avoid URI conflicts during
         LinkML schema merging. Instead, classes reference subsets via in_subset,
         which are resolved at merge time via the root schema.
-        
+
         The root schema declares both platform module subsets and the BPMN Model
         API subsets (since the unified root imports the BPMN root schema).
         """
         subsets: dict[str, dict] = {}
-        
+
         # Platform module subsets + cross-cutting subset
         for module_name, description in MODULE_SUBSETS.items():
             subsets[module_name] = {"description": description}
@@ -1534,7 +1698,9 @@ class LinkMLGenerator:
         refine these slots via ``slot_usage`` in their own schema.
         """
         common: OrderedDict[str, object] = OrderedDict()
-        common["id"] = f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}"
+        common["id"] = (
+            f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}"
+        )
         common["name"] = COMMON_SCHEMA_NAME
         common["description"] = (
             "Shared slot definitions imported by both the Fluxnova BPM "
@@ -1545,15 +1711,25 @@ class LinkMLGenerator:
         common["source"] = "https://github.com/finos/fluxnova-bpm-platform"
         if self.project_version:
             common["version"] = self.project_version
-        common["annotations"] = OrderedDict([
-            ("generated_by", "scripts/fluxnova_to_linkml.py"),
-            ("purpose", "Resolve slot-name collisions between BPM and BPMN Model API schemas."),
-        ])
-        common["prefixes"] = OrderedDict([
-            (COMMON_SCHEMA_NAME, f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}/"),
-            ("linkml", "https://w3id.org/linkml/"),
-            ("schema", "http://schema.org/"),
-        ])
+        common["annotations"] = OrderedDict(
+            [
+                ("generated_by", "scripts/fluxnova_to_linkml.py"),
+                (
+                    "purpose",
+                    "Resolve slot-name collisions between BPM and BPMN Model API schemas.",
+                ),
+            ]
+        )
+        common["prefixes"] = OrderedDict(
+            [
+                (
+                    COMMON_SCHEMA_NAME,
+                    f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}/",
+                ),
+                ("linkml", "https://w3id.org/linkml/"),
+                ("schema", "http://schema.org/"),
+            ]
+        )
         common["default_prefix"] = COMMON_SCHEMA_NAME
         common["default_range"] = "string"
         common["imports"] = ["linkml:types"]
@@ -1679,9 +1855,13 @@ class LinkMLGenerator:
 
         schema_name = f"fluxnova_bpm_{module_name}"
         module_dict: OrderedDict[str, object] = OrderedDict()
-        module_dict["id"] = f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}"
+        module_dict["id"] = (
+            f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}"
+        )
         module_dict["name"] = schema_name
-        module_dict["description"] = f"Fluxnova BPM Platform - {module_name.replace('_', ' ').title()} module."
+        module_dict["description"] = (
+            f"Fluxnova BPM Platform - {module_name.replace('_', ' ').title()} module."
+        )
         module_dict["license"] = "Apache-2.0"
         module_dict["source"] = "https://github.com/finos/fluxnova-bpm-platform"
         module_dict["see_also"] = ["https://fluxnova.finos.org/"]
@@ -1689,17 +1869,24 @@ class LinkMLGenerator:
             module_dict["version"] = self.project_version
 
         # Collect CURIE prefixes referenced in slot_uri values for this module
-        prefixes = OrderedDict([
-            (schema_name, f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}/"),
-            ("linkml", "https://w3id.org/linkml/"),
-        ])
+        prefixes = OrderedDict(
+            [
+                (
+                    schema_name,
+                    f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}/",
+                ),
+                ("linkml", "https://w3id.org/linkml/"),
+            ]
+        )
         for sn in sorted(module_slot_names):
             if sn in self.all_slots and self._slot_owner.get(sn) == module_name:
                 slot = self.all_slots[sn]
                 if slot.slot_uri and ":" in slot.slot_uri:
                     prefix = slot.slot_uri.split(":")[0]
                     if prefix not in prefixes:
-                        prefixes[prefix] = CURIE_PREFIXES.get(prefix, f"https://w3id.org/{prefix}/")
+                        prefixes[prefix] = CURIE_PREFIXES.get(
+                            prefix, f"https://w3id.org/{prefix}/"
+                        )
         module_dict["prefixes"] = prefixes
         module_dict["default_prefix"] = schema_name
         module_dict["default_range"] = "string"
@@ -1725,7 +1912,9 @@ class LinkMLGenerator:
             imports.append(f"./fluxnova_bpm_{dep}")
         # Always import the common schema so SHARED_SLOTS used by classes in
         # this module resolve at merge time.
-        if any(sn in SHARED_SLOTS for cls in module_classes.values() for sn in cls.slots):
+        if any(
+            sn in SHARED_SLOTS for cls in module_classes.values() for sn in cls.slots
+        ):
             imports.append(f"./{COMMON_SCHEMA_NAME}")
         module_dict["imports"] = imports
 
@@ -1733,12 +1922,12 @@ class LinkMLGenerator:
             module_dict["slots"] = dict(slots_dict)
         if module_name == "base":
             module_dict["enums"] = self.generate_enums()
-        
+
         # NOTE: Do NOT add subsets to per-module schemas.
         # Subset definitions are centralized in the root schema to avoid
         # URI conflicts during LinkML schema merging. Classes still reference
         # subsets (in_subset) which are resolved via the root schema imports.
-        
+
         module_dict["classes"] = dict(classes_dict)
 
         return dict(module_dict)
@@ -1773,13 +1962,18 @@ class LinkMLGenerator:
             root["version"] = self.project_version
         root["annotations"] = self._root_annotations(modules)
 
-        root["prefixes"] = OrderedDict([
-            ("fluxnova_bpm_platform", "https://w3id.org/lmodel/fluxnova-bpm-platform/"),
-            ("linkml", "https://w3id.org/linkml/"),
-            ("schema", "http://schema.org/"),
-            ("dcterms", "http://purl.org/dc/terms/"),
-            ("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL#"),
-        ])
+        root["prefixes"] = OrderedDict(
+            [
+                (
+                    "fluxnova_bpm_platform",
+                    "https://w3id.org/lmodel/fluxnova-bpm-platform/",
+                ),
+                ("linkml", "https://w3id.org/linkml/"),
+                ("schema", "http://schema.org/"),
+                ("dcterms", "http://purl.org/dc/terms/"),
+                ("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL#"),
+            ]
+        )
         root["default_prefix"] = "fluxnova_bpm_platform"
         root["default_range"] = "string"
         root["imports"] = imports
@@ -1836,243 +2030,221 @@ class LinkMLGenerator:
 
 
 # ---------------------------------------------------------------------------
-# YAML Formatting (adapted from reference rosetta_to_linkml.py)
+# The schema's names, namespace and edition
 # ---------------------------------------------------------------------------
 
+SCHEMA_ID = "https://w3id.org/lmodel/fluxnova-bpm-platform"
+SCHEMA_PREFIX = "fluxnova_bpm_platform"
+SQL_SOURCE = "engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create"
+ENGINE_SCHEMA = "fluxnova_bpm_engine"
 
-def _str_representer(dumper: yaml.Dumper, data: str) -> yaml.Node:
-    """Use literal block style for multi-line, plain style for single-line."""
-    if "\n" in data:
-        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
-    return dumper.represent_scalar("tag:yaml.org,2002:str", data)
+# What each area of tables holds, by the area the generator files a table under. Each
+# area is a subset of the root schema.
+MODULE_DESCRIPTIONS = {
+    "base": "The general tables: stored bytes, properties, the schema log and the metrics logs.",
+    "repository": "The repository tables: deployments and the process, case, decision and form definitions in them.",
+    "runtime": "The runtime tables: executions, tasks, variables, event subscriptions, incidents and external tasks.",
+    "job": "The job tables: jobs, their definitions and batches.",
+    "identity": "The identity tables: users, groups, tenants, their memberships and authorizations.",
+    "history": "The history tables: what process, case and decision instances did, kept after they end.",
+    "collaboration": "The tables of what people add to tasks and process instances: comments, attachments and filters.",
+}
 
 
-def _ordered_dict_representer(dumper: yaml.Dumper, data: OrderedDict) -> yaml.Node:
-    """Represent OrderedDict as a regular YAML mapping (preserving order)."""
-    return dumper.represent_mapping("tag:yaml.org,2002:map", data.items())
+def class_names(classes) -> dict[str, str]:
+    """The schema's name for each class the generator builds.
+
+    The classes carry Fluxnova's prefix, as a schema others import asks, so that
+    a table's class never meets a BPMN class or another schema's class of the same
+    name. ACT_GE_PROPERTY's class is FluxnovaEngineProperty, since the extension
+    element camunda:property is FluxnovaProperty.
+    """
+    names = {name: f"Fluxnova{name}" for name in classes}
+    names["Property"] = "FluxnovaEngineProperty"
+    return names
 
 
-def _insert_blank_lines(text: str) -> str:
-    """Insert blank lines between top-level YAML sections and between entries
-    inside slots/enums/classes for human readability."""
-    lines = text.split("\n")
-    result: list[str] = []
-    current_section = ""
-    item_sections = {"slots:", "enums:", "classes:", "types:", "subsets:", "attributes:"}
-    major_sections = {
-        "prefixes:", "imports:", "types:", "subsets:", "enums:",
-        "slots:", "classes:", "attributes:",
+def _rename(value, names: dict[str, str]):
+    return names.get(value, value) if isinstance(value, str) else value
+
+
+def finalize(schema: dict, names: dict[str, str], module_of: dict[str, str]) -> dict:
+    """Give a generated schema the lmodel names, the one namespace and the edition."""
+    out: dict = {}
+    name = schema["name"]
+    out["id"] = SCHEMA_ID if name == SCHEMA_PREFIX else f"{SCHEMA_ID}/{name}"
+    out["name"] = name
+    out["title"] = schema.get("title") or (
+        "Fluxnova BPM Platform " + name.removeprefix("fluxnova_bpm_").replace("_", " ")
+    )
+    out["description"] = schema["description"]
+    out["version"] = EDITION["version"]
+    out["source"] = (
+        f"https://github.com/finos/fluxnova-bpm-platform/tree/{EDITION['commit']}/{SQL_SOURCE}"
+    )
+    out["license"] = "Apache-2.0"
+    out["see_also"] = ["https://lmodel.github.io/fluxnova-bpm-platform"]
+    out["prefixes"] = {
+        SCHEMA_PREFIX: f"{SCHEMA_ID}/",
+        "linkml": "https://w3id.org/linkml/",
     }
-
-    for line in lines:
-        if line and not line[0].isspace() and ":" in line:
-            key_token = line.split(":")[0] + ":"
-            if key_token in major_sections and result and result[-1] != "":
-                result.append("")
-            current_section = key_token
-        elif (
-            current_section in item_sections
-            and line.startswith("  ")
-            and not line.startswith("    ")
-            and len(line) > 2
-            and line[2] != " "
-            and ":" in line
-        ):
-            if result and result[-1] != "" and not result[-1].rstrip().endswith(":"):
-                result.append("")
-
-        result.append(line)
-
-    return "\n".join(result)
-
-
-def write_yaml(data: dict, path: Path) -> None:
-    """Write a dict as YAML with sensible formatting and blank-line separation."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-
-    class IndentedDumper(yaml.Dumper):
-        """Custom dumper that indents list items under mapping keys."""
-        pass
-
-    IndentedDumper.add_representer(str, _str_representer)
-    IndentedDumper.add_representer(OrderedDict, _ordered_dict_representer)
-
-    # Increase indent so list items get 2-space offset under their key
-    raw = yaml.dump(
-        data,
-        Dumper=IndentedDumper,
-        default_flow_style=False,
-        sort_keys=False,
-        allow_unicode=True,
-        width=120,
-        indent=2,
-    )
-    # PyYAML with indent=2 produces "- item" at the mapping indent level.
-    # We need "  - item" (indented under the key). Fix sequences that follow
-    # a mapping key by adding 2-space indent to bare "- " lines that should
-    # be children of a key.
-    lines = raw.split("\n")
-    fixed: list[str] = []
-    prev_was_seq_key = False
-    seq_indent = 0
-    for line in lines:
-        stripped = line.lstrip()
-        current_indent = len(line) - len(stripped)
-
-        if prev_was_seq_key and stripped.startswith("- "):
-            # This list item should be indented under its parent key
-            if current_indent <= seq_indent:
-                line = " " * (seq_indent + 2) + stripped
-        # Detect a key whose value is a sequence (key followed by "- " on next line)
-        if stripped.endswith(":") or (stripped.endswith(":") and not stripped.startswith("-")):
-            prev_was_seq_key = True
-            seq_indent = current_indent
-        elif stripped.startswith("- "):
-            pass  # keep prev_was_seq_key for continuation
-        else:
-            prev_was_seq_key = False
-
-        fixed.append(line)
-
-    formatted = "---\n" + _insert_blank_lines("\n".join(fixed))
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(formatted)
+    out["default_prefix"] = SCHEMA_PREFIX
+    out["default_range"] = "string"
+    imports = [i.removeprefix("./") for i in schema.get("imports", [])]
+    imports = [
+        "fluxnova_bpmn_extension" if i == "fluxnova_bpmn_model" else i for i in imports
+    ]
+    for key in ("subsets", "enums"):
+        if schema.get(key):
+            out[key] = schema[key]
+    for key in ("slots", "classes"):
+        if not schema.get(key):
+            continue
+        renamed: dict = {}
+        for element, body in schema[key].items():
+            body = dict(body)
+            body.pop("slot_uri", None)
+            body.pop("related_mappings", None)
+            for field_name in ("range", "is_a"):
+                if field_name in body:
+                    body[field_name] = _rename(body[field_name], names)
+            if "slot_usage" in body:
+                body["slot_usage"] = {
+                    s: {
+                        k: _rename(v, names) if k == "range" else v
+                        for k, v in u.items()
+                    }
+                    for s, u in body["slot_usage"].items()
+                }
+            if "in_subset" in body:
+                # Each table's class is in its area's subset; the root is in none.
+                areas = [s for s in body["in_subset"] if s in MODULE_DESCRIPTIONS]
+                if areas:
+                    body["in_subset"] = [f"engine_{a}" for a in areas]
+                else:
+                    del body["in_subset"]
+            renamed[_rename(element, names) if key == "classes" else element] = body
+        out[key] = renamed
+    # A class this module's ranges name, from another module, is imported.
+    needed = set()
+    for body in list(out.get("slots", {}).values()) + list(
+        out.get("classes", {}).values()
+    ):
+        ranges = [body.get("range"), body.get("is_a")]
+        ranges += [u.get("range") for u in body.get("slot_usage", {}).values()]
+        needed |= {module_of[r] for r in ranges if r in module_of}
+    needed.discard(name)
+    imports += sorted(m for m in needed if m not in imports)
+    out["imports"] = imports
+    # Keep only the order the keys are read in.
+    order = [
+        "id",
+        "name",
+        "title",
+        "description",
+        "version",
+        "source",
+        "license",
+        "see_also",
+        "prefixes",
+        "default_prefix",
+        "default_range",
+        "imports",
+        "subsets",
+        "enums",
+        "slots",
+        "classes",
+    ]
+    return {k: out[k] for k in order if k in out}
 
 
-# ---------------------------------------------------------------------------
-# Completeness Report
-# ---------------------------------------------------------------------------
-
-
-def print_report(tables: dict[str, SqlTable], gen: LinkMLGenerator) -> None:
-    """Print a coverage report."""
-    mapped_tables = set(TABLE_TO_CLASS.keys()) & set(tables.keys())
-    unmapped_tables = set(tables.keys()) - set(TABLE_TO_CLASS.keys())
-
-    total_cols = 0
-    total_slots = 0
-    for tn in mapped_tables:
-        t = tables[tn]
-        total_cols += len([c for c in t.columns if c.name not in SKIP_COLUMNS])
-
-    total_slots = len(gen.all_slots)
-
-    print(f"\n{'='*60}")
-    print(f"  Fluxnova BPM -> LinkML Completeness Report")
-    print(f"{'='*60}")
-    print(f"  SQL tables parsed:          {len(tables)}")
-    print(f"  SQL tables mapped:          {len(mapped_tables)}")
-    print(f"  SQL tables unmapped:        {len(unmapped_tables)}")
-    if unmapped_tables:
-        for t in sorted(unmapped_tables):
-            print(f"    - {t}")
-    print(f"  Classes generated:          {len(gen.classes)}")
-    print(f"  Slots generated:            {total_slots}")
-    print(f"  Enums generated:            {len(gen.generate_enums())}")
-    print(f"  Columns in mapped tables:   {total_cols}")
-    print()
-
-    # Module breakdown
-    modules: dict[str, int] = {}
-    for cls in gen.classes.values():
-        modules[cls.module] = modules.get(cls.module, 0) + 1
-    print("  Module breakdown:")
-    for mod, count in sorted(modules.items()):
-        print(f"    fluxnova_bpm_{mod}: {count} classes")
-    print(f"{'='*60}\n")
-
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
-
-def main() -> None:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Generate LinkML schema from Fluxnova BPM Platform sources"
+        description="Write the platform modules of the schema from Fluxnova's engine sources"
     )
     parser.add_argument(
-        "--sql-dir",
-        type=Path,
-        default=DEFAULT_SQL_DIR,
-        help="Path to H2 DDL create SQL directory",
+        "--sql-dir", type=Path, default=DEFAULT_SQL_DIR, help="H2 DDL directory"
     )
     parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=DEFAULT_OUTPUT_DIR,
-        help="Output directory for LinkML schema files",
+        "--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help="where to write"
     )
     parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Print report only, do not write files",
+        "--check", action="store_true", help="fail if a module would change"
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
-    sql_dir: Path = args.sql_dir
-    output_dir: Path = args.output_dir
-
-    if not sql_dir.is_dir():
-        print(f"Error: {sql_dir} is not a directory", file=sys.stderr)
-        sys.exit(1)
-
-    # ---- Phase 1: Parse SQL DDL ----
-    print(f"Parsing SQL DDL from {sql_dir} ...")
-    tables = parse_sql_files(sql_dir)
-    print(f"  Parsed {len(tables)} tables.")
-
-    # ---- Phase 1b: Extract Javadoc descriptions ----
-    print("Extracting Javadoc descriptions from Java interfaces ...")
+    tables = parse_sql_files(args.sql_dir)
     javadoc = parse_all_javadoc(REPO_ROOT)
-    print(f"  Extracted descriptions for {len(javadoc)} classes.")
-    project_version = read_project_version(DEFAULT_POM_PATH)
-    sql_source_files = sorted(path.name for path in sql_dir.glob("activiti.h2.create.*.sql"))
-
-    # ---- Phase 2: Generate LinkML ----
-    print("Generating LinkML schema ...")
+    sql_source_files = sorted(
+        path.name for path in args.sql_dir.glob("activiti.h2.create.*.sql")
+    )
     gen = LinkMLGenerator(
         tables,
         javadoc=javadoc,
-        project_version=project_version,
-        source_sql_dir=sql_dir,
+        project_version=EDITION["version"],
+        source_sql_dir=args.sql_dir,
         source_sql_files=sql_source_files,
     )
+    names = class_names(gen.classes)
+    module_of = {
+        names[c]: f"fluxnova_bpm_{cls.module}" for c, cls in gen.classes.items()
+    }
 
-    # ---- Report ----
-    print_report(tables, gen)
+    # The tables refer to each other across every area, so one module holds them all
+    # and the areas are subsets; a module per area would import in cycles.
+    module_of = {name: ENGINE_SCHEMA for name in module_of}
+    engine: dict = {
+        "name": ENGINE_SCHEMA,
+        "title": "Fluxnova BPM Platform engine tables",
+        "description": (
+            "The tables Fluxnova's process engine keeps in its database, one class per "
+            "table, as the engine's H2 DDL creates them."
+        ),
+        "imports": ["linkml:types"],
+        "enums": gen.generate_enums(),
+        "slots": dict(gen.generate_common_schema()["slots"]),
+        "classes": {},
+    }
+    for module_name in sorted({cls.module for cls in gen.classes.values()}):
+        module = gen.generate_module(module_name)
+        engine["slots"].update(module.get("slots", {}))
+        engine["classes"].update(module.get("classes", {}))
+    engine["slots"] = dict(sorted(engine["slots"].items()))
+    engine["classes"] = dict(sorted(engine["classes"].items()))
+    root = gen.generate_root_schema([])
+    root["title"] = "Fluxnova BPM Platform"
+    root["description"] = (
+        "The tables Fluxnova's process engine keeps, and the BPMN elements its model "
+        "API reads, as of Fluxnova 3.1.1."
+    )
+    root["imports"] = ["linkml:types", ENGINE_SCHEMA, "fluxnova_bpmn_extension"]
+    root.pop("subsets", None)
+    engine["subsets"] = {
+        f"engine_{area}": {"description": MODULE_DESCRIPTIONS[area]}
+        for area in MODULE_DESCRIPTIONS
+    }
+    schemas = {ENGINE_SCHEMA: engine, SCHEMA_PREFIX: root}
 
-    if args.dry_run:
-        print("Dry run - no files written.")
-        return
-
-    # ---- Phase 3: Write schema files ----
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    modules_written: list[str] = []
-    all_modules = sorted({cls.module for cls in gen.classes.values()})
-
-    # Common shared-slot schema (must be written before module schemas that
-    # reference it through ``./fluxnova_common`` imports).
-    common_dict = gen.generate_common_schema()
-    write_yaml(common_dict, output_dir / f"{COMMON_SCHEMA_NAME}.yaml")
-    print(f"  Wrote {COMMON_SCHEMA_NAME}.yaml")
-
-    for module_name in all_modules:
-        module_dict = gen.generate_module(module_name)
-        if module_dict:
-            fname = f"fluxnova_bpm_{module_name}.yaml"
-            write_yaml(module_dict, output_dir / fname)
-            modules_written.append(module_name)
-            print(f"  Wrote {fname}")
-
-    # Root schema
-    root_dict = gen.generate_root_schema(modules_written)
-    write_yaml(root_dict, output_dir / "fluxnova_bpm_platform.yaml")
-    print(f"  Wrote fluxnova_bpm_platform.yaml")
-
-    print(f"\nDone. {len(modules_written) + 2} schema files written to {output_dir}")
+    changed = []
+    for name, schema in schemas.items():
+        path = args.output_dir / f"{name}.yaml"
+        text = dump_schema(
+            finalize(schema, names, module_of),
+            generated_by="scripts/fluxnova_to_linkml.py",
+        )
+        if args.check:
+            if not path.is_file() or path.read_text(encoding="utf-8") != text:
+                changed.append(path.name)
+        else:
+            path.write_text(text, encoding="utf-8")
+    if changed:
+        print(
+            "These modules differ from what the engine's sources give:",
+            ", ".join(changed),
+        )
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

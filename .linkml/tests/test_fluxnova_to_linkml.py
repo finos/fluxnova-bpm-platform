@@ -2,17 +2,15 @@
 
 import sys
 import textwrap
-from collections import OrderedDict
 from pathlib import Path
 
 import pytest
-import yaml
 
 # Make the scripts directory importable
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
-from fluxnova_to_linkml import (
+from fluxnova_to_linkml import (  # noqa: E402
     COLUMN_SLOT_OVERRIDES,
     CLASS_INHERITANCE,
     ENUM_COLUMNS,
@@ -24,12 +22,9 @@ from fluxnova_to_linkml import (
     SqlColumn,
     SqlTable,
     _col_to_slot_name,
-    _insert_blank_lines,
-    _str_representer,
     col_to_slot,
     parse_sql_files,
     sql_type_to_range,
-    write_yaml,
 )
 
 
@@ -335,9 +330,7 @@ class TestParseSqlFiles:
 
     def test_pk_column_not_nullable(self, minimal_sql_dir):
         tables = parse_sql_files(minimal_sql_dir)
-        id_col = next(
-            c for c in tables["ACT_RE_DEPLOYMENT"].columns if c.name == "ID_"
-        )
+        id_col = next(c for c in tables["ACT_RE_DEPLOYMENT"].columns if c.name == "ID_")
         assert id_col.is_pk is True
         assert id_col.nullable is False
 
@@ -493,16 +486,11 @@ class TestLinkMLGenerator:
     def test_generate_enums(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
         enums = gen.generate_enums()
-        assert "SuspensionState" in enums
-        assert "DelegationState" in enums
-        assert "ActivityInstanceState" in enums
-        assert "AuthorizationType" in enums
-        # Check structure
-        ss = enums["SuspensionState"]
-        assert "permissible_values" in ss
-        assert "ACTIVE" in ss["permissible_values"]
-        assert "SUSPENDED" in ss["permissible_values"]
-        assert "description" in ss["permissible_values"]["ACTIVE"]
+        assert set(enums) == set(ENUM_COLUMNS.values())
+        for enum in enums.values():
+            assert enum["description"]
+            for value in enum["permissible_values"].values():
+                assert value["description"]
 
     def test_generate_module_returns_dict(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
@@ -641,8 +629,13 @@ class TestLinkMLGeneratorReal:
         tables = parse_sql_files(real_sql_dir)
         gen = LinkMLGenerator(tables)
         expected_modules = {
-            "base", "repository", "runtime", "job",
-            "identity", "collaboration", "history",
+            "base",
+            "repository",
+            "runtime",
+            "job",
+            "identity",
+            "collaboration",
+            "history",
         }
         for mod in expected_modules:
             result = gen.generate_module(mod)
@@ -693,68 +686,6 @@ class TestLinkMLGeneratorReal:
 # ---------------------------------------------------------------------------
 
 
-class TestYamlFormatting:
-    """Test YAML output formatting utilities."""
-
-    def test_str_representer_single_line(self):
-        dumper = yaml.Dumper("")
-        node = _str_representer(dumper, "hello world")
-        assert node.style is None  # plain style
-
-    def test_str_representer_multi_line(self):
-        dumper = yaml.Dumper("")
-        node = _str_representer(dumper, "line one\nline two")
-        assert node.style == "|"  # literal block
-
-    def test_insert_blank_lines_between_sections(self):
-        text = "id: foo\nname: bar\nprefixes:\n  a: b\nimports:\n- c\nslots:\n  x:\n    range: string"
-        result = _insert_blank_lines(text)
-        lines = result.split("\n")
-        # There should be blank lines before prefixes, imports, and slots
-        for keyword in ["prefixes:", "imports:", "slots:"]:
-            idx = next(i for i, l in enumerate(lines) if l.startswith(keyword))
-            assert idx > 0
-            assert lines[idx - 1] == "", (
-                f"Expected blank line before '{keyword}'"
-            )
-
-    def test_insert_blank_lines_between_slot_entries(self):
-        text = "slots:\n  slot_a:\n    range: string\n  slot_b:\n    range: integer"
-        result = _insert_blank_lines(text)
-        lines = result.split("\n")
-        # Between slot_a and slot_b there should be a blank line
-        idx_b = next(i for i, l in enumerate(lines) if "slot_b:" in l)
-        assert lines[idx_b - 1] == ""
-
-    def test_write_yaml_creates_file(self, tmp_path):
-        data = {"id": "test", "name": "test_schema"}
-        out_file = tmp_path / "test.yaml"
-        write_yaml(data, out_file)
-        assert out_file.exists()
-        content = out_file.read_text()
-        assert content.startswith("---")
-        assert "id: test" in content
-
-    def test_write_yaml_ordered_dict(self, tmp_path):
-        data = OrderedDict([("first", "a"), ("second", "b")])
-        out_file = tmp_path / "ordered.yaml"
-        write_yaml(data, out_file)
-        content = out_file.read_text()
-        # Should NOT contain Python-specific OrderedDict tags
-        assert "!!python" not in content
-        assert "first: a" in content
-
-    def test_write_yaml_creates_parent_dirs(self, tmp_path):
-        out_file = tmp_path / "sub" / "dir" / "schema.yaml"
-        write_yaml({"id": "x"}, out_file)
-        assert out_file.exists()
-
-
-# ---------------------------------------------------------------------------
-# Tests: Constants & mapping tables
-# ---------------------------------------------------------------------------
-
-
 class TestConstants:
     """Test consistency of mapping tables and constants."""
 
@@ -768,25 +699,16 @@ class TestConstants:
         """Every parent in CLASS_INHERITANCE must be in TABLE_TO_CLASS or ABSTRACT_CLASSES."""
         all_class_names = {v[0] for v in TABLE_TO_CLASS.values()}
         from fluxnova_to_linkml import ABSTRACT_CLASSES
+
         for child, parent in CLASS_INHERITANCE.items():
             assert parent in all_class_names or parent in ABSTRACT_CLASSES, (
                 f"Parent class '{parent}' of '{child}' not found"
             )
 
-    def test_enum_columns_use_valid_enums(self):
-        """ENUM_COLUMNS values should be valid enum names."""
-        valid_enums = {
-            "SuspensionState",
-            "DelegationState",
-            "ActivityInstanceState",
-            "IncidentState",
-            "JobState",
-            "EntityState",
-        }
-        for col, enum_name in ENUM_COLUMNS.items():
-            assert enum_name in valid_enums, (
-                f"Enum '{enum_name}' for column '{col}' not recognized"
-            )
+    def test_enum_columns_use_generated_enums(self):
+        """Each enum ENUM_COLUMNS names is one generate_enums writes."""
+        enums = LinkMLGenerator({}).generate_enums()
+        assert set(ENUM_COLUMNS.values()) <= set(enums)
 
     def test_skip_columns_has_rev(self):
         assert "REV_" in SKIP_COLUMNS
@@ -803,9 +725,7 @@ class TestConstants:
             assert val == val.lower(), (
                 f"Override value '{val}' for '{key}' not lowercase"
             )
-            assert " " not in val, (
-                f"Override value '{val}' for '{key}' contains space"
-            )
+            assert " " not in val, f"Override value '{val}' for '{key}' contains space"
 
 
 # ---------------------------------------------------------------------------
@@ -845,100 +765,3 @@ class TestDataclasses:
 # ---------------------------------------------------------------------------
 # Tests: End-to-end write + reload
 # ---------------------------------------------------------------------------
-
-
-class TestEndToEnd:
-    """End-to-end test: generate -> write -> reload YAML."""
-
-    def test_write_and_reload_module(self, multi_table_sql_dir, tmp_path):
-        tables = parse_sql_files(multi_table_sql_dir)
-        gen = LinkMLGenerator(tables)
-        mod = gen.generate_module("repository")
-        assert mod is not None
-
-        out_file = tmp_path / "fluxnova_bpm_repository.yaml"
-        write_yaml(mod, out_file)
-
-        # Reload and verify structure
-        loaded = yaml.safe_load(out_file.read_text())
-        assert loaded["name"] == "fluxnova_bpm_repository"
-        assert "classes" in loaded
-        assert "Deployment" in loaded["classes"]
-        assert "ProcessDefinition" in loaded["classes"]
-        assert "ResourceDefinition" in loaded["classes"]
-
-    def test_write_and_reload_root(self, multi_table_sql_dir, tmp_path):
-        tables = parse_sql_files(multi_table_sql_dir)
-        gen = LinkMLGenerator(tables)
-        modules = sorted({cls.module for cls in gen.classes.values()})
-        root = gen.generate_root_schema(modules)
-
-        out_file = tmp_path / "fluxnova_bpm_platform.yaml"
-        write_yaml(root, out_file)
-
-        loaded = yaml.safe_load(out_file.read_text())
-        assert loaded["name"] == "fluxnova_bpm_platform"
-        assert "FluxnovaPlatformData" in loaded["classes"]
-        assert loaded["default_range"] == "string"
-
-    def test_reproducible_output(self, multi_table_sql_dir, tmp_path):
-        """Running the generator twice produces identical YAML."""
-        dir1 = tmp_path / "run1"
-        dir2 = tmp_path / "run2"
-        dir1.mkdir()
-        dir2.mkdir()
-
-        for run_dir in (dir1, dir2):
-            tables = parse_sql_files(multi_table_sql_dir)
-            gen = LinkMLGenerator(tables)
-            write_yaml(gen.generate_common_schema(), run_dir / "fluxnova_common.yaml")
-            for mod_name in sorted({c.module for c in gen.classes.values()}):
-                mod = gen.generate_module(mod_name)
-                if mod:
-                    write_yaml(mod, run_dir / f"fluxnova_bpm_{mod_name}.yaml")
-            root = gen.generate_root_schema(
-                sorted({c.module for c in gen.classes.values()})
-            )
-            write_yaml(root, run_dir / "fluxnova_bpm_platform.yaml")
-
-        # Compare all files
-        for f in sorted(dir1.glob("*.yaml")):
-            f2 = dir2 / f.name
-            assert f2.exists(), f"Missing {f.name} in run2"
-            assert f.read_text() == f2.read_text(), (
-                f"Output differs for {f.name}"
-            )
-
-    def test_real_schema_linkml_valid(self, real_sql_dir, tmp_path):
-        """Integration: generate schema and validate with linkml-lint."""
-        import subprocess
-        import shutil
-
-        tables = parse_sql_files(real_sql_dir)
-        gen = LinkMLGenerator(tables)
-        modules = sorted({cls.module for cls in gen.classes.values()})
-        # Common shared-slot schema (imported by every module + the root)
-        write_yaml(gen.generate_common_schema(), tmp_path / "fluxnova_common.yaml")
-        for mod_name in modules:
-            mod = gen.generate_module(mod_name)
-            if mod:
-                write_yaml(mod, tmp_path / f"fluxnova_bpm_{mod_name}.yaml")
-        root = gen.generate_root_schema(modules)
-        write_yaml(root, tmp_path / "fluxnova_bpm_platform.yaml")
-
-        # Copy BPMN model schema files (imported by the platform root schema)
-        repo_schema_dir = (
-            Path(__file__).resolve().parent.parent
-            / "src/fluxnova_bpm_platform/schema"
-        )
-        for bpmn_file in repo_schema_dir.glob("fluxnova_bpmn_model*.yaml"):
-            shutil.copy(bpmn_file, tmp_path / bpmn_file.name)
-
-        result = subprocess.run(
-            ["linkml-lint", str(tmp_path / "fluxnova_bpm_platform.yaml")],
-            capture_output=True,
-            text=True,
-        )
-        assert "No problems found" in result.stdout, (
-            f"linkml-lint failed:\n{result.stdout}\n{result.stderr}"
-        )

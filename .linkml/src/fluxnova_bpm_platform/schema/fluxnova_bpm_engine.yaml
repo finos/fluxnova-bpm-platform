@@ -1,0 +1,2645 @@
+---
+# Written by scripts/fluxnova_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
+name: fluxnova_bpm_engine
+title: Fluxnova BPM Platform engine tables
+description: The tables Fluxnova's process engine keeps in its database, one class per table,
+  as the engine's H2 DDL creates them.
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+
+subsets:
+  engine_base:
+    description: 'The general tables: stored bytes, properties, the schema log and the metrics
+      logs.'
+
+  engine_repository:
+    description: 'The repository tables: deployments and the process, case, decision and form
+      definitions in them.'
+
+  engine_runtime:
+    description: 'The runtime tables: executions, tasks, variables, event subscriptions, incidents
+      and external tasks.'
+
+  engine_job:
+    description: 'The job tables: jobs, their definitions and batches.'
+
+  engine_identity:
+    description: 'The identity tables: users, groups, tenants, their memberships and authorizations.'
+
+  engine_history:
+    description: 'The history tables: what process, case and decision instances did, kept
+      after they end.'
+
+  engine_collaboration:
+    description: 'The tables of what people add to tasks and process instances: comments,
+      attachments and filters.'
+
+enums:
+  HistoricProcessInstanceState:
+    description: The state a historic process instance records.
+    comments:
+      - Values from engine/history/HistoricProcessInstance.java.
+    permissible_values:
+      ACTIVE:
+        description: The process instance is running.
+      SUSPENDED:
+        description: The process instance is suspended.
+      COMPLETED:
+        description: The process instance reached an end event.
+      EXTERNALLY_TERMINATED:
+        description: The process instance was ended from outside, such as through the REST
+          API.
+      INTERNALLY_TERMINATED:
+        description: The process instance was ended from within, such as by a terminate end
+          event.
+
+  HistoricVariableInstanceState:
+    description: Whether a historic variable instance still exists.
+    comments:
+      - Values from engine/history/HistoricVariableInstance.java.
+    permissible_values:
+      CREATED:
+        description: The variable exists.
+      DELETED:
+        description: The variable was deleted.
+
+  ConfigurationStatus:
+    description: Whether a configuration entry is in effect.
+    comments:
+      - Values from engine/configuration/Configuration.java.
+    permissible_values:
+      ACTIVE:
+        description: The entry is in effect.
+      INACTIVE:
+        description: A newer version of the entry replaced it.
+      DELETED:
+        description: The entry was deleted, and is kept.
+
+  DelegationState:
+    description: Where a delegated task stands.
+    comments:
+      - Values from engine/task/DelegationState.java.
+    permissible_values:
+      PENDING:
+        description: The task was delegated and waits for the delegate to resolve it.
+      RESOLVED:
+        description: The delegate resolved the task and handed it back to its owner.
+
+slots:
+  action:
+    range: string
+    description: The action.
+    annotations:
+      sql_column: ACTION_
+
+  activity_id:
+    range: string
+    description: BPMN activity element identifier.
+
+  activity_instance_id:
+    range: string
+    description: Runtime activity instance identifier.
+
+  activity_instance_state:
+    range: integer
+    description: The activity instance state.
+    annotations:
+      sql_column: ACT_INST_STATE_
+
+  activity_name:
+    range: string
+    description: The display name for the activity.
+    annotations:
+      sql_column: ACT_NAME_
+
+  activity_type:
+    range: string
+    required: true
+    description: The activity type of the activity.
+    annotations:
+      sql_column: ACT_TYPE_
+
+  annotation:
+    range: string
+    description: Annotation of this incident.
+    annotations:
+      sql_column: ANNOTATION_
+
+  assignee:
+    range: string
+    description: The userId of the person to which this task is String) assigned or String)
+      delegated.
+    annotations:
+      sql_column: ASSIGNEE_
+
+  assignee_hash:
+    range: integer
+    description: Hash of the assignee for aggregation.
+    annotations:
+      sql_column: ASSIGNEE_HASH_
+
+  assigner_id:
+    range: string
+    description: UserId of the user who assigns a task to the user.
+    annotations:
+      sql_column: ASSIGNER_ID_
+
+  attempts:
+    range: integer
+    description: Number of failed login attempts.
+    annotations:
+      sql_column: ATTEMPTS_
+
+  batch_id:
+    range: string
+    description: Reference to a batch.
+
+  batch_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: BATCH_JOB_DEF_ID_
+
+  business_key:
+    range: string
+    description: Domain-specific business key.
+
+  byte_array_id:
+    range: string
+    description: Reference to the byte array.
+    annotations:
+      sql_column: BYTEARRAY_ID_
+
+  bytes:
+    range: string
+    description: Serialized binary content.
+    annotations:
+      sql_column: BYTES_
+
+  cached_entity_state:
+    range: integer
+    description: Bitmask caching associated entity existence.
+    annotations:
+      sql_column: CACHED_ENT_STATE_
+
+  called_case_instance_id:
+    range: string
+    description: The called case instance in case of (case) call activity.
+    annotations:
+      sql_column: CALL_CASE_INST_ID_
+
+  called_process_instance_id:
+    range: string
+    description: The called process instance in case of call activity.
+    annotations:
+      sql_column: CALL_PROC_INST_ID_
+
+  case_activity_id:
+    range: string
+    required: true
+    description: The unique identifier of the case activity in the case.
+    annotations:
+      sql_column: CASE_ACT_ID_
+
+  case_activity_name:
+    range: string
+    description: The display name for the case activity.
+    annotations:
+      sql_column: CASE_ACT_NAME_
+
+  case_activity_type:
+    range: string
+    description: The display type for the case activity.
+    annotations:
+      sql_column: CASE_ACT_TYPE_
+
+  case_definition_id:
+    range: string
+    description: Reference to the case definition.
+
+  case_definition_key:
+    range: string
+    description: Case definition key reference.
+    annotations:
+      sql_column: CASE_DEF_KEY_
+
+  case_execution_id:
+    range: string
+    description: Reference to the case execution.
+
+  case_instance_id:
+    range: string
+    description: Reference to the case instance.
+
+  category:
+    range: string
+    description: Category classification.
+
+  cause_incident_id:
+    range: string
+    description: Id of the incident on which this incident has been triggered.
+    annotations:
+      sql_column: CAUSE_INCIDENT_ID_
+
+  clause_id:
+    range: string
+    description: The unique identifier of the clause that the value is assigned for.
+    annotations:
+      sql_column: CLAUSE_ID_
+
+  clause_name:
+    range: string
+    description: The name of the clause that the value is assigned for.
+    annotations:
+      sql_column: CLAUSE_NAME_
+
+  close_time:
+    range: datetime
+    description: The time the case was closed.
+    annotations:
+      sql_column: CLOSE_TIME_
+
+  collect_result_value:
+    range: float
+    description: The result of the collect operation if the hit policy 'collect' was used
+      for the decision.
+    annotations:
+      sql_column: COLLECT_VALUE_
+
+  configuration:
+    range: string
+    description: Payload of this incident.
+    annotations:
+      sql_column: CONFIGURATION_
+
+  configuration_key:
+    range: string
+    required: true
+    description: The configuration key.
+    annotations:
+      sql_column: CONFIG_KEY_
+
+  configuration_value:
+    range: string
+    required: true
+    description: The configuration value.
+    annotations:
+      sql_column: CONFIG_VALUE_
+
+  content_id:
+    range: string
+    description: Reference to the content.
+    annotations:
+      sql_column: CONTENT_ID_
+
+  create_time:
+    range: datetime
+    description: Creation timestamp.
+
+  create_user_id:
+    range: string
+    description: The authenticated user that created this case instance.
+    annotations:
+      sql_column: CREATE_USER_ID_
+
+  created:
+    range: datetime
+    required: true
+    description: The time this event subscription was created.
+    annotations:
+      sql_column: CREATED_
+
+  created_at:
+    range: datetime
+    description: Timestamp when this was created.
+    annotations:
+      sql_column: CREATED_AT_
+
+  created_by:
+    range: string
+    description: The user who created this attachment.
+    annotations:
+      sql_column: CREATED_BY_
+
+  current_state:
+    range: integer
+    description: The current state.
+    annotations:
+      sql_column: CURRENT_STATE_
+
+  decision_definition_id:
+    range: string
+    required: true
+    description: The decision definition reference.
+    annotations:
+      sql_column: DEC_DEF_ID_
+
+  decision_definition_key:
+    range: string
+    required: true
+    description: The unique identifier of the decision definition.
+    annotations:
+      sql_column: DEC_DEF_KEY_
+
+  decision_definition_name:
+    range: string
+    description: The name of the decision definition.
+    annotations:
+      sql_column: DEC_DEF_NAME_
+
+  decision_instance_id:
+    range: string
+    required: true
+    description: The unique identifier of the historic decision instance.
+    annotations:
+      sql_column: DEC_INST_ID_
+
+  decision_requirements_definition_id:
+    range: string
+    description: Id of the related decision requirements definition.
+    annotations:
+      sql_column: DEC_REQ_ID_
+
+  decision_requirements_definition_key:
+    range: string
+    description: Key of the related decision requirements definition.
+    annotations:
+      sql_column: DEC_REQ_KEY_
+
+  delegation_state:
+    range: DelegationState
+    description: The current DelegationState for this task.
+    annotations:
+      sql_column: DELEGATION_
+
+  delete_reason:
+    range: string
+    description: Obtains the reason for the process instance's deletion.
+    annotations:
+      sql_column: DELETE_REASON_
+
+  deploy_time:
+    range: datetime
+    description: Timestamp for deploy time.
+    annotations:
+      sql_column: DEPLOY_TIME_
+
+  deployment_id:
+    range: string
+    description: Reference to the deployment.
+
+  description:
+    range: string
+    description: Human-readable description.
+
+  diagram_resource_name:
+    range: string
+    description: Name of the diagram resource file.
+
+  double_value:
+    range: float
+    description: Variable value stored as double.
+    annotations:
+      sql_column: DOUBLE_
+
+  due_date:
+    range: datetime
+    description: Due date of the task.
+    annotations:
+      sql_column: DUE_DATE_
+
+  duration:
+    range: integer
+    description: Duration in milliseconds.
+
+  email:
+    range: string
+    description: Email address.
+    annotations:
+      sql_column: EMAIL_
+
+  end_activity_id:
+    range: string
+    description: Reference to the end activity.
+    annotations:
+      sql_column: END_ACT_ID_
+
+  end_time:
+    range: datetime
+    description: End timestamp.
+
+  entity_type:
+    range: string
+    description: The type of the entity on which this operation was executed.
+    annotations:
+      sql_column: ENTITY_TYPE_
+
+  error_details_id:
+    range: string
+    description: Reference to a ByteArray.
+    annotations:
+      sql_column: ERROR_DETAILS_ID_
+
+  error_message:
+    range: string
+    description: If the variable value could not be loaded, this returns the error message.
+    annotations:
+      sql_column: ERROR_MSG_
+
+  evaluation_time:
+    range: datetime
+    required: true
+    description: Time when the decision was evaluated.
+    annotations:
+      sql_column: EVAL_TIME_
+
+  event_name:
+    range: string
+    description: The name of the event this subscription belongs to as defined in the process
+      model.
+    annotations:
+      sql_column: EVENT_NAME_
+
+  event_time:
+    range: datetime
+    required: true
+    description: Timestamp for event time.
+    annotations:
+      sql_column: TIME_
+
+  event_type:
+    range: string
+    required: true
+    description: The event subscriptions type. "message" identifies message event subscriptions,
+      "signal" identifies signal event subscription, "compensation" identifies event subscriptions
+      used for compensation events.
+    annotations:
+      sql_column: EVENT_TYPE_
+
+  exception_message:
+    range: string
+    description: Message of the exception that occurred, the last time the job was executed.
+    annotations:
+      sql_column: EXCEPTION_MSG_
+
+  exception_stack_id:
+    range: string
+    description: Reference to a ByteArray.
+    annotations:
+      sql_column: EXCEPTION_STACK_ID_
+
+  execution_id:
+    range: string
+    description: Reference to the execution.
+
+  execution_start_time:
+    range: datetime
+    description: Timestamp when this started.
+    annotations:
+      sql_column: EXEC_START_TIME_
+
+  external_task_id:
+    range: string
+    required: true
+    description: Id of the associated external task.
+    annotations:
+      sql_column: EXT_TASK_ID_
+
+  failed_activity_id:
+    range: string
+    description: Id of the activity on which the last exception occurred.
+    annotations:
+      sql_column: FAILED_ACTIVITY_ID_
+
+  first_name:
+    range: string
+    description: First name.
+    annotations:
+      sql_column: FIRST_
+
+  follow_up_date:
+    range: datetime
+    description: Follow-up date of the task.
+    annotations:
+      sql_column: FOLLOW_UP_DATE_
+
+  full_message:
+    range: string
+    description: The full comment message the user had related to the task and/or process
+      instance.
+    annotations:
+      sql_column: FULL_MSG_
+
+  group_id:
+    range: string
+    description: Reference to a group.
+
+  handler_configuration:
+    range: string
+    description: Configuration for the handler.
+    annotations:
+      sql_column: HANDLER_CFG_
+
+  handler_type:
+    range: string
+    description: Type of handler that processes this entity.
+    annotations:
+      sql_column: HANDLER_TYPE_
+
+  has_start_form_key:
+    range: boolean
+    description: The has start form key.
+    annotations:
+      sql_column: HAS_START_FORM_KEY_
+
+  history_configuration:
+    range: string
+    description: History payload of this incident.
+    annotations:
+      sql_column: HISTORY_CONFIGURATION_
+
+  history_time_to_live:
+    range: integer
+    description: Days to retain history before cleanup.
+
+  hostname:
+    range: string
+    description: Name of the host where the Process Engine that added this job log runs.
+    annotations:
+      sql_column: HOSTNAME_
+
+  id:
+    identifier: true
+    range: string
+    required: true
+    description: Unique identifier.
+
+  incident_message:
+    range: string
+    description: Incident message.
+    annotations:
+      sql_column: INCIDENT_MSG_
+
+  incident_state:
+    range: integer
+    description: The incident state.
+    annotations:
+      sql_column: INCIDENT_STATE_
+
+  incident_timestamp:
+    range: datetime
+    required: true
+    description: Time when the incident happened.
+    annotations:
+      sql_column: INCIDENT_TIMESTAMP_
+
+  incident_type:
+    range: string
+    required: true
+    description: Type of this incident to identify the kind of incident.
+    annotations:
+      sql_column: INCIDENT_TYPE_
+
+  invocations_per_job:
+    range: integer
+    description: The invocations per job.
+    annotations:
+      sql_column: INVOCATIONS_PER_JOB_
+
+  is_active:
+    range: boolean
+    description: Whether this entity is active.
+    annotations:
+      sql_column: IS_ACTIVE_
+
+  is_concurrent:
+    range: boolean
+    description: Whether this entity is concurrent.
+    annotations:
+      sql_column: IS_CONCURRENT_
+
+  is_concurrent_local:
+    range: boolean
+    description: Whether this entity is concurrent local.
+    annotations:
+      sql_column: IS_CONCURRENT_LOCAL_
+
+  is_event_scope:
+    range: boolean
+    description: Whether this entity is event scope.
+    annotations:
+      sql_column: IS_EVENT_SCOPE_
+
+  is_exclusive:
+    range: boolean
+    description: Whether this entity is exclusive.
+    annotations:
+      sql_column: EXCLUSIVE_
+
+  is_generated:
+    range: boolean
+    description: Whether this entity is generated.
+    annotations:
+      sql_column: GENERATED_
+
+  is_initial:
+    range: boolean
+    description: Whether this entity is initial.
+    annotations:
+      sql_column: INITIAL_
+
+  is_required:
+    range: boolean
+    description: Whether this entity is required.
+    annotations:
+      sql_column: REQUIRED_
+
+  is_satisfied:
+    range: boolean
+    description: Whether this entity is satisfied.
+    annotations:
+      sql_column: SATISFIED_
+
+  is_scope:
+    range: boolean
+    description: Whether this entity is scope.
+    annotations:
+      sql_column: IS_SCOPE_
+
+  is_startable:
+    range: boolean
+    required: true
+    description: Whether this entity is startable.
+    annotations:
+      sql_column: STARTABLE_
+
+  job_configuration:
+    range: string
+    description: The configuration of a job definition provides details about the jobs which
+      will be created.
+    annotations:
+      sql_column: JOB_CONFIGURATION_
+
+  job_definition_configuration:
+    range: string
+    description: Job definition configuration type of the associated job.
+    annotations:
+      sql_column: JOB_DEF_CONFIGURATION_
+
+  job_definition_id:
+    range: string
+    description: Reference to the job definition.
+
+  job_definition_type:
+    range: string
+    description: Job definition type of the associated job.
+    annotations:
+      sql_column: JOB_DEF_TYPE_
+
+  job_due_date:
+    range: datetime
+    description: Due date of the associated job when this log occurred.
+    annotations:
+      sql_column: JOB_DUEDATE_
+
+  job_exception_message:
+    range: string
+    description: Message of the exception that occurred by executing the associated job.
+    annotations:
+      sql_column: JOB_EXCEPTION_MSG_
+
+  job_exception_stack_id:
+    range: string
+    description: Reference to the job exception stack.
+    annotations:
+      sql_column: JOB_EXCEPTION_STACK_ID_
+
+  job_id:
+    range: string
+    required: true
+    description: Id of the associated job.
+    annotations:
+      sql_column: JOB_ID_
+
+  job_priority:
+    range: integer
+    required: true
+    description: Priority of the associated job when this log entry was created.
+    annotations:
+      sql_column: JOB_PRIORITY_
+
+  job_retries:
+    range: integer
+    description: Retries of the associated job before the associated job has been executed
+      and when this log occurred.
+    annotations:
+      sql_column: JOB_RETRIES_
+
+  job_state:
+    range: integer
+    description: The job state.
+    annotations:
+      sql_column: JOB_STATE_
+
+  job_type:
+    range: string
+    required: true
+    description: The Type of a job.
+    annotations:
+      sql_column: JOB_TYPE_
+
+  jobs_created:
+    range: integer
+    description: The jobs created.
+    annotations:
+      sql_column: JOBS_CREATED_
+
+  jobs_per_seed:
+    range: integer
+    description: The jobs per seed.
+    annotations:
+      sql_column: JOBS_PER_SEED_
+
+  key:
+    range: string
+    description: Business key for the definition.
+
+  last_failure_log_id:
+    range: string
+    description: Reference to the last failure log.
+    annotations:
+      sql_column: LAST_FAILURE_LOG_ID_
+
+  last_name:
+    range: string
+    description: Last name.
+    annotations:
+      sql_column: LAST_
+
+  last_updated:
+    range: datetime
+    description: The date/time when this task was last updated.
+    annotations:
+      sql_column: LAST_UPDATED_
+
+  lock_expiration_time:
+    range: datetime
+    description: Time at which the lock expires.
+    annotations:
+      sql_column: LOCK_EXP_TIME_
+
+  lock_owner:
+    range: string
+    description: Identifier of the node that acquired the lock.
+    annotations:
+      sql_column: LOCK_OWNER_
+
+  long_value:
+    range: integer
+    description: Variable value stored as long.
+    annotations:
+      sql_column: LONG_
+
+  message:
+    range: string
+    description: Short message or summary.
+    annotations:
+      sql_column: MESSAGE_
+
+  milliseconds:
+    range: integer
+    description: The milliseconds.
+    annotations:
+      sql_column: MILLISECONDS_
+
+  monitor_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: MONITOR_JOB_DEF_ID_
+
+  name:
+    range: string
+    description: Human-readable name.
+
+  new_value:
+    range: string
+    description: The new value of the property.
+    annotations:
+      sql_column: NEW_VALUE_
+
+  operation_id:
+    range: string
+    description: The unique identifier of this operation.
+    annotations:
+      sql_column: OPERATION_ID_
+
+  operation_type:
+    range: string
+    description: Type of identity link history (add or delete identity link).
+    annotations:
+      sql_column: OPERATION_TYPE_
+
+  original_value:
+    range: string
+    description: The original value.
+    annotations:
+      sql_column: ORG_VALUE_
+
+  owner:
+    range: string
+    description: The userId of the person that is responsible for this task.
+    annotations:
+      sql_column: OWNER_
+
+  parent_activity_instance_id:
+    range: string
+    description: Id of the parent activity instance.
+    annotations:
+      sql_column: PARENT_ACT_INST_ID_
+
+  parent_id:
+    range: string
+    description: Reference to a CaseExecution.
+    annotations:
+      sql_column: PARENT_ID_
+
+  parent_task_id:
+    range: string
+    description: The parent task for which this task is a subtask.
+    annotations:
+      sql_column: PARENT_TASK_ID_
+
+  password:
+    range: string
+    description: Hashed password.
+    annotations:
+      sql_column: PASSWORD_
+
+  permissions:
+    range: integer
+    description: Bitmask of granted permissions.
+    annotations:
+      sql_column: PERMS_
+
+  picture_id:
+    range: string
+    description: Reference to the picture.
+    annotations:
+      sql_column: PICTURE_ID_
+
+  previous_state:
+    range: integer
+    description: The previous state.
+    annotations:
+      sql_column: PREV_STATE_
+
+  priority:
+    range: integer
+    required: true
+    description: 'Indication of how important/urgent this task is with a number between 0
+      and 100 where higher values mean a higher priority and lower values mean lower priority:
+      [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.'
+    annotations:
+      sql_column: PRIORITY_
+
+  process_definition_id:
+    range: string
+    description: Reference to the process definition.
+
+  process_definition_key:
+    range: string
+    description: Key of the process definition.
+
+  process_instance_id:
+    range: string
+    description: Reference to the process instance.
+
+  properties:
+    range: string
+    description: Serialized properties.
+    annotations:
+      sql_column: PROPERTIES_
+
+  property:
+    range: string
+    description: The property changed by this operation.
+    annotations:
+      sql_column: PROPERTY_
+
+  query:
+    range: string
+    required: true
+    description: Serialized query expression.
+    annotations:
+      sql_column: QUERY_
+
+  removal_time:
+    range: datetime
+    description: Timestamp when this entity is eligible for removal.
+
+  repeat:
+    range: string
+    description: Repeat/recurrence expression (ISO 8601).
+    annotations:
+      sql_column: REPEAT_
+
+  repeat_offset:
+    range: integer
+    description: Offset applied to repeat interval calculation.
+    annotations:
+      sql_column: REPEAT_OFFSET_
+
+  reporter:
+    range: string
+    description: Identifier of the reporting node.
+    annotations:
+      sql_column: REPORTER_
+
+  resource_id:
+    range: string
+    description: Reference to the resource.
+    annotations:
+      sql_column: RESOURCE_ID_
+
+  resource_name:
+    range: string
+    description: Name of the deployed resource file.
+
+  resource_type:
+    range: integer
+    required: true
+    description: Numeric type of the authorized resource.
+    annotations:
+      sql_column: RESOURCE_TYPE_
+
+  restarted_process_instance_id:
+    range: string
+    description: The id of the original process instance which was restarted.
+    annotations:
+      sql_column: RESTARTED_PROC_INST_ID_
+
+  restricted:
+    range: boolean
+    description: Whether this variable is restricted.
+    annotations:
+      sql_column: RESTRICTED_
+
+  retries:
+    range: integer
+    description: Number of retries this job has left.
+    annotations:
+      sql_column: RETRIES_
+
+  root_cause_incident_id:
+    range: string
+    description: Id of the root incident on which this transitive incident has been triggered.
+    annotations:
+      sql_column: ROOT_CAUSE_INCIDENT_ID_
+
+  root_decision_instance_id:
+    range: string
+    description: The unique identifier of the historic decision instance of the evaluated
+      root decision.
+    annotations:
+      sql_column: ROOT_DEC_INST_ID_
+
+  root_process_instance_id:
+    range: string
+    description: Root process instance for history cleanup.
+
+  rule_id:
+    range: string
+    description: The unique identifier of the rule that is matched.
+    annotations:
+      sql_column: RULE_ID_
+
+  rule_order:
+    range: integer
+    description: The order of the rule that is matched.
+    annotations:
+      sql_column: RULE_ORDER_
+
+  salt:
+    range: string
+    description: Cryptographic salt for password hashing.
+    annotations:
+      sql_column: SALT_
+
+  seed_job_definition_id:
+    range: string
+    description: Reference to a JobDefinition.
+    annotations:
+      sql_column: SEED_JOB_DEF_ID_
+
+  sentry_id:
+    range: string
+    description: Reference to the sentry.
+    annotations:
+      sql_column: SENTRY_ID_
+
+  sequence_counter:
+    range: integer
+    description: Monotonically increasing counter for ordering.
+    annotations:
+      sql_column: SEQUENCE_COUNTER_
+
+  source:
+    range: string
+    description: The source.
+    annotations:
+      sql_column: SOURCE_
+
+  source_case_execution_id:
+    range: string
+    description: Reference to the source case execution.
+    annotations:
+      sql_column: SOURCE_CASE_EXEC_ID_
+
+  standard_event:
+    range: string
+    description: The standard event.
+    annotations:
+      sql_column: STANDARD_EVENT_
+
+  start_activity_id:
+    range: string
+    description: The start activity.
+    annotations:
+      sql_column: START_ACT_ID_
+
+  start_time:
+    range: datetime
+    description: Start timestamp.
+
+  start_user_id:
+    range: string
+    description: The authenticated user that started this process instance.
+    annotations:
+      sql_column: START_USER_ID_
+
+  state:
+    range: integer
+    description: The row's state; which values it takes depends on its table.
+    annotations:
+      sql_column: STATE_
+
+  status:
+    range: ConfigurationStatus
+    required: true
+    description: The status.
+    annotations:
+      sql_column: STATUS_
+
+  super_case_execution_id:
+    range: string
+    description: Reference to the super case execution.
+    annotations:
+      sql_column: SUPER_CASE_EXEC_
+
+  super_case_instance_id:
+    range: string
+    description: The case instance id of a potential super case instance or null if no super
+      case instance exists.
+    annotations:
+      sql_column: SUPER_CASE_INSTANCE_ID_
+
+  super_execution_id:
+    range: string
+    description: Reference to the super execution.
+    annotations:
+      sql_column: SUPER_EXEC_
+
+  super_process_instance_id:
+    range: string
+    description: The process instance id of a potential super process instance or null if
+      no super process instance exists.
+    annotations:
+      sql_column: SUPER_PROCESS_INSTANCE_ID_
+
+  suspension_state:
+    range: integer
+    description: Whether the entity is active or suspended.
+    annotations:
+      sql_column: SUSPENSION_STATE_
+
+  task_definition_key:
+    range: string
+    description: The id of the activity in the process defining this task or null if this
+      is not related to a process.
+    annotations:
+      sql_column: TASK_DEF_KEY_
+
+  task_id:
+    range: string
+    description: Reference to the task.
+
+  task_state:
+    range: string
+    description: Task's state.
+    annotations:
+      sql_column: TASK_STATE_
+
+  tenant_id:
+    range: string
+    description: Multi-tenancy discriminator.
+
+  text2_value:
+    range: string
+    description: Variable value stored as text2.
+    annotations:
+      sql_column: TEXT2_
+
+  text_value:
+    range: string
+    description: Variable value stored as text.
+    annotations:
+      sql_column: TEXT_
+
+  timestamp:
+    range: datetime
+    description: Time when this log occurred.
+    annotations:
+      sql_column: TIMESTAMP_
+
+  topic_name:
+    range: string
+    description: Topic name of the associated external task.
+    annotations:
+      sql_column: TOPIC_NAME_
+
+  total_jobs:
+    range: integer
+    description: Total number of jobs.
+    annotations:
+      sql_column: TOTAL_JOBS_
+
+  type:
+    range: string
+    description: Type discriminator.
+
+  updated_at:
+    range: datetime
+    description: Timestamp for updated at.
+    annotations:
+      sql_column: UPDATED_AT_
+
+  updated_by:
+    range: string
+    description: The updated by.
+    annotations:
+      sql_column: UPDATED_BY_
+
+  url:
+    range: string
+    description: The remote URL in case this is remote content.
+    annotations:
+      sql_column: URL_
+
+  user_id:
+    range: string
+    description: Reference to a user.
+
+  value:
+    range: string
+    description: Value of this variable instance.
+    annotations:
+      sql_column: VALUE_
+
+  variable_event:
+    range: string
+    description: The variable event.
+    annotations:
+      sql_column: VARIABLE_EVENT_
+
+  variable_instance_id:
+    range: string
+    description: Reference to the variable instance.
+    annotations:
+      sql_column: VAR_INST_ID_
+
+  variable_name:
+    range: string
+    description: The name of the output variable.
+    annotations:
+      sql_column: VAR_NAME_
+
+  variable_scope_id:
+    range: string
+    required: true
+    description: Reference to the variable scope.
+    annotations:
+      sql_column: VAR_SCOPE_
+
+  variable_type:
+    range: string
+    description: The variable type.
+    annotations:
+      sql_column: VAR_TYPE_
+
+  version:
+    range: integer
+    description: Version number.
+
+  version_tag:
+    range: string
+    description: Version tag of the process definition.
+    annotations:
+      sql_column: VERSION_TAG_
+
+  worker_id:
+    range: string
+    description: Id of the worker that fetched the external task most recently.
+    annotations:
+      sql_column: WORKER_ID_
+
+classes:
+  FluxnovaAttachment:
+    description: Any type of content that is be associated with a task or with a process instance.
+    slots:
+      - id
+      - user_id
+      - name
+      - description
+      - type
+      - task_id
+      - root_process_instance_id
+      - process_instance_id
+      - url
+      - content_id
+      - tenant_id
+      - create_time
+      - removal_time
+      - created_by
+    in_subset:
+      - engine_collaboration
+    annotations:
+      sql_table: ACT_HI_ATTACHMENT
+
+  FluxnovaAuthorization:
+    description: An Authorization assigns a set of Permissions to an identity to interact
+      with a given Resource.
+    slots:
+      - id
+      - type
+      - group_id
+      - user_id
+      - resource_type
+      - resource_id
+      - permissions
+      - removal_time
+      - root_process_instance_id
+    slot_usage:
+      type:
+        range: integer
+        required: true
+        minimum_value: 0
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/authorization/Authorization.java: 0 global, 1 grant, 2 revoke.'
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_RU_AUTHORIZATION
+
+  FluxnovaBatch:
+    description: A batch represents a number of jobs which execute a number of commands asynchronously.
+    slots:
+      - id
+      - type
+      - total_jobs
+      - jobs_created
+      - jobs_per_seed
+      - invocations_per_job
+      - seed_job_definition_id
+      - batch_job_definition_id
+      - monitor_job_definition_id
+      - suspension_state
+      - configuration
+      - tenant_id
+      - create_user_id
+      - start_time
+      - execution_start_time
+    slot_usage:
+      seed_job_definition_id:
+        range: FluxnovaJobDefinition
+      batch_job_definition_id:
+        range: FluxnovaJobDefinition
+      monitor_job_definition_id:
+        range: FluxnovaJobDefinition
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+    in_subset:
+      - engine_job
+    annotations:
+      sql_table: ACT_RU_BATCH
+
+  FluxnovaByteArray:
+    description: Byte Array entity in the engine infrastructure.
+    slots:
+      - id
+      - name
+      - deployment_id
+      - bytes
+      - is_generated
+      - tenant_id
+      - type
+      - create_time
+      - root_process_instance_id
+      - removal_time
+    slot_usage:
+      type:
+        range: integer
+      deployment_id:
+        range: FluxnovaDeployment
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_GE_BYTEARRAY
+
+  FluxnovaCaseDefinition:
+    description: A deployed case definition in the process repository.
+    is_a: FluxnovaResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_CASE_DEF
+
+  FluxnovaCaseExecution:
+    description: Case Execution entity in the process execution runtime.
+    slots:
+      - id
+      - case_instance_id
+      - super_case_execution_id
+      - super_execution_id
+      - business_key
+      - parent_id
+      - case_definition_id
+      - activity_id
+      - previous_state
+      - current_state
+      - is_required
+      - tenant_id
+    slot_usage:
+      case_instance_id:
+        range: FluxnovaCaseExecution
+      parent_id:
+        range: FluxnovaCaseExecution
+      case_definition_id:
+        range: FluxnovaCaseDefinition
+      previous_state:
+        minimum_value: 0
+        maximum_value: 14
+        comments:
+          - 'Codes, from engine/impl/cmmn/execution/CaseExecutionState.java: 0 new, 1 available,
+            2 enabled, 3 disabled, 4 active, 5 suspended, 6 terminated, 7 completed, 8 failed,
+            9 closed, 10 terminating on termination, 11 terminating on parent termination,
+            12 terminating on exit, 13 suspending on suspension, 14 suspending on parent suspension.'
+      current_state:
+        minimum_value: 0
+        maximum_value: 14
+        comments:
+          - 'Codes, from engine/impl/cmmn/execution/CaseExecutionState.java: 0 new, 1 available,
+            2 enabled, 3 disabled, 4 active, 5 suspended, 6 terminated, 7 completed, 8 failed,
+            9 closed, 10 terminating on termination, 11 terminating on parent termination,
+            12 terminating on exit, 13 suspending on suspension, 14 suspending on parent suspension.'
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_CASE_EXECUTION
+
+  FluxnovaCaseSentryPart:
+    description: Case Sentry Part entity in the process execution runtime.
+    slots:
+      - id
+      - case_instance_id
+      - case_execution_id
+      - sentry_id
+      - type
+      - source_case_execution_id
+      - standard_event
+      - source
+      - variable_event
+      - variable_name
+      - is_satisfied
+      - tenant_id
+    slot_usage:
+      case_instance_id:
+        range: FluxnovaCaseExecution
+      case_execution_id:
+        range: FluxnovaCaseExecution
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_CASE_SENTRY_PART
+
+  FluxnovaComment:
+    description: User comments that form discussions around tasks.
+    slots:
+      - id
+      - type
+      - event_time
+      - user_id
+      - task_id
+      - root_process_instance_id
+      - process_instance_id
+      - action
+      - message
+      - full_message
+      - tenant_id
+      - removal_time
+    in_subset:
+      - engine_collaboration
+    annotations:
+      sql_table: ACT_HI_COMMENT
+
+  FluxnovaConfiguration:
+    description: 'A process configuration entry: a key/value pair which is either global or
+      scoped to a single tenant.'
+    slots:
+      - id
+      - configuration_key
+      - tenant_id
+      - configuration_value
+      - version
+      - status
+      - created_by
+      - created_at
+      - updated_by
+      - updated_at
+    slot_usage:
+      version:
+        required: true
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_GE_CONFIGURATION
+
+  FluxnovaDecisionDefinition:
+    description: Definition of a decision resource.
+    is_a: FluxnovaResourceDefinition
+    slots:
+      - decision_requirements_definition_id
+      - decision_requirements_definition_key
+      - version_tag
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+      decision_requirements_definition_id:
+        range: FluxnovaDecisionRequirementsDefinition
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_DECISION_DEF
+
+  FluxnovaDecisionRequirementsDefinition:
+    description: Container of DecisionDefinitions which belongs to the same decision requirements
+      graph (i.e. DMN resource).
+    is_a: FluxnovaResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_DECISION_REQ_DEF
+
+  FluxnovaDeployment:
+    description: Represents a deployment that is already present in the process repository.
+    slots:
+      - id
+      - name
+      - deploy_time
+      - source
+      - tenant_id
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_DEPLOYMENT
+
+  FluxnovaEventSubscription:
+    description: A message event subscription exists, if an Execution waits for an event like
+      a message.
+    slots:
+      - id
+      - event_type
+      - event_name
+      - execution_id
+      - process_instance_id
+      - activity_id
+      - configuration
+      - created
+      - tenant_id
+    slot_usage:
+      execution_id:
+        range: FluxnovaExecution
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_EVENT_SUBSCR
+
+  FluxnovaExecution:
+    description: Represent a 'path of execution' in a process instance.
+    slots:
+      - id
+      - root_process_instance_id
+      - process_instance_id
+      - business_key
+      - parent_id
+      - process_definition_id
+      - super_execution_id
+      - super_case_execution_id
+      - case_instance_id
+      - activity_instance_id
+      - activity_id
+      - is_active
+      - is_concurrent
+      - is_scope
+      - is_event_scope
+      - suspension_state
+      - cached_entity_state
+      - sequence_counter
+      - tenant_id
+      - process_definition_key
+    slot_usage:
+      process_instance_id:
+        range: FluxnovaExecution
+      parent_id:
+        range: FluxnovaExecution
+      process_definition_id:
+        range: FluxnovaProcessDefinition
+      super_execution_id:
+        range: FluxnovaExecution
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_EXECUTION
+
+  FluxnovaExternalTask:
+    description: Represents an instance of an external task that is created when a service-task
+      like activity (i.e. service task, send task, ...) with attribute camunda:type="external"
+      is executed.
+    slots:
+      - id
+      - worker_id
+      - topic_name
+      - retries
+      - error_message
+      - error_details_id
+      - lock_expiration_time
+      - create_time
+      - suspension_state
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - activity_id
+      - activity_instance_id
+      - tenant_id
+      - priority
+      - last_failure_log_id
+    slot_usage:
+      error_details_id:
+        range: FluxnovaByteArray
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+      execution_id:
+        range: FluxnovaExecution
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_EXT_TASK
+
+  FluxnovaFilter:
+    description: Filter entity in the user collaboration.
+    slots:
+      - id
+      - resource_type
+      - name
+      - owner
+      - query
+      - properties
+    slot_usage:
+      resource_type:
+        range: string
+      name:
+        required: true
+    in_subset:
+      - engine_collaboration
+    annotations:
+      sql_table: ACT_RU_FILTER
+
+  FluxnovaFormDefinition:
+    description: An object structure representing a Camunda Form used to present forms to
+      users either when starting a process instance or when assigned to a User Task.
+    is_a: FluxnovaResourceDefinition
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_CAMFORMDEF
+
+  FluxnovaGroup:
+    description: Represents a group, used in IdentityService.
+    slots:
+      - id
+      - name
+      - type
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_GROUP
+
+  FluxnovaHistoricActivityInstance:
+    description: Represents one execution of an activity and it's stored permanent for statistics,
+      audit and other business intelligence purposes.
+    is_a: FluxnovaHistoricScopeInstance
+    slots:
+      - parent_activity_instance_id
+      - execution_id
+      - activity_id
+      - task_id
+      - called_process_instance_id
+      - called_case_instance_id
+      - activity_name
+      - activity_type
+      - assignee
+      - activity_instance_state
+      - sequence_counter
+      - tenant_id
+    slot_usage:
+      process_definition_id:
+        required: true
+      process_instance_id:
+        required: true
+      execution_id:
+        required: true
+      activity_id:
+        required: true
+      start_time:
+        required: true
+      activity_instance_state:
+        minimum_value: 0
+        maximum_value: 4
+        comments:
+          - 'Codes, from engine/impl/pvm/runtime/ActivityInstanceState.java: 0 default, 1
+            scope complete, 2 canceled, 3 starting, 4 ending.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_ACTINST
+
+  FluxnovaHistoricBatch:
+    description: Historic representation of a Batch.
+    slots:
+      - id
+      - type
+      - total_jobs
+      - jobs_per_seed
+      - invocations_per_job
+      - seed_job_definition_id
+      - monitor_job_definition_id
+      - batch_job_definition_id
+      - tenant_id
+      - create_user_id
+      - start_time
+      - end_time
+      - removal_time
+      - execution_start_time
+    slot_usage:
+      start_time:
+        required: true
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_BATCH
+
+  FluxnovaHistoricCaseActivityInstance:
+    description: Represents one execution of a case activity which is stored permanent for
+      statistics, audit and other business intelligence purposes.
+    is_a: FluxnovaHistoricScopeInstance
+    slots:
+      - parent_activity_instance_id
+      - case_definition_id
+      - case_instance_id
+      - case_activity_id
+      - task_id
+      - called_process_instance_id
+      - called_case_instance_id
+      - case_activity_name
+      - case_activity_type
+      - create_time
+      - state
+      - is_required
+      - tenant_id
+    slot_usage:
+      case_definition_id:
+        required: true
+      case_instance_id:
+        required: true
+      create_time:
+        required: true
+      state:
+        minimum_value: 0
+        maximum_value: 14
+        comments:
+          - 'Codes, from engine/impl/cmmn/execution/CaseExecutionState.java: 0 new, 1 available,
+            2 enabled, 3 disabled, 4 active, 5 suspended, 6 terminated, 7 completed, 8 failed,
+            9 closed, 10 terminating on termination, 11 terminating on parent termination,
+            12 terminating on exit, 13 suspending on suspension, 14 suspending on parent suspension.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_CASEACTINST
+
+  FluxnovaHistoricCaseInstance:
+    description: A single execution of a case definition that is stored permanently.
+    is_a: FluxnovaHistoricScopeInstance
+    slots:
+      - case_instance_id
+      - business_key
+      - case_definition_id
+      - create_time
+      - close_time
+      - state
+      - create_user_id
+      - super_case_instance_id
+      - super_process_instance_id
+      - tenant_id
+    slot_usage:
+      case_instance_id:
+        required: true
+      case_definition_id:
+        required: true
+      create_time:
+        required: true
+      state:
+        minimum_value: 0
+        maximum_value: 14
+        comments:
+          - 'Codes, from engine/impl/cmmn/execution/CaseExecutionState.java: 0 new, 1 available,
+            2 enabled, 3 disabled, 4 active, 5 suspended, 6 terminated, 7 completed, 8 failed,
+            9 closed, 10 terminating on termination, 11 terminating on parent termination,
+            12 terminating on exit, 13 suspending on suspension, 14 suspending on parent suspension.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_CASEINST
+
+  FluxnovaHistoricDecisionInputInstance:
+    description: Represents one input variable of a decision evaluation.
+    slots:
+      - id
+      - decision_instance_id
+      - clause_id
+      - clause_name
+      - variable_type
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - tenant_id
+      - create_time
+      - root_process_instance_id
+      - removal_time
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_DEC_IN
+
+  FluxnovaHistoricDecisionInstance:
+    description: Represents one evaluation of a decision.
+    slots:
+      - id
+      - decision_definition_id
+      - decision_definition_key
+      - decision_definition_name
+      - process_definition_key
+      - process_definition_id
+      - process_instance_id
+      - case_definition_key
+      - case_definition_id
+      - case_instance_id
+      - activity_instance_id
+      - activity_id
+      - evaluation_time
+      - removal_time
+      - collect_result_value
+      - user_id
+      - root_decision_instance_id
+      - root_process_instance_id
+      - decision_requirements_definition_id
+      - decision_requirements_definition_key
+      - tenant_id
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_DECINST
+
+  FluxnovaHistoricDecisionOutputInstance:
+    description: Represents one output variable of a decision evaluation.
+    slots:
+      - id
+      - decision_instance_id
+      - clause_id
+      - clause_name
+      - rule_id
+      - rule_order
+      - variable_name
+      - variable_type
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - tenant_id
+      - create_time
+      - root_process_instance_id
+      - removal_time
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_DEC_OUT
+
+  FluxnovaHistoricDetail:
+    description: Base class for all kinds of information that is related to either a HistoricProcessInstance
+      or a HistoricActivityInstance.
+    slots:
+      - id
+      - type
+      - event_time
+      - name
+      - process_definition_key
+      - process_definition_id
+      - root_process_instance_id
+      - process_instance_id
+      - execution_id
+      - case_definition_key
+      - case_definition_id
+      - case_instance_id
+      - case_execution_id
+      - task_id
+      - activity_instance_id
+      - variable_instance_id
+      - variable_type
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - sequence_counter
+      - tenant_id
+      - operation_id
+      - removal_time
+      - is_initial
+    slot_usage:
+      type:
+        required: true
+      name:
+        required: true
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_DETAIL
+
+  FluxnovaHistoricExternalTaskLog:
+    description: The HistoricExternalTaskLog is used to have a log containing information
+      about task execution.
+    slots:
+      - id
+      - timestamp
+      - external_task_id
+      - retries
+      - topic_name
+      - worker_id
+      - priority
+      - error_message
+      - error_details_id
+      - activity_id
+      - activity_instance_id
+      - execution_id
+      - root_process_instance_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - tenant_id
+      - state
+      - removal_time
+    slot_usage:
+      timestamp:
+        required: true
+      state:
+        minimum_value: 0
+        maximum_value: 3
+        comments:
+          - 'Codes, from engine/history/ExternalTaskState.java: 0 created, 1 failed, 2 successful,
+            3 deleted.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_EXT_TASK_LOG
+
+  FluxnovaHistoricIdentityLink:
+    description: An historic identity link stores the association of a task with a certain
+      identity.
+    slots:
+      - id
+      - timestamp
+      - type
+      - user_id
+      - group_id
+      - task_id
+      - root_process_instance_id
+      - process_definition_id
+      - operation_type
+      - assigner_id
+      - process_definition_key
+      - tenant_id
+      - removal_time
+    slot_usage:
+      timestamp:
+        required: true
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_IDENTITYLINK
+
+  FluxnovaHistoricIncident:
+    description: Represents a historic incident that is stored permanently.
+    slots:
+      - id
+      - process_definition_key
+      - process_definition_id
+      - root_process_instance_id
+      - process_instance_id
+      - execution_id
+      - create_time
+      - end_time
+      - incident_message
+      - incident_type
+      - activity_id
+      - failed_activity_id
+      - cause_incident_id
+      - root_cause_incident_id
+      - configuration
+      - history_configuration
+      - incident_state
+      - tenant_id
+      - job_definition_id
+      - annotation
+      - removal_time
+    slot_usage:
+      create_time:
+        required: true
+      incident_state:
+        minimum_value: 0
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/history/IncidentState.java: 0 open, 1 resolved, 2 deleted.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_INCIDENT
+
+  FluxnovaHistoricJobLog:
+    description: The HistoricJobLog is used to have a log containing information about job
+      execution.
+    slots:
+      - id
+      - timestamp
+      - job_id
+      - job_due_date
+      - job_retries
+      - job_priority
+      - job_exception_message
+      - job_exception_stack_id
+      - job_state
+      - job_definition_id
+      - job_definition_type
+      - job_definition_configuration
+      - activity_id
+      - failed_activity_id
+      - execution_id
+      - root_process_instance_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - deployment_id
+      - sequence_counter
+      - tenant_id
+      - hostname
+      - removal_time
+      - batch_id
+    slot_usage:
+      timestamp:
+        required: true
+      job_state:
+        minimum_value: 0
+        maximum_value: 3
+        comments:
+          - 'Codes, from engine/history/JobState.java: 0 created, 1 failed, 2 successful,
+            3 deleted.'
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_JOB_LOG
+
+  FluxnovaHistoricProcessInstance:
+    description: A single execution of a whole process definition that is stored permanently.
+    is_a: FluxnovaHistoricScopeInstance
+    slots:
+      - business_key
+      - start_user_id
+      - start_activity_id
+      - end_activity_id
+      - super_process_instance_id
+      - super_case_instance_id
+      - case_instance_id
+      - delete_reason
+      - tenant_id
+      - state
+      - restarted_process_instance_id
+    slot_usage:
+      process_instance_id:
+        required: true
+      process_definition_id:
+        required: true
+      start_time:
+        required: true
+      state:
+        range: HistoricProcessInstanceState
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_PROCINST
+
+  FluxnovaHistoricScopeInstance:
+    description: Abstract base for historic entities with start/end time and duration.
+    abstract: true
+    slots:
+      - id
+      - root_process_instance_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - start_time
+      - end_time
+      - duration
+      - removal_time
+    in_subset:
+      - engine_history
+
+  FluxnovaHistoricTaskInstance:
+    description: Represents a historic task instance (waiting, finished or deleted) that is
+      stored permanent for statistics, audit and other business intelligence purposes.
+    is_a: FluxnovaHistoricScopeInstance
+    slots:
+      - task_definition_key
+      - execution_id
+      - case_definition_key
+      - case_definition_id
+      - case_instance_id
+      - case_execution_id
+      - activity_instance_id
+      - name
+      - parent_task_id
+      - description
+      - owner
+      - assignee
+      - delete_reason
+      - priority
+      - due_date
+      - follow_up_date
+      - tenant_id
+      - task_state
+    slot_usage:
+      start_time:
+        required: true
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_TASKINST
+
+  FluxnovaHistoricVariableInstance:
+    description: A single process variable containing the last value when its process instance
+      has finished.
+    slots:
+      - id
+      - process_definition_key
+      - process_definition_id
+      - root_process_instance_id
+      - process_instance_id
+      - execution_id
+      - case_definition_key
+      - case_definition_id
+      - case_instance_id
+      - case_execution_id
+      - task_id
+      - activity_instance_id
+      - name
+      - variable_type
+      - create_time
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - tenant_id
+      - state
+      - removal_time
+      - restricted
+    slot_usage:
+      name:
+        required: true
+      state:
+        range: HistoricVariableInstanceState
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_VARINST
+
+  FluxnovaIdentityInfo:
+    description: Identity Info entity in the identity and access management.
+    slots:
+      - id
+      - user_id
+      - type
+      - key
+      - value
+      - password
+      - parent_id
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_INFO
+
+  FluxnovaIdentityLink:
+    description: An identity link is used to associate a task with a certain identity.
+    slots:
+      - id
+      - group_id
+      - type
+      - user_id
+      - task_id
+      - process_definition_id
+      - tenant_id
+    slot_usage:
+      task_id:
+        range: FluxnovaTask
+      process_definition_id:
+        range: FluxnovaProcessDefinition
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_RU_IDENTITYLINK
+
+  FluxnovaIncident:
+    description: An Incident represents a failure in the execution of a process instance.
+    slots:
+      - id
+      - incident_timestamp
+      - incident_message
+      - incident_type
+      - execution_id
+      - activity_id
+      - failed_activity_id
+      - process_instance_id
+      - process_definition_id
+      - cause_incident_id
+      - root_cause_incident_id
+      - configuration
+      - tenant_id
+      - job_definition_id
+      - annotation
+    slot_usage:
+      execution_id:
+        range: FluxnovaExecution
+      process_instance_id:
+        range: FluxnovaExecution
+      process_definition_id:
+        range: FluxnovaProcessDefinition
+      cause_incident_id:
+        range: FluxnovaIncident
+      root_cause_incident_id:
+        range: FluxnovaIncident
+      job_definition_id:
+        range: FluxnovaJobDefinition
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_INCIDENT
+
+  FluxnovaJob:
+    description: Represents one job (timer, message, etc.).
+    slots:
+      - id
+      - type
+      - lock_expiration_time
+      - lock_owner
+      - is_exclusive
+      - execution_id
+      - root_process_instance_id
+      - process_instance_id
+      - process_definition_id
+      - process_definition_key
+      - retries
+      - exception_stack_id
+      - exception_message
+      - failed_activity_id
+      - due_date
+      - repeat
+      - repeat_offset
+      - handler_type
+      - handler_configuration
+      - deployment_id
+      - suspension_state
+      - job_definition_id
+      - priority
+      - sequence_counter
+      - tenant_id
+      - create_time
+      - last_failure_log_id
+      - batch_id
+    slot_usage:
+      type:
+        required: true
+      suspension_state:
+        required: true
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+      exception_stack_id:
+        range: FluxnovaByteArray
+    in_subset:
+      - engine_job
+    annotations:
+      sql_table: ACT_RU_JOB
+
+  FluxnovaJobDefinition:
+    description: A Job Definition provides details about asynchronous background processing
+      ("Jobs") performed by the process engine.
+    slots:
+      - id
+      - process_definition_id
+      - process_definition_key
+      - activity_id
+      - job_type
+      - job_configuration
+      - suspension_state
+      - job_priority
+      - tenant_id
+      - deployment_id
+    slot_usage:
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+    in_subset:
+      - engine_job
+    annotations:
+      sql_table: ACT_RU_JOBDEF
+
+  FluxnovaMembership:
+    description: Association entity in identity and access management.
+    slots:
+      - user_id
+      - group_id
+    slot_usage:
+      user_id:
+        required: true
+        range: FluxnovaUser
+      group_id:
+        required: true
+        range: FluxnovaGroup
+    unique_keys:
+      membership_pk:
+        unique_key_slots:
+          - user_id
+          - group_id
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_MEMBERSHIP
+
+  FluxnovaMeterLog:
+    description: Meter Log entity in the engine infrastructure.
+    slots:
+      - id
+      - name
+      - reporter
+      - value
+      - timestamp
+      - milliseconds
+    slot_usage:
+      name:
+        required: true
+      value:
+        range: integer
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_RU_METER_LOG
+
+  FluxnovaProcessDefinition:
+    description: An object structure representing an executable process composed of activities
+      and transitions.
+    is_a: FluxnovaResourceDefinition
+    slots:
+      - has_start_form_key
+      - suspension_state
+      - version_tag
+      - is_startable
+    slot_usage:
+      key:
+        required: true
+      version:
+        required: true
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+    in_subset:
+      - engine_repository
+    annotations:
+      sql_table: ACT_RE_PROCDEF
+
+  FluxnovaEngineProperty:
+    description: Property entity in the engine infrastructure.
+    slots:
+      - name
+      - value
+    slot_usage:
+      name:
+        identifier: true
+        required: true
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_GE_PROPERTY
+
+  FluxnovaResourceDefinition:
+    description: Abstract base for deployable resource definitions (process, case, decision,
+      form).
+    abstract: true
+    slots:
+      - id
+      - key
+      - name
+      - version
+      - category
+      - deployment_id
+      - resource_name
+      - diagram_resource_name
+      - tenant_id
+      - history_time_to_live
+    in_subset:
+      - engine_repository
+
+  FluxnovaSchemaLogEntry:
+    description: Schema Log Entry entity in the engine infrastructure.
+    slots:
+      - id
+      - timestamp
+      - version
+    slot_usage:
+      version:
+        range: string
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_GE_SCHEMA_LOG
+
+  FluxnovaTask:
+    description: Represents one task for a human user.
+    slots:
+      - id
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - case_execution_id
+      - case_instance_id
+      - case_definition_id
+      - name
+      - parent_task_id
+      - description
+      - task_definition_key
+      - owner
+      - assignee
+      - delegation_state
+      - priority
+      - create_time
+      - last_updated
+      - due_date
+      - follow_up_date
+      - suspension_state
+      - tenant_id
+      - task_state
+    slot_usage:
+      execution_id:
+        range: FluxnovaExecution
+      process_instance_id:
+        range: FluxnovaExecution
+      process_definition_id:
+        range: FluxnovaProcessDefinition
+      case_execution_id:
+        range: FluxnovaCaseExecution
+      case_definition_id:
+        range: FluxnovaCaseDefinition
+      suspension_state:
+        minimum_value: 1
+        maximum_value: 2
+        comments:
+          - 'Codes, from engine/impl/persistence/entity/SuspensionState.java: 1 active, 2
+            suspended.'
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_TASK
+
+  FluxnovaTaskMeterLog:
+    description: Task Meter Log entity in the engine infrastructure.
+    slots:
+      - id
+      - assignee_hash
+      - timestamp
+    in_subset:
+      - engine_base
+    annotations:
+      sql_table: ACT_RU_TASK_METER_LOG
+
+  FluxnovaTenant:
+    description: Represents a tenant, used in IdentityService.
+    slots:
+      - id
+      - name
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_TENANT
+
+  FluxnovaTenantMembership:
+    description: Association entity in identity and access management.
+    slots:
+      - id
+      - tenant_id
+      - user_id
+      - group_id
+    slot_usage:
+      tenant_id:
+        required: true
+        range: FluxnovaTenant
+      user_id:
+        range: FluxnovaUser
+      group_id:
+        range: FluxnovaGroup
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_TENANT_MEMBER
+
+  FluxnovaUser:
+    description: Represents a user, used in IdentityService.
+    slots:
+      - id
+      - first_name
+      - last_name
+      - email
+      - password
+      - salt
+      - lock_expiration_time
+      - attempts
+      - picture_id
+    in_subset:
+      - engine_identity
+    annotations:
+      sql_table: ACT_ID_USER
+
+  FluxnovaUserOperationLogEntry:
+    description: Log entry about an operation performed by a user.
+    slots:
+      - id
+      - deployment_id
+      - process_definition_id
+      - process_definition_key
+      - root_process_instance_id
+      - process_instance_id
+      - execution_id
+      - case_definition_id
+      - case_instance_id
+      - case_execution_id
+      - task_id
+      - job_id
+      - job_definition_id
+      - batch_id
+      - user_id
+      - timestamp
+      - operation_type
+      - operation_id
+      - entity_type
+      - property
+      - original_value
+      - new_value
+      - tenant_id
+      - removal_time
+      - category
+      - external_task_id
+      - annotation
+    slot_usage:
+      timestamp:
+        required: true
+    in_subset:
+      - engine_history
+    annotations:
+      sql_table: ACT_HI_OP_LOG
+
+  FluxnovaVariableInstance:
+    description: A VariableInstance represents a variable in the execution of a process instance.
+    slots:
+      - id
+      - type
+      - name
+      - execution_id
+      - process_instance_id
+      - process_definition_id
+      - case_execution_id
+      - case_instance_id
+      - task_id
+      - batch_id
+      - byte_array_id
+      - double_value
+      - long_value
+      - text_value
+      - text2_value
+      - variable_scope_id
+      - sequence_counter
+      - is_concurrent_local
+      - tenant_id
+      - restricted
+    slot_usage:
+      type:
+        required: true
+      name:
+        required: true
+      execution_id:
+        range: FluxnovaExecution
+      process_instance_id:
+        range: FluxnovaExecution
+      case_execution_id:
+        range: FluxnovaCaseExecution
+      case_instance_id:
+        range: FluxnovaCaseExecution
+      batch_id:
+        range: FluxnovaBatch
+      byte_array_id:
+        range: FluxnovaByteArray
+    in_subset:
+      - engine_runtime
+    annotations:
+      sql_table: ACT_RU_VARIABLE

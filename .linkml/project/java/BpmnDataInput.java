@@ -1,0 +1,23 @@
+package example;
+
+/* metamodel_version: 1.12.0 */
+/* version: 3.1.1 */
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.util.List;
+import lombok.*;
+
+/**
+  A piece of data an activity, process or event needs.
+**/
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class BpmnDataInput extends BpmnItemAwareElement {
+
+  private String name;
+  private Boolean isCollection;
+
+
+}

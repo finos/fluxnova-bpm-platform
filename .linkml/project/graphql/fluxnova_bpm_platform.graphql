@@ -1,148 +1,19 @@
-# metamodel_version: 1.11.0
-# version: 2.0.0-SNAPSHOT
-enum ActivityInstanceState
-  {
-    DEFAULT
-    SCOPE_COMPLETE
-    CANCELED
-    STARTING
-    ENDING
-  }
-
-enum AgentKind
-  {
-    PERSON
-    ORGANIZATION
-    SYSTEM
-    SERVICE_ACCOUNT
-  }
-
-enum AiInvocationKind
-  {
-    CHAT_COMPLETION
-    COMPLETION
-    EMBEDDING
-    TOOL_USE
-    AGENT_LOOP
-    RETRIEVAL
-    GUARDRAIL
-  }
-
-enum AiModality
-  {
-    TEXT
-    IMAGE
-    AUDIO
-    VIDEO
-    MULTIMODAL
-    EMBEDDING
-  }
-
-enum ArtifactKind
-  {
-    BPMN_XML
-    DMN_XML
-    FORM_SCHEMA
-    PAYLOAD
-    DOCUMENT
-    LOG
-    EXPORT_BUNDLE
-    SCREENSHOT
-    OTHER
-  }
-
-enum AssociationDirection
+# metamodel_version: 1.12.0
+# version: 3.1.1
+enum BpmnAssociationDirection
   {
     None
     One
     Both
   }
 
-enum AuthorizationType
-  {
-    GLOBAL
-    GRANT
-    REVOKE
-  }
-
-enum BPMNElementType
-  {
-    PROCESS
-    START_EVENT
-    END_EVENT
-    USER_TASK
-    SERVICE_TASK
-    SCRIPT_TASK
-    BUSINESS_RULE_TASK
-    MANUAL_TASK
-    CALL_ACTIVITY
-    SUB_PROCESS
-    AD_HOC_SUB_PROCESS
-    EXCLUSIVE_GATEWAY
-    PARALLEL_GATEWAY
-    EVENT_BASED_GATEWAY
-    INTERMEDIATE_CATCH_EVENT
-    INTERMEDIATE_THROW_EVENT
-    BOUNDARY_EVENT
-    SEQUENCE_FLOW
-  }
-
-enum DataClassification
-  {
-    PUBLIC
-    INTERNAL
-    CONFIDENTIAL
-    RESTRICTED
-  }
-
-enum DatasetKind
-  {
-    TRAINING
-    FINE_TUNING
-    EVALUATION
-    RAG_CORPUS
-    GROUND_TRUTH
-  }
-
-enum DelegationState
-  {
-    PENDING
-    RESOLVED
-  }
-
-enum DirectionEnum
-  {
-    IN
-    OUT
-    INOUT
-    LOCAL
-  }
-
-enum EntityState
-  {
-    ACTIVE
-    SUSPENDED
-    COMPLETED
-    EXTERNALLY_TERMINATED
-    INTERNALLY_TERMINATED
-  }
-
-enum EvaluatorKind
-  {
-    HUMAN_REVIEW
-    LLM_AS_JUDGE
-    METRIC
-    GUARDRAIL
-    STATIC_RULE
-  }
-
-enum EventBasedGatewayType
+enum BpmnEventBasedGatewayType
   {
     Exclusive
     Parallel
   }
 
-enum GatewayDirection
+enum BpmnGatewayDirection
   {
     Unspecified
     Converging
@@ -150,66 +21,19 @@ enum GatewayDirection
     Mixed
   }
 
-enum ImplementationKind
-  {
-    USER_TASK
-    JAVA_DELEGATE
-    EXPRESSION
-    SCRIPT
-    CONNECTOR
-    CALL_ACTIVITY
-    BUSINESS_RULE
-    EXTERNAL_SERVICE
-    EVENT
-    GATEWAY
-    SUBPROCESS
-    AGENT_LOOP
-  }
-
-enum IncidentState
-  {
-    OPEN
-    DELETED
-    RESOLVED
-  }
-
-enum IncidentStatus
-  {
-    OPEN
-    INVESTIGATING
-    RESOLVED
-    IGNORED
-  }
-
-enum ItemKind
+enum BpmnItemKind
   {
     Information
     Physical
   }
 
-enum JobState
-  {
-    CREATED
-    FAILED
-    SUCCESSFUL
-    DELETED
-  }
-
-enum MessageRole
-  {
-    SYSTEM
-    USER
-    ASSISTANT
-    TOOL
-  }
-
-enum MessageVisibleKind
+enum BpmnMessageVisibleKind
   {
     initiating
     non_initiating
   }
 
-enum MultiInstanceFlowCondition
+enum BpmnMultiInstanceFlowCondition
   {
     None
     One
@@ -217,16 +41,7 @@ enum MultiInstanceFlowCondition
     Complex
   }
 
-enum ParameterScope
-  {
-    WORKFLOW
-    STEP
-    TASK
-    DECISION
-    FORM
-  }
-
-enum ParticipantBandKind
+enum BpmnParticipantBandKind
   {
     top_initiating
     middle_initiating
@@ -236,14 +51,14 @@ enum ParticipantBandKind
     bottom_non_initiating
   }
 
-enum ProcessType
+enum BpmnProcessType
   {
     None
     Public
     Private
   }
 
-enum RelationshipDirection
+enum BpmnRelationshipDirection
   {
     None
     Forward
@@ -251,555 +66,220 @@ enum RelationshipDirection
     Both
   }
 
-enum ResourceKind
+enum BpmnTransactionMethod
   {
-    HOST
-    CONTAINER
-    POD
-    NODE
-    DATABASE
-    QUEUE
-    CLUSTER
-    THREAD_POOL
-    EXTERNAL_API
+    __NUMBER_SIGN____NUMBER_SIGN__Compensate
+    __NUMBER_SIGN____NUMBER_SIGN__Image
+    __NUMBER_SIGN____NUMBER_SIGN__Store
   }
 
-enum RunStatus
+enum ConfigurationStatus
+  {
+    ACTIVE
+    INACTIVE
+    DELETED
+  }
+
+enum DelegationState
   {
     PENDING
+    RESOLVED
+  }
+
+enum HistoricProcessInstanceState
+  {
     ACTIVE
+    SUSPENDED
     COMPLETED
-    FAILED
-    CANCELLED
-    SUSPENDED
+    EXTERNALLY_TERMINATED
+    INTERNALLY_TERMINATED
   }
 
-enum RuntimeComponentKind
+enum HistoricVariableInstanceState
   {
-    ENGINE
-    REST_API
-    JOB_EXECUTOR
-    HISTORY_EXPORTER
-    PLUGIN
-    CONNECTOR
-    MODELER_DEPLOYER
+    CREATED
+    DELETED
   }
 
-enum SafetyFlag
+type BpmnActivationCondition
   {
-    NONE
-    POLICY_VIOLATION
-    HALLUCINATION_SUSPECTED
-    JAILBREAK_ATTEMPT
-    PII_LEAK
-    PROMPT_INJECTION
-    TOXICITY
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
   }
 
-enum SuspensionState
+type BpmnActivity implements BpmnInteractionNode
   {
-    ACTIVE
-    SUSPENDED
-  }
-
-enum TransactionMethod
-  {
-    Compensate
-    Image
-    Store
-  }
-
-type ActivationCondition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Activity implements InteractionNode
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
     fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
     fluxnovaExclusive: Boolean
     fluxnovaJobPriority: String
-    forCompensation: Boolean
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
     startQuantity: Int
     completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
+    default: String
+    ioSpecification: BpmnIoSpecification
     properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
   }
 
-type Agent
+type BpmnAdHocSubProcess
   {
-    id: String!
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    externalRef: String
-    agentKind: AgentKind
-    email: String
-    role: [String]
-  }
-
-type AgentLoopRun
-  {
-    id: String!
-    name: String
-    externalRef: String
-    workflowRun: WorkflowRun
-    stepDefinition: StepDefinition
-    activityInstanceId: String
-    parentStepRun: StepRun
-    informedBy: [StepRun]
-    status: RunStatus
-    startedAt: String
-    endedAt: String
-    executedBy: Agent
-    environment: Environment
-    executionResource: ExecutionResource
-    inputValues: [ParameterValue]
-    outputValues: [ParameterValue]
-    consumedArtifacts: [WorkflowArtifact]
-    producedArtifacts: [WorkflowArtifact]
-    incidentMessage: String
-    retries: Int
-    sequenceNo: Int
-    invokedModel: AiAgent
-    availableTools: [AiToolDefinition]
-    modelInvocations: [AiModelInvocation]
-  }
-
-type AiAgent
-  {
-    id: String!
-    name: String
-    externalRef: String
-    agentKind: AgentKind
-    email: String
-    role: [String]
-    modelFamily: String
-    modelName: String
-    modelVersion: String
-    provider: String
-    endpoint: String
-    parameterCount: Int
-    contextWindowTokens: Int
-    inputModalities: [AiModality]
-    outputModalities: [AiModality]
-    isPartOfAiSystem: String
-  }
-
-type AiDataset
-  {
-    id: String!
-    name: String
-    externalRef: String
-    artifactKind: ArtifactKind
-    mediaType: String
-    pathOrUri: String
-    hash: String
-    sizeInBytes: Int
-    producedByStepRun: StepRun
-    consumedByStepRuns: [StepRun]
-    datasetKind: DatasetKind
-    recordCount: Int
-    licenseUri: String
-    classification: DataClassification
-  }
-
-type AiModelDescriptor
-  {
-    id: String!
-    name: String
-    externalRef: String
-    componentKind: RuntimeComponentKind
-    definitionVersion: String
-    endpoint: String
-    modelFamily: String
-    architecture: String
-    parameterCount: Int
-    trainingTokenCount: Int
-    contextWindowTokens: Int
-    fineTuningDescription: String
-    supportedLanguages: [String]
-  }
-
-type AiModelInvocation
-  {
-    id: String!
-    name: String
-    externalRef: String
-    workflowRun: WorkflowRun
-    stepDefinition: StepDefinition
-    activityInstanceId: String
-    parentStepRun: StepRun
-    informedBy: [StepRun]
-    status: RunStatus
-    startedAt: String
-    endedAt: String
-    executedBy: Agent
-    environment: Environment
-    executionResource: ExecutionResource
-    inputValues: [ParameterValue]
-    outputValues: [ParameterValue]
-    consumedArtifacts: [WorkflowArtifact]
-    producedArtifacts: [WorkflowArtifact]
-    incidentMessage: String
-    retries: Int
-    sequenceNo: Int
-    invokedModel: AiAgent
-    invocationKind: AiInvocationKind
-    parentAgentLoop: AgentLoopRun
-    turnIndex: Int
-    promptMessages: [PromptMessage]
-    toolCalls: [ToolCall]
-    responseMessage: PromptMessage
-    temperature: Float
-    topP: Float
-    maxTokens: Int
-    totalInputTokens: Int
-    totalOutputTokens: Int
-    costUsd: Float
-    safetyFlags: [SafetyFlag]
-    evaluationResults: [EvaluationResult]
-  }
-
-type AiToolDefinition
-  {
-    id: String!
-    name: String
-    externalRef: String
-    toolDescription: String
-    readsVariables: [String]
-    writesVariables: [String]
-    backingStepDefinition: StepDefinition
-  }
-
-type Artifact
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Assignment
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    from: String
-    to: String
-  }
-
-type Association
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    source: BaseElement
-    target: BaseElement
-    associationDirection: String
-  }
-
-type Attachment
-  {
-    id: String!
-    userId: String
-    name: String
-    description: String
-    type: String
-    taskId: String
-    rootProcessInstanceId: String
-    processInstanceId: String
-    url: String
-    contentId: String
-    tenantId: String
-    createTime: String
-    removalTime: String
-  }
-
-type Auditing
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Authorization
-  {
-    id: String!
-    type: AuthorizationType!
-    groupId: String
-    userId: String
-    resourceType: Int!
-    resourceId: String
-    permissions: Int
-    removalTime: String
-    rootProcessInstanceId: String
-  }
-
-type BaseElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Batch
-  {
-    id: String!
-    type: String
-    totalJobs: Int
-    jobsCreated: Int
-    jobsPerSeed: Int
-    invocationsPerJob: Int
-    seedJobDefinitionId: String
-    batchJobDefinitionId: String
-    monitorJobDefinitionId: String
-    suspensionState: SuspensionState
-    configuration: String
-    tenantId: String
-    createUserId: String
-    startTime: String
-    executionStartTime: String
-  }
-
-type BoundaryEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
     fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
     fluxnovaExclusive: Boolean
     fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    triggeredByEvent: Boolean
+    fluxnovaAsync: Boolean
+    laneSets: [BpmnLaneSet]
+    flowElements: [BpmnFlowElement]
+    artifacts: [BpmnArtifact]
+    ordering: String
+    cancelRemainingInstances: Boolean
+    completionCondition: BpmnCompletionCondition
+  }
+
+interface BpmnArtifact
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnAssignment
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    from: BpmnFrom!
+    to: BpmnTo!
+  }
+
+type BpmnAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    sourceRef: String!
+    targetRef: String!
+    associationDirection: BpmnAssociationDirection
+  }
+
+type BpmnAuditing
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+interface BpmnBaseElement
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnBoundaryEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
     properties: [BpmnProperty]
     parallelMultiple: Boolean
-    dataOutputs: [DataOutput]
-    dataOutputAssociations: [DataOutputAssociation]
-    outputSet: OutputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-    attachedTo: Activity
+    dataOutputs: [BpmnDataOutput]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    outputSet: BpmnOutputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+    cancelActivity: Boolean
+    attachedToRef: String!
   }
 
-type Bounds
+type BpmnBusinessRuleTask
   {
-    scope: Boolean
-    x: Float
-    y: Float
-    width: Float
-    height: Float
-  }
-
-type BpmnDiagram
-  {
-    scope: Boolean
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    documentation: String
-    resolution: Float
-    id: String!
-    bpmnPlane: BpmnPlane
-    bpmnLabelStyles: [BpmnLabelStyle]
-  }
-
-type BpmnEdge
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    waypoints: [Waypoint]
-    bpmnElement: String
-    sourceElement: DiagramElement
-    targetElement: DiagramElement
-    messageVisibleKind: MessageVisibleKind
-    bpmnLabel: BpmnLabel
-  }
-
-type BpmnGroup
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    category: CategoryValue
-  }
-
-type BpmnLabel
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    bounds: Bounds
-    labelStyle: BpmnLabelStyle
-  }
-
-type BpmnLabelStyle
-  {
-    scope: Boolean
-    id: String!
-    font: Font
-  }
-
-type BpmnModelElementInstance
-  {
-    scope: BpmnModelElementInstance
-  }
-
-type BpmnModelInstance
-  {
-    definitions: Definitions
-  }
-
-type BpmnModelType
-  {
-  }
-
-type BpmnPlane
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    diagramElements: [DiagramElement]
-    bpmnElement: String
-  }
-
-type BpmnProperty
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-    name: String
-  }
-
-type BpmnShape
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    bounds: Bounds
-    bpmnElement: String
-    horizontal: Boolean
-    expanded: Boolean
-    markerVisible: Boolean
-    messageVisible: Boolean
-    participantBandKind: ParticipantBandKind
-    choreographyActivityShape: BpmnShape
-    bpmnLabel: BpmnLabel
-  }
-
-type BpmnTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
     fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
     fluxnovaExclusive: Boolean
     fluxnovaJobPriority: String
-    forCompensation: Boolean
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
     startQuantity: Int
     completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
+    default: String
+    ioSpecification: BpmnIoSpecification
     properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-  }
-
-type BusinessRuleTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
     fluxnovaAsync: Boolean
     implementation: String
     fluxnovaClass: String
     fluxnovaDelegateExpression: String
     fluxnovaExpression: String
     fluxnovaResultVariable: String
-    fluxnovaType: String
     fluxnovaTopic: String
+    fluxnovaType: String
     fluxnovaDecisionRef: String
     fluxnovaDecisionRefBinding: String
     fluxnovaDecisionRefVersion: String
@@ -809,62 +289,44 @@ type BusinessRuleTask
     fluxnovaTaskPriority: String
   }
 
-type ByteArray
+type BpmnCallableElement
   {
-    id: String!
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    deploymentId: String
-    bytes: String
-    isGenerated: Boolean
-    tenantId: String
-    type: Int
-    createTime: String
-    rootProcessInstanceId: String
-    removalTime: String
+    supportedInterfaceRefs: [String]
+    ioSpecification: BpmnIoSpecification
+    ioBindings: [BpmnIoBinding]
   }
 
-type CallableElement
+type BpmnCallActivity
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    supportedInterfaces: [Interface]
-    ioSpecification: IoSpecification
-    ioBindings: [IoBinding]
-  }
-
-type CallActivity
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
     fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
     fluxnovaExclusive: Boolean
     fluxnovaJobPriority: String
-    forCompensation: Boolean
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
     startQuantity: Int
     completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
+    default: String
+    ioSpecification: BpmnIoSpecification
     properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
     calledElement: String
     fluxnovaAsync: Boolean
     fluxnovaCalledElementBinding: String
@@ -879,31 +341,2030 @@ type CallActivity
     fluxnovaVariableMappingDelegateExpression: String
   }
 
-type CallConversation
+type BpmnCallConversation
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
     name: String
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    correlationKeys: [CorrelationKey]
-    calledCollaboration: GlobalConversation
-    participantAssociations: [ParticipantAssociation]
+    participantRefs: [String]
+    messageFlowRefs: [String]
+    correlationKeys: [BpmnCorrelationKey]
+    calledCollaborationRef: String
+    participantAssociations: [BpmnParticipantAssociation]
   }
 
-type CancelEventDefinition
+type BpmnCancelEventDefinition
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
   }
 
-type CaseDefinition
+interface BpmnCatchEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [BpmnDataOutput]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    outputSet: BpmnOutputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+  }
+
+type BpmnCategory
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String!
+    categoryValues: [BpmnCategoryValue]
+  }
+
+type BpmnCategoryValue
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    value: String
+  }
+
+type BpmnChildLaneSet
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    lanes: [BpmnLane]
+  }
+
+type BpmnCollaboration
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    isClosed: Boolean
+    participants: [BpmnParticipant]
+    messageFlows: [BpmnMessageFlow]
+    artifacts: [BpmnArtifact]
+    conversationNodes: [BpmnConversationNode]
+    conversationAssociations: [BpmnConversationAssociation]
+    participantAssociations: [BpmnParticipantAssociation]
+    messageFlowAssociations: [BpmnMessageFlowAssociation]
+    correlationKeys: [BpmnCorrelationKey]
+    conversationLinks: [BpmnConversationLink]
+  }
+
+type BpmnCompensateEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    waitForCompletion: Boolean
+    activityRef: String
+  }
+
+type BpmnCompletionCondition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnComplexBehaviorDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnComplexGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+    default: String
+    activationCondition: BpmnActivationCondition
+  }
+
+type BpmnCondition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnConditionalEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    fluxnovaVariableName: String
+    fluxnovaVariableEvents: String
+    condition: BpmnCondition!
+  }
+
+type BpmnConditionExpression
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+    language: String
+    evaluatesToTypeRef: String
+    xsiType: String
+    fluxnovaResource: String
+  }
+
+type BpmnConversation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    participantRefs: [String]
+    messageFlowRefs: [String]
+    correlationKeys: [BpmnCorrelationKey]
+  }
+
+type BpmnConversationAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    innerConversationNodeRef: String!
+    outerConversationNodeRef: String!
+  }
+
+type BpmnConversationLink
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    sourceRef: String!
+    targetRef: String!
+  }
+
+type BpmnConversationNode implements BpmnInteractionNode
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    participantRefs: [String]
+    messageFlowRefs: [String]
+    correlationKeys: [BpmnCorrelationKey]
+  }
+
+type BpmnCorrelationKey
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    correlationPropertyRefs: [String]
+  }
+
+type BpmnCorrelationProperty
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    type: String
+    correlationPropertyRetrievalExpressions: [BpmnCorrelationPropertyRetrievalExpression]!
+  }
+
+type BpmnCorrelationPropertyBinding
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    correlationPropertyRef: String!
+    dataPath: BpmnDataPath!
+  }
+
+type BpmnCorrelationPropertyRetrievalExpression
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    messageRef: String!
+    messagePath: BpmnMessagePath!
+  }
+
+type BpmnCorrelationSubscription
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    correlationKeyRef: String!
+    correlationPropertyBindings: [BpmnCorrelationPropertyBinding]
+  }
+
+type BpmnDataAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    sourceRefs: [String]
+    targetRef: String!
+    transformation: BpmnTransformation
+    assignments: [BpmnAssignment]
+  }
+
+type BpmnDataInput
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+    name: String
+    isCollection: Boolean
+  }
+
+type BpmnDataInputAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    sourceRefs: [String]
+    targetRef: String!
+    transformation: BpmnTransformation
+    assignments: [BpmnAssignment]
+  }
+
+type BpmnDataObject
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    itemSubjectRef: String
+    isCollection: Boolean
+    dataState: BpmnDataState
+  }
+
+type BpmnDataObjectReference
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    itemSubjectRef: String
+    dataObjectRef: String
+    dataState: BpmnDataState
+  }
+
+type BpmnDataOutput
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+    name: String
+    isCollection: Boolean
+  }
+
+type BpmnDataOutputAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    sourceRefs: [String]
+    targetRef: String!
+    transformation: BpmnTransformation
+    assignments: [BpmnAssignment]
+  }
+
+type BpmnDataPath
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+    language: String
+    evaluatesToTypeRef: String
+  }
+
+type BpmnDataState
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+  }
+
+type BpmnDataStore
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    capacity: Int
+    isUnlimited: Boolean
+    itemSubjectRef: String
+    dataState: BpmnDataState
+  }
+
+type BpmnDataStoreReference
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    itemSubjectRef: String
+    dataStoreRef: String
+    dataState: BpmnDataState
+  }
+
+type BpmnDefinitions
+  {
+    elementType: String
+    id: String
+    name: String
+    targetNamespace: String!
+    expressionLanguage: String
+    typeLanguage: String
+    exporter: String
+    exporterVersion: String
+    imports: [BpmnImport]
+    extensions: [BpmnExtension]
+    rootElements: [BpmnRootElement]
+    bpmnDiagrams: [BpmnDiagram]
+    relationships: [BpmnRelationship]
+  }
+
+type BpmnDiagram
+  {
+    elementType: String
+    name: String
+    documentation: String
+    resolution: Float
+    id: String
+    bpmnPlane: BpmnPlane!
+    bpmnLabelStyles: [BpmnLabelStyle]
+  }
+
+type BpmnDocumentation
+  {
+    elementType: String
+    id: String
+    textFormat: String
+    textContent: String
+  }
+
+type BpmnEdge
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    waypoints: [DiWaypoint]!
+    bpmnElement: String
+    sourceElement: String
+    targetElement: String
+    messageVisibleKind: BpmnMessageVisibleKind
+    bpmnLabel: BpmnLabel
+  }
+
+type BpmnEndEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    dataInputs: [BpmnDataInput]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    inputSet: BpmnInputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+  }
+
+type BpmnEndPoint
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnError
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    errorCode: String
+    fluxnovaErrorMessage: String
+    structureRef: String
+  }
+
+type BpmnErrorEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    errorRef: String
+    fluxnovaErrorCodeVariable: String
+    fluxnovaErrorMessageVariable: String
+  }
+
+type BpmnEscalation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    escalationCode: String
+    structureRef: String
+  }
+
+type BpmnEscalationEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    escalationRef: String
+  }
+
+type BpmnEvent implements BpmnInteractionNode
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+  }
+
+type BpmnEventBasedGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+    instantiate: Boolean
+    eventGatewayType: BpmnEventBasedGatewayType
+  }
+
+interface BpmnEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnExclusiveGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+    default: String
+  }
+
+type BpmnExpression
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnExtension
+  {
+    elementType: String
+    definition: String
+    mustUnderstand: Boolean
+    documentation: [BpmnDocumentation]
+  }
+
+type BpmnExtensionElements
+  {
+    elementType: String
+  }
+
+interface BpmnFlowElement
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+  }
+
+interface BpmnFlowNode
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+  }
+
+type BpmnFormalExpression
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+    language: String
+    evaluatesToTypeRef: String
+  }
+
+type BpmnFrom
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+interface BpmnGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+  }
+
+type BpmnGlobalConversation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    isClosed: Boolean
+    participants: [BpmnParticipant]
+    messageFlows: [BpmnMessageFlow]
+    artifacts: [BpmnArtifact]
+    conversationNodes: [BpmnConversationNode]
+    conversationAssociations: [BpmnConversationAssociation]
+    participantAssociations: [BpmnParticipantAssociation]
+    messageFlowAssociations: [BpmnMessageFlowAssociation]
+    correlationKeys: [BpmnCorrelationKey]
+    conversationLinks: [BpmnConversationLink]
+  }
+
+type BpmnGroup
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    categoryValueRef: String
+  }
+
+type BpmnHumanPerformer
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    resourceRef: String
+    resourceParameterBindings: [BpmnResourceParameterBinding]
+    resourceAssignmentExpression: BpmnResourceAssignmentExpression
+  }
+
+type BpmnImport
+  {
+    elementType: String
+    namespace: String!
+    location: String!
+    importType: String!
+  }
+
+type BpmnInclusiveGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+    default: String
+  }
+
+type BpmnInputDataItem
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+    name: String
+    isCollection: Boolean
+  }
+
+type BpmnInputSet
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    dataInputRefs: [String]
+    optionalInputRefs: [String]
+    whileExecutingInputRefs: [String]
+    outputSetRefs: [String]
+  }
+
+interface BpmnInteractionNode
+  {
+    id: String
+  }
+
+type BpmnInterface
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String!
+    implementationRef: String
+    operations: [BpmnOperation]!
+  }
+
+type BpmnIntermediateCatchEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [BpmnDataOutput]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    outputSet: BpmnOutputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+  }
+
+type BpmnIntermediateThrowEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    dataInputs: [BpmnDataInput]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    inputSet: BpmnInputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+  }
+
+type BpmnIoBinding
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    operationRef: String!
+    inputDataRef: String!
+    outputDataRef: String!
+  }
+
+type BpmnIoSpecification
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    dataInputs: [BpmnDataInput]
+    dataOutputs: [BpmnDataOutput]
+    inputSets: [BpmnInputSet]!
+    outputSets: [BpmnOutputSet]!
+  }
+
+interface BpmnItemAwareElement
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+  }
+
+type BpmnItemDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    structureRef: String
+    isCollection: Boolean
+    itemKind: BpmnItemKind
+  }
+
+type BpmnLabel
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    bounds: DcBounds
+    labelStyle: String
+  }
+
+type BpmnLabelStyle
+  {
+    elementType: String
+    id: String
+    font: DcFont!
+  }
+
+type BpmnLane
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    partitionElementRef: String
+    partitionElement: BpmnPartitionElement
+    flowNodeRefs: [String]
+    childLaneSet: BpmnChildLaneSet
+  }
+
+type BpmnLaneSet
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    lanes: [BpmnLane]
+  }
+
+type BpmnLinkEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String!
+    sources: [String]
+    target: String
+  }
+
+type BpmnLoopCardinality
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+interface BpmnLoopCharacteristics
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnManualTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+  }
+
+type BpmnMessage
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    itemRef: String
+  }
+
+type BpmnMessageEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    messageRef: String
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaTopic: String
+    fluxnovaType: String
+    fluxnovaTaskPriority: String
+    operationRef: String
+  }
+
+type BpmnMessageFlow
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    sourceRef: String!
+    targetRef: String!
+    messageRef: String
+  }
+
+type BpmnMessageFlowAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    innerMessageFlowRef: String!
+    outerMessageFlowRef: String!
+  }
+
+type BpmnMessagePath
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+    language: String
+    evaluatesToTypeRef: String
+  }
+
+interface BpmnModelElementInstance
+  {
+    elementType: String
+  }
+
+type BpmnMonitoring
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnMultiInstanceLoopCharacteristics
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    isSequential: Boolean
+    behavior: BpmnMultiInstanceFlowCondition
+    oneBehaviorEventRef: String
+    noneBehaviorEventRef: String
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaCollection: String
+    fluxnovaElementVariable: String
+    loopCardinality: BpmnLoopCardinality
+    loopDataInputRef: String
+    loopDataOutputRef: String
+    outputDataItem: BpmnOutputDataItem
+    inputDataItem: BpmnInputDataItem
+    complexBehaviorDefinitions: [BpmnComplexBehaviorDefinition]
+    completionCondition: BpmnCompletionCondition
+  }
+
+type BpmnOperation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String!
+    implementationRef: String
+    inMessageRef: String!
+    outMessageRef: String
+    errorRefs: [String]
+  }
+
+type BpmnOutputDataItem
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+    name: String
+    isCollection: Boolean
+  }
+
+type BpmnOutputSet
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    dataOutputRefs: [String]
+    optionalOutputRefs: [String]
+    whileExecutingOutputRefs: [String]
+    inputSetRefs: [String]
+  }
+
+type BpmnParallelGateway
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    gatewayDirection: BpmnGatewayDirection
+    fluxnovaAsync: Boolean
+  }
+
+type BpmnParticipant implements BpmnInteractionNode
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    processRef: String
+    interfaceRefs: [String]
+    endPointRefs: [String]
+    participantMultiplicity: BpmnParticipantMultiplicity
+  }
+
+type BpmnParticipantAssociation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    innerParticipantRef: String!
+    outerParticipantRef: String!
+  }
+
+type BpmnParticipantMultiplicity
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    minimum: Int
+    maximum: Int
+  }
+
+type BpmnPartitionElement
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnPerformer
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    resourceRef: String
+    resourceParameterBindings: [BpmnResourceParameterBinding]
+    resourceAssignmentExpression: BpmnResourceAssignmentExpression
+  }
+
+type BpmnPlane
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    diagramElements: [DiDiagramElement]
+    bpmnElement: String
+  }
+
+type BpmnPotentialOwner
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    resourceRef: String
+    resourceParameterBindings: [BpmnResourceParameterBinding]
+    resourceAssignmentExpression: BpmnResourceAssignmentExpression
+  }
+
+type BpmnProcess
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    supportedInterfaceRefs: [String]
+    ioSpecification: BpmnIoSpecification
+    ioBindings: [BpmnIoBinding]
+    processType: BpmnProcessType
+    isClosed: Boolean
+    isExecutable: Boolean
+    fluxnovaCandidateStarterGroups: String
+    fluxnovaCandidateStarterUsers: String
+    fluxnovaJobPriority: String
+    fluxnovaTaskPriority: String
+    fluxnovaHistoryTimeToLive: String
+    fluxnovaIsStartableInTasklist: Boolean
+    fluxnovaVersionTag: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    properties: [BpmnProperty]
+    laneSets: [BpmnLaneSet]
+    flowElements: [BpmnFlowElement]
+    artifacts: [BpmnArtifact]
+    resourceRoles: [BpmnResourceRole]
+    correlationSubscriptions: [BpmnCorrelationSubscription]
+    supports: [String]
+  }
+
+type BpmnProperty
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    itemSubjectRef: String
+    dataState: BpmnDataState
+    name: String
+  }
+
+type BpmnReceiveTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    instantiate: Boolean
+    messageRef: String
+    operationRef: String
+  }
+
+type BpmnRelationship
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    type: String!
+    direction: BpmnRelationshipDirection
+    sources: [BpmnSource]!
+    targets: [BpmnTarget]!
+  }
+
+type BpmnRendering
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnResource
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String!
+    resourceParameters: [BpmnResourceParameter]
+  }
+
+type BpmnResourceAssignmentExpression
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    expression: BpmnExpression!
+  }
+
+type BpmnResourceParameter
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    type: String
+    isRequired: Boolean
+  }
+
+type BpmnResourceParameterBinding
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    parameterRef: String!
+    expression: BpmnExpression!
+  }
+
+type BpmnResourceRole
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    resourceRef: String
+    resourceParameterBindings: [BpmnResourceParameterBinding]
+    resourceAssignmentExpression: BpmnResourceAssignmentExpression
+  }
+
+interface BpmnRootElement
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnScript
+  {
+    elementType: String
+    textContent: String
+  }
+
+type BpmnScriptTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+    scriptFormat: String
+    fluxnovaResultVariable: String
+    fluxnovaResource: String
+    script: BpmnScript
+  }
+
+type BpmnSendTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    messageRef: String
+    operationRef: String
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaTopic: String
+    fluxnovaType: String
+    fluxnovaTaskPriority: String
+  }
+
+type BpmnSequenceFlow
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    sourceRef: String!
+    targetRef: String!
+    isImmediate: Boolean
+    conditionExpression: BpmnConditionExpression
+  }
+
+type BpmnServiceTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    operationRef: String
+    fluxnovaClass: String
+    fluxnovaDelegateExpression: String
+    fluxnovaExpression: String
+    fluxnovaResultVariable: String
+    fluxnovaTopic: String
+    fluxnovaType: String
+    fluxnovaTaskPriority: String
+  }
+
+type BpmnShape
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    bounds: DcBounds!
+    bpmnElement: String
+    isHorizontal: Boolean
+    isExpanded: Boolean
+    isMarkerVisible: Boolean
+    isMessageVisible: Boolean
+    participantBandKind: BpmnParticipantBandKind
+    choreographyActivityShape: String
+    bpmnLabel: BpmnLabel
+  }
+
+type BpmnSignal
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    structureRef: String
+  }
+
+type BpmnSignalEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    signalRef: String
+    fluxnovaAsync: Boolean
+  }
+
+type BpmnSource
+  {
+    elementType: String
+  }
+
+type BpmnStartEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    parallelMultiple: Boolean
+    dataOutputs: [BpmnDataOutput]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    outputSet: BpmnOutputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+    isInterrupting: Boolean
+    fluxnovaAsync: Boolean
+    fluxnovaFormHandlerClass: String
+    fluxnovaFormKey: String
+    fluxnovaFormRef: String
+    fluxnovaFormRefBinding: String
+    fluxnovaFormRefVersion: String
+    fluxnovaInitiator: String
+  }
+
+type BpmnSubConversation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    participantRefs: [String]
+    messageFlowRefs: [String]
+    correlationKeys: [BpmnCorrelationKey]
+    conversationNodes: [BpmnConversationNode]
+  }
+
+type BpmnSubProcess
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    triggeredByEvent: Boolean
+    fluxnovaAsync: Boolean
+    laneSets: [BpmnLaneSet]
+    flowElements: [BpmnFlowElement]
+    artifacts: [BpmnArtifact]
+  }
+
+type BpmnTarget
+  {
+    elementType: String
+  }
+
+type BpmnTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+  }
+
+type BpmnTerminateEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+  }
+
+type BpmnText
+  {
+    elementType: String
+    textContent: String
+  }
+
+type BpmnTextAnnotation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textFormat: String
+    text: BpmnText
+  }
+
+interface BpmnThrowEvent
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    properties: [BpmnProperty]
+    dataInputs: [BpmnDataInput]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    inputSet: BpmnInputSet
+    eventDefinitions: [BpmnEventDefinition]
+    eventDefinitionRefs: [String]
+  }
+
+type BpmnTimeCycle
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnTimeDate
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnTimeDuration
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnTimerEventDefinition
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    timeDate: BpmnTimeDate
+    timeDuration: BpmnTimeDuration
+    timeCycle: BpmnTimeCycle
+  }
+
+type BpmnTo
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+  }
+
+type BpmnTransaction
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    triggeredByEvent: Boolean
+    fluxnovaAsync: Boolean
+    laneSets: [BpmnLaneSet]
+    flowElements: [BpmnFlowElement]
+    artifacts: [BpmnArtifact]
+    method: BpmnTransactionMethod
+  }
+
+type BpmnTransformation
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    textContent: String
+    language: String
+    evaluatesToTypeRef: String
+  }
+
+type BpmnUserTask
+  {
+    elementType: String
+    id: String
+    documentation: [BpmnDocumentation]
+    extensionElements: BpmnExtensionElements
+    name: String
+    auditing: BpmnAuditing
+    monitoring: BpmnMonitoring
+    categoryValueRefs: [String]
+    fluxnovaAsyncAfter: Boolean
+    fluxnovaAsyncBefore: Boolean
+    fluxnovaExclusive: Boolean
+    fluxnovaJobPriority: String
+    incoming: [String]
+    outgoing: [String]
+    isForCompensation: Boolean
+    startQuantity: Int
+    completionQuantity: Int
+    default: String
+    ioSpecification: BpmnIoSpecification
+    properties: [BpmnProperty]
+    dataInputAssociations: [BpmnDataInputAssociation]
+    dataOutputAssociations: [BpmnDataOutputAssociation]
+    resourceRoles: [BpmnResourceRole]
+    loopCharacteristics: BpmnLoopCharacteristics
+    fluxnovaAsync: Boolean
+    implementation: String
+    fluxnovaAssignee: String
+    fluxnovaCandidateGroups: String
+    fluxnovaCandidateUsers: String
+    fluxnovaDueDate: String
+    fluxnovaFollowUpDate: String
+    fluxnovaFormHandlerClass: String
+    fluxnovaFormKey: String
+    fluxnovaFormRef: String
+    fluxnovaFormRefBinding: String
+    fluxnovaFormRefVersion: String
+    fluxnovaPriority: String
+    renderings: [BpmnRendering]
+  }
+
+type DcBounds
+  {
+    elementType: String
+    x: Float!
+    y: Float!
+    width: Float!
+    height: Float!
+  }
+
+type DcFont
+  {
+    elementType: String
+    name: String
+    size: Float
+    isBold: Boolean
+    isItalic: Boolean
+    isUnderline: Boolean
+    isStrikeThrough: Boolean
+  }
+
+type DcPoint
+  {
+    elementType: String
+    x: Float!
+    y: Float!
+  }
+
+interface DiDiagram
+  {
+    elementType: String
+    name: String
+    documentation: String
+    resolution: Float
+    id: String
+  }
+
+interface DiDiagramElement
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+  }
+
+interface DiEdge
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    waypoints: [DiWaypoint]!
+  }
+
+type DiExtension
+  {
+    elementType: String
+  }
+
+interface DiLabel
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    bounds: DcBounds
+  }
+
+interface DiLabeledEdge
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    waypoints: [DiWaypoint]!
+  }
+
+interface DiLabeledShape
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    bounds: DcBounds!
+  }
+
+interface DiNode
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+  }
+
+interface DiPlane
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    diagramElements: [DiDiagramElement]
+  }
+
+interface DiShape
+  {
+    elementType: String
+    id: String
+    extension: DiExtension
+    bounds: DcBounds!
+  }
+
+interface DiStyle
+  {
+    elementType: String
+    id: String
+  }
+
+type DiWaypoint
+  {
+    elementType: String
+    x: Float!
+    y: Float!
+  }
+
+type FluxnovaAttachment
+  {
+    id: String!
+    userId: String
+    name: String
+    description: String
+    type: String
+    taskId: String
+    rootProcessInstanceId: String
+    processInstanceId: String
+    url: String
+    contentId: String
+    tenantId: String
+    createTime: String
+    removalTime: String
+    createdBy: String
+  }
+
+type FluxnovaAuthorization
+  {
+    id: String!
+    type: Int!
+    groupId: String
+    userId: String
+    resourceType: Int!
+    resourceId: String
+    permissions: Int
+    removalTime: String
+    rootProcessInstanceId: String
+  }
+
+type FluxnovaBatch
+  {
+    id: String!
+    type: String
+    totalJobs: Int
+    jobsCreated: Int
+    jobsPerSeed: Int
+    invocationsPerJob: Int
+    seedJobDefinitionId: FluxnovaJobDefinition
+    batchJobDefinitionId: FluxnovaJobDefinition
+    monitorJobDefinitionId: FluxnovaJobDefinition
+    suspensionState: Int
+    configuration: String
+    tenantId: String
+    createUserId: String
+    startTime: String
+    executionStartTime: String
+  }
+
+type FluxnovaByteArray
+  {
+    id: String!
+    name: String
+    deploymentId: FluxnovaDeployment
+    bytes: String
+    isGenerated: Boolean
+    tenantId: String
+    type: Int
+    createTime: String
+    rootProcessInstanceId: String
+    removalTime: String
+  }
+
+type FluxnovaCaseDefinition
   {
     id: String!
     name: String
@@ -917,15 +2378,15 @@ type CaseDefinition
     version: Int!
   }
 
-type CaseExecution
+type FluxnovaCaseExecution
   {
     id: String!
-    caseInstanceId: String
+    caseInstanceId: FluxnovaCaseExecution
     superCaseExecutionId: String
     superExecutionId: String
     businessKey: String
-    parentId: String
-    caseDefinitionId: String
+    parentId: FluxnovaCaseExecution
+    caseDefinitionId: FluxnovaCaseDefinition
     activityId: String
     previousState: Int
     currentState: Int
@@ -933,11 +2394,11 @@ type CaseExecution
     tenantId: String
   }
 
-type CaseSentryPart
+type FluxnovaCaseSentryPart
   {
     id: String!
-    caseInstanceId: String
-    caseExecutionId: String
+    caseInstanceId: FluxnovaCaseExecution
+    caseExecutionId: FluxnovaCaseExecution
     sentryId: String
     type: String
     sourceCaseExecutionId: String
@@ -949,76 +2410,7 @@ type CaseSentryPart
     tenantId: String
   }
 
-type CatchEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    parallelMultiple: Boolean
-    dataOutputs: [DataOutput]
-    dataOutputAssociations: [DataOutputAssociation]
-    outputSet: OutputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-  }
-
-type Category
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    categoryValues: [CategoryValue]
-  }
-
-type CategoryValue
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    value: String
-  }
-
-type Collaboration
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    closed: Boolean
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    artifacts: [Artifact]
-    conversationNodes: [ConversationNode]
-    conversationAssociations: [ConversationAssociation]
-    participantAssociations: [ParticipantAssociation]
-    messageFlowAssociations: [MessageFlowAssociation]
-    correlationKeys: [CorrelationKey]
-    conversationLinks: [ConversationLink]
-  }
-
-type Comment
+type FluxnovaComment
   {
     id: String!
     type: String
@@ -1034,337 +2426,41 @@ type Comment
     removalTime: String
   }
 
-type CompensateEventDefinition
+type FluxnovaConfiguration
   {
-    scope: Boolean
     id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    waitForCompletion: Boolean
-    activity: Activity
+    configurationKey: String!
+    tenantId: String
+    configurationValue: String!
+    version: Int!
+    status: ConfigurationStatus!
+    createdBy: String
+    createdAt: String
+    updatedBy: String
+    updatedAt: String
   }
 
-type CompletionCondition
+type FluxnovaConnector
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    connectorId: FluxnovaConnectorId!
+    inputOutput: FluxnovaInputOutput
   }
 
-type ComplexBehaviorDefinition
+type FluxnovaConnectorId
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    textContent: String
   }
 
-type ComplexGateway
+type FluxnovaConstraint
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
-    default: SequenceFlow
-    activationCondition: ActivationCondition
+    elementType: String
+    fluxnovaName: String
+    fluxnovaConfig: String
   }
 
-type Condition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type ConditionalEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    condition: Condition
-    fluxnovaVariableName: String
-    fluxnovaVariableEvents: String
-    fluxnovaVariableEventsList: [String]
-  }
-
-type ConditionExpression
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    language: String
-    evaluatesToType: ItemDefinition
-    type: String
-    fluxnovaResource: String
-  }
-
-type Conversation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    correlationKeys: [CorrelationKey]
-  }
-
-type ConversationAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    innerConversationNode: ConversationNode
-    outerConversationNode: ConversationNode
-  }
-
-type ConversationLink
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    source: InteractionNode
-    target: InteractionNode
-  }
-
-type ConversationNode implements InteractionNode
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    correlationKeys: [CorrelationKey]
-  }
-
-type CorrelationKey
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    correlationProperties: [CorrelationProperty]
-  }
-
-type CorrelationProperty
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    type: ItemDefinition
-    correlationPropertyRetrievalExpressions: [CorrelationPropertyRetrievalExpression]
-  }
-
-type CorrelationPropertyBinding
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    correlationProperty: CorrelationProperty
-    dataPath: String
-  }
-
-type CorrelationPropertyRetrievalExpression
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    message: Message
-    messagePath: String
-  }
-
-type CorrelationSubscription
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    correlationKey: CorrelationKey
-    correlationPropertyBindings: [CorrelationPropertyBinding]
-  }
-
-type DataAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    sources: [ItemAwareElement]
-    target: ItemAwareElement
-    transformation: FormalExpression
-    assignments: [Assignment]
-  }
-
-type DataInput
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-    name: String
-    collection: Boolean
-  }
-
-type DataInputAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    sources: [ItemAwareElement]
-    target: ItemAwareElement
-    transformation: FormalExpression
-    assignments: [Assignment]
-  }
-
-type DataObject implements ItemAwareElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    collection: Boolean
-    itemSubject: ItemDefinition
-    dataState: DataState
-  }
-
-type DataObjectReference implements ItemAwareElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    dataObject: DataObject
-    itemSubject: ItemDefinition
-    dataState: DataState
-  }
-
-type DataOutput
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-    name: String
-    collection: Boolean
-  }
-
-type DataOutputAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    sources: [ItemAwareElement]
-    target: ItemAwareElement
-    transformation: FormalExpression
-    assignments: [Assignment]
-  }
-
-type DataState
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-  }
-
-type DataStore implements ItemAwareElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    capacity: Int
-    unlimited: Boolean
-    itemSubject: ItemDefinition
-    dataState: DataState
-  }
-
-type DataStoreReference implements ItemAwareElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    dataStore: DataStore
-    itemSubject: ItemDefinition
-    dataState: DataState
-  }
-
-type DecisionDefinition
+type FluxnovaDecisionDefinition
   {
     id: String!
     name: String
@@ -1374,14 +2470,14 @@ type DecisionDefinition
     diagramResourceName: String
     tenantId: String
     historyTimeToLive: Int
-    decisionRequirementsDefinitionId: String
+    decisionRequirementsDefinitionId: FluxnovaDecisionRequirementsDefinition
     decisionRequirementsDefinitionKey: String
     versionTag: String
     key: String!
     version: Int!
   }
 
-type DecisionRequirementsDefinition
+type FluxnovaDecisionRequirementsDefinition
   {
     id: String!
     name: String
@@ -1395,24 +2491,7 @@ type DecisionRequirementsDefinition
     version: Int!
   }
 
-type Definitions
-  {
-    scope: Boolean
-    id: String!
-    name: String
-    targetNamespace: String
-    expressionLanguage: String
-    typeLanguage: String
-    exporter: String
-    exporterVersion: String
-    imports: [Import]
-    extensions: [Extension]
-    rootElements: [RootElement]
-    bpmDiagrams: [String]
-    relationships: [Relationship]
-  }
-
-type Deployment
+type FluxnovaDeployment
   {
     id: String!
     name: String
@@ -1421,209 +2500,31 @@ type Deployment
     tenantId: String
   }
 
-type Diagram
+type FluxnovaEngineProperty
   {
-    scope: Boolean
-    name: String
-    documentation: String
-    resolution: Float
-    id: String!
+    name: String!
+    value: String
   }
 
-type DiagramElement
+type FluxnovaEntry
   {
-    scope: Boolean
-    id: String!
-    extension: Extension
+    elementType: String
+    fluxnovaKey: String!
+    textContent: String
   }
 
-type Documentation
+type FluxnovaErrorEventDefinition
   {
-    scope: Boolean
-    id: String!
-    textFormat: String
+    elementType: String
+    fluxnovaExpression: String
   }
 
-type Edge
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    waypoints: [Waypoint]
-  }
-
-type EndEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    dataInputs: [DataInput]
-    dataInputAssociations: [DataInputAssociation]
-    inputSet: InputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-  }
-
-type EndPoint
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Environment
-  {
-    id: String!
-    name: String
-    externalRef: String
-    runtimeName: String
-    runtimeVersion: String
-    host: String
-    region: String
-    deploymentRef: String
-    configurationRef: WorkflowArtifact
-  }
-
-type Error
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    errorCode: String
-    fluxnovaErrorMessage: String
-    structure: ItemDefinition
-  }
-
-type ErrorEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    error: Error
-    fluxnovaErrorCodeVariable: String
-    fluxnovaErrorMessageVariable: String
-  }
-
-type Escalation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    escalationCode: String
-    structure: ItemDefinition
-  }
-
-type EscalationEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    escalation: Escalation
-  }
-
-type EvaluationResult
-  {
-    id: String!
-    name: String
-    externalRef: String
-    evaluatorName: String
-    evaluatorKind: EvaluatorKind
-    metricName: String
-    metricValue: Float
-    metricUnit: String
-    passing: Boolean
-    evaluatedAt: String
-    evaluatedInvocation: AiModelInvocation
-  }
-
-type Event implements InteractionNode
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-  }
-
-type EventBasedGateway
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
-    instantiate: Boolean
-    eventGatewayType: String
-  }
-
-type EventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type EventSubscription
+type FluxnovaEventSubscription
   {
     id: String!
     eventType: String!
     eventName: String
-    executionId: String
+    executionId: FluxnovaExecution
     processInstanceId: String
     activityId: String
     configuration: String
@@ -1631,38 +2532,15 @@ type EventSubscription
     tenantId: String
   }
 
-type ExclusiveGateway
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
-    default: SequenceFlow
-  }
-
-type Execution
+type FluxnovaExecution
   {
     id: String!
     rootProcessInstanceId: String
-    processInstanceId: String
+    processInstanceId: FluxnovaExecution
     businessKey: String
-    parentId: String
-    processDefinitionId: String
-    superExecutionId: String
+    parentId: FluxnovaExecution
+    processDefinitionId: FluxnovaProcessDefinition
+    superExecutionId: FluxnovaExecution
     superCaseExecutionId: String
     caseInstanceId: String
     activityInstanceId: String
@@ -1671,57 +2549,42 @@ type Execution
     isConcurrent: Boolean
     isScope: Boolean
     isEventScope: Boolean
-    suspensionState: SuspensionState
+    suspensionState: Int
     cachedEntityState: Int
     sequenceCounter: Int
     tenantId: String
     processDefinitionKey: String
   }
 
-type ExecutionResource
+type FluxnovaExecutionListener
   {
-    id: String!
-    name: String
-    externalRef: String
-    resourceKind: ResourceKind
-    host: String
-    endpoint: String
-    labels: [String]
+    elementType: String
+    fluxnovaEvent: String
+    fluxnovaClass: String
+    fluxnovaExpression: String
+    fluxnovaDelegateExpression: String
+    fields: [FluxnovaField]
+    script: FluxnovaScript
   }
 
-type Expression
+type FluxnovaExpression
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    textContent: String
   }
 
-type Extension
-  {
-    scope: Boolean
-  }
-
-type ExtensionElements
-  {
-    scope: Boolean
-    elements: [String]
-    elementsQuery: String
-  }
-
-type ExternalTask
+type FluxnovaExternalTask
   {
     id: String!
     workerId: String
     topicName: String
     retries: Int
     errorMessage: String
-    errorDetailsId: String
+    errorDetailsId: FluxnovaByteArray
     lockExpirationTime: String
     createTime: String
-    suspensionState: SuspensionState
-    executionId: String
+    suspensionState: Int
+    executionId: FluxnovaExecution
     processInstanceId: String
     processDefinitionId: String
     processDefinitionKey: String
@@ -1732,7 +2595,23 @@ type ExternalTask
     lastFailureLogId: String
   }
 
-type Filter
+type FluxnovaFailedJobRetryTimeCycle
+  {
+    elementType: String
+    textContent: String
+  }
+
+type FluxnovaField
+  {
+    elementType: String
+    fluxnovaName: String
+    fluxnovaExpression: String
+    fluxnovaStringValue: String
+    expression: FluxnovaExpression
+    string: FluxnovaString
+  }
+
+type FluxnovaFilter
   {
     id: String!
     resourceType: String!
@@ -1742,296 +2621,13 @@ type Filter
     properties: String
   }
 
-type FlowElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-  }
-
-type FlowNode
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-  }
-
-type FluxnovaConnector
-  {
-    scope: Boolean
-    fluxnovaConnectorId: FluxnovaConnectorId
-    fluxnovaInputOutput: FluxnovaInputOutput
-  }
-
-type FluxnovaConnectorId
-  {
-    scope: Boolean
-  }
-
-type FluxnovaConstraint
-  {
-    scope: Boolean
-    fluxnovaName: String
-    fluxnovaConfig: String
-  }
-
-type FluxnovaEntry implements FluxnovaGenericValueElement
-  {
-    scope: Boolean
-    fluxnovaKey: String
-    value: String
-  }
-
-type FluxnovaErrorEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    error: Error
-    fluxnovaErrorCodeVariable: String
-    fluxnovaErrorMessageVariable: String
-    fluxnovaExpression: String
-  }
-
-type FluxnovaExecutionListener
-  {
-    scope: Boolean
-    fluxnovaEvent: String
-    fluxnovaClass: String
-    fluxnovaExpression: String
-    fluxnovaDelegateExpression: String
-    fluxnovaFields: [FluxnovaField]
-    fluxnovaScript: FluxnovaScript
-  }
-
-type FluxnovaExpression
-  {
-    scope: Boolean
-  }
-
-type FluxnovaFailedJobRetryTimeCycle
-  {
-    scope: Boolean
-  }
-
-type FluxnovaField
-  {
-    scope: Boolean
-    fluxnovaName: String
-    fluxnovaExpression: String
-    fluxnovaStringValue: String
-    fluxnovaString: FluxnovaString
-    fluxnovaExpressionChild: FluxnovaExpression
-  }
-
 type FluxnovaFormData
   {
-    scope: Boolean
-    fluxnovaFormFields: [FluxnovaFormField]
+    elementType: String
+    formFields: [FluxnovaFormField]
   }
 
-type FluxnovaFormField
-  {
-    scope: Boolean
-    fluxnovaId: String
-    fluxnovaLabel: String
-    fluxnovaType: String
-    fluxnovaDatePattern: String
-    fluxnovaDefaultValue: String
-    fluxnovaProperties: FluxnovaProperties
-    fluxnovaValidation: FluxnovaValidation
-    fluxnovaValues: [FluxnovaValue]
-  }
-
-type FluxnovaFormProperty
-  {
-    scope: Boolean
-    fluxnovaId: String
-    fluxnovaName: String
-    fluxnovaType: String
-    fluxnovaRequired: Boolean
-    fluxnovaReadable: Boolean
-    fluxnovaWriteable: Boolean
-    fluxnovaVariable: String
-    fluxnovaExpression: String
-    fluxnovaDatePattern: String
-    fluxnovaDefault: String
-    fluxnovaValues: [FluxnovaValue]
-  }
-
-type FluxnovaGenericValueElement
-  {
-    value: String
-  }
-
-type FluxnovaIn
-  {
-    scope: Boolean
-    fluxnovaSource: String
-    fluxnovaSourceExpression: String
-    fluxnovaVariables: String
-    fluxnovaTarget: String
-    fluxnovaBusinessKey: String
-    fluxnovaLocal: Boolean
-  }
-
-type FluxnovaInputOutput
-  {
-    scope: Boolean
-    fluxnovaInputParameters: [FluxnovaInputParameter]
-    fluxnovaOutputParameters: [FluxnovaOutputParameter]
-  }
-
-type FluxnovaInputParameter implements FluxnovaGenericValueElement
-  {
-    scope: Boolean
-    fluxnovaName: String
-    value: String
-  }
-
-type FluxnovaList
-  {
-    scope: Boolean
-    values: String
-  }
-
-type FluxnovaMap
-  {
-    scope: Boolean
-    fluxnovaEntries: [FluxnovaEntry]
-  }
-
-type FluxnovaOut
-  {
-    scope: Boolean
-    fluxnovaSource: String
-    fluxnovaSourceExpression: String
-    fluxnovaVariables: String
-    fluxnovaTarget: String
-    fluxnovaLocal: Boolean
-  }
-
-type FluxnovaOutputParameter implements FluxnovaGenericValueElement
-  {
-    scope: Boolean
-    fluxnovaName: String
-    value: String
-  }
-
-type FluxnovaPlatformData
-  {
-    deployments: [Deployment]
-    processDefinitions: [ProcessDefinition]
-    executions: [Execution]
-    tasks: [Task]
-    jobs: [Job]
-    users: [User]
-    groups: [Group]
-    batches: [Batch]
-  }
-
-type FluxnovaPotentialStarter
-  {
-    scope: Boolean
-    resourceAssignmentExpression: ResourceAssignmentExpression
-  }
-
-type FluxnovaProperties
-  {
-    scope: Boolean
-    fluxnovaProperties: FluxnovaProperty
-  }
-
-type FluxnovaProperty
-  {
-    scope: Boolean
-    fluxnovaId: String
-    fluxnovaName: String
-    fluxnovaValue: String
-  }
-
-type FluxnovaScript
-  {
-    scope: Boolean
-    fluxnovaScriptFormat: String
-    fluxnovaResource: String
-  }
-
-type FluxnovaString
-  {
-    scope: Boolean
-  }
-
-type FluxnovaTaskListener
-  {
-    scope: Boolean
-    fluxnovaEvent: String
-    fluxnovaClass: String
-    fluxnovaExpression: String
-    fluxnovaDelegateExpression: String
-    fluxnovaFields: [FluxnovaField]
-    fluxnovaScript: FluxnovaScript
-    timeouts: [TimerEventDefinition]
-  }
-
-type FluxnovaValidation
-  {
-    scope: Boolean
-    fluxnovaConstraints: [FluxnovaConstraint]
-  }
-
-type FluxnovaValue
-  {
-    scope: Boolean
-    fluxnovaId: String
-    fluxnovaName: String
-  }
-
-type Font
-  {
-    scope: Boolean
-    name: String
-    size: Float
-    bold: Boolean
-    italic: Boolean
-    underline: Boolean
-    strikeThrough: Boolean
-  }
-
-type FormalExpression
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    language: String
-    evaluatesToType: ItemDefinition
-  }
-
-type FormDefinition
+type FluxnovaFormDefinition
   {
     id: String!
     name: String
@@ -2045,56 +2641,43 @@ type FormDefinition
     version: Int!
   }
 
-type Gateway
+type FluxnovaFormField
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
+    elementType: String
+    fluxnovaId: String
+    fluxnovaLabel: String
+    fluxnovaType: String
+    fluxnovaDatePattern: String
+    fluxnovaDefaultValue: String
+    properties: FluxnovaProperties
+    validation: FluxnovaValidation
+    values: [FluxnovaValue]
   }
 
-type GlobalConversation
+type FluxnovaFormProperty
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    closed: Boolean
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    artifacts: [Artifact]
-    conversationNodes: [ConversationNode]
-    conversationAssociations: [ConversationAssociation]
-    participantAssociations: [ParticipantAssociation]
-    messageFlowAssociations: [MessageFlowAssociation]
-    correlationKeys: [CorrelationKey]
-    conversationLinks: [ConversationLink]
+    elementType: String
+    fluxnovaId: String
+    fluxnovaName: String
+    fluxnovaType: String
+    fluxnovaRequired: Boolean
+    fluxnovaReadable: Boolean
+    fluxnovaWriteable: Boolean
+    fluxnovaVariable: String
+    fluxnovaExpression: String
+    fluxnovaDatePattern: String
+    fluxnovaDefault: String
+    values: [FluxnovaValue]
   }
 
-type Group
+type FluxnovaGroup
   {
     id: String!
     name: String
     type: String
   }
 
-type HistoricActivityInstance
+type FluxnovaHistoricActivityInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2111,7 +2694,7 @@ type HistoricActivityInstance
     activityName: String
     activityType: String!
     assignee: String
-    activityInstanceState: ActivityInstanceState
+    activityInstanceState: Int
     sequenceCounter: Int
     tenantId: String
     processDefinitionId: String!
@@ -2119,7 +2702,7 @@ type HistoricActivityInstance
     startTime: String!
   }
 
-type HistoricBatch
+type FluxnovaHistoricBatch
   {
     id: String!
     type: String
@@ -2137,7 +2720,7 @@ type HistoricBatch
     executionStartTime: String
   }
 
-type HistoricCaseActivityInstance
+type FluxnovaHistoricCaseActivityInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2158,12 +2741,12 @@ type HistoricCaseActivityInstance
     caseActivityName: String
     caseActivityType: String
     createTime: String!
-    state: EntityState
+    state: Int
     isRequired: Boolean
     tenantId: String
   }
 
-type HistoricCaseInstance
+type FluxnovaHistoricCaseInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2179,14 +2762,14 @@ type HistoricCaseInstance
     caseDefinitionId: String!
     createTime: String!
     closeTime: String
-    state: EntityState
+    state: Int
     createUserId: String
     superCaseInstanceId: String
     superProcessInstanceId: String
     tenantId: String
   }
 
-type HistoricDecisionInputInstance
+type FluxnovaHistoricDecisionInputInstance
   {
     id: String!
     decisionInstanceId: String!
@@ -2204,7 +2787,7 @@ type HistoricDecisionInputInstance
     removalTime: String
   }
 
-type HistoricDecisionInstance
+type FluxnovaHistoricDecisionInstance
   {
     id: String!
     decisionDefinitionId: String!
@@ -2229,7 +2812,7 @@ type HistoricDecisionInstance
     tenantId: String
   }
 
-type HistoricDecisionOutputInstance
+type FluxnovaHistoricDecisionOutputInstance
   {
     id: String!
     decisionInstanceId: String!
@@ -2250,7 +2833,7 @@ type HistoricDecisionOutputInstance
     removalTime: String
   }
 
-type HistoricDetail
+type FluxnovaHistoricDetail
   {
     id: String!
     type: String!
@@ -2281,7 +2864,7 @@ type HistoricDetail
     isInitial: Boolean
   }
 
-type HistoricExternalTaskLog
+type FluxnovaHistoricExternalTaskLog
   {
     id: String!
     timestamp: String!
@@ -2300,11 +2883,11 @@ type HistoricExternalTaskLog
     processDefinitionId: String
     processDefinitionKey: String
     tenantId: String
-    state: EntityState
+    state: Int
     removalTime: String
   }
 
-type HistoricIdentityLink
+type FluxnovaHistoricIdentityLink
   {
     id: String!
     timestamp: String!
@@ -2321,7 +2904,7 @@ type HistoricIdentityLink
     removalTime: String
   }
 
-type HistoricIncident
+type FluxnovaHistoricIncident
   {
     id: String!
     processDefinitionKey: String
@@ -2339,14 +2922,14 @@ type HistoricIncident
     rootCauseIncidentId: String
     configuration: String
     historyConfiguration: String
-    incidentState: IncidentState
+    incidentState: Int
     tenantId: String
     jobDefinitionId: String
     annotation: String
     removalTime: String
   }
 
-type HistoricJobLog
+type FluxnovaHistoricJobLog
   {
     id: String!
     timestamp: String!
@@ -2356,7 +2939,7 @@ type HistoricJobLog
     jobPriority: Int!
     jobExceptionMessage: String
     jobExceptionStackId: String
-    jobState: JobState
+    jobState: Int
     jobDefinitionId: String
     jobDefinitionType: String
     jobDefinitionConfiguration: String
@@ -2375,7 +2958,7 @@ type HistoricJobLog
     batchId: String
   }
 
-type HistoricProcessInstance
+type FluxnovaHistoricProcessInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2392,14 +2975,14 @@ type HistoricProcessInstance
     caseInstanceId: String
     deleteReason: String
     tenantId: String
-    state: EntityState
+    state: HistoricProcessInstanceState
     restartedProcessInstanceId: String
     processInstanceId: String!
     processDefinitionId: String!
     startTime: String!
   }
 
-interface HistoricScopeInstance
+interface FluxnovaHistoricScopeInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2412,7 +2995,7 @@ interface HistoricScopeInstance
     removalTime: String
   }
 
-type HistoricTaskInstance
+type FluxnovaHistoricTaskInstance
   {
     id: String!
     rootProcessInstanceId: String
@@ -2443,7 +3026,7 @@ type HistoricTaskInstance
     startTime: String!
   }
 
-type HistoricVariableInstance
+type FluxnovaHistoricVariableInstance
   {
     id: String!
     processDefinitionKey: String
@@ -2466,24 +3049,12 @@ type HistoricVariableInstance
     textValue: String
     text2Value: String
     tenantId: String
-    state: EntityState
+    state: HistoricVariableInstanceState
     removalTime: String
+    restricted: Boolean
   }
 
-type HumanPerformer
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    resource: Resource
-    resourceParameterBinding: [ResourceParameterBinding]
-    resourceAssignmentExpression: ResourceAssignmentExpression
-  }
-
-type IdentityInfo
+type FluxnovaIdentityInfo
   {
     id: String!
     userId: String
@@ -2494,215 +3065,65 @@ type IdentityInfo
     parentId: String
   }
 
-type IdentityLink
+type FluxnovaIdentityLink
   {
     id: String!
     groupId: String
     type: String
     userId: String
-    taskId: String
-    processDefinitionId: String
+    taskId: FluxnovaTask
+    processDefinitionId: FluxnovaProcessDefinition
     tenantId: String
   }
 
-type Import
+type FluxnovaIn
   {
-    scope: Boolean
-    namespace: String
-    location: String
-    importType: String
+    elementType: String
+    fluxnovaSource: String
+    fluxnovaSourceExpression: String
+    fluxnovaVariables: String
+    fluxnovaTarget: String
+    fluxnovaBusinessKey: String
+    fluxnovaLocal: Boolean
+    fluxnovaRestricted: Boolean
   }
 
-type Incident
+type FluxnovaIncident
   {
     id: String!
     incidentTimestamp: String!
     incidentMessage: String
     incidentType: String!
-    executionId: String
+    executionId: FluxnovaExecution
     activityId: String
     failedActivityId: String
-    processInstanceId: String
-    processDefinitionId: String
-    causeIncidentId: String
-    rootCauseIncidentId: String
+    processInstanceId: FluxnovaExecution
+    processDefinitionId: FluxnovaProcessDefinition
+    causeIncidentId: FluxnovaIncident
+    rootCauseIncidentId: FluxnovaIncident
     configuration: String
     tenantId: String
-    jobDefinitionId: String
+    jobDefinitionId: FluxnovaJobDefinition
     annotation: String
   }
 
-type InclusiveGateway
+type FluxnovaInputOutput
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
-    default: SequenceFlow
+    elementType: String
+    inputParameters: [FluxnovaInputParameter]
+    outputParameters: [FluxnovaOutputParameter]
   }
 
-type InputDataItem
+type FluxnovaInputParameter
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-    name: String
-    collection: Boolean
+    elementType: String
+    fluxnovaName: String!
+    fluxnovaRestricted: Boolean
+    fluxnovaIsTransient: Boolean
+    textContent: String
   }
 
-type InputSet
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    dataInputs: [DataInput]
-    optionalInputs: [DataInput]
-    whileExecutingInput: [DataInput]
-    outputSets: [OutputSet]
-  }
-
-type InteractionNode
-  {
-    id: String!
-  }
-
-type Interface
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    implementationRef: String
-    operations: [Operation]
-  }
-
-type IntermediateCatchEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    parallelMultiple: Boolean
-    dataOutputs: [DataOutput]
-    dataOutputAssociations: [DataOutputAssociation]
-    outputSet: OutputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-  }
-
-type IntermediateThrowEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    dataInputs: [DataInput]
-    dataInputAssociations: [DataInputAssociation]
-    inputSet: InputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-  }
-
-type IoBinding
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    operation: Operation
-    inputData: DataInput
-    outputData: DataOutput
-  }
-
-type IoSpecification
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    dataInputs: [DataInput]
-    dataOutputs: [DataOutput]
-    inputSets: [InputSet]
-    outputSets: [OutputSet]
-  }
-
-type ItemAwareElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-  }
-
-type ItemDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    structureRef: String
-    collection: Boolean
-    itemKind: String
-  }
-
-type Job
+type FluxnovaJob
   {
     id: String!
     type: String!
@@ -2715,7 +3136,7 @@ type Job
     processDefinitionId: String
     processDefinitionKey: String
     retries: Int
-    exceptionStackId: String
+    exceptionStackId: FluxnovaByteArray
     exceptionMessage: String
     failedActivityId: String
     dueDate: String
@@ -2724,7 +3145,7 @@ type Job
     handlerType: String
     handlerConfiguration: String
     deploymentId: String
-    suspensionState: SuspensionState!
+    suspensionState: Int!
     jobDefinitionId: String
     priority: Int!
     sequenceCounter: Int
@@ -2734,7 +3155,7 @@ type Job
     batchId: String
   }
 
-type JobDefinition
+type FluxnovaJobDefinition
   {
     id: String!
     processDefinitionId: String
@@ -2742,183 +3163,30 @@ type JobDefinition
     activityId: String
     jobType: String!
     jobConfiguration: String
-    suspensionState: SuspensionState
+    suspensionState: Int
     jobPriority: Int!
     tenantId: String
     deploymentId: String
   }
 
-type Label
+type FluxnovaList
   {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    bounds: Bounds
+    elementType: String
   }
 
-type LabeledEdge
+type FluxnovaMap
   {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    waypoints: [Waypoint]
+    elementType: String
+    entries: [FluxnovaEntry]
   }
 
-type LabeledShape
+type FluxnovaMembership
   {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    bounds: Bounds
+    userId: FluxnovaUser!
+    groupId: FluxnovaGroup!
   }
 
-type Lane
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    partitionElement: String
-    partitionElementChild: String
-    flowNodeRefs: [FlowNode]
-    childLaneSet: String
-  }
-
-type LaneSet
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    lanes: [Lane]
-  }
-
-type LinkEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    sources: [LinkEventDefinition]
-    target: LinkEventDefinition
-  }
-
-type LoopCardinality
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type LoopCharacteristics
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type ManualTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-  }
-
-type Membership
-  {
-    userId: String!
-    groupId: String!
-  }
-
-type Message
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    item: ItemDefinition
-  }
-
-type MessageEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    message: Message
-    operation: Operation
-    fluxnovaClass: String
-    fluxnovaDelegateExpression: String
-    fluxnovaExpression: String
-    fluxnovaResultVariable: String
-    fluxnovaTopic: String
-    fluxnovaType: String
-    fluxnovaTaskPriority: String
-  }
-
-type MessageFlow
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    source: InteractionNode
-    target: InteractionNode
-    message: Message
-  }
-
-type MessageFlowAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    innerMessageFlow: MessageFlow
-    outerMessageFlow: MessageFlow
-  }
-
-type MeterLog
+type FluxnovaMeterLog
   {
     id: String!
     name: String!
@@ -2928,282 +3196,45 @@ type MeterLog
     milliseconds: Int
   }
 
-type ModelArtifact
+type FluxnovaOut
   {
-    id: String!
-    name: String
-    externalRef: String
-    artifactKind: ArtifactKind
-    mediaType: String
-    pathOrUri: String
-    hash: String
-    sizeInBytes: Int
-    producedByStepRun: StepRun
-    consumedByStepRuns: [StepRun]
-    modelCardUri: String
-    weightsUri: String
-    trainingDatasets: [AiDataset]
-    baseModel: ModelArtifact
-    parameterCount: Int
+    elementType: String
+    fluxnovaSource: String
+    fluxnovaSourceExpression: String
+    fluxnovaVariables: String
+    fluxnovaTarget: String
+    fluxnovaLocal: Boolean
+    fluxnovaRestricted: Boolean
   }
 
-type Monitoring
+type FluxnovaOutputParameter
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
+    elementType: String
+    fluxnovaName: String!
+    fluxnovaRestricted: Boolean
+    fluxnovaIsTransient: Boolean
+    textContent: String
   }
 
-type MultiInstanceLoopCharacteristics
+type FluxnovaPlatformData
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    loopCardinality: LoopCardinality
-    loopDataInputRef: DataInput
-    loopDataOutputRef: DataOutput
-    inputDataItem: InputDataItem
-    outputDataItem: OutputDataItem
-    complexBehaviorDefinitions: [ComplexBehaviorDefinition]
-    completionCondition: CompletionCondition
-    sequential: Boolean
-    behavior: String
-    oneBehaviorEventRef: EventDefinition
-    noneBehaviorEventRef: EventDefinition
-    fluxnovaCollection: String
-    fluxnovaElementVariable: String
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
+    deployments: [FluxnovaDeployment]
+    processDefinitions: [FluxnovaProcessDefinition]
+    executions: [FluxnovaExecution]
+    tasks: [FluxnovaTask]
+    jobs: [FluxnovaJob]
+    users: [FluxnovaUser]
+    groups: [FluxnovaGroup]
+    batches: [FluxnovaBatch]
   }
 
-interface NamedThing
+type FluxnovaPotentialStarter
   {
-    id: String!
-    name: String
-    externalRef: String
+    elementType: String
+    resourceAssignmentExpression: BpmnResourceAssignmentExpression
   }
 
-type Node
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-  }
-
-type Operation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    implementationRef: String
-    inMessage: Message
-    outMessage: Message
-    errors: [Error]
-  }
-
-type OutputDataItem
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    itemSubject: ItemDefinition
-    dataState: DataState
-    name: String
-    collection: Boolean
-  }
-
-type OutputSet
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    dataOutputRefs: [DataOutput]
-    optionalOutputRefs: [DataOutput]
-    whileExecutingOutputRefs: [DataOutput]
-    inputSetRefs: [InputSet]
-  }
-
-type ParallelGateway
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    gatewayDirection: String
-    fluxnovaAsync: Boolean
-  }
-
-type ParameterDefinition
-  {
-    id: String!
-    name: String
-    externalRef: String
-    parameterScope: ParameterScope
-    parameterDirection: DirectionEnum
-    declaredType: String
-    isRequired: Boolean
-    defaultValue: String
-    secret: Boolean
-    allowedValues: [String]
-  }
-
-type ParameterValue
-  {
-    id: String!
-    name: String
-    externalRef: String
-    parameterDefinition: ParameterDefinition
-    observedType: String
-    parameterDirection: DirectionEnum
-    serializedValue: String
-    valueHash: String
-    observedAt: String
-    producedByStepRun: StepRun
-    consumedByStepRuns: [StepRun]
-    derivedFrom: [ParameterValue]
-    redacted: Boolean
-    classification: DataClassification
-  }
-
-type Participant implements InteractionNode
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    process: Process
-    interfaces: [Interface]
-    endPoints: [EndPoint]
-    participantMultiplicity: ParticipantMultiplicity
-  }
-
-type ParticipantAssociation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    innerParticipant: Participant
-    outerParticipant: Participant
-  }
-
-type ParticipantMultiplicity
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    minimum: Int
-    maximum: Int
-  }
-
-type Performer
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    resource: Resource
-    resourceParameterBinding: [ResourceParameterBinding]
-    resourceAssignmentExpression: ResourceAssignmentExpression
-  }
-
-type Plane
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    diagramElements: [DiagramElement]
-  }
-
-type Point
-  {
-    scope: Boolean
-    x: Float
-    y: Float
-  }
-
-type PotentialOwner
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    resource: Resource
-    resourceParameterBinding: [ResourceParameterBinding]
-    resourceAssignmentExpression: ResourceAssignmentExpression
-  }
-
-type Process
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    supportedInterfaces: [Interface]
-    ioSpecification: IoSpecification
-    ioBindings: [IoBinding]
-    processType: String
-    closed: Boolean
-    executable: Boolean
-    auditing: Auditing
-    monitoring: Monitoring
-    properties: [BpmnProperty]
-    laneSets: [LaneSet]
-    flowElements: [FlowElement]
-    artifacts: [Artifact]
-    correlationSubscriptions: [CorrelationSubscription]
-    resourceRoles: [ResourceRole]
-    supports: [Process]
-    fluxnovaCandidateStarterGroups: String
-    fluxnovaCandidateStarterGroupsList: [String]
-    fluxnovaCandidateStarterUsers: String
-    fluxnovaCandidateStarterUsersList: [String]
-    fluxnovaJobPriority: String
-    fluxnovaTaskPriority: String
-    fluxnovaHistoryTimeToLive: Int
-    fluxnovaHistoryTimeToLiveString: String
-    fluxnovaStartableInTasklist: Boolean
-    fluxnovaVersionTag: String
-  }
-
-type ProcessDefinition
+type FluxnovaProcessDefinition
   {
     id: String!
     name: String
@@ -3214,142 +3245,28 @@ type ProcessDefinition
     tenantId: String
     historyTimeToLive: Int
     hasStartFormKey: Boolean
-    suspensionState: SuspensionState
+    suspensionState: Int
     versionTag: String
     isStartable: Boolean!
     key: String!
     version: Int!
   }
 
-type PromptMessage
+type FluxnovaProperties
   {
-    id: String!
-    name: String
-    externalRef: String
-    messageRole: MessageRole
-    content: String
-    contentHash: String
-    sequenceNo: Int
-    redacted: Boolean
-    classification: DataClassification
-    parentInvocation: AiModelInvocation
+    elementType: String
+    properties: [FluxnovaProperty]
   }
 
-type Property
+type FluxnovaProperty
   {
-    name: String!
-    value: String
+    elementType: String
+    fluxnovaId: String
+    fluxnovaName: String
+    fluxnovaValue: String
   }
 
-type ProvenanceBundle
-  {
-    id: String!
-    name: String
-    generatedAt: String
-    sourceSystem: String
-    schemaVersion: String
-    workflowDefinitions: [WorkflowDefinition]
-    workflowRuns: [WorkflowRun]
-    agents: [Agent]
-    environments: [Environment]
-    runtimeComponents: [RuntimeComponent]
-    workflowArtifacts: [WorkflowArtifact]
-    parameterValues: [ParameterValue]
-    resources: [ExecutionResource]
-  }
-
-type ProvenanceIncident
-  {
-    id: String!
-    name: String
-    externalRef: String
-    incidentStatus: IncidentStatus
-    message: String
-    code: String
-    observedAt: String
-    relatedStepRun: StepRun
-    relatedWorkflowRun: WorkflowRun
-  }
-
-type ReceiveTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-    implementation: String
-    message: Message
-    operation: Operation
-  }
-
-type Relationship
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    type: String
-    direction: String
-    sources: [String]
-    targets: [String]
-  }
-
-type Rendering
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Resource
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    resourceParameters: [ResourceParameter]
-  }
-
-type ResourceAssignmentExpression
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    expression: Expression
-  }
-
-interface ResourceDefinition
+interface FluxnovaResourceDefinition
   {
     id: String!
     key: String
@@ -3363,394 +3280,36 @@ interface ResourceDefinition
     historyTimeToLive: Int
   }
 
-type ResourceParameter
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    type: ItemDefinition
-    required: Boolean
-  }
-
-type ResourceParameterBinding
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    parameter: ResourceParameter
-    expression: Expression
-  }
-
-type ResourceRole
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    resource: Resource
-    resourceParameterBinding: [ResourceParameterBinding]
-    resourceAssignmentExpression: ResourceAssignmentExpression
-  }
-
-type ResourceUsage
-  {
-    id: String!
-    name: String
-    externalRef: String
-    metricName: String
-    metricValue: Float
-    metricUnit: String
-    measuredForWorkflowRun: WorkflowRun
-    measuredForStepRun: StepRun
-    executionResource: ExecutionResource
-  }
-
-type RootElement
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type RuntimeComponent
-  {
-    id: String!
-    name: String
-    externalRef: String
-    componentKind: RuntimeComponentKind
-    definitionVersion: String
-    endpoint: String
-  }
-
-type SchemaLogEntry
+type FluxnovaSchemaLogEntry
   {
     id: String!
     timestamp: String
     version: String
   }
 
-type Script
+type FluxnovaScript
   {
-    scope: Boolean
+    elementType: String
+    scriptFormat: String!
+    resource: String
+    textContent: String
   }
 
-type ScriptTask
+type FluxnovaString
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-    scriptFormat: String
-    script: Script
-    fluxnovaResultVariable: String
-    fluxnovaResource: String
+    elementType: String
+    textContent: String
   }
 
-type SendTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-    implementation: String
-    message: Message
-    operation: Operation
-    fluxnovaClass: String
-    fluxnovaDelegateExpression: String
-    fluxnovaExpression: String
-    fluxnovaResultVariable: String
-    fluxnovaType: String
-    fluxnovaTopic: String
-    fluxnovaTaskPriority: String
-  }
-
-type SequenceFlow
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    source: FlowNode
-    target: FlowNode
-    immediate: Boolean
-    conditionExpression: ConditionExpression
-  }
-
-type ServiceTask
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-    implementation: String
-    operation: Operation
-    fluxnovaClass: String
-    fluxnovaDelegateExpression: String
-    fluxnovaExpression: String
-    fluxnovaResultVariable: String
-    fluxnovaType: String
-    fluxnovaTopic: String
-    fluxnovaTaskPriority: String
-  }
-
-type Shape
-  {
-    scope: Boolean
-    id: String!
-    extension: Extension
-    bounds: Bounds
-  }
-
-type Signal
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    structure: ItemDefinition
-  }
-
-type SignalEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    signal: Signal
-    fluxnovaAsync: Boolean
-  }
-
-type StartEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    parallelMultiple: Boolean
-    dataOutputs: [DataOutput]
-    dataOutputAssociations: [DataOutputAssociation]
-    outputSet: OutputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-    interrupting: Boolean
-    fluxnovaAsync: Boolean
-    fluxnovaFormHandlerClass: String
-    fluxnovaFormKey: String
-    fluxnovaFormRef: String
-    fluxnovaFormRefBinding: String
-    fluxnovaFormRefVersion: String
-    fluxnovaInitiator: String
-  }
-
-type StepDefinition
+type FluxnovaTask
   {
     id: String!
-    name: String
-    externalRef: String
-    workflowDefinition: WorkflowDefinition
-    bpmnType: BPMNElementType
-    implementationKind: ImplementationKind
-    implementationRef: String
-    calledElement: String
-    decisionRef: String
-    formRef: String
-    inputParameters: [ParameterDefinition]
-    outputParameters: [ParameterDefinition]
-    bpmnExtensionNames: [String]
-  }
-
-type StepRun
-  {
-    id: String!
-    name: String
-    externalRef: String
-    workflowRun: WorkflowRun
-    stepDefinition: StepDefinition
-    activityInstanceId: String
-    parentStepRun: StepRun
-    informedBy: [StepRun]
-    status: RunStatus
-    startedAt: String
-    endedAt: String
-    executedBy: Agent
-    environment: Environment
-    executionResource: ExecutionResource
-    inputValues: [ParameterValue]
-    outputValues: [ParameterValue]
-    consumedArtifacts: [WorkflowArtifact]
-    producedArtifacts: [WorkflowArtifact]
-    incidentMessage: String
-    retries: Int
-    sequenceNo: Int
-  }
-
-type Style
-  {
-    scope: Boolean
-    id: String!
-  }
-
-type SubConversation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    participants: [Participant]
-    messageFlows: [MessageFlow]
-    correlationKeys: [CorrelationKey]
-    conversationNodes: [ConversationNode]
-  }
-
-type SubProcess
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    laneSets: [LaneSet]
-    flowElements: [FlowElement]
-    artifacts: [Artifact]
-    fluxnovaAsync: Boolean
-  }
-
-type Task
-  {
-    id: String!
-    executionId: String
-    processInstanceId: String
-    processDefinitionId: String
-    caseExecutionId: String
+    executionId: FluxnovaExecution
+    processInstanceId: FluxnovaExecution
+    processDefinitionId: FluxnovaProcessDefinition
+    caseExecutionId: FluxnovaCaseExecution
     caseInstanceId: String
-    caseDefinitionId: String
+    caseDefinitionId: FluxnovaCaseDefinition
     name: String
     parentTaskId: String
     description: String
@@ -3763,178 +3322,45 @@ type Task
     lastUpdated: String
     dueDate: String
     followUpDate: String
-    suspensionState: SuspensionState
+    suspensionState: Int
     tenantId: String
     taskState: String
   }
 
-type TaskMeterLog
+type FluxnovaTaskListener
+  {
+    elementType: String
+    fluxnovaEvent: String
+    fluxnovaClass: String
+    fluxnovaExpression: String
+    fluxnovaDelegateExpression: String
+    fields: [FluxnovaField]
+    script: FluxnovaScript
+    timerEventDefinition: BpmnTimerEventDefinition
+  }
+
+type FluxnovaTaskMeterLog
   {
     id: String!
     assigneeHash: Int
     timestamp: String
   }
 
-type Tenant
+type FluxnovaTenant
   {
     id: String!
     name: String
   }
 
-type TenantMembership
+type FluxnovaTenantMembership
   {
     id: String!
-    tenantId: String!
-    userId: String
-    groupId: String
+    tenantId: FluxnovaTenant!
+    userId: FluxnovaUser
+    groupId: FluxnovaGroup
   }
 
-type TerminateEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type Text
-  {
-    scope: Boolean
-  }
-
-type TextAnnotation
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    textFormat: String
-    text: Text
-  }
-
-type ThrowEvent
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    properties: [BpmnProperty]
-    dataInputs: [DataInput]
-    dataInputAssociations: [DataInputAssociation]
-    inputSet: InputSet
-    eventDefinitions: [EventDefinition]
-    eventDefinitionRefs: [EventDefinition]
-  }
-
-type TimeCycle
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type TimeDate
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type TimeDuration
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-  }
-
-type TimerEventDefinition
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    timeDate: TimeDate
-    timeDuration: TimeDuration
-    timeCycle: TimeCycle
-  }
-
-type ToolCall
-  {
-    id: String!
-    name: String
-    externalRef: String
-    toolName: String
-    toolCallId: String
-    toolDefinition: AiToolDefinition
-    argumentsJson: String
-    resultJson: String
-    resultArtifact: WorkflowArtifact
-    calledStepRun: StepRun
-    startedAt: String
-    endedAt: String
-    status: RunStatus
-    parentInvocation: AiModelInvocation
-  }
-
-type Transaction
-  {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    laneSets: [LaneSet]
-    flowElements: [FlowElement]
-    artifacts: [Artifact]
-    fluxnovaAsync: Boolean
-    method: String
-  }
-
-type User
+type FluxnovaUser
   {
     id: String!
     firstName: String
@@ -3947,7 +3373,7 @@ type User
     pictureId: String
   }
 
-type UserOperationLogEntry
+type FluxnovaUserOperationLogEntry
   {
     id: String!
     deploymentId: String
@@ -3978,66 +3404,33 @@ type UserOperationLogEntry
     annotation: String
   }
 
-type UserTask
+type FluxnovaValidation
   {
-    scope: Boolean
-    id: String!
-    documentations: [Documentation]
-    extensionElements: ExtensionElements
-    diagramElement: DiagramElement
-    name: String
-    auditing: Auditing
-    monitoring: Monitoring
-    categoryValueRefs: [CategoryValue]
-    incoming: [SequenceFlow]
-    outgoing: [SequenceFlow]
-    previousNodes: FlowNode
-    succeedingNodes: FlowNode
-    fluxnovaAsyncBefore: Boolean
-    fluxnovaAsyncAfter: Boolean
-    fluxnovaExclusive: Boolean
-    fluxnovaJobPriority: String
-    forCompensation: Boolean
-    startQuantity: Int
-    completionQuantity: Int
-    default: SequenceFlow
-    ioSpecification: IoSpecification
-    properties: [BpmnProperty]
-    dataInputAssociations: [DataInputAssociation]
-    dataOutputAssociations: [DataOutputAssociation]
-    resourceRoles: [ResourceRole]
-    loopCharacteristics: LoopCharacteristics
-    fluxnovaAsync: Boolean
-    implementation: String
-    renderings: [Rendering]
-    fluxnovaAssignee: String
-    fluxnovaCandidateGroups: String
-    fluxnovaCandidateGroupsList: [String]
-    fluxnovaCandidateUsers: String
-    fluxnovaCandidateUsersList: [String]
-    fluxnovaDueDate: String
-    fluxnovaFollowUpDate: String
-    fluxnovaFormHandlerClass: String
-    fluxnovaFormKey: String
-    fluxnovaFormRef: String
-    fluxnovaFormRefBinding: String
-    fluxnovaFormRefVersion: String
-    fluxnovaPriority: String
+    elementType: String
+    constraints: [FluxnovaConstraint]
   }
 
-type VariableInstance
+type FluxnovaValue
+  {
+    elementType: String
+    fluxnovaId: String
+    fluxnovaName: String
+    textContent: String
+  }
+
+type FluxnovaVariableInstance
   {
     id: String!
     type: String!
     name: String!
-    executionId: String
-    processInstanceId: String
+    executionId: FluxnovaExecution
+    processInstanceId: FluxnovaExecution
     processDefinitionId: String
-    caseExecutionId: String
-    caseInstanceId: String
+    caseExecutionId: FluxnovaCaseExecution
+    caseInstanceId: FluxnovaCaseExecution
     taskId: String
-    batchId: String
-    byteArrayId: String
+    batchId: FluxnovaBatch
+    byteArrayId: FluxnovaByteArray
     doubleValue: Float
     longValue: Int
     textValue: String
@@ -4046,62 +3439,5 @@ type VariableInstance
     sequenceCounter: Int
     isConcurrentLocal: Boolean
     tenantId: String
-  }
-
-type Waypoint
-  {
-    scope: Boolean
-    x: Float
-    y: Float
-  }
-
-type WorkflowArtifact
-  {
-    id: String!
-    name: String
-    externalRef: String
-    artifactKind: ArtifactKind
-    mediaType: String
-    pathOrUri: String
-    hash: String
-    sizeInBytes: Int
-    producedByStepRun: StepRun
-    consumedByStepRuns: [StepRun]
-  }
-
-type WorkflowDefinition
-  {
-    id: String!
-    name: String
-    externalRef: String
-    definitionVersion: String
-    definitionKey: String
-    deploymentId: String
-    sourceModelRef: WorkflowArtifact
-    runtimeComponent: RuntimeComponent
-    steps: [StepDefinition]
-    authors: [Agent]
-    tags: [String]
-  }
-
-type WorkflowRun
-  {
-    id: String!
-    name: String
-    externalRef: String
-    workflowDefinition: WorkflowDefinition
-    businessKey: String
-    parentWorkflowRun: WorkflowRun
-    status: RunStatus
-    startedAt: String
-    endedAt: String
-    startedBy: Agent
-    environment: Environment
-    runtimeComponent: RuntimeComponent
-    inputValues: [ParameterValue]
-    outputValues: [ParameterValue]
-    stepRuns: [StepRun]
-    incidents: [ProvenanceIncident]
-    resourceUsage: [ResourceUsage]
-    tags: [String]
+    restricted: Boolean
   }

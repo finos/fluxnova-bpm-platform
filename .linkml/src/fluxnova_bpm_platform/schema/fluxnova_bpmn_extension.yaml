@@ -1,0 +1,1097 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
+name: fluxnova_bpmn_extension
+title: Fluxnova BPMN extension elements
+description: Fluxnova's extension elements, which sit in a BPMN element's extensionElements.
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+  camunda: http://camunda.org/schema/1.0/bpmn#
+  fluxnova: http://fluxnova.finos.org/schema/1.0/bpmn#
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+  - fluxnova_bpmn_semantic
+
+classes:
+  FluxnovaConnector:
+    description: A connector that a service task or message event calls, with its id and its
+      inputs and outputs.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:connector
+      - camunda:connector
+    annotations:
+      xml_name: connector
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaConnectorImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      connector_id:
+        description: The id of the connector to call.
+        range: FluxnovaConnectorId
+        inlined: true
+        required: true
+        annotations:
+          xml_name: connectorId
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      input_output:
+        description: The connector's input and output parameters.
+        range: FluxnovaInputOutput
+        inlined: true
+        annotations:
+          xml_name: inputOutput
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaConnectorId:
+    description: The id of the connector to call.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:connectorId
+      - camunda:connectorId
+    annotations:
+      xml_name: connectorId
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaConnectorIdImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaConstraint:
+    description: A rule a form field's value must meet, such as required or a maximum length.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:constraint
+      - camunda:constraint
+    annotations:
+      xml_name: constraint
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaConstraintImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_name:
+        description: The constraint's name, such as required, minlength or max.
+        range: string
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_config:
+        description: The constraint's setting, such as the maximum length.
+        range: string
+        exact_mappings:
+          - fluxnova:config
+          - camunda:config
+        annotations:
+          xml_name: config
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaEntry:
+    description: One key and value of a map.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:entry
+      - camunda:entry
+    annotations:
+      xml_name: entry
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaEntryImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_key:
+        description: The entry's key.
+        range: string
+        required: true
+        exact_mappings:
+          - fluxnova:key
+          - camunda:key
+        annotations:
+          xml_name: key
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaErrorEventDefinition:
+    description: An error event definition on an external service task, raised when its expression
+      holds.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:errorEventDefinition
+      - camunda:errorEventDefinition
+    annotations:
+      xml_name: errorEventDefinition
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaErrorEventDefinitionImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_expression:
+        description: The expression that, when true, raises the error.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaExecutionListener:
+    description: Code the engine runs when an execution passes an event of an element, such
+      as its start or end.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:executionListener
+      - camunda:executionListener
+    annotations:
+      xml_name: executionListener
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaExecutionListenerImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_event:
+        description: The event the listener runs on, such as start, end, take, create or complete.
+        range: string
+        exact_mappings:
+          - fluxnova:event
+          - camunda:event
+        annotations:
+          xml_name: event
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates when the listener runs.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fields:
+        description: The fields injected into the listener's delegate class.
+        range: FluxnovaField
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: field
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      script:
+        description: The script the listener runs.
+        range: FluxnovaScript
+        inlined: true
+        annotations:
+          xml_name: script
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaExpression:
+    description: An expression a field injects.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:expression
+      - camunda:expression
+    annotations:
+      xml_name: expression
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaExpressionImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaFailedJobRetryTimeCycle:
+    description: How often, and how many times, the engine retries a failed job.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:failedJobRetryTimeCycle
+      - camunda:failedJobRetryTimeCycle
+    annotations:
+      xml_name: failedJobRetryTimeCycle
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaFailedJobRetryTimeCycleImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaField:
+    description: A value injected into a field of a delegate class, as a string or an expression.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:field
+      - camunda:field
+    annotations:
+      xml_name: field
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaFieldImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_name:
+        description: The name of the field to inject.
+        range: string
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: The expression injected into the field.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_string_value:
+        description: The string injected into the field.
+        range: string
+        exact_mappings:
+          - fluxnova:stringValue
+          - camunda:stringValue
+        annotations:
+          xml_name: stringValue
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      expression:
+        description: The expression injected into the field.
+        range: FluxnovaExpression
+        inlined: true
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      string:
+        description: The string injected into the field.
+        range: FluxnovaString
+        inlined: true
+        annotations:
+          xml_name: string
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaFormData:
+    description: The form fields of a generated task or start form.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:formData
+      - camunda:formData
+    annotations:
+      xml_name: formData
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaFormDataImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      form_fields:
+        description: The fields of the form.
+        range: FluxnovaFormField
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: formField
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaFormField:
+    description: One field of a generated form.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:formField
+      - camunda:formField
+    annotations:
+      xml_name: formField
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaFormFieldImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_id:
+        description: The field's id, which names the variable it is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:id
+          - camunda:id
+        annotations:
+          xml_name: id
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_label:
+        description: The label shown with the field.
+        range: string
+        exact_mappings:
+          - fluxnova:label
+          - camunda:label
+        annotations:
+          xml_name: label
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The type of the field's value, such as string, long, boolean, date or
+          enum.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_date_pattern:
+        description: The pattern a date value is written in.
+        range: string
+        exact_mappings:
+          - fluxnova:datePattern
+          - camunda:datePattern
+        annotations:
+          xml_name: datePattern
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_default_value:
+        description: The field's default value.
+        range: string
+        exact_mappings:
+          - fluxnova:defaultValue
+          - camunda:defaultValue
+        annotations:
+          xml_name: defaultValue
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      properties:
+        description: The field's properties.
+        range: FluxnovaProperties
+        inlined: true
+        annotations:
+          xml_name: properties
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      validation:
+        description: The rules the field's value must meet.
+        range: FluxnovaValidation
+        inlined: true
+        annotations:
+          xml_name: validation
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      values:
+        description: The options of an enumerated field.
+        range: FluxnovaValue
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: value
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaFormProperty:
+    description: A form property, the older way of declaring a generated form's fields.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:formProperty
+      - camunda:formProperty
+    annotations:
+      xml_name: formProperty
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaFormPropertyImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_id:
+        description: The property's id.
+        range: string
+        exact_mappings:
+          - fluxnova:id
+          - camunda:id
+        annotations:
+          xml_name: id
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_name:
+        description: The property's label.
+        range: string
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The type of the property's value.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_required:
+        description: Whether the property must be given a value.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:required
+          - camunda:required
+        annotations:
+          xml_name: required
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_readable:
+        description: Whether the property can be read.
+        range: boolean
+        ifabsent: 'true'
+        exact_mappings:
+          - fluxnova:readable
+          - camunda:readable
+        annotations:
+          xml_name: readable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_writeable:
+        description: Whether the property can be written.
+        range: boolean
+        ifabsent: 'true'
+        exact_mappings:
+          - fluxnova:writeable
+          - camunda:writeable
+        annotations:
+          xml_name: writeable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variable:
+        description: The variable the property is bound to.
+        range: string
+        exact_mappings:
+          - fluxnova:variable
+          - camunda:variable
+        annotations:
+          xml_name: variable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression that gives the property's value.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_date_pattern:
+        description: The pattern a date value is written in.
+        range: string
+        exact_mappings:
+          - fluxnova:datePattern
+          - camunda:datePattern
+        annotations:
+          xml_name: datePattern
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_default:
+        description: The property's default value.
+        range: string
+        exact_mappings:
+          - fluxnova:default
+          - camunda:default
+        annotations:
+          xml_name: default
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      values:
+        description: The options of an enumerated field.
+        range: FluxnovaValue
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: value
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaIn:
+    description: A variable or business key passed into a called process or case.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:in
+      - camunda:in
+    annotations:
+      xml_name: in
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaInImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_source:
+        description: The variable in the source scope to pass.
+        range: string
+        exact_mappings:
+          - fluxnova:source
+          - camunda:source
+        annotations:
+          xml_name: source
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_source_expression:
+        description: The expression whose value is passed.
+        range: string
+        exact_mappings:
+          - fluxnova:sourceExpression
+          - camunda:sourceExpression
+        annotations:
+          xml_name: sourceExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variables:
+        description: Which variables are passed; all passes every one.
+        range: string
+        exact_mappings:
+          - fluxnova:variables
+          - camunda:variables
+        annotations:
+          xml_name: variables
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_target:
+        description: The variable in the target scope that receives the value.
+        range: string
+        exact_mappings:
+          - fluxnova:target
+          - camunda:target
+        annotations:
+          xml_name: target
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_business_key:
+        description: The business key passed to the called process.
+        range: string
+        exact_mappings:
+          - fluxnova:businessKey
+          - camunda:businessKey
+        annotations:
+          xml_name: businessKey
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_local:
+        description: Whether only the local variables of the calling scope are passed.
+        range: boolean
+        exact_mappings:
+          - fluxnova:local
+          - camunda:local
+        annotations:
+          xml_name: local
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_restricted:
+        description: Whether the mapping is restricted, a setting Fluxnova adds in its own
+          namespace.
+        range: boolean
+        exact_mappings:
+          - fluxnova:restricted
+        annotations:
+          xml_name: restricted
+          xml_namespace: http://fluxnova.finos.org/schema/1.0/bpmn
+
+  FluxnovaInputOutput:
+    description: The input and output parameters of an activity or connector.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:inputOutput
+      - camunda:inputOutput
+    annotations:
+      xml_name: inputOutput
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaInputOutputImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      input_parameters:
+        description: The input parameters.
+        range: FluxnovaInputParameter
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: inputParameter
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      output_parameters:
+        description: The output parameters.
+        range: FluxnovaOutputParameter
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: outputParameter
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaInputParameter:
+    description: A variable set in an activity's scope before it starts.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:inputParameter
+      - camunda:inputParameter
+    annotations:
+      xml_name: inputParameter
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaInputParameterImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_name:
+        description: The variable the parameter sets.
+        range: string
+        required: true
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_restricted:
+        description: Whether the mapping is restricted, a setting Fluxnova adds in its own
+          namespace.
+        range: boolean
+        exact_mappings:
+          - fluxnova:restricted
+        annotations:
+          xml_name: restricted
+          xml_namespace: http://fluxnova.finos.org/schema/1.0/bpmn
+      fluxnova_is_transient:
+        description: Whether the variable is kept only while the transaction runs.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:isTransient
+          - camunda:isTransient
+        annotations:
+          xml_name: isTransient
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaList:
+    description: A list value of a parameter.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:list
+      - camunda:list
+    annotations:
+      xml_name: list
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaListImpl.java
+    in_subset:
+      - bpmn_extension
+
+  FluxnovaMap:
+    description: A map value of a parameter.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:map
+      - camunda:map
+    annotations:
+      xml_name: map
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaMapImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      entries:
+        description: The map's entries.
+        range: FluxnovaEntry
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: entry
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaOut:
+    description: A variable passed back from a called process or case.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:out
+      - camunda:out
+    annotations:
+      xml_name: out
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaOutImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_source:
+        description: The variable in the source scope to pass.
+        range: string
+        exact_mappings:
+          - fluxnova:source
+          - camunda:source
+        annotations:
+          xml_name: source
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_source_expression:
+        description: The expression whose value is passed.
+        range: string
+        exact_mappings:
+          - fluxnova:sourceExpression
+          - camunda:sourceExpression
+        annotations:
+          xml_name: sourceExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variables:
+        description: Which variables are passed; all passes every one.
+        range: string
+        exact_mappings:
+          - fluxnova:variables
+          - camunda:variables
+        annotations:
+          xml_name: variables
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_target:
+        description: The variable in the target scope that receives the value.
+        range: string
+        exact_mappings:
+          - fluxnova:target
+          - camunda:target
+        annotations:
+          xml_name: target
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_local:
+        description: Whether only the local variables of the calling scope are passed.
+        range: boolean
+        exact_mappings:
+          - fluxnova:local
+          - camunda:local
+        annotations:
+          xml_name: local
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_restricted:
+        description: Whether the mapping is restricted, a setting Fluxnova adds in its own
+          namespace.
+        range: boolean
+        exact_mappings:
+          - fluxnova:restricted
+        annotations:
+          xml_name: restricted
+          xml_namespace: http://fluxnova.finos.org/schema/1.0/bpmn
+
+  FluxnovaOutputParameter:
+    description: A variable set outside an activity once it ends.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:outputParameter
+      - camunda:outputParameter
+    annotations:
+      xml_name: outputParameter
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaOutputParameterImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_name:
+        description: The variable the parameter sets.
+        range: string
+        required: true
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_restricted:
+        description: Whether the mapping is restricted, a setting Fluxnova adds in its own
+          namespace.
+        range: boolean
+        exact_mappings:
+          - fluxnova:restricted
+        annotations:
+          xml_name: restricted
+          xml_namespace: http://fluxnova.finos.org/schema/1.0/bpmn
+      fluxnova_is_transient:
+        description: Whether the variable is kept only while the transaction runs.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:isTransient
+          - camunda:isTransient
+        annotations:
+          xml_name: isTransient
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaPotentialStarter:
+    description: The users or groups who may start a process.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:potentialStarter
+      - camunda:potentialStarter
+    annotations:
+      xml_name: potentialStarter
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaPotentialStarterImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      resource_assignment_expression:
+        description: The expression that chooses the resource.
+        range: BpmnResourceAssignmentExpression
+        inlined: true
+        annotations:
+          xml_name: resourceAssignmentExpression
+
+  FluxnovaProperties:
+    description: A set of key and value properties on an element.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:properties
+      - camunda:properties
+    annotations:
+      xml_name: properties
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaPropertiesImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      properties:
+        description: The properties.
+        range: FluxnovaProperty
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: property
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaProperty:
+    description: One key and value property.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:property
+      - camunda:property
+    annotations:
+      xml_name: property
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaPropertyImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_id:
+        description: The property's id.
+        range: string
+        exact_mappings:
+          - fluxnova:id
+          - camunda:id
+        annotations:
+          xml_name: id
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_name:
+        description: The property's name.
+        range: string
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_value:
+        description: The property's value.
+        range: string
+        exact_mappings:
+          - fluxnova:value
+          - camunda:value
+        annotations:
+          xml_name: value
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaScript:
+    description: A script whose result is a value, such as a parameter's or a listener's.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:script
+      - camunda:script
+    annotations:
+      xml_name: script
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaScriptImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      script_format:
+        description: The language the script is written in, such as groovy or javascript.
+        range: string
+        required: true
+        annotations:
+          xml_name: scriptFormat
+      resource:
+        description: A resource that holds the script, instead of the script's text.
+        range: string
+        annotations:
+          xml_name: resource
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaString:
+    description: A string a field injects.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:string
+      - camunda:string
+    annotations:
+      xml_name: string
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaStringImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  FluxnovaTaskListener:
+    description: Code the engine runs when a user task reaches an event, such as its creation
+      or completion.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:taskListener
+      - camunda:taskListener
+    annotations:
+      xml_name: taskListener
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaTaskListenerImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_event:
+        description: The event the listener runs on, such as start, end, take, create or complete.
+        range: string
+        exact_mappings:
+          - fluxnova:event
+          - camunda:event
+        annotations:
+          xml_name: event
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates when the listener runs.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fields:
+        description: The fields injected into the listener's delegate class.
+        range: FluxnovaField
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: field
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      script:
+        description: The script the listener runs.
+        range: FluxnovaScript
+        inlined: true
+        annotations:
+          xml_name: script
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      timer_event_definition:
+        description: The timer of a listener that runs on a timeout.
+        range: BpmnTimerEventDefinition
+        inlined: true
+        annotations:
+          xml_name: timerEventDefinition
+
+  FluxnovaValidation:
+    description: The constraints of a form field.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:validation
+      - camunda:validation
+    annotations:
+      xml_name: validation
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaValidationImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      constraints:
+        description: The constraints the value must meet.
+        range: FluxnovaConstraint
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: constraint
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  FluxnovaValue:
+    description: One option of an enumerated form field.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - fluxnova:value
+      - camunda:value
+    annotations:
+      xml_name: value
+      xml_namespace: http://camunda.org/schema/1.0/bpmn
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaValueImpl.java
+    in_subset:
+      - bpmn_extension
+    attributes:
+      fluxnova_id:
+        description: The option's id, its stored value.
+        range: string
+        exact_mappings:
+          - fluxnova:id
+          - camunda:id
+        annotations:
+          xml_name: id
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_name:
+        description: The option's label.
+        range: string
+        exact_mappings:
+          - fluxnova:name
+          - camunda:name
+        annotations:
+          xml_name: name
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string

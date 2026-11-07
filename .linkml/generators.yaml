@@ -37,6 +37,10 @@ generator_args:
     mergeimports: true
   jsonschema:
     mergeimports: true
+    # A BPMN element's children range over abstract classes, such as a process's
+    # flow elements, so the JSON Schema admits each subclass, which element_type
+    # names.
+    include_range_class_descendants: true
   jsonldcontext:
     mergeimports: true
   # gen-pydantic is not yet supported by gen-project.

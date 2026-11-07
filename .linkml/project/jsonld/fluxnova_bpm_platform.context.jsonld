@@ -1,1541 +1,467 @@
 {
    "@context": {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "airo": "https://w3id.org/airo#",
       "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL#",
-      "cis_controls": "https://w3id.org/lmodel/cis-controls/",
-      "core": "https://w3id.org/lmodel/vulnerability-core/",
-      "cr": "http://mlcommons.org/croissant/",
-      "cve": "https://w3id.org/lmodel/cve/",
-      "cwe": "https://w3id.org/lmodel/cwe/",
-      "d3f": "http://d3fend.mitre.org/ontologies/d3fend.owl#",
-      "dcterms": "http://purl.org/dc/terms/",
-      "dpv_ai": "https://w3id.org/dpv/ai#",
-      "dqv": "http://www.w3.org/ns/dqv#",
-      "fluxnova_bpm_ai_provenance": "https://w3id.org/lmodel/fluxnova-bpm-platform/ai-provenance/",
-      "fluxnova_bpm_base": "https://w3id.org/lmodel/fluxnova-bpm-platform/base/",
-      "fluxnova_bpm_collaboration": "https://w3id.org/lmodel/fluxnova-bpm-platform/collaboration/",
-      "fluxnova_bpm_history": "https://w3id.org/lmodel/fluxnova-bpm-platform/history/",
-      "fluxnova_bpm_identity": "https://w3id.org/lmodel/fluxnova-bpm-platform/identity/",
-      "fluxnova_bpm_job": "https://w3id.org/lmodel/fluxnova-bpm-platform/job/",
+      "bpmndi": "http://www.omg.org/spec/BPMN/20100524/DI#",
+      "camunda": "http://camunda.org/schema/1.0/bpmn#",
+      "fluxnova": "http://fluxnova.finos.org/schema/1.0/bpmn#",
       "fluxnova_bpm_platform": "https://w3id.org/lmodel/fluxnova-bpm-platform/",
-      "fluxnova_bpm_provenance": "https://w3id.org/lmodel/fluxnova-bpm-platform/provenance/",
-      "fluxnova_bpm_repository": "https://w3id.org/lmodel/fluxnova-bpm-platform/repository/",
-      "fluxnova_bpm_runtime": "https://w3id.org/lmodel/fluxnova-bpm-platform/runtime/",
-      "fluxnova_bpmn_model": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model/",
-      "fluxnova_bpmn_model_bpmndi": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_bpmndi/",
-      "fluxnova_bpmn_model_dc": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_dc/",
-      "fluxnova_bpmn_model_di": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_di/",
-      "fluxnova_bpmn_model_fluxnova": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_fluxnova/",
-      "fluxnova_bpmn_model_instance": "https://w3id.org/lmodel/fluxnova-bpmn-model/fluxnova_bpmn_model_instance/",
-      "fluxnova_common": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_common/",
-      "kev_catalog": "https://w3id.org/lmodel/kev-catalog/",
       "linkml": "https://w3id.org/linkml/",
-      "mls": "http://www.w3.org/ns/mls#",
-      "nexus": "https://ibm.github.io/ai-atlas-nexus/ontology/",
-      "nist_csf_v2": "https://w3id.org/lmodel/nist-csf-v2/",
-      "nvd": "https://w3id.org/lmodel/nist-nvd/",
-      "ocsf": "https://w3id.org/lmodel/ocsf/",
-      "oscal": "https://lmodel.github.io/oscal/",
-      "prov": "http://www.w3.org/ns/prov#",
-      "schema": "http://schema.org/",
+      "omgdc": "http://www.omg.org/spec/DD/20100524/DC#",
+      "omgdi": "http://www.omg.org/spec/DD/20100524/DI#",
       "skos": "http://www.w3.org/2004/02/skos/core#",
-      "spdx": "https://lmodel.github.io/spdx/",
-      "stix": "https://w3id.org/lmodel/stix/",
-      "uco_master": "https://lmodel.github.io/uco-master/",
-      "unified_cyber_ontology": "https://w3id.org/lmodel/uco-master/",
-      "wrroc": "https://w3id.org/ro/terms/workflow-run#",
       "@vocab": "https://w3id.org/lmodel/fluxnova-bpm-platform/",
       "action": {
-         "@id": "fluxnova_bpm_collaboration:action"
-      },
-      "activation_condition": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:activation_condition"
-      },
-      "activity": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:activity"
+         "@id": "action"
       },
       "activity_id": {
-         "@id": "fluxnova_bpm_runtime:activity_id"
+         "@id": "activity_id"
       },
       "activity_instance_id": {
-         "@id": "fluxnova_bpm_runtime:activity_instance_id"
+         "@id": "activity_instance_id"
       },
       "activity_instance_state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_history:activity_instance_state"
+         "@type": "xsd:integer",
+         "@id": "activity_instance_state"
       },
       "activity_name": {
-         "@id": "fluxnova_bpm_history:activity_name"
+         "@id": "activity_name"
       },
       "activity_type": {
-         "@id": "fluxnova_bpm_history:activity_type"
-      },
-      "agent_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:agent_kind"
-      },
-      "agents": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:agents"
-      },
-      "allowed_values": {
-         "@id": "fluxnova_bpm_provenance:allowed_values"
+         "@id": "activity_type"
       },
       "annotation": {
-         "@id": "fluxnova_bpm_runtime:annotation"
-      },
-      "architecture": {
-         "@id": "fluxnova_bpm_ai_provenance:architecture"
-      },
-      "arguments_json": {
-         "@id": "fluxnova_bpm_ai_provenance:arguments_json"
-      },
-      "artifact_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:artifact_kind"
-      },
-      "artifacts": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:artifacts"
+         "@id": "annotation"
       },
       "assignee": {
-         "@id": "fluxnova_bpm_runtime:assignee"
+         "@id": "assignee"
       },
       "assignee_hash": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_base:assignee_hash"
+         "@id": "assignee_hash"
       },
       "assigner_id": {
-         "@id": "fluxnova_bpm_history:assigner_id"
-      },
-      "assignments": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:assignments"
-      },
-      "association_direction": {
-         "@id": "fluxnova_bpmn_model_instance:association_direction"
-      },
-      "attached_to": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:attached_to"
+         "@id": "assigner_id"
       },
       "attempts": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_identity:attempts"
-      },
-      "auditing": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:auditing"
-      },
-      "authors": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:authors"
-      },
-      "available_tools": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:available_tools"
-      },
-      "backing_step_definition": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:backing_step_definition"
-      },
-      "base_model": {
-         "@type": "@id",
-         "@id": "prov:wasDerivedFrom"
+         "@id": "attempts"
       },
       "batch_id": {
-         "@id": "fluxnova_bpm_runtime:batch_id"
+         "@id": "batch_id"
       },
       "batch_job_definition_id": {
-         "@id": "fluxnova_bpm_job:batch_job_definition_id"
+         "@id": "batch_job_definition_id"
       },
       "batches": {
          "@type": "@id",
          "@id": "batches"
       },
-      "behavior": {
-         "@id": "fluxnova_bpmn_model_instance:behavior"
-      },
-      "bold": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_dc:bold"
-      },
-      "bounds": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_di:bounds"
-      },
-      "bpm_diagrams": {
-         "@id": "fluxnova_bpmn_model_instance:bpm_diagrams"
-      },
-      "bpmn_element": {
-         "@id": "fluxnova_bpmn_model_bpmndi:bpmn_element"
-      },
-      "bpmn_extension_names": {
-         "@id": "fluxnova_bpm_provenance:bpmn_extension_names"
-      },
-      "bpmn_label": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:bpmn_label"
-      },
-      "bpmn_label_styles": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:bpmn_label_styles"
-      },
-      "bpmn_plane": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:bpmn_plane"
-      },
-      "bpmn_type": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:bpmn_type"
-      },
-      "business_key": {
-         "@id": "fluxnova_bpm_runtime:business_key"
-      },
-      "byte_array_id": {
-         "@id": "fluxnova_bpm_runtime:byte_array_id"
-      },
-      "bytes": {
-         "@id": "fluxnova_bpm_base:bytes"
-      },
-      "cached_entity_state": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:cached_entity_state"
-      },
-      "called_case_instance_id": {
-         "@id": "fluxnova_bpm_history:called_case_instance_id"
-      },
-      "called_collaboration": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:called_collaboration"
-      },
-      "called_element": {
-         "@id": "fluxnova_bpmn_model_instance:called_element"
-      },
-      "called_process_instance_id": {
-         "@id": "fluxnova_bpm_history:called_process_instance_id"
-      },
-      "called_step_run": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:called_step_run"
-      },
-      "capacity": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:capacity"
-      },
-      "case_activity_id": {
-         "@id": "fluxnova_bpm_history:case_activity_id"
-      },
-      "case_activity_name": {
-         "@id": "fluxnova_bpm_history:case_activity_name"
-      },
-      "case_activity_type": {
-         "@id": "fluxnova_bpm_history:case_activity_type"
-      },
-      "case_definition_id": {
-         "@id": "fluxnova_bpm_runtime:case_definition_id"
-      },
-      "case_definition_key": {
-         "@id": "fluxnova_bpm_history:case_definition_key"
-      },
-      "case_execution_id": {
-         "@id": "fluxnova_bpm_runtime:case_execution_id"
-      },
-      "case_instance_id": {
-         "@id": "fluxnova_bpm_runtime:case_instance_id"
-      },
-      "category": {
-         "@id": "fluxnova_common:category"
-      },
-      "category_value_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:category_value_refs"
-      },
-      "category_values": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:category_values"
-      },
-      "cause_incident_id": {
-         "@id": "fluxnova_bpm_runtime:cause_incident_id"
-      },
-      "child_lane_set": {
-         "@id": "fluxnova_bpmn_model_instance:child_lane_set"
-      },
-      "choreography_activity_shape": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:choreography_activity_shape"
-      },
-      "classification": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:classification"
-      },
-      "clause_id": {
-         "@id": "fluxnova_bpm_history:clause_id"
-      },
-      "clause_name": {
-         "@id": "fluxnova_bpm_history:clause_name"
-      },
-      "close_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_history:close_time"
-      },
-      "closed": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:closed"
-      },
-      "code": {
-         "@id": "fluxnova_bpm_provenance:code"
-      },
-      "collect_result_value": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpm_history:collect_result_value"
-      },
-      "collection": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:collection"
-      },
-      "completion_condition": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:completion_condition"
-      },
       "completion_quantity": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:completion_quantity"
-      },
-      "complex_behavior_definitions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:complex_behavior_definitions"
-      },
-      "component_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:component_kind"
-      },
-      "condition": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:condition"
-      },
-      "condition_expression": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:condition_expression"
-      },
-      "configuration": {
-         "@id": "fluxnova_bpm_runtime:configuration"
-      },
-      "configuration_ref": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:configuration_ref"
-      },
-      "consumed_artifacts": {
-         "@type": "@id",
-         "@id": "prov:used"
-      },
-      "consumed_by_step_runs": {
-         "@type": "@id",
-         "@id": "prov:used"
-      },
-      "content": {
-         "@id": "fluxnova_bpm_ai_provenance:content"
-      },
-      "content_hash": {
-         "@id": "fluxnova_bpm_ai_provenance:content_hash"
-      },
-      "content_id": {
-         "@id": "fluxnova_bpm_collaboration:content_id"
-      },
-      "context_window_tokens": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:context_window_tokens"
-      },
-      "conversation_associations": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:conversation_associations"
-      },
-      "conversation_links": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:conversation_links"
-      },
-      "conversation_nodes": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:conversation_nodes"
-      },
-      "correlation_key": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_key"
-      },
-      "correlation_keys": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_keys"
-      },
-      "correlation_properties": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_properties"
-      },
-      "correlation_property": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_property"
-      },
-      "correlation_property_bindings": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_property_bindings"
-      },
-      "correlation_property_retrieval_expressions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_property_retrieval_expressions"
-      },
-      "correlation_subscriptions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:correlation_subscriptions"
-      },
-      "cost_usd": {
-         "@type": "xsd:decimal",
-         "@id": "fluxnova_bpm_ai_provenance:cost_usd"
-      },
-      "create_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_base:create_time"
-      },
-      "create_user_id": {
-         "@id": "fluxnova_bpm_job:create_user_id"
-      },
-      "created": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:created"
-      },
-      "current_state": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:current_state"
+         "@id": "completion_quantity"
       },
       "data_input_associations": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_input_associations"
-      },
-      "data_inputs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_inputs"
-      },
-      "data_object": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_object"
+         "@id": "data_input_associations"
       },
       "data_output_associations": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_output_associations"
-      },
-      "data_output_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_output_refs"
-      },
-      "data_outputs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_outputs"
-      },
-      "data_path": {
-         "@id": "fluxnova_bpmn_model_instance:data_path"
-      },
-      "data_state": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_state"
-      },
-      "data_store": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:data_store"
-      },
-      "dataset_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:dataset_kind"
-      },
-      "decision_definition_id": {
-         "@id": "fluxnova_bpm_history:decision_definition_id"
-      },
-      "decision_definition_key": {
-         "@id": "fluxnova_bpm_history:decision_definition_key"
-      },
-      "decision_definition_name": {
-         "@id": "fluxnova_bpm_history:decision_definition_name"
-      },
-      "decision_instance_id": {
-         "@id": "fluxnova_bpm_history:decision_instance_id"
-      },
-      "decision_ref": {
-         "@id": "fluxnova_bpm_provenance:decision_ref"
-      },
-      "decision_requirements_definition_id": {
-         "@id": "fluxnova_bpm_repository:decision_requirements_definition_id"
-      },
-      "decision_requirements_definition_key": {
-         "@id": "fluxnova_bpm_repository:decision_requirements_definition_key"
-      },
-      "declared_type": {
-         "@id": "fluxnova_bpm_provenance:declared_type"
+         "@id": "data_output_associations"
       },
       "default": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:default"
-      },
-      "default_value": {
-         "@id": "fluxnova_bpm_provenance:default_value"
-      },
-      "definition_key": {
-         "@id": "fluxnova_bpm_provenance:definition_key"
-      },
-      "definition_version": {
-         "@id": "schema:version"
-      },
-      "definitions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model:definitions"
-      },
-      "delegation_state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_runtime:delegation_state"
-      },
-      "delete_reason": {
-         "@id": "fluxnova_bpm_history:delete_reason"
-      },
-      "deploy_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_repository:deploy_time"
-      },
-      "deployment_id": {
-         "@id": "fluxnova_bpm_base:deployment_id"
-      },
-      "deployment_ref": {
-         "@id": "fluxnova_bpm_provenance:deployment_ref"
-      },
-      "deployments": {
-         "@type": "@id",
-         "@id": "deployments"
-      },
-      "derived_from": {
-         "@type": "@id",
-         "@id": "prov:wasDerivedFrom"
-      },
-      "description": {
-         "@id": "schema:description"
-      },
-      "diagram_element": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:diagram_element"
-      },
-      "diagram_elements": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_di:diagram_elements"
-      },
-      "diagram_resource_name": {
-         "@id": "fluxnova_bpm_repository:diagram_resource_name"
-      },
-      "direction": {
-         "@id": "fluxnova_bpmn_model_instance:direction"
-      },
-      "documentation": {
-         "@id": "fluxnova_bpmn_model_di:documentation"
-      },
-      "documentations": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:documentations"
-      },
-      "double_value": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpm_runtime:double_value"
-      },
-      "due_date": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:due_date"
-      },
-      "duration": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_history:duration"
-      },
-      "elements": {
-         "@id": "fluxnova_bpmn_model_instance:elements"
-      },
-      "elements_query": {
-         "@id": "fluxnova_bpmn_model_instance:elements_query"
-      },
-      "email": {
-         "@id": "fluxnova_bpm_identity:email"
-      },
-      "end_activity_id": {
-         "@id": "fluxnova_bpm_history:end_activity_id"
-      },
-      "end_points": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:end_points"
-      },
-      "end_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_history:end_time"
-      },
-      "ended_at": {
-         "@type": "xsd:dateTime",
-         "@id": "schema:endTime"
-      },
-      "endpoint": {
-         "@id": "fluxnova_bpm_provenance:endpoint"
-      },
-      "entity_type": {
-         "@id": "fluxnova_bpm_history:entity_type"
-      },
-      "environment": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:environment"
-      },
-      "environments": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:environments"
-      },
-      "error": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:error"
-      },
-      "error_code": {
-         "@id": "fluxnova_bpmn_model_instance:error_code"
-      },
-      "error_details_id": {
-         "@id": "fluxnova_bpm_runtime:error_details_id"
-      },
-      "error_message": {
-         "@id": "fluxnova_bpm_runtime:error_message"
-      },
-      "errors": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:errors"
-      },
-      "escalation": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:escalation"
-      },
-      "escalation_code": {
-         "@id": "fluxnova_bpmn_model_instance:escalation_code"
-      },
-      "evaluated_at": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_ai_provenance:evaluated_at"
-      },
-      "evaluated_invocation": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:evaluated_invocation"
-      },
-      "evaluates_to_type": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:evaluates_to_type"
-      },
-      "evaluation_results": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:evaluation_results"
-      },
-      "evaluation_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_history:evaluation_time"
-      },
-      "evaluator_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:evaluator_kind"
-      },
-      "evaluator_name": {
-         "@id": "fluxnova_bpm_ai_provenance:evaluator_name"
-      },
-      "event_definition_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:event_definition_refs"
-      },
-      "event_definitions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:event_definitions"
-      },
-      "event_gateway_type": {
-         "@id": "fluxnova_bpmn_model_instance:event_gateway_type"
-      },
-      "event_name": {
-         "@id": "fluxnova_bpm_runtime:event_name"
-      },
-      "event_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_collaboration:event_time"
-      },
-      "event_type": {
-         "@id": "fluxnova_bpm_runtime:event_type"
-      },
-      "exception_message": {
-         "@id": "fluxnova_bpm_job:exception_message"
-      },
-      "exception_stack_id": {
-         "@id": "fluxnova_bpm_job:exception_stack_id"
-      },
-      "executable": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:executable"
-      },
-      "executed_by": {
-         "@type": "@id",
-         "@id": "prov:wasAssociatedWith"
-      },
-      "execution_id": {
-         "@id": "fluxnova_bpm_runtime:execution_id"
-      },
-      "execution_resource": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:execution_resource"
-      },
-      "execution_start_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_job:execution_start_time"
-      },
-      "executions": {
-         "@type": "@id",
-         "@id": "executions"
-      },
-      "expanded": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_bpmndi:expanded"
-      },
-      "exporter": {
-         "@id": "fluxnova_bpmn_model_instance:exporter"
-      },
-      "exporter_version": {
-         "@id": "fluxnova_bpmn_model_instance:exporter_version"
-      },
-      "expression": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:expression"
-      },
-      "expression_language": {
-         "@id": "fluxnova_bpmn_model_instance:expression_language"
-      },
-      "extension": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_di:extension"
-      },
-      "extension_elements": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:extension_elements"
-      },
-      "extensions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:extensions"
-      },
-      "external_ref": {
-         "@id": "schema:url"
-      },
-      "external_task_id": {
-         "@id": "fluxnova_bpm_history:external_task_id"
-      },
-      "failed_activity_id": {
-         "@id": "fluxnova_bpm_runtime:failed_activity_id"
-      },
-      "fine_tuning_description": {
-         "@id": "fluxnova_bpm_ai_provenance:fine_tuning_description"
-      },
-      "first_name": {
-         "@id": "fluxnova_bpm_identity:first_name"
-      },
-      "flow_elements": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:flow_elements"
-      },
-      "flow_node_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:flow_node_refs"
-      },
-      "fluxnova_assignee": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_assignee"
-      },
-      "fluxnova_async": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_async"
-      },
-      "fluxnova_async_after": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_async_after"
-      },
-      "fluxnova_async_before": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_async_before"
-      },
-      "fluxnova_business_key": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_business_key"
-      },
-      "fluxnova_called_element_binding": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_called_element_binding"
-      },
-      "fluxnova_called_element_tenant_id": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_called_element_tenant_id"
-      },
-      "fluxnova_called_element_version": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_called_element_version"
-      },
-      "fluxnova_called_element_version_tag": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_called_element_version_tag"
-      },
-      "fluxnova_candidate_groups": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_groups"
-      },
-      "fluxnova_candidate_groups_list": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_groups_list"
-      },
-      "fluxnova_candidate_starter_groups": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_starter_groups"
-      },
-      "fluxnova_candidate_starter_groups_list": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_starter_groups_list"
-      },
-      "fluxnova_candidate_starter_users": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_starter_users"
-      },
-      "fluxnova_candidate_starter_users_list": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_starter_users_list"
-      },
-      "fluxnova_candidate_users": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_users"
-      },
-      "fluxnova_candidate_users_list": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_candidate_users_list"
-      },
-      "fluxnova_case_binding": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_case_binding"
-      },
-      "fluxnova_case_ref": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_case_ref"
-      },
-      "fluxnova_case_tenant_id": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_case_tenant_id"
-      },
-      "fluxnova_case_version": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_case_version"
-      },
-      "fluxnova_class": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_class"
-      },
-      "fluxnova_collection": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_collection"
-      },
-      "fluxnova_config": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_config"
-      },
-      "fluxnova_connector_id": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_connector_id"
-      },
-      "fluxnova_constraints": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_constraints"
-      },
-      "fluxnova_date_pattern": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_date_pattern"
-      },
-      "fluxnova_decision_ref": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_decision_ref"
-      },
-      "fluxnova_decision_ref_binding": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_decision_ref_binding"
-      },
-      "fluxnova_decision_ref_tenant_id": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_decision_ref_tenant_id"
-      },
-      "fluxnova_decision_ref_version": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_decision_ref_version"
-      },
-      "fluxnova_decision_ref_version_tag": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_decision_ref_version_tag"
-      },
-      "fluxnova_default": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_default"
-      },
-      "fluxnova_default_value": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_default_value"
-      },
-      "fluxnova_delegate_expression": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_delegate_expression"
-      },
-      "fluxnova_due_date": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_due_date"
-      },
-      "fluxnova_element_variable": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_element_variable"
-      },
-      "fluxnova_entries": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_entries"
-      },
-      "fluxnova_error_code_variable": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_error_code_variable"
-      },
-      "fluxnova_error_message": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_error_message"
-      },
-      "fluxnova_error_message_variable": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_error_message_variable"
-      },
-      "fluxnova_event": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_event"
-      },
-      "fluxnova_exclusive": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_exclusive"
-      },
-      "fluxnova_expression": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_expression"
-      },
-      "fluxnova_expression_child": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_expression_child"
-      },
-      "fluxnova_fields": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_fields"
-      },
-      "fluxnova_follow_up_date": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_follow_up_date"
-      },
-      "fluxnova_form_fields": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_form_fields"
-      },
-      "fluxnova_form_handler_class": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_form_handler_class"
-      },
-      "fluxnova_form_key": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_form_key"
-      },
-      "fluxnova_form_ref": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_form_ref"
-      },
-      "fluxnova_form_ref_binding": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_form_ref_binding"
-      },
-      "fluxnova_form_ref_version": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_form_ref_version"
-      },
-      "fluxnova_history_time_to_live": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_history_time_to_live"
-      },
-      "fluxnova_history_time_to_live_string": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_history_time_to_live_string"
-      },
-      "fluxnova_id": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_id"
-      },
-      "fluxnova_initiator": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_initiator"
-      },
-      "fluxnova_input_output": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_input_output"
-      },
-      "fluxnova_input_parameters": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_input_parameters"
-      },
-      "fluxnova_job_priority": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_job_priority"
-      },
-      "fluxnova_key": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_key"
-      },
-      "fluxnova_label": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_label"
-      },
-      "fluxnova_local": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_local"
-      },
-      "fluxnova_map_decision_result": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_map_decision_result"
-      },
-      "fluxnova_name": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_name"
-      },
-      "fluxnova_output_parameters": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_output_parameters"
-      },
-      "fluxnova_priority": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_priority"
-      },
-      "fluxnova_properties": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_properties"
-      },
-      "fluxnova_readable": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_readable"
-      },
-      "fluxnova_required": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_required"
-      },
-      "fluxnova_resource": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_resource"
-      },
-      "fluxnova_result_variable": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_result_variable"
-      },
-      "fluxnova_script": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_script"
-      },
-      "fluxnova_script_format": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_script_format"
-      },
-      "fluxnova_source": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_source"
-      },
-      "fluxnova_source_expression": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_source_expression"
-      },
-      "fluxnova_startable_in_tasklist": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_startable_in_tasklist"
-      },
-      "fluxnova_string": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_string"
-      },
-      "fluxnova_string_value": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_string_value"
-      },
-      "fluxnova_target": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_target"
-      },
-      "fluxnova_task_priority": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_task_priority"
-      },
-      "fluxnova_topic": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_topic"
-      },
-      "fluxnova_type": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_type"
-      },
-      "fluxnova_validation": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_validation"
-      },
-      "fluxnova_value": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_value"
-      },
-      "fluxnova_values": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_values"
-      },
-      "fluxnova_variable": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_variable"
-      },
-      "fluxnova_variable_events": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_variable_events"
-      },
-      "fluxnova_variable_events_list": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_variable_events_list"
-      },
-      "fluxnova_variable_mapping_class": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_variable_mapping_class"
-      },
-      "fluxnova_variable_mapping_delegate_expression": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_variable_mapping_delegate_expression"
-      },
-      "fluxnova_variable_name": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_variable_name"
-      },
-      "fluxnova_variables": {
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_variables"
-      },
-      "fluxnova_version_tag": {
-         "@id": "fluxnova_bpmn_model_instance:fluxnova_version_tag"
-      },
-      "fluxnova_writeable": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_fluxnova:fluxnova_writeable"
-      },
-      "follow_up_date": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:follow_up_date"
-      },
-      "font": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:font"
-      },
-      "for_compensation": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:for_compensation"
-      },
-      "form_ref": {
-         "@id": "fluxnova_bpm_provenance:form_ref"
-      },
-      "from_": {
-         "@id": "fluxnova_bpmn_model_instance:from_"
-      },
-      "full_message": {
-         "@id": "fluxnova_bpm_collaboration:full_message"
-      },
-      "gateway_direction": {
-         "@id": "fluxnova_bpmn_model_instance:gateway_direction"
-      },
-      "generated_at": {
-         "@type": "xsd:dateTime",
-         "@id": "prov:generatedAtTime"
-      },
-      "group_id": {
-         "@id": "fluxnova_bpm_identity:group_id"
-      },
-      "groups": {
-         "@type": "@id",
-         "@id": "groups"
-      },
-      "handler_configuration": {
-         "@id": "fluxnova_bpm_job:handler_configuration"
-      },
-      "handler_type": {
-         "@id": "fluxnova_bpm_job:handler_type"
-      },
-      "has_start_form_key": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_repository:has_start_form_key"
-      },
-      "hash": {
-         "@id": "fluxnova_bpm_provenance:hash"
-      },
-      "height": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_dc:height"
-      },
-      "history_configuration": {
-         "@id": "fluxnova_bpm_history:history_configuration"
-      },
-      "history_time_to_live": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_repository:history_time_to_live"
-      },
-      "horizontal": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_bpmndi:horizontal"
-      },
-      "host": {
-         "@id": "fluxnova_bpm_provenance:host"
-      },
-      "hostname": {
-         "@id": "fluxnova_bpm_history:hostname"
-      },
-      "id": "@id",
-      "immediate": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:immediate"
-      },
-      "implementation": {
-         "@id": "fluxnova_bpmn_model_instance:implementation"
-      },
-      "implementation_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:implementation_kind"
-      },
-      "implementation_ref": {
-         "@id": "fluxnova_bpmn_model_instance:implementation_ref"
-      },
-      "import_type": {
-         "@id": "fluxnova_bpmn_model_instance:import_type"
-      },
-      "imports": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:imports"
-      },
-      "in_message": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:in_message"
-      },
-      "incident_message": {
-         "@id": "fluxnova_bpm_runtime:incident_message"
-      },
-      "incident_state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_history:incident_state"
-      },
-      "incident_status": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:incident_status"
-      },
-      "incident_timestamp": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:incident_timestamp"
-      },
-      "incident_type": {
-         "@id": "fluxnova_bpm_runtime:incident_type"
-      },
-      "incidents": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:incidents"
-      },
-      "incoming": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:incoming"
-      },
-      "informed_by": {
-         "@type": "@id",
-         "@id": "prov:wasInformedBy"
-      },
-      "inner_conversation_node": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:inner_conversation_node"
-      },
-      "inner_message_flow": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:inner_message_flow"
-      },
-      "inner_participant": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:inner_participant"
-      },
-      "input_data": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:input_data"
-      },
-      "input_data_item": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:input_data_item"
-      },
-      "input_modalities": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:input_modalities"
-      },
-      "input_parameters": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:input_parameters"
-      },
-      "input_set": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:input_set"
-      },
-      "input_set_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:input_set_refs"
-      },
-      "input_sets": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:input_sets"
-      },
-      "input_values": {
-         "@type": "@id",
-         "@id": "schema:object"
-      },
-      "instantiate": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:instantiate"
-      },
-      "interfaces": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:interfaces"
-      },
-      "interrupting": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:interrupting"
-      },
-      "invocation_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:invocation_kind"
-      },
-      "invocations_per_job": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:invocations_per_job"
-      },
-      "invoked_model": {
-         "@type": "@id",
-         "@id": "prov:wasAssociatedWith"
-      },
-      "io_bindings": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:io_bindings"
+         "@id": "default"
       },
       "io_specification": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:io_specification"
+         "@id": "io_specification"
       },
-      "is_active": {
+      "is_for_compensation": {
          "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_active"
-      },
-      "is_concurrent": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_concurrent"
-      },
-      "is_concurrent_local": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_concurrent_local"
-      },
-      "is_event_scope": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_event_scope"
-      },
-      "is_exclusive": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_job:is_exclusive"
-      },
-      "is_generated": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_base:is_generated"
-      },
-      "is_initial": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_history:is_initial"
-      },
-      "is_part_of_ai_system": {
-         "@id": "fluxnova_bpm_ai_provenance:is_part_of_ai_system"
-      },
-      "is_required": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_required"
-      },
-      "is_satisfied": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_satisfied"
-      },
-      "is_scope": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_runtime:is_scope"
-      },
-      "is_startable": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_repository:is_startable"
-      },
-      "italic": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_dc:italic"
-      },
-      "item": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:item"
-      },
-      "item_kind": {
-         "@id": "fluxnova_bpmn_model_instance:item_kind"
-      },
-      "item_subject": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:item_subject"
-      },
-      "job_configuration": {
-         "@id": "fluxnova_bpm_job:job_configuration"
-      },
-      "job_definition_configuration": {
-         "@id": "fluxnova_bpm_history:job_definition_configuration"
-      },
-      "job_definition_id": {
-         "@id": "fluxnova_bpm_runtime:job_definition_id"
-      },
-      "job_definition_type": {
-         "@id": "fluxnova_bpm_history:job_definition_type"
-      },
-      "job_due_date": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_history:job_due_date"
-      },
-      "job_exception_message": {
-         "@id": "fluxnova_bpm_history:job_exception_message"
-      },
-      "job_exception_stack_id": {
-         "@id": "fluxnova_bpm_history:job_exception_stack_id"
-      },
-      "job_id": {
-         "@id": "fluxnova_bpm_history:job_id"
-      },
-      "job_priority": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:job_priority"
-      },
-      "job_retries": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_history:job_retries"
-      },
-      "job_state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_history:job_state"
-      },
-      "job_type": {
-         "@id": "fluxnova_bpm_job:job_type"
-      },
-      "jobs": {
-         "@type": "@id",
-         "@id": "jobs"
-      },
-      "jobs_created": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:jobs_created"
-      },
-      "jobs_per_seed": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:jobs_per_seed"
-      },
-      "key": {
-         "@id": "fluxnova_bpm_repository:key"
-      },
-      "label_style": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:label_style"
-      },
-      "labels": {
-         "@id": "fluxnova_bpm_provenance:labels"
-      },
-      "lane_sets": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:lane_sets"
-      },
-      "lanes": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:lanes"
-      },
-      "language": {
-         "@id": "fluxnova_bpmn_model_instance:language"
-      },
-      "last_failure_log_id": {
-         "@id": "fluxnova_bpm_runtime:last_failure_log_id"
-      },
-      "last_name": {
-         "@id": "fluxnova_bpm_identity:last_name"
-      },
-      "last_updated": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:last_updated"
-      },
-      "license_uri": {
-         "@id": "schema:license"
-      },
-      "location": {
-         "@id": "fluxnova_bpmn_model_instance:location"
-      },
-      "lock_expiration_time": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_runtime:lock_expiration_time"
-      },
-      "lock_owner": {
-         "@id": "fluxnova_bpm_job:lock_owner"
-      },
-      "long_value": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:long_value"
-      },
-      "loop_cardinality": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:loop_cardinality"
+         "@id": "is_for_compensation"
       },
       "loop_characteristics": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:loop_characteristics"
+         "@id": "loop_characteristics"
       },
-      "loop_data_input_ref": {
+      "properties": {
+         "@id": "properties"
+      },
+      "resource_roles": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:loop_data_input_ref"
+         "@id": "resource_roles"
       },
-      "loop_data_output_ref": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:loop_data_output_ref"
+      "start_quantity": {
+         "@type": "xsd:integer",
+         "@id": "start_quantity"
       },
-      "marker_visible": {
+      "cancel_remaining_instances": {
          "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_bpmndi:marker_visible"
+         "@id": "cancel_remaining_instances"
       },
-      "max_tokens": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:max_tokens"
-      },
-      "maximum": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:maximum"
-      },
-      "measured_for_step_run": {
+      "completion_condition": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:measured_for_step_run"
+         "@id": "completion_condition"
       },
-      "measured_for_workflow_run": {
+      "ordering": {
+         "@id": "ordering"
+      },
+      "from": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:measured_for_workflow_run"
+         "@id": "from"
       },
-      "media_type": {
-         "@id": "schema:encodingFormat"
-      },
-      "message": {
-         "@id": "fluxnova_common:message"
-      },
-      "message_flow_associations": {
+      "to": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:message_flow_associations"
+         "@id": "to"
       },
-      "message_flows": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:message_flows"
-      },
-      "message_path": {
-         "@id": "fluxnova_bpmn_model_instance:message_path"
-      },
-      "message_role": {
+      "association_direction": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "fluxnova_bpm_ai_provenance:message_role"
+         "@id": "association_direction"
       },
-      "message_visible": {
+      "source_ref": {
+         "@id": "source_ref"
+      },
+      "target_ref": {
+         "@id": "target_ref"
+      },
+      "documentation": {
+         "@id": "documentation"
+      },
+      "extension_elements": {
+         "@type": "@id",
+         "@id": "extension_elements"
+      },
+      "id": "@id",
+      "attached_to_ref": {
+         "@id": "attached_to_ref"
+      },
+      "cancel_activity": {
          "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_bpmndi:message_visible"
+         "@id": "cancel_activity"
+      },
+      "fluxnova_class": {
+         "@id": "fluxnova_class"
+      },
+      "fluxnova_decision_ref": {
+         "@id": "fluxnova_decision_ref"
+      },
+      "fluxnova_decision_ref_binding": {
+         "@id": "fluxnova_decision_ref_binding"
+      },
+      "fluxnova_decision_ref_tenant_id": {
+         "@id": "fluxnova_decision_ref_tenant_id"
+      },
+      "fluxnova_decision_ref_version": {
+         "@id": "fluxnova_decision_ref_version"
+      },
+      "fluxnova_decision_ref_version_tag": {
+         "@id": "fluxnova_decision_ref_version_tag"
+      },
+      "fluxnova_delegate_expression": {
+         "@id": "fluxnova_delegate_expression"
+      },
+      "fluxnova_expression": {
+         "@id": "fluxnova_expression"
+      },
+      "fluxnova_map_decision_result": {
+         "@id": "fluxnova_map_decision_result"
+      },
+      "fluxnova_result_variable": {
+         "@id": "fluxnova_result_variable"
+      },
+      "fluxnova_task_priority": {
+         "@id": "fluxnova_task_priority"
+      },
+      "fluxnova_topic": {
+         "@id": "fluxnova_topic"
+      },
+      "fluxnova_type": {
+         "@id": "fluxnova_type"
+      },
+      "implementation": {
+         "@id": "implementation"
+      },
+      "io_bindings": {
+         "@type": "@id",
+         "@id": "io_bindings"
+      },
+      "name": {
+         "@id": "name"
+      },
+      "supported_interface_refs": {
+         "@id": "supported_interface_refs"
+      },
+      "called_element": {
+         "@id": "called_element"
+      },
+      "fluxnova_async": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_async"
+      },
+      "fluxnova_called_element_binding": {
+         "@id": "fluxnova_called_element_binding"
+      },
+      "fluxnova_called_element_tenant_id": {
+         "@id": "fluxnova_called_element_tenant_id"
+      },
+      "fluxnova_called_element_version": {
+         "@id": "fluxnova_called_element_version"
+      },
+      "fluxnova_called_element_version_tag": {
+         "@id": "fluxnova_called_element_version_tag"
+      },
+      "fluxnova_case_binding": {
+         "@id": "fluxnova_case_binding"
+      },
+      "fluxnova_case_ref": {
+         "@id": "fluxnova_case_ref"
+      },
+      "fluxnova_case_tenant_id": {
+         "@id": "fluxnova_case_tenant_id"
+      },
+      "fluxnova_case_version": {
+         "@id": "fluxnova_case_version"
+      },
+      "fluxnova_variable_mapping_class": {
+         "@id": "fluxnova_variable_mapping_class"
+      },
+      "fluxnova_variable_mapping_delegate_expression": {
+         "@id": "fluxnova_variable_mapping_delegate_expression"
+      },
+      "called_collaboration_ref": {
+         "@id": "called_collaboration_ref"
+      },
+      "participant_associations": {
+         "@type": "@id",
+         "@id": "participant_associations"
+      },
+      "data_outputs": {
+         "@type": "@id",
+         "@id": "data_outputs"
+      },
+      "event_definition_refs": {
+         "@id": "event_definition_refs"
+      },
+      "event_definitions": {
+         "@type": "@id",
+         "@id": "event_definitions"
+      },
+      "output_set": {
+         "@type": "@id",
+         "@id": "output_set"
+      },
+      "parallel_multiple": {
+         "@type": "xsd:boolean",
+         "@id": "parallel_multiple"
+      },
+      "category_values": {
+         "@type": "@id",
+         "@id": "category_values"
+      },
+      "value": {
+         "@id": "value"
+      },
+      "artifacts": {
+         "@type": "@id",
+         "@id": "artifacts"
+      },
+      "conversation_associations": {
+         "@type": "@id",
+         "@id": "conversation_associations"
+      },
+      "conversation_links": {
+         "@type": "@id",
+         "@id": "conversation_links"
+      },
+      "conversation_nodes": {
+         "@type": "@id",
+         "@id": "conversation_nodes"
+      },
+      "correlation_keys": {
+         "@type": "@id",
+         "@id": "correlation_keys"
+      },
+      "is_closed": {
+         "@type": "xsd:boolean",
+         "@id": "is_closed"
+      },
+      "message_flow_associations": {
+         "@type": "@id",
+         "@id": "message_flow_associations"
+      },
+      "message_flows": {
+         "@type": "@id",
+         "@id": "message_flows"
+      },
+      "participants": {
+         "@type": "@id",
+         "@id": "participants"
+      },
+      "activity_ref": {
+         "@id": "activity_ref"
+      },
+      "wait_for_completion": {
+         "@type": "xsd:boolean",
+         "@id": "wait_for_completion"
+      },
+      "activation_condition": {
+         "@type": "@id",
+         "@id": "activation_condition"
+      },
+      "condition": {
+         "@type": "@id",
+         "@id": "condition"
+      },
+      "fluxnova_variable_events": {
+         "@id": "fluxnova_variable_events"
+      },
+      "fluxnova_variable_name": {
+         "@id": "fluxnova_variable_name"
+      },
+      "fluxnova_resource": {
+         "@id": "fluxnova_resource"
+      },
+      "xsi_type": {
+         "@id": "xsi_type"
+      },
+      "inner_conversation_node_ref": {
+         "@id": "inner_conversation_node_ref"
+      },
+      "outer_conversation_node_ref": {
+         "@id": "outer_conversation_node_ref"
+      },
+      "message_flow_refs": {
+         "@id": "message_flow_refs"
+      },
+      "participant_refs": {
+         "@id": "participant_refs"
+      },
+      "correlation_property_refs": {
+         "@id": "correlation_property_refs"
+      },
+      "correlation_property_retrieval_expressions": {
+         "@type": "@id",
+         "@id": "correlation_property_retrieval_expressions"
+      },
+      "type": {
+         "@id": "type"
+      },
+      "correlation_property_ref": {
+         "@id": "correlation_property_ref"
+      },
+      "data_path": {
+         "@type": "@id",
+         "@id": "data_path"
+      },
+      "message_path": {
+         "@type": "@id",
+         "@id": "message_path"
+      },
+      "message_ref": {
+         "@id": "message_ref"
+      },
+      "correlation_key_ref": {
+         "@id": "correlation_key_ref"
+      },
+      "correlation_property_bindings": {
+         "@type": "@id",
+         "@id": "correlation_property_bindings"
+      },
+      "assignments": {
+         "@type": "@id",
+         "@id": "assignments"
+      },
+      "source_refs": {
+         "@id": "source_refs"
+      },
+      "transformation": {
+         "@type": "@id",
+         "@id": "transformation"
+      },
+      "is_collection": {
+         "@type": "xsd:boolean",
+         "@id": "is_collection"
+      },
+      "data_state": {
+         "@type": "@id",
+         "@id": "data_state"
+      },
+      "item_subject_ref": {
+         "@id": "item_subject_ref"
+      },
+      "data_object_ref": {
+         "@id": "data_object_ref"
+      },
+      "capacity": {
+         "@type": "xsd:integer",
+         "@id": "capacity"
+      },
+      "is_unlimited": {
+         "@type": "xsd:boolean",
+         "@id": "is_unlimited"
+      },
+      "data_store_ref": {
+         "@id": "data_store_ref"
+      },
+      "bpmn_diagrams": {
+         "@type": "@id",
+         "@id": "bpmn_diagrams"
+      },
+      "exporter": {
+         "@id": "exporter"
+      },
+      "exporter_version": {
+         "@id": "exporter_version"
+      },
+      "expression_language": {
+         "@id": "expression_language"
+      },
+      "extensions": {
+         "@type": "@id",
+         "@id": "extensions"
+      },
+      "imports": {
+         "@type": "@id",
+         "@id": "imports"
+      },
+      "relationships": {
+         "@type": "@id",
+         "@id": "relationships"
+      },
+      "root_elements": {
+         "@type": "@id",
+         "@id": "root_elements"
+      },
+      "target_namespace": {
+         "@id": "target_namespace"
+      },
+      "type_language": {
+         "@id": "type_language"
+      },
+      "bpmn_label_styles": {
+         "@type": "@id",
+         "@id": "bpmn_label_styles"
+      },
+      "bpmn_plane": {
+         "@type": "@id",
+         "@id": "bpmn_plane"
+      },
+      "text_content": {
+         "@id": "text_content"
+      },
+      "text_format": {
+         "@id": "text_format"
+      },
+      "bpmn_element": {
+         "@id": "bpmn_element"
+      },
+      "bpmn_label": {
+         "@type": "@id",
+         "@id": "bpmn_label"
       },
       "message_visible_kind": {
          "@context": {
@@ -1543,218 +469,415 @@
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "fluxnova_bpmn_model_bpmndi:message_visible_kind"
+         "@id": "message_visible_kind"
       },
-      "method": {
-         "@id": "fluxnova_bpmn_model_instance:method"
+      "source_element": {
+         "@id": "source_element"
       },
-      "metric_name": {
-         "@id": "fluxnova_bpm_provenance:metric_name"
+      "target_element": {
+         "@id": "target_element"
       },
-      "metric_unit": {
-         "@id": "fluxnova_bpm_provenance:metric_unit"
+      "error_code": {
+         "@id": "error_code"
       },
-      "metric_value": {
-         "@type": "xsd:decimal",
-         "@id": "fluxnova_bpm_provenance:metric_value"
+      "fluxnova_error_message": {
+         "@id": "fluxnova_error_message"
       },
-      "milliseconds": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_base:milliseconds"
+      "structure_ref": {
+         "@id": "structure_ref"
       },
-      "minimum": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:minimum"
+      "error_ref": {
+         "@id": "error_ref"
       },
-      "model_card_uri": {
-         "@id": "fluxnova_bpm_ai_provenance:model_card_uri"
+      "fluxnova_error_code_variable": {
+         "@id": "fluxnova_error_code_variable"
       },
-      "model_family": {
-         "@id": "schema:productID"
+      "fluxnova_error_message_variable": {
+         "@id": "fluxnova_error_message_variable"
       },
-      "model_invocations": {
+      "escalation_code": {
+         "@id": "escalation_code"
+      },
+      "escalation_ref": {
+         "@id": "escalation_ref"
+      },
+      "event_gateway_type": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "event_gateway_type"
+      },
+      "instantiate": {
+         "@type": "xsd:boolean",
+         "@id": "instantiate"
+      },
+      "definition": {
+         "@id": "definition"
+      },
+      "must_understand": {
+         "@type": "xsd:boolean",
+         "@id": "must_understand"
+      },
+      "auditing": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:model_invocations"
+         "@id": "auditing"
       },
-      "model_name": {
-         "@id": "schema:name"
-      },
-      "model_version": {
-         "@id": "schema:softwareVersion"
-      },
-      "monitor_job_definition_id": {
-         "@id": "fluxnova_bpm_job:monitor_job_definition_id"
+      "category_value_refs": {
+         "@id": "category_value_refs"
       },
       "monitoring": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:monitoring"
+         "@id": "monitoring"
       },
-      "name": "@id",
+      "fluxnova_async_after": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_async_after"
+      },
+      "fluxnova_async_before": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_async_before"
+      },
+      "fluxnova_exclusive": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_exclusive"
+      },
+      "fluxnova_job_priority": {
+         "@id": "fluxnova_job_priority"
+      },
+      "incoming": {
+         "@id": "incoming"
+      },
+      "outgoing": {
+         "@id": "outgoing"
+      },
+      "evaluates_to_type_ref": {
+         "@id": "evaluates_to_type_ref"
+      },
+      "language": {
+         "@id": "language"
+      },
+      "gateway_direction": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "gateway_direction"
+      },
+      "category_value_ref": {
+         "@id": "category_value_ref"
+      },
+      "import_type": {
+         "@id": "import_type"
+      },
+      "location": {
+         "@id": "location"
+      },
       "namespace": {
-         "@id": "fluxnova_bpmn_model_instance:namespace"
+         "@id": "namespace"
       },
-      "new_value": {
-         "@id": "fluxnova_bpm_history:new_value"
+      "data_input_refs": {
+         "@id": "data_input_refs"
       },
-      "none_behavior_event_ref": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:none_behavior_event_ref"
+      "optional_input_refs": {
+         "@id": "optional_input_refs"
       },
-      "observed_at": {
-         "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_provenance:observed_at"
+      "output_set_refs": {
+         "@id": "output_set_refs"
       },
-      "observed_type": {
-         "@id": "fluxnova_bpm_provenance:observed_type"
+      "while_executing_input_refs": {
+         "@id": "while_executing_input_refs"
       },
-      "one_behavior_event_ref": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:one_behavior_event_ref"
-      },
-      "operation": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:operation"
-      },
-      "operation_id": {
-         "@id": "fluxnova_bpm_history:operation_id"
-      },
-      "operation_type": {
-         "@id": "fluxnova_bpm_history:operation_type"
+      "implementation_ref": {
+         "@id": "implementation_ref"
       },
       "operations": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:operations"
+         "@id": "operations"
       },
-      "optional_inputs": {
+      "input_data_ref": {
+         "@id": "input_data_ref"
+      },
+      "operation_ref": {
+         "@id": "operation_ref"
+      },
+      "output_data_ref": {
+         "@id": "output_data_ref"
+      },
+      "data_inputs": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:optional_inputs"
+         "@id": "data_inputs"
       },
-      "optional_output_refs": {
+      "input_sets": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:optional_output_refs"
-      },
-      "original_value": {
-         "@id": "fluxnova_bpm_history:original_value"
-      },
-      "out_message": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:out_message"
-      },
-      "outer_conversation_node": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:outer_conversation_node"
-      },
-      "outer_message_flow": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:outer_message_flow"
-      },
-      "outer_participant": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:outer_participant"
-      },
-      "outgoing": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:outgoing"
-      },
-      "output_data": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:output_data"
-      },
-      "output_data_item": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:output_data_item"
-      },
-      "output_modalities": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:output_modalities"
-      },
-      "output_parameters": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:output_parameters"
-      },
-      "output_set": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:output_set"
+         "@id": "input_sets"
       },
       "output_sets": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:output_sets"
+         "@id": "output_sets"
       },
-      "output_values": {
+      "item_kind": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "item_kind"
+      },
+      "label_style": {
+         "@id": "label_style"
+      },
+      "font": {
          "@type": "@id",
-         "@id": "schema:result"
+         "@id": "font"
       },
-      "owner": {
-         "@id": "fluxnova_bpm_runtime:owner"
+      "child_lane_set": {
+         "@type": "@id",
+         "@id": "child_lane_set"
       },
-      "parallel_multiple": {
+      "flow_node_refs": {
+         "@id": "flow_node_refs"
+      },
+      "partition_element": {
+         "@type": "@id",
+         "@id": "partition_element"
+      },
+      "partition_element_ref": {
+         "@id": "partition_element_ref"
+      },
+      "lanes": {
+         "@type": "@id",
+         "@id": "lanes"
+      },
+      "sources": {
+         "@type": "@id",
+         "@id": "sources"
+      },
+      "target": {
+         "@id": "target"
+      },
+      "item_ref": {
+         "@id": "item_ref"
+      },
+      "inner_message_flow_ref": {
+         "@id": "inner_message_flow_ref"
+      },
+      "outer_message_flow_ref": {
+         "@id": "outer_message_flow_ref"
+      },
+      "element_type": {
+         "@id": "element_type"
+      },
+      "behavior": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "behavior"
+      },
+      "complex_behavior_definitions": {
+         "@type": "@id",
+         "@id": "complex_behavior_definitions"
+      },
+      "fluxnova_collection": {
+         "@id": "fluxnova_collection"
+      },
+      "fluxnova_element_variable": {
+         "@id": "fluxnova_element_variable"
+      },
+      "input_data_item": {
+         "@type": "@id",
+         "@id": "input_data_item"
+      },
+      "is_sequential": {
          "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:parallel_multiple"
+         "@id": "is_sequential"
       },
-      "parameter": {
+      "loop_cardinality": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:parameter"
+         "@id": "loop_cardinality"
       },
-      "parameter_count": {
+      "loop_data_input_ref": {
+         "@id": "loop_data_input_ref"
+      },
+      "loop_data_output_ref": {
+         "@id": "loop_data_output_ref"
+      },
+      "none_behavior_event_ref": {
+         "@id": "none_behavior_event_ref"
+      },
+      "one_behavior_event_ref": {
+         "@id": "one_behavior_event_ref"
+      },
+      "output_data_item": {
+         "@type": "@id",
+         "@id": "output_data_item"
+      },
+      "error_refs": {
+         "@id": "error_refs"
+      },
+      "in_message_ref": {
+         "@id": "in_message_ref"
+      },
+      "out_message_ref": {
+         "@id": "out_message_ref"
+      },
+      "data_output_refs": {
+         "@id": "data_output_refs"
+      },
+      "input_set_refs": {
+         "@id": "input_set_refs"
+      },
+      "optional_output_refs": {
+         "@id": "optional_output_refs"
+      },
+      "while_executing_output_refs": {
+         "@id": "while_executing_output_refs"
+      },
+      "end_point_refs": {
+         "@id": "end_point_refs"
+      },
+      "interface_refs": {
+         "@id": "interface_refs"
+      },
+      "participant_multiplicity": {
+         "@type": "@id",
+         "@id": "participant_multiplicity"
+      },
+      "process_ref": {
+         "@id": "process_ref"
+      },
+      "inner_participant_ref": {
+         "@id": "inner_participant_ref"
+      },
+      "outer_participant_ref": {
+         "@id": "outer_participant_ref"
+      },
+      "maximum": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:parameter_count"
+         "@id": "maximum"
       },
-      "parameter_definition": {
+      "minimum": {
+         "@type": "xsd:integer",
+         "@id": "minimum"
+      },
+      "correlation_subscriptions": {
          "@type": "@id",
-         "@id": "schema:exampleOfWork"
+         "@id": "correlation_subscriptions"
       },
-      "parameter_direction": {
+      "flow_elements": {
+         "@type": "@id",
+         "@id": "flow_elements"
+      },
+      "fluxnova_candidate_starter_groups": {
+         "@id": "fluxnova_candidate_starter_groups"
+      },
+      "fluxnova_candidate_starter_users": {
+         "@id": "fluxnova_candidate_starter_users"
+      },
+      "fluxnova_history_time_to_live": {
+         "@id": "fluxnova_history_time_to_live"
+      },
+      "fluxnova_is_startable_in_tasklist": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_is_startable_in_tasklist"
+      },
+      "fluxnova_version_tag": {
+         "@id": "fluxnova_version_tag"
+      },
+      "is_executable": {
+         "@type": "xsd:boolean",
+         "@id": "is_executable"
+      },
+      "lane_sets": {
+         "@type": "@id",
+         "@id": "lane_sets"
+      },
+      "process_type": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "fluxnova_bpm_provenance:parameter_direction"
+         "@id": "process_type"
       },
-      "parameter_scope": {
+      "supports": {
+         "@id": "supports"
+      },
+      "direction": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "fluxnova_bpm_provenance:parameter_scope"
+         "@id": "direction"
       },
-      "parameter_values": {
+      "targets": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:parameter_values"
+         "@id": "targets"
       },
-      "parent_activity_instance_id": {
-         "@id": "fluxnova_bpm_history:parent_activity_instance_id"
-      },
-      "parent_agent_loop": {
+      "resource_parameters": {
          "@type": "@id",
-         "@id": "prov:wasInformedBy"
+         "@id": "resource_parameters"
       },
-      "parent_id": {
-         "@id": "fluxnova_bpm_runtime:parent_id"
-      },
-      "parent_invocation": {
+      "expression": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:parent_invocation"
+         "@id": "expression"
       },
-      "parent_step_run": {
+      "is_required": {
+         "@type": "xsd:boolean",
+         "@id": "is_required"
+      },
+      "parameter_ref": {
+         "@id": "parameter_ref"
+      },
+      "resource_assignment_expression": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:parent_step_run"
+         "@id": "resource_assignment_expression"
       },
-      "parent_task_id": {
-         "@id": "fluxnova_bpm_runtime:parent_task_id"
-      },
-      "parent_workflow_run": {
+      "resource_parameter_bindings": {
          "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:parent_workflow_run"
+         "@id": "resource_parameter_bindings"
       },
-      "participant_associations": {
+      "resource_ref": {
+         "@id": "resource_ref"
+      },
+      "script": {
          "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:participant_associations"
+         "@id": "script"
+      },
+      "script_format": {
+         "@id": "script_format"
+      },
+      "condition_expression": {
+         "@type": "@id",
+         "@id": "condition_expression"
+      },
+      "is_immediate": {
+         "@type": "xsd:boolean",
+         "@id": "is_immediate"
+      },
+      "choreography_activity_shape": {
+         "@id": "choreography_activity_shape"
+      },
+      "is_expanded": {
+         "@type": "xsd:boolean",
+         "@id": "is_expanded"
+      },
+      "is_horizontal": {
+         "@type": "xsd:boolean",
+         "@id": "is_horizontal"
+      },
+      "is_marker_visible": {
+         "@type": "xsd:boolean",
+         "@id": "is_marker_visible"
+      },
+      "is_message_visible": {
+         "@type": "xsd:boolean",
+         "@id": "is_message_visible"
       },
       "participant_band_kind": {
          "@context": {
@@ -1762,363 +885,805 @@
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "fluxnova_bpmn_model_bpmndi:participant_band_kind"
+         "@id": "participant_band_kind"
       },
-      "participant_multiplicity": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:participant_multiplicity"
+      "signal_ref": {
+         "@id": "signal_ref"
       },
-      "participants": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:participants"
+      "fluxnova_form_handler_class": {
+         "@id": "fluxnova_form_handler_class"
       },
-      "partition_element": {
-         "@id": "fluxnova_bpmn_model_instance:partition_element"
+      "fluxnova_form_key": {
+         "@id": "fluxnova_form_key"
       },
-      "partition_element_child": {
-         "@id": "fluxnova_bpmn_model_instance:partition_element_child"
+      "fluxnova_form_ref": {
+         "@id": "fluxnova_form_ref"
       },
-      "passing": {
+      "fluxnova_form_ref_binding": {
+         "@id": "fluxnova_form_ref_binding"
+      },
+      "fluxnova_form_ref_version": {
+         "@id": "fluxnova_form_ref_version"
+      },
+      "fluxnova_initiator": {
+         "@id": "fluxnova_initiator"
+      },
+      "is_interrupting": {
          "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_ai_provenance:passing"
+         "@id": "is_interrupting"
+      },
+      "triggered_by_event": {
+         "@type": "xsd:boolean",
+         "@id": "triggered_by_event"
+      },
+      "text": {
+         "@type": "@id",
+         "@id": "text"
+      },
+      "input_set": {
+         "@type": "@id",
+         "@id": "input_set"
+      },
+      "time_cycle": {
+         "@type": "@id",
+         "@id": "time_cycle"
+      },
+      "time_date": {
+         "@type": "@id",
+         "@id": "time_date"
+      },
+      "time_duration": {
+         "@type": "@id",
+         "@id": "time_duration"
+      },
+      "method": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "method"
+      },
+      "fluxnova_assignee": {
+         "@id": "fluxnova_assignee"
+      },
+      "fluxnova_candidate_groups": {
+         "@id": "fluxnova_candidate_groups"
+      },
+      "fluxnova_candidate_users": {
+         "@id": "fluxnova_candidate_users"
+      },
+      "fluxnova_due_date": {
+         "@id": "fluxnova_due_date"
+      },
+      "fluxnova_follow_up_date": {
+         "@id": "fluxnova_follow_up_date"
+      },
+      "fluxnova_priority": {
+         "@id": "fluxnova_priority"
+      },
+      "renderings": {
+         "@type": "@id",
+         "@id": "renderings"
+      },
+      "business_key": {
+         "@id": "business_key"
+      },
+      "byte_array_id": {
+         "@id": "byte_array_id"
+      },
+      "bytes": {
+         "@id": "bytes"
+      },
+      "cached_entity_state": {
+         "@type": "xsd:integer",
+         "@id": "cached_entity_state"
+      },
+      "called_case_instance_id": {
+         "@id": "called_case_instance_id"
+      },
+      "called_process_instance_id": {
+         "@id": "called_process_instance_id"
+      },
+      "case_activity_id": {
+         "@id": "case_activity_id"
+      },
+      "case_activity_name": {
+         "@id": "case_activity_name"
+      },
+      "case_activity_type": {
+         "@id": "case_activity_type"
+      },
+      "case_definition_id": {
+         "@id": "case_definition_id"
+      },
+      "case_definition_key": {
+         "@id": "case_definition_key"
+      },
+      "case_execution_id": {
+         "@id": "case_execution_id"
+      },
+      "case_instance_id": {
+         "@id": "case_instance_id"
+      },
+      "category": {
+         "@id": "category"
+      },
+      "cause_incident_id": {
+         "@id": "cause_incident_id"
+      },
+      "clause_id": {
+         "@id": "clause_id"
+      },
+      "clause_name": {
+         "@id": "clause_name"
+      },
+      "close_time": {
+         "@type": "xsd:dateTime",
+         "@id": "close_time"
+      },
+      "collect_result_value": {
+         "@type": "xsd:float",
+         "@id": "collect_result_value"
+      },
+      "configuration": {
+         "@id": "configuration"
+      },
+      "configuration_key": {
+         "@id": "configuration_key"
+      },
+      "configuration_value": {
+         "@id": "configuration_value"
+      },
+      "content_id": {
+         "@id": "content_id"
+      },
+      "create_time": {
+         "@type": "xsd:dateTime",
+         "@id": "create_time"
+      },
+      "create_user_id": {
+         "@id": "create_user_id"
+      },
+      "created": {
+         "@type": "xsd:dateTime",
+         "@id": "created"
+      },
+      "created_at": {
+         "@type": "xsd:dateTime",
+         "@id": "created_at"
+      },
+      "created_by": {
+         "@id": "created_by"
+      },
+      "current_state": {
+         "@type": "xsd:integer",
+         "@id": "current_state"
+      },
+      "height": {
+         "@type": "xsd:double",
+         "@id": "height"
+      },
+      "width": {
+         "@type": "xsd:double",
+         "@id": "width"
+      },
+      "x": {
+         "@type": "xsd:double",
+         "@id": "x"
+      },
+      "y": {
+         "@type": "xsd:double",
+         "@id": "y"
+      },
+      "is_bold": {
+         "@type": "xsd:boolean",
+         "@id": "is_bold"
+      },
+      "is_italic": {
+         "@type": "xsd:boolean",
+         "@id": "is_italic"
+      },
+      "is_strike_through": {
+         "@type": "xsd:boolean",
+         "@id": "is_strike_through"
+      },
+      "is_underline": {
+         "@type": "xsd:boolean",
+         "@id": "is_underline"
+      },
+      "size": {
+         "@type": "xsd:double",
+         "@id": "size"
+      },
+      "decision_definition_id": {
+         "@id": "decision_definition_id"
+      },
+      "decision_definition_key": {
+         "@id": "decision_definition_key"
+      },
+      "decision_definition_name": {
+         "@id": "decision_definition_name"
+      },
+      "decision_instance_id": {
+         "@id": "decision_instance_id"
+      },
+      "decision_requirements_definition_id": {
+         "@id": "decision_requirements_definition_id"
+      },
+      "decision_requirements_definition_key": {
+         "@id": "decision_requirements_definition_key"
+      },
+      "delegation_state": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "delegation_state"
+      },
+      "delete_reason": {
+         "@id": "delete_reason"
+      },
+      "deploy_time": {
+         "@type": "xsd:dateTime",
+         "@id": "deploy_time"
+      },
+      "deployment_id": {
+         "@id": "deployment_id"
+      },
+      "deployments": {
+         "@type": "@id",
+         "@id": "deployments"
+      },
+      "description": {
+         "@id": "description"
+      },
+      "diagram_resource_name": {
+         "@id": "diagram_resource_name"
+      },
+      "resolution": {
+         "@type": "xsd:double",
+         "@id": "resolution"
+      },
+      "extension": {
+         "@type": "@id",
+         "@id": "extension"
+      },
+      "waypoints": {
+         "@type": "@id",
+         "@id": "waypoints"
+      },
+      "bounds": {
+         "@type": "@id",
+         "@id": "bounds"
+      },
+      "diagram_elements": {
+         "@type": "@id",
+         "@id": "diagram_elements"
+      },
+      "double_value": {
+         "@type": "xsd:float",
+         "@id": "double_value"
+      },
+      "due_date": {
+         "@type": "xsd:dateTime",
+         "@id": "due_date"
+      },
+      "duration": {
+         "@type": "xsd:integer",
+         "@id": "duration"
+      },
+      "email": {
+         "@id": "email"
+      },
+      "end_activity_id": {
+         "@id": "end_activity_id"
+      },
+      "end_time": {
+         "@type": "xsd:dateTime",
+         "@id": "end_time"
+      },
+      "entity_type": {
+         "@id": "entity_type"
+      },
+      "error_details_id": {
+         "@id": "error_details_id"
+      },
+      "error_message": {
+         "@id": "error_message"
+      },
+      "evaluation_time": {
+         "@type": "xsd:dateTime",
+         "@id": "evaluation_time"
+      },
+      "event_name": {
+         "@id": "event_name"
+      },
+      "event_time": {
+         "@type": "xsd:dateTime",
+         "@id": "event_time"
+      },
+      "event_type": {
+         "@id": "event_type"
+      },
+      "exception_message": {
+         "@id": "exception_message"
+      },
+      "exception_stack_id": {
+         "@id": "exception_stack_id"
+      },
+      "execution_id": {
+         "@id": "execution_id"
+      },
+      "execution_start_time": {
+         "@type": "xsd:dateTime",
+         "@id": "execution_start_time"
+      },
+      "executions": {
+         "@type": "@id",
+         "@id": "executions"
+      },
+      "external_task_id": {
+         "@id": "external_task_id"
+      },
+      "failed_activity_id": {
+         "@id": "failed_activity_id"
+      },
+      "first_name": {
+         "@id": "first_name"
+      },
+      "connector_id": {
+         "@type": "@id",
+         "@id": "connector_id"
+      },
+      "input_output": {
+         "@type": "@id",
+         "@id": "input_output"
+      },
+      "fluxnova_config": {
+         "@id": "fluxnova_config"
+      },
+      "fluxnova_name": {
+         "@id": "fluxnova_name"
+      },
+      "fluxnova_key": {
+         "@id": "fluxnova_key"
+      },
+      "fields": {
+         "@type": "@id",
+         "@id": "fields"
+      },
+      "fluxnova_event": {
+         "@id": "fluxnova_event"
+      },
+      "fluxnova_string_value": {
+         "@id": "fluxnova_string_value"
+      },
+      "string": {
+         "@type": "@id",
+         "@id": "string"
+      },
+      "form_fields": {
+         "@type": "@id",
+         "@id": "form_fields"
+      },
+      "fluxnova_date_pattern": {
+         "@id": "fluxnova_date_pattern"
+      },
+      "fluxnova_default_value": {
+         "@id": "fluxnova_default_value"
+      },
+      "fluxnova_id": {
+         "@id": "fluxnova_id"
+      },
+      "fluxnova_label": {
+         "@id": "fluxnova_label"
+      },
+      "validation": {
+         "@type": "@id",
+         "@id": "validation"
+      },
+      "values": {
+         "@type": "@id",
+         "@id": "values"
+      },
+      "fluxnova_default": {
+         "@id": "fluxnova_default"
+      },
+      "fluxnova_readable": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_readable"
+      },
+      "fluxnova_required": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_required"
+      },
+      "fluxnova_variable": {
+         "@id": "fluxnova_variable"
+      },
+      "fluxnova_writeable": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_writeable"
+      },
+      "fluxnova_business_key": {
+         "@id": "fluxnova_business_key"
+      },
+      "fluxnova_local": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_local"
+      },
+      "fluxnova_restricted": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_restricted"
+      },
+      "fluxnova_source": {
+         "@id": "fluxnova_source"
+      },
+      "fluxnova_source_expression": {
+         "@id": "fluxnova_source_expression"
+      },
+      "fluxnova_target": {
+         "@id": "fluxnova_target"
+      },
+      "fluxnova_variables": {
+         "@id": "fluxnova_variables"
+      },
+      "input_parameters": {
+         "@type": "@id",
+         "@id": "input_parameters"
+      },
+      "output_parameters": {
+         "@type": "@id",
+         "@id": "output_parameters"
+      },
+      "fluxnova_is_transient": {
+         "@type": "xsd:boolean",
+         "@id": "fluxnova_is_transient"
+      },
+      "entries": {
+         "@type": "@id",
+         "@id": "entries"
+      },
+      "fluxnova_value": {
+         "@id": "fluxnova_value"
+      },
+      "resource": {
+         "@id": "resource"
+      },
+      "timer_event_definition": {
+         "@type": "@id",
+         "@id": "timer_event_definition"
+      },
+      "constraints": {
+         "@type": "@id",
+         "@id": "constraints"
+      },
+      "follow_up_date": {
+         "@type": "xsd:dateTime",
+         "@id": "follow_up_date"
+      },
+      "full_message": {
+         "@id": "full_message"
+      },
+      "group_id": {
+         "@id": "group_id"
+      },
+      "groups": {
+         "@type": "@id",
+         "@id": "groups"
+      },
+      "handler_configuration": {
+         "@id": "handler_configuration"
+      },
+      "handler_type": {
+         "@id": "handler_type"
+      },
+      "has_start_form_key": {
+         "@type": "xsd:boolean",
+         "@id": "has_start_form_key"
+      },
+      "history_configuration": {
+         "@id": "history_configuration"
+      },
+      "history_time_to_live": {
+         "@type": "xsd:integer",
+         "@id": "history_time_to_live"
+      },
+      "hostname": {
+         "@id": "hostname"
+      },
+      "incident_message": {
+         "@id": "incident_message"
+      },
+      "incident_state": {
+         "@type": "xsd:integer",
+         "@id": "incident_state"
+      },
+      "incident_timestamp": {
+         "@type": "xsd:dateTime",
+         "@id": "incident_timestamp"
+      },
+      "incident_type": {
+         "@id": "incident_type"
+      },
+      "invocations_per_job": {
+         "@type": "xsd:integer",
+         "@id": "invocations_per_job"
+      },
+      "is_active": {
+         "@type": "xsd:boolean",
+         "@id": "is_active"
+      },
+      "is_concurrent": {
+         "@type": "xsd:boolean",
+         "@id": "is_concurrent"
+      },
+      "is_concurrent_local": {
+         "@type": "xsd:boolean",
+         "@id": "is_concurrent_local"
+      },
+      "is_event_scope": {
+         "@type": "xsd:boolean",
+         "@id": "is_event_scope"
+      },
+      "is_exclusive": {
+         "@type": "xsd:boolean",
+         "@id": "is_exclusive"
+      },
+      "is_generated": {
+         "@type": "xsd:boolean",
+         "@id": "is_generated"
+      },
+      "is_initial": {
+         "@type": "xsd:boolean",
+         "@id": "is_initial"
+      },
+      "is_satisfied": {
+         "@type": "xsd:boolean",
+         "@id": "is_satisfied"
+      },
+      "is_scope": {
+         "@type": "xsd:boolean",
+         "@id": "is_scope"
+      },
+      "is_startable": {
+         "@type": "xsd:boolean",
+         "@id": "is_startable"
+      },
+      "job_configuration": {
+         "@id": "job_configuration"
+      },
+      "job_definition_configuration": {
+         "@id": "job_definition_configuration"
+      },
+      "job_definition_id": {
+         "@id": "job_definition_id"
+      },
+      "job_definition_type": {
+         "@id": "job_definition_type"
+      },
+      "job_due_date": {
+         "@type": "xsd:dateTime",
+         "@id": "job_due_date"
+      },
+      "job_exception_message": {
+         "@id": "job_exception_message"
+      },
+      "job_exception_stack_id": {
+         "@id": "job_exception_stack_id"
+      },
+      "job_id": {
+         "@id": "job_id"
+      },
+      "job_priority": {
+         "@type": "xsd:integer",
+         "@id": "job_priority"
+      },
+      "job_retries": {
+         "@type": "xsd:integer",
+         "@id": "job_retries"
+      },
+      "job_state": {
+         "@type": "xsd:integer",
+         "@id": "job_state"
+      },
+      "job_type": {
+         "@id": "job_type"
+      },
+      "jobs": {
+         "@type": "@id",
+         "@id": "jobs"
+      },
+      "jobs_created": {
+         "@type": "xsd:integer",
+         "@id": "jobs_created"
+      },
+      "jobs_per_seed": {
+         "@type": "xsd:integer",
+         "@id": "jobs_per_seed"
+      },
+      "key": {
+         "@id": "key"
+      },
+      "last_failure_log_id": {
+         "@id": "last_failure_log_id"
+      },
+      "last_name": {
+         "@id": "last_name"
+      },
+      "last_updated": {
+         "@type": "xsd:dateTime",
+         "@id": "last_updated"
+      },
+      "lock_expiration_time": {
+         "@type": "xsd:dateTime",
+         "@id": "lock_expiration_time"
+      },
+      "lock_owner": {
+         "@id": "lock_owner"
+      },
+      "long_value": {
+         "@type": "xsd:integer",
+         "@id": "long_value"
+      },
+      "message": {
+         "@id": "message"
+      },
+      "milliseconds": {
+         "@type": "xsd:integer",
+         "@id": "milliseconds"
+      },
+      "monitor_job_definition_id": {
+         "@id": "monitor_job_definition_id"
+      },
+      "new_value": {
+         "@id": "new_value"
+      },
+      "operation_id": {
+         "@id": "operation_id"
+      },
+      "operation_type": {
+         "@id": "operation_type"
+      },
+      "original_value": {
+         "@id": "original_value"
+      },
+      "owner": {
+         "@id": "owner"
+      },
+      "parent_activity_instance_id": {
+         "@id": "parent_activity_instance_id"
+      },
+      "parent_id": {
+         "@id": "parent_id"
+      },
+      "parent_task_id": {
+         "@id": "parent_task_id"
       },
       "password": {
-         "@id": "fluxnova_bpm_identity:password"
-      },
-      "path_or_uri": {
-         "@id": "schema:contentUrl"
+         "@id": "password"
       },
       "permissions": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_identity:permissions"
+         "@id": "permissions"
       },
       "picture_id": {
-         "@id": "fluxnova_bpm_identity:picture_id"
-      },
-      "previous_nodes": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:previous_nodes"
+         "@id": "picture_id"
       },
       "previous_state": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:previous_state"
+         "@id": "previous_state"
       },
       "priority": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:priority"
-      },
-      "process": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:process"
+         "@id": "priority"
       },
       "process_definition_id": {
-         "@id": "fluxnova_bpm_runtime:process_definition_id"
+         "@id": "process_definition_id"
       },
       "process_definition_key": {
-         "@id": "fluxnova_bpm_runtime:process_definition_key"
+         "@id": "process_definition_key"
       },
       "process_definitions": {
          "@type": "@id",
          "@id": "process_definitions"
       },
       "process_instance_id": {
-         "@id": "fluxnova_bpm_runtime:process_instance_id"
-      },
-      "process_type": {
-         "@id": "fluxnova_bpmn_model_instance:process_type"
-      },
-      "produced_artifacts": {
-         "@type": "@id",
-         "@id": "prov:generated"
-      },
-      "produced_by_step_run": {
-         "@type": "@id",
-         "@id": "prov:wasGeneratedBy"
-      },
-      "prompt_messages": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:prompt_messages"
-      },
-      "properties": {
-         "@id": "fluxnova_common:properties"
+         "@id": "process_instance_id"
       },
       "property": {
-         "@id": "fluxnova_bpm_history:property"
-      },
-      "provider": {
-         "@id": "fluxnova_bpm_ai_provenance:provider"
+         "@id": "property"
       },
       "query": {
-         "@id": "fluxnova_bpm_collaboration:query"
-      },
-      "reads_variables": {
-         "@id": "fluxnova_bpm_ai_provenance:reads_variables"
-      },
-      "record_count": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:record_count"
-      },
-      "redacted": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_provenance:redacted"
-      },
-      "region": {
-         "@id": "fluxnova_bpm_provenance:region"
-      },
-      "related_step_run": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:related_step_run"
-      },
-      "related_workflow_run": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:related_workflow_run"
-      },
-      "relationships": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:relationships"
+         "@id": "query"
       },
       "removal_time": {
          "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_base:removal_time"
-      },
-      "renderings": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:renderings"
+         "@id": "removal_time"
       },
       "repeat": {
-         "@id": "fluxnova_bpm_job:repeat"
+         "@id": "repeat"
       },
       "repeat_offset": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:repeat_offset"
+         "@id": "repeat_offset"
       },
       "reporter": {
-         "@id": "fluxnova_bpm_base:reporter"
-      },
-      "required": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:required"
-      },
-      "resolution": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_di:resolution"
-      },
-      "resource": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:resource"
-      },
-      "resource_assignment_expression": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:resource_assignment_expression"
+         "@id": "reporter"
       },
       "resource_id": {
-         "@id": "fluxnova_bpm_identity:resource_id"
-      },
-      "resource_kind": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_provenance:resource_kind"
+         "@id": "resource_id"
       },
       "resource_name": {
-         "@id": "fluxnova_bpm_repository:resource_name"
-      },
-      "resource_parameter_binding": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:resource_parameter_binding"
-      },
-      "resource_parameters": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:resource_parameters"
-      },
-      "resource_roles": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:resource_roles"
+         "@id": "resource_name"
       },
       "resource_type": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_identity:resource_type"
-      },
-      "resource_usage": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:resource_usage"
-      },
-      "resources": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:resources"
-      },
-      "response_message": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:response_message"
+         "@id": "resource_type"
       },
       "restarted_process_instance_id": {
-         "@id": "fluxnova_bpm_history:restarted_process_instance_id"
+         "@id": "restarted_process_instance_id"
       },
-      "result_artifact": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:result_artifact"
-      },
-      "result_json": {
-         "@id": "fluxnova_bpm_ai_provenance:result_json"
+      "restricted": {
+         "@type": "xsd:boolean",
+         "@id": "restricted"
       },
       "retries": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:retries"
-      },
-      "role": {
-         "@id": "fluxnova_bpm_provenance:role"
+         "@id": "retries"
       },
       "root_cause_incident_id": {
-         "@id": "fluxnova_bpm_runtime:root_cause_incident_id"
+         "@id": "root_cause_incident_id"
       },
       "root_decision_instance_id": {
-         "@id": "fluxnova_bpm_history:root_decision_instance_id"
-      },
-      "root_elements": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:root_elements"
+         "@id": "root_decision_instance_id"
       },
       "root_process_instance_id": {
-         "@id": "fluxnova_bpm_base:root_process_instance_id"
+         "@id": "root_process_instance_id"
       },
       "rule_id": {
-         "@id": "fluxnova_bpm_history:rule_id"
+         "@id": "rule_id"
       },
       "rule_order": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_history:rule_order"
-      },
-      "runtime_component": {
-         "@type": "@id",
-         "@id": "schema:instrument"
-      },
-      "runtime_components": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:runtime_components"
-      },
-      "runtime_name": {
-         "@id": "schema:name"
-      },
-      "runtime_version": {
-         "@id": "schema:softwareVersion"
-      },
-      "safety_flags": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_ai_provenance:safety_flags"
+         "@id": "rule_order"
       },
       "salt": {
-         "@id": "fluxnova_bpm_identity:salt"
-      },
-      "schema_version": {
-         "@id": "dcterms:hasVersion"
-      },
-      "scope": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:scope"
-      },
-      "script": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:script"
-      },
-      "script_format": {
-         "@id": "fluxnova_bpmn_model_instance:script_format"
-      },
-      "secret": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpm_provenance:secret"
+         "@id": "salt"
       },
       "seed_job_definition_id": {
-         "@id": "fluxnova_bpm_job:seed_job_definition_id"
+         "@id": "seed_job_definition_id"
       },
       "sentry_id": {
-         "@id": "fluxnova_bpm_runtime:sentry_id"
+         "@id": "sentry_id"
       },
       "sequence_counter": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_runtime:sequence_counter"
-      },
-      "sequence_no": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_provenance:sequence_no"
-      },
-      "sequential": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:sequential"
-      },
-      "serialized_value": {
-         "@id": "fluxnova_bpm_provenance:serialized_value"
-      },
-      "signal": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:signal"
-      },
-      "size": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_dc:size"
-      },
-      "size_in_bytes": {
-         "@type": "xsd:integer",
-         "@id": "schema:contentSize"
+         "@id": "sequence_counter"
       },
       "source": {
-         "@id": "fluxnova_common:source"
+         "@id": "source"
       },
       "source_case_execution_id": {
-         "@id": "fluxnova_bpm_runtime:source_case_execution_id"
-      },
-      "source_element": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:source_element"
-      },
-      "source_model_ref": {
-         "@type": "@id",
-         "@id": "prov:hadPrimarySource"
-      },
-      "source_system": {
-         "@id": "prov:wasAttributedTo"
-      },
-      "sources": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:sources"
+         "@id": "source_case_execution_id"
       },
       "standard_event": {
-         "@id": "fluxnova_bpm_runtime:standard_event"
+         "@id": "standard_event"
       },
       "start_activity_id": {
-         "@id": "fluxnova_bpm_history:start_activity_id"
-      },
-      "start_quantity": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpmn_model_instance:start_quantity"
+         "@id": "start_activity_id"
       },
       "start_time": {
          "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_job:start_time"
+         "@id": "start_time"
       },
       "start_user_id": {
-         "@id": "fluxnova_bpm_history:start_user_id"
-      },
-      "started_at": {
-         "@type": "xsd:dateTime",
-         "@id": "schema:startTime"
-      },
-      "started_by": {
-         "@type": "@id",
-         "@id": "prov:wasAssociatedWith"
+         "@id": "start_user_id"
       },
       "state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_history:state"
+         "@type": "xsd:integer",
+         "@id": "state"
       },
       "status": {
          "@context": {
@@ -2126,1197 +1691,1088 @@
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "schema:actionStatus"
-      },
-      "step_definition": {
-         "@type": "@id",
-         "@id": "schema:instrument"
-      },
-      "step_runs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:step_runs"
-      },
-      "steps": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:steps"
-      },
-      "strike_through": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_dc:strike_through"
-      },
-      "structure": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:structure"
-      },
-      "structure_ref": {
-         "@id": "fluxnova_bpmn_model_instance:structure_ref"
-      },
-      "succeeding_nodes": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:succeeding_nodes"
+         "@id": "status"
       },
       "super_case_execution_id": {
-         "@id": "fluxnova_bpm_runtime:super_case_execution_id"
+         "@id": "super_case_execution_id"
       },
       "super_case_instance_id": {
-         "@id": "fluxnova_bpm_history:super_case_instance_id"
+         "@id": "super_case_instance_id"
       },
       "super_execution_id": {
-         "@id": "fluxnova_bpm_runtime:super_execution_id"
+         "@id": "super_execution_id"
       },
       "super_process_instance_id": {
-         "@id": "fluxnova_bpm_history:super_process_instance_id"
-      },
-      "supported_interfaces": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:supported_interfaces"
-      },
-      "supported_languages": {
-         "@id": "fluxnova_bpm_ai_provenance:supported_languages"
-      },
-      "supports": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:supports"
+         "@id": "super_process_instance_id"
       },
       "suspension_state": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "fluxnova_bpm_repository:suspension_state"
-      },
-      "tags": {
-         "@id": "fluxnova_bpm_provenance:tags"
-      },
-      "target": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:target"
-      },
-      "target_element": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_bpmndi:target_element"
-      },
-      "target_namespace": {
-         "@id": "fluxnova_bpmn_model_instance:target_namespace"
-      },
-      "targets": {
-         "@id": "fluxnova_bpmn_model_instance:targets"
+         "@type": "xsd:integer",
+         "@id": "suspension_state"
       },
       "task_definition_key": {
-         "@id": "fluxnova_bpm_runtime:task_definition_key"
+         "@id": "task_definition_key"
       },
       "task_id": {
-         "@id": "fluxnova_bpm_runtime:task_id"
+         "@id": "task_id"
       },
       "task_state": {
-         "@id": "fluxnova_bpm_runtime:task_state"
+         "@id": "task_state"
       },
       "tasks": {
          "@type": "@id",
          "@id": "tasks"
       },
-      "temperature": {
-         "@type": "xsd:decimal",
-         "@id": "fluxnova_bpm_ai_provenance:temperature"
-      },
       "tenant_id": {
-         "@id": "fluxnova_bpm_base:tenant_id"
-      },
-      "text": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:text"
+         "@id": "tenant_id"
       },
       "text2_value": {
-         "@id": "fluxnova_bpm_runtime:text2_value"
-      },
-      "text_format": {
-         "@id": "fluxnova_bpmn_model_instance:text_format"
+         "@id": "text2_value"
       },
       "text_value": {
-         "@id": "fluxnova_bpm_runtime:text_value"
-      },
-      "time_cycle": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:time_cycle"
-      },
-      "time_date": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:time_date"
-      },
-      "time_duration": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:time_duration"
-      },
-      "timeouts": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_fluxnova:timeouts"
+         "@id": "text_value"
       },
       "timestamp": {
          "@type": "xsd:dateTime",
-         "@id": "fluxnova_bpm_base:timestamp"
-      },
-      "to_": {
-         "@id": "fluxnova_bpmn_model_instance:to_"
-      },
-      "tool_call_id": {
-         "@id": "fluxnova_bpm_ai_provenance:tool_call_id"
-      },
-      "tool_calls": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:tool_calls"
-      },
-      "tool_definition": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:tool_definition"
-      },
-      "tool_description": {
-         "@id": "fluxnova_bpm_ai_provenance:tool_description"
-      },
-      "tool_name": {
-         "@id": "fluxnova_bpm_ai_provenance:tool_name"
-      },
-      "top_p": {
-         "@type": "xsd:decimal",
-         "@id": "fluxnova_bpm_ai_provenance:top_p"
+         "@id": "timestamp"
       },
       "topic_name": {
-         "@id": "fluxnova_bpm_runtime:topic_name"
-      },
-      "total_input_tokens": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:total_input_tokens"
+         "@id": "topic_name"
       },
       "total_jobs": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_job:total_jobs"
+         "@id": "total_jobs"
       },
-      "total_output_tokens": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:total_output_tokens"
+      "updated_at": {
+         "@type": "xsd:dateTime",
+         "@id": "updated_at"
       },
-      "training_datasets": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_ai_provenance:training_datasets"
-      },
-      "training_token_count": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:training_token_count"
-      },
-      "transformation": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:transformation"
-      },
-      "turn_index": {
-         "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_ai_provenance:turn_index"
-      },
-      "type": {
-         "@id": "fluxnova_common:type"
-      },
-      "type_language": {
-         "@id": "fluxnova_bpmn_model_instance:type_language"
-      },
-      "underline": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_dc:underline"
-      },
-      "unlimited": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:unlimited"
+      "updated_by": {
+         "@id": "updated_by"
       },
       "url": {
-         "@id": "fluxnova_bpm_collaboration:url"
+         "@id": "url"
       },
       "user_id": {
-         "@id": "fluxnova_bpm_identity:user_id"
+         "@id": "user_id"
       },
       "users": {
          "@type": "@id",
          "@id": "users"
       },
-      "value": {
-         "@id": "fluxnova_common:value"
-      },
-      "value_hash": {
-         "@id": "fluxnova_bpm_provenance:value_hash"
-      },
-      "values": {
-         "@id": "fluxnova_bpmn_model_fluxnova:values"
-      },
       "variable_event": {
-         "@id": "fluxnova_bpm_runtime:variable_event"
+         "@id": "variable_event"
       },
       "variable_instance_id": {
-         "@id": "fluxnova_bpm_history:variable_instance_id"
+         "@id": "variable_instance_id"
       },
       "variable_name": {
-         "@id": "fluxnova_bpm_runtime:variable_name"
+         "@id": "variable_name"
       },
       "variable_scope_id": {
-         "@id": "fluxnova_bpm_runtime:variable_scope_id"
+         "@id": "variable_scope_id"
       },
       "variable_type": {
-         "@id": "fluxnova_bpm_history:variable_type"
+         "@id": "variable_type"
       },
       "version": {
          "@type": "xsd:integer",
-         "@id": "fluxnova_bpm_base:version"
+         "@id": "version"
       },
       "version_tag": {
-         "@id": "fluxnova_bpm_repository:version_tag"
-      },
-      "wait_for_completion": {
-         "@type": "xsd:boolean",
-         "@id": "fluxnova_bpmn_model_instance:wait_for_completion"
-      },
-      "waypoints": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_di:waypoints"
-      },
-      "weights_uri": {
-         "@id": "fluxnova_bpm_ai_provenance:weights_uri"
-      },
-      "while_executing_input": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:while_executing_input"
-      },
-      "while_executing_output_refs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpmn_model_instance:while_executing_output_refs"
-      },
-      "width": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_dc:width"
+         "@id": "version_tag"
       },
       "worker_id": {
-         "@id": "fluxnova_bpm_runtime:worker_id"
+         "@id": "worker_id"
       },
-      "workflow_artifacts": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:workflow_artifacts"
+      "BpmnActivationCondition": {
+         "@id": "BpmnActivationCondition"
       },
-      "workflow_definition": {
-         "@type": "@id",
-         "@id": "schema:instrument"
-      },
-      "workflow_definitions": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:workflow_definitions"
-      },
-      "workflow_run": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:workflow_run"
-      },
-      "workflow_runs": {
-         "@type": "@id",
-         "@id": "fluxnova_bpm_provenance:workflow_runs"
-      },
-      "writes_variables": {
-         "@id": "fluxnova_bpm_ai_provenance:writes_variables"
-      },
-      "x": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_dc:x"
-      },
-      "y": {
-         "@type": "xsd:float",
-         "@id": "fluxnova_bpmn_model_dc:y"
-      },
-      "ActivationCondition": {
-         "@id": "fluxnova_bpmn_model_instance:ActivationCondition"
-      },
-      "Activity": {
-         "@id": "fluxnova_bpmn_model_instance:Activity",
+      "BpmnActivity": {
+         "@id": "BpmnActivity",
          "@context": {
             "properties": {
-               "@id": "fluxnova_common:properties",
+               "@id": "properties",
                "@type": "@id"
             }
          }
       },
-      "Agent": {
-         "@id": "fluxnova_bpm_provenance:Agent"
+      "BpmnAdHocSubProcess": {
+         "@id": "BpmnAdHocSubProcess"
       },
-      "AgentLoopRun": {
-         "@id": "fluxnova_bpm_ai_provenance:AgentLoopRun"
+      "BpmnArtifact": {
+         "@id": "BpmnArtifact"
       },
-      "AiAgent": {
-         "@id": "fluxnova_bpm_ai_provenance:AiAgent"
+      "BpmnAssignment": {
+         "@id": "BpmnAssignment"
       },
-      "AiDataset": {
-         "@id": "fluxnova_bpm_ai_provenance:AiDataset"
+      "BpmnAssociation": {
+         "@id": "BpmnAssociation"
       },
-      "AiModelDescriptor": {
-         "@id": "fluxnova_bpm_ai_provenance:AiModelDescriptor"
+      "BpmnAuditing": {
+         "@id": "BpmnAuditing"
       },
-      "AiModelInvocation": {
-         "@id": "fluxnova_bpm_ai_provenance:AiModelInvocation"
+      "BpmnBaseElement": {
+         "@id": "BpmnBaseElement"
       },
-      "AiToolDefinition": {
-         "@id": "fluxnova_bpm_ai_provenance:AiToolDefinition"
+      "BpmnBoundaryEvent": {
+         "@id": "BpmnBoundaryEvent"
       },
-      "Artifact": {
-         "@id": "fluxnova_bpmn_model_instance:Artifact"
+      "BpmnBusinessRuleTask": {
+         "@id": "BpmnBusinessRuleTask"
       },
-      "Assignment": {
-         "@id": "fluxnova_bpmn_model_instance:Assignment"
+      "BpmnCallableElement": {
+         "@id": "BpmnCallableElement"
       },
-      "Association": {
-         "@id": "fluxnova_bpmn_model_instance:Association",
-         "@context": {
-            "source": {
-               "@id": "fluxnova_common:source",
-               "@type": "@id"
-            }
-         }
+      "BpmnCallActivity": {
+         "@id": "BpmnCallActivity"
       },
-      "Attachment": {
-         "@id": "fluxnova_bpm_collaboration:Attachment"
+      "BpmnCallConversation": {
+         "@id": "BpmnCallConversation"
       },
-      "Auditing": {
-         "@id": "fluxnova_bpmn_model_instance:Auditing"
+      "BpmnCancelEventDefinition": {
+         "@id": "BpmnCancelEventDefinition"
       },
-      "Authorization": {
-         "@id": "fluxnova_bpm_identity:Authorization"
+      "BpmnCatchEvent": {
+         "@id": "BpmnCatchEvent"
       },
-      "BaseElement": {
-         "@id": "fluxnova_bpmn_model_instance:BaseElement"
+      "BpmnCategory": {
+         "@id": "BpmnCategory"
       },
-      "Batch": {
-         "@id": "fluxnova_bpm_job:Batch"
+      "BpmnCategoryValue": {
+         "@id": "BpmnCategoryValue"
       },
-      "BoundaryEvent": {
-         "@id": "fluxnova_bpmn_model_instance:BoundaryEvent"
+      "BpmnChildLaneSet": {
+         "@id": "BpmnChildLaneSet"
       },
-      "Bounds": {
-         "@id": "fluxnova_bpmn_model_dc:Bounds"
+      "BpmnCollaboration": {
+         "@id": "BpmnCollaboration"
+      },
+      "BpmnCompensateEventDefinition": {
+         "@id": "BpmnCompensateEventDefinition"
+      },
+      "BpmnCompletionCondition": {
+         "@id": "BpmnCompletionCondition"
+      },
+      "BpmnComplexBehaviorDefinition": {
+         "@id": "BpmnComplexBehaviorDefinition"
+      },
+      "BpmnComplexGateway": {
+         "@id": "BpmnComplexGateway"
+      },
+      "BpmnCondition": {
+         "@id": "BpmnCondition"
+      },
+      "BpmnConditionalEventDefinition": {
+         "@id": "BpmnConditionalEventDefinition"
+      },
+      "BpmnConditionExpression": {
+         "@id": "BpmnConditionExpression"
+      },
+      "BpmnConversation": {
+         "@id": "BpmnConversation"
+      },
+      "BpmnConversationAssociation": {
+         "@id": "BpmnConversationAssociation"
+      },
+      "BpmnConversationLink": {
+         "@id": "BpmnConversationLink"
+      },
+      "BpmnConversationNode": {
+         "@id": "BpmnConversationNode"
+      },
+      "BpmnCorrelationKey": {
+         "@id": "BpmnCorrelationKey"
+      },
+      "BpmnCorrelationProperty": {
+         "@id": "BpmnCorrelationProperty"
+      },
+      "BpmnCorrelationPropertyBinding": {
+         "@id": "BpmnCorrelationPropertyBinding"
+      },
+      "BpmnCorrelationPropertyRetrievalExpression": {
+         "@id": "BpmnCorrelationPropertyRetrievalExpression"
+      },
+      "BpmnCorrelationSubscription": {
+         "@id": "BpmnCorrelationSubscription"
+      },
+      "BpmnDataAssociation": {
+         "@id": "BpmnDataAssociation"
+      },
+      "BpmnDataInput": {
+         "@id": "BpmnDataInput"
+      },
+      "BpmnDataInputAssociation": {
+         "@id": "BpmnDataInputAssociation"
+      },
+      "BpmnDataObject": {
+         "@id": "BpmnDataObject"
+      },
+      "BpmnDataObjectReference": {
+         "@id": "BpmnDataObjectReference"
+      },
+      "BpmnDataOutput": {
+         "@id": "BpmnDataOutput"
+      },
+      "BpmnDataOutputAssociation": {
+         "@id": "BpmnDataOutputAssociation"
+      },
+      "BpmnDataPath": {
+         "@id": "BpmnDataPath"
+      },
+      "BpmnDataState": {
+         "@id": "BpmnDataState"
+      },
+      "BpmnDataStore": {
+         "@id": "BpmnDataStore"
+      },
+      "BpmnDataStoreReference": {
+         "@id": "BpmnDataStoreReference"
+      },
+      "BpmnDefinitions": {
+         "@id": "BpmnDefinitions"
       },
       "BpmnDiagram": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnDiagram"
+         "@id": "BpmnDiagram"
+      },
+      "BpmnDocumentation": {
+         "@id": "BpmnDocumentation"
       },
       "BpmnEdge": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnEdge"
+         "@id": "BpmnEdge"
+      },
+      "BpmnEndEvent": {
+         "@id": "BpmnEndEvent"
+      },
+      "BpmnEndPoint": {
+         "@id": "BpmnEndPoint"
+      },
+      "BpmnError": {
+         "@id": "BpmnError"
+      },
+      "BpmnErrorEventDefinition": {
+         "@id": "BpmnErrorEventDefinition"
+      },
+      "BpmnEscalation": {
+         "@id": "BpmnEscalation"
+      },
+      "BpmnEscalationEventDefinition": {
+         "@id": "BpmnEscalationEventDefinition"
+      },
+      "BpmnEvent": {
+         "@id": "BpmnEvent",
+         "@context": {
+            "properties": {
+               "@id": "properties",
+               "@type": "@id"
+            }
+         }
+      },
+      "BpmnEventBasedGateway": {
+         "@id": "BpmnEventBasedGateway"
+      },
+      "BpmnEventDefinition": {
+         "@id": "BpmnEventDefinition"
+      },
+      "BpmnExclusiveGateway": {
+         "@id": "BpmnExclusiveGateway"
+      },
+      "BpmnExpression": {
+         "@id": "BpmnExpression"
+      },
+      "BpmnExtension": {
+         "@id": "BpmnExtension"
+      },
+      "BpmnExtensionElements": {
+         "@id": "BpmnExtensionElements"
+      },
+      "BpmnFlowElement": {
+         "@id": "BpmnFlowElement"
+      },
+      "BpmnFlowNode": {
+         "@id": "BpmnFlowNode"
+      },
+      "BpmnFormalExpression": {
+         "@id": "BpmnFormalExpression"
+      },
+      "BpmnFrom": {
+         "@id": "BpmnFrom"
+      },
+      "BpmnGateway": {
+         "@id": "BpmnGateway"
+      },
+      "BpmnGlobalConversation": {
+         "@id": "BpmnGlobalConversation"
       },
       "BpmnGroup": {
-         "@id": "fluxnova_bpmn_model_instance:BpmnGroup",
-         "@context": {
-            "category": {
-               "@id": "fluxnova_common:category",
-               "@type": "@id"
-            }
-         }
+         "@id": "BpmnGroup"
+      },
+      "BpmnHumanPerformer": {
+         "@id": "BpmnHumanPerformer"
+      },
+      "BpmnImport": {
+         "@id": "BpmnImport"
+      },
+      "BpmnInclusiveGateway": {
+         "@id": "BpmnInclusiveGateway"
+      },
+      "BpmnInputDataItem": {
+         "@id": "BpmnInputDataItem"
+      },
+      "BpmnInputSet": {
+         "@id": "BpmnInputSet"
+      },
+      "BpmnInteractionNode": {
+         "@id": "BpmnInteractionNode"
+      },
+      "BpmnInterface": {
+         "@id": "BpmnInterface"
+      },
+      "BpmnIntermediateCatchEvent": {
+         "@id": "BpmnIntermediateCatchEvent"
+      },
+      "BpmnIntermediateThrowEvent": {
+         "@id": "BpmnIntermediateThrowEvent"
+      },
+      "BpmnIoBinding": {
+         "@id": "BpmnIoBinding"
+      },
+      "BpmnIoSpecification": {
+         "@id": "BpmnIoSpecification"
+      },
+      "BpmnItemAwareElement": {
+         "@id": "BpmnItemAwareElement"
+      },
+      "BpmnItemDefinition": {
+         "@id": "BpmnItemDefinition"
       },
       "BpmnLabel": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnLabel"
+         "@id": "BpmnLabel"
       },
       "BpmnLabelStyle": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnLabelStyle"
+         "@id": "BpmnLabelStyle"
+      },
+      "BpmnLane": {
+         "@id": "BpmnLane"
+      },
+      "BpmnLaneSet": {
+         "@id": "BpmnLaneSet"
+      },
+      "BpmnLinkEventDefinition": {
+         "@id": "BpmnLinkEventDefinition"
+      },
+      "BpmnLoopCardinality": {
+         "@id": "BpmnLoopCardinality"
+      },
+      "BpmnLoopCharacteristics": {
+         "@id": "BpmnLoopCharacteristics"
+      },
+      "BpmnManualTask": {
+         "@id": "BpmnManualTask"
+      },
+      "BpmnMessage": {
+         "@id": "BpmnMessage"
+      },
+      "BpmnMessageEventDefinition": {
+         "@id": "BpmnMessageEventDefinition"
+      },
+      "BpmnMessageFlow": {
+         "@id": "BpmnMessageFlow"
+      },
+      "BpmnMessageFlowAssociation": {
+         "@id": "BpmnMessageFlowAssociation"
+      },
+      "BpmnMessagePath": {
+         "@id": "BpmnMessagePath"
       },
       "BpmnModelElementInstance": {
-         "@id": "fluxnova_bpmn_model_instance:BpmnModelElementInstance",
+         "@id": "BpmnModelElementInstance"
+      },
+      "BpmnMonitoring": {
+         "@id": "BpmnMonitoring"
+      },
+      "BpmnMultiInstanceLoopCharacteristics": {
+         "@id": "BpmnMultiInstanceLoopCharacteristics"
+      },
+      "BpmnOperation": {
+         "@id": "BpmnOperation"
+      },
+      "BpmnOutputDataItem": {
+         "@id": "BpmnOutputDataItem"
+      },
+      "BpmnOutputSet": {
+         "@id": "BpmnOutputSet"
+      },
+      "BpmnParallelGateway": {
+         "@id": "BpmnParallelGateway"
+      },
+      "BpmnParticipant": {
+         "@id": "BpmnParticipant"
+      },
+      "BpmnParticipantAssociation": {
+         "@id": "BpmnParticipantAssociation"
+      },
+      "BpmnParticipantMultiplicity": {
+         "@id": "BpmnParticipantMultiplicity"
+      },
+      "BpmnPartitionElement": {
+         "@id": "BpmnPartitionElement"
+      },
+      "BpmnPerformer": {
+         "@id": "BpmnPerformer"
+      },
+      "BpmnPlane": {
+         "@id": "BpmnPlane"
+      },
+      "BpmnPotentialOwner": {
+         "@id": "BpmnPotentialOwner"
+      },
+      "BpmnProcess": {
+         "@id": "BpmnProcess",
          "@context": {
-            "scope": {
-               "@id": "fluxnova_bpmn_model_instance:scope",
+            "properties": {
+               "@id": "properties",
                "@type": "@id"
             }
          }
       },
-      "BpmnModelInstance": {
-         "@id": "fluxnova_bpmn_model:BpmnModelInstance"
-      },
-      "BpmnModelType": {
-         "@id": "fluxnova_bpmn_model:BpmnModelType"
-      },
-      "BpmnPlane": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnPlane"
-      },
       "BpmnProperty": {
-         "@id": "fluxnova_bpmn_model_instance:BpmnProperty"
+         "@id": "BpmnProperty"
+      },
+      "BpmnReceiveTask": {
+         "@id": "BpmnReceiveTask"
+      },
+      "BpmnRelationship": {
+         "@id": "BpmnRelationship"
+      },
+      "BpmnRendering": {
+         "@id": "BpmnRendering"
+      },
+      "BpmnResource": {
+         "@id": "BpmnResource"
+      },
+      "BpmnResourceAssignmentExpression": {
+         "@id": "BpmnResourceAssignmentExpression"
+      },
+      "BpmnResourceParameter": {
+         "@id": "BpmnResourceParameter"
+      },
+      "BpmnResourceParameterBinding": {
+         "@id": "BpmnResourceParameterBinding"
+      },
+      "BpmnResourceRole": {
+         "@id": "BpmnResourceRole"
+      },
+      "BpmnRootElement": {
+         "@id": "BpmnRootElement"
+      },
+      "BpmnScript": {
+         "@id": "BpmnScript"
+      },
+      "BpmnScriptTask": {
+         "@id": "BpmnScriptTask"
+      },
+      "BpmnSendTask": {
+         "@id": "BpmnSendTask"
+      },
+      "BpmnSequenceFlow": {
+         "@id": "BpmnSequenceFlow"
+      },
+      "BpmnServiceTask": {
+         "@id": "BpmnServiceTask"
       },
       "BpmnShape": {
-         "@id": "fluxnova_bpmn_model_bpmndi:BpmnShape"
+         "@id": "BpmnShape"
+      },
+      "BpmnSignal": {
+         "@id": "BpmnSignal"
+      },
+      "BpmnSignalEventDefinition": {
+         "@id": "BpmnSignalEventDefinition"
+      },
+      "BpmnSource": {
+         "@id": "BpmnSource"
+      },
+      "BpmnStartEvent": {
+         "@id": "BpmnStartEvent"
+      },
+      "BpmnSubConversation": {
+         "@id": "BpmnSubConversation"
+      },
+      "BpmnSubProcess": {
+         "@id": "BpmnSubProcess"
+      },
+      "BpmnTarget": {
+         "@id": "BpmnTarget"
       },
       "BpmnTask": {
-         "@id": "fluxnova_bpmn_model_instance:BpmnTask"
+         "@id": "BpmnTask"
       },
-      "BusinessRuleTask": {
-         "@id": "fluxnova_bpmn_model_instance:BusinessRuleTask"
+      "BpmnTerminateEventDefinition": {
+         "@id": "BpmnTerminateEventDefinition"
       },
-      "ByteArray": {
-         "@id": "fluxnova_bpm_base:ByteArray",
+      "BpmnText": {
+         "@id": "BpmnText"
+      },
+      "BpmnTextAnnotation": {
+         "@id": "BpmnTextAnnotation"
+      },
+      "BpmnThrowEvent": {
+         "@id": "BpmnThrowEvent"
+      },
+      "BpmnTimeCycle": {
+         "@id": "BpmnTimeCycle"
+      },
+      "BpmnTimeDate": {
+         "@id": "BpmnTimeDate"
+      },
+      "BpmnTimeDuration": {
+         "@id": "BpmnTimeDuration"
+      },
+      "BpmnTimerEventDefinition": {
+         "@id": "BpmnTimerEventDefinition"
+      },
+      "BpmnTo": {
+         "@id": "BpmnTo"
+      },
+      "BpmnTransaction": {
+         "@id": "BpmnTransaction"
+      },
+      "BpmnTransformation": {
+         "@id": "BpmnTransformation"
+      },
+      "BpmnUserTask": {
+         "@id": "BpmnUserTask"
+      },
+      "DcBounds": {
+         "@id": "DcBounds"
+      },
+      "DcFont": {
+         "@id": "DcFont"
+      },
+      "DcPoint": {
+         "@id": "DcPoint"
+      },
+      "DiDiagram": {
+         "@id": "DiDiagram"
+      },
+      "DiDiagramElement": {
+         "@id": "DiDiagramElement"
+      },
+      "DiEdge": {
+         "@id": "DiEdge"
+      },
+      "DiExtension": {
+         "@id": "DiExtension"
+      },
+      "DiLabel": {
+         "@id": "DiLabel"
+      },
+      "DiLabeledEdge": {
+         "@id": "DiLabeledEdge"
+      },
+      "DiLabeledShape": {
+         "@id": "DiLabeledShape"
+      },
+      "DiNode": {
+         "@id": "DiNode"
+      },
+      "DiPlane": {
+         "@id": "DiPlane"
+      },
+      "DiShape": {
+         "@id": "DiShape"
+      },
+      "DiStyle": {
+         "@id": "DiStyle"
+      },
+      "DiWaypoint": {
+         "@id": "DiWaypoint"
+      },
+      "FluxnovaAttachment": {
+         "@id": "FluxnovaAttachment"
+      },
+      "FluxnovaAuthorization": {
+         "@id": "FluxnovaAuthorization",
          "@context": {
             "type": {
-               "@id": "fluxnova_common:type",
+               "@id": "type",
                "@type": "xsd:integer"
             }
          }
       },
-      "CallableElement": {
-         "@id": "fluxnova_bpmn_model_instance:CallableElement"
-      },
-      "CallActivity": {
-         "@id": "fluxnova_bpmn_model_instance:CallActivity"
-      },
-      "CallConversation": {
-         "@id": "fluxnova_bpmn_model_instance:CallConversation"
-      },
-      "CancelEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:CancelEventDefinition"
-      },
-      "CaseDefinition": {
-         "@id": "fluxnova_bpm_repository:CaseDefinition"
-      },
-      "CaseExecution": {
-         "@id": "fluxnova_bpm_runtime:CaseExecution"
-      },
-      "CaseSentryPart": {
-         "@id": "fluxnova_bpm_runtime:CaseSentryPart"
-      },
-      "CatchEvent": {
-         "@id": "fluxnova_bpmn_model_instance:CatchEvent"
-      },
-      "Category": {
-         "@id": "fluxnova_bpmn_model_instance:Category"
-      },
-      "CategoryValue": {
-         "@id": "fluxnova_bpmn_model_instance:CategoryValue"
-      },
-      "Collaboration": {
-         "@id": "fluxnova_bpmn_model_instance:Collaboration"
-      },
-      "Comment": {
-         "@id": "fluxnova_bpm_collaboration:Comment"
-      },
-      "CompensateEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:CompensateEventDefinition"
-      },
-      "CompletionCondition": {
-         "@id": "fluxnova_bpmn_model_instance:CompletionCondition"
-      },
-      "ComplexBehaviorDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:ComplexBehaviorDefinition"
-      },
-      "ComplexGateway": {
-         "@id": "fluxnova_bpmn_model_instance:ComplexGateway"
-      },
-      "Condition": {
-         "@id": "fluxnova_bpmn_model_instance:Condition"
-      },
-      "ConditionalEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:ConditionalEventDefinition"
-      },
-      "ConditionExpression": {
-         "@id": "fluxnova_bpmn_model_instance:ConditionExpression"
-      },
-      "Conversation": {
-         "@id": "fluxnova_bpmn_model_instance:Conversation"
-      },
-      "ConversationAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:ConversationAssociation"
-      },
-      "ConversationLink": {
-         "@id": "fluxnova_bpmn_model_instance:ConversationLink",
+      "FluxnovaBatch": {
+         "@id": "FluxnovaBatch",
          "@context": {
-            "source": {
-               "@id": "fluxnova_common:source",
+            "seed_job_definition_id": {
+               "@id": "seed_job_definition_id",
+               "@type": "@id"
+            },
+            "batch_job_definition_id": {
+               "@id": "batch_job_definition_id",
+               "@type": "@id"
+            },
+            "monitor_job_definition_id": {
+               "@id": "monitor_job_definition_id",
                "@type": "@id"
             }
          }
       },
-      "ConversationNode": {
-         "@id": "fluxnova_bpmn_model_instance:ConversationNode"
-      },
-      "CorrelationKey": {
-         "@id": "fluxnova_bpmn_model_instance:CorrelationKey"
-      },
-      "CorrelationProperty": {
-         "@id": "fluxnova_bpmn_model_instance:CorrelationProperty",
+      "FluxnovaByteArray": {
+         "@id": "FluxnovaByteArray",
          "@context": {
             "type": {
-               "@id": "fluxnova_common:type",
+               "@id": "type",
+               "@type": "xsd:integer"
+            },
+            "deployment_id": {
+               "@id": "deployment_id",
                "@type": "@id"
             }
          }
       },
-      "CorrelationPropertyBinding": {
-         "@id": "fluxnova_bpmn_model_instance:CorrelationPropertyBinding"
+      "FluxnovaCaseDefinition": {
+         "@id": "FluxnovaCaseDefinition"
       },
-      "CorrelationPropertyRetrievalExpression": {
-         "@id": "fluxnova_bpmn_model_instance:CorrelationPropertyRetrievalExpression",
+      "FluxnovaCaseExecution": {
+         "@id": "FluxnovaCaseExecution",
          "@context": {
-            "message": {
-               "@id": "fluxnova_common:message",
+            "case_instance_id": {
+               "@id": "case_instance_id",
+               "@type": "@id"
+            },
+            "parent_id": {
+               "@id": "parent_id",
+               "@type": "@id"
+            },
+            "case_definition_id": {
+               "@id": "case_definition_id",
                "@type": "@id"
             }
          }
       },
-      "CorrelationSubscription": {
-         "@id": "fluxnova_bpmn_model_instance:CorrelationSubscription"
-      },
-      "DataAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:DataAssociation"
-      },
-      "DataInput": {
-         "@id": "fluxnova_bpmn_model_instance:DataInput"
-      },
-      "DataInputAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:DataInputAssociation"
-      },
-      "DataObject": {
-         "@id": "fluxnova_bpmn_model_instance:DataObject"
-      },
-      "DataObjectReference": {
-         "@id": "fluxnova_bpmn_model_instance:DataObjectReference"
-      },
-      "DataOutput": {
-         "@id": "fluxnova_bpmn_model_instance:DataOutput"
-      },
-      "DataOutputAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:DataOutputAssociation"
-      },
-      "DataState": {
-         "@id": "fluxnova_bpmn_model_instance:DataState"
-      },
-      "DataStore": {
-         "@id": "fluxnova_bpmn_model_instance:DataStore"
-      },
-      "DataStoreReference": {
-         "@id": "fluxnova_bpmn_model_instance:DataStoreReference"
-      },
-      "DecisionDefinition": {
-         "@id": "fluxnova_bpm_repository:DecisionDefinition"
-      },
-      "DecisionRequirementsDefinition": {
-         "@id": "fluxnova_bpm_repository:DecisionRequirementsDefinition"
-      },
-      "Definitions": {
-         "@id": "fluxnova_bpmn_model_instance:Definitions"
-      },
-      "Deployment": {
-         "@id": "fluxnova_bpm_repository:Deployment"
-      },
-      "Diagram": {
-         "@id": "fluxnova_bpmn_model_di:Diagram"
-      },
-      "DiagramElement": {
-         "@id": "fluxnova_bpmn_model_di:DiagramElement"
-      },
-      "Documentation": {
-         "@id": "fluxnova_bpmn_model_instance:Documentation"
-      },
-      "Edge": {
-         "@id": "fluxnova_bpmn_model_di:Edge"
-      },
-      "EndEvent": {
-         "@id": "fluxnova_bpmn_model_instance:EndEvent"
-      },
-      "EndPoint": {
-         "@id": "fluxnova_bpmn_model_instance:EndPoint"
-      },
-      "Environment": {
-         "@id": "fluxnova_bpm_provenance:Environment"
-      },
-      "Error": {
-         "@id": "fluxnova_bpmn_model_instance:Error"
-      },
-      "ErrorEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:ErrorEventDefinition"
-      },
-      "Escalation": {
-         "@id": "fluxnova_bpmn_model_instance:Escalation"
-      },
-      "EscalationEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:EscalationEventDefinition"
-      },
-      "EvaluationResult": {
-         "@id": "fluxnova_bpm_ai_provenance:EvaluationResult"
-      },
-      "Event": {
-         "@id": "fluxnova_bpmn_model_instance:Event",
+      "FluxnovaCaseSentryPart": {
+         "@id": "FluxnovaCaseSentryPart",
          "@context": {
-            "properties": {
-               "@id": "fluxnova_common:properties",
+            "case_instance_id": {
+               "@id": "case_instance_id",
+               "@type": "@id"
+            },
+            "case_execution_id": {
+               "@id": "case_execution_id",
                "@type": "@id"
             }
          }
       },
-      "EventBasedGateway": {
-         "@id": "fluxnova_bpmn_model_instance:EventBasedGateway"
+      "FluxnovaComment": {
+         "@id": "FluxnovaComment"
       },
-      "EventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:EventDefinition"
-      },
-      "EventSubscription": {
-         "@id": "fluxnova_bpm_runtime:EventSubscription"
-      },
-      "ExclusiveGateway": {
-         "@id": "fluxnova_bpmn_model_instance:ExclusiveGateway"
-      },
-      "Execution": {
-         "@id": "fluxnova_bpm_runtime:Execution"
-      },
-      "ExecutionResource": {
-         "@id": "fluxnova_bpm_provenance:ExecutionResource"
-      },
-      "Expression": {
-         "@id": "fluxnova_bpmn_model_instance:Expression"
-      },
-      "Extension": {
-         "@id": "fluxnova_bpmn_model_di:Extension"
-      },
-      "ExtensionElements": {
-         "@id": "fluxnova_bpmn_model_instance:ExtensionElements"
-      },
-      "ExternalTask": {
-         "@id": "fluxnova_bpm_runtime:ExternalTask"
-      },
-      "Filter": {
-         "@id": "fluxnova_bpm_collaboration:Filter",
-         "@context": {
-            "resource_type": {
-               "@id": "fluxnova_bpm_identity:resource_type"
-            }
-         }
-      },
-      "FlowElement": {
-         "@id": "fluxnova_bpmn_model_instance:FlowElement"
-      },
-      "FlowNode": {
-         "@id": "fluxnova_bpmn_model_instance:FlowNode"
+      "FluxnovaConfiguration": {
+         "@id": "FluxnovaConfiguration"
       },
       "FluxnovaConnector": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConnector"
+         "@id": "FluxnovaConnector"
       },
       "FluxnovaConnectorId": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConnectorId"
+         "@id": "FluxnovaConnectorId"
       },
       "FluxnovaConstraint": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaConstraint"
+         "@id": "FluxnovaConstraint"
+      },
+      "FluxnovaDecisionDefinition": {
+         "@id": "FluxnovaDecisionDefinition",
+         "@context": {
+            "decision_requirements_definition_id": {
+               "@id": "decision_requirements_definition_id",
+               "@type": "@id"
+            }
+         }
+      },
+      "FluxnovaDecisionRequirementsDefinition": {
+         "@id": "FluxnovaDecisionRequirementsDefinition"
+      },
+      "FluxnovaDeployment": {
+         "@id": "FluxnovaDeployment"
+      },
+      "FluxnovaEngineProperty": {
+         "@id": "FluxnovaEngineProperty"
       },
       "FluxnovaEntry": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaEntry"
+         "@id": "FluxnovaEntry"
       },
       "FluxnovaErrorEventDefinition": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaErrorEventDefinition"
+         "@id": "FluxnovaErrorEventDefinition"
+      },
+      "FluxnovaEventSubscription": {
+         "@id": "FluxnovaEventSubscription",
+         "@context": {
+            "execution_id": {
+               "@id": "execution_id",
+               "@type": "@id"
+            }
+         }
+      },
+      "FluxnovaExecution": {
+         "@id": "FluxnovaExecution",
+         "@context": {
+            "process_instance_id": {
+               "@id": "process_instance_id",
+               "@type": "@id"
+            },
+            "parent_id": {
+               "@id": "parent_id",
+               "@type": "@id"
+            },
+            "process_definition_id": {
+               "@id": "process_definition_id",
+               "@type": "@id"
+            },
+            "super_execution_id": {
+               "@id": "super_execution_id",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaExecutionListener": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaExecutionListener"
+         "@id": "FluxnovaExecutionListener"
       },
       "FluxnovaExpression": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaExpression"
+         "@id": "FluxnovaExpression"
+      },
+      "FluxnovaExternalTask": {
+         "@id": "FluxnovaExternalTask",
+         "@context": {
+            "error_details_id": {
+               "@id": "error_details_id",
+               "@type": "@id"
+            },
+            "execution_id": {
+               "@id": "execution_id",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaFailedJobRetryTimeCycle": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFailedJobRetryTimeCycle"
+         "@id": "FluxnovaFailedJobRetryTimeCycle"
       },
       "FluxnovaField": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaField"
+         "@id": "FluxnovaField"
+      },
+      "FluxnovaFilter": {
+         "@id": "FluxnovaFilter",
+         "@context": {
+            "resource_type": {
+               "@id": "resource_type"
+            }
+         }
       },
       "FluxnovaFormData": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormData"
+         "@id": "FluxnovaFormData"
+      },
+      "FluxnovaFormDefinition": {
+         "@id": "FluxnovaFormDefinition"
       },
       "FluxnovaFormField": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormField"
+         "@id": "FluxnovaFormField",
+         "@context": {
+            "properties": {
+               "@id": "properties",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaFormProperty": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaFormProperty"
+         "@id": "FluxnovaFormProperty"
       },
-      "FluxnovaGenericValueElement": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaGenericValueElement"
+      "FluxnovaGroup": {
+         "@id": "FluxnovaGroup"
+      },
+      "FluxnovaHistoricActivityInstance": {
+         "@id": "FluxnovaHistoricActivityInstance"
+      },
+      "FluxnovaHistoricBatch": {
+         "@id": "FluxnovaHistoricBatch"
+      },
+      "FluxnovaHistoricCaseActivityInstance": {
+         "@id": "FluxnovaHistoricCaseActivityInstance"
+      },
+      "FluxnovaHistoricCaseInstance": {
+         "@id": "FluxnovaHistoricCaseInstance"
+      },
+      "FluxnovaHistoricDecisionInputInstance": {
+         "@id": "FluxnovaHistoricDecisionInputInstance"
+      },
+      "FluxnovaHistoricDecisionInstance": {
+         "@id": "FluxnovaHistoricDecisionInstance"
+      },
+      "FluxnovaHistoricDecisionOutputInstance": {
+         "@id": "FluxnovaHistoricDecisionOutputInstance"
+      },
+      "FluxnovaHistoricDetail": {
+         "@id": "FluxnovaHistoricDetail"
+      },
+      "FluxnovaHistoricExternalTaskLog": {
+         "@id": "FluxnovaHistoricExternalTaskLog"
+      },
+      "FluxnovaHistoricIdentityLink": {
+         "@id": "FluxnovaHistoricIdentityLink"
+      },
+      "FluxnovaHistoricIncident": {
+         "@id": "FluxnovaHistoricIncident"
+      },
+      "FluxnovaHistoricJobLog": {
+         "@id": "FluxnovaHistoricJobLog"
+      },
+      "FluxnovaHistoricProcessInstance": {
+         "@id": "FluxnovaHistoricProcessInstance",
+         "@context": {
+            "state": {
+               "@id": "state"
+            }
+         }
+      },
+      "FluxnovaHistoricScopeInstance": {
+         "@id": "FluxnovaHistoricScopeInstance"
+      },
+      "FluxnovaHistoricTaskInstance": {
+         "@id": "FluxnovaHistoricTaskInstance"
+      },
+      "FluxnovaHistoricVariableInstance": {
+         "@id": "FluxnovaHistoricVariableInstance",
+         "@context": {
+            "state": {
+               "@id": "state"
+            }
+         }
+      },
+      "FluxnovaIdentityInfo": {
+         "@id": "FluxnovaIdentityInfo"
+      },
+      "FluxnovaIdentityLink": {
+         "@id": "FluxnovaIdentityLink",
+         "@context": {
+            "task_id": {
+               "@id": "task_id",
+               "@type": "@id"
+            },
+            "process_definition_id": {
+               "@id": "process_definition_id",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaIn": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaIn"
+         "@id": "FluxnovaIn"
+      },
+      "FluxnovaIncident": {
+         "@id": "FluxnovaIncident",
+         "@context": {
+            "execution_id": {
+               "@id": "execution_id",
+               "@type": "@id"
+            },
+            "process_instance_id": {
+               "@id": "process_instance_id",
+               "@type": "@id"
+            },
+            "process_definition_id": {
+               "@id": "process_definition_id",
+               "@type": "@id"
+            },
+            "cause_incident_id": {
+               "@id": "cause_incident_id",
+               "@type": "@id"
+            },
+            "root_cause_incident_id": {
+               "@id": "root_cause_incident_id",
+               "@type": "@id"
+            },
+            "job_definition_id": {
+               "@id": "job_definition_id",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaInputOutput": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaInputOutput"
+         "@id": "FluxnovaInputOutput"
       },
       "FluxnovaInputParameter": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaInputParameter"
+         "@id": "FluxnovaInputParameter"
+      },
+      "FluxnovaJob": {
+         "@id": "FluxnovaJob",
+         "@context": {
+            "exception_stack_id": {
+               "@id": "exception_stack_id",
+               "@type": "@id"
+            }
+         }
+      },
+      "FluxnovaJobDefinition": {
+         "@id": "FluxnovaJobDefinition"
       },
       "FluxnovaList": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaList"
+         "@id": "FluxnovaList"
       },
       "FluxnovaMap": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaMap"
+         "@id": "FluxnovaMap"
+      },
+      "FluxnovaMembership": {
+         "@id": "FluxnovaMembership",
+         "@context": {
+            "user_id": {
+               "@id": "user_id",
+               "@type": "@id"
+            },
+            "group_id": {
+               "@id": "group_id",
+               "@type": "@id"
+            }
+         }
+      },
+      "FluxnovaMeterLog": {
+         "@id": "FluxnovaMeterLog",
+         "@context": {
+            "value": {
+               "@id": "value",
+               "@type": "xsd:integer"
+            }
+         }
       },
       "FluxnovaOut": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaOut"
+         "@id": "FluxnovaOut"
       },
       "FluxnovaOutputParameter": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaOutputParameter"
+         "@id": "FluxnovaOutputParameter"
       },
       "FluxnovaPlatformData": {
          "@id": "FluxnovaPlatformData"
       },
       "FluxnovaPotentialStarter": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaPotentialStarter"
+         "@id": "FluxnovaPotentialStarter"
+      },
+      "FluxnovaProcessDefinition": {
+         "@id": "FluxnovaProcessDefinition"
       },
       "FluxnovaProperties": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaProperties"
-      },
-      "FluxnovaProperty": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaProperty"
-      },
-      "FluxnovaScript": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaScript"
-      },
-      "FluxnovaString": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaString"
-      },
-      "FluxnovaTaskListener": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaTaskListener"
-      },
-      "FluxnovaValidation": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaValidation"
-      },
-      "FluxnovaValue": {
-         "@id": "fluxnova_bpmn_model_fluxnova:FluxnovaValue"
-      },
-      "Font": {
-         "@id": "fluxnova_bpmn_model_dc:Font"
-      },
-      "FormalExpression": {
-         "@id": "fluxnova_bpmn_model_instance:FormalExpression"
-      },
-      "FormDefinition": {
-         "@id": "fluxnova_bpm_repository:FormDefinition"
-      },
-      "Gateway": {
-         "@id": "fluxnova_bpmn_model_instance:Gateway"
-      },
-      "GlobalConversation": {
-         "@id": "fluxnova_bpmn_model_instance:GlobalConversation"
-      },
-      "Group": {
-         "@id": "fluxnova_bpm_identity:Group"
-      },
-      "HistoricActivityInstance": {
-         "@id": "fluxnova_bpm_history:HistoricActivityInstance"
-      },
-      "HistoricBatch": {
-         "@id": "fluxnova_bpm_history:HistoricBatch"
-      },
-      "HistoricCaseActivityInstance": {
-         "@id": "fluxnova_bpm_history:HistoricCaseActivityInstance"
-      },
-      "HistoricCaseInstance": {
-         "@id": "fluxnova_bpm_history:HistoricCaseInstance"
-      },
-      "HistoricDecisionInputInstance": {
-         "@id": "fluxnova_bpm_history:HistoricDecisionInputInstance"
-      },
-      "HistoricDecisionInstance": {
-         "@id": "fluxnova_bpm_history:HistoricDecisionInstance"
-      },
-      "HistoricDecisionOutputInstance": {
-         "@id": "fluxnova_bpm_history:HistoricDecisionOutputInstance"
-      },
-      "HistoricDetail": {
-         "@id": "fluxnova_bpm_history:HistoricDetail"
-      },
-      "HistoricExternalTaskLog": {
-         "@id": "fluxnova_bpm_history:HistoricExternalTaskLog"
-      },
-      "HistoricIdentityLink": {
-         "@id": "fluxnova_bpm_history:HistoricIdentityLink"
-      },
-      "HistoricIncident": {
-         "@id": "fluxnova_bpm_history:HistoricIncident"
-      },
-      "HistoricJobLog": {
-         "@id": "fluxnova_bpm_history:HistoricJobLog"
-      },
-      "HistoricProcessInstance": {
-         "@id": "fluxnova_bpm_history:HistoricProcessInstance"
-      },
-      "HistoricScopeInstance": {
-         "@id": "fluxnova_bpm_history:HistoricScopeInstance"
-      },
-      "HistoricTaskInstance": {
-         "@id": "fluxnova_bpm_history:HistoricTaskInstance"
-      },
-      "HistoricVariableInstance": {
-         "@id": "fluxnova_bpm_history:HistoricVariableInstance"
-      },
-      "HumanPerformer": {
-         "@id": "fluxnova_bpmn_model_instance:HumanPerformer"
-      },
-      "IdentityInfo": {
-         "@id": "fluxnova_bpm_identity:IdentityInfo"
-      },
-      "IdentityLink": {
-         "@id": "fluxnova_bpm_identity:IdentityLink"
-      },
-      "Import": {
-         "@id": "fluxnova_bpmn_model_instance:Import"
-      },
-      "Incident": {
-         "@id": "fluxnova_bpm_runtime:Incident"
-      },
-      "InclusiveGateway": {
-         "@id": "fluxnova_bpmn_model_instance:InclusiveGateway"
-      },
-      "InputDataItem": {
-         "@id": "fluxnova_bpmn_model_instance:InputDataItem"
-      },
-      "InputSet": {
-         "@id": "fluxnova_bpmn_model_instance:InputSet"
-      },
-      "InteractionNode": {
-         "@id": "fluxnova_bpmn_model_instance:InteractionNode"
-      },
-      "Interface": {
-         "@id": "fluxnova_bpmn_model_instance:Interface"
-      },
-      "IntermediateCatchEvent": {
-         "@id": "fluxnova_bpmn_model_instance:IntermediateCatchEvent"
-      },
-      "IntermediateThrowEvent": {
-         "@id": "fluxnova_bpmn_model_instance:IntermediateThrowEvent"
-      },
-      "IoBinding": {
-         "@id": "fluxnova_bpmn_model_instance:IoBinding"
-      },
-      "IoSpecification": {
-         "@id": "fluxnova_bpmn_model_instance:IoSpecification"
-      },
-      "ItemAwareElement": {
-         "@id": "fluxnova_bpmn_model_instance:ItemAwareElement"
-      },
-      "ItemDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:ItemDefinition"
-      },
-      "Job": {
-         "@id": "fluxnova_bpm_job:Job"
-      },
-      "JobDefinition": {
-         "@id": "fluxnova_bpm_job:JobDefinition"
-      },
-      "Label": {
-         "@id": "fluxnova_bpmn_model_di:Label"
-      },
-      "LabeledEdge": {
-         "@id": "fluxnova_bpmn_model_di:LabeledEdge"
-      },
-      "LabeledShape": {
-         "@id": "fluxnova_bpmn_model_di:LabeledShape"
-      },
-      "Lane": {
-         "@id": "fluxnova_bpmn_model_instance:Lane"
-      },
-      "LaneSet": {
-         "@id": "fluxnova_bpmn_model_instance:LaneSet"
-      },
-      "LinkEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:LinkEventDefinition"
-      },
-      "LoopCardinality": {
-         "@id": "fluxnova_bpmn_model_instance:LoopCardinality"
-      },
-      "LoopCharacteristics": {
-         "@id": "fluxnova_bpmn_model_instance:LoopCharacteristics"
-      },
-      "ManualTask": {
-         "@id": "fluxnova_bpmn_model_instance:ManualTask"
-      },
-      "Membership": {
-         "@id": "fluxnova_bpm_identity:Membership"
-      },
-      "Message": {
-         "@id": "fluxnova_bpmn_model_instance:Message"
-      },
-      "MessageEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:MessageEventDefinition",
-         "@context": {
-            "message": {
-               "@id": "fluxnova_common:message",
-               "@type": "@id"
-            }
-         }
-      },
-      "MessageFlow": {
-         "@id": "fluxnova_bpmn_model_instance:MessageFlow",
-         "@context": {
-            "source": {
-               "@id": "fluxnova_common:source",
-               "@type": "@id"
-            },
-            "message": {
-               "@id": "fluxnova_common:message",
-               "@type": "@id"
-            }
-         }
-      },
-      "MessageFlowAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:MessageFlowAssociation"
-      },
-      "MeterLog": {
-         "@id": "fluxnova_bpm_base:MeterLog",
-         "@context": {
-            "value": {
-               "@id": "fluxnova_common:value",
-               "@type": "xsd:integer"
-            }
-         }
-      },
-      "ModelArtifact": {
-         "@id": "fluxnova_bpm_ai_provenance:ModelArtifact"
-      },
-      "Monitoring": {
-         "@id": "fluxnova_bpmn_model_instance:Monitoring"
-      },
-      "MultiInstanceLoopCharacteristics": {
-         "@id": "fluxnova_bpmn_model_instance:MultiInstanceLoopCharacteristics"
-      },
-      "NamedThing": {
-         "@id": "fluxnova_bpm_provenance:NamedThing"
-      },
-      "Node": {
-         "@id": "fluxnova_bpmn_model_di:Node"
-      },
-      "Operation": {
-         "@id": "fluxnova_bpmn_model_instance:Operation"
-      },
-      "OutputDataItem": {
-         "@id": "fluxnova_bpmn_model_instance:OutputDataItem"
-      },
-      "OutputSet": {
-         "@id": "fluxnova_bpmn_model_instance:OutputSet"
-      },
-      "ParallelGateway": {
-         "@id": "fluxnova_bpmn_model_instance:ParallelGateway"
-      },
-      "ParameterDefinition": {
-         "@id": "fluxnova_bpm_provenance:ParameterDefinition"
-      },
-      "ParameterValue": {
-         "@id": "fluxnova_bpm_provenance:ParameterValue"
-      },
-      "Participant": {
-         "@id": "fluxnova_bpmn_model_instance:Participant"
-      },
-      "ParticipantAssociation": {
-         "@id": "fluxnova_bpmn_model_instance:ParticipantAssociation"
-      },
-      "ParticipantMultiplicity": {
-         "@id": "fluxnova_bpmn_model_instance:ParticipantMultiplicity"
-      },
-      "Performer": {
-         "@id": "fluxnova_bpmn_model_instance:Performer"
-      },
-      "Plane": {
-         "@id": "fluxnova_bpmn_model_di:Plane"
-      },
-      "Point": {
-         "@id": "fluxnova_bpmn_model_dc:Point"
-      },
-      "PotentialOwner": {
-         "@id": "fluxnova_bpmn_model_instance:PotentialOwner"
-      },
-      "Process": {
-         "@id": "fluxnova_bpmn_model_instance:Process",
+         "@id": "FluxnovaProperties",
          "@context": {
             "properties": {
-               "@id": "fluxnova_common:properties",
+               "@id": "properties",
                "@type": "@id"
             }
          }
       },
-      "ProcessDefinition": {
-         "@id": "fluxnova_bpm_repository:ProcessDefinition"
+      "FluxnovaProperty": {
+         "@id": "FluxnovaProperty"
       },
-      "PromptMessage": {
-         "@id": "fluxnova_bpm_ai_provenance:PromptMessage"
+      "FluxnovaResourceDefinition": {
+         "@id": "FluxnovaResourceDefinition"
       },
-      "Property": {
-         "@id": "fluxnova_bpm_base:Property"
-      },
-      "ProvenanceBundle": {
-         "@id": "fluxnova_bpm_provenance:ProvenanceBundle"
-      },
-      "ProvenanceIncident": {
-         "@id": "fluxnova_bpm_provenance:ProvenanceIncident"
-      },
-      "ReceiveTask": {
-         "@id": "fluxnova_bpmn_model_instance:ReceiveTask",
-         "@context": {
-            "message": {
-               "@id": "fluxnova_common:message",
-               "@type": "@id"
-            }
-         }
-      },
-      "Relationship": {
-         "@id": "fluxnova_bpmn_model_instance:Relationship",
-         "@context": {
-            "sources": {
-               "@id": "fluxnova_bpmn_model_instance:sources"
-            }
-         }
-      },
-      "Rendering": {
-         "@id": "fluxnova_bpmn_model_instance:Rendering"
-      },
-      "Resource": {
-         "@id": "fluxnova_bpmn_model_instance:Resource"
-      },
-      "ResourceAssignmentExpression": {
-         "@id": "fluxnova_bpmn_model_instance:ResourceAssignmentExpression"
-      },
-      "ResourceDefinition": {
-         "@id": "fluxnova_bpm_repository:ResourceDefinition"
-      },
-      "ResourceParameter": {
-         "@id": "fluxnova_bpmn_model_instance:ResourceParameter",
-         "@context": {
-            "type": {
-               "@id": "fluxnova_common:type",
-               "@type": "@id"
-            }
-         }
-      },
-      "ResourceParameterBinding": {
-         "@id": "fluxnova_bpmn_model_instance:ResourceParameterBinding"
-      },
-      "ResourceRole": {
-         "@id": "fluxnova_bpmn_model_instance:ResourceRole"
-      },
-      "ResourceUsage": {
-         "@id": "fluxnova_bpm_provenance:ResourceUsage"
-      },
-      "RootElement": {
-         "@id": "fluxnova_bpmn_model_instance:RootElement"
-      },
-      "RuntimeComponent": {
-         "@id": "fluxnova_bpm_provenance:RuntimeComponent"
-      },
-      "SchemaLogEntry": {
-         "@id": "fluxnova_bpm_base:SchemaLogEntry",
+      "FluxnovaSchemaLogEntry": {
+         "@id": "FluxnovaSchemaLogEntry",
          "@context": {
             "version": {
-               "@id": "fluxnova_bpm_base:version"
+               "@id": "version"
             }
          }
       },
-      "Script": {
-         "@id": "fluxnova_bpmn_model_instance:Script"
+      "FluxnovaScript": {
+         "@id": "FluxnovaScript"
       },
-      "ScriptTask": {
-         "@id": "fluxnova_bpmn_model_instance:ScriptTask"
+      "FluxnovaString": {
+         "@id": "FluxnovaString"
       },
-      "SendTask": {
-         "@id": "fluxnova_bpmn_model_instance:SendTask",
+      "FluxnovaTask": {
+         "@id": "FluxnovaTask",
          "@context": {
-            "message": {
-               "@id": "fluxnova_common:message",
+            "execution_id": {
+               "@id": "execution_id",
+               "@type": "@id"
+            },
+            "process_instance_id": {
+               "@id": "process_instance_id",
+               "@type": "@id"
+            },
+            "process_definition_id": {
+               "@id": "process_definition_id",
+               "@type": "@id"
+            },
+            "case_execution_id": {
+               "@id": "case_execution_id",
+               "@type": "@id"
+            },
+            "case_definition_id": {
+               "@id": "case_definition_id",
                "@type": "@id"
             }
          }
       },
-      "SequenceFlow": {
-         "@id": "fluxnova_bpmn_model_instance:SequenceFlow",
+      "FluxnovaTaskListener": {
+         "@id": "FluxnovaTaskListener"
+      },
+      "FluxnovaTaskMeterLog": {
+         "@id": "FluxnovaTaskMeterLog"
+      },
+      "FluxnovaTenant": {
+         "@id": "FluxnovaTenant"
+      },
+      "FluxnovaTenantMembership": {
+         "@id": "FluxnovaTenantMembership",
          "@context": {
-            "source": {
-               "@id": "fluxnova_common:source",
+            "tenant_id": {
+               "@id": "tenant_id",
+               "@type": "@id"
+            },
+            "user_id": {
+               "@id": "user_id",
+               "@type": "@id"
+            },
+            "group_id": {
+               "@id": "group_id",
                "@type": "@id"
             }
          }
       },
-      "ServiceTask": {
-         "@id": "fluxnova_bpmn_model_instance:ServiceTask"
+      "FluxnovaUser": {
+         "@id": "FluxnovaUser"
       },
-      "Shape": {
-         "@id": "fluxnova_bpmn_model_di:Shape"
+      "FluxnovaUserOperationLogEntry": {
+         "@id": "FluxnovaUserOperationLogEntry"
       },
-      "Signal": {
-         "@id": "fluxnova_bpmn_model_instance:Signal"
+      "FluxnovaValidation": {
+         "@id": "FluxnovaValidation"
       },
-      "SignalEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:SignalEventDefinition"
+      "FluxnovaValue": {
+         "@id": "FluxnovaValue"
       },
-      "StartEvent": {
-         "@id": "fluxnova_bpmn_model_instance:StartEvent"
-      },
-      "StepDefinition": {
-         "@id": "fluxnova_bpm_provenance:StepDefinition"
-      },
-      "StepRun": {
-         "@id": "fluxnova_bpm_provenance:StepRun"
-      },
-      "Style": {
-         "@id": "fluxnova_bpmn_model_di:Style"
-      },
-      "SubConversation": {
-         "@id": "fluxnova_bpmn_model_instance:SubConversation"
-      },
-      "SubProcess": {
-         "@id": "fluxnova_bpmn_model_instance:SubProcess"
-      },
-      "Task": {
-         "@id": "fluxnova_bpm_runtime:Task"
-      },
-      "TaskMeterLog": {
-         "@id": "fluxnova_bpm_base:TaskMeterLog"
-      },
-      "Tenant": {
-         "@id": "fluxnova_bpm_identity:Tenant"
-      },
-      "TenantMembership": {
-         "@id": "fluxnova_bpm_identity:TenantMembership"
-      },
-      "TerminateEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:TerminateEventDefinition"
-      },
-      "Text": {
-         "@id": "fluxnova_bpmn_model_instance:Text"
-      },
-      "TextAnnotation": {
-         "@id": "fluxnova_bpmn_model_instance:TextAnnotation"
-      },
-      "ThrowEvent": {
-         "@id": "fluxnova_bpmn_model_instance:ThrowEvent"
-      },
-      "TimeCycle": {
-         "@id": "fluxnova_bpmn_model_instance:TimeCycle"
-      },
-      "TimeDate": {
-         "@id": "fluxnova_bpmn_model_instance:TimeDate"
-      },
-      "TimeDuration": {
-         "@id": "fluxnova_bpmn_model_instance:TimeDuration"
-      },
-      "TimerEventDefinition": {
-         "@id": "fluxnova_bpmn_model_instance:TimerEventDefinition"
-      },
-      "ToolCall": {
-         "@id": "fluxnova_bpm_ai_provenance:ToolCall"
-      },
-      "Transaction": {
-         "@id": "fluxnova_bpmn_model_instance:Transaction"
-      },
-      "User": {
-         "@id": "fluxnova_bpm_identity:User"
-      },
-      "UserOperationLogEntry": {
-         "@id": "fluxnova_bpm_history:UserOperationLogEntry"
-      },
-      "UserTask": {
-         "@id": "fluxnova_bpmn_model_instance:UserTask"
-      },
-      "VariableInstance": {
-         "@id": "fluxnova_bpm_runtime:VariableInstance"
-      },
-      "Waypoint": {
-         "@id": "fluxnova_bpmn_model_di:Waypoint"
-      },
-      "WorkflowArtifact": {
-         "@id": "fluxnova_bpm_provenance:WorkflowArtifact"
-      },
-      "WorkflowDefinition": {
-         "@id": "fluxnova_bpm_provenance:WorkflowDefinition"
-      },
-      "WorkflowRun": {
-         "@id": "fluxnova_bpm_provenance:WorkflowRun"
+      "FluxnovaVariableInstance": {
+         "@id": "FluxnovaVariableInstance",
+         "@context": {
+            "execution_id": {
+               "@id": "execution_id",
+               "@type": "@id"
+            },
+            "process_instance_id": {
+               "@id": "process_instance_id",
+               "@type": "@id"
+            },
+            "case_execution_id": {
+               "@id": "case_execution_id",
+               "@type": "@id"
+            },
+            "case_instance_id": {
+               "@id": "case_instance_id",
+               "@type": "@id"
+            },
+            "batch_id": {
+               "@id": "batch_id",
+               "@type": "@id"
+            },
+            "byte_array_id": {
+               "@id": "byte_array_id",
+               "@type": "@id"
+            }
+         }
       }
    }
 }

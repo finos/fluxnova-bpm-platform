@@ -1,7 +1,7 @@
-package None;
+package example;
 
-/* metamodel_version: 1.11.0 */
-/* version: 2.0.0-SNAPSHOT */
+/* metamodel_version: 1.12.0 */
+/* version: 3.1.1 */
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,14 +16,14 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaPlatformData  {
 
-  private List<Deployment> deployments;
-  private List<ProcessDefinition> processDefinitions;
-  private List<Execution> executions;
-  private List<Task> tasks;
-  private List<Job> jobs;
-  private List<User> users;
-  private List<Group> groups;
-  private List<Batch> batches;
+  private List<FluxnovaDeployment> deployments;
+  private List<FluxnovaProcessDefinition> processDefinitions;
+  private List<FluxnovaExecution> executions;
+  private List<FluxnovaTask> tasks;
+  private List<FluxnovaJob> jobs;
+  private List<FluxnovaUser> users;
+  private List<FluxnovaGroup> groups;
+  private List<FluxnovaBatch> batches;
 
 
 }

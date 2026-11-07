@@ -1,0 +1,129 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_dc
+name: fluxnova_bpmn_dc
+title: Fluxnova BPMN diagram common
+description: 'Diagram Common: the bounds, points and fonts diagrams use.'
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+  omgdc: http://www.omg.org/spec/DD/20100524/DC#
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+  - fluxnova_bpmn_core
+
+classes:
+  DcBounds:
+    description: A rectangle, by its top-left corner and its size, that places a shape on
+      a diagram.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdc:Bounds
+    annotations:
+      xml_name: Bounds
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DC
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/dc/BoundsImpl.java
+    in_subset:
+      - bpmn_dc
+    attributes:
+      x:
+        description: The horizontal coordinate.
+        range: double
+        required: true
+        annotations:
+          xml_name: x
+      y:
+        description: The vertical coordinate.
+        range: double
+        required: true
+        annotations:
+          xml_name: y
+      width:
+        description: The width of the rectangle.
+        range: double
+        required: true
+        annotations:
+          xml_name: width
+      height:
+        description: The height of the rectangle.
+        range: double
+        required: true
+        annotations:
+          xml_name: height
+
+  DcFont:
+    description: The font a diagram label is drawn in.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdc:Font
+    annotations:
+      xml_name: Font
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DC
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/dc/FontImpl.java
+    in_subset:
+      - bpmn_dc
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      size:
+        description: The font's size.
+        range: double
+        annotations:
+          xml_name: size
+      is_bold:
+        description: Whether the font is bold.
+        range: boolean
+        annotations:
+          xml_name: isBold
+      is_italic:
+        description: Whether the font is italic.
+        range: boolean
+        annotations:
+          xml_name: isItalic
+      is_underline:
+        description: Whether the font is underlined.
+        range: boolean
+        annotations:
+          xml_name: isUnderline
+      is_strike_through:
+        description: Whether the font is struck through.
+        range: boolean
+        annotations:
+          xml_name: isStrikeThrough
+
+  DcPoint:
+    description: A point on a diagram, by its x and y coordinates.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdc:Point
+    annotations:
+      xml_name: Point
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DC
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/dc/PointImpl.java
+    in_subset:
+      - bpmn_dc
+    attributes:
+      x:
+        description: The horizontal coordinate.
+        range: double
+        required: true
+        annotations:
+          xml_name: x
+      y:
+        description: The vertical coordinate.
+        range: double
+        required: true
+        annotations:
+          xml_name: y

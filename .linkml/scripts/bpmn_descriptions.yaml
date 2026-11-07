@@ -1,0 +1,613 @@
+---
+# Descriptions of the BPMN classes, slots and enums that scripts/bpmn_to_linkml.py
+# writes, in this project's own words. A class is keyed by the prefix of its namespace
+# and its XML name; a slot by its name, or by <Class>.<slot> where its meaning differs
+# from the generic one. The script fails on a key it cannot find, so a new element in
+# the model API needs its line here.
+
+classes:
+  BpmnModelElementInstance: >-
+    Any element of a BPMN document that Fluxnova's model API reads, the base of
+    every BPMN class here.
+
+  # Diagram Common
+  omgdc:Bounds: A rectangle, by its top-left corner and its size, that places a shape on a diagram.
+  omgdc:Font: The font a diagram label is drawn in.
+  omgdc:Point: A point on a diagram, by its x and y coordinates.
+
+  # Diagram Interchange
+  omgdi:Diagram: A diagram of a model, the root of what Diagram Interchange draws.
+  omgdi:DiagramElement: Any element drawn on a diagram.
+  omgdi:Edge: A diagram element drawn as a line through waypoints between two elements.
+  omgdi:Label: A diagram element that shows text, placed by its bounds.
+  omgdi:LabeledEdge: An edge that can carry labels.
+  omgdi:LabeledShape: A shape that can carry labels.
+  omgdi:Node: A diagram element that other elements can connect to.
+  omgdi:Plane: A diagram's drawing surface, which holds its shapes and edges.
+  omgdi:Shape: A diagram element drawn as a figure inside its bounds.
+  omgdi:Style: How a diagram element looks, such as its font or colour.
+  omgdi:extension: Tool-specific content attached to a diagram element.
+  omgdi:waypoint: A point an edge passes through.
+
+  # BPMN Diagram Interchange
+  bpmndi:BPMNDiagram: A diagram of BPMN elements, with its plane and the label styles it uses.
+  bpmndi:BPMNEdge: >-
+    The line that draws a connecting BPMN element, such as a sequence flow, message
+    flow or association.
+  bpmndi:BPMNLabel: The label of a BPMN shape or edge, where its text is drawn.
+  bpmndi:BPMNLabelStyle: A font that BPMN labels share.
+  bpmndi:BPMNPlane: The plane of a BPMN diagram, drawing one process, collaboration or sub-process.
+  bpmndi:BPMNShape: The figure that draws a BPMN element such as a task, event, gateway, pool or lane.
+
+  # BPMN 2.0 semantic elements
+  bpmn:InteractionNode: >-
+    An element a message flow or conversation link can connect, such as a
+    participant, task or event.
+  bpmn:activationCondition: >-
+    The condition a complex gateway checks to decide when enough incoming flows have
+    arrived to continue.
+  bpmn:activity: Work a process performs, either a task or a sub-process.
+  bpmn:adHocSubProcess: A sub-process whose inner activities run in no fixed order, as its performers choose.
+  bpmn:artifact: An element that adds information to a diagram without changing how the process runs.
+  bpmn:assignment: A copy of a value from one expression to another within a data association.
+  bpmn:association: A link between an artifact, such as a text annotation, and another element.
+  bpmn:auditing: A hook for auditing a process or flow element, left to the implementation.
+  bpmn:baseElement: The base of nearly every BPMN element, giving it an id, documentation and extensions.
+  bpmn:boundaryEvent: An event attached to the boundary of an activity, which can interrupt it.
+  bpmn:businessRuleTask: A task that hands data to a business rules engine and receives its result.
+  bpmn:callActivity: An activity that calls a separate process or global task.
+  bpmn:callConversation: A conversation that calls a collaboration or global conversation defined elsewhere.
+  bpmn:callableElement: An element another process can call, such as a process.
+  bpmn:cancelEventDefinition: The trigger of an event that cancels a transaction sub-process.
+  bpmn:catchEvent: An event that waits for a trigger, such as a start or intermediate catch event.
+  bpmn:category: A named set of category values that groups elements.
+  bpmn:categoryValue: One value of a category, which a group shows.
+  bpmn:childLaneSet: The lanes a lane is divided into.
+  bpmn:collaboration: The participants of a model and the messages and conversations between them.
+  bpmn:compensateEventDefinition: The trigger of an event that starts or catches compensation.
+  bpmn:completionCondition: The condition that ends a multi-instance activity or an ad-hoc sub-process early.
+  bpmn:complexBehaviorDefinition: >-
+    A rule of a multi-instance activity that throws an event when its condition holds
+    as instances complete.
+  bpmn:complexGateway: A gateway that splits or joins flows by conditions of its own.
+  bpmn:condition: The expression a conditional event evaluates.
+  bpmn:conditionExpression: The expression that decides whether a sequence flow is taken.
+  bpmn:conditionalEventDefinition: The trigger of an event that fires when a condition becomes true.
+  bpmn:conversation: A set of message flows between participants that belong together.
+  bpmn:conversationAssociation: A link between a conversation node and one that refines it.
+  bpmn:conversationLink: A link between a participant and a conversation node.
+  bpmn:conversationNode: Any node of a conversation diagram, such as a conversation or sub-conversation.
+  bpmn:correlationKey: A set of correlation properties that together identify a conversation.
+  bpmn:correlationProperty: A value read from messages that ties them to one conversation.
+  bpmn:correlationPropertyBinding: The expression that gives a correlation property its value in a process.
+  bpmn:correlationPropertyRetrievalExpression: The expression that reads a correlation property from one message.
+  bpmn:correlationSubscription: How a process instance subscribes to messages by a correlation key.
+  bpmn:dataAssociation: A copy of data from sources to a target as an activity or event runs.
+  bpmn:dataInput: A piece of data an activity, process or event needs.
+  bpmn:dataInputAssociation: A data association that feeds a data input.
+  bpmn:dataObject: Data a process creates or uses while it runs.
+  bpmn:dataObjectReference: A use of a data object at one place in a process.
+  bpmn:dataOutput: A piece of data an activity, process or event produces.
+  bpmn:dataOutputAssociation: A data association that carries a data output on.
+  bpmn:dataPath: The expression that finds a correlation property's value in process data.
+  bpmn:dataState: The state of a data object or data store, such as draft or approved.
+  bpmn:dataStore: Data that lasts beyond one process instance, such as a database.
+  bpmn:dataStoreReference: A use of a data store at one place in a process.
+  bpmn:definitions: The root of a BPMN document, which holds its processes, collaborations and diagrams.
+  bpmn:documentation: Text that documents an element.
+  bpmn:endEvent: An event that ends a path of a process.
+  bpmn:endPoint: A place where a participant can be reached for messages.
+  bpmn:error: An error that an activity can throw and an event can catch.
+  bpmn:errorEventDefinition: The trigger of an event that throws or catches an error.
+  bpmn:escalation: An escalation that an activity can throw and an event can catch.
+  bpmn:escalationEventDefinition: The trigger of an event that throws or catches an escalation.
+  bpmn:event: Something that happens while a process runs, such as a start, a message or a timer.
+  bpmn:eventBasedGateway: A gateway that takes the path of whichever following event happens first.
+  bpmn:eventDefinition: What triggers an event, such as a message, timer or signal.
+  bpmn:exclusiveGateway: A gateway that takes exactly one of its outgoing flows.
+  bpmn:expression: An expression whose language and body the model leaves open.
+  bpmn:extension: A declaration that a document uses an extension, by its definition.
+  bpmn:extensionElements: The container for an element's extension content, such as Fluxnova's settings.
+  bpmn:flowElement: An element that takes part in the flow of a process, such as an activity or sequence flow.
+  bpmn:flowNode: A flow element that sequence flows connect, such as an activity, event or gateway.
+  bpmn:formalExpression: An expression in a stated language, with the type it evaluates to.
+  bpmn:from: The expression an assignment copies a value from.
+  bpmn:gateway: A point where a process's flows split or join.
+  bpmn:globalConversation: A conversation defined on its own so that collaborations can call it.
+  bpmn:group: An artifact that draws a box around elements of one category value.
+  bpmn:humanPerformer: The person who performs an activity.
+  bpmn:import: A document the definitions import elements from.
+  bpmn:inclusiveGateway: A gateway that takes every outgoing flow whose condition holds.
+  bpmn:inputDataItem: The data input each instance of a multi-instance activity receives.
+  bpmn:inputSet: A set of data inputs that is enough for an activity or event to start.
+  bpmn:interface: A set of operations a participant offers.
+  bpmn:intermediateCatchEvent: An event on a process's path that waits for a trigger.
+  bpmn:intermediateThrowEvent: An event on a process's path that throws a trigger.
+  bpmn:ioBinding: A link between an operation's messages and a callable element's input and output sets.
+  bpmn:ioSpecification: The data inputs and outputs of an activity or process, and their sets.
+  bpmn:itemAwareElement: An element that holds data of an item definition, such as a data object or data input.
+  bpmn:itemDefinition: The type of data an element holds or a message carries.
+  bpmn:lane: A partition of a process that groups flow nodes, often by who performs them.
+  bpmn:laneSet: The lanes that divide a process or sub-process.
+  bpmn:linkEventDefinition: The trigger of a pair of events that join two paths of a process like a jump.
+  bpmn:loopCardinality: The expression that says how many instances a multi-instance activity creates.
+  bpmn:loopCharacteristics: How an activity repeats.
+  bpmn:manualTask: A task done by a person without any system's help.
+  bpmn:message: What one participant sends another.
+  bpmn:messageEventDefinition: The trigger of an event that sends or receives a message.
+  bpmn:messageFlow: The path of a message between two participants.
+  bpmn:messageFlowAssociation: A link between a message flow and one that refines it.
+  bpmn:messagePath: The expression that finds a correlation property's value in a message.
+  bpmn:monitoring: A hook for monitoring a process or flow element, left to the implementation.
+  bpmn:multiInstanceLoopCharacteristics: How an activity runs once for each item of a collection, in sequence or in parallel.
+  bpmn:operation: An operation of an interface, with the messages it takes and returns.
+  bpmn:outputDataItem: The data output each instance of a multi-instance activity produces.
+  bpmn:outputSet: A set of data outputs an activity or event produces together.
+  bpmn:parallelGateway: A gateway that takes all its outgoing flows, or waits for all its incoming ones.
+  bpmn:participant: A party in a collaboration, usually drawn as a pool, and the process it runs.
+  bpmn:participantAssociation: A link between a participant and one that a called collaboration defines.
+  bpmn:participantMultiplicity: How many instances of a participant take part, from a minimum to a maximum.
+  bpmn:partitionElement: The element a lane stands for, such as a performer.
+  bpmn:performer: The resource that performs an activity.
+  bpmn:potentialOwner: A person who may claim and perform a user task.
+  bpmn:process: A sequence of activities, events and gateways that a participant performs.
+  bpmn:property: A variable of a process, activity or event.
+  bpmn:receiveTask: A task that waits for a message.
+  bpmn:relationship: An informal link between elements of different models.
+  bpmn:rendering: A hint for how a user task appears to the person who performs it.
+  bpmn:resource: A resource, such as a person or role, that can perform activities.
+  bpmn:resourceAssignmentExpression: The expression that chooses who performs an activity.
+  bpmn:resourceParameter: A parameter that narrows which resources a resource stands for.
+  bpmn:resourceParameterBinding: The value a resource role gives a resource parameter.
+  bpmn:resourceRole: The role a resource plays in an activity or process.
+  bpmn:rootElement: An element that can sit directly in a document's definitions, such as a process or message.
+  bpmn:script: The body of a script task's script.
+  bpmn:scriptTask: A task that runs a script.
+  bpmn:sendTask: A task that sends a message.
+  bpmn:sequenceFlow: The order of two flow nodes in a process, from a source to a target.
+  bpmn:serviceTask: A task that calls a service, such as a web service or application code.
+  bpmn:signal: A signal that is broadcast to every event waiting for it.
+  bpmn:signalEventDefinition: The trigger of an event that sends or receives a signal.
+  bpmn:source: An element a relationship starts from.
+  bpmn:startEvent: An event that starts a process or sub-process.
+  bpmn:subConversation: A conversation node that groups other conversation nodes.
+  bpmn:subProcess: An activity that holds a process of its own.
+  bpmn:target: An element a relationship leads to.
+  bpmn:task: An atomic activity, one that is not broken down further.
+  bpmn:terminateEventDefinition: The trigger of an end event that ends the whole process instance at once.
+  bpmn:text: The text of a text annotation.
+  bpmn:textAnnotation: An artifact that adds a note to a diagram.
+  bpmn:throwEvent: An event that throws a trigger, such as an end or intermediate throw event.
+  bpmn:timeCycle: The expression for a timer that fires repeatedly.
+  bpmn:timeDate: The expression for a timer that fires at a point in time.
+  bpmn:timeDuration: The expression for a timer that fires once a duration has passed.
+  bpmn:timerEventDefinition: The trigger of an event that fires at a time, after a duration or on a cycle.
+  bpmn:to: The expression an assignment copies a value to.
+  bpmn:transaction: A sub-process whose activities succeed or are undone together.
+  bpmn:transformation: The expression that changes data as a data association copies it.
+  bpmn:userTask: A task a person performs with the help of a software application.
+
+  # Fluxnova extension elements
+  camunda:connector: A connector that a service task or message event calls, with its id and its inputs and outputs.
+  camunda:connectorId: The id of the connector to call.
+  camunda:constraint: A rule a form field's value must meet, such as required or a maximum length.
+  camunda:entry: One key and value of a map.
+  camunda:errorEventDefinition: An error event definition on an external service task, raised when its expression holds.
+  camunda:executionListener: Code the engine runs when an execution passes an event of an element, such as its start or end.
+  camunda:expression: An expression a field injects.
+  camunda:failedJobRetryTimeCycle: How often, and how many times, the engine retries a failed job.
+  camunda:field: A value injected into a field of a delegate class, as a string or an expression.
+  camunda:formData: The form fields of a generated task or start form.
+  camunda:formField: One field of a generated form.
+  camunda:formProperty: A form property, the older way of declaring a generated form's fields.
+  camunda:in: A variable or business key passed into a called process or case.
+  camunda:inputOutput: The input and output parameters of an activity or connector.
+  camunda:inputParameter: A variable set in an activity's scope before it starts.
+  camunda:list: A list value of a parameter.
+  camunda:map: A map value of a parameter.
+  camunda:out: A variable passed back from a called process or case.
+  camunda:outputParameter: A variable set outside an activity once it ends.
+  camunda:potentialStarter: The users or groups who may start a process.
+  camunda:properties: A set of key and value properties on an element.
+  camunda:property: One key and value property.
+  camunda:script: A script whose result is a value, such as a parameter's or a listener's.
+  camunda:string: A string a field injects.
+  camunda:taskListener: Code the engine runs when a user task reaches an event, such as its creation or completion.
+  camunda:validation: The constraints of a form field.
+  camunda:value: One option of an enumerated form field.
+
+slots:
+  activation_condition: The condition that decides when the gateway may continue.
+  activity_ref: The id of the activity to compensate; when absent, every compensable activity in scope is.
+  artifacts: The artifacts, such as text annotations and groups, this element holds.
+  assignments: The copies of values this data association makes.
+  association_direction: Which ends of the association an arrow is drawn at.
+  attached_to_ref: The QName of the activity this event is attached to.
+  auditing: The element's auditing hook.
+  behavior: When the multi-instance activity throws an event as its instances complete.
+  bounds: Where the element is drawn, and how large.
+  bpmn_diagrams: The diagrams of the document.
+  bpmn_element: The QName of the BPMN element this diagram element draws.
+  bpmn_label: The label drawn with this shape or edge.
+  bpmn_label_styles: The label styles this diagram's labels use.
+  bpmn_plane: The plane that holds this diagram's shapes and edges.
+  called_collaboration_ref: The QName of the collaboration or global conversation this conversation calls.
+  called_element: The id of the process or global task this activity calls.
+  cancel_activity: Whether the event, when it fires, interrupts the activity it is attached to.
+  cancel_remaining_instances: Whether the activities still running are cancelled once the completion condition holds.
+  capacity: How many items the data store can hold.
+  category_value_ref: The QName of the category value this group shows.
+  category_value_refs: The QNames of the category values this element belongs to.
+  category_values: The values of this category.
+  child_lane_set: The lanes this lane is divided into.
+  choreography_activity_shape: The QName of the choreography activity shape this participant band belongs to.
+  completion_condition: The condition that ends the activity early when it holds.
+  completion_quantity: How many tokens the activity sends on when it completes.
+  complex_behavior_definitions: The rules that throw events as instances complete.
+  condition: The condition the event waits for.
+  condition_expression: The condition that decides whether the flow is taken.
+  connector_id: The id of the connector to call.
+  constraints: The constraints the value must meet.
+  conversation_associations: The links between conversation nodes and the ones that refine them.
+  conversation_links: The links between participants and conversation nodes.
+  conversation_nodes: The conversations and sub-conversations this element holds.
+  correlation_key_ref: The QName of the correlation key this subscription uses.
+  correlation_keys: The correlation keys this element defines.
+  correlation_property_bindings: How the process gives each correlation property its value.
+  correlation_property_ref: The QName of the correlation property this binding gives a value.
+  correlation_property_refs: The QNames of the correlation properties that make up this key.
+  correlation_property_retrieval_expressions: How the property is read from each kind of message.
+  correlation_subscriptions: The correlation subscriptions of the process.
+  data_input_associations: How data reaches the element's inputs.
+  data_input_refs: The ids of the data inputs this set holds.
+  data_inputs: The data inputs.
+  data_object_ref: The id of the data object this reference uses.
+  data_output_associations: How data leaves the element's outputs.
+  data_output_refs: The ids of the data outputs this set holds.
+  data_outputs: The data outputs.
+  data_path: The expression that finds the value in process data.
+  data_state: The state the data is in.
+  data_store_ref: The QName of the data store this reference uses.
+  default: The id of the sequence flow taken when no other outgoing flow's condition holds.
+  definition: The QName of the extension's definition.
+  diagram_elements: The shapes and edges on this plane.
+  direction: Which way the relationship points.
+  documentation: Text that documents the element.
+  element_type: >-
+    The name of the class an element is, which says which element it is when a
+    slot's range admits several.
+  end_point_refs: The QNames of the end points where the participant can be reached.
+  entries: The map's entries.
+  error_code: The code that identifies the error.
+  error_ref: The QName of the error thrown or caught.
+  error_refs: The QNames of the errors the operation can raise.
+  escalation_code: The code that identifies the escalation.
+  escalation_ref: The QName of the escalation thrown or caught.
+  evaluates_to_type_ref: The QName of the item definition the expression's result has.
+  event_definition_refs: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
+  event_definitions: The event definitions that trigger this event.
+  event_gateway_type: Whether the gateway starts one process instance for the first event or waits for all of them.
+  exporter: The tool that wrote the document.
+  exporter_version: The version of the tool that wrote the document.
+  expression: The expression that gives the value.
+  expression_language: The language the document's expressions are written in unless one says otherwise, as a URI.
+  extension: Tool-specific content of the diagram element.
+  extension_elements: The element's extension content, such as Fluxnova's settings.
+  extensions: The extensions the document uses.
+  fields: The fields injected into the listener's delegate class.
+  flow_elements: The activities, events, gateways, sequence flows and data this element holds.
+  flow_node_refs: The ids of the flow nodes in this lane.
+  fluxnova_assignee: The user the task is assigned to, as a user id or an expression.
+  fluxnova_async: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
+  fluxnova_async_after: Whether the engine commits and continues asynchronously after the element.
+  fluxnova_async_before: Whether the engine commits and continues asynchronously before the element.
+  fluxnova_business_key: The business key passed to the called process.
+  fluxnova_called_element_binding: Which version of the called process to use, such as the latest or the one deployed with this one.
+  fluxnova_called_element_tenant_id: The tenant whose called process to use.
+  fluxnova_called_element_version: The version of the called process, when the binding asks for one.
+  fluxnova_called_element_version_tag: The version tag of the called process, when the binding asks for one.
+  fluxnova_candidate_groups: The groups whose members may claim the task, as a comma-separated list or an expression.
+  fluxnova_candidate_starter_groups: The groups whose members may start the process.
+  fluxnova_candidate_starter_users: The users who may start the process.
+  fluxnova_candidate_users: The users who may claim the task, as a comma-separated list or an expression.
+  fluxnova_case_binding: Which version of the called case to use.
+  fluxnova_case_ref: The key of the case definition to call.
+  fluxnova_case_tenant_id: The tenant whose called case to use.
+  fluxnova_case_version: The version of the called case, when the binding asks for one.
+  fluxnova_class: The Java class the engine instantiates to run the element.
+  fluxnova_collection: The collection, or the expression giving it, whose items each instance receives.
+  fluxnova_config: The constraint's setting, such as the maximum length.
+  fluxnova_date_pattern: The pattern a date value is written in.
+  fluxnova_decision_ref: The key of the decision to evaluate.
+  fluxnova_decision_ref_binding: Which version of the decision to use.
+  fluxnova_decision_ref_tenant_id: The tenant whose decision to use.
+  fluxnova_decision_ref_version: The version of the decision, when the binding asks for one.
+  fluxnova_decision_ref_version_tag: The version tag of the decision, when the binding asks for one.
+  fluxnova_default: The property's default value.
+  fluxnova_default_value: The field's default value.
+  fluxnova_delegate_expression: An expression that gives the delegate object the engine calls.
+  fluxnova_due_date: When the task is due, as a date or an expression.
+  fluxnova_element_variable: The variable each instance receives its item of the collection in.
+  fluxnova_error_code_variable: The variable the caught error's code is stored in.
+  fluxnova_error_message: The message of the error.
+  fluxnova_error_message_variable: The variable the caught error's message is stored in.
+  fluxnova_event: The event the listener runs on, such as start, end, take, create or complete.
+  fluxnova_exclusive: Whether the element's jobs run one at a time within a process instance.
+  fluxnova_expression: An expression the engine evaluates to run the element.
+  fluxnova_follow_up_date: When the task should be looked at again, as a date or an expression.
+  fluxnova_form_handler_class: The Java class that handles the form.
+  fluxnova_form_key: The key of the form to show.
+  fluxnova_form_ref: The key of the deployed form to show.
+  fluxnova_form_ref_binding: Which version of the deployed form to use.
+  fluxnova_form_ref_version: The version of the deployed form, when the binding asks for one.
+  fluxnova_history_time_to_live: How long the engine keeps the process's history before it may remove it.
+  fluxnova_id: The id of the extension element.
+  fluxnova_initiator: The variable the id of the user who started the process is stored in.
+  fluxnova_is_startable_in_tasklist: Whether the tasklist offers the process to be started.
+  fluxnova_is_transient: Whether the variable is kept only while the transaction runs.
+  fluxnova_job_priority: The priority of the element's jobs.
+  fluxnova_key: The entry's key.
+  fluxnova_label: The label shown with the field.
+  fluxnova_local: Whether only the local variables of the calling scope are passed.
+  fluxnova_map_decision_result: How the decision's result is mapped into a variable.
+  fluxnova_name: The name of the extension element.
+  fluxnova_priority: The task's priority, as a number or an expression.
+  fluxnova_readable: Whether the property can be read.
+  fluxnova_required: Whether the property must be given a value.
+  fluxnova_resource: A resource that holds the script, instead of the script's text.
+  fluxnova_restricted: Whether the mapping is restricted, a setting Fluxnova adds in its own namespace.
+  fluxnova_result_variable: The variable the result is stored in.
+  fluxnova_source: The variable in the source scope to pass.
+  fluxnova_source_expression: The expression whose value is passed.
+  fluxnova_string_value: The string injected into the field.
+  fluxnova_target: The variable in the target scope that receives the value.
+  fluxnova_task_priority: The priority of the external tasks the element creates.
+  fluxnova_topic: The topic of the external task the element creates.
+  fluxnova_type: The element's type, such as external for an external task or the form field's value type.
+  fluxnova_value: The property's value.
+  fluxnova_variable: The variable the property is bound to.
+  fluxnova_variable_events: The variable events, such as create or update, that make the engine check the condition.
+  fluxnova_variable_mapping_class: The Java class that maps variables into and out of the called process.
+  fluxnova_variable_mapping_delegate_expression: An expression giving the delegate that maps variables into and out of the called process.
+  fluxnova_variable_name: The variable whose changes make the engine check the condition.
+  fluxnova_variables: Which variables are passed; all passes every one.
+  fluxnova_version_tag: The tag the process version carries.
+  fluxnova_writeable: Whether the property can be written.
+  font: The font the labels are drawn in.
+  form_fields: The fields of the form.
+  from: The expression the value is copied from.
+  gateway_direction: Whether the gateway splits flows, joins them, does both, or is not said.
+  height: The height of the rectangle.
+  id: The element's id, unique within its document.
+  implementation: >-
+    The technology that runs the task, as a URI; the engine reads its own settings
+    instead.
+  implementation_ref: The QName of what implements the element.
+  import_type: The kind of document imported, as the URI of its language.
+  imports: The documents whose elements this one imports.
+  in_message_ref: The QName of the message the operation takes.
+  incoming: The QNames of the sequence flows that enter this node.
+  inner_conversation_node_ref: The QName of the conversation node that refines the outer one.
+  inner_message_flow_ref: The QName of the message flow that refines the outer one.
+  inner_participant_ref: The QName of the participant inside the called collaboration.
+  input_data_item: The data input of each instance.
+  input_data_ref: The id of the input set the binding uses.
+  input_output: The connector's input and output parameters.
+  input_parameters: The input parameters.
+  input_set: The input set the event's data inputs make up.
+  input_set_refs: The ids of the input sets this output set can be produced from.
+  input_sets: The sets of inputs, each enough to start.
+  instantiate: Whether the element starts a new process instance.
+  interface_refs: The QNames of the interfaces the participant offers.
+  io_bindings: How the element's operations map to its input and output sets.
+  io_specification: The element's data inputs and outputs.
+  is_bold: Whether the font is bold.
+  is_closed: Whether no interactions occur other than those the model shows.
+  is_collection: Whether the element holds a collection of items.
+  is_executable: Whether the process is meant to be run by an engine.
+  is_expanded: Whether a sub-process or call activity is drawn expanded.
+  is_for_compensation: Whether the activity runs only to compensate another.
+  is_horizontal: Whether a pool or lane is drawn horizontally.
+  is_immediate: Whether the flow's target follows its source with no other activity between them.
+  is_interrupting: Whether the event, when it starts an event sub-process, interrupts its parent.
+  is_italic: Whether the font is italic.
+  is_marker_visible: Whether an exclusive gateway is drawn with its marker.
+  is_message_visible: Whether a participant band is drawn with its message.
+  is_required: Whether the parameter must be given a value.
+  is_sequential: Whether the instances run one after another rather than at once.
+  is_strike_through: Whether the font is struck through.
+  is_underline: Whether the font is underlined.
+  is_unlimited: Whether the data store's capacity has no limit.
+  item_kind: Whether the item is information or a physical thing.
+  item_ref: The QName of the item definition the message carries.
+  item_subject_ref: The QName of the item definition of the data.
+  label_style: The QName of the label style the label uses.
+  lane_sets: The lane sets that divide the element.
+  lanes: The lanes of the set.
+  language: The language the expression is written in, as a URI.
+  location: Where the imported document is.
+  loop_cardinality: How many instances to create.
+  loop_characteristics: How the activity repeats.
+  loop_data_input_ref: The id of the collection the instances are created from.
+  loop_data_output_ref: The id of the collection the instances' outputs go to.
+  maximum: The most instances that take part.
+  message_flow_associations: The links between message flows and the ones that refine them.
+  message_flow_refs: The QNames of the message flows the conversation node groups.
+  message_flows: The message flows between the participants.
+  message_path: The expression that finds the value in the message.
+  message_ref: The QName of the message sent or received.
+  message_visible_kind: Whether the message the edge carries is drawn as initiating or not.
+  method: How the transaction commits or cancels; compensation unless the document says otherwise.
+  minimum: The fewest instances that take part.
+  monitoring: The element's monitoring hook.
+  must_understand: Whether a tool reading the document must understand the extension.
+  name: The element's name.
+  namespace: The namespace of the imported document.
+  none_behavior_event_ref: The QName of the event thrown when no instance's completion matches.
+  one_behavior_event_ref: The QName of the event thrown when the first instance completes.
+  operation_ref: The QName of the operation the element calls or implements.
+  operations: The interface's operations.
+  optional_input_refs: The ids of inputs the set may do without.
+  optional_output_refs: The ids of outputs the set may leave out.
+  ordering: Whether the inner activities run in parallel or one after another.
+  out_message_ref: The QName of the message the operation returns.
+  outer_conversation_node_ref: The QName of the conversation node being refined.
+  outer_message_flow_ref: The QName of the message flow being refined.
+  outer_participant_ref: The QName of the participant in the calling collaboration.
+  outgoing: The QNames of the sequence flows that leave this node.
+  output_data_item: The data output of each instance.
+  output_data_ref: The id of the output set the binding uses.
+  output_parameters: The output parameters.
+  output_set: The output set the event's data outputs make up.
+  output_set_refs: The ids of the output sets this input set can lead to.
+  output_sets: The sets of outputs.
+  parallel_multiple: Whether all of the event's triggers must happen, rather than any one.
+  parameter_ref: The QName of the parameter given a value.
+  participant_associations: The links between participants and those in called collaborations.
+  participant_band_kind: Where a participant band sits on a choreography activity, and whether it initiates.
+  participant_multiplicity: How many instances of the participant take part.
+  participant_refs: The QNames of the participants in the conversation.
+  participants: The participants, usually drawn as pools.
+  partition_element: The element the lane stands for.
+  partition_element_ref: The QName of the element the lane stands for.
+  process_ref: The QName of the process the participant runs.
+  process_type: Whether the process is private to its participant, public, or neither.
+  properties: The element's properties.
+  relationships: The relationships between this document's elements and others.
+  renderings: Hints for how the task appears to its performer.
+  resolution: The resolution of the diagram, in units per inch.
+  resource: A resource that holds the script, instead of the script's text.
+  resource_assignment_expression: The expression that chooses the resource.
+  resource_parameter_bindings: The values given to the resource's parameters.
+  resource_parameters: The resource's parameters.
+  resource_ref: The QName of the resource that plays the role.
+  resource_roles: The roles resources play in the element, such as its performers.
+  root_elements: The processes, collaborations, messages, signals and other elements of the document.
+  script: The script the element runs.
+  script_format: The language the script is written in, such as groovy or javascript.
+  signal_ref: The QName of the signal sent or received.
+  size: The font's size.
+  source_element: The QName of the diagram element the edge starts at.
+  source_ref: The id or QName of the element the connection starts at.
+  source_refs: The ids of the data the association copies from.
+  sources: The QNames of the elements the relationship starts from.
+  start_quantity: How many tokens must arrive before the activity starts.
+  string: The string injected into the field.
+  structure_ref: The QName of the type of the data, such as an XML Schema type.
+  supported_interface_refs: The QNames of the interfaces the element supports.
+  supports: The QNames of the processes this one supports.
+  target: The QName of the catching link event this one jumps to.
+  target_element: The QName of the diagram element the edge ends at.
+  target_namespace: The namespace of the elements this document defines.
+  target_ref: The id or QName of the element the connection ends at.
+  targets: The QNames of the elements the relationship leads to.
+  text: The annotation's text.
+  text_content: The element's text, such as the body of an expression or a script.
+  text_format: The format of the text, as a MIME type.
+  time_cycle: The timer's cycle.
+  time_date: The timer's point in time.
+  time_duration: The timer's duration.
+  timer_event_definition: The timer of a listener that runs on a timeout.
+  to: The expression the value is copied to.
+  transformation: The expression that changes the data as it is copied.
+  triggered_by_event: Whether the sub-process is an event sub-process, started by an event.
+  type: The QName of the element's type.
+  type_language: The language the document's types are written in, as a URI.
+  validation: The rules the field's value must meet.
+  value: The category value's text.
+  values: The options of an enumerated field.
+  wait_for_completion: Whether the throwing event waits for the compensation to finish.
+  waypoints: The points the edge passes through, in order.
+  while_executing_input_refs: The ids of inputs the element can take while it runs.
+  while_executing_output_refs: The ids of outputs the element can produce while it runs.
+  width: The width of the rectangle.
+  x: The horizontal coordinate.
+  xsi_type: The XML Schema type of the expression, a formal expression unless the document says otherwise.
+  y: The vertical coordinate.
+
+  # Where one name means something else on one class.
+  BpmnDefinitions.id: The document's id.
+  BpmnDefinitions.name: The document's name.
+  BpmnRelationship.type: What kind of relationship it is.
+  BpmnResourceParameter.type: The QName of the parameter's type.
+  BpmnCorrelationProperty.type: The QName of the property's type.
+  BpmnResourceParameterBinding.expression: The expression that gives the parameter its value.
+  BpmnResourceAssignmentExpression.expression: The expression that chooses the resource.
+  BpmnLinkEventDefinition.sources: The QNames of the throwing link events that jump to this one.
+  BpmnUserTask.implementation: The technology that runs the task, as a URI.
+  FluxnovaField.expression: The expression injected into the field.
+  FluxnovaFormField.properties: The field's properties.
+  FluxnovaProperties.properties: The properties.
+  FluxnovaExecutionListener.script: The script the listener runs.
+  FluxnovaTaskListener.script: The script the listener runs.
+  BpmnScriptTask.script: The script the task runs.
+  BpmnScriptTask.fluxnova_resource: A resource that holds the script, instead of the script's text.
+  BpmnConditionExpression.fluxnova_resource: A resource that holds the script of a script condition.
+  FluxnovaFormField.fluxnova_type: The type of the field's value, such as string, long, boolean, date or enum.
+  FluxnovaFormProperty.fluxnova_type: The type of the property's value.
+  FluxnovaFormField.fluxnova_id: The field's id, which names the variable it is stored in.
+  FluxnovaFormProperty.fluxnova_id: The property's id.
+  FluxnovaValue.fluxnova_id: The option's id, its stored value.
+  FluxnovaValue.fluxnova_name: The option's label.
+  FluxnovaProperty.fluxnova_name: The property's name.
+  FluxnovaProperty.fluxnova_id: The property's id.
+  FluxnovaInputParameter.fluxnova_name: The variable the parameter sets.
+  FluxnovaOutputParameter.fluxnova_name: The variable the parameter sets.
+  FluxnovaField.fluxnova_name: The name of the field to inject.
+  FluxnovaConstraint.fluxnova_name: The constraint's name, such as required, minlength or max.
+  FluxnovaFormProperty.fluxnova_name: The property's label.
+  FluxnovaFormProperty.fluxnova_expression: An expression that gives the property's value.
+  FluxnovaErrorEventDefinition.fluxnova_expression: The expression that, when true, raises the error.
+  FluxnovaField.fluxnova_expression: The expression injected into the field.
+  FluxnovaExecutionListener.fluxnova_expression: An expression the engine evaluates when the listener runs.
+  FluxnovaTaskListener.fluxnova_expression: An expression the engine evaluates when the listener runs.
+  BpmnMultiInstanceLoopCharacteristics.fluxnova_async_before: Whether each instance starts asynchronously.
+  BpmnMultiInstanceLoopCharacteristics.fluxnova_async_after: Whether the engine continues asynchronously after each instance.
+  BpmnMultiInstanceLoopCharacteristics.fluxnova_exclusive: Whether the instances' jobs run one at a time.
+  BpmnProcess.fluxnova_job_priority: The default priority of the process's jobs.
+  BpmnProcess.fluxnova_task_priority: The default priority of the process's external tasks.
+
+enums:
+  enum:AssociationDirection: Which ends of an association an arrow is drawn at.
+  enum:AssociationDirection.None: No arrow is drawn.
+  enum:AssociationDirection.One: An arrow points at the target.
+  enum:AssociationDirection.Both: Arrows point at both ends.
+  enum:EventBasedGatewayType: How an event-based gateway that starts a process waits for its events.
+  enum:EventBasedGatewayType.Exclusive: The first event starts the instance, and the others are no longer waited for.
+  enum:EventBasedGatewayType.Parallel: Each event starts an instance, or joins the one already started.
+  enum:GatewayDirection: Whether a gateway splits flows, joins them or does both.
+  enum:GatewayDirection.Unspecified: The model does not say.
+  enum:GatewayDirection.Converging: The gateway joins incoming flows into one.
+  enum:GatewayDirection.Diverging: The gateway splits one flow into several.
+  enum:GatewayDirection.Mixed: The gateway both joins and splits.
+  enum:ItemKind: Whether an item is information or a physical thing.
+  enum:ItemKind.Information: The item is information.
+  enum:ItemKind.Physical: The item is a physical thing.
+  enum:MessageVisibleKind: Whether the message on a message flow is drawn as the one that starts the exchange.
+  enum:MessageVisibleKind.initiating: The message starts the exchange.
+  enum:MessageVisibleKind.non_initiating: The message answers one that started the exchange.
+  enum:MultiInstanceFlowCondition: When a multi-instance activity throws an event as its instances complete.
+  enum:MultiInstanceFlowCondition.None: An event is thrown for each instance that completes.
+  enum:MultiInstanceFlowCondition.One: An event is thrown when the first instance completes.
+  enum:MultiInstanceFlowCondition.All: No event is thrown.
+  enum:MultiInstanceFlowCondition.Complex: The complex behavior definitions decide which events are thrown.
+  enum:ParticipantBandKind: Where a participant band sits on a choreography activity, and whether its participant initiates.
+  enum:ParticipantBandKind.top_initiating: The top band, of the initiating participant.
+  enum:ParticipantBandKind.top_non_initiating: The top band, of a participant that does not initiate.
+  enum:ParticipantBandKind.middle_initiating: A middle band, of the initiating participant.
+  enum:ParticipantBandKind.middle_non_initiating: A middle band, of a participant that does not initiate.
+  enum:ParticipantBandKind.bottom_initiating: The bottom band, of the initiating participant.
+  enum:ParticipantBandKind.bottom_non_initiating: The bottom band, of a participant that does not initiate.
+  enum:ProcessType: Whether a process is private to its participant, public, or neither.
+  enum:ProcessType.None: The model does not say.
+  enum:ProcessType.Private: The process is internal to its participant.
+  enum:ProcessType.Public: The process shows only what its participant exchanges with others.
+  enum:RelationshipDirection: Which way a relationship points.
+  enum:RelationshipDirection.None: It has no direction.
+  enum:RelationshipDirection.Forward: From its sources to its targets.
+  enum:RelationshipDirection.Backward: From its targets to its sources.
+  enum:RelationshipDirection.Both: Both ways.
+  enum:TransactionMethod: How a transaction commits or cancels, by the three values BPMN keeps from BPMN 1.1.
+  enum:TransactionMethod.##Compensate: The transaction is cancelled by compensation; the default.
+  enum:TransactionMethod.##Image: The method BPMN 1.1 called image.
+  enum:TransactionMethod.##Store: The method BPMN 1.1 called store.

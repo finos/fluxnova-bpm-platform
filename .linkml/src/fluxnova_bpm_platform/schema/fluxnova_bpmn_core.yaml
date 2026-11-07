@@ -1,0 +1,48 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_core
+name: fluxnova_bpmn_core
+title: Fluxnova BPMN core
+description: The base every BPMN element class shares.
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+
+subsets:
+  bpmn_dc:
+    description: 'Diagram Common: the bounds, points and fonts diagrams use.'
+
+  bpmn_di:
+    description: 'Diagram Interchange: the generic diagrams, shapes and edges.'
+
+  bpmn_bpmndi:
+    description: 'BPMN Diagram Interchange: how a BPMN diagram lays its elements out.'
+
+  bpmn_semantic:
+    description: The BPMN 2.0 elements of a process, collaboration or definitions document.
+
+  bpmn_extension:
+    description: Fluxnova's extension elements, which sit in a BPMN element's extensionElements.
+
+classes:
+  BpmnModelElementInstance:
+    description: Any element of a BPMN document that Fluxnova's model API reads, the base
+      of every BPMN class here.
+    abstract: true
+    attributes:
+      element_type:
+        description: The name of the class an element is, which says which element it is when
+          a slot's range admits several.
+        designates_type: true
+        range: string

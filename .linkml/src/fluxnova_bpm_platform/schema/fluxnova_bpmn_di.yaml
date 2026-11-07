@@ -1,0 +1,254 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di
+name: fluxnova_bpmn_di
+title: Fluxnova BPMN diagram interchange
+description: 'Diagram Interchange: the generic diagrams, shapes and edges.'
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+  omgdi: http://www.omg.org/spec/DD/20100524/DI#
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+  - fluxnova_bpmn_dc
+
+classes:
+  DiDiagram:
+    description: A diagram of a model, the root of what Diagram Interchange draws.
+    abstract: true
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdi:Diagram
+    annotations:
+      xml_name: Diagram
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/DiagramImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      documentation:
+        description: Text that documents the element.
+        range: string
+        annotations:
+          xml_name: documentation
+      resolution:
+        description: The resolution of the diagram, in units per inch.
+        range: double
+        annotations:
+          xml_name: resolution
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+
+  DiDiagramElement:
+    description: Any element drawn on a diagram.
+    abstract: true
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdi:DiagramElement
+    annotations:
+      xml_name: DiagramElement
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/DiagramElementImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+      extension:
+        description: Tool-specific content of the diagram element.
+        range: DiExtension
+        inlined: true
+        annotations:
+          xml_name: extension
+
+  DiEdge:
+    description: A diagram element drawn as a line through waypoints between two elements.
+    abstract: true
+    is_a: DiDiagramElement
+    exact_mappings:
+      - omgdi:Edge
+    annotations:
+      xml_name: Edge
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/EdgeImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      waypoints:
+        description: The points the edge passes through, in order.
+        range: DiWaypoint
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        minimum_cardinality: 2
+        annotations:
+          xml_name: waypoint
+
+  DiExtension:
+    description: Tool-specific content attached to a diagram element.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdi:extension
+    annotations:
+      xml_name: extension
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/ExtensionImpl.java
+    in_subset:
+      - bpmn_di
+
+  DiLabel:
+    description: A diagram element that shows text, placed by its bounds.
+    abstract: true
+    is_a: DiNode
+    exact_mappings:
+      - omgdi:Label
+    annotations:
+      xml_name: Label
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/LabelImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      bounds:
+        description: Where the element is drawn, and how large.
+        range: DcBounds
+        inlined: true
+        annotations:
+          xml_name: Bounds
+
+  DiLabeledEdge:
+    description: An edge that can carry labels.
+    abstract: true
+    is_a: DiEdge
+    exact_mappings:
+      - omgdi:LabeledEdge
+    annotations:
+      xml_name: LabeledEdge
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/LabeledEdgeImpl.java
+    in_subset:
+      - bpmn_di
+
+  DiLabeledShape:
+    description: A shape that can carry labels.
+    abstract: true
+    is_a: DiShape
+    exact_mappings:
+      - omgdi:LabeledShape
+    annotations:
+      xml_name: LabeledShape
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/LabeledShapeImpl.java
+    in_subset:
+      - bpmn_di
+
+  DiNode:
+    description: A diagram element that other elements can connect to.
+    abstract: true
+    is_a: DiDiagramElement
+    exact_mappings:
+      - omgdi:Node
+    annotations:
+      xml_name: Node
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/NodeImpl.java
+    in_subset:
+      - bpmn_di
+
+  DiPlane:
+    description: A diagram's drawing surface, which holds its shapes and edges.
+    abstract: true
+    is_a: DiNode
+    exact_mappings:
+      - omgdi:Plane
+    annotations:
+      xml_name: Plane
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/PlaneImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      diagram_elements:
+        description: The shapes and edges on this plane.
+        range: DiDiagramElement
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: DiagramElement
+
+  DiShape:
+    description: A diagram element drawn as a figure inside its bounds.
+    abstract: true
+    is_a: DiNode
+    exact_mappings:
+      - omgdi:Shape
+    annotations:
+      xml_name: Shape
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/ShapeImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      bounds:
+        description: Where the element is drawn, and how large.
+        range: DcBounds
+        inlined: true
+        required: true
+        annotations:
+          xml_name: Bounds
+
+  DiStyle:
+    description: How a diagram element looks, such as its font or colour.
+    abstract: true
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - omgdi:Style
+    annotations:
+      xml_name: Style
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/StyleImpl.java
+    in_subset:
+      - bpmn_di
+    attributes:
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+
+  DiWaypoint:
+    description: A point an edge passes through.
+    is_a: DcPoint
+    exact_mappings:
+      - omgdi:waypoint
+    annotations:
+      xml_name: waypoint
+      xml_namespace: http://www.omg.org/spec/DD/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/di/WaypointImpl.java
+    in_subset:
+      - bpmn_di

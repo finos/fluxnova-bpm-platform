@@ -1,0 +1,4711 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
+name: fluxnova_bpmn_semantic
+title: Fluxnova BPMN semantic elements
+description: The BPMN 2.0 elements of a process, collaboration or definitions document.
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+  bpmn: http://www.omg.org/spec/BPMN/20100524/MODEL#
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+  - fluxnova_bpmn_bpmndi
+
+enums:
+  BpmnAssociationDirection:
+    description: Which ends of an association an arrow is drawn at.
+    permissible_values:
+      None:
+        description: No arrow is drawn.
+      One:
+        description: An arrow points at the target.
+      Both:
+        description: Arrows point at both ends.
+
+  BpmnEventBasedGatewayType:
+    description: How an event-based gateway that starts a process waits for its events.
+    permissible_values:
+      Exclusive:
+        description: The first event starts the instance, and the others are no longer waited
+          for.
+      Parallel:
+        description: Each event starts an instance, or joins the one already started.
+
+  BpmnGatewayDirection:
+    description: Whether a gateway splits flows, joins them or does both.
+    permissible_values:
+      Unspecified:
+        description: The model does not say.
+      Converging:
+        description: The gateway joins incoming flows into one.
+      Diverging:
+        description: The gateway splits one flow into several.
+      Mixed:
+        description: The gateway both joins and splits.
+
+  BpmnItemKind:
+    description: Whether an item is information or a physical thing.
+    permissible_values:
+      Information:
+        description: The item is information.
+      Physical:
+        description: The item is a physical thing.
+
+  BpmnMultiInstanceFlowCondition:
+    description: When a multi-instance activity throws an event as its instances complete.
+    permissible_values:
+      None:
+        description: An event is thrown for each instance that completes.
+      One:
+        description: An event is thrown when the first instance completes.
+      All:
+        description: No event is thrown.
+      Complex:
+        description: The complex behavior definitions decide which events are thrown.
+
+  BpmnProcessType:
+    description: Whether a process is private to its participant, public, or neither.
+    permissible_values:
+      None:
+        description: The model does not say.
+      Public:
+        description: The process shows only what its participant exchanges with others.
+      Private:
+        description: The process is internal to its participant.
+
+  BpmnRelationshipDirection:
+    description: Which way a relationship points.
+    permissible_values:
+      None:
+        description: It has no direction.
+      Forward:
+        description: From its sources to its targets.
+      Backward:
+        description: From its targets to its sources.
+      Both:
+        description: Both ways.
+
+  BpmnTransactionMethod:
+    description: How a transaction commits or cancels, by the three values BPMN keeps from
+      BPMN 1.1.
+    permissible_values:
+      '##Compensate':
+        description: The transaction is cancelled by compensation; the default.
+        title: Compensate
+      '##Image':
+        description: The method BPMN 1.1 called image.
+        title: Image
+      '##Store':
+        description: The method BPMN 1.1 called store.
+        title: Store
+
+classes:
+  BpmnActivationCondition:
+    description: The condition a complex gateway checks to decide when enough incoming flows
+      have arrived to continue.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:activationCondition
+    annotations:
+      xml_name: activationCondition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ActivationConditionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnActivity:
+    description: Work a process performs, either a task or a sub-process.
+    abstract: true
+    is_a: BpmnFlowNode
+    mixins:
+      - BpmnInteractionNode
+    exact_mappings:
+      - bpmn:activity
+    annotations:
+      xml_name: activity
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ActivityImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      is_for_compensation:
+        description: Whether the activity runs only to compensate another.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isForCompensation
+      start_quantity:
+        description: How many tokens must arrive before the activity starts.
+        range: integer
+        ifabsent: int(1)
+        annotations:
+          xml_name: startQuantity
+      completion_quantity:
+        description: How many tokens the activity sends on when it completes.
+        range: integer
+        ifabsent: int(1)
+        annotations:
+          xml_name: completionQuantity
+      default:
+        description: The id of the sequence flow taken when no other outgoing flow's condition
+          holds.
+        range: string
+        annotations:
+          xml_name: default
+          refers_to: BpmnSequenceFlow
+          reference_kind: id
+      io_specification:
+        description: The element's data inputs and outputs.
+        range: BpmnIoSpecification
+        inlined: true
+        annotations:
+          xml_name: ioSpecification
+      properties:
+        description: The element's properties.
+        range: BpmnProperty
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: property
+      data_input_associations:
+        description: How data reaches the element's inputs.
+        range: BpmnDataInputAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataInputAssociation
+      data_output_associations:
+        description: How data leaves the element's outputs.
+        range: BpmnDataOutputAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataOutputAssociation
+      resource_roles:
+        description: The roles resources play in the element, such as its performers.
+        range: BpmnResourceRole
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: resourceRole
+      loop_characteristics:
+        description: How the activity repeats.
+        range: BpmnLoopCharacteristics
+        inlined: true
+        annotations:
+          xml_name: loopCharacteristics
+
+  BpmnAdHocSubProcess:
+    description: A sub-process whose inner activities run in no fixed order, as its performers
+      choose.
+    is_a: BpmnSubProcess
+    exact_mappings:
+      - bpmn:adHocSubProcess
+    annotations:
+      xml_name: adHocSubProcess
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/AdHocSubProcessImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      ordering:
+        description: Whether the inner activities run in parallel or one after another.
+        range: string
+        ifabsent: string(Parallel)
+        annotations:
+          xml_name: ordering
+      cancel_remaining_instances:
+        description: Whether the activities still running are cancelled once the completion
+          condition holds.
+        range: boolean
+        ifabsent: 'true'
+        annotations:
+          xml_name: cancelRemainingInstances
+      completion_condition:
+        description: The condition that ends the activity early when it holds.
+        range: BpmnCompletionCondition
+        inlined: true
+        annotations:
+          xml_name: completionCondition
+
+  BpmnArtifact:
+    description: An element that adds information to a diagram without changing how the process
+      runs.
+    abstract: true
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:artifact
+    annotations:
+      xml_name: artifact
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ArtifactImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnAssignment:
+    description: A copy of a value from one expression to another within a data association.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:assignment
+    annotations:
+      xml_name: assignment
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/AssignmentImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      from:
+        description: The expression the value is copied from.
+        range: BpmnFrom
+        inlined: true
+        required: true
+        annotations:
+          xml_name: from
+      to:
+        description: The expression the value is copied to.
+        range: BpmnTo
+        inlined: true
+        required: true
+        annotations:
+          xml_name: to
+
+  BpmnAssociation:
+    description: A link between an artifact, such as a text annotation, and another element.
+    is_a: BpmnArtifact
+    exact_mappings:
+      - bpmn:association
+    annotations:
+      xml_name: association
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/AssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      source_ref:
+        description: The id or QName of the element the connection starts at.
+        range: string
+        required: true
+        annotations:
+          xml_name: sourceRef
+          refers_to: BpmnBaseElement
+          reference_kind: qname
+      target_ref:
+        description: The id or QName of the element the connection ends at.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetRef
+          refers_to: BpmnBaseElement
+          reference_kind: qname
+      association_direction:
+        description: Which ends of the association an arrow is drawn at.
+        range: BpmnAssociationDirection
+        ifabsent: BpmnAssociationDirection(None)
+        annotations:
+          xml_name: associationDirection
+
+  BpmnAuditing:
+    description: A hook for auditing a process or flow element, left to the implementation.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:auditing
+    annotations:
+      xml_name: auditing
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/AuditingImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnBaseElement:
+    description: The base of nearly every BPMN element, giving it an id, documentation and
+      extensions.
+    abstract: true
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:baseElement
+    annotations:
+      xml_name: baseElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/BaseElementImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+      documentation:
+        description: Text that documents the element.
+        range: BpmnDocumentation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: documentation
+      extension_elements:
+        description: The element's extension content, such as Fluxnova's settings.
+        range: BpmnExtensionElements
+        inlined: true
+        annotations:
+          xml_name: extensionElements
+
+  BpmnBoundaryEvent:
+    description: An event attached to the boundary of an activity, which can interrupt it.
+    is_a: BpmnCatchEvent
+    exact_mappings:
+      - bpmn:boundaryEvent
+    annotations:
+      xml_name: boundaryEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/BoundaryEventImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      cancel_activity:
+        description: Whether the event, when it fires, interrupts the activity it is attached
+          to.
+        range: boolean
+        ifabsent: 'true'
+        annotations:
+          xml_name: cancelActivity
+      attached_to_ref:
+        description: The QName of the activity this event is attached to.
+        range: string
+        required: true
+        annotations:
+          xml_name: attachedToRef
+          refers_to: BpmnActivity
+          reference_kind: qname
+
+  BpmnBusinessRuleTask:
+    description: A task that hands data to a business rules engine and receives its result.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:businessRuleTask
+    annotations:
+      xml_name: businessRuleTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/BusinessRuleTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      implementation:
+        description: The technology that runs the task, as a URI; the engine reads its own
+          settings instead.
+        range: string
+        ifabsent: string(##unspecified)
+        annotations:
+          xml_name: implementation
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_result_variable:
+        description: The variable the result is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:resultVariable
+          - camunda:resultVariable
+        annotations:
+          xml_name: resultVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_topic:
+        description: The topic of the external task the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:topic
+          - camunda:topic
+        annotations:
+          xml_name: topic
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The element's type, such as external for an external task or the form
+          field's value type.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_decision_ref:
+        description: The key of the decision to evaluate.
+        range: string
+        exact_mappings:
+          - fluxnova:decisionRef
+          - camunda:decisionRef
+        annotations:
+          xml_name: decisionRef
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_decision_ref_binding:
+        description: Which version of the decision to use.
+        range: string
+        exact_mappings:
+          - fluxnova:decisionRefBinding
+          - camunda:decisionRefBinding
+        annotations:
+          xml_name: decisionRefBinding
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_decision_ref_version:
+        description: The version of the decision, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:decisionRefVersion
+          - camunda:decisionRefVersion
+        annotations:
+          xml_name: decisionRefVersion
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_decision_ref_version_tag:
+        description: The version tag of the decision, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:decisionRefVersionTag
+          - camunda:decisionRefVersionTag
+        annotations:
+          xml_name: decisionRefVersionTag
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_decision_ref_tenant_id:
+        description: The tenant whose decision to use.
+        range: string
+        exact_mappings:
+          - fluxnova:decisionRefTenantId
+          - camunda:decisionRefTenantId
+        annotations:
+          xml_name: decisionRefTenantId
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_map_decision_result:
+        description: How the decision's result is mapped into a variable.
+        range: string
+        exact_mappings:
+          - fluxnova:mapDecisionResult
+          - camunda:mapDecisionResult
+        annotations:
+          xml_name: mapDecisionResult
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_task_priority:
+        description: The priority of the external tasks the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:taskPriority
+          - camunda:taskPriority
+        annotations:
+          xml_name: taskPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnCallActivity:
+    description: An activity that calls a separate process or global task.
+    is_a: BpmnActivity
+    exact_mappings:
+      - bpmn:callActivity
+    annotations:
+      xml_name: callActivity
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CallActivityImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      called_element:
+        description: The id of the process or global task this activity calls.
+        range: string
+        annotations:
+          xml_name: calledElement
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_called_element_binding:
+        description: Which version of the called process to use, such as the latest or the
+          one deployed with this one.
+        range: string
+        exact_mappings:
+          - fluxnova:calledElementBinding
+          - camunda:calledElementBinding
+        annotations:
+          xml_name: calledElementBinding
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_called_element_version:
+        description: The version of the called process, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:calledElementVersion
+          - camunda:calledElementVersion
+        annotations:
+          xml_name: calledElementVersion
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_called_element_version_tag:
+        description: The version tag of the called process, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:calledElementVersionTag
+          - camunda:calledElementVersionTag
+        annotations:
+          xml_name: calledElementVersionTag
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_case_ref:
+        description: The key of the case definition to call.
+        range: string
+        exact_mappings:
+          - fluxnova:caseRef
+          - camunda:caseRef
+        annotations:
+          xml_name: caseRef
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_case_binding:
+        description: Which version of the called case to use.
+        range: string
+        exact_mappings:
+          - fluxnova:caseBinding
+          - camunda:caseBinding
+        annotations:
+          xml_name: caseBinding
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_case_version:
+        description: The version of the called case, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:caseVersion
+          - camunda:caseVersion
+        annotations:
+          xml_name: caseVersion
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_called_element_tenant_id:
+        description: The tenant whose called process to use.
+        range: string
+        exact_mappings:
+          - fluxnova:calledElementTenantId
+          - camunda:calledElementTenantId
+        annotations:
+          xml_name: calledElementTenantId
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_case_tenant_id:
+        description: The tenant whose called case to use.
+        range: string
+        exact_mappings:
+          - fluxnova:caseTenantId
+          - camunda:caseTenantId
+        annotations:
+          xml_name: caseTenantId
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variable_mapping_class:
+        description: The Java class that maps variables into and out of the called process.
+        range: string
+        exact_mappings:
+          - fluxnova:variableMappingClass
+          - camunda:variableMappingClass
+        annotations:
+          xml_name: variableMappingClass
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variable_mapping_delegate_expression:
+        description: An expression giving the delegate that maps variables into and out of
+          the called process.
+        range: string
+        exact_mappings:
+          - fluxnova:variableMappingDelegateExpression
+          - camunda:variableMappingDelegateExpression
+        annotations:
+          xml_name: variableMappingDelegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnCallConversation:
+    description: A conversation that calls a collaboration or global conversation defined
+      elsewhere.
+    is_a: BpmnConversationNode
+    exact_mappings:
+      - bpmn:callConversation
+    annotations:
+      xml_name: callConversation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CallConversationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      called_collaboration_ref:
+        description: The QName of the collaboration or global conversation this conversation
+          calls.
+        range: string
+        annotations:
+          xml_name: calledCollaborationRef
+          refers_to: BpmnGlobalConversation
+          reference_kind: qname
+      participant_associations:
+        description: The links between participants and those in called collaborations.
+        range: BpmnParticipantAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: participantAssociation
+
+  BpmnCallableElement:
+    description: An element another process can call, such as a process.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:callableElement
+    annotations:
+      xml_name: callableElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CallableElementImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      supported_interface_refs:
+        description: The QNames of the interfaces the element supports.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: supportedInterfaceRef
+          refers_to: BpmnInterface
+          reference_kind: qname
+      io_specification:
+        description: The element's data inputs and outputs.
+        range: BpmnIoSpecification
+        inlined: true
+        annotations:
+          xml_name: ioSpecification
+      io_bindings:
+        description: How the element's operations map to its input and output sets.
+        range: BpmnIoBinding
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: ioBinding
+
+  BpmnCancelEventDefinition:
+    description: The trigger of an event that cancels a transaction sub-process.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:cancelEventDefinition
+    annotations:
+      xml_name: cancelEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CancelEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnCatchEvent:
+    description: An event that waits for a trigger, such as a start or intermediate catch
+      event.
+    abstract: true
+    is_a: BpmnEvent
+    exact_mappings:
+      - bpmn:catchEvent
+    annotations:
+      xml_name: catchEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CatchEventImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      parallel_multiple:
+        description: Whether all of the event's triggers must happen, rather than any one.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: parallelMultiple
+      data_outputs:
+        description: The data outputs.
+        range: BpmnDataOutput
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataOutput
+      data_output_associations:
+        description: How data leaves the element's outputs.
+        range: BpmnDataOutputAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataOutputAssociation
+      output_set:
+        description: The output set the event's data outputs make up.
+        range: BpmnOutputSet
+        inlined: true
+        annotations:
+          xml_name: outputSet
+      event_definitions:
+        description: The event definitions that trigger this event.
+        range: BpmnEventDefinition
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: eventDefinition
+      event_definition_refs:
+        description: The QNames of event definitions, defined elsewhere in the document, that
+          trigger this event.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: eventDefinitionRef
+          refers_to: BpmnEventDefinition
+          reference_kind: qname
+
+  BpmnCategory:
+    description: A named set of category values that groups elements.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:category
+    annotations:
+      xml_name: category
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CategoryImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        required: true
+        annotations:
+          xml_name: name
+      category_values:
+        description: The values of this category.
+        range: BpmnCategoryValue
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: categoryValue
+
+  BpmnCategoryValue:
+    description: One value of a category, which a group shows.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:categoryValue
+    annotations:
+      xml_name: categoryValue
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CategoryValueImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      value:
+        description: The category value's text.
+        range: string
+        annotations:
+          xml_name: value
+
+  BpmnChildLaneSet:
+    description: The lanes a lane is divided into.
+    is_a: BpmnLaneSet
+    exact_mappings:
+      - bpmn:childLaneSet
+    annotations:
+      xml_name: childLaneSet
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ChildLaneSet.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnCollaboration:
+    description: The participants of a model and the messages and conversations between them.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:collaboration
+    annotations:
+      xml_name: collaboration
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CollaborationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      is_closed:
+        description: Whether no interactions occur other than those the model shows.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isClosed
+      participants:
+        description: The participants, usually drawn as pools.
+        range: BpmnParticipant
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: participant
+      message_flows:
+        description: The message flows between the participants.
+        range: BpmnMessageFlow
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: messageFlow
+      artifacts:
+        description: The artifacts, such as text annotations and groups, this element holds.
+        range: BpmnArtifact
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: artifact
+      conversation_nodes:
+        description: The conversations and sub-conversations this element holds.
+        range: BpmnConversationNode
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: conversationNode
+      conversation_associations:
+        description: The links between conversation nodes and the ones that refine them.
+        range: BpmnConversationAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: conversationAssociation
+      participant_associations:
+        description: The links between participants and those in called collaborations.
+        range: BpmnParticipantAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: participantAssociation
+      message_flow_associations:
+        description: The links between message flows and the ones that refine them.
+        range: BpmnMessageFlowAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: messageFlowAssociation
+      correlation_keys:
+        description: The correlation keys this element defines.
+        range: BpmnCorrelationKey
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: correlationKey
+      conversation_links:
+        description: The links between participants and conversation nodes.
+        range: BpmnConversationLink
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: conversationLink
+
+  BpmnCompensateEventDefinition:
+    description: The trigger of an event that starts or catches compensation.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:compensateEventDefinition
+    annotations:
+      xml_name: compensateEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CompensateEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      wait_for_completion:
+        description: Whether the throwing event waits for the compensation to finish.
+        range: boolean
+        annotations:
+          xml_name: waitForCompletion
+      activity_ref:
+        description: The id of the activity to compensate; when absent, every compensable
+          activity in scope is.
+        range: string
+        annotations:
+          xml_name: activityRef
+          refers_to: BpmnActivity
+          reference_kind: qname
+
+  BpmnCompletionCondition:
+    description: The condition that ends a multi-instance activity or an ad-hoc sub-process
+      early.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:completionCondition
+    annotations:
+      xml_name: completionCondition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CompletionConditionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnComplexBehaviorDefinition:
+    description: A rule of a multi-instance activity that throws an event when its condition
+      holds as instances complete.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:complexBehaviorDefinition
+    annotations:
+      xml_name: complexBehaviorDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ComplexBehaviorDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnComplexGateway:
+    description: A gateway that splits or joins flows by conditions of its own.
+    is_a: BpmnGateway
+    exact_mappings:
+      - bpmn:complexGateway
+    annotations:
+      xml_name: complexGateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ComplexGatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      default:
+        description: The id of the sequence flow taken when no other outgoing flow's condition
+          holds.
+        range: string
+        annotations:
+          xml_name: default
+          refers_to: BpmnSequenceFlow
+          reference_kind: id
+      activation_condition:
+        description: The condition that decides when the gateway may continue.
+        range: BpmnActivationCondition
+        inlined: true
+        annotations:
+          xml_name: activationCondition
+
+  BpmnCondition:
+    description: The expression a conditional event evaluates.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:condition
+    annotations:
+      xml_name: condition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConditionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnConditionExpression:
+    description: The expression that decides whether a sequence flow is taken.
+    is_a: BpmnFormalExpression
+    exact_mappings:
+      - bpmn:conditionExpression
+    annotations:
+      xml_name: conditionExpression
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConditionExpressionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      xsi_type:
+        description: The XML Schema type of the expression, a formal expression unless the
+          document says otherwise.
+        range: string
+        ifabsent: string(tFormalExpression)
+        annotations:
+          xml_name: type
+          xml_namespace: http://www.w3.org/2001/XMLSchema-instance
+      fluxnova_resource:
+        description: A resource that holds the script of a script condition.
+        range: string
+        exact_mappings:
+          - fluxnova:resource
+          - camunda:resource
+        annotations:
+          xml_name: resource
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnConditionalEventDefinition:
+    description: The trigger of an event that fires when a condition becomes true.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:conditionalEventDefinition
+    annotations:
+      xml_name: conditionalEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConditionalEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      fluxnova_variable_name:
+        description: The variable whose changes make the engine check the condition.
+        range: string
+        exact_mappings:
+          - fluxnova:variableName
+          - camunda:variableName
+        annotations:
+          xml_name: variableName
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_variable_events:
+        description: The variable events, such as create or update, that make the engine check
+          the condition.
+        range: string
+        exact_mappings:
+          - fluxnova:variableEvents
+          - camunda:variableEvents
+        annotations:
+          xml_name: variableEvents
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      condition:
+        description: The condition the event waits for.
+        range: BpmnCondition
+        inlined: true
+        required: true
+        annotations:
+          xml_name: condition
+
+  BpmnConversation:
+    description: A set of message flows between participants that belong together.
+    is_a: BpmnConversationNode
+    exact_mappings:
+      - bpmn:conversation
+    annotations:
+      xml_name: conversation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConversationImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnConversationAssociation:
+    description: A link between a conversation node and one that refines it.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:conversationAssociation
+    annotations:
+      xml_name: conversationAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConversationAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      inner_conversation_node_ref:
+        description: The QName of the conversation node that refines the outer one.
+        range: string
+        required: true
+        annotations:
+          xml_name: innerConversationNodeRef
+          refers_to: BpmnConversationNode
+          reference_kind: qname
+      outer_conversation_node_ref:
+        description: The QName of the conversation node being refined.
+        range: string
+        required: true
+        annotations:
+          xml_name: outerConversationNodeRef
+          refers_to: BpmnConversationNode
+          reference_kind: qname
+
+  BpmnConversationLink:
+    description: A link between a participant and a conversation node.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:conversationLink
+    annotations:
+      xml_name: conversationLink
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConversationLinkImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      source_ref:
+        description: The id or QName of the element the connection starts at.
+        range: string
+        required: true
+        annotations:
+          xml_name: sourceRef
+          refers_to: BpmnInteractionNode
+          reference_kind: qname
+      target_ref:
+        description: The id or QName of the element the connection ends at.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetRef
+          refers_to: BpmnInteractionNode
+          reference_kind: qname
+
+  BpmnConversationNode:
+    description: Any node of a conversation diagram, such as a conversation or sub-conversation.
+    abstract: true
+    is_a: BpmnBaseElement
+    mixins:
+      - BpmnInteractionNode
+    exact_mappings:
+      - bpmn:conversationNode
+    annotations:
+      xml_name: conversationNode
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ConversationNodeImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      participant_refs:
+        description: The QNames of the participants in the conversation.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: participantRef
+          refers_to: BpmnParticipant
+          reference_kind: qname
+      message_flow_refs:
+        description: The QNames of the message flows the conversation node groups.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: messageFlowRef
+          refers_to: BpmnMessageFlow
+          reference_kind: qname
+      correlation_keys:
+        description: The correlation keys this element defines.
+        range: BpmnCorrelationKey
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: correlationKey
+
+  BpmnCorrelationKey:
+    description: A set of correlation properties that together identify a conversation.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:correlationKey
+    annotations:
+      xml_name: correlationKey
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CorrelationKeyImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      correlation_property_refs:
+        description: The QNames of the correlation properties that make up this key.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: correlationPropertyRef
+          refers_to: BpmnCorrelationProperty
+          reference_kind: qname
+
+  BpmnCorrelationProperty:
+    description: A value read from messages that ties them to one conversation.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:correlationProperty
+    annotations:
+      xml_name: correlationProperty
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CorrelationPropertyImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      type:
+        description: The QName of the property's type.
+        range: string
+        annotations:
+          xml_name: type
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      correlation_property_retrieval_expressions:
+        description: How the property is read from each kind of message.
+        range: BpmnCorrelationPropertyRetrievalExpression
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: correlationPropertyRetrievalExpression
+
+  BpmnCorrelationPropertyBinding:
+    description: The expression that gives a correlation property its value in a process.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:correlationPropertyBinding
+    annotations:
+      xml_name: correlationPropertyBinding
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CorrelationPropertyBindingImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      correlation_property_ref:
+        description: The QName of the correlation property this binding gives a value.
+        range: string
+        required: true
+        annotations:
+          xml_name: correlationPropertyRef
+          refers_to: BpmnCorrelationProperty
+          reference_kind: qname
+      data_path:
+        description: The expression that finds the value in process data.
+        range: BpmnDataPath
+        inlined: true
+        required: true
+        annotations:
+          xml_name: dataPath
+
+  BpmnCorrelationPropertyRetrievalExpression:
+    description: The expression that reads a correlation property from one message.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:correlationPropertyRetrievalExpression
+    annotations:
+      xml_name: correlationPropertyRetrievalExpression
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CorrelationPropertyRetrievalExpressionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      message_ref:
+        description: The QName of the message sent or received.
+        range: string
+        required: true
+        annotations:
+          xml_name: messageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      message_path:
+        description: The expression that finds the value in the message.
+        range: BpmnMessagePath
+        inlined: true
+        required: true
+        annotations:
+          xml_name: messagePath
+
+  BpmnCorrelationSubscription:
+    description: How a process instance subscribes to messages by a correlation key.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:correlationSubscription
+    annotations:
+      xml_name: correlationSubscription
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/CorrelationSubscriptionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      correlation_key_ref:
+        description: The QName of the correlation key this subscription uses.
+        range: string
+        required: true
+        annotations:
+          xml_name: correlationKeyRef
+          refers_to: BpmnCorrelationKey
+          reference_kind: qname
+      correlation_property_bindings:
+        description: How the process gives each correlation property its value.
+        range: BpmnCorrelationPropertyBinding
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: correlationPropertyBinding
+
+  BpmnDataAssociation:
+    description: A copy of data from sources to a target as an activity or event runs.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:dataAssociation
+    annotations:
+      xml_name: dataAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      source_refs:
+        description: The ids of the data the association copies from.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: sourceRef
+          refers_to: BpmnItemAwareElement
+          reference_kind: id
+      target_ref:
+        description: The id or QName of the element the connection ends at.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetRef
+          refers_to: BpmnItemAwareElement
+          reference_kind: id
+      transformation:
+        description: The expression that changes the data as it is copied.
+        range: BpmnTransformation
+        inlined: true
+        annotations:
+          xml_name: transformation
+      assignments:
+        description: The copies of values this data association makes.
+        range: BpmnAssignment
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: assignment
+
+  BpmnDataInput:
+    description: A piece of data an activity, process or event needs.
+    is_a: BpmnItemAwareElement
+    exact_mappings:
+      - bpmn:dataInput
+    annotations:
+      xml_name: dataInput
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataInputImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      is_collection:
+        description: Whether the element holds a collection of items.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isCollection
+
+  BpmnDataInputAssociation:
+    description: A data association that feeds a data input.
+    is_a: BpmnDataAssociation
+    exact_mappings:
+      - bpmn:dataInputAssociation
+    annotations:
+      xml_name: dataInputAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataInputAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnDataObject:
+    description: Data a process creates or uses while it runs.
+    is_a: BpmnFlowElement
+    exact_mappings:
+      - bpmn:dataObject
+    annotations:
+      xml_name: dataObject
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataObjectImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      item_subject_ref:
+        description: The QName of the item definition of the data.
+        range: string
+        annotations:
+          xml_name: itemSubjectRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      is_collection:
+        description: Whether the element holds a collection of items.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isCollection
+      data_state:
+        description: The state the data is in.
+        range: BpmnDataState
+        inlined: true
+        annotations:
+          xml_name: dataState
+
+  BpmnDataObjectReference:
+    description: A use of a data object at one place in a process.
+    is_a: BpmnFlowElement
+    exact_mappings:
+      - bpmn:dataObjectReference
+    annotations:
+      xml_name: dataObjectReference
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataObjectReferenceImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      item_subject_ref:
+        description: The QName of the item definition of the data.
+        range: string
+        annotations:
+          xml_name: itemSubjectRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      data_object_ref:
+        description: The id of the data object this reference uses.
+        range: string
+        annotations:
+          xml_name: dataObjectRef
+          refers_to: BpmnDataObject
+          reference_kind: id
+      data_state:
+        description: The state the data is in.
+        range: BpmnDataState
+        inlined: true
+        annotations:
+          xml_name: dataState
+
+  BpmnDataOutput:
+    description: A piece of data an activity, process or event produces.
+    is_a: BpmnItemAwareElement
+    exact_mappings:
+      - bpmn:dataOutput
+    annotations:
+      xml_name: dataOutput
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataOutputImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      is_collection:
+        description: Whether the element holds a collection of items.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isCollection
+
+  BpmnDataOutputAssociation:
+    description: A data association that carries a data output on.
+    is_a: BpmnDataAssociation
+    exact_mappings:
+      - bpmn:dataOutputAssociation
+    annotations:
+      xml_name: dataOutputAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataOutputAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnDataPath:
+    description: The expression that finds a correlation property's value in process data.
+    is_a: BpmnFormalExpression
+    exact_mappings:
+      - bpmn:dataPath
+    annotations:
+      xml_name: dataPath
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataPath.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnDataState:
+    description: The state of a data object or data store, such as draft or approved.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:dataState
+    annotations:
+      xml_name: dataState
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataStateImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+
+  BpmnDataStore:
+    description: Data that lasts beyond one process instance, such as a database.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:dataStore
+    annotations:
+      xml_name: dataStore
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataStoreImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      capacity:
+        description: How many items the data store can hold.
+        range: integer
+        annotations:
+          xml_name: capacity
+      is_unlimited:
+        description: Whether the data store's capacity has no limit.
+        range: boolean
+        ifabsent: 'true'
+        annotations:
+          xml_name: isUnlimited
+      item_subject_ref:
+        description: The QName of the item definition of the data.
+        range: string
+        annotations:
+          xml_name: itemSubjectRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      data_state:
+        description: The state the data is in.
+        range: BpmnDataState
+        inlined: true
+        annotations:
+          xml_name: dataState
+
+  BpmnDataStoreReference:
+    description: A use of a data store at one place in a process.
+    is_a: BpmnFlowElement
+    exact_mappings:
+      - bpmn:dataStoreReference
+    annotations:
+      xml_name: dataStoreReference
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DataStoreReferenceImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      item_subject_ref:
+        description: The QName of the item definition of the data.
+        range: string
+        annotations:
+          xml_name: itemSubjectRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      data_store_ref:
+        description: The QName of the data store this reference uses.
+        range: string
+        annotations:
+          xml_name: dataStoreRef
+          refers_to: BpmnDataStore
+          reference_kind: id
+      data_state:
+        description: The state the data is in.
+        range: BpmnDataState
+        inlined: true
+        annotations:
+          xml_name: dataState
+
+  BpmnDefinitions:
+    description: The root of a BPMN document, which holds its processes, collaborations and
+      diagrams.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:definitions
+    annotations:
+      xml_name: definitions
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DefinitionsImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      id:
+        description: The document's id.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+      name:
+        description: The document's name.
+        range: string
+        annotations:
+          xml_name: name
+      target_namespace:
+        description: The namespace of the elements this document defines.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetNamespace
+      expression_language:
+        description: The language the document's expressions are written in unless one says
+          otherwise, as a URI.
+        range: string
+        ifabsent: string(http://www.w3.org/1999/XPath)
+        annotations:
+          xml_name: expressionLanguage
+      type_language:
+        description: The language the document's types are written in, as a URI.
+        range: string
+        ifabsent: string(http://www.w3.org/2001/XMLSchema)
+        annotations:
+          xml_name: typeLanguage
+      exporter:
+        description: The tool that wrote the document.
+        range: string
+        annotations:
+          xml_name: exporter
+      exporter_version:
+        description: The version of the tool that wrote the document.
+        range: string
+        annotations:
+          xml_name: exporterVersion
+      imports:
+        description: The documents whose elements this one imports.
+        range: BpmnImport
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: import
+      extensions:
+        description: The extensions the document uses.
+        range: BpmnExtension
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: extension
+      root_elements:
+        description: The processes, collaborations, messages, signals and other elements of
+          the document.
+        range: BpmnRootElement
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: rootElement
+      bpmn_diagrams:
+        description: The diagrams of the document.
+        range: BpmnDiagram
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: BPMNDiagram
+      relationships:
+        description: The relationships between this document's elements and others.
+        range: BpmnRelationship
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: relationship
+
+  BpmnDocumentation:
+    description: Text that documents an element.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:documentation
+    annotations:
+      xml_name: documentation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/DocumentationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+      text_format:
+        description: The format of the text, as a MIME type.
+        range: string
+        ifabsent: string(text/plain)
+        annotations:
+          xml_name: textFormat
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  BpmnEndEvent:
+    description: An event that ends a path of a process.
+    is_a: BpmnThrowEvent
+    exact_mappings:
+      - bpmn:endEvent
+    annotations:
+      xml_name: endEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EndEventImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnEndPoint:
+    description: A place where a participant can be reached for messages.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:endPoint
+    annotations:
+      xml_name: endPoint
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EndPointImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnError:
+    description: An error that an activity can throw and an event can catch.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:error
+    annotations:
+      xml_name: error
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ErrorImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      error_code:
+        description: The code that identifies the error.
+        range: string
+        annotations:
+          xml_name: errorCode
+      fluxnova_error_message:
+        description: The message of the error.
+        range: string
+        exact_mappings:
+          - fluxnova:errorMessage
+          - camunda:errorMessage
+        annotations:
+          xml_name: errorMessage
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      structure_ref:
+        description: The QName of the type of the data, such as an XML Schema type.
+        range: string
+        annotations:
+          xml_name: structureRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+
+  BpmnErrorEventDefinition:
+    description: The trigger of an event that throws or catches an error.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:errorEventDefinition
+    annotations:
+      xml_name: errorEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ErrorEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      error_ref:
+        description: The QName of the error thrown or caught.
+        range: string
+        annotations:
+          xml_name: errorRef
+          refers_to: BpmnError
+          reference_kind: qname
+      fluxnova_error_code_variable:
+        description: The variable the caught error's code is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:errorCodeVariable
+          - camunda:errorCodeVariable
+        annotations:
+          xml_name: errorCodeVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_error_message_variable:
+        description: The variable the caught error's message is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:errorMessageVariable
+          - camunda:errorMessageVariable
+        annotations:
+          xml_name: errorMessageVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnEscalation:
+    description: An escalation that an activity can throw and an event can catch.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:escalation
+    annotations:
+      xml_name: escalation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EscalationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      escalation_code:
+        description: The code that identifies the escalation.
+        range: string
+        annotations:
+          xml_name: escalationCode
+      structure_ref:
+        description: The QName of the type of the data, such as an XML Schema type.
+        range: string
+        annotations:
+          xml_name: structureRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+
+  BpmnEscalationEventDefinition:
+    description: The trigger of an event that throws or catches an escalation.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:escalationEventDefinition
+    annotations:
+      xml_name: escalationEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EscalationEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      escalation_ref:
+        description: The QName of the escalation thrown or caught.
+        range: string
+        annotations:
+          xml_name: escalationRef
+          refers_to: BpmnEscalation
+          reference_kind: qname
+
+  BpmnEvent:
+    description: Something that happens while a process runs, such as a start, a message or
+      a timer.
+    abstract: true
+    is_a: BpmnFlowNode
+    mixins:
+      - BpmnInteractionNode
+    exact_mappings:
+      - bpmn:event
+    annotations:
+      xml_name: event
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EventImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      properties:
+        description: The element's properties.
+        range: BpmnProperty
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: property
+
+  BpmnEventBasedGateway:
+    description: A gateway that takes the path of whichever following event happens first.
+    is_a: BpmnGateway
+    exact_mappings:
+      - bpmn:eventBasedGateway
+    annotations:
+      xml_name: eventBasedGateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EventBasedGatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      instantiate:
+        description: Whether the element starts a new process instance.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: instantiate
+      event_gateway_type:
+        description: Whether the gateway starts one process instance for the first event or
+          waits for all of them.
+        range: BpmnEventBasedGatewayType
+        ifabsent: BpmnEventBasedGatewayType(Exclusive)
+        annotations:
+          xml_name: eventGatewayType
+
+  BpmnEventDefinition:
+    description: What triggers an event, such as a message, timer or signal.
+    abstract: true
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:eventDefinition
+    annotations:
+      xml_name: eventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/EventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnExclusiveGateway:
+    description: A gateway that takes exactly one of its outgoing flows.
+    is_a: BpmnGateway
+    exact_mappings:
+      - bpmn:exclusiveGateway
+    annotations:
+      xml_name: exclusiveGateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExclusiveGatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      default:
+        description: The id of the sequence flow taken when no other outgoing flow's condition
+          holds.
+        range: string
+        annotations:
+          xml_name: default
+          refers_to: BpmnSequenceFlow
+          reference_kind: id
+
+  BpmnExpression:
+    description: An expression whose language and body the model leaves open.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:expression
+    annotations:
+      xml_name: expression
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExpressionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  BpmnExtension:
+    description: A declaration that a document uses an extension, by its definition.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:extension
+    annotations:
+      xml_name: extension
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExtensionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      definition:
+        description: The QName of the extension's definition.
+        range: string
+        annotations:
+          xml_name: definition
+      must_understand:
+        description: Whether a tool reading the document must understand the extension.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: mustUnderstand
+      documentation:
+        description: Text that documents the element.
+        range: BpmnDocumentation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: documentation
+
+  BpmnExtensionElements:
+    description: The container for an element's extension content, such as Fluxnova's settings.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:extensionElements
+    annotations:
+      xml_name: extensionElements
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExtensionElementsImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnFlowElement:
+    description: An element that takes part in the flow of a process, such as an activity
+      or sequence flow.
+    abstract: true
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:flowElement
+    annotations:
+      xml_name: flowElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/FlowElementImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      auditing:
+        description: The element's auditing hook.
+        range: BpmnAuditing
+        inlined: true
+        annotations:
+          xml_name: auditing
+      monitoring:
+        description: The element's monitoring hook.
+        range: BpmnMonitoring
+        inlined: true
+        annotations:
+          xml_name: monitoring
+      category_value_refs:
+        description: The QNames of the category values this element belongs to.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: categoryValueRef
+          refers_to: BpmnCategoryValue
+          reference_kind: qname
+
+  BpmnFlowNode:
+    description: A flow element that sequence flows connect, such as an activity, event or
+      gateway.
+    abstract: true
+    is_a: BpmnFlowElement
+    exact_mappings:
+      - bpmn:flowNode
+    annotations:
+      xml_name: flowNode
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/FlowNodeImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      fluxnova_async_after:
+        description: Whether the engine commits and continues asynchronously after the element.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:asyncAfter
+          - camunda:asyncAfter
+        annotations:
+          xml_name: asyncAfter
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_async_before:
+        description: Whether the engine commits and continues asynchronously before the element.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:asyncBefore
+          - camunda:asyncBefore
+        annotations:
+          xml_name: asyncBefore
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_exclusive:
+        description: Whether the element's jobs run one at a time within a process instance.
+        range: boolean
+        ifabsent: 'true'
+        exact_mappings:
+          - fluxnova:exclusive
+          - camunda:exclusive
+        annotations:
+          xml_name: exclusive
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_job_priority:
+        description: The priority of the element's jobs.
+        range: string
+        exact_mappings:
+          - fluxnova:jobPriority
+          - camunda:jobPriority
+        annotations:
+          xml_name: jobPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      incoming:
+        description: The QNames of the sequence flows that enter this node.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: incoming
+          refers_to: BpmnSequenceFlow
+          reference_kind: qname
+      outgoing:
+        description: The QNames of the sequence flows that leave this node.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: outgoing
+          refers_to: BpmnSequenceFlow
+          reference_kind: qname
+
+  BpmnFormalExpression:
+    description: An expression in a stated language, with the type it evaluates to.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:formalExpression
+    annotations:
+      xml_name: formalExpression
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/FormalExpressionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      language:
+        description: The language the expression is written in, as a URI.
+        range: string
+        annotations:
+          xml_name: language
+      evaluates_to_type_ref:
+        description: The QName of the item definition the expression's result has.
+        range: string
+        annotations:
+          xml_name: evaluatesToTypeRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+
+  BpmnFrom:
+    description: The expression an assignment copies a value from.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:from
+    annotations:
+      xml_name: from
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/From.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnGateway:
+    description: A point where a process's flows split or join.
+    abstract: true
+    is_a: BpmnFlowNode
+    exact_mappings:
+      - bpmn:gateway
+    annotations:
+      xml_name: gateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/GatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      gateway_direction:
+        description: Whether the gateway splits flows, joins them, does both, or is not said.
+        range: BpmnGatewayDirection
+        ifabsent: BpmnGatewayDirection(Unspecified)
+        annotations:
+          xml_name: gatewayDirection
+
+  BpmnGlobalConversation:
+    description: A conversation defined on its own so that collaborations can call it.
+    is_a: BpmnCollaboration
+    exact_mappings:
+      - bpmn:globalConversation
+    annotations:
+      xml_name: globalConversation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/GlobalConversationImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnGroup:
+    description: An artifact that draws a box around elements of one category value.
+    is_a: BpmnArtifact
+    exact_mappings:
+      - bpmn:group
+    annotations:
+      xml_name: group
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/GroupImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      category_value_ref:
+        description: The QName of the category value this group shows.
+        range: string
+        annotations:
+          xml_name: categoryValueRef
+          refers_to: BpmnCategoryValue
+          reference_kind: qname
+
+  BpmnHumanPerformer:
+    description: The person who performs an activity.
+    is_a: BpmnPerformer
+    exact_mappings:
+      - bpmn:humanPerformer
+    annotations:
+      xml_name: humanPerformer
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/HumanPerformerImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnImport:
+    description: A document the definitions import elements from.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:import
+    annotations:
+      xml_name: import
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ImportImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      namespace:
+        description: The namespace of the imported document.
+        range: string
+        required: true
+        annotations:
+          xml_name: namespace
+      location:
+        description: Where the imported document is.
+        range: string
+        required: true
+        annotations:
+          xml_name: location
+      import_type:
+        description: The kind of document imported, as the URI of its language.
+        range: string
+        required: true
+        annotations:
+          xml_name: importType
+
+  BpmnInclusiveGateway:
+    description: A gateway that takes every outgoing flow whose condition holds.
+    is_a: BpmnGateway
+    exact_mappings:
+      - bpmn:inclusiveGateway
+    annotations:
+      xml_name: inclusiveGateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/InclusiveGatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      default:
+        description: The id of the sequence flow taken when no other outgoing flow's condition
+          holds.
+        range: string
+        annotations:
+          xml_name: default
+          refers_to: BpmnSequenceFlow
+          reference_kind: id
+
+  BpmnInputDataItem:
+    description: The data input each instance of a multi-instance activity receives.
+    is_a: BpmnDataInput
+    exact_mappings:
+      - bpmn:inputDataItem
+    annotations:
+      xml_name: inputDataItem
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/InputDataItemImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnInputSet:
+    description: A set of data inputs that is enough for an activity or event to start.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:inputSet
+    annotations:
+      xml_name: inputSet
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/InputSetImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      data_input_refs:
+        description: The ids of the data inputs this set holds.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: dataInputRefs
+          refers_to: BpmnDataInput
+          reference_kind: id
+      optional_input_refs:
+        description: The ids of inputs the set may do without.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: optionalInputRefs
+          refers_to: BpmnDataInput
+          reference_kind: id
+      while_executing_input_refs:
+        description: The ids of inputs the element can take while it runs.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: whileExecutingInputRefs
+          refers_to: BpmnDataInput
+          reference_kind: id
+      output_set_refs:
+        description: The ids of the output sets this input set can lead to.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: outputSetRefs
+          refers_to: BpmnOutputSet
+          reference_kind: id
+
+  BpmnInteractionNode:
+    description: An element a message flow or conversation link can connect, such as a participant,
+      task or event.
+    abstract: true
+    mixin: true
+    annotations:
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/InteractionNodeImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      id:
+        description: The element's id, unique within its document.
+        range: string
+        annotations:
+          xml_name: id
+          xml_id: 'true'
+
+  BpmnInterface:
+    description: A set of operations a participant offers.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:interface
+    annotations:
+      xml_name: interface
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/InterfaceImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        required: true
+        annotations:
+          xml_name: name
+      implementation_ref:
+        description: The QName of what implements the element.
+        range: string
+        annotations:
+          xml_name: implementationRef
+      operations:
+        description: The interface's operations.
+        range: BpmnOperation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: operation
+
+  BpmnIntermediateCatchEvent:
+    description: An event on a process's path that waits for a trigger.
+    is_a: BpmnCatchEvent
+    exact_mappings:
+      - bpmn:intermediateCatchEvent
+    annotations:
+      xml_name: intermediateCatchEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/IntermediateCatchEventImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnIntermediateThrowEvent:
+    description: An event on a process's path that throws a trigger.
+    is_a: BpmnThrowEvent
+    exact_mappings:
+      - bpmn:intermediateThrowEvent
+    annotations:
+      xml_name: intermediateThrowEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/IntermediateThrowEventImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnIoBinding:
+    description: A link between an operation's messages and a callable element's input and
+      output sets.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:ioBinding
+    annotations:
+      xml_name: ioBinding
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/IoBindingImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      operation_ref:
+        description: The QName of the operation the element calls or implements.
+        range: string
+        required: true
+        annotations:
+          xml_name: operationRef
+          refers_to: BpmnOperation
+          reference_kind: qname
+      input_data_ref:
+        description: The id of the input set the binding uses.
+        range: string
+        required: true
+        annotations:
+          xml_name: inputDataRef
+          refers_to: BpmnDataInput
+          reference_kind: id
+      output_data_ref:
+        description: The id of the output set the binding uses.
+        range: string
+        required: true
+        annotations:
+          xml_name: outputDataRef
+          refers_to: BpmnDataOutput
+          reference_kind: id
+
+  BpmnIoSpecification:
+    description: The data inputs and outputs of an activity or process, and their sets.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:ioSpecification
+    annotations:
+      xml_name: ioSpecification
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/IoSpecificationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      data_inputs:
+        description: The data inputs.
+        range: BpmnDataInput
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataInput
+      data_outputs:
+        description: The data outputs.
+        range: BpmnDataOutput
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataOutput
+      input_sets:
+        description: The sets of inputs, each enough to start.
+        range: BpmnInputSet
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: inputSet
+      output_sets:
+        description: The sets of outputs.
+        range: BpmnOutputSet
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: outputSet
+
+  BpmnItemAwareElement:
+    description: An element that holds data of an item definition, such as a data object or
+      data input.
+    abstract: true
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:itemAwareElement
+    annotations:
+      xml_name: itemAwareElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ItemAwareElementImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      item_subject_ref:
+        description: The QName of the item definition of the data.
+        range: string
+        annotations:
+          xml_name: itemSubjectRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      data_state:
+        description: The state the data is in.
+        range: BpmnDataState
+        inlined: true
+        annotations:
+          xml_name: dataState
+
+  BpmnItemDefinition:
+    description: The type of data an element holds or a message carries.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:itemDefinition
+    annotations:
+      xml_name: itemDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ItemDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      structure_ref:
+        description: The QName of the type of the data, such as an XML Schema type.
+        range: string
+        annotations:
+          xml_name: structureRef
+      is_collection:
+        description: Whether the element holds a collection of items.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isCollection
+      item_kind:
+        description: Whether the item is information or a physical thing.
+        range: BpmnItemKind
+        ifabsent: BpmnItemKind(Information)
+        annotations:
+          xml_name: itemKind
+
+  BpmnLane:
+    description: A partition of a process that groups flow nodes, often by who performs them.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:lane
+    annotations:
+      xml_name: lane
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/LaneImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      partition_element_ref:
+        description: The QName of the element the lane stands for.
+        range: string
+        annotations:
+          xml_name: partitionElementRef
+          refers_to: BpmnPartitionElement
+          reference_kind: qname
+      partition_element:
+        description: The element the lane stands for.
+        range: BpmnPartitionElement
+        inlined: true
+        annotations:
+          xml_name: partitionElement
+      flow_node_refs:
+        description: The ids of the flow nodes in this lane.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: flowNodeRef
+          refers_to: BpmnFlowNode
+          reference_kind: id
+      child_lane_set:
+        description: The lanes this lane is divided into.
+        range: BpmnChildLaneSet
+        inlined: true
+        annotations:
+          xml_name: childLaneSet
+
+  BpmnLaneSet:
+    description: The lanes that divide a process or sub-process.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:laneSet
+    annotations:
+      xml_name: laneSet
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/LaneSetImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      lanes:
+        description: The lanes of the set.
+        range: BpmnLane
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: lane
+
+  BpmnLinkEventDefinition:
+    description: The trigger of a pair of events that join two paths of a process like a jump.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:linkEventDefinition
+    annotations:
+      xml_name: linkEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/LinkEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        required: true
+        annotations:
+          xml_name: name
+      sources:
+        description: The QNames of the throwing link events that jump to this one.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: source
+          refers_to: BpmnLinkEventDefinition
+          reference_kind: qname
+      target:
+        description: The QName of the catching link event this one jumps to.
+        range: string
+        annotations:
+          xml_name: target
+          refers_to: BpmnLinkEventDefinition
+          reference_kind: qname
+
+  BpmnLoopCardinality:
+    description: The expression that says how many instances a multi-instance activity creates.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:loopCardinality
+    annotations:
+      xml_name: loopCardinality
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/LoopCardinalityImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnLoopCharacteristics:
+    description: How an activity repeats.
+    abstract: true
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:loopCharacteristics
+    annotations:
+      xml_name: loopCharacteristics
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/LoopCharacteristicsImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnManualTask:
+    description: A task done by a person without any system's help.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:manualTask
+    annotations:
+      xml_name: manualTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ManualTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnMessage:
+    description: What one participant sends another.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:message
+    annotations:
+      xml_name: message
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MessageImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      item_ref:
+        description: The QName of the item definition the message carries.
+        range: string
+        annotations:
+          xml_name: itemRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+
+  BpmnMessageEventDefinition:
+    description: The trigger of an event that sends or receives a message.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:messageEventDefinition
+    annotations:
+      xml_name: messageEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MessageEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      message_ref:
+        description: The QName of the message sent or received.
+        range: string
+        annotations:
+          xml_name: messageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_result_variable:
+        description: The variable the result is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:resultVariable
+          - camunda:resultVariable
+        annotations:
+          xml_name: resultVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_topic:
+        description: The topic of the external task the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:topic
+          - camunda:topic
+        annotations:
+          xml_name: topic
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The element's type, such as external for an external task or the form
+          field's value type.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_task_priority:
+        description: The priority of the external tasks the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:taskPriority
+          - camunda:taskPriority
+        annotations:
+          xml_name: taskPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      operation_ref:
+        description: The QName of the operation the element calls or implements.
+        range: string
+        annotations:
+          xml_name: operationRef
+          refers_to: BpmnOperation
+          reference_kind: qname
+
+  BpmnMessageFlow:
+    description: The path of a message between two participants.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:messageFlow
+    annotations:
+      xml_name: messageFlow
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MessageFlowImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      source_ref:
+        description: The id or QName of the element the connection starts at.
+        range: string
+        required: true
+        annotations:
+          xml_name: sourceRef
+          refers_to: BpmnInteractionNode
+          reference_kind: qname
+      target_ref:
+        description: The id or QName of the element the connection ends at.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetRef
+          refers_to: BpmnInteractionNode
+          reference_kind: qname
+      message_ref:
+        description: The QName of the message sent or received.
+        range: string
+        annotations:
+          xml_name: messageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+
+  BpmnMessageFlowAssociation:
+    description: A link between a message flow and one that refines it.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:messageFlowAssociation
+    annotations:
+      xml_name: messageFlowAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MessageFlowAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      inner_message_flow_ref:
+        description: The QName of the message flow that refines the outer one.
+        range: string
+        required: true
+        annotations:
+          xml_name: innerMessageFlowRef
+          refers_to: BpmnMessageFlow
+          reference_kind: qname
+      outer_message_flow_ref:
+        description: The QName of the message flow being refined.
+        range: string
+        required: true
+        annotations:
+          xml_name: outerMessageFlowRef
+          refers_to: BpmnMessageFlow
+          reference_kind: qname
+
+  BpmnMessagePath:
+    description: The expression that finds a correlation property's value in a message.
+    is_a: BpmnFormalExpression
+    exact_mappings:
+      - bpmn:messagePath
+    annotations:
+      xml_name: messagePath
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MessagePath.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnMonitoring:
+    description: A hook for monitoring a process or flow element, left to the implementation.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:monitoring
+    annotations:
+      xml_name: monitoring
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MonitoringImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnMultiInstanceLoopCharacteristics:
+    description: How an activity runs once for each item of a collection, in sequence or in
+      parallel.
+    is_a: BpmnLoopCharacteristics
+    exact_mappings:
+      - bpmn:multiInstanceLoopCharacteristics
+    annotations:
+      xml_name: multiInstanceLoopCharacteristics
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/MultiInstanceLoopCharacteristicsImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      is_sequential:
+        description: Whether the instances run one after another rather than at once.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isSequential
+      behavior:
+        description: When the multi-instance activity throws an event as its instances complete.
+        range: BpmnMultiInstanceFlowCondition
+        ifabsent: BpmnMultiInstanceFlowCondition(All)
+        annotations:
+          xml_name: behavior
+      one_behavior_event_ref:
+        description: The QName of the event thrown when the first instance completes.
+        range: string
+        annotations:
+          xml_name: oneBehaviorEventRef
+          refers_to: BpmnEventDefinition
+          reference_kind: qname
+      none_behavior_event_ref:
+        description: The QName of the event thrown when no instance's completion matches.
+        range: string
+        annotations:
+          xml_name: noneBehaviorEventRef
+          refers_to: BpmnEventDefinition
+          reference_kind: qname
+      fluxnova_async_after:
+        description: Whether the engine continues asynchronously after each instance.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:asyncAfter
+          - camunda:asyncAfter
+        annotations:
+          xml_name: asyncAfter
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_async_before:
+        description: Whether each instance starts asynchronously.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:asyncBefore
+          - camunda:asyncBefore
+        annotations:
+          xml_name: asyncBefore
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_exclusive:
+        description: Whether the instances' jobs run one at a time.
+        range: boolean
+        ifabsent: 'true'
+        exact_mappings:
+          - fluxnova:exclusive
+          - camunda:exclusive
+        annotations:
+          xml_name: exclusive
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_collection:
+        description: The collection, or the expression giving it, whose items each instance
+          receives.
+        range: string
+        exact_mappings:
+          - fluxnova:collection
+          - camunda:collection
+        annotations:
+          xml_name: collection
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_element_variable:
+        description: The variable each instance receives its item of the collection in.
+        range: string
+        exact_mappings:
+          - fluxnova:elementVariable
+          - camunda:elementVariable
+        annotations:
+          xml_name: elementVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      loop_cardinality:
+        description: How many instances to create.
+        range: BpmnLoopCardinality
+        inlined: true
+        annotations:
+          xml_name: loopCardinality
+      loop_data_input_ref:
+        description: The id of the collection the instances are created from.
+        range: string
+        annotations:
+          xml_name: loopDataInputRef
+          refers_to: BpmnDataInput
+          reference_kind: qname
+      loop_data_output_ref:
+        description: The id of the collection the instances' outputs go to.
+        range: string
+        annotations:
+          xml_name: loopDataOutputRef
+          refers_to: BpmnDataOutput
+          reference_kind: qname
+      output_data_item:
+        description: The data output of each instance.
+        range: BpmnOutputDataItem
+        inlined: true
+        annotations:
+          xml_name: outputDataItem
+      input_data_item:
+        description: The data input of each instance.
+        range: BpmnInputDataItem
+        inlined: true
+        annotations:
+          xml_name: inputDataItem
+      complex_behavior_definitions:
+        description: The rules that throw events as instances complete.
+        range: BpmnComplexBehaviorDefinition
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: complexBehaviorDefinition
+      completion_condition:
+        description: The condition that ends the activity early when it holds.
+        range: BpmnCompletionCondition
+        inlined: true
+        annotations:
+          xml_name: completionCondition
+
+  BpmnOperation:
+    description: An operation of an interface, with the messages it takes and returns.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:operation
+    annotations:
+      xml_name: operation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/OperationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        required: true
+        annotations:
+          xml_name: name
+      implementation_ref:
+        description: The QName of what implements the element.
+        range: string
+        annotations:
+          xml_name: implementationRef
+      in_message_ref:
+        description: The QName of the message the operation takes.
+        range: string
+        required: true
+        annotations:
+          xml_name: inMessageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      out_message_ref:
+        description: The QName of the message the operation returns.
+        range: string
+        annotations:
+          xml_name: outMessageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      error_refs:
+        description: The QNames of the errors the operation can raise.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: errorRef
+          refers_to: BpmnError
+          reference_kind: qname
+
+  BpmnOutputDataItem:
+    description: The data output each instance of a multi-instance activity produces.
+    is_a: BpmnDataOutput
+    exact_mappings:
+      - bpmn:outputDataItem
+    annotations:
+      xml_name: outputDataItem
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/OutputDataItemImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnOutputSet:
+    description: A set of data outputs an activity or event produces together.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:outputSet
+    annotations:
+      xml_name: outputSet
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/OutputSetImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      data_output_refs:
+        description: The ids of the data outputs this set holds.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: dataOutputRefs
+          refers_to: BpmnDataOutput
+          reference_kind: id
+      optional_output_refs:
+        description: The ids of outputs the set may leave out.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: optionalOutputRefs
+          refers_to: BpmnDataOutput
+          reference_kind: id
+      while_executing_output_refs:
+        description: The ids of outputs the element can produce while it runs.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: whileExecutingOutputRefs
+          refers_to: BpmnDataOutput
+          reference_kind: id
+      input_set_refs:
+        description: The ids of the input sets this output set can be produced from.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: inputSetRefs
+          refers_to: BpmnInputSet
+          reference_kind: id
+
+  BpmnParallelGateway:
+    description: A gateway that takes all its outgoing flows, or waits for all its incoming
+      ones.
+    is_a: BpmnGateway
+    exact_mappings:
+      - bpmn:parallelGateway
+    annotations:
+      xml_name: parallelGateway
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ParallelGatewayImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnParticipant:
+    description: A party in a collaboration, usually drawn as a pool, and the process it runs.
+    is_a: BpmnBaseElement
+    mixins:
+      - BpmnInteractionNode
+    exact_mappings:
+      - bpmn:participant
+    annotations:
+      xml_name: participant
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ParticipantImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      process_ref:
+        description: The QName of the process the participant runs.
+        range: string
+        annotations:
+          xml_name: processRef
+          refers_to: BpmnProcess
+          reference_kind: qname
+      interface_refs:
+        description: The QNames of the interfaces the participant offers.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: interfaceRef
+          refers_to: BpmnInterface
+          reference_kind: qname
+      end_point_refs:
+        description: The QNames of the end points where the participant can be reached.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: endPointRef
+          refers_to: BpmnEndPoint
+          reference_kind: qname
+      participant_multiplicity:
+        description: How many instances of the participant take part.
+        range: BpmnParticipantMultiplicity
+        inlined: true
+        annotations:
+          xml_name: participantMultiplicity
+
+  BpmnParticipantAssociation:
+    description: A link between a participant and one that a called collaboration defines.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:participantAssociation
+    annotations:
+      xml_name: participantAssociation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ParticipantAssociationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      inner_participant_ref:
+        description: The QName of the participant inside the called collaboration.
+        range: string
+        required: true
+        annotations:
+          xml_name: innerParticipantRef
+          refers_to: BpmnParticipant
+          reference_kind: qname
+      outer_participant_ref:
+        description: The QName of the participant in the calling collaboration.
+        range: string
+        required: true
+        annotations:
+          xml_name: outerParticipantRef
+          refers_to: BpmnParticipant
+          reference_kind: qname
+
+  BpmnParticipantMultiplicity:
+    description: How many instances of a participant take part, from a minimum to a maximum.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:participantMultiplicity
+    annotations:
+      xml_name: participantMultiplicity
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ParticipantMultiplicityImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      minimum:
+        description: The fewest instances that take part.
+        range: integer
+        ifabsent: int(0)
+        annotations:
+          xml_name: minimum
+      maximum:
+        description: The most instances that take part.
+        range: integer
+        ifabsent: int(1)
+        annotations:
+          xml_name: maximum
+
+  BpmnPartitionElement:
+    description: The element a lane stands for, such as a performer.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:partitionElement
+    annotations:
+      xml_name: partitionElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/PartitionElement.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnPerformer:
+    description: The resource that performs an activity.
+    is_a: BpmnResourceRole
+    exact_mappings:
+      - bpmn:performer
+    annotations:
+      xml_name: performer
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/PerformerImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnPotentialOwner:
+    description: A person who may claim and perform a user task.
+    is_a: BpmnHumanPerformer
+    exact_mappings:
+      - bpmn:potentialOwner
+    annotations:
+      xml_name: potentialOwner
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/PotentialOwnerImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnProcess:
+    description: A sequence of activities, events and gateways that a participant performs.
+    is_a: BpmnCallableElement
+    exact_mappings:
+      - bpmn:process
+    annotations:
+      xml_name: process
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ProcessImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      process_type:
+        description: Whether the process is private to its participant, public, or neither.
+        range: BpmnProcessType
+        ifabsent: BpmnProcessType(None)
+        annotations:
+          xml_name: processType
+      is_closed:
+        description: Whether no interactions occur other than those the model shows.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: isClosed
+      is_executable:
+        description: Whether the process is meant to be run by an engine.
+        range: boolean
+        annotations:
+          xml_name: isExecutable
+      fluxnova_candidate_starter_groups:
+        description: The groups whose members may start the process.
+        range: string
+        exact_mappings:
+          - fluxnova:candidateStarterGroups
+          - camunda:candidateStarterGroups
+        annotations:
+          xml_name: candidateStarterGroups
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_candidate_starter_users:
+        description: The users who may start the process.
+        range: string
+        exact_mappings:
+          - fluxnova:candidateStarterUsers
+          - camunda:candidateStarterUsers
+        annotations:
+          xml_name: candidateStarterUsers
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_job_priority:
+        description: The default priority of the process's jobs.
+        range: string
+        exact_mappings:
+          - fluxnova:jobPriority
+          - camunda:jobPriority
+        annotations:
+          xml_name: jobPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_task_priority:
+        description: The default priority of the process's external tasks.
+        range: string
+        exact_mappings:
+          - fluxnova:taskPriority
+          - camunda:taskPriority
+        annotations:
+          xml_name: taskPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_history_time_to_live:
+        description: How long the engine keeps the process's history before it may remove
+          it.
+        range: string
+        exact_mappings:
+          - fluxnova:historyTimeToLive
+          - camunda:historyTimeToLive
+        annotations:
+          xml_name: historyTimeToLive
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_is_startable_in_tasklist:
+        description: Whether the tasklist offers the process to be started.
+        range: boolean
+        ifabsent: 'true'
+        exact_mappings:
+          - fluxnova:isStartableInTasklist
+          - camunda:isStartableInTasklist
+        annotations:
+          xml_name: isStartableInTasklist
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_version_tag:
+        description: The tag the process version carries.
+        range: string
+        exact_mappings:
+          - fluxnova:versionTag
+          - camunda:versionTag
+        annotations:
+          xml_name: versionTag
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      auditing:
+        description: The element's auditing hook.
+        range: BpmnAuditing
+        inlined: true
+        annotations:
+          xml_name: auditing
+      monitoring:
+        description: The element's monitoring hook.
+        range: BpmnMonitoring
+        inlined: true
+        annotations:
+          xml_name: monitoring
+      properties:
+        description: The element's properties.
+        range: BpmnProperty
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: property
+      lane_sets:
+        description: The lane sets that divide the element.
+        range: BpmnLaneSet
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: laneSet
+      flow_elements:
+        description: The activities, events, gateways, sequence flows and data this element
+          holds.
+        range: BpmnFlowElement
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: flowElement
+      artifacts:
+        description: The artifacts, such as text annotations and groups, this element holds.
+        range: BpmnArtifact
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: artifact
+      resource_roles:
+        description: The roles resources play in the element, such as its performers.
+        range: BpmnResourceRole
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: resourceRole
+      correlation_subscriptions:
+        description: The correlation subscriptions of the process.
+        range: BpmnCorrelationSubscription
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: correlationSubscription
+      supports:
+        description: The QNames of the processes this one supports.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: supports
+          refers_to: BpmnProcess
+          reference_kind: qname
+
+  BpmnProperty:
+    description: A variable of a process, activity or event.
+    is_a: BpmnItemAwareElement
+    exact_mappings:
+      - bpmn:property
+    annotations:
+      xml_name: property
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/PropertyImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+
+  BpmnReceiveTask:
+    description: A task that waits for a message.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:receiveTask
+    annotations:
+      xml_name: receiveTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ReceiveTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      implementation:
+        description: The technology that runs the task, as a URI; the engine reads its own
+          settings instead.
+        range: string
+        ifabsent: string(##WebService)
+        annotations:
+          xml_name: implementation
+      instantiate:
+        description: Whether the element starts a new process instance.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: instantiate
+      message_ref:
+        description: The QName of the message sent or received.
+        range: string
+        annotations:
+          xml_name: messageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      operation_ref:
+        description: The QName of the operation the element calls or implements.
+        range: string
+        annotations:
+          xml_name: operationRef
+          refers_to: BpmnOperation
+          reference_kind: qname
+
+  BpmnRelationship:
+    description: An informal link between elements of different models.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:relationship
+    annotations:
+      xml_name: relationship
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/RelationshipImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      type:
+        description: What kind of relationship it is.
+        range: string
+        required: true
+        annotations:
+          xml_name: type
+      direction:
+        description: Which way the relationship points.
+        range: BpmnRelationshipDirection
+        annotations:
+          xml_name: direction
+      sources:
+        description: The QNames of the elements the relationship starts from.
+        range: BpmnSource
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: source
+      targets:
+        description: The QNames of the elements the relationship leads to.
+        range: BpmnTarget
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        required: true
+        annotations:
+          xml_name: target
+
+  BpmnRendering:
+    description: A hint for how a user task appears to the person who performs it.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:rendering
+    annotations:
+      xml_name: rendering
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/RenderingImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnResource:
+    description: A resource, such as a person or role, that can perform activities.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:resource
+    annotations:
+      xml_name: resource
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ResourceImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        required: true
+        annotations:
+          xml_name: name
+      resource_parameters:
+        description: The resource's parameters.
+        range: BpmnResourceParameter
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: resourceParameter
+
+  BpmnResourceAssignmentExpression:
+    description: The expression that chooses who performs an activity.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:resourceAssignmentExpression
+    annotations:
+      xml_name: resourceAssignmentExpression
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ResourceAssignmentExpressionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      expression:
+        description: The expression that chooses the resource.
+        range: BpmnExpression
+        inlined: true
+        required: true
+        annotations:
+          xml_name: expression
+
+  BpmnResourceParameter:
+    description: A parameter that narrows which resources a resource stands for.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:resourceParameter
+    annotations:
+      xml_name: resourceParameter
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ResourceParameterImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      type:
+        description: The QName of the parameter's type.
+        range: string
+        annotations:
+          xml_name: type
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+      is_required:
+        description: Whether the parameter must be given a value.
+        range: boolean
+        annotations:
+          xml_name: isRequired
+
+  BpmnResourceParameterBinding:
+    description: The value a resource role gives a resource parameter.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:resourceParameterBinding
+    annotations:
+      xml_name: resourceParameterBinding
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ResourceParameterBindingImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      parameter_ref:
+        description: The QName of the parameter given a value.
+        range: string
+        required: true
+        annotations:
+          xml_name: parameterRef
+          refers_to: BpmnResourceParameter
+          reference_kind: qname
+      expression:
+        description: The expression that gives the parameter its value.
+        range: BpmnExpression
+        inlined: true
+        required: true
+        annotations:
+          xml_name: expression
+
+  BpmnResourceRole:
+    description: The role a resource plays in an activity or process.
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:resourceRole
+    annotations:
+      xml_name: resourceRole
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ResourceRoleImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      resource_ref:
+        description: The QName of the resource that plays the role.
+        range: string
+        annotations:
+          xml_name: resourceRef
+          refers_to: BpmnResource
+          reference_kind: qname
+      resource_parameter_bindings:
+        description: The values given to the resource's parameters.
+        range: BpmnResourceParameterBinding
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: resourceParameterBinding
+      resource_assignment_expression:
+        description: The expression that chooses the resource.
+        range: BpmnResourceAssignmentExpression
+        inlined: true
+        annotations:
+          xml_name: resourceAssignmentExpression
+
+  BpmnRootElement:
+    description: An element that can sit directly in a document's definitions, such as a process
+      or message.
+    abstract: true
+    is_a: BpmnBaseElement
+    exact_mappings:
+      - bpmn:rootElement
+    annotations:
+      xml_name: rootElement
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/RootElementImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnScript:
+    description: The body of a script task's script.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:script
+    annotations:
+      xml_name: script
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ScriptImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  BpmnScriptTask:
+    description: A task that runs a script.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:scriptTask
+    annotations:
+      xml_name: scriptTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ScriptTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      script_format:
+        description: The language the script is written in, such as groovy or javascript.
+        range: string
+        annotations:
+          xml_name: scriptFormat
+      fluxnova_result_variable:
+        description: The variable the result is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:resultVariable
+          - camunda:resultVariable
+        annotations:
+          xml_name: resultVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_resource:
+        description: A resource that holds the script, instead of the script's text.
+        range: string
+        exact_mappings:
+          - fluxnova:resource
+          - camunda:resource
+        annotations:
+          xml_name: resource
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      script:
+        description: The script the task runs.
+        range: BpmnScript
+        inlined: true
+        annotations:
+          xml_name: script
+
+  BpmnSendTask:
+    description: A task that sends a message.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:sendTask
+    annotations:
+      xml_name: sendTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SendTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      implementation:
+        description: The technology that runs the task, as a URI; the engine reads its own
+          settings instead.
+        range: string
+        ifabsent: string(##WebService)
+        annotations:
+          xml_name: implementation
+      message_ref:
+        description: The QName of the message sent or received.
+        range: string
+        annotations:
+          xml_name: messageRef
+          refers_to: BpmnMessage
+          reference_kind: qname
+      operation_ref:
+        description: The QName of the operation the element calls or implements.
+        range: string
+        annotations:
+          xml_name: operationRef
+          refers_to: BpmnOperation
+          reference_kind: qname
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_result_variable:
+        description: The variable the result is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:resultVariable
+          - camunda:resultVariable
+        annotations:
+          xml_name: resultVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_topic:
+        description: The topic of the external task the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:topic
+          - camunda:topic
+        annotations:
+          xml_name: topic
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The element's type, such as external for an external task or the form
+          field's value type.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_task_priority:
+        description: The priority of the external tasks the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:taskPriority
+          - camunda:taskPriority
+        annotations:
+          xml_name: taskPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnSequenceFlow:
+    description: The order of two flow nodes in a process, from a source to a target.
+    is_a: BpmnFlowElement
+    exact_mappings:
+      - bpmn:sequenceFlow
+    annotations:
+      xml_name: sequenceFlow
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SequenceFlowImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      source_ref:
+        description: The id or QName of the element the connection starts at.
+        range: string
+        required: true
+        annotations:
+          xml_name: sourceRef
+          refers_to: BpmnFlowNode
+          reference_kind: id
+      target_ref:
+        description: The id or QName of the element the connection ends at.
+        range: string
+        required: true
+        annotations:
+          xml_name: targetRef
+          refers_to: BpmnFlowNode
+          reference_kind: id
+      is_immediate:
+        description: Whether the flow's target follows its source with no other activity between
+          them.
+        range: boolean
+        annotations:
+          xml_name: isImmediate
+      condition_expression:
+        description: The condition that decides whether the flow is taken.
+        range: BpmnConditionExpression
+        inlined: true
+        annotations:
+          xml_name: conditionExpression
+
+  BpmnServiceTask:
+    description: A task that calls a service, such as a web service or application code.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:serviceTask
+    annotations:
+      xml_name: serviceTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ServiceTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      implementation:
+        description: The technology that runs the task, as a URI; the engine reads its own
+          settings instead.
+        range: string
+        ifabsent: string(##WebService)
+        annotations:
+          xml_name: implementation
+      operation_ref:
+        description: The QName of the operation the element calls or implements.
+        range: string
+        annotations:
+          xml_name: operationRef
+          refers_to: BpmnOperation
+          reference_kind: qname
+      fluxnova_class:
+        description: The Java class the engine instantiates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:class
+          - camunda:class
+        annotations:
+          xml_name: class
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_delegate_expression:
+        description: An expression that gives the delegate object the engine calls.
+        range: string
+        exact_mappings:
+          - fluxnova:delegateExpression
+          - camunda:delegateExpression
+        annotations:
+          xml_name: delegateExpression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_expression:
+        description: An expression the engine evaluates to run the element.
+        range: string
+        exact_mappings:
+          - fluxnova:expression
+          - camunda:expression
+        annotations:
+          xml_name: expression
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_result_variable:
+        description: The variable the result is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:resultVariable
+          - camunda:resultVariable
+        annotations:
+          xml_name: resultVariable
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_topic:
+        description: The topic of the external task the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:topic
+          - camunda:topic
+        annotations:
+          xml_name: topic
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_type:
+        description: The element's type, such as external for an external task or the form
+          field's value type.
+        range: string
+        exact_mappings:
+          - fluxnova:type
+          - camunda:type
+        annotations:
+          xml_name: type
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_task_priority:
+        description: The priority of the external tasks the element creates.
+        range: string
+        exact_mappings:
+          - fluxnova:taskPriority
+          - camunda:taskPriority
+        annotations:
+          xml_name: taskPriority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnSignal:
+    description: A signal that is broadcast to every event waiting for it.
+    is_a: BpmnRootElement
+    exact_mappings:
+      - bpmn:signal
+    annotations:
+      xml_name: signal
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SignalImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      name:
+        description: The element's name.
+        range: string
+        annotations:
+          xml_name: name
+      structure_ref:
+        description: The QName of the type of the data, such as an XML Schema type.
+        range: string
+        annotations:
+          xml_name: structureRef
+          refers_to: BpmnItemDefinition
+          reference_kind: qname
+
+  BpmnSignalEventDefinition:
+    description: The trigger of an event that sends or receives a signal.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:signalEventDefinition
+    annotations:
+      xml_name: signalEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SignalEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      signal_ref:
+        description: The QName of the signal sent or received.
+        range: string
+        annotations:
+          xml_name: signalRef
+          refers_to: BpmnSignal
+          reference_kind: qname
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnSource:
+    description: An element a relationship starts from.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:source
+    annotations:
+      xml_name: source
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/Source.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnStartEvent:
+    description: An event that starts a process or sub-process.
+    is_a: BpmnCatchEvent
+    exact_mappings:
+      - bpmn:startEvent
+    annotations:
+      xml_name: startEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/StartEventImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      is_interrupting:
+        description: Whether the event, when it starts an event sub-process, interrupts its
+          parent.
+        range: boolean
+        ifabsent: 'true'
+        annotations:
+          xml_name: isInterrupting
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_handler_class:
+        description: The Java class that handles the form.
+        range: string
+        exact_mappings:
+          - fluxnova:formHandlerClass
+          - camunda:formHandlerClass
+        annotations:
+          xml_name: formHandlerClass
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_key:
+        description: The key of the form to show.
+        range: string
+        exact_mappings:
+          - fluxnova:formKey
+          - camunda:formKey
+        annotations:
+          xml_name: formKey
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref:
+        description: The key of the deployed form to show.
+        range: string
+        exact_mappings:
+          - fluxnova:formRef
+          - camunda:formRef
+        annotations:
+          xml_name: formRef
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref_binding:
+        description: Which version of the deployed form to use.
+        range: string
+        exact_mappings:
+          - fluxnova:formRefBinding
+          - camunda:formRefBinding
+        annotations:
+          xml_name: formRefBinding
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref_version:
+        description: The version of the deployed form, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:formRefVersion
+          - camunda:formRefVersion
+        annotations:
+          xml_name: formRefVersion
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_initiator:
+        description: The variable the id of the user who started the process is stored in.
+        range: string
+        exact_mappings:
+          - fluxnova:initiator
+          - camunda:initiator
+        annotations:
+          xml_name: initiator
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnSubConversation:
+    description: A conversation node that groups other conversation nodes.
+    is_a: BpmnConversationNode
+    exact_mappings:
+      - bpmn:subConversation
+    annotations:
+      xml_name: subConversation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SubConversationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      conversation_nodes:
+        description: The conversations and sub-conversations this element holds.
+        range: BpmnConversationNode
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: conversationNode
+
+  BpmnSubProcess:
+    description: An activity that holds a process of its own.
+    is_a: BpmnActivity
+    exact_mappings:
+      - bpmn:subProcess
+    annotations:
+      xml_name: subProcess
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/SubProcessImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      triggered_by_event:
+        description: Whether the sub-process is an event sub-process, started by an event.
+        range: boolean
+        ifabsent: 'false'
+        annotations:
+          xml_name: triggeredByEvent
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      lane_sets:
+        description: The lane sets that divide the element.
+        range: BpmnLaneSet
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: laneSet
+      flow_elements:
+        description: The activities, events, gateways, sequence flows and data this element
+          holds.
+        range: BpmnFlowElement
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: flowElement
+      artifacts:
+        description: The artifacts, such as text annotations and groups, this element holds.
+        range: BpmnArtifact
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: artifact
+
+  BpmnTarget:
+    description: An element a relationship leads to.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:target
+    annotations:
+      xml_name: target
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/Target.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnTask:
+    description: An atomic activity, one that is not broken down further.
+    is_a: BpmnActivity
+    exact_mappings:
+      - bpmn:task
+    annotations:
+      xml_name: task
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      fluxnova_async:
+        description: Whether the engine continues asynchronously before the element; superseded
+          by asyncBefore.
+        range: boolean
+        ifabsent: 'false'
+        exact_mappings:
+          - fluxnova:async
+          - camunda:async
+        annotations:
+          xml_name: async
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+
+  BpmnTerminateEventDefinition:
+    description: The trigger of an end event that ends the whole process instance at once.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:terminateEventDefinition
+    annotations:
+      xml_name: terminateEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TerminateEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnText:
+    description: The text of a text annotation.
+    is_a: BpmnModelElementInstance
+    exact_mappings:
+      - bpmn:text
+    annotations:
+      xml_name: text
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TextImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      text_content:
+        description: The element's text, such as the body of an expression or a script.
+        range: string
+
+  BpmnTextAnnotation:
+    description: An artifact that adds a note to a diagram.
+    is_a: BpmnArtifact
+    exact_mappings:
+      - bpmn:textAnnotation
+    annotations:
+      xml_name: textAnnotation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TextAnnotationImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      text_format:
+        description: The format of the text, as a MIME type.
+        range: string
+        ifabsent: string(text/plain)
+        annotations:
+          xml_name: textFormat
+      text:
+        description: The annotation's text.
+        range: BpmnText
+        inlined: true
+        annotations:
+          xml_name: text
+
+  BpmnThrowEvent:
+    description: An event that throws a trigger, such as an end or intermediate throw event.
+    abstract: true
+    is_a: BpmnEvent
+    exact_mappings:
+      - bpmn:throwEvent
+    annotations:
+      xml_name: throwEvent
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ThrowEventImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      data_inputs:
+        description: The data inputs.
+        range: BpmnDataInput
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataInput
+      data_input_associations:
+        description: How data reaches the element's inputs.
+        range: BpmnDataInputAssociation
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: dataInputAssociation
+      input_set:
+        description: The input set the event's data inputs make up.
+        range: BpmnInputSet
+        inlined: true
+        annotations:
+          xml_name: inputSet
+      event_definitions:
+        description: The event definitions that trigger this event.
+        range: BpmnEventDefinition
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: eventDefinition
+      event_definition_refs:
+        description: The QNames of event definitions, defined elsewhere in the document, that
+          trigger this event.
+        range: string
+        multivalued: true
+        annotations:
+          xml_name: eventDefinitionRef
+          refers_to: BpmnEventDefinition
+          reference_kind: qname
+
+  BpmnTimeCycle:
+    description: The expression for a timer that fires repeatedly.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:timeCycle
+    annotations:
+      xml_name: timeCycle
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TimeCycleImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnTimeDate:
+    description: The expression for a timer that fires at a point in time.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:timeDate
+    annotations:
+      xml_name: timeDate
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TimeDateImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnTimeDuration:
+    description: The expression for a timer that fires once a duration has passed.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:timeDuration
+    annotations:
+      xml_name: timeDuration
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TimeDurationImpl.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnTimerEventDefinition:
+    description: The trigger of an event that fires at a time, after a duration or on a cycle.
+    is_a: BpmnEventDefinition
+    exact_mappings:
+      - bpmn:timerEventDefinition
+    annotations:
+      xml_name: timerEventDefinition
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TimerEventDefinitionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      time_date:
+        description: The timer's point in time.
+        range: BpmnTimeDate
+        inlined: true
+        annotations:
+          xml_name: timeDate
+      time_duration:
+        description: The timer's duration.
+        range: BpmnTimeDuration
+        inlined: true
+        annotations:
+          xml_name: timeDuration
+      time_cycle:
+        description: The timer's cycle.
+        range: BpmnTimeCycle
+        inlined: true
+        annotations:
+          xml_name: timeCycle
+
+  BpmnTo:
+    description: The expression an assignment copies a value to.
+    is_a: BpmnExpression
+    exact_mappings:
+      - bpmn:to
+    annotations:
+      xml_name: to
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/To.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnTransaction:
+    description: A sub-process whose activities succeed or are undone together.
+    is_a: BpmnSubProcess
+    exact_mappings:
+      - bpmn:transaction
+    annotations:
+      xml_name: transaction
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/TransactionImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      method:
+        description: How the transaction commits or cancels; compensation unless the document
+          says otherwise.
+        range: BpmnTransactionMethod
+        ifabsent: BpmnTransactionMethod(##Compensate)
+        annotations:
+          xml_name: method
+
+  BpmnTransformation:
+    description: The expression that changes data as a data association copies it.
+    is_a: BpmnFormalExpression
+    exact_mappings:
+      - bpmn:transformation
+    annotations:
+      xml_name: transformation
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/Transformation.java
+    in_subset:
+      - bpmn_semantic
+
+  BpmnUserTask:
+    description: A task a person performs with the help of a software application.
+    is_a: BpmnTask
+    exact_mappings:
+      - bpmn:userTask
+    annotations:
+      xml_name: userTask
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/MODEL
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/UserTaskImpl.java
+    in_subset:
+      - bpmn_semantic
+    attributes:
+      implementation:
+        description: The technology that runs the task, as a URI.
+        range: string
+        ifabsent: string(##unspecified)
+        annotations:
+          xml_name: implementation
+      fluxnova_assignee:
+        description: The user the task is assigned to, as a user id or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:assignee
+          - camunda:assignee
+        annotations:
+          xml_name: assignee
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_candidate_groups:
+        description: The groups whose members may claim the task, as a comma-separated list
+          or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:candidateGroups
+          - camunda:candidateGroups
+        annotations:
+          xml_name: candidateGroups
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_candidate_users:
+        description: The users who may claim the task, as a comma-separated list or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:candidateUsers
+          - camunda:candidateUsers
+        annotations:
+          xml_name: candidateUsers
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_due_date:
+        description: When the task is due, as a date or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:dueDate
+          - camunda:dueDate
+        annotations:
+          xml_name: dueDate
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_follow_up_date:
+        description: When the task should be looked at again, as a date or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:followUpDate
+          - camunda:followUpDate
+        annotations:
+          xml_name: followUpDate
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_handler_class:
+        description: The Java class that handles the form.
+        range: string
+        exact_mappings:
+          - fluxnova:formHandlerClass
+          - camunda:formHandlerClass
+        annotations:
+          xml_name: formHandlerClass
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_key:
+        description: The key of the form to show.
+        range: string
+        exact_mappings:
+          - fluxnova:formKey
+          - camunda:formKey
+        annotations:
+          xml_name: formKey
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref:
+        description: The key of the deployed form to show.
+        range: string
+        exact_mappings:
+          - fluxnova:formRef
+          - camunda:formRef
+        annotations:
+          xml_name: formRef
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref_binding:
+        description: Which version of the deployed form to use.
+        range: string
+        exact_mappings:
+          - fluxnova:formRefBinding
+          - camunda:formRefBinding
+        annotations:
+          xml_name: formRefBinding
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_form_ref_version:
+        description: The version of the deployed form, when the binding asks for one.
+        range: string
+        exact_mappings:
+          - fluxnova:formRefVersion
+          - camunda:formRefVersion
+        annotations:
+          xml_name: formRefVersion
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      fluxnova_priority:
+        description: The task's priority, as a number or an expression.
+        range: string
+        exact_mappings:
+          - fluxnova:priority
+          - camunda:priority
+        annotations:
+          xml_name: priority
+          xml_namespace: http://camunda.org/schema/1.0/bpmn
+      renderings:
+        description: Hints for how the task appears to its performer.
+        range: BpmnRendering
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: rendering

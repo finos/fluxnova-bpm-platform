@@ -1,0 +1,245 @@
+---
+# Written by scripts/bpmn_to_linkml.py from FINOS's tree; edit the script, not this file.
+id: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_bpmndi
+name: fluxnova_bpmn_bpmndi
+title: Fluxnova BPMN diagram interchange for BPMN
+description: 'BPMN Diagram Interchange: how a BPMN diagram lays its elements out.'
+version: 3.1.1
+source: https://github.com/finos/fluxnova-bpm-platform/tree/3ac64ca2c3d7c93f00395e18b9dc3218e5250264/model-api/bpmn-model/src/main
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/fluxnova-bpm-platform
+
+prefixes:
+  fluxnova_bpm_platform: https://w3id.org/lmodel/fluxnova-bpm-platform/
+  linkml: https://w3id.org/linkml/
+  bpmndi: http://www.omg.org/spec/BPMN/20100524/DI#
+default_prefix: fluxnova_bpm_platform
+default_range: string
+
+imports:
+  - linkml:types
+  - fluxnova_bpmn_di
+
+enums:
+  BpmnMessageVisibleKind:
+    description: Whether the message on a message flow is drawn as the one that starts the
+      exchange.
+    permissible_values:
+      initiating:
+        description: The message starts the exchange.
+      non_initiating:
+        description: The message answers one that started the exchange.
+
+  BpmnParticipantBandKind:
+    description: Where a participant band sits on a choreography activity, and whether its
+      participant initiates.
+    permissible_values:
+      top_initiating:
+        description: The top band, of the initiating participant.
+      middle_initiating:
+        description: A middle band, of the initiating participant.
+      bottom_initiating:
+        description: The bottom band, of the initiating participant.
+      top_non_initiating:
+        description: The top band, of a participant that does not initiate.
+      middle_non_initiating:
+        description: A middle band, of a participant that does not initiate.
+      bottom_non_initiating:
+        description: The bottom band, of a participant that does not initiate.
+
+classes:
+  BpmnDiagram:
+    description: A diagram of BPMN elements, with its plane and the label styles it uses.
+    is_a: DiDiagram
+    exact_mappings:
+      - bpmndi:BPMNDiagram
+    annotations:
+      xml_name: BPMNDiagram
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnDiagramImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      bpmn_plane:
+        description: The plane that holds this diagram's shapes and edges.
+        range: BpmnPlane
+        inlined: true
+        required: true
+        annotations:
+          xml_name: BPMNPlane
+      bpmn_label_styles:
+        description: The label styles this diagram's labels use.
+        range: BpmnLabelStyle
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        annotations:
+          xml_name: BPMNLabelStyle
+
+  BpmnEdge:
+    description: The line that draws a connecting BPMN element, such as a sequence flow, message
+      flow or association.
+    is_a: DiLabeledEdge
+    exact_mappings:
+      - bpmndi:BPMNEdge
+    annotations:
+      xml_name: BPMNEdge
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnEdgeImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      bpmn_element:
+        description: The QName of the BPMN element this diagram element draws.
+        range: string
+        annotations:
+          xml_name: bpmnElement
+          refers_to: BpmnBaseElement
+          reference_kind: qname
+      source_element:
+        description: The QName of the diagram element the edge starts at.
+        range: string
+        annotations:
+          xml_name: sourceElement
+          refers_to: DiDiagramElement
+          reference_kind: qname
+      target_element:
+        description: The QName of the diagram element the edge ends at.
+        range: string
+        annotations:
+          xml_name: targetElement
+          refers_to: DiDiagramElement
+          reference_kind: qname
+      message_visible_kind:
+        description: Whether the message the edge carries is drawn as initiating or not.
+        range: BpmnMessageVisibleKind
+        annotations:
+          xml_name: messageVisibleKind
+      bpmn_label:
+        description: The label drawn with this shape or edge.
+        range: BpmnLabel
+        inlined: true
+        annotations:
+          xml_name: BPMNLabel
+
+  BpmnLabel:
+    description: The label of a BPMN shape or edge, where its text is drawn.
+    is_a: DiLabel
+    exact_mappings:
+      - bpmndi:BPMNLabel
+    annotations:
+      xml_name: BPMNLabel
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnLabelImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      label_style:
+        description: The QName of the label style the label uses.
+        range: string
+        annotations:
+          xml_name: labelStyle
+          refers_to: BpmnLabelStyle
+          reference_kind: qname
+
+  BpmnLabelStyle:
+    description: A font that BPMN labels share.
+    is_a: DiStyle
+    exact_mappings:
+      - bpmndi:BPMNLabelStyle
+    annotations:
+      xml_name: BPMNLabelStyle
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnLabelStyleImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      font:
+        description: The font the labels are drawn in.
+        range: DcFont
+        inlined: true
+        required: true
+        annotations:
+          xml_name: Font
+
+  BpmnPlane:
+    description: The plane of a BPMN diagram, drawing one process, collaboration or sub-process.
+    is_a: DiPlane
+    exact_mappings:
+      - bpmndi:BPMNPlane
+    annotations:
+      xml_name: BPMNPlane
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnPlaneImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      bpmn_element:
+        description: The QName of the BPMN element this diagram element draws.
+        range: string
+        annotations:
+          xml_name: bpmnElement
+          refers_to: BpmnBaseElement
+          reference_kind: qname
+
+  BpmnShape:
+    description: The figure that draws a BPMN element such as a task, event, gateway, pool
+      or lane.
+    is_a: DiLabeledShape
+    exact_mappings:
+      - bpmndi:BPMNShape
+    annotations:
+      xml_name: BPMNShape
+      xml_namespace: http://www.omg.org/spec/BPMN/20100524/DI
+      source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/bpmndi/BpmnShapeImpl.java
+    in_subset:
+      - bpmn_bpmndi
+    attributes:
+      bpmn_element:
+        description: The QName of the BPMN element this diagram element draws.
+        range: string
+        annotations:
+          xml_name: bpmnElement
+          refers_to: BpmnBaseElement
+          reference_kind: qname
+      is_horizontal:
+        description: Whether a pool or lane is drawn horizontally.
+        range: boolean
+        annotations:
+          xml_name: isHorizontal
+      is_expanded:
+        description: Whether a sub-process or call activity is drawn expanded.
+        range: boolean
+        annotations:
+          xml_name: isExpanded
+      is_marker_visible:
+        description: Whether an exclusive gateway is drawn with its marker.
+        range: boolean
+        annotations:
+          xml_name: isMarkerVisible
+      is_message_visible:
+        description: Whether a participant band is drawn with its message.
+        range: boolean
+        annotations:
+          xml_name: isMessageVisible
+      participant_band_kind:
+        description: Where a participant band sits on a choreography activity, and whether
+          it initiates.
+        range: BpmnParticipantBandKind
+        annotations:
+          xml_name: participantBandKind
+      choreography_activity_shape:
+        description: The QName of the choreography activity shape this participant band belongs
+          to.
+        range: string
+        annotations:
+          xml_name: choreographyActivityShape
+          refers_to: BpmnShape
+          reference_kind: qname
+      bpmn_label:
+        description: The label drawn with this shape or edge.
+        range: BpmnLabel
+        inlined: true
+        annotations:
+          xml_name: BPMNLabel
