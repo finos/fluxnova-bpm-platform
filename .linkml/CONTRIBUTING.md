@@ -4,7 +4,7 @@
 
 ## What this project is
 
-A LinkML schema of Fluxnova 3.1.1, the engine's database tables and the BPMN elements its model API reads, in a fork of FINOS's Fluxnova BPM Platform. FINOS's tree sits unchanged at the repository's root, and this project sits beside it in `.linkml/`.
+A LinkML schema of Fluxnova 3.1.1, the engine's database tables and the BPMN elements its model API reads, in a fork of FINOS's Fluxnova BPM Platform. FINOS's tree is unchanged at the repository's root, and this project's files are beside it in `.linkml/`.
 
 | Path | Holds |
 | --- | --- |
@@ -16,7 +16,7 @@ A LinkML schema of Fluxnova 3.1.1, the engine's database tables and the BPMN ele
 | `.linkml/scripts/check_upstream_release.py` | The weekly comparison with FINOS's tags and main. |
 | `.lokf/knowledge/` | This repository's knowledge bundle. |
 
-Everything else is FINOS's, but what [NOTICE](NOTICE) lists as this project's.
+Everything else is FINOS's, except what [NOTICE](NOTICE) lists as this project's.
 
 ## Development setup
 
@@ -42,12 +42,12 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 
 ## Before opening a pull request
 
-- **Leave FINOS's files alone.** A change to one goes to [FINOS](https://github.com/finos/fluxnova-bpm-platform). `.linkml/tests/test_upstream.py` holds every file `.linkml/tests/upstream_tree.tsv` lists to its hash.
+- **Leave FINOS's files alone.** A change to one goes to [FINOS](https://github.com/finos/fluxnova-bpm-platform). `.linkml/tests/test_upstream.py` checks every file `.linkml/tests/upstream_tree.tsv` lists against its hash.
 - **Change a converter, then regenerate.** From `.linkml/`, run `just gen-schema`, `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `just check-schema` fails when a module differs from what FINOS's tree gives.
-- **An element says what Fluxnova's sources say.** `.linkml/tests/test_sources.py` holds every table, column, foreign key, state code and registered BPMN element to the sources.
+- **An element says what Fluxnova's sources say.** `.linkml/tests/test_sources.py` checks every table, column, foreign key, state code and registered BPMN element against the sources.
 - **A mapping is read at its source.** A term with no sure match stays unmapped.
 - **Keep names apart.** A host imports this adapt copy beside the Linked Open Knowledge Format (LOKF) schema and the released copies in `.linkml/tests/neighbours/`. `.linkml/tests/test_schema_rules.py` checks this.
-- **Run the tests**: `just test` from `.linkml/`. Examples sit in `tests/data/valid/` and `invalid/`, named `ClassName-suffix.yaml`.
+- **Run the tests**: `just test` from `.linkml/`. Examples go in `tests/data/valid/` and `invalid/`, named `ClassName-suffix.yaml`.
 - **Follow the schema's conventions**: PascalCase classes with the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, snake_case slots, the sources' spelling for values, and a short description on every element.
 - **Run the pre-commit hooks** on what you staged, from the root (`uvx pre-commit run -c .linkml/.pre-commit-config.yaml`).
 - **Lock files are part of the change.** CI installs with `uv sync --locked`, so an edit without its `.linkml/uv.lock` (or `.lokf/uv.lock`) fails.
@@ -59,7 +59,7 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 
 ## Taking a new release of Fluxnova or FINOS's tree
 
-The weekly watch opens an issue when FINOS tags a release or its main moves. Merge `upstream/main` (or the release's commit), then run `just pin-finos-tree <commit>`, move `scripts/edition.py`, run `just gen-schema` and `just pin-sources`, and regenerate. Merge with a merge commit: a squash loses FINOS's history, and the next merge conflicts on every file.
+The weekly watch opens an issue when FINOS tags a release or its main moves. Merge `upstream/main` (or the release's commit), then run `just pin-finos-tree <commit>`, update `scripts/edition.py`, run `just gen-schema` and `just pin-sources`, and regenerate. Merge with a merge commit: a squash loses FINOS's history, and the next merge conflicts on every file.
 
 ## Code of conduct
 
@@ -71,7 +71,7 @@ Artificial intelligence (AI) assistance is welcome; [AI_COVENANT.md](AI_COVENANT
 
 ## Reporting issues
 
-Use the [issue tracker](https://github.com/lmodel/fluxnova-bpm-platform/issues) for the schema. A problem in Fluxnova belongs with [FINOS](https://github.com/finos/fluxnova-bpm-platform/issues).
+Use the [issue tracker](https://github.com/lmodel/fluxnova-bpm-platform/issues) for the schema. Report a problem in Fluxnova to [FINOS](https://github.com/finos/fluxnova-bpm-platform/issues).
 
 ## Releasing (maintainers)
 
@@ -79,7 +79,7 @@ Use the [issue tracker](https://github.com/lmodel/fluxnova-bpm-platform/issues) 
 - Type the commit ([Conventional Commits](https://www.conventionalcommits.org/)) for what the change *is*. Only `feat:`, `fix:`, `security:` and a breaking `!` start a release, and FINOS's commits in a merge count too. A pull request that would release must carry a releasing type in its title.
 - On merge, [`semantic-release.yml`](../.github/workflows/semantic-release.yml) retitles the section to `## [X.Y.Z] - YYYY-MM-DD`, commits `.linkml/CHANGELOG.md`, tags `vX.Y.Z` and publishes the GitHub Release. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, it dispatches `.github/workflows/knowledge-release.yaml`, which attaches the schema copy and the bundle when either changed.
 - That step runs behind the `release` GitHub Environment. Configure required reviewers on it in Settings → Environments, or every qualifying merge is released unattended.
-- Below 1.0.0: the `v0.0.0` baseline tag sits on the merge of FINOS's tree, so FINOS's older commits do not count. `.releaserc.json` maps `breaking: true` to `minor`.
+- Below 1.0.0: the `v0.0.0` baseline tag is on the merge of FINOS's tree, so FINOS's older commits do not count. `.releaserc.json` maps `breaking: true` to `minor`.
 - A branch rule requiring pull requests, status checks or signed commits would reject the release job's own push to `main`, so leave them off. [SECURITY.md](../.github/SECURITY.md) says what holds `main` instead.
 
 ## License

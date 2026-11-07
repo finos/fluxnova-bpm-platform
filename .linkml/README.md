@@ -16,11 +16,11 @@ FINOS Fluxnova BPM Platform 3.1.1 (LinkML)
 
 The schema models [Fluxnova](https://fluxnova.finos.org/) 3.1.1, FINOS's BPM platform: the tables its process engine keeps, one class per table, and the BPMN 2.0 elements its model API reads, with Fluxnova's extension elements. Two converters write every module from FINOS's tree: [scripts/fluxnova_to_linkml.py](scripts/fluxnova_to_linkml.py) from the engine's H2 DDL and the Javadoc of its Java API, and [scripts/bpmn_to_linkml.py](scripts/bpmn_to_linkml.py) from the model API's `registerType` methods.
 
-This repository is a fork of [finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform). FINOS's tree sits unchanged at the repository's root, and this project sits beside it, in this folder, `.lokf/` and `website/`. A weekly workflow opens an issue when FINOS tags a release or its main moves.
+This repository is a fork of [finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform). FINOS's tree is unchanged at the repository's root, and this project's files are beside it, in this folder, `.lokf/` and `website/`. A weekly workflow opens an issue when FINOS tags a release or its main moves.
 
 ## Mappings
 
-* **BPMN 2.0, BPMN DI, DC and DI**: each BPMN class names the element it renders in `exact_mappings`, such as `bpmn:userTask`, the XML namespace and the element's name joined by `#`. `tests/test_sources.py` checks every registered element.
+* **BPMN 2.0, BPMN DI, DC and DI**: the `exact_mappings` of each BPMN class name the element it renders, such as `bpmn:userTask`, the XML namespace and the element's name joined by `#`. `tests/test_sources.py` checks every registered element.
 * **Fluxnova's extension elements and attributes**: `exact_mappings` name both `fluxnova:` and `camunda:`, since the model API registers them in Camunda's namespace and reads Fluxnova's as the same.
 
 ## Repository Structure
@@ -48,7 +48,7 @@ In Obsidian, add these to the *Known LOKF types* setting of the KTL Registrar an
 FluxnovaAttachment, FluxnovaAuthorization, FluxnovaBatch, FluxnovaByteArray, FluxnovaCaseDefinition, FluxnovaCaseExecution, FluxnovaCaseSentryPart, FluxnovaComment, FluxnovaConfiguration, FluxnovaDecisionDefinition, FluxnovaDecisionRequirementsDefinition, FluxnovaDeployment, FluxnovaEventSubscription, FluxnovaExecution, FluxnovaExternalTask, FluxnovaFilter, FluxnovaFormDefinition, FluxnovaGroup, FluxnovaHistoricActivityInstance, FluxnovaHistoricBatch, FluxnovaHistoricCaseActivityInstance, FluxnovaHistoricCaseInstance, FluxnovaHistoricDecisionInputInstance, FluxnovaHistoricDecisionInstance, FluxnovaHistoricDecisionOutputInstance, FluxnovaHistoricDetail, FluxnovaHistoricExternalTaskLog, FluxnovaHistoricIdentityLink, FluxnovaHistoricIncident, FluxnovaHistoricJobLog, FluxnovaHistoricProcessInstance, FluxnovaHistoricTaskInstance, FluxnovaHistoricVariableInstance, FluxnovaIdentityInfo, FluxnovaIdentityLink, FluxnovaIncident, FluxnovaJob, FluxnovaJobDefinition, FluxnovaMeterLog, FluxnovaProcessDefinition, FluxnovaSchemaLogEntry, FluxnovaTask, FluxnovaTaskMeterLog, FluxnovaTenant, FluxnovaTenantMembership, FluxnovaUser, FluxnovaUserOperationLogEntry, FluxnovaVariableInstance
 ```
 
-The copy roots on LOKF's `Concept` every class that carries the schema's identifier, `id`, so a concept's id is the table row's. The BPMN classes carry none and are not concept types. Ten engine slots whose names LOKF defines, such as `name`, `description` and `type`, take the `fluxnova_bpm_platform_` prefix in the copy, and the BPMN slots of such names, such as `id`, carry the `bpmn_` prefix in the schema itself. Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so none is a neighbour's. Column names are ordinary words, so the copy shares some keys with other lmodel copies, which `tests/test_schema_rules.py` lists.
+In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`, so a concept's id is the table row's. The BPMN classes carry no identifier and are not concept types. Ten engine slots whose names LOKF defines, such as `name`, `description` and `type`, take the `fluxnova_bpm_platform_` prefix in the copy. The BPMN slots of such names, such as `id`, carry the `bpmn_` prefix in the schema itself. Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so no class name is also a neighbour's. Column names are ordinary words, so the copy shares some keys with other lmodel copies, which `tests/test_schema_rules.py` lists.
 
 ## Credits
 

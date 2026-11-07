@@ -14,9 +14,9 @@ Use GitHub's [private vulnerability reporting](https://github.com/lmodel/fluxnov
 
 It releases a LinkML schema of Fluxnova 3.1.1 and the Python datamodel generated from it. Nothing is published to PyPI or npm. When the bundle or the schema has changed, `knowledge-release.yaml` attaches three assets to the release, each with its `.sha256` and a build-provenance attestation: the schema's `lokf adapt` copy, the knowledge bundle as a zip, and a Microsoft 365 Copilot skill zip. A schema is data: loading one from an untrusted source with any LinkML tool is that tool's risk, not this repository's.
 
-`.linkml/scripts/check_upstream_release.py` runs only in `upstream-watch.yaml`. It reads finos/fluxnova-bpm-platform through the GitHub API, sending its token there alone and reading at most 5 MB an answer, and writes nothing but its report. The converters under `.linkml/scripts/` read FINOS's Java, SQL and XML Schema files as text, run none of them and use no network. A test holds each of FINOS's files to its pinned hash, and each file the converters read to its hash at the release tag.
+`.linkml/scripts/check_upstream_release.py` runs only in `upstream-watch.yaml`. It reads finos/fluxnova-bpm-platform through the GitHub API, sending its token there alone and reading at most 5 MB an answer, and writes nothing but its report. The converters under `.linkml/scripts/` read FINOS's Java, SQL and XML Schema files as text, run none of them and use no network. A test checks each of FINOS's files against its pinned hash, and each file the converters read against its hash at the release tag.
 
-FINOS's engine, webapps and build sit at the repository's root, unchanged, with FINOS's own workflows. This project's workflows build and run none of them. FINOS's workflows are FINOS's to run: disable them in this fork's Actions settings.
+FINOS's engine, webapps and build are at the repository's root, unchanged, with FINOS's own workflows. This project's workflows build and run none of them. FINOS's workflows are FINOS's to run: disable them in this fork's Actions settings.
 
 ## What executes here
 
