@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-"""Transform Fluxnova BPM Platform Java entities, H2 DDL, and MyBatis XML
-mappings into a reproducible, modular LinkML schema.
+"""Write the engine tables module of the schema from Fluxnova's engine sources.
 
+The script reads the engine's H2 DDL (tables, columns, keys and foreign keys) and the
+Javadoc of the engine's Java API (descriptions) from FINOS's tree beside .linkml/,
+and writes ``fluxnova_bpm_engine.yaml`` and the umbrella ``fluxnova_bpm_platform.yaml``.
 Usage::
 
-    python scripts/fluxnova_to_linkml.py            # defaults for repo layout
-    python scripts/fluxnova_to_linkml.py --dry-run   # preview without writing
-
-The script reads three complementary source layers:
-
-1. **Java Entity interfaces** - Javadoc descriptions for classes and methods
-2. **H2 DDL SQL** - ``CREATE TABLE`` definitions, ``NOT NULL``, FK constraints
-3. **MyBatis XML mappings** - column ↔ field name maps (validation)
-
-It produces modular LinkML YAML files in ``src/fluxnova_bpm_platform/schema/``.
+    python scripts/fluxnova_to_linkml.py            # write the modules
+    python scripts/fluxnova_to_linkml.py --check    # fail if a module would change
 """
 
 from __future__ import annotations
@@ -61,7 +55,7 @@ SQL_TYPE_MAP: dict[str, str] = {
     "long": "integer",
 }
 
-# Well-known CURIE prefix -> IRI expansions (for slot_uri / class_uri references)
+# CURIE prefixes the generator knows; finalize() drops every slot_uri it sets.
 CURIE_PREFIXES: dict[str, str] = {
     "schema": "http://schema.org/",
     "dcterms": "http://purl.org/dc/terms/",
@@ -73,7 +67,7 @@ CURIE_PREFIXES: dict[str, str] = {
     "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL",
 }
 
-# SQL table name -> (LinkML class name, module)
+# Each table's class, before finalize() adds the Fluxnova prefix, and its area.
 TABLE_TO_CLASS: dict[str, tuple[str, str]] = {
     # Repository
     "ACT_RE_DEPLOYMENT": ("Deployment", "repository"),
@@ -225,13 +219,12 @@ ABSTRACT_CLASSES: set[str] = {
     "HistoricScopeInstance",
 }
 
-# Columns to skip (internal / not part of domain model)
+# Columns left out: REV_, the engine's optimistic-locking counter.
 SKIP_COLUMNS: set[str] = {
     "REV_",
 }
 
-# Module subsets for LinkML schema partitioning and enrichment
-# Each module is tagged for filtering/documentation purposes
+# The areas the tables are grouped in.
 MODULE_SUBSETS = {
     "base": "Base types and utility entities (ByteArray, Property, Meter, Schema).",
     "repository": "Resource definitions (Process, Case, Decision, Form).",
@@ -242,23 +235,12 @@ MODULE_SUBSETS = {
     "collaboration": "Collaboration features (Comments, Attachments, Filters).",
 }
 
-# Model-level subset for cross-module tagging
+# Subsets the generator tags classes with; finalize() keeps only each table's area.
 MODEL_SUBSET = "fluxnova_bpm"
-
-# Filename-derived subset for the top-level platform schema
-# (``fluxnova_bpm_platform.yaml`` → ``platform``). Every class in a given
-# schema file is tagged with both its module subset and the cross-cutting
-# ``fluxnova_bpm`` subset; the root schema's ``FluxnovaPlatformData`` follows
-# the same convention with the ``platform`` filename-derived subset.
 PLATFORM_SUBSET = "platform"
 
-# Slots whose names collide between the BPM persistence schema and the BPMN
-# Model API schema (fluxnova_bpmn_model.yaml). LinkML's import-merge requires
-# such slots to be declared in a SINGLE owning schema, otherwise gen-project /
-# gen-python raise ``Conflicting URIs ... for item: <name>``. We extract them
-# into ``fluxnova_common.yaml`` which is imported by both sides. The BPM-side
-# definitions (range: string, plus optional sql_column annotation) are used
-# verbatim; the BPMN side refines via slot_usage where it needs object ranges.
+# Slots several areas' tables share, which the generator declares once, apart from
+# the areas' own slots.
 SHARED_SLOTS: set[str] = {
     "id",
     "name",
@@ -334,8 +316,8 @@ CLASS_JAVA_INTERFACES: dict[str, str] = {
 # ---------------------------------------------------------------------------
 # Dynamic Description Generation
 # ---------------------------------------------------------------------------
-# Instead of hardcoded fallback dicts, descriptions are generated dynamically
-# from SQL column names, types, FK constraints, and table context.
+# A table or column the Javadoc does not describe gets a description built from
+# its name, its type, its foreign keys and its table.
 
 
 def _generate_slot_description(
