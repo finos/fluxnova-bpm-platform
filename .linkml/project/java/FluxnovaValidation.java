@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaValidation extends BpmnModelElementInstance {
 
-  private List<FluxnovaConstraint> constraints;
+  private List<FluxnovaConstraint> bpmnConstraints;
 
 
 }

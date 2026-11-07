@@ -788,112 +788,112 @@
 --     * Slot: y Description: The vertical coordinate.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Abstract Class: DiDiagram Description: A diagram of a model, the root of what Diagram Interchange draws.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: documentation Description: Text that documents the element.
+--     * Slot: bpmn_documentation Description: Text that documents the element.
 --     * Slot: resolution Description: The resolution of the diagram, in units per inch.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Abstract Class: DiDiagramElement Description: Any element drawn on a diagram.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: DiPlane_uid Description: Autocreated FK slot
---     * Slot: BpmnPlane_uid Description: Autocreated FK slot
+--     * Slot: DiPlane_id Description: Autocreated FK slot
+--     * Slot: BpmnPlane_id Description: Autocreated FK slot
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiEdge Description: A diagram element drawn as a line through waypoints between two elements.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Class: DiExtension Description: Tool-specific content attached to a diagram element.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Abstract Class: DiLabel Description: A diagram element that shows text, placed by its bounds.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: bounds_id Description: Where the element is drawn, and how large.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiLabeledEdge Description: An edge that can carry labels.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiLabeledShape Description: A shape that can carry labels.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: bounds_id Description: Where the element is drawn, and how large.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiNode Description: A diagram element that other elements can connect to.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiPlane Description: A diagram's drawing surface, which holds its shapes and edges.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiShape Description: A diagram element drawn as a figure inside its bounds.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: bounds_id Description: Where the element is drawn, and how large.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Abstract Class: DiStyle Description: How a diagram element looks, such as its font or colour.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Class: DiWaypoint Description: A point an edge passes through.
 --     * Slot: id
 --     * Slot: x Description: The horizontal coordinate.
 --     * Slot: y Description: The vertical coordinate.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: DiEdge_uid Description: Autocreated FK slot
---     * Slot: DiLabeledEdge_uid Description: Autocreated FK slot
---     * Slot: BpmnEdge_uid Description: Autocreated FK slot
+--     * Slot: DiEdge_id Description: Autocreated FK slot
+--     * Slot: DiLabeledEdge_id Description: Autocreated FK slot
+--     * Slot: BpmnEdge_id Description: Autocreated FK slot
 -- # Class: BpmnDiagram Description: A diagram of BPMN elements, with its plane and the label styles it uses.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: documentation Description: Text that documents the element.
+--     * Slot: bpmn_documentation Description: Text that documents the element.
 --     * Slot: resolution Description: The resolution of the diagram, in units per inch.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDefinitions_uid Description: Autocreated FK slot
---     * Slot: bpmn_plane_uid Description: The plane that holds this diagram's shapes and edges.
+--     * Slot: BpmnDefinitions_id Description: Autocreated FK slot
+--     * Slot: bpmn_plane_id Description: The plane that holds this diagram's shapes and edges.
 -- # Class: BpmnEdge Description: The line that draws a connecting BPMN element, such as a sequence flow, message flow or association.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: bpmn_element Description: The QName of the BPMN element this diagram element draws.
 --     * Slot: source_element Description: The QName of the diagram element the edge starts at.
 --     * Slot: target_element Description: The QName of the diagram element the edge ends at.
 --     * Slot: message_visible_kind Description: Whether the message the edge carries is drawn as initiating or not.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: bpmn_label_uid Description: The label drawn with this shape or edge.
+--     * Slot: bpmn_label_id Description: The label drawn with this shape or edge.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Class: BpmnLabel Description: The label of a BPMN shape or edge, where its text is drawn.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: label_style Description: The QName of the label style the label uses.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: bounds_id Description: Where the element is drawn, and how large.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Class: BpmnLabelStyle Description: A font that BPMN labels share.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDiagram_uid Description: Autocreated FK slot
+--     * Slot: BpmnDiagram_id Description: Autocreated FK slot
 --     * Slot: font_id Description: The font the labels are drawn in.
 -- # Class: BpmnPlane Description: The plane of a BPMN diagram, drawing one process, collaboration or sub-process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: bpmn_element Description: The QName of the BPMN element this diagram element draws.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Class: BpmnShape Description: The figure that draws a BPMN element such as a task, event, gateway, pool or lane.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: bpmn_element Description: The QName of the BPMN element this diagram element draws.
 --     * Slot: is_horizontal Description: Whether a pool or lane is drawn horizontally.
 --     * Slot: is_expanded Description: Whether a sub-process or call activity is drawn expanded.
@@ -901,37 +901,37 @@
 --     * Slot: is_message_visible Description: Whether a participant band is drawn with its message.
 --     * Slot: participant_band_kind Description: Where a participant band sits on a choreography activity, and whether it initiates.
 --     * Slot: choreography_activity_shape Description: The QName of the choreography activity shape this participant band belongs to.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: bpmn_label_uid Description: The label drawn with this shape or edge.
+--     * Slot: bpmn_label_id Description: The label drawn with this shape or edge.
 --     * Slot: bounds_id Description: Where the element is drawn, and how large.
 --     * Slot: extension_id Description: Tool-specific content of the diagram element.
 -- # Class: BpmnActivationCondition Description: The condition a complex gateway checks to decide when enough incoming flows have arrived to continue.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnActivity Description: Work a process performs, either a task or a sub-process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: is_for_compensation Description: Whether the activity runs only to compensate another.
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnAdHocSubProcess Description: A sub-process whose inner activities run in no fixed order, as its performers choose.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: ordering Description: Whether the inner activities run in parallel or one after another.
 --     * Slot: cancel_remaining_instances Description: Whether the activities still running are cancelled once the completion condition holds.
 --     * Slot: triggered_by_event Description: Whether the sub-process is an event sub-process, started by an event.
@@ -940,76 +940,76 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: completion_condition_uid Description: The condition that ends the activity early when it holds.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: completion_condition_id Description: The condition that ends the activity early when it holds.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnArtifact Description: An element that adds information to a diagram without changing how the process runs.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnAssignment Description: A copy of a value from one expression to another within a data association.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDataAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnDataInputAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnDataOutputAssociation_uid Description: Autocreated FK slot
---     * Slot: from_expression_uid Description: The expression the value is copied from.
---     * Slot: to_expression_uid Description: The expression the value is copied to.
+--     * Slot: BpmnDataAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnDataInputAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnDataOutputAssociation_id Description: Autocreated FK slot
+--     * Slot: from_expression_id Description: The expression the value is copied from.
+--     * Slot: to_expression_id Description: The expression the value is copied to.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnAssociation Description: A link between an artifact, such as a text annotation, and another element.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: source_ref Description: The id or QName of the element the connection starts at.
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
 --     * Slot: association_direction Description: Which ends of the association an arrow is drawn at.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnAuditing Description: A hook for auditing a process or flow element, left to the implementation.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnBaseElement Description: The base of nearly every BPMN element, giving it an id, documentation and extensions.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnBoundaryEvent Description: An event attached to the boundary of an activity, which can interrupt it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: cancel_activity Description: Whether the event, when it fires, interrupts the activity it is attached to.
 --     * Slot: attached_to_ref Description: The QName of the activity this event is attached to.
 --     * Slot: parallel_multiple Description: Whether all of the event's triggers must happen, rather than any one.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: output_set_uid Description: The output set the event's data outputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: output_set_id Description: The output set the event's data outputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnBusinessRuleTask Description: A task that hands data to a business rules engine and receives its result.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: implementation Description: The technology that runs the task, as a URI; the engine reads its own settings instead.
 --     * Slot: fluxnova_class Description: The Java class the engine instantiates to run the element.
 --     * Slot: fluxnova_delegate_expression Description: An expression that gives the delegate object the engine calls.
@@ -1029,20 +1029,20 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCallActivity Description: An activity that calls a separate process or global task.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: called_element Description: The id of the process or global task this activity calls.
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: fluxnova_called_element_binding Description: Which version of the called process to use, such as the latest or the one deployed with this one.
@@ -1059,98 +1059,98 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCallConversation Description: A conversation that calls a collaboration or global conversation defined elsewhere.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: called_collaboration_ref Description: The QName of the collaboration or global conversation this conversation calls.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCallableElement Description: An element another process can call, such as a process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCancelEventDefinition Description: The trigger of an event that cancels a transaction sub-process.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnCatchEvent Description: An event that waits for a trigger, such as a start or intermediate catch event.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: parallel_multiple Description: Whether all of the event's triggers must happen, rather than any one.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: output_set_uid Description: The output set the event's data outputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: output_set_id Description: The output set the event's data outputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCategory Description: A named set of category values that groups elements.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCategoryValue Description: One value of a category, which a group shows.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: value Description: The category value's text.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCategory_uid Description: Autocreated FK slot
+--     * Slot: BpmnCategory_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnChildLaneSet Description: The lanes a lane is divided into.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCollaboration Description: The participants of a model and the messages and conversations between them.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_closed Description: Whether no interactions occur other than those the model shows.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCompensateEventDefinition Description: The trigger of an event that starts or catches compensation.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: wait_for_completion Description: Whether the throwing event waits for the compensation to finish.
 --     * Slot: activity_ref Description: The id of the activity to compensate; when absent, every compensable activity in scope is.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCompletionCondition Description: The condition that ends a multi-instance activity or an ad-hoc sub-process early.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnComplexBehaviorDefinition Description: A rule of a multi-instance activity that throws an event when its condition holds as instances complete.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnMultiInstanceLoopCharacteristics_uid Description: Autocreated FK slot
+--     * Slot: BpmnMultiInstanceLoopCharacteristics_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnComplexGateway Description: A gateway that splits or joins flows by conditions of its own.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
@@ -1158,253 +1158,253 @@
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: activation_condition_uid Description: The condition that decides when the gateway may continue.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: activation_condition_id Description: The condition that decides when the gateway may continue.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCondition Description: The expression a conditional event evaluates.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnConditionExpression Description: The expression that decides whether a sequence flow is taken.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: xsi_type Description: The XML Schema type of the expression, a formal expression unless the document says otherwise.
 --     * Slot: fluxnova_resource Description: A resource that holds the script of a script condition.
 --     * Slot: language Description: The language the expression is written in, as a URI.
 --     * Slot: evaluates_to_type_ref Description: The QName of the item definition the expression's result has.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnConditionalEventDefinition Description: The trigger of an event that fires when a condition becomes true.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: fluxnova_variable_name Description: The variable whose changes make the engine check the condition.
 --     * Slot: fluxnova_variable_events Description: The variable events, such as create or update, that make the engine check the condition.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: condition_uid Description: The condition the event waits for.
+--     * Slot: condition_id Description: The condition the event waits for.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnConversation Description: A set of message flows between participants that belong together.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnConversationAssociation Description: A link between a conversation node and one that refines it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: inner_conversation_node_ref Description: The QName of the conversation node that refines the outer one.
 --     * Slot: outer_conversation_node_ref Description: The QName of the conversation node being refined.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnConversationLink Description: A link between a participant and a conversation node.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: source_ref Description: The id or QName of the element the connection starts at.
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnConversationNode Description: Any node of a conversation diagram, such as a conversation or sub-conversation.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnSubConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnSubConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCorrelationKey Description: A set of correlation properties that together identify a conversation.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCallConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnConversationNode_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnSubConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnConversationNode_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnSubConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCorrelationProperty Description: A value read from messages that ties them to one conversation.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: type Description: The QName of the property's type.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCorrelationPropertyBinding Description: The expression that gives a correlation property its value in a process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: correlation_property_ref Description: The QName of the correlation property this binding gives a value.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCorrelationSubscription_uid Description: Autocreated FK slot
---     * Slot: data_path_uid Description: The expression that finds the value in process data.
+--     * Slot: BpmnCorrelationSubscription_id Description: Autocreated FK slot
+--     * Slot: data_path_id Description: The expression that finds the value in process data.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCorrelationPropertyRetrievalExpression Description: The expression that reads a correlation property from one message.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: message_ref Description: The QName of the message sent or received.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCorrelationProperty_uid Description: Autocreated FK slot
---     * Slot: message_path_uid Description: The expression that finds the value in the message.
+--     * Slot: BpmnCorrelationProperty_id Description: Autocreated FK slot
+--     * Slot: message_path_id Description: The expression that finds the value in the message.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnCorrelationSubscription Description: How a process instance subscribes to messages by a correlation key.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: correlation_key_ref Description: The QName of the correlation key this subscription uses.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataAssociation Description: A copy of data from sources to a target as an activity or event runs.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: transformation_uid Description: The expression that changes the data as it is copied.
+--     * Slot: transformation_id Description: The expression that changes the data as it is copied.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataInput Description: A piece of data an activity, process or event needs.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIoSpecification_uid Description: Autocreated FK slot
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIoSpecification_id Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataInputAssociation Description: A data association that feeds a data input.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
---     * Slot: transformation_uid Description: The expression that changes the data as it is copied.
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
+--     * Slot: transformation_id Description: The expression that changes the data as it is copied.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataObject Description: Data a process creates or uses while it runs.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: data_state_id Description: The state the data is in.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataObjectReference Description: A use of a data object at one place in a process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
 --     * Slot: data_object_ref Description: The id of the data object this reference uses.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: data_state_id Description: The state the data is in.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataOutput Description: A piece of data an activity, process or event produces.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIoSpecification_uid Description: Autocreated FK slot
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIoSpecification_id Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataOutputAssociation Description: A data association that carries a data output on.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
---     * Slot: transformation_uid Description: The expression that changes the data as it is copied.
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
+--     * Slot: transformation_id Description: The expression that changes the data as it is copied.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataPath Description: The expression that finds a correlation property's value in process data.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: language Description: The language the expression is written in, as a URI.
 --     * Slot: evaluates_to_type_ref Description: The QName of the item definition the expression's result has.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataState Description: The state of a data object or data store, such as draft or approved.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataStore Description: Data that lasts beyond one process instance, such as a database.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: capacity Description: How many items the data store can hold.
 --     * Slot: is_unlimited Description: Whether the data store's capacity has no limit.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDataStoreReference Description: A use of a data store at one place in a process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
 --     * Slot: data_store_ref Description: The QName of the data store this reference uses.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: data_state_id Description: The state the data is in.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnDefinitions Description: The root of a BPMN document, which holds its processes, collaborations and diagrams.
---     * Slot: uid
---     * Slot: id Description: The document's id.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The document's id.
 --     * Slot: name Description: The document's name.
 --     * Slot: target_namespace Description: The namespace of the elements this document defines.
 --     * Slot: expression_language Description: The language the document's expressions are written in unless one says otherwise, as a URI.
@@ -1413,205 +1413,205 @@
 --     * Slot: exporter_version Description: The version of the tool that wrote the document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Class: BpmnDocumentation Description: Text that documents an element.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: text_format Description: The format of the text, as a MIME type.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnActivationCondition_uid Description: Autocreated FK slot
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnArtifact_uid Description: Autocreated FK slot
---     * Slot: BpmnAssignment_uid Description: Autocreated FK slot
---     * Slot: BpmnAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnAuditing_uid Description: Autocreated FK slot
---     * Slot: BpmnBaseElement_uid Description: Autocreated FK slot
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnCallConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnCallableElement_uid Description: Autocreated FK slot
---     * Slot: BpmnCancelEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnCategory_uid Description: Autocreated FK slot
---     * Slot: BpmnCategoryValue_uid Description: Autocreated FK slot
---     * Slot: BpmnChildLaneSet_uid Description: Autocreated FK slot
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnCompensateEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnCompletionCondition_uid Description: Autocreated FK slot
---     * Slot: BpmnComplexBehaviorDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnComplexGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnCondition_uid Description: Autocreated FK slot
---     * Slot: BpmnConditionExpression_uid Description: Autocreated FK slot
---     * Slot: BpmnConditionalEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnConversationAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnConversationLink_uid Description: Autocreated FK slot
---     * Slot: BpmnConversationNode_uid Description: Autocreated FK slot
---     * Slot: BpmnCorrelationKey_uid Description: Autocreated FK slot
---     * Slot: BpmnCorrelationProperty_uid Description: Autocreated FK slot
---     * Slot: BpmnCorrelationPropertyBinding_uid Description: Autocreated FK slot
---     * Slot: BpmnCorrelationPropertyRetrievalExpression_uid Description: Autocreated FK slot
---     * Slot: BpmnCorrelationSubscription_uid Description: Autocreated FK slot
---     * Slot: BpmnDataAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnDataInput_uid Description: Autocreated FK slot
---     * Slot: BpmnDataInputAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnDataObject_uid Description: Autocreated FK slot
---     * Slot: BpmnDataObjectReference_uid Description: Autocreated FK slot
---     * Slot: BpmnDataOutput_uid Description: Autocreated FK slot
---     * Slot: BpmnDataOutputAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnDataPath_uid Description: Autocreated FK slot
---     * Slot: BpmnDataState_uid Description: Autocreated FK slot
---     * Slot: BpmnDataStore_uid Description: Autocreated FK slot
---     * Slot: BpmnDataStoreReference_uid Description: Autocreated FK slot
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnEndPoint_uid Description: Autocreated FK slot
---     * Slot: BpmnError_uid Description: Autocreated FK slot
---     * Slot: BpmnErrorEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnEscalation_uid Description: Autocreated FK slot
---     * Slot: BpmnEscalationEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnEventBasedGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnExclusiveGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnExpression_uid Description: Autocreated FK slot
+--     * Slot: BpmnActivationCondition_id Description: Autocreated FK slot
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnArtifact_id Description: Autocreated FK slot
+--     * Slot: BpmnAssignment_id Description: Autocreated FK slot
+--     * Slot: BpmnAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnAuditing_id Description: Autocreated FK slot
+--     * Slot: BpmnBaseElement_id Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnCallConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnCallableElement_id Description: Autocreated FK slot
+--     * Slot: BpmnCancelEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnCategory_id Description: Autocreated FK slot
+--     * Slot: BpmnCategoryValue_id Description: Autocreated FK slot
+--     * Slot: BpmnChildLaneSet_id Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnCompensateEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnCompletionCondition_id Description: Autocreated FK slot
+--     * Slot: BpmnComplexBehaviorDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnComplexGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnCondition_id Description: Autocreated FK slot
+--     * Slot: BpmnConditionExpression_id Description: Autocreated FK slot
+--     * Slot: BpmnConditionalEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnConversationAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnConversationLink_id Description: Autocreated FK slot
+--     * Slot: BpmnConversationNode_id Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationKey_id Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationProperty_id Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationPropertyBinding_id Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationPropertyRetrievalExpression_id Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationSubscription_id Description: Autocreated FK slot
+--     * Slot: BpmnDataAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnDataInput_id Description: Autocreated FK slot
+--     * Slot: BpmnDataInputAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnDataObject_id Description: Autocreated FK slot
+--     * Slot: BpmnDataObjectReference_id Description: Autocreated FK slot
+--     * Slot: BpmnDataOutput_id Description: Autocreated FK slot
+--     * Slot: BpmnDataOutputAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnDataPath_id Description: Autocreated FK slot
+--     * Slot: BpmnDataState_id Description: Autocreated FK slot
+--     * Slot: BpmnDataStore_id Description: Autocreated FK slot
+--     * Slot: BpmnDataStoreReference_id Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnEndPoint_id Description: Autocreated FK slot
+--     * Slot: BpmnError_id Description: Autocreated FK slot
+--     * Slot: BpmnErrorEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnEscalation_id Description: Autocreated FK slot
+--     * Slot: BpmnEscalationEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnEventBasedGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnExclusiveGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnExpression_id Description: Autocreated FK slot
 --     * Slot: BpmnExtension_id Description: Autocreated FK slot
---     * Slot: BpmnFlowElement_uid Description: Autocreated FK slot
---     * Slot: BpmnFlowNode_uid Description: Autocreated FK slot
---     * Slot: BpmnFormalExpression_uid Description: Autocreated FK slot
---     * Slot: BpmnFrom_uid Description: Autocreated FK slot
---     * Slot: BpmnGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnGroup_uid Description: Autocreated FK slot
---     * Slot: BpmnHumanPerformer_uid Description: Autocreated FK slot
---     * Slot: BpmnInclusiveGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnInputDataItem_uid Description: Autocreated FK slot
---     * Slot: BpmnInputSet_uid Description: Autocreated FK slot
---     * Slot: BpmnInterface_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIoBinding_uid Description: Autocreated FK slot
---     * Slot: BpmnIoSpecification_uid Description: Autocreated FK slot
---     * Slot: BpmnItemAwareElement_uid Description: Autocreated FK slot
---     * Slot: BpmnItemDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnLane_uid Description: Autocreated FK slot
---     * Slot: BpmnLaneSet_uid Description: Autocreated FK slot
---     * Slot: BpmnLinkEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnLoopCardinality_uid Description: Autocreated FK slot
---     * Slot: BpmnLoopCharacteristics_uid Description: Autocreated FK slot
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
---     * Slot: BpmnMessage_uid Description: Autocreated FK slot
---     * Slot: BpmnMessageEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnMessageFlow_uid Description: Autocreated FK slot
---     * Slot: BpmnMessageFlowAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnMessagePath_uid Description: Autocreated FK slot
---     * Slot: BpmnMonitoring_uid Description: Autocreated FK slot
---     * Slot: BpmnMultiInstanceLoopCharacteristics_uid Description: Autocreated FK slot
---     * Slot: BpmnOperation_uid Description: Autocreated FK slot
---     * Slot: BpmnOutputDataItem_uid Description: Autocreated FK slot
---     * Slot: BpmnOutputSet_uid Description: Autocreated FK slot
---     * Slot: BpmnParallelGateway_uid Description: Autocreated FK slot
---     * Slot: BpmnParticipant_uid Description: Autocreated FK slot
---     * Slot: BpmnParticipantAssociation_uid Description: Autocreated FK slot
---     * Slot: BpmnParticipantMultiplicity_uid Description: Autocreated FK slot
---     * Slot: BpmnPartitionElement_uid Description: Autocreated FK slot
---     * Slot: BpmnPerformer_uid Description: Autocreated FK slot
---     * Slot: BpmnPotentialOwner_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnProperty_uid Description: Autocreated FK slot
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
---     * Slot: BpmnRelationship_uid Description: Autocreated FK slot
---     * Slot: BpmnRendering_uid Description: Autocreated FK slot
---     * Slot: BpmnResource_uid Description: Autocreated FK slot
---     * Slot: BpmnResourceAssignmentExpression_uid Description: Autocreated FK slot
---     * Slot: BpmnResourceParameter_uid Description: Autocreated FK slot
---     * Slot: BpmnResourceParameterBinding_uid Description: Autocreated FK slot
---     * Slot: BpmnResourceRole_uid Description: Autocreated FK slot
---     * Slot: BpmnRootElement_uid Description: Autocreated FK slot
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSequenceFlow_uid Description: Autocreated FK slot
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSignal_uid Description: Autocreated FK slot
---     * Slot: BpmnSignalEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnSubConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
---     * Slot: BpmnTerminateEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnTextAnnotation_uid Description: Autocreated FK slot
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnTimeCycle_uid Description: Autocreated FK slot
---     * Slot: BpmnTimeDate_uid Description: Autocreated FK slot
---     * Slot: BpmnTimeDuration_uid Description: Autocreated FK slot
---     * Slot: BpmnTimerEventDefinition_uid Description: Autocreated FK slot
---     * Slot: BpmnTo_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: BpmnTransformation_uid Description: Autocreated FK slot
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnFlowElement_id Description: Autocreated FK slot
+--     * Slot: BpmnFlowNode_id Description: Autocreated FK slot
+--     * Slot: BpmnFormalExpression_id Description: Autocreated FK slot
+--     * Slot: BpmnFrom_id Description: Autocreated FK slot
+--     * Slot: BpmnGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnGroup_id Description: Autocreated FK slot
+--     * Slot: BpmnHumanPerformer_id Description: Autocreated FK slot
+--     * Slot: BpmnInclusiveGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnInputDataItem_id Description: Autocreated FK slot
+--     * Slot: BpmnInputSet_id Description: Autocreated FK slot
+--     * Slot: BpmnInterface_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIoBinding_id Description: Autocreated FK slot
+--     * Slot: BpmnIoSpecification_id Description: Autocreated FK slot
+--     * Slot: BpmnItemAwareElement_id Description: Autocreated FK slot
+--     * Slot: BpmnItemDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnLane_id Description: Autocreated FK slot
+--     * Slot: BpmnLaneSet_id Description: Autocreated FK slot
+--     * Slot: BpmnLinkEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnLoopCardinality_id Description: Autocreated FK slot
+--     * Slot: BpmnLoopCharacteristics_id Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
+--     * Slot: BpmnMessage_id Description: Autocreated FK slot
+--     * Slot: BpmnMessageEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnMessageFlow_id Description: Autocreated FK slot
+--     * Slot: BpmnMessageFlowAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnMessagePath_id Description: Autocreated FK slot
+--     * Slot: BpmnMonitoring_id Description: Autocreated FK slot
+--     * Slot: BpmnMultiInstanceLoopCharacteristics_id Description: Autocreated FK slot
+--     * Slot: BpmnOperation_id Description: Autocreated FK slot
+--     * Slot: BpmnOutputDataItem_id Description: Autocreated FK slot
+--     * Slot: BpmnOutputSet_id Description: Autocreated FK slot
+--     * Slot: BpmnParallelGateway_id Description: Autocreated FK slot
+--     * Slot: BpmnParticipant_id Description: Autocreated FK slot
+--     * Slot: BpmnParticipantAssociation_id Description: Autocreated FK slot
+--     * Slot: BpmnParticipantMultiplicity_id Description: Autocreated FK slot
+--     * Slot: BpmnPartitionElement_id Description: Autocreated FK slot
+--     * Slot: BpmnPerformer_id Description: Autocreated FK slot
+--     * Slot: BpmnPotentialOwner_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnProperty_id Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
+--     * Slot: BpmnRelationship_id Description: Autocreated FK slot
+--     * Slot: BpmnRendering_id Description: Autocreated FK slot
+--     * Slot: BpmnResource_id Description: Autocreated FK slot
+--     * Slot: BpmnResourceAssignmentExpression_id Description: Autocreated FK slot
+--     * Slot: BpmnResourceParameter_id Description: Autocreated FK slot
+--     * Slot: BpmnResourceParameterBinding_id Description: Autocreated FK slot
+--     * Slot: BpmnResourceRole_id Description: Autocreated FK slot
+--     * Slot: BpmnRootElement_id Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSequenceFlow_id Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSignal_id Description: Autocreated FK slot
+--     * Slot: BpmnSignalEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnSubConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
+--     * Slot: BpmnTerminateEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnTextAnnotation_id Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnTimeCycle_id Description: Autocreated FK slot
+--     * Slot: BpmnTimeDate_id Description: Autocreated FK slot
+--     * Slot: BpmnTimeDuration_id Description: Autocreated FK slot
+--     * Slot: BpmnTimerEventDefinition_id Description: Autocreated FK slot
+--     * Slot: BpmnTo_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: BpmnTransformation_id Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
 -- # Class: BpmnEndEvent Description: An event that ends a path of a process.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: input_set_uid Description: The input set the event's data inputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: input_set_id Description: The input set the event's data inputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnEndPoint Description: A place where a participant can be reached for messages.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnError Description: An error that an activity can throw and an event can catch.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: error_code Description: The code that identifies the error.
 --     * Slot: fluxnova_error_message Description: The message of the error.
 --     * Slot: structure_ref Description: The QName of the type of the data, such as an XML Schema type.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnErrorEventDefinition Description: The trigger of an event that throws or catches an error.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: error_ref Description: The QName of the error thrown or caught.
 --     * Slot: fluxnova_error_code_variable Description: The variable the caught error's code is stored in.
 --     * Slot: fluxnova_error_message_variable Description: The variable the caught error's message is stored in.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnEscalation Description: An escalation that an activity can throw and an event can catch.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: escalation_code Description: The code that identifies the escalation.
 --     * Slot: structure_ref Description: The QName of the type of the data, such as an XML Schema type.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnEscalationEventDefinition Description: The trigger of an event that throws or catches an escalation.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: escalation_ref Description: The QName of the escalation thrown or caught.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnEvent Description: Something that happens while a process runs, such as a start, a message or a timer.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnEventBasedGateway Description: A gateway that takes the path of whichever following event happens first.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: instantiate Description: Whether the element starts a new process instance.
 --     * Slot: event_gateway_type Description: Whether the gateway starts one process instance for the first event or waits for all of them.
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
@@ -1620,25 +1620,25 @@
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnEventDefinition Description: What triggers an event, such as a message, timer or signal.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnExclusiveGateway Description: A gateway that takes exactly one of its outgoing flows.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
@@ -1646,97 +1646,97 @@
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnExpression Description: An expression whose language and body the model leaves open.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnExtension Description: A declaration that a document uses an extension, by its definition.
 --     * Slot: id
---     * Slot: definition Description: The QName of the extension's definition.
+--     * Slot: bpmn_definition Description: The QName of the extension's definition.
 --     * Slot: must_understand Description: Whether a tool reading the document must understand the extension.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDefinitions_uid Description: Autocreated FK slot
+--     * Slot: BpmnDefinitions_id Description: Autocreated FK slot
 -- # Class: BpmnExtensionElements Description: The container for an element's extension content, such as Fluxnova's settings.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Abstract Class: BpmnFlowElement Description: An element that takes part in the flow of a process, such as an activity or sequence flow.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnFlowNode Description: A flow element that sequence flows connect, such as an activity, event or gateway.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnFormalExpression Description: An expression in a stated language, with the type it evaluates to.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: language Description: The language the expression is written in, as a URI.
 --     * Slot: evaluates_to_type_ref Description: The QName of the item definition the expression's result has.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnFrom Description: The expression an assignment copies a value from.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnGateway Description: A point where a process's flows split or join.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnGlobalConversation Description: A conversation defined on its own so that collaborations can call it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_closed Description: Whether no interactions occur other than those the model shows.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnGroup Description: An artifact that draws a box around elements of one category value.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: category_value_ref Description: The QName of the category value this group shows.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnHumanPerformer Description: The person who performs an activity.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: resource_ref Description: The QName of the resource that plays the role.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: resource_assignment_expression_uid Description: The expression that chooses the resource.
+--     * Slot: resource_assignment_expression_id Description: The expression that chooses the resource.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnImport Description: A document the definitions import elements from.
 --     * Slot: id
@@ -1744,9 +1744,9 @@
 --     * Slot: location Description: Where the imported document is.
 --     * Slot: import_type Description: The kind of document imported, as the URI of its language.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDefinitions_uid Description: Autocreated FK slot
+--     * Slot: BpmnDefinitions_id Description: Autocreated FK slot
 -- # Class: BpmnInclusiveGateway Description: A gateway that takes every outgoing flow whose condition holds.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
@@ -1754,161 +1754,161 @@
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnInputDataItem Description: The data input each instance of a multi-instance activity receives.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnInputSet Description: A set of data inputs that is enough for an activity or event to start.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnIoSpecification_uid Description: Autocreated FK slot
+--     * Slot: BpmnIoSpecification_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnInteractionNode Description: An element a message flow or conversation link can connect, such as a participant, task or event.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 -- # Class: BpmnInterface Description: A set of operations a participant offers.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: implementation_ref Description: The QName of what implements the element.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnIntermediateCatchEvent Description: An event on a process's path that waits for a trigger.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: parallel_multiple Description: Whether all of the event's triggers must happen, rather than any one.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: output_set_uid Description: The output set the event's data outputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: output_set_id Description: The output set the event's data outputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnIntermediateThrowEvent Description: An event on a process's path that throws a trigger.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: input_set_uid Description: The input set the event's data inputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: input_set_id Description: The input set the event's data inputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnIoBinding Description: A link between an operation's messages and a callable element's input and output sets.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: operation_ref Description: The QName of the operation the element calls or implements.
 --     * Slot: input_data_ref Description: The id of the input set the binding uses.
 --     * Slot: output_data_ref Description: The id of the output set the binding uses.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCallableElement_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallableElement_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnIoSpecification Description: The data inputs and outputs of an activity or process, and their sets.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnItemAwareElement Description: An element that holds data of an item definition, such as a data object or data input.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnItemDefinition Description: The type of data an element holds or a message carries.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: structure_ref Description: The QName of the type of the data, such as an XML Schema type.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: item_kind Description: Whether the item is information or a physical thing.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnLane Description: A partition of a process that groups flow nodes, often by who performs them.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: partition_element_ref Description: The QName of the element the lane stands for.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnChildLaneSet_uid Description: Autocreated FK slot
---     * Slot: BpmnLaneSet_uid Description: Autocreated FK slot
---     * Slot: partition_element_uid Description: The element the lane stands for.
---     * Slot: child_lane_set_uid Description: The lanes this lane is divided into.
+--     * Slot: BpmnChildLaneSet_id Description: Autocreated FK slot
+--     * Slot: BpmnLaneSet_id Description: Autocreated FK slot
+--     * Slot: partition_element_id Description: The element the lane stands for.
+--     * Slot: child_lane_set_id Description: The lanes this lane is divided into.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnLaneSet Description: The lanes that divide a process or sub-process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnLinkEventDefinition Description: The trigger of a pair of events that join two paths of a process like a jump.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: target Description: The QName of the catching link event this one jumps to.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_target Description: The QName of the catching link event this one jumps to.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnLoopCardinality Description: The expression that says how many instances a multi-instance activity creates.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnLoopCharacteristics Description: How an activity repeats.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnManualTask Description: A task done by a person without any system's help.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: is_for_compensation Description: Whether the activity runs only to compensate another.
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMessage Description: What one participant sends another.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: item_ref Description: The QName of the item definition the message carries.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMessageEventDefinition Description: The trigger of an event that sends or receives a message.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: message_ref Description: The QName of the message sent or received.
 --     * Slot: fluxnova_class Description: The Java class the engine instantiates to run the element.
 --     * Slot: fluxnova_delegate_expression Description: An expression that gives the delegate object the engine calls.
@@ -1918,44 +1918,44 @@
 --     * Slot: fluxnova_type Description: The element's type, such as external for an external task or the form field's value type.
 --     * Slot: fluxnova_task_priority Description: The priority of the external tasks the element creates.
 --     * Slot: operation_ref Description: The QName of the operation the element calls or implements.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMessageFlow Description: The path of a message between two participants.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: source_ref Description: The id or QName of the element the connection starts at.
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
 --     * Slot: message_ref Description: The QName of the message sent or received.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMessageFlowAssociation Description: A link between a message flow and one that refines it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: inner_message_flow_ref Description: The QName of the message flow that refines the outer one.
 --     * Slot: outer_message_flow_ref Description: The QName of the message flow being refined.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMessagePath Description: The expression that finds a correlation property's value in a message.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: language Description: The language the expression is written in, as a URI.
 --     * Slot: evaluates_to_type_ref Description: The QName of the item definition the expression's result has.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMonitoring Description: A hook for monitoring a process or flow element, left to the implementation.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnMultiInstanceLoopCharacteristics Description: How an activity runs once for each item of a collection, in sequence or in parallel.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: is_sequential Description: Whether the instances run one after another rather than at once.
 --     * Slot: behavior Description: When the multi-instance activity throws an event as its instances complete.
 --     * Slot: one_behavior_event_ref Description: The QName of the event thrown when the first instance completes.
@@ -1967,41 +1967,41 @@
 --     * Slot: fluxnova_element_variable Description: The variable each instance receives its item of the collection in.
 --     * Slot: loop_data_input_ref Description: The id of the collection the instances are created from.
 --     * Slot: loop_data_output_ref Description: The id of the collection the instances' outputs go to.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: loop_cardinality_uid Description: How many instances to create.
---     * Slot: output_data_item_uid Description: The data output of each instance.
---     * Slot: input_data_item_uid Description: The data input of each instance.
---     * Slot: completion_condition_uid Description: The condition that ends the activity early when it holds.
+--     * Slot: loop_cardinality_id Description: How many instances to create.
+--     * Slot: output_data_item_id Description: The data output of each instance.
+--     * Slot: input_data_item_id Description: The data input of each instance.
+--     * Slot: completion_condition_id Description: The condition that ends the activity early when it holds.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnOperation Description: An operation of an interface, with the messages it takes and returns.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: implementation_ref Description: The QName of what implements the element.
 --     * Slot: in_message_ref Description: The QName of the message the operation takes.
 --     * Slot: out_message_ref Description: The QName of the message the operation returns.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnInterface_uid Description: Autocreated FK slot
+--     * Slot: BpmnInterface_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnOutputDataItem Description: The data output each instance of a multi-instance activity produces.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: is_collection Description: Whether the element holds a collection of items.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnOutputSet Description: A set of data outputs an activity or event produces together.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnIoSpecification_uid Description: Autocreated FK slot
+--     * Slot: BpmnIoSpecification_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnParallelGateway Description: A gateway that takes all its outgoing flows, or waits for all its incoming ones.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: gateway_direction Description: Whether the gateway splits flows, joins them, does both, or is not said.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
@@ -2009,61 +2009,61 @@
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnParticipant Description: A party in a collaboration, usually drawn as a pool, and the process it runs.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: process_ref Description: The QName of the process the participant runs.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
---     * Slot: participant_multiplicity_uid Description: How many instances of the participant take part.
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
+--     * Slot: participant_multiplicity_id Description: How many instances of the participant take part.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnParticipantAssociation Description: A link between a participant and one that a called collaboration defines.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: inner_participant_ref Description: The QName of the participant inside the called collaboration.
 --     * Slot: outer_participant_ref Description: The QName of the participant in the calling collaboration.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnCallConversation_uid Description: Autocreated FK slot
---     * Slot: BpmnCollaboration_uid Description: Autocreated FK slot
---     * Slot: BpmnGlobalConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallConversation_id Description: Autocreated FK slot
+--     * Slot: BpmnCollaboration_id Description: Autocreated FK slot
+--     * Slot: BpmnGlobalConversation_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnParticipantMultiplicity Description: How many instances of a participant take part, from a minimum to a maximum.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: minimum Description: The fewest instances that take part.
 --     * Slot: maximum Description: The most instances that take part.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnPartitionElement Description: The element a lane stands for, such as a performer.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnPerformer Description: The resource that performs an activity.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: resource_ref Description: The QName of the resource that plays the role.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: resource_assignment_expression_uid Description: The expression that chooses the resource.
+--     * Slot: resource_assignment_expression_id Description: The expression that chooses the resource.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnPotentialOwner Description: A person who may claim and perform a user task.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: resource_ref Description: The QName of the resource that plays the role.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: resource_assignment_expression_uid Description: The expression that chooses the resource.
+--     * Slot: resource_assignment_expression_id Description: The expression that chooses the resource.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnProcess Description: A sequence of activities, events and gateways that a participant performs.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: process_type Description: Whether the process is private to its participant, public, or neither.
 --     * Slot: is_closed Description: Whether no interactions occur other than those the model shows.
 --     * Slot: is_executable Description: Whether the process is meant to be run by an engine.
@@ -2075,44 +2075,44 @@
 --     * Slot: fluxnova_is_startable_in_tasklist Description: Whether the tasklist offers the process to be started.
 --     * Slot: fluxnova_version_tag Description: The tag the process version carries.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnProperty Description: A variable of a process, activity or event.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: item_subject_ref Description: The QName of the item definition of the data.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
---     * Slot: data_state_uid Description: The state the data is in.
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
+--     * Slot: data_state_id Description: The state the data is in.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnReceiveTask Description: A task that waits for a message.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: implementation Description: The technology that runs the task, as a URI; the engine reads its own settings instead.
 --     * Slot: instantiate Description: Whether the element starts a new process instance.
 --     * Slot: message_ref Description: The QName of the message sent or received.
@@ -2122,98 +2122,98 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnRelationship Description: An informal link between elements of different models.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: type Description: What kind of relationship it is.
 --     * Slot: direction Description: Which way the relationship points.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDefinitions_uid Description: Autocreated FK slot
+--     * Slot: BpmnDefinitions_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnRendering Description: A hint for how a user task appears to the person who performs it.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnResource Description: A resource, such as a person or role, that can perform activities.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnResourceAssignmentExpression Description: The expression that chooses who performs an activity.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: expression_uid Description: The expression that chooses the resource.
+--     * Slot: expression_id Description: The expression that chooses the resource.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnResourceParameter Description: A parameter that narrows which resources a resource stands for.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: type Description: The QName of the parameter's type.
 --     * Slot: is_required Description: Whether the parameter must be given a value.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnResource_uid Description: Autocreated FK slot
+--     * Slot: BpmnResource_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnResourceParameterBinding Description: The value a resource role gives a resource parameter.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: parameter_ref Description: The QName of the parameter given a value.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnHumanPerformer_uid Description: Autocreated FK slot
---     * Slot: BpmnPerformer_uid Description: Autocreated FK slot
---     * Slot: BpmnPotentialOwner_uid Description: Autocreated FK slot
---     * Slot: BpmnResourceRole_uid Description: Autocreated FK slot
---     * Slot: expression_uid Description: The expression that gives the parameter its value.
+--     * Slot: BpmnHumanPerformer_id Description: Autocreated FK slot
+--     * Slot: BpmnPerformer_id Description: Autocreated FK slot
+--     * Slot: BpmnPotentialOwner_id Description: Autocreated FK slot
+--     * Slot: BpmnResourceRole_id Description: Autocreated FK slot
+--     * Slot: expression_id Description: The expression that gives the parameter its value.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnResourceRole Description: The role a resource plays in an activity or process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: resource_ref Description: The QName of the resource that plays the role.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
---     * Slot: resource_assignment_expression_uid Description: The expression that chooses the resource.
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
+--     * Slot: resource_assignment_expression_id Description: The expression that chooses the resource.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnRootElement Description: An element that can sit directly in a document's definitions, such as a process or message.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnDefinitions_uid Description: Autocreated FK slot
+--     * Slot: BpmnDefinitions_id Description: Autocreated FK slot
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnScript Description: The body of a script task's script.
 --     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Class: BpmnScriptTask Description: A task that runs a script.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: script_format Description: The language the script is written in, such as groovy or javascript.
 --     * Slot: fluxnova_result_variable Description: The variable the result is stored in.
 --     * Slot: fluxnova_resource Description: A resource that holds the script, instead of the script's text.
@@ -2222,7 +2222,7 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
@@ -2230,13 +2230,13 @@
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: script_id Description: The script the task runs.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSendTask Description: A task that sends a message.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: implementation Description: The technology that runs the task, as a URI; the engine reads its own settings instead.
 --     * Slot: message_ref Description: The QName of the message sent or received.
 --     * Slot: operation_ref Description: The QName of the operation the element calls or implements.
@@ -2252,32 +2252,32 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSequenceFlow Description: The order of two flow nodes in a process, from a source to a target.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: source_ref Description: The id or QName of the element the connection starts at.
 --     * Slot: target_ref Description: The id or QName of the element the connection ends at.
 --     * Slot: is_immediate Description: Whether the flow's target follows its source with no other activity between them.
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: condition_expression_uid Description: The condition that decides whether the flow is taken.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: condition_expression_id Description: The condition that decides whether the flow is taken.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnServiceTask Description: A task that calls a service, such as a web service or application code.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: implementation Description: The technology that runs the task, as a URI; the engine reads its own settings instead.
 --     * Slot: operation_ref Description: The QName of the operation the element calls or implements.
 --     * Slot: fluxnova_class Description: The Java class the engine instantiates to run the element.
@@ -2292,38 +2292,38 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSignal Description: A signal that is broadcast to every event waiting for it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
 --     * Slot: structure_ref Description: The QName of the type of the data, such as an XML Schema type.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSignalEventDefinition Description: The trigger of an event that sends or receives a signal.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: signal_ref Description: The QName of the signal sent or received.
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSource Description: An element a relationship starts from.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnRelationship_uid Description: Autocreated FK slot
+--     * Slot: BpmnRelationship_id Description: Autocreated FK slot
 -- # Class: BpmnStartEvent Description: An event that starts a process or sub-process.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: is_interrupting Description: Whether the event, when it starts an event sub-process, interrupts its parent.
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: fluxnova_form_handler_class Description: The Java class that handles the form.
@@ -2333,69 +2333,69 @@
 --     * Slot: fluxnova_form_ref_version Description: The version of the deployed form, when the binding asks for one.
 --     * Slot: fluxnova_initiator Description: The variable the id of the user who started the process is stored in.
 --     * Slot: parallel_multiple Description: Whether all of the event's triggers must happen, rather than any one.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: output_set_uid Description: The output set the event's data outputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: output_set_id Description: The output set the event's data outputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSubConversation Description: A conversation node that groups other conversation nodes.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: name Description: The element's name.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnSubProcess Description: An activity that holds a process of its own.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: triggered_by_event Description: Whether the sub-process is an event sub-process, started by an event.
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: is_for_compensation Description: Whether the activity runs only to compensate another.
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTarget Description: An element a relationship leads to.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: BpmnRelationship_uid Description: Autocreated FK slot
+--     * Slot: BpmnRelationship_id Description: Autocreated FK slot
 -- # Class: BpmnTask Description: An atomic activity, one that is not broken down further.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
 --     * Slot: is_for_compensation Description: Whether the activity runs only to compensate another.
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTerminateEventDefinition Description: The trigger of an end event that ends the whole process instance at once.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnText Description: The text of a text annotation.
@@ -2403,59 +2403,59 @@
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Class: BpmnTextAnnotation Description: An artifact that adds a note to a diagram.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_format Description: The format of the text, as a MIME type.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: text_id Description: The annotation's text.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Abstract Class: BpmnThrowEvent Description: An event that throws a trigger, such as an end or intermediate throw event.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: input_set_uid Description: The input set the event's data inputs make up.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: input_set_id Description: The input set the event's data inputs make up.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTimeCycle Description: The expression for a timer that fires repeatedly.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTimeDate Description: The expression for a timer that fires at a point in time.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTimeDuration Description: The expression for a timer that fires once a duration has passed.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTimerEventDefinition Description: The trigger of an event that fires at a time, after a duration or on a cycle.
---     * Slot: uid
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: id
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: time_date_uid Description: The timer's point in time.
---     * Slot: time_duration_uid Description: The timer's duration.
---     * Slot: time_cycle_uid Description: The timer's cycle.
+--     * Slot: time_date_id Description: The timer's point in time.
+--     * Slot: time_duration_id Description: The timer's duration.
+--     * Slot: time_cycle_id Description: The timer's cycle.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTo Description: The expression an assignment copies a value to.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTransaction Description: A sub-process whose activities succeed or are undone together.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: method Description: How the transaction commits or cancels; compensation unless the document says otherwise.
 --     * Slot: triggered_by_event Description: Whether the sub-process is an event sub-process, started by an event.
 --     * Slot: fluxnova_async Description: Whether the engine continues asynchronously before the element; superseded by asyncBefore.
@@ -2463,28 +2463,28 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnTransformation Description: The expression that changes data as a data association copies it.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: language Description: The language the expression is written in, as a URI.
 --     * Slot: evaluates_to_type_ref Description: The QName of the item definition the expression's result has.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnUserTask Description: A task a person performs with the help of a software application.
---     * Slot: uid
+--     * Slot: id
 --     * Slot: implementation Description: The technology that runs the task, as a URI.
 --     * Slot: fluxnova_assignee Description: The user the task is assigned to, as a user id or an expression.
 --     * Slot: fluxnova_candidate_groups Description: The groups whose members may claim the task, as a comma-separated list or an expression.
@@ -2502,17 +2502,17 @@
 --     * Slot: start_quantity Description: How many tokens must arrive before the activity starts.
 --     * Slot: completion_quantity Description: How many tokens the activity sends on when it completes.
 --     * Slot: default Description: The id of the sequence flow taken when no other outgoing flow's condition holds.
---     * Slot: id Description: The element's id, unique within its document.
+--     * Slot: bpmn_id Description: The element's id, unique within its document.
 --     * Slot: fluxnova_async_after Description: Whether the engine commits and continues asynchronously after the element.
 --     * Slot: fluxnova_async_before Description: Whether the engine commits and continues asynchronously before the element.
 --     * Slot: fluxnova_exclusive Description: Whether the element's jobs run one at a time within a process instance.
 --     * Slot: fluxnova_job_priority Description: The priority of the element's jobs.
 --     * Slot: name Description: The element's name.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: io_specification_uid Description: The element's data inputs and outputs.
---     * Slot: loop_characteristics_uid Description: How the activity repeats.
---     * Slot: auditing_uid Description: The element's auditing hook.
---     * Slot: monitoring_uid Description: The element's monitoring hook.
+--     * Slot: io_specification_id Description: The element's data inputs and outputs.
+--     * Slot: loop_characteristics_id Description: How the activity repeats.
+--     * Slot: auditing_id Description: The element's auditing hook.
+--     * Slot: monitoring_id Description: The element's monitoring hook.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: FluxnovaConnector Description: A connector that a service task or message event calls, with its id and its inputs and outputs.
 --     * Slot: id
@@ -2639,7 +2639,7 @@
 -- # Class: FluxnovaPotentialStarter Description: The users or groups who may start a process.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
---     * Slot: resource_assignment_expression_uid Description: The expression that chooses the resource.
+--     * Slot: resource_assignment_expression_id Description: The expression that chooses the resource.
 -- # Class: FluxnovaProperties Description: A set of key and value properties on an element.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
@@ -2653,7 +2653,7 @@
 -- # Class: FluxnovaScript Description: A script whose result is a value, such as a parameter's or a listener's.
 --     * Slot: id
 --     * Slot: script_format Description: The language the script is written in, such as groovy or javascript.
---     * Slot: resource Description: A resource that holds the script, instead of the script's text.
+--     * Slot: bpmn_resource Description: A resource that holds the script, instead of the script's text.
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 -- # Class: FluxnovaString Description: A string a field injects.
@@ -2668,7 +2668,7 @@
 --     * Slot: fluxnova_delegate_expression Description: An expression that gives the delegate object the engine calls.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: script_id Description: The script the listener runs.
---     * Slot: timer_event_definition_uid Description: The timer of a listener that runs on a timeout.
+--     * Slot: timer_event_definition_id Description: The timer of a listener that runs on a timeout.
 -- # Class: FluxnovaValidation Description: The constraints of a form field.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
@@ -2681,376 +2681,376 @@
 --     * Slot: FluxnovaFormField_id Description: Autocreated FK slot
 --     * Slot: FluxnovaFormProperty_id Description: Autocreated FK slot
 -- # Class: BpmnActivity_incoming
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnActivity_outgoing
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnActivity_category_value_refs
---     * Slot: BpmnActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnActivity_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnAdHocSubProcess_incoming
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnAdHocSubProcess_outgoing
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnAdHocSubProcess_category_value_refs
---     * Slot: BpmnAdHocSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnAdHocSubProcess_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnBoundaryEvent_event_definition_refs
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnBoundaryEvent_incoming
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnBoundaryEvent_outgoing
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnBoundaryEvent_category_value_refs
---     * Slot: BpmnBoundaryEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnBoundaryEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnBusinessRuleTask_incoming
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnBusinessRuleTask_outgoing
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnBusinessRuleTask_category_value_refs
---     * Slot: BpmnBusinessRuleTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnBusinessRuleTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnCallActivity_incoming
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnCallActivity_outgoing
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnCallActivity_category_value_refs
---     * Slot: BpmnCallActivity_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallActivity_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnCallConversation_participant_refs
---     * Slot: BpmnCallConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallConversation_id Description: Autocreated FK slot
 --     * Slot: participant_refs Description: The QNames of the participants in the conversation.
 -- # Class: BpmnCallConversation_message_flow_refs
---     * Slot: BpmnCallConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallConversation_id Description: Autocreated FK slot
 --     * Slot: message_flow_refs Description: The QNames of the message flows the conversation node groups.
 -- # Class: BpmnCallableElement_supported_interface_refs
---     * Slot: BpmnCallableElement_uid Description: Autocreated FK slot
+--     * Slot: BpmnCallableElement_id Description: Autocreated FK slot
 --     * Slot: supported_interface_refs Description: The QNames of the interfaces the element supports.
 -- # Class: BpmnCatchEvent_event_definition_refs
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnCatchEvent_incoming
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnCatchEvent_outgoing
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnCatchEvent_category_value_refs
---     * Slot: BpmnCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnCatchEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnComplexGateway_incoming
---     * Slot: BpmnComplexGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnComplexGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnComplexGateway_outgoing
---     * Slot: BpmnComplexGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnComplexGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnComplexGateway_category_value_refs
---     * Slot: BpmnComplexGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnComplexGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnConversation_participant_refs
---     * Slot: BpmnConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnConversation_id Description: Autocreated FK slot
 --     * Slot: participant_refs Description: The QNames of the participants in the conversation.
 -- # Class: BpmnConversation_message_flow_refs
---     * Slot: BpmnConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnConversation_id Description: Autocreated FK slot
 --     * Slot: message_flow_refs Description: The QNames of the message flows the conversation node groups.
 -- # Class: BpmnConversationNode_participant_refs
---     * Slot: BpmnConversationNode_uid Description: Autocreated FK slot
+--     * Slot: BpmnConversationNode_id Description: Autocreated FK slot
 --     * Slot: participant_refs Description: The QNames of the participants in the conversation.
 -- # Class: BpmnConversationNode_message_flow_refs
---     * Slot: BpmnConversationNode_uid Description: Autocreated FK slot
+--     * Slot: BpmnConversationNode_id Description: Autocreated FK slot
 --     * Slot: message_flow_refs Description: The QNames of the message flows the conversation node groups.
 -- # Class: BpmnCorrelationKey_correlation_property_refs
---     * Slot: BpmnCorrelationKey_uid Description: Autocreated FK slot
+--     * Slot: BpmnCorrelationKey_id Description: Autocreated FK slot
 --     * Slot: correlation_property_refs Description: The QNames of the correlation properties that make up this key.
 -- # Class: BpmnDataAssociation_source_refs
---     * Slot: BpmnDataAssociation_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataAssociation_id Description: Autocreated FK slot
 --     * Slot: source_refs Description: The ids of the data the association copies from.
 -- # Class: BpmnDataInputAssociation_source_refs
---     * Slot: BpmnDataInputAssociation_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataInputAssociation_id Description: Autocreated FK slot
 --     * Slot: source_refs Description: The ids of the data the association copies from.
 -- # Class: BpmnDataObject_category_value_refs
---     * Slot: BpmnDataObject_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataObject_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnDataObjectReference_category_value_refs
---     * Slot: BpmnDataObjectReference_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataObjectReference_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnDataOutputAssociation_source_refs
---     * Slot: BpmnDataOutputAssociation_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataOutputAssociation_id Description: Autocreated FK slot
 --     * Slot: source_refs Description: The ids of the data the association copies from.
 -- # Class: BpmnDataStoreReference_category_value_refs
---     * Slot: BpmnDataStoreReference_uid Description: Autocreated FK slot
+--     * Slot: BpmnDataStoreReference_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnEndEvent_event_definition_refs
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnEndEvent_incoming
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnEndEvent_outgoing
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnEndEvent_category_value_refs
---     * Slot: BpmnEndEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEndEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnEvent_incoming
---     * Slot: BpmnEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnEvent_outgoing
---     * Slot: BpmnEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnEvent_category_value_refs
---     * Slot: BpmnEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnEventBasedGateway_incoming
---     * Slot: BpmnEventBasedGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnEventBasedGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnEventBasedGateway_outgoing
---     * Slot: BpmnEventBasedGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnEventBasedGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnEventBasedGateway_category_value_refs
---     * Slot: BpmnEventBasedGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnEventBasedGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnExclusiveGateway_incoming
---     * Slot: BpmnExclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnExclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnExclusiveGateway_outgoing
---     * Slot: BpmnExclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnExclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnExclusiveGateway_category_value_refs
---     * Slot: BpmnExclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnExclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnFlowElement_category_value_refs
---     * Slot: BpmnFlowElement_uid Description: Autocreated FK slot
+--     * Slot: BpmnFlowElement_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnFlowNode_incoming
---     * Slot: BpmnFlowNode_uid Description: Autocreated FK slot
+--     * Slot: BpmnFlowNode_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnFlowNode_outgoing
---     * Slot: BpmnFlowNode_uid Description: Autocreated FK slot
+--     * Slot: BpmnFlowNode_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnFlowNode_category_value_refs
---     * Slot: BpmnFlowNode_uid Description: Autocreated FK slot
+--     * Slot: BpmnFlowNode_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnGateway_incoming
---     * Slot: BpmnGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnGateway_outgoing
---     * Slot: BpmnGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnGateway_category_value_refs
---     * Slot: BpmnGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnInclusiveGateway_incoming
---     * Slot: BpmnInclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnInclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnInclusiveGateway_outgoing
---     * Slot: BpmnInclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnInclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnInclusiveGateway_category_value_refs
---     * Slot: BpmnInclusiveGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnInclusiveGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnInputSet_data_input_refs
---     * Slot: BpmnInputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnInputSet_id Description: Autocreated FK slot
 --     * Slot: data_input_refs Description: The ids of the data inputs this set holds.
 -- # Class: BpmnInputSet_optional_input_refs
---     * Slot: BpmnInputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnInputSet_id Description: Autocreated FK slot
 --     * Slot: optional_input_refs Description: The ids of inputs the set may do without.
 -- # Class: BpmnInputSet_while_executing_input_refs
---     * Slot: BpmnInputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnInputSet_id Description: Autocreated FK slot
 --     * Slot: while_executing_input_refs Description: The ids of inputs the element can take while it runs.
 -- # Class: BpmnInputSet_output_set_refs
---     * Slot: BpmnInputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnInputSet_id Description: Autocreated FK slot
 --     * Slot: output_set_refs Description: The ids of the output sets this input set can lead to.
 -- # Class: BpmnIntermediateCatchEvent_event_definition_refs
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnIntermediateCatchEvent_incoming
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnIntermediateCatchEvent_outgoing
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnIntermediateCatchEvent_category_value_refs
---     * Slot: BpmnIntermediateCatchEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateCatchEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnIntermediateThrowEvent_event_definition_refs
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnIntermediateThrowEvent_incoming
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnIntermediateThrowEvent_outgoing
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnIntermediateThrowEvent_category_value_refs
---     * Slot: BpmnIntermediateThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnIntermediateThrowEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnLane_flow_node_refs
---     * Slot: BpmnLane_uid Description: Autocreated FK slot
+--     * Slot: BpmnLane_id Description: Autocreated FK slot
 --     * Slot: flow_node_refs Description: The ids of the flow nodes in this lane.
--- # Class: BpmnLinkEventDefinition_sources
---     * Slot: BpmnLinkEventDefinition_uid Description: Autocreated FK slot
---     * Slot: sources Description: The QNames of the throwing link events that jump to this one.
+-- # Class: BpmnLinkEventDefinition_bpmn_sources
+--     * Slot: BpmnLinkEventDefinition_id Description: Autocreated FK slot
+--     * Slot: bpmn_sources Description: The QNames of the throwing link events that jump to this one.
 -- # Class: BpmnManualTask_incoming
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnManualTask_outgoing
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnManualTask_category_value_refs
---     * Slot: BpmnManualTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnManualTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnOperation_error_refs
---     * Slot: BpmnOperation_uid Description: Autocreated FK slot
+--     * Slot: BpmnOperation_id Description: Autocreated FK slot
 --     * Slot: error_refs Description: The QNames of the errors the operation can raise.
 -- # Class: BpmnOutputSet_data_output_refs
---     * Slot: BpmnOutputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnOutputSet_id Description: Autocreated FK slot
 --     * Slot: data_output_refs Description: The ids of the data outputs this set holds.
 -- # Class: BpmnOutputSet_optional_output_refs
---     * Slot: BpmnOutputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnOutputSet_id Description: Autocreated FK slot
 --     * Slot: optional_output_refs Description: The ids of outputs the set may leave out.
 -- # Class: BpmnOutputSet_while_executing_output_refs
---     * Slot: BpmnOutputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnOutputSet_id Description: Autocreated FK slot
 --     * Slot: while_executing_output_refs Description: The ids of outputs the element can produce while it runs.
 -- # Class: BpmnOutputSet_input_set_refs
---     * Slot: BpmnOutputSet_uid Description: Autocreated FK slot
+--     * Slot: BpmnOutputSet_id Description: Autocreated FK slot
 --     * Slot: input_set_refs Description: The ids of the input sets this output set can be produced from.
 -- # Class: BpmnParallelGateway_incoming
---     * Slot: BpmnParallelGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnParallelGateway_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnParallelGateway_outgoing
---     * Slot: BpmnParallelGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnParallelGateway_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnParallelGateway_category_value_refs
---     * Slot: BpmnParallelGateway_uid Description: Autocreated FK slot
+--     * Slot: BpmnParallelGateway_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnParticipant_interface_refs
---     * Slot: BpmnParticipant_uid Description: Autocreated FK slot
+--     * Slot: BpmnParticipant_id Description: Autocreated FK slot
 --     * Slot: interface_refs Description: The QNames of the interfaces the participant offers.
 -- # Class: BpmnParticipant_end_point_refs
---     * Slot: BpmnParticipant_uid Description: Autocreated FK slot
+--     * Slot: BpmnParticipant_id Description: Autocreated FK slot
 --     * Slot: end_point_refs Description: The QNames of the end points where the participant can be reached.
 -- # Class: BpmnProcess_supports
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
 --     * Slot: supports Description: The QNames of the processes this one supports.
 -- # Class: BpmnProcess_supported_interface_refs
---     * Slot: BpmnProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnProcess_id Description: Autocreated FK slot
 --     * Slot: supported_interface_refs Description: The QNames of the interfaces the element supports.
 -- # Class: BpmnReceiveTask_incoming
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnReceiveTask_outgoing
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnReceiveTask_category_value_refs
---     * Slot: BpmnReceiveTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnReceiveTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnScriptTask_incoming
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnScriptTask_outgoing
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnScriptTask_category_value_refs
---     * Slot: BpmnScriptTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnScriptTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnSendTask_incoming
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnSendTask_outgoing
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnSendTask_category_value_refs
---     * Slot: BpmnSendTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnSendTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnSequenceFlow_category_value_refs
---     * Slot: BpmnSequenceFlow_uid Description: Autocreated FK slot
+--     * Slot: BpmnSequenceFlow_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnServiceTask_incoming
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnServiceTask_outgoing
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnServiceTask_category_value_refs
---     * Slot: BpmnServiceTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnServiceTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnStartEvent_event_definition_refs
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnStartEvent_incoming
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnStartEvent_outgoing
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnStartEvent_category_value_refs
---     * Slot: BpmnStartEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnStartEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnSubConversation_participant_refs
---     * Slot: BpmnSubConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnSubConversation_id Description: Autocreated FK slot
 --     * Slot: participant_refs Description: The QNames of the participants in the conversation.
 -- # Class: BpmnSubConversation_message_flow_refs
---     * Slot: BpmnSubConversation_uid Description: Autocreated FK slot
+--     * Slot: BpmnSubConversation_id Description: Autocreated FK slot
 --     * Slot: message_flow_refs Description: The QNames of the message flows the conversation node groups.
 -- # Class: BpmnSubProcess_incoming
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnSubProcess_outgoing
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnSubProcess_category_value_refs
---     * Slot: BpmnSubProcess_uid Description: Autocreated FK slot
+--     * Slot: BpmnSubProcess_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnTask_incoming
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnTask_outgoing
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnTask_category_value_refs
---     * Slot: BpmnTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnThrowEvent_event_definition_refs
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
 --     * Slot: event_definition_refs Description: The QNames of event definitions, defined elsewhere in the document, that trigger this event.
 -- # Class: BpmnThrowEvent_incoming
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnThrowEvent_outgoing
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnThrowEvent_category_value_refs
---     * Slot: BpmnThrowEvent_uid Description: Autocreated FK slot
+--     * Slot: BpmnThrowEvent_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnTransaction_incoming
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnTransaction_outgoing
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnTransaction_category_value_refs
---     * Slot: BpmnTransaction_uid Description: Autocreated FK slot
+--     * Slot: BpmnTransaction_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 -- # Class: BpmnUserTask_incoming
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
 --     * Slot: incoming Description: The QNames of the sequence flows that enter this node.
 -- # Class: BpmnUserTask_outgoing
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
 --     * Slot: outgoing Description: The QNames of the sequence flows that leave this node.
 -- # Class: BpmnUserTask_category_value_refs
---     * Slot: BpmnUserTask_uid Description: Autocreated FK slot
+--     * Slot: BpmnUserTask_id Description: Autocreated FK slot
 --     * Slot: category_value_refs Description: The QNames of the category values this element belongs to.
 
 CREATE TABLE "FluxnovaPlatformData" (
@@ -3729,15 +3729,15 @@ CREATE TABLE "DcPoint" (
 CREATE INDEX "ix_DcPoint_id" ON "DcPoint" (id);
 
 CREATE TABLE "DiDiagram" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	documentation TEXT,
+	bpmn_documentation TEXT,
 	resolution FLOAT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	PRIMARY KEY (uid)
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_DiDiagram_uid" ON "DiDiagram" (uid);
+CREATE INDEX "ix_DiDiagram_id" ON "DiDiagram" (id);
 
 CREATE TABLE "DiExtension" (
 	id INTEGER NOT NULL,
@@ -3747,16 +3747,16 @@ CREATE TABLE "DiExtension" (
 CREATE INDEX "ix_DiExtension_id" ON "DiExtension" (id);
 
 CREATE TABLE "DiStyle" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	PRIMARY KEY (uid)
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_DiStyle_uid" ON "DiStyle" (uid);
+CREATE INDEX "ix_DiStyle_id" ON "DiStyle" (id);
 
 CREATE TABLE "BpmnDefinitions" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	name TEXT,
 	target_namespace TEXT NOT NULL,
 	expression_language TEXT,
@@ -3764,9 +3764,9 @@ CREATE TABLE "BpmnDefinitions" (
 	exporter TEXT,
 	exporter_version TEXT,
 	element_type TEXT,
-	PRIMARY KEY (uid)
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_BpmnDefinitions_uid" ON "BpmnDefinitions" (uid);
+CREATE INDEX "ix_BpmnDefinitions_id" ON "BpmnDefinitions" (id);
 
 CREATE TABLE "BpmnExtensionElements" (
 	id INTEGER NOT NULL,
@@ -3776,11 +3776,11 @@ CREATE TABLE "BpmnExtensionElements" (
 CREATE INDEX "ix_BpmnExtensionElements_id" ON "BpmnExtensionElements" (id);
 
 CREATE TABLE "BpmnInteractionNode" (
-	uid INTEGER NOT NULL,
-	id TEXT,
-	PRIMARY KEY (uid)
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_BpmnInteractionNode_uid" ON "BpmnInteractionNode" (uid);
+CREATE INDEX "ix_BpmnInteractionNode_id" ON "BpmnInteractionNode" (id);
 
 CREATE TABLE "BpmnScript" (
 	id INTEGER NOT NULL,
@@ -3912,7 +3912,7 @@ CREATE INDEX "ix_FluxnovaProperties_id" ON "FluxnovaProperties" (id);
 CREATE TABLE "FluxnovaScript" (
 	id INTEGER NOT NULL,
 	script_format TEXT NOT NULL,
-	resource TEXT,
+	bpmn_resource TEXT,
 	text_content TEXT,
 	element_type TEXT,
 	PRIMARY KEY (id)
@@ -4058,430 +4058,430 @@ CREATE TABLE "FluxnovaUser" (
 CREATE INDEX "ix_FluxnovaUser_id" ON "FluxnovaUser" (id);
 
 CREATE TABLE "DiEdge" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiEdge_uid" ON "DiEdge" (uid);
+CREATE INDEX "ix_DiEdge_id" ON "DiEdge" (id);
 
 CREATE TABLE "DiLabel" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	bounds_id INTEGER,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(bounds_id) REFERENCES "DcBounds" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiLabel_uid" ON "DiLabel" (uid);
+CREATE INDEX "ix_DiLabel_id" ON "DiLabel" (id);
 
 CREATE TABLE "DiLabeledEdge" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiLabeledEdge_uid" ON "DiLabeledEdge" (uid);
+CREATE INDEX "ix_DiLabeledEdge_id" ON "DiLabeledEdge" (id);
 
 CREATE TABLE "DiLabeledShape" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	bounds_id INTEGER NOT NULL,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(bounds_id) REFERENCES "DcBounds" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiLabeledShape_uid" ON "DiLabeledShape" (uid);
+CREATE INDEX "ix_DiLabeledShape_id" ON "DiLabeledShape" (id);
 
 CREATE TABLE "DiNode" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiNode_uid" ON "DiNode" (uid);
+CREATE INDEX "ix_DiNode_id" ON "DiNode" (id);
 
 CREATE TABLE "DiPlane" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiPlane_uid" ON "DiPlane" (uid);
+CREATE INDEX "ix_DiPlane_id" ON "DiPlane" (id);
 
 CREATE TABLE "DiShape" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	bounds_id INTEGER NOT NULL,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(bounds_id) REFERENCES "DcBounds" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiShape_uid" ON "DiShape" (uid);
+CREATE INDEX "ix_DiShape_id" ON "DiShape" (id);
 
 CREATE TABLE "BpmnLabel" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	label_style TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	bounds_id INTEGER,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(bounds_id) REFERENCES "DcBounds" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_BpmnLabel_uid" ON "BpmnLabel" (uid);
+CREATE INDEX "ix_BpmnLabel_id" ON "BpmnLabel" (id);
 
 CREATE TABLE "BpmnPlane" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	bpmn_element TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_BpmnPlane_uid" ON "BpmnPlane" (uid);
+CREATE INDEX "ix_BpmnPlane_id" ON "BpmnPlane" (id);
 
 CREATE TABLE "BpmnActivationCondition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnActivationCondition_uid" ON "BpmnActivationCondition" (uid);
+CREATE INDEX "ix_BpmnActivationCondition_id" ON "BpmnActivationCondition" (id);
 
 CREATE TABLE "BpmnAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	source_ref TEXT NOT NULL,
 	target_ref TEXT NOT NULL,
 	association_direction VARCHAR(4),
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnAssociation_uid" ON "BpmnAssociation" (uid);
+CREATE INDEX "ix_BpmnAssociation_id" ON "BpmnAssociation" (id);
 
 CREATE TABLE "BpmnAuditing" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnAuditing_uid" ON "BpmnAuditing" (uid);
+CREATE INDEX "ix_BpmnAuditing_id" ON "BpmnAuditing" (id);
 
 CREATE TABLE "BpmnBaseElement" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnBaseElement_uid" ON "BpmnBaseElement" (uid);
+CREATE INDEX "ix_BpmnBaseElement_id" ON "BpmnBaseElement" (id);
 
 CREATE TABLE "BpmnCallConversation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	called_collaboration_ref TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCallConversation_uid" ON "BpmnCallConversation" (uid);
+CREATE INDEX "ix_BpmnCallConversation_id" ON "BpmnCallConversation" (id);
 
 CREATE TABLE "BpmnCancelEventDefinition" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCancelEventDefinition_uid" ON "BpmnCancelEventDefinition" (uid);
+CREATE INDEX "ix_BpmnCancelEventDefinition_id" ON "BpmnCancelEventDefinition" (id);
 
 CREATE TABLE "BpmnCategory" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCategory_uid" ON "BpmnCategory" (uid);
+CREATE INDEX "ix_BpmnCategory_id" ON "BpmnCategory" (id);
 
 CREATE TABLE "BpmnChildLaneSet" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnChildLaneSet_uid" ON "BpmnChildLaneSet" (uid);
+CREATE INDEX "ix_BpmnChildLaneSet_id" ON "BpmnChildLaneSet" (id);
 
 CREATE TABLE "BpmnCollaboration" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_closed BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCollaboration_uid" ON "BpmnCollaboration" (uid);
+CREATE INDEX "ix_BpmnCollaboration_id" ON "BpmnCollaboration" (id);
 
 CREATE TABLE "BpmnCompensateEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	wait_for_completion BOOLEAN,
 	activity_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCompensateEventDefinition_uid" ON "BpmnCompensateEventDefinition" (uid);
+CREATE INDEX "ix_BpmnCompensateEventDefinition_id" ON "BpmnCompensateEventDefinition" (id);
 
 CREATE TABLE "BpmnCompletionCondition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCompletionCondition_uid" ON "BpmnCompletionCondition" (uid);
+CREATE INDEX "ix_BpmnCompletionCondition_id" ON "BpmnCompletionCondition" (id);
 
 CREATE TABLE "BpmnCondition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCondition_uid" ON "BpmnCondition" (uid);
+CREATE INDEX "ix_BpmnCondition_id" ON "BpmnCondition" (id);
 
 CREATE TABLE "BpmnConditionExpression" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	xsi_type TEXT,
 	fluxnova_resource TEXT,
 	language TEXT,
 	evaluates_to_type_ref TEXT,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConditionExpression_uid" ON "BpmnConditionExpression" (uid);
+CREATE INDEX "ix_BpmnConditionExpression_id" ON "BpmnConditionExpression" (id);
 
 CREATE TABLE "BpmnConversation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConversation_uid" ON "BpmnConversation" (uid);
+CREATE INDEX "ix_BpmnConversation_id" ON "BpmnConversation" (id);
 
 CREATE TABLE "BpmnCorrelationProperty" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	type TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationProperty_uid" ON "BpmnCorrelationProperty" (uid);
+CREATE INDEX "ix_BpmnCorrelationProperty_id" ON "BpmnCorrelationProperty" (id);
 
 CREATE TABLE "BpmnDataPath" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	language TEXT,
 	evaluates_to_type_ref TEXT,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataPath_uid" ON "BpmnDataPath" (uid);
+CREATE INDEX "ix_BpmnDataPath_id" ON "BpmnDataPath" (id);
 
 CREATE TABLE "BpmnDataState" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataState_uid" ON "BpmnDataState" (uid);
+CREATE INDEX "ix_BpmnDataState_id" ON "BpmnDataState" (id);
 
 CREATE TABLE "BpmnEndPoint" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEndPoint_uid" ON "BpmnEndPoint" (uid);
+CREATE INDEX "ix_BpmnEndPoint_id" ON "BpmnEndPoint" (id);
 
 CREATE TABLE "BpmnError" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	error_code TEXT,
 	fluxnova_error_message TEXT,
 	structure_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnError_uid" ON "BpmnError" (uid);
+CREATE INDEX "ix_BpmnError_id" ON "BpmnError" (id);
 
 CREATE TABLE "BpmnErrorEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	error_ref TEXT,
 	fluxnova_error_code_variable TEXT,
 	fluxnova_error_message_variable TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnErrorEventDefinition_uid" ON "BpmnErrorEventDefinition" (uid);
+CREATE INDEX "ix_BpmnErrorEventDefinition_id" ON "BpmnErrorEventDefinition" (id);
 
 CREATE TABLE "BpmnEscalation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	escalation_code TEXT,
 	structure_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEscalation_uid" ON "BpmnEscalation" (uid);
+CREATE INDEX "ix_BpmnEscalation_id" ON "BpmnEscalation" (id);
 
 CREATE TABLE "BpmnEscalationEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	escalation_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEscalationEventDefinition_uid" ON "BpmnEscalationEventDefinition" (uid);
+CREATE INDEX "ix_BpmnEscalationEventDefinition_id" ON "BpmnEscalationEventDefinition" (id);
 
 CREATE TABLE "BpmnExpression" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnExpression_uid" ON "BpmnExpression" (uid);
+CREATE INDEX "ix_BpmnExpression_id" ON "BpmnExpression" (id);
 
 CREATE TABLE "BpmnExtension" (
 	id INTEGER NOT NULL,
-	definition TEXT,
+	bpmn_definition TEXT,
 	must_understand BOOLEAN,
 	element_type TEXT,
-	"BpmnDefinitions_uid" INTEGER,
+	"BpmnDefinitions_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("BpmnDefinitions_uid") REFERENCES "BpmnDefinitions" (uid)
+	FOREIGN KEY("BpmnDefinitions_id") REFERENCES "BpmnDefinitions" (id)
 );
 CREATE INDEX "ix_BpmnExtension_id" ON "BpmnExtension" (id);
 
 CREATE TABLE "BpmnFormalExpression" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	language TEXT,
 	evaluates_to_type_ref TEXT,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnFormalExpression_uid" ON "BpmnFormalExpression" (uid);
+CREATE INDEX "ix_BpmnFormalExpression_id" ON "BpmnFormalExpression" (id);
 
 CREATE TABLE "BpmnFrom" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnFrom_uid" ON "BpmnFrom" (uid);
+CREATE INDEX "ix_BpmnFrom_id" ON "BpmnFrom" (id);
 
 CREATE TABLE "BpmnGlobalConversation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_closed BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnGlobalConversation_uid" ON "BpmnGlobalConversation" (uid);
+CREATE INDEX "ix_BpmnGlobalConversation_id" ON "BpmnGlobalConversation" (id);
 
 CREATE TABLE "BpmnGroup" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	category_value_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnGroup_uid" ON "BpmnGroup" (uid);
+CREATE INDEX "ix_BpmnGroup_id" ON "BpmnGroup" (id);
 
 CREATE TABLE "BpmnImport" (
 	id INTEGER NOT NULL,
@@ -4489,94 +4489,94 @@ CREATE TABLE "BpmnImport" (
 	location TEXT NOT NULL,
 	import_type TEXT NOT NULL,
 	element_type TEXT,
-	"BpmnDefinitions_uid" INTEGER,
+	"BpmnDefinitions_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("BpmnDefinitions_uid") REFERENCES "BpmnDefinitions" (uid)
+	FOREIGN KEY("BpmnDefinitions_id") REFERENCES "BpmnDefinitions" (id)
 );
 CREATE INDEX "ix_BpmnImport_id" ON "BpmnImport" (id);
 
 CREATE TABLE "BpmnInterface" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	implementation_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnInterface_uid" ON "BpmnInterface" (uid);
+CREATE INDEX "ix_BpmnInterface_id" ON "BpmnInterface" (id);
 
 CREATE TABLE "BpmnIoSpecification" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnIoSpecification_uid" ON "BpmnIoSpecification" (uid);
+CREATE INDEX "ix_BpmnIoSpecification_id" ON "BpmnIoSpecification" (id);
 
 CREATE TABLE "BpmnItemDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	structure_ref TEXT,
 	is_collection BOOLEAN,
 	item_kind VARCHAR(11),
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnItemDefinition_uid" ON "BpmnItemDefinition" (uid);
+CREATE INDEX "ix_BpmnItemDefinition_id" ON "BpmnItemDefinition" (id);
 
 CREATE TABLE "BpmnLinkEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT NOT NULL,
-	target TEXT,
-	id TEXT,
+	bpmn_target TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnLinkEventDefinition_uid" ON "BpmnLinkEventDefinition" (uid);
+CREATE INDEX "ix_BpmnLinkEventDefinition_id" ON "BpmnLinkEventDefinition" (id);
 
 CREATE TABLE "BpmnLoopCardinality" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnLoopCardinality_uid" ON "BpmnLoopCardinality" (uid);
+CREATE INDEX "ix_BpmnLoopCardinality_id" ON "BpmnLoopCardinality" (id);
 
 CREATE TABLE "BpmnLoopCharacteristics" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnLoopCharacteristics_uid" ON "BpmnLoopCharacteristics" (uid);
+CREATE INDEX "ix_BpmnLoopCharacteristics_id" ON "BpmnLoopCharacteristics" (id);
 
 CREATE TABLE "BpmnMessage" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	item_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMessage_uid" ON "BpmnMessage" (uid);
+CREATE INDEX "ix_BpmnMessage_id" ON "BpmnMessage" (id);
 
 CREATE TABLE "BpmnMessageEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	message_ref TEXT,
 	fluxnova_class TEXT,
 	fluxnova_delegate_expression TEXT,
@@ -4586,210 +4586,210 @@ CREATE TABLE "BpmnMessageEventDefinition" (
 	fluxnova_type TEXT,
 	fluxnova_task_priority TEXT,
 	operation_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMessageEventDefinition_uid" ON "BpmnMessageEventDefinition" (uid);
+CREATE INDEX "ix_BpmnMessageEventDefinition_id" ON "BpmnMessageEventDefinition" (id);
 
 CREATE TABLE "BpmnMessagePath" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	language TEXT,
 	evaluates_to_type_ref TEXT,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMessagePath_uid" ON "BpmnMessagePath" (uid);
+CREATE INDEX "ix_BpmnMessagePath_id" ON "BpmnMessagePath" (id);
 
 CREATE TABLE "BpmnMonitoring" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMonitoring_uid" ON "BpmnMonitoring" (uid);
+CREATE INDEX "ix_BpmnMonitoring_id" ON "BpmnMonitoring" (id);
 
 CREATE TABLE "BpmnParticipantMultiplicity" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	minimum INTEGER,
 	maximum INTEGER,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnParticipantMultiplicity_uid" ON "BpmnParticipantMultiplicity" (uid);
+CREATE INDEX "ix_BpmnParticipantMultiplicity_id" ON "BpmnParticipantMultiplicity" (id);
 
 CREATE TABLE "BpmnPartitionElement" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnPartitionElement_uid" ON "BpmnPartitionElement" (uid);
+CREATE INDEX "ix_BpmnPartitionElement_id" ON "BpmnPartitionElement" (id);
 
 CREATE TABLE "BpmnRelationship" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	type TEXT NOT NULL,
 	direction VARCHAR(8),
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnDefinitions_uid" INTEGER,
+	"BpmnDefinitions_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnDefinitions_uid") REFERENCES "BpmnDefinitions" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnDefinitions_id") REFERENCES "BpmnDefinitions" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnRelationship_uid" ON "BpmnRelationship" (uid);
+CREATE INDEX "ix_BpmnRelationship_id" ON "BpmnRelationship" (id);
 
 CREATE TABLE "BpmnResource" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnResource_uid" ON "BpmnResource" (uid);
+CREATE INDEX "ix_BpmnResource_id" ON "BpmnResource" (id);
 
 CREATE TABLE "BpmnRootElement" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnDefinitions_uid" INTEGER,
+	"BpmnDefinitions_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnDefinitions_uid") REFERENCES "BpmnDefinitions" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnDefinitions_id") REFERENCES "BpmnDefinitions" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnRootElement_uid" ON "BpmnRootElement" (uid);
+CREATE INDEX "ix_BpmnRootElement_id" ON "BpmnRootElement" (id);
 
 CREATE TABLE "BpmnSignal" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	structure_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSignal_uid" ON "BpmnSignal" (uid);
+CREATE INDEX "ix_BpmnSignal_id" ON "BpmnSignal" (id);
 
 CREATE TABLE "BpmnSignalEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	signal_ref TEXT,
 	fluxnova_async BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSignalEventDefinition_uid" ON "BpmnSignalEventDefinition" (uid);
+CREATE INDEX "ix_BpmnSignalEventDefinition_id" ON "BpmnSignalEventDefinition" (id);
 
 CREATE TABLE "BpmnSubConversation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSubConversation_uid" ON "BpmnSubConversation" (uid);
+CREATE INDEX "ix_BpmnSubConversation_id" ON "BpmnSubConversation" (id);
 
 CREATE TABLE "BpmnTerminateEventDefinition" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTerminateEventDefinition_uid" ON "BpmnTerminateEventDefinition" (uid);
+CREATE INDEX "ix_BpmnTerminateEventDefinition_id" ON "BpmnTerminateEventDefinition" (id);
 
 CREATE TABLE "BpmnTextAnnotation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_format TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	text_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(text_id) REFERENCES "BpmnText" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTextAnnotation_uid" ON "BpmnTextAnnotation" (uid);
+CREATE INDEX "ix_BpmnTextAnnotation_id" ON "BpmnTextAnnotation" (id);
 
 CREATE TABLE "BpmnTimeCycle" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTimeCycle_uid" ON "BpmnTimeCycle" (uid);
+CREATE INDEX "ix_BpmnTimeCycle_id" ON "BpmnTimeCycle" (id);
 
 CREATE TABLE "BpmnTimeDate" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTimeDate_uid" ON "BpmnTimeDate" (uid);
+CREATE INDEX "ix_BpmnTimeDate_id" ON "BpmnTimeDate" (id);
 
 CREATE TABLE "BpmnTimeDuration" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTimeDuration_uid" ON "BpmnTimeDuration" (uid);
+CREATE INDEX "ix_BpmnTimeDuration_id" ON "BpmnTimeDuration" (id);
 
 CREATE TABLE "BpmnTo" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTo_uid" ON "BpmnTo" (uid);
+CREATE INDEX "ix_BpmnTo_id" ON "BpmnTo" (id);
 
 CREATE TABLE "BpmnTransformation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	language TEXT,
 	evaluates_to_type_ref TEXT,
 	text_content TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTransformation_uid" ON "BpmnTransformation" (uid);
+CREATE INDEX "ix_BpmnTransformation_id" ON "BpmnTransformation" (id);
 
 CREATE TABLE "FluxnovaConnector" (
 	id INTEGER NOT NULL,
@@ -4984,52 +4984,52 @@ CREATE TABLE "FluxnovaTenantMembership" (
 CREATE INDEX "ix_FluxnovaTenantMembership_id" ON "FluxnovaTenantMembership" (id);
 
 CREATE TABLE "DiDiagramElement" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"DiPlane_uid" INTEGER,
-	"BpmnPlane_uid" INTEGER,
+	"DiPlane_id" INTEGER,
+	"BpmnPlane_id" INTEGER,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("DiPlane_uid") REFERENCES "DiPlane" (uid),
-	FOREIGN KEY("BpmnPlane_uid") REFERENCES "BpmnPlane" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("DiPlane_id") REFERENCES "DiPlane" (id),
+	FOREIGN KEY("BpmnPlane_id") REFERENCES "BpmnPlane" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_DiDiagramElement_uid" ON "DiDiagramElement" (uid);
+CREATE INDEX "ix_DiDiagramElement_id" ON "DiDiagramElement" (id);
 
 CREATE TABLE "BpmnDiagram" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	documentation TEXT,
+	bpmn_documentation TEXT,
 	resolution FLOAT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnDefinitions_uid" INTEGER,
-	bpmn_plane_uid INTEGER NOT NULL,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnDefinitions_uid") REFERENCES "BpmnDefinitions" (uid),
-	FOREIGN KEY(bpmn_plane_uid) REFERENCES "BpmnPlane" (uid)
+	"BpmnDefinitions_id" INTEGER,
+	bpmn_plane_id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnDefinitions_id") REFERENCES "BpmnDefinitions" (id),
+	FOREIGN KEY(bpmn_plane_id) REFERENCES "BpmnPlane" (id)
 );
-CREATE INDEX "ix_BpmnDiagram_uid" ON "BpmnDiagram" (uid);
+CREATE INDEX "ix_BpmnDiagram_id" ON "BpmnDiagram" (id);
 
 CREATE TABLE "BpmnEdge" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	bpmn_element TEXT,
 	source_element TEXT,
 	target_element TEXT,
 	message_visible_kind VARCHAR(14),
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	bpmn_label_uid INTEGER,
+	bpmn_label_id INTEGER,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(bpmn_label_uid) REFERENCES "BpmnLabel" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(bpmn_label_id) REFERENCES "BpmnLabel" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_BpmnEdge_uid" ON "BpmnEdge" (uid);
+CREATE INDEX "ix_BpmnEdge_id" ON "BpmnEdge" (id);
 
 CREATE TABLE "BpmnShape" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	bpmn_element TEXT,
 	is_horizontal BOOLEAN,
 	is_expanded BOOLEAN,
@@ -5037,47 +5037,47 @@ CREATE TABLE "BpmnShape" (
 	is_message_visible BOOLEAN,
 	participant_band_kind VARCHAR(21),
 	choreography_activity_shape TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	bpmn_label_uid INTEGER,
+	bpmn_label_id INTEGER,
 	bounds_id INTEGER NOT NULL,
 	extension_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(bpmn_label_uid) REFERENCES "BpmnLabel" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(bpmn_label_id) REFERENCES "BpmnLabel" (id),
 	FOREIGN KEY(bounds_id) REFERENCES "DcBounds" (id),
 	FOREIGN KEY(extension_id) REFERENCES "DiExtension" (id)
 );
-CREATE INDEX "ix_BpmnShape_uid" ON "BpmnShape" (uid);
+CREATE INDEX "ix_BpmnShape_id" ON "BpmnShape" (id);
 
 CREATE TABLE "BpmnActivity" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	is_for_compensation BOOLEAN,
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnActivity_uid" ON "BpmnActivity" (uid);
+CREATE INDEX "ix_BpmnActivity_id" ON "BpmnActivity" (id);
 
 CREATE TABLE "BpmnAdHocSubProcess" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	ordering TEXT,
 	cancel_remaining_instances BOOLEAN,
 	triggered_by_event BOOLEAN,
@@ -5086,31 +5086,31 @@ CREATE TABLE "BpmnAdHocSubProcess" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	completion_condition_uid INTEGER,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	completion_condition_id INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(completion_condition_uid) REFERENCES "BpmnCompletionCondition" (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(completion_condition_id) REFERENCES "BpmnCompletionCondition" (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnAdHocSubProcess_uid" ON "BpmnAdHocSubProcess" (uid);
+CREATE INDEX "ix_BpmnAdHocSubProcess_id" ON "BpmnAdHocSubProcess" (id);
 
 CREATE TABLE "BpmnBusinessRuleTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	implementation TEXT,
 	fluxnova_class TEXT,
 	fluxnova_delegate_expression TEXT,
@@ -5130,29 +5130,29 @@ CREATE TABLE "BpmnBusinessRuleTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnBusinessRuleTask_uid" ON "BpmnBusinessRuleTask" (uid);
+CREATE INDEX "ix_BpmnBusinessRuleTask_id" ON "BpmnBusinessRuleTask" (id);
 
 CREATE TABLE "BpmnCallActivity" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	called_element TEXT,
 	fluxnova_async BOOLEAN,
 	fluxnova_called_element_binding TEXT,
@@ -5169,55 +5169,55 @@ CREATE TABLE "BpmnCallActivity" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCallActivity_uid" ON "BpmnCallActivity" (uid);
+CREATE INDEX "ix_BpmnCallActivity_id" ON "BpmnCallActivity" (id);
 
 CREATE TABLE "BpmnCallableElement" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
+	io_specification_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCallableElement_uid" ON "BpmnCallableElement" (uid);
+CREATE INDEX "ix_BpmnCallableElement_id" ON "BpmnCallableElement" (id);
 
 CREATE TABLE "BpmnCategoryValue" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	value TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCategory_uid" INTEGER,
+	"BpmnCategory_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCategory_uid") REFERENCES "BpmnCategory" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCategory_id") REFERENCES "BpmnCategory" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCategoryValue_uid" ON "BpmnCategoryValue" (uid);
+CREATE INDEX "ix_BpmnCategoryValue_id" ON "BpmnCategoryValue" (id);
 
 CREATE TABLE "BpmnComplexGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	"default" TEXT,
 	gateway_direction VARCHAR(11),
 	fluxnova_async_after BOOLEAN,
@@ -5225,206 +5225,206 @@ CREATE TABLE "BpmnComplexGateway" (
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	activation_condition_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	activation_condition_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(activation_condition_uid) REFERENCES "BpmnActivationCondition" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(activation_condition_id) REFERENCES "BpmnActivationCondition" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnComplexGateway_uid" ON "BpmnComplexGateway" (uid);
+CREATE INDEX "ix_BpmnComplexGateway_id" ON "BpmnComplexGateway" (id);
 
 CREATE TABLE "BpmnConditionalEventDefinition" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	fluxnova_variable_name TEXT,
 	fluxnova_variable_events TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	condition_uid INTEGER NOT NULL,
+	condition_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(condition_uid) REFERENCES "BpmnCondition" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(condition_id) REFERENCES "BpmnCondition" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConditionalEventDefinition_uid" ON "BpmnConditionalEventDefinition" (uid);
+CREATE INDEX "ix_BpmnConditionalEventDefinition_id" ON "BpmnConditionalEventDefinition" (id);
 
 CREATE TABLE "BpmnConversationAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	inner_conversation_node_ref TEXT NOT NULL,
 	outer_conversation_node_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConversationAssociation_uid" ON "BpmnConversationAssociation" (uid);
+CREATE INDEX "ix_BpmnConversationAssociation_id" ON "BpmnConversationAssociation" (id);
 
 CREATE TABLE "BpmnConversationLink" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	source_ref TEXT NOT NULL,
 	target_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConversationLink_uid" ON "BpmnConversationLink" (uid);
+CREATE INDEX "ix_BpmnConversationLink_id" ON "BpmnConversationLink" (id);
 
 CREATE TABLE "BpmnConversationNode" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
-	"BpmnSubConversation_uid" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
+	"BpmnSubConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
-	FOREIGN KEY("BpmnSubConversation_uid") REFERENCES "BpmnSubConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
+	FOREIGN KEY("BpmnSubConversation_id") REFERENCES "BpmnSubConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnConversationNode_uid" ON "BpmnConversationNode" (uid);
+CREATE INDEX "ix_BpmnConversationNode_id" ON "BpmnConversationNode" (id);
 
 CREATE TABLE "BpmnCorrelationPropertyRetrievalExpression" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	message_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCorrelationProperty_uid" INTEGER,
-	message_path_uid INTEGER NOT NULL,
+	"BpmnCorrelationProperty_id" INTEGER,
+	message_path_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCorrelationProperty_uid") REFERENCES "BpmnCorrelationProperty" (uid),
-	FOREIGN KEY(message_path_uid) REFERENCES "BpmnMessagePath" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCorrelationProperty_id") REFERENCES "BpmnCorrelationProperty" (id),
+	FOREIGN KEY(message_path_id) REFERENCES "BpmnMessagePath" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationPropertyRetrievalExpression_uid" ON "BpmnCorrelationPropertyRetrievalExpression" (uid);
+CREATE INDEX "ix_BpmnCorrelationPropertyRetrievalExpression_id" ON "BpmnCorrelationPropertyRetrievalExpression" (id);
 
 CREATE TABLE "BpmnDataAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	target_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	transformation_uid INTEGER,
+	transformation_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(transformation_uid) REFERENCES "BpmnTransformation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(transformation_id) REFERENCES "BpmnTransformation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataAssociation_uid" ON "BpmnDataAssociation" (uid);
+CREATE INDEX "ix_BpmnDataAssociation_id" ON "BpmnDataAssociation" (id);
 
 CREATE TABLE "BpmnDataObject" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	item_subject_ref TEXT,
 	is_collection BOOLEAN,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	data_state_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataObject_uid" ON "BpmnDataObject" (uid);
+CREATE INDEX "ix_BpmnDataObject_id" ON "BpmnDataObject" (id);
 
 CREATE TABLE "BpmnDataObjectReference" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	item_subject_ref TEXT,
 	data_object_ref TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	data_state_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataObjectReference_uid" ON "BpmnDataObjectReference" (uid);
+CREATE INDEX "ix_BpmnDataObjectReference_id" ON "BpmnDataObjectReference" (id);
 
 CREATE TABLE "BpmnDataStore" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	capacity INTEGER,
 	is_unlimited BOOLEAN,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataStore_uid" ON "BpmnDataStore" (uid);
+CREATE INDEX "ix_BpmnDataStore_id" ON "BpmnDataStore" (id);
 
 CREATE TABLE "BpmnDataStoreReference" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	item_subject_ref TEXT,
 	data_store_ref TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	data_state_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataStoreReference_uid" ON "BpmnDataStoreReference" (uid);
+CREATE INDEX "ix_BpmnDataStoreReference_id" ON "BpmnDataStoreReference" (id);
 
 CREATE TABLE "BpmnEvent" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEvent_uid" ON "BpmnEvent" (uid);
+CREATE INDEX "ix_BpmnEvent_id" ON "BpmnEvent" (id);
 
 CREATE TABLE "BpmnEventBasedGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	instantiate BOOLEAN,
 	event_gateway_type VARCHAR(9),
 	gateway_direction VARCHAR(11),
@@ -5433,20 +5433,20 @@ CREATE TABLE "BpmnEventBasedGateway" (
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEventBasedGateway_uid" ON "BpmnEventBasedGateway" (uid);
+CREATE INDEX "ix_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway" (id);
 
 CREATE TABLE "BpmnExclusiveGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	"default" TEXT,
 	gateway_direction VARCHAR(11),
 	fluxnova_async_after BOOLEAN,
@@ -5454,59 +5454,59 @@ CREATE TABLE "BpmnExclusiveGateway" (
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_uid" ON "BpmnExclusiveGateway" (uid);
+CREATE INDEX "ix_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway" (id);
 
 CREATE TABLE "BpmnFlowNode" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnFlowNode_uid" ON "BpmnFlowNode" (uid);
+CREATE INDEX "ix_BpmnFlowNode_id" ON "BpmnFlowNode" (id);
 
 CREATE TABLE "BpmnGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	gateway_direction VARCHAR(11),
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnGateway_uid" ON "BpmnGateway" (uid);
+CREATE INDEX "ix_BpmnGateway_id" ON "BpmnGateway" (id);
 
 CREATE TABLE "BpmnInclusiveGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	"default" TEXT,
 	gateway_direction VARCHAR(11),
 	fluxnova_async_after BOOLEAN,
@@ -5514,167 +5514,167 @@ CREATE TABLE "BpmnInclusiveGateway" (
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnInclusiveGateway_uid" ON "BpmnInclusiveGateway" (uid);
+CREATE INDEX "ix_BpmnInclusiveGateway_id" ON "BpmnInclusiveGateway" (id);
 
 CREATE TABLE "BpmnInputDataItem" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_collection BOOLEAN,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnInputDataItem_uid" ON "BpmnInputDataItem" (uid);
+CREATE INDEX "ix_BpmnInputDataItem_id" ON "BpmnInputDataItem" (id);
 
 CREATE TABLE "BpmnInputSet" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnIoSpecification_uid" INTEGER,
+	"BpmnIoSpecification_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnIoSpecification_uid") REFERENCES "BpmnIoSpecification" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnIoSpecification_id") REFERENCES "BpmnIoSpecification" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnInputSet_uid" ON "BpmnInputSet" (uid);
+CREATE INDEX "ix_BpmnInputSet_id" ON "BpmnInputSet" (id);
 
 CREATE TABLE "BpmnItemAwareElement" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnItemAwareElement_uid" ON "BpmnItemAwareElement" (uid);
+CREATE INDEX "ix_BpmnItemAwareElement_id" ON "BpmnItemAwareElement" (id);
 
 CREATE TABLE "BpmnManualTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	fluxnova_async BOOLEAN,
 	is_for_compensation BOOLEAN,
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnManualTask_uid" ON "BpmnManualTask" (uid);
+CREATE INDEX "ix_BpmnManualTask_id" ON "BpmnManualTask" (id);
 
 CREATE TABLE "BpmnMessageFlow" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	source_ref TEXT NOT NULL,
 	target_ref TEXT NOT NULL,
 	message_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMessageFlow_uid" ON "BpmnMessageFlow" (uid);
+CREATE INDEX "ix_BpmnMessageFlow_id" ON "BpmnMessageFlow" (id);
 
 CREATE TABLE "BpmnMessageFlowAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	inner_message_flow_ref TEXT NOT NULL,
 	outer_message_flow_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMessageFlowAssociation_uid" ON "BpmnMessageFlowAssociation" (uid);
+CREATE INDEX "ix_BpmnMessageFlowAssociation_id" ON "BpmnMessageFlowAssociation" (id);
 
 CREATE TABLE "BpmnOperation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT NOT NULL,
 	implementation_ref TEXT,
 	in_message_ref TEXT NOT NULL,
 	out_message_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnInterface_uid" INTEGER,
+	"BpmnInterface_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnInterface_uid") REFERENCES "BpmnInterface" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnInterface_id") REFERENCES "BpmnInterface" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnOperation_uid" ON "BpmnOperation" (uid);
+CREATE INDEX "ix_BpmnOperation_id" ON "BpmnOperation" (id);
 
 CREATE TABLE "BpmnOutputDataItem" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_collection BOOLEAN,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	data_state_uid INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnOutputDataItem_uid" ON "BpmnOutputDataItem" (uid);
+CREATE INDEX "ix_BpmnOutputDataItem_id" ON "BpmnOutputDataItem" (id);
 
 CREATE TABLE "BpmnOutputSet" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnIoSpecification_uid" INTEGER,
+	"BpmnIoSpecification_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnIoSpecification_uid") REFERENCES "BpmnIoSpecification" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnIoSpecification_id") REFERENCES "BpmnIoSpecification" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnOutputSet_uid" ON "BpmnOutputSet" (uid);
+CREATE INDEX "ix_BpmnOutputSet_id" ON "BpmnOutputSet" (id);
 
 CREATE TABLE "BpmnParallelGateway" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	fluxnova_async BOOLEAN,
 	gateway_direction VARCHAR(11),
 	fluxnova_async_after BOOLEAN,
@@ -5682,56 +5682,56 @@ CREATE TABLE "BpmnParallelGateway" (
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnParallelGateway_uid" ON "BpmnParallelGateway" (uid);
+CREATE INDEX "ix_BpmnParallelGateway_id" ON "BpmnParallelGateway" (id);
 
 CREATE TABLE "BpmnParticipant" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	process_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
-	participant_multiplicity_uid INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
+	participant_multiplicity_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
-	FOREIGN KEY(participant_multiplicity_uid) REFERENCES "BpmnParticipantMultiplicity" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
+	FOREIGN KEY(participant_multiplicity_id) REFERENCES "BpmnParticipantMultiplicity" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnParticipant_uid" ON "BpmnParticipant" (uid);
+CREATE INDEX "ix_BpmnParticipant_id" ON "BpmnParticipant" (id);
 
 CREATE TABLE "BpmnParticipantAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	inner_participant_ref TEXT NOT NULL,
 	outer_participant_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCallConversation_uid" INTEGER,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
+	"BpmnCallConversation_id" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCallConversation_uid") REFERENCES "BpmnCallConversation" (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnParticipantAssociation_uid" ON "BpmnParticipantAssociation" (uid);
+CREATE INDEX "ix_BpmnParticipantAssociation_id" ON "BpmnParticipantAssociation" (id);
 
 CREATE TABLE "BpmnProcess" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	process_type VARCHAR(7),
 	is_closed BOOLEAN,
 	is_executable BOOLEAN,
@@ -5743,22 +5743,22 @@ CREATE TABLE "BpmnProcess" (
 	fluxnova_is_startable_in_tasklist BOOLEAN,
 	fluxnova_version_tag TEXT,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
-	io_specification_uid INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
+	io_specification_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnProcess_uid" ON "BpmnProcess" (uid);
+CREATE INDEX "ix_BpmnProcess_id" ON "BpmnProcess" (id);
 
 CREATE TABLE "BpmnReceiveTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	implementation TEXT,
 	instantiate BOOLEAN,
 	message_ref TEXT,
@@ -5768,56 +5768,56 @@ CREATE TABLE "BpmnReceiveTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnReceiveTask_uid" ON "BpmnReceiveTask" (uid);
+CREATE INDEX "ix_BpmnReceiveTask_id" ON "BpmnReceiveTask" (id);
 
 CREATE TABLE "BpmnResourceAssignmentExpression" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	expression_uid INTEGER NOT NULL,
+	expression_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(expression_uid) REFERENCES "BpmnExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(expression_id) REFERENCES "BpmnExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnResourceAssignmentExpression_uid" ON "BpmnResourceAssignmentExpression" (uid);
+CREATE INDEX "ix_BpmnResourceAssignmentExpression_id" ON "BpmnResourceAssignmentExpression" (id);
 
 CREATE TABLE "BpmnResourceParameter" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	type TEXT,
 	is_required BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnResource_uid" INTEGER,
+	"BpmnResource_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnResource_uid") REFERENCES "BpmnResource" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnResource_id") REFERENCES "BpmnResource" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnResourceParameter_uid" ON "BpmnResourceParameter" (uid);
+CREATE INDEX "ix_BpmnResourceParameter_id" ON "BpmnResourceParameter" (id);
 
 CREATE TABLE "BpmnScriptTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	script_format TEXT,
 	fluxnova_result_variable TEXT,
 	fluxnova_resource TEXT,
@@ -5826,7 +5826,7 @@ CREATE TABLE "BpmnScriptTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
@@ -5834,23 +5834,23 @@ CREATE TABLE "BpmnScriptTask" (
 	name TEXT,
 	element_type TEXT,
 	script_id INTEGER,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
+	PRIMARY KEY (id),
 	FOREIGN KEY(script_id) REFERENCES "BpmnScript" (id),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_uid" ON "BpmnScriptTask" (uid);
+CREATE INDEX "ix_BpmnScriptTask_id" ON "BpmnScriptTask" (id);
 
 CREATE TABLE "BpmnSendTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	implementation TEXT,
 	message_ref TEXT,
 	operation_ref TEXT,
@@ -5866,49 +5866,49 @@ CREATE TABLE "BpmnSendTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSendTask_uid" ON "BpmnSendTask" (uid);
+CREATE INDEX "ix_BpmnSendTask_id" ON "BpmnSendTask" (id);
 
 CREATE TABLE "BpmnSequenceFlow" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	source_ref TEXT NOT NULL,
 	target_ref TEXT NOT NULL,
 	is_immediate BOOLEAN,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	condition_expression_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	condition_expression_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(condition_expression_uid) REFERENCES "BpmnConditionExpression" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(condition_expression_id) REFERENCES "BpmnConditionExpression" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSequenceFlow_uid" ON "BpmnSequenceFlow" (uid);
+CREATE INDEX "ix_BpmnSequenceFlow_id" ON "BpmnSequenceFlow" (id);
 
 CREATE TABLE "BpmnServiceTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	implementation TEXT,
 	operation_ref TEXT,
 	fluxnova_class TEXT,
@@ -5923,120 +5923,120 @@ CREATE TABLE "BpmnServiceTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnServiceTask_uid" ON "BpmnServiceTask" (uid);
+CREATE INDEX "ix_BpmnServiceTask_id" ON "BpmnServiceTask" (id);
 
 CREATE TABLE "BpmnSource" (
 	id INTEGER NOT NULL,
 	element_type TEXT,
-	"BpmnRelationship_uid" INTEGER,
+	"BpmnRelationship_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("BpmnRelationship_uid") REFERENCES "BpmnRelationship" (uid)
+	FOREIGN KEY("BpmnRelationship_id") REFERENCES "BpmnRelationship" (id)
 );
 CREATE INDEX "ix_BpmnSource_id" ON "BpmnSource" (id);
 
 CREATE TABLE "BpmnSubProcess" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	triggered_by_event BOOLEAN,
 	fluxnova_async BOOLEAN,
 	is_for_compensation BOOLEAN,
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnSubProcess_uid" ON "BpmnSubProcess" (uid);
+CREATE INDEX "ix_BpmnSubProcess_id" ON "BpmnSubProcess" (id);
 
 CREATE TABLE "BpmnTarget" (
 	id INTEGER NOT NULL,
 	element_type TEXT,
-	"BpmnRelationship_uid" INTEGER,
+	"BpmnRelationship_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("BpmnRelationship_uid") REFERENCES "BpmnRelationship" (uid)
+	FOREIGN KEY("BpmnRelationship_id") REFERENCES "BpmnRelationship" (id)
 );
 CREATE INDEX "ix_BpmnTarget_id" ON "BpmnTarget" (id);
 
 CREATE TABLE "BpmnTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	fluxnova_async BOOLEAN,
 	is_for_compensation BOOLEAN,
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTask_uid" ON "BpmnTask" (uid);
+CREATE INDEX "ix_BpmnTask_id" ON "BpmnTask" (id);
 
 CREATE TABLE "BpmnTimerEventDefinition" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	time_date_uid INTEGER,
-	time_duration_uid INTEGER,
-	time_cycle_uid INTEGER,
+	time_date_id INTEGER,
+	time_duration_id INTEGER,
+	time_cycle_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(time_date_uid) REFERENCES "BpmnTimeDate" (uid),
-	FOREIGN KEY(time_duration_uid) REFERENCES "BpmnTimeDuration" (uid),
-	FOREIGN KEY(time_cycle_uid) REFERENCES "BpmnTimeCycle" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(time_date_id) REFERENCES "BpmnTimeDate" (id),
+	FOREIGN KEY(time_duration_id) REFERENCES "BpmnTimeDuration" (id),
+	FOREIGN KEY(time_cycle_id) REFERENCES "BpmnTimeCycle" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTimerEventDefinition_uid" ON "BpmnTimerEventDefinition" (uid);
+CREATE INDEX "ix_BpmnTimerEventDefinition_id" ON "BpmnTimerEventDefinition" (id);
 
 CREATE TABLE "BpmnTransaction" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	method VARCHAR(12),
 	triggered_by_event BOOLEAN,
 	fluxnova_async BOOLEAN,
@@ -6044,29 +6044,29 @@ CREATE TABLE "BpmnTransaction" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnTransaction_uid" ON "BpmnTransaction" (uid);
+CREATE INDEX "ix_BpmnTransaction_id" ON "BpmnTransaction" (id);
 
 CREATE TABLE "BpmnUserTask" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	implementation TEXT,
 	fluxnova_assignee TEXT,
 	fluxnova_candidate_groups TEXT,
@@ -6084,26 +6084,26 @@ CREATE TABLE "BpmnUserTask" (
 	start_quantity INTEGER,
 	completion_quantity INTEGER,
 	"default" TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	io_specification_uid INTEGER,
-	loop_characteristics_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	io_specification_id INTEGER,
+	loop_characteristics_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(io_specification_uid) REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY(loop_characteristics_uid) REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(io_specification_id) REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY(loop_characteristics_id) REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnUserTask_uid" ON "BpmnUserTask" (uid);
+CREATE INDEX "ix_BpmnUserTask_id" ON "BpmnUserTask" (id);
 
 CREATE TABLE "FluxnovaValue" (
 	id INTEGER NOT NULL,
@@ -6120,66 +6120,66 @@ CREATE TABLE "FluxnovaValue" (
 CREATE INDEX "ix_FluxnovaValue_id" ON "FluxnovaValue" (id);
 
 CREATE TABLE "BpmnCallConversation_participant_refs" (
-	"BpmnCallConversation_uid" INTEGER,
+	"BpmnCallConversation_id" INTEGER,
 	participant_refs TEXT,
-	PRIMARY KEY ("BpmnCallConversation_uid", participant_refs),
-	FOREIGN KEY("BpmnCallConversation_uid") REFERENCES "BpmnCallConversation" (uid)
+	PRIMARY KEY ("BpmnCallConversation_id", participant_refs),
+	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id)
 );
 CREATE INDEX "ix_BpmnCallConversation_participant_refs_participant_refs" ON "BpmnCallConversation_participant_refs" (participant_refs);
-CREATE INDEX "ix_BpmnCallConversation_participant_refs_BpmnCallConversation_uid" ON "BpmnCallConversation_participant_refs" ("BpmnCallConversation_uid");
+CREATE INDEX "ix_BpmnCallConversation_participant_refs_BpmnCallConversation_id" ON "BpmnCallConversation_participant_refs" ("BpmnCallConversation_id");
 
 CREATE TABLE "BpmnCallConversation_message_flow_refs" (
-	"BpmnCallConversation_uid" INTEGER,
+	"BpmnCallConversation_id" INTEGER,
 	message_flow_refs TEXT,
-	PRIMARY KEY ("BpmnCallConversation_uid", message_flow_refs),
-	FOREIGN KEY("BpmnCallConversation_uid") REFERENCES "BpmnCallConversation" (uid)
+	PRIMARY KEY ("BpmnCallConversation_id", message_flow_refs),
+	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id)
 );
-CREATE INDEX "ix_BpmnCallConversation_message_flow_refs_BpmnCallConversation_uid" ON "BpmnCallConversation_message_flow_refs" ("BpmnCallConversation_uid");
+CREATE INDEX "ix_BpmnCallConversation_message_flow_refs_BpmnCallConversation_id" ON "BpmnCallConversation_message_flow_refs" ("BpmnCallConversation_id");
 CREATE INDEX "ix_BpmnCallConversation_message_flow_refs_message_flow_refs" ON "BpmnCallConversation_message_flow_refs" (message_flow_refs);
 
 CREATE TABLE "BpmnConversation_participant_refs" (
-	"BpmnConversation_uid" INTEGER,
+	"BpmnConversation_id" INTEGER,
 	participant_refs TEXT,
-	PRIMARY KEY ("BpmnConversation_uid", participant_refs),
-	FOREIGN KEY("BpmnConversation_uid") REFERENCES "BpmnConversation" (uid)
+	PRIMARY KEY ("BpmnConversation_id", participant_refs),
+	FOREIGN KEY("BpmnConversation_id") REFERENCES "BpmnConversation" (id)
 );
-CREATE INDEX "ix_BpmnConversation_participant_refs_BpmnConversation_uid" ON "BpmnConversation_participant_refs" ("BpmnConversation_uid");
+CREATE INDEX "ix_BpmnConversation_participant_refs_BpmnConversation_id" ON "BpmnConversation_participant_refs" ("BpmnConversation_id");
 CREATE INDEX "ix_BpmnConversation_participant_refs_participant_refs" ON "BpmnConversation_participant_refs" (participant_refs);
 
 CREATE TABLE "BpmnConversation_message_flow_refs" (
-	"BpmnConversation_uid" INTEGER,
+	"BpmnConversation_id" INTEGER,
 	message_flow_refs TEXT,
-	PRIMARY KEY ("BpmnConversation_uid", message_flow_refs),
-	FOREIGN KEY("BpmnConversation_uid") REFERENCES "BpmnConversation" (uid)
+	PRIMARY KEY ("BpmnConversation_id", message_flow_refs),
+	FOREIGN KEY("BpmnConversation_id") REFERENCES "BpmnConversation" (id)
 );
-CREATE INDEX "ix_BpmnConversation_message_flow_refs_BpmnConversation_uid" ON "BpmnConversation_message_flow_refs" ("BpmnConversation_uid");
+CREATE INDEX "ix_BpmnConversation_message_flow_refs_BpmnConversation_id" ON "BpmnConversation_message_flow_refs" ("BpmnConversation_id");
 CREATE INDEX "ix_BpmnConversation_message_flow_refs_message_flow_refs" ON "BpmnConversation_message_flow_refs" (message_flow_refs);
 
-CREATE TABLE "BpmnLinkEventDefinition_sources" (
-	"BpmnLinkEventDefinition_uid" INTEGER,
-	sources TEXT,
-	PRIMARY KEY ("BpmnLinkEventDefinition_uid", sources),
-	FOREIGN KEY("BpmnLinkEventDefinition_uid") REFERENCES "BpmnLinkEventDefinition" (uid)
+CREATE TABLE "BpmnLinkEventDefinition_bpmn_sources" (
+	"BpmnLinkEventDefinition_id" INTEGER,
+	bpmn_sources TEXT,
+	PRIMARY KEY ("BpmnLinkEventDefinition_id", bpmn_sources),
+	FOREIGN KEY("BpmnLinkEventDefinition_id") REFERENCES "BpmnLinkEventDefinition" (id)
 );
-CREATE INDEX "ix_BpmnLinkEventDefinition_sources_BpmnLinkEventDefinition_uid" ON "BpmnLinkEventDefinition_sources" ("BpmnLinkEventDefinition_uid");
-CREATE INDEX "ix_BpmnLinkEventDefinition_sources_sources" ON "BpmnLinkEventDefinition_sources" (sources);
+CREATE INDEX "ix_BpmnLinkEventDefinition_bpmn_sources_BpmnLinkEventDefinition_id" ON "BpmnLinkEventDefinition_bpmn_sources" ("BpmnLinkEventDefinition_id");
+CREATE INDEX "ix_BpmnLinkEventDefinition_bpmn_sources_bpmn_sources" ON "BpmnLinkEventDefinition_bpmn_sources" (bpmn_sources);
 
 CREATE TABLE "BpmnSubConversation_participant_refs" (
-	"BpmnSubConversation_uid" INTEGER,
+	"BpmnSubConversation_id" INTEGER,
 	participant_refs TEXT,
-	PRIMARY KEY ("BpmnSubConversation_uid", participant_refs),
-	FOREIGN KEY("BpmnSubConversation_uid") REFERENCES "BpmnSubConversation" (uid)
+	PRIMARY KEY ("BpmnSubConversation_id", participant_refs),
+	FOREIGN KEY("BpmnSubConversation_id") REFERENCES "BpmnSubConversation" (id)
 );
-CREATE INDEX "ix_BpmnSubConversation_participant_refs_BpmnSubConversation_uid" ON "BpmnSubConversation_participant_refs" ("BpmnSubConversation_uid");
+CREATE INDEX "ix_BpmnSubConversation_participant_refs_BpmnSubConversation_id" ON "BpmnSubConversation_participant_refs" ("BpmnSubConversation_id");
 CREATE INDEX "ix_BpmnSubConversation_participant_refs_participant_refs" ON "BpmnSubConversation_participant_refs" (participant_refs);
 
 CREATE TABLE "BpmnSubConversation_message_flow_refs" (
-	"BpmnSubConversation_uid" INTEGER,
+	"BpmnSubConversation_id" INTEGER,
 	message_flow_refs TEXT,
-	PRIMARY KEY ("BpmnSubConversation_uid", message_flow_refs),
-	FOREIGN KEY("BpmnSubConversation_uid") REFERENCES "BpmnSubConversation" (uid)
+	PRIMARY KEY ("BpmnSubConversation_id", message_flow_refs),
+	FOREIGN KEY("BpmnSubConversation_id") REFERENCES "BpmnSubConversation" (id)
 );
-CREATE INDEX "ix_BpmnSubConversation_message_flow_refs_BpmnSubConversation_uid" ON "BpmnSubConversation_message_flow_refs" ("BpmnSubConversation_uid");
+CREATE INDEX "ix_BpmnSubConversation_message_flow_refs_BpmnSubConversation_id" ON "BpmnSubConversation_message_flow_refs" ("BpmnSubConversation_id");
 CREATE INDEX "ix_BpmnSubConversation_message_flow_refs_message_flow_refs" ON "BpmnSubConversation_message_flow_refs" (message_flow_refs);
 
 CREATE TABLE "FluxnovaEventSubscription" (
@@ -6354,271 +6354,271 @@ CREATE TABLE "DiWaypoint" (
 	x FLOAT NOT NULL,
 	y FLOAT NOT NULL,
 	element_type TEXT,
-	"DiEdge_uid" INTEGER,
-	"DiLabeledEdge_uid" INTEGER,
-	"BpmnEdge_uid" INTEGER,
+	"DiEdge_id" INTEGER,
+	"DiLabeledEdge_id" INTEGER,
+	"BpmnEdge_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("DiEdge_uid") REFERENCES "DiEdge" (uid),
-	FOREIGN KEY("DiLabeledEdge_uid") REFERENCES "DiLabeledEdge" (uid),
-	FOREIGN KEY("BpmnEdge_uid") REFERENCES "BpmnEdge" (uid)
+	FOREIGN KEY("DiEdge_id") REFERENCES "DiEdge" (id),
+	FOREIGN KEY("DiLabeledEdge_id") REFERENCES "DiLabeledEdge" (id),
+	FOREIGN KEY("BpmnEdge_id") REFERENCES "BpmnEdge" (id)
 );
 CREATE INDEX "ix_DiWaypoint_id" ON "DiWaypoint" (id);
 
 CREATE TABLE "BpmnLabelStyle" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnDiagram_uid" INTEGER,
+	"BpmnDiagram_id" INTEGER,
 	font_id INTEGER NOT NULL,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnDiagram_uid") REFERENCES "BpmnDiagram" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnDiagram_id") REFERENCES "BpmnDiagram" (id),
 	FOREIGN KEY(font_id) REFERENCES "DcFont" (id)
 );
-CREATE INDEX "ix_BpmnLabelStyle_uid" ON "BpmnLabelStyle" (uid);
+CREATE INDEX "ix_BpmnLabelStyle_id" ON "BpmnLabelStyle" (id);
 
 CREATE TABLE "BpmnArtifact" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnArtifact_uid" ON "BpmnArtifact" (uid);
+CREATE INDEX "ix_BpmnArtifact_id" ON "BpmnArtifact" (id);
 
 CREATE TABLE "BpmnBoundaryEvent" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	cancel_activity BOOLEAN,
 	attached_to_ref TEXT NOT NULL,
 	parallel_multiple BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	output_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	output_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(output_set_uid) REFERENCES "BpmnOutputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(output_set_id) REFERENCES "BpmnOutputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnBoundaryEvent_uid" ON "BpmnBoundaryEvent" (uid);
+CREATE INDEX "ix_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent" (id);
 
 CREATE TABLE "BpmnCatchEvent" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	parallel_multiple BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	output_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	output_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(output_set_uid) REFERENCES "BpmnOutputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(output_set_id) REFERENCES "BpmnOutputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCatchEvent_uid" ON "BpmnCatchEvent" (uid);
+CREATE INDEX "ix_BpmnCatchEvent_id" ON "BpmnCatchEvent" (id);
 
 CREATE TABLE "BpmnCorrelationKey" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCallConversation_uid" INTEGER,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnConversation_uid" INTEGER,
-	"BpmnConversationNode_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
-	"BpmnSubConversation_uid" INTEGER,
+	"BpmnCallConversation_id" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnConversation_id" INTEGER,
+	"BpmnConversationNode_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
+	"BpmnSubConversation_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCallConversation_uid") REFERENCES "BpmnCallConversation" (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnConversation_uid") REFERENCES "BpmnConversation" (uid),
-	FOREIGN KEY("BpmnConversationNode_uid") REFERENCES "BpmnConversationNode" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
-	FOREIGN KEY("BpmnSubConversation_uid") REFERENCES "BpmnSubConversation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnConversation_id") REFERENCES "BpmnConversation" (id),
+	FOREIGN KEY("BpmnConversationNode_id") REFERENCES "BpmnConversationNode" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
+	FOREIGN KEY("BpmnSubConversation_id") REFERENCES "BpmnSubConversation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationKey_uid" ON "BpmnCorrelationKey" (uid);
+CREATE INDEX "ix_BpmnCorrelationKey_id" ON "BpmnCorrelationKey" (id);
 
 CREATE TABLE "BpmnCorrelationSubscription" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	correlation_key_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnProcess_uid" INTEGER,
+	"BpmnProcess_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationSubscription_uid" ON "BpmnCorrelationSubscription" (uid);
+CREATE INDEX "ix_BpmnCorrelationSubscription_id" ON "BpmnCorrelationSubscription" (id);
 
 CREATE TABLE "BpmnEndEvent" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	input_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	input_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(input_set_uid) REFERENCES "BpmnInputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(input_set_id) REFERENCES "BpmnInputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEndEvent_uid" ON "BpmnEndEvent" (uid);
+CREATE INDEX "ix_BpmnEndEvent_id" ON "BpmnEndEvent" (id);
 
 CREATE TABLE "BpmnFlowElement" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnFlowElement_uid" ON "BpmnFlowElement" (uid);
+CREATE INDEX "ix_BpmnFlowElement_id" ON "BpmnFlowElement" (id);
 
 CREATE TABLE "BpmnHumanPerformer" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	resource_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	resource_assignment_expression_uid INTEGER,
+	resource_assignment_expression_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(resource_assignment_expression_uid) REFERENCES "BpmnResourceAssignmentExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(resource_assignment_expression_id) REFERENCES "BpmnResourceAssignmentExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnHumanPerformer_uid" ON "BpmnHumanPerformer" (uid);
+CREATE INDEX "ix_BpmnHumanPerformer_id" ON "BpmnHumanPerformer" (id);
 
 CREATE TABLE "BpmnIntermediateCatchEvent" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	parallel_multiple BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	output_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	output_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(output_set_uid) REFERENCES "BpmnOutputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(output_set_id) REFERENCES "BpmnOutputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_uid" ON "BpmnIntermediateCatchEvent" (uid);
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent" (id);
 
 CREATE TABLE "BpmnIntermediateThrowEvent" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	input_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	input_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(input_set_uid) REFERENCES "BpmnInputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(input_set_id) REFERENCES "BpmnInputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_uid" ON "BpmnIntermediateThrowEvent" (uid);
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent" (id);
 
 CREATE TABLE "BpmnIoBinding" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	operation_ref TEXT NOT NULL,
 	input_data_ref TEXT NOT NULL,
 	output_data_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCallableElement_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
+	"BpmnCallableElement_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCallableElement_uid") REFERENCES "BpmnCallableElement" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCallableElement_id") REFERENCES "BpmnCallableElement" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnIoBinding_uid" ON "BpmnIoBinding" (uid);
+CREATE INDEX "ix_BpmnIoBinding_id" ON "BpmnIoBinding" (id);
 
 CREATE TABLE "BpmnLaneSet" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnLaneSet_uid" ON "BpmnLaneSet" (uid);
+CREATE INDEX "ix_BpmnLaneSet_id" ON "BpmnLaneSet" (id);
 
 CREATE TABLE "BpmnMultiInstanceLoopCharacteristics" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	is_sequential BOOLEAN,
 	behavior VARCHAR(7),
 	one_behavior_event_ref TEXT,
@@ -6630,106 +6630,106 @@ CREATE TABLE "BpmnMultiInstanceLoopCharacteristics" (
 	fluxnova_element_variable TEXT,
 	loop_data_input_ref TEXT,
 	loop_data_output_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	loop_cardinality_uid INTEGER,
-	output_data_item_uid INTEGER,
-	input_data_item_uid INTEGER,
-	completion_condition_uid INTEGER,
+	loop_cardinality_id INTEGER,
+	output_data_item_id INTEGER,
+	input_data_item_id INTEGER,
+	completion_condition_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(loop_cardinality_uid) REFERENCES "BpmnLoopCardinality" (uid),
-	FOREIGN KEY(output_data_item_uid) REFERENCES "BpmnOutputDataItem" (uid),
-	FOREIGN KEY(input_data_item_uid) REFERENCES "BpmnInputDataItem" (uid),
-	FOREIGN KEY(completion_condition_uid) REFERENCES "BpmnCompletionCondition" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(loop_cardinality_id) REFERENCES "BpmnLoopCardinality" (id),
+	FOREIGN KEY(output_data_item_id) REFERENCES "BpmnOutputDataItem" (id),
+	FOREIGN KEY(input_data_item_id) REFERENCES "BpmnInputDataItem" (id),
+	FOREIGN KEY(completion_condition_id) REFERENCES "BpmnCompletionCondition" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnMultiInstanceLoopCharacteristics_uid" ON "BpmnMultiInstanceLoopCharacteristics" (uid);
+CREATE INDEX "ix_BpmnMultiInstanceLoopCharacteristics_id" ON "BpmnMultiInstanceLoopCharacteristics" (id);
 
 CREATE TABLE "BpmnPerformer" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	resource_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	resource_assignment_expression_uid INTEGER,
+	resource_assignment_expression_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(resource_assignment_expression_uid) REFERENCES "BpmnResourceAssignmentExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(resource_assignment_expression_id) REFERENCES "BpmnResourceAssignmentExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnPerformer_uid" ON "BpmnPerformer" (uid);
+CREATE INDEX "ix_BpmnPerformer_id" ON "BpmnPerformer" (id);
 
 CREATE TABLE "BpmnPotentialOwner" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	resource_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	resource_assignment_expression_uid INTEGER,
+	resource_assignment_expression_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(resource_assignment_expression_uid) REFERENCES "BpmnResourceAssignmentExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(resource_assignment_expression_id) REFERENCES "BpmnResourceAssignmentExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnPotentialOwner_uid" ON "BpmnPotentialOwner" (uid);
+CREATE INDEX "ix_BpmnPotentialOwner_id" ON "BpmnPotentialOwner" (id);
 
 CREATE TABLE "BpmnRendering" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnUserTask_uid" INTEGER,
+	"BpmnUserTask_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnRendering_uid" ON "BpmnRendering" (uid);
+CREATE INDEX "ix_BpmnRendering_id" ON "BpmnRendering" (id);
 
 CREATE TABLE "BpmnResourceRole" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	resource_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnActivity_uid" INTEGER,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnBusinessRuleTask_uid" INTEGER,
-	"BpmnCallActivity_uid" INTEGER,
-	"BpmnManualTask_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnReceiveTask_uid" INTEGER,
-	"BpmnScriptTask_uid" INTEGER,
-	"BpmnSendTask_uid" INTEGER,
-	"BpmnServiceTask_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTask_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	"BpmnUserTask_uid" INTEGER,
-	resource_assignment_expression_uid INTEGER,
+	"BpmnActivity_id" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
+	"BpmnManualTask_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
+	"BpmnSendTask_id" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTask_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	"BpmnUserTask_id" INTEGER,
+	resource_assignment_expression_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid),
-	FOREIGN KEY(resource_assignment_expression_uid) REFERENCES "BpmnResourceAssignmentExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id),
+	FOREIGN KEY(resource_assignment_expression_id) REFERENCES "BpmnResourceAssignmentExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnResourceRole_uid" ON "BpmnResourceRole" (uid);
+CREATE INDEX "ix_BpmnResourceRole_id" ON "BpmnResourceRole" (id);
 
 CREATE TABLE "BpmnStartEvent" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	is_interrupting BOOLEAN,
 	fluxnova_async BOOLEAN,
 	fluxnova_form_handler_class TEXT,
@@ -6739,52 +6739,52 @@ CREATE TABLE "BpmnStartEvent" (
 	fluxnova_form_ref_version TEXT,
 	fluxnova_initiator TEXT,
 	parallel_multiple BOOLEAN,
-	id TEXT,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	output_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	output_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(output_set_uid) REFERENCES "BpmnOutputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(output_set_id) REFERENCES "BpmnOutputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnStartEvent_uid" ON "BpmnStartEvent" (uid);
+CREATE INDEX "ix_BpmnStartEvent_id" ON "BpmnStartEvent" (id);
 
 CREATE TABLE "BpmnThrowEvent" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	fluxnova_async_after BOOLEAN,
 	fluxnova_async_before BOOLEAN,
 	fluxnova_exclusive BOOLEAN,
 	fluxnova_job_priority TEXT,
 	name TEXT,
 	element_type TEXT,
-	input_set_uid INTEGER,
-	auditing_uid INTEGER,
-	monitoring_uid INTEGER,
+	input_set_id INTEGER,
+	auditing_id INTEGER,
+	monitoring_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY(input_set_uid) REFERENCES "BpmnInputSet" (uid),
-	FOREIGN KEY(auditing_uid) REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY(monitoring_uid) REFERENCES "BpmnMonitoring" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY(input_set_id) REFERENCES "BpmnInputSet" (id),
+	FOREIGN KEY(auditing_id) REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY(monitoring_id) REFERENCES "BpmnMonitoring" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnThrowEvent_uid" ON "BpmnThrowEvent" (uid);
+CREATE INDEX "ix_BpmnThrowEvent_id" ON "BpmnThrowEvent" (id);
 
 CREATE TABLE "FluxnovaPotentialStarter" (
 	id INTEGER NOT NULL,
 	element_type TEXT,
-	resource_assignment_expression_uid INTEGER,
+	resource_assignment_expression_id INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(resource_assignment_expression_uid) REFERENCES "BpmnResourceAssignmentExpression" (uid)
+	FOREIGN KEY(resource_assignment_expression_id) REFERENCES "BpmnResourceAssignmentExpression" (id)
 );
 CREATE INDEX "ix_FluxnovaPotentialStarter_id" ON "FluxnovaPotentialStarter" (id);
 
@@ -6796,767 +6796,767 @@ CREATE TABLE "FluxnovaTaskListener" (
 	fluxnova_delegate_expression TEXT,
 	element_type TEXT,
 	script_id INTEGER,
-	timer_event_definition_uid INTEGER,
+	timer_event_definition_id INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY(script_id) REFERENCES "FluxnovaScript" (id),
-	FOREIGN KEY(timer_event_definition_uid) REFERENCES "BpmnTimerEventDefinition" (uid)
+	FOREIGN KEY(timer_event_definition_id) REFERENCES "BpmnTimerEventDefinition" (id)
 );
 CREATE INDEX "ix_FluxnovaTaskListener_id" ON "FluxnovaTaskListener" (id);
 
 CREATE TABLE "BpmnActivity_incoming" (
-	"BpmnActivity_uid" INTEGER,
+	"BpmnActivity_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnActivity_uid", incoming),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid)
+	PRIMARY KEY ("BpmnActivity_id", incoming),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id)
 );
 CREATE INDEX "ix_BpmnActivity_incoming_incoming" ON "BpmnActivity_incoming" (incoming);
-CREATE INDEX "ix_BpmnActivity_incoming_BpmnActivity_uid" ON "BpmnActivity_incoming" ("BpmnActivity_uid");
+CREATE INDEX "ix_BpmnActivity_incoming_BpmnActivity_id" ON "BpmnActivity_incoming" ("BpmnActivity_id");
 
 CREATE TABLE "BpmnActivity_outgoing" (
-	"BpmnActivity_uid" INTEGER,
+	"BpmnActivity_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnActivity_uid", outgoing),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid)
+	PRIMARY KEY ("BpmnActivity_id", outgoing),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id)
 );
 CREATE INDEX "ix_BpmnActivity_outgoing_outgoing" ON "BpmnActivity_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnActivity_outgoing_BpmnActivity_uid" ON "BpmnActivity_outgoing" ("BpmnActivity_uid");
+CREATE INDEX "ix_BpmnActivity_outgoing_BpmnActivity_id" ON "BpmnActivity_outgoing" ("BpmnActivity_id");
 
 CREATE TABLE "BpmnActivity_category_value_refs" (
-	"BpmnActivity_uid" INTEGER,
+	"BpmnActivity_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnActivity_uid", category_value_refs),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid)
+	PRIMARY KEY ("BpmnActivity_id", category_value_refs),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id)
 );
 CREATE INDEX "ix_BpmnActivity_category_value_refs_category_value_refs" ON "BpmnActivity_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnActivity_category_value_refs_BpmnActivity_uid" ON "BpmnActivity_category_value_refs" ("BpmnActivity_uid");
+CREATE INDEX "ix_BpmnActivity_category_value_refs_BpmnActivity_id" ON "BpmnActivity_category_value_refs" ("BpmnActivity_id");
 
 CREATE TABLE "BpmnAdHocSubProcess_incoming" (
-	"BpmnAdHocSubProcess_uid" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnAdHocSubProcess_uid", incoming),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid)
+	PRIMARY KEY ("BpmnAdHocSubProcess_id", incoming),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnAdHocSubProcess_incoming_BpmnAdHocSubProcess_uid" ON "BpmnAdHocSubProcess_incoming" ("BpmnAdHocSubProcess_uid");
+CREATE INDEX "ix_BpmnAdHocSubProcess_incoming_BpmnAdHocSubProcess_id" ON "BpmnAdHocSubProcess_incoming" ("BpmnAdHocSubProcess_id");
 CREATE INDEX "ix_BpmnAdHocSubProcess_incoming_incoming" ON "BpmnAdHocSubProcess_incoming" (incoming);
 
 CREATE TABLE "BpmnAdHocSubProcess_outgoing" (
-	"BpmnAdHocSubProcess_uid" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnAdHocSubProcess_uid", outgoing),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid)
+	PRIMARY KEY ("BpmnAdHocSubProcess_id", outgoing),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id)
 );
 CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_outgoing" ON "BpmnAdHocSubProcess_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_BpmnAdHocSubProcess_uid" ON "BpmnAdHocSubProcess_outgoing" ("BpmnAdHocSubProcess_uid");
+CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_BpmnAdHocSubProcess_id" ON "BpmnAdHocSubProcess_outgoing" ("BpmnAdHocSubProcess_id");
 
 CREATE TABLE "BpmnAdHocSubProcess_category_value_refs" (
-	"BpmnAdHocSubProcess_uid" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnAdHocSubProcess_uid", category_value_refs),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid)
+	PRIMARY KEY ("BpmnAdHocSubProcess_id", category_value_refs),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnAdHocSubProcess_category_value_refs_BpmnAdHocSubProcess_uid" ON "BpmnAdHocSubProcess_category_value_refs" ("BpmnAdHocSubProcess_uid");
+CREATE INDEX "ix_BpmnAdHocSubProcess_category_value_refs_BpmnAdHocSubProcess_id" ON "BpmnAdHocSubProcess_category_value_refs" ("BpmnAdHocSubProcess_id");
 CREATE INDEX "ix_BpmnAdHocSubProcess_category_value_refs_category_value_refs" ON "BpmnAdHocSubProcess_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnBusinessRuleTask_incoming" (
-	"BpmnBusinessRuleTask_uid" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnBusinessRuleTask_uid", incoming),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid)
+	PRIMARY KEY ("BpmnBusinessRuleTask_id", incoming),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id)
 );
-CREATE INDEX "ix_BpmnBusinessRuleTask_incoming_BpmnBusinessRuleTask_uid" ON "BpmnBusinessRuleTask_incoming" ("BpmnBusinessRuleTask_uid");
+CREATE INDEX "ix_BpmnBusinessRuleTask_incoming_BpmnBusinessRuleTask_id" ON "BpmnBusinessRuleTask_incoming" ("BpmnBusinessRuleTask_id");
 CREATE INDEX "ix_BpmnBusinessRuleTask_incoming_incoming" ON "BpmnBusinessRuleTask_incoming" (incoming);
 
 CREATE TABLE "BpmnBusinessRuleTask_outgoing" (
-	"BpmnBusinessRuleTask_uid" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnBusinessRuleTask_uid", outgoing),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid)
+	PRIMARY KEY ("BpmnBusinessRuleTask_id", outgoing),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id)
 );
-CREATE INDEX "ix_BpmnBusinessRuleTask_outgoing_BpmnBusinessRuleTask_uid" ON "BpmnBusinessRuleTask_outgoing" ("BpmnBusinessRuleTask_uid");
+CREATE INDEX "ix_BpmnBusinessRuleTask_outgoing_BpmnBusinessRuleTask_id" ON "BpmnBusinessRuleTask_outgoing" ("BpmnBusinessRuleTask_id");
 CREATE INDEX "ix_BpmnBusinessRuleTask_outgoing_outgoing" ON "BpmnBusinessRuleTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnBusinessRuleTask_category_value_refs" (
-	"BpmnBusinessRuleTask_uid" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnBusinessRuleTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid)
+	PRIMARY KEY ("BpmnBusinessRuleTask_id", category_value_refs),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id)
 );
 CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_category_value_refs" ON "BpmnBusinessRuleTask_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_BpmnBusinessRuleTask_uid" ON "BpmnBusinessRuleTask_category_value_refs" ("BpmnBusinessRuleTask_uid");
+CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_BpmnBusinessRuleTask_id" ON "BpmnBusinessRuleTask_category_value_refs" ("BpmnBusinessRuleTask_id");
 
 CREATE TABLE "BpmnCallActivity_incoming" (
-	"BpmnCallActivity_uid" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnCallActivity_uid", incoming),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid)
+	PRIMARY KEY ("BpmnCallActivity_id", incoming),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id)
 );
-CREATE INDEX "ix_BpmnCallActivity_incoming_BpmnCallActivity_uid" ON "BpmnCallActivity_incoming" ("BpmnCallActivity_uid");
+CREATE INDEX "ix_BpmnCallActivity_incoming_BpmnCallActivity_id" ON "BpmnCallActivity_incoming" ("BpmnCallActivity_id");
 CREATE INDEX "ix_BpmnCallActivity_incoming_incoming" ON "BpmnCallActivity_incoming" (incoming);
 
 CREATE TABLE "BpmnCallActivity_outgoing" (
-	"BpmnCallActivity_uid" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnCallActivity_uid", outgoing),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid)
+	PRIMARY KEY ("BpmnCallActivity_id", outgoing),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id)
 );
-CREATE INDEX "ix_BpmnCallActivity_outgoing_BpmnCallActivity_uid" ON "BpmnCallActivity_outgoing" ("BpmnCallActivity_uid");
+CREATE INDEX "ix_BpmnCallActivity_outgoing_BpmnCallActivity_id" ON "BpmnCallActivity_outgoing" ("BpmnCallActivity_id");
 CREATE INDEX "ix_BpmnCallActivity_outgoing_outgoing" ON "BpmnCallActivity_outgoing" (outgoing);
 
 CREATE TABLE "BpmnCallActivity_category_value_refs" (
-	"BpmnCallActivity_uid" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnCallActivity_uid", category_value_refs),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid)
+	PRIMARY KEY ("BpmnCallActivity_id", category_value_refs),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id)
 );
-CREATE INDEX "ix_BpmnCallActivity_category_value_refs_BpmnCallActivity_uid" ON "BpmnCallActivity_category_value_refs" ("BpmnCallActivity_uid");
+CREATE INDEX "ix_BpmnCallActivity_category_value_refs_BpmnCallActivity_id" ON "BpmnCallActivity_category_value_refs" ("BpmnCallActivity_id");
 CREATE INDEX "ix_BpmnCallActivity_category_value_refs_category_value_refs" ON "BpmnCallActivity_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnCallableElement_supported_interface_refs" (
-	"BpmnCallableElement_uid" INTEGER,
+	"BpmnCallableElement_id" INTEGER,
 	supported_interface_refs TEXT,
-	PRIMARY KEY ("BpmnCallableElement_uid", supported_interface_refs),
-	FOREIGN KEY("BpmnCallableElement_uid") REFERENCES "BpmnCallableElement" (uid)
+	PRIMARY KEY ("BpmnCallableElement_id", supported_interface_refs),
+	FOREIGN KEY("BpmnCallableElement_id") REFERENCES "BpmnCallableElement" (id)
 );
-CREATE INDEX "ix_BpmnCallableElement_supported_interface_refs_BpmnCallableElement_uid" ON "BpmnCallableElement_supported_interface_refs" ("BpmnCallableElement_uid");
+CREATE INDEX "ix_BpmnCallableElement_supported_interface_refs_BpmnCallableElement_id" ON "BpmnCallableElement_supported_interface_refs" ("BpmnCallableElement_id");
 CREATE INDEX "ix_BpmnCallableElement_supported_interface_refs_supported_interface_refs" ON "BpmnCallableElement_supported_interface_refs" (supported_interface_refs);
 
 CREATE TABLE "BpmnComplexGateway_incoming" (
-	"BpmnComplexGateway_uid" INTEGER,
+	"BpmnComplexGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnComplexGateway_uid", incoming),
-	FOREIGN KEY("BpmnComplexGateway_uid") REFERENCES "BpmnComplexGateway" (uid)
+	PRIMARY KEY ("BpmnComplexGateway_id", incoming),
+	FOREIGN KEY("BpmnComplexGateway_id") REFERENCES "BpmnComplexGateway" (id)
 );
-CREATE INDEX "ix_BpmnComplexGateway_incoming_BpmnComplexGateway_uid" ON "BpmnComplexGateway_incoming" ("BpmnComplexGateway_uid");
+CREATE INDEX "ix_BpmnComplexGateway_incoming_BpmnComplexGateway_id" ON "BpmnComplexGateway_incoming" ("BpmnComplexGateway_id");
 CREATE INDEX "ix_BpmnComplexGateway_incoming_incoming" ON "BpmnComplexGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnComplexGateway_outgoing" (
-	"BpmnComplexGateway_uid" INTEGER,
+	"BpmnComplexGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnComplexGateway_uid", outgoing),
-	FOREIGN KEY("BpmnComplexGateway_uid") REFERENCES "BpmnComplexGateway" (uid)
+	PRIMARY KEY ("BpmnComplexGateway_id", outgoing),
+	FOREIGN KEY("BpmnComplexGateway_id") REFERENCES "BpmnComplexGateway" (id)
 );
 CREATE INDEX "ix_BpmnComplexGateway_outgoing_outgoing" ON "BpmnComplexGateway_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnComplexGateway_outgoing_BpmnComplexGateway_uid" ON "BpmnComplexGateway_outgoing" ("BpmnComplexGateway_uid");
+CREATE INDEX "ix_BpmnComplexGateway_outgoing_BpmnComplexGateway_id" ON "BpmnComplexGateway_outgoing" ("BpmnComplexGateway_id");
 
 CREATE TABLE "BpmnComplexGateway_category_value_refs" (
-	"BpmnComplexGateway_uid" INTEGER,
+	"BpmnComplexGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnComplexGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnComplexGateway_uid") REFERENCES "BpmnComplexGateway" (uid)
+	PRIMARY KEY ("BpmnComplexGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnComplexGateway_id") REFERENCES "BpmnComplexGateway" (id)
 );
-CREATE INDEX "ix_BpmnComplexGateway_category_value_refs_BpmnComplexGateway_uid" ON "BpmnComplexGateway_category_value_refs" ("BpmnComplexGateway_uid");
+CREATE INDEX "ix_BpmnComplexGateway_category_value_refs_BpmnComplexGateway_id" ON "BpmnComplexGateway_category_value_refs" ("BpmnComplexGateway_id");
 CREATE INDEX "ix_BpmnComplexGateway_category_value_refs_category_value_refs" ON "BpmnComplexGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnConversationNode_participant_refs" (
-	"BpmnConversationNode_uid" INTEGER,
+	"BpmnConversationNode_id" INTEGER,
 	participant_refs TEXT,
-	PRIMARY KEY ("BpmnConversationNode_uid", participant_refs),
-	FOREIGN KEY("BpmnConversationNode_uid") REFERENCES "BpmnConversationNode" (uid)
+	PRIMARY KEY ("BpmnConversationNode_id", participant_refs),
+	FOREIGN KEY("BpmnConversationNode_id") REFERENCES "BpmnConversationNode" (id)
 );
 CREATE INDEX "ix_BpmnConversationNode_participant_refs_participant_refs" ON "BpmnConversationNode_participant_refs" (participant_refs);
-CREATE INDEX "ix_BpmnConversationNode_participant_refs_BpmnConversationNode_uid" ON "BpmnConversationNode_participant_refs" ("BpmnConversationNode_uid");
+CREATE INDEX "ix_BpmnConversationNode_participant_refs_BpmnConversationNode_id" ON "BpmnConversationNode_participant_refs" ("BpmnConversationNode_id");
 
 CREATE TABLE "BpmnConversationNode_message_flow_refs" (
-	"BpmnConversationNode_uid" INTEGER,
+	"BpmnConversationNode_id" INTEGER,
 	message_flow_refs TEXT,
-	PRIMARY KEY ("BpmnConversationNode_uid", message_flow_refs),
-	FOREIGN KEY("BpmnConversationNode_uid") REFERENCES "BpmnConversationNode" (uid)
+	PRIMARY KEY ("BpmnConversationNode_id", message_flow_refs),
+	FOREIGN KEY("BpmnConversationNode_id") REFERENCES "BpmnConversationNode" (id)
 );
-CREATE INDEX "ix_BpmnConversationNode_message_flow_refs_BpmnConversationNode_uid" ON "BpmnConversationNode_message_flow_refs" ("BpmnConversationNode_uid");
+CREATE INDEX "ix_BpmnConversationNode_message_flow_refs_BpmnConversationNode_id" ON "BpmnConversationNode_message_flow_refs" ("BpmnConversationNode_id");
 CREATE INDEX "ix_BpmnConversationNode_message_flow_refs_message_flow_refs" ON "BpmnConversationNode_message_flow_refs" (message_flow_refs);
 
 CREATE TABLE "BpmnDataAssociation_source_refs" (
-	"BpmnDataAssociation_uid" INTEGER,
+	"BpmnDataAssociation_id" INTEGER,
 	source_refs TEXT,
-	PRIMARY KEY ("BpmnDataAssociation_uid", source_refs),
-	FOREIGN KEY("BpmnDataAssociation_uid") REFERENCES "BpmnDataAssociation" (uid)
+	PRIMARY KEY ("BpmnDataAssociation_id", source_refs),
+	FOREIGN KEY("BpmnDataAssociation_id") REFERENCES "BpmnDataAssociation" (id)
 );
-CREATE INDEX "ix_BpmnDataAssociation_source_refs_BpmnDataAssociation_uid" ON "BpmnDataAssociation_source_refs" ("BpmnDataAssociation_uid");
+CREATE INDEX "ix_BpmnDataAssociation_source_refs_BpmnDataAssociation_id" ON "BpmnDataAssociation_source_refs" ("BpmnDataAssociation_id");
 CREATE INDEX "ix_BpmnDataAssociation_source_refs_source_refs" ON "BpmnDataAssociation_source_refs" (source_refs);
 
 CREATE TABLE "BpmnDataObject_category_value_refs" (
-	"BpmnDataObject_uid" INTEGER,
+	"BpmnDataObject_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnDataObject_uid", category_value_refs),
-	FOREIGN KEY("BpmnDataObject_uid") REFERENCES "BpmnDataObject" (uid)
+	PRIMARY KEY ("BpmnDataObject_id", category_value_refs),
+	FOREIGN KEY("BpmnDataObject_id") REFERENCES "BpmnDataObject" (id)
 );
-CREATE INDEX "ix_BpmnDataObject_category_value_refs_BpmnDataObject_uid" ON "BpmnDataObject_category_value_refs" ("BpmnDataObject_uid");
+CREATE INDEX "ix_BpmnDataObject_category_value_refs_BpmnDataObject_id" ON "BpmnDataObject_category_value_refs" ("BpmnDataObject_id");
 CREATE INDEX "ix_BpmnDataObject_category_value_refs_category_value_refs" ON "BpmnDataObject_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnDataObjectReference_category_value_refs" (
-	"BpmnDataObjectReference_uid" INTEGER,
+	"BpmnDataObjectReference_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnDataObjectReference_uid", category_value_refs),
-	FOREIGN KEY("BpmnDataObjectReference_uid") REFERENCES "BpmnDataObjectReference" (uid)
+	PRIMARY KEY ("BpmnDataObjectReference_id", category_value_refs),
+	FOREIGN KEY("BpmnDataObjectReference_id") REFERENCES "BpmnDataObjectReference" (id)
 );
-CREATE INDEX "ix_BpmnDataObjectReference_category_value_refs_BpmnDataObjectReference_uid" ON "BpmnDataObjectReference_category_value_refs" ("BpmnDataObjectReference_uid");
+CREATE INDEX "ix_BpmnDataObjectReference_category_value_refs_BpmnDataObjectReference_id" ON "BpmnDataObjectReference_category_value_refs" ("BpmnDataObjectReference_id");
 CREATE INDEX "ix_BpmnDataObjectReference_category_value_refs_category_value_refs" ON "BpmnDataObjectReference_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnDataStoreReference_category_value_refs" (
-	"BpmnDataStoreReference_uid" INTEGER,
+	"BpmnDataStoreReference_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnDataStoreReference_uid", category_value_refs),
-	FOREIGN KEY("BpmnDataStoreReference_uid") REFERENCES "BpmnDataStoreReference" (uid)
+	PRIMARY KEY ("BpmnDataStoreReference_id", category_value_refs),
+	FOREIGN KEY("BpmnDataStoreReference_id") REFERENCES "BpmnDataStoreReference" (id)
 );
 CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_category_value_refs" ON "BpmnDataStoreReference_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_BpmnDataStoreReference_uid" ON "BpmnDataStoreReference_category_value_refs" ("BpmnDataStoreReference_uid");
+CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_BpmnDataStoreReference_id" ON "BpmnDataStoreReference_category_value_refs" ("BpmnDataStoreReference_id");
 
 CREATE TABLE "BpmnEvent_incoming" (
-	"BpmnEvent_uid" INTEGER,
+	"BpmnEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnEvent_uid", incoming),
-	FOREIGN KEY("BpmnEvent_uid") REFERENCES "BpmnEvent" (uid)
+	PRIMARY KEY ("BpmnEvent_id", incoming),
+	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id)
 );
-CREATE INDEX "ix_BpmnEvent_incoming_BpmnEvent_uid" ON "BpmnEvent_incoming" ("BpmnEvent_uid");
+CREATE INDEX "ix_BpmnEvent_incoming_BpmnEvent_id" ON "BpmnEvent_incoming" ("BpmnEvent_id");
 CREATE INDEX "ix_BpmnEvent_incoming_incoming" ON "BpmnEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnEvent_outgoing" (
-	"BpmnEvent_uid" INTEGER,
+	"BpmnEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnEvent_uid", outgoing),
-	FOREIGN KEY("BpmnEvent_uid") REFERENCES "BpmnEvent" (uid)
+	PRIMARY KEY ("BpmnEvent_id", outgoing),
+	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id)
 );
-CREATE INDEX "ix_BpmnEvent_outgoing_BpmnEvent_uid" ON "BpmnEvent_outgoing" ("BpmnEvent_uid");
+CREATE INDEX "ix_BpmnEvent_outgoing_BpmnEvent_id" ON "BpmnEvent_outgoing" ("BpmnEvent_id");
 CREATE INDEX "ix_BpmnEvent_outgoing_outgoing" ON "BpmnEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnEvent_category_value_refs" (
-	"BpmnEvent_uid" INTEGER,
+	"BpmnEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnEvent_uid") REFERENCES "BpmnEvent" (uid)
+	PRIMARY KEY ("BpmnEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id)
 );
-CREATE INDEX "ix_BpmnEvent_category_value_refs_BpmnEvent_uid" ON "BpmnEvent_category_value_refs" ("BpmnEvent_uid");
+CREATE INDEX "ix_BpmnEvent_category_value_refs_BpmnEvent_id" ON "BpmnEvent_category_value_refs" ("BpmnEvent_id");
 CREATE INDEX "ix_BpmnEvent_category_value_refs_category_value_refs" ON "BpmnEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnEventBasedGateway_incoming" (
-	"BpmnEventBasedGateway_uid" INTEGER,
+	"BpmnEventBasedGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnEventBasedGateway_uid", incoming),
-	FOREIGN KEY("BpmnEventBasedGateway_uid") REFERENCES "BpmnEventBasedGateway" (uid)
+	PRIMARY KEY ("BpmnEventBasedGateway_id", incoming),
+	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id)
 );
 CREATE INDEX "ix_BpmnEventBasedGateway_incoming_incoming" ON "BpmnEventBasedGateway_incoming" (incoming);
-CREATE INDEX "ix_BpmnEventBasedGateway_incoming_BpmnEventBasedGateway_uid" ON "BpmnEventBasedGateway_incoming" ("BpmnEventBasedGateway_uid");
+CREATE INDEX "ix_BpmnEventBasedGateway_incoming_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway_incoming" ("BpmnEventBasedGateway_id");
 
 CREATE TABLE "BpmnEventBasedGateway_outgoing" (
-	"BpmnEventBasedGateway_uid" INTEGER,
+	"BpmnEventBasedGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnEventBasedGateway_uid", outgoing),
-	FOREIGN KEY("BpmnEventBasedGateway_uid") REFERENCES "BpmnEventBasedGateway" (uid)
+	PRIMARY KEY ("BpmnEventBasedGateway_id", outgoing),
+	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id)
 );
-CREATE INDEX "ix_BpmnEventBasedGateway_outgoing_BpmnEventBasedGateway_uid" ON "BpmnEventBasedGateway_outgoing" ("BpmnEventBasedGateway_uid");
+CREATE INDEX "ix_BpmnEventBasedGateway_outgoing_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway_outgoing" ("BpmnEventBasedGateway_id");
 CREATE INDEX "ix_BpmnEventBasedGateway_outgoing_outgoing" ON "BpmnEventBasedGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnEventBasedGateway_category_value_refs" (
-	"BpmnEventBasedGateway_uid" INTEGER,
+	"BpmnEventBasedGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnEventBasedGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnEventBasedGateway_uid") REFERENCES "BpmnEventBasedGateway" (uid)
+	PRIMARY KEY ("BpmnEventBasedGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id)
 );
 CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_category_value_refs" ON "BpmnEventBasedGateway_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_BpmnEventBasedGateway_uid" ON "BpmnEventBasedGateway_category_value_refs" ("BpmnEventBasedGateway_uid");
+CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway_category_value_refs" ("BpmnEventBasedGateway_id");
 
 CREATE TABLE "BpmnExclusiveGateway_incoming" (
-	"BpmnExclusiveGateway_uid" INTEGER,
+	"BpmnExclusiveGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnExclusiveGateway_uid", incoming),
-	FOREIGN KEY("BpmnExclusiveGateway_uid") REFERENCES "BpmnExclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnExclusiveGateway_id", incoming),
+	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_incoming_BpmnExclusiveGateway_uid" ON "BpmnExclusiveGateway_incoming" ("BpmnExclusiveGateway_uid");
+CREATE INDEX "ix_BpmnExclusiveGateway_incoming_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_incoming" ("BpmnExclusiveGateway_id");
 CREATE INDEX "ix_BpmnExclusiveGateway_incoming_incoming" ON "BpmnExclusiveGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnExclusiveGateway_outgoing" (
-	"BpmnExclusiveGateway_uid" INTEGER,
+	"BpmnExclusiveGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnExclusiveGateway_uid", outgoing),
-	FOREIGN KEY("BpmnExclusiveGateway_uid") REFERENCES "BpmnExclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnExclusiveGateway_id", outgoing),
+	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_outgoing_BpmnExclusiveGateway_uid" ON "BpmnExclusiveGateway_outgoing" ("BpmnExclusiveGateway_uid");
+CREATE INDEX "ix_BpmnExclusiveGateway_outgoing_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_outgoing" ("BpmnExclusiveGateway_id");
 CREATE INDEX "ix_BpmnExclusiveGateway_outgoing_outgoing" ON "BpmnExclusiveGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnExclusiveGateway_category_value_refs" (
-	"BpmnExclusiveGateway_uid" INTEGER,
+	"BpmnExclusiveGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnExclusiveGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnExclusiveGateway_uid") REFERENCES "BpmnExclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnExclusiveGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_category_value_refs_BpmnExclusiveGateway_uid" ON "BpmnExclusiveGateway_category_value_refs" ("BpmnExclusiveGateway_uid");
+CREATE INDEX "ix_BpmnExclusiveGateway_category_value_refs_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_category_value_refs" ("BpmnExclusiveGateway_id");
 CREATE INDEX "ix_BpmnExclusiveGateway_category_value_refs_category_value_refs" ON "BpmnExclusiveGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnFlowNode_incoming" (
-	"BpmnFlowNode_uid" INTEGER,
+	"BpmnFlowNode_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnFlowNode_uid", incoming),
-	FOREIGN KEY("BpmnFlowNode_uid") REFERENCES "BpmnFlowNode" (uid)
+	PRIMARY KEY ("BpmnFlowNode_id", incoming),
+	FOREIGN KEY("BpmnFlowNode_id") REFERENCES "BpmnFlowNode" (id)
 );
-CREATE INDEX "ix_BpmnFlowNode_incoming_BpmnFlowNode_uid" ON "BpmnFlowNode_incoming" ("BpmnFlowNode_uid");
+CREATE INDEX "ix_BpmnFlowNode_incoming_BpmnFlowNode_id" ON "BpmnFlowNode_incoming" ("BpmnFlowNode_id");
 CREATE INDEX "ix_BpmnFlowNode_incoming_incoming" ON "BpmnFlowNode_incoming" (incoming);
 
 CREATE TABLE "BpmnFlowNode_outgoing" (
-	"BpmnFlowNode_uid" INTEGER,
+	"BpmnFlowNode_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnFlowNode_uid", outgoing),
-	FOREIGN KEY("BpmnFlowNode_uid") REFERENCES "BpmnFlowNode" (uid)
+	PRIMARY KEY ("BpmnFlowNode_id", outgoing),
+	FOREIGN KEY("BpmnFlowNode_id") REFERENCES "BpmnFlowNode" (id)
 );
-CREATE INDEX "ix_BpmnFlowNode_outgoing_BpmnFlowNode_uid" ON "BpmnFlowNode_outgoing" ("BpmnFlowNode_uid");
+CREATE INDEX "ix_BpmnFlowNode_outgoing_BpmnFlowNode_id" ON "BpmnFlowNode_outgoing" ("BpmnFlowNode_id");
 CREATE INDEX "ix_BpmnFlowNode_outgoing_outgoing" ON "BpmnFlowNode_outgoing" (outgoing);
 
 CREATE TABLE "BpmnFlowNode_category_value_refs" (
-	"BpmnFlowNode_uid" INTEGER,
+	"BpmnFlowNode_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnFlowNode_uid", category_value_refs),
-	FOREIGN KEY("BpmnFlowNode_uid") REFERENCES "BpmnFlowNode" (uid)
+	PRIMARY KEY ("BpmnFlowNode_id", category_value_refs),
+	FOREIGN KEY("BpmnFlowNode_id") REFERENCES "BpmnFlowNode" (id)
 );
-CREATE INDEX "ix_BpmnFlowNode_category_value_refs_BpmnFlowNode_uid" ON "BpmnFlowNode_category_value_refs" ("BpmnFlowNode_uid");
+CREATE INDEX "ix_BpmnFlowNode_category_value_refs_BpmnFlowNode_id" ON "BpmnFlowNode_category_value_refs" ("BpmnFlowNode_id");
 CREATE INDEX "ix_BpmnFlowNode_category_value_refs_category_value_refs" ON "BpmnFlowNode_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnGateway_incoming" (
-	"BpmnGateway_uid" INTEGER,
+	"BpmnGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnGateway_uid", incoming),
-	FOREIGN KEY("BpmnGateway_uid") REFERENCES "BpmnGateway" (uid)
+	PRIMARY KEY ("BpmnGateway_id", incoming),
+	FOREIGN KEY("BpmnGateway_id") REFERENCES "BpmnGateway" (id)
 );
 CREATE INDEX "ix_BpmnGateway_incoming_incoming" ON "BpmnGateway_incoming" (incoming);
-CREATE INDEX "ix_BpmnGateway_incoming_BpmnGateway_uid" ON "BpmnGateway_incoming" ("BpmnGateway_uid");
+CREATE INDEX "ix_BpmnGateway_incoming_BpmnGateway_id" ON "BpmnGateway_incoming" ("BpmnGateway_id");
 
 CREATE TABLE "BpmnGateway_outgoing" (
-	"BpmnGateway_uid" INTEGER,
+	"BpmnGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnGateway_uid", outgoing),
-	FOREIGN KEY("BpmnGateway_uid") REFERENCES "BpmnGateway" (uid)
+	PRIMARY KEY ("BpmnGateway_id", outgoing),
+	FOREIGN KEY("BpmnGateway_id") REFERENCES "BpmnGateway" (id)
 );
-CREATE INDEX "ix_BpmnGateway_outgoing_BpmnGateway_uid" ON "BpmnGateway_outgoing" ("BpmnGateway_uid");
+CREATE INDEX "ix_BpmnGateway_outgoing_BpmnGateway_id" ON "BpmnGateway_outgoing" ("BpmnGateway_id");
 CREATE INDEX "ix_BpmnGateway_outgoing_outgoing" ON "BpmnGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnGateway_category_value_refs" (
-	"BpmnGateway_uid" INTEGER,
+	"BpmnGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnGateway_uid") REFERENCES "BpmnGateway" (uid)
+	PRIMARY KEY ("BpmnGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnGateway_id") REFERENCES "BpmnGateway" (id)
 );
-CREATE INDEX "ix_BpmnGateway_category_value_refs_BpmnGateway_uid" ON "BpmnGateway_category_value_refs" ("BpmnGateway_uid");
+CREATE INDEX "ix_BpmnGateway_category_value_refs_BpmnGateway_id" ON "BpmnGateway_category_value_refs" ("BpmnGateway_id");
 CREATE INDEX "ix_BpmnGateway_category_value_refs_category_value_refs" ON "BpmnGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnInclusiveGateway_incoming" (
-	"BpmnInclusiveGateway_uid" INTEGER,
+	"BpmnInclusiveGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnInclusiveGateway_uid", incoming),
-	FOREIGN KEY("BpmnInclusiveGateway_uid") REFERENCES "BpmnInclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnInclusiveGateway_id", incoming),
+	FOREIGN KEY("BpmnInclusiveGateway_id") REFERENCES "BpmnInclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnInclusiveGateway_incoming_BpmnInclusiveGateway_uid" ON "BpmnInclusiveGateway_incoming" ("BpmnInclusiveGateway_uid");
+CREATE INDEX "ix_BpmnInclusiveGateway_incoming_BpmnInclusiveGateway_id" ON "BpmnInclusiveGateway_incoming" ("BpmnInclusiveGateway_id");
 CREATE INDEX "ix_BpmnInclusiveGateway_incoming_incoming" ON "BpmnInclusiveGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnInclusiveGateway_outgoing" (
-	"BpmnInclusiveGateway_uid" INTEGER,
+	"BpmnInclusiveGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnInclusiveGateway_uid", outgoing),
-	FOREIGN KEY("BpmnInclusiveGateway_uid") REFERENCES "BpmnInclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnInclusiveGateway_id", outgoing),
+	FOREIGN KEY("BpmnInclusiveGateway_id") REFERENCES "BpmnInclusiveGateway" (id)
 );
 CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_outgoing" ON "BpmnInclusiveGateway_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_BpmnInclusiveGateway_uid" ON "BpmnInclusiveGateway_outgoing" ("BpmnInclusiveGateway_uid");
+CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_BpmnInclusiveGateway_id" ON "BpmnInclusiveGateway_outgoing" ("BpmnInclusiveGateway_id");
 
 CREATE TABLE "BpmnInclusiveGateway_category_value_refs" (
-	"BpmnInclusiveGateway_uid" INTEGER,
+	"BpmnInclusiveGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnInclusiveGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnInclusiveGateway_uid") REFERENCES "BpmnInclusiveGateway" (uid)
+	PRIMARY KEY ("BpmnInclusiveGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnInclusiveGateway_id") REFERENCES "BpmnInclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnInclusiveGateway_category_value_refs_BpmnInclusiveGateway_uid" ON "BpmnInclusiveGateway_category_value_refs" ("BpmnInclusiveGateway_uid");
+CREATE INDEX "ix_BpmnInclusiveGateway_category_value_refs_BpmnInclusiveGateway_id" ON "BpmnInclusiveGateway_category_value_refs" ("BpmnInclusiveGateway_id");
 CREATE INDEX "ix_BpmnInclusiveGateway_category_value_refs_category_value_refs" ON "BpmnInclusiveGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnInputSet_data_input_refs" (
-	"BpmnInputSet_uid" INTEGER,
+	"BpmnInputSet_id" INTEGER,
 	data_input_refs TEXT,
-	PRIMARY KEY ("BpmnInputSet_uid", data_input_refs),
-	FOREIGN KEY("BpmnInputSet_uid") REFERENCES "BpmnInputSet" (uid)
+	PRIMARY KEY ("BpmnInputSet_id", data_input_refs),
+	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id)
 );
-CREATE INDEX "ix_BpmnInputSet_data_input_refs_BpmnInputSet_uid" ON "BpmnInputSet_data_input_refs" ("BpmnInputSet_uid");
+CREATE INDEX "ix_BpmnInputSet_data_input_refs_BpmnInputSet_id" ON "BpmnInputSet_data_input_refs" ("BpmnInputSet_id");
 CREATE INDEX "ix_BpmnInputSet_data_input_refs_data_input_refs" ON "BpmnInputSet_data_input_refs" (data_input_refs);
 
 CREATE TABLE "BpmnInputSet_optional_input_refs" (
-	"BpmnInputSet_uid" INTEGER,
+	"BpmnInputSet_id" INTEGER,
 	optional_input_refs TEXT,
-	PRIMARY KEY ("BpmnInputSet_uid", optional_input_refs),
-	FOREIGN KEY("BpmnInputSet_uid") REFERENCES "BpmnInputSet" (uid)
+	PRIMARY KEY ("BpmnInputSet_id", optional_input_refs),
+	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id)
 );
-CREATE INDEX "ix_BpmnInputSet_optional_input_refs_BpmnInputSet_uid" ON "BpmnInputSet_optional_input_refs" ("BpmnInputSet_uid");
+CREATE INDEX "ix_BpmnInputSet_optional_input_refs_BpmnInputSet_id" ON "BpmnInputSet_optional_input_refs" ("BpmnInputSet_id");
 CREATE INDEX "ix_BpmnInputSet_optional_input_refs_optional_input_refs" ON "BpmnInputSet_optional_input_refs" (optional_input_refs);
 
 CREATE TABLE "BpmnInputSet_while_executing_input_refs" (
-	"BpmnInputSet_uid" INTEGER,
+	"BpmnInputSet_id" INTEGER,
 	while_executing_input_refs TEXT,
-	PRIMARY KEY ("BpmnInputSet_uid", while_executing_input_refs),
-	FOREIGN KEY("BpmnInputSet_uid") REFERENCES "BpmnInputSet" (uid)
+	PRIMARY KEY ("BpmnInputSet_id", while_executing_input_refs),
+	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id)
 );
 CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_while_executing_input_refs" ON "BpmnInputSet_while_executing_input_refs" (while_executing_input_refs);
-CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_BpmnInputSet_uid" ON "BpmnInputSet_while_executing_input_refs" ("BpmnInputSet_uid");
+CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_BpmnInputSet_id" ON "BpmnInputSet_while_executing_input_refs" ("BpmnInputSet_id");
 
 CREATE TABLE "BpmnInputSet_output_set_refs" (
-	"BpmnInputSet_uid" INTEGER,
+	"BpmnInputSet_id" INTEGER,
 	output_set_refs TEXT,
-	PRIMARY KEY ("BpmnInputSet_uid", output_set_refs),
-	FOREIGN KEY("BpmnInputSet_uid") REFERENCES "BpmnInputSet" (uid)
+	PRIMARY KEY ("BpmnInputSet_id", output_set_refs),
+	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id)
 );
-CREATE INDEX "ix_BpmnInputSet_output_set_refs_BpmnInputSet_uid" ON "BpmnInputSet_output_set_refs" ("BpmnInputSet_uid");
+CREATE INDEX "ix_BpmnInputSet_output_set_refs_BpmnInputSet_id" ON "BpmnInputSet_output_set_refs" ("BpmnInputSet_id");
 CREATE INDEX "ix_BpmnInputSet_output_set_refs_output_set_refs" ON "BpmnInputSet_output_set_refs" (output_set_refs);
 
 CREATE TABLE "BpmnManualTask_incoming" (
-	"BpmnManualTask_uid" INTEGER,
+	"BpmnManualTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnManualTask_uid", incoming),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid)
+	PRIMARY KEY ("BpmnManualTask_id", incoming),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id)
 );
 CREATE INDEX "ix_BpmnManualTask_incoming_incoming" ON "BpmnManualTask_incoming" (incoming);
-CREATE INDEX "ix_BpmnManualTask_incoming_BpmnManualTask_uid" ON "BpmnManualTask_incoming" ("BpmnManualTask_uid");
+CREATE INDEX "ix_BpmnManualTask_incoming_BpmnManualTask_id" ON "BpmnManualTask_incoming" ("BpmnManualTask_id");
 
 CREATE TABLE "BpmnManualTask_outgoing" (
-	"BpmnManualTask_uid" INTEGER,
+	"BpmnManualTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnManualTask_uid", outgoing),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid)
+	PRIMARY KEY ("BpmnManualTask_id", outgoing),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id)
 );
-CREATE INDEX "ix_BpmnManualTask_outgoing_BpmnManualTask_uid" ON "BpmnManualTask_outgoing" ("BpmnManualTask_uid");
+CREATE INDEX "ix_BpmnManualTask_outgoing_BpmnManualTask_id" ON "BpmnManualTask_outgoing" ("BpmnManualTask_id");
 CREATE INDEX "ix_BpmnManualTask_outgoing_outgoing" ON "BpmnManualTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnManualTask_category_value_refs" (
-	"BpmnManualTask_uid" INTEGER,
+	"BpmnManualTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnManualTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid)
+	PRIMARY KEY ("BpmnManualTask_id", category_value_refs),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id)
 );
-CREATE INDEX "ix_BpmnManualTask_category_value_refs_BpmnManualTask_uid" ON "BpmnManualTask_category_value_refs" ("BpmnManualTask_uid");
+CREATE INDEX "ix_BpmnManualTask_category_value_refs_BpmnManualTask_id" ON "BpmnManualTask_category_value_refs" ("BpmnManualTask_id");
 CREATE INDEX "ix_BpmnManualTask_category_value_refs_category_value_refs" ON "BpmnManualTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnOperation_error_refs" (
-	"BpmnOperation_uid" INTEGER,
+	"BpmnOperation_id" INTEGER,
 	error_refs TEXT,
-	PRIMARY KEY ("BpmnOperation_uid", error_refs),
-	FOREIGN KEY("BpmnOperation_uid") REFERENCES "BpmnOperation" (uid)
+	PRIMARY KEY ("BpmnOperation_id", error_refs),
+	FOREIGN KEY("BpmnOperation_id") REFERENCES "BpmnOperation" (id)
 );
-CREATE INDEX "ix_BpmnOperation_error_refs_BpmnOperation_uid" ON "BpmnOperation_error_refs" ("BpmnOperation_uid");
+CREATE INDEX "ix_BpmnOperation_error_refs_BpmnOperation_id" ON "BpmnOperation_error_refs" ("BpmnOperation_id");
 CREATE INDEX "ix_BpmnOperation_error_refs_error_refs" ON "BpmnOperation_error_refs" (error_refs);
 
 CREATE TABLE "BpmnOutputSet_data_output_refs" (
-	"BpmnOutputSet_uid" INTEGER,
+	"BpmnOutputSet_id" INTEGER,
 	data_output_refs TEXT,
-	PRIMARY KEY ("BpmnOutputSet_uid", data_output_refs),
-	FOREIGN KEY("BpmnOutputSet_uid") REFERENCES "BpmnOutputSet" (uid)
+	PRIMARY KEY ("BpmnOutputSet_id", data_output_refs),
+	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id)
 );
 CREATE INDEX "ix_BpmnOutputSet_data_output_refs_data_output_refs" ON "BpmnOutputSet_data_output_refs" (data_output_refs);
-CREATE INDEX "ix_BpmnOutputSet_data_output_refs_BpmnOutputSet_uid" ON "BpmnOutputSet_data_output_refs" ("BpmnOutputSet_uid");
+CREATE INDEX "ix_BpmnOutputSet_data_output_refs_BpmnOutputSet_id" ON "BpmnOutputSet_data_output_refs" ("BpmnOutputSet_id");
 
 CREATE TABLE "BpmnOutputSet_optional_output_refs" (
-	"BpmnOutputSet_uid" INTEGER,
+	"BpmnOutputSet_id" INTEGER,
 	optional_output_refs TEXT,
-	PRIMARY KEY ("BpmnOutputSet_uid", optional_output_refs),
-	FOREIGN KEY("BpmnOutputSet_uid") REFERENCES "BpmnOutputSet" (uid)
+	PRIMARY KEY ("BpmnOutputSet_id", optional_output_refs),
+	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id)
 );
-CREATE INDEX "ix_BpmnOutputSet_optional_output_refs_BpmnOutputSet_uid" ON "BpmnOutputSet_optional_output_refs" ("BpmnOutputSet_uid");
+CREATE INDEX "ix_BpmnOutputSet_optional_output_refs_BpmnOutputSet_id" ON "BpmnOutputSet_optional_output_refs" ("BpmnOutputSet_id");
 CREATE INDEX "ix_BpmnOutputSet_optional_output_refs_optional_output_refs" ON "BpmnOutputSet_optional_output_refs" (optional_output_refs);
 
 CREATE TABLE "BpmnOutputSet_while_executing_output_refs" (
-	"BpmnOutputSet_uid" INTEGER,
+	"BpmnOutputSet_id" INTEGER,
 	while_executing_output_refs TEXT,
-	PRIMARY KEY ("BpmnOutputSet_uid", while_executing_output_refs),
-	FOREIGN KEY("BpmnOutputSet_uid") REFERENCES "BpmnOutputSet" (uid)
+	PRIMARY KEY ("BpmnOutputSet_id", while_executing_output_refs),
+	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id)
 );
-CREATE INDEX "ix_BpmnOutputSet_while_executing_output_refs_BpmnOutputSet_uid" ON "BpmnOutputSet_while_executing_output_refs" ("BpmnOutputSet_uid");
+CREATE INDEX "ix_BpmnOutputSet_while_executing_output_refs_BpmnOutputSet_id" ON "BpmnOutputSet_while_executing_output_refs" ("BpmnOutputSet_id");
 CREATE INDEX "ix_BpmnOutputSet_while_executing_output_refs_while_executing_output_refs" ON "BpmnOutputSet_while_executing_output_refs" (while_executing_output_refs);
 
 CREATE TABLE "BpmnOutputSet_input_set_refs" (
-	"BpmnOutputSet_uid" INTEGER,
+	"BpmnOutputSet_id" INTEGER,
 	input_set_refs TEXT,
-	PRIMARY KEY ("BpmnOutputSet_uid", input_set_refs),
-	FOREIGN KEY("BpmnOutputSet_uid") REFERENCES "BpmnOutputSet" (uid)
+	PRIMARY KEY ("BpmnOutputSet_id", input_set_refs),
+	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id)
 );
-CREATE INDEX "ix_BpmnOutputSet_input_set_refs_BpmnOutputSet_uid" ON "BpmnOutputSet_input_set_refs" ("BpmnOutputSet_uid");
+CREATE INDEX "ix_BpmnOutputSet_input_set_refs_BpmnOutputSet_id" ON "BpmnOutputSet_input_set_refs" ("BpmnOutputSet_id");
 CREATE INDEX "ix_BpmnOutputSet_input_set_refs_input_set_refs" ON "BpmnOutputSet_input_set_refs" (input_set_refs);
 
 CREATE TABLE "BpmnParallelGateway_incoming" (
-	"BpmnParallelGateway_uid" INTEGER,
+	"BpmnParallelGateway_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnParallelGateway_uid", incoming),
-	FOREIGN KEY("BpmnParallelGateway_uid") REFERENCES "BpmnParallelGateway" (uid)
+	PRIMARY KEY ("BpmnParallelGateway_id", incoming),
+	FOREIGN KEY("BpmnParallelGateway_id") REFERENCES "BpmnParallelGateway" (id)
 );
 CREATE INDEX "ix_BpmnParallelGateway_incoming_incoming" ON "BpmnParallelGateway_incoming" (incoming);
-CREATE INDEX "ix_BpmnParallelGateway_incoming_BpmnParallelGateway_uid" ON "BpmnParallelGateway_incoming" ("BpmnParallelGateway_uid");
+CREATE INDEX "ix_BpmnParallelGateway_incoming_BpmnParallelGateway_id" ON "BpmnParallelGateway_incoming" ("BpmnParallelGateway_id");
 
 CREATE TABLE "BpmnParallelGateway_outgoing" (
-	"BpmnParallelGateway_uid" INTEGER,
+	"BpmnParallelGateway_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnParallelGateway_uid", outgoing),
-	FOREIGN KEY("BpmnParallelGateway_uid") REFERENCES "BpmnParallelGateway" (uid)
+	PRIMARY KEY ("BpmnParallelGateway_id", outgoing),
+	FOREIGN KEY("BpmnParallelGateway_id") REFERENCES "BpmnParallelGateway" (id)
 );
-CREATE INDEX "ix_BpmnParallelGateway_outgoing_BpmnParallelGateway_uid" ON "BpmnParallelGateway_outgoing" ("BpmnParallelGateway_uid");
+CREATE INDEX "ix_BpmnParallelGateway_outgoing_BpmnParallelGateway_id" ON "BpmnParallelGateway_outgoing" ("BpmnParallelGateway_id");
 CREATE INDEX "ix_BpmnParallelGateway_outgoing_outgoing" ON "BpmnParallelGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnParallelGateway_category_value_refs" (
-	"BpmnParallelGateway_uid" INTEGER,
+	"BpmnParallelGateway_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnParallelGateway_uid", category_value_refs),
-	FOREIGN KEY("BpmnParallelGateway_uid") REFERENCES "BpmnParallelGateway" (uid)
+	PRIMARY KEY ("BpmnParallelGateway_id", category_value_refs),
+	FOREIGN KEY("BpmnParallelGateway_id") REFERENCES "BpmnParallelGateway" (id)
 );
-CREATE INDEX "ix_BpmnParallelGateway_category_value_refs_BpmnParallelGateway_uid" ON "BpmnParallelGateway_category_value_refs" ("BpmnParallelGateway_uid");
+CREATE INDEX "ix_BpmnParallelGateway_category_value_refs_BpmnParallelGateway_id" ON "BpmnParallelGateway_category_value_refs" ("BpmnParallelGateway_id");
 CREATE INDEX "ix_BpmnParallelGateway_category_value_refs_category_value_refs" ON "BpmnParallelGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnParticipant_interface_refs" (
-	"BpmnParticipant_uid" INTEGER,
+	"BpmnParticipant_id" INTEGER,
 	interface_refs TEXT,
-	PRIMARY KEY ("BpmnParticipant_uid", interface_refs),
-	FOREIGN KEY("BpmnParticipant_uid") REFERENCES "BpmnParticipant" (uid)
+	PRIMARY KEY ("BpmnParticipant_id", interface_refs),
+	FOREIGN KEY("BpmnParticipant_id") REFERENCES "BpmnParticipant" (id)
 );
-CREATE INDEX "ix_BpmnParticipant_interface_refs_BpmnParticipant_uid" ON "BpmnParticipant_interface_refs" ("BpmnParticipant_uid");
+CREATE INDEX "ix_BpmnParticipant_interface_refs_BpmnParticipant_id" ON "BpmnParticipant_interface_refs" ("BpmnParticipant_id");
 CREATE INDEX "ix_BpmnParticipant_interface_refs_interface_refs" ON "BpmnParticipant_interface_refs" (interface_refs);
 
 CREATE TABLE "BpmnParticipant_end_point_refs" (
-	"BpmnParticipant_uid" INTEGER,
+	"BpmnParticipant_id" INTEGER,
 	end_point_refs TEXT,
-	PRIMARY KEY ("BpmnParticipant_uid", end_point_refs),
-	FOREIGN KEY("BpmnParticipant_uid") REFERENCES "BpmnParticipant" (uid)
+	PRIMARY KEY ("BpmnParticipant_id", end_point_refs),
+	FOREIGN KEY("BpmnParticipant_id") REFERENCES "BpmnParticipant" (id)
 );
 CREATE INDEX "ix_BpmnParticipant_end_point_refs_end_point_refs" ON "BpmnParticipant_end_point_refs" (end_point_refs);
-CREATE INDEX "ix_BpmnParticipant_end_point_refs_BpmnParticipant_uid" ON "BpmnParticipant_end_point_refs" ("BpmnParticipant_uid");
+CREATE INDEX "ix_BpmnParticipant_end_point_refs_BpmnParticipant_id" ON "BpmnParticipant_end_point_refs" ("BpmnParticipant_id");
 
 CREATE TABLE "BpmnProcess_supports" (
-	"BpmnProcess_uid" INTEGER,
+	"BpmnProcess_id" INTEGER,
 	supports TEXT,
-	PRIMARY KEY ("BpmnProcess_uid", supports),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid)
+	PRIMARY KEY ("BpmnProcess_id", supports),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id)
 );
-CREATE INDEX "ix_BpmnProcess_supports_BpmnProcess_uid" ON "BpmnProcess_supports" ("BpmnProcess_uid");
+CREATE INDEX "ix_BpmnProcess_supports_BpmnProcess_id" ON "BpmnProcess_supports" ("BpmnProcess_id");
 CREATE INDEX "ix_BpmnProcess_supports_supports" ON "BpmnProcess_supports" (supports);
 
 CREATE TABLE "BpmnProcess_supported_interface_refs" (
-	"BpmnProcess_uid" INTEGER,
+	"BpmnProcess_id" INTEGER,
 	supported_interface_refs TEXT,
-	PRIMARY KEY ("BpmnProcess_uid", supported_interface_refs),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid)
+	PRIMARY KEY ("BpmnProcess_id", supported_interface_refs),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id)
 );
-CREATE INDEX "ix_BpmnProcess_supported_interface_refs_BpmnProcess_uid" ON "BpmnProcess_supported_interface_refs" ("BpmnProcess_uid");
+CREATE INDEX "ix_BpmnProcess_supported_interface_refs_BpmnProcess_id" ON "BpmnProcess_supported_interface_refs" ("BpmnProcess_id");
 CREATE INDEX "ix_BpmnProcess_supported_interface_refs_supported_interface_refs" ON "BpmnProcess_supported_interface_refs" (supported_interface_refs);
 
 CREATE TABLE "BpmnReceiveTask_incoming" (
-	"BpmnReceiveTask_uid" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnReceiveTask_uid", incoming),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid)
+	PRIMARY KEY ("BpmnReceiveTask_id", incoming),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id)
 );
-CREATE INDEX "ix_BpmnReceiveTask_incoming_BpmnReceiveTask_uid" ON "BpmnReceiveTask_incoming" ("BpmnReceiveTask_uid");
+CREATE INDEX "ix_BpmnReceiveTask_incoming_BpmnReceiveTask_id" ON "BpmnReceiveTask_incoming" ("BpmnReceiveTask_id");
 CREATE INDEX "ix_BpmnReceiveTask_incoming_incoming" ON "BpmnReceiveTask_incoming" (incoming);
 
 CREATE TABLE "BpmnReceiveTask_outgoing" (
-	"BpmnReceiveTask_uid" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnReceiveTask_uid", outgoing),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid)
+	PRIMARY KEY ("BpmnReceiveTask_id", outgoing),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id)
 );
 CREATE INDEX "ix_BpmnReceiveTask_outgoing_outgoing" ON "BpmnReceiveTask_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnReceiveTask_outgoing_BpmnReceiveTask_uid" ON "BpmnReceiveTask_outgoing" ("BpmnReceiveTask_uid");
+CREATE INDEX "ix_BpmnReceiveTask_outgoing_BpmnReceiveTask_id" ON "BpmnReceiveTask_outgoing" ("BpmnReceiveTask_id");
 
 CREATE TABLE "BpmnReceiveTask_category_value_refs" (
-	"BpmnReceiveTask_uid" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnReceiveTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid)
+	PRIMARY KEY ("BpmnReceiveTask_id", category_value_refs),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id)
 );
-CREATE INDEX "ix_BpmnReceiveTask_category_value_refs_BpmnReceiveTask_uid" ON "BpmnReceiveTask_category_value_refs" ("BpmnReceiveTask_uid");
+CREATE INDEX "ix_BpmnReceiveTask_category_value_refs_BpmnReceiveTask_id" ON "BpmnReceiveTask_category_value_refs" ("BpmnReceiveTask_id");
 CREATE INDEX "ix_BpmnReceiveTask_category_value_refs_category_value_refs" ON "BpmnReceiveTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnScriptTask_incoming" (
-	"BpmnScriptTask_uid" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnScriptTask_uid", incoming),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid)
+	PRIMARY KEY ("BpmnScriptTask_id", incoming),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_incoming_BpmnScriptTask_uid" ON "BpmnScriptTask_incoming" ("BpmnScriptTask_uid");
+CREATE INDEX "ix_BpmnScriptTask_incoming_BpmnScriptTask_id" ON "BpmnScriptTask_incoming" ("BpmnScriptTask_id");
 CREATE INDEX "ix_BpmnScriptTask_incoming_incoming" ON "BpmnScriptTask_incoming" (incoming);
 
 CREATE TABLE "BpmnScriptTask_outgoing" (
-	"BpmnScriptTask_uid" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnScriptTask_uid", outgoing),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid)
+	PRIMARY KEY ("BpmnScriptTask_id", outgoing),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_outgoing_BpmnScriptTask_uid" ON "BpmnScriptTask_outgoing" ("BpmnScriptTask_uid");
+CREATE INDEX "ix_BpmnScriptTask_outgoing_BpmnScriptTask_id" ON "BpmnScriptTask_outgoing" ("BpmnScriptTask_id");
 CREATE INDEX "ix_BpmnScriptTask_outgoing_outgoing" ON "BpmnScriptTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnScriptTask_category_value_refs" (
-	"BpmnScriptTask_uid" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnScriptTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid)
+	PRIMARY KEY ("BpmnScriptTask_id", category_value_refs),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_category_value_refs_BpmnScriptTask_uid" ON "BpmnScriptTask_category_value_refs" ("BpmnScriptTask_uid");
+CREATE INDEX "ix_BpmnScriptTask_category_value_refs_BpmnScriptTask_id" ON "BpmnScriptTask_category_value_refs" ("BpmnScriptTask_id");
 CREATE INDEX "ix_BpmnScriptTask_category_value_refs_category_value_refs" ON "BpmnScriptTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnSendTask_incoming" (
-	"BpmnSendTask_uid" INTEGER,
+	"BpmnSendTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnSendTask_uid", incoming),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid)
+	PRIMARY KEY ("BpmnSendTask_id", incoming),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id)
 );
-CREATE INDEX "ix_BpmnSendTask_incoming_BpmnSendTask_uid" ON "BpmnSendTask_incoming" ("BpmnSendTask_uid");
+CREATE INDEX "ix_BpmnSendTask_incoming_BpmnSendTask_id" ON "BpmnSendTask_incoming" ("BpmnSendTask_id");
 CREATE INDEX "ix_BpmnSendTask_incoming_incoming" ON "BpmnSendTask_incoming" (incoming);
 
 CREATE TABLE "BpmnSendTask_outgoing" (
-	"BpmnSendTask_uid" INTEGER,
+	"BpmnSendTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnSendTask_uid", outgoing),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid)
+	PRIMARY KEY ("BpmnSendTask_id", outgoing),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id)
 );
 CREATE INDEX "ix_BpmnSendTask_outgoing_outgoing" ON "BpmnSendTask_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnSendTask_outgoing_BpmnSendTask_uid" ON "BpmnSendTask_outgoing" ("BpmnSendTask_uid");
+CREATE INDEX "ix_BpmnSendTask_outgoing_BpmnSendTask_id" ON "BpmnSendTask_outgoing" ("BpmnSendTask_id");
 
 CREATE TABLE "BpmnSendTask_category_value_refs" (
-	"BpmnSendTask_uid" INTEGER,
+	"BpmnSendTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnSendTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid)
+	PRIMARY KEY ("BpmnSendTask_id", category_value_refs),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id)
 );
-CREATE INDEX "ix_BpmnSendTask_category_value_refs_BpmnSendTask_uid" ON "BpmnSendTask_category_value_refs" ("BpmnSendTask_uid");
+CREATE INDEX "ix_BpmnSendTask_category_value_refs_BpmnSendTask_id" ON "BpmnSendTask_category_value_refs" ("BpmnSendTask_id");
 CREATE INDEX "ix_BpmnSendTask_category_value_refs_category_value_refs" ON "BpmnSendTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnSequenceFlow_category_value_refs" (
-	"BpmnSequenceFlow_uid" INTEGER,
+	"BpmnSequenceFlow_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnSequenceFlow_uid", category_value_refs),
-	FOREIGN KEY("BpmnSequenceFlow_uid") REFERENCES "BpmnSequenceFlow" (uid)
+	PRIMARY KEY ("BpmnSequenceFlow_id", category_value_refs),
+	FOREIGN KEY("BpmnSequenceFlow_id") REFERENCES "BpmnSequenceFlow" (id)
 );
-CREATE INDEX "ix_BpmnSequenceFlow_category_value_refs_BpmnSequenceFlow_uid" ON "BpmnSequenceFlow_category_value_refs" ("BpmnSequenceFlow_uid");
+CREATE INDEX "ix_BpmnSequenceFlow_category_value_refs_BpmnSequenceFlow_id" ON "BpmnSequenceFlow_category_value_refs" ("BpmnSequenceFlow_id");
 CREATE INDEX "ix_BpmnSequenceFlow_category_value_refs_category_value_refs" ON "BpmnSequenceFlow_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnServiceTask_incoming" (
-	"BpmnServiceTask_uid" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnServiceTask_uid", incoming),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid)
+	PRIMARY KEY ("BpmnServiceTask_id", incoming),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id)
 );
-CREATE INDEX "ix_BpmnServiceTask_incoming_BpmnServiceTask_uid" ON "BpmnServiceTask_incoming" ("BpmnServiceTask_uid");
+CREATE INDEX "ix_BpmnServiceTask_incoming_BpmnServiceTask_id" ON "BpmnServiceTask_incoming" ("BpmnServiceTask_id");
 CREATE INDEX "ix_BpmnServiceTask_incoming_incoming" ON "BpmnServiceTask_incoming" (incoming);
 
 CREATE TABLE "BpmnServiceTask_outgoing" (
-	"BpmnServiceTask_uid" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnServiceTask_uid", outgoing),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid)
+	PRIMARY KEY ("BpmnServiceTask_id", outgoing),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id)
 );
 CREATE INDEX "ix_BpmnServiceTask_outgoing_outgoing" ON "BpmnServiceTask_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnServiceTask_outgoing_BpmnServiceTask_uid" ON "BpmnServiceTask_outgoing" ("BpmnServiceTask_uid");
+CREATE INDEX "ix_BpmnServiceTask_outgoing_BpmnServiceTask_id" ON "BpmnServiceTask_outgoing" ("BpmnServiceTask_id");
 
 CREATE TABLE "BpmnServiceTask_category_value_refs" (
-	"BpmnServiceTask_uid" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnServiceTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid)
+	PRIMARY KEY ("BpmnServiceTask_id", category_value_refs),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id)
 );
-CREATE INDEX "ix_BpmnServiceTask_category_value_refs_BpmnServiceTask_uid" ON "BpmnServiceTask_category_value_refs" ("BpmnServiceTask_uid");
+CREATE INDEX "ix_BpmnServiceTask_category_value_refs_BpmnServiceTask_id" ON "BpmnServiceTask_category_value_refs" ("BpmnServiceTask_id");
 CREATE INDEX "ix_BpmnServiceTask_category_value_refs_category_value_refs" ON "BpmnServiceTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnSubProcess_incoming" (
-	"BpmnSubProcess_uid" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnSubProcess_uid", incoming),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid)
+	PRIMARY KEY ("BpmnSubProcess_id", incoming),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id)
 );
 CREATE INDEX "ix_BpmnSubProcess_incoming_incoming" ON "BpmnSubProcess_incoming" (incoming);
-CREATE INDEX "ix_BpmnSubProcess_incoming_BpmnSubProcess_uid" ON "BpmnSubProcess_incoming" ("BpmnSubProcess_uid");
+CREATE INDEX "ix_BpmnSubProcess_incoming_BpmnSubProcess_id" ON "BpmnSubProcess_incoming" ("BpmnSubProcess_id");
 
 CREATE TABLE "BpmnSubProcess_outgoing" (
-	"BpmnSubProcess_uid" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnSubProcess_uid", outgoing),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid)
+	PRIMARY KEY ("BpmnSubProcess_id", outgoing),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnSubProcess_outgoing_BpmnSubProcess_uid" ON "BpmnSubProcess_outgoing" ("BpmnSubProcess_uid");
+CREATE INDEX "ix_BpmnSubProcess_outgoing_BpmnSubProcess_id" ON "BpmnSubProcess_outgoing" ("BpmnSubProcess_id");
 CREATE INDEX "ix_BpmnSubProcess_outgoing_outgoing" ON "BpmnSubProcess_outgoing" (outgoing);
 
 CREATE TABLE "BpmnSubProcess_category_value_refs" (
-	"BpmnSubProcess_uid" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnSubProcess_uid", category_value_refs),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid)
+	PRIMARY KEY ("BpmnSubProcess_id", category_value_refs),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnSubProcess_category_value_refs_BpmnSubProcess_uid" ON "BpmnSubProcess_category_value_refs" ("BpmnSubProcess_uid");
+CREATE INDEX "ix_BpmnSubProcess_category_value_refs_BpmnSubProcess_id" ON "BpmnSubProcess_category_value_refs" ("BpmnSubProcess_id");
 CREATE INDEX "ix_BpmnSubProcess_category_value_refs_category_value_refs" ON "BpmnSubProcess_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnTask_incoming" (
-	"BpmnTask_uid" INTEGER,
+	"BpmnTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnTask_uid", incoming),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid)
+	PRIMARY KEY ("BpmnTask_id", incoming),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id)
 );
-CREATE INDEX "ix_BpmnTask_incoming_BpmnTask_uid" ON "BpmnTask_incoming" ("BpmnTask_uid");
+CREATE INDEX "ix_BpmnTask_incoming_BpmnTask_id" ON "BpmnTask_incoming" ("BpmnTask_id");
 CREATE INDEX "ix_BpmnTask_incoming_incoming" ON "BpmnTask_incoming" (incoming);
 
 CREATE TABLE "BpmnTask_outgoing" (
-	"BpmnTask_uid" INTEGER,
+	"BpmnTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnTask_uid", outgoing),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid)
+	PRIMARY KEY ("BpmnTask_id", outgoing),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id)
 );
 CREATE INDEX "ix_BpmnTask_outgoing_outgoing" ON "BpmnTask_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnTask_outgoing_BpmnTask_uid" ON "BpmnTask_outgoing" ("BpmnTask_uid");
+CREATE INDEX "ix_BpmnTask_outgoing_BpmnTask_id" ON "BpmnTask_outgoing" ("BpmnTask_id");
 
 CREATE TABLE "BpmnTask_category_value_refs" (
-	"BpmnTask_uid" INTEGER,
+	"BpmnTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid)
+	PRIMARY KEY ("BpmnTask_id", category_value_refs),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id)
 );
-CREATE INDEX "ix_BpmnTask_category_value_refs_BpmnTask_uid" ON "BpmnTask_category_value_refs" ("BpmnTask_uid");
+CREATE INDEX "ix_BpmnTask_category_value_refs_BpmnTask_id" ON "BpmnTask_category_value_refs" ("BpmnTask_id");
 CREATE INDEX "ix_BpmnTask_category_value_refs_category_value_refs" ON "BpmnTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnTransaction_incoming" (
-	"BpmnTransaction_uid" INTEGER,
+	"BpmnTransaction_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnTransaction_uid", incoming),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid)
+	PRIMARY KEY ("BpmnTransaction_id", incoming),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id)
 );
-CREATE INDEX "ix_BpmnTransaction_incoming_BpmnTransaction_uid" ON "BpmnTransaction_incoming" ("BpmnTransaction_uid");
+CREATE INDEX "ix_BpmnTransaction_incoming_BpmnTransaction_id" ON "BpmnTransaction_incoming" ("BpmnTransaction_id");
 CREATE INDEX "ix_BpmnTransaction_incoming_incoming" ON "BpmnTransaction_incoming" (incoming);
 
 CREATE TABLE "BpmnTransaction_outgoing" (
-	"BpmnTransaction_uid" INTEGER,
+	"BpmnTransaction_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnTransaction_uid", outgoing),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid)
+	PRIMARY KEY ("BpmnTransaction_id", outgoing),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id)
 );
-CREATE INDEX "ix_BpmnTransaction_outgoing_BpmnTransaction_uid" ON "BpmnTransaction_outgoing" ("BpmnTransaction_uid");
+CREATE INDEX "ix_BpmnTransaction_outgoing_BpmnTransaction_id" ON "BpmnTransaction_outgoing" ("BpmnTransaction_id");
 CREATE INDEX "ix_BpmnTransaction_outgoing_outgoing" ON "BpmnTransaction_outgoing" (outgoing);
 
 CREATE TABLE "BpmnTransaction_category_value_refs" (
-	"BpmnTransaction_uid" INTEGER,
+	"BpmnTransaction_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnTransaction_uid", category_value_refs),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid)
+	PRIMARY KEY ("BpmnTransaction_id", category_value_refs),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id)
 );
 CREATE INDEX "ix_BpmnTransaction_category_value_refs_category_value_refs" ON "BpmnTransaction_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnTransaction_category_value_refs_BpmnTransaction_uid" ON "BpmnTransaction_category_value_refs" ("BpmnTransaction_uid");
+CREATE INDEX "ix_BpmnTransaction_category_value_refs_BpmnTransaction_id" ON "BpmnTransaction_category_value_refs" ("BpmnTransaction_id");
 
 CREATE TABLE "BpmnUserTask_incoming" (
-	"BpmnUserTask_uid" INTEGER,
+	"BpmnUserTask_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnUserTask_uid", incoming),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid)
+	PRIMARY KEY ("BpmnUserTask_id", incoming),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id)
 );
-CREATE INDEX "ix_BpmnUserTask_incoming_BpmnUserTask_uid" ON "BpmnUserTask_incoming" ("BpmnUserTask_uid");
+CREATE INDEX "ix_BpmnUserTask_incoming_BpmnUserTask_id" ON "BpmnUserTask_incoming" ("BpmnUserTask_id");
 CREATE INDEX "ix_BpmnUserTask_incoming_incoming" ON "BpmnUserTask_incoming" (incoming);
 
 CREATE TABLE "BpmnUserTask_outgoing" (
-	"BpmnUserTask_uid" INTEGER,
+	"BpmnUserTask_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnUserTask_uid", outgoing),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid)
+	PRIMARY KEY ("BpmnUserTask_id", outgoing),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id)
 );
-CREATE INDEX "ix_BpmnUserTask_outgoing_BpmnUserTask_uid" ON "BpmnUserTask_outgoing" ("BpmnUserTask_uid");
+CREATE INDEX "ix_BpmnUserTask_outgoing_BpmnUserTask_id" ON "BpmnUserTask_outgoing" ("BpmnUserTask_id");
 CREATE INDEX "ix_BpmnUserTask_outgoing_outgoing" ON "BpmnUserTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnUserTask_category_value_refs" (
-	"BpmnUserTask_uid" INTEGER,
+	"BpmnUserTask_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnUserTask_uid", category_value_refs),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid)
+	PRIMARY KEY ("BpmnUserTask_id", category_value_refs),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id)
 );
-CREATE INDEX "ix_BpmnUserTask_category_value_refs_BpmnUserTask_uid" ON "BpmnUserTask_category_value_refs" ("BpmnUserTask_uid");
+CREATE INDEX "ix_BpmnUserTask_category_value_refs_BpmnUserTask_id" ON "BpmnUserTask_category_value_refs" ("BpmnUserTask_id");
 CREATE INDEX "ix_BpmnUserTask_category_value_refs_category_value_refs" ON "BpmnUserTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "FluxnovaIdentityLink" (
@@ -7574,294 +7574,294 @@ CREATE TABLE "FluxnovaIdentityLink" (
 CREATE INDEX "ix_FluxnovaIdentityLink_id" ON "FluxnovaIdentityLink" (id);
 
 CREATE TABLE "BpmnComplexBehaviorDefinition" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnMultiInstanceLoopCharacteristics_uid" INTEGER,
+	"BpmnMultiInstanceLoopCharacteristics_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnMultiInstanceLoopCharacteristics_uid") REFERENCES "BpmnMultiInstanceLoopCharacteristics" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnMultiInstanceLoopCharacteristics_id") REFERENCES "BpmnMultiInstanceLoopCharacteristics" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnComplexBehaviorDefinition_uid" ON "BpmnComplexBehaviorDefinition" (uid);
+CREATE INDEX "ix_BpmnComplexBehaviorDefinition_id" ON "BpmnComplexBehaviorDefinition" (id);
 
 CREATE TABLE "BpmnCorrelationPropertyBinding" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	correlation_property_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnCorrelationSubscription_uid" INTEGER,
-	data_path_uid INTEGER NOT NULL,
+	"BpmnCorrelationSubscription_id" INTEGER,
+	data_path_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnCorrelationSubscription_uid") REFERENCES "BpmnCorrelationSubscription" (uid),
-	FOREIGN KEY(data_path_uid) REFERENCES "BpmnDataPath" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnCorrelationSubscription_id") REFERENCES "BpmnCorrelationSubscription" (id),
+	FOREIGN KEY(data_path_id) REFERENCES "BpmnDataPath" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationPropertyBinding_uid" ON "BpmnCorrelationPropertyBinding" (uid);
+CREATE INDEX "ix_BpmnCorrelationPropertyBinding_id" ON "BpmnCorrelationPropertyBinding" (id);
 
 CREATE TABLE "BpmnDataInput" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_collection BOOLEAN,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnEndEvent_uid" INTEGER,
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
-	"BpmnIoSpecification_uid" INTEGER,
-	"BpmnThrowEvent_uid" INTEGER,
-	data_state_uid INTEGER,
+	"BpmnEndEvent_id" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
+	"BpmnIoSpecification_id" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid),
-	FOREIGN KEY("BpmnIoSpecification_uid") REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id),
+	FOREIGN KEY("BpmnIoSpecification_id") REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataInput_uid" ON "BpmnDataInput" (uid);
+CREATE INDEX "ix_BpmnDataInput_id" ON "BpmnDataInput" (id);
 
 CREATE TABLE "BpmnDataInputAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	target_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnActivity_uid" INTEGER,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnBusinessRuleTask_uid" INTEGER,
-	"BpmnCallActivity_uid" INTEGER,
-	"BpmnEndEvent_uid" INTEGER,
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
-	"BpmnManualTask_uid" INTEGER,
-	"BpmnReceiveTask_uid" INTEGER,
-	"BpmnScriptTask_uid" INTEGER,
-	"BpmnSendTask_uid" INTEGER,
-	"BpmnServiceTask_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTask_uid" INTEGER,
-	"BpmnThrowEvent_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	"BpmnUserTask_uid" INTEGER,
-	transformation_uid INTEGER,
+	"BpmnActivity_id" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
+	"BpmnManualTask_id" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
+	"BpmnSendTask_id" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTask_id" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	"BpmnUserTask_id" INTEGER,
+	transformation_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid),
-	FOREIGN KEY(transformation_uid) REFERENCES "BpmnTransformation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id),
+	FOREIGN KEY(transformation_id) REFERENCES "BpmnTransformation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataInputAssociation_uid" ON "BpmnDataInputAssociation" (uid);
+CREATE INDEX "ix_BpmnDataInputAssociation_id" ON "BpmnDataInputAssociation" (id);
 
 CREATE TABLE "BpmnDataOutput" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	is_collection BOOLEAN,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnBoundaryEvent_uid" INTEGER,
-	"BpmnCatchEvent_uid" INTEGER,
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
-	"BpmnIoSpecification_uid" INTEGER,
-	"BpmnStartEvent_uid" INTEGER,
-	data_state_uid INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
+	"BpmnIoSpecification_id" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid),
-	FOREIGN KEY("BpmnIoSpecification_uid") REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id),
+	FOREIGN KEY("BpmnIoSpecification_id") REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataOutput_uid" ON "BpmnDataOutput" (uid);
+CREATE INDEX "ix_BpmnDataOutput_id" ON "BpmnDataOutput" (id);
 
 CREATE TABLE "BpmnDataOutputAssociation" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	target_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnActivity_uid" INTEGER,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnBoundaryEvent_uid" INTEGER,
-	"BpmnBusinessRuleTask_uid" INTEGER,
-	"BpmnCallActivity_uid" INTEGER,
-	"BpmnCatchEvent_uid" INTEGER,
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
-	"BpmnManualTask_uid" INTEGER,
-	"BpmnReceiveTask_uid" INTEGER,
-	"BpmnScriptTask_uid" INTEGER,
-	"BpmnSendTask_uid" INTEGER,
-	"BpmnServiceTask_uid" INTEGER,
-	"BpmnStartEvent_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTask_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	"BpmnUserTask_uid" INTEGER,
-	transformation_uid INTEGER,
+	"BpmnActivity_id" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
+	"BpmnManualTask_id" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
+	"BpmnSendTask_id" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTask_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	"BpmnUserTask_id" INTEGER,
+	transformation_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid),
-	FOREIGN KEY(transformation_uid) REFERENCES "BpmnTransformation" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id),
+	FOREIGN KEY(transformation_id) REFERENCES "BpmnTransformation" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnDataOutputAssociation_uid" ON "BpmnDataOutputAssociation" (uid);
+CREATE INDEX "ix_BpmnDataOutputAssociation_id" ON "BpmnDataOutputAssociation" (id);
 
 CREATE TABLE "BpmnEventDefinition" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnBoundaryEvent_uid" INTEGER,
-	"BpmnCatchEvent_uid" INTEGER,
-	"BpmnEndEvent_uid" INTEGER,
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
-	"BpmnStartEvent_uid" INTEGER,
-	"BpmnThrowEvent_uid" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnEventDefinition_uid" ON "BpmnEventDefinition" (uid);
+CREATE INDEX "ix_BpmnEventDefinition_id" ON "BpmnEventDefinition" (id);
 
 CREATE TABLE "BpmnLane" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	partition_element_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnChildLaneSet_uid" INTEGER,
-	"BpmnLaneSet_uid" INTEGER,
-	partition_element_uid INTEGER,
-	child_lane_set_uid INTEGER,
+	"BpmnChildLaneSet_id" INTEGER,
+	"BpmnLaneSet_id" INTEGER,
+	partition_element_id INTEGER,
+	child_lane_set_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnChildLaneSet_uid") REFERENCES "BpmnChildLaneSet" (uid),
-	FOREIGN KEY("BpmnLaneSet_uid") REFERENCES "BpmnLaneSet" (uid),
-	FOREIGN KEY(partition_element_uid) REFERENCES "BpmnPartitionElement" (uid),
-	FOREIGN KEY(child_lane_set_uid) REFERENCES "BpmnChildLaneSet" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnChildLaneSet_id") REFERENCES "BpmnChildLaneSet" (id),
+	FOREIGN KEY("BpmnLaneSet_id") REFERENCES "BpmnLaneSet" (id),
+	FOREIGN KEY(partition_element_id) REFERENCES "BpmnPartitionElement" (id),
+	FOREIGN KEY(child_lane_set_id) REFERENCES "BpmnChildLaneSet" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnLane_uid" ON "BpmnLane" (uid);
+CREATE INDEX "ix_BpmnLane_id" ON "BpmnLane" (id);
 
 CREATE TABLE "BpmnProperty" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	name TEXT,
 	item_subject_ref TEXT,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnActivity_uid" INTEGER,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnBoundaryEvent_uid" INTEGER,
-	"BpmnBusinessRuleTask_uid" INTEGER,
-	"BpmnCallActivity_uid" INTEGER,
-	"BpmnCatchEvent_uid" INTEGER,
-	"BpmnEndEvent_uid" INTEGER,
-	"BpmnEvent_uid" INTEGER,
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
-	"BpmnManualTask_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnReceiveTask_uid" INTEGER,
-	"BpmnScriptTask_uid" INTEGER,
-	"BpmnSendTask_uid" INTEGER,
-	"BpmnServiceTask_uid" INTEGER,
-	"BpmnStartEvent_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTask_uid" INTEGER,
-	"BpmnThrowEvent_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	"BpmnUserTask_uid" INTEGER,
-	data_state_uid INTEGER,
+	"BpmnActivity_id" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
+	"BpmnEvent_id" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
+	"BpmnManualTask_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
+	"BpmnSendTask_id" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTask_id" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	"BpmnUserTask_id" INTEGER,
+	data_state_id INTEGER,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid),
-	FOREIGN KEY("BpmnEvent_uid") REFERENCES "BpmnEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid),
-	FOREIGN KEY(data_state_uid) REFERENCES "BpmnDataState" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id),
+	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id),
+	FOREIGN KEY(data_state_id) REFERENCES "BpmnDataState" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnProperty_uid" ON "BpmnProperty" (uid);
+CREATE INDEX "ix_BpmnProperty_id" ON "BpmnProperty" (id);
 
 CREATE TABLE "BpmnResourceParameterBinding" (
-	uid INTEGER NOT NULL,
+	id INTEGER NOT NULL,
 	parameter_ref TEXT NOT NULL,
-	id TEXT,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnHumanPerformer_uid" INTEGER,
-	"BpmnPerformer_uid" INTEGER,
-	"BpmnPotentialOwner_uid" INTEGER,
-	"BpmnResourceRole_uid" INTEGER,
-	expression_uid INTEGER NOT NULL,
+	"BpmnHumanPerformer_id" INTEGER,
+	"BpmnPerformer_id" INTEGER,
+	"BpmnPotentialOwner_id" INTEGER,
+	"BpmnResourceRole_id" INTEGER,
+	expression_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnHumanPerformer_uid") REFERENCES "BpmnHumanPerformer" (uid),
-	FOREIGN KEY("BpmnPerformer_uid") REFERENCES "BpmnPerformer" (uid),
-	FOREIGN KEY("BpmnPotentialOwner_uid") REFERENCES "BpmnPotentialOwner" (uid),
-	FOREIGN KEY("BpmnResourceRole_uid") REFERENCES "BpmnResourceRole" (uid),
-	FOREIGN KEY(expression_uid) REFERENCES "BpmnExpression" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnHumanPerformer_id") REFERENCES "BpmnHumanPerformer" (id),
+	FOREIGN KEY("BpmnPerformer_id") REFERENCES "BpmnPerformer" (id),
+	FOREIGN KEY("BpmnPotentialOwner_id") REFERENCES "BpmnPotentialOwner" (id),
+	FOREIGN KEY("BpmnResourceRole_id") REFERENCES "BpmnResourceRole" (id),
+	FOREIGN KEY(expression_id) REFERENCES "BpmnExpression" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnResourceParameterBinding_uid" ON "BpmnResourceParameterBinding" (uid);
+CREATE INDEX "ix_BpmnResourceParameterBinding_id" ON "BpmnResourceParameterBinding" (id);
 
 CREATE TABLE "FluxnovaField" (
 	id INTEGER NOT NULL,
@@ -7882,590 +7882,590 @@ CREATE TABLE "FluxnovaField" (
 CREATE INDEX "ix_FluxnovaField_id" ON "FluxnovaField" (id);
 
 CREATE TABLE "BpmnBoundaryEvent_event_definition_refs" (
-	"BpmnBoundaryEvent_uid" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnBoundaryEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid)
+	PRIMARY KEY ("BpmnBoundaryEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id)
 );
-CREATE INDEX "ix_BpmnBoundaryEvent_event_definition_refs_BpmnBoundaryEvent_uid" ON "BpmnBoundaryEvent_event_definition_refs" ("BpmnBoundaryEvent_uid");
+CREATE INDEX "ix_BpmnBoundaryEvent_event_definition_refs_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent_event_definition_refs" ("BpmnBoundaryEvent_id");
 CREATE INDEX "ix_BpmnBoundaryEvent_event_definition_refs_event_definition_refs" ON "BpmnBoundaryEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnBoundaryEvent_incoming" (
-	"BpmnBoundaryEvent_uid" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnBoundaryEvent_uid", incoming),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid)
+	PRIMARY KEY ("BpmnBoundaryEvent_id", incoming),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id)
 );
-CREATE INDEX "ix_BpmnBoundaryEvent_incoming_BpmnBoundaryEvent_uid" ON "BpmnBoundaryEvent_incoming" ("BpmnBoundaryEvent_uid");
+CREATE INDEX "ix_BpmnBoundaryEvent_incoming_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent_incoming" ("BpmnBoundaryEvent_id");
 CREATE INDEX "ix_BpmnBoundaryEvent_incoming_incoming" ON "BpmnBoundaryEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnBoundaryEvent_outgoing" (
-	"BpmnBoundaryEvent_uid" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnBoundaryEvent_uid", outgoing),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid)
+	PRIMARY KEY ("BpmnBoundaryEvent_id", outgoing),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id)
 );
 CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_outgoing" ON "BpmnBoundaryEvent_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_BpmnBoundaryEvent_uid" ON "BpmnBoundaryEvent_outgoing" ("BpmnBoundaryEvent_uid");
+CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent_outgoing" ("BpmnBoundaryEvent_id");
 
 CREATE TABLE "BpmnBoundaryEvent_category_value_refs" (
-	"BpmnBoundaryEvent_uid" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnBoundaryEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid)
+	PRIMARY KEY ("BpmnBoundaryEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id)
 );
-CREATE INDEX "ix_BpmnBoundaryEvent_category_value_refs_BpmnBoundaryEvent_uid" ON "BpmnBoundaryEvent_category_value_refs" ("BpmnBoundaryEvent_uid");
+CREATE INDEX "ix_BpmnBoundaryEvent_category_value_refs_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent_category_value_refs" ("BpmnBoundaryEvent_id");
 CREATE INDEX "ix_BpmnBoundaryEvent_category_value_refs_category_value_refs" ON "BpmnBoundaryEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnCatchEvent_event_definition_refs" (
-	"BpmnCatchEvent_uid" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnCatchEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid)
+	PRIMARY KEY ("BpmnCatchEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnCatchEvent_event_definition_refs_BpmnCatchEvent_uid" ON "BpmnCatchEvent_event_definition_refs" ("BpmnCatchEvent_uid");
+CREATE INDEX "ix_BpmnCatchEvent_event_definition_refs_BpmnCatchEvent_id" ON "BpmnCatchEvent_event_definition_refs" ("BpmnCatchEvent_id");
 CREATE INDEX "ix_BpmnCatchEvent_event_definition_refs_event_definition_refs" ON "BpmnCatchEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnCatchEvent_incoming" (
-	"BpmnCatchEvent_uid" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnCatchEvent_uid", incoming),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid)
+	PRIMARY KEY ("BpmnCatchEvent_id", incoming),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id)
 );
 CREATE INDEX "ix_BpmnCatchEvent_incoming_incoming" ON "BpmnCatchEvent_incoming" (incoming);
-CREATE INDEX "ix_BpmnCatchEvent_incoming_BpmnCatchEvent_uid" ON "BpmnCatchEvent_incoming" ("BpmnCatchEvent_uid");
+CREATE INDEX "ix_BpmnCatchEvent_incoming_BpmnCatchEvent_id" ON "BpmnCatchEvent_incoming" ("BpmnCatchEvent_id");
 
 CREATE TABLE "BpmnCatchEvent_outgoing" (
-	"BpmnCatchEvent_uid" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnCatchEvent_uid", outgoing),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid)
+	PRIMARY KEY ("BpmnCatchEvent_id", outgoing),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnCatchEvent_outgoing_BpmnCatchEvent_uid" ON "BpmnCatchEvent_outgoing" ("BpmnCatchEvent_uid");
+CREATE INDEX "ix_BpmnCatchEvent_outgoing_BpmnCatchEvent_id" ON "BpmnCatchEvent_outgoing" ("BpmnCatchEvent_id");
 CREATE INDEX "ix_BpmnCatchEvent_outgoing_outgoing" ON "BpmnCatchEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnCatchEvent_category_value_refs" (
-	"BpmnCatchEvent_uid" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnCatchEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid)
+	PRIMARY KEY ("BpmnCatchEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnCatchEvent_category_value_refs_BpmnCatchEvent_uid" ON "BpmnCatchEvent_category_value_refs" ("BpmnCatchEvent_uid");
+CREATE INDEX "ix_BpmnCatchEvent_category_value_refs_BpmnCatchEvent_id" ON "BpmnCatchEvent_category_value_refs" ("BpmnCatchEvent_id");
 CREATE INDEX "ix_BpmnCatchEvent_category_value_refs_category_value_refs" ON "BpmnCatchEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnCorrelationKey_correlation_property_refs" (
-	"BpmnCorrelationKey_uid" INTEGER,
+	"BpmnCorrelationKey_id" INTEGER,
 	correlation_property_refs TEXT,
-	PRIMARY KEY ("BpmnCorrelationKey_uid", correlation_property_refs),
-	FOREIGN KEY("BpmnCorrelationKey_uid") REFERENCES "BpmnCorrelationKey" (uid)
+	PRIMARY KEY ("BpmnCorrelationKey_id", correlation_property_refs),
+	FOREIGN KEY("BpmnCorrelationKey_id") REFERENCES "BpmnCorrelationKey" (id)
 );
-CREATE INDEX "ix_BpmnCorrelationKey_correlation_property_refs_BpmnCorrelationKey_uid" ON "BpmnCorrelationKey_correlation_property_refs" ("BpmnCorrelationKey_uid");
+CREATE INDEX "ix_BpmnCorrelationKey_correlation_property_refs_BpmnCorrelationKey_id" ON "BpmnCorrelationKey_correlation_property_refs" ("BpmnCorrelationKey_id");
 CREATE INDEX "ix_BpmnCorrelationKey_correlation_property_refs_correlation_property_refs" ON "BpmnCorrelationKey_correlation_property_refs" (correlation_property_refs);
 
 CREATE TABLE "BpmnEndEvent_event_definition_refs" (
-	"BpmnEndEvent_uid" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnEndEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid)
+	PRIMARY KEY ("BpmnEndEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id)
 );
-CREATE INDEX "ix_BpmnEndEvent_event_definition_refs_BpmnEndEvent_uid" ON "BpmnEndEvent_event_definition_refs" ("BpmnEndEvent_uid");
+CREATE INDEX "ix_BpmnEndEvent_event_definition_refs_BpmnEndEvent_id" ON "BpmnEndEvent_event_definition_refs" ("BpmnEndEvent_id");
 CREATE INDEX "ix_BpmnEndEvent_event_definition_refs_event_definition_refs" ON "BpmnEndEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnEndEvent_incoming" (
-	"BpmnEndEvent_uid" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnEndEvent_uid", incoming),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid)
+	PRIMARY KEY ("BpmnEndEvent_id", incoming),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id)
 );
-CREATE INDEX "ix_BpmnEndEvent_incoming_BpmnEndEvent_uid" ON "BpmnEndEvent_incoming" ("BpmnEndEvent_uid");
+CREATE INDEX "ix_BpmnEndEvent_incoming_BpmnEndEvent_id" ON "BpmnEndEvent_incoming" ("BpmnEndEvent_id");
 CREATE INDEX "ix_BpmnEndEvent_incoming_incoming" ON "BpmnEndEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnEndEvent_outgoing" (
-	"BpmnEndEvent_uid" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnEndEvent_uid", outgoing),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid)
+	PRIMARY KEY ("BpmnEndEvent_id", outgoing),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id)
 );
-CREATE INDEX "ix_BpmnEndEvent_outgoing_BpmnEndEvent_uid" ON "BpmnEndEvent_outgoing" ("BpmnEndEvent_uid");
+CREATE INDEX "ix_BpmnEndEvent_outgoing_BpmnEndEvent_id" ON "BpmnEndEvent_outgoing" ("BpmnEndEvent_id");
 CREATE INDEX "ix_BpmnEndEvent_outgoing_outgoing" ON "BpmnEndEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnEndEvent_category_value_refs" (
-	"BpmnEndEvent_uid" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnEndEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid)
+	PRIMARY KEY ("BpmnEndEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id)
 );
 CREATE INDEX "ix_BpmnEndEvent_category_value_refs_category_value_refs" ON "BpmnEndEvent_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnEndEvent_category_value_refs_BpmnEndEvent_uid" ON "BpmnEndEvent_category_value_refs" ("BpmnEndEvent_uid");
+CREATE INDEX "ix_BpmnEndEvent_category_value_refs_BpmnEndEvent_id" ON "BpmnEndEvent_category_value_refs" ("BpmnEndEvent_id");
 
 CREATE TABLE "BpmnFlowElement_category_value_refs" (
-	"BpmnFlowElement_uid" INTEGER,
+	"BpmnFlowElement_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnFlowElement_uid", category_value_refs),
-	FOREIGN KEY("BpmnFlowElement_uid") REFERENCES "BpmnFlowElement" (uid)
+	PRIMARY KEY ("BpmnFlowElement_id", category_value_refs),
+	FOREIGN KEY("BpmnFlowElement_id") REFERENCES "BpmnFlowElement" (id)
 );
 CREATE INDEX "ix_BpmnFlowElement_category_value_refs_category_value_refs" ON "BpmnFlowElement_category_value_refs" (category_value_refs);
-CREATE INDEX "ix_BpmnFlowElement_category_value_refs_BpmnFlowElement_uid" ON "BpmnFlowElement_category_value_refs" ("BpmnFlowElement_uid");
+CREATE INDEX "ix_BpmnFlowElement_category_value_refs_BpmnFlowElement_id" ON "BpmnFlowElement_category_value_refs" ("BpmnFlowElement_id");
 
 CREATE TABLE "BpmnIntermediateCatchEvent_event_definition_refs" (
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnIntermediateCatchEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateCatchEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_event_definition_refs_BpmnIntermediateCatchEvent_uid" ON "BpmnIntermediateCatchEvent_event_definition_refs" ("BpmnIntermediateCatchEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_event_definition_refs_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent_event_definition_refs" ("BpmnIntermediateCatchEvent_id");
 CREATE INDEX "ix_BpmnIntermediateCatchEvent_event_definition_refs_event_definition_refs" ON "BpmnIntermediateCatchEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnIntermediateCatchEvent_incoming" (
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnIntermediateCatchEvent_uid", incoming),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateCatchEvent_id", incoming),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_incoming_BpmnIntermediateCatchEvent_uid" ON "BpmnIntermediateCatchEvent_incoming" ("BpmnIntermediateCatchEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_incoming_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent_incoming" ("BpmnIntermediateCatchEvent_id");
 CREATE INDEX "ix_BpmnIntermediateCatchEvent_incoming_incoming" ON "BpmnIntermediateCatchEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnIntermediateCatchEvent_outgoing" (
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnIntermediateCatchEvent_uid", outgoing),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateCatchEvent_id", outgoing),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id)
 );
 CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_outgoing" ON "BpmnIntermediateCatchEvent_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_BpmnIntermediateCatchEvent_uid" ON "BpmnIntermediateCatchEvent_outgoing" ("BpmnIntermediateCatchEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent_outgoing" ("BpmnIntermediateCatchEvent_id");
 
 CREATE TABLE "BpmnIntermediateCatchEvent_category_value_refs" (
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnIntermediateCatchEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateCatchEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_category_value_refs_BpmnIntermediateCatchEvent_uid" ON "BpmnIntermediateCatchEvent_category_value_refs" ("BpmnIntermediateCatchEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_category_value_refs_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent_category_value_refs" ("BpmnIntermediateCatchEvent_id");
 CREATE INDEX "ix_BpmnIntermediateCatchEvent_category_value_refs_category_value_refs" ON "BpmnIntermediateCatchEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnIntermediateThrowEvent_event_definition_refs" (
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnIntermediateThrowEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateThrowEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_event_definition_refs_BpmnIntermediateThrowEvent_uid" ON "BpmnIntermediateThrowEvent_event_definition_refs" ("BpmnIntermediateThrowEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_event_definition_refs_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent_event_definition_refs" ("BpmnIntermediateThrowEvent_id");
 CREATE INDEX "ix_BpmnIntermediateThrowEvent_event_definition_refs_event_definition_refs" ON "BpmnIntermediateThrowEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnIntermediateThrowEvent_incoming" (
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnIntermediateThrowEvent_uid", incoming),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateThrowEvent_id", incoming),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_incoming_BpmnIntermediateThrowEvent_uid" ON "BpmnIntermediateThrowEvent_incoming" ("BpmnIntermediateThrowEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_incoming_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent_incoming" ("BpmnIntermediateThrowEvent_id");
 CREATE INDEX "ix_BpmnIntermediateThrowEvent_incoming_incoming" ON "BpmnIntermediateThrowEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnIntermediateThrowEvent_outgoing" (
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnIntermediateThrowEvent_uid", outgoing),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateThrowEvent_id", outgoing),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id)
 );
 CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_outgoing" ON "BpmnIntermediateThrowEvent_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_BpmnIntermediateThrowEvent_uid" ON "BpmnIntermediateThrowEvent_outgoing" ("BpmnIntermediateThrowEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent_outgoing" ("BpmnIntermediateThrowEvent_id");
 
 CREATE TABLE "BpmnIntermediateThrowEvent_category_value_refs" (
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnIntermediateThrowEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid)
+	PRIMARY KEY ("BpmnIntermediateThrowEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_category_value_refs_BpmnIntermediateThrowEvent_uid" ON "BpmnIntermediateThrowEvent_category_value_refs" ("BpmnIntermediateThrowEvent_uid");
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_category_value_refs_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent_category_value_refs" ("BpmnIntermediateThrowEvent_id");
 CREATE INDEX "ix_BpmnIntermediateThrowEvent_category_value_refs_category_value_refs" ON "BpmnIntermediateThrowEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnStartEvent_event_definition_refs" (
-	"BpmnStartEvent_uid" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnStartEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid)
+	PRIMARY KEY ("BpmnStartEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id)
 );
-CREATE INDEX "ix_BpmnStartEvent_event_definition_refs_BpmnStartEvent_uid" ON "BpmnStartEvent_event_definition_refs" ("BpmnStartEvent_uid");
+CREATE INDEX "ix_BpmnStartEvent_event_definition_refs_BpmnStartEvent_id" ON "BpmnStartEvent_event_definition_refs" ("BpmnStartEvent_id");
 CREATE INDEX "ix_BpmnStartEvent_event_definition_refs_event_definition_refs" ON "BpmnStartEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnStartEvent_incoming" (
-	"BpmnStartEvent_uid" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnStartEvent_uid", incoming),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid)
+	PRIMARY KEY ("BpmnStartEvent_id", incoming),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id)
 );
-CREATE INDEX "ix_BpmnStartEvent_incoming_BpmnStartEvent_uid" ON "BpmnStartEvent_incoming" ("BpmnStartEvent_uid");
+CREATE INDEX "ix_BpmnStartEvent_incoming_BpmnStartEvent_id" ON "BpmnStartEvent_incoming" ("BpmnStartEvent_id");
 CREATE INDEX "ix_BpmnStartEvent_incoming_incoming" ON "BpmnStartEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnStartEvent_outgoing" (
-	"BpmnStartEvent_uid" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnStartEvent_uid", outgoing),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid)
+	PRIMARY KEY ("BpmnStartEvent_id", outgoing),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id)
 );
 CREATE INDEX "ix_BpmnStartEvent_outgoing_outgoing" ON "BpmnStartEvent_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnStartEvent_outgoing_BpmnStartEvent_uid" ON "BpmnStartEvent_outgoing" ("BpmnStartEvent_uid");
+CREATE INDEX "ix_BpmnStartEvent_outgoing_BpmnStartEvent_id" ON "BpmnStartEvent_outgoing" ("BpmnStartEvent_id");
 
 CREATE TABLE "BpmnStartEvent_category_value_refs" (
-	"BpmnStartEvent_uid" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnStartEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid)
+	PRIMARY KEY ("BpmnStartEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id)
 );
-CREATE INDEX "ix_BpmnStartEvent_category_value_refs_BpmnStartEvent_uid" ON "BpmnStartEvent_category_value_refs" ("BpmnStartEvent_uid");
+CREATE INDEX "ix_BpmnStartEvent_category_value_refs_BpmnStartEvent_id" ON "BpmnStartEvent_category_value_refs" ("BpmnStartEvent_id");
 CREATE INDEX "ix_BpmnStartEvent_category_value_refs_category_value_refs" ON "BpmnStartEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnThrowEvent_event_definition_refs" (
-	"BpmnThrowEvent_uid" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
 	event_definition_refs TEXT,
-	PRIMARY KEY ("BpmnThrowEvent_uid", event_definition_refs),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid)
+	PRIMARY KEY ("BpmnThrowEvent_id", event_definition_refs),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnThrowEvent_event_definition_refs_BpmnThrowEvent_uid" ON "BpmnThrowEvent_event_definition_refs" ("BpmnThrowEvent_uid");
+CREATE INDEX "ix_BpmnThrowEvent_event_definition_refs_BpmnThrowEvent_id" ON "BpmnThrowEvent_event_definition_refs" ("BpmnThrowEvent_id");
 CREATE INDEX "ix_BpmnThrowEvent_event_definition_refs_event_definition_refs" ON "BpmnThrowEvent_event_definition_refs" (event_definition_refs);
 
 CREATE TABLE "BpmnThrowEvent_incoming" (
-	"BpmnThrowEvent_uid" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
 	incoming TEXT,
-	PRIMARY KEY ("BpmnThrowEvent_uid", incoming),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid)
+	PRIMARY KEY ("BpmnThrowEvent_id", incoming),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnThrowEvent_incoming_BpmnThrowEvent_uid" ON "BpmnThrowEvent_incoming" ("BpmnThrowEvent_uid");
+CREATE INDEX "ix_BpmnThrowEvent_incoming_BpmnThrowEvent_id" ON "BpmnThrowEvent_incoming" ("BpmnThrowEvent_id");
 CREATE INDEX "ix_BpmnThrowEvent_incoming_incoming" ON "BpmnThrowEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnThrowEvent_outgoing" (
-	"BpmnThrowEvent_uid" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
 	outgoing TEXT,
-	PRIMARY KEY ("BpmnThrowEvent_uid", outgoing),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid)
+	PRIMARY KEY ("BpmnThrowEvent_id", outgoing),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id)
 );
 CREATE INDEX "ix_BpmnThrowEvent_outgoing_outgoing" ON "BpmnThrowEvent_outgoing" (outgoing);
-CREATE INDEX "ix_BpmnThrowEvent_outgoing_BpmnThrowEvent_uid" ON "BpmnThrowEvent_outgoing" ("BpmnThrowEvent_uid");
+CREATE INDEX "ix_BpmnThrowEvent_outgoing_BpmnThrowEvent_id" ON "BpmnThrowEvent_outgoing" ("BpmnThrowEvent_id");
 
 CREATE TABLE "BpmnThrowEvent_category_value_refs" (
-	"BpmnThrowEvent_uid" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
 	category_value_refs TEXT,
-	PRIMARY KEY ("BpmnThrowEvent_uid", category_value_refs),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid)
+	PRIMARY KEY ("BpmnThrowEvent_id", category_value_refs),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnThrowEvent_category_value_refs_BpmnThrowEvent_uid" ON "BpmnThrowEvent_category_value_refs" ("BpmnThrowEvent_uid");
+CREATE INDEX "ix_BpmnThrowEvent_category_value_refs_BpmnThrowEvent_id" ON "BpmnThrowEvent_category_value_refs" ("BpmnThrowEvent_id");
 CREATE INDEX "ix_BpmnThrowEvent_category_value_refs_category_value_refs" ON "BpmnThrowEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnAssignment" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	element_type TEXT,
-	"BpmnDataAssociation_uid" INTEGER,
-	"BpmnDataInputAssociation_uid" INTEGER,
-	"BpmnDataOutputAssociation_uid" INTEGER,
-	from_expression_uid INTEGER NOT NULL,
-	to_expression_uid INTEGER NOT NULL,
+	"BpmnDataAssociation_id" INTEGER,
+	"BpmnDataInputAssociation_id" INTEGER,
+	"BpmnDataOutputAssociation_id" INTEGER,
+	from_expression_id INTEGER NOT NULL,
+	to_expression_id INTEGER NOT NULL,
 	extension_elements_id INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnDataAssociation_uid") REFERENCES "BpmnDataAssociation" (uid),
-	FOREIGN KEY("BpmnDataInputAssociation_uid") REFERENCES "BpmnDataInputAssociation" (uid),
-	FOREIGN KEY("BpmnDataOutputAssociation_uid") REFERENCES "BpmnDataOutputAssociation" (uid),
-	FOREIGN KEY(from_expression_uid) REFERENCES "BpmnFrom" (uid),
-	FOREIGN KEY(to_expression_uid) REFERENCES "BpmnTo" (uid),
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnDataAssociation_id") REFERENCES "BpmnDataAssociation" (id),
+	FOREIGN KEY("BpmnDataInputAssociation_id") REFERENCES "BpmnDataInputAssociation" (id),
+	FOREIGN KEY("BpmnDataOutputAssociation_id") REFERENCES "BpmnDataOutputAssociation" (id),
+	FOREIGN KEY(from_expression_id) REFERENCES "BpmnFrom" (id),
+	FOREIGN KEY(to_expression_id) REFERENCES "BpmnTo" (id),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
-CREATE INDEX "ix_BpmnAssignment_uid" ON "BpmnAssignment" (uid);
+CREATE INDEX "ix_BpmnAssignment_id" ON "BpmnAssignment" (id);
 
 CREATE TABLE "BpmnDataInputAssociation_source_refs" (
-	"BpmnDataInputAssociation_uid" INTEGER,
+	"BpmnDataInputAssociation_id" INTEGER,
 	source_refs TEXT,
-	PRIMARY KEY ("BpmnDataInputAssociation_uid", source_refs),
-	FOREIGN KEY("BpmnDataInputAssociation_uid") REFERENCES "BpmnDataInputAssociation" (uid)
+	PRIMARY KEY ("BpmnDataInputAssociation_id", source_refs),
+	FOREIGN KEY("BpmnDataInputAssociation_id") REFERENCES "BpmnDataInputAssociation" (id)
 );
 CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_source_refs" ON "BpmnDataInputAssociation_source_refs" (source_refs);
-CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_BpmnDataInputAssociation_uid" ON "BpmnDataInputAssociation_source_refs" ("BpmnDataInputAssociation_uid");
+CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_BpmnDataInputAssociation_id" ON "BpmnDataInputAssociation_source_refs" ("BpmnDataInputAssociation_id");
 
 CREATE TABLE "BpmnDataOutputAssociation_source_refs" (
-	"BpmnDataOutputAssociation_uid" INTEGER,
+	"BpmnDataOutputAssociation_id" INTEGER,
 	source_refs TEXT,
-	PRIMARY KEY ("BpmnDataOutputAssociation_uid", source_refs),
-	FOREIGN KEY("BpmnDataOutputAssociation_uid") REFERENCES "BpmnDataOutputAssociation" (uid)
+	PRIMARY KEY ("BpmnDataOutputAssociation_id", source_refs),
+	FOREIGN KEY("BpmnDataOutputAssociation_id") REFERENCES "BpmnDataOutputAssociation" (id)
 );
-CREATE INDEX "ix_BpmnDataOutputAssociation_source_refs_BpmnDataOutputAssociation_uid" ON "BpmnDataOutputAssociation_source_refs" ("BpmnDataOutputAssociation_uid");
+CREATE INDEX "ix_BpmnDataOutputAssociation_source_refs_BpmnDataOutputAssociation_id" ON "BpmnDataOutputAssociation_source_refs" ("BpmnDataOutputAssociation_id");
 CREATE INDEX "ix_BpmnDataOutputAssociation_source_refs_source_refs" ON "BpmnDataOutputAssociation_source_refs" (source_refs);
 
 CREATE TABLE "BpmnLane_flow_node_refs" (
-	"BpmnLane_uid" INTEGER,
+	"BpmnLane_id" INTEGER,
 	flow_node_refs TEXT,
-	PRIMARY KEY ("BpmnLane_uid", flow_node_refs),
-	FOREIGN KEY("BpmnLane_uid") REFERENCES "BpmnLane" (uid)
+	PRIMARY KEY ("BpmnLane_id", flow_node_refs),
+	FOREIGN KEY("BpmnLane_id") REFERENCES "BpmnLane" (id)
 );
-CREATE INDEX "ix_BpmnLane_flow_node_refs_BpmnLane_uid" ON "BpmnLane_flow_node_refs" ("BpmnLane_uid");
+CREATE INDEX "ix_BpmnLane_flow_node_refs_BpmnLane_id" ON "BpmnLane_flow_node_refs" ("BpmnLane_id");
 CREATE INDEX "ix_BpmnLane_flow_node_refs_flow_node_refs" ON "BpmnLane_flow_node_refs" (flow_node_refs);
 
 CREATE TABLE "BpmnDocumentation" (
-	uid INTEGER NOT NULL,
-	id TEXT,
+	id INTEGER NOT NULL,
+	bpmn_id TEXT,
 	text_format TEXT,
 	text_content TEXT,
 	element_type TEXT,
-	"BpmnActivationCondition_uid" INTEGER,
-	"BpmnActivity_uid" INTEGER,
-	"BpmnAdHocSubProcess_uid" INTEGER,
-	"BpmnArtifact_uid" INTEGER,
-	"BpmnAssignment_uid" INTEGER,
-	"BpmnAssociation_uid" INTEGER,
-	"BpmnAuditing_uid" INTEGER,
-	"BpmnBaseElement_uid" INTEGER,
-	"BpmnBoundaryEvent_uid" INTEGER,
-	"BpmnBusinessRuleTask_uid" INTEGER,
-	"BpmnCallActivity_uid" INTEGER,
-	"BpmnCallConversation_uid" INTEGER,
-	"BpmnCallableElement_uid" INTEGER,
-	"BpmnCancelEventDefinition_uid" INTEGER,
-	"BpmnCatchEvent_uid" INTEGER,
-	"BpmnCategory_uid" INTEGER,
-	"BpmnCategoryValue_uid" INTEGER,
-	"BpmnChildLaneSet_uid" INTEGER,
-	"BpmnCollaboration_uid" INTEGER,
-	"BpmnCompensateEventDefinition_uid" INTEGER,
-	"BpmnCompletionCondition_uid" INTEGER,
-	"BpmnComplexBehaviorDefinition_uid" INTEGER,
-	"BpmnComplexGateway_uid" INTEGER,
-	"BpmnCondition_uid" INTEGER,
-	"BpmnConditionExpression_uid" INTEGER,
-	"BpmnConditionalEventDefinition_uid" INTEGER,
-	"BpmnConversation_uid" INTEGER,
-	"BpmnConversationAssociation_uid" INTEGER,
-	"BpmnConversationLink_uid" INTEGER,
-	"BpmnConversationNode_uid" INTEGER,
-	"BpmnCorrelationKey_uid" INTEGER,
-	"BpmnCorrelationProperty_uid" INTEGER,
-	"BpmnCorrelationPropertyBinding_uid" INTEGER,
-	"BpmnCorrelationPropertyRetrievalExpression_uid" INTEGER,
-	"BpmnCorrelationSubscription_uid" INTEGER,
-	"BpmnDataAssociation_uid" INTEGER,
-	"BpmnDataInput_uid" INTEGER,
-	"BpmnDataInputAssociation_uid" INTEGER,
-	"BpmnDataObject_uid" INTEGER,
-	"BpmnDataObjectReference_uid" INTEGER,
-	"BpmnDataOutput_uid" INTEGER,
-	"BpmnDataOutputAssociation_uid" INTEGER,
-	"BpmnDataPath_uid" INTEGER,
-	"BpmnDataState_uid" INTEGER,
-	"BpmnDataStore_uid" INTEGER,
-	"BpmnDataStoreReference_uid" INTEGER,
-	"BpmnEndEvent_uid" INTEGER,
-	"BpmnEndPoint_uid" INTEGER,
-	"BpmnError_uid" INTEGER,
-	"BpmnErrorEventDefinition_uid" INTEGER,
-	"BpmnEscalation_uid" INTEGER,
-	"BpmnEscalationEventDefinition_uid" INTEGER,
-	"BpmnEvent_uid" INTEGER,
-	"BpmnEventBasedGateway_uid" INTEGER,
-	"BpmnEventDefinition_uid" INTEGER,
-	"BpmnExclusiveGateway_uid" INTEGER,
-	"BpmnExpression_uid" INTEGER,
+	"BpmnActivationCondition_id" INTEGER,
+	"BpmnActivity_id" INTEGER,
+	"BpmnAdHocSubProcess_id" INTEGER,
+	"BpmnArtifact_id" INTEGER,
+	"BpmnAssignment_id" INTEGER,
+	"BpmnAssociation_id" INTEGER,
+	"BpmnAuditing_id" INTEGER,
+	"BpmnBaseElement_id" INTEGER,
+	"BpmnBoundaryEvent_id" INTEGER,
+	"BpmnBusinessRuleTask_id" INTEGER,
+	"BpmnCallActivity_id" INTEGER,
+	"BpmnCallConversation_id" INTEGER,
+	"BpmnCallableElement_id" INTEGER,
+	"BpmnCancelEventDefinition_id" INTEGER,
+	"BpmnCatchEvent_id" INTEGER,
+	"BpmnCategory_id" INTEGER,
+	"BpmnCategoryValue_id" INTEGER,
+	"BpmnChildLaneSet_id" INTEGER,
+	"BpmnCollaboration_id" INTEGER,
+	"BpmnCompensateEventDefinition_id" INTEGER,
+	"BpmnCompletionCondition_id" INTEGER,
+	"BpmnComplexBehaviorDefinition_id" INTEGER,
+	"BpmnComplexGateway_id" INTEGER,
+	"BpmnCondition_id" INTEGER,
+	"BpmnConditionExpression_id" INTEGER,
+	"BpmnConditionalEventDefinition_id" INTEGER,
+	"BpmnConversation_id" INTEGER,
+	"BpmnConversationAssociation_id" INTEGER,
+	"BpmnConversationLink_id" INTEGER,
+	"BpmnConversationNode_id" INTEGER,
+	"BpmnCorrelationKey_id" INTEGER,
+	"BpmnCorrelationProperty_id" INTEGER,
+	"BpmnCorrelationPropertyBinding_id" INTEGER,
+	"BpmnCorrelationPropertyRetrievalExpression_id" INTEGER,
+	"BpmnCorrelationSubscription_id" INTEGER,
+	"BpmnDataAssociation_id" INTEGER,
+	"BpmnDataInput_id" INTEGER,
+	"BpmnDataInputAssociation_id" INTEGER,
+	"BpmnDataObject_id" INTEGER,
+	"BpmnDataObjectReference_id" INTEGER,
+	"BpmnDataOutput_id" INTEGER,
+	"BpmnDataOutputAssociation_id" INTEGER,
+	"BpmnDataPath_id" INTEGER,
+	"BpmnDataState_id" INTEGER,
+	"BpmnDataStore_id" INTEGER,
+	"BpmnDataStoreReference_id" INTEGER,
+	"BpmnEndEvent_id" INTEGER,
+	"BpmnEndPoint_id" INTEGER,
+	"BpmnError_id" INTEGER,
+	"BpmnErrorEventDefinition_id" INTEGER,
+	"BpmnEscalation_id" INTEGER,
+	"BpmnEscalationEventDefinition_id" INTEGER,
+	"BpmnEvent_id" INTEGER,
+	"BpmnEventBasedGateway_id" INTEGER,
+	"BpmnEventDefinition_id" INTEGER,
+	"BpmnExclusiveGateway_id" INTEGER,
+	"BpmnExpression_id" INTEGER,
 	"BpmnExtension_id" INTEGER,
-	"BpmnFlowElement_uid" INTEGER,
-	"BpmnFlowNode_uid" INTEGER,
-	"BpmnFormalExpression_uid" INTEGER,
-	"BpmnFrom_uid" INTEGER,
-	"BpmnGateway_uid" INTEGER,
-	"BpmnGlobalConversation_uid" INTEGER,
-	"BpmnGroup_uid" INTEGER,
-	"BpmnHumanPerformer_uid" INTEGER,
-	"BpmnInclusiveGateway_uid" INTEGER,
-	"BpmnInputDataItem_uid" INTEGER,
-	"BpmnInputSet_uid" INTEGER,
-	"BpmnInterface_uid" INTEGER,
-	"BpmnIntermediateCatchEvent_uid" INTEGER,
-	"BpmnIntermediateThrowEvent_uid" INTEGER,
-	"BpmnIoBinding_uid" INTEGER,
-	"BpmnIoSpecification_uid" INTEGER,
-	"BpmnItemAwareElement_uid" INTEGER,
-	"BpmnItemDefinition_uid" INTEGER,
-	"BpmnLane_uid" INTEGER,
-	"BpmnLaneSet_uid" INTEGER,
-	"BpmnLinkEventDefinition_uid" INTEGER,
-	"BpmnLoopCardinality_uid" INTEGER,
-	"BpmnLoopCharacteristics_uid" INTEGER,
-	"BpmnManualTask_uid" INTEGER,
-	"BpmnMessage_uid" INTEGER,
-	"BpmnMessageEventDefinition_uid" INTEGER,
-	"BpmnMessageFlow_uid" INTEGER,
-	"BpmnMessageFlowAssociation_uid" INTEGER,
-	"BpmnMessagePath_uid" INTEGER,
-	"BpmnMonitoring_uid" INTEGER,
-	"BpmnMultiInstanceLoopCharacteristics_uid" INTEGER,
-	"BpmnOperation_uid" INTEGER,
-	"BpmnOutputDataItem_uid" INTEGER,
-	"BpmnOutputSet_uid" INTEGER,
-	"BpmnParallelGateway_uid" INTEGER,
-	"BpmnParticipant_uid" INTEGER,
-	"BpmnParticipantAssociation_uid" INTEGER,
-	"BpmnParticipantMultiplicity_uid" INTEGER,
-	"BpmnPartitionElement_uid" INTEGER,
-	"BpmnPerformer_uid" INTEGER,
-	"BpmnPotentialOwner_uid" INTEGER,
-	"BpmnProcess_uid" INTEGER,
-	"BpmnProperty_uid" INTEGER,
-	"BpmnReceiveTask_uid" INTEGER,
-	"BpmnRelationship_uid" INTEGER,
-	"BpmnRendering_uid" INTEGER,
-	"BpmnResource_uid" INTEGER,
-	"BpmnResourceAssignmentExpression_uid" INTEGER,
-	"BpmnResourceParameter_uid" INTEGER,
-	"BpmnResourceParameterBinding_uid" INTEGER,
-	"BpmnResourceRole_uid" INTEGER,
-	"BpmnRootElement_uid" INTEGER,
-	"BpmnScriptTask_uid" INTEGER,
-	"BpmnSendTask_uid" INTEGER,
-	"BpmnSequenceFlow_uid" INTEGER,
-	"BpmnServiceTask_uid" INTEGER,
-	"BpmnSignal_uid" INTEGER,
-	"BpmnSignalEventDefinition_uid" INTEGER,
-	"BpmnStartEvent_uid" INTEGER,
-	"BpmnSubConversation_uid" INTEGER,
-	"BpmnSubProcess_uid" INTEGER,
-	"BpmnTask_uid" INTEGER,
-	"BpmnTerminateEventDefinition_uid" INTEGER,
-	"BpmnTextAnnotation_uid" INTEGER,
-	"BpmnThrowEvent_uid" INTEGER,
-	"BpmnTimeCycle_uid" INTEGER,
-	"BpmnTimeDate_uid" INTEGER,
-	"BpmnTimeDuration_uid" INTEGER,
-	"BpmnTimerEventDefinition_uid" INTEGER,
-	"BpmnTo_uid" INTEGER,
-	"BpmnTransaction_uid" INTEGER,
-	"BpmnTransformation_uid" INTEGER,
-	"BpmnUserTask_uid" INTEGER,
-	PRIMARY KEY (uid),
-	FOREIGN KEY("BpmnActivationCondition_uid") REFERENCES "BpmnActivationCondition" (uid),
-	FOREIGN KEY("BpmnActivity_uid") REFERENCES "BpmnActivity" (uid),
-	FOREIGN KEY("BpmnAdHocSubProcess_uid") REFERENCES "BpmnAdHocSubProcess" (uid),
-	FOREIGN KEY("BpmnArtifact_uid") REFERENCES "BpmnArtifact" (uid),
-	FOREIGN KEY("BpmnAssignment_uid") REFERENCES "BpmnAssignment" (uid),
-	FOREIGN KEY("BpmnAssociation_uid") REFERENCES "BpmnAssociation" (uid),
-	FOREIGN KEY("BpmnAuditing_uid") REFERENCES "BpmnAuditing" (uid),
-	FOREIGN KEY("BpmnBaseElement_uid") REFERENCES "BpmnBaseElement" (uid),
-	FOREIGN KEY("BpmnBoundaryEvent_uid") REFERENCES "BpmnBoundaryEvent" (uid),
-	FOREIGN KEY("BpmnBusinessRuleTask_uid") REFERENCES "BpmnBusinessRuleTask" (uid),
-	FOREIGN KEY("BpmnCallActivity_uid") REFERENCES "BpmnCallActivity" (uid),
-	FOREIGN KEY("BpmnCallConversation_uid") REFERENCES "BpmnCallConversation" (uid),
-	FOREIGN KEY("BpmnCallableElement_uid") REFERENCES "BpmnCallableElement" (uid),
-	FOREIGN KEY("BpmnCancelEventDefinition_uid") REFERENCES "BpmnCancelEventDefinition" (uid),
-	FOREIGN KEY("BpmnCatchEvent_uid") REFERENCES "BpmnCatchEvent" (uid),
-	FOREIGN KEY("BpmnCategory_uid") REFERENCES "BpmnCategory" (uid),
-	FOREIGN KEY("BpmnCategoryValue_uid") REFERENCES "BpmnCategoryValue" (uid),
-	FOREIGN KEY("BpmnChildLaneSet_uid") REFERENCES "BpmnChildLaneSet" (uid),
-	FOREIGN KEY("BpmnCollaboration_uid") REFERENCES "BpmnCollaboration" (uid),
-	FOREIGN KEY("BpmnCompensateEventDefinition_uid") REFERENCES "BpmnCompensateEventDefinition" (uid),
-	FOREIGN KEY("BpmnCompletionCondition_uid") REFERENCES "BpmnCompletionCondition" (uid),
-	FOREIGN KEY("BpmnComplexBehaviorDefinition_uid") REFERENCES "BpmnComplexBehaviorDefinition" (uid),
-	FOREIGN KEY("BpmnComplexGateway_uid") REFERENCES "BpmnComplexGateway" (uid),
-	FOREIGN KEY("BpmnCondition_uid") REFERENCES "BpmnCondition" (uid),
-	FOREIGN KEY("BpmnConditionExpression_uid") REFERENCES "BpmnConditionExpression" (uid),
-	FOREIGN KEY("BpmnConditionalEventDefinition_uid") REFERENCES "BpmnConditionalEventDefinition" (uid),
-	FOREIGN KEY("BpmnConversation_uid") REFERENCES "BpmnConversation" (uid),
-	FOREIGN KEY("BpmnConversationAssociation_uid") REFERENCES "BpmnConversationAssociation" (uid),
-	FOREIGN KEY("BpmnConversationLink_uid") REFERENCES "BpmnConversationLink" (uid),
-	FOREIGN KEY("BpmnConversationNode_uid") REFERENCES "BpmnConversationNode" (uid),
-	FOREIGN KEY("BpmnCorrelationKey_uid") REFERENCES "BpmnCorrelationKey" (uid),
-	FOREIGN KEY("BpmnCorrelationProperty_uid") REFERENCES "BpmnCorrelationProperty" (uid),
-	FOREIGN KEY("BpmnCorrelationPropertyBinding_uid") REFERENCES "BpmnCorrelationPropertyBinding" (uid),
-	FOREIGN KEY("BpmnCorrelationPropertyRetrievalExpression_uid") REFERENCES "BpmnCorrelationPropertyRetrievalExpression" (uid),
-	FOREIGN KEY("BpmnCorrelationSubscription_uid") REFERENCES "BpmnCorrelationSubscription" (uid),
-	FOREIGN KEY("BpmnDataAssociation_uid") REFERENCES "BpmnDataAssociation" (uid),
-	FOREIGN KEY("BpmnDataInput_uid") REFERENCES "BpmnDataInput" (uid),
-	FOREIGN KEY("BpmnDataInputAssociation_uid") REFERENCES "BpmnDataInputAssociation" (uid),
-	FOREIGN KEY("BpmnDataObject_uid") REFERENCES "BpmnDataObject" (uid),
-	FOREIGN KEY("BpmnDataObjectReference_uid") REFERENCES "BpmnDataObjectReference" (uid),
-	FOREIGN KEY("BpmnDataOutput_uid") REFERENCES "BpmnDataOutput" (uid),
-	FOREIGN KEY("BpmnDataOutputAssociation_uid") REFERENCES "BpmnDataOutputAssociation" (uid),
-	FOREIGN KEY("BpmnDataPath_uid") REFERENCES "BpmnDataPath" (uid),
-	FOREIGN KEY("BpmnDataState_uid") REFERENCES "BpmnDataState" (uid),
-	FOREIGN KEY("BpmnDataStore_uid") REFERENCES "BpmnDataStore" (uid),
-	FOREIGN KEY("BpmnDataStoreReference_uid") REFERENCES "BpmnDataStoreReference" (uid),
-	FOREIGN KEY("BpmnEndEvent_uid") REFERENCES "BpmnEndEvent" (uid),
-	FOREIGN KEY("BpmnEndPoint_uid") REFERENCES "BpmnEndPoint" (uid),
-	FOREIGN KEY("BpmnError_uid") REFERENCES "BpmnError" (uid),
-	FOREIGN KEY("BpmnErrorEventDefinition_uid") REFERENCES "BpmnErrorEventDefinition" (uid),
-	FOREIGN KEY("BpmnEscalation_uid") REFERENCES "BpmnEscalation" (uid),
-	FOREIGN KEY("BpmnEscalationEventDefinition_uid") REFERENCES "BpmnEscalationEventDefinition" (uid),
-	FOREIGN KEY("BpmnEvent_uid") REFERENCES "BpmnEvent" (uid),
-	FOREIGN KEY("BpmnEventBasedGateway_uid") REFERENCES "BpmnEventBasedGateway" (uid),
-	FOREIGN KEY("BpmnEventDefinition_uid") REFERENCES "BpmnEventDefinition" (uid),
-	FOREIGN KEY("BpmnExclusiveGateway_uid") REFERENCES "BpmnExclusiveGateway" (uid),
-	FOREIGN KEY("BpmnExpression_uid") REFERENCES "BpmnExpression" (uid),
+	"BpmnFlowElement_id" INTEGER,
+	"BpmnFlowNode_id" INTEGER,
+	"BpmnFormalExpression_id" INTEGER,
+	"BpmnFrom_id" INTEGER,
+	"BpmnGateway_id" INTEGER,
+	"BpmnGlobalConversation_id" INTEGER,
+	"BpmnGroup_id" INTEGER,
+	"BpmnHumanPerformer_id" INTEGER,
+	"BpmnInclusiveGateway_id" INTEGER,
+	"BpmnInputDataItem_id" INTEGER,
+	"BpmnInputSet_id" INTEGER,
+	"BpmnInterface_id" INTEGER,
+	"BpmnIntermediateCatchEvent_id" INTEGER,
+	"BpmnIntermediateThrowEvent_id" INTEGER,
+	"BpmnIoBinding_id" INTEGER,
+	"BpmnIoSpecification_id" INTEGER,
+	"BpmnItemAwareElement_id" INTEGER,
+	"BpmnItemDefinition_id" INTEGER,
+	"BpmnLane_id" INTEGER,
+	"BpmnLaneSet_id" INTEGER,
+	"BpmnLinkEventDefinition_id" INTEGER,
+	"BpmnLoopCardinality_id" INTEGER,
+	"BpmnLoopCharacteristics_id" INTEGER,
+	"BpmnManualTask_id" INTEGER,
+	"BpmnMessage_id" INTEGER,
+	"BpmnMessageEventDefinition_id" INTEGER,
+	"BpmnMessageFlow_id" INTEGER,
+	"BpmnMessageFlowAssociation_id" INTEGER,
+	"BpmnMessagePath_id" INTEGER,
+	"BpmnMonitoring_id" INTEGER,
+	"BpmnMultiInstanceLoopCharacteristics_id" INTEGER,
+	"BpmnOperation_id" INTEGER,
+	"BpmnOutputDataItem_id" INTEGER,
+	"BpmnOutputSet_id" INTEGER,
+	"BpmnParallelGateway_id" INTEGER,
+	"BpmnParticipant_id" INTEGER,
+	"BpmnParticipantAssociation_id" INTEGER,
+	"BpmnParticipantMultiplicity_id" INTEGER,
+	"BpmnPartitionElement_id" INTEGER,
+	"BpmnPerformer_id" INTEGER,
+	"BpmnPotentialOwner_id" INTEGER,
+	"BpmnProcess_id" INTEGER,
+	"BpmnProperty_id" INTEGER,
+	"BpmnReceiveTask_id" INTEGER,
+	"BpmnRelationship_id" INTEGER,
+	"BpmnRendering_id" INTEGER,
+	"BpmnResource_id" INTEGER,
+	"BpmnResourceAssignmentExpression_id" INTEGER,
+	"BpmnResourceParameter_id" INTEGER,
+	"BpmnResourceParameterBinding_id" INTEGER,
+	"BpmnResourceRole_id" INTEGER,
+	"BpmnRootElement_id" INTEGER,
+	"BpmnScriptTask_id" INTEGER,
+	"BpmnSendTask_id" INTEGER,
+	"BpmnSequenceFlow_id" INTEGER,
+	"BpmnServiceTask_id" INTEGER,
+	"BpmnSignal_id" INTEGER,
+	"BpmnSignalEventDefinition_id" INTEGER,
+	"BpmnStartEvent_id" INTEGER,
+	"BpmnSubConversation_id" INTEGER,
+	"BpmnSubProcess_id" INTEGER,
+	"BpmnTask_id" INTEGER,
+	"BpmnTerminateEventDefinition_id" INTEGER,
+	"BpmnTextAnnotation_id" INTEGER,
+	"BpmnThrowEvent_id" INTEGER,
+	"BpmnTimeCycle_id" INTEGER,
+	"BpmnTimeDate_id" INTEGER,
+	"BpmnTimeDuration_id" INTEGER,
+	"BpmnTimerEventDefinition_id" INTEGER,
+	"BpmnTo_id" INTEGER,
+	"BpmnTransaction_id" INTEGER,
+	"BpmnTransformation_id" INTEGER,
+	"BpmnUserTask_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnActivationCondition_id") REFERENCES "BpmnActivationCondition" (id),
+	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id),
+	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id),
+	FOREIGN KEY("BpmnArtifact_id") REFERENCES "BpmnArtifact" (id),
+	FOREIGN KEY("BpmnAssignment_id") REFERENCES "BpmnAssignment" (id),
+	FOREIGN KEY("BpmnAssociation_id") REFERENCES "BpmnAssociation" (id),
+	FOREIGN KEY("BpmnAuditing_id") REFERENCES "BpmnAuditing" (id),
+	FOREIGN KEY("BpmnBaseElement_id") REFERENCES "BpmnBaseElement" (id),
+	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id),
+	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id),
+	FOREIGN KEY("BpmnCallActivity_id") REFERENCES "BpmnCallActivity" (id),
+	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id),
+	FOREIGN KEY("BpmnCallableElement_id") REFERENCES "BpmnCallableElement" (id),
+	FOREIGN KEY("BpmnCancelEventDefinition_id") REFERENCES "BpmnCancelEventDefinition" (id),
+	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id),
+	FOREIGN KEY("BpmnCategory_id") REFERENCES "BpmnCategory" (id),
+	FOREIGN KEY("BpmnCategoryValue_id") REFERENCES "BpmnCategoryValue" (id),
+	FOREIGN KEY("BpmnChildLaneSet_id") REFERENCES "BpmnChildLaneSet" (id),
+	FOREIGN KEY("BpmnCollaboration_id") REFERENCES "BpmnCollaboration" (id),
+	FOREIGN KEY("BpmnCompensateEventDefinition_id") REFERENCES "BpmnCompensateEventDefinition" (id),
+	FOREIGN KEY("BpmnCompletionCondition_id") REFERENCES "BpmnCompletionCondition" (id),
+	FOREIGN KEY("BpmnComplexBehaviorDefinition_id") REFERENCES "BpmnComplexBehaviorDefinition" (id),
+	FOREIGN KEY("BpmnComplexGateway_id") REFERENCES "BpmnComplexGateway" (id),
+	FOREIGN KEY("BpmnCondition_id") REFERENCES "BpmnCondition" (id),
+	FOREIGN KEY("BpmnConditionExpression_id") REFERENCES "BpmnConditionExpression" (id),
+	FOREIGN KEY("BpmnConditionalEventDefinition_id") REFERENCES "BpmnConditionalEventDefinition" (id),
+	FOREIGN KEY("BpmnConversation_id") REFERENCES "BpmnConversation" (id),
+	FOREIGN KEY("BpmnConversationAssociation_id") REFERENCES "BpmnConversationAssociation" (id),
+	FOREIGN KEY("BpmnConversationLink_id") REFERENCES "BpmnConversationLink" (id),
+	FOREIGN KEY("BpmnConversationNode_id") REFERENCES "BpmnConversationNode" (id),
+	FOREIGN KEY("BpmnCorrelationKey_id") REFERENCES "BpmnCorrelationKey" (id),
+	FOREIGN KEY("BpmnCorrelationProperty_id") REFERENCES "BpmnCorrelationProperty" (id),
+	FOREIGN KEY("BpmnCorrelationPropertyBinding_id") REFERENCES "BpmnCorrelationPropertyBinding" (id),
+	FOREIGN KEY("BpmnCorrelationPropertyRetrievalExpression_id") REFERENCES "BpmnCorrelationPropertyRetrievalExpression" (id),
+	FOREIGN KEY("BpmnCorrelationSubscription_id") REFERENCES "BpmnCorrelationSubscription" (id),
+	FOREIGN KEY("BpmnDataAssociation_id") REFERENCES "BpmnDataAssociation" (id),
+	FOREIGN KEY("BpmnDataInput_id") REFERENCES "BpmnDataInput" (id),
+	FOREIGN KEY("BpmnDataInputAssociation_id") REFERENCES "BpmnDataInputAssociation" (id),
+	FOREIGN KEY("BpmnDataObject_id") REFERENCES "BpmnDataObject" (id),
+	FOREIGN KEY("BpmnDataObjectReference_id") REFERENCES "BpmnDataObjectReference" (id),
+	FOREIGN KEY("BpmnDataOutput_id") REFERENCES "BpmnDataOutput" (id),
+	FOREIGN KEY("BpmnDataOutputAssociation_id") REFERENCES "BpmnDataOutputAssociation" (id),
+	FOREIGN KEY("BpmnDataPath_id") REFERENCES "BpmnDataPath" (id),
+	FOREIGN KEY("BpmnDataState_id") REFERENCES "BpmnDataState" (id),
+	FOREIGN KEY("BpmnDataStore_id") REFERENCES "BpmnDataStore" (id),
+	FOREIGN KEY("BpmnDataStoreReference_id") REFERENCES "BpmnDataStoreReference" (id),
+	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id),
+	FOREIGN KEY("BpmnEndPoint_id") REFERENCES "BpmnEndPoint" (id),
+	FOREIGN KEY("BpmnError_id") REFERENCES "BpmnError" (id),
+	FOREIGN KEY("BpmnErrorEventDefinition_id") REFERENCES "BpmnErrorEventDefinition" (id),
+	FOREIGN KEY("BpmnEscalation_id") REFERENCES "BpmnEscalation" (id),
+	FOREIGN KEY("BpmnEscalationEventDefinition_id") REFERENCES "BpmnEscalationEventDefinition" (id),
+	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id),
+	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id),
+	FOREIGN KEY("BpmnEventDefinition_id") REFERENCES "BpmnEventDefinition" (id),
+	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id),
+	FOREIGN KEY("BpmnExpression_id") REFERENCES "BpmnExpression" (id),
 	FOREIGN KEY("BpmnExtension_id") REFERENCES "BpmnExtension" (id),
-	FOREIGN KEY("BpmnFlowElement_uid") REFERENCES "BpmnFlowElement" (uid),
-	FOREIGN KEY("BpmnFlowNode_uid") REFERENCES "BpmnFlowNode" (uid),
-	FOREIGN KEY("BpmnFormalExpression_uid") REFERENCES "BpmnFormalExpression" (uid),
-	FOREIGN KEY("BpmnFrom_uid") REFERENCES "BpmnFrom" (uid),
-	FOREIGN KEY("BpmnGateway_uid") REFERENCES "BpmnGateway" (uid),
-	FOREIGN KEY("BpmnGlobalConversation_uid") REFERENCES "BpmnGlobalConversation" (uid),
-	FOREIGN KEY("BpmnGroup_uid") REFERENCES "BpmnGroup" (uid),
-	FOREIGN KEY("BpmnHumanPerformer_uid") REFERENCES "BpmnHumanPerformer" (uid),
-	FOREIGN KEY("BpmnInclusiveGateway_uid") REFERENCES "BpmnInclusiveGateway" (uid),
-	FOREIGN KEY("BpmnInputDataItem_uid") REFERENCES "BpmnInputDataItem" (uid),
-	FOREIGN KEY("BpmnInputSet_uid") REFERENCES "BpmnInputSet" (uid),
-	FOREIGN KEY("BpmnInterface_uid") REFERENCES "BpmnInterface" (uid),
-	FOREIGN KEY("BpmnIntermediateCatchEvent_uid") REFERENCES "BpmnIntermediateCatchEvent" (uid),
-	FOREIGN KEY("BpmnIntermediateThrowEvent_uid") REFERENCES "BpmnIntermediateThrowEvent" (uid),
-	FOREIGN KEY("BpmnIoBinding_uid") REFERENCES "BpmnIoBinding" (uid),
-	FOREIGN KEY("BpmnIoSpecification_uid") REFERENCES "BpmnIoSpecification" (uid),
-	FOREIGN KEY("BpmnItemAwareElement_uid") REFERENCES "BpmnItemAwareElement" (uid),
-	FOREIGN KEY("BpmnItemDefinition_uid") REFERENCES "BpmnItemDefinition" (uid),
-	FOREIGN KEY("BpmnLane_uid") REFERENCES "BpmnLane" (uid),
-	FOREIGN KEY("BpmnLaneSet_uid") REFERENCES "BpmnLaneSet" (uid),
-	FOREIGN KEY("BpmnLinkEventDefinition_uid") REFERENCES "BpmnLinkEventDefinition" (uid),
-	FOREIGN KEY("BpmnLoopCardinality_uid") REFERENCES "BpmnLoopCardinality" (uid),
-	FOREIGN KEY("BpmnLoopCharacteristics_uid") REFERENCES "BpmnLoopCharacteristics" (uid),
-	FOREIGN KEY("BpmnManualTask_uid") REFERENCES "BpmnManualTask" (uid),
-	FOREIGN KEY("BpmnMessage_uid") REFERENCES "BpmnMessage" (uid),
-	FOREIGN KEY("BpmnMessageEventDefinition_uid") REFERENCES "BpmnMessageEventDefinition" (uid),
-	FOREIGN KEY("BpmnMessageFlow_uid") REFERENCES "BpmnMessageFlow" (uid),
-	FOREIGN KEY("BpmnMessageFlowAssociation_uid") REFERENCES "BpmnMessageFlowAssociation" (uid),
-	FOREIGN KEY("BpmnMessagePath_uid") REFERENCES "BpmnMessagePath" (uid),
-	FOREIGN KEY("BpmnMonitoring_uid") REFERENCES "BpmnMonitoring" (uid),
-	FOREIGN KEY("BpmnMultiInstanceLoopCharacteristics_uid") REFERENCES "BpmnMultiInstanceLoopCharacteristics" (uid),
-	FOREIGN KEY("BpmnOperation_uid") REFERENCES "BpmnOperation" (uid),
-	FOREIGN KEY("BpmnOutputDataItem_uid") REFERENCES "BpmnOutputDataItem" (uid),
-	FOREIGN KEY("BpmnOutputSet_uid") REFERENCES "BpmnOutputSet" (uid),
-	FOREIGN KEY("BpmnParallelGateway_uid") REFERENCES "BpmnParallelGateway" (uid),
-	FOREIGN KEY("BpmnParticipant_uid") REFERENCES "BpmnParticipant" (uid),
-	FOREIGN KEY("BpmnParticipantAssociation_uid") REFERENCES "BpmnParticipantAssociation" (uid),
-	FOREIGN KEY("BpmnParticipantMultiplicity_uid") REFERENCES "BpmnParticipantMultiplicity" (uid),
-	FOREIGN KEY("BpmnPartitionElement_uid") REFERENCES "BpmnPartitionElement" (uid),
-	FOREIGN KEY("BpmnPerformer_uid") REFERENCES "BpmnPerformer" (uid),
-	FOREIGN KEY("BpmnPotentialOwner_uid") REFERENCES "BpmnPotentialOwner" (uid),
-	FOREIGN KEY("BpmnProcess_uid") REFERENCES "BpmnProcess" (uid),
-	FOREIGN KEY("BpmnProperty_uid") REFERENCES "BpmnProperty" (uid),
-	FOREIGN KEY("BpmnReceiveTask_uid") REFERENCES "BpmnReceiveTask" (uid),
-	FOREIGN KEY("BpmnRelationship_uid") REFERENCES "BpmnRelationship" (uid),
-	FOREIGN KEY("BpmnRendering_uid") REFERENCES "BpmnRendering" (uid),
-	FOREIGN KEY("BpmnResource_uid") REFERENCES "BpmnResource" (uid),
-	FOREIGN KEY("BpmnResourceAssignmentExpression_uid") REFERENCES "BpmnResourceAssignmentExpression" (uid),
-	FOREIGN KEY("BpmnResourceParameter_uid") REFERENCES "BpmnResourceParameter" (uid),
-	FOREIGN KEY("BpmnResourceParameterBinding_uid") REFERENCES "BpmnResourceParameterBinding" (uid),
-	FOREIGN KEY("BpmnResourceRole_uid") REFERENCES "BpmnResourceRole" (uid),
-	FOREIGN KEY("BpmnRootElement_uid") REFERENCES "BpmnRootElement" (uid),
-	FOREIGN KEY("BpmnScriptTask_uid") REFERENCES "BpmnScriptTask" (uid),
-	FOREIGN KEY("BpmnSendTask_uid") REFERENCES "BpmnSendTask" (uid),
-	FOREIGN KEY("BpmnSequenceFlow_uid") REFERENCES "BpmnSequenceFlow" (uid),
-	FOREIGN KEY("BpmnServiceTask_uid") REFERENCES "BpmnServiceTask" (uid),
-	FOREIGN KEY("BpmnSignal_uid") REFERENCES "BpmnSignal" (uid),
-	FOREIGN KEY("BpmnSignalEventDefinition_uid") REFERENCES "BpmnSignalEventDefinition" (uid),
-	FOREIGN KEY("BpmnStartEvent_uid") REFERENCES "BpmnStartEvent" (uid),
-	FOREIGN KEY("BpmnSubConversation_uid") REFERENCES "BpmnSubConversation" (uid),
-	FOREIGN KEY("BpmnSubProcess_uid") REFERENCES "BpmnSubProcess" (uid),
-	FOREIGN KEY("BpmnTask_uid") REFERENCES "BpmnTask" (uid),
-	FOREIGN KEY("BpmnTerminateEventDefinition_uid") REFERENCES "BpmnTerminateEventDefinition" (uid),
-	FOREIGN KEY("BpmnTextAnnotation_uid") REFERENCES "BpmnTextAnnotation" (uid),
-	FOREIGN KEY("BpmnThrowEvent_uid") REFERENCES "BpmnThrowEvent" (uid),
-	FOREIGN KEY("BpmnTimeCycle_uid") REFERENCES "BpmnTimeCycle" (uid),
-	FOREIGN KEY("BpmnTimeDate_uid") REFERENCES "BpmnTimeDate" (uid),
-	FOREIGN KEY("BpmnTimeDuration_uid") REFERENCES "BpmnTimeDuration" (uid),
-	FOREIGN KEY("BpmnTimerEventDefinition_uid") REFERENCES "BpmnTimerEventDefinition" (uid),
-	FOREIGN KEY("BpmnTo_uid") REFERENCES "BpmnTo" (uid),
-	FOREIGN KEY("BpmnTransaction_uid") REFERENCES "BpmnTransaction" (uid),
-	FOREIGN KEY("BpmnTransformation_uid") REFERENCES "BpmnTransformation" (uid),
-	FOREIGN KEY("BpmnUserTask_uid") REFERENCES "BpmnUserTask" (uid)
+	FOREIGN KEY("BpmnFlowElement_id") REFERENCES "BpmnFlowElement" (id),
+	FOREIGN KEY("BpmnFlowNode_id") REFERENCES "BpmnFlowNode" (id),
+	FOREIGN KEY("BpmnFormalExpression_id") REFERENCES "BpmnFormalExpression" (id),
+	FOREIGN KEY("BpmnFrom_id") REFERENCES "BpmnFrom" (id),
+	FOREIGN KEY("BpmnGateway_id") REFERENCES "BpmnGateway" (id),
+	FOREIGN KEY("BpmnGlobalConversation_id") REFERENCES "BpmnGlobalConversation" (id),
+	FOREIGN KEY("BpmnGroup_id") REFERENCES "BpmnGroup" (id),
+	FOREIGN KEY("BpmnHumanPerformer_id") REFERENCES "BpmnHumanPerformer" (id),
+	FOREIGN KEY("BpmnInclusiveGateway_id") REFERENCES "BpmnInclusiveGateway" (id),
+	FOREIGN KEY("BpmnInputDataItem_id") REFERENCES "BpmnInputDataItem" (id),
+	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id),
+	FOREIGN KEY("BpmnInterface_id") REFERENCES "BpmnInterface" (id),
+	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id),
+	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id),
+	FOREIGN KEY("BpmnIoBinding_id") REFERENCES "BpmnIoBinding" (id),
+	FOREIGN KEY("BpmnIoSpecification_id") REFERENCES "BpmnIoSpecification" (id),
+	FOREIGN KEY("BpmnItemAwareElement_id") REFERENCES "BpmnItemAwareElement" (id),
+	FOREIGN KEY("BpmnItemDefinition_id") REFERENCES "BpmnItemDefinition" (id),
+	FOREIGN KEY("BpmnLane_id") REFERENCES "BpmnLane" (id),
+	FOREIGN KEY("BpmnLaneSet_id") REFERENCES "BpmnLaneSet" (id),
+	FOREIGN KEY("BpmnLinkEventDefinition_id") REFERENCES "BpmnLinkEventDefinition" (id),
+	FOREIGN KEY("BpmnLoopCardinality_id") REFERENCES "BpmnLoopCardinality" (id),
+	FOREIGN KEY("BpmnLoopCharacteristics_id") REFERENCES "BpmnLoopCharacteristics" (id),
+	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id),
+	FOREIGN KEY("BpmnMessage_id") REFERENCES "BpmnMessage" (id),
+	FOREIGN KEY("BpmnMessageEventDefinition_id") REFERENCES "BpmnMessageEventDefinition" (id),
+	FOREIGN KEY("BpmnMessageFlow_id") REFERENCES "BpmnMessageFlow" (id),
+	FOREIGN KEY("BpmnMessageFlowAssociation_id") REFERENCES "BpmnMessageFlowAssociation" (id),
+	FOREIGN KEY("BpmnMessagePath_id") REFERENCES "BpmnMessagePath" (id),
+	FOREIGN KEY("BpmnMonitoring_id") REFERENCES "BpmnMonitoring" (id),
+	FOREIGN KEY("BpmnMultiInstanceLoopCharacteristics_id") REFERENCES "BpmnMultiInstanceLoopCharacteristics" (id),
+	FOREIGN KEY("BpmnOperation_id") REFERENCES "BpmnOperation" (id),
+	FOREIGN KEY("BpmnOutputDataItem_id") REFERENCES "BpmnOutputDataItem" (id),
+	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id),
+	FOREIGN KEY("BpmnParallelGateway_id") REFERENCES "BpmnParallelGateway" (id),
+	FOREIGN KEY("BpmnParticipant_id") REFERENCES "BpmnParticipant" (id),
+	FOREIGN KEY("BpmnParticipantAssociation_id") REFERENCES "BpmnParticipantAssociation" (id),
+	FOREIGN KEY("BpmnParticipantMultiplicity_id") REFERENCES "BpmnParticipantMultiplicity" (id),
+	FOREIGN KEY("BpmnPartitionElement_id") REFERENCES "BpmnPartitionElement" (id),
+	FOREIGN KEY("BpmnPerformer_id") REFERENCES "BpmnPerformer" (id),
+	FOREIGN KEY("BpmnPotentialOwner_id") REFERENCES "BpmnPotentialOwner" (id),
+	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id),
+	FOREIGN KEY("BpmnProperty_id") REFERENCES "BpmnProperty" (id),
+	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id),
+	FOREIGN KEY("BpmnRelationship_id") REFERENCES "BpmnRelationship" (id),
+	FOREIGN KEY("BpmnRendering_id") REFERENCES "BpmnRendering" (id),
+	FOREIGN KEY("BpmnResource_id") REFERENCES "BpmnResource" (id),
+	FOREIGN KEY("BpmnResourceAssignmentExpression_id") REFERENCES "BpmnResourceAssignmentExpression" (id),
+	FOREIGN KEY("BpmnResourceParameter_id") REFERENCES "BpmnResourceParameter" (id),
+	FOREIGN KEY("BpmnResourceParameterBinding_id") REFERENCES "BpmnResourceParameterBinding" (id),
+	FOREIGN KEY("BpmnResourceRole_id") REFERENCES "BpmnResourceRole" (id),
+	FOREIGN KEY("BpmnRootElement_id") REFERENCES "BpmnRootElement" (id),
+	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id),
+	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id),
+	FOREIGN KEY("BpmnSequenceFlow_id") REFERENCES "BpmnSequenceFlow" (id),
+	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id),
+	FOREIGN KEY("BpmnSignal_id") REFERENCES "BpmnSignal" (id),
+	FOREIGN KEY("BpmnSignalEventDefinition_id") REFERENCES "BpmnSignalEventDefinition" (id),
+	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id),
+	FOREIGN KEY("BpmnSubConversation_id") REFERENCES "BpmnSubConversation" (id),
+	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id),
+	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id),
+	FOREIGN KEY("BpmnTerminateEventDefinition_id") REFERENCES "BpmnTerminateEventDefinition" (id),
+	FOREIGN KEY("BpmnTextAnnotation_id") REFERENCES "BpmnTextAnnotation" (id),
+	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id),
+	FOREIGN KEY("BpmnTimeCycle_id") REFERENCES "BpmnTimeCycle" (id),
+	FOREIGN KEY("BpmnTimeDate_id") REFERENCES "BpmnTimeDate" (id),
+	FOREIGN KEY("BpmnTimeDuration_id") REFERENCES "BpmnTimeDuration" (id),
+	FOREIGN KEY("BpmnTimerEventDefinition_id") REFERENCES "BpmnTimerEventDefinition" (id),
+	FOREIGN KEY("BpmnTo_id") REFERENCES "BpmnTo" (id),
+	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id),
+	FOREIGN KEY("BpmnTransformation_id") REFERENCES "BpmnTransformation" (id),
+	FOREIGN KEY("BpmnUserTask_id") REFERENCES "BpmnUserTask" (id)
 );
-CREATE INDEX "ix_BpmnDocumentation_uid" ON "BpmnDocumentation" (uid);
+CREATE INDEX "ix_BpmnDocumentation_id" ON "BpmnDocumentation" (id);

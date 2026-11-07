@@ -17,9 +17,9 @@ import lombok.*;
 public abstract class DiDiagram extends BpmnModelElementInstance {
 
   private String name;
-  private String documentation;
+  private String bpmnDocumentation;
   private Double resolution;
-  private String id;
+  private String bpmnId;
 
 
 }

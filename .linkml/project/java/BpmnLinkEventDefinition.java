@@ -17,8 +17,8 @@ import lombok.*;
 public class BpmnLinkEventDefinition extends BpmnEventDefinition {
 
   private String name;
-  private List<String> sources;
-  private String target;
+  private List<String> bpmnSources;
+  private String bpmnTarget;
 
 
 }

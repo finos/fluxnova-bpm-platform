@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class BpmnDocumentation extends BpmnModelElementInstance {
 
-  private String id;
+  private String bpmnId;
   private String textFormat;
   private String textContent;
 

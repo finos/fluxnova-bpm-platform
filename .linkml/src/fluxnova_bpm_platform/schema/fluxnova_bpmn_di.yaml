@@ -40,7 +40,7 @@ classes:
         range: string
         annotations:
           xml_name: name
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: string
         annotations:
@@ -50,7 +50,7 @@ classes:
         range: double
         annotations:
           xml_name: resolution
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -70,7 +70,7 @@ classes:
     in_subset:
       - bpmn_di
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -234,7 +234,7 @@ classes:
     in_subset:
       - bpmn_di
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:

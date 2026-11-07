@@ -5362,7 +5362,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "fluxnovaExecutionListener__fields",
+      "name": "fluxnovaExecutionListener__bpmn_fields",
       "annotations": [
         {
           "tag": "xml_name",
@@ -5377,8 +5377,8 @@
       ],
       "description": "The fields injected into the listener's delegate class.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/fields",
-      "alias": "fields",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_fields",
+      "alias": "bpmn_fields",
       "owner": "FluxnovaExecutionListener",
       "domain_of": [
         "FluxnovaExecutionListener"
@@ -6979,7 +6979,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "fluxnovaScript__resource",
+      "name": "fluxnovaScript__bpmn_resource",
       "annotations": [
         {
           "tag": "xml_name",
@@ -6989,8 +6989,8 @@
       ],
       "description": "A resource that holds the script, instead of the script's text.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/resource",
-      "alias": "resource",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_resource",
+      "alias": "bpmn_resource",
       "owner": "FluxnovaScript",
       "domain_of": [
         "FluxnovaScript"
@@ -7141,7 +7141,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "fluxnovaTaskListener__fields",
+      "name": "fluxnovaTaskListener__bpmn_fields",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7156,8 +7156,8 @@
       ],
       "description": "The fields injected into the listener's delegate class.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/fields",
-      "alias": "fields",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_fields",
+      "alias": "bpmn_fields",
       "owner": "FluxnovaTaskListener",
       "domain_of": [
         "FluxnovaTaskListener"
@@ -7218,7 +7218,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "fluxnovaValidation__constraints",
+      "name": "fluxnovaValidation__bpmn_constraints",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7233,8 +7233,8 @@
       ],
       "description": "The constraints the value must meet.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/constraints",
-      "alias": "constraints",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_constraints",
+      "alias": "bpmn_constraints",
       "owner": "FluxnovaValidation",
       "domain_of": [
         "FluxnovaValidation"
@@ -7739,7 +7739,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnBaseElement__id",
+      "name": "bpmnBaseElement__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7754,8 +7754,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "BpmnBaseElement",
       "domain_of": [
         "BpmnBaseElement"
@@ -7764,7 +7764,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnBaseElement__documentation",
+      "name": "bpmnBaseElement__bpmn_documentation",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7774,8 +7774,8 @@
       ],
       "description": "Text that documents the element.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/documentation",
-      "alias": "documentation",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_documentation",
+      "alias": "bpmn_documentation",
       "owner": "BpmnBaseElement",
       "domain_of": [
         "BpmnBaseElement"
@@ -10536,7 +10536,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnDefinitions__id",
+      "name": "bpmnDefinitions__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -10551,8 +10551,8 @@
       ],
       "description": "The document's id.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "BpmnDefinitions",
       "domain_of": [
         "BpmnDefinitions"
@@ -10799,7 +10799,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnDocumentation__id",
+      "name": "bpmnDocumentation__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -10814,8 +10814,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "BpmnDocumentation",
       "domain_of": [
         "BpmnDocumentation"
@@ -11253,7 +11253,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnExtension__definition",
+      "name": "bpmnExtension__bpmn_definition",
       "annotations": [
         {
           "tag": "xml_name",
@@ -11263,8 +11263,8 @@
       ],
       "description": "The QName of the extension's definition.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/definition",
-      "alias": "definition",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_definition",
+      "alias": "bpmn_definition",
       "owner": "BpmnExtension",
       "domain_of": [
         "BpmnExtension"
@@ -11294,7 +11294,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnExtension__documentation",
+      "name": "bpmnExtension__bpmn_documentation",
       "annotations": [
         {
           "tag": "xml_name",
@@ -11304,8 +11304,8 @@
       ],
       "description": "Text that documents the element.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/documentation",
-      "alias": "documentation",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_documentation",
+      "alias": "bpmn_documentation",
       "owner": "BpmnExtension",
       "domain_of": [
         "BpmnExtension"
@@ -11931,7 +11931,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnInteractionNode__id",
+      "name": "bpmnInteractionNode__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -11946,8 +11946,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "BpmnInteractionNode",
       "domain_of": [
         "BpmnInteractionNode"
@@ -12511,7 +12511,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnLinkEventDefinition__sources",
+      "name": "bpmnLinkEventDefinition__bpmn_sources",
       "annotations": [
         {
           "tag": "xml_name",
@@ -12531,8 +12531,8 @@
       ],
       "description": "The QNames of the throwing link events that jump to this one.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/sources",
-      "alias": "sources",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_sources",
+      "alias": "bpmn_sources",
       "owner": "BpmnLinkEventDefinition",
       "domain_of": [
         "BpmnLinkEventDefinition"
@@ -12542,7 +12542,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnLinkEventDefinition__target",
+      "name": "bpmnLinkEventDefinition__bpmn_target",
       "annotations": [
         {
           "tag": "xml_name",
@@ -12562,8 +12562,8 @@
       ],
       "description": "The QName of the catching link event this one jumps to.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/target",
-      "alias": "target",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_target",
+      "alias": "bpmn_target",
       "owner": "BpmnLinkEventDefinition",
       "domain_of": [
         "BpmnLinkEventDefinition"
@@ -14667,7 +14667,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnRelationship__sources",
+      "name": "bpmnRelationship__bpmn_sources",
       "annotations": [
         {
           "tag": "xml_name",
@@ -14677,8 +14677,8 @@
       ],
       "description": "The QNames of the elements the relationship starts from.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/sources",
-      "alias": "sources",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_sources",
+      "alias": "bpmn_sources",
       "owner": "BpmnRelationship",
       "domain_of": [
         "BpmnRelationship"
@@ -17355,7 +17355,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "diDiagram__documentation",
+      "name": "diDiagram__bpmn_documentation",
       "annotations": [
         {
           "tag": "xml_name",
@@ -17365,8 +17365,8 @@
       ],
       "description": "Text that documents the element.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/documentation",
-      "alias": "documentation",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_documentation",
+      "alias": "bpmn_documentation",
       "owner": "DiDiagram",
       "domain_of": [
         "DiDiagram"
@@ -17395,7 +17395,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "diDiagram__id",
+      "name": "diDiagram__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -17410,8 +17410,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "DiDiagram",
       "domain_of": [
         "DiDiagram"
@@ -17420,7 +17420,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "diDiagramElement__id",
+      "name": "diDiagramElement__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -17435,8 +17435,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "DiDiagramElement",
       "domain_of": [
         "DiDiagramElement"
@@ -17560,7 +17560,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "diStyle__id",
+      "name": "diStyle__bpmn_id",
       "annotations": [
         {
           "tag": "xml_name",
@@ -17575,8 +17575,8 @@
       ],
       "description": "The element's id, unique within its document.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/id",
-      "alias": "id",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/bpmn_id",
+      "alias": "bpmn_id",
       "owner": "DiStyle",
       "domain_of": [
         "DiStyle"
@@ -22513,7 +22513,7 @@
         "fluxnovaExecutionListener__fluxnova_class",
         "fluxnovaExecutionListener__fluxnova_expression",
         "fluxnovaExecutionListener__fluxnova_delegate_expression",
-        "fluxnovaExecutionListener__fields",
+        "fluxnovaExecutionListener__bpmn_fields",
         "fluxnovaExecutionListener__script"
       ],
       "slot_usage": {},
@@ -22607,7 +22607,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "fields",
+          "name": "bpmn_fields",
           "annotations": [
             {
               "tag": "xml_name",
@@ -24505,7 +24505,7 @@
       "slots": [
         "bpmnModelElementInstance__element_type",
         "fluxnovaScript__script_format",
-        "fluxnovaScript__resource",
+        "fluxnovaScript__bpmn_resource",
         "fluxnovaScript__text_content"
       ],
       "slot_usage": {},
@@ -24525,7 +24525,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "resource",
+          "name": "bpmn_resource",
           "annotations": [
             {
               "tag": "xml_name",
@@ -24629,7 +24629,7 @@
         "fluxnovaTaskListener__fluxnova_class",
         "fluxnovaTaskListener__fluxnova_expression",
         "fluxnovaTaskListener__fluxnova_delegate_expression",
-        "fluxnovaTaskListener__fields",
+        "fluxnovaTaskListener__bpmn_fields",
         "fluxnovaTaskListener__script",
         "fluxnovaTaskListener__timer_event_definition"
       ],
@@ -24724,7 +24724,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "fields",
+          "name": "bpmn_fields",
           "annotations": [
             {
               "tag": "xml_name",
@@ -24813,12 +24813,12 @@
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "fluxnovaValidation__constraints"
+        "fluxnovaValidation__bpmn_constraints"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "constraints",
+          "name": "bpmn_constraints",
           "annotations": [
             {
               "tag": "xml_name",
@@ -24965,8 +24965,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -25009,8 +25009,8 @@
       ],
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -25227,8 +25227,8 @@
       "is_a": "BpmnSubProcess",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -25339,8 +25339,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -25378,8 +25378,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnAssignment__from_expression",
         "bpmnAssignment__to_expression"
@@ -25451,8 +25451,8 @@
       "is_a": "BpmnArtifact",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnAssociation__source_ref",
         "bpmnAssociation__target_ref",
@@ -25557,8 +25557,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -25597,14 +25597,14 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -25622,7 +25622,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "documentation",
+          "name": "bpmn_documentation",
           "annotations": [
             {
               "tag": "xml_name",
@@ -25686,8 +25686,8 @@
       "is_a": "BpmnCatchEvent",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -25784,8 +25784,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -26160,8 +26160,8 @@
       "is_a": "BpmnActivity",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -26489,8 +26489,8 @@
       "is_a": "BpmnConversationNode",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationNode__name",
         "bpmnConversationNode__participant_refs",
@@ -26575,8 +26575,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCallableElement__name",
         "bpmnCallableElement__supported_interface_refs",
@@ -26687,8 +26687,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -26727,8 +26727,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -26885,8 +26885,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCategory__name",
         "bpmnCategory__category_values"
@@ -26958,8 +26958,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCategoryValue__value"
       ],
@@ -27013,8 +27013,8 @@
       "is_a": "BpmnLaneSet",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnLaneSet__name",
         "bpmnLaneSet__lanes"
@@ -27054,8 +27054,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCollaboration__name",
         "bpmnCollaboration__is_closed",
@@ -27277,8 +27277,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCompensateEventDefinition__wait_for_completion",
         "bpmnCompensateEventDefinition__activity_ref"
@@ -27356,8 +27356,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -27396,8 +27396,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -27435,8 +27435,8 @@
       "is_a": "BpmnGateway",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -27526,8 +27526,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -27566,8 +27566,8 @@
       "is_a": "BpmnFormalExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content",
         "bpmnFormalExpression__language",
@@ -27653,8 +27653,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConditionalEventDefinition__fluxnova_variable_name",
         "bpmnConditionalEventDefinition__fluxnova_variable_events",
@@ -27756,8 +27756,8 @@
       "is_a": "BpmnConversationNode",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationNode__name",
         "bpmnConversationNode__participant_refs",
@@ -27799,8 +27799,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationAssociation__inner_conversation_node_ref",
         "bpmnConversationAssociation__outer_conversation_node_ref"
@@ -27890,8 +27890,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationLink__name",
         "bpmnConversationLink__source_ref",
@@ -27999,8 +27999,8 @@
       ],
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationNode__name",
         "bpmnConversationNode__participant_refs",
@@ -28121,8 +28121,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCorrelationKey__name",
         "bpmnCorrelationKey__correlation_property_refs"
@@ -28201,8 +28201,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCorrelationProperty__name",
         "bpmnCorrelationProperty__type",
@@ -28298,8 +28298,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCorrelationPropertyBinding__correlation_property_ref",
         "bpmnCorrelationPropertyBinding__data_path"
@@ -28380,8 +28380,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCorrelationPropertyRetrievalExpression__message_ref",
         "bpmnCorrelationPropertyRetrievalExpression__message_path"
@@ -28462,8 +28462,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCorrelationSubscription__correlation_key_ref",
         "bpmnCorrelationSubscription__correlation_property_bindings"
@@ -28545,8 +28545,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnDataAssociation__source_refs",
         "bpmnDataAssociation__target_ref",
@@ -28668,8 +28668,8 @@
       "is_a": "BpmnItemAwareElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state",
@@ -28740,8 +28740,8 @@
       "is_a": "BpmnDataAssociation",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnDataAssociation__source_refs",
         "bpmnDataAssociation__target_ref",
@@ -28783,8 +28783,8 @@
       "is_a": "BpmnFlowElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -28882,8 +28882,8 @@
       "is_a": "BpmnFlowElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -28990,8 +28990,8 @@
       "is_a": "BpmnItemAwareElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state",
@@ -29062,8 +29062,8 @@
       "is_a": "BpmnDataAssociation",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnDataAssociation__source_refs",
         "bpmnDataAssociation__target_ref",
@@ -29105,8 +29105,8 @@
       "is_a": "BpmnFormalExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content",
         "bpmnFormalExpression__language",
@@ -29147,8 +29147,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnDataState__name"
       ],
@@ -29202,8 +29202,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnDataStore__name",
         "bpmnDataStore__capacity",
@@ -29325,8 +29325,8 @@
       "is_a": "BpmnFlowElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -29433,7 +29433,7 @@
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnDefinitions__id",
+        "bpmnDefinitions__bpmn_id",
         "bpmnDefinitions__name",
         "bpmnDefinitions__target_namespace",
         "bpmnDefinitions__expression_language",
@@ -29449,7 +29449,7 @@
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -29662,14 +29662,14 @@
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnDocumentation__id",
+        "bpmnDocumentation__bpmn_id",
         "bpmnDocumentation__text_format",
         "bpmnDocumentation__text_content"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -29741,8 +29741,8 @@
       "is_a": "BpmnThrowEvent",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -29796,8 +29796,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -29835,8 +29835,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnError__name",
         "bpmnError__error_code",
@@ -29951,8 +29951,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnErrorEventDefinition__error_ref",
         "bpmnErrorEventDefinition__fluxnova_error_code_variable",
@@ -30062,8 +30062,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnEscalation__name",
         "bpmnEscalation__escalation_code",
@@ -30155,8 +30155,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnEscalationEventDefinition__escalation_ref"
       ],
@@ -30224,8 +30224,8 @@
       ],
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -30292,8 +30292,8 @@
       "is_a": "BpmnGateway",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -30375,8 +30375,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -30414,8 +30414,8 @@
       "is_a": "BpmnGateway",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -30490,8 +30490,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -30538,14 +30538,14 @@
       "is_a": "BpmnModelElementInstance",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnExtension__definition",
+        "bpmnExtension__bpmn_definition",
         "bpmnExtension__must_understand",
-        "bpmnExtension__documentation"
+        "bpmnExtension__bpmn_documentation"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "definition",
+          "name": "bpmn_definition",
           "annotations": [
             {
               "tag": "xml_name",
@@ -30572,7 +30572,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "documentation",
+          "name": "bpmn_documentation",
           "annotations": [
             {
               "tag": "xml_name",
@@ -30659,8 +30659,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -30770,8 +30770,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -30960,8 +30960,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content",
         "bpmnFormalExpression__language",
@@ -31040,8 +31040,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -31081,8 +31081,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -31147,8 +31147,8 @@
       "is_a": "BpmnCollaboration",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCollaboration__name",
         "bpmnCollaboration__is_closed",
@@ -31197,8 +31197,8 @@
       "is_a": "BpmnArtifact",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnGroup__category_value_ref"
       ],
@@ -31262,8 +31262,8 @@
       "is_a": "BpmnPerformer",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceRole__name",
         "bpmnResourceRole__resource_ref",
@@ -31388,8 +31388,8 @@
       "is_a": "BpmnGateway",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -31464,8 +31464,8 @@
       "is_a": "BpmnDataInput",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state",
@@ -31507,8 +31507,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnInputSet__name",
         "bpmnInputSet__data_input_refs",
@@ -31654,12 +31654,12 @@
       "abstract": true,
       "mixin": true,
       "slots": [
-        "bpmnInteractionNode__id"
+        "bpmnInteractionNode__bpmn_id"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -31711,8 +31711,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnInterface__name",
         "bpmnInterface__implementation_ref",
@@ -31799,8 +31799,8 @@
       "is_a": "BpmnCatchEvent",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -31855,8 +31855,8 @@
       "is_a": "BpmnThrowEvent",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -31910,8 +31910,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnIoBinding__operation_ref",
         "bpmnIoBinding__input_data_ref",
@@ -32026,8 +32026,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnIoSpecification__data_inputs",
         "bpmnIoSpecification__data_outputs",
@@ -32138,8 +32138,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state"
@@ -32218,8 +32218,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemDefinition__structure_ref",
         "bpmnItemDefinition__is_collection",
@@ -32303,8 +32303,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnLane__name",
         "bpmnLane__partition_element_ref",
@@ -32437,8 +32437,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnLaneSet__name",
         "bpmnLaneSet__lanes"
@@ -32509,12 +32509,12 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnLinkEventDefinition__name",
-        "bpmnLinkEventDefinition__sources",
-        "bpmnLinkEventDefinition__target"
+        "bpmnLinkEventDefinition__bpmn_sources",
+        "bpmnLinkEventDefinition__bpmn_target"
       ],
       "slot_usage": {},
       "attributes": [
@@ -32533,7 +32533,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "sources",
+          "name": "bpmn_sources",
           "annotations": [
             {
               "tag": "xml_name",
@@ -32557,7 +32557,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "target",
+          "name": "bpmn_target",
           "annotations": [
             {
               "tag": "xml_name",
@@ -32614,8 +32614,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -32655,8 +32655,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -32694,8 +32694,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -32754,8 +32754,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnMessage__name",
         "bpmnMessage__item_ref"
@@ -32833,8 +32833,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnMessageEventDefinition__message_ref",
         "bpmnMessageEventDefinition__fluxnova_class",
@@ -33083,8 +33083,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnMessageFlow__name",
         "bpmnMessageFlow__source_ref",
@@ -33212,8 +33212,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnMessageFlowAssociation__inner_message_flow_ref",
         "bpmnMessageFlowAssociation__outer_message_flow_ref"
@@ -33303,8 +33303,8 @@
       "is_a": "BpmnFormalExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content",
         "bpmnFormalExpression__language",
@@ -33345,8 +33345,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -33384,8 +33384,8 @@
       "is_a": "BpmnLoopCharacteristics",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnMultiInstanceLoopCharacteristics__is_sequential",
         "bpmnMultiInstanceLoopCharacteristics__behavior",
@@ -33746,8 +33746,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnOperation__name",
         "bpmnOperation__implementation_ref",
@@ -33890,8 +33890,8 @@
       "is_a": "BpmnDataOutput",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state",
@@ -33933,8 +33933,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnOutputSet__name",
         "bpmnOutputSet__data_output_refs",
@@ -34088,8 +34088,8 @@
       "is_a": "BpmnGateway",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -34167,8 +34167,8 @@
       ],
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnParticipant__name",
         "bpmnParticipant__process_ref",
@@ -34311,8 +34311,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnParticipantAssociation__inner_participant_ref",
         "bpmnParticipantAssociation__outer_participant_ref"
@@ -34402,8 +34402,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnParticipantMultiplicity__minimum",
         "bpmnParticipantMultiplicity__maximum"
@@ -34473,8 +34473,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -34512,8 +34512,8 @@
       "is_a": "BpmnResourceRole",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceRole__name",
         "bpmnResourceRole__resource_ref",
@@ -34555,8 +34555,8 @@
       "is_a": "BpmnHumanPerformer",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceRole__name",
         "bpmnResourceRole__resource_ref",
@@ -34598,8 +34598,8 @@
       "is_a": "BpmnCallableElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnCallableElement__name",
         "bpmnCallableElement__supported_interface_refs",
@@ -35006,8 +35006,8 @@
       "is_a": "BpmnItemAwareElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnItemAwareElement__item_subject_ref",
         "bpmnItemAwareElement__data_state",
@@ -35063,8 +35063,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -35203,12 +35203,12 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnRelationship__type",
         "bpmnRelationship__direction",
-        "bpmnRelationship__sources",
+        "bpmnRelationship__bpmn_sources",
         "bpmnRelationship__targets"
       ],
       "slot_usage": {},
@@ -35241,7 +35241,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "sources",
+          "name": "bpmn_sources",
           "annotations": [
             {
               "tag": "xml_name",
@@ -35309,8 +35309,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -35348,8 +35348,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResource__name",
         "bpmnResource__resource_parameters"
@@ -35421,8 +35421,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceAssignmentExpression__expression"
       ],
@@ -35478,8 +35478,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceParameter__name",
         "bpmnResourceParameter__type",
@@ -35571,8 +35571,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceParameterBinding__parameter_ref",
         "bpmnResourceParameterBinding__expression"
@@ -35653,8 +35653,8 @@
       "is_a": "BpmnBaseElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnResourceRole__name",
         "bpmnResourceRole__resource_ref",
@@ -35765,8 +35765,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -35849,8 +35849,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -35986,8 +35986,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -36272,8 +36272,8 @@
       "is_a": "BpmnFlowElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -36396,8 +36396,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -36658,8 +36658,8 @@
       "is_a": "BpmnRootElement",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnSignal__name",
         "bpmnSignal__structure_ref"
@@ -36737,8 +36737,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnSignalEventDefinition__signal_ref",
         "bpmnSignalEventDefinition__fluxnova_async"
@@ -36862,8 +36862,8 @@
       "is_a": "BpmnCatchEvent",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -37097,8 +37097,8 @@
       "is_a": "BpmnConversationNode",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnConversationNode__name",
         "bpmnConversationNode__participant_refs",
@@ -37159,8 +37159,8 @@
       "is_a": "BpmnActivity",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -37346,8 +37346,8 @@
       "is_a": "BpmnActivity",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -37431,8 +37431,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements"
       ],
       "slot_usage": {},
@@ -37515,8 +37515,8 @@
       "is_a": "BpmnArtifact",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnTextAnnotation__text_format",
         "bpmnTextAnnotation__text"
@@ -37587,8 +37587,8 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -37730,8 +37730,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -37770,8 +37770,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -37810,8 +37810,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -37850,8 +37850,8 @@
       "is_a": "BpmnEventDefinition",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnTimerEventDefinition__time_date",
         "bpmnTimerEventDefinition__time_duration",
@@ -37936,8 +37936,8 @@
       "is_a": "BpmnExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content"
       ],
@@ -37976,8 +37976,8 @@
       "is_a": "BpmnSubProcess",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -38057,8 +38057,8 @@
       "is_a": "BpmnFormalExpression",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnExpression__text_content",
         "bpmnFormalExpression__language",
@@ -38099,8 +38099,8 @@
       "is_a": "BpmnTask",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "bpmnBaseElement__id",
-        "bpmnBaseElement__documentation",
+        "bpmnBaseElement__bpmn_id",
+        "bpmnBaseElement__bpmn_documentation",
         "bpmnBaseElement__extension_elements",
         "bpmnFlowElement__name",
         "bpmnFlowElement__auditing",
@@ -38447,9 +38447,9 @@
       "slots": [
         "bpmnModelElementInstance__element_type",
         "diDiagram__name",
-        "diDiagram__documentation",
+        "diDiagram__bpmn_documentation",
         "diDiagram__resolution",
-        "diDiagram__id",
+        "diDiagram__bpmn_id",
         "bpmnDiagram__bpmn_plane",
         "bpmnDiagram__bpmn_label_styles"
       ],
@@ -38521,7 +38521,7 @@
       "is_a": "DiLabeledEdge",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diEdge__waypoints",
         "bpmnEdge__bpmn_element",
@@ -38663,7 +38663,7 @@
       "is_a": "DiLabel",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diLabel__bounds",
         "bpmnLabel__label_style"
@@ -38728,7 +38728,7 @@
       "is_a": "DiStyle",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diStyle__id",
+        "diStyle__bpmn_id",
         "bpmnLabelStyle__font"
       ],
       "slot_usage": {},
@@ -38783,7 +38783,7 @@
       "is_a": "DiPlane",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diPlane__diagram_elements",
         "bpmnPlane__bpmn_element"
@@ -38848,7 +38848,7 @@
       "is_a": "DiLabeledShape",
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diShape__bounds",
         "bpmnShape__bpmn_element",
@@ -39024,9 +39024,9 @@
       "slots": [
         "bpmnModelElementInstance__element_type",
         "diDiagram__name",
-        "diDiagram__documentation",
+        "diDiagram__bpmn_documentation",
         "diDiagram__resolution",
-        "diDiagram__id"
+        "diDiagram__bpmn_id"
       ],
       "slot_usage": {},
       "attributes": [
@@ -39044,7 +39044,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "documentation",
+          "name": "bpmn_documentation",
           "annotations": [
             {
               "tag": "xml_name",
@@ -39070,7 +39070,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -39123,13 +39123,13 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",
@@ -39196,7 +39196,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diEdge__waypoints"
       ],
@@ -39292,7 +39292,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diLabel__bounds"
       ],
@@ -39348,7 +39348,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diEdge__waypoints"
       ],
@@ -39388,7 +39388,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diShape__bounds"
       ],
@@ -39428,7 +39428,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension"
       ],
       "slot_usage": {},
@@ -39467,7 +39467,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diPlane__diagram_elements"
       ],
@@ -39525,7 +39525,7 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diDiagramElement__id",
+        "diDiagramElement__bpmn_id",
         "diDiagramElement__extension",
         "diShape__bounds"
       ],
@@ -39582,12 +39582,12 @@
       "abstract": true,
       "slots": [
         "bpmnModelElementInstance__element_type",
-        "diStyle__id"
+        "diStyle__bpmn_id"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "id",
+          "name": "bpmn_id",
           "annotations": [
             {
               "tag": "xml_name",

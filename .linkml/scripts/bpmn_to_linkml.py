@@ -136,6 +136,26 @@ EXTENSION_TEXT = {
 # xml_name keeps the element's name.
 CHILD_RENAMES = {"from": "from_expression", "to": "to_expression"}
 
+# Slot names LOKF 0.9.0 defines with another meaning. A BPMN slot of one of these
+# names takes the prefix bpmn_, so that the knowledge bundle's adapt copy, which
+# sits beside lokf.yaml, keeps each key's one meaning; tests/test_schema_rules.py
+# fails on a new one. The annotation xml_name keeps the XML name.
+LOKF_NAMES = {
+    "constraints",
+    "definition",
+    "documentation",
+    "fields",
+    "id",
+    "resource",
+    "sources",
+    "target",
+}
+
+
+def apart_from_lokf(name: str) -> str:
+    return f"bpmn_{name}" if name in LOKF_NAMES else name
+
+
 ATTRIBUTE_RANGES = {
     "string": "string",
     "boolean": "boolean",
@@ -575,6 +595,7 @@ class Converter:
         elif attribute.namespace == "XSI_NS":
             name = f"xsi_{name}"
         slot: dict = {"description": self.slot_description(owner, name)}
+        name = apart_from_lokf(name)
         if attribute.enum:
             slot["range"] = self.enum_name(attribute.enum)
         elif attribute.reference:
@@ -612,6 +633,7 @@ class Converter:
         if child.collection:
             name = plural(name)
         slot: dict = {"description": self.slot_description(owner, name)}
+        name = apart_from_lokf(name)
         if child.reference:
             slot["range"] = "string"
         else:

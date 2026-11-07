@@ -16,8 +16,8 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public abstract class BpmnBaseElement extends BpmnModelElementInstance {
 
-  private String id;
-  private List<BpmnDocumentation> documentation;
+  private String bpmnId;
+  private List<BpmnDocumentation> bpmnDocumentation;
   private BpmnExtensionElements extensionElements;
 
 

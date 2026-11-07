@@ -4020,11 +4020,11 @@ class BpmnInteractionNode(YAMLRoot):
     class_name: ClassVar[str] = "BpmnInteractionNode"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnInteractionNode
 
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         super().__post_init__(**kwargs)
 
@@ -4209,7 +4209,7 @@ class FluxnovaExecutionListener(BpmnModelElementInstance):
     fluxnova_class: Optional[str] = None
     fluxnova_expression: Optional[str] = None
     fluxnova_delegate_expression: Optional[str] = None
-    fields: Optional[Union[Union[dict, "FluxnovaField"], list[Union[dict, "FluxnovaField"]]]] = empty_list()
+    bpmn_fields: Optional[Union[Union[dict, "FluxnovaField"], list[Union[dict, "FluxnovaField"]]]] = empty_list()
     script: Optional[Union[dict, "FluxnovaScript"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -4225,9 +4225,9 @@ class FluxnovaExecutionListener(BpmnModelElementInstance):
         if self.fluxnova_delegate_expression is not None and not isinstance(self.fluxnova_delegate_expression, str):
             self.fluxnova_delegate_expression = str(self.fluxnova_delegate_expression)
 
-        if not isinstance(self.fields, list):
-            self.fields = [self.fields] if self.fields is not None else []
-        self.fields = [v if isinstance(v, FluxnovaField) else FluxnovaField(**as_dict(v)) for v in self.fields]
+        if not isinstance(self.bpmn_fields, list):
+            self.bpmn_fields = [self.bpmn_fields] if self.bpmn_fields is not None else []
+        self.bpmn_fields = [v if isinstance(v, FluxnovaField) else FluxnovaField(**as_dict(v)) for v in self.bpmn_fields]
 
         if self.script is not None and not isinstance(self.script, FluxnovaScript):
             self.script = FluxnovaScript(**as_dict(self.script))
@@ -4766,7 +4766,7 @@ class FluxnovaScript(BpmnModelElementInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaScript
 
     script_format: str = None
-    resource: Optional[str] = None
+    bpmn_resource: Optional[str] = None
     text_content: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -4775,8 +4775,8 @@ class FluxnovaScript(BpmnModelElementInstance):
         if not isinstance(self.script_format, str):
             self.script_format = str(self.script_format)
 
-        if self.resource is not None and not isinstance(self.resource, str):
-            self.resource = str(self.resource)
+        if self.bpmn_resource is not None and not isinstance(self.bpmn_resource, str):
+            self.bpmn_resource = str(self.bpmn_resource)
 
         if self.text_content is not None and not isinstance(self.text_content, str):
             self.text_content = str(self.text_content)
@@ -4823,7 +4823,7 @@ class FluxnovaTaskListener(BpmnModelElementInstance):
     fluxnova_class: Optional[str] = None
     fluxnova_expression: Optional[str] = None
     fluxnova_delegate_expression: Optional[str] = None
-    fields: Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]] = empty_list()
+    bpmn_fields: Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]] = empty_list()
     script: Optional[Union[dict, FluxnovaScript]] = None
     timer_event_definition: Optional[Union[dict, "BpmnTimerEventDefinition"]] = None
 
@@ -4840,9 +4840,9 @@ class FluxnovaTaskListener(BpmnModelElementInstance):
         if self.fluxnova_delegate_expression is not None and not isinstance(self.fluxnova_delegate_expression, str):
             self.fluxnova_delegate_expression = str(self.fluxnova_delegate_expression)
 
-        if not isinstance(self.fields, list):
-            self.fields = [self.fields] if self.fields is not None else []
-        self.fields = [v if isinstance(v, FluxnovaField) else FluxnovaField(**as_dict(v)) for v in self.fields]
+        if not isinstance(self.bpmn_fields, list):
+            self.bpmn_fields = [self.bpmn_fields] if self.bpmn_fields is not None else []
+        self.bpmn_fields = [v if isinstance(v, FluxnovaField) else FluxnovaField(**as_dict(v)) for v in self.bpmn_fields]
 
         if self.script is not None and not isinstance(self.script, FluxnovaScript):
             self.script = FluxnovaScript(**as_dict(self.script))
@@ -4866,12 +4866,12 @@ class FluxnovaValidation(BpmnModelElementInstance):
     class_name: ClassVar[str] = "FluxnovaValidation"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaValidation
 
-    constraints: Optional[Union[Union[dict, FluxnovaConstraint], list[Union[dict, FluxnovaConstraint]]]] = empty_list()
+    bpmn_constraints: Optional[Union[Union[dict, FluxnovaConstraint], list[Union[dict, FluxnovaConstraint]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.constraints, list):
-            self.constraints = [self.constraints] if self.constraints is not None else []
-        self.constraints = [v if isinstance(v, FluxnovaConstraint) else FluxnovaConstraint(**as_dict(v)) for v in self.constraints]
+        if not isinstance(self.bpmn_constraints, list):
+            self.bpmn_constraints = [self.bpmn_constraints] if self.bpmn_constraints is not None else []
+        self.bpmn_constraints = [v if isinstance(v, FluxnovaConstraint) else FluxnovaConstraint(**as_dict(v)) for v in self.bpmn_constraints]
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -4919,17 +4919,17 @@ class BpmnBaseElement(BpmnModelElementInstance):
     class_name: ClassVar[str] = "BpmnBaseElement"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnBaseElement
 
-    id: Optional[str] = None
-    documentation: Optional[Union[Union[dict, "BpmnDocumentation"], list[Union[dict, "BpmnDocumentation"]]]] = empty_list()
+    bpmn_id: Optional[str] = None
+    bpmn_documentation: Optional[Union[Union[dict, "BpmnDocumentation"], list[Union[dict, "BpmnDocumentation"]]]] = empty_list()
     extension_elements: Optional[Union[dict, "BpmnExtensionElements"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
-        if not isinstance(self.documentation, list):
-            self.documentation = [self.documentation] if self.documentation is not None else []
-        self.documentation = [v if isinstance(v, BpmnDocumentation) else BpmnDocumentation(**as_dict(v)) for v in self.documentation]
+        if not isinstance(self.bpmn_documentation, list):
+            self.bpmn_documentation = [self.bpmn_documentation] if self.bpmn_documentation is not None else []
+        self.bpmn_documentation = [v if isinstance(v, BpmnDocumentation) else BpmnDocumentation(**as_dict(v)) for v in self.bpmn_documentation]
 
         if self.extension_elements is not None and not isinstance(self.extension_elements, BpmnExtensionElements):
             self.extension_elements = BpmnExtensionElements(**as_dict(self.extension_elements))
@@ -5449,7 +5449,7 @@ class BpmnDefinitions(BpmnModelElementInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnDefinitions
 
     target_namespace: str = None
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
     name: Optional[str] = None
     expression_language: Optional[str] = "http://www.w3.org/1999/XPath"
     type_language: Optional[str] = "http://www.w3.org/2001/XMLSchema"
@@ -5467,8 +5467,8 @@ class BpmnDefinitions(BpmnModelElementInstance):
         if not isinstance(self.target_namespace, str):
             self.target_namespace = str(self.target_namespace)
 
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         if self.name is not None and not isinstance(self.name, str):
             self.name = str(self.name)
@@ -5517,13 +5517,13 @@ class BpmnDocumentation(BpmnModelElementInstance):
     class_name: ClassVar[str] = "BpmnDocumentation"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnDocumentation
 
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
     text_format: Optional[str] = "text/plain"
     text_content: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         if self.text_format is not None and not isinstance(self.text_format, str):
             self.text_format = str(self.text_format)
@@ -5623,20 +5623,20 @@ class BpmnExtension(BpmnModelElementInstance):
     class_name: ClassVar[str] = "BpmnExtension"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnExtension
 
-    definition: Optional[str] = None
+    bpmn_definition: Optional[str] = None
     must_understand: Optional[Union[bool, Bool]] = False
-    documentation: Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]] = empty_list()
+    bpmn_documentation: Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.definition is not None and not isinstance(self.definition, str):
-            self.definition = str(self.definition)
+        if self.bpmn_definition is not None and not isinstance(self.bpmn_definition, str):
+            self.bpmn_definition = str(self.bpmn_definition)
 
         if self.must_understand is not None and not isinstance(self.must_understand, Bool):
             self.must_understand = Bool(self.must_understand)
 
-        if not isinstance(self.documentation, list):
-            self.documentation = [self.documentation] if self.documentation is not None else []
-        self.documentation = [v if isinstance(v, BpmnDocumentation) else BpmnDocumentation(**as_dict(v)) for v in self.documentation]
+        if not isinstance(self.bpmn_documentation, list):
+            self.bpmn_documentation = [self.bpmn_documentation] if self.bpmn_documentation is not None else []
+        self.bpmn_documentation = [v if isinstance(v, BpmnDocumentation) else BpmnDocumentation(**as_dict(v)) for v in self.bpmn_documentation]
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -7127,7 +7127,7 @@ class BpmnRelationship(BpmnBaseElement):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnRelationship
 
     type: str = None
-    sources: Union[Union[dict, "BpmnSource"], list[Union[dict, "BpmnSource"]]] = None
+    bpmn_sources: Union[Union[dict, "BpmnSource"], list[Union[dict, "BpmnSource"]]] = None
     targets: Union[Union[dict, "BpmnTarget"], list[Union[dict, "BpmnTarget"]]] = None
     direction: Optional[Union[str, "BpmnRelationshipDirection"]] = None
 
@@ -7137,11 +7137,11 @@ class BpmnRelationship(BpmnBaseElement):
         if not isinstance(self.type, str):
             self.type = str(self.type)
 
-        if self._is_empty(self.sources):
-            self.MissingRequiredField("sources")
-        if not isinstance(self.sources, list):
-            self.sources = [self.sources] if self.sources is not None else []
-        self.sources = [v if isinstance(v, BpmnSource) else BpmnSource(**as_dict(v)) for v in self.sources]
+        if self._is_empty(self.bpmn_sources):
+            self.MissingRequiredField("bpmn_sources")
+        if not isinstance(self.bpmn_sources, list):
+            self.bpmn_sources = [self.bpmn_sources] if self.bpmn_sources is not None else []
+        self.bpmn_sources = [v if isinstance(v, BpmnSource) else BpmnSource(**as_dict(v)) for v in self.bpmn_sources]
 
         if self._is_empty(self.targets):
             self.MissingRequiredField("targets")
@@ -7878,8 +7878,8 @@ class BpmnLinkEventDefinition(BpmnEventDefinition):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnLinkEventDefinition
 
     name: str = None
-    sources: Optional[Union[str, list[str]]] = empty_list()
-    target: Optional[str] = None
+    bpmn_sources: Optional[Union[str, list[str]]] = empty_list()
+    bpmn_target: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.name):
@@ -7887,12 +7887,12 @@ class BpmnLinkEventDefinition(BpmnEventDefinition):
         if not isinstance(self.name, str):
             self.name = str(self.name)
 
-        if not isinstance(self.sources, list):
-            self.sources = [self.sources] if self.sources is not None else []
-        self.sources = [v if isinstance(v, str) else str(v) for v in self.sources]
+        if not isinstance(self.bpmn_sources, list):
+            self.bpmn_sources = [self.bpmn_sources] if self.bpmn_sources is not None else []
+        self.bpmn_sources = [v if isinstance(v, str) else str(v) for v in self.bpmn_sources]
 
-        if self.target is not None and not isinstance(self.target, str):
-            self.target = str(self.target)
+        if self.bpmn_target is not None and not isinstance(self.bpmn_target, str):
+            self.bpmn_target = str(self.bpmn_target)
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -9060,22 +9060,22 @@ class DiDiagram(BpmnModelElementInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.DiDiagram
 
     name: Optional[str] = None
-    documentation: Optional[str] = None
+    bpmn_documentation: Optional[str] = None
     resolution: Optional[float] = None
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self.name is not None and not isinstance(self.name, str):
             self.name = str(self.name)
 
-        if self.documentation is not None and not isinstance(self.documentation, str):
-            self.documentation = str(self.documentation)
+        if self.bpmn_documentation is not None and not isinstance(self.bpmn_documentation, str):
+            self.bpmn_documentation = str(self.bpmn_documentation)
 
         if self.resolution is not None and not isinstance(self.resolution, float):
             self.resolution = float(self.resolution)
 
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -9122,12 +9122,12 @@ class DiDiagramElement(BpmnModelElementInstance):
     class_name: ClassVar[str] = "DiDiagramElement"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.DiDiagramElement
 
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
     extension: Optional[Union[dict, "DiExtension"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         if self.extension is not None and not isinstance(self.extension, DiExtension):
             self.extension = DiExtension(**as_dict(self.extension))
@@ -9450,11 +9450,11 @@ class DiStyle(BpmnModelElementInstance):
     class_name: ClassVar[str] = "DiStyle"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.DiStyle
 
-    id: Optional[str] = None
+    bpmn_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self.id is not None and not isinstance(self.id, str):
-            self.id = str(self.id)
+        if self.bpmn_id is not None and not isinstance(self.bpmn_id, str):
+            self.bpmn_id = str(self.bpmn_id)
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -10580,8 +10580,8 @@ slots.fluxnovaExecutionListener__fluxnova_expression = Slot(uri=FLUXNOVA_BPM_PLA
 slots.fluxnovaExecutionListener__fluxnova_delegate_expression = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_delegate_expression, name="fluxnovaExecutionListener__fluxnova_delegate_expression", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_delegate_expression'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaExecutionListener__fluxnova_delegate_expression, domain=None, range=Optional[str])
 
-slots.fluxnovaExecutionListener__fields = Slot(uri=FLUXNOVA_BPM_PLATFORM.fields, name="fluxnovaExecutionListener__fields", curie=FLUXNOVA_BPM_PLATFORM.curie('fields'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaExecutionListener__fields, domain=None, range=Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]])
+slots.fluxnovaExecutionListener__bpmn_fields = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_fields, name="fluxnovaExecutionListener__bpmn_fields", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_fields'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaExecutionListener__bpmn_fields, domain=None, range=Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]])
 
 slots.fluxnovaExecutionListener__script = Slot(uri=FLUXNOVA_BPM_PLATFORM.script, name="fluxnovaExecutionListener__script", curie=FLUXNOVA_BPM_PLATFORM.curie('script'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaExecutionListener__script, domain=None, range=Optional[Union[dict, FluxnovaScript]])
@@ -10757,8 +10757,8 @@ slots.fluxnovaProperty__fluxnova_value = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova
 slots.fluxnovaScript__script_format = Slot(uri=FLUXNOVA_BPM_PLATFORM.script_format, name="fluxnovaScript__script_format", curie=FLUXNOVA_BPM_PLATFORM.curie('script_format'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaScript__script_format, domain=None, range=str)
 
-slots.fluxnovaScript__resource = Slot(uri=FLUXNOVA_BPM_PLATFORM.resource, name="fluxnovaScript__resource", curie=FLUXNOVA_BPM_PLATFORM.curie('resource'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaScript__resource, domain=None, range=Optional[str])
+slots.fluxnovaScript__bpmn_resource = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_resource, name="fluxnovaScript__bpmn_resource", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_resource'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaScript__bpmn_resource, domain=None, range=Optional[str])
 
 slots.fluxnovaScript__text_content = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_content, name="fluxnovaScript__text_content", curie=FLUXNOVA_BPM_PLATFORM.curie('text_content'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaScript__text_content, domain=None, range=Optional[str])
@@ -10778,8 +10778,8 @@ slots.fluxnovaTaskListener__fluxnova_expression = Slot(uri=FLUXNOVA_BPM_PLATFORM
 slots.fluxnovaTaskListener__fluxnova_delegate_expression = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_delegate_expression, name="fluxnovaTaskListener__fluxnova_delegate_expression", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_delegate_expression'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaTaskListener__fluxnova_delegate_expression, domain=None, range=Optional[str])
 
-slots.fluxnovaTaskListener__fields = Slot(uri=FLUXNOVA_BPM_PLATFORM.fields, name="fluxnovaTaskListener__fields", curie=FLUXNOVA_BPM_PLATFORM.curie('fields'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaTaskListener__fields, domain=None, range=Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]])
+slots.fluxnovaTaskListener__bpmn_fields = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_fields, name="fluxnovaTaskListener__bpmn_fields", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_fields'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaTaskListener__bpmn_fields, domain=None, range=Optional[Union[Union[dict, FluxnovaField], list[Union[dict, FluxnovaField]]]])
 
 slots.fluxnovaTaskListener__script = Slot(uri=FLUXNOVA_BPM_PLATFORM.script, name="fluxnovaTaskListener__script", curie=FLUXNOVA_BPM_PLATFORM.curie('script'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaTaskListener__script, domain=None, range=Optional[Union[dict, FluxnovaScript]])
@@ -10787,8 +10787,8 @@ slots.fluxnovaTaskListener__script = Slot(uri=FLUXNOVA_BPM_PLATFORM.script, name
 slots.fluxnovaTaskListener__timer_event_definition = Slot(uri=FLUXNOVA_BPM_PLATFORM.timer_event_definition, name="fluxnovaTaskListener__timer_event_definition", curie=FLUXNOVA_BPM_PLATFORM.curie('timer_event_definition'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaTaskListener__timer_event_definition, domain=None, range=Optional[Union[dict, BpmnTimerEventDefinition]])
 
-slots.fluxnovaValidation__constraints = Slot(uri=FLUXNOVA_BPM_PLATFORM.constraints, name="fluxnovaValidation__constraints", curie=FLUXNOVA_BPM_PLATFORM.curie('constraints'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaValidation__constraints, domain=None, range=Optional[Union[Union[dict, FluxnovaConstraint], list[Union[dict, FluxnovaConstraint]]]])
+slots.fluxnovaValidation__bpmn_constraints = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_constraints, name="fluxnovaValidation__bpmn_constraints", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_constraints'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaValidation__bpmn_constraints, domain=None, range=Optional[Union[Union[dict, FluxnovaConstraint], list[Union[dict, FluxnovaConstraint]]]])
 
 slots.fluxnovaValue__fluxnova_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_id, name="fluxnovaValue__fluxnova_id", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaValue__fluxnova_id, domain=None, range=Optional[str])
@@ -10853,11 +10853,11 @@ slots.bpmnAssociation__target_ref = Slot(uri=FLUXNOVA_BPM_PLATFORM.target_ref, n
 slots.bpmnAssociation__association_direction = Slot(uri=FLUXNOVA_BPM_PLATFORM.association_direction, name="bpmnAssociation__association_direction", curie=FLUXNOVA_BPM_PLATFORM.curie('association_direction'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssociation__association_direction, domain=None, range=Optional[Union[str, "BpmnAssociationDirection"]])
 
-slots.bpmnBaseElement__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="bpmnBaseElement__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnBaseElement__id, domain=None, range=Optional[str])
+slots.bpmnBaseElement__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="bpmnBaseElement__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnBaseElement__bpmn_id, domain=None, range=Optional[str])
 
-slots.bpmnBaseElement__documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.documentation, name="bpmnBaseElement__documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('documentation'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnBaseElement__documentation, domain=None, range=Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]])
+slots.bpmnBaseElement__bpmn_documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_documentation, name="bpmnBaseElement__bpmn_documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_documentation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnBaseElement__bpmn_documentation, domain=None, range=Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]])
 
 slots.bpmnBaseElement__extension_elements = Slot(uri=FLUXNOVA_BPM_PLATFORM.extension_elements, name="bpmnBaseElement__extension_elements", curie=FLUXNOVA_BPM_PLATFORM.curie('extension_elements'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnBaseElement__extension_elements, domain=None, range=Optional[Union[dict, BpmnExtensionElements]])
@@ -11180,8 +11180,8 @@ slots.bpmnDataStoreReference__data_store_ref = Slot(uri=FLUXNOVA_BPM_PLATFORM.da
 slots.bpmnDataStoreReference__data_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.data_state, name="bpmnDataStoreReference__data_state", curie=FLUXNOVA_BPM_PLATFORM.curie('data_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDataStoreReference__data_state, domain=None, range=Optional[Union[dict, BpmnDataState]])
 
-slots.bpmnDefinitions__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="bpmnDefinitions__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDefinitions__id, domain=None, range=Optional[str])
+slots.bpmnDefinitions__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="bpmnDefinitions__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDefinitions__bpmn_id, domain=None, range=Optional[str])
 
 slots.bpmnDefinitions__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnDefinitions__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDefinitions__name, domain=None, range=Optional[str])
@@ -11216,8 +11216,8 @@ slots.bpmnDefinitions__bpmn_diagrams = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_diagr
 slots.bpmnDefinitions__relationships = Slot(uri=FLUXNOVA_BPM_PLATFORM.relationships, name="bpmnDefinitions__relationships", curie=FLUXNOVA_BPM_PLATFORM.curie('relationships'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDefinitions__relationships, domain=None, range=Optional[Union[Union[dict, BpmnRelationship], list[Union[dict, BpmnRelationship]]]])
 
-slots.bpmnDocumentation__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="bpmnDocumentation__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDocumentation__id, domain=None, range=Optional[str])
+slots.bpmnDocumentation__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="bpmnDocumentation__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDocumentation__bpmn_id, domain=None, range=Optional[str])
 
 slots.bpmnDocumentation__text_format = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_format, name="bpmnDocumentation__text_format", curie=FLUXNOVA_BPM_PLATFORM.curie('text_format'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnDocumentation__text_format, domain=None, range=Optional[str])
@@ -11273,14 +11273,14 @@ slots.bpmnExclusiveGateway__default = Slot(uri=FLUXNOVA_BPM_PLATFORM.default, na
 slots.bpmnExpression__text_content = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_content, name="bpmnExpression__text_content", curie=FLUXNOVA_BPM_PLATFORM.curie('text_content'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExpression__text_content, domain=None, range=Optional[str])
 
-slots.bpmnExtension__definition = Slot(uri=FLUXNOVA_BPM_PLATFORM.definition, name="bpmnExtension__definition", curie=FLUXNOVA_BPM_PLATFORM.curie('definition'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__definition, domain=None, range=Optional[str])
+slots.bpmnExtension__bpmn_definition = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_definition, name="bpmnExtension__bpmn_definition", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_definition'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__bpmn_definition, domain=None, range=Optional[str])
 
 slots.bpmnExtension__must_understand = Slot(uri=FLUXNOVA_BPM_PLATFORM.must_understand, name="bpmnExtension__must_understand", curie=FLUXNOVA_BPM_PLATFORM.curie('must_understand'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__must_understand, domain=None, range=Optional[Union[bool, Bool]])
 
-slots.bpmnExtension__documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.documentation, name="bpmnExtension__documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('documentation'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__documentation, domain=None, range=Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]])
+slots.bpmnExtension__bpmn_documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_documentation, name="bpmnExtension__bpmn_documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_documentation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__bpmn_documentation, domain=None, range=Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]])
 
 slots.bpmnFlowElement__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnFlowElement__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnFlowElement__name, domain=None, range=Optional[str])
@@ -11351,8 +11351,8 @@ slots.bpmnInputSet__while_executing_input_refs = Slot(uri=FLUXNOVA_BPM_PLATFORM.
 slots.bpmnInputSet__output_set_refs = Slot(uri=FLUXNOVA_BPM_PLATFORM.output_set_refs, name="bpmnInputSet__output_set_refs", curie=FLUXNOVA_BPM_PLATFORM.curie('output_set_refs'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnInputSet__output_set_refs, domain=None, range=Optional[Union[str, list[str]]])
 
-slots.bpmnInteractionNode__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="bpmnInteractionNode__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnInteractionNode__id, domain=None, range=Optional[str])
+slots.bpmnInteractionNode__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="bpmnInteractionNode__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnInteractionNode__bpmn_id, domain=None, range=Optional[str])
 
 slots.bpmnInterface__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnInterface__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnInterface__name, domain=None, range=str)
@@ -11423,11 +11423,11 @@ slots.bpmnLaneSet__lanes = Slot(uri=FLUXNOVA_BPM_PLATFORM.lanes, name="bpmnLaneS
 slots.bpmnLinkEventDefinition__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnLinkEventDefinition__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnLinkEventDefinition__name, domain=None, range=str)
 
-slots.bpmnLinkEventDefinition__sources = Slot(uri=FLUXNOVA_BPM_PLATFORM.sources, name="bpmnLinkEventDefinition__sources", curie=FLUXNOVA_BPM_PLATFORM.curie('sources'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnLinkEventDefinition__sources, domain=None, range=Optional[Union[str, list[str]]])
+slots.bpmnLinkEventDefinition__bpmn_sources = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_sources, name="bpmnLinkEventDefinition__bpmn_sources", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_sources'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnLinkEventDefinition__bpmn_sources, domain=None, range=Optional[Union[str, list[str]]])
 
-slots.bpmnLinkEventDefinition__target = Slot(uri=FLUXNOVA_BPM_PLATFORM.target, name="bpmnLinkEventDefinition__target", curie=FLUXNOVA_BPM_PLATFORM.curie('target'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnLinkEventDefinition__target, domain=None, range=Optional[str])
+slots.bpmnLinkEventDefinition__bpmn_target = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_target, name="bpmnLinkEventDefinition__bpmn_target", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_target'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnLinkEventDefinition__bpmn_target, domain=None, range=Optional[str])
 
 slots.bpmnMessage__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnMessage__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnMessage__name, domain=None, range=Optional[str])
@@ -11666,8 +11666,8 @@ slots.bpmnRelationship__type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="bpmnRe
 slots.bpmnRelationship__direction = Slot(uri=FLUXNOVA_BPM_PLATFORM.direction, name="bpmnRelationship__direction", curie=FLUXNOVA_BPM_PLATFORM.curie('direction'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnRelationship__direction, domain=None, range=Optional[Union[str, "BpmnRelationshipDirection"]])
 
-slots.bpmnRelationship__sources = Slot(uri=FLUXNOVA_BPM_PLATFORM.sources, name="bpmnRelationship__sources", curie=FLUXNOVA_BPM_PLATFORM.curie('sources'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnRelationship__sources, domain=None, range=Union[Union[dict, BpmnSource], list[Union[dict, BpmnSource]]])
+slots.bpmnRelationship__bpmn_sources = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_sources, name="bpmnRelationship__bpmn_sources", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_sources'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnRelationship__bpmn_sources, domain=None, range=Union[Union[dict, BpmnSource], list[Union[dict, BpmnSource]]])
 
 slots.bpmnRelationship__targets = Slot(uri=FLUXNOVA_BPM_PLATFORM.targets, name="bpmnRelationship__targets", curie=FLUXNOVA_BPM_PLATFORM.curie('targets'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnRelationship__targets, domain=None, range=Union[Union[dict, BpmnTarget], list[Union[dict, BpmnTarget]]])
@@ -11981,17 +11981,17 @@ slots.bpmnShape__bpmn_label = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_label, name="b
 slots.diDiagram__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="diDiagram__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__name, domain=None, range=Optional[str])
 
-slots.diDiagram__documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.documentation, name="diDiagram__documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('documentation'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__documentation, domain=None, range=Optional[str])
+slots.diDiagram__bpmn_documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_documentation, name="diDiagram__bpmn_documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_documentation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__bpmn_documentation, domain=None, range=Optional[str])
 
 slots.diDiagram__resolution = Slot(uri=FLUXNOVA_BPM_PLATFORM.resolution, name="diDiagram__resolution", curie=FLUXNOVA_BPM_PLATFORM.curie('resolution'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__resolution, domain=None, range=Optional[float])
 
-slots.diDiagram__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="diDiagram__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__id, domain=None, range=Optional[str])
+slots.diDiagram__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="diDiagram__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagram__bpmn_id, domain=None, range=Optional[str])
 
-slots.diDiagramElement__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="diDiagramElement__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagramElement__id, domain=None, range=Optional[str])
+slots.diDiagramElement__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="diDiagramElement__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.diDiagramElement__bpmn_id, domain=None, range=Optional[str])
 
 slots.diDiagramElement__extension = Slot(uri=FLUXNOVA_BPM_PLATFORM.extension, name="diDiagramElement__extension", curie=FLUXNOVA_BPM_PLATFORM.curie('extension'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.diDiagramElement__extension, domain=None, range=Optional[Union[dict, DiExtension]])
@@ -12008,8 +12008,8 @@ slots.diPlane__diagram_elements = Slot(uri=FLUXNOVA_BPM_PLATFORM.diagram_element
 slots.diShape__bounds = Slot(uri=FLUXNOVA_BPM_PLATFORM.bounds, name="diShape__bounds", curie=FLUXNOVA_BPM_PLATFORM.curie('bounds'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.diShape__bounds, domain=None, range=Union[dict, DcBounds])
 
-slots.diStyle__id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="diStyle__id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.diStyle__id, domain=None, range=Optional[str])
+slots.diStyle__bpmn_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_id, name="diStyle__bpmn_id", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.diStyle__bpmn_id, domain=None, range=Optional[str])
 
 slots.dcBounds__x = Slot(uri=FLUXNOVA_BPM_PLATFORM.x, name="dcBounds__x", curie=FLUXNOVA_BPM_PLATFORM.curie('x'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.dcBounds__x, domain=None, range=float)

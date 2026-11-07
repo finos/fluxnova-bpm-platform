@@ -2530,7 +2530,7 @@ classes:
         range: string
         annotations:
           xml_name: name
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: string
         annotations:
@@ -2540,7 +2540,7 @@ classes:
         range: double
         annotations:
           xml_name: resolution
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -2559,7 +2559,7 @@ classes:
     in_subset:
     - bpmn_di
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -2714,7 +2714,7 @@ classes:
     in_subset:
     - bpmn_di
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -3140,13 +3140,13 @@ classes:
     in_subset:
     - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
           xml_name: id
           xml_id: 'true'
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: BpmnDocumentation
         inlined: true
@@ -4417,7 +4417,7 @@ classes:
     in_subset:
     - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The document's id.
         range: string
         annotations:
@@ -4509,7 +4509,7 @@ classes:
     in_subset:
     - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -4775,7 +4775,7 @@ classes:
     in_subset:
     - bpmn_semantic
     attributes:
-      definition:
+      bpmn_definition:
         description: The QName of the extension's definition.
         range: string
         annotations:
@@ -4786,7 +4786,7 @@ classes:
         ifabsent: 'false'
         annotations:
           xml_name: mustUnderstand
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: BpmnDocumentation
         inlined: true
@@ -5127,7 +5127,7 @@ classes:
     in_subset:
     - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -5411,7 +5411,7 @@ classes:
         required: true
         annotations:
           xml_name: name
-      sources:
+      bpmn_sources:
         description: The QNames of the throwing link events that jump to this one.
         range: string
         multivalued: true
@@ -5419,7 +5419,7 @@ classes:
           xml_name: source
           refers_to: BpmnLinkEventDefinition
           reference_kind: qname
-      target:
+      bpmn_target:
         description: The QName of the catching link event this one jumps to.
         range: string
         annotations:
@@ -6296,7 +6296,7 @@ classes:
         range: BpmnRelationshipDirection
         annotations:
           xml_name: direction
-      sources:
+      bpmn_sources:
         description: The QNames of the elements the relationship starts from.
         range: BpmnSource
         inlined: true
@@ -7511,7 +7511,7 @@ classes:
         annotations:
           xml_name: delegateExpression
           xml_namespace: http://camunda.org/schema/1.0/bpmn
-      fields:
+      bpmn_fields:
         description: The fields injected into the listener's delegate class.
         range: FluxnovaField
         inlined: true
@@ -8225,7 +8225,7 @@ classes:
         required: true
         annotations:
           xml_name: scriptFormat
-      resource:
+      bpmn_resource:
         description: A resource that holds the script, instead of the script's text.
         range: string
         annotations:
@@ -8298,7 +8298,7 @@ classes:
         annotations:
           xml_name: delegateExpression
           xml_namespace: http://camunda.org/schema/1.0/bpmn
-      fields:
+      bpmn_fields:
         description: The fields injected into the listener's delegate class.
         range: FluxnovaField
         inlined: true
@@ -8333,7 +8333,7 @@ classes:
     in_subset:
     - bpmn_extension
     attributes:
-      constraints:
+      bpmn_constraints:
         description: The constraints the value must meet.
         range: FluxnovaConstraint
         inlined: true

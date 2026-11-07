@@ -4034,8 +4034,8 @@ slots:
     domain_of:
     - FluxnovaExecutionListener
     range: string
-  fluxnovaExecutionListener__fields:
-    name: fluxnovaExecutionListener__fields
+  fluxnovaExecutionListener__bpmn_fields:
+    name: fluxnovaExecutionListener__bpmn_fields
     annotations:
       xml_name:
         tag: xml_name
@@ -4045,8 +4045,8 @@ slots:
         value: http://camunda.org/schema/1.0/bpmn
     description: The fields injected into the listener's delegate class.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
-    slot_uri: fluxnova_bpm_platform:fields
-    alias: fields
+    slot_uri: fluxnova_bpm_platform:bpmn_fields
+    alias: bpmn_fields
     owner: FluxnovaExecutionListener
     domain_of:
     - FluxnovaExecutionListener
@@ -5168,16 +5168,16 @@ slots:
     - FluxnovaScript
     range: string
     required: true
-  fluxnovaScript__resource:
-    name: fluxnovaScript__resource
+  fluxnovaScript__bpmn_resource:
+    name: fluxnovaScript__bpmn_resource
     annotations:
       xml_name:
         tag: xml_name
         value: resource
     description: A resource that holds the script, instead of the script's text.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
-    slot_uri: fluxnova_bpm_platform:resource
-    alias: resource
+    slot_uri: fluxnova_bpm_platform:bpmn_resource
+    alias: bpmn_resource
     owner: FluxnovaScript
     domain_of:
     - FluxnovaScript
@@ -5283,8 +5283,8 @@ slots:
     domain_of:
     - FluxnovaTaskListener
     range: string
-  fluxnovaTaskListener__fields:
-    name: fluxnovaTaskListener__fields
+  fluxnovaTaskListener__bpmn_fields:
+    name: fluxnovaTaskListener__bpmn_fields
     annotations:
       xml_name:
         tag: xml_name
@@ -5294,8 +5294,8 @@ slots:
         value: http://camunda.org/schema/1.0/bpmn
     description: The fields injected into the listener's delegate class.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
-    slot_uri: fluxnova_bpm_platform:fields
-    alias: fields
+    slot_uri: fluxnova_bpm_platform:bpmn_fields
+    alias: bpmn_fields
     owner: FluxnovaTaskListener
     domain_of:
     - FluxnovaTaskListener
@@ -5338,8 +5338,8 @@ slots:
     range: BpmnTimerEventDefinition
     inlined: true
     inlined_as_list: true
-  fluxnovaValidation__constraints:
-    name: fluxnovaValidation__constraints
+  fluxnovaValidation__bpmn_constraints:
+    name: fluxnovaValidation__bpmn_constraints
     annotations:
       xml_name:
         tag: xml_name
@@ -5349,8 +5349,8 @@ slots:
         value: http://camunda.org/schema/1.0/bpmn
     description: The constraints the value must meet.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
-    slot_uri: fluxnova_bpm_platform:constraints
-    alias: constraints
+    slot_uri: fluxnova_bpm_platform:bpmn_constraints
+    alias: bpmn_constraints
     owner: FluxnovaValidation
     domain_of:
     - FluxnovaValidation
@@ -5712,8 +5712,8 @@ slots:
     domain_of:
     - BpmnAssociation
     range: BpmnAssociationDirection
-  bpmnBaseElement__id:
-    name: bpmnBaseElement__id
+  bpmnBaseElement__bpmn_id:
+    name: bpmnBaseElement__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -5723,22 +5723,22 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: BpmnBaseElement
     domain_of:
     - BpmnBaseElement
     range: string
-  bpmnBaseElement__documentation:
-    name: bpmnBaseElement__documentation
+  bpmnBaseElement__bpmn_documentation:
+    name: bpmnBaseElement__bpmn_documentation
     annotations:
       xml_name:
         tag: xml_name
         value: documentation
     description: Text that documents the element.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:documentation
-    alias: documentation
+    slot_uri: fluxnova_bpm_platform:bpmn_documentation
+    alias: bpmn_documentation
     owner: BpmnBaseElement
     domain_of:
     - BpmnBaseElement
@@ -7685,8 +7685,8 @@ slots:
     range: BpmnDataState
     inlined: true
     inlined_as_list: true
-  bpmnDefinitions__id:
-    name: bpmnDefinitions__id
+  bpmnDefinitions__bpmn_id:
+    name: bpmnDefinitions__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -7696,8 +7696,8 @@ slots:
         value: 'true'
     description: The document's id.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: BpmnDefinitions
     domain_of:
     - BpmnDefinitions
@@ -7876,8 +7876,8 @@ slots:
     multivalued: true
     inlined: true
     inlined_as_list: true
-  bpmnDocumentation__id:
-    name: bpmnDocumentation__id
+  bpmnDocumentation__bpmn_id:
+    name: bpmnDocumentation__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -7887,8 +7887,8 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: BpmnDocumentation
     domain_of:
     - BpmnDocumentation
@@ -8193,16 +8193,16 @@ slots:
     domain_of:
     - BpmnExpression
     range: string
-  bpmnExtension__definition:
-    name: bpmnExtension__definition
+  bpmnExtension__bpmn_definition:
+    name: bpmnExtension__bpmn_definition
     annotations:
       xml_name:
         tag: xml_name
         value: definition
     description: The QName of the extension's definition.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:definition
-    alias: definition
+    slot_uri: fluxnova_bpm_platform:bpmn_definition
+    alias: bpmn_definition
     owner: BpmnExtension
     domain_of:
     - BpmnExtension
@@ -8222,16 +8222,16 @@ slots:
     domain_of:
     - BpmnExtension
     range: boolean
-  bpmnExtension__documentation:
-    name: bpmnExtension__documentation
+  bpmnExtension__bpmn_documentation:
+    name: bpmnExtension__bpmn_documentation
     annotations:
       xml_name:
         tag: xml_name
         value: documentation
     description: Text that documents the element.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:documentation
-    alias: documentation
+    slot_uri: fluxnova_bpm_platform:bpmn_documentation
+    alias: bpmn_documentation
     owner: BpmnExtension
     domain_of:
     - BpmnExtension
@@ -8667,8 +8667,8 @@ slots:
     - BpmnInputSet
     range: string
     multivalued: true
-  bpmnInteractionNode__id:
-    name: bpmnInteractionNode__id
+  bpmnInteractionNode__bpmn_id:
+    name: bpmnInteractionNode__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -8678,8 +8678,8 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: BpmnInteractionNode
     domain_of:
     - BpmnInteractionNode
@@ -9077,8 +9077,8 @@ slots:
     - BpmnLinkEventDefinition
     range: string
     required: true
-  bpmnLinkEventDefinition__sources:
-    name: bpmnLinkEventDefinition__sources
+  bpmnLinkEventDefinition__bpmn_sources:
+    name: bpmnLinkEventDefinition__bpmn_sources
     annotations:
       xml_name:
         tag: xml_name
@@ -9091,15 +9091,15 @@ slots:
         value: qname
     description: The QNames of the throwing link events that jump to this one.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:sources
-    alias: sources
+    slot_uri: fluxnova_bpm_platform:bpmn_sources
+    alias: bpmn_sources
     owner: BpmnLinkEventDefinition
     domain_of:
     - BpmnLinkEventDefinition
     range: string
     multivalued: true
-  bpmnLinkEventDefinition__target:
-    name: bpmnLinkEventDefinition__target
+  bpmnLinkEventDefinition__bpmn_target:
+    name: bpmnLinkEventDefinition__bpmn_target
     annotations:
       xml_name:
         tag: xml_name
@@ -9112,8 +9112,8 @@ slots:
         value: qname
     description: The QName of the catching link event this one jumps to.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:target
-    alias: target
+    slot_uri: fluxnova_bpm_platform:bpmn_target
+    alias: bpmn_target
     owner: BpmnLinkEventDefinition
     domain_of:
     - BpmnLinkEventDefinition
@@ -10579,16 +10579,16 @@ slots:
     domain_of:
     - BpmnRelationship
     range: BpmnRelationshipDirection
-  bpmnRelationship__sources:
-    name: bpmnRelationship__sources
+  bpmnRelationship__bpmn_sources:
+    name: bpmnRelationship__bpmn_sources
     annotations:
       xml_name:
         tag: xml_name
         value: source
     description: The QNames of the elements the relationship starts from.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:sources
-    alias: sources
+    slot_uri: fluxnova_bpm_platform:bpmn_sources
+    alias: bpmn_sources
     owner: BpmnRelationship
     domain_of:
     - BpmnRelationship
@@ -12479,16 +12479,16 @@ slots:
     domain_of:
     - DiDiagram
     range: string
-  diDiagram__documentation:
-    name: diDiagram__documentation
+  diDiagram__bpmn_documentation:
+    name: diDiagram__bpmn_documentation
     annotations:
       xml_name:
         tag: xml_name
         value: documentation
     description: Text that documents the element.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di
-    slot_uri: fluxnova_bpm_platform:documentation
-    alias: documentation
+    slot_uri: fluxnova_bpm_platform:bpmn_documentation
+    alias: bpmn_documentation
     owner: DiDiagram
     domain_of:
     - DiDiagram
@@ -12507,8 +12507,8 @@ slots:
     domain_of:
     - DiDiagram
     range: double
-  diDiagram__id:
-    name: diDiagram__id
+  diDiagram__bpmn_id:
+    name: diDiagram__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -12518,14 +12518,14 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: DiDiagram
     domain_of:
     - DiDiagram
     range: string
-  diDiagramElement__id:
-    name: diDiagramElement__id
+  diDiagramElement__bpmn_id:
+    name: diDiagramElement__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -12535,8 +12535,8 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: DiDiagramElement
     domain_of:
     - DiDiagramElement
@@ -12626,8 +12626,8 @@ slots:
     required: true
     inlined: true
     inlined_as_list: true
-  diStyle__id:
-    name: diStyle__id
+  diStyle__bpmn_id:
+    name: diStyle__bpmn_id
     annotations:
       xml_name:
         tag: xml_name
@@ -12637,8 +12637,8 @@ slots:
         value: 'true'
     description: The element's id, unique within its document.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_di
-    slot_uri: fluxnova_bpm_platform:id
-    alias: id
+    slot_uri: fluxnova_bpm_platform:bpmn_id
+    alias: bpmn_id
     owner: DiStyle
     domain_of:
     - DiStyle
@@ -16986,7 +16986,7 @@ classes:
     - fluxnovaExecutionListener__fluxnova_class
     - fluxnovaExecutionListener__fluxnova_expression
     - fluxnovaExecutionListener__fluxnova_delegate_expression
-    - fluxnovaExecutionListener__fields
+    - fluxnovaExecutionListener__bpmn_fields
     - fluxnovaExecutionListener__script
     attributes:
       fluxnova_event:
@@ -17046,8 +17046,8 @@ classes:
         - fluxnova:delegateExpression
         - camunda:delegateExpression
         range: string
-      fields:
-        name: fields
+      bpmn_fields:
+        name: bpmn_fields
         annotations:
           xml_name:
             tag: xml_name
@@ -18292,7 +18292,7 @@ classes:
     slots:
     - bpmnModelElementInstance__element_type
     - fluxnovaScript__script_format
-    - fluxnovaScript__resource
+    - fluxnovaScript__bpmn_resource
     - fluxnovaScript__text_content
     attributes:
       script_format:
@@ -18304,8 +18304,8 @@ classes:
         description: The language the script is written in, such as groovy or javascript.
         range: string
         required: true
-      resource:
-        name: resource
+      bpmn_resource:
+        name: bpmn_resource
         annotations:
           xml_name:
             tag: xml_name
@@ -18375,7 +18375,7 @@ classes:
     - fluxnovaTaskListener__fluxnova_class
     - fluxnovaTaskListener__fluxnova_expression
     - fluxnovaTaskListener__fluxnova_delegate_expression
-    - fluxnovaTaskListener__fields
+    - fluxnovaTaskListener__bpmn_fields
     - fluxnovaTaskListener__script
     - fluxnovaTaskListener__timer_event_definition
     attributes:
@@ -18436,8 +18436,8 @@ classes:
         - fluxnova:delegateExpression
         - camunda:delegateExpression
         range: string
-      fields:
-        name: fields
+      bpmn_fields:
+        name: bpmn_fields
         annotations:
           xml_name:
             tag: xml_name
@@ -18495,10 +18495,10 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
-    - fluxnovaValidation__constraints
+    - fluxnovaValidation__bpmn_constraints
     attributes:
-      constraints:
-        name: constraints
+      bpmn_constraints:
+        name: bpmn_constraints
         annotations:
           xml_name:
             tag: xml_name
@@ -18595,8 +18595,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnActivationCondition
@@ -18625,8 +18625,8 @@ classes:
     - BpmnInteractionNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -18777,8 +18777,8 @@ classes:
     is_a: BpmnSubProcess
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -18862,8 +18862,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnArtifact
   BpmnAssignment:
@@ -18888,8 +18888,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnAssignment__from_expression
     - bpmnAssignment__to_expression
@@ -18938,8 +18938,8 @@ classes:
     is_a: BpmnArtifact
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnAssociation__source_ref
     - bpmnAssociation__target_ref
@@ -19007,8 +19007,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnAuditing
   BpmnBaseElement:
@@ -19035,12 +19035,12 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -19050,8 +19050,8 @@ classes:
             value: 'true'
         description: The element's id, unique within its document.
         range: string
-      documentation:
-        name: documentation
+      bpmn_documentation:
+        name: bpmn_documentation
         annotations:
           xml_name:
             tag: xml_name
@@ -19094,8 +19094,8 @@ classes:
     is_a: BpmnCatchEvent
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -19166,8 +19166,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -19421,8 +19421,8 @@ classes:
     is_a: BpmnActivity
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -19650,8 +19650,8 @@ classes:
     is_a: BpmnConversationNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationNode__name
     - bpmnConversationNode__participant_refs
@@ -19709,8 +19709,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCallableElement__name
     - bpmnCallableElement__supported_interface_refs
@@ -19783,8 +19783,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnCancelEventDefinition
   BpmnCatchEvent:
@@ -19811,8 +19811,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -19923,8 +19923,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCategory__name
     - bpmnCategory__category_values
@@ -19972,8 +19972,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCategoryValue__value
     attributes:
@@ -20008,8 +20008,8 @@ classes:
     is_a: BpmnLaneSet
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnLaneSet__name
     - bpmnLaneSet__lanes
@@ -20037,8 +20037,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCollaboration__name
     - bpmnCollaboration__is_closed
@@ -20193,8 +20193,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCompensateEventDefinition__wait_for_completion
     - bpmnCompensateEventDefinition__activity_ref
@@ -20246,8 +20246,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnCompletionCondition
@@ -20274,8 +20274,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnComplexBehaviorDefinition
   BpmnComplexGateway:
@@ -20300,8 +20300,8 @@ classes:
     is_a: BpmnGateway
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -20364,8 +20364,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnCondition
@@ -20391,8 +20391,8 @@ classes:
     is_a: BpmnFormalExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     - bpmnFormalExpression__language
@@ -20450,8 +20450,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConditionalEventDefinition__fluxnova_variable_name
     - bpmnConditionalEventDefinition__fluxnova_variable_events
@@ -20519,8 +20519,8 @@ classes:
     is_a: BpmnConversationNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationNode__name
     - bpmnConversationNode__participant_refs
@@ -20549,8 +20549,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationAssociation__inner_conversation_node_ref
     - bpmnConversationAssociation__outer_conversation_node_ref
@@ -20608,8 +20608,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationLink__name
     - bpmnConversationLink__source_ref
@@ -20679,8 +20679,8 @@ classes:
     - BpmnInteractionNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationNode__name
     - bpmnConversationNode__participant_refs
@@ -20759,8 +20759,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCorrelationKey__name
     - bpmnCorrelationKey__correlation_property_refs
@@ -20811,8 +20811,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCorrelationProperty__name
     - bpmnCorrelationProperty__type
@@ -20875,8 +20875,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCorrelationPropertyBinding__correlation_property_ref
     - bpmnCorrelationPropertyBinding__data_path
@@ -20929,8 +20929,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCorrelationPropertyRetrievalExpression__message_ref
     - bpmnCorrelationPropertyRetrievalExpression__message_path
@@ -20983,8 +20983,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCorrelationSubscription__correlation_key_ref
     - bpmnCorrelationSubscription__correlation_property_bindings
@@ -21038,8 +21038,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnDataAssociation__source_refs
     - bpmnDataAssociation__target_ref
@@ -21119,8 +21119,8 @@ classes:
     is_a: BpmnItemAwareElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -21167,8 +21167,8 @@ classes:
     is_a: BpmnDataAssociation
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnDataAssociation__source_refs
     - bpmnDataAssociation__target_ref
@@ -21197,8 +21197,8 @@ classes:
     is_a: BpmnFlowElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -21263,8 +21263,8 @@ classes:
     is_a: BpmnFlowElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -21334,8 +21334,8 @@ classes:
     is_a: BpmnItemAwareElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -21382,8 +21382,8 @@ classes:
     is_a: BpmnDataAssociation
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnDataAssociation__source_refs
     - bpmnDataAssociation__target_ref
@@ -21413,8 +21413,8 @@ classes:
     is_a: BpmnFormalExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     - bpmnFormalExpression__language
@@ -21442,8 +21442,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnDataState__name
     attributes:
@@ -21478,8 +21478,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnDataStore__name
     - bpmnDataStore__capacity
@@ -21558,8 +21558,8 @@ classes:
     is_a: BpmnFlowElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -21630,7 +21630,7 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnDefinitions__id
+    - bpmnDefinitions__bpmn_id
     - bpmnDefinitions__name
     - bpmnDefinitions__target_namespace
     - bpmnDefinitions__expression_language
@@ -21643,8 +21643,8 @@ classes:
     - bpmnDefinitions__bpmn_diagrams
     - bpmnDefinitions__relationships
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -21785,12 +21785,12 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnDocumentation__id
+    - bpmnDocumentation__bpmn_id
     - bpmnDocumentation__text_format
     - bpmnDocumentation__text_content
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -21836,8 +21836,8 @@ classes:
     is_a: BpmnThrowEvent
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -21878,8 +21878,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnEndPoint
   BpmnError:
@@ -21904,8 +21904,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnError__name
     - bpmnError__error_code
@@ -21979,8 +21979,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnErrorEventDefinition__error_ref
     - bpmnErrorEventDefinition__fluxnova_error_code_variable
@@ -22051,8 +22051,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnEscalation__name
     - bpmnEscalation__escalation_code
@@ -22111,8 +22111,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnEscalationEventDefinition__escalation_ref
     attributes:
@@ -22157,8 +22157,8 @@ classes:
     - BpmnInteractionNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22207,8 +22207,8 @@ classes:
     is_a: BpmnGateway
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22267,8 +22267,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnEventDefinition
   BpmnExclusiveGateway:
@@ -22293,8 +22293,8 @@ classes:
     is_a: BpmnGateway
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22347,8 +22347,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     attributes:
@@ -22379,12 +22379,12 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnExtension__definition
+    - bpmnExtension__bpmn_definition
     - bpmnExtension__must_understand
-    - bpmnExtension__documentation
+    - bpmnExtension__bpmn_documentation
     attributes:
-      definition:
-        name: definition
+      bpmn_definition:
+        name: bpmn_definition
         annotations:
           xml_name:
             tag: xml_name
@@ -22400,8 +22400,8 @@ classes:
         description: Whether a tool reading the document must understand the extension.
         ifabsent: 'false'
         range: boolean
-      documentation:
-        name: documentation
+      bpmn_documentation:
+        name: bpmn_documentation
         annotations:
           xml_name:
             tag: xml_name
@@ -22460,8 +22460,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22534,8 +22534,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22663,8 +22663,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     - bpmnFormalExpression__language
@@ -22715,8 +22715,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnFrom
@@ -22743,8 +22743,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -22792,8 +22792,8 @@ classes:
     is_a: BpmnCollaboration
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCollaboration__name
     - bpmnCollaboration__is_closed
@@ -22829,8 +22829,8 @@ classes:
     is_a: BpmnArtifact
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnGroup__category_value_ref
     attributes:
@@ -22871,8 +22871,8 @@ classes:
     is_a: BpmnPerformer
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceRole__name
     - bpmnResourceRole__resource_ref
@@ -22955,8 +22955,8 @@ classes:
     is_a: BpmnGateway
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -23009,8 +23009,8 @@ classes:
     is_a: BpmnDataInput
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -23039,8 +23039,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnInputSet__name
     - bpmnInputSet__data_input_refs
@@ -23135,10 +23135,10 @@ classes:
     abstract: true
     mixin: true
     slots:
-    - bpmnInteractionNode__id
+    - bpmnInteractionNode__bpmn_id
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -23171,8 +23171,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnInterface__name
     - bpmnInterface__implementation_ref
@@ -23230,8 +23230,8 @@ classes:
     is_a: BpmnCatchEvent
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -23273,8 +23273,8 @@ classes:
     is_a: BpmnThrowEvent
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -23316,8 +23316,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnIoBinding__operation_ref
     - bpmnIoBinding__input_data_ref
@@ -23392,8 +23392,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnIoSpecification__data_inputs
     - bpmnIoSpecification__data_outputs
@@ -23471,8 +23471,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -23523,8 +23523,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemDefinition__structure_ref
     - bpmnItemDefinition__is_collection
@@ -23580,8 +23580,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnLane__name
     - bpmnLane__partition_element_ref
@@ -23667,8 +23667,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnLaneSet__name
     - bpmnLaneSet__lanes
@@ -23716,12 +23716,12 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnLinkEventDefinition__name
-    - bpmnLinkEventDefinition__sources
-    - bpmnLinkEventDefinition__target
+    - bpmnLinkEventDefinition__bpmn_sources
+    - bpmnLinkEventDefinition__bpmn_target
     attributes:
       name:
         name: name
@@ -23732,8 +23732,8 @@ classes:
         description: The element's name.
         range: string
         required: true
-      sources:
-        name: sources
+      bpmn_sources:
+        name: bpmn_sources
         annotations:
           xml_name:
             tag: xml_name
@@ -23747,8 +23747,8 @@ classes:
         description: The QNames of the throwing link events that jump to this one.
         range: string
         multivalued: true
-      target:
-        name: target
+      bpmn_target:
+        name: bpmn_target
         annotations:
           xml_name:
             tag: xml_name
@@ -23785,8 +23785,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnLoopCardinality
@@ -23813,8 +23813,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnLoopCharacteristics
   BpmnManualTask:
@@ -23839,8 +23839,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -23886,8 +23886,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnMessage__name
     - bpmnMessage__item_ref
@@ -23937,8 +23937,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnMessageEventDefinition__message_ref
     - bpmnMessageEventDefinition__fluxnova_class
@@ -24100,8 +24100,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnMessageFlow__name
     - bpmnMessageFlow__source_ref
@@ -24183,8 +24183,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnMessageFlowAssociation__inner_message_flow_ref
     - bpmnMessageFlowAssociation__outer_message_flow_ref
@@ -24242,8 +24242,8 @@ classes:
     is_a: BpmnFormalExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     - bpmnFormalExpression__language
@@ -24271,8 +24271,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnMonitoring
   BpmnMultiInstanceLoopCharacteristics:
@@ -24298,8 +24298,8 @@ classes:
     is_a: BpmnLoopCharacteristics
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnMultiInstanceLoopCharacteristics__is_sequential
     - bpmnMultiInstanceLoopCharacteristics__behavior
@@ -24538,8 +24538,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnOperation__name
     - bpmnOperation__implementation_ref
@@ -24631,8 +24631,8 @@ classes:
     is_a: BpmnDataOutput
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -24661,8 +24661,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnOutputSet__name
     - bpmnOutputSet__data_output_refs
@@ -24762,8 +24762,8 @@ classes:
     is_a: BpmnGateway
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -24820,8 +24820,8 @@ classes:
     - BpmnInteractionNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnParticipant__name
     - bpmnParticipant__process_ref
@@ -24914,8 +24914,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnParticipantAssociation__inner_participant_ref
     - bpmnParticipantAssociation__outer_participant_ref
@@ -24974,8 +24974,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnParticipantMultiplicity__minimum
     - bpmnParticipantMultiplicity__maximum
@@ -25021,8 +25021,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnPartitionElement
   BpmnPerformer:
@@ -25047,8 +25047,8 @@ classes:
     is_a: BpmnResourceRole
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceRole__name
     - bpmnResourceRole__resource_ref
@@ -25077,8 +25077,8 @@ classes:
     is_a: BpmnHumanPerformer
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceRole__name
     - bpmnResourceRole__resource_ref
@@ -25108,8 +25108,8 @@ classes:
     is_a: BpmnCallableElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnCallableElement__name
     - bpmnCallableElement__supported_interface_refs
@@ -25386,8 +25386,8 @@ classes:
     is_a: BpmnItemAwareElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnItemAwareElement__item_subject_ref
     - bpmnItemAwareElement__data_state
@@ -25424,8 +25424,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -25523,12 +25523,12 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnRelationship__type
     - bpmnRelationship__direction
-    - bpmnRelationship__sources
+    - bpmnRelationship__bpmn_sources
     - bpmnRelationship__targets
     attributes:
       type:
@@ -25548,8 +25548,8 @@ classes:
             value: direction
         description: Which way the relationship points.
         range: BpmnRelationshipDirection
-      sources:
-        name: sources
+      bpmn_sources:
+        name: bpmn_sources
         annotations:
           xml_name:
             tag: xml_name
@@ -25595,8 +25595,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnRendering
   BpmnResource:
@@ -25621,8 +25621,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResource__name
     - bpmnResource__resource_parameters
@@ -25670,8 +25670,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceAssignmentExpression__expression
     attributes:
@@ -25708,8 +25708,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceParameter__name
     - bpmnResourceParameter__type
@@ -25768,8 +25768,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceParameterBinding__parameter_ref
     - bpmnResourceParameterBinding__expression
@@ -25822,8 +25822,8 @@ classes:
     is_a: BpmnBaseElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnResourceRole__name
     - bpmnResourceRole__resource_ref
@@ -25897,8 +25897,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnRootElement
   BpmnScript:
@@ -25952,8 +25952,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26049,8 +26049,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26244,8 +26244,8 @@ classes:
     is_a: BpmnFlowElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26328,8 +26328,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26508,8 +26508,8 @@ classes:
     is_a: BpmnRootElement
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnSignal__name
     - bpmnSignal__structure_ref
@@ -26559,8 +26559,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnSignalEventDefinition__signal_ref
     - bpmnSignalEventDefinition__fluxnova_async
@@ -26641,8 +26641,8 @@ classes:
     is_a: BpmnCatchEvent
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26804,8 +26804,8 @@ classes:
     is_a: BpmnConversationNode
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnConversationNode__name
     - bpmnConversationNode__participant_refs
@@ -26847,8 +26847,8 @@ classes:
     is_a: BpmnActivity
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -26983,8 +26983,8 @@ classes:
     is_a: BpmnActivity
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -27048,8 +27048,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     class_uri: fluxnova_bpm_platform:BpmnTerminateEventDefinition
   BpmnText:
@@ -27103,8 +27103,8 @@ classes:
     is_a: BpmnArtifact
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnTextAnnotation__text_format
     - bpmnTextAnnotation__text
@@ -27152,8 +27152,8 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -27253,8 +27253,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnTimeCycle
@@ -27280,8 +27280,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnTimeDate
@@ -27307,8 +27307,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnTimeDuration
@@ -27335,8 +27335,8 @@ classes:
     is_a: BpmnEventDefinition
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnTimerEventDefinition__time_date
     - bpmnTimerEventDefinition__time_duration
@@ -27392,8 +27392,8 @@ classes:
     is_a: BpmnExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     class_uri: fluxnova_bpm_platform:BpmnTo
@@ -27419,8 +27419,8 @@ classes:
     is_a: BpmnSubProcess
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -27482,8 +27482,8 @@ classes:
     is_a: BpmnFormalExpression
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnExpression__text_content
     - bpmnFormalExpression__language
@@ -27511,8 +27511,8 @@ classes:
     is_a: BpmnTask
     slots:
     - bpmnModelElementInstance__element_type
-    - bpmnBaseElement__id
-    - bpmnBaseElement__documentation
+    - bpmnBaseElement__bpmn_id
+    - bpmnBaseElement__bpmn_documentation
     - bpmnBaseElement__extension_elements
     - bpmnFlowElement__name
     - bpmnFlowElement__auditing
@@ -27750,9 +27750,9 @@ classes:
     slots:
     - bpmnModelElementInstance__element_type
     - diDiagram__name
-    - diDiagram__documentation
+    - diDiagram__bpmn_documentation
     - diDiagram__resolution
-    - diDiagram__id
+    - diDiagram__bpmn_id
     - bpmnDiagram__bpmn_plane
     - bpmnDiagram__bpmn_label_styles
     attributes:
@@ -27801,7 +27801,7 @@ classes:
     is_a: DiLabeledEdge
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diEdge__waypoints
     - bpmnEdge__bpmn_element
@@ -27893,7 +27893,7 @@ classes:
     is_a: DiLabel
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diLabel__bounds
     - bpmnLabel__label_style
@@ -27935,7 +27935,7 @@ classes:
     is_a: DiStyle
     slots:
     - bpmnModelElementInstance__element_type
-    - diStyle__id
+    - diStyle__bpmn_id
     - bpmnLabelStyle__font
     attributes:
       font:
@@ -27972,7 +27972,7 @@ classes:
     is_a: DiPlane
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diPlane__diagram_elements
     - bpmnPlane__bpmn_element
@@ -28015,7 +28015,7 @@ classes:
     is_a: DiLabeledShape
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diShape__bounds
     - bpmnShape__bpmn_element
@@ -28131,9 +28131,9 @@ classes:
     slots:
     - bpmnModelElementInstance__element_type
     - diDiagram__name
-    - diDiagram__documentation
+    - diDiagram__bpmn_documentation
     - diDiagram__resolution
-    - diDiagram__id
+    - diDiagram__bpmn_id
     attributes:
       name:
         name: name
@@ -28143,8 +28143,8 @@ classes:
             value: name
         description: The element's name.
         range: string
-      documentation:
-        name: documentation
+      bpmn_documentation:
+        name: bpmn_documentation
         annotations:
           xml_name:
             tag: xml_name
@@ -28159,8 +28159,8 @@ classes:
             value: resolution
         description: The resolution of the diagram, in units per inch.
         range: double
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -28194,11 +28194,11 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name
@@ -28241,7 +28241,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diEdge__waypoints
     attributes:
@@ -28305,7 +28305,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diLabel__bounds
     attributes:
@@ -28342,7 +28342,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diEdge__waypoints
     class_uri: fluxnova_bpm_platform:DiLabeledEdge
@@ -28369,7 +28369,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diShape__bounds
     class_uri: fluxnova_bpm_platform:DiLabeledShape
@@ -28396,7 +28396,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     class_uri: fluxnova_bpm_platform:DiNode
   DiPlane:
@@ -28422,7 +28422,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diPlane__diagram_elements
     attributes:
@@ -28461,7 +28461,7 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diDiagramElement__id
+    - diDiagramElement__bpmn_id
     - diDiagramElement__extension
     - diShape__bounds
     attributes:
@@ -28499,10 +28499,10 @@ classes:
     abstract: true
     slots:
     - bpmnModelElementInstance__element_type
-    - diStyle__id
+    - diStyle__bpmn_id
     attributes:
-      id:
-        name: id
+      bpmn_id:
+        name: bpmn_id
         annotations:
           xml_name:
             tag: xml_name

@@ -1864,11 +1864,11 @@ export interface DiDiagram extends BpmnModelElementInstance {
     /** The element's name. */
     name?: string,
     /** Text that documents the element. */
-    documentation?: string,
+    bpmn_documentation?: string,
     /** The resolution of the diagram, in units per inch. */
     resolution?: number,
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
 }
 
 
@@ -1877,7 +1877,7 @@ export interface DiDiagram extends BpmnModelElementInstance {
  */
 export interface DiDiagramElement extends BpmnModelElementInstance {
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
     /** Tool-specific content of the diagram element. */
     extension?: DiExtension,
 }
@@ -1952,7 +1952,7 @@ export interface DiShape extends DiNode {
  */
 export interface DiStyle extends BpmnModelElementInstance {
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
 }
 
 
@@ -2131,9 +2131,9 @@ export interface BpmnAuditing extends BpmnBaseElement {
  */
 export interface BpmnBaseElement extends BpmnModelElementInstance {
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
     /** Text that documents the element. */
-    documentation?: BpmnDocumentation[],
+    bpmn_documentation?: BpmnDocumentation[],
     /** The element's extension content, such as Fluxnova's settings. */
     extension_elements?: BpmnExtensionElements,
 }
@@ -2622,7 +2622,7 @@ export interface BpmnDataStoreReference extends BpmnFlowElement {
  */
 export interface BpmnDefinitions extends BpmnModelElementInstance {
     /** The document's id. */
-    id?: string,
+    bpmn_id?: string,
     /** The document's name. */
     name?: string,
     /** The namespace of the elements this document defines. */
@@ -2653,7 +2653,7 @@ export interface BpmnDefinitions extends BpmnModelElementInstance {
  */
 export interface BpmnDocumentation extends BpmnModelElementInstance {
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
     /** The format of the text, as a MIME type. */
     text_format?: string,
     /** The element's text, such as the body of an expression or a script. */
@@ -2775,11 +2775,11 @@ export interface BpmnExpression extends BpmnBaseElement {
  */
 export interface BpmnExtension extends BpmnModelElementInstance {
     /** The QName of the extension's definition. */
-    definition?: string,
+    bpmn_definition?: string,
     /** Whether a tool reading the document must understand the extension. */
     must_understand?: boolean,
     /** Text that documents the element. */
-    documentation?: BpmnDocumentation[],
+    bpmn_documentation?: BpmnDocumentation[],
 }
 
 
@@ -2925,7 +2925,7 @@ export interface BpmnInputSet extends BpmnBaseElement {
  */
 export interface BpmnInteractionNode {
     /** The element's id, unique within its document. */
-    id?: string,
+    bpmn_id?: string,
 }
 
 
@@ -3043,9 +3043,9 @@ export interface BpmnLinkEventDefinition extends BpmnEventDefinition {
     /** The element's name. */
     name: string,
     /** The QNames of the throwing link events that jump to this one. */
-    sources?: string[],
+    bpmn_sources?: string[],
     /** The QName of the catching link event this one jumps to. */
-    target?: string,
+    bpmn_target?: string,
 }
 
 
@@ -3373,7 +3373,7 @@ export interface BpmnRelationship extends BpmnBaseElement {
     /** Which way the relationship points. */
     direction?: string,
     /** The QNames of the elements the relationship starts from. */
-    sources: BpmnSource[],
+    bpmn_sources: BpmnSource[],
     /** The QNames of the elements the relationship leads to. */
     targets: BpmnTarget[],
 }
@@ -3835,7 +3835,7 @@ export interface FluxnovaExecutionListener extends BpmnModelElementInstance {
     /** An expression that gives the delegate object the engine calls. */
     fluxnova_delegate_expression?: string,
     /** The fields injected into the listener's delegate class. */
-    fields?: FluxnovaField[],
+    bpmn_fields?: FluxnovaField[],
     /** The script the listener runs. */
     script?: FluxnovaScript,
 }
@@ -4072,7 +4072,7 @@ export interface FluxnovaScript extends BpmnModelElementInstance {
     /** The language the script is written in, such as groovy or javascript. */
     script_format: string,
     /** A resource that holds the script, instead of the script's text. */
-    resource?: string,
+    bpmn_resource?: string,
     /** The element's text, such as the body of an expression or a script. */
     text_content?: string,
 }
@@ -4100,7 +4100,7 @@ export interface FluxnovaTaskListener extends BpmnModelElementInstance {
     /** An expression that gives the delegate object the engine calls. */
     fluxnova_delegate_expression?: string,
     /** The fields injected into the listener's delegate class. */
-    fields?: FluxnovaField[],
+    bpmn_fields?: FluxnovaField[],
     /** The script the listener runs. */
     script?: FluxnovaScript,
     /** The timer of a listener that runs on a timeout. */
@@ -4113,7 +4113,7 @@ export interface FluxnovaTaskListener extends BpmnModelElementInstance {
  */
 export interface FluxnovaValidation extends BpmnModelElementInstance {
     /** The constraints the value must meet. */
-    constraints?: FluxnovaConstraint[],
+    bpmn_constraints?: FluxnovaConstraint[],
 }
 
 

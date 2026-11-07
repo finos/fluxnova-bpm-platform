@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public abstract class BpmnInteractionNode  {
 
-  private String id;
+  private String bpmnId;
 
 
 }

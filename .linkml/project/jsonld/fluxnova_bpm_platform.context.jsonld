@@ -128,14 +128,16 @@
       "target_ref": {
          "@id": "target_ref"
       },
-      "documentation": {
-         "@id": "documentation"
+      "bpmn_documentation": {
+         "@id": "bpmn_documentation"
+      },
+      "bpmn_id": {
+         "@id": "bpmn_id"
       },
       "extension_elements": {
          "@type": "@id",
          "@id": "extension_elements"
       },
-      "id": "@id",
       "attached_to_ref": {
          "@id": "attached_to_ref"
       },
@@ -513,8 +515,8 @@
          "@type": "xsd:boolean",
          "@id": "instantiate"
       },
-      "definition": {
-         "@id": "definition"
+      "bpmn_definition": {
+         "@id": "bpmn_definition"
       },
       "must_understand": {
          "@type": "xsd:boolean",
@@ -651,12 +653,12 @@
          "@type": "@id",
          "@id": "lanes"
       },
-      "sources": {
+      "bpmn_sources": {
          "@type": "@id",
-         "@id": "sources"
+         "@id": "bpmn_sources"
       },
-      "target": {
-         "@id": "target"
+      "bpmn_target": {
+         "@id": "bpmn_target"
       },
       "item_ref": {
          "@id": "item_ref"
@@ -1250,9 +1252,9 @@
       "fluxnova_key": {
          "@id": "fluxnova_key"
       },
-      "fields": {
+      "bpmn_fields": {
          "@type": "@id",
-         "@id": "fields"
+         "@id": "bpmn_fields"
       },
       "fluxnova_event": {
          "@id": "fluxnova_event"
@@ -1348,16 +1350,16 @@
       "fluxnova_value": {
          "@id": "fluxnova_value"
       },
-      "resource": {
-         "@id": "resource"
+      "bpmn_resource": {
+         "@id": "bpmn_resource"
       },
       "timer_event_definition": {
          "@type": "@id",
          "@id": "timer_event_definition"
       },
-      "constraints": {
+      "bpmn_constraints": {
          "@type": "@id",
-         "@id": "constraints"
+         "@id": "bpmn_constraints"
       },
       "follow_up_date": {
          "@type": "xsd:dateTime",
@@ -1393,6 +1395,7 @@
       "hostname": {
          "@id": "hostname"
       },
+      "id": "@id",
       "incident_message": {
          "@id": "incident_message"
       },

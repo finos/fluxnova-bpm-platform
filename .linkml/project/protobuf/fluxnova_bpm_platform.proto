@@ -7,9 +7,9 @@ message BpmnActivationCondition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -20,9 +20,9 @@ message BpmnActivity {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -71,9 +71,9 @@ message BpmnAdHocSubProcess {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -138,9 +138,9 @@ message BpmnArtifact {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -149,9 +149,9 @@ message BpmnAssignment {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The expression the value is copied from.
@@ -164,9 +164,9 @@ message BpmnAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The id or QName of the element the connection starts at.
@@ -181,9 +181,9 @@ message BpmnAuditing {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -192,9 +192,9 @@ message BpmnBaseElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -203,9 +203,9 @@ message BpmnBoundaryEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -252,9 +252,9 @@ message BpmnBusinessRuleTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -333,9 +333,9 @@ message BpmnCallableElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -352,9 +352,9 @@ message BpmnCallActivity {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -427,9 +427,9 @@ message BpmnCallConversation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -450,9 +450,9 @@ message BpmnCancelEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -461,9 +461,9 @@ message BpmnCatchEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -506,9 +506,9 @@ message BpmnCategory {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -521,9 +521,9 @@ message BpmnCategoryValue {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The category value's text.
@@ -534,9 +534,9 @@ message BpmnChildLaneSet {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -549,9 +549,9 @@ message BpmnCollaboration {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -582,9 +582,9 @@ message BpmnCompensateEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // Whether the throwing event waits for the compensation to finish.
@@ -597,9 +597,9 @@ message BpmnCompletionCondition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -610,9 +610,9 @@ message BpmnComplexBehaviorDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -621,9 +621,9 @@ message BpmnComplexGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -658,9 +658,9 @@ message BpmnCondition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -671,9 +671,9 @@ message BpmnConditionalEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The variable whose changes make the engine check the condition.
@@ -688,9 +688,9 @@ message BpmnConditionExpression {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -709,9 +709,9 @@ message BpmnConversation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -728,9 +728,9 @@ message BpmnConversationAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the conversation node that refines the outer one.
@@ -743,9 +743,9 @@ message BpmnConversationLink {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -760,9 +760,9 @@ message BpmnConversationNode {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -779,9 +779,9 @@ message BpmnCorrelationKey {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -794,9 +794,9 @@ message BpmnCorrelationProperty {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -811,9 +811,9 @@ message BpmnCorrelationPropertyBinding {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the correlation property this binding gives a value.
@@ -826,9 +826,9 @@ message BpmnCorrelationPropertyRetrievalExpression {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the message sent or received.
@@ -841,9 +841,9 @@ message BpmnCorrelationSubscription {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the correlation key this subscription uses.
@@ -856,9 +856,9 @@ message BpmnDataAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The ids of the data the association copies from.
@@ -875,9 +875,9 @@ message BpmnDataInput {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -894,9 +894,9 @@ message BpmnDataInputAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The ids of the data the association copies from.
@@ -913,9 +913,9 @@ message BpmnDataObject {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -938,9 +938,9 @@ message BpmnDataObjectReference {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -963,9 +963,9 @@ message BpmnDataOutput {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -982,9 +982,9 @@ message BpmnDataOutputAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The ids of the data the association copies from.
@@ -1001,9 +1001,9 @@ message BpmnDataPath {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -1018,9 +1018,9 @@ message BpmnDataState {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1031,9 +1031,9 @@ message BpmnDataStore {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1052,9 +1052,9 @@ message BpmnDataStoreReference {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1077,7 +1077,7 @@ message BpmnDefinitions {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The document's id.
-  string id = 2;
+  string bpmn_id = 2;
   // The document's name.
   string name = 3;
   // The namespace of the elements this document defines.
@@ -1108,11 +1108,11 @@ message BpmnDiagram {
   // The element's name.
   string name = 2;
   // Text that documents the element.
-  string documentation = 3;
+  string bpmn_documentation = 3;
   // The resolution of the diagram, in units per inch.
   double resolution = 4;
   // The element's id, unique within its document.
-  string id = 5;
+  string bpmn_id = 5;
   // The plane that holds this diagram's shapes and edges.
   BpmnPlane bpmn_plane = 6;
   // The label styles this diagram's labels use.
@@ -1123,7 +1123,7 @@ message BpmnDocumentation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // The format of the text, as a MIME type.
   string text_format = 3;
   // The element's text, such as the body of an expression or a script.
@@ -1134,7 +1134,7 @@ message BpmnEdge {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // The points the edge passes through, in order.
@@ -1155,9 +1155,9 @@ message BpmnEndEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1198,9 +1198,9 @@ message BpmnEndPoint {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -1209,9 +1209,9 @@ message BpmnError {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1228,9 +1228,9 @@ message BpmnErrorEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the error thrown or caught.
@@ -1245,9 +1245,9 @@ message BpmnEscalation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1262,9 +1262,9 @@ message BpmnEscalationEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the escalation thrown or caught.
@@ -1275,9 +1275,9 @@ message BpmnEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1308,9 +1308,9 @@ message BpmnEventBasedGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1345,9 +1345,9 @@ message BpmnEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -1356,9 +1356,9 @@ message BpmnExclusiveGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1391,9 +1391,9 @@ message BpmnExpression {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -1404,11 +1404,11 @@ message BpmnExtension {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The QName of the extension's definition.
-  string definition = 2;
+  string bpmn_definition = 2;
   // Whether a tool reading the document must understand the extension.
   bool must_understand = 3;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 4;
+  repeated BpmnDocumentation bpmn_documentation = 4;
 }
 // The container for an element's extension content, such as Fluxnova's settings.
 message BpmnExtensionElements {
@@ -1420,9 +1420,9 @@ message BpmnFlowElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1439,9 +1439,9 @@ message BpmnFlowNode {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1470,9 +1470,9 @@ message BpmnFormalExpression {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -1487,9 +1487,9 @@ message BpmnFrom {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -1500,9 +1500,9 @@ message BpmnGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1533,9 +1533,9 @@ message BpmnGlobalConversation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1566,9 +1566,9 @@ message BpmnGroup {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the category value this group shows.
@@ -1579,9 +1579,9 @@ message BpmnHumanPerformer {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1609,9 +1609,9 @@ message BpmnInclusiveGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1644,9 +1644,9 @@ message BpmnInputDataItem {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -1663,9 +1663,9 @@ message BpmnInputSet {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1682,16 +1682,16 @@ message BpmnInputSet {
 // An element a message flow or conversation link can connect, such as a participant, task or event.
 message BpmnInteractionNode {
   // The element's id, unique within its document.
-  string id = 1;
+  string bpmn_id = 1;
 }
 // A set of operations a participant offers.
 message BpmnInterface {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1706,9 +1706,9 @@ message BpmnIntermediateCatchEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1751,9 +1751,9 @@ message BpmnIntermediateThrowEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1794,9 +1794,9 @@ message BpmnIoBinding {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the operation the element calls or implements.
@@ -1811,9 +1811,9 @@ message BpmnIoSpecification {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The data inputs.
@@ -1830,9 +1830,9 @@ message BpmnItemAwareElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -1845,9 +1845,9 @@ message BpmnItemDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the type of the data, such as an XML Schema type.
@@ -1862,7 +1862,7 @@ message BpmnLabel {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // Where the element is drawn, and how large.
@@ -1875,7 +1875,7 @@ message BpmnLabelStyle {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // The font the labels are drawn in.
   DcFont font = 3;
 }
@@ -1884,9 +1884,9 @@ message BpmnLane {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1905,9 +1905,9 @@ message BpmnLaneSet {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -1920,26 +1920,26 @@ message BpmnLinkEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
   string name = 5;
   // The QNames of the throwing link events that jump to this one.
-  repeated string sources = 6;
+  repeated string bpmn_sources = 6;
   // The QName of the catching link event this one jumps to.
-  string target = 7;
+  string bpmn_target = 7;
 }
 // The expression that says how many instances a multi-instance activity creates.
 message BpmnLoopCardinality {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -1950,9 +1950,9 @@ message BpmnLoopCharacteristics {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -1961,9 +1961,9 @@ message BpmnManualTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2014,9 +2014,9 @@ message BpmnMessage {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2029,9 +2029,9 @@ message BpmnMessageEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the message sent or received.
@@ -2058,9 +2058,9 @@ message BpmnMessageFlow {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2077,9 +2077,9 @@ message BpmnMessageFlowAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the message flow that refines the outer one.
@@ -2092,9 +2092,9 @@ message BpmnMessagePath {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -2114,9 +2114,9 @@ message BpmnMonitoring {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -2125,9 +2125,9 @@ message BpmnMultiInstanceLoopCharacteristics {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // Whether the instances run one after another rather than at once.
@@ -2168,9 +2168,9 @@ message BpmnOperation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2189,9 +2189,9 @@ message BpmnOutputDataItem {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -2208,9 +2208,9 @@ message BpmnOutputSet {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2229,9 +2229,9 @@ message BpmnParallelGateway {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2264,9 +2264,9 @@ message BpmnParticipant {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2285,9 +2285,9 @@ message BpmnParticipantAssociation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the participant inside the called collaboration.
@@ -2300,9 +2300,9 @@ message BpmnParticipantMultiplicity {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The fewest instances that take part.
@@ -2315,9 +2315,9 @@ message BpmnPartitionElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -2326,9 +2326,9 @@ message BpmnPerformer {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2345,7 +2345,7 @@ message BpmnPlane {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // The shapes and edges on this plane.
@@ -2358,9 +2358,9 @@ message BpmnPotentialOwner {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2377,9 +2377,9 @@ message BpmnProcess {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2434,9 +2434,9 @@ message BpmnProperty {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the item definition of the data.
@@ -2451,9 +2451,9 @@ message BpmnReceiveTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2512,9 +2512,9 @@ message BpmnRelationship {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // What kind of relationship it is.
@@ -2522,7 +2522,7 @@ message BpmnRelationship {
   // Which way the relationship points.
   BpmnRelationshipDirection direction = 6;
   // The QNames of the elements the relationship starts from.
-  repeated BpmnSource sources = 7;
+  repeated BpmnSource bpmn_sources = 7;
   // The QNames of the elements the relationship leads to.
   repeated BpmnTarget targets = 8;
 }
@@ -2531,9 +2531,9 @@ message BpmnRendering {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -2542,9 +2542,9 @@ message BpmnResource {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2557,9 +2557,9 @@ message BpmnResourceAssignmentExpression {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The expression that chooses the resource.
@@ -2570,9 +2570,9 @@ message BpmnResourceParameter {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2587,9 +2587,9 @@ message BpmnResourceParameterBinding {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the parameter given a value.
@@ -2602,9 +2602,9 @@ message BpmnResourceRole {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2621,9 +2621,9 @@ message BpmnRootElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -2639,9 +2639,9 @@ message BpmnScriptTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2700,9 +2700,9 @@ message BpmnSendTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2773,9 +2773,9 @@ message BpmnSequenceFlow {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2800,9 +2800,9 @@ message BpmnServiceTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2871,7 +2871,7 @@ message BpmnShape {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // Where the element is drawn, and how large.
@@ -2898,9 +2898,9 @@ message BpmnSignal {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2913,9 +2913,9 @@ message BpmnSignalEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The QName of the signal sent or received.
@@ -2933,9 +2933,9 @@ message BpmnStartEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -2994,9 +2994,9 @@ message BpmnSubConversation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3015,9 +3015,9 @@ message BpmnSubProcess {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3081,9 +3081,9 @@ message BpmnTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3134,9 +3134,9 @@ message BpmnTerminateEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
 }
@@ -3152,9 +3152,9 @@ message BpmnTextAnnotation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The format of the text, as a MIME type.
@@ -3167,9 +3167,9 @@ message BpmnThrowEvent {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3210,9 +3210,9 @@ message BpmnTimeCycle {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -3223,9 +3223,9 @@ message BpmnTimeDate {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -3236,9 +3236,9 @@ message BpmnTimeDuration {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -3249,9 +3249,9 @@ message BpmnTimerEventDefinition {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The timer's point in time.
@@ -3266,9 +3266,9 @@ message BpmnTo {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -3279,9 +3279,9 @@ message BpmnTransaction {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3342,9 +3342,9 @@ message BpmnTransformation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's text, such as the body of an expression or a script.
@@ -3359,9 +3359,9 @@ message BpmnUserTask {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Text that documents the element.
-  repeated BpmnDocumentation documentation = 3;
+  repeated BpmnDocumentation bpmn_documentation = 3;
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The element's name.
@@ -3479,18 +3479,18 @@ message DiDiagram {
   // The element's name.
   string name = 2;
   // Text that documents the element.
-  string documentation = 3;
+  string bpmn_documentation = 3;
   // The resolution of the diagram, in units per inch.
   double resolution = 4;
   // The element's id, unique within its document.
-  string id = 5;
+  string bpmn_id = 5;
 }
 // Any element drawn on a diagram.
 message DiDiagramElement {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
 }
@@ -3499,7 +3499,7 @@ message DiEdge {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // The points the edge passes through, in order.
@@ -3515,7 +3515,7 @@ message DiLabel {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // Where the element is drawn, and how large.
@@ -3526,7 +3526,7 @@ message DiLabeledEdge {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // The points the edge passes through, in order.
@@ -3537,7 +3537,7 @@ message DiLabeledShape {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // Where the element is drawn, and how large.
@@ -3548,7 +3548,7 @@ message DiNode {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
 }
@@ -3557,7 +3557,7 @@ message DiPlane {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // The shapes and edges on this plane.
@@ -3568,7 +3568,7 @@ message DiShape {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
   // Tool-specific content of the diagram element.
   DiExtension extension = 3;
   // Where the element is drawn, and how large.
@@ -3579,7 +3579,7 @@ message DiStyle {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The element's id, unique within its document.
-  string id = 2;
+  string bpmn_id = 2;
 }
 // A point an edge passes through.
 message DiWaypoint {
@@ -4015,7 +4015,7 @@ message FluxnovaExecutionListener {
   // An expression that gives the delegate object the engine calls.
   string fluxnova_delegate_expression = 5;
   // The fields injected into the listener's delegate class.
-  repeated FluxnovaField fields = 6;
+  repeated FluxnovaField bpmn_fields = 6;
   // The script the listener runs.
   FluxnovaScript script = 7;
 }
@@ -5231,7 +5231,7 @@ message FluxnovaScript {
   // The language the script is written in, such as groovy or javascript.
   string script_format = 2;
   // A resource that holds the script, instead of the script's text.
-  string resource = 3;
+  string bpmn_resource = 3;
   // The element's text, such as the body of an expression or a script.
   string text_content = 4;
 }
@@ -5302,7 +5302,7 @@ message FluxnovaTaskListener {
   // An expression that gives the delegate object the engine calls.
   string fluxnova_delegate_expression = 5;
   // The fields injected into the listener's delegate class.
-  repeated FluxnovaField fields = 6;
+  repeated FluxnovaField bpmn_fields = 6;
   // The script the listener runs.
   FluxnovaScript script = 7;
   // The timer of a listener that runs on a timeout.
@@ -5418,7 +5418,7 @@ message FluxnovaValidation {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
   // The constraints the value must meet.
-  repeated FluxnovaConstraint constraints = 2;
+  repeated FluxnovaConstraint bpmn_constraints = 2;
 }
 // One option of an enumerated form field.
 message FluxnovaValue {

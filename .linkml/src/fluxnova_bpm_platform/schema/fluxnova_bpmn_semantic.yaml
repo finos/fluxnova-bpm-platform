@@ -344,13 +344,13 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
           xml_name: id
           xml_id: 'true'
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: BpmnDocumentation
         inlined: true
@@ -1670,7 +1670,7 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The document's id.
         range: string
         annotations:
@@ -1764,7 +1764,7 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -2044,7 +2044,7 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      definition:
+      bpmn_definition:
         description: The QName of the extension's definition.
         range: string
         annotations:
@@ -2055,7 +2055,7 @@ classes:
         ifabsent: 'false'
         annotations:
           xml_name: mustUnderstand
-      documentation:
+      bpmn_documentation:
         description: Text that documents the element.
         range: BpmnDocumentation
         inlined: true
@@ -2412,7 +2412,7 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      id:
+      bpmn_id:
         description: The element's id, unique within its document.
         range: string
         annotations:
@@ -2708,7 +2708,7 @@ classes:
         required: true
         annotations:
           xml_name: name
-      sources:
+      bpmn_sources:
         description: The QNames of the throwing link events that jump to this one.
         range: string
         multivalued: true
@@ -2716,7 +2716,7 @@ classes:
           xml_name: source
           refers_to: BpmnLinkEventDefinition
           reference_kind: qname
-      target:
+      bpmn_target:
         description: The QName of the catching link event this one jumps to.
         range: string
         annotations:
@@ -3624,7 +3624,7 @@ classes:
         range: BpmnRelationshipDirection
         annotations:
           xml_name: direction
-      sources:
+      bpmn_sources:
         description: The QNames of the elements the relationship starts from.
         range: BpmnSource
         inlined: true

@@ -145,8 +145,8 @@ linkml:Sparqlpath xsd:string
 <BpmnBaseElement_struct> {
     (  $<BpmnBaseElement_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <id> @linkml:String ? ;
-          <documentation> @<BpmnDocumentation> * ;
+          <bpmn_id> @linkml:String ? ;
+          <bpmn_documentation> @<BpmnDocumentation> * ;
           <extension_elements> @<BpmnExtensionElements> ?
        ) ;
        rdf:type [ <BpmnBaseElement> ] ?
@@ -586,7 +586,7 @@ linkml:Sparqlpath xsd:string
 <BpmnDefinitions> CLOSED {
     (  $<BpmnDefinitions_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <id> @linkml:String ? ;
+          <bpmn_id> @linkml:String ? ;
           <name> @linkml:String ? ;
           <target_namespace> @linkml:String ;
           <expression_language> @linkml:String ? ;
@@ -616,7 +616,7 @@ linkml:Sparqlpath xsd:string
 <BpmnDocumentation> CLOSED {
     (  $<BpmnDocumentation_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <id> @linkml:String ? ;
+          <bpmn_id> @linkml:String ? ;
           <text_format> @linkml:String ? ;
           <text_content> @linkml:String ?
        ) ;
@@ -761,9 +761,9 @@ linkml:Sparqlpath xsd:string
 <BpmnExtension> CLOSED {
     (  $<BpmnExtension_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <definition> @linkml:String ? ;
+          <bpmn_definition> @linkml:String ? ;
           <must_understand> @linkml:Boolean ? ;
-          <documentation> @<BpmnDocumentation> *
+          <bpmn_documentation> @<BpmnDocumentation> *
        ) ;
        rdf:type [ <BpmnExtension> ] ?
     )
@@ -917,7 +917,7 @@ linkml:Sparqlpath xsd:string
 }
 
 <BpmnInteractionNode> {
-    (  $<BpmnInteractionNode_tes> <id> @linkml:String ? ;
+    (  $<BpmnInteractionNode_tes> <bpmn_id> @linkml:String ? ;
        rdf:type [ <BpmnInteractionNode> ] ?
     )
 }
@@ -1045,8 +1045,8 @@ linkml:Sparqlpath xsd:string
     (  $<BpmnLinkEventDefinition_tes> (  &<BpmnEventDefinition_tes> ;
           rdf:type [ <BpmnEventDefinition> ] ? ;
           <name> @linkml:String ;
-          <sources> @linkml:String * ;
-          <target> @linkml:String ?
+          <bpmn_sources> @linkml:String * ;
+          <bpmn_target> @linkml:String ?
        ) ;
        rdf:type [ <BpmnLinkEventDefinition> ] ?
     )
@@ -1359,7 +1359,7 @@ linkml:Sparqlpath xsd:string
              <https://w3id.org/lmodel/fluxnova-bpm-platform/BpmnRelationshipDirection#Forward>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/BpmnRelationshipDirection#Backward>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/BpmnRelationshipDirection#Both> ] ? ;
-          <sources> @<BpmnSource> + ;
+          <bpmn_sources> @<BpmnSource> + ;
           <targets> @<BpmnTarget> +
        ) ;
        rdf:type [ <BpmnRelationship> ] ?
@@ -1789,9 +1789,9 @@ linkml:Sparqlpath xsd:string
        (  $<DiDiagram_tes> (  &<BpmnModelElementInstance_tes> ;
              rdf:type [ <BpmnModelElementInstance> ] ? ;
              <name> @linkml:String ? ;
-             <documentation> @linkml:String ? ;
+             <bpmn_documentation> @linkml:String ? ;
              <resolution> @linkml:Double ? ;
-             <id> @linkml:String ?
+             <bpmn_id> @linkml:String ?
           ) ;
           rdf:type [ <DiDiagram> ] ?
        )
@@ -1805,7 +1805,7 @@ linkml:Sparqlpath xsd:string
 <DiDiagramElement_struct> {
     (  $<DiDiagramElement_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <id> @linkml:String ? ;
+          <bpmn_id> @linkml:String ? ;
           <extension> @<DiExtension> ?
        ) ;
        rdf:type [ <DiDiagramElement> ] ?
@@ -1900,7 +1900,7 @@ linkml:Sparqlpath xsd:string
     {
        (  $<DiStyle_tes> (  &<BpmnModelElementInstance_tes> ;
              rdf:type [ <BpmnModelElementInstance> ] ? ;
-             <id> @linkml:String ?
+             <bpmn_id> @linkml:String ?
           ) ;
           rdf:type [ <DiStyle> ] ?
        )
@@ -2194,7 +2194,7 @@ linkml:Sparqlpath xsd:string
           <fluxnova_class> @linkml:String ? ;
           <fluxnova_expression> @linkml:String ? ;
           <fluxnova_delegate_expression> @linkml:String ? ;
-          <fields> @<FluxnovaField> * ;
+          <bpmn_fields> @<FluxnovaField> * ;
           <script> @<FluxnovaScript> ?
        ) ;
        rdf:type [ <FluxnovaExecutionListener> ] ?
@@ -2988,7 +2988,7 @@ linkml:Sparqlpath xsd:string
     (  $<FluxnovaScript_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
           <script_format> @linkml:String ;
-          <resource> @linkml:String ? ;
+          <bpmn_resource> @linkml:String ? ;
           <text_content> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaScript> ] ?
@@ -3039,7 +3039,7 @@ linkml:Sparqlpath xsd:string
           <fluxnova_class> @linkml:String ? ;
           <fluxnova_expression> @linkml:String ? ;
           <fluxnova_delegate_expression> @linkml:String ? ;
-          <fields> @<FluxnovaField> * ;
+          <bpmn_fields> @<FluxnovaField> * ;
           <script> @<FluxnovaScript> ? ;
           <timer_event_definition> @<BpmnTimerEventDefinition> ?
        ) ;
@@ -3119,7 +3119,7 @@ linkml:Sparqlpath xsd:string
 <FluxnovaValidation> CLOSED {
     (  $<FluxnovaValidation_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
-          <constraints> @<FluxnovaConstraint> *
+          <bpmn_constraints> @<FluxnovaConstraint> *
        ) ;
        rdf:type [ <FluxnovaValidation> ] ?
     )

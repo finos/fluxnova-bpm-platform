@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public abstract class DiStyle extends BpmnModelElementInstance {
 
-  private String id;
+  private String bpmnId;
 
 
 }

@@ -31,7 +31,8 @@ Fluxnova is FINOS's BPM platform, grown from Camunda 7. The schema renders the r
 - **References.** A reference to another element, by id or QName, is a string whose `refers_to` annotation names the class it points to, since BPMN lets an element have no id.
 - **Polymorphic children.** A process's flow elements range over `BpmnFlowElement`, and `element_type` names each child's class.
 - **Text.** `text_content` holds an element's text where the BPMN XML Schema the model API ships makes it mixed, and on the extension elements the engine reads as text.
-- **Extensions.** An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix. `extensionElements` holds any element, as BPMN's schema has it.
+- **Names.** An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a slot whose name LOKF defines, such as `id` or `documentation`, the `bpmn_` prefix; an assignment's `from` and `to` are `from_expression` and `to_expression`.
+- **Extensions.** `extensionElements` holds any element, as BPMN's schema has it.
 - **Descriptions** are this project's own, in `scripts/bpmn_descriptions.yaml`.
 
 ## What is left out

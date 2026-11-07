@@ -18,7 +18,7 @@ public class BpmnRelationship extends BpmnBaseElement {
 
   private String type;
   private String direction;
-  private List<BpmnSource> sources;
+  private List<BpmnSource> bpmnSources;
   private List<BpmnTarget> targets;
 
 

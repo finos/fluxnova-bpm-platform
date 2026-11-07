@@ -16,7 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class BpmnDefinitions extends BpmnModelElementInstance {
 
-  private String id;
+  private String bpmnId;
   private String name;
   private String targetNamespace;
   private String expressionLanguage;

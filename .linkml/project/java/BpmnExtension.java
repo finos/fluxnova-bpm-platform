@@ -16,9 +16,9 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class BpmnExtension extends BpmnModelElementInstance {
 
-  private String definition;
+  private String bpmnDefinition;
   private Boolean mustUnderstand;
-  private List<BpmnDocumentation> documentation;
+  private List<BpmnDocumentation> bpmnDocumentation;
 
 
 }

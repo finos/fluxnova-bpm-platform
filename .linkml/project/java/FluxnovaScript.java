@@ -17,7 +17,7 @@ import lombok.*;
 public class FluxnovaScript extends BpmnModelElementInstance {
 
   private String scriptFormat;
-  private String resource;
+  private String bpmnResource;
   private String textContent;
 
 

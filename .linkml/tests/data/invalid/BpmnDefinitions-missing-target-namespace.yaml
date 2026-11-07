@@ -1,2 +1,2 @@
 # Invalid: definitions must name the namespace of the elements they define.
-id: definitions-no-namespace
+bpmn_id: definitions-no-namespace

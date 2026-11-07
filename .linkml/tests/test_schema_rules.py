@@ -153,7 +153,6 @@ SHARED_WITH_NEIGHBOURS = {name: set() for name in NEIGHBOURS} | {
     },
     "nist-nvd.yaml": {
         "action",
-        "id",
         "value",
     },
     "nist-sp-800-218.yaml": {

@@ -203,7 +203,7 @@ classes:
         annotations:
           xml_name: delegateExpression
           xml_namespace: http://camunda.org/schema/1.0/bpmn
-      fields:
+      bpmn_fields:
         description: The fields injected into the listener's delegate class.
         range: FluxnovaField
         inlined: true
@@ -939,7 +939,7 @@ classes:
         required: true
         annotations:
           xml_name: scriptFormat
-      resource:
+      bpmn_resource:
         description: A resource that holds the script, instead of the script's text.
         range: string
         annotations:
@@ -1015,7 +1015,7 @@ classes:
         annotations:
           xml_name: delegateExpression
           xml_namespace: http://camunda.org/schema/1.0/bpmn
-      fields:
+      bpmn_fields:
         description: The fields injected into the listener's delegate class.
         range: FluxnovaField
         inlined: true
@@ -1051,7 +1051,7 @@ classes:
     in_subset:
       - bpmn_extension
     attributes:
-      constraints:
+      bpmn_constraints:
         description: The constraints the value must meet.
         range: FluxnovaConstraint
         inlined: true

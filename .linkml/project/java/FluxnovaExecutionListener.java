@@ -20,7 +20,7 @@ public class FluxnovaExecutionListener extends BpmnModelElementInstance {
   private String fluxnovaClass;
   private String fluxnovaExpression;
   private String fluxnovaDelegateExpression;
-  private List<FluxnovaField> fields;
+  private List<FluxnovaField> bpmnFields;
   private FluxnovaScript script;
 
 

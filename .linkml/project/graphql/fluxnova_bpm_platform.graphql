@@ -104,8 +104,8 @@ enum HistoricVariableInstanceState
 type BpmnActivationCondition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -113,8 +113,8 @@ type BpmnActivationCondition
 type BpmnActivity implements BpmnInteractionNode
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -141,8 +141,8 @@ type BpmnActivity implements BpmnInteractionNode
 type BpmnAdHocSubProcess
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -177,16 +177,16 @@ type BpmnAdHocSubProcess
 interface BpmnArtifact
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnAssignment
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     fromExpression: BpmnFrom!
     toExpression: BpmnTo!
@@ -195,8 +195,8 @@ type BpmnAssignment
 type BpmnAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     sourceRef: String!
     targetRef: String!
@@ -206,24 +206,24 @@ type BpmnAssociation
 type BpmnAuditing
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 interface BpmnBaseElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnBoundaryEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -249,8 +249,8 @@ type BpmnBoundaryEvent
 type BpmnBusinessRuleTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -292,8 +292,8 @@ type BpmnBusinessRuleTask
 type BpmnCallableElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     supportedInterfaceRefs: [String]
@@ -304,8 +304,8 @@ type BpmnCallableElement
 type BpmnCallActivity
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -344,8 +344,8 @@ type BpmnCallActivity
 type BpmnCallConversation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     participantRefs: [String]
@@ -358,16 +358,16 @@ type BpmnCallConversation
 type BpmnCancelEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 interface BpmnCatchEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -391,8 +391,8 @@ interface BpmnCatchEvent
 type BpmnCategory
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String!
     categoryValues: [BpmnCategoryValue]
@@ -401,8 +401,8 @@ type BpmnCategory
 type BpmnCategoryValue
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     value: String
   }
@@ -410,8 +410,8 @@ type BpmnCategoryValue
 type BpmnChildLaneSet
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     lanes: [BpmnLane]
@@ -420,8 +420,8 @@ type BpmnChildLaneSet
 type BpmnCollaboration
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     isClosed: Boolean
@@ -439,8 +439,8 @@ type BpmnCollaboration
 type BpmnCompensateEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     waitForCompletion: Boolean
     activityRef: String
@@ -449,8 +449,8 @@ type BpmnCompensateEventDefinition
 type BpmnCompletionCondition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -458,16 +458,16 @@ type BpmnCompletionCondition
 type BpmnComplexBehaviorDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnComplexGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -487,8 +487,8 @@ type BpmnComplexGateway
 type BpmnCondition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -496,8 +496,8 @@ type BpmnCondition
 type BpmnConditionalEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     fluxnovaVariableName: String
     fluxnovaVariableEvents: String
@@ -507,8 +507,8 @@ type BpmnConditionalEventDefinition
 type BpmnConditionExpression
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
     language: String
@@ -520,8 +520,8 @@ type BpmnConditionExpression
 type BpmnConversation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     participantRefs: [String]
@@ -532,8 +532,8 @@ type BpmnConversation
 type BpmnConversationAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     innerConversationNodeRef: String!
     outerConversationNodeRef: String!
@@ -542,8 +542,8 @@ type BpmnConversationAssociation
 type BpmnConversationLink
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     sourceRef: String!
@@ -553,8 +553,8 @@ type BpmnConversationLink
 type BpmnConversationNode implements BpmnInteractionNode
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     participantRefs: [String]
@@ -565,8 +565,8 @@ type BpmnConversationNode implements BpmnInteractionNode
 type BpmnCorrelationKey
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     correlationPropertyRefs: [String]
@@ -575,8 +575,8 @@ type BpmnCorrelationKey
 type BpmnCorrelationProperty
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     type: String
@@ -586,8 +586,8 @@ type BpmnCorrelationProperty
 type BpmnCorrelationPropertyBinding
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     correlationPropertyRef: String!
     dataPath: BpmnDataPath!
@@ -596,8 +596,8 @@ type BpmnCorrelationPropertyBinding
 type BpmnCorrelationPropertyRetrievalExpression
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     messageRef: String!
     messagePath: BpmnMessagePath!
@@ -606,8 +606,8 @@ type BpmnCorrelationPropertyRetrievalExpression
 type BpmnCorrelationSubscription
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     correlationKeyRef: String!
     correlationPropertyBindings: [BpmnCorrelationPropertyBinding]
@@ -616,8 +616,8 @@ type BpmnCorrelationSubscription
 type BpmnDataAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     sourceRefs: [String]
     targetRef: String!
@@ -628,8 +628,8 @@ type BpmnDataAssociation
 type BpmnDataInput
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -640,8 +640,8 @@ type BpmnDataInput
 type BpmnDataInputAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     sourceRefs: [String]
     targetRef: String!
@@ -652,8 +652,8 @@ type BpmnDataInputAssociation
 type BpmnDataObject
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -667,8 +667,8 @@ type BpmnDataObject
 type BpmnDataObjectReference
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -682,8 +682,8 @@ type BpmnDataObjectReference
 type BpmnDataOutput
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -694,8 +694,8 @@ type BpmnDataOutput
 type BpmnDataOutputAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     sourceRefs: [String]
     targetRef: String!
@@ -706,8 +706,8 @@ type BpmnDataOutputAssociation
 type BpmnDataPath
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
     language: String
@@ -717,8 +717,8 @@ type BpmnDataPath
 type BpmnDataState
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
   }
@@ -726,8 +726,8 @@ type BpmnDataState
 type BpmnDataStore
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     capacity: Int
@@ -739,8 +739,8 @@ type BpmnDataStore
 type BpmnDataStoreReference
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -754,7 +754,7 @@ type BpmnDataStoreReference
 type BpmnDefinitions
   {
     elementType: String
-    id: String
+    bpmnId: String
     name: String
     targetNamespace: String!
     expressionLanguage: String
@@ -772,9 +772,9 @@ type BpmnDiagram
   {
     elementType: String
     name: String
-    documentation: String
+    bpmnDocumentation: String
     resolution: Float
-    id: String
+    bpmnId: String
     bpmnPlane: BpmnPlane!
     bpmnLabelStyles: [BpmnLabelStyle]
   }
@@ -782,7 +782,7 @@ type BpmnDiagram
 type BpmnDocumentation
   {
     elementType: String
-    id: String
+    bpmnId: String
     textFormat: String
     textContent: String
   }
@@ -790,7 +790,7 @@ type BpmnDocumentation
 type BpmnEdge
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     waypoints: [DiWaypoint]!
     bpmnElement: String
@@ -803,8 +803,8 @@ type BpmnEdge
 type BpmnEndEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -827,16 +827,16 @@ type BpmnEndEvent
 type BpmnEndPoint
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnError
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     errorCode: String
@@ -847,8 +847,8 @@ type BpmnError
 type BpmnErrorEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     errorRef: String
     fluxnovaErrorCodeVariable: String
@@ -858,8 +858,8 @@ type BpmnErrorEventDefinition
 type BpmnEscalation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     escalationCode: String
@@ -869,8 +869,8 @@ type BpmnEscalation
 type BpmnEscalationEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     escalationRef: String
   }
@@ -878,8 +878,8 @@ type BpmnEscalationEventDefinition
 type BpmnEvent implements BpmnInteractionNode
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -897,8 +897,8 @@ type BpmnEvent implements BpmnInteractionNode
 type BpmnEventBasedGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -918,16 +918,16 @@ type BpmnEventBasedGateway
 interface BpmnEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnExclusiveGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -946,8 +946,8 @@ type BpmnExclusiveGateway
 type BpmnExpression
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -955,9 +955,9 @@ type BpmnExpression
 type BpmnExtension
   {
     elementType: String
-    definition: String
+    bpmnDefinition: String
     mustUnderstand: Boolean
-    documentation: [BpmnDocumentation]
+    bpmnDocumentation: [BpmnDocumentation]
   }
 
 type BpmnExtensionElements
@@ -968,8 +968,8 @@ type BpmnExtensionElements
 interface BpmnFlowElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -980,8 +980,8 @@ interface BpmnFlowElement
 interface BpmnFlowNode
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -998,8 +998,8 @@ interface BpmnFlowNode
 type BpmnFormalExpression
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
     language: String
@@ -1009,8 +1009,8 @@ type BpmnFormalExpression
 type BpmnFrom
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -1018,8 +1018,8 @@ type BpmnFrom
 interface BpmnGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1037,8 +1037,8 @@ interface BpmnGateway
 type BpmnGlobalConversation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     isClosed: Boolean
@@ -1056,8 +1056,8 @@ type BpmnGlobalConversation
 type BpmnGroup
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     categoryValueRef: String
   }
@@ -1065,8 +1065,8 @@ type BpmnGroup
 type BpmnHumanPerformer
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     resourceRef: String
@@ -1085,8 +1085,8 @@ type BpmnImport
 type BpmnInclusiveGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1105,8 +1105,8 @@ type BpmnInclusiveGateway
 type BpmnInputDataItem
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -1117,8 +1117,8 @@ type BpmnInputDataItem
 type BpmnInputSet
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     dataInputRefs: [String]
@@ -1129,14 +1129,14 @@ type BpmnInputSet
 
 interface BpmnInteractionNode
   {
-    id: String
+    bpmnId: String
   }
 
 type BpmnInterface
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String!
     implementationRef: String
@@ -1146,8 +1146,8 @@ type BpmnInterface
 type BpmnIntermediateCatchEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1171,8 +1171,8 @@ type BpmnIntermediateCatchEvent
 type BpmnIntermediateThrowEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1195,8 +1195,8 @@ type BpmnIntermediateThrowEvent
 type BpmnIoBinding
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     operationRef: String!
     inputDataRef: String!
@@ -1206,8 +1206,8 @@ type BpmnIoBinding
 type BpmnIoSpecification
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     dataInputs: [BpmnDataInput]
     dataOutputs: [BpmnDataOutput]
@@ -1218,8 +1218,8 @@ type BpmnIoSpecification
 interface BpmnItemAwareElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -1228,8 +1228,8 @@ interface BpmnItemAwareElement
 type BpmnItemDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     structureRef: String
     isCollection: Boolean
@@ -1239,7 +1239,7 @@ type BpmnItemDefinition
 type BpmnLabel
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     bounds: DcBounds
     labelStyle: String
@@ -1248,15 +1248,15 @@ type BpmnLabel
 type BpmnLabelStyle
   {
     elementType: String
-    id: String
+    bpmnId: String
     font: DcFont!
   }
 
 type BpmnLane
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     partitionElementRef: String
@@ -1268,8 +1268,8 @@ type BpmnLane
 type BpmnLaneSet
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     lanes: [BpmnLane]
@@ -1278,19 +1278,19 @@ type BpmnLaneSet
 type BpmnLinkEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String!
-    sources: [String]
-    target: String
+    bpmnSources: [String]
+    bpmnTarget: String
   }
 
 type BpmnLoopCardinality
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -1298,16 +1298,16 @@ type BpmnLoopCardinality
 interface BpmnLoopCharacteristics
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnManualTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1335,8 +1335,8 @@ type BpmnManualTask
 type BpmnMessage
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     itemRef: String
@@ -1345,8 +1345,8 @@ type BpmnMessage
 type BpmnMessageEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     messageRef: String
     fluxnovaClass: String
@@ -1362,8 +1362,8 @@ type BpmnMessageEventDefinition
 type BpmnMessageFlow
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     sourceRef: String!
@@ -1374,8 +1374,8 @@ type BpmnMessageFlow
 type BpmnMessageFlowAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     innerMessageFlowRef: String!
     outerMessageFlowRef: String!
@@ -1384,8 +1384,8 @@ type BpmnMessageFlowAssociation
 type BpmnMessagePath
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
     language: String
@@ -1400,16 +1400,16 @@ interface BpmnModelElementInstance
 type BpmnMonitoring
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnMultiInstanceLoopCharacteristics
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     isSequential: Boolean
     behavior: BpmnMultiInstanceFlowCondition
@@ -1432,8 +1432,8 @@ type BpmnMultiInstanceLoopCharacteristics
 type BpmnOperation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String!
     implementationRef: String
@@ -1445,8 +1445,8 @@ type BpmnOperation
 type BpmnOutputDataItem
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -1457,8 +1457,8 @@ type BpmnOutputDataItem
 type BpmnOutputSet
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     dataOutputRefs: [String]
@@ -1470,8 +1470,8 @@ type BpmnOutputSet
 type BpmnParallelGateway
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1490,8 +1490,8 @@ type BpmnParallelGateway
 type BpmnParticipant implements BpmnInteractionNode
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     processRef: String
@@ -1503,8 +1503,8 @@ type BpmnParticipant implements BpmnInteractionNode
 type BpmnParticipantAssociation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     innerParticipantRef: String!
     outerParticipantRef: String!
@@ -1513,8 +1513,8 @@ type BpmnParticipantAssociation
 type BpmnParticipantMultiplicity
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     minimum: Int
     maximum: Int
@@ -1523,16 +1523,16 @@ type BpmnParticipantMultiplicity
 type BpmnPartitionElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnPerformer
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     resourceRef: String
@@ -1543,7 +1543,7 @@ type BpmnPerformer
 type BpmnPlane
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     diagramElements: [DiDiagramElement]
     bpmnElement: String
@@ -1552,8 +1552,8 @@ type BpmnPlane
 type BpmnPotentialOwner
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     resourceRef: String
@@ -1564,8 +1564,8 @@ type BpmnPotentialOwner
 type BpmnProcess
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     supportedInterfaceRefs: [String]
@@ -1595,8 +1595,8 @@ type BpmnProcess
 type BpmnProperty
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     itemSubjectRef: String
     dataState: BpmnDataState
@@ -1606,8 +1606,8 @@ type BpmnProperty
 type BpmnReceiveTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1639,28 +1639,28 @@ type BpmnReceiveTask
 type BpmnRelationship
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     type: String!
     direction: BpmnRelationshipDirection
-    sources: [BpmnSource]!
+    bpmnSources: [BpmnSource]!
     targets: [BpmnTarget]!
   }
 
 type BpmnRendering
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
 type BpmnResource
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String!
     resourceParameters: [BpmnResourceParameter]
@@ -1669,8 +1669,8 @@ type BpmnResource
 type BpmnResourceAssignmentExpression
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     expression: BpmnExpression!
   }
@@ -1678,8 +1678,8 @@ type BpmnResourceAssignmentExpression
 type BpmnResourceParameter
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     type: String
@@ -1689,8 +1689,8 @@ type BpmnResourceParameter
 type BpmnResourceParameterBinding
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     parameterRef: String!
     expression: BpmnExpression!
@@ -1699,8 +1699,8 @@ type BpmnResourceParameterBinding
 type BpmnResourceRole
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     resourceRef: String
@@ -1711,8 +1711,8 @@ type BpmnResourceRole
 interface BpmnRootElement
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
@@ -1725,8 +1725,8 @@ type BpmnScript
 type BpmnScriptTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1758,8 +1758,8 @@ type BpmnScriptTask
 type BpmnSendTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1797,8 +1797,8 @@ type BpmnSendTask
 type BpmnSequenceFlow
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1813,8 +1813,8 @@ type BpmnSequenceFlow
 type BpmnServiceTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1851,7 +1851,7 @@ type BpmnServiceTask
 type BpmnShape
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     bounds: DcBounds!
     bpmnElement: String
@@ -1867,8 +1867,8 @@ type BpmnShape
 type BpmnSignal
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     structureRef: String
@@ -1877,8 +1877,8 @@ type BpmnSignal
 type BpmnSignalEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     signalRef: String
     fluxnovaAsync: Boolean
@@ -1892,8 +1892,8 @@ type BpmnSource
 type BpmnStartEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1925,8 +1925,8 @@ type BpmnStartEvent
 type BpmnSubConversation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     participantRefs: [String]
@@ -1938,8 +1938,8 @@ type BpmnSubConversation
 type BpmnSubProcess
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -1976,8 +1976,8 @@ type BpmnTarget
 type BpmnTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -2005,8 +2005,8 @@ type BpmnTask
 type BpmnTerminateEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
   }
 
@@ -2019,8 +2019,8 @@ type BpmnText
 type BpmnTextAnnotation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textFormat: String
     text: BpmnText
@@ -2029,8 +2029,8 @@ type BpmnTextAnnotation
 interface BpmnThrowEvent
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -2053,8 +2053,8 @@ interface BpmnThrowEvent
 type BpmnTimeCycle
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -2062,8 +2062,8 @@ type BpmnTimeCycle
 type BpmnTimeDate
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -2071,8 +2071,8 @@ type BpmnTimeDate
 type BpmnTimeDuration
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -2080,8 +2080,8 @@ type BpmnTimeDuration
 type BpmnTimerEventDefinition
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     timeDate: BpmnTimeDate
     timeDuration: BpmnTimeDuration
@@ -2091,8 +2091,8 @@ type BpmnTimerEventDefinition
 type BpmnTo
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
   }
@@ -2100,8 +2100,8 @@ type BpmnTo
 type BpmnTransaction
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -2134,8 +2134,8 @@ type BpmnTransaction
 type BpmnTransformation
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     textContent: String
     language: String
@@ -2145,8 +2145,8 @@ type BpmnTransformation
 type BpmnUserTask
   {
     elementType: String
-    id: String
-    documentation: [BpmnDocumentation]
+    bpmnId: String
+    bpmnDocumentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
     name: String
     auditing: BpmnAuditing
@@ -2215,22 +2215,22 @@ interface DiDiagram
   {
     elementType: String
     name: String
-    documentation: String
+    bpmnDocumentation: String
     resolution: Float
-    id: String
+    bpmnId: String
   }
 
 interface DiDiagramElement
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
   }
 
 interface DiEdge
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     waypoints: [DiWaypoint]!
   }
@@ -2243,7 +2243,7 @@ type DiExtension
 interface DiLabel
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     bounds: DcBounds
   }
@@ -2251,7 +2251,7 @@ interface DiLabel
 interface DiLabeledEdge
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     waypoints: [DiWaypoint]!
   }
@@ -2259,7 +2259,7 @@ interface DiLabeledEdge
 interface DiLabeledShape
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     bounds: DcBounds!
   }
@@ -2267,14 +2267,14 @@ interface DiLabeledShape
 interface DiNode
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
   }
 
 interface DiPlane
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     diagramElements: [DiDiagramElement]
   }
@@ -2282,7 +2282,7 @@ interface DiPlane
 interface DiShape
   {
     elementType: String
-    id: String
+    bpmnId: String
     extension: DiExtension
     bounds: DcBounds!
   }
@@ -2290,7 +2290,7 @@ interface DiShape
 interface DiStyle
   {
     elementType: String
-    id: String
+    bpmnId: String
   }
 
 type DiWaypoint
@@ -2563,7 +2563,7 @@ type FluxnovaExecutionListener
     fluxnovaClass: String
     fluxnovaExpression: String
     fluxnovaDelegateExpression: String
-    fields: [FluxnovaField]
+    bpmnFields: [FluxnovaField]
     script: FluxnovaScript
   }
 
@@ -3291,7 +3291,7 @@ type FluxnovaScript
   {
     elementType: String
     scriptFormat: String!
-    resource: String
+    bpmnResource: String
     textContent: String
   }
 
@@ -3334,7 +3334,7 @@ type FluxnovaTaskListener
     fluxnovaClass: String
     fluxnovaExpression: String
     fluxnovaDelegateExpression: String
-    fields: [FluxnovaField]
+    bpmnFields: [FluxnovaField]
     script: FluxnovaScript
     timerEventDefinition: BpmnTimerEventDefinition
   }
@@ -3407,7 +3407,7 @@ type FluxnovaUserOperationLogEntry
 type FluxnovaValidation
   {
     elementType: String
-    constraints: [FluxnovaConstraint]
+    bpmnConstraints: [FluxnovaConstraint]
   }
 
 type FluxnovaValue
