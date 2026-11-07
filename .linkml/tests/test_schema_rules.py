@@ -1,7 +1,6 @@
 """Checks that the adapt copy can sit beside LOKF and the neighbours' copies."""
 
 import hashlib
-import json
 from pathlib import Path
 
 import yaml
