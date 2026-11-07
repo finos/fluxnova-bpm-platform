@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,12 +42,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class ModificationUserOperationLogTest {
@@ -56,8 +56,8 @@ public class ModificationUserOperationLogTest {
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(rule);
   protected BatchModificationHelper helper = new BatchModificationHelper(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testRule);
 
   protected RuntimeService runtimeService;
   protected HistoryService historyService;
@@ -65,19 +65,19 @@ public class ModificationUserOperationLogTest {
   protected BpmnModelInstance instance;
   protected static final Date START_DATE = new Date(1457326800000L);
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = rule.getRuntimeService();
     historyService = rule.getHistoryService();
     identityService = rule.getIdentityService();
   }
 
-  @Before
+  @BeforeEach
   public void setClock() {
     ClockUtil.setCurrentTime(START_DATE);
   }
 
-  @Before
+  @BeforeEach
   public void createBpmnModelInstance() {
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -88,17 +88,17 @@ public class ModificationUserOperationLogTest {
         .done();
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @After
+  @AfterEach
   public void removeInstanceIds() {
     helper.currentProcessInstances = new ArrayList<String>();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
@@ -117,34 +117,34 @@ public class ModificationUserOperationLogTest {
             .createUserOperationLogQuery()
             .operationType(UserOperationLogEntry.OPERATION_TYPE_MODIFY_PROCESS_INSTANCE)
             .list();
-    Assert.assertEquals(2, opLogEntries.size());
+    Assertions.assertEquals(2, opLogEntries.size());
 
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
 
     UserOperationLogEntry asyncEntry = entries.get("async");
-    Assert.assertNotNull(asyncEntry);
-    Assert.assertEquals("ProcessInstance", asyncEntry.getEntityType());
-    Assert.assertEquals("ModifyProcessInstance", asyncEntry.getOperationType());
-    Assert.assertEquals(processDefinition.getId(), asyncEntry.getProcessDefinitionId());
-    Assert.assertEquals(processDefinition.getKey(), asyncEntry.getProcessDefinitionKey());
-    Assert.assertNull(asyncEntry.getProcessInstanceId());
-    Assert.assertNull(asyncEntry.getOrgValue());
-    Assert.assertEquals("true", asyncEntry.getNewValue());
-    Assert.assertEquals(UserOperationLogEntry.CATEGORY_OPERATOR, asyncEntry.getCategory());
+    Assertions.assertNotNull(asyncEntry);
+    Assertions.assertEquals("ProcessInstance", asyncEntry.getEntityType());
+    Assertions.assertEquals("ModifyProcessInstance", asyncEntry.getOperationType());
+    Assertions.assertEquals(processDefinition.getId(), asyncEntry.getProcessDefinitionId());
+    Assertions.assertEquals(processDefinition.getKey(), asyncEntry.getProcessDefinitionKey());
+    Assertions.assertNull(asyncEntry.getProcessInstanceId());
+    Assertions.assertNull(asyncEntry.getOrgValue());
+    Assertions.assertEquals("true", asyncEntry.getNewValue());
+    Assertions.assertEquals(UserOperationLogEntry.CATEGORY_OPERATOR, asyncEntry.getCategory());
 
     UserOperationLogEntry numInstancesEntry = entries.get("nrOfInstances");
-    Assert.assertNotNull(numInstancesEntry);
-    Assert.assertEquals("ProcessInstance", numInstancesEntry.getEntityType());
-    Assert.assertEquals("ModifyProcessInstance", numInstancesEntry.getOperationType());
-    Assert.assertEquals(processDefinition.getId(), numInstancesEntry.getProcessDefinitionId());
-    Assert.assertEquals(processDefinition.getKey(), numInstancesEntry.getProcessDefinitionKey());
-    Assert.assertNull(numInstancesEntry.getProcessInstanceId());
-    Assert.assertNull(numInstancesEntry.getOrgValue());
-    Assert.assertEquals("10", numInstancesEntry.getNewValue());
-    Assert.assertEquals(UserOperationLogEntry.CATEGORY_OPERATOR, numInstancesEntry.getCategory());
+    Assertions.assertNotNull(numInstancesEntry);
+    Assertions.assertEquals("ProcessInstance", numInstancesEntry.getEntityType());
+    Assertions.assertEquals("ModifyProcessInstance", numInstancesEntry.getOperationType());
+    Assertions.assertEquals(processDefinition.getId(), numInstancesEntry.getProcessDefinitionId());
+    Assertions.assertEquals(processDefinition.getKey(), numInstancesEntry.getProcessDefinitionKey());
+    Assertions.assertNull(numInstancesEntry.getProcessInstanceId());
+    Assertions.assertNull(numInstancesEntry.getOrgValue());
+    Assertions.assertEquals("10", numInstancesEntry.getNewValue());
+    Assertions.assertEquals(UserOperationLogEntry.CATEGORY_OPERATOR, numInstancesEntry.getCategory());
 
-    Assert.assertEquals(asyncEntry.getOperationId(), numInstancesEntry.getOperationId());
+    Assertions.assertEquals(asyncEntry.getOperationId(), numInstancesEntry.getOperationId());
   }
 
   @Test
@@ -167,7 +167,7 @@ public class ModificationUserOperationLogTest {
     identityService.clearAuthentication();
 
     // then
-    Assert.assertEquals(0, historyService.createUserOperationLogQuery().entityType(EntityTypes.PROCESS_INSTANCE).count());
+    Assertions.assertEquals(0, historyService.createUserOperationLogQuery().entityType(EntityTypes.PROCESS_INSTANCE).count());
   }
 
   @Test
@@ -186,7 +186,7 @@ public class ModificationUserOperationLogTest {
     testRule.waitForJobExecutorToProcessAllJobs(5000L);
 
     // then
-    Assert.assertEquals(0, historyService.createUserOperationLogQuery().count());
+    Assertions.assertEquals(0, historyService.createUserOperationLogQuery().count());
   }
 
   @Test
@@ -217,11 +217,11 @@ public class ModificationUserOperationLogTest {
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
     UserOperationLogEntry asyncEntry = entries.get("async");
-    Assert.assertNotNull(asyncEntry);
+    Assertions.assertNotNull(asyncEntry);
     assertEquals(annotation, asyncEntry.getAnnotation());
 
     UserOperationLogEntry numInstancesEntry = entries.get("nrOfInstances");
-    Assert.assertNotNull(numInstancesEntry);
+    Assertions.assertNotNull(numInstancesEntry);
     assertEquals(annotation, numInstancesEntry.getAnnotation());
   }
 
@@ -252,11 +252,11 @@ public class ModificationUserOperationLogTest {
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
     UserOperationLogEntry asyncEntry = entries.get("async");
-    Assert.assertNotNull(asyncEntry);
+    Assertions.assertNotNull(asyncEntry);
     assertEquals(annotation, asyncEntry.getAnnotation());
 
     UserOperationLogEntry numInstancesEntry = entries.get("nrOfInstances");
-    Assert.assertNotNull(numInstancesEntry);
+    Assertions.assertNotNull(numInstancesEntry);
     assertEquals(annotation, numInstancesEntry.getAnnotation());
   }
 
@@ -347,7 +347,7 @@ public class ModificationUserOperationLogTest {
 
       UserOperationLogEntry previousValue = map.put(entry.getProperty(), entry);
       if (previousValue != null) {
-        Assert.fail("expected only entry for every property");
+        Assertions.fail("expected only entry for every property");
       }
     }
 

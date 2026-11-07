@@ -105,7 +105,7 @@ Run in commons-ui folder:
 
 ```
 rm -rf node_modules
-npm install --legacy-bundling
+npm install —-legacy-bundling
 ```
 
 Open webdriver-manager and change mac32.zip to mac64.zip if you run a newer macOS version.

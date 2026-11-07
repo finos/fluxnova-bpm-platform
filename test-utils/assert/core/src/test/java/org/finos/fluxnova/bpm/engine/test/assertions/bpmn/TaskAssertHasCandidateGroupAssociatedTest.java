@@ -30,15 +30,15 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.Failure;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.ProcessAssertTestCase;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 public class TaskAssertHasCandidateGroupAssociatedTest extends ProcessAssertTestCase {
 
   private static final String CANDIDATE_GROUP = "candidateGroup";
   private static final String ASSIGNEE = "assignee";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   @Test

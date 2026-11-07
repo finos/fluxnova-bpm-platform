@@ -47,12 +47,12 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.util.FluxnovaFormUtils;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class RetrieveFluxnovaFormRefTest {
 
@@ -63,9 +63,12 @@ public class RetrieveFluxnovaFormRefTest {
 
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
-  protected TemporaryFolder tempFolder = new TemporaryFolder();
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule).around(tempFolder);
+
+  @TempDir
+  protected java.io.File tempFolder;
+
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
   private TaskService taskService;
@@ -73,7 +76,7 @@ public class RetrieveFluxnovaFormRefTest {
   private FormService formService;
   private ProcessEngineConfigurationImpl processEngineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -82,7 +85,7 @@ public class RetrieveFluxnovaFormRefTest {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     List<org.finos.fluxnova.bpm.engine.repository.Deployment> deployments = repositoryService.createDeploymentQuery().list();
     for (org.finos.fluxnova.bpm.engine.repository.Deployment deployment : deployments) {
@@ -204,9 +207,8 @@ public class RetrieveFluxnovaFormRefTest {
 
     assertTaskFormData(taskFormData, "myTaskForm", "latest", null);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedTaskForm(task.getId());
-    }).isInstanceOf(NotFoundException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedTaskForm(task.getId())).isInstanceOf(NotFoundException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
@@ -228,9 +230,8 @@ public class RetrieveFluxnovaFormRefTest {
 
     assertTaskFormData(taskFormData, "myTaskForm", "deployment", null);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedTaskForm(task.getId());
-    }).isInstanceOf(NotFoundException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedTaskForm(task.getId())).isInstanceOf(NotFoundException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
@@ -254,9 +255,8 @@ public class RetrieveFluxnovaFormRefTest {
 
     assertTaskFormData(taskFormData, "myTaskForm", "version", 2);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedTaskForm(task.getId());
-    }).isInstanceOf(NotFoundException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedTaskForm(task.getId())).isInstanceOf(NotFoundException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
@@ -411,9 +411,8 @@ public class RetrieveFluxnovaFormRefTest {
     assertThat(deployments).hasSize(1);
     assertThat(definitions).hasSize(0);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedStartForm(processDefinition.getId());
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedStartForm(processDefinition.getId())).isInstanceOf(BadUserRequestException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
@@ -432,9 +431,8 @@ public class RetrieveFluxnovaFormRefTest {
     assertThat(deployments).hasSize(1);
     assertThat(definitions).hasSize(0);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedStartForm(processDefinition.getId());
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedStartForm(processDefinition.getId())).isInstanceOf(BadUserRequestException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 
@@ -455,9 +453,8 @@ public class RetrieveFluxnovaFormRefTest {
     assertThat(deployments).hasSize(1);
     assertThat(definitions).hasSize(1);
 
-    assertThatThrownBy(() -> {
-      formService.getDeployedStartForm(processDefinition.getId());
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      formService.getDeployedStartForm(processDefinition.getId())).isInstanceOf(BadUserRequestException.class)
     .hasMessageContaining("No Fluxnova Form Definition was found for Fluxnova Form Ref");
   }
 

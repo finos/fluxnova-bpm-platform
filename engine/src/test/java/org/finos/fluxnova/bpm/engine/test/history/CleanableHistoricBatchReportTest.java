@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,27 +47,26 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class CleanableHistoricBatchReportTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule();
 
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
   protected MigrationTestRule migrationRule = new MigrationTestRule(engineRule);
-  protected BatchMigrationHelper migrationHelper = new BatchMigrationHelper(engineRule, migrationRule);
-  protected BatchModificationHelper modificationHelper = new BatchModificationHelper(engineRule);
+  protected BatchMigrationHelper migrationHelper;
+  protected BatchModificationHelper modificationHelper;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(testRule).around(engineRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule).around(migrationRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected HistoryService historyService;
@@ -77,16 +74,18 @@ public class CleanableHistoricBatchReportTest {
   protected RuntimeService runtimeService;
   protected ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     historyService = engineRule.getHistoryService();
     processEngineConfiguration = (ProcessEngineConfigurationImpl)bootstrapRule.getProcessEngine().getProcessEngineConfiguration();
     repositoryService = engineRule.getRepositoryService();
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
+    migrationHelper = new BatchMigrationHelper(engineRule, migrationRule);
+    modificationHelper = new BatchModificationHelper(engineRule);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     ClockUtil.reset();
     migrationHelper.removeAllRunningAndHistoricBatches();

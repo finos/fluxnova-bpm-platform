@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 /**
@@ -34,7 +34,7 @@ import org.junit.Test;
 @Origin("7.3.0")
 public class NestedCompensationScenarioTest {
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule rule = new UpgradeTestRule();
 
   @Test

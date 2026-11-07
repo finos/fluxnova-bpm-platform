@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.timer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

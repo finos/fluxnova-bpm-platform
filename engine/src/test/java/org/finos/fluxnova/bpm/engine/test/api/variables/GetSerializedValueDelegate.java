@@ -19,7 +19,8 @@ package org.finos.fluxnova.bpm.engine.test.api.variables;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Daniel Meyer
@@ -30,7 +31,7 @@ public class GetSerializedValueDelegate implements JavaDelegate {
   public void execute(DelegateExecution execution) throws Exception {
 
     TypedValue typedValue = execution.getVariableTyped("varName", false);
-    Assert.assertNotNull(typedValue);
+    Assertions.assertNotNull(typedValue);
 
   }
 

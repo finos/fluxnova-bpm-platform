@@ -69,8 +69,8 @@ public class PerfTestRunner {
       for (String watcherClassName : watcherClassNames) {
         if(watcherClassName.length() > 0) {
           Object watcher = ReflectUtil.instantiate(watcherClassName);
-          if(watcher instanceof PerfTestWatcher) {
-            watchers.add((PerfTestWatcher) watcher);
+          if(watcher instanceof PerfTestWatcher testWatcher) {
+            watchers.add(testWatcher);
           } else {
             throw new PerfTestException("Test watcher "+watcherClassName+" must implement "+PerfTestWatcher.class.getName());
           }

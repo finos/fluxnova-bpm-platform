@@ -44,8 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
@@ -73,14 +73,15 @@ import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.BooleanValue;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -91,7 +92,7 @@ import io.restassured.response.Response;
 public class TaskVariableRestResourceInteractionTest extends
   AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String TASK_SERVICE_URL = TEST_RESOURCE_ROOT_PATH + "/task";
@@ -106,7 +107,7 @@ public class TaskVariableRestResourceInteractionTest extends
 
   protected TaskService taskServiceMock;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     taskServiceMock = mock(TaskService.class);
     when(processEngine.getTaskService()).thenReturn(taskServiceMock);
@@ -131,7 +132,7 @@ public class TaskVariableRestResourceInteractionTest extends
       .body(EXAMPLE_VARIABLE_KEY + ".type", equalTo(VariableTypeHelper.toExpectedValueTypeName(EXAMPLE_VARIABLE_VALUE.getType())))
       .when().get(SINGLE_TASK_VARIABLES_URL);
 
-    Assert.assertEquals("Should return exactly one variable", 1, response.jsonPath().getMap("").size());
+    Assertions.assertEquals(1, response.jsonPath().getMap("").size(), "Should return exactly one variable");
   }
 
   @Test
@@ -877,6 +878,32 @@ public class TaskVariableRestResourceInteractionTest extends
   }
 
   @Test
+  public void testPutSingleVariableWithExplicitNullValueForPrimitiveTypes() {
+    // JSON {"type": "<PrimitiveType>", "value": null} must create a typed null value, not fail deserialization
+    String variableKey = "aVariableKey";
+    String[] primitiveTypes = {"String", "Integer", "Short", "Long", "Double", "Boolean"};
+
+    for (String type : primitiveTypes) {
+      Map<String, Object> variableJson = new HashMap<>();
+      variableJson.put("value", null);
+      variableJson.put("type", type);
+
+      given().pathParam("id", EXAMPLE_TASK_ID).pathParam("varId", variableKey)
+        .contentType(ContentType.JSON).body(variableJson)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .then().expect().statusCode(Status.NO_CONTENT.getStatusCode())
+        .when().put(SINGLE_TASK_PUT_SINGLE_VARIABLE_URL);
+    }
+
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.stringValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.integerValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.shortValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.longValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.doubleValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.booleanValue(null)));
+  }
+
+  @Test
   public void testPutVariableForNonExistingTaskId() {
     String variableKey = "aVariableKey";
     String variableValue = "aVariableValue";
@@ -1005,7 +1032,7 @@ public class TaskVariableRestResourceInteractionTest extends
 
     ObjectMapper mapper = new ObjectMapper();
     String jsonBytes = mapper.writeValueAsString(serializable);
-    String typeName = TypeFactory.defaultInstance().constructType(serializable.getClass()).toCanonical();
+    String typeName = TypeFactory.createDefaultInstance().constructType(serializable.getClass()).toCanonical();
 
     String variableKey = "aVariableKey";
 
@@ -1031,7 +1058,7 @@ public class TaskVariableRestResourceInteractionTest extends
 
     ObjectMapper mapper = new ObjectMapper();
     String jsonBytes = mapper.writeValueAsString(serializable);
-    String typeName = TypeFactory.defaultInstance().constructType(serializable.getClass()).toCanonical();
+    String typeName = TypeFactory.createDefaultInstance().constructType(serializable.getClass()).toCanonical();
 
     String variableKey = "aVariableKey";
 

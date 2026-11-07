@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.HistoricVariableInstanceQuery;
@@ -34,7 +34,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringArrayConverter;
 import org.finos.fluxnova.bpm.engine.rest.dto.converter.StringListConverter;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricVariableInstanceQuery> {
 
@@ -66,6 +66,8 @@ public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricV
   protected String[] caseExecutionIdIn;
   protected String[] caseActivityIdIn;
   protected String[] processInstanceIdIn;
+  protected String businessKey;
+  protected String businessKeyLike;
   protected List<String> tenantIds;
   protected Boolean withoutTenantId;
   protected boolean includeDeleted;
@@ -141,6 +143,16 @@ public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricV
   @FluxnovaQueryParam(value="processInstanceIdIn", converter = StringArrayConverter.class)
   public void setProcessInstanceIdIn(String[] processInstanceIdIn) {
     this.processInstanceIdIn = processInstanceIdIn;
+  }
+
+  @FluxnovaQueryParam("businessKey")
+  public void setBusinessKey(String businessKey) {
+    this.businessKey = businessKey;
+  }
+
+  @FluxnovaQueryParam("businessKeyLike")
+  public void setBusinessKeyLike(String businessKeyLike) {
+    this.businessKeyLike = businessKeyLike;
   }
 
   @FluxnovaQueryParam(value="activityInstanceIdIn", converter = StringArrayConverter.class)
@@ -237,6 +249,12 @@ public class HistoricVariableInstanceQueryDto extends AbstractQueryDto<HistoricV
     }
     if (processInstanceIdIn != null && processInstanceIdIn.length > 0) {
       query.processInstanceIdIn(processInstanceIdIn);
+    }
+    if (businessKey != null) {
+      query.businessKey(businessKey);
+    }
+    if (businessKeyLike != null) {
+      query.businessKeyLike(businessKeyLike);
     }
     if (activityInstanceIdIn != null && activityInstanceIdIn.length > 0) {
       query.activityInstanceIdIn(activityInstanceIdIn);

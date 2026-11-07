@@ -19,9 +19,9 @@ package org.finos.fluxnova.bpm.integrationtest.functional.ejb.beans;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
 
-import javax.ejb.ApplicationException;
-import javax.ejb.Stateless;
-import javax.inject.Named;
+import jakarta.ejb.ApplicationException;
+import jakarta.ejb.Stateless;
+import jakarta.inject.Named;
 
 /**
  * A SLSB acting as a {@link JavaDelegate}

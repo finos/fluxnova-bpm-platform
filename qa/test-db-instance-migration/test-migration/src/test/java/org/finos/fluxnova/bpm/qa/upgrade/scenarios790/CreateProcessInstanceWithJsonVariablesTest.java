@@ -30,7 +30,7 @@ import org.finos.fluxnova.bpm.qa.upgrade.json.beans.Order;
 
 import org.finos.fluxnova.bpm.qa.upgrade.json.beans.RegularCustomer;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 @Origin("7.9.0")
 public class CreateProcessInstanceWithJsonVariablesTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.json.cfg.xml");
 
   @ScenarioUnderTest("initProcessInstance.1")

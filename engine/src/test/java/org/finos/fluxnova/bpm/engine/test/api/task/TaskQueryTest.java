@@ -32,13 +32,7 @@ import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.ta
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.taskByPriority;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.taskByProcessInstanceId;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySortingAndCount;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,9 +76,9 @@ import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez
@@ -100,7 +94,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
   // max value
   protected static final double MAX_DOUBLE_VALUE = 10E+124;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
 
     identityService.saveUser(identityService.newUser("kermit"));
@@ -117,7 +111,7 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     taskIds = generateTestTasks();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     identityService.deleteGroup("accountancy");
     identityService.deleteGroup("management");
@@ -5005,8 +4999,8 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     matches = matches || tasks.get(numTasks - 1).getProcessInstanceId()
         .equals(belongingProcessInstance.getId());
 
-    assertTrue("neither first nor last task belong to process instance " + belongingProcessInstance.getId(),
-        matches);
+    assertTrue(matches,
+        "neither first nor last task belong to process instance " + belongingProcessInstance.getId());
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/task/TaskQueryTest.testProcessDefinition.bpmn20.xml")
@@ -5314,9 +5308,8 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
         .processInstanceId(processInstance.getId())
         .singleResult();
 
-    assertThatThrownBy(() -> {
-      task2.getFluxnovaFormRef();
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      task2.getFluxnovaFormRef()).isInstanceOf(BadUserRequestException.class)
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
   }
 
@@ -5332,6 +5325,44 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     Task task = taskService.createTaskQuery().initializeFormKeys().caseInstanceId(caseInstance.getId()).singleResult();
     assertEquals("aFormKey", task.getFormKey());
 
+  }
+
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/task/oneTaskWithInvalidFormKeyExpressionProcess.bpmn20.xml"})
+  @Test
+  public void testInitializeFormKeyWithInvalidExpressionReturnsNullForSingleTask() {
+    // given: a process with a formKey expression that references a non-existent variable
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+
+    // when: retrieving the single task with initializeFormKeys()
+    Task task = taskService.createTaskQuery()
+            .processInstanceId(processInstance.getId())
+            .initializeFormKeys()
+            .singleResult();
+
+    // then: the task is returned successfully and formKey is null instead of throwing
+    assertNotNull(task);
+    assertNull(task.getFormKey(),"Form key should be null when expression evaluation fails");
+  }
+
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/task/oneTaskWithInvalidFormKeyExpressionProcess.bpmn20.xml"})
+  @Test
+  public void testInitializeFormKeyWithInvalidExpressionDoesNotBlockTaskListRetrieval() {
+    // given: multiple process instances whose formKey expression will fail to evaluate
+    runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+    runtimeService.startProcessInstanceByKey("invalidFormKeyExpressionProcess");
+
+    // when: retrieving all tasks with initializeFormKeys()
+    List<Task> tasks = taskService.createTaskQuery()
+            .processDefinitionKey("invalidFormKeyExpressionProcess")
+            .initializeFormKeys()
+            .list();
+
+    // then: all tasks are returned and each has a null formKey — no exception is propagated
+    assertNotNull(tasks);
+    assertEquals(2, tasks.size(),"All tasks should be returned despite invalid form key expressions");
+    for (Task task : tasks) {
+      assertNull(task.getFormKey(),"Form key should be null when expression evaluation fails");
+    }
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/task/TaskQueryTest.testProcessDefinition.bpmn20.xml")
@@ -5696,9 +5727,8 @@ public class TaskQueryTest extends PluggableProcessEngineTest {
     assertThat(withFormKeys).hasSize(1);
 
     Task taskWithoutFormKey = withoutFormKeys.get(0);
-    assertThatThrownBy(() -> {
-      taskWithoutFormKey.getFluxnovaFormRef();
-    }).isInstanceOf(BadUserRequestException.class)
+    assertThatThrownBy(() ->
+      taskWithoutFormKey.getFluxnovaFormRef()).isInstanceOf(BadUserRequestException.class)
     .hasMessage("ENGINE-03052 The form key / form reference is not initialized. You must call initializeFormKeys() on the task query before you can retrieve the form key or the form reference.");
 
     Task taskWithFormKey = withFormKeys.get(0);

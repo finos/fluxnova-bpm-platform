@@ -30,10 +30,10 @@
                                  "vendor": "h2",
                                  "version": "1.4.190 (2015-10-11)"
                                },
-                               "application-server": {
-                                 "vendor": "Wildfly",
-                                 "version": "WildFly Full 19.0.0.Final (WildFly Core 11.0.0.Final) - 2.0.30.Final"
-                               },
+                                "application-server": {
+                                  "vendor": "Apache Tomcat",
+                                  "version": "Apache Tomcat/11.0.22"
+                                },
                                "jdk": {
                                  "version": "14.0.2",
                                  "vendor": "Oracle Corporation"

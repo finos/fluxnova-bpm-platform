@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest;
 
-import static javax.ws.rs.core.Response.Status;
+import static jakarta.ws.rs.core.Response.Status;
 import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
@@ -40,9 +40,10 @@ import org.finos.fluxnova.bpm.engine.impl.AbstractQuery;
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.FilterQueryDto;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 
 import io.restassured.response.Response;
@@ -52,7 +53,7 @@ import io.restassured.response.Response;
  */
 public class FilterRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
   
   protected static final String FILTER_QUERY_URL = TEST_RESOURCE_ROOT_PATH + FilterRestService.PATH;
@@ -65,7 +66,7 @@ public class FilterRestServiceQueryTest extends AbstractRestServiceTest {
   protected Filter anotherMockedFilter;
   protected int anotherMockedFilterItemCount;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockedQuery = MockProvider.createMockFilterQuery();
     mockedFilter = MockProvider.createMockFilter(MockProvider.EXAMPLE_FILTER_ID);

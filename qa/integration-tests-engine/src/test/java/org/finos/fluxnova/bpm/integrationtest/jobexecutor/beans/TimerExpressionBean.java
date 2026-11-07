@@ -16,10 +16,11 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.jobexecutor.beans;
 
+
 import java.io.Serializable;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.cdi.annotation.ProcessVariableTyped;
@@ -57,8 +58,8 @@ public class TimerExpressionBean implements Serializable {
     if (timerExpression == null) {
       throw new NullValueException("no variable 'timerExpression' found");
     }
-    if (timerExpression instanceof StringValue) {
-      return ((StringValue) timerExpression).getValue();
+    if (timerExpression instanceof StringValue value) {
+      return value.getValue();
     }
     return String.valueOf(timerExpression.getValue());
   }

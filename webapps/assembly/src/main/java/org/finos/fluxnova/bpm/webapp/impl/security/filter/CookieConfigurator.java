@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.webapp.impl.security.filter;
 
 import java.util.Arrays;
 
-import javax.servlet.FilterConfig;
+import jakarta.servlet.FilterConfig;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.webapp.impl.security.filter.util.CookieConstants;

@@ -16,44 +16,51 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.netty.http.client.HttpClient;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 
 /**
  * @author Svetlana Dorokhova.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = WebappExampleApplication.class,
   webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 public class WebappTest {
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @LocalServerPort
+  private int port;
+
+  private WebTestClient webTestClient;
+
+  @BeforeEach
+  public void setup() {
+    webTestClient = WebTestClient.bindToServer(
+            new ReactorClientHttpConnector(HttpClient.create().followRedirect(true)))
+        .baseUrl("http://localhost:" + port)
+        .build();
+  }
 
   @Test
   public void testEeResourceNotAvailable() {
-    ResponseEntity<String> response =
-        testRestTemplate.getForEntity("/fluxnova/plugin/adminEE/app/plugin.js", String.class);
-
-    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    webTestClient.get()
+        .uri("/fluxnova/plugin/adminEE/app/plugin.js")
+        .exchange()
+        .expectStatus().isNotFound();
   }
 
   @Test
   public void testAdminEndpointAvailable() {
-    ResponseEntity<String> response =
-        testRestTemplate.getForEntity("/fluxnova/app/admin/", String.class);
-
-    assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    webTestClient.get()
+        .uri("/fluxnova/app/admin/")
+        .exchange()
+        .expectStatus().isOk();
   }
 
 }

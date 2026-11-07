@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.bpmn.gateway;
 
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +38,8 @@ import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez
@@ -426,7 +423,7 @@ public class InclusiveGatewayTest extends PluggableProcessEngineTest {
       System.out.println(((ExecutionEntity) execution).getActivityId());
     }
 
-    assertEquals("Found executions: " + runtimeService.createExecutionQuery().list(), 0, runtimeService.createExecutionQuery().count());
+    assertEquals(0, runtimeService.createExecutionQuery().count(), "Found executions: " + runtimeService.createExecutionQuery().list());
     testRule.assertProcessEnded(pi.getId());
   }
 

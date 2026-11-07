@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.container.impl.threading.ra.inflow;
 
 
-import javax.resource.ResourceException;
-import javax.resource.spi.endpoint.MessageEndpointFactory;
+import jakarta.resource.ResourceException;
+import jakarta.resource.spi.endpoint.MessageEndpointFactory;
 
 import org.finos.fluxnova.bpm.container.impl.threading.ra.JcaExecutorServiceConnector;
 

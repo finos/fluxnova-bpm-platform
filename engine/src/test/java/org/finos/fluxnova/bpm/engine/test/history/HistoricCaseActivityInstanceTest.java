@@ -23,16 +23,12 @@ import static org.finos.fluxnova.bpm.engine.impl.cmmn.execution.CaseExecutionSta
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.execution.CaseExecutionState.ENABLED;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.execution.CaseExecutionState.SUSPENDED;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.execution.CaseExecutionState.TERMINATED;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +63,8 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -965,7 +962,7 @@ public class HistoricCaseActivityInstanceTest extends CmmnTest {
     HistoricCaseActivityInstance historicActivityInstance = historicQuery()
       .caseActivityId(activityId)
       .singleResult();
-    assertNotNull("No historic activity instance found for activity id: " + activityId, historicActivityInstance);
+    assertNotNull(historicActivityInstance, "No historic activity instance found for activity id: " + activityId);
     return historicActivityInstance;
   }
 
@@ -973,7 +970,7 @@ public class HistoricCaseActivityInstanceTest extends CmmnTest {
     HistoricCaseActivityInstanceEventEntity historicActivityInstance = (HistoricCaseActivityInstanceEventEntity) queryHistoricActivityCaseInstance(activityId);
     int actualStateCode = historicActivityInstance.getCaseActivityInstanceState();
     CaseExecutionState actualState = CaseExecutionState.CaseExecutionStateImpl.getStateForCode(actualStateCode);
-    assertEquals("The state of historic case activity '" + activityId + "' wasn't as expected", expectedState, actualState);
+    assertEquals(expectedState, actualState, "The state of historic case activity '" + activityId + "' wasn't as expected");
   }
 
   protected void assertHistoricCreateTime(String activityId, Date expectedCreateTime) {

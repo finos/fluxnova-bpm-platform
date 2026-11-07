@@ -34,8 +34,9 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.PropertyEntity;
-import org.junit.After;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.AfterEach;
 
 public abstract class AbstractFluxnovaAutoConfigurationIT {
 
@@ -81,7 +82,7 @@ public abstract class AbstractFluxnovaAutoConfigurationIT {
   @Autowired
   protected ProcessEngine processEngine;
 
-  @After
+  @AfterEach
   public void cleanup() {
     //remove history level from database
     ((ProcessEngineConfigurationImpl)processEngine.getProcessEngineConfiguration()).getCommandExecutorTxRequired().execute(new Command<Void>() {

@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.compensate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.history.HistoricActivityInstance;
@@ -28,8 +28,8 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -69,7 +69,7 @@ public class CompensateEventHistoryTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/event/compensate/CompensateEventHistoryTest.testBoundaryCompensationHandlerHistory.bpmn20.xml")
-  @Ignore("Fix CAM-4351")
+  @Disabled("Fix CAM-4351")
   @Test
   public void testBoundaryCompensationHandlerHistoryVariableInstance() {
     // given a process instance
@@ -133,7 +133,7 @@ public class CompensateEventHistoryTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/event/compensate/CompensateEventHistoryTest.testDefaultCompensationHandlerHistory.bpmn20.xml")
-  @Ignore("Fix CAM-4351")
+  @Disabled("Fix CAM-4351")
   @Test
   public void testDefaultCompensationHandlerHistoryVariableInstance() {
     // given a process instance

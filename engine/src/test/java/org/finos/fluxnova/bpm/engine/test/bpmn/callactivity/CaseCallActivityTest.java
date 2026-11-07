@@ -17,12 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.callactivity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Map;
@@ -42,7 +37,8 @@ import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

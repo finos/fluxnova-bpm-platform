@@ -24,6 +24,7 @@ import java.util.Set;
 import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.CoreVariableInstance;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
@@ -123,7 +124,27 @@ public class StartProcessVariableScope implements VariableScope {
     throw new UnsupportedOperationException("No execution active, no variables can be set");
   }
 
+  @Override
+  public void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    throw new UnsupportedOperationException("No execution active, no variables can be set");
+  }
+
+  @Override
+  public void setVariable(String variableName, Object value, VariableOptions options) {
+    throw new UnsupportedOperationException("No execution active, no variables can be set");
+  }
+
   public void setVariableLocal(String variableName, Object value) {
+    throw new UnsupportedOperationException("No execution active, no variables can be set");
+  }
+
+  @Override
+  public void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    throw new UnsupportedOperationException("No execution active, no variables can be set");
+  }
+
+  @Override
+  public void setVariableLocal(String variableName, Object value, VariableOptions options) {
     throw new UnsupportedOperationException("No execution active, no variables can be set");
   }
 

@@ -16,39 +16,36 @@
  */
 package org.finos.fluxnova.bpm.dmn.engine.feel.function;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.finos.fluxnova.bpm.dmn.engine.feel.helper.FeelRule;
 import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class ExternalFunctionTest {
 
+  @RegisterExtension
   protected FeelRule feelRule = FeelRule.build();
-  protected ExpectedException thrown = ExpectedException.none();
-
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(feelRule).around(thrown);
 
   @Test
   public void shouldFailWhenUsingExternalFunction() {
-    // given
+    Throwable exception = assertThrows(FeelException.class, () ->
 
-    // then
-    thrown.expect(FeelException.class);
-    thrown.expectMessage("External functions are disabled");
-
-    // when
-    feelRule.evaluateExpression("{ \n" +
-      "  foo: function(x, y) external { \n" +
-      "    java: { \n" +
-      "        class: \"java.lang.Math\", \n" +
-      "        method signature: \"addExact(int, int)\" \n" +
-      "    } \n" +
-      "  },\n" +
-      "  bar: foo(5, 5)\n" +
-      "}.bar");
+      // when
+      feelRule.evaluateExpression("""
+        {\s
+          foo: function(x, y) external {\s
+            java: {\s
+                class: "java.lang.Math",\s
+                method signature: "addExact(int, int)"\s
+            }\s
+          },
+          bar: foo(5, 5)
+        }.bar"""));
+    assertThat(exception.getMessage(), containsString("External functions are disabled"));
   }
 
 }

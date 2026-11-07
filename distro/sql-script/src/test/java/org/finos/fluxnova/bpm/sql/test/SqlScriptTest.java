@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -33,6 +36,7 @@ import liquibase.change.core.SQLFileChange;
 import liquibase.changelog.ChangeSet;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
 import liquibase.diff.DiffGeneratorFactory;
 import liquibase.diff.DiffResult;
 import liquibase.diff.ObjectDifferences;
@@ -50,9 +54,9 @@ import liquibase.snapshot.SnapshotGeneratorFactory;
 import liquibase.structure.DatabaseObject;
 import liquibase.structure.core.UniqueConstraint;
 import org.finos.fluxnova.commons.utils.IoUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SqlScriptTest {
 
@@ -76,7 +80,7 @@ public class SqlScriptTest {
   protected Liquibase liquibase;
   protected DiffGeneratorFactory databaseDiffer;
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     InputStream is = getClass().getClassLoader().getResourceAsStream("properties-from-pom.properties");
     properties = new Properties();
@@ -91,7 +95,7 @@ public class SqlScriptTest {
     cleanUpDatabaseTables();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     cleanUpDatabaseTables();
     liquibase.close();
@@ -174,6 +178,71 @@ public class SqlScriptTest {
     assertThat(changeSetsToApply)
         .withFailMessage("Resulting upgraded database schema differs: %s", getChanges(changeSetsToApply))
         .isEmpty();
+  }
+
+  /** Verifies that the Fluxnova changelog and create scripts produce the same schema. */
+  @Test
+  public void shouldEqualFluxnovaChangelogAndCreateScripts() throws Exception {
+    // given
+    executeSqlScript("create", "engine");
+    executeSqlScript("create", "identity");
+    DatabaseSnapshot snapshotScripts = createCurrentDatabaseSnapshot();
+    cleanUpDatabaseTables();
+
+    // when
+    getFluxnovaLiquibase().update(new Contexts());
+
+    // then
+    DatabaseSnapshot snapshotLiquibase = createCurrentDatabaseSnapshot();
+    DiffResult diffResult = databaseDiffer.compare(snapshotScripts, snapshotLiquibase, new CompareControl());
+    List<ChangeSet> changeSetsToApply = new DiffToChangeLog(diffResult, new CustomDiffOutputControl())
+        .generateChangeSets();
+
+    assertThat(changeSetsToApply)
+        .withFailMessage("Fluxnova changelog schema differs from create scripts: %s", getChanges(changeSetsToApply))
+        .isEmpty();
+  }
+
+  /** Verifies that the changelog skips upgrades already present in a script-created schema. */
+  @Test
+  public void shouldSkipFluxnovaChangeSetsOnCurrentSchema() throws Exception {
+    // given a schema at the current version that was not created by Liquibase
+    executeSqlScript("create", "engine");
+    executeSqlScript("create", "identity");
+    DatabaseSnapshot snapshotBefore = createCurrentDatabaseSnapshot();
+
+    // when
+    getFluxnovaLiquibase().update(new Contexts());
+
+    // then
+    assertThat(queryStrings("SELECT ID FROM DATABASECHANGELOG WHERE EXECTYPE = 'MARK_RAN'"))
+        .contains("1.0.0-baseline", "1.0-to-2.0", "2.0-to-3.0", "3.0-to-3.1");
+
+    DatabaseSnapshot snapshotAfter = createCurrentDatabaseSnapshot();
+    DiffResult diffResult = databaseDiffer.compare(snapshotBefore, snapshotAfter, new CompareControl());
+    List<ChangeSet> changeSetsToApply = new DiffToChangeLog(diffResult, new CustomDiffOutputControl())
+        .generateChangeSets();
+
+    assertThat(changeSetsToApply)
+        .withFailMessage("Fluxnova changelog modified an up-to-date schema: %s", getChanges(changeSetsToApply))
+        .isEmpty();
+  }
+
+  /** Loads the Fluxnova changelog against the test's existing database connection. */
+  protected Liquibase getFluxnovaLiquibase() throws URISyntaxException {
+    return new Liquibase("fluxnova-changelog.xml", getAccessorForChangelogDirectory(""), database);
+  }
+
+  /** Reads a single string column from a SQL query. */
+  protected List<String> queryStrings(String sql) throws Exception {
+    List<String> result = new ArrayList<>();
+    try (Statement statement = ((JdbcConnection) database.getConnection()).createStatement();
+         ResultSet resultSet = statement.executeQuery(sql)) {
+      while (resultSet.next()) {
+        result.add(resultSet.getString(1));
+      }
+    }
+    return result;
   }
 
   protected void executeSqlScript(String sqlFolder, String sqlScript) throws LiquibaseException {

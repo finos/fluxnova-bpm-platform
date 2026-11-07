@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.history.HistoricProcessInstanceQue
 import org.finos.fluxnova.bpm.engine.rest.dto.runtime.modification.ProcessInstanceModificationInstructionDto;
 import org.finos.fluxnova.bpm.engine.runtime.RestartProcessInstanceBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * 

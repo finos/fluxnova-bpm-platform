@@ -67,6 +67,7 @@ public interface ValueType extends Serializable {
   FileValueType FILE = new FileValueTypeImpl();
 
   String VALUE_INFO_TRANSIENT = "transient";
+  String VALUE_INFO_RESTRICTED = "restricted";
   /**
    * Returns the name of the variable type
    */

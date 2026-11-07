@@ -19,7 +19,7 @@
         name = "fluxnova-integration"
         type = "array"
         itemType = "string"
-        desc = "List of Fluxnova integrations used (e.g., Fluxnova Spring Boot Starter, Fluxnova Run, WildFly/JBoss subsystem, Fluxnova EJB)."/>
+        desc = "List of Fluxnova integrations used (e.g., Fluxnova Spring Boot Starter, Fluxnova Run, Fluxnova EJB)."/>
 
     <@lib.property
         name = "commands"

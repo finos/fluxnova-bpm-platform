@@ -29,6 +29,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionVariableSnapshotObserver;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskManager;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
 /**
@@ -78,7 +79,9 @@ public class CompleteTaskCmd implements Command<VariableMap>, Serializable {
       variablesListener = new ExecutionVariableSnapshotObserver(execution, false, deserializeReturnedVariables);
     }
 
-    completeTask(task);
+    InternalVariableContext.executeAsInternalWrite(() ->
+            completeTask(task)
+    );
 
     if (returnVariables)
     {

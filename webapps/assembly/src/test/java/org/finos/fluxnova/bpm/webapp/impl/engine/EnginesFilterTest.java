@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.webapp.impl.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collections;
 import java.util.Set;
@@ -29,8 +29,8 @@ import org.finos.fluxnova.bpm.monitoring.impl.DefaultMonitoringRuntimeDelegate;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 import org.finos.fluxnova.bpm.webapp.impl.IllegalWebAppConfigurationException;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -133,7 +133,7 @@ public class EnginesFilterTest {
 
   }
 
-  @After
+  @AfterEach
   public void cleanup() {
     Monitoring.setMonitoringRuntimeDelegate(null);
   }

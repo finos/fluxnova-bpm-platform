@@ -31,7 +31,7 @@ import static org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil.ensureNotNull;
  * @author Tijs Rademakers
  */
 public class AddIdentityLinkForProcessDefinitionCmd implements Command<Void>, Serializable {
-  
+
   private static final long serialVersionUID = 1L;
 
   protected String processDefinitionId;

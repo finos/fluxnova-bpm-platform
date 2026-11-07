@@ -74,8 +74,8 @@ public class PreUndeployInvocationStep extends DeploymentOperationStep {
     }
     catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
-      if(cause instanceof RuntimeException) {
-        throw (RuntimeException) cause;
+      if(cause instanceof RuntimeException exception) {
+        throw exception;
       }
       else {
         throw LOG.exceptionWhileInvokingPaLifecycleCallback(CALLBACK_NAME, paName, e);

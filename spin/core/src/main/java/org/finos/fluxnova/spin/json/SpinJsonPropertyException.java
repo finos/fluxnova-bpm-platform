@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.spin.json;
 
+
+
 /**
  * @author Stefan Hentschel
  */

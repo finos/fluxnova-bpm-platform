@@ -23,7 +23,8 @@ import org.finos.fluxnova.spin.impl.json.jackson.JacksonJsonNode;
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.impl.test.ScriptVariable;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer

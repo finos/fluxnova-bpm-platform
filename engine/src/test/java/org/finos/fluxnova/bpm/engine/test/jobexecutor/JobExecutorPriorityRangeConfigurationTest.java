@@ -22,9 +22,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class JobExecutorPriorityRangeConfigurationTest {
 
@@ -33,7 +33,7 @@ public class JobExecutorPriorityRangeConfigurationTest {
   protected Long defaultJobExecutorPriorityRangeMin;
   protected Long defaultJobExecutorPriorityRangeMax;
 
-  @Before
+  @BeforeEach
   public void setup() {
     config = (ProcessEngineConfigurationImpl) ProcessEngineConfiguration
         .createProcessEngineConfigurationFromResource("camunda.cfg.xml");
@@ -41,7 +41,7 @@ public class JobExecutorPriorityRangeConfigurationTest {
     defaultJobExecutorPriorityRangeMax = config.getJobExecutorPriorityRangeMax();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     config.setJobExecutorPriorityRangeMin(defaultJobExecutorPriorityRangeMin);
     config.setJobExecutorPriorityRangeMax(defaultJobExecutorPriorityRangeMax);
@@ -81,9 +81,8 @@ public class JobExecutorPriorityRangeConfigurationTest {
     config.setJobExecutorPriorityRangeMax(-10L);
 
     // then
-    assertThatThrownBy(() -> {
-      config.buildProcessEngine();
-    }).isInstanceOf(ProcessEngineException.class)
+    assertThatThrownBy(() ->
+      config.buildProcessEngine()).isInstanceOf(ProcessEngineException.class)
     .hasMessage("ENGINE-14031 Invalid configuration for job executor priority range. Reason: jobExecutorPriorityRangeMin can not be greater than jobExecutorPriorityRangeMax");
   }
 
@@ -94,9 +93,8 @@ public class JobExecutorPriorityRangeConfigurationTest {
     config.setJobExecutorPriorityRangeMax(5L);
 
     // then
-    assertThatThrownBy(() -> {
-      config.buildProcessEngine();
-    }).isInstanceOf(ProcessEngineException.class)
+    assertThatThrownBy(() ->
+      config.buildProcessEngine()).isInstanceOf(ProcessEngineException.class)
     .hasMessage("ENGINE-14031 Invalid configuration for job executor priority range. Reason: jobExecutorPriorityRangeMin can not be greater than jobExecutorPriorityRangeMax");
   }
 }

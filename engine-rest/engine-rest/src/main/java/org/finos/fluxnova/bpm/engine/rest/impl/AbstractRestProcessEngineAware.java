@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.ws.rs.core.Response.Status;
+import tools.jackson.databind.ObjectMapper;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.util.EngineUtil;

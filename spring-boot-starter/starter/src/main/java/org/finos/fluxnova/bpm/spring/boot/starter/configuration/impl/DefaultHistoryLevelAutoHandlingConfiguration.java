@@ -22,7 +22,7 @@ import org.finos.fluxnova.bpm.spring.boot.starter.configuration.Ordering;
 import org.finos.fluxnova.bpm.spring.boot.starter.jdbc.HistoryLevelDeterminator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 @Order(Ordering.DEFAULT_ORDER + 1)
 public class DefaultHistoryLevelAutoHandlingConfiguration extends AbstractFluxnovaConfiguration implements FluxnovaHistoryLevelAutoHandlingConfiguration {
@@ -33,7 +33,7 @@ public class DefaultHistoryLevelAutoHandlingConfiguration extends AbstractFluxno
   @Override
   public void preInit(SpringProcessEngineConfiguration configuration) {
     final String determineHistoryLevel = historyLevelDeterminator.determineHistoryLevel();
-    if (!StringUtils.isEmpty(determineHistoryLevel)) {
+    if (!ObjectUtils.isEmpty(determineHistoryLevel)) {
       configuration.setHistory(determineHistoryLevel);
     }
   }

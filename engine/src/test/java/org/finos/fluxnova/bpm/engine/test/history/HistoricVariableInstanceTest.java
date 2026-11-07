@@ -22,12 +22,7 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.inverted;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.propertyComparator;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.verifySorting;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -79,9 +74,9 @@ import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -470,6 +465,28 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       historyService.createHistoricVariableInstanceQuery().processInstanceIdIn(null,processInstance.getProcessInstanceId());
       fail("Search by process instance ID was finished");
     } catch (ProcessEngineException e) { }
+  }
+
+  @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
+  @Test
+  public void testHistoricVariableInstanceQueryByProcessBusinessKey() {
+    Map<String, Object> variables1 = new HashMap<>();
+    variables1.put("first", "value1");
+    runtimeService.startProcessInstanceByKey("oneTaskProcess", "a-business-key", variables1);
+
+    Map<String, Object> variables2 = new HashMap<>();
+    variables2.put("second", "value2");
+    runtimeService.startProcessInstanceByKey("oneTaskProcess", "another-business-key", variables2);
+
+    HistoricVariableInstanceQuery exactMatchQuery = historyService.createHistoricVariableInstanceQuery()
+        .businessKey("a-business-key");
+    assertEquals(1, exactMatchQuery.count());
+    assertEquals(1, exactMatchQuery.list().size());
+
+    HistoricVariableInstanceQuery likeQuery = historyService.createHistoricVariableInstanceQuery()
+        .businessKeyLike("%business-key");
+    assertEquals(2, likeQuery.count());
+    assertEquals(2, likeQuery.list().size());
   }
 
   @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
@@ -992,7 +1009,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/history/HistoricVariableInstanceTest.testImplicitVariableUpdate.bpmn20.xml")
-  @Ignore
+  @Disabled
   @Test
   public void testImplicitVariableUpdateActivityInstanceId() {
     // given
@@ -1023,7 +1040,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
 
   @SuppressWarnings("unchecked")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/history/HistoricVariableInstanceTest.testImplicitVariableUpdate.bpmn20.xml")
-  @Ignore
+  @Disabled
   @Test
   public void testImplicitVariableUpdateAndReplacementInOneTransaction() {
     // given
@@ -2048,11 +2065,11 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
       runtimeService.startProcessInstanceByKey("asyncStartEvent");
 
       HistoricProcessInstance historicInstance = historyService.createHistoricProcessInstanceQuery().singleResult();
-      Assert.assertNotNull(historicInstance);
-      Assert.assertNotNull(historicInstance.getStartTime());
+      Assertions.assertNotNull(historicInstance);
+      Assertions.assertNotNull(historicInstance.getStartTime());
 
       HistoricActivityInstance historicStartEvent = historyService.createHistoricActivityInstanceQuery().singleResult();
-      Assert.assertNull(historicStartEvent);
+      Assertions.assertNull(historicStartEvent);
     }
   }
 
@@ -2286,7 +2303,7 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
   }
 
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/async/AsyncStartEventTest.testAsyncStartEvent.bpmn20.xml")
-  @Ignore("CAM-2828")
+  @Disabled("CAM-2828")
   @Test
   public void testSubmitFormHistoricUpdates() {
 
@@ -2335,24 +2352,24 @@ public class HistoricVariableInstanceTest extends PluggableProcessEngineTest {
 
     //then
     List<HistoricVariableInstance> variables = historyService.createHistoricVariableInstanceQuery().includeDeleted().list();
-    Assert.assertEquals(2, variables.size());
+    Assertions.assertEquals(2, variables.size());
 
     int createdCounter = 0;
     int deletedCounter = 0;
 
     for (HistoricVariableInstance variable : variables) {
       if (variable.getName().equals("initial")) {
-        Assert.assertEquals(HistoricVariableInstance.STATE_CREATED, variable.getState());
+        Assertions.assertEquals(HistoricVariableInstance.STATE_CREATED, variable.getState());
         createdCounter += 1;
       } else if (variable.getName().equals("bar")) {
-        Assert.assertEquals(HistoricVariableInstance.STATE_DELETED, variable.getState());
+        Assertions.assertEquals(HistoricVariableInstance.STATE_DELETED, variable.getState());
         assertEquals(task.getId(),variable.getTaskId());
         deletedCounter += 1;
       }
     }
 
-    Assert.assertEquals(1, createdCounter);
-    Assert.assertEquals(1, deletedCounter);
+    Assertions.assertEquals(1, createdCounter);
+    Assertions.assertEquals(1, deletedCounter);
   }
 
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/twoTasksProcess.bpmn20.xml"})

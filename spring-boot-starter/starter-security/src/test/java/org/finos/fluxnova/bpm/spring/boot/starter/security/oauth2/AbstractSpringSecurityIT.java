@@ -16,7 +16,6 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.security.oauth2;
 
-import static java.lang.String.format;
 import static org.mockito.Mockito.when;
 
 import java.time.Duration;
@@ -24,8 +23,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import org.finos.fluxnova.bpm.spring.boot.starter.security.SampleApplication;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
+
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.BeansException;
@@ -42,10 +42,8 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.context.WebApplicationContext;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = SampleApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public abstract class AbstractSpringSecurityIT {
@@ -59,9 +57,9 @@ public abstract class AbstractSpringSecurityIT {
   @LocalServerPort
   protected int port;
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
-    baseUrl = format("http://localhost:%d", port);
+    baseUrl = "http://localhost:%d".formatted(port);
   }
 
   protected static Object getBeanForClass(Class<?> type, WebApplicationContext context) {

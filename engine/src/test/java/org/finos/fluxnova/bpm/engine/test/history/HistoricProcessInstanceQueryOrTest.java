@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.history;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,15 +41,15 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_AUDIT)
 public class HistoricProcessInstanceQueryOrTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
 
   protected HistoryService historyService;
@@ -59,7 +59,7 @@ public class HistoricProcessInstanceQueryOrTest {
 
   protected List<String> deploymentIds = new ArrayList<>();
 
-  @Before
+  @BeforeEach
   public void init() {
     historyService = processEngineRule.getHistoryService();
     runtimeService = processEngineRule.getRuntimeService();
@@ -67,7 +67,7 @@ public class HistoricProcessInstanceQueryOrTest {
     managementService = processEngineRule.getManagementService();
   }
 
-  @After
+  @AfterEach
   public void deleteDeployments() {
     for (String deploymentId : deploymentIds) {
       repositoryService.deleteDeployment(deploymentId, true);

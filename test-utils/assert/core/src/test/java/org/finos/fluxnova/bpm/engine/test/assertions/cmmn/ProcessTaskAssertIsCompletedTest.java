@@ -28,8 +28,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.Failure;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.ProcessAssertTestCase;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 public class ProcessTaskAssertIsCompletedTest extends ProcessAssertTestCase {
 
@@ -37,7 +37,7 @@ public class ProcessTaskAssertIsCompletedTest extends ProcessAssertTestCase {
   public static final String USER_TASK = "UserTask_1";
   public static final String CASE_KEY = "Case_ProcessTaskAssertIsCompletedTest";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   @Test

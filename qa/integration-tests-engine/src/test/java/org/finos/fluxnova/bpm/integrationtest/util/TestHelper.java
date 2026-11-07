@@ -22,16 +22,18 @@ import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.jboss.shrinkwrap.api.asset.Asset;
+
+import org.junit.jupiter.api.Assertions;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
-import org.junit.Assert;
 
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-
-import static org.junit.Assert.*;
 
 
 public abstract class TestHelper {
@@ -63,7 +65,7 @@ public abstract class TestHelper {
 
   public static void assertDiagramIsDeployed(boolean deployed, Class<?> clazz, String expectedDiagramResource, String processDefinitionKey) throws IOException {
     ProcessEngine processEngine = ProgrammaticBeanLookup.lookup(ProcessEngine.class);
-    Assert.assertNotNull(processEngine);
+    Assertions.assertNotNull(processEngine);
     RepositoryService repositoryService = processEngine.getRepositoryService();
     ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
       .processDefinitionKey(processDefinitionKey)

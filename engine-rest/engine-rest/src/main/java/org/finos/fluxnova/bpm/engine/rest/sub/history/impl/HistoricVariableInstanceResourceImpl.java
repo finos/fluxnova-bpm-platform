@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.history.impl;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.exception.NotFoundException;

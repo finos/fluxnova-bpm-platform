@@ -35,19 +35,19 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class ProcessInstanceTerminationCascadeStateTest {
 
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngine engine;
   protected RepositoryService repositoryService;
@@ -56,7 +56,7 @@ public class ProcessInstanceTerminationCascadeStateTest {
 
   protected boolean externallyTerminated;
 
-  @Before
+  @BeforeEach
   public void init() {
     engine = engineRule.getProcessEngine();
     repositoryService = engine.getRepositoryService();
@@ -73,7 +73,7 @@ public class ProcessInstanceTerminationCascadeStateTest {
     testRule.deploy(caller, callee);
   }
 
-  @After
+  @AfterEach
   public void teardown() {
     List<HistoricProcessInstance> processes = historyService.createHistoricProcessInstanceQuery().list();
     for (HistoricProcessInstance historicProcessInstance : processes) {

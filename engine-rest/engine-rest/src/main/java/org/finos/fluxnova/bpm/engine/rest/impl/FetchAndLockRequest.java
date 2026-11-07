@@ -22,7 +22,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.Authentication;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.rest.dto.externaltask.FetchExternalTasksExtendedDto;
 
-import javax.ws.rs.container.AsyncResponse;
+import jakarta.ws.rs.container.AsyncResponse;
 
 /**
  * @author Tassilo Weidner

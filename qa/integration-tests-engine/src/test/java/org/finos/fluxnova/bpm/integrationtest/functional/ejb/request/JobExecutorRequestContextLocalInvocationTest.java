@@ -30,26 +30,22 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
  * This test verifies that if a delegate bean invoked from the Job Executor
  * calls a LOCAL SLSB from a different deployment, the RequestContest is active there as well.
  *
- * NOTE:
- * - does not work on Jboss (Bug in Jboss AS?) SEE HEMERA-2453
- * - not implemented on Glassfish
- *
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class JobExecutorRequestContextLocalInvocationTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa", order=2)
@@ -98,7 +94,7 @@ public class JobExecutorRequestContextLocalInvocationTest extends AbstractFoxPla
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // -> the same bean instance was invoked 2 times!
-    Assert.assertEquals(2, variable);
+    Assertions.assertEquals(2, variable);
 
     Task task = taskService.createTaskQuery()
       .processInstanceId(pi.getProcessInstanceId())
@@ -109,7 +105,7 @@ public class JobExecutorRequestContextLocalInvocationTest extends AbstractFoxPla
 
     variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // now it's '1' again! -> new instance of the bean
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
   }
 
 }

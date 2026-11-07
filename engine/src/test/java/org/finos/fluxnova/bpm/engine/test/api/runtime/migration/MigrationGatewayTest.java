@@ -28,10 +28,10 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.GatewayModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -42,8 +42,8 @@ public class MigrationGatewayTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   @Test
   public void testParallelGatewayContinueExecution() {
@@ -67,8 +67,8 @@ public class MigrationGatewayTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     testHelper.completeTask("parallel1");
     testHelper.completeTask("afterJoin");
@@ -134,8 +134,8 @@ public class MigrationGatewayTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     testHelper.completeTask("parallel1");
     testHelper.completeTask("afterJoin");
@@ -164,8 +164,8 @@ public class MigrationGatewayTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     testHelper.completeTask("parallel1");
     testHelper.completeTask("afterJoin");
@@ -231,8 +231,8 @@ public class MigrationGatewayTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     testHelper.completeTask("parallel1");
     testHelper.completeTask("afterJoin");
@@ -250,7 +250,7 @@ public class MigrationGatewayTest {
         .createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())
         .mapActivities("join", "join")
         .build();
-      Assert.fail("exception expected");
+      Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())
@@ -272,7 +272,7 @@ public class MigrationGatewayTest {
         .createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())
         .mapActivities("join", "join")
         .build();
-      Assert.fail("exception expected");
+      Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())
@@ -299,7 +299,7 @@ public class MigrationGatewayTest {
         .createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())
         .mapActivities("join", "join")
         .build();
-      Assert.fail("exception expected");
+      Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())
@@ -339,13 +339,13 @@ public class MigrationGatewayTest {
     testHelper.migrateProcessInstance(migrationPlan, processInstance);
 
     // then
-    Assert.assertEquals(1, rule.getTaskService().createTaskQuery().count());
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(1, rule.getTaskService().createTaskQuery().count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     rule.getRuntimeService().createProcessInstanceModification(processInstance.getId())
       .startBeforeActivity("join")
       .execute();
-    Assert.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
+    Assertions.assertEquals(0, rule.getTaskService().createTaskQuery().taskDefinitionKey("afterJoin").count());
 
     testHelper.completeTask("parallel1");
     testHelper.completeTask("afterJoin");
@@ -367,7 +367,7 @@ public class MigrationGatewayTest {
         .createMigrationPlan(sourceProcessDefinition.getId(), targetProcessDefinition.getId())
         .mapActivities("join", "join")
         .build();
-      Assert.fail("exception expected");
+      Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())
@@ -393,7 +393,7 @@ public class MigrationGatewayTest {
         .mapActivities("join", "join")
         .mapActivities("fork", "join")
         .build();
-      Assert.fail("exception expected");
+      Assertions.fail("exception expected");
     } catch (MigrationPlanValidationException e) {
       // then
       assertThat(e.getValidationReport())

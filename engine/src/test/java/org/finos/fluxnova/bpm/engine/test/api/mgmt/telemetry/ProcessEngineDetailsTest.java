@@ -23,7 +23,8 @@ import static org.finos.fluxnova.bpm.engine.impl.util.ProcessEngineDetails.EDITI
 
 import org.finos.fluxnova.bpm.engine.impl.util.ProcessEngineDetails;
 import org.finos.fluxnova.bpm.engine.test.util.TestconfigProperties;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ProcessEngineDetailsTest {
 

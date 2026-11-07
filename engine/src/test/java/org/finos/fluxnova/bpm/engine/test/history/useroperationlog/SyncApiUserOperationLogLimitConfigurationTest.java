@@ -23,14 +23,14 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class SyncApiUserOperationLogLimitConfigurationTest {
 
   ProcessEngine engine;
 
-  @After
+  @AfterEach
   public void tearDown() {
     if(engine != null) {
       engine.close();

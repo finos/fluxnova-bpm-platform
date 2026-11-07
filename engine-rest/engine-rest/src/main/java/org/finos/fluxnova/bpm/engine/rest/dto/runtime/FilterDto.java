@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.dto.runtime;
 
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.EntityTypes;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -29,8 +29,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 public class FilterDto {
 
@@ -38,6 +37,8 @@ public class FilterDto {
   protected String resourceType;
   protected String name;
   protected String owner;
+
+  @JsonDeserialize(as = TaskQueryDto.class)
   protected AbstractQueryDto<?> query;
   protected Map<String, Object> properties;
 
@@ -79,10 +80,6 @@ public class FilterDto {
     return query;
   }
 
-  @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
-      property = "resourceType", defaultImpl=TaskQueryDto.class)
-    @JsonSubTypes(value = {
-    @JsonSubTypes.Type(value = TaskQueryDto.class, name = EntityTypes.TASK)})
   public void setQuery(AbstractQueryDto<?> query) {
     this.query = query;
   }

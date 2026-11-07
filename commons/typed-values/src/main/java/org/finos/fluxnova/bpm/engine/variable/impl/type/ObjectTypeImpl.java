@@ -76,6 +76,9 @@ public class ObjectTypeImpl extends AbstractValueTypeImpl implements Serializabl
     if (objectValue.isTransient()) {
       valueInfo.put(VALUE_INFO_TRANSIENT, objectValue.isTransient());
     }
+    if (objectValue.isRestricted()) {
+      valueInfo.put(VALUE_INFO_RESTRICTED, true);
+    }
 
     return valueInfo;
   }
@@ -103,6 +106,7 @@ public class ObjectTypeImpl extends AbstractValueTypeImpl implements Serializabl
     }
 
     builder.setTransient(isTransient(valueInfo));
+    builder.setRestricted(isRestricted(valueInfo));
   }
 
 }

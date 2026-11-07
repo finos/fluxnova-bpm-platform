@@ -25,7 +25,7 @@ import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.TaskService;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.Date;
 
@@ -41,7 +41,7 @@ public abstract class AbstractTimestampMigrationTest {
   protected static final long TIME = 1548082136000L;
   protected static final Date TIMESTAMP = new Date(TIME);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   protected RuntimeService runtimeService;

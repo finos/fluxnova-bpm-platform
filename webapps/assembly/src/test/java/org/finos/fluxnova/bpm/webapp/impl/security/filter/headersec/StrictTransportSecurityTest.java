@@ -18,15 +18,15 @@ package org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.webapp.impl.util.HeaderRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.impl.StrictTransportSecurityProvider.HEADER_NAME;
 
 public class StrictTransportSecurityTest {
 
-  @Rule
+  @RegisterExtension
   public HeaderRule headerRule = new HeaderRule();
 
   @Test

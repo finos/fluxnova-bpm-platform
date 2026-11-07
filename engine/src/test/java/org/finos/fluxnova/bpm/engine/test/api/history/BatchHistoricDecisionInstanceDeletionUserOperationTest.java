@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,12 +41,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
@@ -61,8 +58,8 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected DecisionService decisionService;
   protected HistoryService historyService;
@@ -71,7 +68,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   protected List<String> decisionInstanceIds;
 
-  @Before
+  @BeforeEach
   public void setup() {
     historyService = engineRule.getHistoryService();
     decisionService = engineRule.getDecisionService();
@@ -80,25 +77,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
     decisionInstanceIds = new ArrayList<String>();
   }
 
-  @Before
-  public void evaluateDecisionInstances() {
-    testRule.deploy("org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn");
-
-    VariableMap variables = Variables.createVariables()
-        .putValue("status", "silver")
-        .putValue("sum", 723);
-
-    for (int i = 0; i < 10; i++) {
-      decisionService.evaluateDecisionByKey(DECISION).variables(variables).evaluate();
-    }
-
-    List<HistoricDecisionInstance> decisionInstances = historyService.createHistoricDecisionInstanceQuery().list();
-    for(HistoricDecisionInstance decisionInstance : decisionInstances) {
-      decisionInstanceIds.add(decisionInstance.getId());
-    }
-  }
-
-  @After
+  @AfterEach
   public void removeBatches() {
     for (Batch batch : managementService.createBatchQuery().list()) {
       managementService.deleteBatch(batch.getId(), true);
@@ -110,13 +89,14 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
     }
   }
 
-  @After
+  @AfterEach
   public void clearAuthentication() {
     identityService.clearAuthentication();
   }
 
   @Test
   public void testCreationByIds() {
+    setupDecisionInstances();
     // when
     identityService.setAuthenticatedUserId(USER_ID);
     historyService.deleteHistoricDecisionInstancesAsync(decisionInstanceIds, "a-delete-reason");
@@ -124,7 +104,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
     // then
     List<UserOperationLogEntry> opLogEntries = engineRule.getHistoryService().createUserOperationLogQuery().list();
-    Assert.assertEquals(3, opLogEntries.size());
+    Assertions.assertEquals(3, opLogEntries.size());
 
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
@@ -165,6 +145,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testCreationByQuery() {
+    setupDecisionInstances();
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
 
@@ -175,7 +156,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
     // then
     List<UserOperationLogEntry> opLogEntries = engineRule.getHistoryService().createUserOperationLogQuery().list();
-    Assert.assertEquals(3, opLogEntries.size());
+    Assertions.assertEquals(3, opLogEntries.size());
 
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
@@ -216,6 +197,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testCreationByIdsAndQuery() {
+    setupDecisionInstances();
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
 
@@ -226,7 +208,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
     // then
     List<UserOperationLogEntry> opLogEntries = engineRule.getHistoryService().createUserOperationLogQuery().list();
-    Assert.assertEquals(3, opLogEntries.size());
+    Assertions.assertEquals(3, opLogEntries.size());
 
     Map<String, UserOperationLogEntry> entries = asMap(opLogEntries);
 
@@ -267,6 +249,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnSyncBatchJobExecution() {
+    setupDecisionInstances();
     // given
     Batch batch = historyService.deleteHistoricDecisionInstancesAsync(decisionInstanceIds, null);
 
@@ -281,6 +264,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnSyncBatchJobExecutionByIds() {
+    setupDecisionInstances();
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
     Batch batch = historyService.deleteHistoricDecisionInstancesAsync(query, null);
@@ -296,6 +280,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnSyncBatchJobExecutionByIdsAndQuery() {
+    setupDecisionInstances();
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
     Batch batch = historyService.deleteHistoricDecisionInstancesAsync(decisionInstanceIds, query, null);
@@ -311,6 +296,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnJobExecutorBatchJobExecutionByIds() {
+    setupDecisionInstances();
     // given
     // given
     historyService.deleteHistoricDecisionInstancesAsync(decisionInstanceIds, null);
@@ -324,6 +310,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnJobExecutorBatchJobExecutionByQuery() {
+    setupDecisionInstances();
     // given
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
@@ -338,6 +325,7 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
   @Test
   public void testNoCreationOnJobExecutorBatchJobExecutionByIdsAndQuery() {
+    setupDecisionInstances();
     // given
     // given
     HistoricDecisionInstanceQuery query = historyService.createHistoricDecisionInstanceQuery().decisionDefinitionKey(DECISION);
@@ -372,6 +360,23 @@ public class BatchHistoricDecisionInstanceDeletionUserOperationTest {
 
     for (Job pending : managementService.createJobQuery().jobDefinitionId(batch.getBatchJobDefinitionId()).list()) {
       managementService.executeJob(pending.getId());
+    }
+  }
+
+  private void setupDecisionInstances() {
+    testRule.deploy("org/finos/fluxnova/bpm/engine/test/api/dmn/Example.dmn");
+
+    VariableMap variables = Variables.createVariables()
+        .putValue("status", "silver")
+        .putValue("sum", 723);
+
+    for (int i = 0; i < 10; i++) {
+      decisionService.evaluateDecisionByKey(DECISION).variables(variables).evaluate();
+    }
+
+    List<HistoricDecisionInstance> decisionInstances = historyService.createHistoricDecisionInstanceQuery().list();
+    for(HistoricDecisionInstance decisionInstance : decisionInstances) {
+      decisionInstanceIds.add(decisionInstance.getId());
     }
   }
 

@@ -36,17 +36,13 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class UpdateJobAuthorizationTest {
 
   static final String TIMER_BOUNDARY_PROCESS_KEY = "timerBoundaryProcess";
@@ -54,16 +50,13 @@ public class UpdateJobAuthorizationTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
 
   ManagementService managementService;
   RuntimeService runtimeService;
-
-  @Parameter
   public AuthorizationScenario scenario;
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -91,22 +84,24 @@ public class UpdateJobAuthorizationTest {
 
   protected String deploymentId;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     managementService = engineRule.getManagementService();
     runtimeService = engineRule.getRuntimeService();
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldExecuteJob() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldExecuteJob(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -132,10 +127,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSuspendJobById() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSuspendJobById(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -159,10 +156,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldActivateJobById() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldActivateJobById(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -186,10 +185,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSuspendJobByProcessInstanceId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSuspendJobByProcessInstanceId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -213,10 +214,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldActivateJobByProcessInstanceId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldActivateJobByProcessInstanceId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -240,10 +243,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSuspendJobByJobDefinitionId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSuspendJobByJobDefinitionId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -268,10 +273,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldActivateJobByJobDefinitionId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldActivateJobByJobDefinitionId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -296,10 +303,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSuspendJobByProcessDefinitionId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSuspendJobByProcessDefinitionId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     ProcessInstance processInstance = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY);
@@ -322,10 +331,12 @@ public class UpdateJobAuthorizationTest {
   }
 
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldActivateJobByProcessDefinitionId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldActivateJobByProcessDefinitionId(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     ProcessInstance processInstance = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY);
@@ -347,10 +358,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSuspendJobByProcessDefinitionKey() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSuspendJobByProcessDefinitionKey(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -373,10 +386,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldActivateJobByProcessDefinitionKey() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldActivateJobByProcessDefinitionKey(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -399,10 +414,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSetJobDueDate() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSetJobDueDate(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -426,10 +443,12 @@ public class UpdateJobAuthorizationTest {
     }
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldDeleteJob() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldDeleteJob(AuthorizationScenario scenario) {
+    initUpdateJobAuthorizationTest(scenario);
     // given
     String processInstanceId = runtimeService
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -477,6 +496,10 @@ public class UpdateJobAuthorizationTest {
         .processDefinitionKey(processDefinitionKey)
         .singleResult();
     return jobDefinition.getId();
+  }
+
+  public void initUpdateJobAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

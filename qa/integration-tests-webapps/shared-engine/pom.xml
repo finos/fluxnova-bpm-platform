@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa-integration-tests-webapps-root</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -21,348 +21,6 @@
   </dependencies>
 
   <profiles>
-    <profile>
-      <id>wildfly</id>
-      <properties>
-        <jboss.runtime>${basedir}/../${wildfly.runtime.location}</jboss.runtime>
-        <http.port>${jboss.http.port}</http.port>
-      </properties>
-      <dependencies>
-        <dependency>
-          <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-wildfly-runtime</artifactId>
-          <version>${project.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-          <artifactId>fluxnova-webapp-wildfly</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
-          <version>${project.version}</version>
-          <classifier>wildfly</classifier>
-          <scope>test</scope>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm.example</groupId>
-          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
-          <version>${project.version}</version>
-          <scope>test</scope>
-          <type>war</type>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven3-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>start-container</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>start</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>stop-container</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>stop</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <!-- Container configuration -->
-              <container>
-                <type>installed</type>
-                <containerId>${cargo.wildfly.container.id}</containerId>
-                <append>false</append>
-                <home>${jboss.runtime}</home>
-                <timeout>${cargo.timeout}</timeout>
-              </container>
-              <configuration>
-                <type>standalone</type>
-                <home>${project.build.directory}/config-wildfly</home>
-                <properties>
-                  <cargo.servlet.port>${jboss.http.port}</cargo.servlet.port>
-                  <cargo.jboss.ajp.port>${jboss.ajp.port}</cargo.jboss.ajp.port>
-                  <cargo.jvmargs>-Djava.net.preferIPv4Stack=true</cargo.jvmargs>
-                </properties>
-              </configuration>
-              <deployables>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/user/demo/profile</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
-                  <classifier>wildfly</classifier>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/process-definition</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-                  <artifactId>fluxnova-webapp-wildfly</artifactId>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/fluxnova</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-              </deployables>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- CAM-14109 -->
-                <exclude>**/SessionCookieSameSiteIT.java</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>wildfly26</id>
-      <properties>
-        <jboss.runtime>${basedir}/../${wildfly26.runtime.location}</jboss.runtime>
-        <http.port>${jboss.http.port}</http.port>
-      </properties>
-      <dependencies>
-        <dependency>
-          <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-wildfly26-runtime</artifactId>
-          <version>${project.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-          <artifactId>fluxnova-webapp-jboss</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest</artifactId>
-          <version>${project.version}</version>
-          <classifier>wildfly</classifier>
-          <scope>test</scope>
-          <type>war</type>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine</artifactId>
-          <scope>test</scope>
-          <exclusions>
-            <exclusion>
-              <groupId>org.springframework</groupId>
-              <artifactId>spring-beans</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven3-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>start-container</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>start</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>stop-container</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>stop</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <!-- Container configuration -->
-              <container>
-                <type>installed</type>
-                <containerId>${cargo.wildfly26.container.id}</containerId>
-                <append>false</append>
-                <home>${jboss.runtime}</home>
-                <timeout>${cargo.timeout}</timeout>
-              </container>
-              <configuration>
-                <type>standalone</type>
-                <home>${project.build.directory}/config-wildfly</home>
-                <properties>
-                  <cargo.servlet.port>${jboss.http.port}</cargo.servlet.port>
-                  <cargo.jboss.ajp.port>${jboss.ajp.port}</cargo.jboss.ajp.port>
-                  <cargo.jvmargs>-Djava.net.preferIPv4Stack=true</cargo.jvmargs>
-                </properties>
-              </configuration>
-              <deployables>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice</artifactId>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/user/demo/profile</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest</artifactId>
-                  <classifier>wildfly</classifier>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/engine-rest/engine/default/process-definition</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-                  <artifactId>fluxnova-webapp-jboss</artifactId>
-                  <type>war</type>
-                  <pingURL>http://localhost:${jboss.http.port}/fluxnova</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                </deployable>
-              </deployables>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- CAM-14109 -->
-                <exclude>**/SessionCookieSameSiteIT.java</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>tomcat9</id>
-      <properties>
-        <tomcat.runtime>${basedir}/../${tomcat9.runtime.location}</tomcat.runtime>
-        <http.port>${tomcat.connector.http.port}</http.port>
-      </properties>
-      <dependencies>
-        <dependency>
-          <!-- make sure it comes after assembly in the build -->
-          <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-tomcat9-runtime</artifactId>
-          <version>${project.version}</version>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-          <artifactId>fluxnova-webapp-tomcat</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest</artifactId>
-          <scope>test</scope>
-          <type>war</type>
-          <classifier>tomcat</classifier>
-          <version>${project.version}</version>
-        </dependency>
-      </dependencies>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven3-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>start-container</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>start</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>stop-container</id>
-                <phase>post-integration-test</phase>
-                <goals>
-                  <goal>stop</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <!-- Container configuration -->
-              <container>
-                <type>installed</type>
-                <containerId>tomcat8x</containerId>
-                <append>false</append>
-                <home>${tomcat.runtime}</home>
-                <timeout>${cargo.timeout}</timeout>
-              </container>
-              <configuration>
-                <type>standalone</type>
-                <home>${project.build.directory}/config-tomcat</home>
-                <properties>
-                  <cargo.servlet.port>${tomcat.connector.http.port}</cargo.servlet.port>
-                  <cargo.tomcat.ajp.port>${tomcat.connector.ajp.port}</cargo.tomcat.ajp.port>
-                </properties>
-              </configuration>
-              <deployables>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest</artifactId>
-                  <type>war</type>
-                  <classifier>tomcat</classifier>
-                  <pingURL>http://localhost:${tomcat.connector.http.port}/engine-rest/engine/default/process-definition</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                  <properties>
-                    <context>engine-rest</context>
-                  </properties>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.webapp</groupId>
-                  <artifactId>fluxnova-webapp-tomcat</artifactId>
-                  <type>war</type>
-                  <pingURL>http://localhost:${tomcat.connector.http.port}/fluxnova</pingURL>
-                  <pingTimeout>${cargo.deploy.timeout}</pingTimeout>
-                  <properties>
-                    <context>fluxnova</context>
-                  </properties>
-                </deployable>
-                <deployable>
-                  <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice</artifactId>
-                  <type>war</type>
-                  <properties>
-                    <context>invoice</context>
-                  </properties>
-                </deployable>
-              </deployables>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <profile>
       <id>tomcat</id>
       <properties>
@@ -386,7 +44,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm</groupId>
-          <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+          <artifactId>fluxnova-engine-rest</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
@@ -394,7 +52,7 @@
         </dependency>
         <dependency>
           <groupId>org.finos.fluxnova.bpm.example</groupId>
-          <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+          <artifactId>fluxnova-example-invoice</artifactId>
           <version>${project.version}</version>
           <type>war</type>
           <scope>test</scope>
@@ -426,7 +84,7 @@
               <!-- Container configuration -->
               <container>
                 <type>installed</type>
-                <containerId>tomcat10x</containerId>
+                <containerId>tomcat11x</containerId>
                 <append>false</append>
                 <home>${tomcat.runtime}</home>
                 <timeout>${cargo.timeout}</timeout>
@@ -442,7 +100,7 @@
               <deployables>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm</groupId>
-                  <artifactId>fluxnova-engine-rest-jakarta</artifactId>
+                  <artifactId>fluxnova-engine-rest</artifactId>
                   <type>war</type>
                   <classifier>tomcat</classifier>
                   <pingURL>http://localhost:${tomcat.connector.http.port}/engine-rest/engine/default/process-definition</pingURL>
@@ -463,7 +121,7 @@
                 </deployable>
                 <deployable>
                   <groupId>org.finos.fluxnova.bpm.example</groupId>
-                  <artifactId>fluxnova-example-invoice-jakarta</artifactId>
+                  <artifactId>fluxnova-example-invoice</artifactId>
                   <type>war</type>
                   <properties>
                     <context>invoice</context>
@@ -499,7 +157,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>3.0.0-M3</version>
             <configuration>
               <redirectTestOutputToFile>true</redirectTestOutputToFile>
               <dependenciesToScan>
@@ -573,53 +230,6 @@
       </build>
     </profile>
 
-    <profile>
-      <id>embedded-engine-rest</id>
-      <!-- Works only on Wildfly 26 -->
-      <dependencies>
-        <dependency>
-          <groupId>org.wildfly.arquillian</groupId>
-          <artifactId>wildfly-arquillian-container-managed</artifactId>
-          <version>1.1.0.Beta1</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <dependenciesToScan>
-                <dependency>org.finos.fluxnova.bpm.qa:fluxnova-qa-integration-tests-webapps</dependency>
-              </dependenciesToScan>
-              <skipTests>false</skipTests>
-              <includes>
-                <include>**/EmbeddedEngineRest_WILDFLY.*</include>
-              </includes>
-              <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
-              <systemPropertyVariables>
-                <projectversion>${project.parent.version}</projectversion>
-              </systemPropertyVariables>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-maven3-plugin</artifactId>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
 
   <build>

@@ -25,15 +25,16 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.openapitools.client.ApiClient;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.api.ProcessInstanceApi;
 import org.openapitools.client.model.ProcessInstanceDto;
-
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class BasicAuthenticationTest {
 
@@ -44,10 +45,10 @@ public class BasicAuthenticationTest {
 
   ProcessInstanceApi api;
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(8080);
+  @RegisterExtension
+  public WireMockExtension wireMockRule = WireMockExtension.newInstance().options(WireMockConfiguration.options().port(8080)).build();
 
-  @Before
+  @BeforeEach
   public void clientWithValidCredentials() {
     ApiClient apiClient = new ApiClient();
 

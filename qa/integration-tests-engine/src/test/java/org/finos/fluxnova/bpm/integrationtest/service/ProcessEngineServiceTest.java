@@ -16,23 +16,22 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.service;
 
-import org.junit.Assert;
-
 import org.finos.fluxnova.bpm.BpmPlatform;
 import org.finos.fluxnova.bpm.ProcessEngineService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Thorben Lindhauer
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class ProcessEngineServiceTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="test1")
@@ -46,6 +45,6 @@ public class ProcessEngineServiceTest extends AbstractFoxPlatformIntegrationTest
     
     ProcessEngineService engineService = BpmPlatform.getProcessEngineService();
     ProcessEngine engine = engineService.getProcessEngine("aNonExistingEngineName");
-    Assert.assertNull(engine);
+    Assertions.assertNull(engine);
   }
 }

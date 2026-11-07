@@ -29,7 +29,7 @@ import org.finos.fluxnova.bpm.engine.impl.identity.Account;
  * @author Tom Baeyens
  */
 public class IdentityInfoEntity implements DbEntity, HasDbRevision, Account, Serializable {
-  
+
   private static final long serialVersionUID = 1L;
   
   public static final String TYPE_USERACCOUNT = "account";

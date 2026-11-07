@@ -38,9 +38,9 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricIncidentEnt
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -56,7 +56,7 @@ public class HistoricIncidentAuthorizationTest extends AuthorizationTest {
   protected String deploymentId;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     deploymentId = testRule.deploy(
         "org/finos/fluxnova/bpm/engine/test/api/authorization/timerStartEventProcess.bpmn20.xml",
@@ -66,7 +66,7 @@ public class HistoricIncidentAuthorizationTest extends AuthorizationTest {
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnableHistoricInstancePermissions(false);

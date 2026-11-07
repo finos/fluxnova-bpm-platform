@@ -23,13 +23,12 @@ import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.diagnostics.DiagnosticsRegistry;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.ApplicationServerImpl;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { Application.class },
                 webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class SimpleApplicationIT {

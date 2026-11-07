@@ -25,8 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.finos.fluxnova.bpm.client.spring.configuration.FullConfiguration;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskHandler;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,7 +42,7 @@ public class ConfigurationTest extends MockedTest {
   @Qualifier("handler")
   protected ExternalTaskHandler handler;
 
-  @Before
+  @BeforeEach
   public void init() {
     when(clientBuilder.orderByCreateTime()).thenReturn(clientBuilder);
     when(clientBuilder.asc()).thenReturn(clientBuilder);

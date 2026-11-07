@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.engine.history.ReportResult;
 import org.finos.fluxnova.bpm.engine.rest.dto.history.HistoricProcessInstanceReportDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  * @author Roman Smirnov

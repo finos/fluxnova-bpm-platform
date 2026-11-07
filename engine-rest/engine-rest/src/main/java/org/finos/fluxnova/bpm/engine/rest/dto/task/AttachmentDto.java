@@ -32,6 +32,7 @@ public class AttachmentDto extends LinkableDto {
   private Date createTime;
   private Date removalTime;
   private String rootProcessInstanceId;
+  private String createdBy;
 
   public AttachmentDto() {
   }
@@ -108,6 +109,14 @@ public class AttachmentDto extends LinkableDto {
     this.rootProcessInstanceId = rootProcessInstanceId;
   }
 
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
+
   public static AttachmentDto fromAttachment(Attachment attachment) {
     AttachmentDto dto = new AttachmentDto();
     dto.id = attachment.getId();
@@ -119,6 +128,7 @@ public class AttachmentDto extends LinkableDto {
     dto.createTime = attachment.getCreateTime();
     dto.removalTime = attachment.getRemovalTime();
     dto.rootProcessInstanceId = attachment.getRootProcessInstanceId();
+    dto.createdBy = attachment.getCreatedBy();
     return dto;
   }
 }

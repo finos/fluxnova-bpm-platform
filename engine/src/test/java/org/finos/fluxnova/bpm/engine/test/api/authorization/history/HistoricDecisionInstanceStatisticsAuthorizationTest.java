@@ -33,18 +33,16 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 public class HistoricDecisionInstanceStatisticsAuthorizationTest {
 
   protected static final String DISH_DRG_DMN = "org/finos/fluxnova/bpm/engine/test/dmn/deployment/drdDish.dmn11.xml";
@@ -58,13 +56,10 @@ public class HistoricDecisionInstanceStatisticsAuthorizationTest {
 
   protected DecisionRequirementsDefinition decisionRequirementsDefinition;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -79,7 +74,7 @@ public class HistoricDecisionInstanceStatisticsAuthorizationTest {
     );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     testHelper.deploy(DISH_DRG_DMN);
     decisionService = engineRule.getDecisionService();
@@ -95,13 +90,15 @@ public class HistoricDecisionInstanceStatisticsAuthorizationTest {
     decisionRequirementsDefinition = repositoryService.createDecisionRequirementsDefinitionQuery().singleResult();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
-  public void testCreateStatistics() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testCreateStatistics(AuthorizationScenario scenario) {
+    initHistoricDecisionInstanceStatisticsAuthorizationTest(scenario);
     //given
     authRule
         .init(scenario)
@@ -115,6 +112,10 @@ public class HistoricDecisionInstanceStatisticsAuthorizationTest {
 
     // then
     authRule.assertScenario(scenario);
+  }
+
+  public void initHistoricDecisionInstanceStatisticsAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

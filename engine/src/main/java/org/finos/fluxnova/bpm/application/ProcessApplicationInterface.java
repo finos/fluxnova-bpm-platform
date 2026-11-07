@@ -87,7 +87,7 @@ public interface ProcessApplicationInterface {
   /**
    * <p>Deploy this process application into the runtime container.</p>
    *
-   * <strong>NOTE:</strong> on some containers (like WildFly) the deployment of
+   * <strong>NOTE:</strong> on some containers the deployment of
    * the process application is performed asynchronously and via introspection at deployment
    * time. This means that there is no guarantee that the process application is fully
    * deployed after this method returns.

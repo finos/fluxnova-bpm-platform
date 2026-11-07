@@ -20,14 +20,15 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
+import java.lang.reflect.Field;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Map;
 
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.core5.http.HttpHost;
@@ -36,24 +37,25 @@ import org.finos.fluxnova.connect.ConnectorRequestException;
 import org.finos.fluxnova.connect.httpclient.impl.HttpConnectorImpl;
 import org.finos.fluxnova.connect.httpclient.impl.RequestConfigOption;
 import org.finos.fluxnova.connect.httpclient.impl.util.ParseUtil;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.mockito.internal.util.reflection.Whitebox;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class HttpRequestConfigTest {
 
   public static final String EXAMPLE_URL = "http://fluxnova.finos.org/example";
   public static final int PORT = 51234;
 
-  @Rule
-  public WireMockRule wireMockRule = new WireMockRule(
-          WireMockConfiguration.wireMockConfig().port(PORT));
+  @RegisterExtension
+  static WireMockExtension wireMockRule = WireMockExtension.newInstance()
+      .options(WireMockConfiguration.wireMockConfig().port(PORT))
+      .configureStaticDsl(true)
+      .build();
 
   protected HttpConnector connector;
 
-  @Before
+  @BeforeEach
   public void createConnector() {
     connector = new HttpConnectorImpl();
   }
@@ -316,11 +318,14 @@ public class HttpRequestConfigTest {
     assertThat(config.getResponseTimeout()).isEqualTo(Timeout.ofSeconds(10));
   }
 
-  @Ignore
+  @Disabled
   @Test
-  public void shouldNotChangeDefaultConfig() {
+  public void shouldNotChangeDefaultConfig() throws Exception {
     // given
-    HttpClient client = (HttpClient) Whitebox.getInternalState(connector, "httpClient");
+    Field httpClientField = connector.getClass().getDeclaredField("httpClient");
+    httpClientField.setAccessible(true);
+    HttpClient client = (HttpClient) httpClientField.get(connector);
+
     connector.createRequest().url(EXAMPLE_URL).get()
         .configOption(RequestConfigOption.CONNECTION_TIMEOUT.getName(), Timeout.ofSeconds(10))
         .configOption(RequestConfigOption.CONNECTION_REQUEST_TIMEOUT.getName(), Timeout.ofSeconds(10))
@@ -329,7 +334,9 @@ public class HttpRequestConfigTest {
         .execute();
 
     // when
-    RequestConfig config = (RequestConfig) Whitebox.getInternalState(client, "defaultConfig");
+    Field defaultConfigField = client.getClass().getDeclaredField("defaultConfig");
+    defaultConfigField.setAccessible(true);
+    RequestConfig config = (RequestConfig) defaultConfigField.get(client);
 
     // then
     assertThat(config.getMaxRedirects()).isEqualTo(50);

@@ -20,7 +20,7 @@ import static org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil.PERSISTENCE_
 import static org.finos.fluxnova.bpm.engine.impl.util.ExceptionUtil.getExceptionStacktrace;
 
 import java.sql.SQLException;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import org.finos.fluxnova.bpm.engine.ProcessEnginePersistenceException;
 import org.finos.fluxnova.commons.logging.BaseLogger;
 

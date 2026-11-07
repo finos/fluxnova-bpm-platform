@@ -16,6 +16,9 @@
  */
 package org.finos.fluxnova.bpm.monitoring.plugin.test.application;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
@@ -43,6 +46,16 @@ public class TestProcessEngineProvider implements ProcessEngineProvider {
   @Override
   public Set<String> getProcessEngineNames() {
     return BpmPlatform.getProcessEngineService().getProcessEngineNames();
+  }
+
+  @Override
+  public Map<String, ProcessEngine> getProcessEngines() {
+    List<ProcessEngine> engines = BpmPlatform.getProcessEngineService().getProcessEngines();
+    Map<String, ProcessEngine> map = new HashMap<>();
+    for (ProcessEngine engine : engines) {
+      map.put(engine.getName(), engine);
+    }
+    return map;
   }
 
 }

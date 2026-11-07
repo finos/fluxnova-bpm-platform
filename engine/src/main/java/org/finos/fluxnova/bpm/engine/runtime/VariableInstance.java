@@ -60,6 +60,11 @@ public interface VariableInstance {
   String getProcessInstanceId();
 
   /**
+   * Returns the business key of the owning process instance.
+   */
+  String getBusinessKey();
+
+  /**
    * Returns the corresponding execution id.
    */
   String getExecutionId();
@@ -105,5 +110,10 @@ public interface VariableInstance {
    * if the variable belongs to no single tenant.
    */
   String getTenantId();
+
+  /**
+   * Returns whether this variable is restricted.
+   */
+  boolean isRestricted();
 
 }

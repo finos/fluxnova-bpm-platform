@@ -24,14 +24,15 @@ import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.authorization.Groups;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.rest.dto.CountResultDto;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.UriInfo;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ProcessDefinitionRestServiceTenantCheckTest extends AbstractMonitor
   private UriInfo uriInfo;
   private final MultivaluedMap<String, String> queryParameters = new MultivaluedHashMap<>();
 
-  @Before
+  @BeforeEach
   public void init() throws Exception {
 
     ProcessEngine processEngine = getProcessEngine();
@@ -74,7 +75,7 @@ public class ProcessDefinitionRestServiceTenantCheckTest extends AbstractMonitor
     queryParameters.add("sortOrder", "asc");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.getAdminGroups().remove(ADMIN_GROUP);
     processEngineConfiguration.getAdminUsers().remove(ADMIN_USER);

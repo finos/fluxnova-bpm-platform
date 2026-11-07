@@ -26,10 +26,10 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -43,8 +43,8 @@ public class MultiTenancyMigrationPlanCreateTenantCheckTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   @Test
   public void canCreateMigrationPlanForDefinitionsOfAuthenticatedTenant() {
@@ -60,7 +60,7 @@ public class MultiTenancyMigrationPlanCreateTenantCheckTest {
       .build();
 
     // then
-    Assert.assertNotNull(migrationPlan);
+    Assertions.assertNotNull(migrationPlan);
   }
 
   @Test
@@ -125,7 +125,7 @@ public class MultiTenancyMigrationPlanCreateTenantCheckTest {
       .build();
 
     // then
-    Assert.assertNotNull(migrationPlan);
+    Assertions.assertNotNull(migrationPlan);
   }
 
 
@@ -144,7 +144,7 @@ public class MultiTenancyMigrationPlanCreateTenantCheckTest {
       .build();
 
     // then
-    Assert.assertNotNull(migrationPlan);
+    Assertions.assertNotNull(migrationPlan);
 
   }
 }

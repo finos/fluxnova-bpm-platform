@@ -28,8 +28,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.*;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import io.restassured.http.ContentType;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
@@ -43,14 +43,14 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.runtime.IncidentQuery;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class IncidentRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String INCIDENT_URL = TEST_RESOURCE_ROOT_PATH + "/incident";
@@ -61,7 +61,7 @@ public class IncidentRestServiceInteractionTest extends AbstractRestServiceTest 
   private RuntimeServiceImpl mockRuntimeService;
   private IncidentQuery mockedQuery;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     List<Incident> incidents = MockProvider.createMockIncidents();
 

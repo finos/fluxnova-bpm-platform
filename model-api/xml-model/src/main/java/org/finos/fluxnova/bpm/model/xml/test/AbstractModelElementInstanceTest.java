@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.model.xml.test;
 
 import static org.finos.fluxnova.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Collection;
 
@@ -30,8 +30,9 @@ import org.finos.fluxnova.bpm.model.xml.test.assertions.AttributeAssert;
 import org.finos.fluxnova.bpm.model.xml.test.assertions.ChildElementAssert;
 import org.finos.fluxnova.bpm.model.xml.test.assertions.ModelElementTypeAssert;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.Test;
 import org.w3c.dom.DOMException;
+
+import org.junit.jupiter.api.Test;
 
 public abstract class AbstractModelElementInstanceTest {
 

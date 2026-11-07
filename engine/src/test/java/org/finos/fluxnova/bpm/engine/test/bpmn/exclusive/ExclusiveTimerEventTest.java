@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.exclusive;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
 
@@ -25,7 +25,8 @@ import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 public class ExclusiveTimerEventTest extends PluggableProcessEngineTest {

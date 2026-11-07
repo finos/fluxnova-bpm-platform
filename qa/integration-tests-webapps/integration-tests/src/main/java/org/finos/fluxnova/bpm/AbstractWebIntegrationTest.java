@@ -16,18 +16,18 @@
  */
 package org.finos.fluxnova.bpm;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import tools.jackson.core.JacksonException;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import kong.unirest.ObjectMapper;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.openqa.selenium.chrome.ChromeDriverService;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
+import org.openqa.selenium.chrome.ChromeDriverService;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 
@@ -62,15 +62,15 @@ public abstract class AbstractWebIntegrationTest {
   protected String csrfToken;
   protected String sessionId;
 
-  @BeforeClass
+  @BeforeAll
   public static void setUpClass() {
     Unirest.config().reset().enableCookieManagement(false).setObjectMapper(new ObjectMapper() {
-      final com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+      final tools.jackson.databind.ObjectMapper mapper = new tools.jackson.databind.ObjectMapper();
 
       public String writeValue(Object value) {
         try {
           return mapper.writeValueAsString(value);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
           throw new RuntimeException(e);
         }
       }
@@ -78,14 +78,14 @@ public abstract class AbstractWebIntegrationTest {
       public <T> T readValue(String value, Class<T> valueType) {
         try {
           return mapper.readValue(value, valueType);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
           throw new RuntimeException(e);
         }
       }
     });
   }
 
-  @Before
+  @BeforeEach
   public void before() throws Exception {
     testProperties = new TestProperties(48080);
   }

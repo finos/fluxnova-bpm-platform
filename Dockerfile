@@ -1,43 +1,79 @@
-FROM amazoncorretto:21
+ARG DOCKER_REGISTRY=docker.io
 
-# Setup required env variables
-ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
-    PATH=$PATH:$JAVA_HOME/bin
+FROM ${DOCKER_REGISTRY}/alpine:3 AS app-packager
 
-# Arguments for DB driver versions
-ARG POSTGRESQL_VERSION
-ARG MYSQL_VERSION
+ARG ALPINE_REGISTRY=https://dl-cdn.alpinelinux.org/alpine
+
+RUN ALPINE_VERSION=$(cat /etc/alpine-release | cut -d'.' -f1,2) && \
+    echo "${ALPINE_REGISTRY}/v${ALPINE_VERSION}/main/" > /etc/apk/repositories && \
+    echo "${ALPINE_REGISTRY}/v${ALPINE_VERSION}/community/" >> /etc/apk/repositories && \
+    apk add --no-cache unzip && rm -fr /var/cache/apk/*
 
 WORKDIR /fluxnova
 
-# Install packages
-RUN yum install -y jq curl shadow-utils unzip
+COPY distro/run/distro/target/fluxnova-bpm-run-*.zip /tmp/fluxnova-bpm-run.zip
 
-# Expose port
-EXPOSE 8080
-# Create user and provide access to fluxnova folder
-RUN groupadd -g 4001 fluxnova_group && adduser -G fluxnova_group -u 4001 -m -d /fluxnova fluxnova_user
-
-# Unzip application
-COPY distro/run/distro/target/fluxnova-bpm-run-*.zip /fluxnova/
-RUN unzip fluxnova-bpm-run-*.zip
+RUN unzip /tmp/fluxnova-bpm-run.zip -d /fluxnova && rm -f /tmp/fluxnova-bpm-run.zip
 
 COPY docker-script.sh /fluxnova/docker-script.sh
 
-# Download PostgreSQL JDBC driver if version specified
-RUN if [ -n "$POSTGRESQL_VERSION" ]; then \
-      curl -L -o postgresql.jar https://repo1.maven.org/maven2/org/postgresql/postgresql/${POSTGRESQL_VERSION}/postgresql-${POSTGRESQL_VERSION}.jar; \
-      mv postgresql.jar configuration/userlib/; \
-   fi
+###### DNF BASED IMAGE ######
+FROM ${DOCKER_REGISTRY}/amazoncorretto:21 AS corretto21
 
-# Download MySQL JDBC driver if version specified
-RUN if [ -n "$MYSQL_VERSION" ]; then \
-      curl -L -o mysql-connector.jar https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/${MYSQL_VERSION}/mysql-connector-j-${MYSQL_VERSION}.jar; \
-      mv mysql-connector.jar configuration/userlib/; \
-   fi
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
+    PATH=$PATH:$JAVA_HOME/bin
 
-RUN chown -R fluxnova_user:fluxnova_group /fluxnova
+RUN --mount=type=secret,id=dnf_repo,required=false \
+    --mount=type=secret,id=trust_cert,required=false \
+    if [ -f /run/secrets/trust_cert ]; then \
+      install -m 644 /run/secrets/trust_cert /etc/pki/ca-trust/source/anchors/custom-ca.pem; \
+      update-ca-trust; \
+    fi \
+    && \
+    if [ -f /run/secrets/dnf_repo ]; then \
+      install -m 600 /run/secrets/dnf_repo /etc/yum.repos.d/custom.repo; \
+    fi \
+    && dnf clean all \
+    && dnf makecache \
+    && dnf install -y bash jq shadow-utils unzip \
+    && dnf clean all \
+    && rm -rf /var/cache/dnf \
+    && rm -f /etc/yum.repos.d/custom.repo
+
+RUN groupadd -g 4001 fluxnova_group && useradd -M -d /fluxnova -g fluxnova_group -u 4001 fluxnova_user
+
+COPY --chown=4001:4001 --from=app-packager /fluxnova /fluxnova
+
+WORKDIR /fluxnova
+
+EXPOSE 8080
 
 USER 4001
 
-ENTRYPOINT ["sh", "docker-script.sh"]
+ENTRYPOINT ["/bin/bash", "/fluxnova/docker-script.sh"]
+
+###### ALPINE BASED IMAGE ######
+FROM ${DOCKER_REGISTRY}/amazoncorretto:21-alpine AS corretto21_alpine
+
+ARG ALPINE_REGISTRY=https://dl-cdn.alpinelinux.org/alpine
+
+ENV JAVA_HOME=/usr/lib/jvm/java-21-amazon-corretto \
+    PATH=$PATH:$JAVA_HOME/bin
+
+RUN ALPINE_VERSION=$(cat /etc/alpine-release | cut -d'.' -f1,2) && \
+    echo "${ALPINE_REGISTRY}/v${ALPINE_VERSION}/main/" > /etc/apk/repositories && \
+    echo "${ALPINE_REGISTRY}/v${ALPINE_VERSION}/community/" >> /etc/apk/repositories && \
+    apk add --no-cache bash jq curl shadow unzip ca-certificates && \
+    rm -fr /var/cache/apk/*
+
+RUN groupadd -g 4001 fluxnova_group && useradd -M -d /fluxnova -g fluxnova_group -u 4001 fluxnova_user
+
+COPY --chown=4001:4001 --from=app-packager /fluxnova /fluxnova
+
+WORKDIR /fluxnova
+
+EXPOSE 8080
+
+USER 4001
+
+ENTRYPOINT ["/bin/bash", "/fluxnova/docker-script.sh"]

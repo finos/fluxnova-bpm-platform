@@ -23,15 +23,17 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * A {@link Filter} implementation that can be used to realize basic templating.
@@ -79,10 +81,19 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @return
    */
   protected boolean hasWebResource(String name) {
+    String safeName;
     try {
-      URL resource = filterConfig.getServletContext().getResource(name);
+      safeName = sanitizeResourcePath(name);
+    }
+    catch (IllegalArgumentException e) {
+      return false;
+    }
+
+    try {
+      URL resource = filterConfig.getServletContext().getResource(safeName);
       return resource != null;
-    } catch (MalformedURLException e) {
+    }
+    catch (MalformedURLException e) {
       return false;
     }
   }
@@ -99,11 +110,18 @@ public abstract class AbstractTemplateFilter implements Filter {
    * @throws IOException
    */
   protected String getWebResourceContents(String name) throws IOException {
+    String safeName;
+    try {
+      safeName = sanitizeResourcePath(name);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IOException(e.getMessage());
+    }
 
     InputStream is = null;
 
     try {
-      is = filterConfig.getServletContext().getResourceAsStream(name);
+      is = filterConfig.getServletContext().getResourceAsStream(safeName);
 
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
@@ -121,5 +139,30 @@ public abstract class AbstractTemplateFilter implements Filter {
         try { is.close(); } catch (IOException e) { }
       }
     }
+  }
+
+  private static String sanitizeResourcePath(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Resource name must not be null");
+    }
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(name, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+          "Resource name contains malformed encoding: " + name);
+    }
+
+    String normalized = decoded.replace('\\', '/');
+    for (String segment : normalized.split("/", -1)) {
+      if ("..".equals(segment)) {
+        throw new IllegalArgumentException(
+            "Resource name contains illegal path traversal sequence: " + name);
+      }
+    }
+
+    return normalized;
   }
 }

@@ -16,7 +16,6 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter;
 
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
@@ -26,21 +25,27 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import jakarta.servlet.Filter;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.LazyDelegateFilter.InitHook;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class LazyDelegateFilterTest {
 
   @Mock

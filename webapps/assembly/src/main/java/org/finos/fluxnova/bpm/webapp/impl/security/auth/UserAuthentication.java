@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.webapp.impl.security.auth;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;

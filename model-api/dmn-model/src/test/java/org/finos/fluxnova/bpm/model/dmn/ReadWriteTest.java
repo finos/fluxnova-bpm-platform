@@ -31,9 +31,10 @@ import static org.finos.fluxnova.bpm.model.dmn.HitPolicy.UNIQUE;
 import org.finos.fluxnova.bpm.model.dmn.impl.instance.InputDataImpl;
 import org.finos.fluxnova.bpm.model.dmn.instance.*;
 import org.finos.fluxnova.bpm.model.dmn.util.DmnModelResource;
-import org.junit.Test;
 
 import java.util.Collection;
+
+import org.junit.jupiter.api.Test;
 
 public class ReadWriteTest extends DmnModelTest {
 

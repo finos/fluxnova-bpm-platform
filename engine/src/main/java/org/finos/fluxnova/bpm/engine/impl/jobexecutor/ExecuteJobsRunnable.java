@@ -104,7 +104,7 @@ public class ExecuteJobsRunnable implements Runnable {
 
   /**
    * Note: this is a hook to be overridden by
-   * org.camunda.bpm.container.impl.threading.ra.inflow.JcaInflowExecuteJobsRunnable.executeJob(String, CommandExecutor)
+   * org.finos.fluxnova.bpm.container.impl.threading.ra.inflow.JcaInflowExecuteJobsRunnable.executeJob(String, CommandExecutor)
    */
   protected void executeJob(String nextJobId, CommandExecutor commandExecutor, JobFailureCollector jobFailureCollector) {
     ExecuteJobHelper.executeJob(nextJobId, commandExecutor, jobFailureCollector, new ExecuteJobsCmd(nextJobId, jobFailureCollector), processEngine.getProcessEngineConfiguration());
@@ -119,7 +119,7 @@ public class ExecuteJobsRunnable implements Runnable {
    * to assure the loading of the engine classes during job execution<br>
    *
    * <b>Note</b>: this method is overridden by
-   * org.camunda.bpm.container.impl.threading.ra.inflow.JcaInflowExecuteJobsRunnable#switchClassLoader()
+   * org.finos.fluxnova.bpm.container.impl.threading.ra.inflow.JcaInflowExecuteJobsRunnable#switchClassLoader()
    * - where the classloader switch is not required
    *
    *

@@ -18,10 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime.migration.batch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -66,16 +63,13 @@ import org.finos.fluxnova.bpm.engine.test.bpmn.multiinstance.DelegateEvent;
 import org.finos.fluxnova.bpm.engine.test.bpmn.multiinstance.DelegateExecutionListener;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class BatchMigrationTest {
 
   protected static final Date TEST_DATE = new Date(1457326800000L);
@@ -94,16 +88,11 @@ public class BatchMigrationTest {
   protected int defaultInvocationsPerBatchJob;
   protected boolean defaultEnsureJobDueDateSet;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(migrationRule).around(testRule);
-
-  @Parameterized.Parameter(0)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(migrationRule).around(testRule);
   public boolean ensureJobDueDateSet;
-
-  @Parameterized.Parameter(1)
   public Date currentTime;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false, null },
@@ -111,33 +100,32 @@ public class BatchMigrationTest {
     });
   }
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = engineRule.getRuntimeService();
     managementService = engineRule.getManagementService();
     historyService = engineRule.getHistoryService();
   }
 
-  @Before
+  @BeforeEach
   public void storeEngineSettings() {
     configuration = engineRule.getProcessEngineConfiguration();
     defaultBatchJobsPerSeed = configuration.getBatchJobsPerSeed();
     defaultInvocationsPerBatchJob = configuration.getInvocationsPerBatchJob();
     defaultEnsureJobDueDateSet = configuration.isEnsureJobDueDateNotNull();
-    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @After
+  @AfterEach
   public void restoreEngineSettings() {
     configuration.setBatchJobsPerSeed(defaultBatchJobsPerSeed);
     configuration.setInvocationsPerBatchJob(defaultInvocationsPerBatchJob);
@@ -145,8 +133,10 @@ public class BatchMigrationTest {
   }
 
 
-  @Test
-  public void testNullMigrationPlan() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullMigrationPlan(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     try {
       runtimeService.newMigration(null).processInstanceIds(Collections.singletonList("process")).executeAsync();
       fail("Should not succeed");
@@ -155,8 +145,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testNullProcessInstanceIdsList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullProcessInstanceIdsList(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -170,8 +162,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testProcessInstanceIdsListWithNullValue() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testProcessInstanceIdsListWithNullValue(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -185,8 +179,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testEmptyProcessInstanceIdsList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testEmptyProcessInstanceIdsList(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -200,8 +196,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testNullProcessInstanceIdsArray() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullProcessInstanceIdsArray(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -216,8 +214,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testProcessInstanceIdsArrayWithNullValue() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testProcessInstanceIdsArrayWithNullValue(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -232,8 +232,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testNullProcessInstanceQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullProcessInstanceQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -247,8 +249,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testEmptyProcessInstanceQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testEmptyProcessInstanceQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition testProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     MigrationPlan migrationPlan = runtimeService.createMigrationPlan(testProcessDefinition.getId(), testProcessDefinition.getId())
       .mapEqualActivities()
@@ -265,8 +269,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testBatchCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // when
     Batch batch = helper.migrateProcessInstancesAsync(15);
 
@@ -274,8 +280,10 @@ public class BatchMigrationTest {
     assertBatchCreated(batch, 15);
   }
 
-  @Test
-  public void testSeedJobCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testSeedJobCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ClockUtil.setCurrentTime(TEST_DATE);
 
     // when
@@ -309,8 +317,10 @@ public class BatchMigrationTest {
     assertEquals(0, migrationJobs.size());
   }
 
-  @Test
-  public void testMigrationJobsCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMigrationJobsCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ClockUtil.setCurrentTime(TEST_DATE);
 
     // reduce number of batch jobs per seed to not have to create a lot of instances
@@ -343,8 +353,10 @@ public class BatchMigrationTest {
     assertNotNull(seedJob);
   }
 
-  @Test
-  public void testMonitorJobCreation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMonitorJobCreation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(10);
 
     // when
@@ -365,8 +377,10 @@ public class BatchMigrationTest {
     assertNotNull(monitorJob);
   }
 
-  @Test
-  public void testMigrationJobsExecution() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMigrationJobsExecution(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(10);
     helper.completeSeedJobs(batch);
     List<Job> migrationJobs = helper.getExecutionJobs(batch);
@@ -387,8 +401,10 @@ public class BatchMigrationTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void testMigrationJobsExecutionByJobExecutorWithAuthorizationEnabledAndTenant() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMigrationJobsExecutionByJobExecutorWithAuthorizationEnabledAndTenant(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessEngineConfigurationImpl processEngineConfiguration = engineRule.getProcessEngineConfiguration();
 
     processEngineConfiguration.setAuthorizationEnabled(true);
@@ -408,8 +424,10 @@ public class BatchMigrationTest {
     }
   }
 
-  @Test
-  public void testNumberOfJobsCreatedBySeedJobPerInvocation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNumberOfJobsCreatedBySeedJobPerInvocation(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // reduce number of batch jobs per seed to not have to create a lot of instances
     int batchJobsPerSeed = 10;
     engineRule.getProcessEngineConfiguration().setBatchJobsPerSeed(10);
@@ -438,16 +456,20 @@ public class BatchMigrationTest {
     assertNull(helper.getSeedJob(batch));
   }
 
-  @Test
-  public void testDefaultBatchConfiguration() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testDefaultBatchConfiguration(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessEngineConfigurationImpl configuration = engineRule.getProcessEngineConfiguration();
     assertEquals(100, configuration.getBatchJobsPerSeed());
     assertEquals(1, configuration.getInvocationsPerBatchJob());
     assertEquals(30, configuration.getBatchPollTime());
   }
 
-  @Test
-  public void testCustomNumberOfJobsCreateBySeedJob() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testCustomNumberOfJobsCreateBySeedJob(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessEngineConfigurationImpl configuration = engineRule.getProcessEngineConfiguration();
     configuration.setBatchJobsPerSeed(2);
     configuration.setInvocationsPerBatchJob(5);
@@ -478,8 +500,10 @@ public class BatchMigrationTest {
     assertNull(helper.getSeedJob(batch));
   }
 
-  @Test
-  public void testMonitorJobPollingForCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMonitorJobPollingForCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ClockUtil.setCurrentTime(TEST_DATE);
 
     Batch batch = helper.migrateProcessInstancesAsync(10);
@@ -502,8 +526,10 @@ public class BatchMigrationTest {
     assertEquals(dueDate, monitorJob.getDuedate());
   }
 
-  @Test
-  public void testMonitorJobRemovesBatchAfterCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMonitorJobRemovesBatchAfterCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(10);
     helper.completeSeedJobs(batch);
     helper.executeJobs(batch);
@@ -518,8 +544,10 @@ public class BatchMigrationTest {
     assertEquals(0, managementService.createJobQuery().count());
   }
 
-  @Test
-  public void testBatchDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(10);
     helper.completeSeedJobs(batch);
 
@@ -536,8 +564,10 @@ public class BatchMigrationTest {
     assertEquals(0, managementService.createJobQuery().count());
   }
 
-  @Test
-  public void testBatchDeletionWithoutCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchDeletionWithoutCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(10);
     helper.completeSeedJobs(batch);
 
@@ -554,8 +584,10 @@ public class BatchMigrationTest {
     assertEquals(0, managementService.createJobQuery().count());
   }
 
-  @Test
-  public void testBatchWithFailedSeedJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedSeedJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(2);
 
     // create incident
@@ -570,8 +602,10 @@ public class BatchMigrationTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testBatchWithFailedMigrationJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedMigrationJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(2);
     helper.completeSeedJobs(batch);
 
@@ -589,8 +623,10 @@ public class BatchMigrationTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testBatchWithFailedMonitorJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedMonitorJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(2);
     helper.completeSeedJobs(batch);
 
@@ -606,8 +642,10 @@ public class BatchMigrationTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testBatchExecutionFailureWithMissingProcessInstance() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchExecutionFailureWithMissingProcessInstance(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     Batch batch = helper.migrateProcessInstancesAsync(2);
     helper.completeSeedJobs(batch);
 
@@ -632,8 +670,10 @@ public class BatchMigrationTest {
     assertThat(failedJob.getExceptionMessage()).contains("Process instance '" + deletedProcessInstanceId + "' cannot be migrated");
   }
 
-  @Test
-  public void testBatchCreationWithProcessInstanceQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithProcessInstanceQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     RuntimeService runtimeService = engineRule.getRuntimeService();
     int processInstanceCount = 15;
 
@@ -661,8 +701,10 @@ public class BatchMigrationTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testBatchCreationWithOverlappingProcessInstanceIdsAndQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithOverlappingProcessInstanceIdsAndQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     RuntimeService runtimeService = engineRule.getRuntimeService();
     int processInstanceCount = 15;
 
@@ -694,8 +736,10 @@ public class BatchMigrationTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testListenerInvocationForNewlyCreatedScope() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testListenerInvocationForNewlyCreatedScope(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     DelegateEvent.clearEvents();
 
@@ -732,8 +776,10 @@ public class BatchMigrationTest {
     DelegateEvent.clearEvents();
   }
 
-  @Test
-  public void testSkipListenerInvocationForNewlyCreatedScope() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testSkipListenerInvocationForNewlyCreatedScope(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     DelegateEvent.clearEvents();
 
@@ -764,8 +810,10 @@ public class BatchMigrationTest {
     assertEquals(0, DelegateEvent.getEvents().size());
   }
 
-  @Test
-  public void testIoMappingInvocationForNewlyCreatedScope() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testIoMappingInvocationForNewlyCreatedScope(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition sourceProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = migrationRule.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
@@ -791,7 +839,7 @@ public class BatchMigrationTest {
 
     // then
     VariableInstance inputVariable = engineRule.getRuntimeService().createVariableInstanceQuery().singleResult();
-    Assert.assertNotNull(inputVariable);
+    org.junit.jupiter.api.Assertions.assertNotNull(inputVariable);
     assertEquals("foo", inputVariable.getName());
     assertEquals("bar", inputVariable.getValue());
 
@@ -799,8 +847,10 @@ public class BatchMigrationTest {
     assertEquals(activityInstance.getActivityInstances("subProcess")[0].getId(), inputVariable.getActivityInstanceId());
   }
 
-  @Test
-  public void testSkipIoMappingInvocationForNewlyCreatedScope() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testSkipIoMappingInvocationForNewlyCreatedScope(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
  // given
     ProcessDefinition sourceProcessDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetProcessDefinition = migrationRule.deployAndGetDefinition(modify(ProcessModels.SUBPROCESS_PROCESS)
@@ -829,8 +879,10 @@ public class BatchMigrationTest {
     assertEquals(0, engineRule.getRuntimeService().createVariableInstanceQuery().count());
   }
 
-  @Test
-  public void testUpdateEventTrigger() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testUpdateEventTrigger(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     String newMessageName = "newMessage";
 
@@ -859,8 +911,10 @@ public class BatchMigrationTest {
     assertEquals(newMessageName, eventSubscription.getEventName());
   }
 
-  @Test
-  public void testDeleteBatchJobManually() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testDeleteBatchJobManually(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     Batch batch = helper.createMigrationBatchWithSize(1);
     helper.completeSeedJobs(batch);
@@ -881,8 +935,10 @@ public class BatchMigrationTest {
     assertNull(byteArrayEntity);
   }
 
-  @Test
-  public void testMigrateWithVarargsArray() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMigrateWithVarargsArray(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition sourceDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
     ProcessDefinition targetDefinition = migrationRule.deployAndGetDefinition(ProcessModels.ONE_TASK_PROCESS);
 
@@ -903,12 +959,14 @@ public class BatchMigrationTest {
     helper.executeMonitorJob(batch);
 
     // then
-    Assert.assertEquals(2, runtimeService.createProcessInstanceQuery()
+    org.junit.jupiter.api.Assertions.assertEquals(2, runtimeService.createProcessInstanceQuery()
         .processDefinitionId(targetDefinition.getId()).count());
   }
 
-  @Test
-  public void shouldSetInvocationsPerBatchType() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void shouldSetInvocationsPerBatchType(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     configuration.getInvocationsPerBatchJobByBatchType()
         .put(Batch.TYPE_PROCESS_INSTANCE_MIGRATION, 42);
@@ -923,9 +981,11 @@ public class BatchMigrationTest {
     configuration.setInvocationsPerBatchJobByBatchType(new HashMap<>());
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void shouldSetExecutionStartTimeInBatchAndHistory() {
+  public void shouldSetExecutionStartTimeInBatchAndHistory(boolean ensureJobDueDateSet, Date currentTime) {
+    initBatchMigrationTest(ensureJobDueDateSet, currentTime);
     // given
     ClockUtil.setCurrentTime(TEST_DATE);
     Batch batch = helper.migrateProcessInstancesAsync(15);
@@ -966,6 +1026,12 @@ public class BatchMigrationTest {
         .selectOne("selectByteArray", byteArrayId);
     }
 
+  }
+
+  public void initBatchMigrationTest(boolean ensureJobDueDateSet, Date currentTime) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    this.currentTime = currentTime;
+    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
 }

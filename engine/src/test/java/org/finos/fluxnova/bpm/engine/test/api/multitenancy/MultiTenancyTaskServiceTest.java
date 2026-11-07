@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.api.multitenancy;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 
@@ -30,7 +30,8 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer

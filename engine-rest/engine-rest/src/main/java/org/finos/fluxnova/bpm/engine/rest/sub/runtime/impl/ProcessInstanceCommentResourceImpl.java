@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.rest.sub.runtime.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;

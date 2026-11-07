@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collection;
 
@@ -29,7 +29,8 @@ import org.finos.fluxnova.bpm.model.dmn.instance.DecisionTable;
 import org.finos.fluxnova.bpm.model.dmn.instance.Input;
 import org.finos.fluxnova.bpm.model.dmn.instance.Output;
 import org.finos.fluxnova.bpm.model.dmn.instance.Rule;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class DmnModelElementInstanceCmdTest extends PluggableProcessEngineTest {
 

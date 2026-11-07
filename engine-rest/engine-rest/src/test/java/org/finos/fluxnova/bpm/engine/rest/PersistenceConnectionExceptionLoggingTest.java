@@ -39,35 +39,31 @@ import org.finos.fluxnova.bpm.engine.ProcessEnginePersistenceException;
 import org.finos.fluxnova.bpm.engine.identity.UserQuery;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * Test for Connection Exceptions that originate from the persistence layer.
  */
-@RunWith(Parameterized.class)
 public class PersistenceConnectionExceptionLoggingTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule()
       .watch(REST_API);
 
   protected static final String USER_QUERY_URL = TEST_RESOURCE_ROOT_PATH + "/user";
 
-  private final ConnectionSubclass subclass;
+  private ConnectionSubclass subclass;
 
-  public PersistenceConnectionExceptionLoggingTest(ConnectionSubclass subclass) {
+  public void initPersistenceConnectionExceptionLoggingTest(ConnectionSubclass subclass) {
     this.subclass = subclass;
   }
 
-  @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> data() {
     ConnectionSubclass[] values = ConnectionSubclass.values();
 
@@ -76,8 +72,10 @@ public class PersistenceConnectionExceptionLoggingTest extends AbstractRestServi
         .collect(Collectors.toList());
   }
 
-  @Test
-  public void shouldLogPersistenceConnectionExceptionOnError() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void shouldLogPersistenceConnectionExceptionOnError(ConnectionSubclass subclass) {
+    initPersistenceConnectionExceptionLoggingTest(subclass);
     stubFailingUserQuery(subclass);
 
     String expectedMessage = PERSISTENCE_EXCEPTION_MESSAGE;

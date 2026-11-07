@@ -35,11 +35,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(HISTORY_FULL)
 public class UserOperationLogAnnotationTest {
@@ -54,35 +54,35 @@ public class UserOperationLogAnnotationTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule engineTestRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule);
 
   protected HistoryService historyService;
   protected TaskService taskService;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     historyService = engineRule.getHistoryService();
     taskService = engineRule.getTaskService();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     taskService.deleteTask(TASK_ID, true);
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @Before
+  @BeforeEach
   public void setAuthentication() {
     engineRule.getIdentityService()
         .setAuthenticatedUserId(USER_ID);
   }
 
-  @After
+  @AfterEach
   public void clearAuthentication() {
     engineRule.getIdentityService()
         .clearAuthentication();

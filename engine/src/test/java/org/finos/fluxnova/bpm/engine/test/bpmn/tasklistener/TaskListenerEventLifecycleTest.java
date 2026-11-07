@@ -36,7 +36,8 @@ import org.finos.fluxnova.bpm.engine.test.bpmn.tasklistener.util.CompletingTaskL
 import org.finos.fluxnova.bpm.engine.test.bpmn.tasklistener.util.RecorderTaskListener;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class TaskListenerEventLifecycleTest extends AbstractTaskListenerTest{
   /*

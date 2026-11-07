@@ -17,9 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.task;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -35,11 +33,10 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 import ch.qos.logback.classic.Level;
-
 
 
 /**
@@ -48,7 +45,7 @@ import ch.qos.logback.classic.Level;
  */
 public class TaskIdentityLinksTest extends PluggableProcessEngineTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule().level(Level.ERROR);
 
   @Deployment(resources="org/finos/fluxnova/bpm/engine/test/api/task/IdentityLinksProcess.bpmn20.xml")
@@ -100,7 +97,7 @@ public class TaskIdentityLinksTest extends PluggableProcessEngineTest {
       IdentityLink identityLink = identityLinks.get(0);
 
       assertEquals("muppets", identityLink.getGroupId());
-      assertNull("kermit", identityLink.getUserId());
+      assertNull(identityLink.getUserId(), "kermit");
       assertEquals(IdentityLinkType.CANDIDATE, identityLink.getType());
       assertEquals(taskId, identityLink.getTaskId());
 
@@ -232,7 +229,7 @@ public class TaskIdentityLinksTest extends PluggableProcessEngineTest {
     IdentityLink identityLink = identityLinks.get(0);
 
     assertEquals("muppets", identityLink.getGroupId());
-    assertNull("kermit", identityLink.getUserId());
+    assertNull(identityLink.getUserId(), "kermit");
     assertEquals("playing", identityLink.getType());
     assertEquals(taskId, identityLink.getTaskId());
 

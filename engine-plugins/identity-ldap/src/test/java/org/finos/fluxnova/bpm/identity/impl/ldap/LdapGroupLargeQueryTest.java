@@ -26,23 +26,22 @@ import org.finos.fluxnova.bpm.engine.identity.GroupQuery;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.identity.ldap.util.LdapTestEnvironment;
 import org.finos.fluxnova.bpm.identity.ldap.util.LdapTestEnvironmentRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class LdapGroupLargeQueryTest {
 
-  @ClassRule
+  @RegisterExtension
   public static LdapTestEnvironmentRule ldapRule = new LdapTestEnvironmentRule().additionalNumberOfUsers(5).additionnalNumberOfGroups(5).additionalNumberOfRoles(80); // the TestEnvironment creates groups for roles. Attention, stay under 80, there is a limitation in the query on 100
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.ldap.pages.cfg.xml"); // pageSize = 3 in this configuration
 
   IdentityService identityService;
   LdapTestEnvironment ldapTestEnvironment;
 
-  @Before
+  @BeforeEach
   public void setup() {
     identityService = engineRule.getIdentityService();
     ldapTestEnvironment = ldapRule.getLdapTestEnvironment();

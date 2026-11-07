@@ -16,8 +16,10 @@
  */
 package org.finos.fluxnova.bpm.dmn.engine.feel.function;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,23 +34,18 @@ import org.finos.fluxnova.bpm.dmn.engine.feel.helper.FeelRule;
 import org.finos.fluxnova.bpm.dmn.feel.impl.FeelException;
 import org.finos.fluxnova.bpm.dmn.feel.impl.scala.function.CustomFunction;
 import org.finos.fluxnova.bpm.dmn.feel.impl.scala.function.builder.CustomFunctionBuilder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CustomFunctionTest {
 
+  @RegisterExtension
   protected FeelRule feelRule = FeelRule.buildWithFunctionProvider();
-  protected ExpectedException thrown = ExpectedException.none();
-
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(feelRule).around(thrown);
 
   protected FunctionProvider functionProvider;
 
-  @Before
+  @BeforeEach
   public void assign() {
     functionProvider = feelRule.getFunctionProvider();
   }
@@ -61,12 +58,11 @@ public class CustomFunctionTest {
       .setFunction(args -> "")
       .setReturnValue("foo");
 
-    // then
-    thrown.expect(FeelException.class);
-    thrown.expectMessage("Only set one return value or a function.");
+    Throwable exception = assertThrows(FeelException.class, () ->
 
-    // when
-    myFunctionBuilder.build();
+      // when
+      myFunctionBuilder.build());
+    org.hamcrest.MatcherAssert.assertThat(exception.getMessage(), containsString("Only set one return value or a function."));
   }
 
   @Test

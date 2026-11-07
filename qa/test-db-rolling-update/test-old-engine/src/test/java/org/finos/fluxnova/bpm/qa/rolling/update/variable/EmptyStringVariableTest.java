@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.qa.rolling.update.variable;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstanceQuery;
@@ -43,7 +43,7 @@ public class EmptyStringVariableTest extends AbstractRollingUpdateTestCase {
         .singleResult();
 
     // then
-    assertThat(variableInstance.getValue(), is(""));
+    assertEquals("", variableInstance.getValue());
   }
 
   @Test
@@ -54,7 +54,7 @@ public class EmptyStringVariableTest extends AbstractRollingUpdateTestCase {
         .variableValueEquals("myStringVar", "");
 
     // then
-    assertThat(variableInstanceQuery.count(), is(1L));
+    assertEquals(1L, variableInstanceQuery.count());
   }
 
   @Test
@@ -65,7 +65,7 @@ public class EmptyStringVariableTest extends AbstractRollingUpdateTestCase {
         .variableValueNotEquals("myStringVar", "");
 
     // then
-    assertThat(variableInstanceQuery.count(), is(0L));
+    assertEquals(0L, variableInstanceQuery.count());
   }
 
 }

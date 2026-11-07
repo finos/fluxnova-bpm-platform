@@ -21,18 +21,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class RepositoryServiceBpmnModelRetrievalTest extends AbstractFoxPlatformIntegrationTest {
 
   private static final String TEST_PROCESS = "testProcess";
@@ -51,7 +51,7 @@ public class RepositoryServiceBpmnModelRetrievalTest extends AbstractFoxPlatform
       .singleResult();
 
     BpmnModelInstance bpmnModelInstance = repositoryService.getBpmnModelInstance(processDefinition.getId());
-    Assert.assertNotNull(bpmnModelInstance);
+    Assertions.assertNotNull(bpmnModelInstance);
 
   }
 }

@@ -72,6 +72,12 @@
         name = "errorMessage"
         type = "string"
         desc = "An error message in case a Java Serialized Object could not be de-serialized."
+    />
+
+    <@lib.property
+        name = "businessKey"
+        type = "string"
+        desc = "The business key of the process instance that this variable instance belongs to."
         last = true
     />
 

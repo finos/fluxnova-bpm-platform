@@ -21,15 +21,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  *
  * @author nico.rehwaldt
  */
-@RunWith(Parameterized.class)
 public class RequestFilterTest {
 
   protected static final String EMPTY_PATH = "";
@@ -41,17 +40,19 @@ public class RequestFilterTest {
 
   protected String applicationPath;
 
-  @Parameterized.Parameters
   public static Collection<String> data() {
     return Arrays.asList(EMPTY_PATH, CUSTOM_APP_PATH);
   }
 
-  public RequestFilterTest(String applicationPath) {
+  public void initRequestFilterTest(String applicationPath) {
     this.applicationPath = applicationPath;
   }
 
-  @Test
-  public void shouldMatchMethod() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void shouldMatchMethod(String applicationPath) {
+
+    initRequestFilterTest(applicationPath);
 
     // given
     matcher = newMatcher("/foo/bar", "POST", "PUT");
@@ -63,8 +64,11 @@ public class RequestFilterTest {
     assertThat(matchResult).isNull();
   }
 
-  @Test
-  public void shouldNotMatchUri() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void shouldNotMatchUri(String applicationPath) {
+
+    initRequestFilterTest(applicationPath);
 
     // given
     matcher = newMatcher("/foo/bar", "GET");
@@ -76,8 +80,11 @@ public class RequestFilterTest {
     assertThat(matchResult).isNull();
   }
 
-  @Test
-  public void shouldMatch() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void shouldMatch(String applicationPath) {
+
+    initRequestFilterTest(applicationPath);
 
     // given
     matcher = newMatcher("/foo/bar", "GET");
@@ -89,8 +96,11 @@ public class RequestFilterTest {
     assertThat(matchResult).isNotNull();
   }
 
-  @Test
-  public void shouldExtractNamedUriParts() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void shouldExtractNamedUriParts(String applicationPath) {
+
+    initRequestFilterTest(applicationPath);
 
     // given
     matcher = newMatcher("/{foo}/{bar}", "GET");
@@ -105,8 +115,11 @@ public class RequestFilterTest {
         .containsEntry("bar", "bar");
   }
 
-  @Test
-  public void shouldExtractNamedMatchAllUriPart() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void shouldExtractNamedMatchAllUriPart(String applicationPath) {
+
+    initRequestFilterTest(applicationPath);
 
     // given
     matcher = newMatcher("/{foo}/{bar:.*}", "GET");

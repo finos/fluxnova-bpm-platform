@@ -27,14 +27,14 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.ByteArrayAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
@@ -43,7 +43,7 @@ import java.util.Arrays;
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class MigrationContextSwitchClassesTest extends AbstractFoxPlatformIntegrationTest {
 
   public static final BpmnModelInstance oneTaskProcess(String key) {
@@ -135,7 +135,7 @@ public class MigrationContextSwitchClassesTest extends AbstractFoxPlatformIntegr
       .execute();
 
     // then
-    Assert.assertTrue((Boolean)runtimeService.getVariable(pi, InstantiationListener.VARIABLE_NAME));
+    Assertions.assertTrue((Boolean)runtimeService.getVariable(pi, InstantiationListener.VARIABLE_NAME));
   }
 
 
@@ -169,7 +169,7 @@ public class MigrationContextSwitchClassesTest extends AbstractFoxPlatformIntegr
       .execute();
 
     // then
-    Assert.assertTrue((Boolean)runtimeService.getVariable(pi, RemovalListener.VARIABLE_NAME));
+    Assertions.assertTrue((Boolean)runtimeService.getVariable(pi, RemovalListener.VARIABLE_NAME));
   }
 
   protected static Asset modelAsAsset(BpmnModelInstance modelInstance) {

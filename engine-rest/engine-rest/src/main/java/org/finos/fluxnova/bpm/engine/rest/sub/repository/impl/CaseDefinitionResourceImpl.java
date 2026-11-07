@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.repository.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
@@ -40,10 +40,10 @@ import org.finos.fluxnova.bpm.engine.rest.util.URLEncodingUtil;
 import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -132,23 +132,23 @@ public class CaseDefinitionResourceImpl implements CaseDefinitionResource {
           .create();
 
     } catch (RestException e) {
-      String errorMessage = String.format("Cannot instantiate case definition %s: %s", caseDefinitionId, e.getMessage());
+      String errorMessage = "Cannot instantiate case definition %s: %s".formatted(caseDefinitionId, e.getMessage());
       throw new InvalidRequestException(e.getStatus(), e, errorMessage);
 
     } catch (NotFoundException e) {
-      String errorMessage = String.format("Cannot instantiate case definition %s: %s", caseDefinitionId, e.getMessage());
+      String errorMessage = "Cannot instantiate case definition %s: %s".formatted(caseDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.NOT_FOUND, e, errorMessage);
 
     } catch (NotValidException e) {
-      String errorMessage = String.format("Cannot instantiate case definition %s: %s", caseDefinitionId, e.getMessage());
+      String errorMessage = "Cannot instantiate case definition %s: %s".formatted(caseDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.BAD_REQUEST, e, errorMessage);
 
     } catch (NotAllowedException e) {
-      String errorMessage = String.format("Cannot instantiate case definition %s: %s", caseDefinitionId, e.getMessage());
+      String errorMessage = "Cannot instantiate case definition %s: %s".formatted(caseDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.FORBIDDEN, e, errorMessage);
 
     } catch (ProcessEngineException e) {
-      String errorMessage = String.format("Cannot instantiate case definition %s: %s", caseDefinitionId, e.getMessage());
+      String errorMessage = "Cannot instantiate case definition %s: %s".formatted(caseDefinitionId, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
 
     }

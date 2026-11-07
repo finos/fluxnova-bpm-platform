@@ -25,6 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.WebappProperty;
 
 import org.finos.fluxnova.bpm.webapp.impl.engine.ProcessEnginesFilter;
@@ -50,7 +54,7 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     if (requestUri.equals(appPath)) {
       // only redirect from index ("/") if index redirect is enabled
       if(!requestUri.isEmpty() || webappProperty.isIndexRedirectEnabled()) {
-        response.sendRedirect(String.format("%s%s/app/%s/", contextPath, applicationPath, DEFAULT_REDIRECT_APP));
+        response.sendRedirect("%s%s/app/%s/".formatted(contextPath, applicationPath, DEFAULT_REDIRECT_APP));
         return;
       }
     }
@@ -60,10 +64,18 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
 
   @Override
   protected String getWebResourceContents(String name) throws IOException {
-    InputStream is = null;
-
+    String safeName;
     try {
-      Resource resource = resourceLoader.getResource("classpath:"+webappProperty.getWebjarClasspath() + name);
+      safeName = validateResourceName(name);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IOException(e.getMessage());
+    }
+
+    InputStream is = null;
+    try {
+      Resource resource = resourceLoader.getResource(
+          "classpath:" + joinClasspathResource(webappProperty.getWebjarClasspath(), safeName));
       is = resource.getInputStream();
 
       BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -127,5 +139,54 @@ public class ResourceLoadingProcessEnginesFilter extends ProcessEnginesFilter im
     input = StringUtils.trimTrailingCharacter(input, charachter);
 
     return input;
+  }
+
+  private static final Path RESOURCE_ROOT = Paths.get("/webjar-resource-root").normalize().toAbsolutePath();
+
+  private static String joinClasspathResource(String classpathRoot, String relativeResourceName) {
+    if (classpathRoot.endsWith("/")) {
+      return classpathRoot + relativeResourceName;
+    }
+
+    return classpathRoot + "/" + relativeResourceName;
+  }
+
+  private static String validateResourceName(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Resource name must not be null");
+    }
+
+    String decoded;
+    try {
+      decoded = URLDecoder.decode(name, StandardCharsets.UTF_8);
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(
+          "Resource name contains malformed encoding: " + name);
+    }
+
+    if (decoded.indexOf('\0') >= 0) {
+      throw new IllegalArgumentException(
+          "Resource name contains illegal null byte: " + name);
+    }
+
+    String normalized = decoded.replace('\\', '/');
+    String relative = normalized.startsWith("/") ? normalized.substring(1) : normalized;
+
+    for (String segment : relative.split("/")) {
+      if ("..".equals(segment)) {
+        throw new IllegalArgumentException(
+            "Resource name contains illegal path traversal sequence: " + name);
+      }
+    }
+
+    Path resolved = RESOURCE_ROOT.resolve(relative).normalize().toAbsolutePath();
+    if (!resolved.startsWith(RESOURCE_ROOT)) {
+      throw new IllegalArgumentException(
+          "Resource name contains illegal path traversal sequence: " + name);
+    }
+
+    String safeRelative = RESOURCE_ROOT.relativize(resolved).toString().replace('\\', '/');
+    return safeRelative;
   }
 }

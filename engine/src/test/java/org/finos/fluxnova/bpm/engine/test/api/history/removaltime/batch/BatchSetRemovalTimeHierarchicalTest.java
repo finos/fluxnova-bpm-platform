@@ -68,10 +68,10 @@ import org.finos.fluxnova.bpm.engine.test.dmn.businessruletask.TestPojo;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Tassilo Weidner
@@ -83,8 +83,8 @@ public class BatchSetRemovalTimeHierarchicalTest {
   protected ProcessEngineTestRule engineTestRule = new ProcessEngineTestRule(engineRule);
   protected BatchSetRemovalTimeRule testRule = new BatchSetRemovalTimeRule(engineRule, engineTestRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(engineTestRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(engineTestRule).around(testRule);
 
   protected final Date CURRENT_DATE = testRule.CURRENT_DATE;
 
@@ -97,7 +97,7 @@ public class BatchSetRemovalTimeHierarchicalTest {
   protected DecisionService decisionService;
   protected AuthorizationService authorizationService;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     runtimeService = engineRule.getRuntimeService();
     decisionService = engineRule.getDecisionService();

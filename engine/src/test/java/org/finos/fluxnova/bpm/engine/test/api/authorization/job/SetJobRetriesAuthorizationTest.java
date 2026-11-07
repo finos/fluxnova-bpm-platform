@@ -37,17 +37,13 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class SetJobRetriesAuthorizationTest {
 
   static final String TIMER_BOUNDARY_PROCESS_KEY = "timerBoundaryProcess";
@@ -55,15 +51,12 @@ public class SetJobRetriesAuthorizationTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
 
   ManagementService managementService;
-
-  @Parameter
   public AuthorizationScenario scenario;
 
-  @Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -119,21 +112,23 @@ public class SetJobRetriesAuthorizationTest {
 
   protected String deploymentId;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     managementService = engineRule.getManagementService();
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSetJobRetriesByJobDefinitionId() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSetJobRetriesByJobDefinitionId(AuthorizationScenario scenario) {
+    initSetJobRetriesAuthorizationTest(scenario);
     // given
     String processInstanceId = engineRule.getRuntimeService()
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -162,10 +157,12 @@ public class SetJobRetriesAuthorizationTest {
 
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = {
-      "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml" })
-  public void shouldSetJobRetries() {
+    "org/finos/fluxnova/bpm/engine/test/api/authorization/timerBoundaryEventProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void shouldSetJobRetries(AuthorizationScenario scenario) {
+    initSetJobRetriesAuthorizationTest(scenario);
     // given
     String processInstanceId = engineRule.getRuntimeService()
         .startProcessInstanceByKey(TIMER_BOUNDARY_PROCESS_KEY)
@@ -214,6 +211,10 @@ public class SetJobRetriesAuthorizationTest {
         .processDefinitionKey(processDefinitionKey)
         .singleResult();
     return jobDefinition;
+  }
+
+  public void initSetJobRetriesAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

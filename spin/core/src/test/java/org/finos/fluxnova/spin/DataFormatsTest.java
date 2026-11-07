@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.spin;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -32,7 +32,7 @@ public class DataFormatsTest {
     dataFormats.registerDataFormats(DataFormats.class.getClassLoader());
 
     // then the operation was successful
-    Assert.assertEquals(0, dataFormats.getAllAvailableDataFormats().size());
+    Assertions.assertEquals(0, dataFormats.getAllAvailableDataFormats().size());
 
     // note: this checks the existence of API that allows to initialize
     // data formats with a custom class loader; the functionality is actually tested

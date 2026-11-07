@@ -57,7 +57,7 @@ public class ProcessApplicationScanningUtil {
     ProcessApplicationScanner scanner = null;
 
     try {
-      // check if we must use JBoss VFS
+      // check if we must use the VFS-based scanner
       classLoader.loadClass("org.jboss.vfs.VFS");
       scanner = new VfsProcessApplicationScanner();
     }

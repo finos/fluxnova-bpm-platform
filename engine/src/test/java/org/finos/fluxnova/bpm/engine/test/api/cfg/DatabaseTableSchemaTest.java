@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,9 +34,9 @@ import org.finos.fluxnova.bpm.engine.impl.interceptor.Command;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandContext;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
 import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Ronny Bräunlich
@@ -48,13 +48,13 @@ public class DatabaseTableSchemaTest {
 
   private PooledDataSource pooledDataSource;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     pooledDataSource = new PooledDataSource(ReflectUtil.getClassLoader(), "org.h2.Driver",
         "jdbc:h2:mem:DatabaseTableSchemaTest;DB_CLOSE_DELAY=1000", "sa", "");
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws SQLException {
 
     Connection connection = pooledDataSource.getConnection();

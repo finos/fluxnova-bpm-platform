@@ -24,19 +24,20 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.HistoricIncidentEnt
 import org.finos.fluxnova.bpm.engine.rest.AbstractRestServiceTest;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 import java.util.Collections;
 import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 import static org.finos.fluxnova.bpm.engine.rest.util.DateTimeUtils.DATE_FORMAT_WITH_TIMEZONE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -50,10 +51,10 @@ public class OptimizeCompletedHistoricIncidentRestServiceTest extends AbstractRe
   protected OptimizeService mockedOptimizeService;
   protected ProcessEngine namedProcessEngine;
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockedOptimizeService = mock(OptimizeService.class);
     ProcessEngineConfigurationImpl mockedConfig = mock(ProcessEngineConfigurationImpl.class);

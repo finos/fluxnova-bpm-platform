@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.spin.xml;
 
+
+
 /**
  * Indicates an error in the underlying xml tree attribute.
  *

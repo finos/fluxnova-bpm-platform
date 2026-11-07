@@ -59,6 +59,16 @@
     "itemType": "string",
     "desc": "Only include historic variable instances which belong to one of the passed ${paramListType} process instance ids."
   },
+  "businessKey": {
+    "type": "string",
+    "desc": "Only include historic variable instances which belong to process instances with the given business key."
+  },
+  "businessKeyLike": {
+    "type": "string",
+    "desc": "Only include historic variable instances which belong to process instances with a business key like the given value.
+             The parameter can include the wildcard `%` to express like-strategy such as: starts with (`%`name),
+             ends with (name`%`) or contains (`%`name`%`)."
+  },
   "processDefinitionId": {
     "type": "string",
     "desc": "Filter by the process definition the variable belongs to."

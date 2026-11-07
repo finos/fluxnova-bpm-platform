@@ -17,19 +17,18 @@
 package org.finos.fluxnova.bpm.spring.boot.starter.disabled;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = { FluxnovaAutoConfigurationDisabledIT.NoFluxnovaApplication.class},
   webEnvironment = WebEnvironment.NONE,

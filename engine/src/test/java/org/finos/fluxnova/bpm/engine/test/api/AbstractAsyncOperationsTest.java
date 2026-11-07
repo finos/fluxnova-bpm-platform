@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,8 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.BatchHelper;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
-import org.junit.After;
+
+import org.junit.jupiter.api.AfterEach;
 
 /**
  * @author Askar Akhmerov
@@ -67,7 +68,7 @@ public abstract class AbstractAsyncOperationsTest {
     defaultInvocationsPerBatchJob = engineConfiguration.getInvocationsPerBatchJob();
   }
 
-  @After
+  @AfterEach
   public void cleanUpBatches() {
     managementService.createBatchQuery().list().forEach(b -> managementService.deleteBatch(b.getId(), true));
 

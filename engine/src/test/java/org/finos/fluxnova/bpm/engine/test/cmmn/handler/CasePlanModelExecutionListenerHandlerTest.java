@@ -19,19 +19,16 @@ package org.finos.fluxnova.bpm.engine.test.cmmn.handler;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.handler.CasePlanModelHandler;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.model.CmmnActivity;
 import org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification.AbstractExecutionListenerSpec;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Thorben Lindhauer
  *
  */
-@RunWith(Parameterized.class)
 public class CasePlanModelExecutionListenerHandlerTest extends CmmnElementHandlerTest {
 
-  @Parameters(name = "testListener: {0}")
   public static Iterable<Object[]> data() {
     return ExecutionListenerCases.CASE_PLAN_MODEL_CASES;
   }
@@ -40,12 +37,14 @@ public class CasePlanModelExecutionListenerHandlerTest extends CmmnElementHandle
 
   protected AbstractExecutionListenerSpec testSpecification;
 
-  public CasePlanModelExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
+  public void initCasePlanModelExecutionListenerHandlerTest(AbstractExecutionListenerSpec testSpecification) {
     this.testSpecification = testSpecification;
   }
 
-  @Test
-  public void testCaseExecutionListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "testListener: {0}")
+  public void testCaseExecutionListener(AbstractExecutionListenerSpec testSpecification) {
+    initCasePlanModelExecutionListenerHandlerTest(testSpecification);
     // given:
     testSpecification.addListenerToElement(modelInstance, casePlanModel);
 

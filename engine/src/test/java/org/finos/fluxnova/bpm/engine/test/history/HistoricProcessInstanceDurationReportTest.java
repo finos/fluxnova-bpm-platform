@@ -18,9 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.history;
 
 import static org.finos.fluxnova.bpm.engine.query.PeriodUnit.MONTH;
 import static org.finos.fluxnova.bpm.engine.query.PeriodUnit.QUARTER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +42,8 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -811,14 +810,14 @@ public class HistoricProcessInstanceDurationReportTest extends PluggableProcessE
     }
 
     public void assertReportResults(List<DurationReportResult> actual) {
-      assertEquals("Report size", periodToProcessInstancesMap.size(), actual.size());
+      assertEquals(periodToProcessInstancesMap.size(), actual.size(), "Report size");
 
       for (DurationReportResult reportResult : actual) {
-        assertEquals("Period unit", periodUnit, reportResult.getPeriodUnit());
+        assertEquals(periodUnit, reportResult.getPeriodUnit(), "Period unit");
 
         int period = reportResult.getPeriod();
         Set<String> processInstancesInPeriod = periodToProcessInstancesMap.get(period);
-        assertNotNull("Unexpected report for period " + period, processInstancesInPeriod);
+        assertNotNull(processInstancesInPeriod, "Unexpected report for period " + period);
 
         List<HistoricProcessInstance> historicProcessInstances = historyService
             .createHistoricProcessInstanceQuery()
@@ -840,9 +839,9 @@ public class HistoricProcessInstanceDurationReportTest extends PluggableProcessE
 
         long avg = sum / historicProcessInstances.size();
 
-        assertEquals("maximum", max, reportResult.getMaximum());
-        assertEquals("minimum", min, reportResult.getMinimum());
-        assertEquals("average", avg, reportResult.getAverage(), 1);
+        assertEquals(max, reportResult.getMaximum(), "maximum");
+        assertEquals(min, reportResult.getMinimum(), "minimum");
+        assertEquals(avg, reportResult.getAverage(), 1, "average");
       }
     }
 

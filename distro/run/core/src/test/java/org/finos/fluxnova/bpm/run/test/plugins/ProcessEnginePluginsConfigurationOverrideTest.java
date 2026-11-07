@@ -25,17 +25,15 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
 import org.finos.fluxnova.bpm.spring.boot.starter.spin.SpringBootSpinProcessEnginePlugin;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { FluxnovaBpmRun.class })
 @ActiveProfiles(profiles = { "test-new-plugins", "test-plugins-config-override" }, inheritProfiles = true)
 public class ProcessEnginePluginsConfigurationOverrideTest {
@@ -52,7 +50,7 @@ public class ProcessEnginePluginsConfigurationOverrideTest {
 
   protected List<ProcessEnginePlugin> plugins;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.plugins = processEngineConfiguration.getProcessEnginePlugins();
 }

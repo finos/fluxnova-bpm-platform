@@ -74,6 +74,18 @@ public interface HistoricVariableInstanceQuery extends Query<HistoricVariableIns
   /** Only select historic process variables with the given process instance ids. */
   HistoricVariableInstanceQuery processInstanceIdIn(String... processInstanceIds);
 
+  /**
+   * Only select historic variable instances that belong to process instances with the given business key.
+   */
+  HistoricVariableInstanceQuery businessKey(String businessKey);
+
+  /**
+   * Only select historic variable instances that belong to process instances with business keys matching the pattern.
+   * The string can include the wildcard character '%' to express like-strategy:
+   * starts with (string%), ends with (%string) or contains (%string%).
+   */
+  HistoricVariableInstanceQuery businessKeyLike(String businessKeyLike);
+
   /** Only select historic variable instances which have one of the task ids. **/
   HistoricVariableInstanceQuery taskIdIn(String... taskIds);
 

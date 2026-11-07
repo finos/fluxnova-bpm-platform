@@ -16,11 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.repository.DecisionDefinition;
 import org.finos.fluxnova.bpm.engine.repository.DecisionDefinitionQuery;
@@ -51,7 +51,7 @@ public class DecisionDefinitionRestServiceImpl extends AbstractRestProcessEngine
         .singleResult();
 
     if (decisionDefinition == null) {
-      String errorMessage = String.format("No matching decision definition with key: %s and no tenant-id", decisionDefinitionKey);
+      String errorMessage = "No matching decision definition with key: %s and no tenant-id".formatted(decisionDefinitionKey);
       throw new RestException(Status.NOT_FOUND, errorMessage);
 
     } else {
@@ -71,7 +71,7 @@ public class DecisionDefinitionRestServiceImpl extends AbstractRestProcessEngine
         .singleResult();
 
     if (decisionDefinition == null) {
-      String errorMessage = String.format("No matching decision definition with key: %s and tenant-id: %s", decisionDefinitionKey, tenantId);
+      String errorMessage = "No matching decision definition with key: %s and tenant-id: %s".formatted(decisionDefinitionKey, tenantId);
       throw new RestException(Status.NOT_FOUND, errorMessage);
 
     } else {

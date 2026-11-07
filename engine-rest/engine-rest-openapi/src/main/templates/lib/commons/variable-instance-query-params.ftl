@@ -53,6 +53,16 @@
     "desc": "Only include variable instances which belong to one of the passed ${itemSeperator}
             process instance ids."
   },
+  "businessKey": {
+    "type": "string",
+    "desc": "Only include variable instances which belong to process instances with the given business key."
+  },
+  "businessKeyLike": {
+    "type": "string",
+    "desc": "Only include variable instances which belong to process instances with a business key like the given value.
+            The parameter can include the wildcard `%` to express like-strategy such as: starts with (`%`name),
+            ends with (name`%`) or contains (`%`name`%`)."
+  },
   "executionIdIn": {
     "type": "array",
     "itemType": "string",

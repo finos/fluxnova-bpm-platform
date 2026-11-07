@@ -46,11 +46,7 @@ import static org.finos.fluxnova.bpm.engine.impl.cmd.AbstractSetBatchStateCmd.SU
 import static org.finos.fluxnova.bpm.engine.impl.cmd.AbstractSetProcessDefinitionStateCmd.INCLUDE_PROCESS_INSTANCES_PROPERTY;
 import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.ASSIGNEE;
 import static org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity.OWNER;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,8 +82,9 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Attachment;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
 /**
  * @author Danny Gräf
  */
@@ -107,7 +104,7 @@ public class UserOperationLogQueryTest extends AbstractUserOperationLogTest {
   private Date tomorrow = new Date(((ClockUtil.getCurrentTime().getTime() + 86400000) / 1000) * 1000);
   private Date yesterday = new Date(((ClockUtil.getCurrentTime().getTime() - 86400000) / 1000) * 1000);
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     if (userTask != null) {
       historyService.deleteHistoricTaskInstance(userTask.getId());

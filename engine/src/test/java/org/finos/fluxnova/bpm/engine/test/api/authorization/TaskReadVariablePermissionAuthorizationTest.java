@@ -19,8 +19,8 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,15 +45,13 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class TaskReadVariablePermissionAuthorizationTest {
 
   protected static final String AUTHORIZATION_TYP_HISTORIC = "historicAuthorization";
@@ -67,8 +65,8 @@ public class TaskReadVariablePermissionAuthorizationTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule);
 
   private ProcessEngineConfigurationImpl processEngineConfiguration;
   private IdentityService identityService;
@@ -81,16 +79,15 @@ public class TaskReadVariablePermissionAuthorizationTest {
 
   protected String authorizationType;
 
-  @Parameterized.Parameters(name = "{0}")
   public static Collection<String> scenarios() {
     return Arrays.asList(AUTHORIZATION_TYP_HISTORIC, AUTHORIZATION_TYP_RUNTIME);
   }
 
-  public TaskReadVariablePermissionAuthorizationTest(String authorizationType) {
+  public void initTaskReadVariablePermissionAuthorizationTest(String authorizationType) {
     this.authorizationType = authorizationType;
   }
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     identityService = engineRule.getIdentityService();
@@ -108,7 +105,7 @@ public class TaskReadVariablePermissionAuthorizationTest {
     authRule.createGrantAuthorization(Resources.AUTHORIZATION, "*", userId, Permissions.CREATE);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     authRule.disableAuthorization();
     for (User user : identityService.createUserQuery().list()) {
@@ -126,8 +123,10 @@ public class TaskReadVariablePermissionAuthorizationTest {
 
   // TaskService#saveTask() ///////////////////////////////////
 
-  @Test
-  public void testSaveStandaloneTaskAndCheckAssigneePermissions() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "{0}")
+  public void testSaveStandaloneTaskAndCheckAssigneePermissions(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     String taskId = "myTask";
     createTask(taskId);
@@ -148,9 +147,11 @@ public class TaskReadVariablePermissionAuthorizationTest {
     taskService.deleteTask(taskId, true);
   }
 
-  @Test
+  @ParameterizedTest(name = "{0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
-  public void testSaveProcessTaskAndCheckAssigneePermissions() {
+  @MethodSource("scenarios")
+  public void testSaveProcessTaskAndCheckAssigneePermissions(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     startProcessInstanceByKey(PROCESS_KEY);
     Task task = selectSingleTask();
@@ -170,8 +171,10 @@ public class TaskReadVariablePermissionAuthorizationTest {
 
   // TaskService#setOwner() ///////////////////////////////////
 
-  @Test
-  public void testStandaloneTaskSetOwnerAndCheckOwnerPermissions() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "{0}")
+  public void testStandaloneTaskSetOwnerAndCheckOwnerPermissions(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     String taskId = "myTask";
     createTask(taskId);
@@ -190,9 +193,11 @@ public class TaskReadVariablePermissionAuthorizationTest {
     taskService.deleteTask(taskId, true);
   }
 
-  @Test
+  @ParameterizedTest(name = "{0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
-  public void testProcessTaskSetOwnerAndCheckOwnerPermissions() {
+  @MethodSource("scenarios")
+  public void testProcessTaskSetOwnerAndCheckOwnerPermissions(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     startProcessInstanceByKey(PROCESS_KEY);
     String taskId = selectSingleTask().getId();
@@ -211,8 +216,10 @@ public class TaskReadVariablePermissionAuthorizationTest {
 
   // TaskService#addUserIdentityLink() ///////////////////////////////////
 
-  @Test
-  public void testStandaloneTaskAddUserIdentityLinkAndUserOwnerPermissions() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "{0}")
+  public void testStandaloneTaskAddUserIdentityLinkAndUserOwnerPermissions(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     String taskId = "myTask";
     createTask(taskId);
@@ -240,9 +247,11 @@ public class TaskReadVariablePermissionAuthorizationTest {
     taskService.deleteTask(taskId, true);
   }
 
-  @Test
+  @ParameterizedTest(name = "{0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
-  public void testProcessTaskAddUserIdentityLinkWithUpdatePersmissionOnTask() {
+  @MethodSource("scenarios")
+  public void testProcessTaskAddUserIdentityLinkWithUpdatePersmissionOnTask(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     startProcessInstanceByKey(PROCESS_KEY);
     String taskId = selectSingleTask().getId();
@@ -270,8 +279,10 @@ public class TaskReadVariablePermissionAuthorizationTest {
 
   // TaskService#addGroupIdentityLink() ///////////////////////////////////
 
-  @Test
-  public void testStandaloneTaskAddGroupIdentityLink() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "{0}")
+  public void testStandaloneTaskAddGroupIdentityLink(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     String taskId = "myTask";
     createTask(taskId);
@@ -300,9 +311,11 @@ public class TaskReadVariablePermissionAuthorizationTest {
     taskService.deleteTask(taskId, true);
   }
 
-  @Test
+  @ParameterizedTest(name = "{0}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml")
-  public void testProcessTaskAddGroupIdentityLinkWithUpdatePersmissionOnTask() {
+  @MethodSource("scenarios")
+  public void testProcessTaskAddGroupIdentityLinkWithUpdatePersmissionOnTask(String authorizationType) {
+    initTaskReadVariablePermissionAuthorizationTest(authorizationType);
     // given
     startProcessInstanceByKey(PROCESS_KEY);
     String taskId = selectSingleTask().getId();

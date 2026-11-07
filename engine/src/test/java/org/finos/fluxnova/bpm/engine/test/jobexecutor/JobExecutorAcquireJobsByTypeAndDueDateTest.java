@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.jobexecutor;
 
 import static org.finos.fluxnova.bpm.engine.test.util.ClockTestUtil.incrementClock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -29,12 +26,12 @@ import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class JobExecutorAcquireJobsByTypeAndDueDateTest extends AbstractJobExecutorAcquireJobsTest {
 
-  @Before
+  @BeforeEach
   public void prepareProcessEngineConfiguration() {
     configuration.setJobExecutorPreferTimerJobs(true);
     configuration.setJobExecutorAcquireByDueDate(true);

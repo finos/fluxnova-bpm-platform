@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.hal;
 
-import javax.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriBuilder;
 
 /**
  * @author Daniel Meyer

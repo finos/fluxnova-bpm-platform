@@ -25,7 +25,7 @@ package org.finos.fluxnova.bpm.engine;
  * @author Falko Menge 
  */
 public class TaskAlreadyClaimedException extends ProcessEngineException {
-    
+
     private static final long serialVersionUID = 1L;
 
     /** the id of the task that is already claimed */

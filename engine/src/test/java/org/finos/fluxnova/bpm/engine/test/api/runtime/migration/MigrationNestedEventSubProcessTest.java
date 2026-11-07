@@ -30,16 +30,14 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.EventSubP
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Parameterized.class)
 public class MigrationNestedEventSubProcessTest {
 
   protected static final String USER_TASK_ID = "userTask";
@@ -61,7 +59,6 @@ public class MigrationNestedEventSubProcessTest {
   }
 
 
-  @Parameterized.Parameters(name = "{index}: {0}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
       {//message event sub process configuration
@@ -185,18 +182,19 @@ public class MigrationNestedEventSubProcessTest {
       }}
     });
   }
-
-  @Parameterized.Parameter
   public MigrationEventSubProcessTestConfiguration configuration;
 
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
-  @Test
-  public void testMapUserTaskSiblingOfEventSubProcess() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testMapUserTaskSiblingOfEventSubProcess(MigrationEventSubProcessTestConfiguration configuration) {
+
+    initMigrationNestedEventSubProcessTest(configuration);
 
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(configuration.getSourceProcess());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(configuration.getSourceProcess());
@@ -230,8 +228,10 @@ public class MigrationNestedEventSubProcessTest {
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
   }
 
-  @Test
-  public void testMapUserTaskSiblingOfEventSubProcessAndTriggerEvent() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testMapUserTaskSiblingOfEventSubProcessAndTriggerEvent(MigrationEventSubProcessTestConfiguration configuration) {
+    initMigrationNestedEventSubProcessTest(configuration);
     ProcessDefinition sourceProcessDefinition = testHelper.deployAndGetDefinition(configuration.getSourceProcess());
     ProcessDefinition targetProcessDefinition = testHelper.deployAndGetDefinition(configuration.getSourceProcess());
 
@@ -247,5 +247,9 @@ public class MigrationNestedEventSubProcessTest {
     configuration.triggerEventSubProcess(testHelper);
     testHelper.completeTask(EVENT_SUB_PROCESS_TASK_ID);
     testHelper.assertProcessEnded(testHelper.snapshotBeforeMigration.getProcessInstanceId());
+  }
+
+  public void initMigrationNestedEventSubProcessTest(MigrationEventSubProcessTestConfiguration configuration) {
+    this.configuration = configuration;
   }
 }

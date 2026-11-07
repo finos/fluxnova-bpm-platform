@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.event;
 
+
+
 import org.springframework.context.ApplicationEvent;
 
 public class ProcessApplicationEvent extends ApplicationEvent {

@@ -75,8 +75,8 @@ public class ActivityInstanceHandler implements MigratingInstanceParseHandler<Ac
     }
 
     CoreActivityBehavior<?> sourceActivityBehavior = sourceScope.getActivityBehavior();
-    if (sourceActivityBehavior instanceof MigrationObserverBehavior) {
-      ((MigrationObserverBehavior) sourceActivityBehavior).onParseMigratingInstance(parseContext, migratingInstance);
+    if (sourceActivityBehavior instanceof MigrationObserverBehavior behavior) {
+      behavior.onParseMigratingInstance(parseContext, migratingInstance);
     }
 
     parseContext.submit(migratingInstance);

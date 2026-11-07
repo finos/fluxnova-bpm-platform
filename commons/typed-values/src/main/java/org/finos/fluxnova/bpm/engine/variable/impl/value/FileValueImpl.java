@@ -38,6 +38,7 @@ public class FileValueImpl implements FileValue {
   protected FileValueType type;
   protected String encoding;
   protected boolean isTransient;
+  protected boolean restricted;
 
   public FileValueImpl(byte[] value, FileValueType type, String filename, String mimeType, String encoding) {
     this.value = value;
@@ -114,7 +115,7 @@ public class FileValueImpl implements FileValue {
 
   @Override
   public String toString() {
-    return "FileValueImpl [mimeType=" + mimeType + ", filename=" + filename + ", type=" + type + ", isTransient=" + isTransient + "]";
+    return "FileValueImpl [mimeType=" + mimeType + ", filename=" + filename + ", type=" + type + ", isTransient=" + isTransient + ", restricted=" + restricted + "]";
   }
 
   @Override
@@ -124,5 +125,61 @@ public class FileValueImpl implements FileValue {
 
   public void setTransient(boolean isTransient) {
     this.isTransient = isTransient;
+  }
+
+  @Override
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    FileValueImpl other = (FileValueImpl) obj;
+    if (filename == null) {
+      if (other.filename != null)
+        return false;
+    } else if (!filename.equals(other.filename))
+      return false;
+    if (mimeType == null) {
+      if (other.mimeType != null)
+        return false;
+    } else if (!mimeType.equals(other.mimeType))
+      return false;
+    if (encoding == null) {
+      if (other.encoding != null)
+        return false;
+    } else if (!encoding.equals(other.encoding))
+      return false;
+    if (!java.util.Arrays.equals(value, other.value))
+      return false;
+    if (isTransient != other.isTransient()) {
+      return false;
+    }
+    if (restricted != other.restricted)
+      return false;
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((filename == null) ? 0 : filename.hashCode());
+    result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+    result = prime * result + ((encoding == null) ? 0 : encoding.hashCode());
+    result = prime * result + java.util.Arrays.hashCode(value);
+    result = prime * result + (isTransient ? 1 : 0);
+    result = prime * result + (restricted ? 1 : 0);
+    return result;
   }
 }

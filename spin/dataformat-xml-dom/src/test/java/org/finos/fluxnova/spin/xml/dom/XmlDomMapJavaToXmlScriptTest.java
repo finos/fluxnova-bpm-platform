@@ -19,12 +19,14 @@ package org.finos.fluxnova.spin.xml.dom;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.EXAMPLE_VALIDATION_XML;
 import static org.finos.fluxnova.spin.xml.XmlTestConstants.createExampleOrder;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.spin.impl.test.Script;
 import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.xml.XmlTestUtil;
 import org.finos.fluxnova.spin.xml.mapping.Order;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public abstract class XmlDomMapJavaToXmlScriptTest extends ScriptTest{
 
@@ -44,9 +46,10 @@ public abstract class XmlDomMapJavaToXmlScriptTest extends ScriptTest{
     assertThat(xml).isXmlEqualTo(exampleValidationXmlWoTimezone);
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   @Script(execute = false)
   public void shouldFailWithNull() throws Throwable {
-    failingWithException();
+    assertThrows(IllegalArgumentException.class, () ->
+      failingWithException());
   }
 }

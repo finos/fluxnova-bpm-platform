@@ -27,8 +27,8 @@ public class VariableInstanceEntityFactory implements VariableInstanceFactory<Va
   public static final VariableInstanceEntityFactory INSTANCE = new VariableInstanceEntityFactory();
 
   @Override
-  public VariableInstanceEntity build(String name, TypedValue value, boolean isTransient) {
-    return VariableInstanceEntity.create(name, value, isTransient);
+  public VariableInstanceEntity build(String name, TypedValue value, boolean isTransient, boolean restricted) {
+    return VariableInstanceEntity.create(name, value, isTransient, restricted);
   }
 
 }

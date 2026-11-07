@@ -24,15 +24,14 @@ import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelTest;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Animals;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Bird;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.model.xml.testmodel.TestModelConstants.MODEL_NAMESPACE;
-import static org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Daniel Meyer
@@ -46,14 +45,8 @@ public class ModelElementInstanceTest extends TestModelTest {
   private Bird daisy;
   private Bird hedwig;
 
-  public ModelElementInstanceTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
-  }
-
-  @Parameters(name="Model {0}")
-  public static Collection<Object[]> models() {
-    Object[][] models = {createModel(), parseModel(ModelElementInstanceTest.class)};
-    return Arrays.asList(models);
+  public ModelElementInstanceTest() {
+    super("parsed", parseModel(ModelElementInstanceTest.class));
   }
 
   private static Object[] createModel() {
@@ -75,7 +68,7 @@ public class ModelElementInstanceTest extends TestModelTest {
     return new Object[]{"created", modelInstance, modelParser};
   }
 
-  @Before
+  @BeforeEach
   public void copyModelInstance() {
     modelInstance = cloneModelInstance();
 

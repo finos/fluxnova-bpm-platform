@@ -134,10 +134,6 @@ public class ParseUtil {
       }
 
       serverVendor = serverVendor.trim();
-
-      if (serverVendor.contains("WildFly")) {
-        return "WildFly";
-      }
     }
 
     return serverVendor;

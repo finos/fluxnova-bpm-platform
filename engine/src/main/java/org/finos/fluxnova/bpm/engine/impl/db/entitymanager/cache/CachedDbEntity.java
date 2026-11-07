@@ -71,8 +71,8 @@ public class CachedDbEntity implements Recyclable {
   }
 
   public void determineEntityReferences() {
-    if (dbEntity instanceof HasDbReferences) {
-      flushRelevantEntityReferences = ((HasDbReferences) dbEntity).getReferencedEntityIds();
+    if (dbEntity instanceof HasDbReferences references) {
+      flushRelevantEntityReferences = references.getReferencedEntityIds();
     }
     else {
       flushRelevantEntityReferences = Collections.emptySet();

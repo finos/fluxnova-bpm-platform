@@ -22,18 +22,17 @@ import java.lang.reflect.Method;
 import java.util.function.Supplier;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.task.Task;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * JUnit 4 Rule that performs resource cleanup for methods that require post-method execution cleanup.
- * Currently, the rule supports only clean up of {@link Task}s but the rule can be extended for other resources that
- * might pollute sequential execution of other test methods.
+ * JUnit 5 Extension that performs resource cleanup for methods that require post-method execution cleanup.
+ * Currently, the extension supports only clean up of {@link Task}s but can be extended for other resources.
  */
-public class EntityRemoveRule extends TestWatcher {
+public class EntityRemoveRule implements BeforeEachCallback, AfterEachCallback {
 
   private static final Logger LOG = LoggerFactory.getLogger(EntityRemoveRule.class);
 
@@ -56,35 +55,29 @@ public class EntityRemoveRule extends TestWatcher {
   }
 
   @Override
-  public Statement apply(Statement base, Description description) {
-    RemoveAfter removeAfterAnnotation = getAnnotation(description, RemoveAfter.class);
-    boolean methodHasRemoveAfterAnnotation = (removeAfterAnnotation != null);
+  public void beforeEach(ExtensionContext context) throws Exception {
+    // nothing to do before each test
+  }
 
-    try {
-      return new Statement() {
-        @Override
-        public void evaluate() throws Throwable {
-          base.evaluate();
-          executePostEvaluate(removeAfterAnnotation, methodHasRemoveAfterAnnotation);
-        }
-      };
-    } finally {
-      LOG.debug("deleteTasks: {}", methodHasRemoveAfterAnnotation);
-    }
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    Method testMethod = context.getRequiredTestMethod();
+    RemoveAfter removeAfterAnnotation = testMethod.getAnnotation(RemoveAfter.class);
+    boolean methodHasRemoveAfterAnnotation = (removeAfterAnnotation != null);
+    LOG.debug("deleteTasks: {}", methodHasRemoveAfterAnnotation);
+    executePostEvaluate(removeAfterAnnotation, methodHasRemoveAfterAnnotation);
   }
 
   protected void executePostEvaluate(RemoveAfter removeAfterAnnotation, boolean methodHasRemoveAfterAnnotation) {
-
     if (!methodHasRemoveAfterAnnotation) {
       return;
     }
-
     executePreRemoval();
     executeRemoval(removeAfterAnnotation);
   }
 
   /**
-   * Hook method to supp
+   * Hook method for pre-removal setup.
    */
   protected void executePreRemoval() {
   }
@@ -95,32 +88,15 @@ public class EntityRemoveRule extends TestWatcher {
    * @param removeAfterAnnotation the remove after annotation parameter of the executing method.
    */
   protected void executeRemoval(RemoveAfter removeAfterAnnotation) {
-
     if (hasZeroArguments(removeAfterAnnotation)) {
       removable.removeAll();
       return;
     }
-
     removable.remove(removeAfterAnnotation.value());
   }
 
   private boolean hasZeroArguments(RemoveAfter annotation) {
     return annotation.value() == null || annotation.value().length == 0;
-  }
-
-  private <T extends Annotation> T getAnnotation(Description description, Class<T> annotation) {
-    String methodName = description.getMethodName();
-
-    try {
-      Class<?> testClass = description.getTestClass();
-      String methodWithoutParamsName = methodName.split("\\[")[0];
-
-      Method method = testClass.getMethod(methodWithoutParamsName);
-      return method.getAnnotation(annotation);
-    } catch (NoSuchMethodException e) {
-      throw new RuntimeException(
-          "Failed to fetch annotation | annotationName: " + annotation.getName() + ", methodName: " + methodName, e);
-    }
   }
 
   /* Proxy that enables EntityRemoveRule to support lazy initialization by initializing the rule using a supplier &

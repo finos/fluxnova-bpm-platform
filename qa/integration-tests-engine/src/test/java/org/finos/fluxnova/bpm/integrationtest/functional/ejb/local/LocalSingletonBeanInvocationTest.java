@@ -25,27 +25,22 @@ import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
  * This test verifies that a CDI Java Bean Delegate is able to inject and invoke the
  * local business interface of a SingletonBean from a different application
  *
- * Note:
- * - works on Jboss
- * - not implemented on Glassfish
- *
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class LocalSingletonBeanInvocationTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa", order=2)
@@ -78,7 +73,7 @@ public class LocalSingletonBeanInvocationTest extends AbstractFoxPlatformIntegra
 
     ProcessInstance pi = runtimeService.startProcessInstanceByKey("testInvokeBean");
 
-    Assert.assertEquals(runtimeService.getVariable(pi.getId(), "result"), true);
+    Assertions.assertEquals(runtimeService.getVariable(pi.getId(), "result"), true);
 
     runtimeService.setVariable(pi.getId(), "result", false);
 
@@ -86,7 +81,7 @@ public class LocalSingletonBeanInvocationTest extends AbstractFoxPlatformIntegra
 
     waitForJobExecutorToProcessAllJobs();
 
-    Assert.assertEquals(runtimeService.getVariable(pi.getId(), "result"), true);
+    Assertions.assertEquals(runtimeService.getVariable(pi.getId(), "result"), true);
 
     taskService.complete(taskService.createTaskQuery().processInstanceId(pi.getId()).singleResult().getId());
   }
@@ -100,7 +95,7 @@ public class LocalSingletonBeanInvocationTest extends AbstractFoxPlatformIntegra
 
     for(int i=0; i<instances; i++) {
       ids[i] = runtimeService.startProcessInstanceByKey("testInvokeBean").getId();
-      Assert.assertEquals(runtimeService.getVariable(ids[i], "result"), true);
+      Assertions.assertEquals(runtimeService.getVariable(ids[i], "result"), true);
       runtimeService.setVariable(ids[i], "result", false);
       taskService.complete(taskService.createTaskQuery().processInstanceId(ids[i]).singleResult().getId());
     }
@@ -108,7 +103,7 @@ public class LocalSingletonBeanInvocationTest extends AbstractFoxPlatformIntegra
     waitForJobExecutorToProcessAllJobs(60*1000);
 
     for(int i=0; i<instances; i++) {
-      Assert.assertEquals(runtimeService.getVariable(ids[i], "result"), true);
+      Assertions.assertEquals(runtimeService.getVariable(ids[i], "result"), true);
       taskService.complete(taskService.createTaskQuery().processInstanceId(ids[i]).singleResult().getId());
     }
 

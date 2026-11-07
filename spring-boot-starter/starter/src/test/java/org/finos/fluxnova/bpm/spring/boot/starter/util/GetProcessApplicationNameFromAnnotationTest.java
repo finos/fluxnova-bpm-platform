@@ -20,9 +20,9 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.spring.boot.starter.annotation.EnableProcessApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.GetProcessApplicationNameFromAnnotation.AnnotatedBean;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

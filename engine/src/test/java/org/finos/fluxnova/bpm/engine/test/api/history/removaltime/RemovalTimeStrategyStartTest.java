@@ -75,16 +75,16 @@ import org.finos.fluxnova.bpm.engine.test.dmn.businessruletask.TestPojo;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Tassilo Weidner
  */
 public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration
       .setHistoryRemovalTimeStrategy(HISTORY_REMOVAL_TIME_STRATEGY_START)
@@ -92,7 +92,7 @@ public class RemovalTimeStrategyStartTest extends AbstractRemovalTimeTest {
       .initHistoryRemovalTime();
   }
 
-  @After
+  @AfterEach
   public void clearDatabase() {
     clearAuthorization();
   }

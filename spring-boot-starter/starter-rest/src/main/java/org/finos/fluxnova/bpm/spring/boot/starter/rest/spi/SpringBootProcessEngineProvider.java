@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.rest.spi;
 
+import java.util.Map;
 import java.util.Set;
-
 
 import org.finos.fluxnova.bpm.engine.rest.spi.ProcessEngineProvider;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
@@ -38,6 +38,11 @@ public class SpringBootProcessEngineProvider implements ProcessEngineProvider {
   @Override
   public Set<String> getProcessEngineNames() {
     return ProcessEngines.getProcessEngines().keySet();
+  }
+
+  @Override
+  public Map<String, ProcessEngine> getProcessEngines() {
+    return ProcessEngines.getProcessEngines();
   }
 
 }

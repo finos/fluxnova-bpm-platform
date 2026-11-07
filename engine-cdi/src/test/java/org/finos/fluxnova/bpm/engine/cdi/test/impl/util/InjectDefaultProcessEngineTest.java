@@ -1,0 +1,80 @@
+/*
+ * Copyright Camunda Services GmbH and/or licensed to Camunda Services GmbH
+ * under one or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information regarding copyright
+ * ownership. Camunda licenses this file to you under the Apache License,
+ * Version 2.0; you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.finos.fluxnova.bpm.engine.cdi.test.impl.util;
+
+import org.finos.fluxnova.bpm.BpmPlatform;
+import org.finos.fluxnova.bpm.container.RuntimeContainerDelegate;
+import org.finos.fluxnova.bpm.engine.ProcessEngine;
+import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
+import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
+import org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.InjectedProcessEngineBean;
+import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
+import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+/**
+ * @author Christopher Zell <christopher.zell@camunda.com>
+ */
+@ExtendWith(ArquillianExtension.class)
+public class InjectDefaultProcessEngineTest extends CdiProcessEngineTestCase {
+
+  protected ProcessEngine defaultProcessEngine = null;
+  protected ProcessEngine processEngine = null;
+
+  @BeforeEach
+  public void init() {
+    processEngine = TestHelper.getProcessEngine("activiti.cfg.xml");
+    defaultProcessEngine = BpmPlatform.getProcessEngineService().getDefaultProcessEngine();
+
+    if (defaultProcessEngine != null) {
+      RuntimeContainerDelegate.INSTANCE.get().unregisterProcessEngine(defaultProcessEngine);
+    }
+
+    RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(processEngine);
+  }
+
+  @AfterEach
+  public void tearDownCdiProcessEngineTestCase() {
+    RuntimeContainerDelegate.INSTANCE.get().unregisterProcessEngine(processEngine);
+
+    if (defaultProcessEngine != null) {
+      RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(defaultProcessEngine);
+    }
+  }
+
+  @Test
+  public void testProcessEngineInject() {
+    //given only default engine exist
+
+    //when TestClass is created
+    InjectedProcessEngineBean testClass = ProgrammaticBeanLookup.lookup(InjectedProcessEngineBean.class);
+    Assertions.assertNotNull(testClass);
+
+    //then default engine is injected
+    Assertions.assertEquals("default", testClass.processEngine.getName());
+    Assertions.assertTrue(testClass.processEngine.getProcessEngineConfiguration().getJdbcUrl()
+        .contains("default-process-engine"));
+  }
+}

@@ -22,11 +22,13 @@ import org.finos.fluxnova.bpm.spring.boot.starter.FluxnovaBpmAutoConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
+@Configuration
 @EnableAutoConfiguration(exclude = FluxnovaBpmAutoConfiguration.class)
 public class HistoryLevelDeterminatorJdbcTemplateImplTestApplication {
 

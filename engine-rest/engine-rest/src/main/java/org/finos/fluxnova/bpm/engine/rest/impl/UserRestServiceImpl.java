@@ -20,13 +20,13 @@ import static org.finos.fluxnova.bpm.engine.authorization.Authorization.ANY;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.CREATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.USER;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.List;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 import org.finos.fluxnova.bpm.engine.IdentityService;
 import org.finos.fluxnova.bpm.engine.identity.User;
 import org.finos.fluxnova.bpm.engine.identity.UserQuery;

@@ -16,12 +16,13 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.deployment.war;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.fail;
 import java.util.Set;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
@@ -32,12 +33,13 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(ArquillianExtension.class)
 public class TestWarDeploymentResumePreviousOnDeploymentName extends AbstractFoxPlatformIntegrationTest {
 
   private static final String PA1 = "PA1";
@@ -58,16 +60,16 @@ public class TestWarDeploymentResumePreviousOnDeploymentName extends AbstractFox
   @Test
   @OperateOnDeployment(value = PA2)
   public void testDeployProcessArchive() {
-    assertThat(processEngine, is(notNullValue()));
+    assertNotNull(processEngine, "Process engine is null");
     RepositoryService repositoryService = processEngine.getRepositoryService();
     //since we have two processes deployed for PA2 we gotta check that both are present
     long count = repositoryService.createProcessDefinitionQuery().processDefinitionKey("testDeployProcessArchive").count();
 
-    assertThat(count, is(1L));
+    assertEquals(1L, count);
 
     count = repositoryService.createProcessDefinitionQuery().processDefinitionKey("testProcess").count();
-    
-    assertThat(count, is(1L));
+
+    assertEquals(1L, count);
     
     // validate registrations:
     ProcessApplicationService processApplicationService = BpmPlatform.getProcessApplicationService();
@@ -85,6 +87,6 @@ public class TestWarDeploymentResumePreviousOnDeploymentName extends AbstractFox
         resumedRegistrationFound = true;
       }
     }
-    assertThat("Previous version of the deployment was not resumed", resumedRegistrationFound, is(true));
+    assertTrue(resumedRegistrationFound, "Previous version of the deployment was not resumed");
   }
 }

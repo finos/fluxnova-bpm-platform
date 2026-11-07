@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.pvm;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +27,13 @@ import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.ExecutionListener;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessInstance;
 import org.finos.fluxnova.bpm.engine.impl.pvm.delegate.ActivityExecution;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class ActivityInstanceVerification extends Assert implements ExecutionListener {
+public class ActivityInstanceVerification implements ExecutionListener {
 
   class ActivityInstance {
 
@@ -108,9 +110,9 @@ public class ActivityInstanceVerification extends Assert implements ExecutionLis
 
     for (ActivityInstance startedActInstance : startInstancesForThisAct) {
 
-      assertNotNull("activityInstanceId cannot be null for "+startedActInstance, startedActInstance.id);
-      assertNotNull("executionId cannot be null for "+startedActInstance, startedActInstance.executionId);
-      assertNotNull("parentId cannot be null for "+startedActInstance, startedActInstance.parentId);
+      assertNotNull(startedActInstance.id, "activityInstanceId cannot be null for "+startedActInstance);
+      assertNotNull(startedActInstance.executionId, "executionId cannot be null for "+startedActInstance);
+      assertNotNull(startedActInstance.parentId, "parentId cannot be null for "+startedActInstance);
 
       boolean foundMatchingEnd = false;
       for (ActivityInstance endedActInstance : endInstancesForThisAct) {

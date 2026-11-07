@@ -31,7 +31,8 @@ import java.io.Reader;
 import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.spi.SpinDataFormatException;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer

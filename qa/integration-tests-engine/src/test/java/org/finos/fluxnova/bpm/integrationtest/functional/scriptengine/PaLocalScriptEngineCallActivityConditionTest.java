@@ -23,18 +23,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Thorben Lindhauer
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class PaLocalScriptEngineCallActivityConditionTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa1")
@@ -77,8 +77,8 @@ public class PaLocalScriptEngineCallActivityConditionTest extends AbstractFoxPla
 
     // then the conditional flow leaving the call activity has been taken
     Task afterCallActivityTask = taskService.createTaskQuery().singleResult();
-    Assert.assertNotNull(afterCallActivityTask);
-    Assert.assertEquals("afterCallActivityTask", afterCallActivityTask.getTaskDefinitionKey());
+    Assertions.assertNotNull(afterCallActivityTask);
+    Assertions.assertEquals("afterCallActivityTask", afterCallActivityTask.getTaskDefinitionKey());
   }
 
 }

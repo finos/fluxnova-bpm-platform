@@ -25,8 +25,8 @@ import org.finos.fluxnova.bpm.model.xml.ModelInstance;
 import org.finos.fluxnova.bpm.model.xml.impl.validation.ModelValidationResultsImpl;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Bird;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -35,7 +35,7 @@ public class ModelValidationTest {
 
   protected ModelInstance modelInstance;
 
-  @Before
+  @BeforeEach
   public void parseModel() {
     TestModelParser modelParser = new TestModelParser();
     String testXml = "org/finos/fluxnova/bpm/model/xml/testmodel/instance/UnknownAnimalTest.xml";
@@ -110,7 +110,7 @@ public class ModelValidationTest {
         .hasLineCount(5)
         .describedAs(
             "shall contain only one error/warning and mention the count of the missing ones")
-        .endsWith(String.format(TestResultFormatter.OMITTED_RESULTS_SUFFIX_FORMAT, 5));
+        .endsWith(TestResultFormatter.OMITTED_RESULTS_SUFFIX_FORMAT.formatted(5));
   }
 
   @Test
@@ -135,7 +135,7 @@ public class ModelValidationTest {
         .hasLineCount(5)
         .describedAs(
             "shall contain only one error/warning and mention the count of the missing ones")
-        .endsWith(String.format(TestResultFormatter.OMITTED_RESULTS_SUFFIX_FORMAT, 6));
+        .endsWith(TestResultFormatter.OMITTED_RESULTS_SUFFIX_FORMAT.formatted(6));
   }
 
   @Test

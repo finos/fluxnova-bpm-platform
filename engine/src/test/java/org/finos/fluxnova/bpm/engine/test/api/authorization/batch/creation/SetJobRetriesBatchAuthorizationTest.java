@@ -33,12 +33,12 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class SetJobRetriesBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -58,8 +58,11 @@ public class SetJobRetriesBatchAuthorizationTest extends BatchCreationAuthorizat
     );
   }
 
-  @Test
-  public void testBatchSetJobRetriesByJobs() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
+  public void testBatchSetJobRetriesByJobs(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     //given
     List<String> jobIds = setupFailedJobs();
     authRule
@@ -69,15 +72,17 @@ public class SetJobRetriesBatchAuthorizationTest extends BatchCreationAuthorizat
         .start();
 
     // when
-
     managementService.setJobRetriesAsync(jobIds, 5);
 
     // then
     authRule.assertScenario(scenario);
   }
 
-  @Test
-  public void testBatchSetJobRetriesByProcesses() {
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
+  public void testBatchSetJobRetriesByProcesses(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     //given
     setupFailedJobs();
     List<String> processInstanceIds = Collections.singletonList(processInstance.getId());
@@ -88,7 +93,6 @@ public class SetJobRetriesBatchAuthorizationTest extends BatchCreationAuthorizat
         .start();
 
     // when
-
     managementService.setJobRetriesAsync(processInstanceIds, (ProcessInstanceQuery) null, 5);
 
     // then

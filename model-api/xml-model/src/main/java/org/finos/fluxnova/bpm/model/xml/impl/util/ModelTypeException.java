@@ -18,6 +18,7 @@ package org.finos.fluxnova.bpm.model.xml.impl.util;
 
 import org.finos.fluxnova.bpm.model.xml.ModelException;
 
+
 import java.lang.reflect.Type;
 
 /**

@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.mgmt.metrics;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
@@ -26,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer

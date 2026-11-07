@@ -23,7 +23,7 @@ import org.finos.fluxnova.bpm.engine.rest.dto.history.HistoricActivityInstanceDt
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.sub.history.HistoricActivityInstanceResource;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 public class HistoricActivityInstanceResourceImpl implements HistoricActivityInstanceResource {
 

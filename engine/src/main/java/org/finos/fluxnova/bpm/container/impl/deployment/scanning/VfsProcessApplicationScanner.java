@@ -34,10 +34,11 @@ import org.jboss.vfs.VirtualFile;
 import org.jboss.vfs.VirtualFileFilter;
 
 /**
- * <p>A {@link ProcessArchiveScanner} which uses Jboss VFS for
- * scanning the process archive for processes.</p>
+ * <p>A {@link ProcessArchiveScanner} which uses a Virtual File System (VFS)
+ * API for scanning the process archive for processes.</p>
  *
- * <p>This implementation should be used on WildFly</p>
+ * <p>This implementation should be used on application servers that expose
+ * a Virtual File System (VFS) based classloader.</p>
  *
  * @author Daniel Meyer
  * @author Falko Menge

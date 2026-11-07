@@ -155,6 +155,12 @@ public interface JobQuery extends Query<JobQuery, Job> {
    */
   JobQuery includeJobsWithoutTenantId();
 
+  /** Only select jobs that belong to the given batch id. */
+  JobQuery batchId(String batchId);
+
+  /** Only select jobs that are part of a batch (batchId is not null). */
+  JobQuery inBatch();
+
   //sorting //////////////////////////////////////////
 
   /** Order by job id (needs to be followed by {@link #asc()} or {@link #desc()}). */

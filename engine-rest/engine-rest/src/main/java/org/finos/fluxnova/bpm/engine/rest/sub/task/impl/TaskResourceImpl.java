@@ -26,11 +26,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.Variant;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Variant;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -63,7 +63,7 @@ import org.finos.fluxnova.bpm.engine.task.IdentityLink;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class TaskResourceImpl implements TaskResource {
 
@@ -76,6 +76,7 @@ public class TaskResourceImpl implements TaskResource {
   protected boolean withCommentAttachmentInfo;
   protected boolean withTaskVariablesInReturn;
   protected boolean withTaskLocalVariablesInReturn;
+  protected boolean evaluateFormKey;
 
   public TaskResourceImpl(ProcessEngine engine,
                           String taskId,
@@ -83,7 +84,8 @@ public class TaskResourceImpl implements TaskResource {
                           ObjectMapper objectMapper,
                           boolean withCommentAttachmentInfo,
                           boolean withTaskVariablesInReturn,
-                          boolean withTaskLocalVariablesInReturn) {
+                          boolean withTaskLocalVariablesInReturn,
+                          boolean evaluateFormKey) {
     this.engine = engine;
     this.taskId = taskId;
     this.rootResourcePath = rootResourcePath;
@@ -91,6 +93,7 @@ public class TaskResourceImpl implements TaskResource {
     this.withCommentAttachmentInfo = withCommentAttachmentInfo;
     this.withTaskVariablesInReturn = withTaskVariablesInReturn;
     this.withTaskLocalVariablesInReturn = withTaskLocalVariablesInReturn;
+    this.evaluateFormKey = evaluateFormKey;
   }
 
   @Override
@@ -453,10 +456,10 @@ public class TaskResourceImpl implements TaskResource {
 
   protected Task getTaskById(String id, boolean withCommentAttachmentInfo) {
     if (withCommentAttachmentInfo) {
-      return engine.getTaskService().createTaskQuery().taskId(id).withCommentAttachmentInfo().initializeFormKeys().singleResult();
+      return engine.getTaskService().createTaskQuery().taskId(id).withCommentAttachmentInfo().initializeFormKeys(evaluateFormKey).singleResult();
     }
     else{
-      return engine.getTaskService().createTaskQuery().taskId(id).initializeFormKeys().singleResult();
+      return engine.getTaskService().createTaskQuery().taskId(id).initializeFormKeys(evaluateFormKey).singleResult();
     }
   }
 

@@ -26,10 +26,9 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Edoardo Patti
@@ -39,19 +38,19 @@ public class HistoryEventDataTest {
 
     private static final TestEventHandler HANDLER = new TestEventHandler();
 
-    @Rule
+    @RegisterExtension
     public HistoryEventVerifier verifier = new HistoryEventVerifier(HANDLER);
 
-    @ClassRule
+    @RegisterExtension
     public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(
             c -> c.setHistoryEventHandler(HANDLER));
 
     private RuntimeService runtimeService;
 
-    @Rule
+    @RegisterExtension
     public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
-    @Before
+    @BeforeEach
     public void initServices() {
         runtimeService = engineRule.getRuntimeService();
 

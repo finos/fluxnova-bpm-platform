@@ -23,51 +23,48 @@ import java.util.logging.Logger;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestException;
 import org.finos.fluxnova.bpm.qa.performance.engine.framework.PerfTestResults;
 import org.finos.fluxnova.bpm.qa.performance.engine.util.JsonUtil;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * JUnit rule recording the performance test result
+ * JUnit 5 extension recording the performance test result
  *
  * @author Daniel Meyer
- *
  */
-public class PerfTestResultRecorderRule extends TestWatcher {
+public class PerfTestResultRecorderRule implements AfterEachCallback {
 
   public static final Logger LOG = Logger.getLogger(PerfTestResultRecorderRule.class.getName());
 
   protected PerfTestResults results;
 
   @Override
-  protected void succeeded(Description description) {
-    if(results != null) {
-      results.setTestName(description.getTestClass().getSimpleName() +"."+description.getMethodName());
+  public void afterEach(ExtensionContext context) throws Exception {
+    if (results != null && context.getExecutionException().isEmpty()) {
+      String className = context.getRequiredTestClass().getSimpleName();
+      String methodName = context.getRequiredTestMethod().getName();
+      results.setTestName(className + "." + methodName);
       LOG.log(Level.INFO, results.toString());
 
-      String resultFileName = formatResultFileName(description);
+      String resultFileName = formatResultFileName(className, methodName);
 
       try {
-        // create file:
         File directory = new File(formatResultFileDirName());
         if (!directory.exists()) {
           directory.mkdir();
         }
-
         JsonUtil.writeObjectToFile(resultFileName, results);
-
-      } catch ( Exception e ){
-        throw new PerfTestException("Could not record results to file "+resultFileName, e);
-
+      } catch (Exception e) {
+        throw new PerfTestException("Could not record results to file " + resultFileName, e);
       }
     }
   }
 
   protected String formatResultFileDirName() {
-    return "target"+File.separatorChar + "results";
+    return "target" + File.separatorChar + "results";
   }
 
-  protected String formatResultFileName(Description description) {
-    return formatResultFileDirName() + File.separatorChar + description.getTestClass().getSimpleName() + "."+description.getMethodName() +".json";
+  protected String formatResultFileName(String className, String methodName) {
+    return formatResultFileDirName() + File.separatorChar + className + "." + methodName + ".json";
   }
 
   public void setResults(PerfTestResults results) {

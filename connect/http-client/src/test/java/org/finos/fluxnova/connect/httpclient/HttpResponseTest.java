@@ -22,15 +22,15 @@ import org.assertj.core.api.Assertions;
 import org.finos.fluxnova.connect.ConnectorRequestException;
 import org.finos.fluxnova.connect.httpclient.impl.HttpConnectorImpl;
 import org.finos.fluxnova.connect.impl.DebugRequestInterceptor;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HttpResponseTest {
 
   protected HttpConnector connector;
   protected TestResponse testResponse;
 
-  @Before
+  @BeforeEach
   public void getConnector() {
     testResponse = new TestResponse();
     connector = new HttpConnectorImpl();

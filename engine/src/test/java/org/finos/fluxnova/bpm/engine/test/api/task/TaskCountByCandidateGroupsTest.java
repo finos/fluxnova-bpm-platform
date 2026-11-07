@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.task;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +33,11 @@ import org.finos.fluxnova.bpm.engine.task.TaskCountByCandidateGroupResult;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Daniel Meyer
@@ -49,8 +49,8 @@ public class TaskCountByCandidateGroupsTest {
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule processEngineTestRule = new ProcessEngineTestRule(processEngineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension
     .outerRule(processEngineTestRule)
     .around(processEngineRule);
 
@@ -66,7 +66,7 @@ public class TaskCountByCandidateGroupsTest {
   protected List<String> groups = Arrays.asList("aGroupId", "anotherGroupId");
 
 
-  @Before
+  @BeforeEach
   public void setUp() {
     taskService = processEngineRule.getTaskService();
     identityService = processEngineRule.getIdentityService();
@@ -79,7 +79,7 @@ public class TaskCountByCandidateGroupsTest {
     createTask(null, tenants.get(1));
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     for (String taskId : tasks) {
       taskService.deleteTask(taskId, true);

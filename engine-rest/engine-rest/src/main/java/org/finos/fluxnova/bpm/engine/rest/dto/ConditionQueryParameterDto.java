@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.impl.QueryOperator;
 
 import java.util.Date;

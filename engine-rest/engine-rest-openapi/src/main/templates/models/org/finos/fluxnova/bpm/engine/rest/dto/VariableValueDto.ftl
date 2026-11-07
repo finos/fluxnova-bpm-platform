@@ -30,11 +30,12 @@
                 * `mimetype`: The MIME type of the file that is being uploaded.
                 * `encoding`: The encoding of the file that is being uploaded.
 
-                The following property can be provided for all value types:
+                The following properties can be provided for all value types:
 
                 * `transient`: Indicates whether the variable should be transient or
                 not. See [documentation](${docsUrl}/user-guide/process-engine/variables#transient-variables) for more informations.
-                (Not applicable for `decision-definition`, ` /process-instance/variables-async`, and `/migration/executeAsync` endpoints)"
+                (Not applicable for `decision-definition`, ` /process-instance/variables-async`, and `/migration/executeAsync` endpoints)
+                * `restricted`: A boolean flag that marks the variable as restricted. Restricted variables require appropriate authorization to be read and may also prevent writes. See documentation for more information."
     />
 
 

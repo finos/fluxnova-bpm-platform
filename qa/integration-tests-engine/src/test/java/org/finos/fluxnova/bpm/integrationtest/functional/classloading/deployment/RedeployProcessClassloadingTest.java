@@ -21,18 +21,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Roman Smirnov
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class RedeployProcessClassloadingTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -69,7 +69,7 @@ public class RedeployProcessClassloadingTest extends AbstractFoxPlatformIntegrat
     String id = runtimeService.startProcessInstanceByKey("process").getId();
 
     // then
-    Assert.assertTrue((Boolean) runtimeService.getVariable(id, "executed"));
+    Assertions.assertTrue((Boolean) runtimeService.getVariable(id, "executed"));
 
     repositoryService.deleteDeployment(deployment2.getId(), true);
   }

@@ -47,7 +47,7 @@ public class IntervalTransformer implements FeelToJuelTransformer {
     String lowerEndpointComparator = transformLowerEndpointComparator(startIntervalSymbol);
     String upperEndpointComparator = transformUpperEndpointComparator(stopIntervalSymbol);
 
-    return String.format("%s %s %s && %s %s %s", inputName, lowerEndpointComparator, juelLowerEndpoint, inputName, upperEndpointComparator, juelUpperEndpoint);
+    return "%s %s %s && %s %s %s".formatted(inputName, lowerEndpointComparator, juelLowerEndpoint, inputName, upperEndpointComparator, juelUpperEndpoint);
   }
 
   protected String transformLowerEndpointComparator(String startIntervalSymbol) {

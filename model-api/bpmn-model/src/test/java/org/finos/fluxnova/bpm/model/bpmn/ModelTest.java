@@ -20,9 +20,10 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.*;
 import org.finos.fluxnova.bpm.model.xml.Model;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ModelUtil;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.Test;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 import java.util.Collection;
 import java.util.List;
 

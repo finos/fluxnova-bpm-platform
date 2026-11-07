@@ -43,6 +43,7 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineLogger;
 import org.finos.fluxnova.bpm.engine.impl.util.IoUtil;
 import org.finos.fluxnova.bpm.engine.impl.util.StringUtil;
+import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeployment;
 import org.finos.fluxnova.bpm.engine.repository.ProcessApplicationDeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.repository.ResumePreviousBy;
@@ -88,11 +89,12 @@ public class DeployProcessArchiveStep extends DeploymentOperationStep {
     // add all processes listed in the processes.xml
     List<String> listedProcessResources = processArchive.getProcessResourceNames();
     for (String processResource : listedProcessResources) {
+      String safeResource = ReflectUtil.validateResourceName(processResource);
       InputStream resourceAsStream = null;
       try {
-        resourceAsStream = processApplicationClassloader.getResourceAsStream(processResource);
-        byte[] bytes = IoUtil.readInputStream(resourceAsStream, processResource);
-        deploymentMap.put(processResource, bytes);
+        resourceAsStream = processApplicationClassloader.getResourceAsStream(safeResource);
+        byte[] bytes = IoUtil.readInputStream(resourceAsStream, safeResource);
+        deploymentMap.put(safeResource, bytes);
       } finally {
         IoUtil.closeSilently(resourceAsStream);
       }
@@ -224,6 +226,19 @@ public class DeployProcessArchiveStep extends DeploymentOperationStep {
       ensureNotNull("Cannot deploy process archive '" + processArchive.getName() + "' to default process: no such process engine exists", "processEngine",
           processEngine);
       return processEngine;
+    }
+  }
+
+  private static void validateResourceName(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Process resource name must not be null");
+    }
+    String normalized = name.replace('\\', '/');
+    for (String segment : normalized.split("/")) {
+      if ("..".equals(segment)) {
+        throw new IllegalArgumentException(
+            "Process resource name contains illegal path traversal sequence: " + name);
+      }
     }
   }
 

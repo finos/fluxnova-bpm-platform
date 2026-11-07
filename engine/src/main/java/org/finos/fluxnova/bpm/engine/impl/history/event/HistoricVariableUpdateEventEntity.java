@@ -43,8 +43,17 @@ public class HistoricVariableUpdateEventEntity extends HistoricDetailEventEntity
   protected String byteArrayId;
 
   protected Boolean isInitial = false;
+  protected boolean restricted;
 
   // getter / setters ////////////////////////////
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
+  }
 
   public String getSerializerName() {
     return serializerName;
@@ -142,6 +151,7 @@ public class HistoricVariableUpdateEventEntity extends HistoricDetailEventEntity
            + ", timestamp=" + timestamp
            + ", tenantId=" + tenantId
            + ", isInitial=" + isInitial
+           + ", restricted=" + restricted
            + "]";
   }
 

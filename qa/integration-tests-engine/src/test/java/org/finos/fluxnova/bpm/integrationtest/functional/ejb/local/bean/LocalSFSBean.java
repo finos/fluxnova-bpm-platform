@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.local.bean;
 
-import javax.ejb.Local;
-import javax.ejb.Stateful;
+import jakarta.ejb.Local;
+import jakarta.ejb.Stateful;
 
 /**
  * A SFSB with a local business interface 

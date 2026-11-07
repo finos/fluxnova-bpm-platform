@@ -30,8 +30,8 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.Failure;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.ProcessAssertTestCase;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 public class ProcessInstanceAssertExternalTaskTest extends ProcessAssertTestCase {
 
@@ -40,7 +40,7 @@ public class ProcessInstanceAssertExternalTaskTest extends ProcessAssertTestCase
   private static final String TASK3 = "ExternalTask_3";
   private static final String TASK4 = "ExternalTask_4";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   @Test

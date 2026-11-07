@@ -26,8 +26,9 @@ import org.apache.hc.core5.util.Timeout;
 import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.UrlResolver;
 import org.finos.fluxnova.bpm.engine.impl.util.ReflectUtil;
-import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
+import org.junit.jupiter.api.Test;
 
 public class ExternalTaskClientBuilderImplTest {
 

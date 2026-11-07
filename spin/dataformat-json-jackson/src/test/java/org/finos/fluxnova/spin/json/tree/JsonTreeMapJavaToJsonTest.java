@@ -31,7 +31,8 @@ import java.util.Map;
 import org.finos.fluxnova.spin.SpinList;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.json.mapping.Order;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class JsonTreeMapJavaToJsonTest {
 

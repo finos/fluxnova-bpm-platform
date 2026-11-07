@@ -16,13 +16,14 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.configuration.impl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.SpringBootStarterException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GenericPropertiesConfigurationTest {
 
@@ -30,7 +31,7 @@ public class GenericPropertiesConfigurationTest {
   private GenericPropertiesConfiguration genericPropertiesConfiguration;
   private FluxnovaBpmProperties camundaBpmProperties;
 
-  @Before
+  @BeforeEach
   public void init() {
     processEngineConfiguration = new SpringProcessEngineConfiguration();
     genericPropertiesConfiguration = new GenericPropertiesConfiguration();
@@ -54,10 +55,12 @@ public class GenericPropertiesConfigurationTest {
     assertEquals(batchPollTimeValue, processEngineConfiguration.getBatchPollTime());
   }
 
-  @Test(expected = SpringBootStarterException.class)
+  @Test
   public void genericBindingTestWithNotExistingProperty() {
-    final int dontExistValue = Integer.MAX_VALUE;
-    camundaBpmProperties.getGenericProperties().getProperties().put("dont-exist", dontExistValue);
-    genericPropertiesConfiguration.preInit(processEngineConfiguration);
+    assertThrows(SpringBootStarterException.class, () -> {
+      final int dontExistValue = Integer.MAX_VALUE;
+      camundaBpmProperties.getGenericProperties().getProperties().put("dont-exist", dontExistValue);
+      genericPropertiesConfiguration.preInit(processEngineConfiguration);
+    });
   }
 }

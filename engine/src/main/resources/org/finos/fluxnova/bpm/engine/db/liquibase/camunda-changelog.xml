@@ -179,4 +179,40 @@
     <tagDatabase tag="2.0.0"/>
   </changeSet>
 
+  <changeSet author="Fluxnova" id="2.0-to-3.0">
+    <sqlFile path="upgrade/${db.name}_engine_2.0_to_3.0.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.0.0-tag">
+    <tagDatabase tag="3.0.0"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.0-to-3.1">
+      <sqlFile path="upgrade/${db.name}_engine_3.0_to_3.1.sql"
+               encoding="UTF-8"
+               relativeToChangelogFile="true"
+               splitStatements="true"
+               stripComments="true"/>
+    </changeSet>
+
+    <changeSet author="Fluxnova" id="3.1.0-tag">
+      <tagDatabase tag="3.1.0"/>
+    </changeSet>
+
+    <changeSet author="Fluxnova" id="3.1.0-to-3.1.1">
+      <update tableName="ACT_GE_SCHEMA_LOG">
+        <column name="VERSION_" value="3.1.1"/>
+        <column name="TIMESTAMP_" valueComputed="CURRENT_TIMESTAMP"/>
+        <where>ID_ = '1600' AND VERSION_ = '3.1.0'</where>
+      </update>
+    </changeSet>
+
+    <changeSet author="Fluxnova" id="3.1.1-tag">
+      <tagDatabase tag="3.1.1"/>
+    </changeSet>
+
 </databaseChangeLog>

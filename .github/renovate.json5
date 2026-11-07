@@ -19,7 +19,7 @@
     "**/qa/**"
   ],
   "vulnerabilityAlerts": {
-    "enabled": false
+    "enabled": true
   },
   "lockFileMaintenance": {
     //"automerge": true // auto-merge will be activated in a second step

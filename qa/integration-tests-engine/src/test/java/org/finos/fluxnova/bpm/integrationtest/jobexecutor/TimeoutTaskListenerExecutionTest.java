@@ -23,13 +23,13 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.integrationtest.jobexecutor.beans.SampleTaskListenerBean;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TimeoutTaskListenerExecutionTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -49,14 +49,14 @@ public class TimeoutTaskListenerExecutionTest extends AbstractFoxPlatformIntegra
     waitForJobExecutorToProcessAllJobs();
 
     List<ProcessInstance> finallyRunningInstances = runtimeService.createProcessInstanceQuery().processInstanceId(instance.getId()).list();
-    Assert.assertEquals(1, finallyRunningInstances.size());
+    Assertions.assertEquals(1, finallyRunningInstances.size());
 
     Task task = taskService.createTaskQuery().processInstanceId(instance.getId()).singleResult();
-    Assert.assertNotNull(task);
+    Assertions.assertNotNull(task);
 
     Object variable = taskService.getVariable(task.getId(), "called");
-    Assert.assertNotNull(variable);
+    Assertions.assertNotNull(variable);
 
-    Assert.assertTrue((boolean) variable);
+    Assertions.assertTrue((boolean) variable);
   }
 }

@@ -17,14 +17,16 @@
 package org.finos.fluxnova.bpm.webapp.impl.security.filter.csrf;
 
 import org.finos.fluxnova.bpm.webapp.impl.util.ServletContextUtil;
-import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletContext;
 
-import javax.servlet.ServletException;
-import javax.ws.rs.core.Response;
+import jakarta.servlet.ServletException;
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,12 +39,8 @@ public class CsrfPreventionFilterAppPathTest extends CsrfPreventionFilterTest {
 
   protected MockServletContext mockServletContext;
 
-  public CsrfPreventionFilterAppPathTest(String nonModifyingRequestUrl,
-                                         String modifyingRequestUrl,
-                                         boolean isModifyingFetchRequest) {
-    super(nonModifyingRequestUrl, modifyingRequestUrl, isModifyingFetchRequest);
-  }
 
+  @BeforeEach
   @Override
   public void setup() throws Exception {
     mockServletContext = new MockServletContext();

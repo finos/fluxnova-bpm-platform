@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.assertj.core.api.Assertions;
+import org.hamcrest.MatcherAssert;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.batch.Batch;
@@ -39,12 +41,11 @@ import org.finos.fluxnova.bpm.engine.test.api.AbstractAsyncOperationsTest;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.hamcrest.collection.IsIn;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
@@ -56,8 +57,8 @@ public class ManagementServiceAsyncOperationsTest extends AbstractAsyncOperation
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected final Date TEST_DUE_DATE = new Date(1675752840000L);
 
@@ -66,7 +67,7 @@ public class ManagementServiceAsyncOperationsTest extends AbstractAsyncOperation
 
   boolean tearDownEnsureJobDueDateNotNull;
 
-  @Before
+  @BeforeEach
   public void setup() {
     initDefaults(engineRule);
     prepareData();
@@ -81,7 +82,7 @@ public class ManagementServiceAsyncOperationsTest extends AbstractAsyncOperation
     ids = getAllJobIds();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     processInstanceIds = null;
     if(tearDownEnsureJobDueDateNotNull) {
@@ -149,8 +150,8 @@ public class ManagementServiceAsyncOperationsTest extends AbstractAsyncOperation
     // then batch jobs with different deployment ids exist
     List<Job> batchJobs = managementService.createJobQuery().jobDefinitionId(batch.getBatchJobDefinitionId()).list();
     assertThat(batchJobs).hasSize(2);
-    Assert.assertThat(batchJobs.get(0).getDeploymentId(), IsIn.isOneOf(firstDeploymentId, secondDeploymentId));
-    Assert.assertThat(batchJobs.get(1).getDeploymentId(), IsIn.isOneOf(firstDeploymentId, secondDeploymentId));
+    MatcherAssert.assertThat(batchJobs.get(0).getDeploymentId(), IsIn.isOneOf(firstDeploymentId, secondDeploymentId));
+    MatcherAssert.assertThat(batchJobs.get(1).getDeploymentId(), IsIn.isOneOf(firstDeploymentId, secondDeploymentId));
     assertThat(batchJobs.get(0).getDeploymentId()).isNotEqualTo(batchJobs.get(1).getDeploymentId());
 
     // when the batch jobs for the first deployment are executed

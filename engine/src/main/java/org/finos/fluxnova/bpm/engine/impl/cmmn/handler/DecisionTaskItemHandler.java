@@ -46,6 +46,9 @@ public class DecisionTaskItemHandler extends CallingTaskItemHandler {
     DecisionTask decisionTask = getDefinition(element);
     DmnDecisionTaskActivityBehavior behavior = getActivityBehavior(activity);
     String resultVariable = decisionTask.getFluxnovaResultVariable();
+    if (resultVariable != null && resultVariable.trim().isEmpty()) {
+      resultVariable = null;
+    }
     behavior.setResultVariable(resultVariable);
   }
 

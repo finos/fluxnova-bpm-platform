@@ -24,8 +24,10 @@ import static org.finos.fluxnova.bpm.engine.authorization.ProcessDefinitionPermi
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.DELETE_HISTORY_RESTRICTED;
 
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
@@ -40,9 +42,11 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -59,7 +63,7 @@ public class HistoricVariableInstanceAuthorizationTest extends AuthorizationTest
   protected String deploymentId;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     deploymentId = testRule.deploy(
         "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml",
@@ -72,7 +76,7 @@ public class HistoricVariableInstanceAuthorizationTest extends AuthorizationTest
   }
 
   @Override
-  @After
+  @AfterEach
   public void tearDown() {
     super.tearDown();
     processEngineConfiguration.setEnableHistoricInstancePermissions(false);

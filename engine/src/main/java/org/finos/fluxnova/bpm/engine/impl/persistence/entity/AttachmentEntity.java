@@ -48,6 +48,7 @@ public class AttachmentEntity implements Attachment, DbEntity, HasDbRevision, Hi
   protected Date createTime;
   protected String rootProcessInstanceId;
   protected Date removalTime;
+  protected String createdBy;
 
   public Object getPersistentState() {
     Map<String, Object> persistentState = new HashMap<String, Object>();
@@ -172,6 +173,21 @@ public class AttachmentEntity implements Attachment, DbEntity, HasDbRevision, Hi
     this.rootProcessInstanceId = rootProcessInstanceId;
   }
 
+  /**
+   * Returns the user ID of the user who created this attachment.
+   * 
+   * @return the user ID, or null if:
+   *         - no user was authenticated when the attachment was created
+   *         - the attachment was created before the createdBy field was added (legacy data)
+   */
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
+
   @Override
   public String toString() {
     return this.getClass().getSimpleName()
@@ -189,6 +205,7 @@ public class AttachmentEntity implements Attachment, DbEntity, HasDbRevision, Hi
            + ", content=" + content
            + ", tenantId=" + tenantId
            + ", createTime=" + createTime
+           + ", createdBy=" + createdBy
            + "]";
   }
 }

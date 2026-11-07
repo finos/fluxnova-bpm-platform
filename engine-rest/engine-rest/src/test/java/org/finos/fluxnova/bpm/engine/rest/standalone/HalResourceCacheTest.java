@@ -18,11 +18,8 @@ package org.finos.fluxnova.bpm.engine.rest.standalone;
 
 import static org.finos.fluxnova.bpm.engine.rest.hal.cache.HalRelationCacheConfiguration.CONFIG_CACHES;
 import static org.finos.fluxnova.bpm.engine.rest.hal.cache.HalRelationCacheConfiguration.CONFIG_CACHE_IMPLEMENTATION;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
@@ -53,9 +50,10 @@ import org.finos.fluxnova.bpm.engine.rest.hal.cache.HalRelationCacheConfiguratio
 import org.finos.fluxnova.bpm.engine.rest.hal.identitylink.HalIdentityLink;
 import org.finos.fluxnova.bpm.engine.rest.hal.user.HalUser;
 import org.finos.fluxnova.bpm.engine.task.IdentityLink;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
 public class HalResourceCacheTest extends AbstractRestServiceTest {
@@ -63,13 +61,13 @@ public class HalResourceCacheTest extends AbstractRestServiceTest {
   protected DefaultHalResourceCache cache;
   protected HalRelationCacheBootstrap contextListener;
 
-  @Before
+  @BeforeEach
   public void createCache() {
     cache = new DefaultHalResourceCache(100, 100);
     contextListener = new HalRelationCacheBootstrap();
   }
 
-  @After
+  @AfterEach
   public void destroy() {
     contextListener.contextDestroyed(null);
   }

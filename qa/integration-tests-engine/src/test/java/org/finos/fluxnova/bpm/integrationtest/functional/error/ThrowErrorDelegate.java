@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.error;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.delegate.BpmnError;
 import org.finos.fluxnova.bpm.engine.impl.bpmn.behavior.AbstractBpmnActivityBehavior;

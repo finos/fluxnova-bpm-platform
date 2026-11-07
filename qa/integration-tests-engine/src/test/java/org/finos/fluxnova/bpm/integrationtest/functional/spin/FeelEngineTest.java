@@ -23,19 +23,19 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.spin.Spin;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class FeelEngineTest extends AbstractFoxPlatformIntegrationTest {
 
   protected static final String PATH = "org/finos/fluxnova/bpm/integrationtest/functional/spin/feel/";
@@ -79,8 +79,8 @@ public class FeelEngineTest extends AbstractFoxPlatformIntegrationTest {
         .includeOutputs()
         .singleResult();
 
-    assertThat(hdi.getOutputs().size(), is(1));
-    assertThat(hdi.getOutputs().get(0).getValue(), is(true));
+    assertEquals(1, hdi.getOutputs().size());
+    assertTrue((Boolean) hdi.getOutputs().get(0).getValue());
   }
 
   @Test
@@ -97,8 +97,8 @@ public class FeelEngineTest extends AbstractFoxPlatformIntegrationTest {
         .includeOutputs()
         .singleResult();
 
-    assertThat(hdi.getOutputs().size(), is(1));
-    assertThat(hdi.getOutputs().get(0).getValue(), is(true));
+    assertEquals(1, hdi.getOutputs().size());
+    assertTrue((Boolean) hdi.getOutputs().get(0).getValue());
   }
 
   @Test

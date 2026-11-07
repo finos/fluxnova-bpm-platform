@@ -32,15 +32,15 @@ import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.batch.creation.BatchCreationAuthorizationTest;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Test;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Tassilo Weidner
  */
 public class SetRemovalTimeForHistoricBatchesBatchAuthorizationTest extends BatchCreationAuthorizationTest {
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -62,9 +62,12 @@ public class SetRemovalTimeForHistoricBatchesBatchAuthorizationTest extends Batc
     );
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
+  @MethodSource("scenarios")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void shouldAuthorizeSetRemovalTimeForHistoricBatchesBatch() {
+  public void shouldAuthorizeSetRemovalTimeForHistoricBatchesBatch(AuthorizationScenario scenario) {
+    this.scenario = scenario;
+
     // given
     String batchId = engineRule.getHistoryService()
       .deleteHistoricProcessInstancesAsync(Collections.singletonList(processInstance.getId()), "aDeleteReason").getId();

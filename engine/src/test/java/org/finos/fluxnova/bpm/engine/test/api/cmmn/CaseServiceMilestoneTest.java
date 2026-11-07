@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.cmmn;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.exception.NotAllowedException;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;
@@ -26,7 +24,8 @@ import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

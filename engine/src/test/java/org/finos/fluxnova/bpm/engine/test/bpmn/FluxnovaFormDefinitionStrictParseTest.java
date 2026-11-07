@@ -31,11 +31,11 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.form.deployment.FindFluxnovaFormDefinitionsCmd;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class FluxnovaFormDefinitionStrictParseTest {
 
@@ -44,20 +44,20 @@ public class FluxnovaFormDefinitionStrictParseTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RepositoryService repositoryService;
 
 
-  @Before
+  @BeforeEach
   public void setup() {
     repositoryService = engineRule.getRepositoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void reset() {
     processEngineConfiguration.setDisableStrictFluxnovaFormParsing(false);
   }
@@ -92,9 +92,8 @@ public class FluxnovaFormDefinitionStrictParseTest {
     processEngineConfiguration.setDisableStrictFluxnovaFormParsing(false);
 
     // then deployment fails with an exception
-    assertThatThrownBy(() -> {
-      testRule.deploy(FORM);
-    }).isInstanceOf(ProcessEngineException.class)
+    assertThatThrownBy(() ->
+      testRule.deploy(FORM)).isInstanceOf(ProcessEngineException.class)
     .hasMessageContaining("ENGINE-09033 Could not parse Camunda Form resource org/finos/fluxnova/bpm/engine/test/bpmn/CamundaFormDefinitionStrictParseTest.anyForm.form.");
     assertThat(repositoryService.createDeploymentQuery().list()).hasSize(0);
   }

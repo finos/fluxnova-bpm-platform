@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.client.variable.impl.format.json;
 
 import org.finos.fluxnova.bpm.client.variable.impl.format.TypeDetector;
 
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.type.TypeFactory;
 
 public class DefaultJsonJacksonTypeDetector implements TypeDetector {
 
@@ -28,7 +28,7 @@ public class DefaultJsonJacksonTypeDetector implements TypeDetector {
 
   public String detectType(Object object) {
     Class<?> type = object.getClass();
-    return TypeFactory.defaultInstance().constructType(type).toCanonical();
+    return TypeFactory.createDefaultInstance().constructType(type).toCanonical();
   }
 
 }

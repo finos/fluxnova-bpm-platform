@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+
+  <!-- CONFIGURATION INSERT -->
+
+  <insert id="insertConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    insert into ${prefix}ACT_GE_CONFIGURATION (ID_, CONFIG_KEY_, TENANT_ID_, CONFIG_VALUE_, VERSION_, STATUS_, CREATED_BY_, CREATED_AT_, UPDATED_BY_, UPDATED_AT_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      #{configKey ,jdbcType=VARCHAR},
+      #{tenantId ,jdbcType=VARCHAR},
+      #{configValue ,jdbcType=VARCHAR},
+      #{version ,jdbcType=INTEGER},
+      #{status ,jdbcType=VARCHAR},
+      #{createdBy ,jdbcType=VARCHAR},
+      #{createdAt ,jdbcType=TIMESTAMP},
+      #{updatedBy ,jdbcType=VARCHAR},
+      #{updatedAt ,jdbcType=TIMESTAMP}
+    )
+  </insert>
+
+  <!-- CONFIGURATION UPDATE -->
+
+  <update id="updateConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    update ${prefix}ACT_GE_CONFIGURATION
+    set
+      CONFIG_VALUE_ = #{configValue, jdbcType=VARCHAR},
+      VERSION_ = #{version, jdbcType=INTEGER},
+      STATUS_ = #{status, jdbcType=VARCHAR},
+      UPDATED_BY_ = #{updatedBy, jdbcType=VARCHAR},
+      UPDATED_AT_ = #{updatedAt, jdbcType=TIMESTAMP}
+    where ID_ = #{id}
+  </update>
+
+  <!-- CONFIGURATION DELETE -->
+
+  <delete id="deleteConfiguration" parameterType="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    delete from ${prefix}ACT_GE_CONFIGURATION where ID_ = #{id}
+  </delete>
+
+  <!-- CONFIGURATION RESULTMAP -->
+
+  <resultMap id="configurationResultMap" type="org.finos.fluxnova.bpm.engine.impl.persistence.entity.ConfigurationEntity">
+    <id property="id" column="ID_" jdbcType="VARCHAR" />
+    <result property="configKey" column="CONFIG_KEY_" jdbcType="VARCHAR" />
+    <result property="tenantId" column="TENANT_ID_" jdbcType="VARCHAR" />
+    <result property="configValue" column="CONFIG_VALUE_" jdbcType="VARCHAR" />
+    <result property="version" column="VERSION_" jdbcType="INTEGER" />
+    <result property="status" column="STATUS_" jdbcType="VARCHAR" />
+    <result property="createdBy" column="CREATED_BY_" jdbcType="VARCHAR" />
+    <result property="createdAt" column="CREATED_AT_" jdbcType="TIMESTAMP" />
+    <result property="updatedBy" column="UPDATED_BY_" jdbcType="VARCHAR" />
+    <result property="updatedAt" column="UPDATED_AT_" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <!-- CONFIGURATION SELECT -->
+
+  <select id="selectConfiguration" parameterType="string" resultMap="configurationResultMap">
+    select * from ${prefix}ACT_GE_CONFIGURATION where ID_ = #{id, jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectActiveConfigurationCount" parameterType="java.util.Map" resultType="long">
+    select count(*)
+    from ${prefix}ACT_GE_CONFIGURATION
+    where CONFIG_KEY_ = #{configKey, jdbcType=VARCHAR}
+      and STATUS_ = #{status, jdbcType=VARCHAR}
+    <choose>
+      <when test="tenantId != null">
+        and TENANT_ID_ = #{tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="selectMaxConfigurationVersion" parameterType="java.util.Map" resultType="int">
+    select max(VERSION_)
+    from ${prefix}ACT_GE_CONFIGURATION
+    where CONFIG_KEY_ = #{configKey, jdbcType=VARCHAR}
+    <choose>
+      <when test="tenantId != null">
+        and TENANT_ID_ = #{tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="selectConfigurations" parameterType="java.util.Map" resultMap="configurationResultMap">
+    select *
+    from ${prefix}ACT_GE_CONFIGURATION
+    where 1 = 1
+    <if test="!parameter.includeInactive">
+      and STATUS_ = 'ACTIVE'
+    </if>
+    <choose>
+      <when test="parameter.tenantId != null">
+        and TENANT_ID_ = #{parameter.tenantId, jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        and TENANT_ID_ is null
+      </otherwise>
+    </choose>
+    order by CONFIG_KEY_
+  </select>
+
+</mapper>

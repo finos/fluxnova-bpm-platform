@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.spin.impl.json.jackson.format;
 
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.type.TypeFactory;
 
 public class DefaultJsonJacksonTypeDetector extends AbstractJacksonJsonTypeDetector {
 
@@ -26,7 +26,7 @@ public class DefaultJsonJacksonTypeDetector extends AbstractJacksonJsonTypeDetec
 
   public String detectType(Object object) {
     Class<?> type = object.getClass();
-    return TypeFactory.defaultInstance().constructType(type).toCanonical();
+    return TypeFactory.createDefaultInstance().constructType(type).toCanonical();
   }
 
 }

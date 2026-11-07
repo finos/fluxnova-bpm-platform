@@ -36,8 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
@@ -48,10 +48,11 @@ import org.finos.fluxnova.bpm.engine.rest.util.OrderingBuilder;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstanceQuery;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -60,7 +61,7 @@ import io.restassured.response.Response;
 
 public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String VARIABLE_INSTANCE_QUERY_URL = TEST_RESOURCE_ROOT_PATH + "/variable-instance";
@@ -70,7 +71,7 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
   protected VariableInstance mockInstance;
   protected MockVariableInstanceBuilder mockInstanceBuilder;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockInstanceBuilder = MockProvider.mockVariableInstance();
     mockInstance = mockInstanceBuilder.build();
@@ -333,8 +334,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
 
     String content = response.asString();
     List<String> variables = from(content).getList("");
-    Assert.assertEquals("There should be one variable instance returned.", 1, variables.size());
-    Assert.assertNotNull("There should be one variable instance returned", variables.get(0));
+    Assertions.assertEquals(1, variables.size(), "There should be one variable instance returned.");
+    Assertions.assertNotNull(variables.get(0), "There should be one variable instance returned");
 
     verify(mockedQuery).disableBinaryFetching();
     // requirement to not break existing API; should be:
@@ -376,8 +377,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
 
     String content = response.asString();
     List<String> variables = from(content).getList("");
-    Assert.assertEquals("There should be one process definition returned.", 1, variables.size());
-    Assert.assertNotNull("There should be one process definition returned", variables.get(0));
+    Assertions.assertEquals(1, variables.size(), "There should be one process definition returned.");
+    Assertions.assertNotNull(variables.get(0), "There should be one process definition returned");
 
     verify(mockedQuery).disableBinaryFetching();
 
@@ -394,6 +395,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     queryParameters.put("variableNameLike", "aVariableNameLike");
     queryParameters.put("executionIdIn", "anExecutionId");
     queryParameters.put("processInstanceIdIn", "aProcessInstanceId");
+    queryParameters.put("businessKey", "aBusinessKey");
+    queryParameters.put("businessKeyLike", "aBusinessKey%");
     queryParameters.put("caseExecutionIdIn", "aCaseExecutionId");
     queryParameters.put("caseInstanceIdIn", "aCaseInstanceId");
     queryParameters.put("taskIdIn", "aTaskId");
@@ -409,6 +412,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     verify(mockedQuery).variableName(queryParameters.get("variableName"));
     verify(mockedQuery).variableNameLike(queryParameters.get("variableNameLike"));
     verify(mockedQuery).processInstanceIdIn(queryParameters.get("processInstanceIdIn"));
+    verify(mockedQuery).businessKey(queryParameters.get("businessKey"));
+    verify(mockedQuery).businessKeyLike(queryParameters.get("businessKeyLike"));
     verify(mockedQuery).executionIdIn(queryParameters.get("executionIdIn"));
     verify(mockedQuery).caseInstanceIdIn(queryParameters.get("caseInstanceIdIn"));
     verify(mockedQuery).caseExecutionIdIn(queryParameters.get("caseExecutionIdIn"));
@@ -431,6 +436,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     String aVariableName = "aVariableName";
     String aVariableNameLike = "aVariableNameLike";
     String aProcessInstanceId = "aProcessInstanceId";
+    String aBusinessKey = "aBusinessKey";
+    String aBusinessKeyLike = "aBusinessKey%";
     String anExecutionId = "anExecutionId";
     String aTaskId = "aTaskId";
     String aBatchId = "aBatchId";
@@ -452,6 +459,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     List<String> processInstanceIdIn = new ArrayList<String>();
     processInstanceIdIn.add(aProcessInstanceId);
     queryParameters.put("processInstanceIdIn", processInstanceIdIn);
+    queryParameters.put("businessKey", aBusinessKey);
+    queryParameters.put("businessKeyLike", aBusinessKeyLike);
 
     List<String> caseExecutionIdIn = new ArrayList<String>();
     caseExecutionIdIn.add(aCaseExecutionId);
@@ -488,6 +497,8 @@ public class VariableInstanceRestServiceQueryTest extends AbstractRestServiceTes
     verify(mockedQuery).variableName(aVariableName);
     verify(mockedQuery).variableNameLike(aVariableNameLike);
     verify(mockedQuery).processInstanceIdIn(aProcessInstanceId);
+    verify(mockedQuery).businessKey(aBusinessKey);
+    verify(mockedQuery).businessKeyLike(aBusinessKeyLike);
     verify(mockedQuery).executionIdIn(anExecutionId);
     verify(mockedQuery).taskIdIn(aTaskId);
     verify(mockedQuery).batchIdIn(aBatchId);

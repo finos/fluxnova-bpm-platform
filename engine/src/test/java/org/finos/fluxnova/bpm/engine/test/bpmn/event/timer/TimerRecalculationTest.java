@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.timer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -36,8 +36,8 @@ import org.finos.fluxnova.bpm.engine.runtime.JobQuery;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -50,7 +50,7 @@ public class TimerRecalculationTest extends PluggableProcessEngineTest {
 	
   private Set<String> jobIds = new HashSet<>();
   
-  @After
+  @AfterEach
   public void tearDown() {
     clearMeterLog();
 

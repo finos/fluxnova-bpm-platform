@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.external;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.externaltask.ExternalTask;
 import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -45,7 +46,7 @@ public class ExternalTaskParseTest extends PluggableProcessEngineTest {
       deploymentBuilder.deploy();
       fail("exception expected");
     } catch (ParseException e) {
-      testRule.assertTextPresent("External tasks must specify a 'topic' attribute in the camunda namespace", e.getMessage());
+      testRule.assertTextPresent("External tasks must specify a 'topic' attribute in the camunda or fluxnova namespace", e.getMessage());
       assertThat(e.getResorceReports().get(0).getErrors().size()).isEqualTo(1);
       assertThat(e.getResorceReports().get(0).getErrors().get(0).getMainElementId()).isEqualTo("externalTask");
     }

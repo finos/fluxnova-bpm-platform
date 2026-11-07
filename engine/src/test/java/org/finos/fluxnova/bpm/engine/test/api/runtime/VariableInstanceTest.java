@@ -26,8 +26,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class VariableInstanceTest extends PluggableProcessEngineTest {
 
     private final List<String> deploymentIds = new ArrayList<>();
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         deploymentIds.forEach(deploymentId -> repositoryService.deleteDeployment(deploymentId, true));
     }

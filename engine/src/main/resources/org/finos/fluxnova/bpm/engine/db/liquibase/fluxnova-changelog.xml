@@ -1,0 +1,130 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+
+   Copyright 2025 FINOS
+
+   The source files in this repository are made available under the Apache License Version 2.0.
+
+   SPDX-License-Identifier: Apache-2.0
+
+   Fluxnova uses and includes third-party dependencies published under various licenses.
+   By downloading and using Fluxnova artifacts, you agree to their terms and conditions.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <property name="db.name" value="db2" dbms="db2"/>
+  <property name="db.name" value="h2" dbms="h2"/>
+  <property name="db.name" value="mssql" dbms="mssql"/>
+  <property name="db.name" value="mysql" dbms="mysql"/>
+  <property name="db.name" value="oracle" dbms="oracle"/>
+  <property name="db.name" value="postgres" dbms="postgresql"/>
+
+  <changeSet author="Fluxnova" id="1.0.0-baseline">
+    <preConditions onFail="MARK_RAN">
+      <not>
+        <tableExists tableName="ACT_GE_SCHEMA_LOG"/>
+      </not>
+    </preConditions>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.engine.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.history.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.identity.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.case.engine.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.case.history.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.decision.engine.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+    <sqlFile path="fluxnova-baseline/liquibase.${db.name}.create.decision.history.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="1.0.0-tag">
+    <tagDatabase tag="1.0.0"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="1.0-to-2.0">
+    <preConditions onFail="MARK_RAN">
+      <!-- Mark as RAN if the schema is already at version 2.0.0 or later.
+           Add every newer release version to this list. -->
+      <sqlCheck expectedResult="0">
+        SELECT COUNT(*) FROM ACT_GE_SCHEMA_LOG WHERE VERSION_ IN ('2.0.0', '3.0.0', '3.1.0')
+      </sqlCheck>
+    </preConditions>
+    <sqlFile path="fluxnova-upgrade/${db.name}_engine_1.0_to_2.0.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="2.0.0-tag">
+    <tagDatabase tag="2.0.0"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="2.0-to-3.0">
+    <preConditions onFail="MARK_RAN">
+      <!-- Mark as RAN if the schema is already at version 3.0.0 or later.
+           Add every newer release version to this list. -->
+      <sqlCheck expectedResult="0">
+        SELECT COUNT(*) FROM ACT_GE_SCHEMA_LOG WHERE VERSION_ IN ('3.0.0', '3.1.0')
+      </sqlCheck>
+    </preConditions>
+    <sqlFile path="fluxnova-upgrade/${db.name}_engine_2.0_to_3.0.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.0.0-tag">
+    <tagDatabase tag="3.0.0"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.0-to-3.1">
+    <preConditions onFail="MARK_RAN">
+      <!-- Mark as RAN if the schema is already at version 3.1.0.
+           Add every newer release version to this list. -->
+      <sqlCheck expectedResult="0">
+        SELECT COUNT(*) FROM ACT_GE_SCHEMA_LOG WHERE VERSION_ IN ('3.1.0')
+      </sqlCheck>
+    </preConditions>
+    <sqlFile path="fluxnova-upgrade/${db.name}_engine_3.0_to_3.1.sql"
+             encoding="UTF-8"
+             relativeToChangelogFile="true"
+             splitStatements="true"
+             stripComments="true"/>
+  </changeSet>
+
+  <changeSet author="Fluxnova" id="3.1.0-tag">
+    <tagDatabase tag="3.1.0"/>
+  </changeSet>
+
+</databaseChangeLog>

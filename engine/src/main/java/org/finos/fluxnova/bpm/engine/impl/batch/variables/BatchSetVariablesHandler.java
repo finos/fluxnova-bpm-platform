@@ -28,6 +28,7 @@ import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobDeclaration;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ByteArrayEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.MessageEntity;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class BatchSetVariablesHandler extends AbstractBatchJobHandler<BatchConfi
 
     for (String processInstanceId : processInstanceIds) {
       commandContext.executeWithOperationLogPrevented(
-          new SetExecutionVariablesCmd(processInstanceId, variables, false, true, false));
+          new SetExecutionVariablesCmd(processInstanceId, variables, false, VariableOptions.options(false, false, true, false)));
     }
   }
 

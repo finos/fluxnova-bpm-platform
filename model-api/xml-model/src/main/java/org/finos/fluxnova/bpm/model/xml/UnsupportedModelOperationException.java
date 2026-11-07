@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.model.xml;
 
+
 import java.util.Collection;
 
 /**

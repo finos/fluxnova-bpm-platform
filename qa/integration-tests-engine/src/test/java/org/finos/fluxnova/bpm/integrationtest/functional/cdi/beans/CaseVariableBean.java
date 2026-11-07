@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.cdi.beans;
 
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateCaseExecution;

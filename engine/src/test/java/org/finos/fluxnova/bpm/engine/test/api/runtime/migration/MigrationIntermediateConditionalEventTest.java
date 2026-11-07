@@ -21,7 +21,7 @@ import static org.finos.fluxnova.bpm.engine.impl.migration.validation.instructio
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ConditionalModels.CONDITION_ID;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ConditionalModels.USER_TASK_ID;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ConditionalModels.VAR_CONDITION;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.finos.fluxnova.bpm.engine.migration.MigrationPlan;
 import org.finos.fluxnova.bpm.engine.migration.MigrationPlanValidationException;
@@ -32,9 +32,9 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessMo
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 
 /**
@@ -60,8 +60,8 @@ public class MigrationIntermediateConditionalEventTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   @Test
   public void testMigrateEventSubscription() {

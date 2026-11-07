@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.application.impl.deployment;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -39,17 +39,13 @@ import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class RedeploymentRegistrationTest {
 
   protected static final String DEPLOYMENT_NAME = "my-deployment";
@@ -71,28 +67,17 @@ public class RedeploymentRegistrationTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected RepositoryService repositoryService;
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
-
-  @Parameter(0)
   public String resource1;
-
-  @Parameter(1)
   public String resource2;
-
-  @Parameter(2)
   public String definitionKey1;
-
-  @Parameter(3)
   public String definitionKey2;
-
-  @Parameter(4)
   public TestProvider testProvider;
 
-  @Parameters(name = "scenario {index}")
   public static Collection<Object[]> scenarios() {
     return Arrays.asList(new Object[][] {
       { BPMN_RESOURCE_1, BPMN_RESOURCE_2, "processOne", "processTwo", processDefinitionTestProvider() },
@@ -102,7 +87,7 @@ public class RedeploymentRegistrationTest {
     });
   }
 
-  @Before
+  @BeforeEach
   public void init() throws Exception {
     repositoryService = engineRule.getRepositoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -110,8 +95,10 @@ public class RedeploymentRegistrationTest {
     processApplication = new EmbeddedProcessApplication();
   }
 
-  @Test
-	public void registrationNotFoundByDeploymentId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationNotFoundByDeploymentId(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
     ProcessApplicationReference reference = processApplication.getReference();
 
@@ -134,8 +121,10 @@ public class RedeploymentRegistrationTest {
     assertNull(getProcessApplicationForDeployment(deployment2.getId()));
   }
 
-  @Test
-	public void registrationNotFoundByDefinition() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationNotFoundByDefinition(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -165,8 +154,10 @@ public class RedeploymentRegistrationTest {
     assertNull(getProcessApplicationForDefinition(definitionId));
   }
 
-  @Test
-	public void registrationFoundByDeploymentId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundByDeploymentId(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
     ProcessApplicationReference reference1 = processApplication.getReference();
 
@@ -191,8 +182,10 @@ public class RedeploymentRegistrationTest {
     assertEquals(reference2, getProcessApplicationForDeployment(deployment2.getId()));
   }
 
-  @Test
-	public void registrationFoundFromPreviousDefinition() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundFromPreviousDefinition(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
     ProcessApplicationReference reference = processApplication.getReference();
     Deployment deployment1 = repositoryService
@@ -217,8 +210,10 @@ public class RedeploymentRegistrationTest {
     assertNull(getProcessApplicationForDeployment(deployment2.getId()));
   }
 
-  @Test
-	public void registrationFoundFromLatestDeployment() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundFromLatestDeployment(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
     ProcessApplicationReference reference1 = processApplication.getReference();
     Deployment deployment1 = repositoryService
@@ -242,8 +237,10 @@ public class RedeploymentRegistrationTest {
     assertEquals(reference2, getProcessApplicationForDeployment(deployment2.getId()));
   }
 
-  @Test
-	public void registrationFoundOnlyForOneProcessDefinition() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundOnlyForOneProcessDefinition(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -277,8 +274,10 @@ public class RedeploymentRegistrationTest {
     assertNull(getProcessApplicationForDefinition(secondDefinitionId));
   }
 
-  @Test
-	public void registrationFoundFromDifferentDeployment() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundFromDifferentDeployment(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -313,8 +312,10 @@ public class RedeploymentRegistrationTest {
     assertEquals(reference1, getProcessApplicationForDefinition(secondDefinitionId));
   }
 
-  @Test
-	public void registrationFoundFromSameDeployment() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundFromSameDeployment(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -354,8 +355,10 @@ public class RedeploymentRegistrationTest {
     assertEquals(reference1, getProcessApplicationForDefinition(secondDefinitionId));
   }
 
-  @Test
-	public void registrationFoundFromDifferentDeployments() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundFromDifferentDeployments(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -389,8 +392,10 @@ public class RedeploymentRegistrationTest {
     assertEquals(reference2, getProcessApplicationForDefinition(secondDefinitionId));
   }
 
-  @Test
-	public void registrationNotFoundWhenDeletingDeployment() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationNotFoundWhenDeletingDeployment(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -428,8 +433,10 @@ public class RedeploymentRegistrationTest {
     assertNull(getProcessApplicationForDefinition(firstDefinitionId));
   }
 
-  @Test
-	public void registrationFoundAfterDiscardingDeploymentCache() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "scenario {index}")
+  public void registrationFoundAfterDiscardingDeploymentCache(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    initRedeploymentRegistrationTest(resource1, resource2, definitionKey1, definitionKey2, testProvider);
     // given
 
     // first deployment
@@ -469,7 +476,7 @@ public class RedeploymentRegistrationTest {
 
   // helper ///////////////////////////////////////////
 
-  @After
+  @AfterEach
   public void cleanUp() {
     for (Deployment deployment : repositoryService.createDeploymentQuery().list()) {
       deleteDeployment(deployment);
@@ -602,6 +609,14 @@ public class RedeploymentRegistrationTest {
       }
 
     };
+  }
+
+  public void initRedeploymentRegistrationTest(String resource1, String resource2, String definitionKey1, String definitionKey2, TestProvider testProvider) {
+    this.resource1 = resource1;
+    this.resource2 = resource2;
+    this.definitionKey1 = definitionKey1;
+    this.definitionKey2 = definitionKey2;
+    this.testProvider = testProvider;
   }
 
 }

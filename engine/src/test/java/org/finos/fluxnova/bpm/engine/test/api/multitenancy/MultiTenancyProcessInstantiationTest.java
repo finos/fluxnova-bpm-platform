@@ -17,9 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.multitenancy;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,8 +36,8 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.BatchRestartHelper;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 
 public class MultiTenancyProcessInstantiationTest extends PluggableProcessEngineTest {
@@ -55,7 +53,7 @@ public class MultiTenancyProcessInstantiationTest extends PluggableProcessEngine
 
   public BatchRestartHelper batchHelper = new BatchRestartHelper(this);
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
 
     authorizationService.createAuthorizationQuery();

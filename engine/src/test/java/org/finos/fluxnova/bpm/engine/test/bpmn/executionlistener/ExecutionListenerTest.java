@@ -20,10 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl.HISTORYLEVEL_AUDIT;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,12 +55,12 @@ import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.instance.SequenceFlow;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaExecutionListener;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Frederik Heremans
@@ -78,8 +75,8 @@ public class ExecutionListenerTest {
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(processEngineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(processEngineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(processEngineRule).around(testRule);
 
   protected RuntimeService runtimeService;
   protected TaskService taskService;
@@ -87,12 +84,12 @@ public class ExecutionListenerTest {
   protected ManagementService managementService;
   protected RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void clearRecorderListener() {
     RecorderExecutionListener.clear();
   }
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = processEngineRule.getRuntimeService();
     taskService = processEngineRule.getTaskService();
@@ -101,7 +98,7 @@ public class ExecutionListenerTest {
     repositoryService = processEngineRule.getRepositoryService();
   }
 
-  @Before
+  @BeforeEach
   public void resetListener() {
     ThrowBPMNErrorDelegate.reset();
     ThrowRuntimeExceptionDelegate.reset();
@@ -285,8 +282,8 @@ public class ExecutionListenerTest {
       String[] variableNames = new String[]{"start-start", "start-end", "start-take", "end-start", "end-end"};
       for (String variableName : variableNames) {
         variableInstance = query.variableName(variableName).singleResult();
-        assertNotNull("Unable ot find variable with name '" + variableName + "'", variableInstance);
-        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getValue());
+        assertNotNull(variableInstance, "Unable ot find variable with name '" + variableName + "'");
+        assertTrue((Boolean) variableInstance.getValue(), "Variable '" + variableName + "' should be set to true");
       }
     }
   }
@@ -309,8 +306,8 @@ public class ExecutionListenerTest {
       String[] variableNames = new String[]{"start-start", "start-end", "start-take", "end-start", "end-end"};
       for (String variableName : variableNames) {
         variableInstance = query.variableName(variableName).singleResult();
-        assertNotNull("Unable ot find variable with name '" + variableName + "'", variableInstance);
-        assertTrue("Variable '" + variableName + "' should be set to true", (Boolean) variableInstance.getValue());
+        assertNotNull(variableInstance, "Unable ot find variable with name '" + variableName + "'");
+        assertTrue((Boolean) variableInstance.getValue(), "Variable '" + variableName + "' should be set to true");
       }
     }
   }

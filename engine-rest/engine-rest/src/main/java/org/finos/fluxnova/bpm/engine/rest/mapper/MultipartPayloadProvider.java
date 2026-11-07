@@ -16,20 +16,20 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.mapper;
 
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUpload;
-import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload2.core.FileItemInput;
+import org.apache.commons.fileupload2.core.FileItemInputIterator;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.core.RequestContext;
 import org.finos.fluxnova.bpm.engine.rest.exception.RestException;
 import org.finos.fluxnova.bpm.engine.rest.mapper.MultipartFormData.FormPart;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.ext.MessageBodyReader;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.MessageBodyReader;
+import jakarta.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -66,7 +66,7 @@ public class MultipartPayloadProvider implements MessageBodyReader<MultipartForm
       MultivaluedMap<String, String> httpHeaders, InputStream entityStream) throws IOException, WebApplicationException {
 
     final MultipartFormData multipartFormData = createMultipartFormDataInstance();
-    final FileUpload fileUpload = createFileUploadInstance();
+    final JakartaServletFileUpload<?, ?> fileUpload = createFileUploadInstance();
 
     String contentType = httpHeaders.getFirst("content-type");
     RestMultipartRequestContext requestContext = createRequestContext(entityStream, contentType);
@@ -78,19 +78,19 @@ public class MultipartPayloadProvider implements MessageBodyReader<MultipartForm
 
   }
 
-  protected FileUpload createFileUploadInstance() {
-    return new FileUpload();
+  protected JakartaServletFileUpload<?, ?>  createFileUploadInstance() {
+    return new JakartaServletFileUpload<>();
   }
 
   protected MultipartFormData createMultipartFormDataInstance() {
     return new MultipartFormData();
   }
 
-  protected void parseRequest(MultipartFormData multipartFormData, FileUpload fileUpload, RestMultipartRequestContext requestContext) {
+  protected void parseRequest(MultipartFormData multipartFormData, JakartaServletFileUpload<?, ?> fileUpload, RestMultipartRequestContext requestContext) {
     try {
-      FileItemIterator itemIterator = fileUpload.getItemIterator(requestContext);
+      FileItemInputIterator itemIterator = fileUpload.getItemIterator(requestContext);
       while (itemIterator.hasNext()) {
-        FileItemStream stream = itemIterator.next();
+        FileItemInput stream = itemIterator.next();
         multipartFormData.addPart(new FormPart(stream));
       }
     } catch (Exception e) {
@@ -125,12 +125,17 @@ public class MultipartPayloadProvider implements MessageBodyReader<MultipartForm
       return contentType;
     }
 
-    public int getContentLength() {
+    public long getContentLength() {
       return -1;
     }
 
     public InputStream getInputStream() throws IOException {
       return inputStream;
+    }
+
+    @Override
+    public boolean isMultipartRelated() {
+      return false;
     }
 
   }

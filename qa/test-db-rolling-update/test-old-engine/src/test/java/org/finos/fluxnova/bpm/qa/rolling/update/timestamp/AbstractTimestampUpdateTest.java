@@ -26,13 +26,12 @@ import org.finos.fluxnova.bpm.engine.TaskService;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.rolling.update.AbstractRollingUpdateTestCase;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.Date;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Nikola Koevski
@@ -52,6 +51,6 @@ public abstract class AbstractTimestampUpdateTest extends AbstractRollingUpdateT
   }
 
   protected void assertNotNull(Object object) {
-    assertThat(object, is(notNullValue()));
+    assertNotNull(object);
   }
 }

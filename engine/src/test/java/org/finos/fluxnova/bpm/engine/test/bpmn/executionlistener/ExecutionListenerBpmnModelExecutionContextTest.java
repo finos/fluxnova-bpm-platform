@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.executionlistener;
 
 import static org.finos.fluxnova.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Collection;
 
@@ -45,8 +42,8 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Task;
 import org.finos.fluxnova.bpm.model.bpmn.instance.UserTask;
 import org.finos.fluxnova.bpm.model.xml.Model;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -230,7 +227,7 @@ public class ExecutionListenerBpmnModelExecutionContextTest extends PluggablePro
     runtimeService.startProcessInstanceByKey(PROCESS_ID);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ModelExecutionContextExecutionListener.clear();
     repositoryService.deleteDeployment(deploymentId, true);

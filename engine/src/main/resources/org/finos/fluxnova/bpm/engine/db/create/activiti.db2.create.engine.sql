@@ -66,7 +66,7 @@ create table ACT_GE_SCHEMA_LOG (
 );
 
 insert into ACT_GE_SCHEMA_LOG
-values ('0', CURRENT_TIMESTAMP, '2.0.0');
+values ('0', CURRENT_TIMESTAMP, '3.1.1');
 
 create table ACT_RE_DEPLOYMENT (
     ID_ varchar(64) not null,
@@ -240,6 +240,7 @@ create table ACT_RU_VARIABLE (
     SEQUENCE_COUNTER_ bigint,
     IS_CONCURRENT_LOCAL_ smallint check(IS_CONCURRENT_LOCAL_ in (1,0)),
     TENANT_ID_ varchar(64),
+    RESTRICTED_ smallint check(RESTRICTED_ in (1,0)),
     primary key (ID_)
 );
 
@@ -381,6 +382,7 @@ create index ACT_IDX_EVENT_SUBSCR_TENANT_ID on ACT_RU_EVENT_SUBSCR(TENANT_ID_);
 create index ACT_IDX_VARIABLE_TASK_ID on ACT_RU_VARIABLE(TASK_ID_);
 create index ACT_IDX_VARIABLE_TENANT_ID on ACT_RU_VARIABLE(TENANT_ID_);
 create index ACT_IDX_VARIABLE_TASK_NAME_TYPE on ACT_RU_VARIABLE(TASK_ID_, NAME_, TYPE_);
+create index ACT_IDX_VARIABLE_RESTRICTED on ACT_RU_VARIABLE(RESTRICTED_);
 
 create index ACT_IDX_ATHRZ_PROCEDEF on ACT_RU_IDENTITYLINK(PROC_DEF_ID_);
 create index ACT_IDX_INC_CONFIGURATION on ACT_RU_INCIDENT(CONFIGURATION_);
@@ -597,3 +599,24 @@ create index ACT_IDX_PROCDEF_VER_TAG ON ACT_RE_PROCDEF(VERSION_TAG_);
 -- indices for history cleanup
 create index ACT_IDX_AUTH_ROOT_PI on ACT_RU_AUTHORIZATION(ROOT_PROC_INST_ID_);
 create index ACT_IDX_AUTH_RM_TIME on ACT_RU_AUTHORIZATION(REMOVAL_TIME_);
+
+-- Fluxnova BPM Platform: Process Configuration table (IBM DB2)
+create table ACT_GE_CONFIGURATION (
+    ID_          varchar(64)    not null,
+    CONFIG_KEY_  varchar(255)   not null,
+    TENANT_ID_   varchar(255),
+    TENANT_ID_NULL_ integer generated always as (case when TENANT_ID_ is null then 1 else 0 end),
+    TENANT_ID_UNIQUE_ varchar(255) generated always as (coalesce(TENANT_ID_, '')),
+    CONFIG_VALUE_ clob(2G)      not null,
+    VERSION_     integer        not null default 1,
+    STATUS_      varchar(20)    not null default 'ACTIVE',
+    ACTIVE_SCOPE_UNIQUE_ varchar(64) generated always as (case when STATUS_ = 'ACTIVE' then 'ACTIVE' else ID_ end),
+    CREATED_BY_  varchar(255),
+    CREATED_AT_  timestamp,
+    UPDATED_BY_  varchar(255),
+    UPDATED_AT_  timestamp,
+    constraint PK_ACT_GE_CONFIGURATION primary key (ID_)
+);
+
+create unique index ACT_UNIQ_GE_CONFIG
+    on ACT_GE_CONFIGURATION (CONFIG_KEY_, TENANT_ID_NULL_, TENANT_ID_UNIQUE_, ACTIVE_SCOPE_UNIQUE_);

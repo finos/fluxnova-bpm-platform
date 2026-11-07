@@ -18,9 +18,12 @@ package org.finos.fluxnova.connect.plugin;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Map;
 
 import org.finos.fluxnova.bpm.engine.BpmnParseException;
@@ -39,15 +42,18 @@ import org.finos.fluxnova.connect.httpclient.soap.SoapHttpConnector;
 import org.finos.fluxnova.connect.plugin.util.TestConnector;
 import org.finos.fluxnova.connect.spi.Connector;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCase {
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
+  @BeforeEach
+  public void setUp() throws Exception {
     TestConnector.responseParameters.clear();
     TestConnector.requestParameters = null;
   }
 
+  @Test
   public void testConnectorsRegistered() {
     Connector<?> http = Connectors.getConnector(HttpConnector.ID);
     assertNotNull(http);
@@ -57,6 +63,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertNotNull(test);
   }
 
+  @Test
   public void testConnectorIdMissing() {
     try {
       repositoryService.createDeployment().addClasspathResource("org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorIdMissing.bpmn")
@@ -69,6 +76,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testConnectorIdUnknown() {
     try {
       runtimeService.startProcessInstanceByKey("testProcess");
@@ -80,6 +88,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testConnectorInvoked() {
     String outputParamValue = "someOutputValue";
     String inputVariableValue = "someInputVariableValue";
@@ -101,6 +110,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testConnectorWithScriptInputOutputMapping() {
     int x = 3;
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -120,6 +130,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
 
 
   @Deployment
+  @Test
   public void testConnectorWithSetVariableInOutputMapping() {
     // given process with set variable on connector in output mapping
 
@@ -131,7 +142,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertEquals(1, out.getValue());
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Test
   public void testConnectorBpmnErrorThrownInScriptInputMappingIsHandledByBoundaryEvent() {
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put("throwInMapping", "in");
@@ -142,7 +154,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertThat(task.getName(), is("User Task"));
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Test
   public void testConnectorRuntimeExceptionThrownInScriptInputMappingIsNotHandledByBoundaryEvent() {
     String exceptionMessage = "myException";
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -155,7 +168,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     }
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Test
   public void testConnectorBpmnErrorThrownInScriptOutputMappingIsHandledByBoundaryEvent() {
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put("throwInMapping", "out");
@@ -166,7 +180,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertThat(task.getName(), is("User Task"));
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptInputOutputMapping.bpmn")
+  @Test
   public void testConnectorRuntimeExceptionThrownInScriptOutputMappingIsNotHandledByBoundaryEvent() {
     String exceptionMessage = "myException";
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -179,7 +194,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     }
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Test
   public void testConnectorBpmnErrorThrownInScriptResourceInputMappingIsHandledByBoundaryEvent() {
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put("throwInMapping", "in");
@@ -190,7 +206,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertThat(task.getName(), is("User Task"));
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Test
   public void testConnectorRuntimeExceptionThrownInScriptResourceInputMappingIsNotHandledByBoundaryEvent() {
     String exceptionMessage = "myException";
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -203,7 +220,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     }
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Test
   public void testConnectorBpmnErrorThrownInScriptResourceOutputMappingIsHandledByBoundaryEvent() {
     Map<String, Object> variables = new HashMap<String, Object>();
     variables.put("throwInMapping", "out");
@@ -214,7 +232,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     assertThat(task.getName(), is("User Task"));
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorWithThrownExceptionInScriptResourceInputOutputMapping.bpmn")
+  @Test
   public void testConnectorRuntimeExceptionThrownInScriptResourceOutputMappingIsNotHandledByBoundaryEvent() {
     String exceptionMessage = "myException";
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -227,7 +246,8 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
     }
   }
 
-  @Deployment(resources= "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorBpmnErrorThrownInScriptResourceNoAsyncAfterJobIsCreated.bpmn")
+  @Deployment(resources = "org/finos/fluxnova/connect/plugin/ConnectProcessEnginePluginTest.testConnectorBpmnErrorThrownInScriptResourceNoAsyncAfterJobIsCreated.bpmn")
+  @Test
   public void testConnectorBpmnErrorThrownInScriptResourceNoAsyncAfterJobIsCreated() {
     // given
     Map<String, Object> variables = new HashMap<String, Object>();
@@ -247,6 +267,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testFollowingExceptionIsNotHandledByConnector(){
     try {
       runtimeService.startProcessInstanceByKey("testProcess");
@@ -256,6 +277,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testSendTaskWithConnector() {
     String outputParamValue = "someSendTaskOutputValue";
     String inputVariableValue = "someSendTaskInputVariableValue";
@@ -278,6 +300,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testIntermediateMessageThrowEventWithConnector() {
     String outputParamValue = "someMessageThrowOutputValue";
     String inputVariableValue = "someMessageThrowInputVariableValue";
@@ -300,6 +323,7 @@ public class ConnectProcessEnginePluginTest extends PluggableProcessEngineTestCa
   }
 
   @Deployment
+  @Test
   public void testMessageEndEventWithConnector() {
     String outputParamValue = "someMessageEndOutputValue";
     String inputVariableValue = "someMessageEndInputVariableValue";

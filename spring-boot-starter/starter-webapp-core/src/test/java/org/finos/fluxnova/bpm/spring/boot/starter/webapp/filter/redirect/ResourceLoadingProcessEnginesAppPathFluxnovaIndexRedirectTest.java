@@ -21,25 +21,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.net.HttpURLConnection;
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.HttpClientRule;
 import org.finos.fluxnova.bpm.spring.boot.starter.webapp.filter.util.FilterTestApp;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { FilterTestApp.class},
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-    properties = {
-        "fluxnova.bpm.webapp.application-path=/fluxnova",
-        "fluxnova.bpm.webapp.index-redirect-enabled=true",
-        "fluxnova.bpm.admin-user.id=admin" })
+@SpringBootTest(classes = {FilterTestApp.class},
+  webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+  properties = {
+    "fluxnova.bpm.webapp.application-path=/fluxnova",
+    "fluxnova.bpm.webapp.index-redirect-enabled=true",
+    "fluxnova.bpm.admin-user.id=admin"})
 @DirtiesContext
 public class ResourceLoadingProcessEnginesAppPathFluxnovaIndexRedirectTest {
 
-  @Rule
+  @RegisterExtension
   public HttpClientRule rule = new HttpClientRule().followRedirects(true);
 
   @LocalServerPort
@@ -48,7 +47,7 @@ public class ResourceLoadingProcessEnginesAppPathFluxnovaIndexRedirectTest {
   @Test
   public void shouldRedirectRequestToTasklist_contextRoot() {
     // when
-    // send GET request to /camunda
+    // send GET request to /fluxnova
     HttpURLConnection con = rule.performRequest("http://localhost:" + port + "/fluxnova");
 
     // then

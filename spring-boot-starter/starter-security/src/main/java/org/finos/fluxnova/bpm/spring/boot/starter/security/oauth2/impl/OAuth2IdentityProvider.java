@@ -95,8 +95,7 @@ public class OAuth2IdentityProvider extends DbIdentityServiceProvider {
     String userId = authentication.getName();
     UserEntity user = new UserEntity();
     user.setId(userId);
-    if (principal instanceof OidcUser) {
-      var oidcUser = (OidcUser) principal;
+    if (principal instanceof OidcUser oidcUser) {
       user.setFirstName(oidcUser.getGivenName());
       user.setLastName(oidcUser.getFamilyName());
       user.setEmail(oidcUser.getEmail());

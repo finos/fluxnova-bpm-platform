@@ -37,8 +37,8 @@ public class SpinBpmPlatformPlugin implements BpmPlatformPlugin {
   @Override
   public void postProcessApplicationDeploy(ProcessApplicationInterface processApplication) {
     ProcessApplicationInterface rawPa = processApplication.getRawObject();
-    if (rawPa instanceof AbstractProcessApplication) {
-      initializeVariableSerializers((AbstractProcessApplication) rawPa);
+    if (rawPa instanceof AbstractProcessApplication application) {
+      initializeVariableSerializers(application);
     }
     else {
       LOG.logNoDataFormatsInitiailized("process application data formats", "process application is not a sub class of " + AbstractProcessApplication.class.getName());

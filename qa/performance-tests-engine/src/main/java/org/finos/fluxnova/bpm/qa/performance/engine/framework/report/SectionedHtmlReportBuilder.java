@@ -120,8 +120,8 @@ public class SectionedHtmlReportBuilder {
       HtmlDocumentBuilder tableRowBuilder = builder.startElement(new HtmlElementWriter("tr"));
 
       for (Object value : resultRow) {
-        if (value instanceof TableCell) {
-          tableRowBuilder.startElement(((TableCell) value).toHtmlElementWriter()).endElement();
+        if (value instanceof TableCell cell) {
+          tableRowBuilder.startElement(cell.toHtmlElementWriter()).endElement();
         } else {
           tableRowBuilder.startElement(new HtmlElementWriter("td").textContent(String.valueOf(value))).endElement();
         }

@@ -22,7 +22,8 @@ import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResult;
 import org.finos.fluxnova.bpm.dmn.engine.test.DecisionResource;
 import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class ExpressionEvaluationTest extends DmnEngineTest {
 

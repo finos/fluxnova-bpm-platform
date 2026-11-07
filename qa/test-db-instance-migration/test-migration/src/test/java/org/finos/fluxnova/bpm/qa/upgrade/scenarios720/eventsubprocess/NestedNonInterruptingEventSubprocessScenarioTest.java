@@ -28,14 +28,14 @@ import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.finos.fluxnova.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate;
 import org.finos.fluxnova.bpm.qa.upgrade.util.ThrowBpmnErrorDelegate.ThrowBpmnErrorDelegateException;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 @ScenarioUnderTest("NestedNonInterruptingEventSubprocessScenario")
 @Origin("7.2.0")
 public class NestedNonInterruptingEventSubprocessScenarioTest {
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule rule = new UpgradeTestRule();
 
   @Test

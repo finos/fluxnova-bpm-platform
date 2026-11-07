@@ -21,11 +21,7 @@ import static org.finos.fluxnova.bpm.engine.test.bpmn.event.error.ThrowErrorDele
 import static org.finos.fluxnova.bpm.engine.test.bpmn.event.error.ThrowErrorDelegate.throwException;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +53,8 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -808,7 +805,7 @@ public class MultiInstanceTest extends PluggableProcessEngineTest {
         assertNotNull(hai.getStartTime());
         // now end time is null
         assertNull(hai.getEndTime());
-        assertNotNull(pi.getId(), hai.getParentActivityInstanceId());
+        assertNotNull(hai.getParentActivityInstanceId(), pi.getId());
       }
     }
 
@@ -823,7 +820,7 @@ public class MultiInstanceTest extends PluggableProcessEngineTest {
       for (HistoricActivityInstance hai : historicActivityInstances) {
         assertNotNull(hai.getStartTime());
         assertNotNull(hai.getEndTime());
-        assertNotNull(pi.getId(), hai.getParentActivityInstanceId());
+        assertNotNull(hai.getParentActivityInstanceId(), pi.getId());
       }
     }
   }

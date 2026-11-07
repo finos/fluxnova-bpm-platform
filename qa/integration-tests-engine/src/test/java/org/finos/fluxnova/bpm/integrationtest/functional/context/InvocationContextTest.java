@@ -28,21 +28,19 @@ import org.finos.fluxnova.bpm.integrationtest.functional.context.beans.Signalabl
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Checks if the process application is invoked with an invocation context.
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name = "app")
@@ -58,7 +56,7 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
         .addAsResource("org/finos/fluxnova/bpm/integrationtest/functional/context/InvocationContextTest-signalTask.bpmn");
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     ClockUtil.reset();
   }
@@ -70,9 +68,9 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
     ProcessInstance pi = runtimeService.startProcessInstanceByKey("messageProcess");
 
     InvocationContext invocationContext = ProcessApplicationWithInvocationContext.getInvocationContext();
-    assertThat(invocationContext, is(notNullValue()));
-    assertThat(invocationContext.getExecution(), is(notNullValue()));
-    assertThat(invocationContext.getExecution().getId(), is(pi.getId()));
+    assertNotNull(invocationContext);
+    assertNotNull(invocationContext.getExecution());
+    assertEquals(pi.getId(), invocationContext.getExecution().getId());
   }
 
   @Test
@@ -83,7 +81,7 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
     ProcessApplicationWithInvocationContext.clearInvocationContext();
 
     Job timer = managementService.createJobQuery().timers().singleResult();
-    assertThat(timer, is(notNullValue()));
+    assertNotNull(timer);
 
     long dueDate = timer.getDuedate().getTime();
     Date afterDueDate = new Date(dueDate + 1000 * 60);
@@ -92,9 +90,9 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
     waitForJobExecutorToProcessAllJobs();
 
     InvocationContext invocationContext = ProcessApplicationWithInvocationContext.getInvocationContext();
-    assertThat(invocationContext, is(notNullValue()));
-    assertThat(invocationContext.getExecution(), is(notNullValue()));
-    assertThat(invocationContext.getExecution().getId(), is(timer.getExecutionId()));
+    assertNotNull(invocationContext);
+    assertNotNull(invocationContext.getExecution());
+    assertEquals(timer.getExecutionId(), invocationContext.getExecution().getId());
   }
 
   @Test
@@ -105,14 +103,14 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
     ProcessApplicationWithInvocationContext.clearInvocationContext();
 
     EventSubscription messageSubscription = runtimeService.createEventSubscriptionQuery().eventType("message").processInstanceId(processInstance.getId()).singleResult();
-    assertThat(messageSubscription, is(notNullValue()));
+    assertNotNull(messageSubscription);
 
     runtimeService.messageEventReceived(messageSubscription.getEventName(), messageSubscription.getExecutionId());
 
     InvocationContext invocationContext = ProcessApplicationWithInvocationContext.getInvocationContext();
-    assertThat(invocationContext, is(notNullValue()));
-    assertThat(invocationContext.getExecution(), is(notNullValue()));
-    assertThat(invocationContext.getExecution().getId(), is(messageSubscription.getExecutionId()));
+    assertNotNull(invocationContext);
+    assertNotNull(invocationContext.getExecution());
+    assertEquals(messageSubscription.getExecutionId(), invocationContext.getExecution().getId());
   }
 
   @Test
@@ -123,14 +121,14 @@ public class InvocationContextTest extends AbstractFoxPlatformIntegrationTest {
     ProcessApplicationWithInvocationContext.clearInvocationContext();
 
     Execution execution = runtimeService.createExecutionQuery().activityId("waitingTask").singleResult();
-    assertThat(execution, is(notNullValue()));
+    assertNotNull(execution);
 
     runtimeService.signal(execution.getId());
 
     InvocationContext invocationContext = ProcessApplicationWithInvocationContext.getInvocationContext();
-    assertThat(invocationContext, is(notNullValue()));
-    assertThat(invocationContext.getExecution(), is(notNullValue()));
-    assertThat(invocationContext.getExecution().getId(), is(execution.getId()));
+    assertNotNull(invocationContext);
+    assertNotNull(invocationContext.getExecution());
+    assertEquals(execution.getId(), invocationContext.getExecution().getId());
   }
 
 }

@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.transactions;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
@@ -27,18 +27,18 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.integrationtest.functional.transactions.beans.TransactionRollbackDelegate;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * This test class ensures that when a UserTransaction is explicitly marked as ROLLBACK_ONLY,
  * and this code is executed within a Job, then the transaction is rolled back, and the job
  * execution is marked as failed, reducing the job retries.
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class AsyncJobExecutionWithRollbackTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -53,7 +53,7 @@ public class AsyncJobExecutionWithRollbackTest extends AbstractFoxPlatformIntegr
   @Inject
   private RuntimeService runtimeService;
 
-  @After
+  @AfterEach
   public void cleanUp() {
     for (ProcessInstance processInstance : runtimeService.createProcessInstanceQuery().list()) {
       runtimeService.deleteProcessInstance(processInstance.getId(), "test ended", true);

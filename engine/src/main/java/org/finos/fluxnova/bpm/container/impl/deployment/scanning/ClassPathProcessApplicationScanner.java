@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,19 +108,19 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
     if(isPaLocal) {
 
       if (urlPath.startsWith("file:") || urlPath.startsWith("jar:") || urlPath.startsWith("wsjar:") || urlPath.startsWith("zip:")) {
-        urlPath = url.getPath();
+        urlPath = normalizeWindowsPath(url.getPath());
         int withinArchive = urlPath.indexOf('!');
         if (withinArchive != -1) {
           urlPath = urlPath.substring(0, withinArchive);
         } else {
-          File file = new File(urlPath);
+          File file = Paths.get(urlPath).normalize().toFile();
           urlPath = file.getParentFile().getParent();
         }
       }
 
     } else {
       if (urlPath.startsWith("file:") || urlPath.startsWith("jar:") || urlPath.startsWith("wsjar:") || urlPath.startsWith("zip:")) {
-        urlPath = url.getPath();
+        urlPath = normalizeWindowsPath(url.getPath());
         int withinArchive = urlPath.indexOf('!');
         if (withinArchive != -1) {
           urlPath = urlPath.substring(0, withinArchive);
@@ -141,6 +142,22 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
 
   }
 
+  protected String normalizeWindowsPath(String path) {
+    return normalizeWindowsPath(path, File.separatorChar);
+  }
+
+  protected String normalizeWindowsPath(String path, char separatorChar) {
+    if (separatorChar == '\\'
+        && path.length() > 2
+        && path.charAt(0) == '/'
+        && Character.isLetter(path.charAt(1))
+        && path.charAt(2) == ':') {
+      return path.substring(1);
+    }
+
+    return path;
+  }
+
   protected void scanPath(String urlPath, String paResourceRootPath, boolean isPaLocal, String[] additionalResourceSuffixes, Map<String, byte[]> resourceMap) {
     if (urlPath.startsWith("file:")) {
       urlPath = urlPath.substring(5);
@@ -154,7 +171,7 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
       urlPath = urlPath.substring(7);
     }
 
-    File file = new File(urlPath);
+    File file = Paths.get(urlPath).normalize().toFile();
     if (file.isDirectory()) {
       String path = file.getPath();
       String rootPath = path.endsWith(File.separator) ? path : path+File.separator;
@@ -260,12 +277,12 @@ public class ClassPathProcessApplicationScanner implements ProcessApplicationSca
     InputStream inputStream = null;
 
     try {
-      if(source instanceof File) {
+      if(source instanceof File file) {
         try {
-          inputStream = new FileInputStream((File) source);
+          inputStream = new FileInputStream(file);
         }
         catch (IOException e) {
-          throw LOG.cannotOpenFileInputStream(((File) source).getAbsolutePath(), e);
+          throw LOG.cannotOpenFileInputStream(file.getAbsolutePath(), e);
         }
       }
       else {

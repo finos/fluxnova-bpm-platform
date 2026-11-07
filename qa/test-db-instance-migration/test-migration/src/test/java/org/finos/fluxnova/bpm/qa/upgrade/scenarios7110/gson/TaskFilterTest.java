@@ -28,7 +28,7 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import static org.junit.Assert.assertTrue;
 @Origin("7.11.0")
 public class TaskFilterTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   @ScenarioUnderTest("initTaskFilter.1")

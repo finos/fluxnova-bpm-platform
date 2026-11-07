@@ -30,4 +30,8 @@ public interface CoreVariableInstance {
 
   void setValue(TypedValue typedValue);
 
+  boolean isRestricted();
+
+  void setRestricted(boolean restricted);
+
 }

@@ -27,19 +27,22 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * Tests the signalling of external task conditions
  */
+@ExtendWith(MockitoExtension.class)
 public class ExternalTaskConditionsTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule rule = new ProvidedProcessEngineRule();
 
   @Mock
@@ -53,10 +56,8 @@ public class ExternalTaskConditionsTest {
         .fluxnovaExternalTask("theTopic")
     .done();
 
-  @Before
+  @BeforeEach
   public void setUp() {
-
-    MockitoAnnotations.initMocks(this);
 
     ProcessEngineImpl.EXT_TASK_CONDITIONS.addConsumer(condition);
 
@@ -67,7 +68,7 @@ public class ExternalTaskConditionsTest {
         .getId();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
 
     ProcessEngineImpl.EXT_TASK_CONDITIONS.removeConsumer(condition);

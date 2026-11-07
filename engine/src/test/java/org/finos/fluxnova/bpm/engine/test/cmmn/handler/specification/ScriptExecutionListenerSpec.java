@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.handler.specification;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.delegate.BaseDelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateListener;

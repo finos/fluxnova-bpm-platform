@@ -24,7 +24,7 @@ import org.finos.fluxnova.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.json.SpinJsonPathQuery;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 

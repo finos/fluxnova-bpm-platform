@@ -29,29 +29,92 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.context.Context;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.commons.logging.MdcAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Holds the contextual process data.<br>
+ * Holds contextual process data and supports custom MDC properties via a provider-based
+ * registration mechanism.
  *
- * New context properties are always part of a section that can be started by
- * {@link #pushSection(ExecutionEntity)}. The section keeps track of all pushed
- * properties. Those can easily be cleared by popping the section with
- * {@link #popSection()} afterwards, e.g. after the successful execution.<br>
+ * <p>In addition to all built-in logging context properties (activityId, tenantId, etc.), this
+ * class supports engine-level extensibility through {@link MdcPropertyProvider}:
  *
- * A property can be pushed to the logging context (MDC) if there is a configured
- * non-empty context name for it in the {@link ProcessEngineConfigurationImpl
- * process engine configuration}. The following configuration options are
- * available:
  * <ul>
- * <li>loggingContextActivityId - the context property for the activity id</li>
- * <li>loggingContextApplicationName - the context property for the application name</li>
- * <li>loggingContextBusinessKey - the context property for the business key</li>
- * <li>loggingContextDefinitionId - the context property for the definition id</li>
- * <li>loggingContextProcessInstanceId - the context property for the instance id</li>
- * <li>loggingContextTenantId - the context property for the tenant id</li>
+ *   <li>All built-in FluxNova logging context properties (activityId, tenantId, etc.)
+ *   <li>Registration of custom MDC property names with value providers via {@link
+ *       ProcessEngineConfigurationImpl#addCustomMdcProperty(String, MdcPropertyProvider)}
+ *   <li>Automatic MDC stack management for custom properties alongside built-in ones
+ *   <li>Automatic property value computation during {@link #pushSection(ExecutionEntity)} via
+ *       registered providers
+ * </ul>
+ *
+ * <p><strong>Custom Property Registration:</strong>
+ *
+ * <p>Custom properties are registered on {@link ProcessEngineConfigurationImpl} by calling {@link
+ * ProcessEngineConfigurationImpl#addCustomMdcProperty(String, MdcPropertyProvider)}, typically
+ * from a {@code AbstractProcessEnginePlugin} {@code preInit()} method. During context
+ * initialization, this class reads all registered providers from the configuration and sets up:
+ *
+ * <ul>
+ *   <li>A dedicated {@link ProcessDataStack} for each custom property
+ *   <li>Automatic section/stack management (push/pop/cleanup) alongside built-in properties
+ *   <li>MDC integration through the existing stack mechanism
+ *   <li>Automatic value computation via the registered {@link MdcPropertyProvider} on each push
+ * </ul>
+ *
+ * <p><strong>Setting Custom Property Values:</strong>
+ *
+ * <p>Custom property values are computed automatically during {@link #pushSection(ExecutionEntity)}
+ * by invoking the registered {@link MdcPropertyProvider} callback. The provider receives the
+ * current {@link ExecutionEntity} and should return the property value, or {@code null} if not
+ * applicable for that execution.
+ *
+ * <p><strong>Example Usage:</strong>
+ *
+ * <pre>
+ * // In a ProcessEnginePlugin's preInit(), register custom MDC properties:
+ * {@literal @}Override
+ * public void preInit(ProcessEngineConfigurationImpl configuration) {
+ *     configuration.addCustomMdcProperty("applicationId",
+ *         execution -&gt; execution != null ? resolveAppId(execution) : null);
+ *     configuration.addCustomMdcProperty("businessUnit",
+ *         execution -&gt; execution != null ? lookupBusinessUnit(execution) : null);
+ * }
+ *
+ * // ProcessDataContext will automatically retrieve providers from the configuration
+ * // at construction time and invoke them on every pushSection().
+ * </pre>
+ *
+ * <p>Holds the contextual process data.<br>
+ *
+ * <p>New context properties are always part of a section that can be started by {@link
+ * #pushSection(ExecutionEntity)}. The section keeps track of all pushed properties. Those can
+ * easily be cleared by popping the section with {@link #popSection()} afterwards, e.g. after the
+ * successful execution.<br>
+ *
+ * <p>A property can be pushed to the logging context (MDC) if there is a configured non-empty
+ * context name for it in the {@link ProcessEngineConfigurationImpl process engine configuration}.
+ * The following configuration options are available:
+ *
+ * <ul>
+ *   <li>loggingContextActivityId - the context property for the activity id
+ *   <li>loggingContextActivityName - the context property for the activity name
+ *   <li>loggingContextApplicationName - the context property for the application name
+ *   <li>loggingContextBusinessKey - the context property for the business key
+ *   <li>loggingContextProcessDefinitionId - the context property for the definition id
+ *   <li>loggingContextProcessDefinitionKey - the context property for the definition key
+ *   <li>loggingContextProcessInstanceId - the context property for the instance id
+ *   <li>loggingContextTenantId - the context property for the tenant id
+ *   <li>loggingContextEngineName - the context property for the engine name
+ *   <li>loggingContextRootProcessInstanceId - the context property for the root process instance id
+ *   <li>Custom properties - registered via {@link #registerCustomMdcProperty(String,
+ *       MdcPropertyProvider)}
  * </ul>
  */
+
 public class ProcessDataContext {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ProcessDataContext.class);
 
   protected static final String NULL_VALUE = "~NULL_VALUE~";
 
@@ -66,22 +129,55 @@ public class ProcessDataContext {
   protected String mdcPropertyEngineName;
   protected String mdcPropertyRootProcessInstanceId;
 
+  /**
+   * Property providers for custom MDC properties in this context instance. Maps property name ->
+   * callback that computes the property value from execution context.
+   *
+   * <p>Why needed: Only custom properties require providers. Built-in properties (activityId,
+   * tenantId, etc.) access ExecutionEntity fields directly without callbacks.
+   */
+  protected Map<String, MdcPropertyProvider> customMdcPropertyProviders = new HashMap<>();
+
   protected boolean handleMdc = false;
 
   protected ProcessDataStack activityIdStack;
+
   /**
-   * All data stacks we need to keep for MDC logging
+   * All data stacks we need to keep for MDC logging. Maps MDC property name -> stack that tracks
+   * property values through nested contexts. Includes both built-in properties (activityId,
+   * tenantId, etc.) and custom properties.
+   *
+   * <p>Why needed: Manages value history for ALL MDC properties through nested execution contexts.
+   * When a process calls a subprocess, we push new values onto the stack. When the subprocess
+   * completes, we pop to restore parent process values. This cannot be derived from
+   * customMdcPropertyProviders alone because:
+   *
+   * <ul>
+   *   <li>Built-in properties need stacks but don't have providers
+   *   <li>Stacks track the value history, providers only compute current values
+   * </ul>
    */
   protected Map<String, ProcessDataStack> mdcDataStacks = new HashMap<>();
+
   protected ProcessDataSections sections = new ProcessDataSections();
 
+  /**
+   * Preserves MDC properties from outer contexts when parkExternalProperties is enabled. Maps MDC
+   * property name -> value to restore when this context completes.
+   *
+   * <p>Why needed: When commands nest (one command triggering another), each creates its own
+   * ProcessDataContext. Without parking, the outer command's MDC would be lost. Example: Outer
+   * command has processInstanceId=123, inner command has processInstanceId=456. When inner
+   * completes, we restore the outer context's processInstanceId=123.
+   */
   protected Map<String, String> externalProperties = new HashMap<>();
 
   public ProcessDataContext(ProcessEngineConfigurationImpl configuration) {
     this(configuration, false, false);
   }
 
-  public ProcessDataContext(ProcessEngineConfigurationImpl configuration, boolean initFromCurrentMdc) {
+  public ProcessDataContext(
+          ProcessEngineConfigurationImpl configuration, boolean initFromCurrentMdc) {
     this(configuration, initFromCurrentMdc, false);
   }
 
@@ -116,6 +212,8 @@ public class ProcessDataContext {
     mdcPropertyEngineName = initProperty(configuration::getLoggingContextEngineName);
     mdcPropertyRootProcessInstanceId = initProperty(configuration::getLoggingContextRootProcessInstanceId);
 
+    initializeCustomPropertiesFromConfiguration(configuration);
+
     if (parkExternalProperties) {
       parkExternalProperties(configuration);
     }
@@ -134,6 +232,62 @@ public class ProcessDataContext {
     }
   }
 
+  /**
+   * Initializes custom MDC properties from the process engine configuration.
+   *
+   * <p>Reads all {@link MdcPropertyProvider} instances registered on the supplied {@link
+   * ProcessEngineConfigurationImpl} via {@link
+   * ProcessEngineConfigurationImpl#addCustomMdcProperty(String, MdcPropertyProvider)} and
+   * registers each one with this context instance.
+   *
+   * <p>This allows for configuration-driven registration of custom properties without requiring
+   * direct manipulation of {@code ProcessDataContext} instances.
+   *
+   * @param configuration the process engine configuration; if {@code null} initialization is
+   *     skipped silently
+   */
+  private void initializeCustomPropertiesFromConfiguration(
+          ProcessEngineConfigurationImpl configuration) {
+    if (configuration == null) {
+      return;
+    }
+
+    Map<String, MdcPropertyProvider> configProviders = configuration.getCustomMdcPropertyProviders();
+
+    if (configProviders != null && !configProviders.isEmpty()) {
+      for (Map.Entry<String, MdcPropertyProvider> entry : configProviders.entrySet()) {
+        registerCustomMdcProperty(entry.getKey(), entry.getValue());
+      }
+    }
+  }
+
+  /**
+   * Parks (saves) existing MDC properties that match configured logging context parameters.
+   *
+   * <p><strong>Purpose:</strong> When this ProcessDataContext is created within an outer command
+   * that already has MDC properties set, we need to preserve those outer values so they can be
+   * restored when this context completes. This prevents the inner command from permanently
+   * overwriting the outer command's MDC state.
+   *
+   * <p><strong>Example scenario:</strong>
+   *
+   * <pre>
+   * Outer command context:
+   *   MDC: processInstanceId=123, tenantId=tenant-outer
+   *
+   * Inner command starts → creates new ProcessDataContext with parkExternalProperties=true
+   *   → Parks: {processInstanceId=123, tenantId=tenant-outer}
+   *   → Sets: processInstanceId=456, tenantId=tenant-inner
+   *
+   * Inner command completes → calls restoreExternalMDCProperties()
+   *   → Restores: processInstanceId=123, tenantId=tenant-outer
+   * </pre>
+   *
+   * <p><strong>When used:</strong> Set to true when creating nested ProcessDataContext instances
+   * that should preserve the outer MDC state. Set to false for top-level contexts.
+   *
+   * @param configuration the process engine configuration containing MDC property names
+   */
   protected void parkExternalProperties(ProcessEngineConfigurationImpl configuration) {
     parkExternalMDCProperty(configuration::getLoggingContextActivityId);
     parkExternalMDCProperty(configuration::getLoggingContextActivityName);
@@ -144,6 +298,13 @@ public class ProcessDataContext {
     parkExternalMDCProperty(configuration::getLoggingContextProcessInstanceId);
     parkExternalMDCProperty(configuration::getLoggingContextTenantId);
     parkExternalMDCProperty(configuration::getLoggingContextEngineName);
+    parkCustomMdcProperties();
+  }
+
+  protected void parkCustomMdcProperties() {
+    for (String propertyName : customMdcPropertyProviders.keySet()) {
+      parkExternalMDCProperty(() -> propertyName);
+    }
   }
 
   protected String initProperty(final Supplier<String> configSupplier) {
@@ -164,6 +325,46 @@ public class ProcessDataContext {
   }
 
   /**
+   * Registers a custom MDC property name to be managed by this context with a callback to provide
+   * its value.
+   *
+   * <p>The property will have its own stack created and will be automatically managed through the
+   * section mechanism. If a property provider is supplied, it will be invoked automatically during
+   * {@link #pushSection(ExecutionEntity)} to compute the property value. The provider's {@link
+   * MdcPropertyProvider#getPropertyValue(ExecutionEntity)} method will be called with the current
+   * execution context, and should return the property value or null if not applicable.
+   *
+   * <p>If no provider is supplied (null), the property stack will still be created and managed, but
+   * no automatic value computation will occur.
+   *
+   * <p><strong>Thread Safety:</strong> This method should be called during engine configuration
+   * before the engine is used. It is not thread-safe if called concurrently with
+   * pushSection/popSection operations.
+   *
+   * @param propertyName the MDC property name to register, must not be null or empty
+   * @param propertyProvider optional callback to compute the property value during pushSection, may
+   *     be null
+   * @throws IllegalArgumentException if propertyName is null or blank
+   */
+  private void registerCustomMdcProperty(
+          String propertyName, MdcPropertyProvider propertyProvider) {
+    if (!isNotBlank(propertyName)) {
+      throw new IllegalArgumentException("Property name must not be null or blank");
+    }
+
+    if (!mdcDataStacks.containsKey(propertyName)) {
+      initProperty(() -> propertyName);
+      LOG.debug("Registered custom MDC property: {} with provider: {}", propertyName, propertyProvider != null);
+    } else {
+      LOG.debug("Custom MDC property already registered: {}", propertyName);
+    }
+
+    if (propertyProvider != null) {
+      customMdcPropertyProviders.put(propertyName, propertyProvider);
+    }
+  }
+
+  /**
    * Start a new section that keeps track of the pushed properties.
    *
    * If logging context properties are defined, the MDC is updated as well. This
@@ -171,7 +372,7 @@ public class ProcessDataContext {
    * logging context so that only the current properties will be present in the
    * MDC (might be less than previously present in the MDC). The previous
    * logging context needs to be reset in the MDC when this one is closed. This
-   * can be achieved by using {@link #updateMdc(String)} with the previous
+   * can be achieved by using {@link #updateMdcFromCurrentValues()} with the previous
    * logging context.
    *
    * @param execution
@@ -210,18 +411,43 @@ public class ProcessDataContext {
       addToStack(execution.getProcessDefinitionKey(), mdcPropertyDefinitionKey);
     }
 
+    populateCustomMdcProperties(execution);
+
     sections.sealCurrentSection();
 
-    boolean newSectionCreated = numSections != sections.size();
+    return numSections != sections.size();
+  }
 
-    return newSectionCreated;
+  /**
+   * Populates custom MDC properties by invoking registered providers.
+   *
+   * <p>Iterates through all registered custom MDC properties and invokes their associated provider
+   * to get property values based on the current execution context. If provider does not return
+   * null, it is added to the MDC stack.
+   */
+  protected void populateCustomMdcProperties(ExecutionEntity execution) {
+    for (Map.Entry<String, MdcPropertyProvider> entry : customMdcPropertyProviders.entrySet()) {
+      String propertyName = entry.getKey();
+      MdcPropertyProvider provider = entry.getValue();
+      if (provider != null) {
+        try {
+          String propertyValue = provider.getPropertyValue(execution);
+          if (propertyValue != null) {
+            addToStack(propertyValue, propertyName);
+            LOG.debug("Set custom MDC property via provider: {}={} for execution={}",
+                propertyName, propertyValue, execution.getId());
+          }
+        } catch (Exception e) {
+          LOG.warn("Error invoking property provider for '{}': {}", propertyName, e.getMessage(), e);
+        }
+      }
+    }
   }
 
   protected boolean hasNoMdcValues() {
     return mdcDataStacks.values().stream()
         .allMatch(ProcessDataStack::isEmpty);
   }
-
 
   /**
    * Pop the latest section, remove all pushed properties of that section and -

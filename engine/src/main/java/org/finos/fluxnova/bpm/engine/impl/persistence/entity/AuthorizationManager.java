@@ -35,7 +35,10 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.HISTORIC_TAS
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
+import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
 import static org.finos.fluxnova.bpm.engine.authorization.TaskPermissions.READ_VARIABLE;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.READ_HISTORY_RESTRICTED;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.READ_RESTRICTED;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -691,6 +694,11 @@ public class AuthorizationManager extends AbstractManager {
               .build();
       }
         addPermissionCheck(query.getAuthCheck(), permissionCheck);
+      PermissionCheck restrictedCheck = new PermissionCheck();
+      restrictedCheck.setPermission(READ_RESTRICTED);
+      restrictedCheck.setResource(VARIABLE);
+      restrictedCheck.setResourceId(Authorization.ANY);
+      query.getAuthCheck().setRestrictedVariablePermissionCheck(restrictedCheck);
     }
   }
 
@@ -836,6 +844,14 @@ public class AuthorizationManager extends AbstractManager {
 
       addPermissionCheck(authCheck, permissionCheck);
 
+    }
+
+    if (authCheck.isAuthorizationCheckEnabled()) {
+      PermissionCheck restrictedCheck = new PermissionCheck();
+      restrictedCheck.setPermission(READ_HISTORY_RESTRICTED);
+      restrictedCheck.setResource(VARIABLE);
+      restrictedCheck.setResourceId(Authorization.ANY);
+      authCheck.setRestrictedVariablePermissionCheck(restrictedCheck);
     }
   }
 

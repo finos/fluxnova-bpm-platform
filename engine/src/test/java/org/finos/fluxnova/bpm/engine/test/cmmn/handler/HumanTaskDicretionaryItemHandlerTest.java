@@ -22,10 +22,7 @@ import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPER
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_IS_BLOCKING;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_MANUAL_ACTIVATION_RULE;
 import static org.finos.fluxnova.bpm.engine.impl.cmmn.handler.ItemHandler.PROPERTY_REQUIRED_RULE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.impl.cmmn.CaseControlRule;
 import org.finos.fluxnova.bpm.engine.impl.cmmn.behavior.CmmnActivityBehavior;
@@ -43,8 +40,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.ManualActivationRule;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanItemControl;
 import org.finos.fluxnova.bpm.model.cmmn.instance.PlanningTable;
 import org.finos.fluxnova.bpm.model.cmmn.instance.RequiredRule;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -57,7 +54,7 @@ public class HumanTaskDicretionaryItemHandlerTest extends CmmnElementHandlerTest
   protected DiscretionaryItem discretionaryItem;
   protected HumanTaskItemHandler handler = new HumanTaskItemHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     humanTask = createElement(casePlanModel, "aHumanTask", HumanTask.class);
 

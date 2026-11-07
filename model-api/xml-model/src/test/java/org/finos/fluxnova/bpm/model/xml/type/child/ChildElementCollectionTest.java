@@ -26,16 +26,15 @@ import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelTest;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.*;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
 import static org.finos.fluxnova.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
-import static org.junit.Assert.fail;
-import static org.junit.runners.Parameterized.Parameters;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Sebastian Menski
@@ -50,14 +49,8 @@ public class ChildElementCollectionTest extends TestModelTest {
   private ChildElement<FlightInstructor> flightInstructorChild;
   private ChildElementCollection<FlightPartnerRef> flightPartnerRefCollection;
 
-  public ChildElementCollectionTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
-  }
-
-  @Parameters(name="Model {0}")
-  public static Collection<Object[]> models() {
-    Object[][] models = {createModel(), parseModel(ChildElementCollectionTest.class)};
-    return Arrays.asList(models);
+  public ChildElementCollectionTest() {
+    super("parsed", parseModel(ChildElementCollectionTest.class));
   }
 
   public static Object[] createModel() {
@@ -80,7 +73,7 @@ public class ChildElementCollectionTest extends TestModelTest {
     return new Object[]{"created", modelInstance, modelParser};
   }
 
-  @Before
+  @BeforeEach
   public void copyModelInstance() {
     modelInstance = cloneModelInstance();
 

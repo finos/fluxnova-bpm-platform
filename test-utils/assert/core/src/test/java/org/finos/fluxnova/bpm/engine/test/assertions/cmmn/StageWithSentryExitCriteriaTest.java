@@ -27,8 +27,8 @@ import org.finos.fluxnova.bpm.engine.runtime.CaseInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.assertions.helpers.ProcessAssertTestCase;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 public class StageWithSentryExitCriteriaTest extends ProcessAssertTestCase {
 
@@ -36,7 +36,7 @@ public class StageWithSentryExitCriteriaTest extends ProcessAssertTestCase {
   public static final String TASK_B = "PI_HT_B";
   public static final String STAGE_S = "PI_StageS";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
   /**

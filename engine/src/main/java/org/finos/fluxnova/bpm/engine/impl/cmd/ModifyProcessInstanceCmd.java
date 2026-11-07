@@ -108,11 +108,11 @@ public class ModifyProcessInstanceCmd implements Command<Void> {
 
   private void checkCancellation(final CommandContext commandContext) {
     for (final AbstractProcessInstanceModificationCommand instruction : builder.getModificationOperations()) {
-      if (instruction instanceof ActivityCancellationCmd
-          && ((ActivityCancellationCmd) instruction).cancelCurrentActiveActivityInstances) {
+      if (instruction instanceof ActivityCancellationCmd cmd
+          && cmd.cancelCurrentActiveActivityInstances) {
         ActivityInstance activityInstanceTree = commandContext.runWithoutAuthorization(
-            new GetActivityInstanceCmd(((ActivityCancellationCmd) instruction).processInstanceId));
-        ((ActivityCancellationCmd) instruction).setActivityInstanceTreeToCancel(activityInstanceTree);
+            new GetActivityInstanceCmd(cmd.processInstanceId));
+        cmd.setActivityInstanceTreeToCancel(activityInstanceTree);
       }
     }
   }

@@ -26,14 +26,14 @@ import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TestWarDeploymentIsDeployChangedOnly extends AbstractFoxPlatformIntegrationTest {
 
   private static final String PA1 = "PA1";
@@ -56,13 +56,13 @@ public class TestWarDeploymentIsDeployChangedOnly extends AbstractFoxPlatformInt
   @Test
   @OperateOnDeployment(value=PA2)
   public void testDeployProcessArchive() {
-    Assert.assertNotNull(processEngine);
+    Assertions.assertNotNull(processEngine);
     RepositoryService repositoryService = processEngine.getRepositoryService();
     long count = repositoryService.createProcessDefinitionQuery()
       .processDefinitionKey("testDeployProcessArchive")
       .count();
 
-    Assert.assertEquals(1, count);
+    Assertions.assertEquals(1, count);
 
     // validate registrations:
     ProcessApplicationService processApplicationService = BpmPlatform.getProcessApplicationService();
@@ -73,12 +73,12 @@ public class TestWarDeploymentIsDeployChangedOnly extends AbstractFoxPlatformInt
       List<ProcessApplicationDeploymentInfo> deploymentInfo = processApplicationInfo.getDeploymentInfo();
       if(deploymentInfo.size() == 2) {
         if(resumedRegistrationFound) {
-          Assert.fail("Cannot have two registrations");
+          Assertions.fail("Cannot have two registrations");
         }
         resumedRegistrationFound = true;
       }
     }
-    Assert.assertTrue("Previous version of the deployment was not resumed", resumedRegistrationFound);
+    Assertions.assertTrue(resumedRegistrationFound, "Previous version of the deployment was not resumed");
 
   }
 

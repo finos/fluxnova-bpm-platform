@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.dmn;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.integrationtest.functional.dmn.beans.VersionTagBean;
@@ -25,13 +25,14 @@ import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(ArquillianExtension.class)
 public class BusinessRuleTaskVersionTagTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment

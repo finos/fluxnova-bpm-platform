@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.variable;
 
 import static org.finos.fluxnova.bpm.engine.variable.Variables.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -33,11 +30,13 @@ import java.util.Map.Entry;
 
 import org.finos.fluxnova.bpm.engine.variable.context.VariableContext;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.Variables.SerializationDataFormats;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -191,10 +190,10 @@ public class VariableApiTest {
 
     for (Entry<String, Object> e : variableMap.entrySet()) {
       TypedValue value = (TypedValue) variableMap.getValueTyped(e.getKey());
-      assertTrue("Variable '" + e.getKey() + "' is not transient: " + value, value.isTransient());
+      assertTrue(value.isTransient(), "Variable '" + e.getKey() + "' is not transient: " + value);
     }
   }
-  
+
   @Test
   public void testTransientVariablesRaw() throws URISyntaxException {
     VariableMap variableMap = createVariables().putValueTyped("foo", doubleValue(10.0, true))
@@ -216,7 +215,71 @@ public class VariableApiTest {
 
     for (Entry<String, Object> e : variableMap.entrySet()) {
       TypedValue value = (TypedValue) variableMap.getValueTyped(e.getKey());
-      assertTrue("Variable '" + e.getKey() + "' is not transient: " + value, value.isTransient());
+      assertTrue(value.isTransient(), "Variable '" + e.getKey() + "' is not transient: " + value);
+    }
+  }
+
+  @Test
+  public void testRestrictedVariables() throws URISyntaxException {
+    boolean restricted = true;
+    VariableOptions options = VariableOptions.options(false, restricted);
+    VariableMap variableMap = createVariables()
+            .putValueTyped("foo", doubleValue(10.0, options))
+            .putValueTyped("bar", integerValue(10, options))
+            .putValueTyped("aa", booleanValue(true, options))
+            .putValueTyped("bb", stringValue("bb", options))
+            .putValueTyped("test", byteArrayValue("test".getBytes(), options))
+            .putValueTyped("val", dateValue(new Date(), options))
+            .putValueTyped("short", shortValue((short) 12, options))
+            .putValueTyped("long", longValue((long) 10, options))
+            .putValueTyped("hi", untypedValue("stringUntyped", options))
+            .putValueTyped("null", untypedNullValue(false))
+            .putValueTyped("nullRestricted", untypedValue(null, options))
+            .putValueTyped("object", objectValue(BigDecimal.valueOf(10)).setRestricted(restricted).create())
+            .putValueTyped("file", fileValue("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt").setRestricted(restricted).create())
+            .putValueTyped("blob", untypedValue(fileValue(new File(this.getClass().getClassLoader().getResource("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt").toURI())), options))
+            .putValueTyped("ser", serializedObjectValue("{\"name\" : \"foo\"}").setRestricted(restricted).create());
+
+    for (Entry<String, Object> e : variableMap.entrySet()) {
+      TypedValue value = variableMap.getValueTyped(e.getKey());
+      if (e.getKey().equals("null")) {
+        assertFalse(value.isRestricted());
+      } else {
+        assertTrue(value.isRestricted(),"Variable '" + e.getKey() + "' is not marked restricted");
+      }
+      assertFalse(value.isTransient(),"Variable '" + e.getKey() + "' should not be transient");
+    }
+  }
+
+  @Test
+  public void testRestrictedTransientVariables() throws URISyntaxException {
+    boolean restricted = true;
+    VariableOptions options = VariableOptions.options(true, restricted);
+    VariableMap variableMap = createVariables()
+            .putValueTyped("foo", doubleValue(10.0, options))
+            .putValueTyped("bar", integerValue(10, options))
+            .putValueTyped("aa", booleanValue(true, options))
+            .putValueTyped("bb", stringValue("bb", options))
+            .putValueTyped("test", byteArrayValue("test".getBytes(), options))
+            .putValueTyped("val", dateValue(new Date(), options))
+            .putValueTyped("short", shortValue((short) 12, options))
+            .putValueTyped("long", longValue((long) 10, options))
+            .putValueTyped("hi", untypedValue("stringUntyped", options))
+            .putValueTyped("null", untypedNullValue(true))
+            .putValueTyped("nullRestricted", untypedValue(null, options))
+            .putValueTyped("object", objectValue(BigDecimal.valueOf(10), true).setRestricted(restricted).create())
+            .putValueTyped("file", fileValue("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt", true).setRestricted(restricted).create())
+            .putValueTyped("blob", untypedValue(fileValue(new File(this.getClass().getClassLoader().getResource("org/finos/fluxnova/bpm/engine/test/variables/simpleFile.txt").toURI()), true), options))
+            .putValueTyped("ser", serializedObjectValue("{\"name\" : \"foo\"}", true).setRestricted(restricted).create());
+
+    for (Entry<String, Object> e : variableMap.entrySet()) {
+      TypedValue value = variableMap.getValueTyped(e.getKey());
+      if (e.getKey().equals("null")) {
+        assertFalse(value.isRestricted());
+      } else {
+        assertTrue(value.isRestricted(),"Variable '" + e.getKey() + "' is not marked restricted");
+      }
+      assertTrue(value.isTransient(),"Variable '" + e.getKey() + "' should be transient");
     }
   }
 }

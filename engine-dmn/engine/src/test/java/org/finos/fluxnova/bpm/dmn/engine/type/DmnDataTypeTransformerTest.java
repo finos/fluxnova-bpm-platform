@@ -25,10 +25,8 @@ import org.finos.fluxnova.bpm.dmn.engine.test.DmnEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.feel.syntaxtree.ZonedTime;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,8 +39,11 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests the build-in {@link DmnDataTypeTransformer}s.
@@ -51,12 +52,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
-
   protected DmnDataTypeTransformerRegistry registry;
 
-  @Before
+  @BeforeEach
   public void initRegistry() {
     DmnEngineConfiguration configuration = dmnEngine.getConfiguration();
     registry = ((DefaultDmnEngineConfiguration) configuration).getTransformer().getDataTypeTransformerRegistry();
@@ -95,9 +93,9 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
   public void invalidStringValueForBooleanType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("boolean");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform("NaB");
+      typeTransformer.transform("NaB"));
   }
 
   @Test
@@ -117,45 +115,45 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
   public void invalidStringValueForIntegerType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("integer");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform("4.2");
+      typeTransformer.transform("4.2"));
   }
 
   @Test
   public void invalidDoubleValueForIntegerType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("integer");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(4.2);
+      typeTransformer.transform(4.2));
   }
 
   @Test
   public void invalidLongValueForIntegerType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("integer");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(Long.MAX_VALUE);
+      typeTransformer.transform(Long.MAX_VALUE));
   }
 
   @Test
   public void invalidIntegerMinValueForIntegerType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("integer");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(Integer.MIN_VALUE - 1L);
+      typeTransformer.transform(Integer.MIN_VALUE - 1L));
   }
 
   @Test
   public void invalidIntegerMaxValueForIntegerType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("integer");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(Integer.MAX_VALUE + 1L);
+      typeTransformer.transform(Integer.MAX_VALUE + 1L));
   }
 
   @Test
@@ -175,27 +173,27 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
   public void invalidStringValueForLongType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("long");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform("4.2");
+      typeTransformer.transform("4.2"));
   }
 
   @Test
   public void invalidDoubleValueForLongType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("long");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(4.2);
+      typeTransformer.transform(4.2));
   }
 
   @Test
   public void invalidDoubleMinValueForLongType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("long");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform(Double.MIN_VALUE);
+      typeTransformer.transform(Double.MIN_VALUE));
   }
 
   @Test
@@ -217,9 +215,9 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
   public void invalidStringValueForDoubleType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("double");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform("NaD");
+      typeTransformer.transform("NaD"));
   }
 
   @Test
@@ -272,13 +270,12 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
     java.time.LocalTime localTime = java.time.LocalTime.now();
 
-    // then
-    thrown.expect(DmnEngineException.class);
-    thrown.expectMessage("Unsupported type: 'java.time.LocalTime' " +
-      "cannot be converted to 'java.util.Date'");
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    typeTransformer.transform(localTime);
+      // when
+      typeTransformer.transform(localTime));
+    assertThat(exception.getMessage(), containsString("Unsupported type: 'java.time.LocalTime' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   @Test
@@ -288,13 +285,12 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
     LocalDate localDate = LocalDate.now();
 
-    // then
-    thrown.expect(DmnEngineException.class);
-    thrown.expectMessage("Unsupported type: 'java.time.LocalDate' " +
-      "cannot be converted to 'java.util.Date'");
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    typeTransformer.transform(localDate);
+      // when
+      typeTransformer.transform(localDate));
+    assertThat(exception.getMessage(), containsString("Unsupported type: 'java.time.LocalDate' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   @Test
@@ -304,13 +300,12 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
     ZonedTime zonedTime = ZonedTime.parse("22:22:22@Europe/Berlin");
 
-    // then
-    thrown.expect(DmnEngineException.class);
-    thrown.expectMessage("Unsupported type: 'org.finos.fluxnova.feel.syntaxtree.ZonedTime' " +
-                           "cannot be converted to 'java.util.Date'");
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    typeTransformer.transform(zonedTime);
+      // when
+      typeTransformer.transform(zonedTime));
+    assertThat(exception.getMessage(), containsString("Unsupported type: 'org.finos.fluxnova.feel.syntaxtree.ZonedTime' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   @Test
@@ -320,13 +315,12 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
     Duration duration = Duration.ofMillis(5);
 
-    // then
-    thrown.expect(DmnEngineException.class);
-    thrown.expectMessage("Unsupported type: 'java.time.Duration' " +
-      "cannot be converted to 'java.util.Date'");
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    typeTransformer.transform(duration);
+      // when
+      typeTransformer.transform(duration));
+    assertThat(exception.getMessage(), containsString("Unsupported type: 'java.time.Duration' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   @Test
@@ -336,22 +330,21 @@ public class DmnDataTypeTransformerTest extends DmnEngineTest {
 
     Period period = Period.ofDays(5);
 
-    // then
-    thrown.expect(DmnEngineException.class);
-    thrown.expectMessage("Unsupported type: 'java.time.Period' " +
-      "cannot be converted to 'java.util.Date'");
+    Throwable exception = assertThrows(DmnEngineException.class, () ->
 
-    // when
-    typeTransformer.transform(period);
+      // when
+      typeTransformer.transform(period));
+    assertThat(exception.getMessage(), containsString("Unsupported type: 'java.time.Period' " +
+      "cannot be converted to 'java.util.Date'"));
   }
 
   @Test
   public void invalidStringForDateType() {
     DmnDataTypeTransformer typeTransformer = registry.getTransformer("date");
 
-    thrown.expect(IllegalArgumentException.class);
+    assertThrows(IllegalArgumentException.class, () ->
 
-    typeTransformer.transform("18.09.2015 12:00:00");
+      typeTransformer.transform("18.09.2015 12:00:00"));
   }
 
   protected Date toDate(String date, String timeZone) {

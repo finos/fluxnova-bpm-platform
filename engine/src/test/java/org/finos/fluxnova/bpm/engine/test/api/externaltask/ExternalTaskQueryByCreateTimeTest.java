@@ -36,11 +36,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
 public class ExternalTaskQueryByCreateTimeTest {
@@ -48,8 +48,8 @@ public class ExternalTaskQueryByCreateTimeTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   protected ProcessEngine engine;
 
@@ -60,7 +60,7 @@ public class ExternalTaskQueryByCreateTimeTest {
   protected TaskService taskService;
   protected CaseService caseService;
 
-  @Before
+  @BeforeEach
   public void setup() {
     engine = engineRule.getProcessEngine();
     repositoryService = engineRule.getRepositoryService();
@@ -74,7 +74,7 @@ public class ExternalTaskQueryByCreateTimeTest {
     deployProcessesWithExternalTasks();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.reset();
   }

@@ -223,6 +223,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_TASK_ATTACHMENT_CREATE_DATE = withTimezone("2018-07-19T15:02:36");
   public static final String EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE = withTimezone("2018-10-17T13:35:07");
   public static final String EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID = "aRootProcInstId";
+  public static final String EXAMPLE_TASK_ATTACHMENT_CREATED_BY = "demo";
 
   // task count by candidate group
 
@@ -753,6 +754,7 @@ public abstract class MockProvider {
   public static final String EXAMPLE_HIST_INCIDENT_PROC_DEF_KEY = "aProcDefKey";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID = "aRootProcInstId";
   public static final String EXAMPLE_HIST_INCIDENT_CAUSE_INCIDENT_ID = "aCauseIncidentId";
+  public static final String EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG = "aRootCauseIncidentMessage";
   public static final String EXAMPLE_HIST_INCIDENT_ROOT_CAUSE_INCIDENT_ID = "aRootCauseIncidentId";
   public static final String EXAMPLE_HIST_INCIDENT_CONFIGURATION = "aConfiguration";
   public static final String EXAMPLE_HIST_INCIDENT_HISTORY_CONFIGURATION = "aHistoryConfiguration";
@@ -1004,8 +1006,8 @@ public abstract class MockProvider {
   public static final String EXAMPLE_TELEMETRY_PRODUCT_EDITION = "enterprise";
   public static final String EXAMPLE_TELEMETRY_DB_VENDOR = "h2";
   public static final String EXAMPLE_TELEMETRY_DB_VERSION = "1.4.190 (2015-10-11)";
-  public static final String EXAMPLE_TELEMETRY_APP_SERVER_VENDOR = "Wildfly";
-  public static final String EXAMPLE_TELEMETRY_APP_SERVER_VERSION = "WildFly Full 19.0.0.Final (WildFly Core 11.0.0.Final) - 2.0.30.Final";
+  public static final String EXAMPLE_TELEMETRY_APP_SERVER_VENDOR = "Apache Tomcat";
+  public static final String EXAMPLE_TELEMETRY_APP_SERVER_VERSION = "Apache Tomcat/11.0.22";
   public static final String EXAMPLE_TELEMETRY_TELEMETRY_CONFIGURE_CMD = "TelemetryConfigureCmd";
   public static final String EXAMPLE_TELEMETRY_IS_TELEMETRY_ENABLED_CMD = "IsTelemetryEnabledCmd";
   public static final String EXAMPLE_TELEMETRY_GET_TELEMETRY_DATA_CMD = "GetTelemetryDataCmd";
@@ -1174,6 +1176,7 @@ public abstract class MockProvider {
     when(mockAttachment.getCreateTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_CREATE_DATE));
     when(mockAttachment.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_TASK_ATTACHMENT_REMOVAL_DATE));
     when(mockAttachment.getRootProcessInstanceId()).thenReturn(EXAMPLE_TASK_ATTACHMENT_ROOT_PROCESS_INSTANCE_ID);
+    when(mockAttachment.getCreatedBy()).thenReturn(EXAMPLE_TASK_ATTACHMENT_CREATED_BY);
 
     return mockAttachment;
   }
@@ -2332,7 +2335,8 @@ public abstract class MockProvider {
         .errorMessage(null)
         .createTime(DateTimeUtil.parseDate(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_CREATE_TIME))
         .removalTime(DateTimeUtil.parseDate(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_REMOVAL_TIME))
-        .rootProcessInstanceId(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_ROOT_PROC_INST_ID);
+        .rootProcessInstanceId(EXAMPLE_HISTORIC_VARIABLE_INSTANCE_ROOT_PROC_INST_ID)
+        .businessKey(EXAMPLE_PROCESS_INSTANCE_BUSINESS_KEY);
   }
 
   public static List<ProcessInstance> createAnotherMockProcessInstanceList() {
@@ -2674,8 +2678,21 @@ public abstract class MockProvider {
     when(incident.getRemovalTime()).thenReturn(DateTimeUtil.parseDate(EXAMPLE_HIST_INCIDENT_REMOVAL_TIME));
     when(incident.getRootProcessInstanceId()).thenReturn(EXAMPLE_HIST_INCIDENT_ROOT_PROC_INST_ID);
     when(incident.getAnnotation()).thenReturn(EXAMPLE_USER_OPERATION_ANNOTATION);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(EXAMPLE_HIST_ROOT_CAUSE_INCIDENT_MSG);
 
     return incident;
+  }
+
+  public static HistoricIncident createMockHistoricIncidentWithoutRootCauseIncidentMessage() {
+    HistoricIncident incident = createMockHistoricIncident(EXAMPLE_TENANT_ID);
+    when(incident.getRootCauseIncidentMessage()).thenReturn(null);
+    return incident;
+  }
+
+  public static List<HistoricIncident> createMockHistoricIncidentsWithoutRootCauseIncidentMessage() {
+    List<HistoricIncident> entries = new ArrayList<>();
+    entries.add(createMockHistoricIncidentWithoutRootCauseIncidentMessage());
+    return entries;
   }
 
   public static List<HistoricIncident> createMockHistoricIncidents() {

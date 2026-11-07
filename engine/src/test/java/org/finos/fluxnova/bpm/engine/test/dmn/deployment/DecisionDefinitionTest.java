@@ -48,33 +48,31 @@ import org.finos.fluxnova.bpm.model.dmn.instance.Input;
 import org.finos.fluxnova.bpm.model.dmn.instance.InputExpression;
 import org.finos.fluxnova.bpm.model.dmn.instance.Output;
 import org.finos.fluxnova.bpm.model.dmn.instance.Text;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class DecisionDefinitionTest {
 
-  @ClassRule
-  public static ProcessEngineBootstrapRule BOOTSTRAP_RULE = new ProcessEngineBootstrapRule(configuration -> {
-    configuration.setHistoryTimeToLive("P30D");
-  });
+  @RegisterExtension
+  public static ProcessEngineBootstrapRule BOOTSTRAP_RULE = new ProcessEngineBootstrapRule(configuration ->
+    configuration.setHistoryTimeToLive("P30D"));
 
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(BOOTSTRAP_RULE);
 
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule)
       .around(testRule);
 
   protected RepositoryService repositoryService;
   protected DecisionService decisionService;
   protected HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void init() throws ParseException {
     this.repositoryService = engineRule.getRepositoryService();
     this.decisionService = engineRule.getDecisionService();
@@ -86,7 +84,7 @@ public class DecisionDefinitionTest {
     ClockUtil.setCurrentTime(fixedDate);
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.reset();
   }

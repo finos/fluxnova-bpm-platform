@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
@@ -60,7 +61,15 @@ public interface VariableScope {
 
   void setVariable(String variableName, Object value);
 
+  void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck);
+
+  void setVariable(String variableName, Object value, VariableOptions options);
+
   void setVariableLocal(String variableName, Object value);
+
+  void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck);
+
+  void setVariableLocal(String variableName, Object value, VariableOptions options);
 
   void setVariables(Map<String, ? extends Object> variables);
 

@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history.useroperationlog;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
@@ -41,12 +41,11 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessMo
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Roman Smirnov
@@ -56,14 +55,14 @@ public class LegacyUserOperationLogTest {
 
   public static final String USER_ID = "demo";
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(
       "org/finos/fluxnova/bpm/engine/test/history/useroperationlog/enable.legacy.user.operation.log.camunda.cfg.xml");
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule(bootstrapRule);
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(processEngineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(processEngineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(processEngineRule).around(testHelper);
 
   protected IdentityService identityService;
   protected RuntimeService runtimeService;
@@ -73,7 +72,7 @@ public class LegacyUserOperationLogTest {
 
   protected Batch batch;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     identityService = processEngineRule.getIdentityService();
     runtimeService = processEngineRule.getRuntimeService();
@@ -82,7 +81,7 @@ public class LegacyUserOperationLogTest {
     managementService = processEngineRule.getManagementService();
   }
 
-  @After
+  @AfterEach
   public void removeBatch() {
     Batch batch = managementService.createBatchQuery().singleResult();
     if (batch != null) {

@@ -25,8 +25,8 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultJobExecutor;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -76,11 +76,11 @@ public class PropertyHelperTest {
 
     PropertyHelper.applyProperties(engineConfiguration, propertiesToSet);
 
-    Assert.assertTrue(engineConfiguration.isJobExecutorDeploymentAware());
-    Assert.assertTrue(engineConfiguration.isJobExecutorPreferTimerJobs());
-    Assert.assertTrue(engineConfiguration.isJobExecutorAcquireByDueDate());
-    Assert.assertEquals(42, engineConfiguration.getMailServerPort());
-    Assert.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
+    Assertions.assertTrue(engineConfiguration.isJobExecutorDeploymentAware());
+    Assertions.assertTrue(engineConfiguration.isJobExecutorPreferTimerJobs());
+    Assertions.assertTrue(engineConfiguration.isJobExecutorAcquireByDueDate());
+    Assertions.assertEquals(42, engineConfiguration.getMailServerPort());
+    Assertions.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
   }
 
   @Test
@@ -98,10 +98,10 @@ public class PropertyHelperTest {
     PropertyHelper.applyProperties(jobExecutor, propertiesToSet);
 
     // then
-    Assert.assertEquals(Integer.MAX_VALUE, jobExecutor.getMaxJobsPerAcquisition());
-    Assert.assertEquals(Long.MAX_VALUE, jobExecutor.getMaxWait());
-    Assert.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
-    Assert.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
+    Assertions.assertEquals(Integer.MAX_VALUE, jobExecutor.getMaxJobsPerAcquisition());
+    Assertions.assertEquals(Long.MAX_VALUE, jobExecutor.getMaxWait());
+    Assertions.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
+    Assertions.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
   }
 
   /**
@@ -116,12 +116,12 @@ public class PropertyHelperTest {
     propertiesToSet.put(DB_IDENTITY_USED_PROP, "false");
     PropertyHelper.applyProperties(engineConfiguration, propertiesToSet);
 
-    Assert.assertFalse(engineConfiguration.isDbIdentityUsed());
+    Assertions.assertFalse(engineConfiguration.isDbIdentityUsed());
 
     propertiesToSet.put(DB_IDENTITY_USED_PROP, "true");
     PropertyHelper.applyProperties(engineConfiguration, propertiesToSet);
 
-    Assert.assertTrue(engineConfiguration.isDbIdentityUsed());
+    Assertions.assertTrue(engineConfiguration.isDbIdentityUsed());
   }
 
   @Test
@@ -132,7 +132,7 @@ public class PropertyHelperTest {
 
     try {
       PropertyHelper.applyProperties(engineConfiguration, propertiesToSet);
-      Assert.fail();
+      Assertions.fail();
     } catch (Exception e) {
       // happy path
     }
@@ -143,7 +143,7 @@ public class PropertyHelperTest {
     Properties source = new Properties();
     source.put("camunda.test.someKey", "1234");
     String result = PropertyHelper.resolveProperty(source, "${camunda.test.someKey}");
-    Assert.assertEquals("1234", result);
+    Assertions.assertEquals("1234", result);
   }
 
   @Test
@@ -151,7 +151,7 @@ public class PropertyHelperTest {
     Properties source = new Properties();
     source.put("camunda.test.someKey", "1234");
     String result = PropertyHelper.resolveProperty(source, " -${ camunda.test.someKey }- ");
-    Assert.assertEquals(" -1234- ", result);
+    Assertions.assertEquals(" -1234- ", result);
   }
 
   @Test
@@ -160,14 +160,14 @@ public class PropertyHelperTest {
     source.put("camunda.test.oneKey", "1234");
     source.put("camunda.test.anotherKey", "5678");
     String result = PropertyHelper.resolveProperty(source, "-${ camunda.test.oneKey }-${ camunda.test.anotherKey}-");
-    Assert.assertEquals("-1234-5678-", result);
+    Assertions.assertEquals("-1234-5678-", result);
   }
 
   @Test
   public void testResolvePropertyForMissingProperty() {
     Properties source = new Properties();
     String result = PropertyHelper.resolveProperty(source, "${camunda.test.someKey}");
-    Assert.assertEquals("", result);
+    Assertions.assertEquals("", result);
   }
 
   @Test
@@ -175,7 +175,7 @@ public class PropertyHelperTest {
     Properties source = new Properties();
     source.put("camunda.test.someKey", "1234");
     String result = PropertyHelper.resolveProperty(source, "camunda.test.someKey");
-    Assert.assertEquals("camunda.test.someKey", result);
+    Assertions.assertEquals("camunda.test.someKey", result);
   }
 
   @Test
@@ -197,10 +197,10 @@ public class PropertyHelperTest {
     PropertyHelper.applyProperties(jobExecutor, executorProperties, PropertyHelper.KEBAB_CASE);
 
     // then
-    Assert.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
-    Assert.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
-    Assert.assertEquals(true, engineConfiguration.isDbIdentityUsed());
-    Assert.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
+    Assertions.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
+    Assertions.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
+    Assertions.assertEquals(true, engineConfiguration.isDbIdentityUsed());
+    Assertions.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
   }
 
   @Test
@@ -222,9 +222,9 @@ public class PropertyHelperTest {
     PropertyHelper.applyProperties(jobExecutor, executorProperties, PropertyHelper.SNAKE_CASE);
 
     // then
-    Assert.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
-    Assert.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
-    Assert.assertEquals(true, engineConfiguration.isDbIdentityUsed());
-    Assert.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
+    Assertions.assertEquals(Integer.MAX_VALUE, jobExecutor.getBackoffTimeInMillis());
+    Assertions.assertEquals(Float.MAX_VALUE, jobExecutor.getWaitIncreaseFactor(), 0.0001d);
+    Assertions.assertEquals(true, engineConfiguration.isDbIdentityUsed());
+    Assertions.assertEquals("someUrl", engineConfiguration.getJdbcUrl());
   }
 }

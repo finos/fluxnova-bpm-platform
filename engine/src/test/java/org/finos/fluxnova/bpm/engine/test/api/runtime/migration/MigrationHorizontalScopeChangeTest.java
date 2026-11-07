@@ -22,10 +22,10 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.MigrationPlanValidationReportAssert;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -36,8 +36,8 @@ public class MigrationHorizontalScopeChangeTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   @Test
   public void testCannotMigrateHorizontallyBetweenScopes() {
@@ -56,7 +56,7 @@ public class MigrationHorizontalScopeChangeTest {
         .mapActivities("userTask2", "userTask1")
         .build();
 
-      Assert.fail("should fail");
+      Assertions.fail("should fail");
     }
     catch (MigrationPlanValidationException e) {
       MigrationPlanValidationReportAssert.assertThat(e.getValidationReport())

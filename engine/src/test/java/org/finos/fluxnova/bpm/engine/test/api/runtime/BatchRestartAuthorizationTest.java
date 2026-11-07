@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 
@@ -38,12 +38,11 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  *
@@ -51,7 +50,6 @@ import org.junit.runners.Parameterized;
  *
  */
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-@RunWith(Parameterized.class)
 public class BatchRestartAuthorizationTest {
 
   protected static final String TEST_REASON = "test reason";
@@ -61,13 +59,10 @@ public class BatchRestartAuthorizationTest {
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
   protected BatchModificationHelper helper = new BatchModificationHelper(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testRule);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testRule);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
       scenario()
@@ -107,12 +102,12 @@ public class BatchRestartAuthorizationTest {
     );
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @After
+  @AfterEach
   public void cleanBatch() {
     Batch batch = engineRule.getManagementService().createBatchQuery().singleResult();
     if (batch != null) {
@@ -127,13 +122,15 @@ public class BatchRestartAuthorizationTest {
     }
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @Test
-  public void executeBatch() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void executeBatch(AuthorizationScenario scenario) {
+    initBatchRestartAuthorizationTest(scenario);
     //given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(ProcessModels.TWO_TASKS_PROCESS);
 
@@ -172,5 +169,9 @@ public class BatchRestartAuthorizationTest {
     if (authRule.assertScenario(scenario)) {
       assertEquals("userId", batch.getCreateUserId());
     }
+  }
+
+  public void initBatchRestartAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

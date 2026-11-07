@@ -18,15 +18,15 @@ package org.finos.fluxnova.bpm.run.qa;
 
 import static io.restassured.RestAssured.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,8 +34,8 @@ import java.util.stream.Collectors;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.run.qa.util.SpringBootManagedContainer;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -48,7 +48,7 @@ public class AutoDeploymentIT {
   static SpringBootManagedContainer container;
   static String baseDirectory = SpringBootManagedContainer.getRunHome();
 
-  @After
+  @AfterEach
   public void stopApp() {
     try {
       if (container != null) {
@@ -73,9 +73,9 @@ public class AutoDeploymentIT {
   }
 
   public void createBPMNFile(String path, String processDefinitionId) throws IOException {
-    Path resourcesDir = Paths.get(baseDirectory, SpringBootManagedContainer.RESOURCES_PATH, path);
+    Path resourcesDir = Path.of(baseDirectory, SpringBootManagedContainer.RESOURCES_PATH, path);
     resourcesDir.toFile().mkdirs();
-    File bpmnFile = Paths.get(resourcesDir.toString(), "process.bpmn").toFile();
+    File bpmnFile = Path.of(resourcesDir.toString(), "process.bpmn").toFile();
     bpmnFile.createNewFile();
 
     BpmnModelInstance model = Bpmn.createExecutableProcess(processDefinitionId)
@@ -119,10 +119,10 @@ public class AutoDeploymentIT {
     // given
     InputStream formFile = AutoDeploymentIT.class.getClassLoader().getResourceAsStream("deployment/form.html");
     InputStream  scriptFile = AutoDeploymentIT.class.getClassLoader().getResourceAsStream("deployment/script.js");
-    File resourcesDirectory = Paths.get(baseDirectory, "configuration", "resources").toFile();
+    File resourcesDirectory = Path.of(baseDirectory, "configuration", "resources").toFile();
     resourcesDirectory.mkdirs();
-    Files.copy(formFile, Paths.get(resourcesDirectory.getAbsolutePath(), "form.html"));
-    Files.copy(scriptFile, Paths.get(resourcesDirectory.getAbsolutePath(), "script.js"));
+    Files.copy(formFile, Path.of(resourcesDirectory.getAbsolutePath(), "form.html"));
+    Files.copy(scriptFile, Path.of(resourcesDirectory.getAbsolutePath(), "script.js"));
 
     // when
     runStartScript();

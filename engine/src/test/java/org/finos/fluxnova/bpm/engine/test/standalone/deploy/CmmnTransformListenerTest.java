@@ -17,7 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.standalone.deploy;
 
 import static org.finos.fluxnova.bpm.engine.test.standalone.deploy.TestCmmnTransformListener.numberOfRegistered;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.finos.fluxnova.bpm.engine.RepositoryService;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
@@ -35,31 +35,30 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.ProcessTask;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Stage;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Task;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
  */
 public class CmmnTransformListenerTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(
       "org/finos/fluxnova/bpm/engine/test/standalone/deploy/cmmn.transform.listener.camunda.cfg.xml");
-  @Rule
+  @RegisterExtension
   public ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
 
   protected RepositoryService repositoryService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     repositoryService = engineRule.getRepositoryService();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     TestCmmnTransformListener.reset();
   }

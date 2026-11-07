@@ -48,4 +48,10 @@ public interface TypedValue extends Serializable {
    */
   boolean isTransient();
 
+  /**
+   * Indicator for whether the value is restricted.
+   * @return true if restricted
+   */
+  boolean isRestricted();
+
 }

@@ -27,14 +27,17 @@ import org.finos.fluxnova.bpm.engine.impl.history.HistoryLevel;
 import org.finos.fluxnova.bpm.engine.impl.history.handler.HistoryEventHandler;
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class DefaultHistoryConfigurationTest {
 
   @Mock
@@ -44,7 +47,7 @@ public class DefaultHistoryConfigurationTest {
 
   private DefaultHistoryConfiguration defaultHistoryConfiguration;
 
-  @Before
+  @BeforeEach
   public void before() {
     camundaBpmProperties = new FluxnovaBpmProperties();
     defaultHistoryConfiguration = new DefaultHistoryConfiguration();

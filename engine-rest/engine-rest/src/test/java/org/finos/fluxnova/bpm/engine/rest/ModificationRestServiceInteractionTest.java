@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
@@ -43,16 +43,17 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.util.ModificationInstructionBuilder;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.runtime.ModificationBuilder;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
 import io.restassured.http.ContentType;
 
 public class ModificationRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String PROCESS_INSTANCE_URL = TEST_RESOURCE_ROOT_PATH + "/modification";
@@ -63,7 +64,7 @@ public class ModificationRestServiceInteractionTest extends AbstractRestServiceT
   protected HistoryService historyServiceMock;
   protected ModificationBuilder modificationBuilderMock;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     runtimeServiceMock = mock(RuntimeService.class);
     when(processEngine.getRuntimeService()).thenReturn(runtimeServiceMock);

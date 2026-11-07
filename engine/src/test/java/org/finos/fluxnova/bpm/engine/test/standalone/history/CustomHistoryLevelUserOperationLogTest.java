@@ -32,10 +32,7 @@ import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERAT
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERATION_TYPE_SUSPEND_JOB_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERATION_TYPE_SUSPEND_PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.impl.cmd.AbstractSetBatchStateCmd.SUSPENSION_STATE_PROPERTY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,12 +65,11 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTe
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class CustomHistoryLevelUserOperationLogTest {
 
@@ -83,7 +79,7 @@ public class CustomHistoryLevelUserOperationLogTest {
 
   static HistoryLevel customHistoryLevelUOL = new CustomHistoryLevelUserOperationLog();
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
       configuration.setJdbcUrl("jdbc:h2:mem:CustomHistoryLevelUserOperationLogTest");
       configuration.setCustomHistoryLevels(Arrays.asList(customHistoryLevelUOL));
@@ -95,8 +91,8 @@ public class CustomHistoryLevelUserOperationLogTest {
   public AuthorizationTestBaseRule authRule = new AuthorizationTestBaseRule(engineRule);
   public ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testRule);
 
   protected HistoryService historyService;
   protected RuntimeService runtimeService;
@@ -111,7 +107,7 @@ public class CustomHistoryLevelUserOperationLogTest {
   protected Task userTask;
   protected String processTaskId;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     runtimeService = engineRule.getRuntimeService();
     historyService = engineRule.getHistoryService();
@@ -124,7 +120,7 @@ public class CustomHistoryLevelUserOperationLogTest {
     identityService.setAuthenticatedUserId(USER_ID);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     identityService.clearAuthentication();
     List<UserOperationLogEntry> logs = query().list();

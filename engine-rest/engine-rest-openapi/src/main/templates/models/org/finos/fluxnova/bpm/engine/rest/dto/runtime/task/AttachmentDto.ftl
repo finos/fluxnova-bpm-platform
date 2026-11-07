@@ -51,8 +51,13 @@
     <@lib.property
         name = "rootProcessInstanceId"
         type = "string"
-        last = true
         desc = "The process instance id of the root process instance that initiated the process containing the task." />
+
+    <@lib.property
+        name = "createdBy"
+        type = "string"
+        last = true
+        desc = "The id of the user who created the attachment. Will be `null` if the attachment was created before this feature was introduced or if no authenticated user created the attachment." />
 
 </@lib.dto>
 </#macro>

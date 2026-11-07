@@ -18,22 +18,23 @@ package org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.webapp.impl.util.HeaderRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
 
 import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.impl.XssProtectionOption.BLOCK;
 import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.impl.XssProtectionOption.SANITIZE;
 import static org.finos.fluxnova.bpm.webapp.impl.security.filter.headersec.provider.impl.XssProtectionProvider.HEADER_NAME;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author Tassilo Weidner
  */
 public class XssProtectionTest {
 
-  @Rule
+  @RegisterExtension
   public HeaderRule headerRule = new HeaderRule();
 
   @Test

@@ -17,8 +17,9 @@
 package org.finos.fluxnova.spin.plugin.variables;
 
 import static org.finos.fluxnova.bpm.engine.variable.Variables.objectValue;
-import static org.hamcrest.CoreMatchers.isA;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,10 +34,8 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.spin.DataFormats;
 import org.finos.fluxnova.spin.json.SpinJsonException;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * Test cases for multiple engines defining different validators that do not
@@ -47,7 +46,7 @@ import org.junit.rules.ExpectedException;
  */
 public class JsonSerializationWithValidationOnMultipleEnginesTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRulePositive = new ProcessEngineBootstrapRule(configuration -> {
       DeserializationTypeValidator validatorMock = mock(DeserializationTypeValidator.class);
       when(validatorMock.validate(anyString())).thenReturn(true);
@@ -57,7 +56,7 @@ public class JsonSerializationWithValidationOnMultipleEnginesTest {
           .setJdbcUrl("jdbc:h2:mem:positive");
   });
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRuleNegative = new ProcessEngineBootstrapRule(configuration -> {
       DeserializationTypeValidator validatorMock = mock(DeserializationTypeValidator.class);
       when(validatorMock.validate(anyString())).thenReturn(false);
@@ -67,14 +66,11 @@ public class JsonSerializationWithValidationOnMultipleEnginesTest {
           .setJdbcUrl("jdbc:h2:mem:negative");
   });
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRulePositive = new ProvidedProcessEngineRule(bootstrapRulePositive);
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRuleNegative = new ProvidedProcessEngineRule(bootstrapRuleNegative);
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   @Test
   public void shouldUsePositiveValidator() {
@@ -109,21 +105,19 @@ public class JsonSerializationWithValidationOnMultipleEnginesTest {
     engineRuleNegative.getRuntimeService().setVariable(instance.getId(), "simpleBean",
         objectValue(bean).serializationDataFormat(DataFormats.JSON_DATAFORMAT_NAME).create());
 
-    // then
-    thrown.expect(ProcessEngineException.class);
-    thrown.expectMessage("Cannot deserialize");
-    thrown.expectCause(isA(SpinJsonException.class));
+    // when/then
+    ProcessEngineException exception = assertThrows(ProcessEngineException.class,
+        () -> engineRuleNegative.getRuntimeService().getVariable(instance.getId(), "simpleBean"));
 
-    // when
-    engineRuleNegative.getRuntimeService().getVariable(instance.getId(), "simpleBean");
+    assertTrue(exception.getMessage().contains("Cannot deserialize"));
+    assertEquals(SpinJsonException.class, exception.getCause().getClass());
   }
 
   protected BpmnModelInstance getOneTaskModel() {
-    BpmnModelInstance oneTaskProcess = Bpmn.createExecutableProcess("oneTaskProcess")
+    return Bpmn.createExecutableProcess("oneTaskProcess")
         .startEvent()
         .userTask()
         .endEvent()
         .done();
-    return oneTaskProcess;
   }
 }

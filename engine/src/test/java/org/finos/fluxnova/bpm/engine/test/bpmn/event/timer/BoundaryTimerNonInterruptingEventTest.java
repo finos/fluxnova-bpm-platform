@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.timer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,11 +47,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Joram Barrez
@@ -69,8 +67,8 @@ public class BoundaryTimerNonInterruptingEventTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
@@ -79,7 +77,7 @@ public class BoundaryTimerNonInterruptingEventTest {
   protected TaskService taskService;
   protected boolean reevaluateTimeCycleWhenDue;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
     runtimeService = engineRule.getRuntimeService();
@@ -89,7 +87,7 @@ public class BoundaryTimerNonInterruptingEventTest {
     reevaluateTimeCycleWhenDue = processEngineConfiguration.isReevaluateTimeCycleWhenDue();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.reset();
     processEngineConfiguration.getBeans().remove("myCycleTimerBean");
@@ -726,7 +724,8 @@ public class BoundaryTimerNonInterruptingEventTest {
     assertThat(timerJob.getDuedate()).isEqualTo(timerDueDate);
   }
 
-  @Test(timeout = 10000L)
+  @Test
+  @Timeout(value = 10000L, unit = TimeUnit.MILLISECONDS)
   public void shouldExecuteTimeoutListenerJobOnOrAfterDueDate() {
     // given
     Date currentTime = ClockTestUtil.setClockToDateWithoutMilliseconds();

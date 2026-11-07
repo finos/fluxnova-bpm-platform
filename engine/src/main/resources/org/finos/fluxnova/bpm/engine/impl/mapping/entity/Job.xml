@@ -426,6 +426,12 @@
         and
         RES.LOCK_EXP_TIME_  > #{now, jdbcType=TIMESTAMP}
       </if>
+      <if test="batchId != null">
+        and RES.BATCH_ID_ = #{batchId}
+      </if>
+      <if test="inBatch">
+        and RES.BATCH_ID_ is not null
+      </if>
       <if test="isTenantIdSet">
         <if test="tenantIds != null &amp;&amp; tenantIds.length > 0">
           and ( RES.TENANT_ID_ in

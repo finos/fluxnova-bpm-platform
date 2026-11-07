@@ -30,16 +30,16 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.TestOrderingUtil.*;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Thorben Lindhauer
@@ -55,12 +55,12 @@ public class ExternalTaskQueryTest extends PluggableProcessEngineTest {
   // max value
   protected static final double MAX_DOUBLE_VALUE = 10E+124;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     ClockUtil.setCurrentTime(new Date());
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     ClockUtil.reset();
   }

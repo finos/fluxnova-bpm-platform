@@ -18,7 +18,8 @@ package org.finos.fluxnova.spin.javascript.json.tree;
 
 import org.finos.fluxnova.spin.impl.test.ScriptEngine;
 import org.finos.fluxnova.spin.json.tree.JsonTreeMapObjectToJsonScriptTest;
-import org.junit.Ignore;
+
+import org.junit.jupiter.api.Disabled;
 
 /**
  * Note: Jackson is apparently not able to map graal.js's internal representations
@@ -26,7 +27,7 @@ import org.junit.Ignore;
  *
  * @author Thorben Lindhauer
  */
-@Ignore
+@Disabled
 @ScriptEngine("graal.js")
 public class JsonTreeMapObjectToJsonJavascriptTest extends JsonTreeMapObjectToJsonScriptTest {
 

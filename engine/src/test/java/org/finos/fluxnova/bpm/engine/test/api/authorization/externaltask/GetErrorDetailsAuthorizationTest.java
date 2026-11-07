@@ -32,13 +32,12 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * Please note that if you want to reuse Rule and other fields you should create abstract class
@@ -48,7 +47,6 @@ import org.junit.runners.Parameterized;
  *
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 public class GetErrorDetailsAuthorizationTest {
 
   protected static final String ERROR_DETAILS = "theDetails";
@@ -59,13 +57,10 @@ public class GetErrorDetailsAuthorizationTest {
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   public AuthorizationTestRule authRule = new AuthorizationTestRule(engineRule);
 
-  @Rule
-  public RuleChain chain = RuleChain.outerRule(engineRule).around(authRule);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension chain = ChainedExtension.outerExtension(engineRule).around(authRule);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -92,19 +87,22 @@ public class GetErrorDetailsAuthorizationTest {
     );
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     authRule.createUserAndGroup("userId", "groupId");
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     authRule.deleteUsersAndGroups();
   }
 
-  @Test
+  @ParameterizedTest(name = "Scenario {index}")
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/api/externaltask/oneExternalTaskProcess.bpmn20.xml")
-  public void testCompleteExternalTask() {
+  @MethodSource("scenarios")
+  public void testCompleteExternalTask(AuthorizationScenario scenario) {
+
+    initGetErrorDetailsAuthorizationTest(scenario);
 
     // given
     ProcessInstance processInstance = engineRule.getRuntimeService().startProcessInstanceByKey("oneExternalTaskProcess");
@@ -134,6 +132,10 @@ public class GetErrorDetailsAuthorizationTest {
       //assertion method
       assertThat(currentDetails).isEqualTo(ERROR_DETAILS);
     }
+  }
+
+  public void initGetErrorDetailsAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 
 }

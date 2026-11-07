@@ -7,14 +7,10 @@
   <parent>
     <groupId>org.finos.fluxnova.bpm.qa</groupId>
     <artifactId>fluxnova-qa</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
   </parent>
 
   <properties>
-    <!-- Needs to be updated after a new WildFly release -->
-    <wildfly.container.adapter.groupId>org.wildfly.arquillian</wildfly.container.adapter.groupId>
-    <wildfly.container.adapter.version>2.2.0.Final</wildfly.container.adapter.version>
-
     <redirect.test.output>true</redirect.test.output>
   </properties>
 
@@ -46,14 +42,6 @@
         <scope>import</scope>
       </dependency>
 
-      <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
-        <artifactId>jackson-bom</artifactId>
-        <version>${version.jackson}</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -67,9 +55,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
+      <groupId>org.jboss.arquillian.junit5</groupId>
+      <artifactId>arquillian-junit5-container</artifactId>
       <scope>test</scope>
+      <version>1.10.1.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.protocol</groupId>
@@ -77,30 +66,32 @@
       <scope>test</scope>
     </dependency>
 
+
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>jakarta.inject</groupId>
+      <artifactId>jakarta.inject-api</artifactId>
+      <version>2.0.1</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.jboss.spec</groupId>
-      <artifactId>jboss-javaee-6.0</artifactId>
-      <type>pom</type>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>xalan</artifactId>
-          <groupId>org.apache.xalan</groupId>
-        </exclusion>
-      </exclusions>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>${version.jakarta-servlet}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>javax.enterprise.concurrent</groupId>
-      <artifactId>javax.enterprise.concurrent-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.0.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.enterprise.concurrent</groupId>
+      <artifactId>jakarta.enterprise.concurrent-api</artifactId>
+      <version>3.0.3</version>
     </dependency>
 
     <dependency>
@@ -171,8 +162,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <groupId>tools.jackson.datatype</groupId>
       <artifactId>jackson-datatype-joda</artifactId>
+      <version>${version.jackson}</version>
     </dependency>
 
     <!--
@@ -222,12 +214,35 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
     </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.ejb</groupId>
+      <artifactId>jakarta.ejb-api</artifactId>
+      <version>4.0.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.enterprise</groupId>
+      <artifactId>jakarta.enterprise.cdi-api</artifactId>
+      <version>3.0.1</version>
+      <scope>test</scope>
+    </dependency>
 
      <!-- weld for CDI support on tomcat-->
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet</artifactId>
       <version>2.4.8.Final</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -258,6 +273,10 @@
           <exclude>**/*.properties</exclude>
         </excludes>
       </testResource>
+      <testResource>
+        <directory>src/test/resources-tomcat</directory>
+        <filtering>true</filtering>
+      </testResource>
     </testResources>
     <plugins>
       <plugin>
@@ -282,270 +301,75 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test/java-tomcat</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
   <profiles>
-
+    <!-- Activate this profile (together with the engine-integration profile in the
+      qa/ reactor) to run the integration tests against a managed Tomcat instance,
+      e.g. mvn clean install -Ptomcat,h2,engine-integration -->
     <profile>
-      <id>wildfly26</id>
+      <id>tomcat</id>
       <dependencies>
         <dependency>
           <!-- make sure this comes after runtime in the reactor build -->
           <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-wildfly26-runtime</artifactId>
+          <artifactId>fluxnova-qa-tomcat-runtime</artifactId>
           <version>${project.version}</version>
           <scope>provided</scope>
           <type>pom</type>
         </dependency>
+
         <dependency>
-          <groupId>${wildfly.container.adapter.groupId}</groupId>
-          <artifactId>wildfly-arquillian-container-managed</artifactId>
-          <version>${wildfly.container.adapter.version}</version>
+          <groupId>org.jboss.weld.servlet</groupId>
+          <artifactId>weld-servlet-shaded</artifactId>
+          <version>5.1.2.Final</version>
           <scope>test</scope>
-        </dependency>
-      </dependencies>
-      <build>
-        <testResources>
-          <testResource>
-            <directory>src/test/resources-wildfly26</directory>
-            <filtering>true</filtering>
-          </testResource>
-        </testResources>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>src/test/java-wildfly26</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <configuration>
-              <delimiters>
-                <delimiter>${*}</delimiter>
-              </delimiters>
-              <useDefaultDelimiters>false</useDefaultDelimiters>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- HEMERA-2453 -->
-                <exclude>**/JobExecutorRequestContextLocalInvocationTest.java</exclude>
-                <exclude>**/*_OTHERS.java</exclude>
-                <exclude>**/SpringPAExpressionResolvingTest.java</exclude>
-                <exclude>**/SpringServletPALifecycleTest.java</exclude>
-                <exclude>**/TestManagedDomain_JBOSS.java</exclude>
-                <!-- CAM-1778 -->
-                <exclude>**/TestWarDeploymentWithProcessEnginePlugin.java</exclude>
-                <exclude>**/TestWarDeploymentWithProcessEnginePlugin.exclude</exclude>
-
-                <exclude>**/SpringServletPATimerStartEventExpressionTest.java</exclude>
-                <exclude>**/FeelEngineTest.java</exclude>
-              </excludes>
-              <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>wildfly26-domain</id>
-      <dependencies>
-        <dependency>
-          <!-- make sure this comes after runtime in the reactor build -->
-          <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-wildfly26-runtime</artifactId>
-          <version>${project.version}</version>
-          <scope>provided</scope>
-          <type>pom</type>
-        </dependency>
-        <dependency>
-          <groupId>${wildfly.container.adapter.groupId}</groupId>
-          <artifactId>wildfly-arquillian-container-domain-managed</artifactId>
-          <version>${wildfly.container.adapter.version}</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-      <build>
-        <testResources>
-          <testResource>
-            <directory>src/test/resources-wildfly26-domain</directory>
-            <filtering>true</filtering>
-          </testResource>
-        </testResources>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>src/test/java-wildfly26</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <configuration>
-              <delimiters>
-                <delimiter>${*}</delimiter>
-              </delimiters>
-              <useDefaultDelimiters>false</useDefaultDelimiters>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <includes>
-                <include>**/TestManagedDomain_JBOSS.java</include>
-              </includes>
-              <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>wildfly26-servlet</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>src/test/java-wildfly26-servlet</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <!-- skip EE integration tests -->
-                <exclude>**/cdi/**</exclude>
-                <exclude>**/ejb/**</exclude>
-                <exclude>**/context/**</exclude>
-                <exclude>**/jar/**</exclude>
-                <excludes>**/jboss/**</excludes>
-                <excludes>**/SpringPAExpressionResolvingTest.java</excludes>
-                <excludes>**/SpringServletPALifecycleTest.java</excludes>
-                <exclude>**/BusinessRuleTaskVersionTagTest.java</exclude>
-                <!-- CAM-1778 -->
-                <exludes>**/TestWarDeploymentWithProcessEnginePlugin.java</exludes>
-
-                <exclude>**/SpringServletPATimerStartEventExpressionTest.java</exclude>
-                <exclude>**/FeelEngineTest.java</exclude>
-              </excludes>
-              <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>tomcat9</id>
-      <dependencyManagement>
-        <dependencies>
-          <!-- import internal dependencies before JBoss to preserve internal versions, e.g. for JUnit -->
-          <dependency>
-            <groupId>org.finos.fluxnova.bpm</groupId>
-            <artifactId>fluxnova-core-internal-dependencies</artifactId>
-            <version>${project.version}</version>
-            <scope>import</scope>
-            <type>pom</type>
-          </dependency>
-          <dependency>
-            <groupId>org.jboss.bom</groupId>
-            <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-            <version>1.0.4.Final</version>
-            <scope>import</scope>
-            <type>pom</type>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-      <dependencies>
-        <dependency>
-          <!-- make sure this comes after runtime in the reactor build -->
-          <groupId>org.finos.fluxnova.bpm.qa</groupId>
-          <artifactId>fluxnova-qa-tomcat9-runtime</artifactId>
-          <version>${project.version}</version>
-          <scope>provided</scope>
-          <type>pom</type>
         </dependency>
 
         <dependency>
           <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-tomcat-managed-8</artifactId>
-          <version>1.1.0.Final</version>
+          <artifactId>arquillian-tomcat-managed-10</artifactId>
+          <version>1.2.4.Final</version>
+          <scope>test</scope>
+        </dependency>
+
+        <!-- use the Jakarta Servlet protocol -->
+        <dependency>
+          <groupId>org.jboss.arquillian.protocol</groupId>
+          <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
       <build>
-        <testResources>
-          <testResource>
-            <directory>src/test/resources-tomcat</directory>
-            <filtering>true</filtering>
-          </testResource>
-        </testResources>
         <plugins>
           <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>src/test/java-tomcat9</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <configuration>
+              <delimiters>
+                <delimiter>${*}</delimiter>
+              </delimiters>
+              <useDefaultDelimiters>false</useDefaultDelimiters>
+            </configuration>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -567,7 +391,6 @@
 
                 <exclude>**/TestWarDeploymentWithProcessEnginePlugin.java</exclude>
 
-                <exclude>**/*_JBOSS.java</exclude>
                 <exclude>**/EjbPALifecycleCallbacksTest.java</exclude>
 
                 <exclude>**/PythonPaClassImportTest.java</exclude>
@@ -582,20 +405,11 @@
         </plugins>
       </build>
     </profile>
-
     <profile>
       <id>distro</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <dependencies>
-        <dependency>
-          <groupId>${wildfly.container.adapter.groupId}</groupId>
-          <artifactId>wildfly-arquillian-container-managed</artifactId>
-          <version>${wildfly.container.adapter.version}</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
       <build>
         <plugins>
           <plugin>
@@ -605,38 +419,6 @@
               <skipTests>true</skipTests>
               <redirectTestOutputToFile>${redirect.test.output}</redirectTestOutputToFile>
             </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add-test-source</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>src/test/java-wildfly26</source>
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add-test-resource</id>
-                <phase>generate-test-resources</phase>
-                <goals>
-                  <goal>add-test-resource</goal>
-                </goals>
-                <configuration>
-                  <resources>
-                    <resource>
-                      <directory>src/test/resources-wildfly26</directory>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>

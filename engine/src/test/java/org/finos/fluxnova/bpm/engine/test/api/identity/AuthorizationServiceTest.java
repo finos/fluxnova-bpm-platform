@@ -29,10 +29,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.DASHBOARD;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.REPORT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +53,8 @@ import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.identity.User;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.AuthorizationEntity;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer
@@ -68,7 +65,7 @@ public class AuthorizationServiceTest extends PluggableProcessEngineTest {
   protected String userId = "test";
   protected String groupId = "accounting";
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     cleanupAfterTest();
 

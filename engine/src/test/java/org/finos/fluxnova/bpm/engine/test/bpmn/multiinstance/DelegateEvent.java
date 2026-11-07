@@ -27,6 +27,7 @@ import org.finos.fluxnova.bpm.engine.ProcessEngineServices;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.runtime.Incident;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.instance.FlowElement;
@@ -191,11 +192,29 @@ public class DelegateEvent implements DelegateExecution {
   }
 
   @Override
+  public void setVariable(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    throw cannotModifyState();
+  }
+
+  @Override
+  public void setVariable(String variableName, Object value, VariableOptions options) {
+    throw cannotModifyState();
+  }
+
   public void setVariableLocal(String variableName, Object value) {
     throw cannotModifyState();
   }
 
   @Override
+  public void setVariableLocal(String variableName, Object value, boolean skipJavaSerializationFormatCheck) {
+    throw cannotModifyState();
+  }
+
+  @Override
+  public void setVariableLocal(String variableName, Object value, VariableOptions options) {
+    throw cannotModifyState();
+  }
+
   public void setVariables(Map<String, ? extends Object> variables) {
     throw cannotModifyState();
   }

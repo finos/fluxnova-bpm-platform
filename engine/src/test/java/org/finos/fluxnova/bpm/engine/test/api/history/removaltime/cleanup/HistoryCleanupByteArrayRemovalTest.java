@@ -44,11 +44,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.RemoveAfter;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 @RequiredHistoryLevel(HISTORY_FULL)
 public class HistoryCleanupByteArrayRemovalTest {
@@ -80,8 +80,8 @@ public class HistoryCleanupByteArrayRemovalTest {
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
   protected EntityRemoveRule entityRemoveRule = EntityRemoveRule.ofLazyRule(() -> testRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(bootstrapRule)
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(bootstrapRule)
       .around(engineRule)
       .around(testRule)
       .around(entityRemoveRule);
@@ -90,7 +90,7 @@ public class HistoryCleanupByteArrayRemovalTest {
   private HistoryService historyService;
   private ProcessEngineConfigurationImpl engineConfiguration;
 
-  @Before
+  @BeforeEach
   public void init() {
     ProcessEngine processEngine = bootstrapRule.getProcessEngine();
 
@@ -99,7 +99,7 @@ public class HistoryCleanupByteArrayRemovalTest {
     engineConfiguration = (ProcessEngineConfigurationImpl) processEngine.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     restoreCleanupJobHandler();
     testRule.deleteHistoryCleanupJobs();

@@ -16,21 +16,21 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.deployment.war;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.history.HistoricProcessInstance;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.integrationtest.deployment.war.beans.GroovyProcessEnginePlugin;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
  * which ships and requires groovy as a dependency for scripting purposes.
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TestWarDeploymentWithProcessEnginePlugin extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -58,7 +58,7 @@ public class TestWarDeploymentWithProcessEnginePlugin extends AbstractFoxPlatfor
   @Test
   public void testPAGroovyProcessEnginePlugin() {
     ProcessEngine groovyEngine = processEngineService.getProcessEngine("groovy");
-    Assert.assertNotNull(groovyEngine);
+    Assertions.assertNotNull(groovyEngine);
 
     ProcessInstance pi = groovyEngine.getRuntimeService().startProcessInstanceByKey("groovy");
     HistoricProcessInstance hpi = groovyEngine.getHistoryService()
@@ -69,7 +69,7 @@ public class TestWarDeploymentWithProcessEnginePlugin extends AbstractFoxPlatfor
   @Test
   public void testPAGroovyAsyncProcessEnginePlugin() {
     ProcessEngine groovyEngine = processEngineService.getProcessEngine("groovy");
-    Assert.assertNotNull(groovyEngine);
+    Assertions.assertNotNull(groovyEngine);
 
     ProcessInstance pi = groovyEngine.getRuntimeService().startProcessInstanceByKey("groovyAsync");
 

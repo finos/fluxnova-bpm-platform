@@ -27,17 +27,15 @@ import org.finos.fluxnova.bpm.engine.identity.UserQuery;
 import org.finos.fluxnova.bpm.identity.impl.ldap.plugin.LdapIdentityProviderPlugin;
 import org.finos.fluxnova.bpm.run.FluxnovaBpmRun;
 import org.finos.fluxnova.bpm.run.property.FluxnovaBpmRunLdapProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = { FluxnovaBpmRun.class })
 @ActiveProfiles(profiles = { "test-auth-disabled", "test-demo-user" })
 public class DemoUserConfigurationTest {
@@ -52,7 +50,7 @@ public class DemoUserConfigurationTest {
   @Autowired(required = false)
   LdapIdentityProviderPlugin ldapPlugin;
 
-  @Before
+  @BeforeEach
   public void init() {
     identityService = engine.getIdentityService();
   }

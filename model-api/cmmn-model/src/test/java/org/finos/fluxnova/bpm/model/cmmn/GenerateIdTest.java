@@ -26,7 +26,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.CasePlanModel;
 import org.finos.fluxnova.bpm.model.cmmn.instance.DefaultControl;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Definitions;
 import org.finos.fluxnova.bpm.model.cmmn.instance.HumanTask;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class GenerateIdTest {
 

@@ -21,6 +21,7 @@ import org.finos.fluxnova.bpm.client.dto.HistoricProcessInstanceDto;
 import org.finos.fluxnova.bpm.client.dto.ProcessInstanceDto;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskService;
 import org.finos.fluxnova.bpm.client.util.RecordingExternalTaskHandler;
@@ -29,11 +30,11 @@ import org.finos.fluxnova.bpm.client.util.RecordingInvocationHandler.RecordedInv
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.qa.Bean;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.Collections;
 import java.util.Properties;
@@ -76,8 +77,8 @@ public class PaSerializationIT {
     return properties;
   });
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
@@ -86,7 +87,7 @@ public class PaSerializationIT {
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
   protected RecordingInvocationHandler invocationHandler = new RecordingInvocationHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
 
@@ -96,7 +97,7 @@ public class PaSerializationIT {
     invocationHandler.clear();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     HistoricProcessInstanceDto historicProcessInstance = engineRule.getHistoricProcessInstanceById(processInstance.getId());
     if (historicProcessInstance.getEndTime() == null) {

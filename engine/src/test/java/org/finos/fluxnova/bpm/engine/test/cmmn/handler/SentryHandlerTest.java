@@ -17,11 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.cmmn.handler;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -48,8 +44,8 @@ import org.finos.fluxnova.bpm.model.cmmn.instance.Sentry;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Task;
 import org.finos.fluxnova.bpm.model.cmmn.instance.fluxnova.FluxnovaVariableOnPart;
 import org.finos.fluxnova.bpm.model.cmmn.instance.fluxnova.FluxnovaVariableTransitionEvent;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -66,7 +62,7 @@ public class SentryHandlerTest extends CmmnElementHandlerTest {
   protected TaskItemHandler taskItemHandler = new TaskItemHandler();
   protected SentryHandler sentryHandler = new SentryHandler();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     task = createElement(casePlanModel, "aTask", Task.class);
 

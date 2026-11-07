@@ -29,6 +29,7 @@
     <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Authorization.xml" />
     <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Report.xml" />
     <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Tenant.xml" />
+    <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Configuration.xml" />
     
     <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Attachment.xml" />
     <mapper resource="org/finos/fluxnova/bpm/engine/impl/mapping/entity/Comment.xml" />

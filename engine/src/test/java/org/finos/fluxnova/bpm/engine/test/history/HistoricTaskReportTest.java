@@ -16,12 +16,11 @@
  */
 package org.finos.fluxnova.bpm.engine.test.history;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.finos.fluxnova.bpm.engine.HistoryService;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
@@ -36,11 +35,11 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Stefan Hentschel.
@@ -51,8 +50,8 @@ public class HistoricTaskReportTest {
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule processEngineTestRule = new ProcessEngineTestRule(processEngineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension
     .outerRule(processEngineTestRule)
     .around(processEngineRule);
 
@@ -63,7 +62,7 @@ public class HistoricTaskReportTest {
   protected static final String ANOTHER_PROCESS_DEFINITION_KEY = "ANOTHER_HISTORIC_TASK_INST_REPORT";
 
 
-  @Before
+  @BeforeEach
   public void setUp() {
     historyService = processEngineRule.getHistoryService();
     processEngineConfiguration = processEngineRule.getProcessEngineConfiguration();
@@ -72,7 +71,7 @@ public class HistoricTaskReportTest {
     processEngineTestRule.deploy(createProcessWithUserTask(ANOTHER_PROCESS_DEFINITION_KEY));
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     List<Task> list = processEngineRule.getTaskService().createTaskQuery().list();
     for( Task task : list ) {
@@ -259,7 +258,7 @@ public class HistoricTaskReportTest {
   }
 
   protected BpmnModelInstance createProcessWithUserTask(String key) {
-    double random = Math.random();
+    double random = ThreadLocalRandom.current().nextDouble();
     return Bpmn.createExecutableProcess(key)
       .name("name_" + key)
       .startEvent()

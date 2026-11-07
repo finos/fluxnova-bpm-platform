@@ -16,54 +16,55 @@
  */
 package org.finos.fluxnova.bpm.qa.largedata.optimize;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.finos.fluxnova.bpm.engine.impl.OptimizeService;
-import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.largedata.util.EngineDataGenerator;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.function.Function;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(JUnitParamsRunner.class)
+
 public class OptimizeApiPageSizeTest {
 
   private static OptimizeService optimizeService;
   private static final int OPTIMIZE_PAGE_SIZE = 10_000;
+  private static boolean dataGenerated = false;
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineRule processEngineRule = new ProcessEngineRule("camunda.cfg.xml");
 
-  @BeforeClass
-  public static void init() {
-    optimizeService = processEngineRule.getProcessEngineConfiguration().getOptimizeService();
-
-    // given the generated engine data
-    // make sure that there are at least two pages of each entity available
-    EngineDataGenerator generator = new EngineDataGenerator(processEngineRule.getProcessEngine(), OPTIMIZE_PAGE_SIZE * 2, OptimizeApiPageSizeTest.class.getSimpleName());
-    generator.generateData();
+  @BeforeEach
+  public void init() {
+    if (!dataGenerated) {
+      optimizeService = processEngineRule.getProcessEngineConfiguration().getOptimizeService();
+      // given the generated engine data
+      // make sure that there are at least two pages of each entity available
+      EngineDataGenerator generator = new EngineDataGenerator(
+          processEngineRule.getProcessEngine(),
+          OPTIMIZE_PAGE_SIZE * 2,
+          OptimizeApiPageSizeTest.class.getSimpleName());
+      generator.generateData();
+      dataGenerated = true;
+    }
   }
 
-  @Test
-  @Parameters(method = "optimizeServiceFunctions")
+  @ParameterizedTest
+  @MethodSource("optimizeServiceFunctions")
   public void databaseCanCopeWithPageSize(TestScenario scenario) {
     // when
     final List<?> pageOfEntries = scenario.getOptimizeServiceFunction().apply(OPTIMIZE_PAGE_SIZE);
 
     // then
-    assertThat(pageOfEntries.size(), is(OPTIMIZE_PAGE_SIZE));
+    assertEquals(OPTIMIZE_PAGE_SIZE, pageOfEntries.size());
   }
 
-  private Object[] optimizeServiceFunctions() {
+  private static Object[] optimizeServiceFunctions() {
     return new TestScenario[]{
       new TestScenario(
         (pageSize) -> optimizeService.getRunningHistoricActivityInstances(null, null, pageSize),

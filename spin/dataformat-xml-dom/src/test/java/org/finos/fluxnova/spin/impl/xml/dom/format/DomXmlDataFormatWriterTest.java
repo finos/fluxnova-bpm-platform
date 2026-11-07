@@ -31,7 +31,8 @@ import org.finos.fluxnova.spin.SpinFactory;
 import org.finos.fluxnova.spin.spi.DataFormat;
 import org.finos.fluxnova.spin.xml.JdkUtil;
 import org.finos.fluxnova.spin.xml.SpinXmlElement;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test xml transformation in DomXmlDataFormatWriter

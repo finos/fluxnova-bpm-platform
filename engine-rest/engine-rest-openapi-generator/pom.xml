@@ -8,11 +8,11 @@
     <groupId>org.finos.fluxnova.bpm</groupId>
     <artifactId>fluxnova-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
   </parent>
 
   <properties>
-    <version.json-schema-validator>1.0.76</version.json-schema-validator>
+    <version.json-schema-validator>3.0.2</version.json-schema-validator>
   </properties>
 
   <dependencies>
@@ -21,7 +21,6 @@
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
     </dependency>
-
     <!-- json formatting -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -40,24 +39,12 @@
       <artifactId>json-schema-validator</artifactId>
       <version>${version.json-schema-validator}</version>
     </dependency>
+      <dependency>
+          <groupId>tools.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>${version.jackson}</version>
+      </dependency>
 
   </dependencies>
-   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>

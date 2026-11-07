@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.integrationtest.functional.spin;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.serializedObjectValue;
 import static org.finos.fluxnova.spin.Spin.JSON;
 import static org.finos.fluxnova.spin.Spin.XML;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -33,18 +33,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.spin.impl.util.SpinIoUtil;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * <p>Smoketest Make sure camunda spin can be used in a process application </p>
  *
  * @author Daniel Meyer
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class PaSpinSupportTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -56,7 +56,7 @@ public class PaSpinSupportTest extends AbstractFoxPlatformIntegrationTest {
 
   @Test
   public void spinShouldBeAvailable() {
-    Assert.assertEquals("someXml", XML("<someXml />").xPath("/someXml").element().name());
+    Assertions.assertEquals("someXml", XML("<someXml />").xPath("/someXml").element().name());
   }
 
   @Test
@@ -69,7 +69,7 @@ public class PaSpinSupportTest extends AbstractFoxPlatformIntegrationTest {
     HashMap<String, String> expected = new HashMap<String, String>();
     expected.put("foo", "bar");
 
-    Assert.assertEquals(expected, objectValue.getValue());
+    Assertions.assertEquals(expected, objectValue.getValue());
   }
 
   @Test
@@ -86,7 +86,7 @@ public class PaSpinSupportTest extends AbstractFoxPlatformIntegrationTest {
       }
     }
 
-    Assert.assertTrue(spinPluginFound);
+    Assertions.assertTrue(spinPluginFound);
   }
 
   @Test

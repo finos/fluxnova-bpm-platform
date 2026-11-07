@@ -22,8 +22,9 @@ import static io.restassured.path.json.JsonPath.from;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERATION_TYPE_CLAIM;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_USER_OPERATION_ANNOTATION;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.EXAMPLE_USER_OPERATION_LOG_ID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyString;
@@ -36,8 +37,8 @@ import static org.mockito.Mockito.when;
 import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.EntityTypes;
@@ -51,9 +52,9 @@ import org.finos.fluxnova.bpm.engine.rest.dto.history.UserOperationLogEntryDto;
 import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.helper.MockProvider;
 import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -63,7 +64,7 @@ import io.restassured.response.Response;
  */
 public class UserOperationLogRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String USER_OPERATION_LOG_RESOURCE_URL = TEST_RESOURCE_ROOT_PATH + "/history/user-operation";
@@ -82,7 +83,7 @@ public class UserOperationLogRestServiceQueryTest extends AbstractRestServiceTes
 
   protected HistoryService historyService;
 
-  @Before
+  @BeforeEach
   public void setUpMock() {
     List<UserOperationLogEntry> entries = MockProvider.createUserOperationLogEntries();
     queryMock = mock(UserOperationLogQuery.class);

@@ -19,26 +19,20 @@ package org.finos.fluxnova.bpm.model.bpmn.util;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.xml.impl.util.IoUtil;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.io.InputStream;
 
-/**
- * @author Daniel Meyer
- *
- */
-public class ParseBpmnModelRule extends TestWatcher {
+public class ParseBpmnModelRule implements BeforeEachCallback {
 
   protected BpmnModelInstance bpmnModelInstance;
 
   @Override
-  protected void starting(Description description) {
-
-    if(description.getAnnotation(BpmnModelResource.class) != null) {
-
-      Class<?> testClass = description.getTestClass();
-      String methodName = description.getMethodName();
+  public void beforeEach(ExtensionContext context) {
+    if (context.getRequiredTestMethod().getAnnotation(BpmnModelResource.class) != null) {
+      Class<?> testClass = context.getRequiredTestClass();
+      String methodName = context.getRequiredTestMethod().getName();
 
       String resourceFolderName = testClass.getName().replaceAll("\\.", "/");
       String bpmnResourceName = resourceFolderName + "." + methodName + ".bpmn";
@@ -49,13 +43,10 @@ public class ParseBpmnModelRule extends TestWatcher {
       } finally {
         IoUtil.closeSilently(resourceAsStream);
       }
-
     }
-
   }
 
   public BpmnModelInstance getBpmnModel() {
     return bpmnModelInstance;
   }
-
 }

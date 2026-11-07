@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.task;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -86,12 +82,11 @@ import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Frederik Heremans
@@ -111,14 +106,14 @@ public class TaskServiceTest {
   protected static final String USER_TASK_AFTER_THROW = "after-throw";
   protected static final String USER_TASK_THROW_ESCALATION = "throw-escalation";
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(configuration ->
       configuration.setJavaSerializationFormatEnabled(true));
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
   private TaskService taskService;
@@ -130,7 +125,7 @@ public class TaskServiceTest {
 
   private static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS");
 
-  @Before
+  @BeforeEach
   public void init() {
     runtimeService = engineRule.getRuntimeService();
     taskService = engineRule.getTaskService();
@@ -141,7 +136,7 @@ public class TaskServiceTest {
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     ClockUtil.setCurrentTime(new Date());
   }
@@ -844,6 +839,7 @@ public class TaskServiceTest {
       assertEquals(taskId, attachment.getTaskId());
       assertEquals("someprocessinstanceid", attachment.getProcessInstanceId());
       assertEquals("http://weather.com", attachment.getUrl());
+      assertEquals("johndoe", attachment.getCreatedBy());
       assertNull(taskService.getAttachmentContent(attachment.getId()));
 
       // Finally, clean up
@@ -3577,6 +3573,244 @@ public class TaskServiceTest {
        .userTask(USER_TASK_AFTER_CATCH)
        .endEvent();
     return model;
+  }
+
+  // Tests for getTaskCommentsCount
+
+  @Test
+  public void testGetTaskCommentsCountZero() {
+    Task task = taskService.newTask();
+    taskService.saveTask(task);
+    String taskId = task.getId();
+
+    long count = taskService.getTaskCommentsCount(taskId);
+    assertEquals(0, count);
+
+    // Cleanup
+    taskService.deleteTask(taskId, true);
+  }
+
+  @Test
+  public void testGetTaskCommentsCountSingleComment() {
+    Task task = taskService.newTask();
+    taskService.saveTask(task);
+    String taskId = task.getId();
+
+    // Create a single comment
+    taskService.createComment(taskId, null, "Test comment");
+
+    long count = taskService.getTaskCommentsCount(taskId);
+    assertEquals(1, count);
+
+    // Cleanup
+    taskService.deleteTask(taskId, true);
+  }
+
+  @Test
+  public void testGetTaskCommentsCountMultipleComments() {
+    Task task = taskService.newTask();
+    taskService.saveTask(task);
+    String taskId = task.getId();
+
+    // Create multiple comments
+    taskService.createComment(taskId, null, "Comment 1");
+    taskService.createComment(taskId, null, "Comment 2");
+    taskService.createComment(taskId, null, "Comment 3");
+
+    long count = taskService.getTaskCommentsCount(taskId);
+    assertEquals(3, count);
+
+    // Cleanup
+    taskService.deleteTask(taskId, true);
+  }
+
+  @Test
+  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml" })
+  public void testGetTaskCommentsCountWithProcessInstance() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
+    Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+    String taskId = task.getId();
+
+    // Create comments with both task and process instance
+    taskService.createComment(taskId, processInstance.getId(), "Comment for task");
+    taskService.createComment(taskId, processInstance.getId(), "Another comment");
+
+    long count = taskService.getTaskCommentsCount(taskId);
+    assertEquals(2, count);
+  }
+
+  @Test
+  public void testGetTaskCommentsCountAfterDeletingComment() {
+    Task task = taskService.newTask();
+    taskService.saveTask(task);
+    String taskId = task.getId();
+
+    // Create multiple comments
+    Comment comment1 = taskService.createComment(taskId, null, "Comment 1");
+    taskService.createComment(taskId, null, "Comment 2");
+    taskService.createComment(taskId, null, "Comment 3");
+
+    assertEquals(3, taskService.getTaskCommentsCount(taskId));
+
+    // Delete one comment
+    taskService.deleteTaskComment(taskId, comment1.getId());
+
+    long count = taskService.getTaskCommentsCount(taskId);
+    assertEquals(2, count);
+
+    // Cleanup
+    taskService.deleteTask(taskId, true);
+  }
+
+
+  // Tests for getTaskAttachmentsCount
+
+  @Test
+  public void testGetTaskAttachmentsCountZero() {
+    Task task = taskService.newTask();
+    taskService.saveTask(task);
+    String taskId = task.getId();
+
+    long count = taskService.getTaskAttachmentsCount(taskId);
+    assertEquals(0, count);
+
+    // Cleanup
+    taskService.deleteTask(taskId, true);
+  }
+
+  @Test
+  public void testGetTaskAttachmentsCountSingleAttachment() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      Task task = taskService.newTask();
+      task.setOwner("testuser");
+      taskService.saveTask(task);
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("testuser");
+
+      // Create a single attachment
+      taskService.createAttachment("document", taskId, null, "test.pdf", "Test document", "http://example.com/test.pdf");
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(1, count);
+
+      // Cleanup
+      taskService.deleteTask(taskId, true);
+    }
+  }
+
+  @Test
+  public void testGetTaskAttachmentsCountMultipleAttachments() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      Task task = taskService.newTask();
+      task.setOwner("testuser");
+      taskService.saveTask(task);
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("testuser");
+
+      // Create multiple attachments
+      taskService.createAttachment("document", taskId, null, "file1.pdf", "First document", "http://example.com/file1.pdf");
+      taskService.createAttachment("image", taskId, null, "image1.png", "First image", "http://example.com/image1.png");
+      taskService.createAttachment("spreadsheet", taskId, null, "data.xlsx", "Data file", "http://example.com/data.xlsx");
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(3, count);
+
+      // Cleanup
+      taskService.deleteTask(taskId, true);
+    }
+  }
+
+  @Test
+  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml" })
+  public void testGetTaskAttachmentsCountWithProcessInstance() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
+      Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("user123");
+
+      // Create attachments with both task and process instance
+      taskService.createAttachment("document", taskId, processInstance.getId(), "file1.pdf", "First document", "http://example.com/file1.pdf");
+      taskService.createAttachment("image", taskId, processInstance.getId(), "image1.png", "First image", "http://example.com/image1.png");
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(2, count);
+    }
+  }
+
+  @Test
+  public void testGetTaskAttachmentsCountAfterDeletingAttachment() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      Task task = taskService.newTask();
+      task.setOwner("testuser");
+      taskService.saveTask(task);
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("testuser");
+
+      // Create multiple attachments
+      Attachment attachment1 = taskService.createAttachment("document", taskId, null, "file1.pdf", "First document", "http://example.com/file1.pdf");
+      taskService.createAttachment("image", taskId, null, "image1.png", "First image", "http://example.com/image1.png");
+      taskService.createAttachment("spreadsheet", taskId, null, "data.xlsx", "Data file", "http://example.com/data.xlsx");
+
+      assertEquals(3, taskService.getTaskAttachmentsCount(taskId));
+
+      // Delete one attachment
+      taskService.deleteTaskAttachment(taskId, attachment1.getId());
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(2, count);
+
+      // Cleanup
+      taskService.deleteTask(taskId, true);
+    }
+  }
+
+  @Test
+  public void testGetTaskAttachmentsCountWithByteArrayContent() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      Task task = taskService.newTask();
+      task.setOwner("testuser");
+      taskService.saveTask(task);
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("testuser");
+
+      // Create attachment with byte array content
+      byte[] content = "Test content".getBytes();
+      InputStream inputStream = new ByteArrayInputStream(content);
+      taskService.createAttachment("document", taskId, null, "test.txt", "Test text file", inputStream);
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(1, count);
+
+      // Cleanup
+      taskService.deleteTask(taskId, true);
+    }
+  }
+
+  @Test
+  public void testGetTaskAttachmentsCountWithUrlAttachment() {
+    int historyLevel = processEngineConfiguration.getHistoryLevel().getId();
+    if (historyLevel > ProcessEngineConfigurationImpl.HISTORYLEVEL_NONE) {
+      Task task = taskService.newTask();
+      task.setOwner("testuser");
+      taskService.saveTask(task);
+      String taskId = task.getId();
+      identityService.setAuthenticatedUserId("testuser");
+
+      // Create attachment with URL
+      taskService.createAttachment("web page", taskId, null, "webpage", "External webpage reference", "http://example.com");
+
+      long count = taskService.getTaskAttachmentsCount(taskId);
+      assertEquals(1, count);
+
+      // Cleanup
+      taskService.deleteTask(taskId, true);
+    }
   }
 
 }

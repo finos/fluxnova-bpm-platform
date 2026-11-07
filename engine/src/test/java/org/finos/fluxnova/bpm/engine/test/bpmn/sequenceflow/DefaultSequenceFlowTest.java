@@ -16,13 +16,14 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.sequenceflow;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.engine.impl.util.CollectionUtil;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.bpmn.gateway.ExclusiveGatewayTest;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

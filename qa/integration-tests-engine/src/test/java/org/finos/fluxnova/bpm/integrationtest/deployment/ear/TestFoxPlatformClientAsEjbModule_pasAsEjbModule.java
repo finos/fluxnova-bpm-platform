@@ -23,14 +23,14 @@ import org.finos.fluxnova.bpm.integrationtest.deployment.ear.beans.EeComponent;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
@@ -40,12 +40,12 @@ import org.junit.runner.RunWith;
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class TestFoxPlatformClientAsEjbModule_pasAsEjbModule extends AbstractFoxPlatformIntegrationTest {
 
 
   /**
-   * This only works if EAR classloader isolation is turned OFF (which is the default in WildFly)
+   * This only works if EAR classloader isolation is turned OFF
    *
    * test-application.ear
    *    |-- pa.jar
@@ -65,7 +65,7 @@ public class TestFoxPlatformClientAsEjbModule_pasAsEjbModule extends AbstractFox
   public static EnterpriseArchive paAsEjbModule() throws Exception {
 
     JavaArchive processArchive1Jar = ShrinkWrap.create(JavaArchive.class, "pa.jar")
-      .addClass(EeComponent.class) // need to add at least one EE component, otherwise the jar is not detected as an EJB module by Jboss AS
+      .addClass(EeComponent.class) // need to add at least one EE component, otherwise the jar is not detected as an EJB module
       .addAsResource("org/finos/fluxnova/bpm/integrationtest/deployment/ear/paAsEjbModule-process.bpmn20.xml")
       .addAsResource("org/finos/fluxnova/bpm/integrationtest/deployment/ear/paAsEjbModule-pa.xml", "META-INF/processes.xml");
 
@@ -86,12 +86,12 @@ public class TestFoxPlatformClientAsEjbModule_pasAsEjbModule extends AbstractFox
   @Test
   public void testPaAsEjbModule() {
     ProcessEngine processEngine = ProgrammaticBeanLookup.lookup(ProcessEngine.class);
-    Assert.assertNotNull(processEngine);
+    Assertions.assertNotNull(processEngine);
     RepositoryService repositoryService = processEngine.getRepositoryService();
     long count = repositoryService.createProcessDefinitionQuery()
       .processDefinitionKey("paAsEjbModule-process")
       .count();
-    Assert.assertEquals(1, count);
+    Assertions.assertEquals(1, count);
   }
 
 }

@@ -45,6 +45,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.xml.Element;
+import org.finos.fluxnova.bpm.engine.impl.variable.InternalVariableContext;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.impl.VariableMapImpl;
 import org.finos.fluxnova.bpm.engine.variable.value.SerializableValue;
@@ -326,12 +327,11 @@ public class DefaultFormHandler implements FormHandler {
       // fire history events
       final ExecutionEntity executionEntity;
       final String taskId;
-      if(variableScope instanceof ExecutionEntity) {
-        executionEntity = (ExecutionEntity) variableScope;
+      if(variableScope instanceof ExecutionEntity entity) {
+        executionEntity = entity;
         taskId = null;
       }
-      else if (variableScope instanceof TaskEntity) {
-        TaskEntity task = (TaskEntity) variableScope;
+      else if (variableScope instanceof TaskEntity task) {
         executionEntity = task.getExecution();
         taskId = task.getId();
       } else {

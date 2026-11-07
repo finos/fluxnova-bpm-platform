@@ -16,16 +16,15 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.sentry;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.impl.cmmn.entity.runtime.CaseExecutionEntity;
 import org.finos.fluxnova.bpm.engine.runtime.CaseExecution;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.cmmn.CmmnTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

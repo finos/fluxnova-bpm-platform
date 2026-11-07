@@ -21,8 +21,8 @@ import java.util.List;
 
 import org.finos.fluxnova.bpm.client.variable.impl.format.TypeDetector;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.type.TypeFactory;
 
 public class ListJacksonJsonTypeDetector implements TypeDetector {
 
@@ -35,7 +35,7 @@ public class ListJacksonJsonTypeDetector implements TypeDetector {
   }
 
   protected JavaType constructType(Object object) {
-    TypeFactory typeFactory = TypeFactory.defaultInstance();
+    TypeFactory typeFactory = TypeFactory.createDefaultInstance();
 
     if (object instanceof List && !((List<?>) object).isEmpty()) {
       List<?> list = (List<?>) object;

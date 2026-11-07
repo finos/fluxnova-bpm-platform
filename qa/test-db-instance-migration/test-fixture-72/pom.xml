@@ -13,7 +13,7 @@
 
   <properties>
   
-  <!-- <camunda.version.current>7.2.0</camunda.version.current> -->
+  <!-- <fluxnova.version.current>7.2.0</fluxnova.version.current> -->
 
     <version.h2>${version.h2-v1}</version.h2>
   </properties>
@@ -32,7 +32,7 @@
 
   <dependencies>
     <!-- NOTE: this pulls transitive dependencies of version ${project.version} in unless
-      you declare them to be ${camunda.version.current} here -->
+      you declare them to be ${fluxnova.version.current} here -->
     <dependency>
       <groupId>org.finos.fluxnova.bpm</groupId>
       <artifactId>fluxnova-engine</artifactId>

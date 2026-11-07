@@ -18,6 +18,7 @@ package org.finos.fluxnova.spin.json.tree;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.spin.json.JsonTestConstants.EXAMPLE_JSON_FILE_NAME;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,7 +29,8 @@ import org.finos.fluxnova.spin.impl.test.ScriptTest;
 import org.finos.fluxnova.spin.impl.test.ScriptVariable;
 import org.finos.fluxnova.spin.json.SpinJsonNode;
 import org.finos.fluxnova.spin.json.SpinJsonPropertyException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -237,22 +239,26 @@ public abstract class JsonTreeSetPropertyScriptTest extends ScriptTest {
     assertThat(newValue).isNull();
   }
 
-  @Test(expected = SpinJsonPropertyException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailWhileSettingObject() throws Throwable{
-    Map<String, Object> variables = new HashMap<String, Object>();
-    variables.put("date", new Date());
-    failingWithException(variables);
+  public void shouldFailWhileSettingObject() throws Throwable {
+    assertThrows(SpinJsonPropertyException.class, () -> {
+      Map<String, Object> variables = new HashMap<String, Object>();
+      variables.put("date", new Date());
+      failingWithException(variables);
+    });
   }
 
-  @Test(expected = SpinJsonPropertyException.class)
+  @Test
   @Script(execute = false)
   @ScriptVariable(name = "input", file = EXAMPLE_JSON_FILE_NAME)
-  public void shouldFailWhileSettingArray() throws Throwable{
-    Map<String, Object> variables = new HashMap<String, Object>();
-    variables.put("date", new Date());
-    failingWithException(variables);
+  public void shouldFailWhileSettingArray() throws Throwable {
+    assertThrows(SpinJsonPropertyException.class, () -> {
+      Map<String, Object> variables = new HashMap<String, Object>();
+      variables.put("date", new Date());
+      failingWithException(variables);
+    });
   }
 
 }

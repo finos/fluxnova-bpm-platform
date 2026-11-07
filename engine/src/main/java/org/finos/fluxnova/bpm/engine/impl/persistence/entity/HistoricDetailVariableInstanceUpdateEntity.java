@@ -50,7 +50,7 @@ public class HistoricDetailVariableInstanceUpdateEntity extends HistoricVariable
   }
 
   public TypedValue getTypedValue() {
-    return typedValueField.getTypedValue(false);
+    return getTypedValue(true);
   }
 
   public TypedValue getTypedValue(boolean deserializeValue) {

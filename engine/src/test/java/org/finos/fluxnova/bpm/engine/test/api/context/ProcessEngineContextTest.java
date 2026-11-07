@@ -30,17 +30,17 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 public class ProcessEngineContextTest {
 
   protected final ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected final ProcessEngineTestRule testHelper = new ProcessEngineTestRule(engineRule);
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testHelper);
 
   protected static final String SIMPLE_PROCESS_KEY = "simple_process";
   protected static final BpmnModelInstance SIMPLE_PROCESS = Bpmn.createExecutableProcess(SIMPLE_PROCESS_KEY)
@@ -50,7 +50,7 @@ public class ProcessEngineContextTest {
       .endEvent()
       .done();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     testHelper.deploy(SIMPLE_PROCESS);
     engineRule.getRuntimeService().startProcessInstanceByKey(SIMPLE_PROCESS_KEY);

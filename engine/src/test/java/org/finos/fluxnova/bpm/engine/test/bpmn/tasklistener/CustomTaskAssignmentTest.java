@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.tasklistener;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +24,9 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -38,7 +36,7 @@ import org.junit.Test;
  */
 public class CustomTaskAssignmentTest extends PluggableProcessEngineTest {
   
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
 
     
@@ -51,7 +49,7 @@ public class CustomTaskAssignmentTest extends PluggableProcessEngineTest {
     identityService.createMembership("kermit", "management");
   }
   
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     identityService.deleteUser("kermit");
     identityService.deleteUser("fozzie");

@@ -16,9 +16,7 @@
  */
 package org.finos.fluxnova.bpm.container.impl.jmx.deployment.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,7 +24,8 @@ import java.net.URLClassLoader;
 import java.util.Map;
 
 import org.finos.fluxnova.bpm.container.impl.deployment.scanning.ProcessApplicationScanningUtil;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**
@@ -45,8 +44,8 @@ public class VfsProcessApplicationScannerTest {
     // expect: finds only the BPMN process file and not treats the 'bpmn' folder
     assertEquals(1, scanResult.size());
     String processFileName = "VfsProcessScannerTest.bpmn20.xml";
-    assertTrue("'" + processFileName + "'not found", contains(scanResult, processFileName));
-    assertFalse("'bpmn' folder in resource path found", contains(scanResult, "processResource.txt"));
+    assertTrue(contains(scanResult, processFileName), "'" + processFileName + "'not found");
+    assertFalse(contains(scanResult, "processResource.txt"), "'bpmn' folder in resource path found");
   }
 
   @Test
@@ -60,8 +59,8 @@ public class VfsProcessApplicationScannerTest {
     // expect: finds only the CMMN process file and not treats the 'cmmn' folder
     assertEquals(1, scanResult.size());
     String processFileName = "VfsProcessScannerTest.cmmn";
-    assertTrue("'" + processFileName + "' not found", contains(scanResult, processFileName));
-    assertFalse("'cmmn' in resource path found", contains(scanResult, "caseResource.txt"));
+    assertTrue(contains(scanResult, processFileName), "'" + processFileName + "' not found");
+    assertFalse(contains(scanResult, "caseResource.txt"), "'cmmn' in resource path found");
   }
 
   @Test
@@ -73,10 +72,10 @@ public class VfsProcessApplicationScannerTest {
 
     assertEquals(4, scanResult.size());
     String processFileName = "VfsProcessScannerTest.bpmn20.xml";
-    assertTrue("'" + processFileName + "' not found", contains(scanResult, processFileName));
-    assertTrue("'hello.py' in resource path found", contains(scanResult, "hello.py"));
-    assertTrue("'hello.rb' in resource path found", contains(scanResult, "hello.rb"));
-    assertTrue("'hello.groovy' in resource path found", contains(scanResult, "hello.groovy"));
+    assertTrue(contains(scanResult, processFileName), "'" + processFileName + "' not found");
+    assertTrue(contains(scanResult, "hello.py"), "'hello.py' in resource path found");
+    assertTrue(contains(scanResult, "hello.rb"), "'hello.rb' in resource path found");
+    assertTrue(contains(scanResult, "hello.groovy"), "'hello.groovy' in resource path found");
   }
 
   private boolean contains(Map<String, byte[]> scanResult, String suffix) {

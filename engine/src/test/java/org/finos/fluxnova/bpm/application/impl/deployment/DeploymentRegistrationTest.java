@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.application.impl.deployment;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.finos.fluxnova.bpm.engine.repository.Deployment;
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
@@ -25,7 +25,8 @@ import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.cache.Cache;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

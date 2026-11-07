@@ -16,10 +16,10 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.test;
 
-import junit.framework.AssertionFailedError;
-
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
+
+import org.opentest4j.AssertionFailedError;
 
 public class ProcessEngineAssert {
   

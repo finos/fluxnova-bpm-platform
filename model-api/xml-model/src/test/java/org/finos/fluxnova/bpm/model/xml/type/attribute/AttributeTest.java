@@ -27,14 +27,13 @@ import org.finos.fluxnova.bpm.model.xml.testmodel.instance.AnimalTest;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Animals;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.Bird;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static org.finos.fluxnova.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
-import static org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author Sebastian Menski
@@ -46,14 +45,8 @@ public class AttributeTest extends TestModelTest {
   private Attribute<String> nameAttribute;
   private Attribute<String> fatherAttribute;
 
-  public AttributeTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
-  }
-
-  @Parameters(name="Model {0}")
-  public static Collection<Object[]> models() {
-    Object[][] models = {createModel(), parseModel(AnimalTest.class)};
-    return Arrays.asList(models);
+  public AttributeTest() {
+    super("parsed", parseModel(AnimalTest.class));
   }
 
   public static Object[] createModel() {
@@ -68,7 +61,7 @@ public class AttributeTest extends TestModelTest {
     return new Object[]{"created", modelInstance, modelParser};
   }
 
-  @Before
+  @BeforeEach
   @SuppressWarnings("unchecked")
   public void copyModelInstance() {
     modelInstance = cloneModelInstance();

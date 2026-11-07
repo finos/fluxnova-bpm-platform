@@ -23,14 +23,14 @@ import org.finos.fluxnova.connect.Connectors;
 import org.finos.fluxnova.connect.httpclient.soap.impl.SoapHttpConnectorImpl;
 import org.finos.fluxnova.connect.impl.DebugRequestInterceptor;
 import org.finos.fluxnova.connect.spi.Connector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class SoapHttpConnectorTest {
 
   public SoapHttpConnector connector;
 
-  @Before
+  @BeforeEach
   public void createConnector() {
     connector = new SoapHttpConnectorImpl();
   }

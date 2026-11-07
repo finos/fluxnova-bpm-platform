@@ -99,8 +99,7 @@ public interface Internals {
   public Map<String, Metric> getMetrics();
 
   /**
-   * Used Camunda integrations (e.g, Spring boot starter, Camunda Platform Run,
-   * WildFly/JBoss subsystem or Camunda EJB service).
+   * Used Camunda integrations (e.g, Spring boot starter, Camunda Platform Run).
    */
   public Set<String> getFluxnovaIntegration();
 

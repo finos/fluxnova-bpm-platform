@@ -20,10 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -67,16 +64,13 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
-@RunWith(Parameterized.class)
 public class ModificationExecutionAsyncTest {
 
   protected static final Date START_DATE = new Date(1457326800000L);
@@ -85,8 +79,8 @@ public class ModificationExecutionAsyncTest {
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(rule);
   protected BatchModificationHelper helper = new BatchModificationHelper(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testRule);
 
   protected ProcessEngineConfigurationImpl configuration;
   protected RuntimeService runtimeService;
@@ -97,14 +91,9 @@ public class ModificationExecutionAsyncTest {
   private int defaultBatchJobsPerSeed;
   private int defaultInvocationsPerBatchJob;
   private boolean defaultEnsureJobDueDateSet;
-
-  @Parameterized.Parameter(0)
   public boolean ensureJobDueDateSet;
-
-  @Parameterized.Parameter(1)
   public Date currentTime;
 
-  @Parameterized.Parameters(name = "Job DueDate is set: {0}")
   public static Collection<Object[]> scenarios() throws ParseException {
     return Arrays.asList(new Object[][] {
       { false, null },
@@ -112,27 +101,26 @@ public class ModificationExecutionAsyncTest {
     });
   }
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = rule.getRuntimeService();
     historyService = rule.getHistoryService();
   }
 
-  @Before
+  @BeforeEach
   public void setClock() {
     ClockUtil.setCurrentTime(START_DATE);
   }
 
-  @Before
+  @BeforeEach
   public void storeEngineSettings() {
     configuration = rule.getProcessEngineConfiguration();
     defaultBatchJobsPerSeed = configuration.getBatchJobsPerSeed();
     defaultInvocationsPerBatchJob = configuration.getInvocationsPerBatchJob();
     defaultEnsureJobDueDateSet = configuration.isEnsureJobDueDateNotNull();
-    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
-  @Before
+  @BeforeEach
   public void createBpmnModelInstance() {
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -143,30 +131,32 @@ public class ModificationExecutionAsyncTest {
         .done();
   }
 
-  @After
+  @AfterEach
   public void resetClock() {
     ClockUtil.reset();
   }
 
-  @After
+  @AfterEach
   public void restoreEngineSettings() {
     configuration.setBatchJobsPerSeed(defaultBatchJobsPerSeed);
     configuration.setInvocationsPerBatchJob(defaultInvocationsPerBatchJob);
     configuration.setEnsureJobDueDateNotNull(defaultEnsureJobDueDateSet);
   }
 
-  @After
+  @AfterEach
   public void removeInstanceIds() {
     helper.currentProcessInstances = new ArrayList<>();
   }
 
-  @After
+  @AfterEach
   public void removeBatches() {
     helper.removeAllRunningAndHistoricBatches();
   }
 
-  @Test
-  public void createBatchModification() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createBatchModification(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     List<String> processInstanceIds = helper.startInstances("process1", 2);
 
@@ -175,8 +165,11 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, 2);
   }
 
-  @Test
-  public void createModificationWithNullProcessInstanceIdsListAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationWithNullProcessInstanceIdsListAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").processInstanceIds((List<String>) null).executeAsync();
@@ -186,8 +179,10 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createModificationWithNullProcessDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationWithNullProcessDefinitionId(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     try {
       runtimeService.createModification(null).cancelAllForActivity("activityId").processInstanceIds(Arrays.asList("20", "1--0")).executeAsync();
       fail("Should not succed");
@@ -197,8 +192,11 @@ public class ModificationExecutionAsyncTest {
   }
 
 
-  @Test
-  public void createModificationUsingProcessInstanceIdsListWithNullValueAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationUsingProcessInstanceIdsListWithNullValueAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").processInstanceIds(Arrays.asList("foo", null, "bar")).executeAsync();
@@ -208,8 +206,10 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createModificationWithEmptyProcessInstanceIdsListAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationWithEmptyProcessInstanceIdsListAsync(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").processInstanceIds(Collections.<String> emptyList()).executeAsync();
       fail("Should not succeed");
@@ -218,8 +218,11 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createModificationWithNullProcessInstanceIdsArrayAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationWithNullProcessInstanceIdsArrayAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").processInstanceIds((String[]) null).executeAsync();
@@ -229,8 +232,11 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createModificationUsingProcessInstanceIdsArrayWithNullValueAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationUsingProcessInstanceIdsArrayWithNullValueAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").cancelAllForActivity("user1").processInstanceIds("foo", null, "bar").executeAsync();
@@ -240,8 +246,11 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void testNullProcessInstanceQueryAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullProcessInstanceQueryAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").processInstanceQuery(null).executeAsync();
@@ -251,8 +260,11 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void testNullHistoricProcessInstanceQueryAsync() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testNullHistoricProcessInstanceQueryAsync(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     try {
       runtimeService.createModification("processDefinitionId").startAfterActivity("user1").historicProcessInstanceQuery(null).executeAsync();
@@ -262,8 +274,10 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createModificationWithNonExistingProcessDefinitionId() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationWithNonExistingProcessDefinitionId(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     deployment.getDeployedProcessDefinitions().get(0);
 
@@ -276,8 +290,10 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void createSeedJob() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createSeedJob(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // when
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 3, "user1", processDefinition.getId());
@@ -311,8 +327,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, modificationJobs.size());
   }
 
-  @Test
-  public void createModificationJobs() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createModificationJobs(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     rule.getProcessEngineConfiguration().setBatchJobsPerSeed(10);
     Batch batch = helper.startAfterAsync("process1", 20, "user1", processDefinition.getId());
@@ -338,8 +356,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(seedJob);
   }
 
-  @Test
-  public void createMonitorJob() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void createMonitorJob(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 10, "user1", processDefinition.getId());
 
@@ -361,8 +381,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(monitorJob);
   }
 
-  @Test
-  public void executeModificationJobsForStartAfter() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartAfter(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
 
@@ -396,8 +418,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForStartBefore() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartBefore(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
 
@@ -431,8 +455,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForStartTransition() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartTransition(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
 
@@ -466,8 +492,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForCancelAll() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForCancelAll(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.cancelAllAsync("process1", 10, "user1", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -491,8 +519,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForStartAfterAndCancelAll() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartAfterAndCancelAll(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
     List<String> instances = helper.startInstances("process1", 10);
@@ -532,8 +562,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForStartBeforeAndCancelAll() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartBeforeAndCancelAll(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     List<String> instances = helper.startInstances("process1", 10);
 
@@ -565,8 +597,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForStartTransitionAndCancelAll() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForStartTransitionAndCancelAll(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
 
@@ -605,8 +639,11 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void executeModificationJobsForProcessInstancesWithDifferentStates() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void executeModificationJobsForProcessInstancesWithDifferentStates(boolean ensureJobDueDateSet, Date currentTime) {
+
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
 
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
@@ -648,8 +685,10 @@ public class ModificationExecutionAsyncTest {
     assertNotNull(helper.getMonitorJob(batch));
   }
 
-  @Test
-  public void testMonitorJobPollingForCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMonitorJobPollingForCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 3, "user1", processDefinition.getId());
 
@@ -671,8 +710,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(dueDate, monitorJob.getDuedate());
   }
 
-  @Test
-  public void testMonitorJobRemovesBatchAfterCompletion() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testMonitorJobRemovesBatchAfterCompletion(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 10, "user2", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -688,8 +729,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, rule.getManagementService().createJobQuery().count());
   }
 
-  @Test
-  public void testBatchDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startTransitionAsync("process1", 10, "seq", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -707,8 +750,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, rule.getManagementService().createJobQuery().count());
   }
 
-  @Test
-  public void testBatchDeletionWithoutCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchDeletionWithoutCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 10, "user2", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -726,8 +771,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, rule.getManagementService().createJobQuery().count());
   }
 
-  @Test
-  public void testBatchWithFailedSeedJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedSeedJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.cancelAllAsync("process1", 2, "user1", processDefinition.getId());
 
@@ -743,8 +790,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testBatchWithFailedModificationJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedModificationJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 2, "user1", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -763,8 +812,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testBatchWithFailedMonitorJobDeletionWithCascade() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchWithFailedMonitorJobDeletionWithCascade(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startBeforeAsync("process1", 2, "user2", processDefinition.getId());
     helper.completeSeedJobs(batch);
@@ -781,8 +832,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, historicIncidents);
   }
 
-  @Test
-  public void testModificationJobsExecutionByJobExecutorWithAuthorizationEnabledAndTenant() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testModificationJobsExecutionByJobExecutorWithAuthorizationEnabledAndTenant(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     ProcessEngineConfigurationImpl processEngineConfiguration = rule.getProcessEngineConfiguration();
 
     processEngineConfiguration.setAuthorizationEnabled(true);
@@ -814,8 +867,10 @@ public class ModificationExecutionAsyncTest {
 
   }
 
-  @Test
-  public void testBatchExecutionFailureWithMissingProcessInstance() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchExecutionFailureWithMissingProcessInstance(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
     Batch batch = helper.startAfterAsync("process1", 2, "user1", processDefinition.getId());
@@ -858,8 +913,10 @@ public class ModificationExecutionAsyncTest {
     assertThat(failedJob.getExceptionMessage()).contains("Process instance '" + deletedProcessInstanceId + "' cannot be modified");
   }
 
-  @Test
-  public void testBatchExecutionFailureWithHistoricQueryThatMatchesDeletedInstance() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchExecutionFailureWithHistoricQueryThatMatchesDeletedInstance(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
 
@@ -913,9 +970,11 @@ public class ModificationExecutionAsyncTest {
     assertThat(failedJob.getExceptionMessage()).contains("Process instance '" + deletedProcessInstanceId + "' cannot be modified");
   }
 
-  @Test
-  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml" })
-  public void testBatchExecutionWithHistoricQueryUnfinished() {
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void testBatchExecutionWithHistoricQueryUnfinished(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     List<String> startedInstances = helper.startInstances("oneTaskProcess", 3);
 
@@ -966,8 +1025,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, modificationJobs.size());
   }
 
-  @Test
-  public void testBatchCreationWithProcessInstanceQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithProcessInstanceQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     int processInstanceCount = 15;
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
@@ -987,8 +1048,10 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testBatchCreationWithHistoricProcessInstanceQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithHistoricProcessInstanceQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     int processInstanceCount = 15;
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
@@ -1008,9 +1071,11 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml" })
-  public void testBatchExecutionFailureWithFinishedInstanceId() {
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void testBatchExecutionFailureWithFinishedInstanceId(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     List<String> startedInstances = helper.startInstances("oneTaskProcess", 3);
 
@@ -1064,9 +1129,11 @@ public class ModificationExecutionAsyncTest {
   }
 
 
-  @Test
-  @Deployment(resources = { "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml" })
-  public void testBatchExecutionFailureWithHistoricQueryThatMatchesFinishedInstance() {
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.syncAfterOneTaskProcess.bpmn20.xml"})
+  @MethodSource("scenarios")
+  public void testBatchExecutionFailureWithHistoricQueryThatMatchesFinishedInstance(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     List<String> startedInstances = helper.startInstances("oneTaskProcess", 3);
 
@@ -1123,8 +1190,10 @@ public class ModificationExecutionAsyncTest {
   }
 
 
-  @Test
-  public void testBatchCreationWithOverlappingProcessInstanceIdsAndQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithOverlappingProcessInstanceIdsAndQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     int processInstanceCount = 15;
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
@@ -1145,8 +1214,10 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testBatchCreationWithOverlappingProcessInstanceIdsAndHistoricQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithOverlappingProcessInstanceIdsAndHistoricQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     int processInstanceCount = 15;
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
     ProcessDefinition processDefinition = deployment.getDeployedProcessDefinitions().get(0);
@@ -1167,8 +1238,10 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testBatchCreationWithOverlappingHistoricQueryAndQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testBatchCreationWithOverlappingHistoricQueryAndQuery(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     int processInstanceCount = 15;
     DeploymentWithDefinitions deployment = testRule.deploy(instance);
@@ -1192,8 +1265,10 @@ public class ModificationExecutionAsyncTest {
     assertBatchCreated(batch, processInstanceCount);
   }
 
-  @Test
-  public void testListenerInvocation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testListenerInvocation(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     DelegateEvent.clearEvents();
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
@@ -1226,8 +1301,10 @@ public class ModificationExecutionAsyncTest {
     DelegateEvent.clearEvents();
   }
 
-  @Test
-  public void testSkipListenerInvocationF() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testSkipListenerInvocationF(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     DelegateEvent.clearEvents();
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
@@ -1253,8 +1330,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, DelegateEvent.getEvents().size());
   }
 
-  @Test
-  public void testIoMappingInvocation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testIoMappingInvocation(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
       .activityBuilder("user1")
@@ -1277,7 +1356,7 @@ public class ModificationExecutionAsyncTest {
 
     // then
     VariableInstance inputVariable = runtimeService.createVariableInstanceQuery().singleResult();
-    Assert.assertNotNull(inputVariable);
+    org.junit.jupiter.api.Assertions.assertNotNull(inputVariable);
     assertEquals("foo", inputVariable.getName());
     assertEquals("bar", inputVariable.getValue());
 
@@ -1285,8 +1364,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(activityInstance.getActivityInstances("user1")[0].getId(), inputVariable.getActivityInstanceId());
   }
 
-  @Test
-  public void testSkipIoMappingInvocation() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testSkipIoMappingInvocation(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
 
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(modify(instance)
@@ -1313,8 +1394,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, runtimeService.createVariableInstanceQuery().count());
   }
 
-  @Test
-  public void testCancelWithoutFlag() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testCancelWithoutFlag(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -1341,8 +1424,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, runtimeService.createExecutionQuery().list().size());
   }
 
-  @Test
-  public void testCancelWithoutFlag2() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testCancelWithoutFlag2(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -1369,8 +1454,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals(0, runtimeService.createExecutionQuery().list().size());
   }
 
-  @Test
-  public void testCancelWithFlag() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testCancelWithFlag(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -1399,8 +1486,10 @@ public class ModificationExecutionAsyncTest {
     assertEquals("user", execution.getActivityId());
   }
 
-  @Test
-  public void testCancelWithFlagForManyInstances() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void testCancelWithFlagForManyInstances(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     this.instance = Bpmn.createExecutableProcess("process1")
         .startEvent("start")
@@ -1431,8 +1520,10 @@ public class ModificationExecutionAsyncTest {
     }
   }
 
-  @Test
-  public void shouldSetInvocationsPerBatchType() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
+  public void shouldSetInvocationsPerBatchType(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     configuration.getInvocationsPerBatchJobByBatchType()
         .put(Batch.TYPE_PROCESS_INSTANCE_MODIFICATION, 42);
@@ -1453,9 +1544,11 @@ public class ModificationExecutionAsyncTest {
     configuration.setInvocationsPerBatchJobByBatchType(new HashMap<>());
   }
 
-  @Test
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Job DueDate is set: {0}")
   @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_FULL)
-  public void shouldSetExecutionStartTimeInBatchAndHistory() {
+  public void shouldSetExecutionStartTimeInBatchAndHistory(boolean ensureJobDueDateSet, Date currentTime) {
+    initModificationExecutionAsyncTest(ensureJobDueDateSet, currentTime);
     // given
     ProcessDefinition processDefinition = testRule.deployAndGetDefinition(instance);
     Batch batch = helper.startAfterAsync("process1", 20, "user1", processDefinition.getId());
@@ -1483,6 +1576,12 @@ public class ModificationExecutionAsyncTest {
     assertEquals(processInstanceCount, batch.getTotalJobs());
     assertEquals(defaultBatchJobsPerSeed, batch.getBatchJobsPerSeed());
     assertEquals(defaultInvocationsPerBatchJob, batch.getInvocationsPerBatchJob());
+  }
+
+  public void initModificationExecutionAsyncTest(boolean ensureJobDueDateSet, Date currentTime) {
+    this.ensureJobDueDateSet = ensureJobDueDateSet;
+    this.currentTime = currentTime;
+    configuration.setEnsureJobDueDateNotNull(ensureJobDueDateSet);
   }
 
 }

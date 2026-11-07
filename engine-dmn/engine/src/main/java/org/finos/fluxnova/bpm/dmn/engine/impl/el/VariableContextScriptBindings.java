@@ -54,8 +54,8 @@ public class VariableContextScriptBindings implements Bindings {
     if(wrappedBindings.containsKey(key)) {
       return true;
     }
-    if (key instanceof String) {
-      return variableContext.containsVariable((String) key);
+    if (key instanceof String string) {
+      return variableContext.containsVariable(string);
     }
     else {
       return false;
@@ -72,8 +72,8 @@ public class VariableContextScriptBindings implements Bindings {
       result = wrappedBindings.get(key);
     }
     else {
-      if (key instanceof String) {
-        TypedValue resolvedValue = variableContext.resolve((String) key);
+      if (key instanceof String string) {
+        TypedValue resolvedValue = variableContext.resolve(string);
         result = unpack(resolvedValue);
       }
     }

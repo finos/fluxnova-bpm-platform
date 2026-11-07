@@ -19,19 +19,21 @@ package org.finos.fluxnova.bpm.integrationtest.functional.slf4j;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.NOPLoggerFactory;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Slf4jClassloadingTest extends AbstractFoxPlatformIntegrationTest {
 
   public static final String JDK14_LOGGER_FACTORY = "org.slf4j.impl.JDK14LoggerFactory";
@@ -55,12 +57,12 @@ public class Slf4jClassloadingTest extends AbstractFoxPlatformIntegrationTest {
     ILoggerFactory loggerFactory = LoggerFactory.getILoggerFactory();
 
     // verify that a SLF4J backend is used which is not the NOP logger
-    assertFalse("Should not use NOPLoggerFactory", loggerFactory instanceof NOPLoggerFactory);
+    assertFalse(loggerFactory instanceof NOPLoggerFactory, "Should not use NOPLoggerFactory");
 
     // should either use slf4j-jdk14 or slf4j-jboss-logmanager
     String loggerFactoryClassName = loggerFactory.getClass().getCanonicalName();
-    assertTrue("Should use slf4j-jdk14 or slf4j-jboss-logmanager",
-        JDK14_LOGGER_FACTORY.equals(loggerFactoryClassName) || JBOSS_SLF4J_LOGGER_FACTORY.equals(loggerFactoryClassName));
+    assertTrue(JDK14_LOGGER_FACTORY.equals(loggerFactoryClassName) || JBOSS_SLF4J_LOGGER_FACTORY.equals(loggerFactoryClassName),
+        "Should use slf4j-jdk14 or slf4j-jboss-logmanager");
   }
 
   @Test

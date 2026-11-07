@@ -33,9 +33,9 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.TimerCatc
 import org.finos.fluxnova.bpm.engine.test.util.ClockTestUtil;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.joda.time.DateTime;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Thorben Lindhauer
@@ -46,8 +46,8 @@ public class MigrationTimerCatchEventTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   @Test
   public void testMigrateJob() {

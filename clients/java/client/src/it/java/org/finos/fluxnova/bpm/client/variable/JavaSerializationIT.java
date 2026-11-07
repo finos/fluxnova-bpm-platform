@@ -36,6 +36,7 @@ import org.finos.fluxnova.bpm.client.dto.ProcessDefinitionDto;
 import org.finos.fluxnova.bpm.client.dto.ProcessInstanceDto;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.task.ExternalTaskService;
 import org.finos.fluxnova.bpm.client.util.RecordingExternalTaskHandler;
@@ -43,11 +44,11 @@ import org.finos.fluxnova.bpm.client.util.RecordingInvocationHandler;
 import org.finos.fluxnova.bpm.client.util.RecordingInvocationHandler.RecordedInvocation;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class JavaSerializationIT {
 
@@ -79,10 +80,9 @@ public class JavaSerializationIT {
     return properties;
   });
 
-  protected ExpectedException thrown = ExpectedException.none();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule).around(thrown);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
@@ -92,7 +92,7 @@ public class JavaSerializationIT {
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
   protected RecordingInvocationHandler invocationHandler = new RecordingInvocationHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
     processDefinition = engineRule.deploy(TWO_EXTERNAL_TASK_PROCESS).get(0);

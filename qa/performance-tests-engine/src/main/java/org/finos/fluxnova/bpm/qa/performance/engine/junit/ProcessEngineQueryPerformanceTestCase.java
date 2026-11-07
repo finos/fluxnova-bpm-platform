@@ -18,8 +18,8 @@ package org.finos.fluxnova.bpm.qa.performance.engine.junit;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * @author Daniel Meyer
@@ -27,12 +27,12 @@ import org.junit.Rule;
  */
 public class ProcessEngineQueryPerformanceTestCase {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule(PerfTestProcessEngine.getInstance());
 
   protected ProcessEngine engine;
 
-  @Before
+  @BeforeEach
   public void setup() {
     engine = processEngineRule.getProcessEngine();
   }

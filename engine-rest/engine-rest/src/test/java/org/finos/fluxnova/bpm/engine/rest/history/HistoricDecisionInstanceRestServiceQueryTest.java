@@ -20,6 +20,8 @@ import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
 import static io.restassured.path.json.JsonPath.from;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +30,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -42,7 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInstance;
 import org.finos.fluxnova.bpm.engine.history.HistoricDecisionInstanceQuery;
@@ -59,10 +60,11 @@ import org.finos.fluxnova.bpm.engine.rest.util.container.TestContainerRule;
 import org.finos.fluxnova.bpm.engine.variable.value.BytesValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.engine.variable.value.StringValue;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -71,7 +73,7 @@ import io.restassured.response.Response;
 
 public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   protected static final String HISTORIC_DECISION_INSTANCE_RESOURCE_URL = TEST_RESOURCE_ROOT_PATH + "/history/decision-instance";
@@ -79,7 +81,7 @@ public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestSe
 
   protected HistoricDecisionInstanceQuery mockedQuery;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     mockedQuery = setUpMockHistoricDecisionInstanceQuery(MockProvider.createMockHistoricDecisionInstances());
   }
@@ -244,7 +246,7 @@ public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestSe
     String content = response.asString();
     List<String> instances = from(content).getList("");
     assertEquals(1, instances.size());
-    Assert.assertNotNull(instances.get(0));
+    Assertions.assertNotNull(instances.get(0));
 
     String returnedHistoricDecisionInstanceId = from(content).getString("[0].id");
     String returnedDecisionDefinitionId = from(content).getString("[0].decisionDefinitionId");
@@ -330,7 +332,7 @@ public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestSe
     String content = response.asString();
     List<String> instances = from(content).getList("");
     assertEquals(1, instances.size());
-    Assert.assertNotNull(instances.get(0));
+    Assertions.assertNotNull(instances.get(0));
 
     List<Map<String, Object>> returnedInputs = from(content).getList("[0].inputs");
     List<Map<String, Object>> returnedOutputs = from(content).getList("[0].outputs");
@@ -364,7 +366,7 @@ public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestSe
     String content = response.asString();
     List<String> instances = from(content).getList("");
     assertEquals(1, instances.size());
-    Assert.assertNotNull(instances.get(0));
+    Assertions.assertNotNull(instances.get(0));
 
     List<Map<String, Object>> returnedInputs = from(content).getList("[0].inputs");
     List<Map<String, Object>> returnedOutputs = from(content).getList("[0].outputs");
@@ -399,7 +401,7 @@ public class HistoricDecisionInstanceRestServiceQueryTest extends AbstractRestSe
     String content = response.asString();
     List<String> instances = from(content).getList("");
     assertEquals(1, instances.size());
-    Assert.assertNotNull(instances.get(0));
+    Assertions.assertNotNull(instances.get(0));
 
     List<Map<String, Object>> returnedInputs = from(content).getList("[0].inputs");
     List<Map<String, Object>> returnedOutputs = from(content).getList("[0].outputs");

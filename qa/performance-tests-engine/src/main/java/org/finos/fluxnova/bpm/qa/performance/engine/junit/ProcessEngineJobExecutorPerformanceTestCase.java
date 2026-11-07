@@ -19,15 +19,16 @@ package org.finos.fluxnova.bpm.qa.performance.engine.junit;
 import org.finos.fluxnova.bpm.engine.impl.ProcessEngineImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.jobexecutor.JobExecutor;
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class ProcessEngineJobExecutorPerformanceTestCase extends ProcessEnginePerformanceTestCase {
 
   protected JobExecutor jobExecutor;
 
   @Override
-  @Before
+  @BeforeEach
   public void setup() {
     super.setup();
     ProcessEngineConfigurationImpl engineConfiguration = ((ProcessEngineImpl) engine).getProcessEngineConfiguration();
@@ -35,7 +36,7 @@ public abstract class ProcessEngineJobExecutorPerformanceTestCase extends Proces
     jobExecutor.start();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     jobExecutor.shutdown();
   }

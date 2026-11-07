@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.job;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -28,10 +25,10 @@ import org.finos.fluxnova.bpm.engine.impl.jobexecutor.DefaultJobPriorityProvider
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -45,7 +42,7 @@ public class JobPrioritizationBpmnExpressionValueTest extends PluggableProcessEn
   protected long originalDefaultPriority;
   protected long originalDefaultPriorityOnFailure;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     originalDefaultPriority = DefaultJobPriorityProvider.DEFAULT_PRIORITY;
     originalDefaultPriorityOnFailure = DefaultJobPriorityProvider.DEFAULT_PRIORITY_ON_RESOLUTION_FAILURE;
@@ -54,7 +51,7 @@ public class JobPrioritizationBpmnExpressionValueTest extends PluggableProcessEn
     DefaultJobPriorityProvider.DEFAULT_PRIORITY_ON_RESOLUTION_FAILURE = EXPECTED_DEFAULT_PRIORITY_ON_RESOLUTION_FAILURE;
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     // reset default priorities
     DefaultJobPriorityProvider.DEFAULT_PRIORITY = originalDefaultPriority;
@@ -111,7 +108,7 @@ public class JobPrioritizationBpmnExpressionValueTest extends PluggableProcessEn
    * Can't distinguish this case from the cases we have to tolerate due to CAM-4207
    */
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/bpmn/job/jobPrioExpressionProcess.bpmn20.xml")
-  @Ignore("CAM-4207")
+  @Disabled("CAM-4207")
   @Test
   public void testVariableValueExpressionPrioritizationFailsWhenVariableMisses() {
     // when

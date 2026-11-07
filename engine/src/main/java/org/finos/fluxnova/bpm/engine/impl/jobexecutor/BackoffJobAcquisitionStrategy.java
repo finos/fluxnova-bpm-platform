@@ -19,6 +19,7 @@ package org.finos.fluxnova.bpm.engine.impl.jobexecutor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>Determines the number of jobs to acquire and the time to wait between acquisition cycles
@@ -292,7 +293,7 @@ public class BackoffJobAcquisitionStrategy implements JobAcquisitionStrategy {
     if (applyJitter) {
       // add a bounded random jitter to avoid multiple job acquisitions getting exactly the same
       // polling interval
-      backoffTime += Math.random() * (backoffTime / 2);
+      backoffTime += (long) (ThreadLocalRandom.current().nextDouble() * (backoffTime / 2));
     }
 
     return backoffTime;

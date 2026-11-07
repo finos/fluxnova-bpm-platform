@@ -16,14 +16,22 @@
  */
 package org.finos.fluxnova.bpm.spring.boot.starter.runlistener;
 
+import java.io.IOException;
+
 import org.finos.fluxnova.bpm.spring.boot.starter.util.FluxnovaBpmVersion;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.ResourcePropertySource;
 
 /**
- * Adds camunda.bpm.version properties to environment.
+ * Adds Fluxnova version properties and starter defaults to the environment during
+ * early application bootstrap.
  */
 public class PropertiesListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+
+  private static final String DEFAULTS_PROPERTY_SOURCE_NAME = "fluxnovaDefaults";
+  private static final String DEFAULTS_RESOURCE = "fluxnova-defaults.properties";
 
   private final FluxnovaBpmVersion version;
 
@@ -50,6 +58,23 @@ public class PropertiesListener implements ApplicationListener<ApplicationEnviro
     event.getEnvironment()
       .getPropertySources()
       .addFirst(version.getPropertiesPropertySource());
+
+    if (!event.getEnvironment().getPropertySources().contains(DEFAULTS_PROPERTY_SOURCE_NAME)) {
+      ClassPathResource resource = new ClassPathResource(DEFAULTS_RESOURCE);
+
+      // Fluxnova starter defaults must be available during early bootstrap
+      // so Liquibase-related defaults are applied before auto-configuration runs.
+      if (!resource.exists()) {
+        throw new IllegalStateException("Could not find required defaults resource " + DEFAULTS_RESOURCE);
+      }
+
+      try {
+        event.getEnvironment().getPropertySources()
+          .addLast(new ResourcePropertySource(DEFAULTS_PROPERTY_SOURCE_NAME, resource));
+      } catch (IOException e) {
+        throw new IllegalStateException("Could not load " + DEFAULTS_RESOURCE, e);
+      }
+    }
   }
 
 }

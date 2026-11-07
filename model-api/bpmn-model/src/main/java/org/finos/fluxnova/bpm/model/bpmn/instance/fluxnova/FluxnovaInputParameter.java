@@ -29,4 +29,8 @@ public interface FluxnovaInputParameter extends BpmnModelElementInstance, Fluxno
 
   void setFluxnovaName(String camundaName);
 
+  boolean getFluxnovaRestricted();
+
+  void setFluxnovaRestricted(boolean restricted);
+
 }

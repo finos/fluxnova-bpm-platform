@@ -23,7 +23,8 @@ import static org.finos.fluxnova.spin.xml.XmlTestConstants.assertIsExampleOrder;
 
 import org.finos.fluxnova.spin.xml.SpinXmlDataFormatException;
 import org.finos.fluxnova.spin.xml.mapping.Order;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 public class XmlDomMapXmlToJavaTest {
 

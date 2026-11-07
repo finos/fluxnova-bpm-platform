@@ -29,10 +29,7 @@ import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.ass
 import static org.finos.fluxnova.bpm.engine.test.util.ActivityInstanceAssert.describeActivityInstanceTree;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.util.ExecutionAssert.describeExecutionTree;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
@@ -45,14 +42,14 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ExecutionTree;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
 public class SingleProcessInstanceModificationAsyncAuthorizationTest extends AuthorizationTest {
 
   protected static final String PARALLEL_GATEWAY_PROCESS = "org/finos/fluxnova/bpm/engine/test/api/runtime/ProcessInstanceModificationTest.parallelGateway.bpmn20.xml";
 
-  @After
+  @AfterEach
   public void tearDown() {
     disableAuthorization();
     List<Batch> batches = managementService.createBatchQuery().list();
@@ -197,7 +194,7 @@ public class SingleProcessInstanceModificationAsyncAuthorizationTest extends Aut
     for (String taskName : taskNames) {
       // complete any task with that name
       List<Task> tasks = taskService.createTaskQuery().taskDefinitionKey(taskName).listPage(0, 1);
-      assertTrue("task for activity " + taskName + " does not exist", !tasks.isEmpty());
+      assertTrue(!tasks.isEmpty(), "task for activity " + taskName + " does not exist");
       taskService.complete(tasks.get(0).getId());
     }
   }

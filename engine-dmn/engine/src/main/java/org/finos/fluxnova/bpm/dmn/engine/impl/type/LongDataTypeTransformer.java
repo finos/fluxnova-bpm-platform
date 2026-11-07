@@ -31,12 +31,12 @@ public class LongDataTypeTransformer implements DmnDataTypeTransformer {
 
   @Override
   public TypedValue transform(Object value) throws IllegalArgumentException {
-    if (value instanceof Number) {
-      long longValue = transformNumber((Number) value);
+    if (value instanceof Number number) {
+      long longValue = transformNumber(number);
       return Variables.longValue(longValue);
 
-    } else if (value instanceof String) {
-      long longValue = transformString((String) value);
+    } else if (value instanceof String string) {
+      long longValue = transformString(string);
       return Variables.longValue(longValue);
 
     } else {

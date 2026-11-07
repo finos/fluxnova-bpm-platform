@@ -16,11 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.cmmn.deployment;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.InputStream;
 import java.util.List;
@@ -38,7 +34,8 @@ import org.finos.fluxnova.bpm.model.cmmn.Cmmn;
 import org.finos.fluxnova.bpm.model.cmmn.CmmnModelInstance;
 import org.finos.fluxnova.bpm.model.cmmn.instance.Case;
 import org.finos.fluxnova.bpm.model.cmmn.instance.CasePlanModel;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov

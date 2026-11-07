@@ -18,12 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +47,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author roman.smirnov
@@ -463,7 +459,7 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTest {
     for (VariableInstance var : result) {
       assertEquals("stringVar", var.getName());
       assertEquals("string", var.getTypeName());
-      assertTrue("Unexpected value found: " + var.getValue(), expected.contains(var.getValue()));
+      assertTrue(expected.contains(var.getValue()), "Unexpected value found: " + var.getValue());
     }
   }
 
@@ -1529,6 +1525,69 @@ public class VariableInstanceQueryTest extends PluggableProcessEngineTest {
     assertTrue(result.isEmpty());
 
     assertEquals(0, query.count());
+  }
+
+  @Test
+  @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
+  public void testQueryByProcessInstanceBusinessKey() {
+    // given
+    Map<String, Object> variables1 = new HashMap<>();
+    variables1.put("stringVar", "test");
+    runtimeService.startProcessInstanceByKey(PROC_DEF_KEY, "businessKey-1", variables1);
+
+    Map<String, Object> variables2 = new HashMap<>();
+    variables2.put("stringVar", "another");
+    runtimeService.startProcessInstanceByKey(PROC_DEF_KEY, "businessKey-2", variables2);
+
+    // when
+    VariableInstanceQuery query = runtimeService.createVariableInstanceQuery().businessKey("businessKey-1");
+
+    // then
+    List<VariableInstance> result = query.list();
+    assertFalse(result.isEmpty());
+    assertEquals(1, result.size());
+    assertEquals(1, query.count());
+
+    VariableInstance variable = result.get(0);
+    assertEquals("stringVar", variable.getName());
+    assertEquals("test", variable.getValue());
+  }
+
+  @Test
+  @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
+  public void testQueryByInvalidProcessInstanceBusinessKey() {
+    // given
+    Map<String, Object> variables = new HashMap<>();
+    variables.put("stringVar", "test");
+    runtimeService.startProcessInstanceByKey(PROC_DEF_KEY, "businessKey-1", variables);
+
+    // then
+    assertEquals(0, runtimeService.createVariableInstanceQuery().businessKey("invalid").count());
+
+    try {
+      runtimeService.createVariableInstanceQuery().businessKey(null).count();
+      fail();
+    } catch (ProcessEngineException ignored) {
+      // expected
+    }
+  }
+
+  @Test
+  @Deployment(resources={"org/finos/fluxnova/bpm/engine/test/api/runtime/oneTaskProcess.bpmn20.xml"})
+  public void testQueryByProcessInstanceBusinessKeyLike() {
+    // given
+    Map<String, Object> variables1 = new HashMap<>();
+    variables1.put("stringVar", "test");
+    runtimeService.startProcessInstanceByKey(PROC_DEF_KEY, "businessKey-1", variables1);
+
+    Map<String, Object> variables2 = new HashMap<>();
+    variables2.put("stringVar", "another");
+    runtimeService.startProcessInstanceByKey(PROC_DEF_KEY, "otherKey-1", variables2);
+
+    // then
+    assertEquals(1, runtimeService.createVariableInstanceQuery().businessKeyLike("business%").count());
+    assertEquals(1, runtimeService.createVariableInstanceQuery().businessKeyLike("%businessKey-1").count());
+    assertEquals(1, runtimeService.createVariableInstanceQuery().businessKeyLike("%nessKey%").count());
   }
 
   @Test

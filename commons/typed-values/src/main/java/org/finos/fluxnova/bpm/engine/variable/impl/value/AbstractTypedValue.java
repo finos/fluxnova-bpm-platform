@@ -32,10 +32,17 @@ public class AbstractTypedValue<T> implements TypedValue {
   protected ValueType type;
 
   protected boolean isTransient;
+  protected boolean restricted;
 
   public AbstractTypedValue(T value, ValueType type) {
     this.value = value;
     this.type = type;
+  }
+
+  public AbstractTypedValue(T value, ValueType type, boolean isTransient, boolean restricted) {
+    this(value, type);
+    this.isTransient = isTransient;
+    this.restricted = restricted;
   }
 
   public T getValue() {
@@ -47,7 +54,7 @@ public class AbstractTypedValue<T> implements TypedValue {
   }
 
   public String toString() {
-    return "Value '" + value + "' of type '" + type + "', isTransient=" + isTransient;
+    return "Value '" + value + "' of type '" + type + "', isTransient=" + isTransient + ", restricted=" + restricted;
   }
 
   @Override
@@ -57,6 +64,15 @@ public class AbstractTypedValue<T> implements TypedValue {
 
   public void setTransient(boolean isTransient) {
     this.isTransient = isTransient;
+  }
+
+  @Override
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
 }

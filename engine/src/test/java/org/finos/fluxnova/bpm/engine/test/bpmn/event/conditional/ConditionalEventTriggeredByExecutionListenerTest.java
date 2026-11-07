@@ -17,9 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.conditional;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,14 +32,13 @@ import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.instance.SequenceFlow;
 import org.finos.fluxnova.bpm.model.bpmn.instance.fluxnova.FluxnovaExecutionListener;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Parameterized.class)
 public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractConditionalEventTestCase {
 
   protected static final String TASK_AFTER_CONDITIONAL_BOUNDARY_EVENT = "Task after conditional boundary event";
@@ -56,7 +53,6 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     int expectedTaskCount();
   }
 
-  @Parameterized.Parameters(name = "{index}: {0}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
       {new ConditionalEventProcessSpecifier() {
@@ -163,13 +159,13 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
         }
       }}});
   }
-
-  @Parameterized.Parameter
   public ConditionalEventProcessSpecifier specifier;
 
 
-  @Test
-  public void testSetVariableInStartListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableInStartListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -199,8 +195,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableInStartListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableInStartListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -228,8 +226,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
   }
 
-  @Test
-  public void testSetVariableInTakeListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableInTakeListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -263,8 +263,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableInTakeListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableInTakeListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -300,8 +302,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
   }
 
-  @Test
-  public void testSetVariableInTakeListenerWithAsyncBefore() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableInTakeListenerWithAsyncBefore(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -336,8 +340,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableInTakeListenerWithAsyncBefore() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableInTakeListenerWithAsyncBefore(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -385,8 +391,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     assertNull(runtimeService.createProcessInstanceQuery().singleResult());
   }
 
-  @Test
-  public void testSetVariableInEndListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableInEndListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -414,8 +422,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableInEndListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableInEndListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .userTask(TASK_BEFORE_CONDITION_ID)
@@ -442,8 +452,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
   }
 
-  @Test
-  public void testSetVariableOnParentScopeInTakeListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableOnParentScopeInTakeListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -482,8 +494,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableOnParentScopeInTakeListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableOnParentScopeInTakeListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -522,8 +536,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
   }
 
-  @Test
-  public void testSetVariableOnParentScopeInStartListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableOnParentScopeInStartListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -558,8 +574,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableOnParentScopeInStartListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableOnParentScopeInStartListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -594,8 +612,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
   }
 
-  @Test
-  public void testSetVariableOnParentScopeInEndListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testSetVariableOnParentScopeInEndListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -630,8 +650,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     specifier.assertTaskNames(tasksAfterVariableIsSet, true, false);
   }
 
-  @Test
-  public void testNonInterruptingSetVariableOnParentScopeInEndListener() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "{index}: {0}")
+  public void testNonInterruptingSetVariableOnParentScopeInEndListener(ConditionalEventProcessSpecifier specifier) {
+    initConditionalEventTriggeredByExecutionListenerTest(specifier);
     BpmnModelInstance modelInstance = Bpmn.createExecutableProcess(CONDITIONAL_EVENT_PROCESS_KEY)
       .startEvent(START_EVENT_ID)
       .subProcess()
@@ -664,6 +686,10 @@ public class ConditionalEventTriggeredByExecutionListenerTest extends AbstractCo
     //non interrupting boundary event is triggered
     tasksAfterVariableIsSet = taskQuery.list();
     specifier.assertTaskNames(tasksAfterVariableIsSet, false, false);
+  }
+
+  public void initConditionalEventTriggeredByExecutionListenerTest(ConditionalEventProcessSpecifier specifier) {
+    this.specifier = specifier;
   }
 
 }

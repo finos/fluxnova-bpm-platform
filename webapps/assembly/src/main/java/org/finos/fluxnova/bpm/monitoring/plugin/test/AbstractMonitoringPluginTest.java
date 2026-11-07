@@ -33,11 +33,11 @@ import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  *
@@ -56,25 +56,25 @@ public abstract class AbstractMonitoringPluginTest {
     // with an upgrade of mybatis, this might have to become org.mybatis.generator.logging.LogFactory.forceJavaLogging();
   }
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule processEngineRule = new ProcessEngineRule(true);
 
-  @BeforeClass
+  @BeforeAll
   public static void beforeClass() {
     Monitoring.setMonitoringRuntimeDelegate(RUNTIME_DELEGATE);
   }
 
-  @AfterClass
+  @AfterAll
   public static void afterClass() {
     Monitoring.setMonitoringRuntimeDelegate(null);
   }
 
-  @Before
+  @BeforeEach
   public void before() {
     RUNTIME_DELEGATE.ENGINE = getProcessEngine();
   }
 
-  @After
+  @AfterEach
   public void after() {
     RUNTIME_DELEGATE.ENGINE = null;
     getProcessEngine().getIdentityService().clearAuthentication();

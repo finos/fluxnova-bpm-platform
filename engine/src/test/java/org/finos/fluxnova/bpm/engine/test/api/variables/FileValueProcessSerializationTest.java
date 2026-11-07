@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.api.variables;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.charset.Charset;
 import java.util.Scanner;
@@ -33,7 +33,8 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.FileValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Ronny Bräunlich

@@ -17,10 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.timer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -36,7 +33,8 @@ import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.joda.time.LocalDateTime;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Joram Barrez

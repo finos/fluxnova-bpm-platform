@@ -17,9 +17,7 @@
 package org.finos.fluxnova.spin.plugin.variables;
 
 import static org.finos.fluxnova.bpm.engine.variable.Variables.objectValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.HistoryService;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
@@ -35,9 +33,10 @@ import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.spin.DataFormats;
 import org.json.JSONException;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
 import org.skyscreamer.jsonassert.JSONAssert;
 
 public class HistoricVariableJsonSerializationTest {
@@ -46,14 +45,14 @@ public class HistoricVariableJsonSerializationTest {
 
   protected static final String JSON_FORMAT_NAME = DataFormats.json().getName();
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule(true);
 
   protected HistoryService historyService;
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     historyService = engineRule.getHistoryService();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();

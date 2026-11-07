@@ -19,9 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.runtime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,10 +45,10 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.util.IncrementCounterListe
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 
 /**
@@ -63,13 +61,13 @@ public class RuntimeServiceAsyncOperationsTest extends AbstractAsyncOperationsTe
 
   protected MigrationTestRule migrationRule = new MigrationTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
-  @Rule
-  public RuleChain migrationChain = RuleChain.outerRule(testRule).around(migrationRule);
+  @RegisterExtension
+  public ChainedExtension migrationChain = ChainedExtension.outerExtension(testRule).around(migrationRule);
 
-  @Before
+  @BeforeEach
   public void setup() {
     initDefaults(engineRule);
   }

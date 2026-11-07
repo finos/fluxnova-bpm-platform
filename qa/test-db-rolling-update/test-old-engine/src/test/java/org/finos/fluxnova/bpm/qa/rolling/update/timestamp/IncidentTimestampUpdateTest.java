@@ -21,8 +21,8 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Nikola Koevski
@@ -50,6 +50,6 @@ public class IncidentTimestampUpdateTest extends AbstractTimestampUpdateTest {
       .count();
 
     // then
-    assertThat(incident.getIncidentTimestamp(), is(TIMESTAMP));
+    assertEquals(TIMESTAMP, incident.getIncidentTimestamp());
   }
 }

@@ -16,10 +16,7 @@
  */
 package org.finos.fluxnova.bpm.application.impl.deployment.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URL;
 import java.util.List;
@@ -30,8 +27,8 @@ import org.finos.fluxnova.bpm.application.impl.metadata.spi.ProcessArchiveXml;
 import org.finos.fluxnova.bpm.application.impl.metadata.spi.ProcessesXml;
 import org.finos.fluxnova.bpm.container.impl.metadata.spi.ProcessEngineXml;
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>The testcases for the {@link ProcessesXmlParser}</p>
@@ -43,7 +40,7 @@ public class ProcessesXmlParserTest {
 
   private ProcessesXmlParser parser;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     parser = new ProcessesXmlParser();
   }

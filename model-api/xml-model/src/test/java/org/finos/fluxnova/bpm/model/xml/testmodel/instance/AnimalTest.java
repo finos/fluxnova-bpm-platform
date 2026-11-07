@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.model.xml.testmodel.instance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.model.xml.testmodel.TestModelConstants.MODEL_NAMESPACE;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,9 +31,8 @@ import org.finos.fluxnova.bpm.model.xml.impl.parser.AbstractModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.Gender;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelTest;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
@@ -54,15 +53,8 @@ public class AnimalTest extends TestModelTest {
   private RelationshipDefinition timmyRelationship;
   private RelationshipDefinition daisyRelationship;
 
-  public AnimalTest(String testName, ModelInstance testModelInstance, AbstractModelParser modelParser) {
-    super(testName, testModelInstance, modelParser);
-  }
-
-
-  @Parameters(name="Model {0}")
-  public static Collection<Object[]> models() {
-    Object[][] models = {createModel(), parseModel(AnimalTest.class)};
-    return Arrays.asList(models);
+  public AnimalTest() {
+    super("parsed", parseModel(AnimalTest.class));
   }
 
   public static Object[] createModel() {
@@ -104,7 +96,7 @@ public class AnimalTest extends TestModelTest {
     return new Object[]{"created", modelInstance, modelParser};
   }
 
-  @Before
+  @BeforeEach
   public void copyModelInstance() {
     modelInstance = cloneModelInstance();
 

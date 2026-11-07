@@ -1,10 +1,8 @@
 # Fluxnova - The open source BPMN platform
 [![FINOS - Incubating](https://cdn.jsdelivr.net/gh/finos/contrib-toolbox@master/images/badge-incubating.svg)](https://community.finos.org/docs/governance/Software-Projects/stages/incubating)
-[![Build CI](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml?query=branch%3Amain) 
-[![Manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.fluxnova.finos.org/) 
+[![Build CI](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/finos/fluxnova-bpm-platform/actions/workflows/build.yaml?query=branch%3Amain)
+[![Manual latest](https://img.shields.io/badge/manual-latest-brown.svg)](https://docs.fluxnova.finos.org/)
 [![License](https://img.shields.io/github/license/finos/fluxnova-bpm-platform?color=blue&logo=apache)](https://github.com/finos/fluxnova-bpm-platform/blob/main/LICENSE)
-
-Note: See [LinkML Schema](./docs/about.md) for Linked Data sidecar (with provenance model)
 
 Fluxnova is a flexible framework for workflow and process automation. Its core is a native BPMN 2.0 process engine that runs inside the Java Virtual Machine. It can be embedded inside any Java application and any Runtime Container. It integrates with Java EE 6 and is a perfect match for the Spring Framework. On top of the process engine, you can choose from a stack of tools for human workflow management, operations and monitoring.
 
@@ -54,6 +52,53 @@ Out of the box, Fluxnova provides infrastructure-level integration with Java EE 
 
 Most of the components that make up the platform can even be completely embedded inside an application. For instance, you can add the process engine and the REST API as a library to your application and assemble your custom BPM platform configuration.
 
+## Docker Images
+
+| Event | Registry | Image tag |
+|---|---|---|
+| Merge to `main` | [GHCR](https://ghcr.io) (`ghcr.io/finos/fluxnova-bpm-platform`) | `<run>-<sha>` e.g. `127-a3f9c21` |
+| Release (`release/major`, `release/minor`, or `release/patch`) | [Docker Hub](https://hub.docker.com/r/finos/fluxnova-bpm-platform) (`finos/fluxnova-bpm-platform`) | `<release-version>` + `latest` |
+
+## Release
+
+Releases are manually triggered from `release/*` branches through GitHub Actions using the workflow in `.github/workflows/release.yml`.
+
+For release instructions, including how to create major, minor, and patch release branches and run the workflow manually, see [RELEASE.md](RELEASE.md).
+
+### Local builds with `docker buildx bake`
+
+The repository includes `docker-bake.hcl` with two targets:
+
+- `corretto21` (Amazon Corretto 21, DNF-based image)
+- `corretto21_alpine` (Amazon Corretto 21 Alpine image)
+
+The `corretto21` Dockerfile target supports optional BuildKit secrets:
+
+- `dnf_repo`: optional DNF repo file mounted as `/run/secrets/dnf_repo`
+- `trust_cert`: optional CA cert mounted as `/run/secrets/trust_cert` (trust store is updated only when provided)
+
+#### Basic builds (no args, no secrets)
+
+```bash
+docker buildx bake -f ./docker-bake.hcl
+```
+
+```bash
+docker buildx bake -f ./docker-bake.hcl corretto21
+```
+
+#### Build with Optional Build Args and Secrets
+
+```bash
+IMAGE_NAME=<docker-registry-host>/fluxnova-bpm-platform \
+VERSION=<version> \
+docker buildx bake -f ./docker-bake.hcl [target] \
+  --set '*.args.DOCKER_REGISTRY=<docker-registry-host>' \
+  --set '*.args.ALPINE_REGISTRY=<alpine-registry-url>' \
+  --set 'corretto21.secrets=id=dnf_repo,src=<path-to-dnf-repo-file>' \
+  --set 'corretto21.secrets=id=trust_cert,src=<path-to-ca-cert>'
+```
+
 ## Contributing
 
 Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.
@@ -61,6 +106,26 @@ Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issue
 ## Tests
 
 To run the tests in this repository, please see our [testing tips and tricks](TESTING.md).
+
+## Fluxnova Repositories
+
+The Fluxnova project spans multiple repositories in the [finos](https://github.com/finos) GitHub organization:
+
+| Repository | Description |
+|------------|-------------|
+| [fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform) | The core Fluxnova BPM platform and process engine |
+| [fluxnova-modeler](https://github.com/finos/fluxnova-modeler) | An integrated modeling solution for BPMN, DMN and Forms based on bpmn.io |
+| [fluxnova-control-center](https://github.com/finos/fluxnova-control-center) | Web application for Fluxnova process monitoring and administration |
+| [fluxnova-docs-manual](https://github.com/finos/fluxnova-docs-manual) | Sources of the docs.fluxnova.finos.org site |
+| [fluxnova-website](https://github.com/finos/fluxnova-website) | Sources of the fluxnova.finos.org site |
+| [fluxnova-feel-scala](https://github.com/finos/fluxnova-feel-scala) | FEEL parser and interpreter written in Scala |
+| [fluxnova-examples](https://github.com/finos/fluxnova-examples) | Example projects and use cases for Fluxnova |
+| [fluxnova-plugins](https://github.com/finos/fluxnova-plugins) | Community and extension plugins for Fluxnova |
+| [fluxnova-modeler-plugins](https://github.com/finos/fluxnova-modeler-plugins) | Plugins for the Fluxnova Modeler |
+| [fluxnova-testing-framework](https://github.com/finos/fluxnova-testing-framework) | Testing framework and utilities for Fluxnova applications |
+| [fluxnova-deploy](https://github.com/finos/fluxnova-deploy) | Deployment configurations and tools for Fluxnova |
+| [fluxnova-docs-theme](https://github.com/finos/fluxnova-docs-theme) | Theme and styling for Fluxnova documentation |
+| [fluxnova-ai](https://github.com/finos/fluxnova-ai) | Fluxnova AI Working Group |
 
 ## Get Involved
 

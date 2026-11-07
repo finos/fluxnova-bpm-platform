@@ -19,8 +19,8 @@ package org.finos.fluxnova.bpm.integrationtest.functional.ejb.beans;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
 
-import javax.ejb.Singleton;
-import javax.inject.Named;
+import jakarta.ejb.Singleton;
+import jakarta.inject.Named;
 
 
 @Named("SingletonBeanDelegate")

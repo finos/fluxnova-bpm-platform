@@ -17,9 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.cfg;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,18 +46,17 @@ import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.utils.cache.Cache;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Johannes Heinemann
  */
 public class DeploymentCacheCfgTest {
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule cacheFactoryBootstrapRule = new ProcessEngineBootstrapRule(configuration -> {
       // apply configuration options here
       configuration.setCacheCapacity(2);
@@ -70,15 +67,15 @@ public class DeploymentCacheCfgTest {
   protected ProvidedProcessEngineRule cacheFactoryEngineRule = new ProvidedProcessEngineRule(cacheFactoryBootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(cacheFactoryEngineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(cacheFactoryEngineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(cacheFactoryEngineRule).around(testRule);
   RepositoryService repositoryService;
   ProcessEngineConfigurationImpl processEngineConfiguration;
   RuntimeService runtimeService;
   TaskService taskService;
   ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void initialize() {
     repositoryService = cacheFactoryEngineRule.getRepositoryService();
     processEngineConfiguration = cacheFactoryEngineRule.getProcessEngineConfiguration();

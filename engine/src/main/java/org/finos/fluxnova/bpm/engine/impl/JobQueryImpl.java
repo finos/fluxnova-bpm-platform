@@ -72,6 +72,8 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
   protected boolean noRetriesLeft;
   protected SuspensionState suspensionState;
   protected boolean acquired;
+  protected String batchId;
+  protected boolean inBatch;
 
   protected boolean isTenantIdSet = false;
   protected String[] tenantIds;
@@ -312,6 +314,17 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
     return this;
   }
 
+  public JobQuery batchId(String batchId) {
+    ensureNotNull("Provided batch id", batchId);
+    this.batchId = batchId;
+    return this;
+  }
+
+  public JobQuery inBatch() {
+    inBatch = true;
+    return this;
+  }
+
   //sorting //////////////////////////////////////////
 
   public JobQuery orderByJobDuedate() {
@@ -410,5 +423,11 @@ public class JobQueryImpl extends AbstractQuery<JobQuery, Job> implements JobQue
   }
   public boolean getAcquired() {
     return acquired;
+  }
+  public String getBatchId() {
+    return batchId;
+  }
+  public boolean getInBatch() {
+    return inBatch;
   }
 }

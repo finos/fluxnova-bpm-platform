@@ -27,6 +27,7 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.ExecutionEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.PropertyChange;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.TaskEntity;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.VariableInstanceEntity;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 
 
 /**
@@ -40,8 +41,12 @@ public class SetTaskVariablesCmd extends AbstractSetVariableCmd implements Varia
   protected boolean taskLocalVariablesUpdated = false;
 
 
-  public SetTaskVariablesCmd(String taskId, Map<String, ? extends Object> variables, boolean isLocal) {
+  public SetTaskVariablesCmd(String taskId, Map<String, ?> variables, boolean isLocal) {
     super(taskId, variables, isLocal);
+  }
+
+  public SetTaskVariablesCmd(String taskId, Map<String, ?> variables, boolean isLocal, VariableOptions options) {
+    super(taskId, variables, isLocal, options);
   }
 
   protected TaskEntity getEntity() {

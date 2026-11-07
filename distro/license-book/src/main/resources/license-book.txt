@@ -3001,47 +3001,6 @@ Copyright: various authors
 
 Licensed under Apache 2.0
 
-===========================================================================================
-org.wildfly:wildfly-common-ee-dependency-management:pom:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/boms/common-ee
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
-
-===========================================================================================
-org.wildfly:wildfly-common-expansion-dependency-management:pom:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/boms/common-expansion
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
-
-===========================================================================================
-org.wildfly:wildfly-dist:tar.gz:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/dist
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
-
-===========================================================================================
-org.wildfly:wildfly-galleon-pack:zip:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/galleon-pack
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
-
-===========================================================================================
-org.wildfly:wildfly-standard-ee-bom:pom:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/boms/standard-ee
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
-
-===========================================================================================
-org.wildfly:wildfly-standard-expansion-bom:pom:35.0.0.Final
-https://github.com/wildfly/wildfly/tree/35.0.0.Final/boms/standard-expansion
-
-Copyright The WildFly Authors
-Licensed under Apache 2.0
 
 ===========================================================================================
 org.yaml:snakeyaml:jar:2.3

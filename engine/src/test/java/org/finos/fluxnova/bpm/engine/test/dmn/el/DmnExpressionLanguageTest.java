@@ -30,21 +30,21 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DmnExpressionLanguageTest {
 
   private static final String JUEL_EXPRESSIONS_WITH_PROPERTIES_DMN =
       "org/finos/fluxnova/bpm/engine/test/dmn/el/DmnExpressionLanguageTest.dmn";
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   private DecisionService decisionService;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     decisionService = engineRule.getDecisionService();
   }

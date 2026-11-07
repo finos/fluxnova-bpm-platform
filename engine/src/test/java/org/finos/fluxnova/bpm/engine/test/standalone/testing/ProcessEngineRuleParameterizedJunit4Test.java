@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.testing;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,41 +27,39 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 
 /**
  * @author Thorben Lindhauer
  */
-@RunWith(Parameterized.class)
 public class ProcessEngineRuleParameterizedJunit4Test {
 
-  @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
       { 1 }, { 2 }
     });
   }
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
-  public ProcessEngineRuleParameterizedJunit4Test(int parameter) {
+  public void initProcessEngineRuleParameterizedJunit4Test(int parameter) {
 
   }
 
   /**
    * Unnamed @Deployment annotations don't work with parameterized Unit tests
    */
-  @Ignore
-  @Test
+  @Disabled
+  @MethodSource("data")
+  @ParameterizedTest
   @Deployment
-  public void ruleUsageExample() {
+  public void ruleUsageExample(int parameter) {
+    initProcessEngineRuleParameterizedJunit4Test(parameter);
     RuntimeService runtimeService = engineRule.getRuntimeService();
     runtimeService.startProcessInstanceByKey("ruleUsage");
 
@@ -73,9 +71,11 @@ public class ProcessEngineRuleParameterizedJunit4Test {
     assertEquals(0, runtimeService.createProcessInstanceQuery().count());
   }
 
-  @Test
+  @ParameterizedTest
   @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/standalone/testing/ProcessEngineRuleParameterizedJunit4Test.ruleUsageExample.bpmn20.xml")
-  public void ruleUsageExampleWithNamedAnnotation() {
+  @MethodSource("data")
+  public void ruleUsageExampleWithNamedAnnotation(int parameter) {
+    initProcessEngineRuleParameterizedJunit4Test(parameter);
     RuntimeService runtimeService = engineRule.getRuntimeService();
     runtimeService.startProcessInstanceByKey("ruleUsage");
 
@@ -90,8 +90,10 @@ public class ProcessEngineRuleParameterizedJunit4Test {
   /**
    * The rule should work with tests that have no deployment annotation
    */
-  @Test
-  public void testWithoutDeploymentAnnotation() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testWithoutDeploymentAnnotation(int parameter) {
+    initProcessEngineRuleParameterizedJunit4Test(parameter);
     assertEquals("aString", "aString");
   }
 

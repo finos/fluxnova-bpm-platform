@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.runtime.migration;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.migration.MigrationPlan;
@@ -29,10 +29,10 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.EventSubP
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.MessageReceiveModels;
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.models.ProcessModels;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 
 public class MigrationMessageStartEventTest {
@@ -41,10 +41,10 @@ public class MigrationMessageStartEventTest {
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
   protected RuntimeService runtimeService;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
-  @Before
+  @BeforeEach
   public void setup() {
     runtimeService = rule.getRuntimeService();
   }
@@ -106,8 +106,8 @@ public class MigrationMessageStartEventTest {
 
   protected void assertEventSubscriptionMigrated(EventSubscription eventSubscriptionBefore, String activityIdAfter, String eventName) {
     EventSubscription eventSubscriptionAfter = runtimeService.createEventSubscriptionQuery().singleResult();
-    assertNotNull("Expected that an event subscription with id '" + eventSubscriptionBefore.getId() + "' "
-        + "exists after migration", eventSubscriptionAfter);
+    assertNotNull(eventSubscriptionAfter, "Expected that an event subscription with id '" + eventSubscriptionBefore.getId() + "' "
+        + "exists after migration");
 
     assertEquals(eventSubscriptionBefore.getEventType(), eventSubscriptionAfter.getEventType());
     assertEquals(activityIdAfter, eventSubscriptionAfter.getActivityId());

@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.bpm.model.xml.impl.util;
 
+
+
 import org.finos.fluxnova.bpm.model.xml.ModelException;
 import org.finos.fluxnova.bpm.model.xml.instance.DomDocument;
 import org.w3c.dom.Node;

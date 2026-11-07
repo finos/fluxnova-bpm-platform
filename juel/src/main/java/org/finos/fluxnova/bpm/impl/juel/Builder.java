@@ -16,6 +16,7 @@
 package org.finos.fluxnova.bpm.impl.juel;
 
 import java.io.PrintWriter;
+
 import java.util.EnumSet;
 
 import jakarta.el.ELContext;
@@ -31,7 +32,7 @@ import org.finos.fluxnova.bpm.impl.juel.Parser.ParseException;
  * @author Christoph Beck
  */
 public class Builder implements TreeBuilder {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
 	/**
 	 * Feature enumeration type.

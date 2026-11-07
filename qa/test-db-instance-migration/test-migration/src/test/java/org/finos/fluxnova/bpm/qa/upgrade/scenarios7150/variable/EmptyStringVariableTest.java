@@ -27,14 +27,14 @@ import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.finos.fluxnova.bpm.qa.upgrade.UpgradeTestRule;
 import org.junit.Before;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 @ScenarioUnderTest("EmptyStringVariableScenario")
 @Origin("7.14.0")
 public class EmptyStringVariableTest {
 
-  @Rule
+  @RegisterExtension
   public UpgradeTestRule engineRule = new UpgradeTestRule();
 
   RuntimeService runtimeService;

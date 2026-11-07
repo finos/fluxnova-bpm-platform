@@ -33,9 +33,9 @@ import org.finos.fluxnova.bpm.engine.RuntimeService;
 import org.finos.fluxnova.bpm.engine.authorization.Groups;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ProcessInstanceResourceTenantCheckTest extends AbstractMonitoringPluginTest {
 
@@ -51,7 +51,7 @@ public class ProcessInstanceResourceTenantCheckTest extends AbstractMonitoringPl
   private IdentityService identityService;
   private CalledProcessInstanceQueryDto queryParameter;
 
-  @Before
+  @BeforeEach
   public void init() throws Exception {
 
     processEngine = getProcessEngine();
@@ -73,7 +73,7 @@ public class ProcessInstanceResourceTenantCheckTest extends AbstractMonitoringPl
     queryParameter = new CalledProcessInstanceQueryDto();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     processEngineConfiguration.getAdminGroups().remove(ADMIN_GROUP);
     processEngineConfiguration.getAdminUsers().remove(ADMIN_USER);

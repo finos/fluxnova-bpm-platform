@@ -34,7 +34,7 @@ import org.finos.fluxnova.bpm.webapp.impl.security.filter.SecurityFilterConfig.P
 import org.finos.fluxnova.bpm.webapp.impl.security.filter.SecurityFilterConfig.PathMatcherConfig;
 import org.finos.fluxnova.bpm.webapp.impl.security.filter.SecurityFilterRule;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Utility to load and match filter rules.

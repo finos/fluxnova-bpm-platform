@@ -38,7 +38,7 @@ import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.CallActivityBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.builder.ProcessBuilder;
 import org.finos.fluxnova.bpm.model.bpmn.builder.StartEventBuilder;
-import org.junit.runner.Description;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
  * @author Tassilo Weidner
@@ -53,7 +53,7 @@ public class BatchSetRemovalTimeRule extends BatchRule {
   }
 
   @Override
-  protected void starting(Description description) {
+  public void beforeEach(ExtensionContext context) throws Exception {
     getProcessEngineConfiguration()
       .setHistoryRemovalTimeProvider(new DefaultHistoryRemovalTimeProvider())
       .setHistoryRemovalTimeStrategy(ProcessEngineConfiguration.HISTORY_REMOVAL_TIME_STRATEGY_START)
@@ -68,12 +68,12 @@ public class BatchSetRemovalTimeRule extends BatchRule {
 
     ClockUtil.setCurrentTime(CURRENT_DATE);
 
-    super.starting(description);
+    super.beforeEach(context);
   }
 
   @Override
-  protected void finished(Description description) {
-    super.finished(description);
+  public void afterEach(ExtensionContext context) throws Exception {
+    super.afterEach(context);
 
     getProcessEngineConfiguration()
       .setHistoryRemovalTimeProvider(null)

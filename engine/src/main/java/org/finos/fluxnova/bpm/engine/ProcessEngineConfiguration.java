@@ -18,7 +18,9 @@ package org.finos.fluxnova.bpm.engine;
 
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 import org.finos.fluxnova.bpm.engine.authorization.Authorization;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
@@ -202,6 +204,9 @@ public abstract class ProcessEngineConfiguration {
   public static final String AUTHORIZATION_CHECK_REVOKE_AUTO = "auto";
 
   protected String processEngineName = ProcessEngines.NAME_DEFAULT;
+  protected String processEngineDisplayName;
+  protected String processEngineGroup;
+  protected String processEngineGroupDisplayName;
   protected int idBlockSize = 100;
   protected String history = HISTORY_DEFAULT;
   protected boolean jobExecutorActivate;

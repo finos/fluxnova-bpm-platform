@@ -18,9 +18,9 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 
 import java.net.URI;
 
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Providers;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
@@ -51,6 +51,7 @@ import org.finos.fluxnova.bpm.engine.rest.SchemaLogRestService;
 import org.finos.fluxnova.bpm.engine.rest.SignalRestService;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.TelemetryRestService;
+import org.finos.fluxnova.bpm.engine.rest.ConfigurationRestService;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;
 import org.finos.fluxnova.bpm.engine.rest.UserRestService;
 import org.finos.fluxnova.bpm.engine.rest.VariableInstanceRestService;
@@ -59,7 +60,7 @@ import org.finos.fluxnova.bpm.engine.rest.impl.history.HistoryRestServiceImpl;
 import org.finos.fluxnova.bpm.engine.rest.impl.optimize.OptimizeRestService;
 import org.finos.fluxnova.bpm.engine.rest.util.ProvidersUtil;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * <p>Abstract process engine resource that provides instantiations of all REST resources.</p>
@@ -263,6 +264,13 @@ public abstract class AbstractProcessEngineRestServiceImpl {
   public BatchRestService getBatchRestService(String engineName) {
     String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
     BatchRestServiceImpl subResource = new BatchRestServiceImpl(engineName, getObjectMapper());
+    subResource.setRelativeRootResourceUri(rootResourcePath);
+    return subResource;
+  }
+
+  public ConfigurationRestService getConfigurationRestService(String engineName) {
+    String rootResourcePath = getRelativeEngineUri(engineName).toASCIIString();
+    ConfigurationRestServiceImpl subResource = new ConfigurationRestServiceImpl(engineName, getObjectMapper());
     subResource.setRelativeRootResourceUri(rootResourcePath);
     return subResource;
   }

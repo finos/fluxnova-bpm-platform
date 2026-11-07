@@ -24,4 +24,36 @@ if [[ -z "${SPRING_DATASOURCE_URL:-}" && -n "${DB_URL:-}" ]]; then
 fi
 
 CMD="/fluxnova/start.sh"
+
+# If PEM certs are mounted, import them into a truststore that also includes the default JVM CAs.
+# Mount individual .crt files to /fluxnova/certs/ or set EXTRA_CERTS_DIR to a directory of .crt files.
+CERT_DIR="${EXTRA_CERTS_DIR:-/fluxnova/certs}"
+TRUSTSTORE="/tmp/truststore.jks"
+if [ -d "${CERT_DIR}" ] && ls "${CERT_DIR}"/*.crt 1>/dev/null 2>&1; then
+  # Start from the JVM's default CA bundle so we don't break other TLS connections.
+  DEFAULT_CACERTS="${JAVA_HOME}/lib/security/cacerts"
+  cp "${DEFAULT_CACERTS}" "${TRUSTSTORE}"
+  chmod 600 "${TRUSTSTORE}"
+  TRUSTSTORE_PASSWORD="${TRUSTSTORE_PASSWORD:-changeit}"
+
+  if [[ "${TRUSTSTORE_PASSWORD}" != "changeit" ]]; then
+    keytool -storepasswd \
+      -keystore "${TRUSTSTORE}" \
+      -storepass changeit \
+      -new "${TRUSTSTORE_PASSWORD}"
+  fi
+
+  for cert in "${CERT_DIR}"/*.crt; do
+    alias=$(basename "${cert}" .crt)
+    keytool -importcert -noprompt -trustcacerts \
+      -keystore "${TRUSTSTORE}" \
+      -storepass "${TRUSTSTORE_PASSWORD}" \
+      -alias "${alias}" \
+      -file "${cert}"
+    echo "Imported certificate: ${alias}"
+  done
+
+  export JAVA_TOOL_OPTIONS="${JAVA_TOOL_OPTIONS:-} -Djavax.net.ssl.trustStore=${TRUSTSTORE} -Djavax.net.ssl.trustStorePassword=${TRUSTSTORE_PASSWORD}"
+fi
+
 exec sh $CMD

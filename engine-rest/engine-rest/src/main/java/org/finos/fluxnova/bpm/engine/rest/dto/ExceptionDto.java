@@ -16,11 +16,13 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  *
  * @author nico.rehwaldt
  */
+@JsonPropertyOrder({"type", "message", "code"})
 public class ExceptionDto {
 
   protected String type;

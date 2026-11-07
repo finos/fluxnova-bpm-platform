@@ -17,8 +17,8 @@
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.conditional;
 
 import static org.finos.fluxnova.bpm.engine.test.api.runtime.migration.ModifiableBpmnModelInstance.modify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.finos.fluxnova.bpm.engine.delegate.ExecutionListener;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
@@ -27,8 +27,8 @@ import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
@@ -824,7 +824,7 @@ public class MixedConditionalEventTest extends AbstractConditionalEventTestCase 
     assertEquals(3, conditionEventSubscriptionQuery.count());
   }
 
-  @Ignore
+  @Disabled
   @Deployment
   public void testCompensationWithConditionalEvents() {
     //given process with compensation and conditional events

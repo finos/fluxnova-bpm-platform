@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.multitenancy;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,11 +31,11 @@ import org.finos.fluxnova.bpm.engine.task.TaskCountByCandidateGroupResult;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Stefan Hentschel.
@@ -45,8 +45,8 @@ public class MultiTenancyTaskCountByCandidateGroupTest {
   public ProcessEngineRule processEngineRule = new ProvidedProcessEngineRule();
   public ProcessEngineTestRule processEngineTestRule = new ProcessEngineTestRule(processEngineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension
     .outerRule(processEngineTestRule)
     .around(processEngineRule);
 
@@ -63,7 +63,7 @@ public class MultiTenancyTaskCountByCandidateGroupTest {
 
   protected List<String> taskIds = new ArrayList<String>();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     taskService = processEngineRule.getTaskService();
     identityService = processEngineRule.getIdentityService();
@@ -77,7 +77,7 @@ public class MultiTenancyTaskCountByCandidateGroupTest {
     processEngineConfiguration.setTenantCheckEnabled(true);
   }
 
-  @After
+  @AfterEach
   public void cleanUp() {
     processEngineConfiguration.setTenantCheckEnabled(false);
 

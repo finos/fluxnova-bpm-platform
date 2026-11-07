@@ -22,7 +22,10 @@ import org.finos.fluxnova.bpm.engine.delegate.VariableScope;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.mapping.value.ConstantValueProvider;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.mapping.value.ParameterValueProvider;
 import org.finos.fluxnova.bpm.engine.impl.core.variable.scope.VariableScopeLocalAdapter;
+import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
+import org.finos.fluxnova.bpm.engine.variable.Variables;
+import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 /**
  * @author Roman Smirnov
@@ -34,6 +37,7 @@ public class CallableElementParameter {
   protected String target;
   protected boolean allVariables;
   protected boolean readLocal = false;
+  protected boolean restricted;
 
   // source ////////////////////////////////////////////////////////
 
@@ -61,6 +65,13 @@ public class CallableElementParameter {
 
     } else {
       Object value = getSource(variableScope);
+      if (restricted) {
+        // Preserve the source variable's transient flag so that the temporary nature of the data
+        // is not lost when applying the restriction. This maintains semantic consistency between
+        // the source variable and the mapped target variable.
+        boolean isTransient = value instanceof TypedValue && ((TypedValue) value).isTransient();
+        value = Variables.untypedValue(value, VariableOptions.options(isTransient, true));
+      }
       variables.put(target, value);
     }
   }
@@ -101,6 +112,14 @@ public class CallableElementParameter {
 
   public boolean isReadLocal() {
     return readLocal;
+  }
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
   }
 
 }

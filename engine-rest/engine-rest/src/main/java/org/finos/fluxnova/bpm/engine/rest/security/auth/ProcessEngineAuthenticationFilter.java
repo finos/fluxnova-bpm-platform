@@ -22,16 +22,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.identity.Group;
@@ -41,7 +41,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.rest.impl.NamedProcessEngineRestServiceImpl;
 import org.finos.fluxnova.bpm.engine.rest.util.EngineUtil;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * <p>
@@ -84,6 +84,12 @@ public class ProcessEngineAuthenticationFilter implements Filter {
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
+    // Skip initialization if provider was already set (e.g., via Spring injection)
+    if (authenticationProvider != null) {
+      servletPathPrefix = filterConfig.getInitParameter(SERVLET_PATH_PREFIX);
+      return;
+    }
+
     String authenticationProviderClassName = filterConfig.getInitParameter(AUTHENTICATION_PROVIDER_PARAM);
 
     if (authenticationProviderClassName == null) {
@@ -105,6 +111,11 @@ public class ProcessEngineAuthenticationFilter implements Filter {
     }
 
     servletPathPrefix = filterConfig.getInitParameter(SERVLET_PATH_PREFIX);
+  }
+
+
+  public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+    this.authenticationProvider = authenticationProvider;
   }
 
   @Override

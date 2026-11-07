@@ -16,13 +16,13 @@
  */
 package org.finos.fluxnova.bpm.monitoring.impl.plugin.resources;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Providers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.monitoring.plugin.resource.AbstractMonitoringPluginRootResource;
 import org.finos.fluxnova.bpm.engine.rest.util.ProvidersUtil;
 

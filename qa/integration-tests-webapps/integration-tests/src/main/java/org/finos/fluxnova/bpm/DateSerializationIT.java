@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,14 +29,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.finos.fluxnova.bpm.engine.rest.mapper.JacksonConfigurator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DateSerializationIT extends AbstractWebIntegrationTest {
   
   private static final String SCHEMA_LOG_PATH = "api/engine/engine/default/schema/log";
   
-  @Before
+  @BeforeEach
   public void createClient() throws Exception {
     preventRaceConditions();
     createClient(getWebappCtxPath());

@@ -30,7 +30,7 @@ public class ResteasyTomcatServerBootstrap extends TomcatServerBootstrap {
 
   @Override
   protected void addRuntimeSpecificLibraries(WebArchive wa, PomEquippedResolveStage resolver) {
-    // inject rest easy version to differentiate between resteasy and wildfly-compatibility profile
+    // inject rest easy version
     String restEasyVersion = System.getProperty("restEasyVersion");
 
     wa.addAsLibraries(resolver.addDependencies(

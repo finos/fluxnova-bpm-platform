@@ -22,7 +22,7 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
 import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 /**
@@ -33,7 +33,7 @@ import org.junit.Test;
 @Origin("7.5.0")
 public class DeployProcessWithoutIsExecutableAttributeTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
 

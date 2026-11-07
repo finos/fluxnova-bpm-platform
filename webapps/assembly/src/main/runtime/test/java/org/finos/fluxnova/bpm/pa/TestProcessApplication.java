@@ -23,7 +23,7 @@ import java.util.Map;
 import org.finos.fluxnova.bpm.admin.impl.web.SetupResource;
 import org.finos.fluxnova.bpm.application.PostDeploy;
 import org.finos.fluxnova.bpm.application.ProcessApplication;
-import org.finos.fluxnova.bpm.application.impl.ServletProcessApplication;
+import org.finos.fluxnova.bpm.application.impl.JakartaServletProcessApplication;
 import org.finos.fluxnova.bpm.engine.CaseService;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
@@ -41,6 +41,6 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
  * @author nico.rehwaldt
  */
 @ProcessApplication
-public class TestProcessApplication extends ServletProcessApplication {
+public class TestProcessApplication extends JakartaServletProcessApplication {
 
 }

@@ -18,9 +18,10 @@ package org.finos.fluxnova.bpm.engine.rest.util;
 
 import static org.finos.fluxnova.bpm.engine.rest.helper.NoIntermediaryInvocation.immediatelyAfter;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.mockito.exceptions.base.MockitoAssertionError;
@@ -32,7 +33,7 @@ public class NoIntermediaryInvocationTest {
 
   protected Foo foo;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     foo = Mockito.mock(Foo.class);
   }
@@ -66,7 +67,7 @@ public class NoIntermediaryInvocationTest {
     // then
     try {
       inOrder.verify(foo, immediatelyAfter()).getBar();
-      Assert.fail("should not verify");
+      Assertions.fail("should not verify");
     } catch (MockitoAssertionError e) {
       // happy path
     }
@@ -84,7 +85,7 @@ public class NoIntermediaryInvocationTest {
     // then
     try {
       inOrder.verify(foo, immediatelyAfter()).getBar();
-      Assert.fail("should not verify");
+      Assertions.fail("should not verify");
     } catch (MockitoAssertionError e) {
       // happy path
     }
@@ -103,7 +104,7 @@ public class NoIntermediaryInvocationTest {
     // then
     try {
       inOrder.verify(foo, immediatelyAfter()).getBar();
-      Assert.fail("should not verify");
+      Assertions.fail("should not verify");
     } catch (MockitoAssertionError e) {
       // happy path
     }
@@ -123,7 +124,7 @@ public class NoIntermediaryInvocationTest {
     // then
     try {
       inOrder.verify(foo, immediatelyAfter()).getBar();
-      Assert.fail("should not verify");
+      Assertions.fail("should not verify");
     } catch (MockitoAssertionError e) {
       // happy path
     }

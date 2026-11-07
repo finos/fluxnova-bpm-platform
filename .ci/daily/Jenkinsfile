@@ -77,8 +77,7 @@ pipeline {
               agentLabel : 'centos-stable',
               runSteps   : {
                 cambpmRunMaven('.',
-                  "package javadoc:javadoc javadoc:aggregate -Pdistro,distro-wildfly,distro-webjar,javadocs -pl " +
-                  "'!distro/wildfly/modules,!distro/wildfly26/modules,!engine-rest/engine-rest-openapi' -DskipTests=true -Dskip.frontend.build=true",
+                  "package javadoc:javadoc javadoc:aggregate -Pdistro,distro-webjar,javadocs -pl '!engine-rest/engine-rest-openapi' -DskipTests=true -Dskip.frontend.build=true",
                   withNpm: true,
                   jdkVersion: 'jdk-17-latest')
                 def projectVersion = env.JOB_NAME.split('/')[0] + "-SNAPSHOT"
@@ -196,7 +195,7 @@ pipeline {
               ],
               runSteps: {
                 cambpmRunMaven('.',
-                  "install source:jar -Pdistro,distro-ce,distro-wildfly,distro-webjar -B",
+                  "install source:jar -Pdistro,distro-ce,distro-webjar -B",
                   withNpm: true,
                   jdkVersion: 'jdk-17-latest',
                   settingsXml: 'public-repo')

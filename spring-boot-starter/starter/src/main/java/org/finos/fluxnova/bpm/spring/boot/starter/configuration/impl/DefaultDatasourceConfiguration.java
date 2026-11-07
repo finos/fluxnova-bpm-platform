@@ -21,10 +21,12 @@ import javax.sql.DataSource;
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.configuration.FluxnovaDatasourceConfiguration;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.DatabaseProperty;
+import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguration implements FluxnovaDatasourceConfiguration {
 
@@ -41,6 +43,9 @@ public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguratio
   @Autowired(required = false)
   @Qualifier("camundaBpmDataSource")
   protected DataSource camundaDataSource;
+
+  @Value("${spring.liquibase.enabled:false}")
+  protected boolean liquibaseEnabled;
 
   @Override
   public void preInit(SpringProcessEngineConfiguration configuration) {
@@ -59,13 +64,18 @@ public class DefaultDatasourceConfiguration extends AbstractFluxnovaConfiguratio
     }
 
     configuration.setDatabaseType(database.getType());
-    configuration.setDatabaseSchemaUpdate(database.getSchemaUpdate());
 
-    if (!StringUtils.isEmpty(database.getTablePrefix())) {
+    if (liquibaseEnabled) {
+      configuration.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE);
+    } else {
+      configuration.setDatabaseSchemaUpdate(database.getSchemaUpdate());
+    }
+
+    if (!ObjectUtils.isEmpty(database.getTablePrefix())) {
       configuration.setDatabaseTablePrefix(database.getTablePrefix());
     }
 
-    if(!StringUtils.isEmpty(database.getSchemaName())) {
+    if(!ObjectUtils.isEmpty(database.getSchemaName())) {
       configuration.setDatabaseSchema(database.getSchemaName());
     }
 

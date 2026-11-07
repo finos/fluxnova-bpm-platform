@@ -25,14 +25,14 @@ import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.qa.upgrade.Origin;
 import org.finos.fluxnova.bpm.qa.upgrade.ScenarioUnderTest;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.junit.Test;
 
 @ScenarioUnderTest("CreateProcessInstanceWithVariableScenario")
 @Origin("7.7.0")
 public class CreateProcessInstanceWithVariableTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProcessEngineRule("camunda.cfg.xml");
 
   @ScenarioUnderTest("initProcessInstance.1")

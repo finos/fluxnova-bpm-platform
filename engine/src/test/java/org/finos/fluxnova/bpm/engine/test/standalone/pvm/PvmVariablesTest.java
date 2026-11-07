@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.test.standalone.pvm;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,8 @@ import org.finos.fluxnova.bpm.engine.impl.pvm.PvmExecution;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessDefinition;
 import org.finos.fluxnova.bpm.engine.impl.pvm.PvmProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.standalone.pvm.activities.WaitState;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

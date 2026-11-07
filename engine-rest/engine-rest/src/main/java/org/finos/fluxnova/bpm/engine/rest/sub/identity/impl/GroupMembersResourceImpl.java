@@ -16,15 +16,15 @@
  */
 package org.finos.fluxnova.bpm.engine.rest.sub.identity.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.finos.fluxnova.bpm.engine.authorization.Resources;
 import org.finos.fluxnova.bpm.engine.rest.GroupRestService;
 import org.finos.fluxnova.bpm.engine.rest.dto.ResourceOptionsDto;
 import org.finos.fluxnova.bpm.engine.rest.sub.identity.GroupMembersResource;
 import org.finos.fluxnova.bpm.engine.rest.util.PathUtil;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.UriInfo;
 import java.net.URI;
 
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.CREATE;

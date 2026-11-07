@@ -23,13 +23,13 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.finos.fluxnova.bpm.engine.externaltask.LockedExternalTask;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Thorben Lindhauer
@@ -44,7 +44,7 @@ public class FetchExternalTaskAuthorizationTest extends AuthorizationTest {
   protected String instance2Id;
 
   @Override
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     testRule.deploy(
         "org/finos/fluxnova/bpm/engine/test/api/externaltask/oneExternalTaskProcess.bpmn20.xml",

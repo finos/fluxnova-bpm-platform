@@ -66,7 +66,7 @@ create table ACT_GE_SCHEMA_LOG (
 );
 
 insert into ACT_GE_SCHEMA_LOG
-values ('0', CURRENT_TIMESTAMP, '2.0.0');
+values ('0', CURRENT_TIMESTAMP, '3.1.1');
 
 create table ACT_RE_DEPLOYMENT (
     ID_ nvarchar(64),
@@ -240,6 +240,7 @@ create table ACT_RU_VARIABLE (
     SEQUENCE_COUNTER_ numeric(19,0),
     IS_CONCURRENT_LOCAL_ tinyint,
     TENANT_ID_ nvarchar(64),
+    RESTRICTED_ tinyint,
     primary key (ID_)
 );
 
@@ -379,6 +380,7 @@ create index ACT_IDX_EVENT_SUBSCR_TENANT_ID on ACT_RU_EVENT_SUBSCR(TENANT_ID_);
 create index ACT_IDX_VARIABLE_TASK_ID on ACT_RU_VARIABLE(TASK_ID_);
 create index ACT_IDX_VARIABLE_TENANT_ID on ACT_RU_VARIABLE(TENANT_ID_);
 create index ACT_IDX_VARIABLE_TASK_NAME_TYPE on ACT_RU_VARIABLE(TASK_ID_, NAME_, TYPE_);
+create index ACT_IDX_VARIABLE_RESTRICTED on ACT_RU_VARIABLE(RESTRICTED_);
 
 create index ACT_IDX_ATHRZ_PROCEDEF on ACT_RU_IDENTITYLINK(PROC_DEF_ID_);
 create index ACT_IDX_INC_CONFIGURATION on ACT_RU_INCIDENT(CONFIGURATION_);
@@ -593,3 +595,30 @@ create index ACT_IDX_PROCDEF_VER_TAG ON ACT_RE_PROCDEF(VERSION_TAG_);
 -- indices for history cleanup
 create index ACT_IDX_AUTH_ROOT_PI on ACT_RU_AUTHORIZATION(ROOT_PROC_INST_ID_);
 create index ACT_IDX_AUTH_RM_TIME on ACT_RU_AUTHORIZATION(REMOVAL_TIME_);
+
+-- Fluxnova BPM Platform: Process Configuration table (Microsoft SQL Server)
+create table ACT_GE_CONFIGURATION (
+    ID_          nvarchar(64)   not null,
+    CONFIG_KEY_  nvarchar(255)  not null,
+    TENANT_ID_   nvarchar(255),
+    CONFIG_VALUE_ nvarchar(max) not null,
+    VERSION_     int            not null constraint DF_ACT_GE_CFG_VER default 1,
+    STATUS_      nvarchar(20)   not null constraint DF_ACT_GE_CFG_STS default 'ACTIVE',
+    CREATED_BY_  nvarchar(255),
+    CREATED_AT_  datetime2,
+    UPDATED_BY_  nvarchar(255),
+    UPDATED_AT_  datetime2,
+    constraint PK_ACT_GE_CONFIGURATION primary key (ID_)
+);
+
+-- Note: MSSQL treats NULLs as equal for unique indexes by default.
+-- Use a filtered index to allow multiple NULL tenant rows (global configs):
+create unique index ACT_UNIQ_GE_CONFIG_TENANT
+    on ACT_GE_CONFIGURATION (CONFIG_KEY_, TENANT_ID_)
+    where TENANT_ID_ is not null
+      and STATUS_ = 'ACTIVE';
+
+create unique index ACT_UNIQ_GE_CONFIG_GLOBAL
+    on ACT_GE_CONFIGURATION (CONFIG_KEY_)
+    where TENANT_ID_ is null
+      and STATUS_ = 'ACTIVE';

@@ -17,7 +17,6 @@
 package org.finos.fluxnova.bpm.engine.impl.variable.listener;
 
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
-import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineServices;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateCaseExecution;
 import org.finos.fluxnova.bpm.engine.delegate.DelegateCaseVariableInstance;
@@ -87,6 +86,11 @@ public class DelegateCaseVariableInstanceImpl implements DelegateCaseVariableIns
 
   public String getProcessInstanceId() {
     return processInstanceId;
+  }
+
+  @Override
+  public String getBusinessKey() {
+    return null;
   }
 
   public String getExecutionId() {
@@ -176,6 +180,9 @@ public class DelegateCaseVariableInstanceImpl implements DelegateCaseVariableIns
     delegateInstance.value = variableInstance.getTypedValue();
 
     return delegateInstance;
+  }
+  public boolean isRestricted() {
+    return value != null && value.isRestricted();
   }
 
 }

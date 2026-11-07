@@ -16,12 +16,19 @@
  */
 package org.finos.fluxnova.spin.plugin.variables;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.finos.fluxnova.bpm.engine.ProcessEngineException;
 import org.finos.fluxnova.bpm.engine.impl.test.PluggableProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 
 /**
  * @author Thorben Lindhauer
@@ -32,6 +39,7 @@ public class FallbackSerializationTest extends PluggableProcessEngineTestCase {
   protected static final String ONE_TASK_PROCESS = "org/finos/fluxnova/spin/plugin/oneTaskProcess.bpmn20.xml";
 
   @Deployment(resources = ONE_TASK_PROCESS)
+  @Test
   public void testSerializationOfUnknownFormat() {
     // given
     ProcessInstance instance = runtimeService.startProcessInstanceByKey("oneTaskProcess");

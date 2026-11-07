@@ -58,6 +58,11 @@ public class ObjectValueImpl extends AbstractTypedValue<Object> implements Objec
     this.isTransient = isTransient;
   }
 
+  public ObjectValueImpl(Object value, boolean isTransient, boolean restricted) {
+    this(value, isTransient);
+    this.restricted = restricted;
+  }
+
   public String getSerializationDataFormat() {
     return serializationDataFormat;
   }
@@ -136,6 +141,67 @@ public class ObjectValueImpl extends AbstractTypedValue<Object> implements Objec
         + ", objectTypeName=" + objectTypeName
         + ", serializedValue="+ (serializedValue != null ? (serializedValue.length() + " chars") : null)
         + ", isTransient=" + isTransient
+          + ", restricted=" + restricted
         + "]";
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ObjectValueImpl other = (ObjectValueImpl) obj;
+    if (isDeserialized != other.isDeserialized) {
+      return false;
+    }
+    if (isDeserialized) {
+      if (value == null) {
+        if (other.value != null)
+          return false;
+      } else if (!value.equals(other.value))
+        return false;
+    } else {
+      if (serializedValue == null) {
+        if (other.serializedValue != null)
+          return false;
+      } else if (!serializedValue.equals(other.serializedValue))
+        return false;
+    }
+    if (serializationDataFormat == null) {
+      if (other.serializationDataFormat != null)
+        return false;
+    } else if (!serializationDataFormat.equals(other.serializationDataFormat))
+      return false;
+    if (objectTypeName == null) {
+      if (other.objectTypeName != null)
+        return false;
+    } else if (!objectTypeName.equals(other.objectTypeName))
+      return false;
+    if (isTransient != other.isTransient()) {
+      return false;
+    }
+    if (restricted != other.restricted)
+      return false;
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (isDeserialized ? 1 : 0);
+    if (isDeserialized) {
+      result = prime * result + ((value == null) ? 0 : value.hashCode());
+    } else {
+      result = prime * result + ((serializedValue == null) ? 0 : serializedValue.hashCode());
+    }
+    result = prime * result + ((serializationDataFormat == null) ? 0 : serializationDataFormat.hashCode());
+    result = prime * result + ((objectTypeName == null) ? 0 : objectTypeName.hashCode());
+    result = prime * result + (isTransient ? 1 : 0);
+    result = prime * result + (restricted ? 1 : 0);
+    return result;
   }
 }

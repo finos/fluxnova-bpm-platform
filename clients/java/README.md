@@ -26,8 +26,8 @@ The **Fluxnova External Task Client (Java)** allows to set up remote Service Tas
 * The topic subscription can be configured with the fluent api of the [TopicSubscriptionBuilder](client/src/main/java/org/finos/fluxnova/bpm/client/topic/TopicSubscriptionBuilder.java).
 
 ## Prerequisites
-* Java (supported version by the used Fluxnova Platform 1.0.0)
-* Fluxnova Platform 1.0.0
+* Java (supported version by the used Fluxnova Platform 2.0.0)
+* Fluxnova Platform 2.0.0
 
 ## Maven coordinates
 The following Maven coordinate needs to be added to the projects `pom.xml`:

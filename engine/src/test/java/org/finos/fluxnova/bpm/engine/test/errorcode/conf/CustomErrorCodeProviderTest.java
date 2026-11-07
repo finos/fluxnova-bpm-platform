@@ -33,12 +33,11 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import java.sql.SQLException;
 
@@ -50,8 +49,8 @@ public class CustomErrorCodeProviderTest {
 
   protected static int PROVIDED_CUSTOM_CODE = 33_333;
 
-  @ClassRule
-  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(c -> {
+  @RegisterExtension
+  public static ProcessEngineBootstrapRule bootstrapRule = new ProcessEngineBootstrapRule(c ->
     c.setCustomExceptionCodeProvider(new ExceptionCodeProvider() {
 
       @Override
@@ -64,10 +63,9 @@ public class CustomErrorCodeProviderTest {
         return PROVIDED_CUSTOM_CODE;
       }
 
-    });
-  });
+    }));
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule()
       .watch("org.finos.fluxnova.bpm.engine.cmd")
       .level(Level.WARN);
@@ -75,19 +73,19 @@ public class CustomErrorCodeProviderTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule(bootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected RuntimeService runtimeService;
   protected IdentityService identityService;
 
-  @Before
+  @BeforeEach
   public void assignServices() {
     runtimeService = engineRule.getRuntimeService();
     identityService = engineRule.getIdentityService();
   }
 
-  @After
+  @AfterEach
   public void clear() {
     engineRule.getIdentityService().deleteUser("kermit");
   }

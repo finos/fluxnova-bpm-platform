@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.bpmn.event.signal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -27,7 +27,8 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.EventSubscriptionEn
 import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.runtime.EventSubscription;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Philipp Ossler

@@ -21,12 +21,12 @@ import org.finos.fluxnova.bpm.model.xml.ModelInstance;
 import org.finos.fluxnova.bpm.model.xml.impl.util.ModelTypeException;
 import org.finos.fluxnova.bpm.model.xml.testmodel.TestModelParser;
 import org.finos.fluxnova.bpm.model.xml.testmodel.instance.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.finos.fluxnova.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
 import static org.finos.fluxnova.bpm.model.xml.testmodel.TestModelConstants.MODEL_NAMESPACE;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author Sebastian Menski
@@ -40,7 +40,7 @@ public class ModelElementTypeTest {
   private ModelElementType flyingAnimalType;
   private ModelElementType birdType;
 
-  @Before
+  @BeforeEach
   public void getTypes() {
     TestModelParser modelParser = new TestModelParser();
     modelInstance = modelParser.getEmptyModel();

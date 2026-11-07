@@ -34,13 +34,11 @@ import org.finos.fluxnova.bpm.engine.impl.metrics.MetricsReporterIdProvider;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.management.MetricIntervalValue;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
 public class HostnameProviderTest {
 
   public static final String ENGINE_NAME = "TEST_ENGINE";
@@ -48,7 +46,6 @@ public class HostnameProviderTest {
   public static final String CUSTOM_HOSTNAME = "CUSTOM_HOST";
   public static final String CUSTOM_REPORTER = "CUSTOM_REPORTER";
 
-  @Parameterized.Parameters(name = "Expected hostname: {3}, reporter: {4}")
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][]{
         {null, null, null, ENGINE_NAME, ENGINE_NAME},
@@ -61,49 +58,26 @@ public class HostnameProviderTest {
         {null, null, new CustomMetricsReporterIdProvider(), ENGINE_NAME, CUSTOM_REPORTER}
     });
   }
-
-  @Parameterized.Parameter(0)
   public String hostname;
-  @Parameterized.Parameter(1)
   public HostnameProvider hostnameProvider;
-  @Parameterized.Parameter(2)
   public MetricsReporterIdProvider reporterProvider;
-  @Parameterized.Parameter(3)
   public String expectedHostname;
-  @Parameterized.Parameter(4)
   public String expectedReporter;
 
   protected ProcessEngineConfigurationImpl configuration;
   protected ProcessEngine engine;
   protected ManagementService managementService;
 
-  @Before
-  public void setUp() {
-    configuration =
-        (ProcessEngineConfigurationImpl) ProcessEngineConfiguration
-            .createStandaloneInMemProcessEngineConfiguration();
-
-    configuration
-        .setJdbcUrl("jdbc:h2:mem:camunda" + getClass().getSimpleName() + "testHostnameProvider")
-        .setProcessEngineName(ENGINE_NAME)
-        .setHostname(hostname)
-        .setHostnameProvider(hostnameProvider)
-        .setMetricsReporterIdProvider(reporterProvider);
-
-    engine = configuration.buildProcessEngine();
-    configuration.getMetricsRegistry().markOccurrence("TEST", 1L);
-    configuration.getDbMetricsReporter().reportNow();
-
-    managementService = configuration.getManagementService();
-  }
-
-  @After
+  @AfterEach
   public void tearDown() {
     closeProcessEngine();
   }
 
-  @Test
-  public void shouldUseCustomHostname() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "Expected hostname: {3}, reporter: {4}")
+  public void shouldUseCustomHostname(String hostname, HostnameProvider hostnameProvider, MetricsReporterIdProvider reporterProvider, String expectedHostname, String expectedReporter) {
+    initHostnameProviderTest(hostname, hostnameProvider, reporterProvider, expectedHostname, expectedReporter);
+    setupEngine();
     // given a Process Engine with specified hostname parameters
 
     // when
@@ -113,8 +87,11 @@ public class HostnameProviderTest {
     assertThat(customHostname).containsIgnoringCase(expectedHostname);
   }
 
-  @Test
-  public void shouldUseCustomMetricsReporterId() {
+  @MethodSource("data")
+  @ParameterizedTest(name = "Expected hostname: {3}, reporter: {4}")
+  public void shouldUseCustomMetricsReporterId(String hostname, HostnameProvider hostnameProvider, MetricsReporterIdProvider reporterProvider, String expectedHostname, String expectedReporter) {
+    initHostnameProviderTest(hostname, hostnameProvider, reporterProvider, expectedHostname, expectedReporter);
+    setupEngine();
     // given a Process Engine with some specified hostname and metric properties
 
     // when
@@ -165,5 +142,32 @@ public class HostnameProviderTest {
 
     engine.close();
     engine = null;
+  }
+
+  private void setupEngine() {
+    configuration =
+        (ProcessEngineConfigurationImpl) ProcessEngineConfiguration
+            .createStandaloneInMemProcessEngineConfiguration();
+
+    configuration
+        .setJdbcUrl("jdbc:h2:mem:camunda" + getClass().getSimpleName() + "testHostnameProvider")
+        .setProcessEngineName(ENGINE_NAME)
+        .setHostname(hostname)
+        .setHostnameProvider(hostnameProvider)
+        .setMetricsReporterIdProvider(reporterProvider);
+
+    engine = configuration.buildProcessEngine();
+    configuration.getMetricsRegistry().markOccurrence("TEST", 1L);
+    configuration.getDbMetricsReporter().reportNow();
+
+    managementService = configuration.getManagementService();
+  }
+
+  public void initHostnameProviderTest(String hostname, HostnameProvider hostnameProvider, MetricsReporterIdProvider reporterProvider, String expectedHostname, String expectedReporter) {
+    this.hostname = hostname;
+    this.hostnameProvider = hostnameProvider;
+    this.reporterProvider = reporterProvider;
+    this.expectedHostname = expectedHostname;
+    this.expectedReporter = expectedReporter;
   }
 }

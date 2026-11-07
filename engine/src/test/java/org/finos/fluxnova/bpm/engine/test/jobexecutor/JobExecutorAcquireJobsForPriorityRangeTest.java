@@ -25,19 +25,19 @@ import org.finos.fluxnova.bpm.engine.runtime.Job;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.commons.testing.ProcessEngineLoggingRule;
 import org.finos.fluxnova.commons.testing.WatchLogger;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 @Deployment(resources = "org/finos/fluxnova/bpm/engine/test/jobexecutor/JobExecutorAcquireJobsForPriorityRangeTest.jobPrioProcess.bpmn20.xml")
 public class JobExecutorAcquireJobsForPriorityRangeTest extends AbstractJobExecutorAcquireJobsTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineLoggingRule loggingRule = new ProcessEngineLoggingRule();
 
-  @Before
+  @BeforeEach
   public void setUp() {
     configuration.setJobExecutorAcquireByPriority(true);
     // create 10 jobs, 5 with prio 5 and 5 with prio 10

@@ -17,7 +17,7 @@
 package org.finos.fluxnova.connect.httpclient;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
@@ -37,8 +37,8 @@ import org.finos.fluxnova.connect.Connectors;
 import org.finos.fluxnova.connect.httpclient.impl.HttpConnectorImpl;
 import org.finos.fluxnova.connect.impl.DebugRequestInterceptor;
 import org.finos.fluxnova.connect.spi.Connector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class HttpConnectorTest {
 
@@ -49,7 +49,7 @@ public class HttpConnectorTest {
   protected HttpConnector connector;
   protected DebugRequestInterceptor interceptor;
 
-  @Before
+  @BeforeEach
   public void createConnector() {
     connector = new HttpConnectorImpl();
     interceptor = new DebugRequestInterceptor(false);

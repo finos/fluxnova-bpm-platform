@@ -22,14 +22,13 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.diagnostics.DiagnosticsRegistry;
 import org.finos.fluxnova.bpm.engine.impl.telemetry.dto.ApplicationServerImpl;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.pa.TestProcessApplication;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestProcessApplication.class},
   webEnvironment = WebEnvironment.RANDOM_PORT

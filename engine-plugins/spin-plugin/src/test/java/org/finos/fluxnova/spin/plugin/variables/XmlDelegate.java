@@ -22,8 +22,9 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
 import static org.finos.fluxnova.spin.plugin.variable.SpinValues.xmlValue;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author Tassilo Weidner

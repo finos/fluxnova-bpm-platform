@@ -36,7 +36,7 @@ import static org.finos.fluxnova.bpm.engine.impl.util.EnsureUtil.ensureNotEmpty;
  * @author Falko Menge
  */
 public class BpmnError extends ProcessEngineException {
-  
+
   private static final long serialVersionUID = 1L;
 
   private String errorCode;

@@ -24,7 +24,7 @@ import java.util.Properties;
 public class ProductPropertiesUtil {
 
   protected static final String PROPERTIES_FILE_PATH = "/org/finos/fluxnova/bpm/engine/product-info.properties";
-  protected static final String VERSION_PROPERTY = "camunda.version";
+  protected static final String VERSION_PROPERTY = "fluxnova.version";
   protected static final Properties INSTANCE = PropertiesUtil.getProperties(PROPERTIES_FILE_PATH);
 
   protected ProductPropertiesUtil() {

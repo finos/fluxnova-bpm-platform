@@ -18,11 +18,7 @@ package org.finos.fluxnova.bpm.engine.test.history.useroperationlog;
 
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.CATEGORY_OPERATOR;
 import static org.finos.fluxnova.bpm.engine.history.UserOperationLogEntry.OPERATION_TYPE_DELETE_HISTORY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,9 +34,9 @@ import org.finos.fluxnova.bpm.engine.repository.ProcessDefinition;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ResetDmnConfigUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -54,7 +50,7 @@ public class UserOperationLogDeletionTest extends AbstractUserOperationLogTest {
   protected static final String PROCESS_PATH = "org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml";
   protected static final String PROCESS_KEY = "oneTaskProcess";
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();
@@ -66,7 +62,7 @@ public class UserOperationLogDeletionTest extends AbstractUserOperationLogTest {
 
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     DefaultDmnEngineConfiguration dmnEngineConfiguration =
         processEngineConfiguration.getDmnEngineConfiguration();

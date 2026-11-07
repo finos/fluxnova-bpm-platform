@@ -21,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Collections;
 
 import org.finos.fluxnova.bpm.engine.authorization.Groups;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Miklas Boskamp

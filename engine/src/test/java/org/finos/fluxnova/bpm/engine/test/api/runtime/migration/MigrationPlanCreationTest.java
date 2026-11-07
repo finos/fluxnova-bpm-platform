@@ -22,7 +22,7 @@ import static org.finos.fluxnova.bpm.engine.test.util.MigrationPlanAssert.assert
 import static org.finos.fluxnova.bpm.engine.test.util.MigrationPlanAssert.migrate;
 import static org.finos.fluxnova.bpm.engine.test.util.MigrationPlanAssert.variable;
 import static org.finos.fluxnova.bpm.engine.test.util.MigrationPlanValidationReportAssert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.RuntimeService;
@@ -37,10 +37,10 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.model.bpmn.builder.UserTaskBuilder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,12 +61,12 @@ public class MigrationPlanCreationTest {
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
   protected RuntimeService runtimeService;
 
-  @Before
+  @BeforeEach
   public void initServices() {
     runtimeService = rule.getRuntimeService();
   }

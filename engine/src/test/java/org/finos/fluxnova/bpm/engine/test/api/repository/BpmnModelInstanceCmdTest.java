@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.engine.test.api.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collection;
 
@@ -28,7 +28,8 @@ import org.finos.fluxnova.bpm.model.bpmn.instance.Event;
 import org.finos.fluxnova.bpm.model.bpmn.instance.SequenceFlow;
 import org.finos.fluxnova.bpm.model.bpmn.instance.StartEvent;
 import org.finos.fluxnova.bpm.model.xml.instance.ModelElementInstance;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 
 /**

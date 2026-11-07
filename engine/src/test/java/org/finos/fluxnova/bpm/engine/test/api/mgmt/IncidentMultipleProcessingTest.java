@@ -29,11 +29,10 @@ import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineBootstrapRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,11 +40,11 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IncidentMultipleProcessingTest {
+ public class IncidentMultipleProcessingTest {
 
   private static final StubIncidentHandler JOB_HANDLER = new StubIncidentHandler(Incident.FAILED_JOB_HANDLER_TYPE);
 
-  @ClassRule
+  @RegisterExtension
   public static ProcessEngineBootstrapRule processEngineBootstrapRule = new ProcessEngineBootstrapRule(
       configuration -> {
         configuration.setCompositeIncidentHandlersEnabled(true);
@@ -54,13 +53,13 @@ public class IncidentMultipleProcessingTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule(processEngineBootstrapRule);
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   private RuntimeService runtimeService;
   private ManagementService managementService;
 
-  @Before
+  @BeforeEach
   public void init() {
     JOB_HANDLER.reset();
 

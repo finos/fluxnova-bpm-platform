@@ -31,7 +31,8 @@ import java.util.HashMap;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.qa.performance.engine.junit.ProcessEnginePerformanceTestCase;
 import org.finos.fluxnova.bpm.qa.performance.engine.steps.StartProcessInstanceStep;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Daniel Meyer

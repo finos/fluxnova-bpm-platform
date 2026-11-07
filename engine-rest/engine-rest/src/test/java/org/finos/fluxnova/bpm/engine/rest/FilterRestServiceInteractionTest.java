@@ -49,6 +49,7 @@ import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.mockFilter;
 import static org.finos.fluxnova.bpm.engine.rest.helper.MockProvider.mockVariableInstance;
 import static org.finos.fluxnova.bpm.engine.rest.helper.TaskQueryMatcher.hasName;
 import static org.finos.fluxnova.bpm.engine.variable.Variables.stringValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -56,7 +57,6 @@ import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyInt;
@@ -76,8 +76,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.HttpMethod;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationService;
 import org.finos.fluxnova.bpm.engine.FilterService;
@@ -106,9 +106,10 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.task.TaskQuery;
 import org.finos.fluxnova.bpm.engine.variable.type.ValueType;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.Mockito;
 
 import io.restassured.response.Response;
@@ -119,7 +120,7 @@ import org.mockito.ArgumentCaptor;
  */
 public class FilterRestServiceInteractionTest extends AbstractRestServiceTest {
 
-  @ClassRule
+  @RegisterExtension
   public static TestContainerRule rule = new TestContainerRule();
 
   public static final String FILTER_URL = TEST_RESOURCE_ROOT_PATH + FilterRestService.PATH;
@@ -152,7 +153,7 @@ public class FilterRestServiceInteractionTest extends AbstractRestServiceTest {
   protected VariableInstanceQueryImpl variableInstanceQueryMock;
   protected ProcessEngineConfiguration processEngineConfigurationMock;
 
-  @Before
+  @BeforeEach
   public void setUpRuntimeData() {
     filterServiceMock = mock(FilterService.class);
 

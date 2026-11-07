@@ -38,9 +38,9 @@ import org.finos.fluxnova.bpm.engine.impl.persistence.entity.JobEntity;
 import org.finos.fluxnova.bpm.engine.impl.util.ClockUtil;
 import org.finos.fluxnova.bpm.engine.runtime.ActivityInstance;
 import org.finos.fluxnova.bpm.engine.runtime.Job;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 
 /**
@@ -51,8 +51,8 @@ public class PluggableProcessEngineTest {
   protected ProvidedProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngine processEngine;
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
@@ -72,7 +72,7 @@ public class PluggableProcessEngineTest {
   public PluggableProcessEngineTest() {
   }
 
-  @Before
+  @BeforeEach
   public void initializeServices() {
     processEngine = engineRule.getProcessEngine();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();

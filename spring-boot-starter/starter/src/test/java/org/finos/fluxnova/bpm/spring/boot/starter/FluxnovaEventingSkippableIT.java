@@ -26,15 +26,14 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.spring.boot.starter.event.TaskEvent;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestEventCaptor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,7 +42,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * execution listener. The default value is true, so this test
  * covers the case when the listener is treated as not skippable.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(
   classes = {TestApplication.class},
   webEnvironment = WebEnvironment.NONE
@@ -63,12 +61,12 @@ public class FluxnovaEventingSkippableIT extends AbstractFluxnovaAutoConfigurati
 
   private ProcessInstance instance;
 
-  @Before
+  @BeforeEach
   public void init() {
     eventCaptor.clear();
   }
 
-  @After
+  @AfterEach
   public void stop() {
     if (instance != null) {
       // update stale instance

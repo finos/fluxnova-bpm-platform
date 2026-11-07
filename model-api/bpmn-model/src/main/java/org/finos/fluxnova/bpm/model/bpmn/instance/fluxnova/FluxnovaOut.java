@@ -45,4 +45,8 @@ public interface FluxnovaOut extends BpmnModelElementInstance {
 
   void setFluxnovaLocal(boolean camundaLocal);
 
+  boolean getFluxnovaRestricted();
+
+  void setFluxnovaRestricted(boolean camundaRestricted);
+
 }

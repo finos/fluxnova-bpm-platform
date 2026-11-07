@@ -33,8 +33,9 @@ import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
 import org.slf4j.Logger;
 
 /**
@@ -54,7 +55,7 @@ public abstract class AbstractCompetingTransactionsOptimisticLockingTest {
 
   protected abstract ProcessEngineTestRule getTestRule();
 
-  @After
+  @AfterEach
   public void resetConfiguration() {
     processEngineConfiguration.setEnableOptimisticLockingOnForeignKeyViolation(true);
   }

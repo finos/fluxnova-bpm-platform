@@ -24,9 +24,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.form.StartFormData;
@@ -46,8 +44,8 @@ import org.finos.fluxnova.bpm.engine.test.api.authorization.service.MyFormFieldV
 import org.finos.fluxnova.bpm.engine.test.api.authorization.service.MyServiceTaskActivityBehaviorExecuteCommand;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.service.MyServiceTaskActivityBehaviorExecuteQuery;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.service.MyTaskService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Roman Smirnov
@@ -57,7 +55,7 @@ public class DelegationAuthorizationTest extends AuthorizationTest {
 
   public static final String DEFAULT_PROCESS_KEY = "process";
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     MyDelegationService.clearProperties();
     processEngineConfiguration.setAuthorizationEnabledForCustomCode(false);

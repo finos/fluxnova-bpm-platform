@@ -30,15 +30,6 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
 
 public class SpringBootSpinProcessEnginePlugin extends SpinProcessEnginePlugin {
 
-  @Autowired
-  protected Optional<FluxnovaJacksonFormatConfiguratorJSR310> dataFormatConfiguratorJsr310;
-
-  @Autowired
-  protected Optional<FluxnovaJacksonFormatConfiguratorParameterNames> dataFormatConfiguratorParameterNames;
-
-  @Autowired
-  protected Optional<FluxnovaJacksonFormatConfiguratorJdk8> dataFormatConfiguratorJdk8;
-
   @Override
   public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
     ClassLoader classloader = ClassLoaderUtil.getClassloader(SpringBootSpinProcessEnginePlugin.class);
@@ -48,12 +39,7 @@ public class SpringBootSpinProcessEnginePlugin extends SpinProcessEnginePlugin {
   protected void loadSpringBootDataFormats(ClassLoader classloader) {
     List<DataFormatConfigurator> configurators = new ArrayList<>();
 
-    // add the auto-config Jackson Java 8 module configurators
-    dataFormatConfiguratorJsr310.ifPresent(configurator -> configurators.add(configurator));
-    dataFormatConfiguratorParameterNames.ifPresent(configurator -> configurators.add(configurator));
-    dataFormatConfiguratorJdk8.ifPresent(configurator -> configurators.add(configurator));
-
-    // next, add any configurators defined in the spring.factories file
+    // Only add configurators defined in the spring.factories file
     configurators.addAll(SpringFactoriesLoader.loadFactories(DataFormatConfigurator.class, classloader));
 
     DataFormats.loadDataFormats(classloader, configurators);

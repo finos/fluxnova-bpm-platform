@@ -19,8 +19,8 @@ package org.finos.fluxnova.bpm.engine.rest.spi;
 import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.rest.dto.externaltask.FetchExternalTasksExtendedDto;
 
-import javax.servlet.ServletContextEvent;
-import javax.ws.rs.container.AsyncResponse;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.ws.rs.container.AsyncResponse;
 
 /**
  * SPI supposed to replace the default implementation of the long-polling fetch and lock handler

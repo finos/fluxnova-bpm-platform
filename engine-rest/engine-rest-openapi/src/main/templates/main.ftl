@@ -40,6 +40,7 @@
     {"name": "Batch"},
     {"name": "Bulk Task"},
     {"name": "Condition"},
+    {"name": "Configuration"},
     {"name": "Decision Definition"},
     {"name": "Decision Requirements Definition"},
     {"name": "Deployment"},

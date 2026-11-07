@@ -19,9 +19,11 @@ package org.finos.fluxnova.bpm.client.spring.client.configuration;
 import org.finos.fluxnova.bpm.client.backoff.BackoffStrategy;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+@Configuration
 public class BackoffStrategyConfiguration {
 
   @Bean

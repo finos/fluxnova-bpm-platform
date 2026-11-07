@@ -19,9 +19,9 @@ package org.finos.fluxnova.bpm.model.xml.test;
 import org.finos.fluxnova.bpm.model.xml.Model;
 import org.finos.fluxnova.bpm.model.xml.ModelInstance;
 import org.finos.fluxnova.bpm.model.xml.type.ModelElementType;
-import org.junit.rules.TestRule;
+import org.junit.jupiter.api.extension.Extension;
 
-public interface GetModelElementTypeRule extends TestRule {
+public interface GetModelElementTypeRule extends Extension {
 
   ModelInstance getModelInstance();
 

@@ -87,8 +87,8 @@ public class DelegateFormFieldValidator implements FormFieldValidator {
     if(clazz != null) {
       // resolve validator using Fully Qualified Classname
       Object validatorObject = ReflectUtil.instantiate(clazz);
-      if(validatorObject instanceof FormFieldValidator) {
-        validator = (FormFieldValidator) validatorObject;
+      if(validatorObject instanceof FormFieldValidator fieldValidator) {
+        validator = fieldValidator;
 
       } else {
         throw new ProcessEngineException("Validator class '"+clazz+"' is not an instance of "+ FormFieldValidator.class.getName());
@@ -97,8 +97,8 @@ public class DelegateFormFieldValidator implements FormFieldValidator {
     } else {
       //resolve validator using expression
       Object validatorObject = delegateExpression.getValue(validatorContext.getExecution());
-      if (validatorObject instanceof FormFieldValidator) {
-        validator = (FormFieldValidator) validatorObject;
+      if (validatorObject instanceof FormFieldValidator fieldValidator) {
+        validator = fieldValidator;
 
       } else {
         throw new ProcessEngineException("Validator expression '"+delegateExpression+"' does not resolve to instance of "+ FormFieldValidator.class.getName());

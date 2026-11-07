@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.webapp.impl.engine;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.ws.rs.core.Application;
+import jakarta.ws.rs.core.Application;
 
 import org.finos.fluxnova.bpm.engine.rest.impl.FluxnovaRestResources;
 import org.finos.fluxnova.bpm.engine.rest.impl.NamedProcessEngineRestServiceImpl;

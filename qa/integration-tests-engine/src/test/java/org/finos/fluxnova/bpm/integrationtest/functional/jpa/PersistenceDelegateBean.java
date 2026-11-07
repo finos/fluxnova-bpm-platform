@@ -16,14 +16,15 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.jpa;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import org.finos.fluxnova.bpm.engine.delegate.DelegateExecution;
 import org.finos.fluxnova.bpm.engine.delegate.JavaDelegate;
-import org.junit.Assert;
+
+import org.junit.jupiter.api.Assertions;
 
 @Named
 @ApplicationScoped
@@ -40,7 +41,7 @@ public class PersistenceDelegateBean implements JavaDelegate {
     // this means that we obtain the same entity manager we used to
     // persist the entity before starting the process
 
-    Assert.assertTrue(em.contains(entity));
+    Assertions.assertTrue(em.contains(entity));
 
   }
 

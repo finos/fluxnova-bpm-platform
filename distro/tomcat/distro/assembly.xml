@@ -34,7 +34,7 @@
 
     <dependencySet>
         <includes>
-            <include>org.finos.fluxnova.bpm:fluxnova-engine-rest-jakarta:war:*</include>
+            <include>org.finos.fluxnova.bpm:fluxnova-engine-rest:war:*</include>
         </includes>
         <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/engine-rest</outputDirectory>
         <unpack>true</unpack>
@@ -50,7 +50,7 @@
 
     <dependencySet>
         <includes>
-            <include>org.finos.fluxnova.bpm.example:fluxnova-example-invoice-jakarta:war:*</include>
+            <include>org.finos.fluxnova.bpm.example:fluxnova-example-invoice:war:*</include>
         </includes>
         <outputDirectory>server/apache-tomcat-${version.tomcat}/webapps/fluxnova-invoice</outputDirectory>
         <unpack>true</unpack>

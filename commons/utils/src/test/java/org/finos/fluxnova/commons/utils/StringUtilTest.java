@@ -16,12 +16,12 @@
  */
 package org.finos.fluxnova.commons.utils;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.commons.utils.StringUtil.isExpression;
 import static org.finos.fluxnova.commons.utils.StringUtil.join;
 import static org.finos.fluxnova.commons.utils.StringUtil.split;
+
+import org.junit.jupiter.api.Test;
 import static org.finos.fluxnova.commons.utils.StringUtil.defaultString;
 import static org.finos.fluxnova.commons.utils.StringUtil.getStackTrace;
 

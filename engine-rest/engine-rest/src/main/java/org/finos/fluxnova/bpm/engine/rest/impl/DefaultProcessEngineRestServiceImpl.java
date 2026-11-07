@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 
 import java.net.URI;
 
-import javax.ws.rs.Path;
+import jakarta.ws.rs.Path;
 
 import org.finos.fluxnova.bpm.engine.rest.AuthorizationRestService;
 import org.finos.fluxnova.bpm.engine.rest.BatchRestService;
@@ -49,6 +49,7 @@ import org.finos.fluxnova.bpm.engine.rest.SchemaLogRestService;
 import org.finos.fluxnova.bpm.engine.rest.SignalRestService;
 import org.finos.fluxnova.bpm.engine.rest.TaskRestService;
 import org.finos.fluxnova.bpm.engine.rest.TelemetryRestService;
+import org.finos.fluxnova.bpm.engine.rest.ConfigurationRestService;
 import org.finos.fluxnova.bpm.engine.rest.TenantRestService;
 import org.finos.fluxnova.bpm.engine.rest.UserRestService;
 import org.finos.fluxnova.bpm.engine.rest.VariableInstanceRestService;
@@ -191,6 +192,11 @@ public class DefaultProcessEngineRestServiceImpl extends AbstractProcessEngineRe
   @Path(BatchRestService.PATH)
   public BatchRestService getBatchRestService() {
     return super.getBatchRestService(null);
+  }
+
+  @Path(ConfigurationRestService.PATH)
+  public ConfigurationRestService getConfigurationRestService() {
+    return super.getConfigurationRestService(null);
   }
 
   @Path(TenantRestService.PATH)

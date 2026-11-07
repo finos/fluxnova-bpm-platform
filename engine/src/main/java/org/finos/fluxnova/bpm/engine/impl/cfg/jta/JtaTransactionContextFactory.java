@@ -16,7 +16,7 @@
  */
 package org.finos.fluxnova.bpm.engine.impl.cfg.jta;
 
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 
 import org.finos.fluxnova.bpm.engine.impl.cfg.TransactionContext;
 import org.finos.fluxnova.bpm.engine.impl.cfg.TransactionContextFactory;

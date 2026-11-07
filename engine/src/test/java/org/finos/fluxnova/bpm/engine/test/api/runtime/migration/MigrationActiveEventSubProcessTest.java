@@ -34,22 +34,17 @@ import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.util.SignalEvent
 import org.finos.fluxnova.bpm.engine.test.api.runtime.migration.util.TimerEventFactory;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Christopher Zell <christopher.zell@camunda.com>
  */
-@RunWith(Parameterized.class)
 public class MigrationActiveEventSubProcessTest {
 
-  @Parameters
   public static Collection<Object[]> data() {
       return Arrays.asList(new Object[][] {
                new Object[]{ new TimerEventFactory() },
@@ -58,23 +53,23 @@ public class MigrationActiveEventSubProcessTest {
                new Object[]{ new ConditionalEventFactory() }
          });
   }
-
-  @Parameter
   public BpmnEventFactory eventFactory;
 
   protected ProcessEngineRule rule = new ProvidedProcessEngineRule();
   protected MigrationTestRule testHelper = new MigrationTestRule(rule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(rule).around(testHelper);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(rule).around(testHelper);
 
-  @Before
+  @BeforeEach
   public void setUp() {
     ClockUtil.setCurrentTime(new Date()); // lock time so that timer job is effectively not updated
   }
 
-  @Test
-  public void testMigrateActiveCompensationEventSubProcess() {
+  @MethodSource("data")
+  @ParameterizedTest
+  public void testMigrateActiveCompensationEventSubProcess(BpmnEventFactory eventFactory) {
+    initMigrationActiveEventSubProcessTest(eventFactory);
     // given
     BpmnModelInstance processModel = ProcessModels.ONE_TASK_PROCESS.clone();
     MigratingBpmnEventTrigger eventTrigger = eventFactory.addEventSubProcess(
@@ -111,5 +106,9 @@ public class MigrationActiveEventSubProcessTest {
     // and it is possible to complete the process instance
     testHelper.completeTask("eventSubProcessTask");
     testHelper.assertProcessEnded(processInstance.getId());
+  }
+
+  public void initMigrationActiveEventSubProcessTest(BpmnEventFactory eventFactory) {
+    this.eventFactory = eventFactory;
   }
 }

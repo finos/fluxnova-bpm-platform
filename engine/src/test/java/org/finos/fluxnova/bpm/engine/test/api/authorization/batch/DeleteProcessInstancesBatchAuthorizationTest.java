@@ -19,7 +19,7 @@ package org.finos.fluxnova.bpm.engine.test.api.authorization.batch;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario.scenario;
 import static org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationSpec.grant;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,27 +35,22 @@ import org.finos.fluxnova.bpm.engine.batch.history.HistoricBatch;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationScenario;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.util.AuthorizationTestRule;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Askar Akhmerov
  */
-@RunWith(Parameterized.class)
 public class DeleteProcessInstancesBatchAuthorizationTest extends AbstractBatchAuthorizationTest {
 
   protected static final long BATCH_OPERATIONS = 3L;
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(authRule).around(testHelper);
-
-  @Parameterized.Parameter
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(authRule).around(testHelper);
   public AuthorizationScenario scenario;
 
-  @Parameterized.Parameters(name = "Scenario {index}")
   public static Collection<AuthorizationScenario[]> scenarios() {
     return AuthorizationTestRule.asParameters(
         scenario()
@@ -89,8 +84,10 @@ public class DeleteProcessInstancesBatchAuthorizationTest extends AbstractBatchA
     );
   }
 
-  @Test
-  public void testWithTwoInvocationsProcessInstancesList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithTwoInvocationsProcessInstancesList(AuthorizationScenario scenario) {
+    initDeleteProcessInstancesBatchAuthorizationTest(scenario);
     engineRule.getProcessEngineConfiguration().setInvocationsPerBatchJob(2);
     setupAndExecuteProcessInstancesListTest();
 
@@ -98,15 +95,19 @@ public class DeleteProcessInstancesBatchAuthorizationTest extends AbstractBatchA
     assertScenario();
   }
 
-  @Test
-  public void testProcessInstancesList() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testProcessInstancesList(AuthorizationScenario scenario) {
+    initDeleteProcessInstancesBatchAuthorizationTest(scenario);
     setupAndExecuteProcessInstancesListTest();
     // then
     assertScenario();
   }
 
-  @Test
-  public void testWithQuery() {
+  @MethodSource("scenarios")
+  @ParameterizedTest(name = "Scenario {index}")
+  public void testWithQuery(AuthorizationScenario scenario) {
+    initDeleteProcessInstancesBatchAuthorizationTest(scenario);
     //given
     ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery()
         .processInstanceIds(new HashSet<String>(Arrays.asList(processInstance.getId(), processInstance2.getId())));
@@ -172,5 +173,9 @@ public class DeleteProcessInstancesBatchAuthorizationTest extends AbstractBatchA
   @Override
   public AuthorizationScenario getScenario() {
     return scenario;
+  }
+
+  public void initDeleteProcessInstancesBatchAuthorizationTest(AuthorizationScenario scenario) {
+    this.scenario = scenario;
   }
 }

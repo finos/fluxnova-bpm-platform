@@ -17,12 +17,7 @@
 package org.finos.fluxnova.bpm.engine.test.api.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.junit.Assume.assumeNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
@@ -52,11 +47,12 @@ import org.finos.fluxnova.bpm.engine.test.util.ProcessEngineTestRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.finos.fluxnova.bpm.engine.test.util.ChainedExtension;
 
 /**
  * @author Daniel Meyer
@@ -67,8 +63,8 @@ public class ProcessApplicationDeploymentTest {
   protected ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
   protected ProcessEngineTestRule testRule = new ProcessEngineTestRule(engineRule);
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(testRule);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(testRule);
 
   protected ProcessEngineConfigurationImpl processEngineConfiguration;
   protected RepositoryService repositoryService;
@@ -83,7 +79,7 @@ public class ProcessApplicationDeploymentTest {
   protected DeploymentCache deploymentCache;
   Set<String> registeredDeployments;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     processEngine = engineRule.getProcessEngine();
     processEngineConfiguration = engineRule.getProcessEngineConfiguration();
@@ -99,7 +95,7 @@ public class ProcessApplicationDeploymentTest {
     registeredDeployments = processEngineConfiguration.getRegisteredDeployments();
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     clearProcessApplicationDeployments();
     processApplication.undeploy();
@@ -1241,8 +1237,8 @@ public class ProcessApplicationDeploymentTest {
     ProcessDefinition latestProcessDefinition = deployment2.getDeployedProcessDefinitions().get(0);
 
     // assume
-    assumeNotNull(managementService.getProcessApplicationForDeployment(deployment1.getId()));
-    assumeNotNull(managementService.getProcessApplicationForDeployment(deployment2.getId()));
+    Assumptions.assumeFalse(managementService.getProcessApplicationForDeployment(deployment1.getId()) == null);
+    Assumptions.assumeFalse(managementService.getProcessApplicationForDeployment(deployment2.getId()) == null);
 
     // delete latest process definition
     repositoryService.deleteProcessDefinition(latestProcessDefinition.getId());

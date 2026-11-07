@@ -46,6 +46,7 @@ import org.finos.fluxnova.bpm.client.exception.ExternalTaskClientException;
 import org.finos.fluxnova.bpm.client.exception.RestException;
 import org.finos.fluxnova.bpm.client.rule.ClientRule;
 import org.finos.fluxnova.bpm.client.rule.EngineRule;
+import org.finos.fluxnova.bpm.client.rule.ChainedExtension;
 import org.finos.fluxnova.bpm.client.task.ExternalTask;
 import org.finos.fluxnova.bpm.client.topic.TopicSubscription;
 import org.finos.fluxnova.bpm.client.util.PropertyUtil;
@@ -55,11 +56,9 @@ import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.ObjectValue;
 import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
 import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.RuleChain;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 /**
  * @author Tassilo Weidner
@@ -77,17 +76,16 @@ public class ClientIT {
 
   protected ClientRule clientRule = new ClientRule(() -> ExternalTaskClient.create().baseUrl(BASE_URL)); // without lock duration
   protected EngineRule engineRule = new EngineRule();
-  protected ExpectedException thrown = ExpectedException.none();
 
-  @Rule
-  public RuleChain ruleChain = RuleChain.outerRule(engineRule).around(clientRule).around(thrown);
+  @RegisterExtension
+  public ChainedExtension ruleChain = ChainedExtension.outerExtension(engineRule).around(clientRule);
 
   protected ExternalTaskClient client;
 
   protected ProcessDefinitionDto processDefinition;
   protected RecordingExternalTaskHandler handler = new RecordingExternalTaskHandler();
 
-  @Before
+  @BeforeEach
   public void setup() throws Exception {
     client = clientRule.client();
     handler.clear();
@@ -169,7 +167,7 @@ public class ClientIT {
       RecordingExternalTaskHandler recordingHandler = new RecordingExternalTaskHandler((t, s) -> {
         List<String> list = new ArrayList<>(Arrays.asList("lorem", "ipsum", "dolor", "sit"));
         objectValue[0] = Variables.objectValue(list).create();
-        s.complete(t, Collections.singletonMap("variable", objectValue[0]));
+        s.complete(t, Collections.singletonMap("javaVariable", objectValue[0]));
       });
 
       client.subscribe(EXTERNAL_TASK_TOPIC_FOO)
@@ -197,11 +195,9 @@ public class ClientIT {
       // given
       ExternalTaskClientBuilder externalTaskClientBuilder = ExternalTaskClient.create();
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder.build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -218,13 +214,9 @@ public class ClientIT {
       // given
       ExternalTaskClientBuilder externalTaskClientBuilder = ExternalTaskClient.create();
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder
-          .baseUrl(null)
-          .build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.baseUrl(null).build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -241,13 +233,9 @@ public class ClientIT {
       // given
       ExternalTaskClientBuilder externalTaskClientBuilder = ExternalTaskClient.create();
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder
-          .urlResolver(null)
-          .build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.urlResolver(null).build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -264,14 +252,9 @@ public class ClientIT {
       // given
       ExternalTaskClientBuilder externalTaskClientBuilder = ExternalTaskClient.create();
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder
-          .baseUrl(null)
-          .urlResolver(null)
-          .build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.baseUrl(null).urlResolver(null).build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -289,13 +272,9 @@ public class ClientIT {
       ExternalTaskClientBuilder externalTaskClientBuilder = ExternalTaskClient.create()
           .baseUrl("http://camunda.com/engine-rest");
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder
-          .maxTasks(0)
-          .build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.maxTasks(0).build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -341,11 +320,9 @@ public class ClientIT {
           .baseUrl("http://camunda.com/engine-rest")
           .asyncResponseTimeout(0);
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = clientBuilder.build();
+      // then & when
+      assertThatThrownBy(() -> clientBuilder.build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -415,11 +392,9 @@ public class ClientIT {
           .baseUrl("http://camunda.com/engine-rest")
           .lockDuration(0);
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder.build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -438,11 +413,9 @@ public class ClientIT {
         .baseUrl("http://camunda.com/engine-rest")
         .addInterceptor(null);
 
-      // then
-      thrown.expect(ExternalTaskClientException.class);
-
-      // when
-      client = externalTaskClientBuilder.build();
+      // then & when
+      assertThatThrownBy(() -> externalTaskClientBuilder.build())
+        .isInstanceOf(ExternalTaskClientException.class);
     }
     finally {
       if (client != null) {
@@ -1118,37 +1091,37 @@ public class ClientIT {
 
   @Test
   public void shouldThrowExceptionOnSubscribeWithNullOrderConfig() {
-    // when
+    // when & then
     assertThatThrownBy(() -> ExternalTaskClient.create()
         .baseUrl("baseUrl")
         .orderByCreateTime()
         .build()
-    ) // then
+    )
         .isInstanceOf(ExternalTaskClientException.class)
         .hasMessage("Invalid query: call asc() or desc() after using orderByXX()");
   }
 
   @Test
   public void shouldThrowExceptionOnInvalidOrderConfig() {
-    // when
+    // when & then
     assertThatThrownBy(() -> ExternalTaskClient.create()
         .baseUrl("baseUrl")
         .orderByCreateTime()
         .desc()
         .desc()
         .build()
-    ) // then
+    )
         .isInstanceOf(ExternalTaskClientException.class)
         .hasMessage("Invalid query: can specify only one direction desc() or asc() for an ordering constraint");
   }
 
   @Test
   public void shouldThrowExceptionOnMissingOrderbyConfig() {
-    // when
+    // when & then
     assertThatThrownBy(() -> ExternalTaskClient.create()
         .baseUrl("baseUrl")
         .asc()
-    ) // then
+    )
         .isInstanceOf(ExternalTaskClientException.class)
         .hasMessage("Invalid query: You should call any of the orderBy methods first before specifying a direction");
   }

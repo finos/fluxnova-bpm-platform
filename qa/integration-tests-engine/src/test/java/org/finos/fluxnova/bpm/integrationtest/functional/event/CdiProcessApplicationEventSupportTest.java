@@ -25,18 +25,18 @@ import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegratio
 import org.finos.fluxnova.bpm.integrationtest.util.DeploymentHelper;
 import org.finos.fluxnova.bpm.integrationtest.util.TestContainer;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class CdiProcessApplicationEventSupportTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -61,15 +61,15 @@ public class CdiProcessApplicationEventSupportTest extends AbstractFoxPlatformIn
     ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("testProcess");
 
     Integer listenerInvocationCount = (Integer) runtimeService.getVariable(processInstance.getId(), ExecutionListenerProcessApplication.LISTENER_INVOCATION_COUNT);
-    Assert.assertNotNull(listenerInvocationCount);
-    Assert.assertEquals(6, listenerInvocationCount.intValue());
+    Assertions.assertNotNull(listenerInvocationCount);
+    Assertions.assertEquals(6, listenerInvocationCount.intValue());
 
     Task task = taskService.createTaskQuery().processInstanceId(processInstance.getId()).singleResult();
     taskService.setAssignee(task.getId(), "demo");
     listenerInvocationCount = (Integer) runtimeService.getVariable(processInstance.getId(), ExecutionListenerProcessApplication.LISTENER_INVOCATION_COUNT);
 
     // assignment & update events fired
-    Assert.assertEquals(8, listenerInvocationCount.intValue());
+    Assertions.assertEquals(8, listenerInvocationCount.intValue());
   }
 
 }

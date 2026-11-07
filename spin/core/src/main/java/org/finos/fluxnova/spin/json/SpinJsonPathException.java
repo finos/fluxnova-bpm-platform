@@ -16,6 +16,8 @@
  */
 package org.finos.fluxnova.spin.json;
 
+
+
 import org.finos.fluxnova.spin.SpinRuntimeException;
 
 /**
@@ -23,7 +25,7 @@ import org.finos.fluxnova.spin.SpinRuntimeException;
  */
 public class SpinJsonPathException extends SpinRuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
     public SpinJsonPathException(String message) {
         super(message);

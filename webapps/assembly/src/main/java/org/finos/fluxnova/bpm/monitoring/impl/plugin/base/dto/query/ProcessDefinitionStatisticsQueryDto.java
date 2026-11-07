@@ -20,7 +20,7 @@ import org.finos.fluxnova.bpm.monitoring.impl.plugin.base.dto.ProcessDefinitionS
 import org.finos.fluxnova.bpm.monitoring.dto.AbstractRestQueryParametersDto;
 import org.finos.fluxnova.bpm.engine.rest.dto.FluxnovaQueryParam;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 

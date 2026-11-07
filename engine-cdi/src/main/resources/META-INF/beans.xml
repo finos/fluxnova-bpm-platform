@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:weld="http://jboss.org/schema/weld/beans"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd" bean-discovery-mode="all" version="4.0">
+	<interceptors>
+		<class>org.finos.fluxnova.bpm.engine.cdi.impl.annotation.CompleteTaskInterceptor</class>
+		<class>org.finos.fluxnova.bpm.engine.cdi.impl.annotation.StartProcessInterceptor</class>
+	</interceptors>	
+  
+    <weld:scan>
+      <!-- remove CdiJtaProcessEngineConfiguration if jakarta.transaction API is not available -->
+      <weld:exclude name="org.finos.fluxnova.bpm.engine.cdi.CdiJtaProcessEngineConfiguration">
+          <weld:if-class-available name="!jakarta.transaction.TransactionManager"/>
+      </weld:exclude>
+    
+    </weld:scan>
+</beans>

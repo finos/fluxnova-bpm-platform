@@ -18,7 +18,7 @@ package org.finos.fluxnova.bpm.engine.rest.impl;
 
 import java.util.List;
 
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response.Status;
 
 import org.finos.fluxnova.bpm.engine.BadUserRequestException;
 import org.finos.fluxnova.bpm.engine.batch.Batch;
@@ -32,7 +32,7 @@ import org.finos.fluxnova.bpm.engine.rest.exception.InvalidRequestException;
 import org.finos.fluxnova.bpm.engine.runtime.ModificationBuilder;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstanceQuery;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class ModificationRestServiceImpl extends AbstractRestProcessEngineAware implements ModificationRestService {
 

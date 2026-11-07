@@ -22,25 +22,21 @@ import org.finos.fluxnova.bpm.integrationtest.functional.ejb.request.beans.Reque
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OperateOnDeployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 /**
  * This test verifies that if the same @RequestScoped SFSB Bean is invoked multiple times
  * in the context of the same job, we get the same instance.
  *
- * NOTE:
- * - works on Jboss AS
- * - broken on Glassfish, see HEMERA-2454
- *
  * @author Daniel Meyer
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class JobExecutorRequestContextSFSBDelegateTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment(name="pa", order=2)
@@ -64,7 +60,7 @@ public class JobExecutorRequestContextSFSBDelegateTest extends AbstractFoxPlatfo
 
     Object variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // -> the same bean instance was invoked 2 times!
-    Assert.assertEquals(2, variable);
+    Assertions.assertEquals(2, variable);
 
     Task task = taskService.createTaskQuery()
       .processInstanceId(pi.getProcessInstanceId())
@@ -75,7 +71,7 @@ public class JobExecutorRequestContextSFSBDelegateTest extends AbstractFoxPlatfo
 
     variable = runtimeService.getVariable(pi.getId(), "invocationCounter");
     // now it's '1' again! -> new instance of the bean
-    Assert.assertEquals(1, variable);
+    Assertions.assertEquals(1, variable);
 
   }
 
@@ -95,7 +91,7 @@ public class JobExecutorRequestContextSFSBDelegateTest extends AbstractFoxPlatfo
     for(int i=0; i<instances; i++) {
       Object variable = runtimeService.getVariable(ids[i], "invocationCounter");
       // -> the same bean instance was invoked 2 times!
-      Assert.assertEquals(2, variable);
+      Assertions.assertEquals(2, variable);
 
       taskService.complete(taskService.createTaskQuery().processInstanceId(ids[i]).singleResult().getId());
     }
@@ -104,7 +100,7 @@ public class JobExecutorRequestContextSFSBDelegateTest extends AbstractFoxPlatfo
 
     for(int i=0; i<instances; i++) {
       // now it's '1' again! -> new instance of the bean
-      Assert.assertEquals(1, runtimeService.getVariable(ids[i], "invocationCounter"));
+      Assertions.assertEquals(1, runtimeService.getVariable(ids[i], "invocationCounter"));
     }
 
 

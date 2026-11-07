@@ -26,9 +26,11 @@ import java.util.function.Supplier;
 import org.finos.fluxnova.bpm.client.ExternalTaskClient;
 import org.finos.fluxnova.bpm.client.ExternalTaskClientBuilder;
 import org.finos.fluxnova.bpm.client.util.PropertyUtil;
-import org.junit.rules.ExternalResource;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class ClientRule extends ExternalResource {
+public class ClientRule implements BeforeEachCallback, AfterEachCallback {
 
   public static final long LOCK_DURATION = 1000 * 60 * 5;
 
@@ -51,6 +53,16 @@ public class ClientRule extends ExternalResource {
 
   public ClientRule(Supplier<ExternalTaskClientBuilder> builderSupplier) {
     this.builder = builderSupplier.get();
+  }
+
+  @Override
+  public void beforeEach(ExtensionContext context) throws Exception {
+    before();
+  }
+
+  @Override
+  public void afterEach(ExtensionContext context) throws Exception {
+    after();
   }
 
   public void before() {

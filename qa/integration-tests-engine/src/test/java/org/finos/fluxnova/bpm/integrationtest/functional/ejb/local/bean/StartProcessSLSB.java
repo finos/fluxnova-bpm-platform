@@ -16,8 +16,8 @@
  */
 package org.finos.fluxnova.bpm.integrationtest.functional.ejb.local.bean;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import jakarta.ejb.Local;
+import jakarta.ejb.Stateless;
 
 import org.finos.fluxnova.bpm.BpmPlatform;
 

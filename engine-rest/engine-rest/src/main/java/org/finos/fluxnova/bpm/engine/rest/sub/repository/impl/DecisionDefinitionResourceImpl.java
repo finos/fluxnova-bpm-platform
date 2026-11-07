@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriInfo;
 
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResult;
 import org.finos.fluxnova.bpm.dmn.engine.DmnDecisionResultEntries;
@@ -51,7 +51,7 @@ import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
 import org.finos.fluxnova.bpm.engine.variable.value.TypedValue;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class DecisionDefinitionResourceImpl implements DecisionDefinitionResource {
 
@@ -148,19 +148,19 @@ public class DecisionDefinitionResourceImpl implements DecisionDefinitionResourc
       throw e;
     }
     catch (NotFoundException e) {
-      String errorMessage = String.format("Cannot evaluate decision %s: %s", decisionDefinitionId, e.getMessage());
+      String errorMessage = "Cannot evaluate decision %s: %s".formatted(decisionDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.NOT_FOUND, e, errorMessage);
     }
     catch (NotValidException e) {
-      String errorMessage = String.format("Cannot evaluate decision %s: %s", decisionDefinitionId, e.getMessage());
+      String errorMessage = "Cannot evaluate decision %s: %s".formatted(decisionDefinitionId, e.getMessage());
       throw new InvalidRequestException(Status.BAD_REQUEST, e, errorMessage);
     }
     catch (ProcessEngineException e) {
-      String errorMessage = String.format("Cannot evaluate decision %s: %s", decisionDefinitionId, e.getMessage());
+      String errorMessage = "Cannot evaluate decision %s: %s".formatted(decisionDefinitionId, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
     }
     catch (DmnEngineException e) {
-      String errorMessage = String.format("Cannot evaluate decision %s: %s", decisionDefinitionId, e.getMessage());
+      String errorMessage = "Cannot evaluate decision %s: %s".formatted(decisionDefinitionId, e.getMessage());
       throw new RestException(Status.INTERNAL_SERVER_ERROR, e, errorMessage);
     }
   }

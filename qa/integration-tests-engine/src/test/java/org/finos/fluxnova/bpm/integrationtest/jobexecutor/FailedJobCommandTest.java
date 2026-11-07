@@ -19,14 +19,14 @@ package org.finos.fluxnova.bpm.integrationtest.jobexecutor;
 import org.finos.fluxnova.bpm.integrationtest.jobexecutor.beans.FailingSLSB;
 import org.finos.fluxnova.bpm.integrationtest.util.AbstractFoxPlatformIntegrationTest;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class FailedJobCommandTest extends AbstractFoxPlatformIntegrationTest {
 
   @Deployment
@@ -41,14 +41,14 @@ public class FailedJobCommandTest extends AbstractFoxPlatformIntegrationTest {
   public void testJobRetriesDecremented() {
     runtimeService.startProcessInstanceByKey("theProcess");
 
-    Assert.assertEquals(1, managementService.createJobQuery().withRetriesLeft().count());
+    Assertions.assertEquals(1, managementService.createJobQuery().withRetriesLeft().count());
 
     waitForJobExecutorToProcessAllJobs();
 
     // now the retries = 0
 
-    Assert.assertEquals(0, managementService.createJobQuery().withRetriesLeft().count());
-    Assert.assertEquals(1, managementService.createJobQuery().noRetriesLeft().count());
+    Assertions.assertEquals(0, managementService.createJobQuery().withRetriesLeft().count());
+    Assertions.assertEquals(1, managementService.createJobQuery().noRetriesLeft().count());
 
   }
 
@@ -59,14 +59,14 @@ public class FailedJobCommandTest extends AbstractFoxPlatformIntegrationTest {
       runtimeService.startProcessInstanceByKey("theProcess");
     }
 
-    Assert.assertEquals(50, managementService.createJobQuery().withRetriesLeft().count());
+    Assertions.assertEquals(50, managementService.createJobQuery().withRetriesLeft().count());
 
     waitForJobExecutorToProcessAllJobs(6 * 60 * 1000);
 
     // now the retries = 0
 
-    Assert.assertEquals(0, managementService.createJobQuery().withRetriesLeft().count());
-    Assert.assertEquals(51, managementService.createJobQuery().noRetriesLeft().count());
+    Assertions.assertEquals(0, managementService.createJobQuery().withRetriesLeft().count());
+    Assertions.assertEquals(51, managementService.createJobQuery().noRetriesLeft().count());
 
   }
 

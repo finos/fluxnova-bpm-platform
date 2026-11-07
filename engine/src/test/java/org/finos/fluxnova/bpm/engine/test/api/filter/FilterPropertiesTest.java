@@ -20,9 +20,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,17 +33,17 @@ import org.finos.fluxnova.bpm.engine.filter.Filter;
 import org.finos.fluxnova.bpm.engine.impl.persistence.entity.FilterEntity;
 import org.finos.fluxnova.bpm.engine.test.ProcessEngineRule;
 import org.finos.fluxnova.bpm.engine.test.util.ProvidedProcessEngineRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Sebastian Menski
  */
 public class FilterPropertiesTest {
 
-  @Rule
+  @RegisterExtension
   public ProcessEngineRule engineRule = new ProvidedProcessEngineRule();
 
   protected FilterService filterService;
@@ -53,13 +51,13 @@ public class FilterPropertiesTest {
   protected String nestedJsonObject = "{\"id\":\"nested\"}";
   protected String nestedJsonArray = "[\"a\",\"b\"]";
 
-  @Before
+  @BeforeEach
   public void setUp() {
     filterService = engineRule.getFilterService();
     filter = filterService.newTaskFilter("name").setOwner("owner").setProperties(new HashMap<>());
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     for (Filter filter : filterService.createFilterQuery().list()) {
       filterService.deleteFilter(filter.getId());
