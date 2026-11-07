@@ -2,49 +2,60 @@
 
 # fluxnova-bpm-platform
 
-Fluxnova BPM Platform - Linked Data Sidecar
+FINOS Fluxnova BPM Platform 3.1.1 (LinkML)
 
-Note [status](./docs/about.md)
+> **Only want to ask?** Install `ktl-docent` into any agent you use, by a route from [the install page](https://w3id.org/ktl/docs/install/), and ask it about this project. It answers from the bundle and says how far each answer has been checked.
+>
+> **Agents:** if `.lokf/knowledge/index.md` exists, read it first. `llms.txt` says how to weigh it.
 
 ## Documentation Website
 
 [https://lmodel.github.io/fluxnova-bpm-platform](https://lmodel.github.io/fluxnova-bpm-platform)
 
+## What it models
+
+The schema models [Fluxnova](https://fluxnova.finos.org/) 3.1.1, FINOS's BPM platform: the tables its process engine keeps, one class per table, and the BPMN 2.0 elements its model API reads, with Fluxnova's extension elements. Two converters write every module from FINOS's tree: [scripts/fluxnova_to_linkml.py](scripts/fluxnova_to_linkml.py) from the engine's H2 DDL and the Javadoc of its Java API, and [scripts/bpmn_to_linkml.py](scripts/bpmn_to_linkml.py) from the model API's `registerType` methods.
+
+This repository is a fork of [finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform). FINOS's tree sits unchanged at the repository's root, and this project sits beside it, in this folder, `.lokf/` and `website/`. A weekly workflow opens an issue when FINOS tags a release or its main moves.
+
+## Mappings
+
+* **BPMN 2.0, BPMN DI, DC and DI**: each BPMN class names the element it renders in `exact_mappings`, such as `bpmn:userTask`, the XML namespace and the element's name joined by `#`. `tests/test_sources.py` checks every registered element.
+* **Fluxnova's extension elements and attributes**: `exact_mappings` name both `fluxnova:` and `camunda:`, since the model API registers them in Camunda's namespace and reads Fluxnova's as the same.
+
 ## Repository Structure
 
-* [docs/](docs/) - mkdocs-managed documentation
-  * [elements/](docs/elements/) - generated schema documentation
-* [examples/](examples/) - Examples of using the schema
-* [project/](project/) - project files (these files are auto-generated, do not edit)
-* [src/](src/) - source files (edit these)
-  * [nist_ai_rmf](src/nist_ai_rmf)
-    * [schema/](src/nist_ai_rmf/schema) -- LinkML schema
-      (edit this)
-    * [datamodel/](src/nist_ai_rmf/datamodel) -- generated
-      Python datamodel
-* [tests/](tests/) - Python tests
-  * [data/](tests/data) - Example data
+* [docs/](docs/): the website's own pages
+* [project/](project/): generated project files (do not edit them)
+* [scripts/](scripts/): the two converters, the BPMN descriptions, the pins, the upstream watch and the sidecar's preflight
+* [src/fluxnova_bpm_platform/schema/](src/fluxnova_bpm_platform/schema): the LinkML schema, which the converters write, also at `linkml_schema/` in the repository's root
+* [src/fluxnova_bpm_platform/datamodel/](src/fluxnova_bpm_platform/datamodel): the generated Python datamodel
+* [tests/](tests/): Python tests, with example data in [data/](tests/data) and the neighbours' adapt copies in [neighbours/](tests/neighbours)
+
+The knowledge bundle is in `.lokf/` and the website in `website/`, at the repository's root.
 
 ## Developer Tools
 
-There are several pre-defined command-recipes available.
-They are written for the command runner [just](https://github.com/casey/just/). To list all pre-defined commands, run `just` or `just --list`.
+Run `just` from this folder to list the project's [just](https://github.com/casey/just/) recipes. `just gen-schema` rewrites the modules from FINOS's tree and `just check-schema` says when they differ. Never run `just setup`, which nests a repository, or `just deploy`, which pushes the root of `gh-pages`.
 
-## Autogenerate Schema and Mappings
+## Knowledge Trust Ladder (KTL)
 
-> &#128161; Tip<br>
-> See [docs/about.md](./docs/about.md) for status of Linkml sidecar.
+`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) sidecar. Its domain schema, `.lokf/schema/fluxnova_bpm_platform.yaml`, is the copy `just lokf-adapt` writes from `src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. A release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.
 
-Typical developer commands
-```bash
-just
-just clean
-just gen-from-rosetta  # auto-generate linkml schema / mappings from 21 lmodel schemas
-just gen-project       # Generate Linkml project (runs polygot generators)
-just test              # unit valid/invalid tests
-just testdoc           # check docs locally
+In Obsidian, add these to the *Known LOKF types* setting of the KTL Registrar and KTL Curator plugins:
+
+```text
+FluxnovaAttachment, FluxnovaAuthorization, FluxnovaBatch, FluxnovaByteArray, FluxnovaCaseDefinition, FluxnovaCaseExecution, FluxnovaCaseSentryPart, FluxnovaComment, FluxnovaConfiguration, FluxnovaDecisionDefinition, FluxnovaDecisionRequirementsDefinition, FluxnovaDeployment, FluxnovaEventSubscription, FluxnovaExecution, FluxnovaExternalTask, FluxnovaFilter, FluxnovaFormDefinition, FluxnovaGroup, FluxnovaHistoricActivityInstance, FluxnovaHistoricBatch, FluxnovaHistoricCaseActivityInstance, FluxnovaHistoricCaseInstance, FluxnovaHistoricDecisionInputInstance, FluxnovaHistoricDecisionInstance, FluxnovaHistoricDecisionOutputInstance, FluxnovaHistoricDetail, FluxnovaHistoricExternalTaskLog, FluxnovaHistoricIdentityLink, FluxnovaHistoricIncident, FluxnovaHistoricJobLog, FluxnovaHistoricProcessInstance, FluxnovaHistoricTaskInstance, FluxnovaHistoricVariableInstance, FluxnovaIdentityInfo, FluxnovaIdentityLink, FluxnovaIncident, FluxnovaJob, FluxnovaJobDefinition, FluxnovaMeterLog, FluxnovaProcessDefinition, FluxnovaSchemaLogEntry, FluxnovaTask, FluxnovaTaskMeterLog, FluxnovaTenant, FluxnovaTenantMembership, FluxnovaUser, FluxnovaUserOperationLogEntry, FluxnovaVariableInstance
 ```
+
+The copy roots on LOKF's `Concept` every class that carries the schema's identifier, `id`, so a concept's id is the table row's. The BPMN classes carry none and are not concept types. Ten slots whose names LOKF defines, such as `name`, `description` and `type`, take the `fluxnova_bpm_platform_` prefix in the copy. Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so none is a neighbour's. Column names are ordinary words, so the copy shares some keys with other lmodel copies, which `tests/test_schema_rules.py` lists.
 
 ## Credits
 
-This project uses the template [linkml-project-copier](https://github.com/linkml/linkml-project-copier).
+This project uses the template [linkml-project-copier](https://github.com/linkml/linkml-project-copier) published under [10.5281/zenodo.15163584](https://doi.org/10.5281/zenodo.15163584).
+
+## License
+
+The schema project is under the [Apache License 2.0](LICENSE), and the bundle under CC BY 4.0.
+
+Fluxnova and FINOS's tree are FINOS's, under the [Apache License 2.0](../LICENSE). The engine's descriptions are taken from its Javadoc under the same terms, and BPMN is the Object Management Group's. [NOTICE](NOTICE) says what comes from where. This project is not a FINOS project, and neither FINOS nor OMG endorses it.
