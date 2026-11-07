@@ -1,0 +1,114 @@
+FINOS Fluxnova BPM Platform LinkML Schema (fluxnova-bpm-platform)
+Copyright 2026 Noel McLoughlin
+
+This repository is a fork of FINOS's Fluxnova BPM Platform. Everything in it is
+under the Apache License, Version 2.0, and the copyright in each part is its
+author's, as this notice sets out by path.
+
+The schema project, everything under .linkml/, and what this project adds beside
+FINOS's tree (.lokf/, knowledge_bundle, linkml_schema, website/, llms.txt,
+.releaserc.json, .github/SECURITY.md, .github/dependabot.yml,
+.github/PULL_REQUEST_TEMPLATE/knowledge-sync.md, .github/scripts/,
+.github/release/, and the workflows knowledge-*.yaml, lint-and-docs.yaml,
+main.yaml, semantic-release.yml and upstream-watch.yaml) is this project's,
+licensed under the Apache License, Version 2.0 (see LICENSE beside this file),
+except for what the sections below list.
+
+Everything else is FINOS's, unchanged, and under FINOS's terms: LICENSE and
+NOTICE at the repository's root.
+
+Fluxnova
+--------
+
+Fluxnova is published by FINOS in
+https://github.com/finos/fluxnova-bpm-platform under the Apache License,
+Version 2.0. Its NOTICE reads, in part:
+
+  Fluxnova - FINOS
+  Copyright 2013-2025 Camunda Services GmbH
+  Copyright 2025 - FINOS info@finos.org
+
+  This product includes software developed at the Fintech Open Source
+  Foundation (https://www.finos.org/).
+
+src/fluxnova_bpm_platform/schema/ models the engine's database tables, from the
+H2 DDL, and the BPMN model API, from its registerType methods, at Fluxnova
+3.1.1 (tag v3.1.1, commit 3ac64ca2c3d7c93f00395e18b9dc3218e5250264).
+scripts/upstream_pins.tsv lists every file of FINOS's tree the converters read.
+The schema's structure is this project's. Where an engine class or slot has a
+description, its first sentence is taken from the Javadoc of the engine's Java
+API, and is FINOS's and Camunda's words. The BPMN descriptions, in
+scripts/bpmn_descriptions.yaml, are this project's. Table and column names,
+element and attribute names, namespaces, and the state codes and values the
+engine defines are Fluxnova's. src/fluxnova_bpm_platform/datamodel/, project/
+and docs/schema/ are generated from the schema.
+
+BPMN
+----
+
+BPMN 2.0 is a specification of the Object Management Group (OMG). The schema
+names BPMN's elements by the XML names and namespaces that Fluxnova's model API
+registers, and maps each to that name. bpmn_to_linkml.py reads the BPMN XML
+Schema the model API ships in FINOS's tree only to find which elements hold
+text; no text of the specification is copied here. OMG, BPMN and their logos
+are OMG's.
+
+FINOS, its logo and Fluxnova's name are FINOS's. This project is not a FINOS
+project, and its use of them does not imply FINOS's or OMG's endorsement.
+
+linkml-project-copier
+---------------------
+
+This project was generated from linkml-project-copier
+(https://github.com/linkml/linkml-project-copier), and its justfile,
+configuration and documentation scaffolding derive from that template:
+
+  The MIT License (MIT)
+  Copyright (c) 2025 David Linke
+
+  Permission is hereby granted, free of charge, to any person obtaining a
+  copy of this software and associated documentation files (the
+  "Software"), to deal in the Software without restriction, including
+  without limitation the rights to use, copy, modify, merge, publish,
+  distribute, sublicense, and/or sell copies of the Software, and to permit
+  persons to whom the Software is furnished to do so, subject to the
+  following conditions:
+
+  The above copyright notice and this permission notice shall be included
+  in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+  NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+  USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+linkml-sidecar
+--------------
+
+scripts/linkml-preflight.sh and the linkml-link recipe in project.justfile are
+copies of the linkml-sidecar templates
+(https://github.com/noelmcloughlin/linkml-sidecar), licensed under the Apache
+License, Version 2.0.
+
+Knowledge bundle
+----------------
+
+This product maintains its documentation as a Linked Open Knowledge Format
+(LOKF) bundle under .lokf/: https://lokf.nolan-nichols.com/specification/
+
+LOKF is a semantic profile of the Open Knowledge Format (OKF) specification
+by Google Cloud Platform:
+https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md
+
+The scripts under .lokf/scripts/ and .lokf/m365/ and the
+knowledge-librarian, knowledge-registrar, knowledge-release and
+knowledge-sync workflows under .github/workflows/ are copies of the
+ktl-sidecar templates in knowledge-trust-ladder
+(https://github.com/noelmcloughlin/knowledge-trust-ladder). The site under
+website/ and the knowledge-website workflow derive from the ktl-website
+templates in the same repository, and website/NOTICE lists the part
+adapted from the LOKF toolkit's site. All of them are licensed under the
+Apache License, Version 2.0.

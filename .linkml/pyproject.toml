@@ -11,7 +11,7 @@ authors = [
   {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
 ]
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "NOTICE"]
 readme = "README.md"
 requires-python = ">=3.10"
 dynamic = ["version"]
@@ -61,27 +61,55 @@ target-version = "py310"
 [tool.codespell]
 skip = [
   "LICENSE",
+  "NOTICE",
   "pyproject.toml",
   "uv.lock",
   "project/*",
   "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform_pydantic.py",
   "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform.py",
+  # The pin lists, and the neighbours' released adapt copies, are written or
+  # copied, not written here.
+  "tests/upstream_tree.tsv",
+  "scripts/upstream_pins.tsv",
+  "tests/neighbours/*",
+  # Copied in by the KTL sidecar sync or written by npm, not by hand.
+  ".lokf/scripts/*",
+  ".lokf/schema/lokf.yaml",
+  "website/package-lock.json",
+  ".github/release/package-lock.json",
 ]
 
 # Reminder: words have to be lowercased for the ignore-words-list
-ignore-words-list = "linke"
+ignore-words-list = "linke,activiti,anid"
 quiet-level = 3
 
 # Ref.: https://github.com/crate-ci/typos (spell checker)
 [tool.typos.default.extend-words]
 linke = "linke"
+# Activiti, the engine Camunda and then Fluxnova grew from, names the DDL files.
+activiti = "activiti"
+# Camunda's extension attribute camunda:writeable, as the model API names it.
+writeable = "writeable"
 
 [tool.typos.files]
 extend-exclude = [
+  # Values copied from FINOS's MockProvider.java, such as aCaseDefnitionId, and
+  # short example ids such as ba-001.
+  "**/tests/data/valid/**",
   "LICENSE",
   "uv.lock",
   "pyproject.toml",
   "project/*",
   "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform_pydantic.py",
   "src/fluxnova_bpm_platform/datamodel/fluxnova_bpm_platform.py",
+  # The pin lists, and the neighbours' released adapt copies, are written or
+  # copied, not written here.
+  "tests/upstream_tree.tsv",
+  "scripts/upstream_pins.tsv",
+  "tests/neighbours/*",
+  # Copied in by the KTL sidecar sync or written by npm, not by hand.
+  ".lokf/scripts/*",
+  ".lokf/schema/lokf.yaml",
+  "website/package-lock.json",
+  ".github/release/package-lock.json",
 ]

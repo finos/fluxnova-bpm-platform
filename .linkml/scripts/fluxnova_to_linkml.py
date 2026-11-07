@@ -1349,7 +1349,7 @@ class LinkMLGenerator:
         self.classes["ResourceDefinition"] = rd
 
         # HistoricScopeInstance - abstract base for timed history events
-        hsi = ClassDef(
+        historic_scope = ClassDef(
             name="HistoricScopeInstance",
             module="history",
             description="Abstract base for historic entities with start/end time and duration.",
@@ -1367,7 +1367,7 @@ class LinkMLGenerator:
             ],
             in_subset=["history", MODEL_SUBSET],
         )
-        self.classes["HistoricScopeInstance"] = hsi
+        self.classes["HistoricScopeInstance"] = historic_scope
 
         # Register base slots
         base_slots = [

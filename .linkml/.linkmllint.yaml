@@ -1,12 +1,18 @@
-# linkml-lint configuration for the Fluxnova BPM Platform schemas.
-#
-# Rationale: the platform root schema imports the BPMN Model API schema
-# (./fluxnova_bpmn_model), which defines short coordinate slots ``x`` and
-# ``y`` on the Point class (matching the BPMN-DI / DC specs). The default
-# ``standard_naming`` rule warns on these names, but renaming them would
-# diverge from the OMG specification. We keep the spec-aligned names and
-# silence the warning project-wide.
+# linkml-lint reads this file from the directory `just lint` runs in.
+# The recommended rules apply, with the naming rule fitted to the values the
+# sources write, so that a document validates unchanged. A permissible value
+# keeps its source's spelling: BPMN's XML Schema (None, Converging, ##Compensate,
+# non_initiating) and the engine's Java constants (ACTIVE, PENDING), so the
+# naming rule leaves values out. Class, enum and slot names keep the rule's usual
+# form.
 extends: recommended
 rules:
   standard_naming:
-    level: disabled
+    level: error
+    exclude_type:
+      - permissible_value
+    # Diagram Common's coordinates keep their names, x and y, which the rule's
+    # pattern would want two characters long.
+    exclude:
+      - x
+      - y
