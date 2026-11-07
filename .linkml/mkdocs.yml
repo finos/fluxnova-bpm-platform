@@ -28,8 +28,8 @@ plugins:
       execute: false
   - mermaid2:
       version: 11.4.1
+  # https://pypi.org/project/mkdocs-pymdownx-material-extras
   - mkdocs_pymdownx_material_extras:
-    # https://pypi.org/project/mkdocs-pymdownx-material-extras
 
 markdown_extensions:
   - pymdownx.superfences:
@@ -55,11 +55,6 @@ markdown_extensions:
   # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#markdown-in-html
   # write markdown inside of HTML
   - md_in_html
-
-  # TODO rebuild docs on schema change (https://github.com/linkml/linkml-project-copier/issues/39)
-  # - gen-files:
-  #     scripts:
-  #       - gen_pages.py  # or any other name or path
 
 watch:
   - src/fluxnova_bpm_platform/schema

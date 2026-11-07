@@ -11,7 +11,7 @@ authors = [
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.10"
 dynamic = ["version"]
 
 dependencies = [
@@ -45,6 +45,14 @@ fallback-version = "0.0.0"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+# https://docs.astral.sh/ruff/configuration/
+[tool.ruff]
+exclude = [
+    "src/fluxnova_bpm_platform/_version.py",
+]
+# Set oldest supported Python version
+target-version = "py310"
+
 # Ref.: https://github.com/codespell-project/codespell
 [tool.codespell]
 skip = [
@@ -63,6 +71,7 @@ quiet-level = 3
 # Ref.: https://github.com/crate-ci/typos (spell checker)
 [tool.typos.default.extend-words]
 linke = "linke"
+
 [tool.typos.files]
 extend-exclude = [
   "LICENSE",

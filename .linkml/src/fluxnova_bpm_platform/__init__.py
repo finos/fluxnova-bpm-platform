@@ -1,3 +1,8 @@
+"""fluxnova-bpm-platform.
+
+Fluxnova BPMN Platform - LinkML Schema
+"""
+
 try:
     from fluxnova_bpm_platform._version import __version__, __version_tuple__
 except ImportError:  # pragma: no cover

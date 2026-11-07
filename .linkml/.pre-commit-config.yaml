@@ -9,6 +9,7 @@ repos:
         # mkdocs.yml uses !!python/name tags unsupported by the safe YAML loader
         exclude: ^mkdocs\.yml$
       - id: end-of-file-fixer
+        exclude: ^\.copier-answers\.yml$
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
 
@@ -17,22 +18,24 @@ repos:
     hooks:
       - id: yamllint
         args: [-c=.yamllint.yaml]
+        exclude: ^\.copier-answers\.yml$
+        verbose: true  # Show warnings.
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.2
     hooks:
       - id: codespell
         additional_dependencies:
           - tomli
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.44.0
+    rev: v1.46.3
     hooks:
       - id: typos
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.15.4
+    rev: v0.15.14
     hooks:
       # Run the linter.
       - id: ruff
@@ -42,6 +45,6 @@ repos:
 
   - repo: https://github.com/astral-sh/uv-pre-commit
     # uv version.
-    rev: 0.9.28
+    rev: 0.11.16
     hooks:
       - id: uv-lock

@@ -1,9 +1,10 @@
 # Changes here will be overwritten by Copier
-_commit: v0.4.2-30-g325b0b4
+_commit: v0.5.0-1-ga887226
 _src_path: gh:linkml/linkml-project-copier
 add_example: false
 copyright_year: '2026'
 email: noel.mcloughlin@gmail.com
+existing_license_file: ''
 full_name: Noel McLoughlin
 gh_action_docs_preview: true
 gh_action_pypi: false
