@@ -30,5 +30,8 @@ create unique index ACT_UNIQ_GE_CONFIG_GLOBAL
     where TENANT_ID_ is null
       and STATUS_ = 'ACTIVE';
 
+create index ACT_IDX_TASK_PARENT_TASK_ID on ACT_RU_TASK(PARENT_TASK_ID_);
+create index ACT_IDX_HI_TASK_INST_PARENT on ACT_HI_TASKINST(PARENT_TASK_ID_);
+
 insert into ACT_GE_SCHEMA_LOG
 values ('1600', CURRENT_TIMESTAMP, '3.1.1');
