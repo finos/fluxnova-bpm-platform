@@ -44,7 +44,7 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 
 - **Leave FINOS's files alone.** A change to one goes to [FINOS](https://github.com/finos/fluxnova-bpm-platform). `.linkml/tests/test_upstream.py` checks every file `.linkml/tests/upstream_tree.tsv` lists against its hash.
 - **Change a converter, then regenerate.** From `.linkml/`, run `just gen-schema`, `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `just check-schema` fails when a module differs from what FINOS's tree gives.
-- **An element says what Fluxnova's sources say.** `.linkml/tests/test_sources.py` checks every table, column, foreign key, state code and registered BPMN element against the sources.
+- **An element says what Fluxnova's sources say.** `.linkml/tests/test_sources.py` checks every table, column, key, default, state code and registered BPMN element against the sources, and `.linkml/tests/test_bpmn_files.py` validates FINOS's BPMN files.
 - **A mapping is read at its source.** A term with no sure match stays unmapped.
 - **Keep names apart.** A host imports this adapt copy beside the Linked Open Knowledge Format (LOKF) schema and the released copies in `.linkml/tests/neighbours/`. `.linkml/tests/test_schema_rules.py` checks this.
 - **Run the tests**: `just test` from `.linkml/`. Examples go in `tests/data/valid/` and `invalid/`, named `ClassName-suffix.yaml`.

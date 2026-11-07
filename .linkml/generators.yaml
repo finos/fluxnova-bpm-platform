@@ -17,6 +17,11 @@ excludes:
 generator_args:
   excel:
     mergeimports: true
+  # gen-owl warns "Ambiguous attribute" for a BPMN attribute that several element
+  # types declare, such as name, since the model API registers it on each type, and
+  # "Ambiguous type" for a name whose range differs from class to class, such as an
+  # engine slot that a table's foreign key narrows. The OWL holds one property for
+  # each such name.
   owl:
     mergeimports: true
     metaclasses: false
