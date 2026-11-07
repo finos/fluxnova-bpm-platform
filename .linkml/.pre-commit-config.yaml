@@ -76,4 +76,8 @@ repos:
     # uv version.
     rev: 0.11.16
     hooks:
+      # The hook's own pattern names a lockfile at the repository's root, where FINOS's
+      # tree has none, so it is given this project's files and folder.
       - id: uv-lock
+        files: ^\.linkml/(uv\.lock|pyproject\.toml)$
+        args: [--project, .linkml]
