@@ -29,7 +29,7 @@ uv sync --group dev
 just --list
 ```
 
-Never run `just setup` (it nests a repository) or `just deploy` (it pushes the root of `gh-pages`).
+Never run `just setup` (it nests a repository).
 
 ### Agent skills (optional, only for this repo's `.lokf/` bundle)
 

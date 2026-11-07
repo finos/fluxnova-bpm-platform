@@ -36,7 +36,7 @@ The knowledge bundle is in `.lokf/` and the website in `website/`, at the reposi
 
 ## Developer Tools
 
-Run `just` from this folder to list the project's [just](https://github.com/casey/just/) recipes. `just gen-schema` rewrites the modules from FINOS's tree and `just check-schema` says when they differ. Never run `just setup`, which nests a repository, or `just deploy`, which pushes the root of `gh-pages`.
+Run `just` from this folder to list the project's [just](https://github.com/casey/just/) recipes. `just gen-schema` rewrites the modules from FINOS's tree and `just check-schema` says when they differ. Never run `just setup`, which nests a repository.
 
 ## Knowledge Trust Ladder (KTL)
 
