@@ -2,6 +2,10 @@
 
 ## 2026-11-07
 
+* **Changed**: Engine tables module names whose integer state codes a column holds.
+* **Changed**: How the fork is laid out says this project's folders are beside FINOS's tree; NOTICE lists its other files.
+* **Changed**: Licence and attribution says only the descriptions the Javadoc gives are FINOS's and Camunda's words, as NOTICE now does.
+* **Changed**: Documentation site says the site leaves the changelog out until it holds a release, as `website/site.config.mjs` does since f1d8a42ca9.
 * **Prose**: reworded 12 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Added**: Fluxnova BPM Platform 3.1.1 (FINOS), from `.linkml/scripts/edition.py`.
 * **Added**: BPMN 2.0 (OMG), from `.linkml/scripts/bpmn_to_linkml.py`.

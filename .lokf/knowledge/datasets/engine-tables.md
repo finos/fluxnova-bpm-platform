@@ -17,14 +17,14 @@ sources:
     resource: .linkml/scripts/fluxnova_to_linkml.py
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T03:39:33Z"
-  revision: 44e97f2125e7dc2b3e9345c5b9f610ad5eca5162
+  at: "2026-11-07T04:06:15Z"
+  revision: 642e6a61c3ef4ba02a97592475f5c851a41fff91
 status: draft
 ---
 
 # Engine tables module
 
-Each table the engine's H2 DDL creates is a class, such as `FluxnovaExecution` for `ACT_RU_EXECUTION`.[^about.md] A column is a slot, required when it is not null, and a table's one-column key `ID_` is the class's identifier.[^about.md] A foreign key ranges over the class of the table it refers to.[^about.md] A column of the engine's text values takes an enum. A column of its integer state codes stays an integer, bounded by the codes.[^about.md] The subsets `engine_repository`, `engine_runtime`, `engine_history` and the rest group the tables.[^about.md] `scripts/fluxnova_to_linkml.py` writes the module.[^fluxnova_to_linkml.py]
+Each table the engine's H2 DDL creates is a class, such as `FluxnovaExecution` for `ACT_RU_EXECUTION`.[^about.md] A column is a slot, required when it is not null, and a table's one-column key `ID_` is the class's identifier.[^about.md] A foreign key ranges over the class of the table it refers to.[^about.md] A column of the engine's text values takes an enum. A column of the engine's integer state codes stays an integer, bounded by the codes.[^about.md] The subsets `engine_repository`, `engine_runtime`, `engine_history` and the rest group the tables.[^about.md] `scripts/fluxnova_to_linkml.py` writes the module.[^fluxnova_to_linkml.py]
 
 [^about.md]: .linkml/docs/about.md, The engine's tables
 [^fluxnova_to_linkml.py]: .linkml/scripts/fluxnova_to_linkml.py
