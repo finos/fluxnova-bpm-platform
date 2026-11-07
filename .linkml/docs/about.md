@@ -43,5 +43,5 @@ Fluxnova is FINOS's BPM platform, grown from Camunda 7. The schema renders the r
 - **The engine's computed columns**, such as the configuration table's `TENANT_ID_NULL_`, which the database derives for an index.
 - **CMMN and DMN models**, which the engine also reads. Their tables are in the schema, and their models are not.
 - **Column lengths**, such as `varchar(64)`: LinkML states no length for a string.
-- **What the model API does not register**: an attribute the engine reads on any element, such as `camunda:async` on an intermediate event, an element such as `standardLoopCharacteristics`, and attributes and elements in other namespaces, such as a modeler's, which BPMN admits.
+- **What the model API does not register**: an attribute the engine reads on any element, such as `camunda:async` on an intermediate event, and an element such as `standardLoopCharacteristics`. Attributes and elements in other namespaces, such as a modeler's, which BPMN admits, are left out too.
 - **The rest of Fluxnova**: the engine's behaviour, the REST API, the web applications and the rest of FINOS's tree.
