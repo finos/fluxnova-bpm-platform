@@ -13,7 +13,7 @@ merged from its default branch at FINOS_COMMIT (scripts/edition.py). These can c
 without any change here:
 
 - FINOS gains a tag, such as a 3.2.0 release;
-- the pinned tag moves, or a pinned file changes or is deleted at the pinned commit;
+- the pinned tag moves, or a pinned file changes or is missing at the pinned commit;
 - the licence on the default branch changes.
 
 Each of these fails the check. Two more are reported for information only: a pinned

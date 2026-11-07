@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write the engine tables module of the schema from Fluxnova's engine sources.
+"""Write the engine tables module and the umbrella module from Fluxnova's engine sources.
 
 The script reads the engine's H2 DDL (tables, columns, keys and foreign keys) and the
 Javadoc of the engine's Java API (descriptions) from FINOS's tree beside .linkml/,
@@ -212,8 +212,8 @@ SKIP_COLUMNS: set[str] = {
     "REV_",
 }
 
-# Slots several areas' tables share, which the generator declares once, apart from
-# the areas' own slots.
+# Slots that shared_slots() declares with fixed definitions, in place of definitions
+# built from the columns. module_elements() skips them.
 SHARED_SLOTS: set[str] = {
     "id",
     "name",
@@ -287,8 +287,8 @@ CLASS_JAVA_INTERFACES: dict[str, str] = {
 # ---------------------------------------------------------------------------
 # Dynamic Description Generation
 # ---------------------------------------------------------------------------
-# A table or column the Javadoc does not describe gets a description built from
-# its name, its type, its foreign keys and its table.
+# A class the Javadoc does not describe gets a description built from its name, its
+# area and its columns. A slot gets one from its name, its type and its foreign key.
 
 
 def _generate_slot_description(
@@ -1066,7 +1066,7 @@ class LinkMLGenerator:
         self.javadoc = javadoc or {}
         # All slot definitions keyed by slot name
         self.all_slots: dict[str, SlotDef] = {}
-        # Track which module "owns" (first defines) each slot
+        # The area that owns each slot, which _assign_slot_ownership() settles
         self._slot_owner: dict[str, str] = {}
         # Classes keyed by name
         self.classes: dict[str, ClassDef] = {}
@@ -1077,7 +1077,8 @@ class LinkMLGenerator:
         self._apply_javadoc_descriptions()
 
     def _register_slot(self, slot: SlotDef, module: str) -> None:
-        """Register a slot globally; first module wins ownership."""
+        """Register a slot globally. The first area to register it owns it until
+        _assign_slot_ownership() runs."""
         if slot.name not in self.all_slots:
             self.all_slots[slot.name] = slot
             self._slot_owner[slot.name] = module
@@ -1528,7 +1529,7 @@ class LinkMLGenerator:
         }
 
     def shared_slots(self) -> dict:
-        """The slots that tables in several areas share, declared once for the module."""
+        """The slots SHARED_SLOTS names, with their fixed definitions."""
         return {
             "id": {
                 "identifier": True,
@@ -1646,8 +1647,8 @@ class LinkMLGenerator:
     def root_elements(self) -> dict:
         """The root class, FluxnovaPlatformData, and the container slots it holds."""
         # The container slots are top-level slots, not ``attributes``, and the root
-        # class refines them in ``slot_usage``. Each is multivalued and inlined as a list, so a
-        # root document holds each kind of row as a list.
+        # class refines them in ``slot_usage``. Each is multivalued and inlined as a
+        # list, so a root document holds the rows of each kind it names as a list.
         container_slot_specs: list[tuple[str, str, str]] = [
             ("deployments", "Deployment", "Deployed resources."),
             ("process_definitions", "ProcessDefinition", "Process definitions."),

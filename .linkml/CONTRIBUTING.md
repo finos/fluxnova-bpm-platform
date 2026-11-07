@@ -4,7 +4,7 @@
 
 ## What this project is
 
-A LinkML schema of Fluxnova 3.1.1, the engine's database tables and the BPMN elements its model API reads, in a fork of FINOS's Fluxnova BPM Platform. FINOS's tree is unchanged at the repository's root, and this project's files are beside it in `.linkml/`.
+A LinkML schema of Fluxnova 3.1.1, the engine's database tables and the BPMN elements its model API reads, in a fork of FINOS's Fluxnova BPM Platform. FINOS's tree is unchanged at the repository's root, and this LinkML project is beside it in `.linkml/`.
 
 | Path | Holds |
 | --- | --- |

@@ -16,7 +16,7 @@ FINOS Fluxnova BPM Platform 3.1.1 (LinkML)
 
 The schema models [Fluxnova](https://fluxnova.finos.org/) 3.1.1, FINOS's BPM platform: the tables its process engine keeps, one class per table, and the BPMN 2.0 elements its model API reads, with Fluxnova's extension elements. Two converters write every module from FINOS's tree: [scripts/fluxnova_to_linkml.py](scripts/fluxnova_to_linkml.py) from the engine's H2 DDL and the Javadoc of its Java API, and [scripts/bpmn_to_linkml.py](scripts/bpmn_to_linkml.py) from the model API's `registerType` methods.
 
-This repository is a fork of [finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform). FINOS's tree is unchanged at the repository's root, and this project's files are beside it, in this folder, `.lokf/` and `website/`. A weekly workflow opens an issue when FINOS tags a release or its main moves.
+This repository is a fork of [finos/fluxnova-bpm-platform](https://github.com/finos/fluxnova-bpm-platform). FINOS's tree is unchanged at the repository's root, and this project's folders are beside it: this folder, `.lokf/` and `website/`. A weekly workflow opens an issue when FINOS tags a release or its main moves.
 
 ## Mappings
 

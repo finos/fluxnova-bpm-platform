@@ -35,9 +35,11 @@ src/fluxnova_bpm_platform/schema/ models the engine's database tables, from the
 H2 DDL, and the BPMN model API, from its registerType methods, at Fluxnova
 3.1.1 (tag v3.1.1, commit 3ac64ca2c3d7c93f00395e18b9dc3218e5250264).
 scripts/upstream_pins.tsv lists every file of FINOS's tree the converters read.
-The schema's structure is this project's. Where an engine class or slot has a
-description, its first sentence is taken from the Javadoc of the engine's Java
-API, and is FINOS's and Camunda's words. The BPMN descriptions, in
+The schema's structure is this project's. Where the Javadoc of the engine's
+Java API describes an engine class or slot, its description is the Javadoc's
+first sentence, in FINOS's and Camunda's words. The other engine descriptions
+are this project's, built from the table or column or written in the
+converter. The BPMN descriptions, in
 scripts/bpmn_descriptions.yaml, are this project's. Table and column names,
 element and attribute names, namespaces, and the state codes and values the
 engine defines are Fluxnova's. src/fluxnova_bpm_platform/datamodel/, project/
