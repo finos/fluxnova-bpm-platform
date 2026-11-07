@@ -1,4 +1,4 @@
-"""Holds the schema to what FINOS's tree states.
+"""Checks the schema against what FINOS's tree states.
 
 The converters write every module from FINOS's tree beside .linkml/. These tests rerun
 them in check mode. Then they check what they wrote against the sources: each table,

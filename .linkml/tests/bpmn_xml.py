@@ -2,11 +2,11 @@
 
 The reader finds each element's class by the ``xml_namespace`` and ``xml_name``
 annotations the converter writes, and each attribute's and child's slot by its
-``xml_name``. A child goes to the slot whose range is its class or an ancestor,
-with ``element_type`` naming its class where the two differ, and a child that only
-holds a reference, such as ``incoming``, gives its text to the slot of its name.
-Fluxnova's namespace, and Activiti's, which is deprecated, read as Camunda's, as
-the model API reads them. The schema models only the namespaces the model API
+``xml_name``. The reader puts a child in the slot whose range is its class or an
+ancestor, with ``element_type`` naming its class where the two differ. A child that
+only holds a reference, such as ``incoming``, gives its text to the slot of its name.
+The reader reads Fluxnova's namespace, and Activiti's, which is deprecated, as
+Camunda's, as the model API does. The schema models only the namespaces the model API
 registers, so the reader leaves out, and counts in ``Reader.skipped``, the
 attributes and elements of any other, which BPMN admits as foreign content.
 """
@@ -99,7 +99,7 @@ class Reader:
             )
             if slot is None and namespace == XSI:
                 # xsi:type and xsi:schemaLocation belong to XML Schema, which lets
-                # them stand on any element; a class models one only where the
+                # them stand on any element. A class models one only where the
                 # model API reads it, as a condition's xsi:type.
                 self.skipped[f"attribute {{{namespace}}}{local}"] += 1
                 continue

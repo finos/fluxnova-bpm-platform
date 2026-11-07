@@ -633,7 +633,8 @@ class SqlTable:
     name: str
     columns: list[SqlColumn] = field(default_factory=list)
     pk_columns: list[str] = field(default_factory=list)
-    fk_constraints: dict[str, str] = field(default_factory=dict)  # col -> ref_table
+    # The table each foreign key's column refers to, by the column.
+    fk_constraints: dict[str, str] = field(default_factory=dict)
     # Each unique constraint: its name, empty for one written inside the table, and
     # its columns.
     unique_constraints: list[tuple[str, list[str]]] = field(default_factory=list)
@@ -1209,9 +1210,9 @@ class LinkMLGenerator:
         A class takes its interface's Javadoc, or a description built from its table.
         A slot's definition takes the Javadoc when every class that has the slot says
         the same. Otherwise it keeps a description that fits every table, from
-        SHARED_DESCRIPTIONS, the slot's registration or its column, and each class
-        whose Javadoc describes the slot says so in its slot_usage, or in its base's
-        when every subclass's Javadoc agrees.
+        SHARED_DESCRIPTIONS, the slot's registration or its column. Each class whose
+        Javadoc describes the slot says so in its slot_usage, or in its base's when
+        every subclass's Javadoc agrees.
         """
         for class_name, cls in self.classes.items():
             info = self.javadoc.get(class_name)
@@ -1795,9 +1796,8 @@ class LinkMLGenerator:
 
         The root holds a list of rows for each table, in a slot named after the
         table's class in the plural, such as historic_process_instances, or as
-        ROOT_SLOT_OVERRIDES names it. The
-        container slots are top-level slots, not ``attributes``, and the root class
-        refines them in ``slot_usage``.
+        ROOT_SLOT_OVERRIDES names it. The container slots are top-level slots, not
+        ``attributes``, and the root class refines them in ``slot_usage``.
         """
         names = class_names(self.classes)
         specs = sorted(

@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Job - mirrors MockProvider EXAMPLE_JOB_* constants
+# Job: it mirrors MockProvider's EXAMPLE_JOB_* constants.
 id: aJobId
 type: aJobType
 lock_owner: aLockOwner

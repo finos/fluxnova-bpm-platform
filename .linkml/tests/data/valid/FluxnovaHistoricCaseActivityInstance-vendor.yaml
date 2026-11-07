@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricCaseActivityInstance - mirrors MockProvider constants
+# HistoricCaseActivityInstance: it mirrors MockProvider's constants.
 id: aCaseActivityInstanceId
 end_time: "2014-04-23T18:42:43+00:00"
 duration: 2000

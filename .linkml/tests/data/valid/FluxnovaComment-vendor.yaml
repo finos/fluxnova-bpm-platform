@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# Comment - mirrors MockProvider EXAMPLE_TASK_COMMENT_* constants
+# Comment: it mirrors MockProvider's EXAMPLE_TASK_COMMENT_* constants.
 id: aTaskCommentId
 type: comment
 event_time: "2014-04-24T14:10:44+00:00"

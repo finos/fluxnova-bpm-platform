@@ -1,4 +1,4 @@
-# Invalid vendor test data - Authorization with string where integer expected
+# Invalid vendor test data: Authorization with string where integer expected.
 id: someAuthorizationId
 type: 0
 user_id: aUserId

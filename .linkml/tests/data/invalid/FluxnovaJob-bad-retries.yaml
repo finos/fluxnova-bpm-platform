@@ -1,4 +1,4 @@
-# Invalid vendor test data - Job with non-integer retries
+# Invalid vendor test data: Job with non-integer retries.
 id: aJobId
 retries: "not-a-number"
 type: aJobType

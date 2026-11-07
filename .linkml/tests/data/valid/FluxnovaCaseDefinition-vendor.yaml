@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# CaseDefinition - mirrors MockProvider EXAMPLE_CASE_DEFINITION_* constants
+# CaseDefinition: it mirrors MockProvider's EXAMPLE_CASE_DEFINITION_* constants.
 id: aCaseDefnitionId
 key: aCaseDefinitionKey
 name: aCaseDefinitionName

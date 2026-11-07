@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricCaseInstance - mirrors MockProvider EXAMPLE_HISTORIC_CASE_INSTANCE_* constants
+# HistoricCaseInstance: it mirrors MockProvider's EXAMPLE_HISTORIC_CASE_INSTANCE_* constants.
 id: aCaseInstId
 duration: 2000
 case_instance_id: aCaseInstId

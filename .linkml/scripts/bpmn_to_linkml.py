@@ -135,7 +135,7 @@ EXTENSION_TEXT = {
 
 # Elements whose children the model API reads from the document, not from
 # registerType. Each gets a slot named after the model API's getter, which ranges
-# over the root class, so element_type names each child's class; XML writes a
+# over the root class, so element_type names each child's class. XML writes a
 # child under its own name.
 #
 # extensionElements holds any element: BPMN's XML Schema gives it an xsd:any, and

@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricExternalTaskLog - mirrors MockProvider EXAMPLE_HISTORIC_EXTERNAL_TASK_LOG_* constants
+# HistoricExternalTaskLog: it mirrors MockProvider's EXAMPLE_HISTORIC_EXTERNAL_TASK_LOG_* constants.
 id: aHistoricExternalTaskLogId
 timestamp: "2015-01-01T00:00:00+00:00"
 external_task_id: anExternalTaskId

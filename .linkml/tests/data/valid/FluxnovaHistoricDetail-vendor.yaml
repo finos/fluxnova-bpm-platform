@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricDetail (variableUpdate type) - mirrors MockProvider EXAMPLE_HISTORIC_VAR_UPDATE_* constants
+# HistoricDetail (variableUpdate type): it mirrors MockProvider's EXAMPLE_HISTORIC_VAR_UPDATE_* constants.
 id: aHistoricVariableUpdateId
 type: variableUpdate
 event_time: "2014-01-01T00:00:00+00:00"

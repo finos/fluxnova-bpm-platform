@@ -1,4 +1,4 @@
-# Invalid vendor test data - HistoricProcessInstance with bad enum value for state
+# Invalid vendor test data: HistoricProcessInstance with bad enum value for state.
 id: aProcInstId
 process_instance_id: aProcInstId
 process_definition_id: aProcDefId

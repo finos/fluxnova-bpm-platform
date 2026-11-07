@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricProcessInstance - mirrors MockProvider EXAMPLE_HISTORIC_PROCESS_INSTANCE_* constants
+# HistoricProcessInstance: it mirrors MockProvider's EXAMPLE_HISTORIC_PROCESS_INSTANCE_* constants.
 id: aProcInstId
 root_process_instance_id: aRootProcessInstanceId
 process_instance_id: aProcInstId

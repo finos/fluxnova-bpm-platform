@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricBatch - mirrors MockProvider EXAMPLE_BATCH_* + EXAMPLE_HISTORIC_BATCH_* constants
+# HistoricBatch: it mirrors MockProvider's EXAMPLE_BATCH_* and EXAMPLE_HISTORIC_BATCH_* constants.
 id: aBatchId
 type: aBatchType
 total_jobs: 10

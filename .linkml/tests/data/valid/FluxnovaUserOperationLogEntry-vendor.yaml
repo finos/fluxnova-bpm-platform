@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# UserOperationLogEntry - mirrors MockProvider EXAMPLE_USER_OPERATION_* constants
+# UserOperationLogEntry: it mirrors MockProvider's EXAMPLE_USER_OPERATION_* constants.
 id: userOpLogId
 process_definition_id: aProcDefId
 process_definition_key: aKey

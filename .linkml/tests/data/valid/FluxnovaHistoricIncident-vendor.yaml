@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# HistoricIncident - mirrors MockProvider EXAMPLE_HIST_INCIDENT_* constants
+# HistoricIncident: it mirrors MockProvider's EXAMPLE_HIST_INCIDENT_* constants.
 id: anIncidentId
 process_definition_key: aProcDefKey
 process_definition_id: aProcDefId

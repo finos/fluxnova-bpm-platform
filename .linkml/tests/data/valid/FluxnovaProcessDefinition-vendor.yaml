@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# ProcessDefinition - mirrors MockProvider EXAMPLE_PROCESS_DEFINITION_* constants
+# ProcessDefinition: it mirrors MockProvider's EXAMPLE_PROCESS_DEFINITION_* constants.
 id: aProcDefId
 name: aName
 key: aKey

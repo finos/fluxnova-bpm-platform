@@ -1,5 +1,5 @@
 # Vendor test data derived from MockProvider.java
-# VariableInstance - mirrors MockProvider EXAMPLE_VARIABLE_INSTANCE_* constants
+# VariableInstance: it mirrors MockProvider's EXAMPLE_VARIABLE_INSTANCE_* constants.
 id: aVariableInstanceId
 type: String
 name: aVariableInstanceName
