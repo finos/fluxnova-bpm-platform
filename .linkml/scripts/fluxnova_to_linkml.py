@@ -55,18 +55,6 @@ SQL_TYPE_MAP: dict[str, str] = {
     "long": "integer",
 }
 
-# CURIE prefixes the generator knows; finalize() drops every slot_uri it sets.
-CURIE_PREFIXES: dict[str, str] = {
-    "schema": "http://schema.org/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dct": "http://purl.org/dc/terms/",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "owl": "http://www.w3.org/2002/07/owl#",
-    "bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL",
-}
-
 # Each table's class, before finalize() adds the Fluxnova prefix, and its area.
 TABLE_TO_CLASS: dict[str, tuple[str, str]] = {
     # Repository
@@ -224,21 +212,6 @@ SKIP_COLUMNS: set[str] = {
     "REV_",
 }
 
-# The areas the tables are grouped in.
-MODULE_SUBSETS = {
-    "base": "Base types and utility entities (ByteArray, Property, Meter, Schema).",
-    "repository": "Resource definitions (Process, Case, Decision, Form).",
-    "runtime": "Active execution, task, and event instances.",
-    "job": "Job and batch management entities.",
-    "identity": "Identity and authorization entities (User, Group, Tenant, Role).",
-    "history": "Historical snapshots of completed runtime entities.",
-    "collaboration": "Collaboration features (Comments, Attachments, Filters).",
-}
-
-# Subsets the generator tags classes with; finalize() keeps only each table's area.
-MODEL_SUBSET = "fluxnova_bpm"
-PLATFORM_SUBSET = "platform"
-
 # Slots several areas' tables share, which the generator declares once, apart from
 # the areas' own slots.
 SHARED_SLOTS: set[str] = {
@@ -251,8 +224,6 @@ SHARED_SLOTS: set[str] = {
     "type",
     "value",
 }
-
-COMMON_SCHEMA_NAME = "fluxnova_common"
 
 # ---------------------------------------------------------------------------
 # Java Interface -> LinkML Class Mapping (for Javadoc extraction)
@@ -623,14 +594,6 @@ def parse_all_javadoc(repo_root: Path) -> dict[str, JavadocInfo]:
         if info.class_description or info.method_descriptions:
             results[class_name] = info
     return results
-
-
-def _repo_relative(path: Path) -> str:
-    """Return a stable repository-relative path when possible."""
-    try:
-        return str(path.relative_to(REPO_ROOT))
-    except ValueError:
-        return str(path)
 
 
 # ---------------------------------------------------------------------------
@@ -1098,15 +1061,9 @@ class LinkMLGenerator:
         self,
         tables: dict[str, SqlTable],
         javadoc: dict[str, JavadocInfo] | None = None,
-        project_version: str = "",
-        source_sql_dir: Path | None = None,
-        source_sql_files: list[str] | None = None,
     ):
         self.tables = tables
         self.javadoc = javadoc or {}
-        self.project_version = project_version
-        self.source_sql_dir = source_sql_dir or DEFAULT_SQL_DIR
-        self.source_sql_files = source_sql_files or []
         # All slot definitions keyed by slot name
         self.all_slots: dict[str, SlotDef] = {}
         # Track which module "owns" (first defines) each slot
@@ -1118,40 +1075,6 @@ class LinkMLGenerator:
         self._build_classes()
         self._assign_slot_ownership()
         self._apply_javadoc_descriptions()
-
-    def _module_annotations(
-        self,
-        module_name: str,
-        module_classes: dict[str, ClassDef],
-        slots_dict: OrderedDict[str, dict],
-    ) -> OrderedDict[str, object]:
-        """Return deterministic schema-level annotations for a module."""
-        annotations: OrderedDict[str, object] = OrderedDict()
-        annotations["generated_by"] = "scripts/fluxnova_to_linkml.py"
-        annotations["module"] = module_name
-        annotations["source_sql_dir"] = _repo_relative(self.source_sql_dir)
-        annotations["class_count"] = len(module_classes)
-        annotations["slot_count"] = len(slots_dict)
-        if module_name == "base":
-            annotations["enum_count"] = len(self.generate_enums())
-        return annotations
-
-    def _root_annotations(self, modules: list[str]) -> OrderedDict[str, object]:
-        """Return deterministic schema-level annotations for the root schema."""
-        annotations: OrderedDict[str, object] = OrderedDict()
-        annotations["generated_by"] = "scripts/fluxnova_to_linkml.py"
-        annotations["source_sql_dir"] = _repo_relative(self.source_sql_dir)
-        annotations["source_sql_file_count"] = len(self.source_sql_files)
-        annotations["source_sql_files"] = ", ".join(self.source_sql_files)
-        annotations["sql_table_count"] = len(self.tables)
-        annotations["mapped_table_count"] = sum(
-            1 for table_name in self.tables if table_name in TABLE_TO_CLASS
-        )
-        annotations["class_count"] = len(self.classes)
-        annotations["slot_count"] = len(self.all_slots)
-        annotations["enum_count"] = len(self.generate_enums())
-        annotations["module_count"] = len(modules)
-        return annotations
 
     def _register_slot(self, slot: SlotDef, module: str) -> None:
         """Register a slot globally; first module wins ownership."""
@@ -1286,7 +1209,7 @@ class LinkMLGenerator:
                 "tenant_id",
                 "history_time_to_live",
             ],
-            in_subset=["repository", MODEL_SUBSET],
+            in_subset=["repository"],
         )
         self.classes["ResourceDefinition"] = rd
 
@@ -1307,7 +1230,7 @@ class LinkMLGenerator:
                 "duration",
                 "removal_time",
             ],
-            in_subset=["history", MODEL_SUBSET],
+            in_subset=["history"],
         )
         self.classes["HistoricScopeInstance"] = historic_scope
 
@@ -1447,7 +1370,7 @@ class LinkMLGenerator:
                 is_a=is_a,
                 sql_table=table_name,
                 annotations={"sql_table": table_name},
-                in_subset=[module, MODEL_SUBSET],
+                in_subset=[module],
             )
 
             # Get inherited slots from parent (if any)
@@ -1606,80 +1529,9 @@ class LinkMLGenerator:
             },
         }
 
-    def generate_subsets(self) -> dict:
-        """Generate subset definitions for the root schema only.
-
-        Per-module schemas do NOT declare subsets to avoid URI conflicts during
-        LinkML schema merging. Instead, classes reference subsets via in_subset,
-        which are resolved at merge time via the root schema.
-
-        The root schema declares both platform module subsets and the BPMN Model
-        API subsets (since the unified root imports the BPMN root schema).
-        """
-        subsets: dict[str, dict] = {}
-
-        # Platform module subsets + cross-cutting subset
-        for module_name, description in MODULE_SUBSETS.items():
-            subsets[module_name] = {"description": description}
-        subsets[MODEL_SUBSET] = {"description": "All Fluxnova BPM platform entities."}
-        subsets[PLATFORM_SUBSET] = {
-            "description": "Top-level platform schema entities (filename-derived subset for fluxnova_bpm_platform.yaml)."
-        }
-
-        return subsets
-
-    def generate_common_schema(self) -> dict:
-        """Generate the ``fluxnova_common.yaml`` shared-slot schema.
-
-        This schema owns the slots whose names collide between the BPM
-        persistence schema and the BPMN Model API schema. By centralizing
-        them in a single import, we avoid LinkML's "Conflicting URIs" merge
-        error while still letting both sides reference and refine them.
-
-        BPMN classes that need object ranges (e.g. ``properties: Property``)
-        refine these slots via ``slot_usage`` in their own schema.
-        """
-        common: OrderedDict[str, object] = OrderedDict()
-        common["id"] = (
-            f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}"
-        )
-        common["name"] = COMMON_SCHEMA_NAME
-        common["description"] = (
-            "Shared slot definitions imported by both the Fluxnova BPM "
-            "persistence schema and the Fluxnova BPMN Model API schema. "
-            "Centralizing the slots avoids LinkML import-merge URI conflicts."
-        )
-        common["license"] = "Apache-2.0"
-        common["source"] = "https://github.com/finos/fluxnova-bpm-platform"
-        if self.project_version:
-            common["version"] = self.project_version
-        common["annotations"] = OrderedDict(
-            [
-                ("generated_by", "scripts/fluxnova_to_linkml.py"),
-                (
-                    "purpose",
-                    "Resolve slot-name collisions between BPM and BPMN Model API schemas.",
-                ),
-            ]
-        )
-        common["prefixes"] = OrderedDict(
-            [
-                (
-                    COMMON_SCHEMA_NAME,
-                    f"https://w3id.org/lmodel/fluxnova-bpm-platform/{COMMON_SCHEMA_NAME}/",
-                ),
-                ("linkml", "https://w3id.org/linkml/"),
-                ("schema", "http://schema.org/"),
-            ]
-        )
-        common["default_prefix"] = COMMON_SCHEMA_NAME
-        common["default_range"] = "string"
-        common["imports"] = ["linkml:types"]
-
-        # Slot definitions match the BPM-side semantics so existing BPM data
-        # validates unchanged. BPMN classes refine via ``slot_usage`` where a
-        # different range/multiplicity is required.
-        common["slots"] = {
+    def shared_slots(self) -> dict:
+        """The slots that tables in several areas share, declared once for the module."""
+        return {
             "id": {
                 "identifier": True,
                 "range": "string",
@@ -1721,10 +1573,9 @@ class LinkMLGenerator:
                 "annotations": {"sql_column": "VALUE_"},
             },
         }
-        return dict(common)
 
-    def generate_module(self, module_name: str) -> dict | None:
-        """Generate a LinkML module dict for the given module."""
+    def module_elements(self, module_name: str) -> dict | None:
+        """The slots and classes of one area's tables, or None for an area with none."""
         module_classes = {
             name: cls
             for name, cls in sorted(self.classes.items())
@@ -1733,16 +1584,14 @@ class LinkMLGenerator:
         if not module_classes:
             return None
 
-        # Collect slots used by classes in this module
+        # The slots this area's classes use.
         module_slot_names: list[str] = []
         for cls in module_classes.values():
             for s in cls.slots:
                 if s not in module_slot_names:
                     module_slot_names.append(s)
 
-        # Build slots dict - only include slots owned by this module.
-        # SHARED_SLOTS are emitted by ``fluxnova_common.yaml`` instead, so we
-        # skip them here and rely on the ``./fluxnova_common`` import below.
+        # The slots this area owns. shared_slots() declares the shared ones.
         slots_dict: OrderedDict[str, dict] = OrderedDict()
         for sn in sorted(module_slot_names):
             if sn in SHARED_SLOTS:
@@ -1769,7 +1618,6 @@ class LinkMLGenerator:
                     sd["aliases"] = slot.aliases
                 slots_dict[sn] = sd
 
-        # Build classes dict
         classes_dict: OrderedDict[str, dict] = OrderedDict()
         for cls_name, cls in sorted(module_classes.items()):
             cd: dict = {}
@@ -1795,134 +1643,10 @@ class LinkMLGenerator:
                 cd["annotations"] = cls.annotations
             classes_dict[cls_name] = cd
 
-        schema_name = f"fluxnova_bpm_{module_name}"
-        module_dict: OrderedDict[str, object] = OrderedDict()
-        module_dict["id"] = (
-            f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}"
-        )
-        module_dict["name"] = schema_name
-        module_dict["description"] = (
-            f"Fluxnova BPM Platform - {module_name.replace('_', ' ').title()} module."
-        )
-        module_dict["license"] = "Apache-2.0"
-        module_dict["source"] = "https://github.com/finos/fluxnova-bpm-platform"
-        module_dict["see_also"] = ["https://fluxnova.finos.org/"]
-        if self.project_version:
-            module_dict["version"] = self.project_version
+        return {"slots": dict(slots_dict), "classes": dict(classes_dict)}
 
-        # Collect CURIE prefixes referenced in slot_uri values for this module
-        prefixes = OrderedDict(
-            [
-                (
-                    schema_name,
-                    f"https://w3id.org/lmodel/fluxnova-bpm-platform/{module_name}/",
-                ),
-                ("linkml", "https://w3id.org/linkml/"),
-            ]
-        )
-        for sn in sorted(module_slot_names):
-            if sn in self.all_slots and self._slot_owner.get(sn) == module_name:
-                slot = self.all_slots[sn]
-                if slot.slot_uri and ":" in slot.slot_uri:
-                    prefix = slot.slot_uri.split(":")[0]
-                    if prefix not in prefixes:
-                        prefixes[prefix] = CURIE_PREFIXES.get(
-                            prefix, f"https://w3id.org/{prefix}/"
-                        )
-        module_dict["prefixes"] = prefixes
-        module_dict["default_prefix"] = schema_name
-        module_dict["default_range"] = "string"
-
-        # Imports: always linkml:types, plus cross-module imports
-        imports = ["linkml:types"]
-        needed_modules: set[str] = set()
-        module_dict["annotations"] = self._module_annotations(
-            module_name, module_classes, slots_dict
-        )
-        for cls in module_classes.values():
-            for sn in cls.slots:
-                if sn in SHARED_SLOTS:
-                    continue  # provided by fluxnova_common, handled below
-                owner = self._slot_owner.get(sn)
-                if owner and owner != module_name:
-                    needed_modules.add(owner)
-            if cls.is_a and cls.is_a in self.classes:
-                parent_mod = self.classes[cls.is_a].module
-                if parent_mod != module_name:
-                    needed_modules.add(parent_mod)
-        for dep in sorted(needed_modules):
-            imports.append(f"./fluxnova_bpm_{dep}")
-        # Always import the common schema so SHARED_SLOTS used by classes in
-        # this module resolve at merge time.
-        if any(
-            sn in SHARED_SLOTS for cls in module_classes.values() for sn in cls.slots
-        ):
-            imports.append(f"./{COMMON_SCHEMA_NAME}")
-        module_dict["imports"] = imports
-
-        if slots_dict:
-            module_dict["slots"] = dict(slots_dict)
-        if module_name == "base":
-            module_dict["enums"] = self.generate_enums()
-
-        # NOTE: Do NOT add subsets to per-module schemas.
-        # Subset definitions are centralized in the root schema to avoid
-        # URI conflicts during LinkML schema merging. Classes still reference
-        # subsets (in_subset) which are resolved via the root schema imports.
-
-        module_dict["classes"] = dict(classes_dict)
-
-        return dict(module_dict)
-
-    def generate_root_schema(self, modules: list[str]) -> dict:
-        """Generate the root schema that imports all modules."""
-        imports = ["linkml:types", f"./{COMMON_SCHEMA_NAME}"]
-        for m in sorted(modules):
-            imports.append(f"./fluxnova_bpm_{m}")
-        # Cross-schema import: include the BPMN Model API root schema so the
-        # platform root unifies persistence + BPMN metamodel into one entry
-        # point. Slots that collide between BPM and BPMN are resolved via
-        # ``./fluxnova_common`` (imported above).
-        imports.append("./fluxnova_bpmn_model")
-
-        root: OrderedDict[str, object] = OrderedDict()
-        root["id"] = "https://w3id.org/lmodel/fluxnova-bpm-platform"
-        root["name"] = "fluxnova_bpm_platform"
-        root["title"] = "Fluxnova BPM Platform"
-        root["description"] = (
-            "LinkML schema for the Fluxnova BPM Platform data model, "
-            "covering process definitions, runtime execution, jobs, identity, "
-            "history, and collaboration entities."
-        )
-        root["license"] = "Apache-2.0"
-        root["source"] = "https://github.com/finos/fluxnova-bpm-platform"
-        root["see_also"] = [
-            "https://lmodel.github.io/fluxnova-bpm-platform",
-            "https://fluxnova.finos.org/",
-        ]
-        if self.project_version:
-            root["version"] = self.project_version
-        root["annotations"] = self._root_annotations(modules)
-
-        root["prefixes"] = OrderedDict(
-            [
-                (
-                    "fluxnova_bpm_platform",
-                    "https://w3id.org/lmodel/fluxnova-bpm-platform/",
-                ),
-                ("linkml", "https://w3id.org/linkml/"),
-                ("schema", "http://schema.org/"),
-                ("dcterms", "http://purl.org/dc/terms/"),
-                ("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL#"),
-            ]
-        )
-        root["default_prefix"] = "fluxnova_bpm_platform"
-        root["default_range"] = "string"
-        root["imports"] = imports
-
-        # Add subsets (only in root schema, not in per-module schemas)
-        root["subsets"] = self.generate_subsets()
-
+    def root_elements(self) -> dict:
+        """The root class, FluxnovaPlatformData, and the container slots it holds."""
         # Tree-root container slots are declared at schema level (NEVER as
         # ``attributes``) per LinkML authoring conventions: top-level slots
         # plus per-class slot_usage. Each container slot is multivalued and
@@ -1946,7 +1670,6 @@ class LinkMLGenerator:
                 "inlined_as_list": True,
                 "description": description,
             }
-        root["slots"] = dict(root_slots)
 
         # FluxnovaPlatformData references the schema-level slots and refines
         # them through ``slot_usage`` (this is the canonical LinkML pattern).
@@ -1958,17 +1681,17 @@ class LinkMLGenerator:
                 "inlined_as_list": True,
             }
 
-        root["classes"] = {
-            "FluxnovaPlatformData": {
-                "tree_root": True,
-                "description": "Root container for Fluxnova BPM Platform data.",
-                "in_subset": [PLATFORM_SUBSET, MODEL_SUBSET],
-                "slots": [name for name, _, _ in container_slot_specs],
-                "slot_usage": dict(slot_usage),
+        return {
+            "slots": dict(root_slots),
+            "classes": {
+                "FluxnovaPlatformData": {
+                    "tree_root": True,
+                    "description": "Root container for Fluxnova BPM Platform data.",
+                    "slots": [name for name, _, _ in container_slot_specs],
+                    "slot_usage": dict(slot_usage),
+                },
             },
         }
-
-        return dict(root)
 
 
 # ---------------------------------------------------------------------------
@@ -2033,9 +1756,6 @@ def finalize(schema: dict, names: dict[str, str], module_of: dict[str, str]) -> 
     out["default_prefix"] = SCHEMA_PREFIX
     out["default_range"] = "string"
     imports = [i.removeprefix("./") for i in schema.get("imports", [])]
-    imports = [
-        "fluxnova_bpmn_extension" if i == "fluxnova_bpmn_model" else i for i in imports
-    ]
     for key in ("subsets", "enums"):
         if schema.get(key):
             out[key] = schema[key]
@@ -2117,16 +1837,7 @@ def main(argv: list[str] | None = None) -> int:
 
     tables = parse_sql_files(args.sql_dir)
     javadoc = parse_all_javadoc(REPO_ROOT)
-    sql_source_files = sorted(
-        path.name for path in args.sql_dir.glob("activiti.h2.create.*.sql")
-    )
-    gen = LinkMLGenerator(
-        tables,
-        javadoc=javadoc,
-        project_version=EDITION["version"],
-        source_sql_dir=args.sql_dir,
-        source_sql_files=sql_source_files,
-    )
+    gen = LinkMLGenerator(tables, javadoc=javadoc)
     names = class_names(gen.classes)
     module_of = {
         names[c]: f"fluxnova_bpm_{cls.module}" for c, cls in gen.classes.items()
@@ -2144,23 +1855,25 @@ def main(argv: list[str] | None = None) -> int:
         ),
         "imports": ["linkml:types"],
         "enums": gen.generate_enums(),
-        "slots": dict(gen.generate_common_schema()["slots"]),
+        "slots": gen.shared_slots(),
         "classes": {},
     }
     for module_name in sorted({cls.module for cls in gen.classes.values()}):
-        module = gen.generate_module(module_name)
+        module = gen.module_elements(module_name)
         engine["slots"].update(module.get("slots", {}))
         engine["classes"].update(module.get("classes", {}))
     engine["slots"] = dict(sorted(engine["slots"].items()))
     engine["classes"] = dict(sorted(engine["classes"].items()))
-    root = gen.generate_root_schema([])
-    root["title"] = "Fluxnova BPM Platform"
-    root["description"] = (
-        "The tables Fluxnova's process engine keeps, and the BPMN elements its model "
-        "API reads, as of Fluxnova 3.1.1."
-    )
-    root["imports"] = ["linkml:types", ENGINE_SCHEMA, "fluxnova_bpmn_extension"]
-    root.pop("subsets", None)
+    root = {
+        "name": SCHEMA_PREFIX,
+        "title": "Fluxnova BPM Platform",
+        "description": (
+            "The tables Fluxnova's process engine keeps, and the BPMN elements its model "
+            "API reads, as of Fluxnova 3.1.1."
+        ),
+        "imports": ["linkml:types", ENGINE_SCHEMA, "fluxnova_bpmn_extension"],
+        **gen.root_elements(),
+    }
     engine["subsets"] = {
         f"engine_{area}": {"description": MODULE_DESCRIPTIONS[area]}
         for area in MODULE_DESCRIPTIONS

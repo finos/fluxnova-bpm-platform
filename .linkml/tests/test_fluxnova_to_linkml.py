@@ -402,13 +402,7 @@ class TestLinkMLGenerator:
 
     def _make_generator(self, sql_dir):
         tables = parse_sql_files(sql_dir)
-        source_sql_files = sorted(path.name for path in sql_dir.glob("*.sql"))
-        return LinkMLGenerator(
-            tables,
-            project_version="test-version",
-            source_sql_dir=sql_dir,
-            source_sql_files=source_sql_files,
-        ), tables
+        return LinkMLGenerator(tables), tables
 
     def test_classes_created(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
@@ -492,55 +486,23 @@ class TestLinkMLGenerator:
             for value in enum["permissible_values"].values():
                 assert value["description"]
 
-    def test_generate_module_returns_dict(self, multi_table_sql_dir):
+    def test_module_elements_returns_slots_and_classes(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
-        mod = gen.generate_module("repository")
+        mod = gen.module_elements("repository")
         assert mod is not None
-        assert mod["name"] == "fluxnova_bpm_repository"
-        assert "classes" in mod
-        assert "imports" in mod
-        assert "linkml:types" in mod["imports"]
+        assert set(mod) == {"slots", "classes"}
+        assert mod["classes"]
 
-    def test_generate_module_nonexistent_returns_none(self, multi_table_sql_dir):
+    def test_module_elements_of_an_empty_area_is_none(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
-        assert gen.generate_module("nonexistent_module") is None
+        assert gen.module_elements("nonexistent_module") is None
 
-    def test_generate_module_has_prefixes(self, multi_table_sql_dir):
+    def test_root_elements(self, multi_table_sql_dir):
         gen, _ = self._make_generator(multi_table_sql_dir)
-        mod = gen.generate_module("repository")
-        assert "prefixes" in mod
-        assert "linkml" in mod["prefixes"]
-
-    def test_generate_module_has_schema_metadata(self, multi_table_sql_dir):
-        gen, _ = self._make_generator(multi_table_sql_dir)
-        mod = gen.generate_module("repository")
-        assert mod["version"] == "test-version"
-        assert mod["annotations"]["generated_by"] == "scripts/fluxnova_to_linkml.py"
-        assert mod["annotations"]["module"] == "repository"
-        assert mod["annotations"]["class_count"] >= 1
-
-    def test_generate_module_cross_imports(self, multi_table_sql_dir):
-        gen, _ = self._make_generator(multi_table_sql_dir)
-        # runtime module should import base (for shared slots)
-        runtime_mod = gen.generate_module("runtime")
-        if runtime_mod:
-            # Check that it imports at least linkml:types
-            assert "linkml:types" in runtime_mod["imports"]
-
-    def test_generate_root_schema(self, multi_table_sql_dir):
-        gen, _ = self._make_generator(multi_table_sql_dir)
-        modules = sorted({cls.module for cls in gen.classes.values()})
-        root = gen.generate_root_schema(modules)
-        assert root["name"] == "fluxnova_bpm_platform"
-        assert root["version"] == "test-version"
-        assert root["annotations"]["generated_by"] == "scripts/fluxnova_to_linkml.py"
-        assert root["annotations"]["source_sql_file_count"] >= 1
-        assert root["annotations"]["source_sql_files"]
-        assert "FluxnovaPlatformData" in root["classes"]
-        assert root["classes"]["FluxnovaPlatformData"]["tree_root"] is True
-        # Should import all modules
-        for m in modules:
-            assert f"./fluxnova_bpm_{m}" in root["imports"]
+        root = gen.root_elements()
+        platform = root["classes"]["FluxnovaPlatformData"]
+        assert platform["tree_root"] is True
+        assert set(platform["slots"]) == set(root["slots"])
 
     def test_id_is_only_identifier(self, multi_table_sql_dir):
         """Only the 'id' slot should be marked as identifier: true."""
@@ -551,57 +513,13 @@ class TestLinkMLGenerator:
                     f"Slot '{slot_name}' should not be an identifier"
                 )
 
-    def test_filename_derived_subsets_present(self, multi_table_sql_dir):
-        """Every class in a generated schema file is tagged with the
-        filename-derived subset (e.g. ``platform`` for
-        ``fluxnova_bpm_platform.yaml``, ``runtime`` for
-        ``fluxnova_bpm_runtime.yaml``) plus the cross-cutting ``fluxnova_bpm``
-        subset. The root schema must also DECLARE every filename-derived
-        subset it references."""
+    def test_each_class_is_in_its_area_subset(self, multi_table_sql_dir):
+        """Each class is in the subset of its area, which finalize() names engine_<area>."""
         gen, _ = self._make_generator(multi_table_sql_dir)
-        modules = sorted({cls.module for cls in gen.classes.values()})
-
-        # Per-module: every class has [<module>, fluxnova_bpm].
-        for module in modules:
-            mod = gen.generate_module(module)
-            if not mod:
-                continue
-            for cls_name, cls_dict in mod.get("classes", {}).items():
-                in_subset = cls_dict.get("in_subset") or []
-                assert module in in_subset, (
-                    f"Class {cls_name} in module '{module}' missing "
-                    f"filename-derived subset '{module}'; got {in_subset}"
-                )
-                assert "fluxnova_bpm" in in_subset, (
-                    f"Class {cls_name} in module '{module}' missing "
-                    f"cross-cutting 'fluxnova_bpm' subset; got {in_subset}"
-                )
-
-        # Root: FluxnovaPlatformData has [platform, fluxnova_bpm].
-        root = gen.generate_root_schema(modules)
-        platform_cls = root["classes"]["FluxnovaPlatformData"]
-        assert "platform" in platform_cls["in_subset"], (
-            "FluxnovaPlatformData missing filename-derived subset 'platform'; "
-            f"got {platform_cls['in_subset']}"
-        )
-        assert "fluxnova_bpm" in platform_cls["in_subset"]
-
-        # Every referenced subset must be declared in the root subsets dict.
-        declared = set(root.get("subsets", {}).keys())
-        referenced: set[str] = set()
-        for cls_dict in root["classes"].values():
-            referenced.update(cls_dict.get("in_subset") or [])
-        for module in modules:
-            mod = gen.generate_module(module)
-            if not mod:
-                continue
-            for cls_dict in mod.get("classes", {}).values():
-                referenced.update(cls_dict.get("in_subset") or [])
-        missing = referenced - declared
-        assert not missing, (
-            f"Subsets referenced via in_subset but not declared in root "
-            f"subsets dict: {sorted(missing)}"
-        )
+        for module in sorted({cls.module for cls in gen.classes.values()}):
+            mod = gen.module_elements(module)
+            for cls_name, cls_dict in mod["classes"].items():
+                assert module in (cls_dict.get("in_subset") or []), cls_name
 
 
 # ---------------------------------------------------------------------------
@@ -638,7 +556,7 @@ class TestLinkMLGeneratorReal:
             "history",
         }
         for mod in expected_modules:
-            result = gen.generate_module(mod)
+            result = gen.module_elements(mod)
             assert result is not None, f"Module {mod} should not be None"
             assert "classes" in result
             assert len(result["classes"]) > 0
@@ -656,9 +574,7 @@ class TestLinkMLGeneratorReal:
     def test_slot_in_owner_module_output(self, real_sql_dir):
         """Each slot appears in the slots: section of its owner module.
 
-        Exception: slots in :data:`SHARED_SLOTS` are emitted by
-        ``fluxnova_common.yaml`` and intentionally omitted from per-module
-        slots dicts to avoid LinkML import-merge URI conflicts.
+        A slot in :data:`SHARED_SLOTS` is the exception: shared_slots() declares it.
         """
         from fluxnova_to_linkml import SHARED_SLOTS
 
@@ -667,7 +583,7 @@ class TestLinkMLGeneratorReal:
         for slot_name, owner_mod in gen._slot_owner.items():
             if slot_name in SHARED_SLOTS:
                 continue
-            mod_dict = gen.generate_module(owner_mod)
+            mod_dict = gen.module_elements(owner_mod)
             if mod_dict and "slots" in mod_dict:
                 # Slot should be declared in its owner's slots dict
                 if any(
