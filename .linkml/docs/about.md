@@ -15,14 +15,16 @@ Fluxnova is FINOS's BPM platform, grown from Camunda 7. The schema renders the r
 | `fluxnova_bpmn_dc`, `_di`, `_bpmndi` | the model API's diagram types | bounds, shapes, edges and BPMN diagrams |
 | `fluxnova_bpmn_semantic` | the model API's BPMN 2.0 types | `BpmnDefinitions`, `BpmnProcess`, `BpmnUserTask` and the rest |
 | `fluxnova_bpmn_extension` | the model API's extension types | `FluxnovaFormField`, `FluxnovaInputParameter` and the rest |
-| `fluxnova_bpm_platform` | | the umbrella, with `FluxnovaPlatformData` as its root |
+| `fluxnova_bpm_platform` | | the umbrella, with `FluxnovaPlatformData` as its root: a list of rows for each table, such as `historic_process_instances` |
 
 ## The engine's tables
 
-- **Columns.** Each column is a slot, required when the column is not null, and a table's one-column key `ID_` is the class's identifier. A table with a composite key states it as a unique key. The lock counter `REV_` is left out.
+- **Columns.** Each column is a slot, required in a class when its table makes the column not null, and a table's one-column key `ID_` is the class's identifier. A column's `DEFAULT` is the slot's `ifabsent` value. The lock counter `REV_` is left out.
+- **Keys.** A composite primary key and each unique constraint of the DDL are unique keys. Where a key's column may be null, two nulls are never equal, as in SQL.
 - **Foreign keys.** A column the DDL makes a foreign key ranges over the class of the table it refers to. The history tables have none, so their ids stay strings.
 - **States.** Where a column holds the engine's text values, such as a historic process instance's `STATE_`, an enum lists them. Where it holds the engine's integer codes, such as `SUSPENSION_STATE_`, it stays an integer bounded by the codes, and a comment names each code.
-- **Descriptions.** A class's or slot's description is the first sentence of its Javadoc where the Java API has one, and this project's otherwise.
+- **Descriptions.** A class's description is the first sentence of its interface's Javadoc where the Java API has one, and this project's otherwise. A slot that several tables share carries, in each class, the first sentence of that class's Javadoc for it, and its definition carries a description that fits every table.
+- **Bases.** `FluxnovaResourceDefinition` and `FluxnovaHistoricScopeInstance` group the definitions and the historic scope instances, as the Java API does, and hold only the columns that all their subclasses' tables have.
 - **Areas.** The subsets `engine_repository`, `engine_runtime`, `engine_history` and the rest group the tables.
 
 ## The BPMN elements
@@ -32,11 +34,14 @@ Fluxnova is FINOS's BPM platform, grown from Camunda 7. The schema renders the r
 - **Polymorphic children.** A process's flow elements range over `BpmnFlowElement`, and `element_type` names each child's class.
 - **Text.** `text_content` holds an element's text where the BPMN XML Schema included with the model API gives the element mixed content, and on the extension elements the engine reads as text.
 - **Names.** An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a slot whose name LOKF defines, such as `id` or `documentation`, the `bpmn_` prefix. An assignment's `from` and `to` are `from_expression` and `to_expression`.
-- **Extensions.** `extensionElements` holds any element, as BPMN's schema has it.
+- **Extensions.** `extension_elements` holds any element in `elements`, as BPMN's schema has it, and `element_type` names each one's class. An input or output parameter and a map's entry hold a script, a list or a map in `value`, and a list holds its items in `values`, as the model API and the engine read them.
+- **FINOS's files.** `tests/test_bpmn_files.py` reads 176 BPMN files from FINOS's tree into the schema's shape, with `tests/bpmn_xml.py`, and validates each. Four files it lists fail, each for a reason it gives.
 - **Descriptions** are this project's own, in `scripts/bpmn_descriptions.yaml`.
 
 ## What is left out
 
 - **The engine's computed columns**, such as the configuration table's `TENANT_ID_NULL_`, which the database derives for an index.
 - **CMMN and DMN models**, which the engine also reads. Their tables are in the schema, and their models are not.
+- **Column lengths**, such as `varchar(64)`: LinkML states no length for a string.
+- **What the model API does not register**: an attribute the engine reads on any element, such as `camunda:async` on an intermediate event, an element such as `standardLoopCharacteristics`, and attributes and elements in other namespaces, such as a modeler's, which BPMN admits.
 - **The rest of Fluxnova**: the engine's behaviour, the REST API, the web applications and the rest of FINOS's tree.
