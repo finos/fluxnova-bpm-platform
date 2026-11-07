@@ -18,7 +18,7 @@
 
   <properties>
     <license.includeTransitiveDependencies>false</license.includeTransitiveDependencies>
-    <maven-bundle-plugin.version>5.1.1</maven-bundle-plugin.version>
+    <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
   </properties>
 
   <dependencies>
