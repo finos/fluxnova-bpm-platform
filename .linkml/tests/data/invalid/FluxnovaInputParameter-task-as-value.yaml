@@ -1,0 +1,5 @@
+# Invalid: a parameter's value is a script, a list or a map, never a task.
+fluxnova_name: approver
+value:
+  element_type: BpmnUserTask
+  bpmn_id: approve

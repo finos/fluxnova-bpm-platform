@@ -7310,7 +7310,10 @@ class FluxnovaIdentityInfo(ConfiguredBaseModel):
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
-                       'BpmnCategoryValue']} })
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     password: Optional[str] = Field(default=None, description="""Hashed password.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'PASSWORD_'}},
          'domain_of': ['FluxnovaIdentityInfo', 'FluxnovaUser']} })
     parent_id: Optional[str] = Field(default=None, description="""Reference to a case execution.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'PARENT_ID_'}},
@@ -8347,7 +8350,10 @@ class FluxnovaMeterLog(ConfiguredBaseModel):
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
-                       'BpmnCategoryValue']} })
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     timestamp: Optional[datetime ] = Field(default=None, description="""Timestamp for timestamp.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'TIMESTAMP_'}},
          'domain_of': ['FluxnovaHistoricExternalTaskLog',
                        'FluxnovaHistoricIdentityLink',
@@ -8423,7 +8429,10 @@ class FluxnovaEngineProperty(ConfiguredBaseModel):
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
-                       'BpmnCategoryValue']} })
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
 
 
 class FluxnovaResourceDefinition(ConfiguredBaseModel):
@@ -11724,7 +11733,10 @@ class BpmnCategoryValue(BpmnBaseElement):
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
-                       'BpmnCategoryValue']} })
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     bpmn_id: Optional[str] = Field(default=None, description="""The element's id, unique within its document.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_id': {'tag': 'xml_id', 'value': 'true'},
                          'xml_name': {'tag': 'xml_name', 'value': 'id'}},
          'domain_of': ['DiDiagram',
@@ -12677,6 +12689,7 @@ class BpmnExtensionElements(BpmnModelElementInstance):
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic',
          'in_subset': ['bpmn_semantic']})
 
+    elements: Optional[list[Union[DcBounds,DcFont,DcPoint,DiExtension,BpmnDefinitions,BpmnDocumentation,BpmnExtension,BpmnExtensionElements,BpmnImport,BpmnScript,BpmnSource,BpmnTarget,BpmnText,FluxnovaConnector,FluxnovaConnectorId,FluxnovaConstraint,FluxnovaEntry,FluxnovaErrorEventDefinition,FluxnovaExecutionListener,FluxnovaExpression,FluxnovaFailedJobRetryTimeCycle,FluxnovaField,FluxnovaFormData,FluxnovaFormField,FluxnovaFormProperty,FluxnovaIn,FluxnovaInputOutput,FluxnovaInputParameter,FluxnovaList,FluxnovaMap,FluxnovaOut,FluxnovaOutputParameter,FluxnovaPotentialStarter,FluxnovaProperties,FluxnovaProperty,FluxnovaScript,FluxnovaString,FluxnovaTaskListener,FluxnovaValidation,FluxnovaValue,BpmnAssignment,BpmnAuditing,BpmnCategoryValue,BpmnComplexBehaviorDefinition,BpmnConversationAssociation,BpmnConversationLink,BpmnCorrelationKey,BpmnCorrelationPropertyBinding,BpmnCorrelationPropertyRetrievalExpression,BpmnCorrelationSubscription,BpmnDataAssociation,BpmnDataState,BpmnExpression,BpmnInputSet,BpmnIoBinding,BpmnIoSpecification,BpmnLane,BpmnLaneSet,BpmnMessageFlow,BpmnMessageFlowAssociation,BpmnMonitoring,BpmnOperation,BpmnOutputSet,BpmnParticipant,BpmnParticipantAssociation,BpmnParticipantMultiplicity,BpmnPartitionElement,BpmnRelationship,BpmnRendering,BpmnResourceAssignmentExpression,BpmnResourceParameter,BpmnResourceParameterBinding,BpmnResourceRole,BpmnCallableElement,BpmnCategory,BpmnCollaboration,BpmnCorrelationProperty,BpmnDataStore,BpmnEndPoint,BpmnError,BpmnEscalation,BpmnInterface,BpmnItemDefinition,BpmnMessage,BpmnResource,BpmnSignal,BpmnCancelEventDefinition,BpmnCompensateEventDefinition,BpmnConditionalEventDefinition,BpmnErrorEventDefinition,BpmnEscalationEventDefinition,BpmnLinkEventDefinition,BpmnMessageEventDefinition,BpmnSignalEventDefinition,BpmnTerminateEventDefinition,BpmnTimerEventDefinition,BpmnGlobalConversation,BpmnProcess,BpmnPerformer,BpmnHumanPerformer,BpmnPotentialOwner,BpmnMultiInstanceLoopCharacteristics,BpmnChildLaneSet,BpmnDataInput,BpmnDataOutput,BpmnProperty,BpmnOutputDataItem,BpmnInputDataItem,BpmnDataObject,BpmnDataObjectReference,BpmnDataStoreReference,BpmnSequenceFlow,BpmnComplexGateway,BpmnEventBasedGateway,BpmnExclusiveGateway,BpmnInclusiveGateway,BpmnParallelGateway,BpmnEndEvent,BpmnIntermediateThrowEvent,BpmnBoundaryEvent,BpmnIntermediateCatchEvent,BpmnStartEvent,BpmnCallActivity,BpmnSubProcess,BpmnTask,BpmnBusinessRuleTask,BpmnManualTask,BpmnReceiveTask,BpmnScriptTask,BpmnSendTask,BpmnServiceTask,BpmnUserTask,BpmnAdHocSubProcess,BpmnTransaction,BpmnActivationCondition,BpmnCompletionCondition,BpmnCondition,BpmnFormalExpression,BpmnFrom,BpmnLoopCardinality,BpmnTimeCycle,BpmnTimeDate,BpmnTimeDuration,BpmnTo,BpmnConditionExpression,BpmnDataPath,BpmnMessagePath,BpmnTransformation,BpmnDataInputAssociation,BpmnDataOutputAssociation,BpmnCallConversation,BpmnConversation,BpmnSubConversation,BpmnAssociation,BpmnGroup,BpmnTextAnnotation,BpmnLabelStyle,BpmnShape,BpmnPlane,BpmnLabel,BpmnEdge,BpmnDiagram,DiWaypoint]]] = Field(default=None, description="""The elements an extensionElements holds, each named by its element_type.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnExtensionElements']} })
     element_type: Literal["BpmnExtensionElements"] = Field(default="BpmnExtensionElements", description="""The name of the class an element is, which says which element it is when a slot's range admits several.""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['BpmnModelElementInstance']} })
 
 
@@ -23311,6 +23324,16 @@ class FluxnovaEntry(BpmnModelElementInstance):
                                            'value': 'http://camunda.org/schema/1.0/bpmn'}},
          'domain_of': ['FluxnovaEntry'],
          'exact_mappings': ['fluxnova:key', 'camunda:key']} })
+    value: Optional[Union[FluxnovaList, FluxnovaMap, FluxnovaScript]] = Field(default=None, description="""The entry's value as a script, a list or a map, in place of its text.""", json_schema_extra = { "linkml_meta": {'any_of': [{'range': 'FluxnovaScript'},
+                    {'range': 'FluxnovaList'},
+                    {'range': 'FluxnovaMap'}],
+         'domain_of': ['FluxnovaIdentityInfo',
+                       'FluxnovaMeterLog',
+                       'FluxnovaEngineProperty',
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     text_content: Optional[str] = Field(default=None, description="""The element's text, such as the body of an expression or a script.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnDocumentation',
                        'BpmnExpression',
                        'BpmnScript',
@@ -23620,7 +23643,7 @@ class FluxnovaFormField(BpmnModelElementInstance):
     values: Optional[list[FluxnovaValue]] = Field(default=None, description="""The options of an enumerated field.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'value'},
                          'xml_namespace': {'tag': 'xml_namespace',
                                            'value': 'http://camunda.org/schema/1.0/bpmn'}},
-         'domain_of': ['FluxnovaFormField', 'FluxnovaFormProperty']} })
+         'domain_of': ['FluxnovaFormField', 'FluxnovaFormProperty', 'FluxnovaList']} })
     element_type: Literal["FluxnovaFormField"] = Field(default="FluxnovaFormField", description="""The name of the class an element is, which says which element it is when a slot's range admits several.""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['BpmnModelElementInstance']} })
 
 
@@ -23715,7 +23738,7 @@ class FluxnovaFormProperty(BpmnModelElementInstance):
     values: Optional[list[FluxnovaValue]] = Field(default=None, description="""The options of an enumerated field.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'value'},
                          'xml_namespace': {'tag': 'xml_namespace',
                                            'value': 'http://camunda.org/schema/1.0/bpmn'}},
-         'domain_of': ['FluxnovaFormField', 'FluxnovaFormProperty']} })
+         'domain_of': ['FluxnovaFormField', 'FluxnovaFormProperty', 'FluxnovaList']} })
     element_type: Literal["FluxnovaFormProperty"] = Field(default="FluxnovaFormProperty", description="""The name of the class an element is, which says which element it is when a slot's range admits several.""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['BpmnModelElementInstance']} })
 
 
@@ -23835,6 +23858,16 @@ class FluxnovaInputParameter(BpmnModelElementInstance):
          'domain_of': ['FluxnovaInputParameter', 'FluxnovaOutputParameter'],
          'exact_mappings': ['fluxnova:isTransient', 'camunda:isTransient'],
          'ifabsent': 'false'} })
+    value: Optional[Union[FluxnovaList, FluxnovaMap, FluxnovaScript]] = Field(default=None, description="""The parameter's value as a script, a list or a map, in place of its text.""", json_schema_extra = { "linkml_meta": {'any_of': [{'range': 'FluxnovaScript'},
+                    {'range': 'FluxnovaList'},
+                    {'range': 'FluxnovaMap'}],
+         'domain_of': ['FluxnovaIdentityInfo',
+                       'FluxnovaMeterLog',
+                       'FluxnovaEngineProperty',
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     text_content: Optional[str] = Field(default=None, description="""The element's text, such as the body of an expression or a script.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnDocumentation',
                        'BpmnExpression',
                        'BpmnScript',
@@ -23864,6 +23897,11 @@ class FluxnovaList(BpmnModelElementInstance):
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension',
          'in_subset': ['bpmn_extension']})
 
+    values: Optional[list[Union[FluxnovaList, FluxnovaMap, FluxnovaScript, FluxnovaValue]]] = Field(default=None, description="""The list's items, each a value, a script, a list or a map.""", json_schema_extra = { "linkml_meta": {'any_of': [{'range': 'FluxnovaValue'},
+                    {'range': 'FluxnovaScript'},
+                    {'range': 'FluxnovaList'},
+                    {'range': 'FluxnovaMap'}],
+         'domain_of': ['FluxnovaFormField', 'FluxnovaFormProperty', 'FluxnovaList']} })
     element_type: Literal["FluxnovaList"] = Field(default="FluxnovaList", description="""The name of the class an element is, which says which element it is when a slot's range admits several.""", json_schema_extra = { "linkml_meta": {'designates_type': True, 'domain_of': ['BpmnModelElementInstance']} })
 
 
@@ -23974,6 +24012,16 @@ class FluxnovaOutputParameter(BpmnModelElementInstance):
          'domain_of': ['FluxnovaInputParameter', 'FluxnovaOutputParameter'],
          'exact_mappings': ['fluxnova:isTransient', 'camunda:isTransient'],
          'ifabsent': 'false'} })
+    value: Optional[Union[FluxnovaList, FluxnovaMap, FluxnovaScript]] = Field(default=None, description="""The parameter's value as a script, a list or a map, in place of its text.""", json_schema_extra = { "linkml_meta": {'any_of': [{'range': 'FluxnovaScript'},
+                    {'range': 'FluxnovaList'},
+                    {'range': 'FluxnovaMap'}],
+         'domain_of': ['FluxnovaIdentityInfo',
+                       'FluxnovaMeterLog',
+                       'FluxnovaEngineProperty',
+                       'BpmnCategoryValue',
+                       'FluxnovaEntry',
+                       'FluxnovaInputParameter',
+                       'FluxnovaOutputParameter']} })
     text_content: Optional[str] = Field(default=None, description="""The element's text, such as the body of an expression or a script.""", json_schema_extra = { "linkml_meta": {'domain_of': ['BpmnDocumentation',
                        'BpmnExpression',
                        'BpmnScript',

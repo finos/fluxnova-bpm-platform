@@ -19,6 +19,7 @@ public class FluxnovaInputParameter extends BpmnModelElementInstance {
   private String fluxnovaName;
   private Boolean fluxnovaRestricted;
   private Boolean fluxnovaIsTransient;
+  private BpmnModelElementInstance value;
   private String textContent;
 
 

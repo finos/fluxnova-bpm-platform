@@ -16,6 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class BpmnExtensionElements extends BpmnModelElementInstance {
 
+  private List<BpmnModelElementInstance> elements;
 
 
 }

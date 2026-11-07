@@ -2075,6 +2075,13 @@ classes:
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExtensionElementsImpl.java
     in_subset:
       - bpmn_semantic
+    attributes:
+      elements:
+        description: The elements an extensionElements holds, each named by its element_type.
+        range: BpmnModelElementInstance
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
 
   BpmnFlowElement:
     description: An element that takes part in the flow of a process, such as an activity

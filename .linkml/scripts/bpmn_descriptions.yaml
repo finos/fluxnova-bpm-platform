@@ -276,6 +276,8 @@ slots:
   element_type: >-
     The name of the class an element is, which says which element it is when a
     slot's range admits several.
+  elements: >-
+    The elements an extensionElements holds, each named by its element_type.
   end_point_refs: The QNames of the end points where the participant can be reached.
   entries: The map's entries.
   error_code: The code that identifies the error.
@@ -515,7 +517,14 @@ slots:
   type_language: The language the document's types are written in, as a URI.
   validation: The rules the field's value must meet.
   value: The category value's text.
+  FluxnovaInputParameter.value: >-
+    The parameter's value as a script, a list or a map, in place of its text.
+  FluxnovaOutputParameter.value: >-
+    The parameter's value as a script, a list or a map, in place of its text.
+  FluxnovaEntry.value: >-
+    The entry's value as a script, a list or a map, in place of its text.
   values: The options of an enumerated field.
+  FluxnovaList.values: The list's items, each a value, a script, a list or a map.
   wait_for_completion: Whether the throwing event waits for the compensation to finish.
   waypoints: The points the edge passes through, in order.
   while_executing_input_refs: The ids of inputs the element can take while it runs.

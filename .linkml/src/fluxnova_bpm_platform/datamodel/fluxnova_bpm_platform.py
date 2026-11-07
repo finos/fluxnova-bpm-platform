@@ -4356,6 +4356,7 @@ class FluxnovaEntry(BpmnModelElementInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaEntry
 
     fluxnova_key: str = None
+    value: Optional[Union[dict, "FluxnovaScript", "FluxnovaList", "FluxnovaMap"]] = None
     text_content: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -4363,6 +4364,17 @@ class FluxnovaEntry(BpmnModelElementInstance):
             self.MissingRequiredField("fluxnova_key")
         if not isinstance(self.fluxnova_key, str):
             self.fluxnova_key = str(self.fluxnova_key)
+
+        if self.value is not None and not isinstance(self.value, (FluxnovaScript, FluxnovaList, FluxnovaMap)):
+            value = self.value
+            for _coerce in (lambda: FluxnovaScript(**as_dict(value)), lambda: FluxnovaList(**as_dict(value)), lambda: FluxnovaMap(**as_dict(value))):
+                try:
+                    self.value = _coerce()
+                    break
+                except (ValueError, TypeError):
+                    continue
+            else:
+                raise ValueError(f"None of the candidate types Union[FluxnovaScript, FluxnovaList, FluxnovaMap] could be constructed from {value!r} for slot value")
 
         if self.text_content is not None and not isinstance(self.text_content, str):
             self.text_content = str(self.text_content)
@@ -4740,6 +4752,7 @@ class FluxnovaInputParameter(BpmnModelElementInstance):
     fluxnova_name: str = None
     fluxnova_restricted: Optional[Union[bool, Bool]] = None
     fluxnova_is_transient: Optional[Union[bool, Bool]] = False
+    value: Optional[Union[dict, "FluxnovaScript", "FluxnovaList", "FluxnovaMap"]] = None
     text_content: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -4754,6 +4767,17 @@ class FluxnovaInputParameter(BpmnModelElementInstance):
         if self.fluxnova_is_transient is not None and not isinstance(self.fluxnova_is_transient, Bool):
             self.fluxnova_is_transient = Bool(self.fluxnova_is_transient)
 
+        if self.value is not None and not isinstance(self.value, (FluxnovaScript, FluxnovaList, FluxnovaMap)):
+            value = self.value
+            for _coerce in (lambda: FluxnovaScript(**as_dict(value)), lambda: FluxnovaList(**as_dict(value)), lambda: FluxnovaMap(**as_dict(value))):
+                try:
+                    self.value = _coerce()
+                    break
+                except (ValueError, TypeError):
+                    continue
+            else:
+                raise ValueError(f"None of the candidate types Union[FluxnovaScript, FluxnovaList, FluxnovaMap] could be constructed from {value!r} for slot value")
+
         if self.text_content is not None and not isinstance(self.text_content, str):
             self.text_content = str(self.text_content)
 
@@ -4761,6 +4785,7 @@ class FluxnovaInputParameter(BpmnModelElementInstance):
         self.unknown_element_type = str(self.class_name)
 
 
+@dataclass(repr=False)
 class FluxnovaList(BpmnModelElementInstance):
     """
     A list value of a parameter.
@@ -4772,8 +4797,12 @@ class FluxnovaList(BpmnModelElementInstance):
     class_name: ClassVar[str] = "FluxnovaList"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaList
 
+    values: Optional[Union[Union[dict, BpmnModelElementInstance], list[Union[dict, BpmnModelElementInstance]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if not isinstance(self.values, list):
+            self.values = [self.values] if self.values is not None else []
+        self.values = [v if isinstance(v, BpmnModelElementInstance) else BpmnModelElementInstance(**as_dict(v)) for v in self.values]
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -4857,6 +4886,7 @@ class FluxnovaOutputParameter(BpmnModelElementInstance):
     fluxnova_name: str = None
     fluxnova_restricted: Optional[Union[bool, Bool]] = None
     fluxnova_is_transient: Optional[Union[bool, Bool]] = False
+    value: Optional[Union[dict, "FluxnovaScript", FluxnovaList, FluxnovaMap]] = None
     text_content: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -4870,6 +4900,17 @@ class FluxnovaOutputParameter(BpmnModelElementInstance):
 
         if self.fluxnova_is_transient is not None and not isinstance(self.fluxnova_is_transient, Bool):
             self.fluxnova_is_transient = Bool(self.fluxnova_is_transient)
+
+        if self.value is not None and not isinstance(self.value, (FluxnovaScript, FluxnovaList, FluxnovaMap)):
+            value = self.value
+            for _coerce in (lambda: FluxnovaScript(**as_dict(value)), lambda: FluxnovaList(**as_dict(value)), lambda: FluxnovaMap(**as_dict(value))):
+                try:
+                    self.value = _coerce()
+                    break
+                except (ValueError, TypeError):
+                    continue
+            else:
+                raise ValueError(f"None of the candidate types Union[FluxnovaScript, FluxnovaList, FluxnovaMap] could be constructed from {value!r} for slot value")
 
         if self.text_content is not None and not isinstance(self.text_content, str):
             self.text_content = str(self.text_content)
@@ -5842,6 +5883,7 @@ class BpmnExtension(BpmnModelElementInstance):
         self.unknown_element_type = str(self.class_name)
 
 
+@dataclass(repr=False)
 class BpmnExtensionElements(BpmnModelElementInstance):
     """
     The container for an element's extension content, such as Fluxnova's settings.
@@ -5853,8 +5895,12 @@ class BpmnExtensionElements(BpmnModelElementInstance):
     class_name: ClassVar[str] = "BpmnExtensionElements"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnExtensionElements
 
+    elements: Optional[Union[Union[dict, BpmnModelElementInstance], list[Union[dict, BpmnModelElementInstance]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        if not isinstance(self.elements, list):
+            self.elements = [self.elements] if self.elements is not None else []
+        self.elements = [v if isinstance(v, BpmnModelElementInstance) else BpmnModelElementInstance(**as_dict(v)) for v in self.elements]
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -10888,6 +10934,9 @@ slots.fluxnovaConstraint__fluxnova_config = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxn
 slots.fluxnovaEntry__fluxnova_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_key, name="fluxnovaEntry__fluxnova_key", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_key'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaEntry__fluxnova_key, domain=None, range=str)
 
+slots.fluxnovaEntry__value = Slot(uri=FLUXNOVA_BPM_PLATFORM.value, name="fluxnovaEntry__value", curie=FLUXNOVA_BPM_PLATFORM.curie('value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaEntry__value, domain=None, range=Optional[Union[dict, FluxnovaScript, FluxnovaList, FluxnovaMap]])
+
 slots.fluxnovaEntry__text_content = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_content, name="fluxnovaEntry__text_content", curie=FLUXNOVA_BPM_PLATFORM.curie('text_content'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaEntry__text_content, domain=None, range=Optional[str])
 
@@ -11029,8 +11078,14 @@ slots.fluxnovaInputParameter__fluxnova_restricted = Slot(uri=FLUXNOVA_BPM_PLATFO
 slots.fluxnovaInputParameter__fluxnova_is_transient = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_is_transient, name="fluxnovaInputParameter__fluxnova_is_transient", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_is_transient'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaInputParameter__fluxnova_is_transient, domain=None, range=Optional[Union[bool, Bool]])
 
+slots.fluxnovaInputParameter__value = Slot(uri=FLUXNOVA_BPM_PLATFORM.value, name="fluxnovaInputParameter__value", curie=FLUXNOVA_BPM_PLATFORM.curie('value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaInputParameter__value, domain=None, range=Optional[Union[dict, FluxnovaScript, FluxnovaList, FluxnovaMap]])
+
 slots.fluxnovaInputParameter__text_content = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_content, name="fluxnovaInputParameter__text_content", curie=FLUXNOVA_BPM_PLATFORM.curie('text_content'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaInputParameter__text_content, domain=None, range=Optional[str])
+
+slots.fluxnovaList__values = Slot(uri=FLUXNOVA_BPM_PLATFORM.values, name="fluxnovaList__values", curie=FLUXNOVA_BPM_PLATFORM.curie('values'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaList__values, domain=None, range=Optional[Union[Union[dict, BpmnModelElementInstance], list[Union[dict, BpmnModelElementInstance]]]])
 
 slots.fluxnovaMap__entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.entries, name="fluxnovaMap__entries", curie=FLUXNOVA_BPM_PLATFORM.curie('entries'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaMap__entries, domain=None, range=Optional[Union[Union[dict, FluxnovaEntry], list[Union[dict, FluxnovaEntry]]]])
@@ -11061,6 +11116,9 @@ slots.fluxnovaOutputParameter__fluxnova_restricted = Slot(uri=FLUXNOVA_BPM_PLATF
 
 slots.fluxnovaOutputParameter__fluxnova_is_transient = Slot(uri=FLUXNOVA_BPM_PLATFORM.fluxnova_is_transient, name="fluxnovaOutputParameter__fluxnova_is_transient", curie=FLUXNOVA_BPM_PLATFORM.curie('fluxnova_is_transient'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaOutputParameter__fluxnova_is_transient, domain=None, range=Optional[Union[bool, Bool]])
+
+slots.fluxnovaOutputParameter__value = Slot(uri=FLUXNOVA_BPM_PLATFORM.value, name="fluxnovaOutputParameter__value", curie=FLUXNOVA_BPM_PLATFORM.curie('value'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaOutputParameter__value, domain=None, range=Optional[Union[dict, FluxnovaScript, FluxnovaList, FluxnovaMap]])
 
 slots.fluxnovaOutputParameter__text_content = Slot(uri=FLUXNOVA_BPM_PLATFORM.text_content, name="fluxnovaOutputParameter__text_content", curie=FLUXNOVA_BPM_PLATFORM.curie('text_content'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.fluxnovaOutputParameter__text_content, domain=None, range=Optional[str])
@@ -11607,6 +11665,9 @@ slots.bpmnExtension__must_understand = Slot(uri=FLUXNOVA_BPM_PLATFORM.must_under
 
 slots.bpmnExtension__bpmn_documentation = Slot(uri=FLUXNOVA_BPM_PLATFORM.bpmn_documentation, name="bpmnExtension__bpmn_documentation", curie=FLUXNOVA_BPM_PLATFORM.curie('bpmn_documentation'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtension__bpmn_documentation, domain=None, range=Optional[Union[Union[dict, BpmnDocumentation], list[Union[dict, BpmnDocumentation]]]])
+
+slots.bpmnExtensionElements__elements = Slot(uri=FLUXNOVA_BPM_PLATFORM.elements, name="bpmnExtensionElements__elements", curie=FLUXNOVA_BPM_PLATFORM.curie('elements'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnExtensionElements__elements, domain=None, range=Optional[Union[Union[dict, BpmnModelElementInstance], list[Union[dict, BpmnModelElementInstance]]]])
 
 slots.bpmnFlowElement__name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="bpmnFlowElement__name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnFlowElement__name, domain=None, range=Optional[str])

@@ -16,6 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaList extends BpmnModelElementInstance {
 
+  private List<BpmnModelElementInstance> values;
 
 
 }

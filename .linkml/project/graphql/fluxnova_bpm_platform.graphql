@@ -963,6 +963,7 @@ type BpmnExtension
 type BpmnExtensionElements
   {
     elementType: String
+    elements: [BpmnModelElementInstance]
   }
 
 interface BpmnFlowElement
@@ -2509,6 +2510,7 @@ type FluxnovaEntry
   {
     elementType: String
     fluxnovaKey: String!
+    value: BpmnModelElementInstance
     textContent: String
   }
 
@@ -3096,6 +3098,7 @@ type FluxnovaInputParameter
     fluxnovaName: String!
     fluxnovaRestricted: Boolean
     fluxnovaIsTransient: Boolean
+    value: BpmnModelElementInstance
     textContent: String
   }
 
@@ -3148,6 +3151,7 @@ type FluxnovaJobDefinition
 type FluxnovaList
   {
     elementType: String
+    values: [BpmnModelElementInstance]
   }
 
 type FluxnovaMap
@@ -3189,6 +3193,7 @@ type FluxnovaOutputParameter
     fluxnovaName: String!
     fluxnovaRestricted: Boolean
     fluxnovaIsTransient: Boolean
+    value: BpmnModelElementInstance
     textContent: String
   }
 

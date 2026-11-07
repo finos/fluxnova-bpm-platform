@@ -780,6 +780,8 @@
 -- # Abstract Class: BpmnModelElementInstance Description: Any element of a BPMN document that Fluxnova's model API reads, the base of every BPMN class here.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
+--     * Slot: BpmnExtensionElements_id Description: Autocreated FK slot
+--     * Slot: FluxnovaList_id Description: Autocreated FK slot
 -- # Class: DcBounds Description: A rectangle, by its top-left corner and its size, that places a shape on a diagram.
 --     * Slot: id
 --     * Slot: x Description: The horizontal coordinate.
@@ -2549,6 +2551,7 @@
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: FluxnovaMap_id Description: Autocreated FK slot
+--     * Slot: value_id Description: The entry's value as a script, a list or a map, in place of its text.
 -- # Class: FluxnovaErrorEventDefinition Description: An error event definition on an external service task, raised when its expression holds.
 --     * Slot: id
 --     * Slot: fluxnova_expression Description: The expression that, when true, raises the error.
@@ -2627,6 +2630,7 @@
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: FluxnovaInputOutput_id Description: Autocreated FK slot
+--     * Slot: value_id Description: The parameter's value as a script, a list or a map, in place of its text.
 -- # Class: FluxnovaList Description: A list value of a parameter.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
@@ -2650,6 +2654,7 @@
 --     * Slot: text_content Description: The element's text, such as the body of an expression or a script.
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
 --     * Slot: FluxnovaInputOutput_id Description: Autocreated FK slot
+--     * Slot: value_id Description: The parameter's value as a script, a list or a map, in place of its text.
 -- # Class: FluxnovaPotentialStarter Description: The users or groups who may start a process.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
@@ -3092,13 +3097,6 @@ CREATE TABLE "FluxnovaResourceDefinition" (
 );
 CREATE INDEX "ix_FluxnovaResourceDefinition_id" ON "FluxnovaResourceDefinition" (id);
 
-CREATE TABLE "BpmnModelElementInstance" (
-	id INTEGER NOT NULL,
-	element_type TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_BpmnModelElementInstance_id" ON "BpmnModelElementInstance" (id);
-
 CREATE TABLE "DcBounds" (
 	id INTEGER NOT NULL,
 	x FLOAT NOT NULL,
@@ -3375,8 +3373,8 @@ CREATE TABLE "FluxnovaAuthorization" (
 	UNIQUE (type, group_id, resource_type, resource_id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "FluxnovaAuthorization_type_group_id_resource_type_resource_id_idx" ON "FluxnovaAuthorization" (type, group_id, resource_type, resource_id);
 CREATE INDEX "FluxnovaAuthorization_type_user_id_resource_type_resource_id_idx" ON "FluxnovaAuthorization" (type, user_id, resource_type, resource_id);
+CREATE INDEX "FluxnovaAuthorization_type_group_id_resource_type_resource_id_idx" ON "FluxnovaAuthorization" (type, group_id, resource_type, resource_id);
 CREATE INDEX "ix_FluxnovaAuthorization_id" ON "FluxnovaAuthorization" (id);
 
 CREATE TABLE "FluxnovaCaseDefinition" (
@@ -3586,8 +3584,8 @@ CREATE TABLE "FluxnovaHistoricCaseInstance" (
 	UNIQUE (case_instance_id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "FluxnovaHistoricCaseInstance_case_instance_id_idx" ON "FluxnovaHistoricCaseInstance" (case_instance_id);
 CREATE INDEX "ix_FluxnovaHistoricCaseInstance_id" ON "FluxnovaHistoricCaseInstance" (id);
+CREATE INDEX "FluxnovaHistoricCaseInstance_case_instance_id_idx" ON "FluxnovaHistoricCaseInstance" (case_instance_id);
 
 CREATE TABLE "FluxnovaHistoricDecisionInputInstance" (
 	id TEXT NOT NULL,
@@ -3828,8 +3826,8 @@ CREATE TABLE "FluxnovaHistoricProcessInstance" (
 	UNIQUE (process_instance_id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaHistoricProcessInstance_id" ON "FluxnovaHistoricProcessInstance" (id);
 CREATE INDEX "FluxnovaHistoricProcessInstance_process_instance_id_idx" ON "FluxnovaHistoricProcessInstance" (process_instance_id);
+CREATE INDEX "ix_FluxnovaHistoricProcessInstance_id" ON "FluxnovaHistoricProcessInstance" (id);
 
 CREATE TABLE "FluxnovaHistoricTaskInstance" (
 	task_definition_key TEXT,
@@ -4048,6 +4046,17 @@ CREATE TABLE "FluxnovaUserOperationLogEntry" (
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaUserOperationLogEntry_id" ON "FluxnovaUserOperationLogEntry" (id);
+
+CREATE TABLE "BpmnModelElementInstance" (
+	id INTEGER NOT NULL,
+	element_type TEXT,
+	"BpmnExtensionElements_id" INTEGER,
+	"FluxnovaList_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("BpmnExtensionElements_id") REFERENCES "BpmnExtensionElements" (id),
+	FOREIGN KEY("FluxnovaList_id") REFERENCES "FluxnovaList" (id)
+);
+CREATE INDEX "ix_BpmnModelElementInstance_id" ON "BpmnModelElementInstance" (id);
 
 CREATE TABLE "DiEdge" (
 	id INTEGER NOT NULL,
@@ -4805,17 +4814,6 @@ CREATE TABLE "FluxnovaConstraint" (
 );
 CREATE INDEX "ix_FluxnovaConstraint_id" ON "FluxnovaConstraint" (id);
 
-CREATE TABLE "FluxnovaEntry" (
-	id INTEGER NOT NULL,
-	fluxnova_key TEXT NOT NULL,
-	text_content TEXT,
-	element_type TEXT,
-	"FluxnovaMap_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("FluxnovaMap_id") REFERENCES "FluxnovaMap" (id)
-);
-CREATE INDEX "ix_FluxnovaEntry_id" ON "FluxnovaEntry" (id);
-
 CREATE TABLE "FluxnovaExecutionListener" (
 	id INTEGER NOT NULL,
 	fluxnova_event TEXT,
@@ -4846,32 +4844,6 @@ CREATE TABLE "FluxnovaFormField" (
 	FOREIGN KEY(validation_id) REFERENCES "FluxnovaValidation" (id)
 );
 CREATE INDEX "ix_FluxnovaFormField_id" ON "FluxnovaFormField" (id);
-
-CREATE TABLE "FluxnovaInputParameter" (
-	id INTEGER NOT NULL,
-	fluxnova_name TEXT NOT NULL,
-	fluxnova_restricted BOOLEAN,
-	fluxnova_is_transient BOOLEAN,
-	text_content TEXT,
-	element_type TEXT,
-	"FluxnovaInputOutput_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("FluxnovaInputOutput_id") REFERENCES "FluxnovaInputOutput" (id)
-);
-CREATE INDEX "ix_FluxnovaInputParameter_id" ON "FluxnovaInputParameter" (id);
-
-CREATE TABLE "FluxnovaOutputParameter" (
-	id INTEGER NOT NULL,
-	fluxnova_name TEXT NOT NULL,
-	fluxnova_restricted BOOLEAN,
-	fluxnova_is_transient BOOLEAN,
-	text_content TEXT,
-	element_type TEXT,
-	"FluxnovaInputOutput_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("FluxnovaInputOutput_id") REFERENCES "FluxnovaInputOutput" (id)
-);
-CREATE INDEX "ix_FluxnovaOutputParameter_id" ON "FluxnovaOutputParameter" (id);
 
 CREATE TABLE "FluxnovaProperty" (
 	id INTEGER NOT NULL,
@@ -5013,8 +4985,8 @@ CREATE TABLE "FluxnovaMembership" (
 	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
 CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
+CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
 
 CREATE TABLE "FluxnovaTenantMembership" (
 	id TEXT NOT NULL,
@@ -5030,9 +5002,9 @@ CREATE TABLE "FluxnovaTenantMembership" (
 	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "FluxnovaTenantMembership_tenant_id_user_id_idx" ON "FluxnovaTenantMembership" (tenant_id, user_id);
 CREATE INDEX "FluxnovaTenantMembership_tenant_id_group_id_idx" ON "FluxnovaTenantMembership" (tenant_id, group_id);
 CREATE INDEX "ix_FluxnovaTenantMembership_id" ON "FluxnovaTenantMembership" (id);
+CREATE INDEX "FluxnovaTenantMembership_tenant_id_user_id_idx" ON "FluxnovaTenantMembership" (tenant_id, user_id);
 
 CREATE TABLE "DiDiagramElement" (
 	id INTEGER NOT NULL,
@@ -6156,6 +6128,49 @@ CREATE TABLE "BpmnUserTask" (
 );
 CREATE INDEX "ix_BpmnUserTask_id" ON "BpmnUserTask" (id);
 
+CREATE TABLE "FluxnovaEntry" (
+	id INTEGER NOT NULL,
+	fluxnova_key TEXT NOT NULL,
+	text_content TEXT,
+	element_type TEXT,
+	"FluxnovaMap_id" INTEGER,
+	value_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaMap_id") REFERENCES "FluxnovaMap" (id),
+	FOREIGN KEY(value_id) REFERENCES "BpmnModelElementInstance" (id)
+);
+CREATE INDEX "ix_FluxnovaEntry_id" ON "FluxnovaEntry" (id);
+
+CREATE TABLE "FluxnovaInputParameter" (
+	id INTEGER NOT NULL,
+	fluxnova_name TEXT NOT NULL,
+	fluxnova_restricted BOOLEAN,
+	fluxnova_is_transient BOOLEAN,
+	text_content TEXT,
+	element_type TEXT,
+	"FluxnovaInputOutput_id" INTEGER,
+	value_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaInputOutput_id") REFERENCES "FluxnovaInputOutput" (id),
+	FOREIGN KEY(value_id) REFERENCES "BpmnModelElementInstance" (id)
+);
+CREATE INDEX "ix_FluxnovaInputParameter_id" ON "FluxnovaInputParameter" (id);
+
+CREATE TABLE "FluxnovaOutputParameter" (
+	id INTEGER NOT NULL,
+	fluxnova_name TEXT NOT NULL,
+	fluxnova_restricted BOOLEAN,
+	fluxnova_is_transient BOOLEAN,
+	text_content TEXT,
+	element_type TEXT,
+	"FluxnovaInputOutput_id" INTEGER,
+	value_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaInputOutput_id") REFERENCES "FluxnovaInputOutput" (id),
+	FOREIGN KEY(value_id) REFERENCES "BpmnModelElementInstance" (id)
+);
+CREATE INDEX "ix_FluxnovaOutputParameter_id" ON "FluxnovaOutputParameter" (id);
+
 CREATE TABLE "FluxnovaValue" (
 	id INTEGER NOT NULL,
 	fluxnova_id TEXT,
@@ -6428,8 +6443,8 @@ CREATE TABLE "FluxnovaVariableInstance" (
 	FOREIGN KEY(byte_array_id) REFERENCES "FluxnovaByteArray" (id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaVariableInstance_id" ON "FluxnovaVariableInstance" (id);
 CREATE INDEX "FluxnovaVariableInstance_variable_scope_id_name_idx" ON "FluxnovaVariableInstance" (variable_scope_id, name);
+CREATE INDEX "ix_FluxnovaVariableInstance_id" ON "FluxnovaVariableInstance" (id);
 
 CREATE TABLE "DiWaypoint" (
 	id INTEGER NOT NULL,
@@ -6900,8 +6915,8 @@ CREATE TABLE "BpmnActivity_outgoing" (
 	PRIMARY KEY ("BpmnActivity_id", outgoing),
 	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id)
 );
-CREATE INDEX "ix_BpmnActivity_outgoing_outgoing" ON "BpmnActivity_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnActivity_outgoing_BpmnActivity_id" ON "BpmnActivity_outgoing" ("BpmnActivity_id");
+CREATE INDEX "ix_BpmnActivity_outgoing_outgoing" ON "BpmnActivity_outgoing" (outgoing);
 
 CREATE TABLE "BpmnActivity_category_value_refs" (
 	"BpmnActivity_id" INTEGER,
@@ -7098,8 +7113,8 @@ CREATE TABLE "BpmnEvent_outgoing" (
 	PRIMARY KEY ("BpmnEvent_id", outgoing),
 	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id)
 );
-CREATE INDEX "ix_BpmnEvent_outgoing_BpmnEvent_id" ON "BpmnEvent_outgoing" ("BpmnEvent_id");
 CREATE INDEX "ix_BpmnEvent_outgoing_outgoing" ON "BpmnEvent_outgoing" (outgoing);
+CREATE INDEX "ix_BpmnEvent_outgoing_BpmnEvent_id" ON "BpmnEvent_outgoing" ("BpmnEvent_id");
 
 CREATE TABLE "BpmnEvent_category_value_refs" (
 	"BpmnEvent_id" INTEGER,
@@ -7107,8 +7122,8 @@ CREATE TABLE "BpmnEvent_category_value_refs" (
 	PRIMARY KEY ("BpmnEvent_id", category_value_refs),
 	FOREIGN KEY("BpmnEvent_id") REFERENCES "BpmnEvent" (id)
 );
-CREATE INDEX "ix_BpmnEvent_category_value_refs_BpmnEvent_id" ON "BpmnEvent_category_value_refs" ("BpmnEvent_id");
 CREATE INDEX "ix_BpmnEvent_category_value_refs_category_value_refs" ON "BpmnEvent_category_value_refs" (category_value_refs);
+CREATE INDEX "ix_BpmnEvent_category_value_refs_BpmnEvent_id" ON "BpmnEvent_category_value_refs" ("BpmnEvent_id");
 
 CREATE TABLE "BpmnEventBasedGateway_incoming" (
 	"BpmnEventBasedGateway_id" INTEGER,
@@ -7134,8 +7149,8 @@ CREATE TABLE "BpmnEventBasedGateway_category_value_refs" (
 	PRIMARY KEY ("BpmnEventBasedGateway_id", category_value_refs),
 	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id)
 );
-CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_category_value_refs" ON "BpmnEventBasedGateway_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway_category_value_refs" ("BpmnEventBasedGateway_id");
+CREATE INDEX "ix_BpmnEventBasedGateway_category_value_refs_category_value_refs" ON "BpmnEventBasedGateway_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnExclusiveGateway_incoming" (
 	"BpmnExclusiveGateway_id" INTEGER,
@@ -7143,8 +7158,8 @@ CREATE TABLE "BpmnExclusiveGateway_incoming" (
 	PRIMARY KEY ("BpmnExclusiveGateway_id", incoming),
 	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_incoming_incoming" ON "BpmnExclusiveGateway_incoming" (incoming);
 CREATE INDEX "ix_BpmnExclusiveGateway_incoming_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_incoming" ("BpmnExclusiveGateway_id");
+CREATE INDEX "ix_BpmnExclusiveGateway_incoming_incoming" ON "BpmnExclusiveGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnExclusiveGateway_outgoing" (
 	"BpmnExclusiveGateway_id" INTEGER,
@@ -7413,8 +7428,8 @@ CREATE TABLE "BpmnProcess_supported_interface_refs" (
 	PRIMARY KEY ("BpmnProcess_id", supported_interface_refs),
 	FOREIGN KEY("BpmnProcess_id") REFERENCES "BpmnProcess" (id)
 );
-CREATE INDEX "ix_BpmnProcess_supported_interface_refs_BpmnProcess_id" ON "BpmnProcess_supported_interface_refs" ("BpmnProcess_id");
 CREATE INDEX "ix_BpmnProcess_supported_interface_refs_supported_interface_refs" ON "BpmnProcess_supported_interface_refs" (supported_interface_refs);
+CREATE INDEX "ix_BpmnProcess_supported_interface_refs_BpmnProcess_id" ON "BpmnProcess_supported_interface_refs" ("BpmnProcess_id");
 
 CREATE TABLE "BpmnReceiveTask_incoming" (
 	"BpmnReceiveTask_id" INTEGER,
@@ -7422,8 +7437,8 @@ CREATE TABLE "BpmnReceiveTask_incoming" (
 	PRIMARY KEY ("BpmnReceiveTask_id", incoming),
 	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id)
 );
-CREATE INDEX "ix_BpmnReceiveTask_incoming_BpmnReceiveTask_id" ON "BpmnReceiveTask_incoming" ("BpmnReceiveTask_id");
 CREATE INDEX "ix_BpmnReceiveTask_incoming_incoming" ON "BpmnReceiveTask_incoming" (incoming);
+CREATE INDEX "ix_BpmnReceiveTask_incoming_BpmnReceiveTask_id" ON "BpmnReceiveTask_incoming" ("BpmnReceiveTask_id");
 
 CREATE TABLE "BpmnReceiveTask_outgoing" (
 	"BpmnReceiveTask_id" INTEGER,
@@ -7449,8 +7464,8 @@ CREATE TABLE "BpmnScriptTask_incoming" (
 	PRIMARY KEY ("BpmnScriptTask_id", incoming),
 	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_incoming_incoming" ON "BpmnScriptTask_incoming" (incoming);
 CREATE INDEX "ix_BpmnScriptTask_incoming_BpmnScriptTask_id" ON "BpmnScriptTask_incoming" ("BpmnScriptTask_id");
+CREATE INDEX "ix_BpmnScriptTask_incoming_incoming" ON "BpmnScriptTask_incoming" (incoming);
 
 CREATE TABLE "BpmnScriptTask_outgoing" (
 	"BpmnScriptTask_id" INTEGER,

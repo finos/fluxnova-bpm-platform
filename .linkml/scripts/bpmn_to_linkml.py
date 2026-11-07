@@ -131,6 +131,25 @@ EXTENSION_TEXT = {
     "FluxnovaValue",
 }
 
+# Elements whose children the model API reads from the document, not from
+# registerType: each gets a slot, by the name of the model API's getter, that
+# ranges over the root class, so element_type names the class of each child,
+# which XML writes under its own name. BPMN's XML Schema gives extensionElements
+# an xsd:any, and ExtensionElements.getElements() returns its children. An input
+# or output parameter and a map's entry hold one script, list or map as their
+# value (FluxnovaGenericValueElementImpl.getValue()), and a list holds values,
+# scripts, lists and maps (FluxnovaListImpl.getValues()): the slot admits only
+# those, as the engine's BpmnParseUtil reads them. By the element's Java name:
+# the slot, whether it holds many, and the classes it admits.
+_VALUE = ("FluxnovaScript", "FluxnovaList", "FluxnovaMap")
+ANY_CONTENT = {
+    "ExtensionElements": ("elements", True, ()),
+    "FluxnovaInputParameter": ("value", False, _VALUE),
+    "FluxnovaOutputParameter": ("value", False, _VALUE),
+    "FluxnovaEntry": ("value", False, _VALUE),
+    "FluxnovaList": ("values", True, ("FluxnovaValue", *_VALUE)),
+}
+
 # Child slots renamed from their XML names: an assignment's from and to, since from
 # is a Python keyword and a slot LOKF defines with another meaning. The annotation
 # xml_name keeps the element's name.
@@ -714,6 +733,20 @@ class Converter:
             name, slot = self.child_slot(owner, child)
             if name in attributes:
                 raise ValueError(f"{owner} has two slots named {name}")
+            attributes[name] = slot
+        simple = java_name.rsplit(".", 1)[-1]
+        if simple in ANY_CONTENT:
+            name, many, admitted = ANY_CONTENT[simple]
+            slot = {
+                "description": self.slot_description(owner, name),
+                "range": ROOT_CLASS,
+                "inlined": True,
+            }
+            if many:
+                slot["multivalued"] = True
+                slot["inlined_as_list"] = True
+            if admitted:
+                slot["any_of"] = [{"range": c} for c in admitted]
             attributes[name] = slot
         if self.has_text(java_name) and not self._inherits_text(java_name):
             attributes["text_content"] = {

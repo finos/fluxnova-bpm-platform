@@ -5724,6 +5724,13 @@ classes:
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/ExtensionElementsImpl.java
     in_subset:
     - bpmn_semantic
+    attributes:
+      elements:
+        description: The elements an extensionElements holds, each named by its element_type.
+        range: BpmnModelElementInstance
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
   BpmnFlowElement:
     description: An element that takes part in the flow of a process, such as an activity or sequence
       flow.
@@ -8355,6 +8362,14 @@ classes:
         annotations:
           xml_name: key
           xml_namespace: http://camunda.org/schema/1.0/bpmn
+      value:
+        description: The entry's value as a script, a list or a map, in place of its text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         description: The element's text, such as the body of an expression or a script.
         range: string
@@ -8897,6 +8912,14 @@ classes:
         annotations:
           xml_name: isTransient
           xml_namespace: http://camunda.org/schema/1.0/bpmn
+      value:
+        description: The parameter's value as a script, a list or a map, in place of its text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         description: The element's text, such as the body of an expression or a script.
         range: string
@@ -8912,6 +8935,18 @@ classes:
       source_file: model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn/impl/instance/fluxnova/FluxnovaListImpl.java
     in_subset:
     - bpmn_extension
+    attributes:
+      values:
+        description: The list's items, each a value, a script, a list or a map.
+        range: BpmnModelElementInstance
+        inlined: true
+        multivalued: true
+        inlined_as_list: true
+        any_of:
+        - range: FluxnovaValue
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
   FluxnovaMap:
     description: A map value of a parameter.
     is_a: BpmnModelElementInstance
@@ -9041,6 +9076,14 @@ classes:
         annotations:
           xml_name: isTransient
           xml_namespace: http://camunda.org/schema/1.0/bpmn
+      value:
+        description: The parameter's value as a script, a list or a map, in place of its text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         description: The element's text, such as the body of an expression or a script.
         range: string

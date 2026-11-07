@@ -1,0 +1,9 @@
+# A parameter whose value is a list of two values, as camunda:list writes it.
+fluxnova_name: approvers
+value:
+  element_type: FluxnovaList
+  values:
+    - element_type: FluxnovaValue
+      text_content: demo
+    - element_type: FluxnovaValue
+      text_content: john

@@ -530,6 +530,10 @@
          "@type": "xsd:boolean",
          "@id": "must_understand"
       },
+      "elements": {
+         "@type": "@id",
+         "@id": "elements"
+      },
       "auditing": {
          "@type": "@id",
          "@id": "auditing"
@@ -2568,7 +2572,13 @@
          "@id": "FluxnovaEngineProperty"
       },
       "FluxnovaEntry": {
-         "@id": "FluxnovaEntry"
+         "@id": "FluxnovaEntry",
+         "@context": {
+            "value": {
+               "@id": "value",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaErrorEventDefinition": {
          "@id": "FluxnovaErrorEventDefinition"
@@ -2767,7 +2777,13 @@
          "@id": "FluxnovaInputOutput"
       },
       "FluxnovaInputParameter": {
-         "@id": "FluxnovaInputParameter"
+         "@id": "FluxnovaInputParameter",
+         "@context": {
+            "value": {
+               "@id": "value",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaJob": {
          "@id": "FluxnovaJob",
@@ -2813,7 +2829,13 @@
          "@id": "FluxnovaOut"
       },
       "FluxnovaOutputParameter": {
-         "@id": "FluxnovaOutputParameter"
+         "@id": "FluxnovaOutputParameter",
+         "@context": {
+            "value": {
+               "@id": "value",
+               "@type": "@id"
+            }
+         }
       },
       "FluxnovaPlatformData": {
          "@id": "FluxnovaPlatformData"

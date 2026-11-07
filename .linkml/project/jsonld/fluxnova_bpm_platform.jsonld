@@ -5894,6 +5894,35 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "fluxnovaEntry__value",
+      "description": "The entry's value as a script, a list or a map, in place of its text.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/value",
+      "alias": "value",
+      "owner": "FluxnovaEntry",
+      "domain_of": [
+        "FluxnovaEntry"
+      ],
+      "range": "BpmnModelElementInstance",
+      "inlined": true,
+      "inlined_as_list": true,
+      "any_of": [
+        {
+          "range": "FluxnovaScript",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaList",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaMap",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "fluxnovaEntry__text_content",
       "description": "The element's text, such as the body of an expression or a script.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
@@ -7196,6 +7225,35 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "fluxnovaInputParameter__value",
+      "description": "The parameter's value as a script, a list or a map, in place of its text.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/value",
+      "alias": "value",
+      "owner": "FluxnovaInputParameter",
+      "domain_of": [
+        "FluxnovaInputParameter"
+      ],
+      "range": "BpmnModelElementInstance",
+      "inlined": true,
+      "inlined_as_list": true,
+      "any_of": [
+        {
+          "range": "FluxnovaScript",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaList",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaMap",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "fluxnovaInputParameter__text_content",
       "description": "The element's text, such as the body of an expression or a script.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
@@ -7206,6 +7264,40 @@
         "FluxnovaInputParameter"
       ],
       "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "fluxnovaList__values",
+      "description": "The list's items, each a value, a script, a list or a map.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/values",
+      "alias": "values",
+      "owner": "FluxnovaList",
+      "domain_of": [
+        "FluxnovaList"
+      ],
+      "range": "BpmnModelElementInstance",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "any_of": [
+        {
+          "range": "FluxnovaValue",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaScript",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaList",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaMap",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
       "@type": "SlotDefinition"
     },
     {
@@ -7495,6 +7587,35 @@
         "FluxnovaOutputParameter"
       ],
       "range": "boolean",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "fluxnovaOutputParameter__value",
+      "description": "The parameter's value as a script, a list or a map, in place of its text.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/value",
+      "alias": "value",
+      "owner": "FluxnovaOutputParameter",
+      "domain_of": [
+        "FluxnovaOutputParameter"
+      ],
+      "range": "BpmnModelElementInstance",
+      "inlined": true,
+      "inlined_as_list": true,
+      "any_of": [
+        {
+          "range": "FluxnovaScript",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaList",
+          "@type": "AnonymousSlotExpression"
+        },
+        {
+          "range": "FluxnovaMap",
+          "@type": "AnonymousSlotExpression"
+        }
+      ],
       "@type": "SlotDefinition"
     },
     {
@@ -12001,6 +12122,22 @@
         "BpmnExtension"
       ],
       "range": "BpmnDocumentation",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "bpmnExtensionElements__elements",
+      "description": "The elements an extensionElements holds, each named by its element_type.",
+      "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/elements",
+      "alias": "elements",
+      "owner": "BpmnExtensionElements",
+      "domain_of": [
+        "BpmnExtensionElements"
+      ],
+      "range": "BpmnModelElementInstance",
       "multivalued": true,
       "inlined": true,
       "inlined_as_list": true,
@@ -29526,6 +29663,7 @@
       "slots": [
         "bpmnModelElementInstance__element_type",
         "fluxnovaEntry__fluxnova_key",
+        "fluxnovaEntry__value",
         "fluxnovaEntry__text_content"
       ],
       "slot_usage": {},
@@ -29551,6 +29689,27 @@
           ],
           "range": "string",
           "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "value",
+          "description": "The entry's value as a script, a list or a map, in place of its text.",
+          "range": "BpmnModelElementInstance",
+          "inlined": true,
+          "any_of": [
+            {
+              "range": "FluxnovaScript",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaList",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaMap",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
           "@type": "SlotDefinition"
         },
         {
@@ -30926,6 +31085,7 @@
         "fluxnovaInputParameter__fluxnova_name",
         "fluxnovaInputParameter__fluxnova_restricted",
         "fluxnovaInputParameter__fluxnova_is_transient",
+        "fluxnovaInputParameter__value",
         "fluxnovaInputParameter__text_content"
       ],
       "slot_usage": {},
@@ -30998,6 +31158,27 @@
           "@type": "SlotDefinition"
         },
         {
+          "name": "value",
+          "description": "The parameter's value as a script, a list or a map, in place of its text.",
+          "range": "BpmnModelElementInstance",
+          "inlined": true,
+          "any_of": [
+            {
+              "range": "FluxnovaScript",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaList",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaMap",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
+          "@type": "SlotDefinition"
+        },
+        {
           "name": "text_content",
           "description": "The element's text, such as the body of an expression or a script.",
           "range": "string",
@@ -31038,9 +31219,39 @@
       ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
-        "bpmnModelElementInstance__element_type"
+        "bpmnModelElementInstance__element_type",
+        "fluxnovaList__values"
       ],
       "slot_usage": {},
+      "attributes": [
+        {
+          "name": "values",
+          "description": "The list's items, each a value, a script, a list or a map.",
+          "range": "BpmnModelElementInstance",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "any_of": [
+            {
+              "range": "FluxnovaValue",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaScript",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaList",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaMap",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
+          "@type": "SlotDefinition"
+        }
+      ],
       "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/FluxnovaList",
       "@type": "ClassDefinition"
     },
@@ -31316,6 +31527,7 @@
         "fluxnovaOutputParameter__fluxnova_name",
         "fluxnovaOutputParameter__fluxnova_restricted",
         "fluxnovaOutputParameter__fluxnova_is_transient",
+        "fluxnovaOutputParameter__value",
         "fluxnovaOutputParameter__text_content"
       ],
       "slot_usage": {},
@@ -31385,6 +31597,27 @@
           ],
           "ifabsent": "false",
           "range": "boolean",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "value",
+          "description": "The parameter's value as a script, a list or a map, in place of its text.",
+          "range": "BpmnModelElementInstance",
+          "inlined": true,
+          "any_of": [
+            {
+              "range": "FluxnovaScript",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaList",
+              "@type": "AnonymousSlotExpression"
+            },
+            {
+              "range": "FluxnovaMap",
+              "@type": "AnonymousSlotExpression"
+            }
+          ],
           "@type": "SlotDefinition"
         },
         {
@@ -37769,9 +38002,21 @@
       ],
       "is_a": "BpmnModelElementInstance",
       "slots": [
-        "bpmnModelElementInstance__element_type"
+        "bpmnModelElementInstance__element_type",
+        "bpmnExtensionElements__elements"
       ],
       "slot_usage": {},
+      "attributes": [
+        {
+          "name": "elements",
+          "description": "The elements an extensionElements holds, each named by its element_type.",
+          "range": "BpmnModelElementInstance",
+          "multivalued": true,
+          "inlined": true,
+          "inlined_as_list": true,
+          "@type": "SlotDefinition"
+        }
+      ],
       "class_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/BpmnExtensionElements",
       "@type": "ClassDefinition"
     },

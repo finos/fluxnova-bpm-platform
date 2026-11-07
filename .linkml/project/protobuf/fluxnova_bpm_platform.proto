@@ -1414,6 +1414,8 @@ message BpmnExtension {
 message BpmnExtensionElements {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
+  // The elements an extensionElements holds, each named by its element_type.
+  repeated BpmnModelElementInstance elements = 2;
 }
 // An element that takes part in the flow of a process, such as an activity or sequence flow.
 message BpmnFlowElement {
@@ -3926,8 +3928,10 @@ message FluxnovaEntry {
   string element_type = 1;
   // The entry's key.
   string fluxnova_key = 2;
+  // The entry's value as a script, a list or a map, in place of its text.
+  BpmnModelElementInstance value = 3;
   // The element's text, such as the body of an expression or a script.
-  string text_content = 3;
+  string text_content = 4;
 }
 // An error event definition on an external service task, raised when its expression holds.
 message FluxnovaErrorEventDefinition {
@@ -4920,8 +4924,10 @@ message FluxnovaInputParameter {
   bool fluxnova_restricted = 3;
   // Whether the variable is kept only while the transaction runs.
   bool fluxnova_is_transient = 4;
+  // The parameter's value as a script, a list or a map, in place of its text.
+  BpmnModelElementInstance value = 5;
   // The element's text, such as the body of an expression or a script.
-  string text_content = 5;
+  string text_content = 6;
 }
 // Represents one job (timer, message, etc.).
 message FluxnovaJob {
@@ -5009,6 +5015,8 @@ message FluxnovaJobDefinition {
 message FluxnovaList {
   // The name of the class an element is, which says which element it is when a slot's range admits several.
   string element_type = 1;
+  // The list's items, each a value, a script, a list or a map.
+  repeated BpmnModelElementInstance values = 2;
 }
 // A map value of a parameter.
 message FluxnovaMap {
@@ -5066,8 +5074,10 @@ message FluxnovaOutputParameter {
   bool fluxnova_restricted = 3;
   // Whether the variable is kept only while the transaction runs.
   bool fluxnova_is_transient = 4;
+  // The parameter's value as a script, a list or a map, in place of its text.
+  BpmnModelElementInstance value = 5;
   // The element's text, such as the body of an expression or a script.
-  string text_content = 5;
+  string text_content = 6;
 }
 // Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.
 message FluxnovaPlatformData {

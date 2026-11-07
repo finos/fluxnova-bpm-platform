@@ -771,7 +771,8 @@ linkml:Sparqlpath xsd:string
 
 <BpmnExtensionElements> CLOSED {
     (  $<BpmnExtensionElements_tes> (  &<BpmnModelElementInstance_tes> ;
-          rdf:type [ <BpmnModelElementInstance> ] ?
+          rdf:type [ <BpmnModelElementInstance> ] ? ;
+          <elements> @<BpmnModelElementInstance> *
        ) ;
        rdf:type [ <BpmnExtensionElements> ] ?
     )
@@ -2144,6 +2145,7 @@ linkml:Sparqlpath xsd:string
     (  $<FluxnovaEntry_tes> (  &<BpmnModelElementInstance_tes> ;
           rdf:type [ <BpmnModelElementInstance> ] ? ;
           <fluxnova_key> @linkml:String ;
+          <value> @<BpmnModelElementInstance> ? ;
           <text_content> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaEntry> ] ?
@@ -2803,6 +2805,7 @@ linkml:Sparqlpath xsd:string
           <fluxnova_name> @linkml:String ;
           <fluxnova_restricted> @linkml:Boolean ? ;
           <fluxnova_is_transient> @linkml:Boolean ? ;
+          <value> @<BpmnModelElementInstance> ? ;
           <text_content> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaInputParameter> ] ?
@@ -2859,7 +2862,8 @@ linkml:Sparqlpath xsd:string
 
 <FluxnovaList> CLOSED {
     (  $<FluxnovaList_tes> (  &<BpmnModelElementInstance_tes> ;
-          rdf:type [ <BpmnModelElementInstance> ] ?
+          rdf:type [ <BpmnModelElementInstance> ] ? ;
+          <values> @<BpmnModelElementInstance> *
        ) ;
        rdf:type [ <FluxnovaList> ] ?
     )
@@ -2913,6 +2917,7 @@ linkml:Sparqlpath xsd:string
           <fluxnova_name> @linkml:String ;
           <fluxnova_restricted> @linkml:Boolean ? ;
           <fluxnova_is_transient> @linkml:Boolean ? ;
+          <value> @<BpmnModelElementInstance> ? ;
           <text_content> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaOutputParameter> ] ?

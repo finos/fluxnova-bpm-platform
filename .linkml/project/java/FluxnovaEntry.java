@@ -17,6 +17,7 @@ import lombok.*;
 public class FluxnovaEntry extends BpmnModelElementInstance {
 
   private String fluxnovaKey;
+  private BpmnModelElementInstance value;
   private String textContent;
 
 

@@ -6306,6 +6306,506 @@
                         "string",
                         "null"
                     ]
+                },
+                "elements": {
+                    "description": "The elements an extensionElements holds, each named by its element_type.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/DcBounds"
+                            },
+                            {
+                                "$ref": "#/$defs/DcFont"
+                            },
+                            {
+                                "$ref": "#/$defs/DcPoint"
+                            },
+                            {
+                                "$ref": "#/$defs/DiExtension"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDefinitions"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDocumentation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnExtension"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnExtensionElements"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnImport"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnScript"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSource"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTarget"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnText"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaConnector"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaConnectorId"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaConstraint"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaEntry"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaErrorEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaExecutionListener"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaFailedJobRetryTimeCycle"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaField"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaFormData"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaFormField"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaFormProperty"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaIn"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaInputOutput"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaInputParameter"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaList"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaMap"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaOut"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaOutputParameter"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaPotentialStarter"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaProperties"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaProperty"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaScript"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaString"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaTaskListener"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaValidation"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaValue"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnAssignment"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnAuditing"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCategoryValue"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnComplexBehaviorDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnConversationAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnConversationLink"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCorrelationKey"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCorrelationPropertyBinding"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCorrelationPropertyRetrievalExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCorrelationSubscription"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataState"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnInputSet"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnIoBinding"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnIoSpecification"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLane"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLaneSet"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMessageFlow"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMessageFlowAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMonitoring"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnOperation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnOutputSet"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnParticipant"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnParticipantAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnParticipantMultiplicity"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnPartitionElement"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnRelationship"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnRendering"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnResourceAssignmentExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnResourceParameter"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnResourceParameterBinding"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnResourceRole"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCallableElement"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCategory"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCollaboration"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCorrelationProperty"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataStore"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEndPoint"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnError"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEscalation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnInterface"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnItemDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMessage"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnResource"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSignal"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCancelEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCompensateEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnConditionalEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnErrorEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEscalationEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLinkEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMessageEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSignalEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTerminateEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTimerEventDefinition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnGlobalConversation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnProcess"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnPerformer"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnHumanPerformer"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnPotentialOwner"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMultiInstanceLoopCharacteristics"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnChildLaneSet"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataInput"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataOutput"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnProperty"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnOutputDataItem"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnInputDataItem"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataObject"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataObjectReference"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataStoreReference"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSequenceFlow"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnComplexGateway"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEventBasedGateway"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnExclusiveGateway"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnInclusiveGateway"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnParallelGateway"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEndEvent"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnIntermediateThrowEvent"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnBoundaryEvent"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnIntermediateCatchEvent"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnStartEvent"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCallActivity"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSubProcess"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnBusinessRuleTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnManualTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnReceiveTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnScriptTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSendTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnServiceTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnUserTask"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnAdHocSubProcess"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTransaction"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnActivationCondition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCompletionCondition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCondition"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnFormalExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnFrom"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLoopCardinality"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTimeCycle"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTimeDate"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTimeDuration"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTo"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnConditionExpression"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataPath"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnMessagePath"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTransformation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataInputAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDataOutputAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnCallConversation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnConversation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnSubConversation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnAssociation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnGroup"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnTextAnnotation"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLabelStyle"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnShape"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnPlane"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnLabel"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnEdge"
+                            },
+                            {
+                                "$ref": "#/$defs/BpmnDiagram"
+                            },
+                            {
+                                "$ref": "#/$defs/DiWaypoint"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "BpmnExtensionElements",
@@ -17361,6 +17861,23 @@
                         "string",
                         "null"
                     ]
+                },
+                "value": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/FluxnovaScript"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaList"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaMap"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The entry's value as a script, a list or a map, in place of its text."
                 }
             },
             "required": [
@@ -20796,6 +21313,23 @@
                         "string",
                         "null"
                     ]
+                },
+                "value": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/FluxnovaScript"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaList"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaMap"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The parameter's value as a script, a list or a map, in place of its text."
                 }
             },
             "required": [
@@ -21098,6 +21632,29 @@
                         "string",
                         "null"
                     ]
+                },
+                "values": {
+                    "description": "The list's items, each a value, a script, a list or a map.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/FluxnovaValue"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaScript"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaList"
+                            },
+                            {
+                                "$ref": "#/$defs/FluxnovaMap"
+                            }
+                        ]
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "FluxnovaList",
@@ -21298,6 +21855,23 @@
                         "string",
                         "null"
                     ]
+                },
+                "value": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/FluxnovaScript"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaList"
+                        },
+                        {
+                            "$ref": "#/$defs/FluxnovaMap"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The parameter's value as a script, a list or a map, in place of its text."
                 }
             },
             "required": [

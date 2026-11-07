@@ -4481,6 +4481,22 @@ slots:
     - FluxnovaEntry
     range: string
     required: true
+  fluxnovaEntry__value:
+    name: fluxnovaEntry__value
+    description: The entry's value as a script, a list or a map, in place of its text.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
+    slot_uri: fluxnova_bpm_platform:value
+    alias: value
+    owner: FluxnovaEntry
+    domain_of:
+    - FluxnovaEntry
+    range: BpmnModelElementInstance
+    inlined: true
+    inlined_as_list: true
+    any_of:
+    - range: FluxnovaScript
+    - range: FluxnovaList
+    - range: FluxnovaMap
   fluxnovaEntry__text_content:
     name: fluxnovaEntry__text_content
     description: The element's text, such as the body of an expression or a script.
@@ -5393,6 +5409,23 @@ slots:
     domain_of:
     - FluxnovaInputParameter
     range: boolean
+  fluxnovaInputParameter__value:
+    name: fluxnovaInputParameter__value
+    description: The parameter's value as a script, a list or a map, in place of its
+      text.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
+    slot_uri: fluxnova_bpm_platform:value
+    alias: value
+    owner: FluxnovaInputParameter
+    domain_of:
+    - FluxnovaInputParameter
+    range: BpmnModelElementInstance
+    inlined: true
+    inlined_as_list: true
+    any_of:
+    - range: FluxnovaScript
+    - range: FluxnovaList
+    - range: FluxnovaMap
   fluxnovaInputParameter__text_content:
     name: fluxnovaInputParameter__text_content
     description: The element's text, such as the body of an expression or a script.
@@ -5403,6 +5436,24 @@ slots:
     domain_of:
     - FluxnovaInputParameter
     range: string
+  fluxnovaList__values:
+    name: fluxnovaList__values
+    description: The list's items, each a value, a script, a list or a map.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
+    slot_uri: fluxnova_bpm_platform:values
+    alias: values
+    owner: FluxnovaList
+    domain_of:
+    - FluxnovaList
+    range: BpmnModelElementInstance
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+    any_of:
+    - range: FluxnovaValue
+    - range: FluxnovaScript
+    - range: FluxnovaList
+    - range: FluxnovaMap
   fluxnovaMap__entries:
     name: fluxnovaMap__entries
     annotations:
@@ -5605,6 +5656,23 @@ slots:
     domain_of:
     - FluxnovaOutputParameter
     range: boolean
+  fluxnovaOutputParameter__value:
+    name: fluxnovaOutputParameter__value
+    description: The parameter's value as a script, a list or a map, in place of its
+      text.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_extension
+    slot_uri: fluxnova_bpm_platform:value
+    alias: value
+    owner: FluxnovaOutputParameter
+    domain_of:
+    - FluxnovaOutputParameter
+    range: BpmnModelElementInstance
+    inlined: true
+    inlined_as_list: true
+    any_of:
+    - range: FluxnovaScript
+    - range: FluxnovaList
+    - range: FluxnovaMap
   fluxnovaOutputParameter__text_content:
     name: fluxnovaOutputParameter__text_content
     description: The element's text, such as the body of an expression or a script.
@@ -8794,6 +8862,19 @@ slots:
     domain_of:
     - BpmnExtension
     range: BpmnDocumentation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  bpmnExtensionElements__elements:
+    name: bpmnExtensionElements__elements
+    description: The elements an extensionElements holds, each named by its element_type.
+    from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
+    slot_uri: fluxnova_bpm_platform:elements
+    alias: elements
+    owner: BpmnExtensionElements
+    domain_of:
+    - BpmnExtensionElements
+    range: BpmnModelElementInstance
     multivalued: true
     inlined: true
     inlined_as_list: true
@@ -23933,6 +24014,7 @@ classes:
     slots:
     - bpmnModelElementInstance__element_type
     - fluxnovaEntry__fluxnova_key
+    - fluxnovaEntry__value
     - fluxnovaEntry__text_content
     attributes:
       fluxnova_key:
@@ -23950,6 +24032,16 @@ classes:
         - camunda:key
         range: string
         required: true
+      value:
+        name: value
+        description: The entry's value as a script, a list or a map, in place of its
+          text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         name: text_content
         description: The element's text, such as the body of an expression or a script.
@@ -24854,6 +24946,7 @@ classes:
     - fluxnovaInputParameter__fluxnova_name
     - fluxnovaInputParameter__fluxnova_restricted
     - fluxnovaInputParameter__fluxnova_is_transient
+    - fluxnovaInputParameter__value
     - fluxnovaInputParameter__text_content
     attributes:
       fluxnova_name:
@@ -24900,6 +24993,16 @@ classes:
         - camunda:isTransient
         ifabsent: 'false'
         range: boolean
+      value:
+        name: value
+        description: The parameter's value as a script, a list or a map, in place
+          of its text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         name: text_content
         description: The element's text, such as the body of an expression or a script.
@@ -24928,6 +25031,20 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
+    - fluxnovaList__values
+    attributes:
+      values:
+        name: values
+        description: The list's items, each a value, a script, a list or a map.
+        range: BpmnModelElementInstance
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
+        any_of:
+        - range: FluxnovaValue
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
     class_uri: fluxnova_bpm_platform:FluxnovaList
   FluxnovaMap:
     name: FluxnovaMap
@@ -25110,6 +25227,7 @@ classes:
     - fluxnovaOutputParameter__fluxnova_name
     - fluxnovaOutputParameter__fluxnova_restricted
     - fluxnovaOutputParameter__fluxnova_is_transient
+    - fluxnovaOutputParameter__value
     - fluxnovaOutputParameter__text_content
     attributes:
       fluxnova_name:
@@ -25156,6 +25274,16 @@ classes:
         - camunda:isTransient
         ifabsent: 'false'
         range: boolean
+      value:
+        name: value
+        description: The parameter's value as a script, a list or a map, in place
+          of its text.
+        range: BpmnModelElementInstance
+        inlined: true
+        any_of:
+        - range: FluxnovaScript
+        - range: FluxnovaList
+        - range: FluxnovaMap
       text_content:
         name: text_content
         description: The element's text, such as the body of an expression or a script.
@@ -29473,6 +29601,15 @@ classes:
     is_a: BpmnModelElementInstance
     slots:
     - bpmnModelElementInstance__element_type
+    - bpmnExtensionElements__elements
+    attributes:
+      elements:
+        name: elements
+        description: The elements an extensionElements holds, each named by its element_type.
+        range: BpmnModelElementInstance
+        multivalued: true
+        inlined: true
+        inlined_as_list: true
     class_uri: fluxnova_bpm_platform:BpmnExtensionElements
   BpmnFlowElement:
     name: BpmnFlowElement

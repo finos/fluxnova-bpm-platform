@@ -2831,6 +2831,8 @@ export interface BpmnExtension extends BpmnModelElementInstance {
  * The container for an element's extension content, such as Fluxnova's settings.
  */
 export interface BpmnExtensionElements extends BpmnModelElementInstance {
+    /** The elements an extensionElements holds, each named by its element_type. */
+    elements?: BpmnModelElementInstance[],
 }
 
 
@@ -3852,6 +3854,8 @@ export interface FluxnovaConstraint extends BpmnModelElementInstance {
 export interface FluxnovaEntry extends BpmnModelElementInstance {
     /** The entry's key. */
     fluxnova_key: string,
+    /** The entry's value as a script, a list or a map, in place of its text. */
+    value?: BpmnModelElementInstance,
     /** The element's text, such as the body of an expression or a script. */
     text_content?: string,
 }
@@ -4023,6 +4027,8 @@ export interface FluxnovaInputParameter extends BpmnModelElementInstance {
     fluxnova_restricted?: boolean,
     /** Whether the variable is kept only while the transaction runs. */
     fluxnova_is_transient?: boolean,
+    /** The parameter's value as a script, a list or a map, in place of its text. */
+    value?: BpmnModelElementInstance,
     /** The element's text, such as the body of an expression or a script. */
     text_content?: string,
 }
@@ -4032,6 +4038,8 @@ export interface FluxnovaInputParameter extends BpmnModelElementInstance {
  * A list value of a parameter.
  */
 export interface FluxnovaList extends BpmnModelElementInstance {
+    /** The list's items, each a value, a script, a list or a map. */
+    values?: BpmnModelElementInstance[],
 }
 
 
@@ -4073,6 +4081,8 @@ export interface FluxnovaOutputParameter extends BpmnModelElementInstance {
     fluxnova_restricted?: boolean,
     /** Whether the variable is kept only while the transaction runs. */
     fluxnova_is_transient?: boolean,
+    /** The parameter's value as a script, a list or a map, in place of its text. */
+    value?: BpmnModelElementInstance,
     /** The element's text, such as the body of an expression or a script. */
     text_content?: string,
 }
