@@ -20,3 +20,22 @@ block; <https://w3id.org/ktl/docs/install/> has every route. Then answer
 through it: bundle first, a trust label on every concept used, the source
 opened for exact values, and misses recorded in `.lokf/feedback.md` so the
 librarian fills them.
+
+## Schema
+
+The data model of this repository is a LinkML schema at
+`.linkml/src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`,
+also reachable as `linkml_schema/`. Read it before the code it
+describes. Every class, field and enum is defined once there, and two
+converters write its modules from FINOS's tree, so change a converter,
+not a module. The JSON Schema, OWL and the rest under `.linkml/project/`
+and the Pydantic models under
+`.linkml/src/fluxnova_bpm_platform/datamodel/` are generated from it,
+never edited. Change the schema through the `linkml-author` skill (`npx
+skills add noelmcloughlin/linkml-sidecar --skill linkml-author --yes`),
+and run `just --justfile .linkml/justfile lint` and `test` before
+committing.
+
+The `.lokf/` knowledge bundle validates its concepts against this schema
+too (`lokf validate --schema`): a concept whose `type` names a class
+defined here carries only the fields that class declares.
