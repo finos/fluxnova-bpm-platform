@@ -11653,9 +11653,9 @@ class BpmnAssignment(BpmnBaseElement):
          'from_schema': 'https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic',
          'in_subset': ['bpmn_semantic']})
 
-    from_: BpmnFrom = Field(default=..., alias="from", description="""The expression the value is copied from.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'from'}},
+    from_expression: BpmnFrom = Field(default=..., description="""The expression the value is copied from.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'from'}},
          'domain_of': ['BpmnAssignment']} })
-    to: BpmnTo = Field(default=..., description="""The expression the value is copied to.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'to'}},
+    to_expression: BpmnTo = Field(default=..., description="""The expression the value is copied to.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_name': {'tag': 'xml_name', 'value': 'to'}},
          'domain_of': ['BpmnAssignment']} })
     id: Optional[str] = Field(default=None, description="""The element's id, unique within its document.""", json_schema_extra = { "linkml_meta": {'annotations': {'xml_id': {'tag': 'xml_id', 'value': 'true'},
                          'xml_name': {'tag': 'xml_name', 'value': 'id'}},

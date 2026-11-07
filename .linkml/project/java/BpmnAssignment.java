@@ -16,8 +16,8 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class BpmnAssignment extends BpmnBaseElement {
 
-  private BpmnFrom from;
-  private BpmnTo to;
+  private BpmnFrom fromExpression;
+  private BpmnTo toExpression;
 
 
 }

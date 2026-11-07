@@ -971,8 +971,8 @@
 --     * Slot: BpmnDataAssociation_uid Description: Autocreated FK slot
 --     * Slot: BpmnDataInputAssociation_uid Description: Autocreated FK slot
 --     * Slot: BpmnDataOutputAssociation_uid Description: Autocreated FK slot
---     * Slot: from_uid Description: The expression the value is copied from.
---     * Slot: to_uid Description: The expression the value is copied to.
+--     * Slot: from_expression_uid Description: The expression the value is copied from.
+--     * Slot: to_expression_uid Description: The expression the value is copied to.
 --     * Slot: extension_elements_id Description: The element's extension content, such as Fluxnova's settings.
 -- # Class: BpmnAssociation Description: A link between an artifact, such as a text annotation, and another element.
 --     * Slot: uid
@@ -4968,8 +4968,8 @@ CREATE TABLE "FluxnovaMembership" (
 	FOREIGN KEY(user_id) REFERENCES "FluxnovaUser" (id),
 	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id)
 );
-CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
 CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
+CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
 
 CREATE TABLE "FluxnovaTenantMembership" (
 	id TEXT NOT NULL,
@@ -8158,15 +8158,15 @@ CREATE TABLE "BpmnAssignment" (
 	"BpmnDataAssociation_uid" INTEGER,
 	"BpmnDataInputAssociation_uid" INTEGER,
 	"BpmnDataOutputAssociation_uid" INTEGER,
-	from_uid INTEGER NOT NULL,
-	to_uid INTEGER NOT NULL,
+	from_expression_uid INTEGER NOT NULL,
+	to_expression_uid INTEGER NOT NULL,
 	extension_elements_id INTEGER,
 	PRIMARY KEY (uid),
 	FOREIGN KEY("BpmnDataAssociation_uid") REFERENCES "BpmnDataAssociation" (uid),
 	FOREIGN KEY("BpmnDataInputAssociation_uid") REFERENCES "BpmnDataInputAssociation" (uid),
 	FOREIGN KEY("BpmnDataOutputAssociation_uid") REFERENCES "BpmnDataOutputAssociation" (uid),
-	FOREIGN KEY(from_uid) REFERENCES "BpmnFrom" (uid),
-	FOREIGN KEY(to_uid) REFERENCES "BpmnTo" (uid),
+	FOREIGN KEY(from_expression_uid) REFERENCES "BpmnFrom" (uid),
+	FOREIGN KEY(to_expression_uid) REFERENCES "BpmnTo" (uid),
 	FOREIGN KEY(extension_elements_id) REFERENCES "BpmnExtensionElements" (id)
 );
 CREATE INDEX "ix_BpmnAssignment_uid" ON "BpmnAssignment" (uid);

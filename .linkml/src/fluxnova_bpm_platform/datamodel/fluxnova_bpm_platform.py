@@ -4968,19 +4968,19 @@ class BpmnAssignment(BpmnBaseElement):
     class_name: ClassVar[str] = "BpmnAssignment"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.BpmnAssignment
 
-    from_: Union[dict, "BpmnFrom"] = None
-    to: Union[dict, "BpmnTo"] = None
+    from_expression: Union[dict, "BpmnFrom"] = None
+    to_expression: Union[dict, "BpmnTo"] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.from_):
-            self.MissingRequiredField("from_")
-        if not isinstance(self.from_, BpmnFrom):
-            self.from_ = BpmnFrom(**as_dict(self.from_))
+        if self._is_empty(self.from_expression):
+            self.MissingRequiredField("from_expression")
+        if not isinstance(self.from_expression, BpmnFrom):
+            self.from_expression = BpmnFrom(**as_dict(self.from_expression))
 
-        if self._is_empty(self.to):
-            self.MissingRequiredField("to")
-        if not isinstance(self.to, BpmnTo):
-            self.to = BpmnTo(**as_dict(self.to))
+        if self._is_empty(self.to_expression):
+            self.MissingRequiredField("to_expression")
+        if not isinstance(self.to_expression, BpmnTo):
+            self.to_expression = BpmnTo(**as_dict(self.to_expression))
 
         super().__post_init__(**kwargs)
         self.unknown_element_type = str(self.class_name)
@@ -10838,11 +10838,11 @@ slots.bpmnAdHocSubProcess__cancel_remaining_instances = Slot(uri=FLUXNOVA_BPM_PL
 slots.bpmnAdHocSubProcess__completion_condition = Slot(uri=FLUXNOVA_BPM_PLATFORM.completion_condition, name="bpmnAdHocSubProcess__completion_condition", curie=FLUXNOVA_BPM_PLATFORM.curie('completion_condition'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAdHocSubProcess__completion_condition, domain=None, range=Optional[Union[dict, BpmnCompletionCondition]])
 
-slots.bpmnAssignment__from = Slot(uri=FLUXNOVA_BPM_PLATFORM['from'], name="bpmnAssignment__from", curie=FLUXNOVA_BPM_PLATFORM.curie('from'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssignment__from, domain=None, range=Union[dict, BpmnFrom])
+slots.bpmnAssignment__from_expression = Slot(uri=FLUXNOVA_BPM_PLATFORM.from_expression, name="bpmnAssignment__from_expression", curie=FLUXNOVA_BPM_PLATFORM.curie('from_expression'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssignment__from_expression, domain=None, range=Union[dict, BpmnFrom])
 
-slots.bpmnAssignment__to = Slot(uri=FLUXNOVA_BPM_PLATFORM.to, name="bpmnAssignment__to", curie=FLUXNOVA_BPM_PLATFORM.curie('to'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssignment__to, domain=None, range=Union[dict, BpmnTo])
+slots.bpmnAssignment__to_expression = Slot(uri=FLUXNOVA_BPM_PLATFORM.to_expression, name="bpmnAssignment__to_expression", curie=FLUXNOVA_BPM_PLATFORM.curie('to_expression'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssignment__to_expression, domain=None, range=Union[dict, BpmnTo])
 
 slots.bpmnAssociation__source_ref = Slot(uri=FLUXNOVA_BPM_PLATFORM.source_ref, name="bpmnAssociation__source_ref", curie=FLUXNOVA_BPM_PLATFORM.curie('source_ref'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnAssociation__source_ref, domain=None, range=str)

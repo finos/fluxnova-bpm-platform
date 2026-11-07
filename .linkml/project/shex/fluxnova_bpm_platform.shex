@@ -102,8 +102,8 @@ linkml:Sparqlpath xsd:string
 <BpmnAssignment> CLOSED {
     (  $<BpmnAssignment_tes> (  &<BpmnBaseElement_tes> ;
           rdf:type [ <BpmnBaseElement> ] ? ;
-          <from> @<BpmnFrom> ;
-          <to> @<BpmnTo>
+          <from_expression> @<BpmnFrom> ;
+          <to_expression> @<BpmnTo>
        ) ;
        rdf:type [ <BpmnAssignment> ] ?
     )

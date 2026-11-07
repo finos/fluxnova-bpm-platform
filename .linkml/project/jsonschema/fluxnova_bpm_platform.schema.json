@@ -771,7 +771,7 @@
                     ],
                     "description": "The element's extension content, such as Fluxnova's settings."
                 },
-                "from": {
+                "from_expression": {
                     "$ref": "#/$defs/BpmnFrom",
                     "description": "The expression the value is copied from."
                 },
@@ -782,14 +782,14 @@
                         "null"
                     ]
                 },
-                "to": {
+                "to_expression": {
                     "$ref": "#/$defs/BpmnTo",
                     "description": "The expression the value is copied to."
                 }
             },
             "required": [
-                "from",
-                "to"
+                "from_expression",
+                "to_expression"
             ],
             "title": "BpmnAssignment",
             "type": "object"

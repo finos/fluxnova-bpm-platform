@@ -106,13 +106,13 @@
       "ordering": {
          "@id": "ordering"
       },
-      "from": {
+      "from_expression": {
          "@type": "@id",
-         "@id": "from"
+         "@id": "from_expression"
       },
-      "to": {
+      "to_expression": {
          "@type": "@id",
-         "@id": "to"
+         "@id": "to_expression"
       },
       "association_direction": {
          "@context": {

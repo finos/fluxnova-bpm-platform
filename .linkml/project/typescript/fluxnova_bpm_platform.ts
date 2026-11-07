@@ -2100,9 +2100,9 @@ export interface BpmnArtifact extends BpmnBaseElement {
  */
 export interface BpmnAssignment extends BpmnBaseElement {
     /** The expression the value is copied from. */
-    from: BpmnFrom,
+    from_expression: BpmnFrom,
     /** The expression the value is copied to. */
-    to: BpmnTo,
+    to_expression: BpmnTo,
 }
 
 

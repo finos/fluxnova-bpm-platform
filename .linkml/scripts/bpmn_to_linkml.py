@@ -131,6 +131,11 @@ EXTENSION_TEXT = {
     "FluxnovaValue",
 }
 
+# Child slots renamed from their XML names: an assignment's from and to, since from
+# is a Python keyword and a slot LOKF defines with another meaning. The annotation
+# xml_name keeps the element's name.
+CHILD_RENAMES = {"from": "from_expression", "to": "to_expression"}
+
 ATTRIBUTE_RANGES = {
     "string": "string",
     "boolean": "boolean",
@@ -603,7 +608,7 @@ class Converter:
 
     def child_slot(self, owner: str, child: Child) -> tuple[str, dict]:
         held = self.types[child.type_name]
-        name = snake(held.xml_name)
+        name = CHILD_RENAMES.get(snake(held.xml_name), snake(held.xml_name))
         if child.collection:
             name = plural(name)
         slot: dict = {"description": self.slot_description(owner, name)}

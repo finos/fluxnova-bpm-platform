@@ -7610,7 +7610,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnAssignment__from",
+      "name": "bpmnAssignment__from_expression",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7620,8 +7620,8 @@
       ],
       "description": "The expression the value is copied from.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/from",
-      "alias": "from",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/from_expression",
+      "alias": "from_expression",
       "owner": "BpmnAssignment",
       "domain_of": [
         "BpmnAssignment"
@@ -7633,7 +7633,7 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "bpmnAssignment__to",
+      "name": "bpmnAssignment__to_expression",
       "annotations": [
         {
           "tag": "xml_name",
@@ -7643,8 +7643,8 @@
       ],
       "description": "The expression the value is copied to.",
       "from_schema": "https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic",
-      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/to",
-      "alias": "to",
+      "slot_uri": "https://w3id.org/lmodel/fluxnova-bpm-platform/to_expression",
+      "alias": "to_expression",
       "owner": "BpmnAssignment",
       "domain_of": [
         "BpmnAssignment"
@@ -25381,13 +25381,13 @@
         "bpmnBaseElement__id",
         "bpmnBaseElement__documentation",
         "bpmnBaseElement__extension_elements",
-        "bpmnAssignment__from",
-        "bpmnAssignment__to"
+        "bpmnAssignment__from_expression",
+        "bpmnAssignment__to_expression"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "from",
+          "name": "from_expression",
           "annotations": [
             {
               "tag": "xml_name",
@@ -25402,7 +25402,7 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "to",
+          "name": "to_expression",
           "annotations": [
             {
               "tag": "xml_name",

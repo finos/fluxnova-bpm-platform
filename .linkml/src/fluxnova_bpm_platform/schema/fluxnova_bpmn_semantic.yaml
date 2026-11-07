@@ -268,14 +268,14 @@ classes:
     in_subset:
       - bpmn_semantic
     attributes:
-      from:
+      from_expression:
         description: The expression the value is copied from.
         range: BpmnFrom
         inlined: true
         required: true
         annotations:
           xml_name: from
-      to:
+      to_expression:
         description: The expression the value is copied to.
         range: BpmnTo
         inlined: true

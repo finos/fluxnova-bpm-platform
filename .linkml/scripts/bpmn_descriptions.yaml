@@ -375,7 +375,7 @@ slots:
   fluxnova_writeable: Whether the property can be written.
   font: The font the labels are drawn in.
   form_fields: The fields of the form.
-  from: The expression the value is copied from.
+  from_expression: The expression the value is copied from.
   gateway_direction: Whether the gateway splits flows, joins them, does both, or is not said.
   height: The height of the rectangle.
   id: The element's id, unique within its document.
@@ -508,7 +508,7 @@ slots:
   time_date: The timer's point in time.
   time_duration: The timer's duration.
   timer_event_definition: The timer of a listener that runs on a timeout.
-  to: The expression the value is copied to.
+  to_expression: The expression the value is copied to.
   transformation: The expression that changes the data as it is copied.
   triggered_by_event: Whether the sub-process is an event sub-process, started by an event.
   type: The QName of the element's type.

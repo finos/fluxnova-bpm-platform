@@ -188,8 +188,8 @@ type BpmnAssignment
     id: String
     documentation: [BpmnDocumentation]
     extensionElements: BpmnExtensionElements
-    from: BpmnFrom!
-    to: BpmnTo!
+    fromExpression: BpmnFrom!
+    toExpression: BpmnTo!
   }
 
 type BpmnAssociation

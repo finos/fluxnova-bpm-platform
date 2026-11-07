@@ -155,9 +155,9 @@ message BpmnAssignment {
   // The element's extension content, such as Fluxnova's settings.
   BpmnExtensionElements extension_elements = 4;
   // The expression the value is copied from.
-  BpmnFrom from = 5;
+  BpmnFrom from_expression = 5;
   // The expression the value is copied to.
-  BpmnTo to = 6;
+  BpmnTo to_expression = 6;
 }
 // A link between an artifact, such as a text annotation, and another element.
 message BpmnAssociation {

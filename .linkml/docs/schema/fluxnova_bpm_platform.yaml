@@ -5621,16 +5621,16 @@ slots:
     range: BpmnCompletionCondition
     inlined: true
     inlined_as_list: true
-  bpmnAssignment__from:
-    name: bpmnAssignment__from
+  bpmnAssignment__from_expression:
+    name: bpmnAssignment__from_expression
     annotations:
       xml_name:
         tag: xml_name
         value: from
     description: The expression the value is copied from.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:from
-    alias: from
+    slot_uri: fluxnova_bpm_platform:from_expression
+    alias: from_expression
     owner: BpmnAssignment
     domain_of:
     - BpmnAssignment
@@ -5638,16 +5638,16 @@ slots:
     required: true
     inlined: true
     inlined_as_list: true
-  bpmnAssignment__to:
-    name: bpmnAssignment__to
+  bpmnAssignment__to_expression:
+    name: bpmnAssignment__to_expression
     annotations:
       xml_name:
         tag: xml_name
         value: to
     description: The expression the value is copied to.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpmn_semantic
-    slot_uri: fluxnova_bpm_platform:to
-    alias: to
+    slot_uri: fluxnova_bpm_platform:to_expression
+    alias: to_expression
     owner: BpmnAssignment
     domain_of:
     - BpmnAssignment
@@ -18891,11 +18891,11 @@ classes:
     - bpmnBaseElement__id
     - bpmnBaseElement__documentation
     - bpmnBaseElement__extension_elements
-    - bpmnAssignment__from
-    - bpmnAssignment__to
+    - bpmnAssignment__from_expression
+    - bpmnAssignment__to_expression
     attributes:
-      from:
-        name: from
+      from_expression:
+        name: from_expression
         annotations:
           xml_name:
             tag: xml_name
@@ -18904,8 +18904,8 @@ classes:
         range: BpmnFrom
         required: true
         inlined: true
-      to:
-        name: to
+      to_expression:
+        name: to_expression
         annotations:
           xml_name:
             tag: xml_name
