@@ -16,7 +16,9 @@ reference to another element). This script reads those methods from FINOS's tree
   a ``refers_to`` annotation, since BPMN lets an element have no id;
 - character content as ``text_content`` where the BPMN XML Schema included with the model
   API (Semantic.xsd) makes the element's type mixed, and on the extension elements the
-  engine reads as text.
+  engine reads as text;
+- the children the model API reads from the document rather than from registerType,
+  such as an extensionElements' elements, as a slot named after its getter.
 
 Descriptions come from scripts/bpmn_descriptions.yaml, in this project's own words.
 Usage::

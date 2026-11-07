@@ -1,9 +1,10 @@
 """Holds the schema to what FINOS's tree states.
 
 The converters write every module from FINOS's tree beside .linkml/. These tests rerun
-them in check mode, then check what they wrote against the sources themselves: each
-table, column and foreign key of the engine's H2 DDL, the state codes and values the
-engine's Java classes define, and each element type the BPMN model API registers.
+them in check mode. Then they check what they wrote against the sources: each table,
+column, key, default and foreign key of the engine's H2 DDL, each table's Javadoc, the
+state codes and values the engine's Java classes define, and each element type the
+BPMN model API registers.
 """
 
 import re
