@@ -2,6 +2,7 @@
 
 ## 2026-11-07
 
+* **Prose**: reworded 4 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Changed**: two concepts pin the commit that changed their sources.
 * **Changed**: The schema's adapt copy says a release carries it once `KNOWLEDGE_RELEASE_ENABLED` is `true`.
 * **Changed**: Licence and attribution says the knowledge bundle is under CC BY 4.0, as NOTICE now does.

@@ -27,7 +27,7 @@ status: draft
 
 # Fluxnova LinkML schema
 
-The umbrella `fluxnova_bpm_platform.yaml` imports the engine tables module and the BPMN modules, and its root class is `FluxnovaPlatformData`, which holds a list of rows for each table.[^about.md] Two converters write every module from FINOS's tree: `scripts/fluxnova_to_linkml.py` from the engine's H2 DDL and its Java API's Javadoc, and `scripts/bpmn_to_linkml.py` from the model API's `registerType` methods.[^linkml-readme.md] Every module carries version 3.1.1 and a source at the release's commit.[^about.md]
+The umbrella `fluxnova_bpm_platform.yaml` imports the engine tables module and the BPMN modules. Its root class is `FluxnovaPlatformData`, which holds a list of rows for each table.[^about.md] Two converters write every module from FINOS's tree: `scripts/fluxnova_to_linkml.py` from the engine's H2 DDL and its Java API's Javadoc, and `scripts/bpmn_to_linkml.py` from the model API's `registerType` methods.[^linkml-readme.md] Every module carries version 3.1.1 and a source at the release's commit.[^about.md]
 
 [^about.md]: .linkml/docs/about.md, The modules
 [^linkml-readme.md]: .linkml/README.md, What it models
