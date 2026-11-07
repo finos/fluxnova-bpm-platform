@@ -17,6 +17,6 @@ status: draft
 
 # Lint and docs (lint-and-docs.yaml)
 
-The workflow checks only what this project adds, and leaves FINOS's files as FINOS writes them. It also runs on Mondays at 06:00 UTC to catch link rot.[^lint-and-docs.yaml]
+The workflow checks only what this project adds, and leaves FINOS's files as FINOS writes them. It also runs on Mondays at 06:00 UTC to find links that no longer work.[^lint-and-docs.yaml]
 
 [^lint-and-docs.yaml]: .github/workflows/lint-and-docs.yaml

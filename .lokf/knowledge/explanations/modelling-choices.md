@@ -23,7 +23,7 @@ status: draft
 
 # Modelling choices
 
-A column that holds the engine's integer codes, such as `SUSPENSION_STATE_`, stays an integer bounded by the codes, and a comment names each code.[^about.md] A BPMN reference is a string, since BPMN lets an element have no id.[^about.md] An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a BPMN slot whose name LOKF defines, such as `id`, the `bpmn_` prefix.[^about.md] Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so none is a neighbour's.[^linkml-readme.md]
+A column that holds the engine's integer codes, such as `SUSPENSION_STATE_`, stays an integer bounded by the codes, and a comment names each code.[^about.md] A BPMN reference is a string, since BPMN lets an element have no id.[^about.md] An attribute in Fluxnova's extension namespace carries the `fluxnova_` prefix, and a BPMN slot whose name LOKF defines, such as `id`, the `bpmn_` prefix.[^about.md] Every class carries the `Fluxnova`, `Bpmn`, `Di` or `Dc` prefix, so no class name is also a neighbour's.[^linkml-readme.md]
 
 [^about.md]: .linkml/docs/about.md
 [^linkml-readme.md]: .linkml/README.md, Knowledge Trust Ladder (KTL)

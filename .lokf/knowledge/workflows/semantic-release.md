@@ -17,6 +17,6 @@ status: draft
 
 # Semantic release (semantic-release.yml)
 
-The workflow promotes `.linkml/CHANGELOG.md`'s Unreleased section, tags the commit and publishes the release. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, it dispatches the knowledge release.[^semantic-release.yml]
+The workflow retitles `.linkml/CHANGELOG.md`'s Unreleased section, tags the commit and publishes the release. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, it dispatches the knowledge release.[^semantic-release.yml]
 
 [^semantic-release.yml]: .github/workflows/semantic-release.yml

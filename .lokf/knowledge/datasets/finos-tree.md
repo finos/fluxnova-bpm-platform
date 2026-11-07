@@ -25,7 +25,7 @@ verified:
 
 # FINOS's tree and the source pins
 
-`tests/upstream_tree.tsv` lists every file of FINOS's merged commit by its git object hash, and a test holds each file here to it.[^test_upstream.py] `scripts/upstream_pins.tsv` lists every file the converters read, with its hash at the tag `v3.1.1`, and a test checks that the converters read no other file.[^test_upstream.py] `just pin-finos-tree <commit>` and `just pin-sources` rewrite the two lists.[^project.justfile]
+`tests/upstream_tree.tsv` lists every file of FINOS's merged commit by its git object hash, and a test checks each of those files in this repository against its hash.[^test_upstream.py] `scripts/upstream_pins.tsv` lists every file the converters read, with its hash at the tag `v3.1.1`, and a test checks that the converters read no other file.[^test_upstream.py] `just pin-finos-tree <commit>` and `just pin-sources` rewrite the two lists.[^project.justfile]
 
 [^test_upstream.py]: .linkml/tests/test_upstream.py
 [^project.justfile]: .linkml/project.justfile, Upstream

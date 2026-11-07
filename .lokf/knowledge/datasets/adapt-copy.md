@@ -20,6 +20,6 @@ status: draft
 
 # The schema's adapt copy
 
-`just lokf-adapt` writes `.lokf/schema/fluxnova_bpm_platform.yaml` from the schema, and `just lokf-adapt-check` says when it is stale.[^linkml-readme.md] The copy roots on LOKF's `Concept` every class that carries the schema's identifier, `id`, and the BPMN classes carry none.[^linkml-readme.md] A release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.[^linkml-readme.md]
+`just lokf-adapt` writes `.lokf/schema/fluxnova_bpm_platform.yaml` from the schema, and `just lokf-adapt-check` says when it is stale.[^linkml-readme.md] In the copy, every class that carries the schema's identifier, `id`, descends from LOKF's `Concept`. The BPMN classes carry no identifier.[^linkml-readme.md] A release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.[^linkml-readme.md]
 
 [^linkml-readme.md]: .linkml/README.md, Knowledge Trust Ladder (KTL)

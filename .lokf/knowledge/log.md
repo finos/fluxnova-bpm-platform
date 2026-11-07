@@ -2,6 +2,7 @@
 
 ## 2026-11-07
 
+* **Prose**: reworded 12 concept bodies in plain English. No fact, link, number or frontmatter changed.
 * **Added**: Fluxnova BPM Platform 3.1.1 (FINOS), from `.linkml/scripts/edition.py`.
 * **Added**: BPMN 2.0 (OMG), from `.linkml/scripts/bpmn_to_linkml.py`.
 * **Added**: Fluxnova LinkML schema, from `.linkml/src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`.

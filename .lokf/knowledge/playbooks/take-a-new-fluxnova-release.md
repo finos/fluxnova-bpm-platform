@@ -22,7 +22,7 @@ status: draft
 # Take a new Fluxnova release or FINOS tree
 
 1. Merge `upstream/main`, or the release's commit.[^contributing.md]
-2. Run `just pin-finos-tree <commit>` and move `scripts/edition.py`.[^contributing.md]
+2. Run `just pin-finos-tree <commit>` and update `scripts/edition.py`.[^contributing.md]
 3. Run `just gen-schema` and `just pin-sources`, then regenerate.[^contributing.md]
 4. Merge with a merge commit, since a squash loses FINOS's history.[^contributing.md]
 

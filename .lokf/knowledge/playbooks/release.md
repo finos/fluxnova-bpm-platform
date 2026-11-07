@@ -22,7 +22,7 @@ status: draft
 
 - Write `## [Unreleased]` in `.linkml/CHANGELOG.md` as you go, since the release job refuses an empty one.[^contributing.md]
 - Only `feat:`, `fix:`, `security:` and a breaking `!` start a release, and FINOS's commits in a merge count too.[^contributing.md]
-- The `v0.0.0` baseline tag sits on the merge of FINOS's tree, and `.releaserc.json` maps a breaking change to a minor release.[^contributing.md]
+- The `v0.0.0` baseline tag is on the merge of FINOS's tree, and `.releaserc.json` maps a breaking change to a minor release.[^contributing.md]
 - Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, the knowledge release attaches the schema copy and the bundle when either changed.[^contributing.md]
 
 [^contributing.md]: .linkml/CONTRIBUTING.md, Releasing (maintainers)

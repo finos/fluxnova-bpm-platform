@@ -17,6 +17,6 @@ status: draft
 
 # Licence and attribution
 
-The schema project and what it adds beside FINOS's tree are this project's, under the Apache License 2.0.[^notice] Everything else is FINOS's, unchanged, under FINOS's terms.[^notice] Where an engine class or slot has a description, its first sentence comes from the Javadoc of the engine's Java API, and is FINOS's and Camunda's words.[^notice] The BPMN descriptions are this project's, and the schema names BPMN's elements without copying the specification.[^notice]
+The schema project and what it adds beside FINOS's tree are this project's, under the Apache License 2.0.[^notice] Everything else is FINOS's, unchanged, under FINOS's terms.[^notice] Where an engine class or slot has a description, its first sentence comes from the Javadoc of the engine's Java API. Those words are FINOS's and Camunda's.[^notice] The BPMN descriptions are this project's, and the schema names BPMN's elements without copying the specification.[^notice]
 
 [^notice]: .linkml/NOTICE

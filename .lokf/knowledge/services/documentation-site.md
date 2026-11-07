@@ -17,6 +17,6 @@ status: draft
 
 # Documentation site
 
-The site is served at `https://lmodel.github.io/fluxnova-bpm-platform`.[^site.config.mjs] Its home page is `.linkml/README.md`, its docs pages come from `.linkml/docs`, and its changelog from `.linkml/CHANGELOG.md`.[^site.config.mjs] FINOS's own `docs/` stays out.[^site.config.mjs]
+The site is served at `https://lmodel.github.io/fluxnova-bpm-platform`.[^site.config.mjs] Its home page is `.linkml/README.md`, its docs pages come from `.linkml/docs`, and its changelog from `.linkml/CHANGELOG.md`.[^site.config.mjs] The site leaves out FINOS's own `docs/`.[^site.config.mjs]
 
 [^site.config.mjs]: website/site.config.mjs

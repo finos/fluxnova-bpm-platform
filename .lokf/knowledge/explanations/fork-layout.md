@@ -25,7 +25,7 @@ status: draft
 
 # How the fork is laid out
 
-FINOS's tree sits unchanged at the root, and this project sits beside it in `.linkml/`, `.lokf/` and `website/`.[^linkml-readme.md] NOTICE lists every path this project adds, among them the `linkml_schema` and `knowledge_bundle` links and `llms.txt`.[^notice] FINOS's own workflows stay in place, and SECURITY.md asks the maintainer to turn them off in this fork's settings.[^security.md]
+FINOS's tree is unchanged at the root, and this project's files are beside it in `.linkml/`, `.lokf/` and `website/`.[^linkml-readme.md] NOTICE lists every path this project adds, among them the `linkml_schema` and `knowledge_bundle` links and `llms.txt`.[^notice] FINOS's own workflows stay in place, and SECURITY.md asks the maintainer to turn them off in this fork's settings.[^security.md]
 
 [^linkml-readme.md]: .linkml/README.md, What it models
 [^notice]: .linkml/NOTICE

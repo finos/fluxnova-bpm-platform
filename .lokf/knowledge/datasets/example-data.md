@@ -21,7 +21,7 @@ status: draft
 
 # Example data
 
-`tests/data/valid/<Class>-<anything>.yaml` must validate against the class and load as its dataclass, and `tests/data/invalid/` must fail.[^test_data.py] The examples named `-vendor` mirror the values of FINOS's `MockProvider.java` test fixtures.[^fluxnovatask-vendor.yaml]
+`tests/data/valid/<Class>-<anything>.yaml` must validate against the class and load as its dataclass, and `tests/data/invalid/` must fail.[^test_data.py] The examples named `-vendor` use the values of FINOS's `MockProvider.java` test fixtures.[^fluxnovatask-vendor.yaml]
 
 [^test_data.py]: .linkml/tests/test_data.py
 [^fluxnovatask-vendor.yaml]: .linkml/tests/data/valid/FluxnovaTask-vendor.yaml
