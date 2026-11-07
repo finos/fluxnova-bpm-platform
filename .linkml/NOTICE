@@ -2,8 +2,9 @@ FINOS Fluxnova BPM Platform LinkML Schema (fluxnova-bpm-platform)
 Copyright 2026 Noel McLoughlin
 
 This repository is a fork of FINOS's Fluxnova BPM Platform. Everything in it is
-under the Apache License, Version 2.0, and the copyright in each part is its
-author's, as this notice sets out by path.
+under the Apache License, Version 2.0, except the knowledge bundle, which is
+under CC BY 4.0. The copyright in each part is its author's, as this notice
+sets out by path.
 
 The schema project, everything under .linkml/, and what this project adds beside
 FINOS's tree (.lokf/, knowledge_bundle, linkml_schema, website/, llms.txt,
@@ -13,6 +14,10 @@ FINOS's tree (.lokf/, knowledge_bundle, linkml_schema, website/, llms.txt,
 main.yaml, semantic-release.yml and upstream-watch.yaml) is this project's,
 licensed under the Apache License, Version 2.0 (see LICENSE beside this file),
 except for what the sections below list.
+
+The concepts under .lokf/knowledge/ are this project's work, licensed under
+the Creative Commons Attribution 4.0 International Public License (CC BY 4.0,
+https://creativecommons.org/licenses/by/4.0/), as .lokf/schema/lokf.yaml states.
 
 Everything else is FINOS's, unchanged, and under FINOS's terms: LICENSE and
 NOTICE at the repository's root.

@@ -40,7 +40,7 @@ Run `just` from this folder to list the project's [just](https://github.com/case
 
 ## Knowledge Trust Ladder (KTL)
 
-`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) sidecar. Its domain schema, `.lokf/schema/fluxnova_bpm_platform.yaml`, is the copy `just lokf-adapt` writes from `src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. A release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.
+`.lokf/` holds this project's [KTL](https://w3id.org/ktl/) sidecar. Its domain schema, `.lokf/schema/fluxnova_bpm_platform.yaml`, is the copy `just lokf-adapt` writes from `src/fluxnova_bpm_platform/schema/fluxnova_bpm_platform.yaml`, and `just lokf-adapt-check` says when it is stale. Edit the source, never the copy. Once `KNOWLEDGE_RELEASE_ENABLED` is `true`, a release carries the copy as `schema-<tag>-fluxnova-bpm-platform.yaml`.
 
 In Obsidian, add these to the *Known LOKF types* setting of the KTL Registrar and KTL Curator plugins:
 
@@ -58,4 +58,4 @@ This project uses the template [linkml-project-copier](https://github.com/linkml
 
 The schema project is under the [Apache License 2.0](LICENSE), and the bundle under CC BY 4.0.
 
-Fluxnova and FINOS's tree are FINOS's, under the [Apache License 2.0](../LICENSE). The engine's descriptions are taken from its Javadoc under the same terms, and BPMN is the Object Management Group's. [NOTICE](NOTICE) says what comes from where. This project is not a FINOS project, and neither FINOS nor OMG endorses it.
+Fluxnova and FINOS's tree are FINOS's, under the [Apache License 2.0](../LICENSE). Where the engine's Javadoc describes a class or slot, the schema takes its description from it, under the same terms, and BPMN is the Object Management Group's. [NOTICE](NOTICE) says what comes from where. This project is not a FINOS project, and neither FINOS nor OMG endorses it.

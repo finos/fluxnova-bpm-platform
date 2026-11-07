@@ -2,6 +2,8 @@
 
 ## 2026-11-07
 
+* **Changed**: The schema's adapt copy says a release carries it once `KNOWLEDGE_RELEASE_ENABLED` is `true`.
+* **Changed**: Licence and attribution says the knowledge bundle is under CC BY 4.0, as NOTICE now does.
 * **Changed**: Engine tables module says each class has only its table's columns, keys and defaults, and each table's Javadoc.
 * **Changed**: BPMN modules says what extension elements, parameters and lists hold, and that FINOS's BPMN files are checked.
 * **Changed**: What the schema leaves out names the columns' lengths and what the BPMN model API does not register.
