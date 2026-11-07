@@ -90,7 +90,9 @@ export const PAGES = [];
 // and .linkml/ whose justfile has a gen-doc recipe, else the sidecar's
 // domain schema. null shows no schema.
 //   export const SCHEMA = { dir: "docs/elements", build: "just gen-doc" };
-export const SCHEMA = { dir: ".linkml/docs/elements", build: "just --justfile .linkml/justfile gen-doc" };
+// gen-doc-pages writes the pages only: gen-doc would also rewrite the tracked
+// schema copy in .linkml/docs/schema/ with the time of the checkout.
+export const SCHEMA = { dir: ".linkml/docs/elements", build: "just --justfile .linkml/justfile gen-doc-pages" };
 
 // The data: a folder of SQLite databases and their Datasette metadata, served
 // under /browse/ with a page that opens each in Datasette Lite, and the

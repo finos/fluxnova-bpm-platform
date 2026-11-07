@@ -26,6 +26,11 @@ check-schema:
   uv run python scripts/fluxnova_to_linkml.py --check
   uv run python scripts/bpmn_to_linkml.py --check
 
+# Write the schema's pages into docs/elements for the website, and leave docs/schema as it is
+[group('model development')]
+gen-doc-pages:
+  uv run gen-doc {{gen_doc_args}} -d {{docdir}} {{source_schema_path}}
+
 # ============ Upstream ============
 
 # Report what has moved in FINOS's repository since the pins
