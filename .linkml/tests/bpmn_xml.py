@@ -2,15 +2,13 @@
 
 The reader finds each element's class by the ``xml_namespace`` and ``xml_name``
 annotations the converter writes, and each attribute's and child's slot by its
-``xml_name``. A child goes to the slot whose range is its class or an ancestor
-of it, with ``element_type`` naming its class where that differs. A child that
-only holds a reference, such as ``incoming``, gives its text to the slot of its
-name. Fluxnova's namespace, and Activiti's, which is deprecated, read as
-Camunda's, as the model API reads them.
-
-The schema models the namespaces the model API registers. The reader leaves out
-attributes and elements in any other namespace, which BPMN admits as foreign
-content, and counts them in ``Reader.skipped``.
+``xml_name``. A child goes to the slot whose range is its class or an ancestor,
+with ``element_type`` naming its class where the two differ, and a child that only
+holds a reference, such as ``incoming``, gives its text to the slot of its name.
+Fluxnova's namespace, and Activiti's, which is deprecated, read as Camunda's, as
+the model API reads them. The schema models only the namespaces the model API
+registers, so the reader leaves out, and counts in ``Reader.skipped``, the
+attributes and elements of any other, which BPMN admits as foreign content.
 """
 
 from __future__ import annotations

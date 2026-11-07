@@ -134,15 +134,17 @@ EXTENSION_TEXT = {
 }
 
 # Elements whose children the model API reads from the document, not from
-# registerType: each gets a slot, by the name of the model API's getter, that
-# ranges over the root class, so element_type names the class of each child,
-# which XML writes under its own name. BPMN's XML Schema gives extensionElements
-# an xsd:any, and ExtensionElements.getElements() returns its children. An input
-# or output parameter and a map's entry hold one script, list or map as their
-# value (FluxnovaGenericValueElementImpl.getValue()), and a list holds values,
-# scripts, lists and maps (FluxnovaListImpl.getValues()): the slot admits only
-# those, as the engine's BpmnParseUtil reads them. By the element's Java name:
-# the slot, whether it holds many, and the classes it admits.
+# registerType. Each gets a slot named after the model API's getter, which ranges
+# over the root class, so element_type names each child's class; XML writes a
+# child under its own name.
+#
+# extensionElements holds any element: BPMN's XML Schema gives it an xsd:any, and
+# ExtensionElements.getElements() returns its children. An input or output
+# parameter and a map's entry hold one script, list or map as their value
+# (FluxnovaGenericValueElementImpl.getValue()), and a list holds values, scripts,
+# lists and maps (FluxnovaListImpl.getValues()). Their slots admit only those
+# classes, as the engine's BpmnParseUtil reads them. Each entry gives, by the
+# element's Java name, the slot, whether it holds many and the classes it admits.
 _VALUE = ("FluxnovaScript", "FluxnovaList", "FluxnovaMap")
 ANY_CONTENT = {
     "ExtensionElements": ("elements", True, ()),
