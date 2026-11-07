@@ -86,6 +86,11 @@ activiti = "activiti"
 # Camunda's extension attribute camunda:writeable, as the model API names it.
 writeable = "writeable"
 
+# The names of two FINOS test files, which tests/test_bpmn_files.py names.
+[tool.typos.default.extend-identifiers]
+CamundaExtensionsCompatabilityTest = "CamundaExtensionsCompatabilityTest"
+CamundaExtensionsFluxnovaCompatabilityTest = "CamundaExtensionsFluxnovaCompatabilityTest"
+
 [tool.typos.files]
 extend-exclude = [
   # Values copied from FINOS's MockProvider.java, such as aCaseDefnitionId, and
