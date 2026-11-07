@@ -13,7 +13,8 @@ sources:
     title: Knowledge Trust Ladder (KTL)
 generated:
   by: process:ktl-librarian
-  at: "2026-11-07T11:43:22Z"
+  at: "2026-11-07T11:43:55Z"
+  revision: a71fff4ddee5d7e315af09644fae9291cb2e44cc
 status: draft
 ---
 

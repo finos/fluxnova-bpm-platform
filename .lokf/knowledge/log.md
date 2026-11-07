@@ -2,6 +2,7 @@
 
 ## 2026-11-07
 
+* **Changed**: two concepts pin the commit that changed their sources.
 * **Changed**: The schema's adapt copy says a release carries it once `KNOWLEDGE_RELEASE_ENABLED` is `true`.
 * **Changed**: Licence and attribution says the knowledge bundle is under CC BY 4.0, as NOTICE now does.
 * **Changed**: Engine tables module says each class has only its table's columns, keys and defaults, and each table's Javadoc.
