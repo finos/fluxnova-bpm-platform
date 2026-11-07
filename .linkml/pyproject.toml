@@ -3,8 +3,10 @@ requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fluxnova_bpm_platform"
-description = "Fluxnova BPMN Platform - LinkML Schema"
+# Named like lmodel/slsa's slsa-linkml, so the PyPI name says what it holds;
+# the import package stays fluxnova_bpm_platform. PyPI publishing is off.
+name = "fluxnova-bpm-platform-linkml"
+description = "FINOS Fluxnova BPM Platform 3.1.1 (LinkML)"
 authors = [
   {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
 ]
@@ -20,7 +22,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "linkml>=1.9.3",
+    "linkml>=1.12.1",
     "mkdocs-material>=8.2.8",
     "mkdocs-mermaid2-plugin>=1.1.1",
     "mkdocs-pymdownx-material-extras>=2.5.6",
@@ -28,6 +30,9 @@ dev = [
     "mknotebooks>= 0.8.0",
     "ruamel.yaml>=0.18",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fluxnova_bpm_platform"]
 
 # See https://hatch.pypa.io/latest/config/build/#file-selection for how to
 # explicitly include files other than default into the build distributions.

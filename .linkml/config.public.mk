@@ -7,8 +7,8 @@
 # Note:
 # - just works fine with quoted variables of dot-env files like this one
 LINKML_SCHEMA_NAME="fluxnova_bpm_platform"
-LINKML_SCHEMA_AUTHOR="Noel McLoughlin <noel.mcloughlin@tdsecurities.com>"
-LINKML_SCHEMA_DESCRIPTION="Fluxnova BPMN Platform - LinkML Schema"
+LINKML_SCHEMA_AUTHOR="Noel McLoughlin <noel.mcloughlin@gmail.com>"
+LINKML_SCHEMA_DESCRIPTION="FINOS Fluxnova BPM Platform 3.1.1 (LinkML)"
 LINKML_SCHEMA_SOURCE_DIR="src/fluxnova_bpm_platform/schema"
 
 ###### linkml generator variables, used by justfile
