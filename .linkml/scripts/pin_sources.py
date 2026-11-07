@@ -34,8 +34,9 @@ def read_by_converters() -> set[str]:
     opened: set[str] = set()
     real_open = builtins.open
     real_io_open = io.open
+    real_path_open = Path.open
 
-    def record(file, *args, **kwargs):
+    def note(file) -> None:
         path = Path(file).resolve() if isinstance(file, (str, Path)) else None
         if (
             path is not None
@@ -43,16 +44,27 @@ def read_by_converters() -> set[str]:
             and not path.is_relative_to(ROOT)
         ):
             opened.add(path.relative_to(TREE).as_posix())
+
+    def record(file, *args, **kwargs):
+        note(file)
         return real_open(file, *args, **kwargs)
 
+    def record_path(self, *args, **kwargs):
+        note(self)
+        return real_path_open(self, *args, **kwargs)
+
+    # Path.open is replaced too: on Python 3.10, Path.read_text opens a file through
+    # an accessor that holds io.open from before the replacement.
     builtins.open = record
     io.open = record
+    Path.open = record_path
     try:
         bpmn_to_linkml.main(["--check"])
         fluxnova_to_linkml.main(["--check"])
     finally:
         builtins.open = real_open
         io.open = real_io_open
+        Path.open = real_path_open
     return opened
 
 
