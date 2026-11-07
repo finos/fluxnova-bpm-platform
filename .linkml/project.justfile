@@ -4,42 +4,44 @@
 # name in this file is not possible until a known issue in just is fixed,
 # https://github.com/casey/just/issues/2540
 
-# ============== Schema generation (reproducible) ==============
+# ============ The schema, from FINOS's tree ============
 
-# Generate platform LinkML schema from H2 DDL + Javadoc sources
-[group('schema generation')]
-gen-linkml *FLAGS:
-    uv run python scripts/fluxnova_to_linkml.py {{FLAGS}}
+# Write the engine's tables module from the H2 DDL and the engine API's Javadoc
+[group('model development')]
+gen-engine:
+  uv run python scripts/fluxnova_to_linkml.py
 
-# Generate BPMN model LinkML schema from BPMN Java interfaces
-[group('schema generation')]
-gen-bpmn-model *FLAGS:
-    uv run python scripts/fluxnova_bpmn_model_to_linkml.py {{FLAGS}}
+# Write the BPMN modules from the BPMN model API
+[group('model development')]
+gen-bpmn:
+  uv run python scripts/bpmn_to_linkml.py
 
-# Regenerate ALL transformer-produced LinkML schemas (reproducible)
-[group('schema generation')]
-gen-linkml-all: gen-bpmn-model gen-linkml
+# Write every module from FINOS's tree (run after a merge of it)
+[group('model development')]
+gen-schema: gen-engine gen-bpmn
 
-# ============== Schema validation ==============
+# Fail when a module differs from what FINOS's tree gives
+[group('model development')]
+check-schema:
+  uv run python scripts/fluxnova_to_linkml.py --check
+  uv run python scripts/bpmn_to_linkml.py --check
 
-# Lint all generated LinkML schema files
-[group('schema validation')]
-lint-schema:
-    uv run linkml-lint src/fluxnova_bpm_platform/schema/
+# ============ Upstream ============
 
-# Cross-validate generated schema against MyBatis ORM mappings
-[group('schema validation')]
-validate-mybatis:
-    uv run python scripts/fluxnova_mybatis_enrichment.py
+# Report what has moved in FINOS's repository since the pins
+[group('model development')]
+check-upstream:
+  uv run python scripts/check_upstream_release.py
 
-# Run focused pytest scope for the schema transformers
-[group('schema validation')]
-test-transformers:
-    uv run python -m pytest tests/test_fluxnova_to_linkml.py tests/test_schema.py -q
+# Write tests/upstream_tree.tsv from FINOS's tree at a commit, after a merge of it
+[group('model development')]
+pin-finos-tree commit:
+  uv run python scripts/pin_finos_tree.py {{commit}}
 
-# Full schema reproducibility gate: regenerate -> lint -> cross-validate -> test
-[group('schema validation')]
-verify-schema: gen-linkml-all lint-schema validate-mybatis test-transformers
+# Write scripts/upstream_pins.tsv: the files the converters read, at the edition's tag
+[group('model development')]
+pin-sources:
+  uv run python scripts/pin_sources.py
 
 # ============ Knowledge bundle: the adapted domain schema ============
 
