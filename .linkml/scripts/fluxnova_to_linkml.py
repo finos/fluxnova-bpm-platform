@@ -1568,7 +1568,7 @@ class LinkMLGenerator:
             },
             "value": {
                 "range": "string",
-                "description": "Value of this variable instance.",
+                "description": "The row's value.",
                 "annotations": {"sql_column": "VALUE_"},
             },
         }

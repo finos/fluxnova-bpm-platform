@@ -17331,7 +17331,7 @@
                     "type": "string"
                 },
                 "value": {
-                    "description": "Value of this variable instance.",
+                    "description": "The row's value.",
                     "type": [
                         "string",
                         "null"
@@ -20647,7 +20647,7 @@
                     ]
                 },
                 "value": {
-                    "description": "Value of this variable instance.",
+                    "description": "The row's value.",
                     "type": [
                         "string",
                         "null"
@@ -21358,7 +21358,7 @@
                     ]
                 },
                 "value": {
-                    "description": "Value of this variable instance.",
+                    "description": "The row's value.",
                     "type": [
                         "integer",
                         "null"

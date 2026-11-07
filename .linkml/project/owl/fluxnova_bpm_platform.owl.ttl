@@ -4818,7 +4818,7 @@ fluxnova_bpm_platform:validation a owl:ObjectProperty ;
 fluxnova_bpm_platform:value a owl:DatatypeProperty ;
 	rdfs:label "value" ;
 	rdfs:range xsd:string ;
-	skos:definition "The category value's text." , "Value of this variable instance." ;
+	skos:definition "The category value's text." , "The row's value." ;
 	skos:inScheme fluxnova_bpm_platform:fluxnova_bpm_engine , fluxnova_bpm_platform:fluxnova_bpmn_semantic ;
 	fluxnova_bpm_platform:sql_column "VALUE_" ;
 	fluxnova_bpm_platform:xml_name "value" .

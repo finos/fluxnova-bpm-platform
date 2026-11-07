@@ -554,7 +554,7 @@
 --     * Slot: user_id Description: Reference to a user.
 --     * Slot: type Description: Type discriminator.
 --     * Slot: key Description: Business key for the definition.
---     * Slot: value Description: Value of this variable instance.
+--     * Slot: value Description: The row's value.
 --     * Slot: password Description: Hashed password.
 --     * Slot: parent_id Description: Reference to a CaseExecution.
 -- # Class: FluxnovaIdentityLink Description: An identity link is used to associate a task with a certain identity.
@@ -630,7 +630,7 @@
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
 --     * Slot: reporter Description: Identifier of the reporting node.
---     * Slot: value Description: Value of this variable instance.
+--     * Slot: value Description: The row's value.
 --     * Slot: timestamp Description: Time when this log occurred.
 --     * Slot: milliseconds Description: The milliseconds.
 -- # Class: FluxnovaProcessDefinition Description: An object structure representing an executable process composed of activities and transitions.
@@ -651,7 +651,7 @@
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaEngineProperty Description: Property entity in the engine infrastructure.
 --     * Slot: name Description: Human-readable name.
---     * Slot: value Description: Value of this variable instance.
+--     * Slot: value Description: The row's value.
 -- # Abstract Class: FluxnovaResourceDefinition Description: Abstract base for deployable resource definitions (process, case, decision, form).
 --     * Slot: id Description: Unique identifier.
 --     * Slot: key Description: Business key for the definition.
@@ -4968,8 +4968,8 @@ CREATE TABLE "FluxnovaMembership" (
 	FOREIGN KEY(user_id) REFERENCES "FluxnovaUser" (id),
 	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id)
 );
-CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
 CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
+CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
 
 CREATE TABLE "FluxnovaTenantMembership" (
 	id TEXT NOT NULL,

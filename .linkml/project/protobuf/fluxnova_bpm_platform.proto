@@ -3919,7 +3919,7 @@ message FluxnovaDeployment {
 message FluxnovaEngineProperty {
   // Human-readable name.
   string name = 1;
-  // Value of this variable instance.
+  // The row's value.
   string value = 2;
 }
 // One key and value of a map.
@@ -4873,7 +4873,7 @@ message FluxnovaIdentityInfo {
   string type = 3;
   // Business key for the definition.
   string key = 4;
-  // Value of this variable instance.
+  // The row's value.
   string value = 5;
   // Hashed password.
   string password = 6;
@@ -5080,7 +5080,7 @@ message FluxnovaMeterLog {
   string name = 2;
   // Identifier of the reporting node.
   string reporter = 3;
-  // Value of this variable instance.
+  // The row's value.
   int32 value = 4;
   // Time when this log occurred.
   string timestamp = 5;

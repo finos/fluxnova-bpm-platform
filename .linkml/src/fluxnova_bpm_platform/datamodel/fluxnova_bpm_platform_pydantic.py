@@ -6582,7 +6582,7 @@ class FluxnovaIdentityInfo(ConfiguredBaseModel):
                        'BpmnRelationship',
                        'BpmnResourceParameter']} })
     key: Optional[str] = Field(default=None, description="""Business key for the definition.""", json_schema_extra = { "linkml_meta": {'domain_of': ['FluxnovaIdentityInfo', 'FluxnovaResourceDefinition']} })
-    value: Optional[str] = Field(default=None, description="""Value of this variable instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
+    value: Optional[str] = Field(default=None, description="""The row's value.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
@@ -7504,7 +7504,7 @@ class FluxnovaMeterLog(ConfiguredBaseModel):
                        'BpmnSignal']} })
     reporter: Optional[str] = Field(default=None, description="""Identifier of the reporting node.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'REPORTER_'}},
          'domain_of': ['FluxnovaMeterLog']} })
-    value: Optional[int] = Field(default=None, description="""Value of this variable instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
+    value: Optional[int] = Field(default=None, description="""The row's value.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',
@@ -7576,7 +7576,7 @@ class FluxnovaEngineProperty(ConfiguredBaseModel):
                        'BpmnResourceParameter',
                        'BpmnResourceRole',
                        'BpmnSignal']} })
-    value: Optional[str] = Field(default=None, description="""Value of this variable instance.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
+    value: Optional[str] = Field(default=None, description="""The row's value.""", json_schema_extra = { "linkml_meta": {'annotations': {'sql_column': {'tag': 'sql_column', 'value': 'VALUE_'}},
          'domain_of': ['FluxnovaIdentityInfo',
                        'FluxnovaMeterLog',
                        'FluxnovaEngineProperty',

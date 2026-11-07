@@ -3687,7 +3687,7 @@ slots:
       sql_column:
         tag: sql_column
         value: VALUE_
-    description: Value of this variable instance.
+    description: The row's value.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     slot_uri: fluxnova_bpm_platform:value
     owner: FluxnovaEngineProperty
@@ -14436,7 +14436,7 @@ slots:
       sql_column:
         tag: sql_column
         value: VALUE_
-    description: Value of this variable instance.
+    description: The row's value.
     from_schema: https://w3id.org/lmodel/fluxnova-bpm-platform/fluxnova_bpm_engine
     is_a: value
     domain: FluxnovaMeterLog
@@ -28744,6 +28744,6 @@ classes:
     class_uri: fluxnova_bpm_platform:BpmnModelElementInstance
 metamodel_version: 1.12.0
 source_file: fluxnova_bpm_platform.yaml
-source_file_date: '2026-11-07T03:15:21'
+source_file_date: '2026-11-07T04:04:00'
 source_file_size: 2964
 

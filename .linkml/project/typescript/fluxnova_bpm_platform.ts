@@ -1327,7 +1327,7 @@ export interface FluxnovaIdentityInfo {
     type?: string,
     /** Business key for the definition. */
     key?: string,
-    /** Value of this variable instance. */
+    /** The row's value. */
     value?: string,
     /** Hashed password. */
     password?: string,
@@ -1505,7 +1505,7 @@ export interface FluxnovaMeterLog {
     name: string,
     /** Identifier of the reporting node. */
     reporter?: string,
-    /** Value of this variable instance. */
+    /** The row's value. */
     value?: number,
     /** Time when this log occurred. */
     timestamp?: string,
@@ -1535,7 +1535,7 @@ export interface FluxnovaProcessDefinition extends FluxnovaResourceDefinition {
 export interface FluxnovaEngineProperty {
     /** Human-readable name. */
     name: string,
-    /** Value of this variable instance. */
+    /** The row's value. */
     value?: string,
 }
 
