@@ -28,7 +28,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for fluxnova-bpm-platfor
 # Datasets
 
 * [Fluxnova LinkML schema](datasets/fluxnova-linkml-schema.md) - The LinkML schema of Fluxnova 3.1.1: the umbrella `fluxnova_bpm_platform.yaml`, the engine tables module and the BPMN modules, which two converters write from FINOS's tree.
-* [Engine tables module](datasets/engine-tables.md) - The module `fluxnova_bpm_engine`: one class per table of Fluxnova's process engine, with columns as slots, foreign keys as references, state enums and coded state bounds, grouped by area subsets.
+* [Engine tables module](datasets/engine-tables.md) - The module `fluxnova_bpm_engine`: one class per table of Fluxnova's process engine, with columns as slots, foreign keys as references, unique keys, defaults, state enums and coded state bounds, grouped by area subsets.
 * [BPMN modules](datasets/bpmn-modules.md) - The modules `fluxnova_bpmn_core`, `_dc`, `_di`, `_bpmndi`, `_semantic` and `_extension`: one class per element type Fluxnova's BPMN model API registers, with attributes, child elements, references and text.
 * [The schema's adapt copy](datasets/adapt-copy.md) - `.lokf/schema/fluxnova_bpm_platform.yaml`, the copy `lokf adapt` writes from the schema for the bundle: which classes it roots on Concept, which names it renames, and how a release attaches it.
 * [FINOS's tree and the source pins](datasets/finos-tree.md) - The two pin lists: every file of FINOS's merged commit by git object hash, and every file the converters read with its hash at the tag `v3.1.1`, which the tests hold the tree to.
@@ -40,7 +40,7 @@ A [LOKF](https://lokf.nolan-nichols.com) knowledge base for fluxnova-bpm-platfor
 
 * [How the fork is laid out](explanations/fork-layout.md) - Why this repository keeps FINOS's tree unchanged at its root and puts the schema project in `.linkml/`, the bundle in `.lokf/` and the site in `website/`, and what links it adds.
 * [Modelling choices](explanations/modelling-choices.md) - How the schema renders its sources: integer state codes as bounded integers, foreign keys as references, BPMN references as strings, polymorphic children by element_type, and the prefixes on names.
-* [What the schema leaves out](explanations/what-is-left-out.md) - What the schema does not model: the engine's computed columns, the CMMN and DMN models, the rest of Fluxnova, and what the first release removed from the old sidecar.
+* [What the schema leaves out](explanations/what-is-left-out.md) - What the schema does not model: the engine's computed columns and the columns' lengths, the CMMN and DMN models, what the BPMN model API does not register, the rest of Fluxnova, and what the first release removed from the old sidecar.
 
 # Playbooks
 

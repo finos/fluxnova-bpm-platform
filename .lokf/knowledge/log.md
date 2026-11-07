@@ -2,6 +2,10 @@
 
 ## 2026-11-07
 
+* **Changed**: Engine tables module says each class has only its table's columns, keys and defaults, and each table's Javadoc.
+* **Changed**: BPMN modules says what extension elements, parameters and lists hold, and that FINOS's BPMN files are checked.
+* **Changed**: What the schema leaves out names the columns' lengths and what the BPMN model API does not register.
+* **Changed**: Fluxnova LinkML schema says its root holds a list of rows for each table.
 * **Changed**: Engine tables module names whose integer state codes a column holds.
 * **Changed**: How the fork is laid out says this project's folders are beside FINOS's tree; NOTICE lists its other files.
 * **Changed**: Licence and attribution says only the descriptions the Javadoc gives are FINOS's and Camunda's words, as NOTICE now does.
