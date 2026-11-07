@@ -34,7 +34,9 @@ import yaml
 # Constants
 # ---------------------------------------------------------------------------
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# FINOS's tree, which holds the sources the converters read.
+REPO_ROOT = PROJECT_ROOT.parent
 
 DEFAULT_ENGINE_ENTITY_DIR = (
     REPO_ROOT
@@ -65,7 +67,7 @@ DEFAULT_MYBATIS_DIR = (
     / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/impl/mapping/entity"
 )
 DEFAULT_POM_PATH = REPO_ROOT / "pom.xml"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "src/fluxnova_bpm_platform/schema"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "src/fluxnova_bpm_platform/schema"
 
 # Java type -> LinkML range
 JAVA_TYPE_MAP: dict[str, str] = {

@@ -13,6 +13,10 @@ env:
 
 permissions: {}
 
+defaults:
+  run:
+    working-directory: .linkml
+
 jobs:
   test:
 
@@ -36,7 +40,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: ".linkml/uv.lock"
 
       # https://github.com/actions/setup-python
       - name: Set up Python ${{ matrix.python-version }}

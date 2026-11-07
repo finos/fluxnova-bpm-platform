@@ -16,7 +16,9 @@ import yaml
 # Paths
 # ---------------------------------------------------------------------------
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# FINOS's tree, which holds the sources the converters read.
+REPO_ROOT = PROJECT_ROOT.parent
 SQL_DIR = (
     REPO_ROOT
     / "engine"
@@ -31,10 +33,10 @@ SQL_DIR = (
     / "db"
     / "create"
 )
-SCHEMA_DIR = REPO_ROOT / "src" / "fluxnova_bpm_platform" / "schema"
+SCHEMA_DIR = PROJECT_ROOT / "src" / "fluxnova_bpm_platform" / "schema"
 
 # Import the transformer's mapping constants so the test stays in sync
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 from fluxnova_to_linkml import (  # noqa: E402
     TABLE_TO_CLASS,
     SKIP_COLUMNS,

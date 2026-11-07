@@ -28,7 +28,9 @@ from pathlib import Path
 from typing import Optional
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# FINOS's tree, which holds the sources the converters read.
+REPO_ROOT = PROJECT_ROOT.parent
 MYBATIS_DIR = (
     REPO_ROOT
     / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/impl/mapping/entity"

@@ -28,11 +28,13 @@ from fluxnova_to_linkml import (
 )
 
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+# FINOS's tree, which holds the sources the converters read.
+REPO_ROOT = PROJECT_ROOT.parent
 DEFAULT_SOURCE_ROOT = (
     REPO_ROOT / "model-api/bpmn-model/src/main/java/org/finos/fluxnova/bpm/model/bpmn"
 )
-DEFAULT_OUTPUT_PATH = REPO_ROOT / "src/fluxnova_bpm_platform/schema/fluxnova_bpmn_model.yaml"
+DEFAULT_OUTPUT_PATH = PROJECT_ROOT / "src/fluxnova_bpm_platform/schema/fluxnova_bpmn_model.yaml"
 DEFAULT_MODULE_POM_PATH = REPO_ROOT / "model-api/bpmn-model/pom.xml"
 
 SCALAR_TYPES: dict[str, str] = {

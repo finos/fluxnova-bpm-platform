@@ -11,3 +11,7 @@ updates:
       github-actions:
         patterns:
           - "*"
+  - package-ecosystem: uv
+    directory: "/.linkml"
+    schedule:
+      interval: monthly

@@ -14,6 +14,10 @@ concurrency: preview-${{ github.ref }}
 
 permissions: {}
 
+defaults:
+  run:
+    working-directory: .linkml
+
 jobs:
   run:
     # Don't run for PRs from forks which fails due to lack of permissions.
@@ -52,7 +56,7 @@ jobs:
           python-version: ${{ matrix.pyversion }}
           
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: ".linkml/uv.lock"
 
       - name: Install just
         run: |
@@ -71,5 +75,5 @@ jobs:
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1.6.2
         with:
-          source-dir: site/
+          source-dir: .linkml/site/
           preview-branch: gh-pages

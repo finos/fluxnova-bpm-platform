@@ -207,7 +207,7 @@ def multi_table_sql_dir(tmp_path):
 def real_sql_dir():
     """Path to the actual H2 DDL files in the repo."""
     d = (
-        Path(__file__).resolve().parent.parent
+        Path(__file__).resolve().parent.parent.parent
         / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create"
     )
     if not d.is_dir():

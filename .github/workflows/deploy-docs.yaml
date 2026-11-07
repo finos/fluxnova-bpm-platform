@@ -7,6 +7,10 @@ on:  # yamllint disable-line rule:truthy
 
 permissions: {}
 
+defaults:
+  run:
+    working-directory: .linkml
+
 jobs:
   build-docs:
     runs-on: ubuntu-latest
@@ -41,7 +45,7 @@ jobs:
         with:
           python-version: ${{ matrix.pyversion }}
           enable-cache: true
-          cache-dependency-glob: "uv.lock"
+          cache-dependency-glob: ".linkml/uv.lock"
 
       # https://github.com/actions/setup-python
       - name: Set up Python
