@@ -18,6 +18,9 @@ generated:
   at: "2026-11-07T03:39:33Z"
   revision: ada6083c86fc7bc98e6cb7f492265e4662801d6b
 status: draft
+verified:
+  - by: process:ktl-librarian
+    at: "2026-11-07T03:43:36Z"
 ---
 
 # FINOS's tree and the source pins
