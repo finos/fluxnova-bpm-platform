@@ -1,0 +1,22 @@
+# LOKF sidecar for fluxnova-bpm-platform.
+#
+# A small Python "sidecar" that lets this repo validate and project its
+# knowledge/ bundle with the `lokf` toolkit. It does not affect the app build.
+#
+#   uv sync             # install lokf into a local .venv
+#   just lokf-validate  # validate knowledge/ against the LOKF schema
+[project]
+name = "fluxnova-bpm-platform-knowledge"
+version = "0.1.0"
+description = "LOKF knowledge-bundle tooling for fluxnova-bpm-platform."
+# Keep in sync with the `lokf` toolkit's own requires-python floor.
+requires-python = ">=3.10"
+dependencies = [
+    "lokf[build]>=0.9.0",
+    # The recipe runner the workflows use, pinned here so uv.lock checks it
+    # by hash; keep the version in step with the workflows' uvx fallback.
+    "rust-just==1.47.0",
+]
+
+[tool.uv]
+package = false
