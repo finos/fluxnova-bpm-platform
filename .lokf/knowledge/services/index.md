@@ -1,4 +1,3 @@
 # Services
 
-* [Example Service A](example-service-a.md) - Placeholder service; replace with a real service of fluxnova-bpm-platform.
-* [Example Service B](example-service-b.md) - Placeholder service; replace with a real service of fluxnova-bpm-platform.
+* [Documentation site](documentation-site.md) - The knowledge website at https://lmodel.github.io/fluxnova-bpm-platform, built from the bundle, the sidecar README, the docs pages, the changelog and the schema's pages.
