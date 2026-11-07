@@ -1,0 +1,10 @@
+# Invalid: a flow element inside a process carries an attribute its class lacks.
+id: definitions-bad-nested
+target_namespace: http://fluxnova.finos.org/examples/bad
+root_elements:
+  - element_type: BpmnProcess
+    id: invoice
+    flow_elements:
+      - element_type: BpmnStartEvent
+        id: start
+        fluxnova_assignee: demo

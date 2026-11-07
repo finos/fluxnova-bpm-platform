@@ -1,0 +1,4 @@
+# Invalid: bounds need a width as well as x, y and height.
+x: 10.0
+y: 20.0
+height: 80.0

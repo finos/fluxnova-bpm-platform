@@ -1,9 +1,0 @@
-id: bundle-invalid-bad-status
-name: Invalid provenance bundle with unknown status value
-workflow_definitions:
-  - id: wfdef-customer-onboarding-review-1
-    name: Customer onboarding review
-workflow_runs:
-  - id: wfrun-90001
-    workflow_definition: wfdef-customer-onboarding-review-1
-    status: NOT_A_REAL_STATUS

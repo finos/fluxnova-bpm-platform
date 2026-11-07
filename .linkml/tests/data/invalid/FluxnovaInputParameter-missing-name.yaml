@@ -1,0 +1,2 @@
+# Invalid: an input parameter must name the variable it sets.
+text_content: ${amount}

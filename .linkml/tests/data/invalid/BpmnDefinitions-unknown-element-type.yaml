@@ -1,0 +1,6 @@
+# Invalid: a root element names a class the schema does not have.
+id: definitions-bad-root
+target_namespace: http://fluxnova.finos.org/examples/bad
+root_elements:
+  - element_type: BpmnWorkflow
+    id: invoice

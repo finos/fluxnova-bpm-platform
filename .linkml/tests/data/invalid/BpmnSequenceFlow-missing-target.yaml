@@ -1,0 +1,3 @@
+# Invalid: a sequence flow must name the node it leads to.
+id: flow-nowhere
+source_ref: start

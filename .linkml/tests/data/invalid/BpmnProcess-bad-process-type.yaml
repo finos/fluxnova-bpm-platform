@@ -1,0 +1,3 @@
+# Invalid: a process type is None, Public or Private.
+id: invoice
+process_type: Secret

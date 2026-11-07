@@ -1,0 +1,41 @@
+# A process with a start event, a user task and an end event, as a modeler writes
+# it, with Fluxnova's assignee and history settings.
+id: definitions-invoice
+target_namespace: http://fluxnova.finos.org/examples/invoice
+exporter: Fluxnova Modeler
+exporter_version: "1.0.0"
+root_elements:
+  - element_type: BpmnProcess
+    id: invoice
+    name: Approve an invoice
+    is_executable: true
+    fluxnova_history_time_to_live: "180"
+    flow_elements:
+      - element_type: BpmnStartEvent
+        id: start
+        outgoing:
+          - flow-to-approve
+      - element_type: BpmnUserTask
+        id: approve
+        name: Approve the invoice
+        fluxnova_assignee: demo
+        fluxnova_async_before: true
+        incoming:
+          - flow-to-approve
+        outgoing:
+          - flow-to-end
+      - element_type: BpmnEndEvent
+        id: end
+        incoming:
+          - flow-to-end
+      - element_type: BpmnSequenceFlow
+        id: flow-to-approve
+        source_ref: start
+        target_ref: approve
+      - element_type: BpmnSequenceFlow
+        id: flow-to-end
+        source_ref: approve
+        target_ref: end
+        condition_expression:
+          element_type: BpmnConditionExpression
+          text_content: ${approved}

@@ -1,0 +1,6 @@
+# Invalid: SUSPENSION_STATE_ holds 1 (active) or 2 (suspended), the engine's codes.
+id: procdef-bad-state
+key: bad-process
+name: Bad Process
+version: 1
+suspension_state: 3
