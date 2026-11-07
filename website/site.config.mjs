@@ -66,7 +66,9 @@ export const REDIRECTS = {
 
 // A Keep a Changelog file, read as a page per release. "auto" takes
 // CHANGELOG.md when it holds a released version.
-export const CHANGELOG = ".linkml/CHANGELOG.md";
+// .linkml/CHANGELOG.md holds no released version until 0.1.0, and the sync stops on a
+// changelog with none. Set this to ".linkml/CHANGELOG.md" after the first release.
+export const CHANGELOG = null;
 
 // The tag a release carries, with {version} for its number. A release page
 // links the repository, the docs and the bundle at that tag, and the release
