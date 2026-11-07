@@ -1082,7 +1082,8 @@ class LinkMLGenerator:
             self.all_slots[slot.name] = slot
             self._slot_owner[slot.name] = module
         else:
-            # Merge: if existing is less constrained, keep the more constrained
+            # The first definition stays. A later table's required column is stated in
+            # slot_usage, and only the identifier flag is merged.
             existing = self.all_slots[slot.name]
             if slot.required and not existing.required:
                 pass  # Don't override, use slot_usage instead
@@ -1090,12 +1091,8 @@ class LinkMLGenerator:
                 existing.identifier = True
 
     def _assign_slot_ownership(self) -> None:
-        """Reassign slot ownership so each slot is owned by the first module
-        (in stable order) that has a class actually using the slot.
-
-        This ensures every slot appears in a ``slots:`` section of exactly
-        one module YAML file, and that module imports work correctly.
-        """
+        """Give each slot to the first area, in MODULE_ORDER, whose classes use it, so
+        that module_elements() declares each slot once."""
         MODULE_ORDER = [
             "base",
             "repository",
@@ -1136,9 +1133,11 @@ class LinkMLGenerator:
     }
 
     def _apply_javadoc_descriptions(self) -> None:
-        """Apply extracted Javadoc descriptions to classes and slots.
+        """Give each class and slot its description.
 
-        Priority: fallback constants (curated) > Javadoc extraction > empty.
+        A description already set comes first, then the Javadoc's, then one built from
+        the table or column. SHARED_DESCRIPTIONS replaces the description of each slot
+        it names.
         """
         # Apply Javadoc-extracted class descriptions
         for class_name, info in self.javadoc.items():
@@ -1167,7 +1166,6 @@ class LinkMLGenerator:
                 self.all_slots[slot_name].description = description
 
         # Apply dynamically generated slot descriptions (for slots without Javadoc)
-        # Build a mapping of slot_name -> (sql_col_name, sql_type, table_name, fk_constraints)
         for table_name, table in self.tables.items():
             if table_name not in TABLE_TO_CLASS:
                 continue
