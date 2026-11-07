@@ -20,3 +20,9 @@ dependencies = [
 
 [tool.uv]
 package = false
+
+# The domain schema every lokf command reads when no --schema is given: the
+# copy `lokf adapt` writes into schema/ beside lokf.yaml, the file the justfile's
+# `schema :=` line names too. The path is relative to this file.
+[tool.lokf]
+schema = "schema/fluxnova_bpm_platform.yaml"

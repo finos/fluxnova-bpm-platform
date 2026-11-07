@@ -17,7 +17,7 @@ bundle := "knowledge"
 # and nowhere else. A lokf command given no --schema, a recipe included,
 # reads `[tool.lokf] schema` in pyproject.toml: set it to the same path or
 # leave it out. The preflight warns when the two differ.
-schema := ""
+schema := "schema/fluxnova_bpm_platform.yaml"
 _schema := if schema == "" { "" } else { "--schema " + quote(schema) }
 
 # List available recipes

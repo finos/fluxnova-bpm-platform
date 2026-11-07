@@ -41,6 +41,28 @@ test-transformers:
 [group('schema validation')]
 verify-schema: gen-linkml-all lint-schema validate-mybatis test-transformers
 
+# ============ Knowledge bundle: the adapted domain schema ============
+
+# `../.lokf/schema/fluxnova_bpm_platform.yaml` is the copy `lokf adapt` writes from the schema
+# so that it can sit beside `../.lokf/schema/lokf.yaml` (`lokf adapt --help` lists the
+# moves). adapt re-roots on Concept every class that carries the schema's identifier,
+# id: each engine table's class with a one-column key. The BPMN classes carry no
+# identifier, so no concept takes one as its type. The recipes run the `lokf` the
+# sidecar's floor pins (0.9.0 or later); LOKF_CMD runs another, such as a checkout:
+# LOKF_CMD="uv run --project ../../lokf lokf" just lokf-adapt
+lokf_cmd := env_var_or_default("LOKF_CMD", "uv run --project ../.lokf lokf")
+lokf_adapt_roots := "--prefix fluxnova_bpm_platform"
+
+# Rewrite ../.lokf/schema/fluxnova_bpm_platform.yaml from the schema (run after every schema change)
+[group('knowledge bundle')]
+lokf-adapt:
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf ../.lokf/schema/lokf.yaml -o ../.lokf/schema/fluxnova_bpm_platform.yaml
+
+# Fail when ../.lokf/schema/fluxnova_bpm_platform.yaml is stale against the schema or lokf.yaml
+[group('knowledge bundle')]
+lokf-adapt-check:
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf ../.lokf/schema/lokf.yaml -o ../.lokf/schema/fluxnova_bpm_platform.yaml --check
+
 # ---- linkml-sidecar: the linkml_schema doorway (kept across `just update`) ----
 # The schema folder under an ordinary, visible name at the host root, for
 # folder pickers and file managers that hide dot-folders. Git carries the
