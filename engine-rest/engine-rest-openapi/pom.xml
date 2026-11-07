@@ -130,6 +130,12 @@
             <configuration>
               <classpathScope>test</classpathScope>
               <mainClass>org.finos.fluxnova.bpm.engine.rest.openapi.generator.impl.TemplateParser</mainClass>
+              <systemProperties>
+                <systemProperty>
+                  <key>project.version</key>
+                  <value>${project.version}</value>
+                </systemProperty>
+              </systemProperties>
               <arguments>
                 <argument>${project.basedir}/src/main/templates</argument>
                 <argument>main.ftl</argument>
