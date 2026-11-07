@@ -40,50 +40,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # FINOS's tree, which holds the sources the converters read.
 REPO_ROOT = PROJECT_ROOT.parent
 
-DEFAULT_ENGINE_ENTITY_DIR = (
-    REPO_ROOT
-    / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/persistence/entity"
-)
-DEFAULT_CMMN_DIR = (
-    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/cmmn/entity"
-)
-DEFAULT_DMN_DIR = (
-    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/dmn/entity"
-)
-DEFAULT_HISTORY_DIR = (
-    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/history/event"
-)
-DEFAULT_BATCH_DIR = (
-    REPO_ROOT / "engine/src/main/java/org/finos/fluxnova/bpm/engine/impl/batch"
-)
 DEFAULT_SQL_DIR = (
     REPO_ROOT / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/db/create"
 )
-DEFAULT_MYBATIS_DIR = (
-    REPO_ROOT
-    / "engine/src/main/resources/org/finos/fluxnova/bpm/engine/impl/mapping/entity"
-)
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "src/fluxnova_bpm_platform/schema"
-
-# Java type -> LinkML range
-JAVA_TYPE_MAP: dict[str, str] = {
-    "String": "string",
-    "string": "string",
-    "int": "integer",
-    "Integer": "integer",
-    "long": "integer",
-    "Long": "integer",
-    "double": "float",
-    "Double": "float",
-    "float": "float",
-    "Float": "float",
-    "boolean": "boolean",
-    "Boolean": "boolean",
-    "Date": "datetime",
-    "Timestamp": "datetime",
-    "byte[]": "string",
-    "Object": "string",
-}
 
 # SQL type -> LinkML range
 SQL_TYPE_MAP: dict[str, str] = {
