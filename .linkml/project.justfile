@@ -4,40 +4,21 @@
 # name in this file is not possible until a known issue in just is fixed,
 # https://github.com/casey/just/issues/2540
 
-# Add the merged model to docs/schema.
-# Workaround: linkml-runtime 1.11.0 omits SafeDumper.add_multi_representer(JsonObj, …)
-# causing RepresenterError; scripts/gen_yaml_patched.py backports the missing line.
-# Remove once linkml-runtime > 1.11.0 is available on PyPI.
-_gen-yaml:
-  -mkdir -p {{distrib_schema_path}}
-  uv run python scripts/gen_yaml_patched.py {{source_schema_path}} > {{distrib_schema_path}}/{{schema_name}}.yaml
-
 # ============== Schema generation (reproducible) ==============
 
-# Generate platform LinkML schema from H2 DDL + Javadoc sources, then overlay mappings
+# Generate platform LinkML schema from H2 DDL + Javadoc sources
 [group('schema generation')]
 gen-linkml *FLAGS:
     uv run python scripts/fluxnova_to_linkml.py {{FLAGS}}
-    just overlay-sssom-mappings
 
-# Generate BPMN model LinkML schema from BPMN Java interfaces, then overlay mappings
+# Generate BPMN model LinkML schema from BPMN Java interfaces
 [group('schema generation')]
 gen-bpmn-model *FLAGS:
     uv run python scripts/fluxnova_bpmn_model_to_linkml.py {{FLAGS}}
-    just overlay-sssom-mappings
 
 # Regenerate ALL transformer-produced LinkML schemas (reproducible)
 [group('schema generation')]
-gen-linkml-all: gen-bpmn-model gen-linkml overlay-sssom-mappings
-
-# Apply all SSSOM mappings from mappings/ to generated schema YAML files (deterministic)
-# Reads fluxnova-*.sssom.tsv in sorted order; injects *_mappings and prefixes in-place.
-# --name-match: also injects related_mappings for elements whose names appear as
-#   SSSOM subject locals (covers fluxnova schemas whose prefix differs from SSSOM subjects).
-# Idempotent: running twice produces the same result.
-[group('schema generation')]
-overlay-sssom-mappings *FLAGS:
-    uv run python scripts/overlay_sssom.py --name-match {{FLAGS}}
+gen-linkml-all: gen-bpmn-model gen-linkml
 
 # ============== Schema validation ==============
 

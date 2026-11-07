@@ -1,5 +1,0 @@
-# Invalid AI provenance - invocation_kind is not a valid AiInvocationKind value.
-id: ai-invocation-bad-kind
-status: COMPLETED
-invocation_kind: NOT_A_REAL_KIND
-invoked_model: ai-agent-claude-3-5-sonnet

@@ -28,7 +28,6 @@ dev = [
     "mkdocs-pymdownx-material-extras>=2.5.6",
     "jupyter>=1.0.0",
     "mknotebooks>= 0.8.0",
-    "ruamel.yaml>=0.18",
 ]
 
 [tool.hatch.build.targets.wheel]

@@ -934,16 +934,6 @@ class TestEndToEnd:
         for bpmn_file in repo_schema_dir.glob("fluxnova_bpmn_model*.yaml"):
             shutil.copy(bpmn_file, tmp_path / bpmn_file.name)
 
-        # Copy the hand-authored provenance overlay modules (imported by the
-        # root via ./provenance/fluxnova_bpm_provenance, which in turn pulls in
-        # the AI overlay). Their own ``../`` imports resolve to the generated
-        # modules in tmp_path. Copy the whole dir so cross-imports between the
-        # provenance modules stay satisfied.
-        prov_dir = tmp_path / "provenance"
-        prov_dir.mkdir(exist_ok=True)
-        for prov_file in (repo_schema_dir / "provenance").glob("*.yaml"):
-            shutil.copy(prov_file, prov_dir / prov_file.name)
-
         result = subprocess.run(
             ["linkml-lint", str(tmp_path / "fluxnova_bpm_platform.yaml")],
             capture_output=True,

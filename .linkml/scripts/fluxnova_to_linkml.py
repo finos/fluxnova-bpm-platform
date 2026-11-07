@@ -1753,10 +1753,6 @@ class LinkMLGenerator:
         # point. Slots that collide between BPM and BPMN are resolved via
         # ``./fluxnova_common`` (imported above).
         imports.append("./fluxnova_bpmn_model")
-        # Hand-authored provenance overlay (PROV-aligned), not derived from the
-        # H2 DDL. Imported here so ProvenanceBundle and friends are part of the
-        # platform root and survive regeneration via gen-linkml-all.
-        imports.append("./provenance/fluxnova_bpm_provenance")
 
         root: OrderedDict[str, object] = OrderedDict()
         root["id"] = "https://w3id.org/lmodel/fluxnova-bpm-platform"

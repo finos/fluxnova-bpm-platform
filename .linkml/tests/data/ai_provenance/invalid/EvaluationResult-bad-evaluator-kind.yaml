@@ -1,8 +1,0 @@
-# Invalid AI provenance - evaluator_kind is not in EvaluatorKind enum.
-id: eval-bad-evaluator
-evaluator_name: coin-flip-judge
-evaluator_kind: COIN_FLIP
-metric_name: groundedness_score
-metric_value: 0.5
-passing: true
-evaluated_at: "2026-06-11T19:00:00Z"

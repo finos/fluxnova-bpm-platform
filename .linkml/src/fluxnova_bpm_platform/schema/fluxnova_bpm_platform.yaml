@@ -46,7 +46,6 @@ imports:
   - ./fluxnova_bpm_repository
   - ./fluxnova_bpm_runtime
   - ./fluxnova_bpmn_model
-  - ./provenance/fluxnova_bpm_provenance
 
 subsets:
   base:
