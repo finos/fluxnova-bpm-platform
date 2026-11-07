@@ -1,7 +1,7 @@
 """The Fluxnova edition the schema renders, and FINOS's tree it reads it from.
 
 The converters, the watch and the tests read these values from here, so they name one
-edition. Move them together after a merge of FINOS's tree, then rerun the converters,
+edition. Update them together after a merge of FINOS's tree, then rerun the converters,
 scripts/pin_finos_tree.py and scripts/pin_sources.py.
 """
 

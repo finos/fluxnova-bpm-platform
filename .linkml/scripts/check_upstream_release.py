@@ -5,15 +5,15 @@
 # ///
 """Check FINOS's repository against the Fluxnova edition the schema renders.
 
-The schema renders Fluxnova 3.1.1: the converters read the engine's H2 DDL, the
-engine API's Javadoc and the BPMN model API from FINOS's tree beside .linkml/, and
-every file they read is byte for byte the file at the tag v3.1.1, which
+The schema renders Fluxnova 3.1.1. The converters read the engine's H2 DDL, the
+engine API's Javadoc and the BPMN model API from FINOS's tree beside .linkml/. Every
+file they read is byte for byte the file at the tag v3.1.1, which
 scripts/upstream_pins.tsv records with its git object hash. FINOS's tree itself is
 merged from its default branch at FINOS_COMMIT (scripts/edition.py). These can change
 without any change here:
 
 - FINOS gains a tag, such as a 3.2.0 release;
-- the pinned tag moves, or a pinned file changes or goes at the pinned commit;
+- the pinned tag moves, or a pinned file changes or is deleted at the pinned commit;
 - the licence on the default branch changes.
 
 Each of these fails the check. Two more are reported for information only: a pinned

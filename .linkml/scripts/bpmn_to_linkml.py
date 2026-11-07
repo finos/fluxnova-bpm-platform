@@ -2,11 +2,11 @@
 """Write the BPMN modules of the schema from Fluxnova's BPMN model API.
 
 The model API registers every element it reads and writes in a ``registerType``
-method of its ``*Impl`` class: the element's XML name and namespace, its parent type,
-whether it is abstract, its attributes (type, namespace, whether required, default)
-and its child elements (how many, and whether a child holds a reference to another
-element). This script reads those methods from FINOS's tree beside ``.linkml/`` and
-writes one class per registered element type, with:
+method of its ``*Impl`` class. The method states the element's XML name and namespace,
+its parent type, whether it is abstract, its attributes (type, namespace, whether
+required, default) and its child elements (how many, and whether a child holds a
+reference to another element). This script reads those methods from FINOS's tree beside
+``.linkml/`` and writes one class per registered element type, with:
 
 - the element's XML name and namespace as annotations, and an exact mapping to the
   element's IRI, which is its namespace and name joined by ``#``;
@@ -14,8 +14,8 @@ writes one class per registered element type, with:
 - each child element as a slot whose range is the child's class, inlined;
 - each reference, by id or QName, as a string that names the element it refers to in
   a ``refers_to`` annotation, since BPMN lets an element have no id;
-- character content as ``text_content`` where the BPMN XML Schema the model API ships
-  (Semantic.xsd) makes the element's type mixed, and on the extension elements the
+- character content as ``text_content`` where the BPMN XML Schema included with the model
+  API (Semantic.xsd) makes the element's type mixed, and on the extension elements the
   engine reads as text.
 
 Descriptions come from scripts/bpmn_descriptions.yaml, in this project's own words.
@@ -138,7 +138,7 @@ CHILD_RENAMES = {"from": "from_expression", "to": "to_expression"}
 
 # Slot names LOKF 0.9.0 defines with another meaning. A BPMN slot of one of these
 # names takes the prefix bpmn_, so that the knowledge bundle's adapt copy, which
-# sits beside lokf.yaml, keeps each key's one meaning; tests/test_schema_rules.py
+# is beside lokf.yaml, keeps each key's one meaning; tests/test_schema_rules.py
 # fails on a new one. The annotation xml_name keeps the XML name.
 LOKF_NAMES = {
     "constraints",

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Write tests/upstream_tree.tsv: each file of FINOS's tree at a commit, by git object hash.
 
-tests/test_upstream.py holds every file to it, so a change to one of FINOS's files
-fails the tests. Run it after merging FINOS's tree, with the commit merged, and move
-FINOS_COMMIT in scripts/edition.py to the same commit. Usage::
+tests/test_upstream.py checks every file against it, so a change to one of FINOS's
+files fails the tests. Run it after merging FINOS's tree, with the commit merged, and
+update FINOS_COMMIT in scripts/edition.py to the same commit. Usage::
 
     python scripts/pin_finos_tree.py <commit>
 """

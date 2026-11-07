@@ -1186,10 +1186,10 @@ class LinkMLGenerator:
 
     def _build_abstract_bases(self) -> None:
         """Create abstract base classes and mixins not directly in SQL."""
-        # DbEntity - abstract root for all persisted entities
-        # (not emitted as a class, but provides shared id slot)
+        # DbEntity, the abstract root of every persisted entity, is not written as a
+        # class: it gives only the shared id slot.
 
-        # ResourceDefinition - abstract base for definition entities
+        # ResourceDefinition: the abstract base of the definition entities.
         rd = ClassDef(
             name="ResourceDefinition",
             module="repository",
@@ -1211,7 +1211,7 @@ class LinkMLGenerator:
         )
         self.classes["ResourceDefinition"] = rd
 
-        # HistoricScopeInstance - abstract base for timed history events
+        # HistoricScopeInstance: the abstract base of the timed history events.
         historic_scope = ClassDef(
             name="HistoricScopeInstance",
             module="history",
@@ -1359,7 +1359,7 @@ class LinkMLGenerator:
             if class_name in ABSTRACT_CLASSES:
                 continue  # Already built
             if class_name in self.classes:
-                continue  # Already built (e.g. from abstract bases)
+                continue  # Already built (for example, from the abstract bases)
 
             is_a = CLASS_INHERITANCE.get(class_name, "")
             cls = ClassDef(
@@ -1422,7 +1422,7 @@ class LinkMLGenerator:
                     ):
                         cls.slot_usage.setdefault(slot_name, {})["required"] = True
                 else:
-                    # Slot inherited - use slot_usage only if we refine it
+                    # The slot is inherited: use slot_usage only to refine it.
                     usage: dict = {}
                     if not col.nullable and slot_name != "id":
                         usage["required"] = True
@@ -1645,10 +1645,9 @@ class LinkMLGenerator:
 
     def root_elements(self) -> dict:
         """The root class, FluxnovaPlatformData, and the container slots it holds."""
-        # Tree-root container slots are declared at schema level (NEVER as
-        # ``attributes``) per LinkML authoring conventions: top-level slots
-        # plus per-class slot_usage. Each container slot is multivalued and
-        # inlined as a list so the root document is a serializable forest.
+        # The container slots are top-level slots, not ``attributes``, and the root
+        # class refines them in ``slot_usage``. Each is multivalued and inlined as a list, so a
+        # root document holds each kind of row as a list.
         container_slot_specs: list[tuple[str, str, str]] = [
             ("deployments", "Deployment", "Deployed resources."),
             ("process_definitions", "ProcessDefinition", "Process definitions."),
@@ -1669,8 +1668,7 @@ class LinkMLGenerator:
                 "description": description,
             }
 
-        # FluxnovaPlatformData references the schema-level slots and refines
-        # them through ``slot_usage`` (this is the canonical LinkML pattern).
+        # FluxnovaPlatformData names the top-level slots and refines them in ``slot_usage``.
         slot_usage: OrderedDict[str, dict] = OrderedDict()
         for slot_name, range_class, _ in container_slot_specs:
             slot_usage[slot_name] = {
