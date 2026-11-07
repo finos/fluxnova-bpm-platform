@@ -17,6 +17,10 @@ import lombok.*;
 public class FluxnovaHistoricActivityInstance extends FluxnovaHistoricScopeInstance {
 
   private String parentActivityInstanceId;
+  private String processDefinitionKey;
+  private String processDefinitionId;
+  private String rootProcessInstanceId;
+  private String processInstanceId;
   private String executionId;
   private String activityId;
   private String taskId;
@@ -25,9 +29,11 @@ public class FluxnovaHistoricActivityInstance extends FluxnovaHistoricScopeInsta
   private String activityName;
   private String activityType;
   private String assignee;
+  private ZonedDateTime startTime;
+  private ZonedDateTime endTime;
   private Integer activityInstanceState;
   private Integer sequenceCounter;
-  private String tenantId;
+  private ZonedDateTime removalTime;
 
 
 }

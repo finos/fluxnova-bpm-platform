@@ -3592,21 +3592,21 @@ message DiWaypoint {
 }
 // Any type of content that is be associated with a task or with a process instance.
 message FluxnovaAttachment {
-  // Unique identifier.
+  // Unique id for this attachment.
   string id = 1;
   // Reference to a user.
   string user_id = 2;
-  // Human-readable name.
+  // Free user defined short (max 255 chars) name for this attachment.
   string name = 3;
-  // Human-readable description.
+  // Long (max 255 chars) explanation what this attachment is about in context of the task and/or process instance it's linked to.
   string description = 4;
-  // Type discriminator.
+  // Indication of the type of content that this attachment refers to.
   string type = 5;
-  // Reference to the task.
+  // Reference to the task to which this attachment is associated.
   string task_id = 6;
-  // Root process instance for history cleanup.
+  // Reference to the root process instance id of the process instance on which this attachment was made.
   string root_process_instance_id = 7;
-  // Reference to the process instance.
+  // Reference to the process instance to which this attachment is associated.
   string process_instance_id = 8;
   // The remote URL in case this is remote content.
   string url = 9;
@@ -3614,9 +3614,9 @@ message FluxnovaAttachment {
   string content_id = 10;
   // Multi-tenancy discriminator.
   string tenant_id = 11;
-  // Creation timestamp.
+  // The time when the attachment was created.
   string create_time = 12;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic attachment will be removed.
   string removal_time = 13;
   // The user who created this attachment.
   string created_by = 14;
@@ -3637,9 +3637,9 @@ message FluxnovaAuthorization {
   string resource_id = 6;
   // Bitmask of granted permissions.
   int32 permissions = 7;
-  // Timestamp when this entity is eligible for removal.
+  // The removal time indicates the date a historic instance authorization is cleaned up A removal time can only be assigned to a historic instance authorization.
   string removal_time = 8;
-  // Root process instance for history cleanup.
+  // The process instance id of the top-level (root) process instance the historic instance authorization is related to A root process instance id is only assigned to a historic instance authorization.
   string root_process_instance_id = 9;
 }
 // A batch represents a number of jobs which execute a number of commands asynchronously.
@@ -3656,19 +3656,19 @@ message FluxnovaBatch {
   int32 jobs_per_seed = 5;
   // The invocations per job.
   int32 invocations_per_job = 6;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   FluxnovaJobDefinition seed_job_definition_id = 7;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   FluxnovaJobDefinition batch_job_definition_id = 8;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   FluxnovaJobDefinition monitor_job_definition_id = 9;
   // Whether the entity is active or suspended.
   int32 suspension_state = 10;
-  // Payload of this incident.
+  // Configuration value.
   string configuration = 11;
   // Multi-tenancy discriminator.
   string tenant_id = 12;
-  // The authenticated user that created this case instance.
+  // Reference to the create user.
   string create_user_id = 13;
   // Start timestamp.
   string start_time = 14;
@@ -3702,21 +3702,21 @@ message FluxnovaByteArray {
 message FluxnovaCaseDefinition {
   // Unique identifier.
   string id = 1;
-  // Human-readable name.
-  string name = 2;
-  // Category classification.
-  string category = 3;
-  // Reference to the deployment.
-  string deployment_id = 4;
-  // Name of the deployed resource file.
-  string resource_name = 5;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 6;
-  // Multi-tenancy discriminator.
-  string tenant_id = 7;
-  // Days to retain history before cleanup.
+  // The deployment in which this definition is contained.
+  string deployment_id = 2;
+  // Name of the resource of this definition.
+  string resource_name = 3;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 4;
+  // Category name which is derived from the targetNamespace attribute in the definitions element.
+  string category = 5;
+  // Label used for display purposes.
+  string name = 6;
+  // The diagram resource name for this definition if exist.
+  string diagram_resource_name = 7;
+  // History time to live.
   int32 history_time_to_live = 8;
-  // Business key for the definition.
+  // The row's key.
   string key = 9;
   // Version number.
   int32 version = 10;
@@ -3733,7 +3733,7 @@ message FluxnovaCaseExecution {
   string super_execution_id = 4;
   // Domain-specific business key.
   string business_key = 5;
-  // Reference to a CaseExecution.
+  // Reference to a case execution.
   FluxnovaCaseExecution parent_id = 6;
   // Reference to the case definition.
   FluxnovaCaseDefinition case_definition_id = 7;
@@ -3745,7 +3745,7 @@ message FluxnovaCaseExecution {
   int32 current_state = 10;
   // Whether this entity is required.
   bool is_required = 11;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this case execution belongs to.
   string tenant_id = 12;
 }
 // Case Sentry Part entity in the process execution runtime.
@@ -3768,7 +3768,7 @@ message FluxnovaCaseSentryPart {
   string source = 8;
   // The variable event.
   string variable_event = 9;
-  // The name of the output variable.
+  // The variable name.
   string variable_name = 10;
   // Whether this entity is satisfied.
   bool is_satisfied = 11;
@@ -3777,19 +3777,19 @@ message FluxnovaCaseSentryPart {
 }
 // User comments that form discussions around tasks.
 message FluxnovaComment {
-  // Unique identifier.
+  // Comment id.
   string id = 1;
   // Type discriminator.
   string type = 2;
   // Timestamp for event time.
   string event_time = 3;
-  // Reference to a user.
+  // Reference to the user that made the comment.
   string user_id = 4;
-  // Reference to the task.
+  // Reference to the task on which this comment was made.
   string task_id = 5;
-  // Root process instance for history cleanup.
+  // Reference to the root process instance id of the process instance on which this comment was made.
   string root_process_instance_id = 6;
-  // Reference to the process instance.
+  // Reference to the process instance on which this comment was made.
   string process_instance_id = 7;
   // The action.
   string action = 8;
@@ -3799,7 +3799,7 @@ message FluxnovaComment {
   string full_message = 10;
   // Multi-tenancy discriminator.
   string tenant_id = 11;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic comment will be removed.
   string removal_time = 12;
 }
 // A process configuration entry: a key/value pair which is either global or scoped to a single tenant.
@@ -3816,7 +3816,7 @@ message FluxnovaConfiguration {
   int32 version = 5;
   // The status.
   ConfigurationStatus status = 6;
-  // The user who created this attachment.
+  // The created by.
   string created_by = 7;
   // Timestamp when this was created.
   string created_at = 8;
@@ -3854,27 +3854,27 @@ message FluxnovaConstraint {
 message FluxnovaDecisionDefinition {
   // Unique identifier.
   string id = 1;
-  // Human-readable name.
-  string name = 2;
-  // Category classification.
-  string category = 3;
-  // Reference to the deployment.
-  string deployment_id = 4;
-  // Name of the deployed resource file.
-  string resource_name = 5;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 6;
-  // Multi-tenancy discriminator.
-  string tenant_id = 7;
-  // Days to retain history before cleanup.
-  int32 history_time_to_live = 8;
+  // The deployment in which this definition is contained.
+  string deployment_id = 2;
+  // Name of the resource of this definition.
+  string resource_name = 3;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 4;
+  // Category name which is derived from the targetNamespace attribute in the definitions element.
+  string category = 5;
+  // Label used for display purposes.
+  string name = 6;
+  // The diagram resource name for this definition if exist.
+  string diagram_resource_name = 7;
   // Id of the related decision requirements definition.
-  FluxnovaDecisionRequirementsDefinition decision_requirements_definition_id = 9;
+  FluxnovaDecisionRequirementsDefinition decision_requirements_definition_id = 8;
   // Key of the related decision requirements definition.
-  string decision_requirements_definition_key = 10;
-  // Version tag of the process definition.
+  string decision_requirements_definition_key = 9;
+  // History time to live.
+  int32 history_time_to_live = 10;
+  // Version tag of the decision definition.
   string version_tag = 11;
-  // Business key for the definition.
+  // The row's key.
   string key = 12;
   // Version number.
   int32 version = 13;
@@ -3883,24 +3883,22 @@ message FluxnovaDecisionDefinition {
 message FluxnovaDecisionRequirementsDefinition {
   // Unique identifier.
   string id = 1;
-  // Human-readable name.
-  string name = 2;
-  // Category classification.
-  string category = 3;
-  // Reference to the deployment.
-  string deployment_id = 4;
-  // Name of the deployed resource file.
-  string resource_name = 5;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 6;
-  // Multi-tenancy discriminator.
-  string tenant_id = 7;
-  // Days to retain history before cleanup.
-  int32 history_time_to_live = 8;
-  // Business key for the definition.
-  string key = 9;
+  // The deployment in which this definition is contained.
+  string deployment_id = 2;
+  // Name of the resource of this definition.
+  string resource_name = 3;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 4;
+  // Category name which is derived from the targetNamespace attribute in the definitions element.
+  string category = 5;
+  // Label used for display purposes.
+  string name = 6;
+  // The diagram resource name for this definition if exist.
+  string diagram_resource_name = 7;
+  // The row's key.
+  string key = 8;
   // Version number.
-  int32 version = 10;
+  int32 version = 9;
 }
 // Represents a deployment that is already present in the process repository.
 message FluxnovaDeployment {
@@ -3912,7 +3910,7 @@ message FluxnovaDeployment {
   string deploy_time = 3;
   // The source.
   string source = 4;
-  // Multi-tenancy discriminator.
+  // Id of the tenant this deployment belongs to.
   string tenant_id = 5;
 }
 // Property entity in the engine infrastructure.
@@ -3940,36 +3938,36 @@ message FluxnovaErrorEventDefinition {
 }
 // A message event subscription exists, if an Execution waits for an event like a message.
 message FluxnovaEventSubscription {
-  // Unique identifier.
+  // The unique identifier of the event subscription.
   string id = 1;
   // The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal event subscription, "compensation" identifies event subscriptions used for compensation events.
   string event_type = 2;
   // The name of the event this subscription belongs to as defined in the process model.
   string event_name = 3;
-  // Reference to the execution.
+  // The execution that is subscribed on the referenced event.
   FluxnovaExecution execution_id = 4;
-  // Reference to the process instance.
+  // The process instance this subscription belongs to.
   string process_instance_id = 5;
-  // BPMN activity element identifier.
+  // The identifier of the activity that this event subscription belongs to.
   string activity_id = 6;
-  // Payload of this incident.
+  // Configuration value.
   string configuration = 7;
   // The time this event subscription was created.
   string created = 8;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this event subscription belongs to.
   string tenant_id = 9;
 }
 // Represent a 'path of execution' in a process instance.
 message FluxnovaExecution {
-  // Unique identifier.
+  // The unique identifier of the execution.
   string id = 1;
   // Root process instance for history cleanup.
   string root_process_instance_id = 2;
-  // Reference to the process instance.
+  // Id of the root of the execution tree representing the process instance.
   FluxnovaExecution process_instance_id = 3;
   // Domain-specific business key.
   string business_key = 4;
-  // Reference to a CaseExecution.
+  // Reference to a case execution.
   FluxnovaExecution parent_id = 5;
   // Reference to the process definition.
   FluxnovaProcessDefinition process_definition_id = 6;
@@ -3997,9 +3995,9 @@ message FluxnovaExecution {
   int32 cached_entity_state = 17;
   // Monotonically increasing counter for ordering.
   int32 sequence_counter = 18;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this execution belongs to.
   string tenant_id = 19;
-  // Key of the process definition.
+  // The Key of the process definition.
   string process_definition_key = 20;
 }
 // Code the engine runs when an execution passes an event of an element, such as its start or end.
@@ -4030,15 +4028,15 @@ message FluxnovaExpression {
 message FluxnovaExternalTask {
   // Unique identifier.
   string id = 1;
-  // Id of the worker that fetched the external task most recently.
+  // Reference to the worker.
   string worker_id = 2;
-  // Topic name of the associated external task.
+  // Topic name for external task subscription.
   string topic_name = 3;
-  // Number of retries this job has left.
+  // Number of remaining retry attempts.
   int32 retries = 4;
-  // If the variable value could not be loaded, this returns the error message.
+  // Error message from the last failure.
   string error_message = 5;
-  // Reference to a ByteArray.
+  // Reference to a byte array.
   FluxnovaByteArray error_details_id = 6;
   // Time at which the lock expires.
   string lock_expiration_time = 7;
@@ -4060,7 +4058,7 @@ message FluxnovaExternalTask {
   string activity_instance_id = 15;
   // Multi-tenancy discriminator.
   string tenant_id = 16;
-  // Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
+  // Priority of the external task.
   int32 priority = 17;
   // Reference to the last failure log.
   string last_failure_log_id = 18;
@@ -4095,7 +4093,7 @@ message FluxnovaFilter {
   string resource_type = 2;
   // Human-readable name.
   string name = 3;
-  // The userId of the person that is responsible for this task.
+  // User ID of the owner.
   string owner = 4;
   // Serialized query expression.
   string query = 5;
@@ -4113,24 +4111,16 @@ message FluxnovaFormData {
 message FluxnovaFormDefinition {
   // Unique identifier.
   string id = 1;
-  // Human-readable name.
-  string name = 2;
-  // Category classification.
-  string category = 3;
-  // Reference to the deployment.
-  string deployment_id = 4;
-  // Name of the deployed resource file.
-  string resource_name = 5;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 6;
-  // Multi-tenancy discriminator.
-  string tenant_id = 7;
-  // Days to retain history before cleanup.
-  int32 history_time_to_live = 8;
-  // Business key for the definition.
-  string key = 9;
+  // The deployment in which this definition is contained.
+  string deployment_id = 2;
+  // Name of the resource of this definition.
+  string resource_name = 3;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 4;
+  // The row's key.
+  string key = 5;
   // Version number.
-  int32 version = 10;
+  int32 version = 6;
 }
 // One field of a generated form.
 message FluxnovaFormField {
@@ -4191,48 +4181,48 @@ message FluxnovaGroup {
 }
 // Represents one execution of an activity and it's stored permanent for statistics, audit and other business intelligence purposes.
 message FluxnovaHistoricActivityInstance {
-  // Unique identifier.
-  string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Key of the process definition.
-  string process_definition_key = 3;
-  // End timestamp.
-  string end_time = 4;
   // Duration in milliseconds.
-  int32 duration = 5;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 6;
+  int32 duration = 1;
   // Id of the parent activity instance.
-  string parent_activity_instance_id = 7;
-  // Reference to the execution.
-  string execution_id = 8;
-  // BPMN activity element identifier.
-  string activity_id = 9;
-  // Reference to the task.
-  string task_id = 10;
+  string parent_activity_instance_id = 2;
+  // Process definition key reference.
+  string process_definition_key = 3;
+  // Process definition reference.
+  string process_definition_id = 4;
+  // Root process instance reference.
+  string root_process_instance_id = 5;
+  // Process instance reference.
+  string process_instance_id = 6;
+  // Execution reference.
+  string execution_id = 7;
+  // The unique identifier of the activity in the process.
+  string activity_id = 8;
+  // The corresponding task in case of task activity.
+  string task_id = 9;
   // The called process instance in case of call activity.
-  string called_process_instance_id = 11;
+  string called_process_instance_id = 10;
   // The called case instance in case of (case) call activity.
-  string called_case_instance_id = 12;
+  string called_case_instance_id = 11;
   // The display name for the activity.
-  string activity_name = 13;
+  string activity_name = 12;
   // The activity type of the activity.
-  string activity_type = 14;
-  // The userId of the person to which this task is String) assigned or String) delegated.
-  string assignee = 15;
+  string activity_type = 13;
+  // Assignee in case of user task activity.
+  string assignee = 14;
+  // Time when the activity instance started.
+  string start_time = 15;
+  // Time when the activity instance ended.
+  string end_time = 16;
   // The activity instance state.
-  int32 activity_instance_state = 16;
+  int32 activity_instance_state = 17;
   // Monotonically increasing counter for ordering.
-  int32 sequence_counter = 17;
-  // Multi-tenancy discriminator.
-  string tenant_id = 18;
-  // Reference to the process definition.
-  string process_definition_id = 19;
-  // Reference to the process instance.
-  string process_instance_id = 20;
-  // Start timestamp.
-  string start_time = 21;
+  int32 sequence_counter = 18;
+  // The time the historic activity instance will be removed.
+  string removal_time = 19;
+  // The unique identifier of this historic activity instance.
+  string id = 20;
+  // The id of the tenant this historic activity instance belongs to.
+  string tenant_id = 21;
 }
 // Historic representation of a Batch.
 message FluxnovaHistoricBatch {
@@ -4246,116 +4236,90 @@ message FluxnovaHistoricBatch {
   int32 jobs_per_seed = 4;
   // The invocations per job.
   int32 invocations_per_job = 5;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   string seed_job_definition_id = 6;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   string monitor_job_definition_id = 7;
-  // Reference to a JobDefinition.
+  // Reference to a job definition.
   string batch_job_definition_id = 8;
   // Multi-tenancy discriminator.
   string tenant_id = 9;
-  // The authenticated user that created this case instance.
+  // Reference to the create user.
   string create_user_id = 10;
   // Start timestamp.
   string start_time = 11;
   // End timestamp.
   string end_time = 12;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic batch will be removed.
   string removal_time = 13;
   // Timestamp when this started.
   string execution_start_time = 14;
 }
 // Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.
 message FluxnovaHistoricCaseActivityInstance {
-  // Unique identifier.
-  string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Reference to the process instance.
-  string process_instance_id = 3;
-  // Reference to the process definition.
-  string process_definition_id = 4;
-  // Key of the process definition.
-  string process_definition_key = 5;
-  // Start timestamp.
-  string start_time = 6;
-  // End timestamp.
-  string end_time = 7;
   // Duration in milliseconds.
-  int32 duration = 8;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 9;
-  // Id of the parent activity instance.
-  string parent_activity_instance_id = 10;
-  // Reference to the case definition.
-  string case_definition_id = 11;
-  // Reference to the case instance.
-  string case_instance_id = 12;
+  int32 duration = 1;
+  // Reference to the parent activity instance.
+  string parent_activity_instance_id = 2;
+  // The case definition reference.
+  string case_definition_id = 3;
+  // The case instance reference.
+  string case_instance_id = 4;
   // The unique identifier of the case activity in the case.
-  string case_activity_id = 13;
-  // Reference to the task.
-  string task_id = 14;
-  // The called process instance in case of call activity.
-  string called_process_instance_id = 15;
-  // The called case instance in case of (case) call activity.
-  string called_case_instance_id = 16;
+  string case_activity_id = 5;
+  // The corresponding task in case of a human task activity.
+  string task_id = 6;
+  // The corresponding process in case of a process task activity.
+  string called_process_instance_id = 7;
+  // The corresponding case in case of a case task activity.
+  string called_case_instance_id = 8;
   // The display name for the case activity.
-  string case_activity_name = 17;
+  string case_activity_name = 9;
   // The display type for the case activity.
-  string case_activity_type = 18;
-  // Creation timestamp.
-  string create_time = 19;
+  string case_activity_type = 10;
+  // The time when the case activity was created.
+  string create_time = 11;
+  // The time when the case activity ended.
+  string end_time = 12;
   // The row's state; which values it takes depends on its table.
-  int32 state = 20;
+  int32 state = 13;
   // Whether this entity is required.
-  bool is_required = 21;
-  // Multi-tenancy discriminator.
-  string tenant_id = 22;
+  bool is_required = 14;
+  // The id of the case activity instance (== as the id of the runtime activity).
+  string id = 15;
+  // The id of the tenant this historic case activity instance belongs to.
+  string tenant_id = 16;
 }
 // A single execution of a case definition that is stored permanently.
 message FluxnovaHistoricCaseInstance {
-  // Unique identifier.
-  string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Reference to the process instance.
-  string process_instance_id = 3;
-  // Reference to the process definition.
-  string process_definition_id = 4;
-  // Key of the process definition.
-  string process_definition_key = 5;
-  // Start timestamp.
-  string start_time = 6;
-  // End timestamp.
-  string end_time = 7;
   // Duration in milliseconds.
-  int32 duration = 8;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 9;
+  int32 duration = 1;
   // Reference to the case instance.
-  string case_instance_id = 10;
-  // Domain-specific business key.
-  string business_key = 11;
-  // Reference to the case definition.
-  string case_definition_id = 12;
-  // Creation timestamp.
-  string create_time = 13;
+  string case_instance_id = 2;
+  // The user provided unique reference to this process instance.
+  string business_key = 3;
+  // The case definition reference.
+  string case_definition_id = 4;
+  // The time the case was created.
+  string create_time = 5;
   // The time the case was closed.
-  string close_time = 14;
+  string close_time = 6;
   // The row's state; which values it takes depends on its table.
-  int32 state = 15;
+  int32 state = 7;
   // The authenticated user that created this case instance.
-  string create_user_id = 16;
+  string create_user_id = 8;
   // The case instance id of a potential super case instance or null if no super case instance exists.
-  string super_case_instance_id = 17;
+  string super_case_instance_id = 9;
   // The process instance id of a potential super process instance or null if no super process instance exists.
-  string super_process_instance_id = 18;
-  // Multi-tenancy discriminator.
-  string tenant_id = 19;
+  string super_process_instance_id = 10;
+  // The case instance id (== as the id of the runtime CaseInstance).
+  string id = 11;
+  // The id of the tenant this historic case instance belongs to.
+  string tenant_id = 12;
 }
 // Represents one input variable of a decision evaluation.
 message FluxnovaHistoricDecisionInputInstance {
-  // Unique identifier.
+  // The unique identifier of this historic decision input instance.
   string id = 1;
   // The unique identifier of the historic decision instance.
   string decision_instance_id = 2;
@@ -4377,16 +4341,16 @@ message FluxnovaHistoricDecisionInputInstance {
   string text2_value = 10;
   // Multi-tenancy discriminator.
   string tenant_id = 11;
-  // Creation timestamp.
+  // Time when the variable was created.
   string create_time = 12;
-  // Root process instance for history cleanup.
+  // Root process instance id of the process instance on which the associated business rule task has been called.
   string root_process_instance_id = 13;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic decision instance will be removed.
   string removal_time = 14;
 }
 // Represents one evaluation of a decision.
 message FluxnovaHistoricDecisionInstance {
-  // Unique identifier.
+  // The unique identifier of this historic decision instance.
   string id = 1;
   // The decision definition reference.
   string decision_definition_id = 2;
@@ -4394,44 +4358,44 @@ message FluxnovaHistoricDecisionInstance {
   string decision_definition_key = 3;
   // The name of the decision definition.
   string decision_definition_name = 4;
-  // Key of the process definition.
+  // The corresponding key of the process definition in case the decision was evaluated inside a process.
   string process_definition_key = 5;
-  // Reference to the process definition.
+  // The corresponding id of the process definition in case the decision was evaluated inside a process.
   string process_definition_id = 6;
-  // Reference to the process instance.
+  // The corresponding process instance in case the decision was evaluated inside a process.
   string process_instance_id = 7;
-  // Case definition key reference.
+  // The corresponding key of the case definition in case the decision was evaluated inside a case.
   string case_definition_key = 8;
-  // Reference to the case definition.
+  // The corresponding id of the case definition in case the decision was evaluated inside a case.
   string case_definition_id = 9;
-  // Reference to the case instance.
+  // The corresponding case instance in case the decision was evaluated inside a case.
   string case_instance_id = 10;
-  // Runtime activity instance identifier.
+  // The corresponding activity instance in case the decision was evaluated inside a process or a case.
   string activity_instance_id = 11;
-  // BPMN activity element identifier.
+  // The corresponding activity in case the decision was evaluated inside a process or a case.
   string activity_id = 12;
   // Time when the decision was evaluated.
   string evaluation_time = 13;
-  // Timestamp when this entity is eligible for removal.
+  // Time when the historic decision instance is to be removed.
   string removal_time = 14;
   // The result of the collect operation if the hit policy 'collect' was used for the decision.
   float collect_result_value = 15;
-  // Reference to a user.
+  // The user ID in case the decision was evaluated by an authenticated user using the decision service outside of an execution context.
   string user_id = 16;
   // The unique identifier of the historic decision instance of the evaluated root decision.
   string root_decision_instance_id = 17;
-  // Root process instance for history cleanup.
+  // The unique identifier of the root historic process instance of the evaluated root decision in case the decision was evaluated inside a process, otherwise null.
   string root_process_instance_id = 18;
-  // Id of the related decision requirements definition.
+  // The id of the related decision requirements definition.
   string decision_requirements_definition_id = 19;
-  // Key of the related decision requirements definition.
+  // The key of the related decision requirements definition.
   string decision_requirements_definition_key = 20;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this historic decision instance belongs to.
   string tenant_id = 21;
 }
 // Represents one output variable of a decision evaluation.
 message FluxnovaHistoricDecisionOutputInstance {
-  // Unique identifier.
+  // The unique identifier of this historic decision output instance.
   string id = 1;
   // The unique identifier of the historic decision instance.
   string decision_instance_id = 2;
@@ -4459,16 +4423,16 @@ message FluxnovaHistoricDecisionOutputInstance {
   string text2_value = 13;
   // Multi-tenancy discriminator.
   string tenant_id = 14;
-  // Creation timestamp.
+  // Time when the variable was created.
   string create_time = 15;
-  // Root process instance for history cleanup.
+  // Root process instance id of the process instance on which the associated business rule task has been called.
   string root_process_instance_id = 16;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic decision instance will be removed.
   string removal_time = 17;
 }
 // Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
 message FluxnovaHistoricDetail {
-  // Unique identifier.
+  // The unique DB id for this historic detail.
   string id = 1;
   // Type discriminator.
   string type = 2;
@@ -4476,27 +4440,27 @@ message FluxnovaHistoricDetail {
   string event_time = 3;
   // Human-readable name.
   string name = 4;
-  // Key of the process definition.
+  // The process definition key reference.
   string process_definition_key = 5;
-  // Reference to the process definition.
+  // The process definition reference.
   string process_definition_id = 6;
-  // Root process instance for history cleanup.
+  // The root process instance reference.
   string root_process_instance_id = 7;
-  // Reference to the process instance.
+  // The process instance reference.
   string process_instance_id = 8;
-  // Reference to the execution.
+  // The identifier for the path of execution.
   string execution_id = 9;
-  // Case definition key reference.
+  // The case definition key reference.
   string case_definition_key = 10;
-  // Reference to the case definition.
+  // The case definition reference.
   string case_definition_id = 11;
-  // Reference to the case instance.
+  // The case instance reference.
   string case_instance_id = 12;
-  // Reference to the case execution.
+  // The case execution reference.
   string case_execution_id = 13;
-  // Reference to the task.
+  // The identifier for the task.
   string task_id = 14;
-  // Runtime activity instance identifier.
+  // The activity reference in case this detail is related to an activity instance.
   string activity_instance_id = 15;
   // Reference to the variable instance.
   string variable_instance_id = 16;
@@ -4514,108 +4478,108 @@ message FluxnovaHistoricDetail {
   string text2_value = 22;
   // Monotonically increasing counter for ordering.
   int32 sequence_counter = 23;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this historic detail belongs to.
   string tenant_id = 24;
-  // The unique identifier of this operation.
+  // Reference to the operation.
   string operation_id = 25;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic detail will be removed.
   string removal_time = 26;
   // Whether this entity is initial.
   bool is_initial = 27;
 }
 // The HistoricExternalTaskLog is used to have a log containing information about task execution.
 message FluxnovaHistoricExternalTaskLog {
-  // Unique identifier.
+  // Unique identifier for this historic external task log.
   string id = 1;
   // Time when this log occurred.
   string timestamp = 2;
   // Id of the associated external task.
   string external_task_id = 3;
-  // Number of retries this job has left.
+  // Retries of the associated external task before the associated external task has been executed and when this log occurred.
   int32 retries = 4;
   // Topic name of the associated external task.
   string topic_name = 5;
   // Id of the worker that fetched the external task most recently.
   string worker_id = 6;
-  // Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
+  // Priority of the associated external task when this log entry was created.
   int32 priority = 7;
-  // If the variable value could not be loaded, this returns the error message.
+  // Message of the error that occurred by executing the associated external task.
   string error_message = 8;
-  // Reference to a ByteArray.
+  // Reference to a byte array.
   string error_details_id = 9;
-  // BPMN activity element identifier.
+  // Id of the activity which the external task associated with.
   string activity_id = 10;
-  // Runtime activity instance identifier.
+  // Id of the activity instance on which the associated external task was created.
   string activity_instance_id = 11;
-  // Reference to the execution.
+  // Specific execution id on which the associated external task was created.
   string execution_id = 12;
-  // Root process instance for history cleanup.
+  // Specific root process instance id of the process instance on which the associated external task was created.
   string root_process_instance_id = 13;
-  // Reference to the process instance.
+  // Specific process instance id on which the associated external task was created.
   string process_instance_id = 14;
-  // Reference to the process definition.
+  // Specific process definition id on which the associated external task was created.
   string process_definition_id = 15;
-  // Key of the process definition.
+  // Specific process definition key on which the associated external task was created.
   string process_definition_key = 16;
-  // Multi-tenancy discriminator.
+  // Id of the tenant this external task log entry belongs to.
   string tenant_id = 17;
   // The row's state; which values it takes depends on its table.
   int32 state = 18;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic external task log will be removed.
   string removal_time = 19;
 }
 // An historic identity link stores the association of a task with a certain identity.
 message FluxnovaHistoricIdentityLink {
-  // Unique identifier.
+  // Id of historic identity link (Candidate or Assignee or Owner).
   string id = 1;
-  // Time when this log occurred.
+  // Timestamp for timestamp.
   string timestamp = 2;
-  // Type discriminator.
+  // Type of link (Candidate or Assignee or Owner).
   string type = 3;
-  // Reference to a user.
+  // If the identity link involves a user, then this will be a non-null id of a user.
   string user_id = 4;
-  // Reference to a group.
+  // If the identity link involves a group, then this will be a non-null id of a group.
   string group_id = 5;
-  // Reference to the task.
+  // The id of the task associated with this identity link.
   string task_id = 6;
-  // Root process instance for history cleanup.
+  // Root process instance id of the related process instance.
   string root_process_instance_id = 7;
-  // Reference to the process definition.
+  // Id of the related process definition.
   string process_definition_id = 8;
   // Type of identity link history (add or delete identity link).
   string operation_type = 9;
   // UserId of the user who assigns a task to the user.
   string assigner_id = 10;
-  // Key of the process definition.
+  // Key of the related process definition.
   string process_definition_key = 11;
-  // Multi-tenancy discriminator.
+  // Id of the related tenant.
   string tenant_id = 12;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic identity link log will be removed.
   string removal_time = 13;
 }
 // Represents a historic incident that is stored permanently.
 message FluxnovaHistoricIncident {
-  // Unique identifier.
+  // Unique identifier for this incident.
   string id = 1;
-  // Key of the process definition.
+  // Key of the process definition of this process instance on which the incident has happened.
   string process_definition_key = 2;
-  // Reference to the process definition.
+  // Id of the process definition of this process instance on which the incident has happened.
   string process_definition_id = 3;
-  // Root process instance for history cleanup.
+  // Specific root process instance id of the process instance on which this incident has happened.
   string root_process_instance_id = 4;
-  // Reference to the process instance.
+  // Specific process instance on which this incident has happened.
   string process_instance_id = 5;
-  // Reference to the execution.
+  // Specific execution on which this incident has happened.
   string execution_id = 6;
-  // Creation timestamp.
+  // Time when the incident happened.
   string create_time = 7;
-  // End timestamp.
+  // Time when the incident has been resolved or deleted.
   string end_time = 8;
   // Incident message.
   string incident_message = 9;
   // Type of this incident to identify the kind of incident.
   string incident_type = 10;
-  // BPMN activity element identifier.
+  // Id of the activity of the process instance on which this incident has happened.
   string activity_id = 11;
   // Id of the activity on which the last exception occurred.
   string failed_activity_id = 12;
@@ -4629,18 +4593,18 @@ message FluxnovaHistoricIncident {
   string history_configuration = 16;
   // The incident state.
   int32 incident_state = 17;
-  // Multi-tenancy discriminator.
+  // Id of the tenant this incident belongs to.
   string tenant_id = 18;
-  // Reference to the job definition.
+  // Id of the job definition the incident belongs to.
   string job_definition_id = 19;
   // Annotation of this incident.
   string annotation = 20;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic incident will be removed.
   string removal_time = 21;
 }
 // The HistoricJobLog is used to have a log containing information about job execution.
 message FluxnovaHistoricJobLog {
-  // Unique identifier.
+  // Unique identifier for this historic job log.
   string id = 1;
   // Time when this log occurred.
   string timestamp = 2;
@@ -4658,191 +4622,179 @@ message FluxnovaHistoricJobLog {
   string job_exception_stack_id = 8;
   // The job state.
   int32 job_state = 9;
-  // Reference to the job definition.
+  // Id of the job definition on which the associated job was created.
   string job_definition_id = 10;
   // Job definition type of the associated job.
   string job_definition_type = 11;
   // Job definition configuration type of the associated job.
   string job_definition_configuration = 12;
-  // BPMN activity element identifier.
+  // Id of the activity on which the associated job was created.
   string activity_id = 13;
   // Id of the activity on which the last exception occurred.
   string failed_activity_id = 14;
-  // Reference to the execution.
+  // Specific execution id on which the associated job was created.
   string execution_id = 15;
-  // Root process instance for history cleanup.
+  // Specific root process instance id of the process instance on which the associated job was created.
   string root_process_instance_id = 16;
-  // Reference to the process instance.
+  // Specific process instance id on which the associated job was created.
   string process_instance_id = 17;
-  // Reference to the process definition.
+  // Specific process definition id on which the associated job was created.
   string process_definition_id = 18;
-  // Key of the process definition.
+  // Specific process definition key on which the associated job was created.
   string process_definition_key = 19;
-  // Reference to the deployment.
+  // Specific deployment id on which the associated job was created.
   string deployment_id = 20;
   // Monotonically increasing counter for ordering.
   int32 sequence_counter = 21;
-  // Multi-tenancy discriminator.
+  // Id of the tenant this job log entry belongs to.
   string tenant_id = 22;
   // Name of the host where the Process Engine that added this job log runs.
   string hostname = 23;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic job log will be removed.
   string removal_time = 24;
-  // Reference to a batch.
+  // ID of the batch associated with the job or null if no batch is associated with the job.
   string batch_id = 25;
 }
 // A single execution of a whole process definition that is stored permanently.
 message FluxnovaHistoricProcessInstance {
-  // Unique identifier.
-  string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Key of the process definition.
-  string process_definition_key = 3;
-  // End timestamp.
-  string end_time = 4;
   // Duration in milliseconds.
-  int32 duration = 5;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 6;
-  // Domain-specific business key.
-  string business_key = 7;
-  // The authenticated user that started this process instance.
-  string start_user_id = 8;
-  // The start activity.
-  string start_activity_id = 9;
-  // Reference to the end activity.
-  string end_activity_id = 10;
-  // The process instance id of a potential super process instance or null if no super process instance exists.
-  string super_process_instance_id = 11;
-  // The case instance id of a potential super case instance or null if no super case instance exists.
-  string super_case_instance_id = 12;
-  // Reference to the case instance.
-  string case_instance_id = 13;
-  // Obtains the reason for the process instance's deletion.
-  string delete_reason = 14;
-  // Multi-tenancy discriminator.
-  string tenant_id = 15;
-  // The row's state; which values it takes depends on its table.
-  HistoricProcessInstanceState state = 16;
-  // The id of the original process instance which was restarted.
-  string restarted_process_instance_id = 17;
+  int32 duration = 1;
   // Reference to the process instance.
-  string process_instance_id = 18;
-  // Reference to the process definition.
-  string process_definition_id = 19;
-  // Start timestamp.
-  string start_time = 20;
+  string process_instance_id = 2;
+  // The user provided unique reference to this process instance.
+  string business_key = 3;
+  // The process definition key reference.
+  string process_definition_key = 4;
+  // The process definition reference.
+  string process_definition_id = 5;
+  // The time the process was started.
+  string start_time = 6;
+  // The time the process was ended.
+  string end_time = 7;
+  // The time the historic process instance will be removed.
+  string removal_time = 8;
+  // The authenticated user that started this process instance.
+  string start_user_id = 9;
+  // The start activity.
+  string start_activity_id = 10;
+  // Reference to the end activity.
+  string end_activity_id = 11;
+  // The process instance id of a potential super process instance or null if no super process instance exists.
+  string super_process_instance_id = 12;
+  // The process instance id of the top-level (root) process instance or null if no root process instance exists.
+  string root_process_instance_id = 13;
+  // The case instance id of a potential super case instance or null if no super case instance exists.
+  string super_case_instance_id = 14;
+  // The case instance id of a potential super case instance or null if no super case instance exists.
+  string case_instance_id = 15;
+  // Obtains the reason for the process instance's deletion.
+  string delete_reason = 16;
+  // Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STATE_COMPLETED - completed through normal end event STATE_EXTERNALLY_TERMINATED - terminated externally, for instance through REST API STATE_INTERNALLY_TERMINATED - terminated internally, for instance by terminating boundary event.
+  HistoricProcessInstanceState state = 17;
+  // The id of the original process instance which was restarted.
+  string restarted_process_instance_id = 18;
+  // The process instance id (== as the id for the runtime process instance).
+  string id = 19;
+  // The id of the tenant this historic process instance belongs to.
+  string tenant_id = 20;
 }
-// Abstract base for historic entities with start/end time and duration.
+// Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five tables have.
 message FluxnovaHistoricScopeInstance {
   // Unique identifier.
   string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Reference to the process instance.
-  string process_instance_id = 3;
-  // Reference to the process definition.
-  string process_definition_id = 4;
-  // Key of the process definition.
-  string process_definition_key = 5;
-  // Start timestamp.
-  string start_time = 6;
-  // End timestamp.
-  string end_time = 7;
   // Duration in milliseconds.
-  int32 duration = 8;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 9;
+  int32 duration = 2;
+  // Multi-tenancy discriminator.
+  string tenant_id = 3;
 }
 // Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
 message FluxnovaHistoricTaskInstance {
-  // Unique identifier.
-  string id = 1;
-  // Root process instance for history cleanup.
-  string root_process_instance_id = 2;
-  // Reference to the process instance.
-  string process_instance_id = 3;
-  // Reference to the process definition.
-  string process_definition_id = 4;
-  // Key of the process definition.
-  string process_definition_key = 5;
-  // End timestamp.
-  string end_time = 6;
   // Duration in milliseconds.
-  int32 duration = 7;
-  // Timestamp when this entity is eligible for removal.
-  string removal_time = 8;
-  // The id of the activity in the process defining this task or null if this is not related to a process.
-  string task_definition_key = 9;
-  // Reference to the execution.
-  string execution_id = 10;
+  int32 duration = 1;
+  // Task definition key.
+  string task_definition_key = 2;
+  // Process definition key reference.
+  string process_definition_key = 3;
+  // Process definition reference.
+  string process_definition_id = 4;
+  // Root process instance reference.
+  string root_process_instance_id = 5;
+  // Process instance reference.
+  string process_instance_id = 6;
+  // Execution reference.
+  string execution_id = 7;
   // Case definition key reference.
-  string case_definition_key = 11;
-  // Reference to the case definition.
-  string case_definition_id = 12;
-  // Reference to the case instance.
-  string case_instance_id = 13;
-  // Reference to the case execution.
-  string case_execution_id = 14;
-  // Runtime activity instance identifier.
-  string activity_instance_id = 15;
-  // Human-readable name.
-  string name = 16;
-  // The parent task for which this task is a subtask.
-  string parent_task_id = 17;
-  // Human-readable description.
-  string description = 18;
-  // The userId of the person that is responsible for this task.
-  string owner = 19;
-  // The userId of the person to which this task is String) assigned or String) delegated.
-  string assignee = 20;
-  // Obtains the reason for the process instance's deletion.
-  string delete_reason = 21;
-  // Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
-  int32 priority = 22;
-  // Due date of the task.
-  string due_date = 23;
-  // Follow-up date of the task.
-  string follow_up_date = 24;
-  // Multi-tenancy discriminator.
-  string tenant_id = 25;
-  // Task's state.
-  string task_state = 26;
-  // Start timestamp.
-  string start_time = 27;
+  string case_definition_key = 8;
+  // Case definition reference.
+  string case_definition_id = 9;
+  // Case instance reference.
+  string case_instance_id = 10;
+  // Case execution reference.
+  string case_execution_id = 11;
+  // Activity instance reference.
+  string activity_instance_id = 12;
+  // The latest name given to this task.
+  string name = 13;
+  // The parent task of this task, in case this task was a subtask.
+  string parent_task_id = 14;
+  // The latest description given to this task.
+  string description = 15;
+  // Task owner.
+  string owner = 16;
+  // The latest assignee given to this task.
+  string assignee = 17;
+  // Time when the task started.
+  string start_time = 18;
+  // Time when the task was deleted or completed.
+  string end_time = 19;
+  // The reason why this task was deleted {'completed' | 'deleted' | any other user defined string }.
+  string delete_reason = 20;
+  // Task priority *.
+  int32 priority = 21;
+  // Task due date *.
+  string due_date = 22;
+  // Task follow-up date.
+  string follow_up_date = 23;
+  // The time the historic task instance will be removed.
+  string removal_time = 24;
+  // Task State also referred as lifeCycleState.
+  string task_state = 25;
+  // The unique identifier of this historic task instance.
+  string id = 26;
+  // The id of the tenant this historic task instance belongs to.
+  string tenant_id = 27;
 }
 // A single process variable containing the last value when its process instance has finished.
 message FluxnovaHistoricVariableInstance {
   // Unique identifier.
   string id = 1;
-  // Key of the process definition.
+  // The process definition key reference.
   string process_definition_key = 2;
-  // Reference to the process definition.
+  // The process definition reference.
   string process_definition_id = 3;
-  // Root process instance for history cleanup.
+  // The root process instance reference.
   string root_process_instance_id = 4;
-  // Reference to the process instance.
+  // The process instance reference.
   string process_instance_id = 5;
-  // Reference to the execution.
+  // Corresponding execution id.
   string execution_id = 6;
-  // Case definition key reference.
+  // The case definition key reference.
   string case_definition_key = 7;
-  // Reference to the case definition.
+  // The case definition reference.
   string case_definition_id = 8;
-  // Reference to the case instance.
+  // The case instance reference.
   string case_instance_id = 9;
-  // Reference to the case execution.
+  // Corresponding case execution id.
   string case_execution_id = 10;
-  // Reference to the task.
+  // Corresponding task id.
   string task_id = 11;
-  // Runtime activity instance identifier.
+  // Corresponding activity instance id.
   string activity_instance_id = 12;
-  // Human-readable name.
+  // Name of this variable instance.
   string name = 13;
   // The variable type.
   string variable_type = 14;
-  // Creation timestamp.
+  // The time when the variable was created.
   string create_time = 15;
   // Reference to the byte array.
   string byte_array_id = 16;
@@ -4854,11 +4806,11 @@ message FluxnovaHistoricVariableInstance {
   string text_value = 19;
   // Variable value stored as text2.
   string text2_value = 20;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this variable belongs to.
   string tenant_id = 21;
-  // The row's state; which values it takes depends on its table.
+  // The current state of the variable.
   HistoricVariableInstanceState state = 22;
-  // Timestamp when this entity is eligible for removal.
+  // The time when the historic variable instance will be removed.
   string removal_time = 23;
   // Whether this variable is restricted.
   bool restricted = 24;
@@ -4871,30 +4823,30 @@ message FluxnovaIdentityInfo {
   string user_id = 2;
   // Type discriminator.
   string type = 3;
-  // Business key for the definition.
+  // The row's key.
   string key = 4;
   // The row's value.
   string value = 5;
   // Hashed password.
   string password = 6;
-  // Reference to a CaseExecution.
+  // Reference to a case execution.
   string parent_id = 7;
 }
 // An identity link is used to associate a task with a certain identity.
 message FluxnovaIdentityLink {
-  // Unique identifier.
+  // Get the Id of identityLink.
   string id = 1;
-  // Reference to a group.
+  // If the identity link involves a group, then this will be a non-null id of a group.
   string group_id = 2;
-  // Type discriminator.
+  // Type of link.
   string type = 3;
-  // Reference to a user.
+  // If the identity link involves a user, then this will be a non-null id of a user.
   string user_id = 4;
-  // Reference to the task.
+  // The id of the task associated with this identity link.
   FluxnovaTask task_id = 5;
   // Reference to the process definition.
   FluxnovaProcessDefinition process_definition_id = 6;
-  // Multi-tenancy discriminator.
+  // The id of the tenant associated with this identity link.
   string tenant_id = 7;
 }
 // A variable or business key passed into a called process or case.
@@ -4918,7 +4870,7 @@ message FluxnovaIn {
 }
 // An Incident represents a failure in the execution of a process instance.
 message FluxnovaIncident {
-  // Unique identifier.
+  // Unique identifier for this incident.
   string id = 1;
   // Time when the incident happened.
   string incident_timestamp = 2;
@@ -4926,15 +4878,15 @@ message FluxnovaIncident {
   string incident_message = 3;
   // Type of this incident to identify the kind of incident.
   string incident_type = 4;
-  // Reference to the execution.
+  // Specific execution on which this incident has happened.
   FluxnovaExecution execution_id = 5;
-  // BPMN activity element identifier.
+  // Id of the activity of the process instance on which this incident has happened.
   string activity_id = 6;
   // Id of the activity on which the last exception occurred.
   string failed_activity_id = 7;
-  // Reference to the process instance.
+  // Specific process instance on which this incident has happened.
   FluxnovaExecution process_instance_id = 8;
-  // Reference to the process definition.
+  // Id of the process definition of this process instance on which the incident has happened.
   FluxnovaProcessDefinition process_definition_id = 9;
   // Id of the incident on which this incident has been triggered.
   FluxnovaIncident cause_incident_id = 10;
@@ -4942,9 +4894,9 @@ message FluxnovaIncident {
   FluxnovaIncident root_cause_incident_id = 11;
   // Payload of this incident.
   string configuration = 12;
-  // Multi-tenancy discriminator.
+  // Id of the tenant this incident belongs to.
   string tenant_id = 13;
-  // Reference to the job definition.
+  // Id of the job definition the incident belongs to.
   FluxnovaJobDefinition job_definition_id = 14;
   // Annotation of this incident.
   string annotation = 15;
@@ -4973,7 +4925,7 @@ message FluxnovaInputParameter {
 }
 // Represents one job (timer, message, etc.).
 message FluxnovaJob {
-  // Unique identifier.
+  // Unique identifier for this job.
   string id = 1;
   // Type discriminator.
   string type = 2;
@@ -4983,25 +4935,25 @@ message FluxnovaJob {
   string lock_owner = 4;
   // Whether this entity is exclusive.
   bool is_exclusive = 5;
-  // Reference to the execution.
+  // Specific execution on which the job was created.
   string execution_id = 6;
-  // Root process instance for history cleanup.
+  // Id of the root process instance which execution created the job.
   string root_process_instance_id = 7;
-  // Reference to the process instance.
+  // Id of the process instance which execution created the job.
   string process_instance_id = 8;
-  // Reference to the process definition.
+  // Id of the process definition which created the job.
   string process_definition_id = 9;
-  // Key of the process definition.
+  // Key of the process definition which created the job.
   string process_definition_key = 10;
   // Number of retries this job has left.
   int32 retries = 11;
-  // Reference to a ByteArray.
+  // Reference to a byte array.
   FluxnovaByteArray exception_stack_id = 12;
   // Message of the exception that occurred, the last time the job was executed.
   string exception_message = 13;
   // Id of the activity on which the last exception occurred.
   string failed_activity_id = 14;
-  // Due date of the task.
+  // Date by which this should be completed.
   string due_date = 15;
   // Repeat/recurrence expression (ISO 8601).
   string repeat = 16;
@@ -5011,23 +4963,23 @@ message FluxnovaJob {
   string handler_type = 18;
   // Configuration for the handler.
   string handler_configuration = 19;
-  // Reference to the deployment.
+  // Id of the deployment in which context the job was created.
   string deployment_id = 20;
   // Whether the entity is active or suspended.
   int32 suspension_state = 21;
-  // Reference to the job definition.
+  // The id of the JobDefinition for this job.
   string job_definition_id = 22;
-  // Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
+  // The job's priority that is a hint to job acquisition.
   int32 priority = 23;
   // Monotonically increasing counter for ordering.
   int32 sequence_counter = 24;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this job belongs to.
   string tenant_id = 25;
-  // Creation timestamp.
+  // The date/time when this job has been created.
   string create_time = 26;
   // Reference to the last failure log.
   string last_failure_log_id = 27;
-  // Reference to a batch.
+  // The ID of the batch associated with this job. null if no batch is associated with this job.
   string batch_id = 28;
 }
 // A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process engine.
@@ -5038,7 +4990,7 @@ message FluxnovaJobDefinition {
   string process_definition_id = 2;
   // Key of the process definition.
   string process_definition_key = 3;
-  // BPMN activity element identifier.
+  // The Id of the activity (from BPMN 2.0 Xml) this Job Definition is associated with.
   string activity_id = 4;
   // The Type of a job.
   string job_type = 5;
@@ -5046,11 +4998,11 @@ message FluxnovaJobDefinition {
   string job_configuration = 6;
   // Whether the entity is active or suspended.
   int32 suspension_state = 7;
-  // Priority of the associated job when this log entry was created.
+  // The job priority.
   int32 job_priority = 8;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this job definition belongs to.
   string tenant_id = 9;
-  // Reference to the deployment.
+  // The id of the deployment this job definition is related to.
   string deployment_id = 10;
 }
 // A list value of a parameter.
@@ -5082,7 +5034,7 @@ message FluxnovaMeterLog {
   string reporter = 3;
   // The row's value.
   int32 value = 4;
-  // Time when this log occurred.
+  // Timestamp for timestamp.
   string timestamp = 5;
   // The milliseconds.
   int32 milliseconds = 6;
@@ -5117,24 +5069,108 @@ message FluxnovaOutputParameter {
   // The element's text, such as the body of an expression or a script.
   string text_content = 5;
 }
-// Root container for Fluxnova BPM Platform data.
+// Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.
 message FluxnovaPlatformData {
-  // Deployed resources.
-  repeated FluxnovaDeployment deployments = 1;
-  // Process definitions.
-  repeated FluxnovaProcessDefinition process_definitions = 2;
-  // Process execution instances.
-  repeated FluxnovaExecution executions = 3;
-  // User tasks.
-  repeated FluxnovaTask tasks = 4;
-  // Asynchronous jobs.
-  repeated FluxnovaJob jobs = 5;
-  // Identity users.
-  repeated FluxnovaUser users = 6;
-  // Identity groups.
-  repeated FluxnovaGroup groups = 7;
-  // Batch operations.
-  repeated FluxnovaBatch batches = 8;
+  // The rows of ACT_HI_ATTACHMENT.
+  repeated FluxnovaAttachment attachments = 1;
+  // The rows of ACT_RU_AUTHORIZATION.
+  repeated FluxnovaAuthorization authorization_entries = 2;
+  // The rows of ACT_RU_BATCH.
+  repeated FluxnovaBatch batches = 3;
+  // The rows of ACT_GE_BYTEARRAY.
+  repeated FluxnovaByteArray byte_arrays = 4;
+  // The rows of ACT_RE_CASE_DEF.
+  repeated FluxnovaCaseDefinition case_definitions = 5;
+  // The rows of ACT_RU_CASE_EXECUTION.
+  repeated FluxnovaCaseExecution case_executions = 6;
+  // The rows of ACT_RU_CASE_SENTRY_PART.
+  repeated FluxnovaCaseSentryPart case_sentry_parts = 7;
+  // The rows of ACT_HI_COMMENT.
+  repeated FluxnovaComment comment_entries = 8;
+  // The rows of ACT_GE_CONFIGURATION.
+  repeated FluxnovaConfiguration configuration_entries = 9;
+  // The rows of ACT_RE_DECISION_DEF.
+  repeated FluxnovaDecisionDefinition decision_definitions = 10;
+  // The rows of ACT_RE_DECISION_REQ_DEF.
+  repeated FluxnovaDecisionRequirementsDefinition decision_requirements_definitions = 11;
+  // The rows of ACT_RE_DEPLOYMENT.
+  repeated FluxnovaDeployment deployments = 12;
+  // The rows of ACT_GE_PROPERTY.
+  repeated FluxnovaEngineProperty engine_properties = 13;
+  // The rows of ACT_RU_EVENT_SUBSCR.
+  repeated FluxnovaEventSubscription event_subscriptions = 14;
+  // The rows of ACT_RU_EXECUTION.
+  repeated FluxnovaExecution executions = 15;
+  // The rows of ACT_RU_EXT_TASK.
+  repeated FluxnovaExternalTask external_tasks = 16;
+  // The rows of ACT_RU_FILTER.
+  repeated FluxnovaFilter filter_entries = 17;
+  // The rows of ACT_RE_CAMFORMDEF.
+  repeated FluxnovaFormDefinition form_definitions = 18;
+  // The rows of ACT_ID_GROUP.
+  repeated FluxnovaGroup groups = 19;
+  // The rows of ACT_HI_ACTINST.
+  repeated FluxnovaHistoricActivityInstance historic_activity_instances = 20;
+  // The rows of ACT_HI_BATCH.
+  repeated FluxnovaHistoricBatch historic_batches = 21;
+  // The rows of ACT_HI_CASEACTINST.
+  repeated FluxnovaHistoricCaseActivityInstance historic_case_activity_instances = 22;
+  // The rows of ACT_HI_CASEINST.
+  repeated FluxnovaHistoricCaseInstance historic_case_instances = 23;
+  // The rows of ACT_HI_DEC_IN.
+  repeated FluxnovaHistoricDecisionInputInstance historic_decision_input_instances = 24;
+  // The rows of ACT_HI_DECINST.
+  repeated FluxnovaHistoricDecisionInstance historic_decision_instances = 25;
+  // The rows of ACT_HI_DEC_OUT.
+  repeated FluxnovaHistoricDecisionOutputInstance historic_decision_output_instances = 26;
+  // The rows of ACT_HI_DETAIL.
+  repeated FluxnovaHistoricDetail historic_details = 27;
+  // The rows of ACT_HI_EXT_TASK_LOG.
+  repeated FluxnovaHistoricExternalTaskLog historic_external_task_logs = 28;
+  // The rows of ACT_HI_IDENTITYLINK.
+  repeated FluxnovaHistoricIdentityLink historic_identity_links = 29;
+  // The rows of ACT_HI_INCIDENT.
+  repeated FluxnovaHistoricIncident historic_incidents = 30;
+  // The rows of ACT_HI_JOB_LOG.
+  repeated FluxnovaHistoricJobLog historic_job_logs = 31;
+  // The rows of ACT_HI_PROCINST.
+  repeated FluxnovaHistoricProcessInstance historic_process_instances = 32;
+  // The rows of ACT_HI_TASKINST.
+  repeated FluxnovaHistoricTaskInstance historic_task_instances = 33;
+  // The rows of ACT_HI_VARINST.
+  repeated FluxnovaHistoricVariableInstance historic_variable_instances = 34;
+  // The rows of ACT_ID_INFO.
+  repeated FluxnovaIdentityInfo identity_infos = 35;
+  // The rows of ACT_RU_IDENTITYLINK.
+  repeated FluxnovaIdentityLink identity_links = 36;
+  // The rows of ACT_RU_INCIDENT.
+  repeated FluxnovaIncident incidents = 37;
+  // The rows of ACT_RU_JOBDEF.
+  repeated FluxnovaJobDefinition job_definitions = 38;
+  // The rows of ACT_RU_JOB.
+  repeated FluxnovaJob jobs = 39;
+  // The rows of ACT_ID_MEMBERSHIP.
+  repeated FluxnovaMembership memberships = 40;
+  // The rows of ACT_RU_METER_LOG.
+  repeated FluxnovaMeterLog meter_logs = 41;
+  // The rows of ACT_RE_PROCDEF.
+  repeated FluxnovaProcessDefinition process_definitions = 42;
+  // The rows of ACT_GE_SCHEMA_LOG.
+  repeated FluxnovaSchemaLogEntry schema_log_entries = 43;
+  // The rows of ACT_RU_TASK_METER_LOG.
+  repeated FluxnovaTaskMeterLog task_meter_logs = 44;
+  // The rows of ACT_RU_TASK.
+  repeated FluxnovaTask tasks = 45;
+  // The rows of ACT_ID_TENANT_MEMBER.
+  repeated FluxnovaTenantMembership tenant_memberships = 46;
+  // The rows of ACT_ID_TENANT.
+  repeated FluxnovaTenant tenants = 47;
+  // The rows of ACT_HI_OP_LOG.
+  repeated FluxnovaUserOperationLogEntry user_operation_log_entries = 48;
+  // The rows of ACT_ID_USER.
+  repeated FluxnovaUser users = 49;
+  // The rows of ACT_RU_VARIABLE.
+  repeated FluxnovaVariableInstance variable_instances = 50;
 }
 // The users or groups who may start a process.
 message FluxnovaPotentialStarter {
@@ -5147,29 +5183,29 @@ message FluxnovaPotentialStarter {
 message FluxnovaProcessDefinition {
   // Unique identifier.
   string id = 1;
-  // Human-readable name.
-  string name = 2;
-  // Category classification.
-  string category = 3;
-  // Reference to the deployment.
-  string deployment_id = 4;
-  // Name of the deployed resource file.
-  string resource_name = 5;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 6;
-  // Multi-tenancy discriminator.
-  string tenant_id = 7;
-  // Days to retain history before cleanup.
-  int32 history_time_to_live = 8;
+  // The deployment in which this definition is contained.
+  string deployment_id = 2;
+  // Name of the resource of this definition.
+  string resource_name = 3;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 4;
+  // Category name which is derived from the targetNamespace attribute in the definitions element.
+  string category = 5;
+  // Label used for display purposes.
+  string name = 6;
+  // The diagram resource name for this definition if exist.
+  string diagram_resource_name = 7;
   // The has start form key.
-  bool has_start_form_key = 9;
+  bool has_start_form_key = 8;
   // Whether the entity is active or suspended.
-  int32 suspension_state = 10;
+  int32 suspension_state = 9;
   // Version tag of the process definition.
-  string version_tag = 11;
+  string version_tag = 10;
+  // History time to live.
+  int32 history_time_to_live = 11;
   // Whether this entity is startable.
   bool is_startable = 12;
-  // Business key for the definition.
+  // The row's key.
   string key = 13;
   // Version number.
   int32 version = 14;
@@ -5192,34 +5228,26 @@ message FluxnovaProperty {
   // The property's value.
   string fluxnova_value = 4;
 }
-// Abstract base for deployable resource definitions (process, case, decision, form).
+// Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all five tables have.
 message FluxnovaResourceDefinition {
   // Unique identifier.
   string id = 1;
-  // Business key for the definition.
+  // Unique name for all versions this definition.
   string key = 2;
-  // Human-readable name.
-  string name = 3;
-  // Version number.
-  int32 version = 4;
-  // Category classification.
-  string category = 5;
-  // Reference to the deployment.
-  string deployment_id = 6;
-  // Name of the deployed resource file.
-  string resource_name = 7;
-  // Name of the diagram resource file.
-  string diagram_resource_name = 8;
-  // Multi-tenancy discriminator.
-  string tenant_id = 9;
-  // Days to retain history before cleanup.
-  int32 history_time_to_live = 10;
+  // Version of this definition.
+  int32 version = 3;
+  // The deployment in which this definition is contained.
+  string deployment_id = 4;
+  // Name of the resource of this definition.
+  string resource_name = 5;
+  // The id of the tenant this definition belongs to.
+  string tenant_id = 6;
 }
 // Schema Log Entry entity in the engine infrastructure.
 message FluxnovaSchemaLogEntry {
   // Unique identifier.
   string id = 1;
-  // Time when this log occurred.
+  // Timestamp for timestamp.
   string timestamp = 2;
   // Version number.
   string version = 3;
@@ -5244,37 +5272,37 @@ message FluxnovaString {
 }
 // Represents one task for a human user.
 message FluxnovaTask {
-  // Unique identifier.
+  // DB id of the task.
   string id = 1;
-  // Reference to the execution.
+  // Reference to the path of execution or null if it is not related to a process instance.
   FluxnovaExecution execution_id = 2;
-  // Reference to the process instance.
+  // Reference to the process instance or null if it is not related to a process instance.
   FluxnovaExecution process_instance_id = 3;
-  // Reference to the process definition.
+  // Reference to the process definition or null if it is not related to a process.
   FluxnovaProcessDefinition process_definition_id = 4;
-  // Reference to the case execution.
+  // Reference to the path of case execution or null if it is not related to a case instance.
   FluxnovaCaseExecution case_execution_id = 5;
-  // Reference to the case instance.
+  // Reference to the case instance or null if it is not related to a case instance.
   string case_instance_id = 6;
-  // Reference to the case definition.
+  // Reference to the case definition or null if it is not related to a case.
   FluxnovaCaseDefinition case_definition_id = 7;
-  // Human-readable name.
+  // Name or title of the task.
   string name = 8;
   // The parent task for which this task is a subtask.
   string parent_task_id = 9;
-  // Human-readable description.
+  // Free text description of the task.
   string description = 10;
   // The id of the activity in the process defining this task or null if this is not related to a process.
   string task_definition_key = 11;
   // The userId of the person that is responsible for this task.
   string owner = 12;
-  // The userId of the person to which this task is String) assigned or String) delegated.
+  // The userId of the person to which this task is assigned or delegated.
   string assignee = 13;
   // The current DelegationState for this task.
   DelegationState delegation_state = 14;
   // Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
   int32 priority = 15;
-  // Creation timestamp.
+  // The date/time when this task was created.
   string create_time = 16;
   // The date/time when this task was last updated.
   string last_updated = 17;
@@ -5284,7 +5312,7 @@ message FluxnovaTask {
   string follow_up_date = 19;
   // Whether the entity is active or suspended.
   int32 suspension_state = 20;
-  // Multi-tenancy discriminator.
+  // Task's tenant id or null in case this task does not belong to a tenant.
   string tenant_id = 21;
   // Task's state.
   string task_state = 22;
@@ -5314,7 +5342,7 @@ message FluxnovaTaskMeterLog {
   string id = 1;
   // Hash of the assignee for aggregation.
   int32 assignee_hash = 2;
-  // Time when this log occurred.
+  // Timestamp for timestamp.
   string timestamp = 3;
 }
 // Represents a tenant, used in IdentityService.
@@ -5358,39 +5386,39 @@ message FluxnovaUser {
 }
 // Log entry about an operation performed by a user.
 message FluxnovaUserOperationLogEntry {
-  // Unique identifier.
+  // The unique identifier of this log entry.
   string id = 1;
-  // Reference to the deployment.
+  // Deployment reference.
   string deployment_id = 2;
-  // Reference to the process definition.
+  // Process definition reference.
   string process_definition_id = 3;
-  // Key of the process definition.
+  // Key of the process definition this log entry belongs to; null means any.
   string process_definition_key = 4;
-  // Root process instance for history cleanup.
+  // Root process instance reference.
   string root_process_instance_id = 5;
-  // Reference to the process instance.
+  // Process instance reference.
   string process_instance_id = 6;
-  // Reference to the execution.
+  // Execution reference.
   string execution_id = 7;
-  // Reference to the case definition.
+  // Case definition reference.
   string case_definition_id = 8;
-  // Reference to the case instance.
+  // Case instance reference.
   string case_instance_id = 9;
-  // Reference to the case execution.
+  // Case execution reference.
   string case_execution_id = 10;
-  // Reference to the task.
+  // Task instance reference.
   string task_id = 11;
-  // Id of the associated job.
+  // Job instance reference.
   string job_id = 12;
-  // Reference to the job definition.
+  // Job definition reference.
   string job_definition_id = 13;
-  // Reference to a batch.
+  // Batch reference.
   string batch_id = 14;
-  // Reference to a user.
+  // The User who performed the operation.
   string user_id = 15;
-  // Time when this log occurred.
+  // Timestamp of this change.
   string timestamp = 16;
-  // Type of identity link history (add or delete identity link).
+  // Type of this operation, like create, assign, claim and so on.
   string operation_type = 17;
   // The unique identifier of this operation.
   string operation_id = 18;
@@ -5402,15 +5430,15 @@ message FluxnovaUserOperationLogEntry {
   string original_value = 21;
   // The new value of the property.
   string new_value = 22;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this user operation log belongs to.
   string tenant_id = 23;
-  // Timestamp when this entity is eligible for removal.
+  // The time the historic user operation log will be removed.
   string removal_time = 24;
-  // Category classification.
+  // The category this entry is associated with.
   string category = 25;
-  // Id of the associated external task.
+  // External task reference.
   string external_task_id = 26;
-  // Annotation of this incident.
+  // An arbitrary annotation set by a user for auditing reasons.
   string annotation = 27;
 }
 // The constraints of a form field.
@@ -5437,21 +5465,21 @@ message FluxnovaVariableInstance {
   string id = 1;
   // Type discriminator.
   string type = 2;
-  // Human-readable name.
+  // Name of this variable instance.
   string name = 3;
-  // Reference to the execution.
+  // Corresponding execution id.
   FluxnovaExecution execution_id = 4;
-  // Reference to the process instance.
+  // Corresponding process instance id.
   FluxnovaExecution process_instance_id = 5;
-  // Reference to the process definition.
+  // Corresponding process definition id.
   string process_definition_id = 6;
-  // Reference to the case execution.
+  // Corresponding case execution id.
   FluxnovaCaseExecution case_execution_id = 7;
-  // Reference to the case instance.
+  // Corresponding case instance id.
   FluxnovaCaseExecution case_instance_id = 8;
-  // Reference to the task.
+  // Corresponding task id.
   string task_id = 9;
-  // Reference to a batch.
+  // Corresponding batch id.
   FluxnovaBatch batch_id = 10;
   // Reference to the byte array.
   FluxnovaByteArray byte_array_id = 11;
@@ -5469,7 +5497,7 @@ message FluxnovaVariableInstance {
   int32 sequence_counter = 17;
   // Whether this entity is concurrent local.
   bool is_concurrent_local = 18;
-  // Multi-tenancy discriminator.
+  // The id of the tenant this variable belongs to.
   string tenant_id = 19;
   // Whether this variable is restricted.
   bool restricted = 20;

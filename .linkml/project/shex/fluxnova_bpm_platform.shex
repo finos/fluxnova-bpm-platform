@@ -1986,6 +1986,10 @@ linkml:Sparqlpath xsd:string
 <FluxnovaCaseDefinition> CLOSED {
     (  $<FluxnovaCaseDefinition_tes> (  &<FluxnovaResourceDefinition_tes> ;
           rdf:type [ <FluxnovaResourceDefinition> ] ? ;
+          <category> @linkml:String ? ;
+          <name> @linkml:String ? ;
+          <diagram_resource_name> @linkml:String ? ;
+          <history_time_to_live> @linkml:Integer ? ;
           <key> @linkml:String ;
           <version> @linkml:Integer
        ) ;
@@ -2093,8 +2097,12 @@ linkml:Sparqlpath xsd:string
 <FluxnovaDecisionDefinition> CLOSED {
     (  $<FluxnovaDecisionDefinition_tes> (  &<FluxnovaResourceDefinition_tes> ;
           rdf:type [ <FluxnovaResourceDefinition> ] ? ;
+          <category> @linkml:String ? ;
+          <name> @linkml:String ? ;
+          <diagram_resource_name> @linkml:String ? ;
           <decision_requirements_definition_id> @<FluxnovaDecisionRequirementsDefinition> ? ;
           <decision_requirements_definition_key> @linkml:String ? ;
+          <history_time_to_live> @linkml:Integer ? ;
           <version_tag> @linkml:String ? ;
           <key> @linkml:String ;
           <version> @linkml:Integer
@@ -2106,6 +2114,9 @@ linkml:Sparqlpath xsd:string
 <FluxnovaDecisionRequirementsDefinition> CLOSED {
     (  $<FluxnovaDecisionRequirementsDefinition_tes> (  &<FluxnovaResourceDefinition_tes> ;
           rdf:type [ <FluxnovaResourceDefinition> ] ? ;
+          <category> @linkml:String ? ;
+          <name> @linkml:String ? ;
+          <diagram_resource_name> @linkml:String ? ;
           <key> @linkml:String ;
           <version> @linkml:Integer
        ) ;
@@ -2332,6 +2343,10 @@ linkml:Sparqlpath xsd:string
     (  $<FluxnovaHistoricActivityInstance_tes> (  &<FluxnovaHistoricScopeInstance_tes> ;
           rdf:type [ <FluxnovaHistoricScopeInstance> ] ? ;
           <parent_activity_instance_id> @linkml:String ? ;
+          <process_definition_key> @linkml:String ? ;
+          <process_definition_id> @linkml:String ;
+          <root_process_instance_id> @linkml:String ? ;
+          <process_instance_id> @linkml:String ;
           <execution_id> @linkml:String ;
           <activity_id> @linkml:String ;
           <task_id> @linkml:String ? ;
@@ -2340,12 +2355,12 @@ linkml:Sparqlpath xsd:string
           <activity_name> @linkml:String ? ;
           <activity_type> @linkml:String ;
           <assignee> @linkml:String ? ;
+          <start_time> @linkml:Datetime ;
+          <end_time> @linkml:Datetime ? ;
           <activity_instance_state> @linkml:Integer ? ;
           <sequence_counter> @linkml:Integer ? ;
-          <tenant_id> @linkml:String ? ;
-          <process_definition_id> @linkml:String ;
-          <process_instance_id> @linkml:String ;
-          <start_time> @linkml:Datetime
+          <removal_time> @linkml:Datetime ? ;
+          <tenant_id> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaHistoricActivityInstance> ]
     )
@@ -2383,6 +2398,7 @@ linkml:Sparqlpath xsd:string
           <case_activity_name> @linkml:String ? ;
           <case_activity_type> @linkml:String ? ;
           <create_time> @linkml:Datetime ;
+          <end_time> @linkml:Datetime ? ;
           <state> @linkml:Integer ? ;
           <is_required> @linkml:Boolean ? ;
           <tenant_id> @linkml:String ?
@@ -2609,24 +2625,28 @@ linkml:Sparqlpath xsd:string
 <FluxnovaHistoricProcessInstance> CLOSED {
     (  $<FluxnovaHistoricProcessInstance_tes> (  &<FluxnovaHistoricScopeInstance_tes> ;
           rdf:type [ <FluxnovaHistoricScopeInstance> ] ? ;
+          <process_instance_id> @linkml:String ;
           <business_key> @linkml:String ? ;
+          <process_definition_key> @linkml:String ? ;
+          <process_definition_id> @linkml:String ;
+          <start_time> @linkml:Datetime ;
+          <end_time> @linkml:Datetime ? ;
+          <removal_time> @linkml:Datetime ? ;
           <start_user_id> @linkml:String ? ;
           <start_activity_id> @linkml:String ? ;
           <end_activity_id> @linkml:String ? ;
           <super_process_instance_id> @linkml:String ? ;
+          <root_process_instance_id> @linkml:String ? ;
           <super_case_instance_id> @linkml:String ? ;
           <case_instance_id> @linkml:String ? ;
           <delete_reason> @linkml:String ? ;
-          <tenant_id> @linkml:String ? ;
           <state> [ <https://w3id.org/lmodel/fluxnova-bpm-platform/HistoricProcessInstanceState#ACTIVE>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/HistoricProcessInstanceState#SUSPENDED>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/HistoricProcessInstanceState#COMPLETED>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/HistoricProcessInstanceState#EXTERNALLY_TERMINATED>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/HistoricProcessInstanceState#INTERNALLY_TERMINATED> ] ? ;
           <restarted_process_instance_id> @linkml:String ? ;
-          <process_instance_id> @linkml:String ;
-          <process_definition_id> @linkml:String ;
-          <start_time> @linkml:Datetime
+          <tenant_id> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaHistoricProcessInstance> ]
     )
@@ -2638,14 +2658,8 @@ linkml:Sparqlpath xsd:string
 )
 
 <FluxnovaHistoricScopeInstance_struct> {
-    (  $<FluxnovaHistoricScopeInstance_tes> (  <root_process_instance_id> @linkml:String ? ;
-          <process_instance_id> @linkml:String ? ;
-          <process_definition_id> @linkml:String ? ;
-          <process_definition_key> @linkml:String ? ;
-          <start_time> @linkml:Datetime ? ;
-          <end_time> @linkml:Datetime ? ;
-          <duration> @linkml:Integer ? ;
-          <removal_time> @linkml:Datetime ?
+    (  $<FluxnovaHistoricScopeInstance_tes> (  <duration> @linkml:Integer ? ;
+          <tenant_id> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaHistoricScopeInstance> ]
     )
@@ -2655,6 +2669,10 @@ linkml:Sparqlpath xsd:string
     (  $<FluxnovaHistoricTaskInstance_tes> (  &<FluxnovaHistoricScopeInstance_tes> ;
           rdf:type [ <FluxnovaHistoricScopeInstance> ] ? ;
           <task_definition_key> @linkml:String ? ;
+          <process_definition_key> @linkml:String ? ;
+          <process_definition_id> @linkml:String ? ;
+          <root_process_instance_id> @linkml:String ? ;
+          <process_instance_id> @linkml:String ? ;
           <execution_id> @linkml:String ? ;
           <case_definition_key> @linkml:String ? ;
           <case_definition_id> @linkml:String ? ;
@@ -2666,13 +2684,15 @@ linkml:Sparqlpath xsd:string
           <description> @linkml:String ? ;
           <owner> @linkml:String ? ;
           <assignee> @linkml:String ? ;
+          <start_time> @linkml:Datetime ;
+          <end_time> @linkml:Datetime ? ;
           <delete_reason> @linkml:String ? ;
-          <priority> @linkml:Integer ;
+          <priority> @linkml:Integer ? ;
           <due_date> @linkml:Datetime ? ;
           <follow_up_date> @linkml:Datetime ? ;
-          <tenant_id> @linkml:String ? ;
+          <removal_time> @linkml:Datetime ? ;
           <task_state> @linkml:String ? ;
-          <start_time> @linkml:Datetime
+          <tenant_id> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaHistoricTaskInstance> ]
     )
@@ -2829,7 +2849,7 @@ linkml:Sparqlpath xsd:string
           <job_type> @linkml:String ;
           <job_configuration> @linkml:String ? ;
           <suspension_state> @linkml:Integer ? ;
-          <job_priority> @linkml:Integer ;
+          <job_priority> @linkml:Integer ? ;
           <tenant_id> @linkml:String ? ;
           <deployment_id> @linkml:String ?
        ) ;
@@ -2900,14 +2920,56 @@ linkml:Sparqlpath xsd:string
 }
 
 <FluxnovaPlatformData> CLOSED {
-    (  $<FluxnovaPlatformData_tes> (  <deployments> @<FluxnovaDeployment> * ;
-          <process_definitions> @<FluxnovaProcessDefinition> * ;
+    (  $<FluxnovaPlatformData_tes> (  <attachments> @<FluxnovaAttachment> * ;
+          <authorization_entries> @<FluxnovaAuthorization> * ;
+          <batches> @<FluxnovaBatch> * ;
+          <byte_arrays> @<FluxnovaByteArray> * ;
+          <case_definitions> @<FluxnovaCaseDefinition> * ;
+          <case_executions> @<FluxnovaCaseExecution> * ;
+          <case_sentry_parts> @<FluxnovaCaseSentryPart> * ;
+          <comment_entries> @<FluxnovaComment> * ;
+          <configuration_entries> @<FluxnovaConfiguration> * ;
+          <decision_definitions> @<FluxnovaDecisionDefinition> * ;
+          <decision_requirements_definitions> @<FluxnovaDecisionRequirementsDefinition> * ;
+          <deployments> @<FluxnovaDeployment> * ;
+          <engine_properties> @<FluxnovaEngineProperty> * ;
+          <event_subscriptions> @<FluxnovaEventSubscription> * ;
           <executions> @<FluxnovaExecution> * ;
-          <tasks> @<FluxnovaTask> * ;
-          <jobs> @<FluxnovaJob> * ;
-          <users> @<FluxnovaUser> * ;
+          <external_tasks> @<FluxnovaExternalTask> * ;
+          <filter_entries> @<FluxnovaFilter> * ;
+          <form_definitions> @<FluxnovaFormDefinition> * ;
           <groups> @<FluxnovaGroup> * ;
-          <batches> @<FluxnovaBatch> *
+          <historic_activity_instances> @<FluxnovaHistoricActivityInstance> * ;
+          <historic_batches> @<FluxnovaHistoricBatch> * ;
+          <historic_case_activity_instances> @<FluxnovaHistoricCaseActivityInstance> * ;
+          <historic_case_instances> @<FluxnovaHistoricCaseInstance> * ;
+          <historic_decision_input_instances> @<FluxnovaHistoricDecisionInputInstance> * ;
+          <historic_decision_instances> @<FluxnovaHistoricDecisionInstance> * ;
+          <historic_decision_output_instances> @<FluxnovaHistoricDecisionOutputInstance> * ;
+          <historic_details> @<FluxnovaHistoricDetail> * ;
+          <historic_external_task_logs> @<FluxnovaHistoricExternalTaskLog> * ;
+          <historic_identity_links> @<FluxnovaHistoricIdentityLink> * ;
+          <historic_incidents> @<FluxnovaHistoricIncident> * ;
+          <historic_job_logs> @<FluxnovaHistoricJobLog> * ;
+          <historic_process_instances> @<FluxnovaHistoricProcessInstance> * ;
+          <historic_task_instances> @<FluxnovaHistoricTaskInstance> * ;
+          <historic_variable_instances> @<FluxnovaHistoricVariableInstance> * ;
+          <identity_infos> @<FluxnovaIdentityInfo> * ;
+          <identity_links> @<FluxnovaIdentityLink> * ;
+          <incidents> @<FluxnovaIncident> * ;
+          <job_definitions> @<FluxnovaJobDefinition> * ;
+          <jobs> @<FluxnovaJob> * ;
+          <memberships> @<FluxnovaMembership> * ;
+          <meter_logs> @<FluxnovaMeterLog> * ;
+          <process_definitions> @<FluxnovaProcessDefinition> * ;
+          <schema_log_entries> @<FluxnovaSchemaLogEntry> * ;
+          <task_meter_logs> @<FluxnovaTaskMeterLog> * ;
+          <tasks> @<FluxnovaTask> * ;
+          <tenant_memberships> @<FluxnovaTenantMembership> * ;
+          <tenants> @<FluxnovaTenant> * ;
+          <user_operation_log_entries> @<FluxnovaUserOperationLogEntry> * ;
+          <users> @<FluxnovaUser> * ;
+          <variable_instances> @<FluxnovaVariableInstance> *
        ) ;
        rdf:type [ <FluxnovaPlatformData> ] ?
     )
@@ -2925,9 +2987,13 @@ linkml:Sparqlpath xsd:string
 <FluxnovaProcessDefinition> CLOSED {
     (  $<FluxnovaProcessDefinition_tes> (  &<FluxnovaResourceDefinition_tes> ;
           rdf:type [ <FluxnovaResourceDefinition> ] ? ;
+          <category> @linkml:String ? ;
+          <name> @linkml:String ? ;
+          <diagram_resource_name> @linkml:String ? ;
           <has_start_form_key> @linkml:Boolean ? ;
           <suspension_state> @linkml:Integer ? ;
           <version_tag> @linkml:String ? ;
+          <history_time_to_live> @linkml:Integer ? ;
           <is_startable> @linkml:Boolean ;
           <key> @linkml:String ;
           <version> @linkml:Integer
@@ -2963,14 +3029,10 @@ linkml:Sparqlpath xsd:string
 
 <FluxnovaResourceDefinition_struct> {
     (  $<FluxnovaResourceDefinition_tes> (  <key> @linkml:String ? ;
-          <name> @linkml:String ? ;
           <version> @linkml:Integer ? ;
-          <category> @linkml:String ? ;
           <deployment_id> @linkml:String ? ;
           <resource_name> @linkml:String ? ;
-          <diagram_resource_name> @linkml:String ? ;
-          <tenant_id> @linkml:String ? ;
-          <history_time_to_live> @linkml:Integer ?
+          <tenant_id> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaResourceDefinition> ]
     )
@@ -3019,7 +3081,7 @@ linkml:Sparqlpath xsd:string
           <assignee> @linkml:String ? ;
           <delegation_state> [ <https://w3id.org/lmodel/fluxnova-bpm-platform/DelegationState#PENDING>
              <https://w3id.org/lmodel/fluxnova-bpm-platform/DelegationState#RESOLVED> ] ? ;
-          <priority> @linkml:Integer ;
+          <priority> @linkml:Integer ? ;
           <create_time> @linkml:Datetime ? ;
           <last_updated> @linkml:Datetime ? ;
           <due_date> @linkml:Datetime ? ;
@@ -3095,7 +3157,7 @@ linkml:Sparqlpath xsd:string
           <case_instance_id> @linkml:String ? ;
           <case_execution_id> @linkml:String ? ;
           <task_id> @linkml:String ? ;
-          <job_id> @linkml:String ;
+          <job_id> @linkml:String ? ;
           <job_definition_id> @linkml:String ? ;
           <batch_id> @linkml:String ? ;
           <user_id> @linkml:String ? ;
@@ -3109,7 +3171,7 @@ linkml:Sparqlpath xsd:string
           <tenant_id> @linkml:String ? ;
           <removal_time> @linkml:Datetime ? ;
           <category> @linkml:String ? ;
-          <external_task_id> @linkml:String ;
+          <external_task_id> @linkml:String ? ;
           <annotation> @linkml:String ?
        ) ;
        rdf:type [ <FluxnovaUserOperationLogEntry> ]

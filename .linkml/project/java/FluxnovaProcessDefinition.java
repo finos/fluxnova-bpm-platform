@@ -16,9 +16,13 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaProcessDefinition extends FluxnovaResourceDefinition {
 
+  private String category;
+  private String name;
+  private String diagramResourceName;
   private Boolean hasStartFormKey;
   private Integer suspensionState;
   private String versionTag;
+  private Integer historyTimeToLive;
   private boolean isStartable;
 
 

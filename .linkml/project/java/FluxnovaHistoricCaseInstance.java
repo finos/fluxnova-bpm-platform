@@ -25,7 +25,6 @@ public class FluxnovaHistoricCaseInstance extends FluxnovaHistoricScopeInstance 
   private String createUserId;
   private String superCaseInstanceId;
   private String superProcessInstanceId;
-  private String tenantId;
 
 
 }

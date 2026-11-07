@@ -364,6 +364,27 @@ class TestParseSqlFiles:
         membership = tables["ACT_ID_MEMBERSHIP"]
         assert sorted(membership.pk_columns) == ["GROUP_ID_", "USER_ID_"]
 
+    def test_column_defaults(self, multi_table_sql_dir):
+        tables = parse_sql_files(multi_table_sql_dir)
+        job = {c.name: c for c in tables["ACT_RU_JOB"].columns}
+        assert job["SUSPENSION_STATE_"].default == "1"
+        assert job["PRIORITY_"].default == "0"
+        assert job["TYPE_"].default is None
+
+    def test_unique_constraints(self, tmp_path):
+        """A unique constraint inside a table has no name, and one an alter table
+        statement adds keeps its name."""
+        (tmp_path / "activiti.h2.create.engine.sql").write_text(
+            "create table ACT_T (\n    ID_ varchar(64),\n    A_ varchar(64),\n"
+            "    B_ varchar(64),\n    primary key (ID_),\n    unique (A_)\n);\n"
+            "alter table ACT_T\n    add constraint ACT_UNIQ_T\n    unique (A_, B_);\n"
+        )
+        tables = parse_sql_files(tmp_path)
+        assert tables["ACT_T"].unique_constraints == [
+            ("", ["A_"]),
+            ("ACT_UNIQ_T", ["A_", "B_"]),
+        ]
+
     def test_fk_constraints(self, multi_table_sql_dir):
         tables = parse_sql_files(multi_table_sql_dir)
         membership = tables["ACT_ID_MEMBERSHIP"]
@@ -498,11 +519,50 @@ class TestLinkMLGenerator:
         assert gen.module_elements("nonexistent_module") is None
 
     def test_root_elements(self, multi_table_sql_dir):
+        """The root holds a list of rows for each table, named in the plural."""
         gen, _ = self._make_generator(multi_table_sql_dir)
         root = gen.root_elements()
         platform = root["classes"]["FluxnovaPlatformData"]
         assert platform["tree_root"] is True
         assert set(platform["slots"]) == set(root["slots"])
+        tables = {c.name for c in gen.classes.values() if c.sql_table}
+        assert {s["range"] for s in root["slots"].values()} == tables
+        assert (
+            root["slots"]["historic_process_instances"]["range"]
+            == "HistoricProcessInstance"
+        )
+
+    def test_a_base_holds_only_the_columns_its_subclasses_share(
+        self, multi_table_sql_dir
+    ):
+        """With one subclass's table parsed, the base holds that table's columns."""
+        gen, tables = self._make_generator(multi_table_sql_dir)
+        expected = [col_to_slot(c.name) for c in tables["ACT_HI_PROCINST"].columns]
+        scope = gen.classes["HistoricScopeInstance"].slots
+        assert scope == gen._shared_columns("HistoricScopeInstance") == expected
+
+    def test_required_follows_each_tables_column(self, multi_table_sql_dir):
+        """A slot whose column is not null in one table only is required there only."""
+        gen, _ = self._make_generator(multi_table_sql_dir)
+        assert gen.all_slots["process_definition_id"].required is False
+        procinst = gen.classes["HistoricProcessInstance"]
+        assert procinst.slot_usage["process_definition_id"]["required"] is True
+        assert "required" not in gen.classes["Job"].slot_usage.get(
+            "process_definition_id", {}
+        )
+
+    def test_unique_constraints_and_defaults(self, multi_table_sql_dir):
+        gen, _ = self._make_generator(multi_table_sql_dir)
+        keys = gen.classes["HistoricProcessInstance"].unique_keys
+        assert keys == {
+            "historicprocessinstance_process_instance_id": {
+                "description": "A unique constraint of the table's DDL.",
+                "unique_key_slots": ["process_instance_id"],
+            }
+        }
+        job = gen.classes["Job"].slot_usage
+        assert job["suspension_state"]["ifabsent"] == "int(1)"
+        assert job["priority"]["ifabsent"] == "int(0)"
 
     def test_id_is_only_identifier(self, multi_table_sql_dir):
         """Only the 'id' slot should be marked as identifier: true."""

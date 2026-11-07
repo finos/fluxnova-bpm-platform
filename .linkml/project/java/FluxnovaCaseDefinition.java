@@ -16,6 +16,10 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaCaseDefinition extends FluxnovaResourceDefinition {
 
+  private String category;
+  private String name;
+  private String diagramResourceName;
+  private Integer historyTimeToLive;
 
 
 }

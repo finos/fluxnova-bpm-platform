@@ -1,20 +1,21 @@
--- # Class: FluxnovaPlatformData Description: Root container for Fluxnova BPM Platform data.
+-- # Class: FluxnovaPlatformData Description: Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.
 --     * Slot: id
 -- # Class: FluxnovaAttachment Description: Any type of content that is be associated with a task or with a process instance.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Unique id for this attachment.
 --     * Slot: user_id Description: Reference to a user.
---     * Slot: name Description: Human-readable name.
---     * Slot: description Description: Human-readable description.
---     * Slot: type Description: Type discriminator.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
+--     * Slot: name Description: Free user defined short (max 255 chars) name for this attachment.
+--     * Slot: description Description: Long (max 255 chars) explanation what this attachment is about in context of the task and/or process instance it's linked to.
+--     * Slot: type Description: Indication of the type of content that this attachment refers to.
+--     * Slot: task_id Description: Reference to the task to which this attachment is associated.
+--     * Slot: root_process_instance_id Description: Reference to the root process instance id of the process instance on which this attachment was made.
+--     * Slot: process_instance_id Description: Reference to the process instance to which this attachment is associated.
 --     * Slot: url Description: The remote URL in case this is remote content.
 --     * Slot: content_id Description: Reference to the content.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_time Description: Creation timestamp.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: create_time Description: The time when the attachment was created.
+--     * Slot: removal_time Description: The time the historic attachment will be removed.
 --     * Slot: created_by Description: The user who created this attachment.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaAuthorization Description: An Authorization assigns a set of Permissions to an identity to interact with a given Resource.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: type Description: Type discriminator.
@@ -23,8 +24,9 @@
 --     * Slot: resource_type Description: Numeric type of the authorized resource.
 --     * Slot: resource_id Description: Reference to the resource.
 --     * Slot: permissions Description: Bitmask of granted permissions.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
+--     * Slot: removal_time Description: The removal time indicates the date a historic instance authorization is cleaned up A removal time can only be assigned to a historic instance authorization.
+--     * Slot: root_process_instance_id Description: The process instance id of the top-level (root) process instance the historic instance authorization is related to A root process instance id is only assigned to a historic instance authorization.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaBatch Description: A batch represents a number of jobs which execute a number of commands asynchronously.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: type Description: Type discriminator.
@@ -32,13 +34,13 @@
 --     * Slot: jobs_created Description: The jobs created.
 --     * Slot: jobs_per_seed Description: The jobs per seed.
 --     * Slot: invocations_per_job Description: The invocations per job.
---     * Slot: seed_job_definition_id Description: Reference to a JobDefinition.
---     * Slot: batch_job_definition_id Description: Reference to a JobDefinition.
---     * Slot: monitor_job_definition_id Description: Reference to a JobDefinition.
+--     * Slot: seed_job_definition_id Description: Reference to a job definition.
+--     * Slot: batch_job_definition_id Description: Reference to a job definition.
+--     * Slot: monitor_job_definition_id Description: Reference to a job definition.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
---     * Slot: configuration Description: Payload of this incident.
+--     * Slot: configuration Description: Configuration value.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_user_id Description: The authenticated user that created this case instance.
+--     * Slot: create_user_id Description: Reference to the create user.
 --     * Slot: start_time Description: Start timestamp.
 --     * Slot: execution_start_time Description: Timestamp when this started.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
@@ -53,30 +55,33 @@
 --     * Slot: create_time Description: Creation timestamp.
 --     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
 --     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaCaseDefinition Description: A deployed case definition in the process repository.
+--     * Slot: category Description: Category name which is derived from the targetNamespace attribute in the definitions element.
+--     * Slot: name Description: Label used for display purposes.
+--     * Slot: diagram_resource_name Description: The diagram resource name for this definition if exist.
+--     * Slot: history_time_to_live Description: History time to live.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaCaseExecution Description: Case Execution entity in the process execution runtime.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: case_instance_id Description: Reference to the case instance.
 --     * Slot: super_case_execution_id Description: Reference to the super case execution.
 --     * Slot: super_execution_id Description: Reference to the super execution.
 --     * Slot: business_key Description: Domain-specific business key.
---     * Slot: parent_id Description: Reference to a CaseExecution.
+--     * Slot: parent_id Description: Reference to a case execution.
 --     * Slot: case_definition_id Description: Reference to the case definition.
 --     * Slot: activity_id Description: BPMN activity element identifier.
 --     * Slot: previous_state Description: The previous state.
 --     * Slot: current_state Description: The current state.
 --     * Slot: is_required Description: Whether this entity is required.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: The id of the tenant this case execution belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaCaseSentryPart Description: Case Sentry Part entity in the process execution runtime.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: case_instance_id Description: Reference to the case instance.
@@ -87,22 +92,24 @@
 --     * Slot: standard_event Description: The standard event.
 --     * Slot: source Description: The source.
 --     * Slot: variable_event Description: The variable event.
---     * Slot: variable_name Description: The name of the output variable.
+--     * Slot: variable_name Description: The variable name.
 --     * Slot: is_satisfied Description: Whether this entity is satisfied.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaComment Description: User comments that form discussions around tasks.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Comment id.
 --     * Slot: type Description: Type discriminator.
 --     * Slot: event_time Description: Timestamp for event time.
---     * Slot: user_id Description: Reference to a user.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
+--     * Slot: user_id Description: Reference to the user that made the comment.
+--     * Slot: task_id Description: Reference to the task on which this comment was made.
+--     * Slot: root_process_instance_id Description: Reference to the root process instance id of the process instance on which this comment was made.
+--     * Slot: process_instance_id Description: Reference to the process instance on which this comment was made.
 --     * Slot: action Description: The action.
 --     * Slot: message Description: Short message or summary.
 --     * Slot: full_message Description: The full comment message the user had related to the task and/or process instance.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: removal_time Description: The time the historic comment will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaConfiguration Description: A process configuration entry: a key/value pair which is either global or scoped to a single tenant.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: configuration_key Description: The configuration key.
@@ -110,58 +117,61 @@
 --     * Slot: configuration_value Description: The configuration value.
 --     * Slot: version Description: Version number.
 --     * Slot: status Description: The status.
---     * Slot: created_by Description: The user who created this attachment.
+--     * Slot: created_by Description: The created by.
 --     * Slot: created_at Description: Timestamp when this was created.
 --     * Slot: updated_by Description: The updated by.
 --     * Slot: updated_at Description: Timestamp for updated at.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaDecisionDefinition Description: Definition of a decision resource.
+--     * Slot: category Description: Category name which is derived from the targetNamespace attribute in the definitions element.
+--     * Slot: name Description: Label used for display purposes.
+--     * Slot: diagram_resource_name Description: The diagram resource name for this definition if exist.
 --     * Slot: decision_requirements_definition_id Description: Id of the related decision requirements definition.
 --     * Slot: decision_requirements_definition_key Description: Key of the related decision requirements definition.
---     * Slot: version_tag Description: Version tag of the process definition.
+--     * Slot: history_time_to_live Description: History time to live.
+--     * Slot: version_tag Description: Version tag of the decision definition.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaDecisionRequirementsDefinition Description: Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
+--     * Slot: category Description: Category name which is derived from the targetNamespace attribute in the definitions element.
+--     * Slot: name Description: Label used for display purposes.
+--     * Slot: diagram_resource_name Description: The diagram resource name for this definition if exist.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaDeployment Description: Represents a deployment that is already present in the process repository.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
 --     * Slot: deploy_time Description: Timestamp for deploy time.
 --     * Slot: source Description: The source.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: Id of the tenant this deployment belongs to.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaEventSubscription Description: A message event subscription exists, if an Execution waits for an event like a message.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique identifier of the event subscription.
 --     * Slot: event_type Description: The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal event subscription, "compensation" identifies event subscriptions used for compensation events.
 --     * Slot: event_name Description: The name of the event this subscription belongs to as defined in the process model.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: activity_id Description: BPMN activity element identifier.
---     * Slot: configuration Description: Payload of this incident.
+--     * Slot: execution_id Description: The execution that is subscribed on the referenced event.
+--     * Slot: process_instance_id Description: The process instance this subscription belongs to.
+--     * Slot: activity_id Description: The identifier of the activity that this event subscription belongs to.
+--     * Slot: configuration Description: Configuration value.
 --     * Slot: created Description: The time this event subscription was created.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: The id of the tenant this event subscription belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaExecution Description: Represent a 'path of execution' in a process instance.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique identifier of the execution.
 --     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
+--     * Slot: process_instance_id Description: Id of the root of the execution tree representing the process instance.
 --     * Slot: business_key Description: Domain-specific business key.
---     * Slot: parent_id Description: Reference to a CaseExecution.
+--     * Slot: parent_id Description: Reference to a case execution.
 --     * Slot: process_definition_id Description: Reference to the process definition.
 --     * Slot: super_execution_id Description: Reference to the super execution.
 --     * Slot: super_case_execution_id Description: Reference to the super case execution.
@@ -175,16 +185,16 @@
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
 --     * Slot: cached_entity_state Description: Bitmask caching associated entity existence.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: process_definition_key Description: Key of the process definition.
+--     * Slot: tenant_id Description: The id of the tenant this execution belongs to.
+--     * Slot: process_definition_key Description: The Key of the process definition.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaExternalTask Description: Represents an instance of an external task that is created when a service-task like activity (i.e. service task, send task, ...) with attribute camunda:type="external" is executed.
 --     * Slot: id Description: Unique identifier.
---     * Slot: worker_id Description: Id of the worker that fetched the external task most recently.
---     * Slot: topic_name Description: Topic name of the associated external task.
---     * Slot: retries Description: Number of retries this job has left.
---     * Slot: error_message Description: If the variable value could not be loaded, this returns the error message.
---     * Slot: error_details_id Description: Reference to a ByteArray.
+--     * Slot: worker_id Description: Reference to the worker.
+--     * Slot: topic_name Description: Topic name for external task subscription.
+--     * Slot: retries Description: Number of remaining retry attempts.
+--     * Slot: error_message Description: Error message from the last failure.
+--     * Slot: error_details_id Description: Reference to a byte array.
 --     * Slot: lock_expiration_time Description: Time at which the lock expires.
 --     * Slot: create_time Description: Creation timestamp.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
@@ -195,26 +205,25 @@
 --     * Slot: activity_id Description: BPMN activity element identifier.
 --     * Slot: activity_instance_id Description: Runtime activity instance identifier.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: priority Description: Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
+--     * Slot: priority Description: Priority of the external task.
 --     * Slot: last_failure_log_id Description: Reference to the last failure log.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaFilter Description: Filter entity in the user collaboration.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: resource_type Description: Numeric type of the authorized resource.
 --     * Slot: name Description: Human-readable name.
---     * Slot: owner Description: The userId of the person that is responsible for this task.
+--     * Slot: owner Description: User ID of the owner.
 --     * Slot: query Description: Serialized query expression.
 --     * Slot: properties Description: Serialized properties.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaFormDefinition Description: An object structure representing a Camunda Form used to present forms to users either when starting a process instance or when assigned to a User Task.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaGroup Description: Represents a group, used in IdentityService.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
@@ -222,86 +231,77 @@
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricActivityInstance Description: Represents one execution of an activity and it's stored permanent for statistics, audit and other business intelligence purposes.
 --     * Slot: parent_activity_instance_id Description: Id of the parent activity instance.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: activity_id Description: BPMN activity element identifier.
---     * Slot: task_id Description: Reference to the task.
+--     * Slot: process_definition_key Description: Process definition key reference.
+--     * Slot: process_definition_id Description: Process definition reference.
+--     * Slot: root_process_instance_id Description: Root process instance reference.
+--     * Slot: process_instance_id Description: Process instance reference.
+--     * Slot: execution_id Description: Execution reference.
+--     * Slot: activity_id Description: The unique identifier of the activity in the process.
+--     * Slot: task_id Description: The corresponding task in case of task activity.
 --     * Slot: called_process_instance_id Description: The called process instance in case of call activity.
 --     * Slot: called_case_instance_id Description: The called case instance in case of (case) call activity.
 --     * Slot: activity_name Description: The display name for the activity.
 --     * Slot: activity_type Description: The activity type of the activity.
---     * Slot: assignee Description: The userId of the person to which this task is String) assigned or String) delegated.
+--     * Slot: assignee Description: Assignee in case of user task activity.
+--     * Slot: start_time Description: Time when the activity instance started.
+--     * Slot: end_time Description: Time when the activity instance ended.
 --     * Slot: activity_instance_state Description: The activity instance state.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
+--     * Slot: removal_time Description: The time the historic activity instance will be removed.
+--     * Slot: id Description: The unique identifier of this historic activity instance.
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this historic activity instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricBatch Description: Historic representation of a Batch.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: type Description: Type discriminator.
 --     * Slot: total_jobs Description: Total number of jobs.
 --     * Slot: jobs_per_seed Description: The jobs per seed.
 --     * Slot: invocations_per_job Description: The invocations per job.
---     * Slot: seed_job_definition_id Description: Reference to a JobDefinition.
---     * Slot: monitor_job_definition_id Description: Reference to a JobDefinition.
---     * Slot: batch_job_definition_id Description: Reference to a JobDefinition.
+--     * Slot: seed_job_definition_id Description: Reference to a job definition.
+--     * Slot: monitor_job_definition_id Description: Reference to a job definition.
+--     * Slot: batch_job_definition_id Description: Reference to a job definition.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_user_id Description: The authenticated user that created this case instance.
+--     * Slot: create_user_id Description: Reference to the create user.
 --     * Slot: start_time Description: Start timestamp.
 --     * Slot: end_time Description: End timestamp.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: removal_time Description: The time the historic batch will be removed.
 --     * Slot: execution_start_time Description: Timestamp when this started.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricCaseActivityInstance Description: Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.
---     * Slot: parent_activity_instance_id Description: Id of the parent activity instance.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
+--     * Slot: parent_activity_instance_id Description: Reference to the parent activity instance.
+--     * Slot: case_definition_id Description: The case definition reference.
+--     * Slot: case_instance_id Description: The case instance reference.
 --     * Slot: case_activity_id Description: The unique identifier of the case activity in the case.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: called_process_instance_id Description: The called process instance in case of call activity.
---     * Slot: called_case_instance_id Description: The called case instance in case of (case) call activity.
+--     * Slot: task_id Description: The corresponding task in case of a human task activity.
+--     * Slot: called_process_instance_id Description: The corresponding process in case of a process task activity.
+--     * Slot: called_case_instance_id Description: The corresponding case in case of a case task activity.
 --     * Slot: case_activity_name Description: The display name for the case activity.
 --     * Slot: case_activity_type Description: The display type for the case activity.
---     * Slot: create_time Description: Creation timestamp.
+--     * Slot: create_time Description: The time when the case activity was created.
+--     * Slot: end_time Description: The time when the case activity ended.
 --     * Slot: state Description: The row's state; which values it takes depends on its table.
 --     * Slot: is_required Description: Whether this entity is required.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
+--     * Slot: id Description: The id of the case activity instance (== as the id of the runtime activity).
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this historic case activity instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricCaseInstance Description: A single execution of a case definition that is stored permanently.
 --     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: business_key Description: Domain-specific business key.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: create_time Description: Creation timestamp.
+--     * Slot: business_key Description: The user provided unique reference to this process instance.
+--     * Slot: case_definition_id Description: The case definition reference.
+--     * Slot: create_time Description: The time the case was created.
 --     * Slot: close_time Description: The time the case was closed.
 --     * Slot: state Description: The row's state; which values it takes depends on its table.
 --     * Slot: create_user_id Description: The authenticated user that created this case instance.
 --     * Slot: super_case_instance_id Description: The case instance id of a potential super case instance or null if no super case instance exists.
 --     * Slot: super_process_instance_id Description: The process instance id of a potential super process instance or null if no super process instance exists.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
+--     * Slot: id Description: The case instance id (== as the id of the runtime CaseInstance).
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this historic case instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricDecisionInputInstance Description: Represents one input variable of a decision evaluation.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique identifier of this historic decision input instance.
 --     * Slot: decision_instance_id Description: The unique identifier of the historic decision instance.
 --     * Slot: clause_id Description: The unique identifier of the clause that the value is assigned for.
 --     * Slot: clause_name Description: The name of the clause that the value is assigned for.
@@ -312,33 +312,35 @@
 --     * Slot: text_value Description: Variable value stored as text.
 --     * Slot: text2_value Description: Variable value stored as text2.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_time Description: Creation timestamp.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: create_time Description: Time when the variable was created.
+--     * Slot: root_process_instance_id Description: Root process instance id of the process instance on which the associated business rule task has been called.
+--     * Slot: removal_time Description: The time the historic decision instance will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricDecisionInstance Description: Represents one evaluation of a decision.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique identifier of this historic decision instance.
 --     * Slot: decision_definition_id Description: The decision definition reference.
 --     * Slot: decision_definition_key Description: The unique identifier of the decision definition.
 --     * Slot: decision_definition_name Description: The name of the decision definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: case_definition_key Description: Case definition key reference.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: activity_instance_id Description: Runtime activity instance identifier.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: process_definition_key Description: The corresponding key of the process definition in case the decision was evaluated inside a process.
+--     * Slot: process_definition_id Description: The corresponding id of the process definition in case the decision was evaluated inside a process.
+--     * Slot: process_instance_id Description: The corresponding process instance in case the decision was evaluated inside a process.
+--     * Slot: case_definition_key Description: The corresponding key of the case definition in case the decision was evaluated inside a case.
+--     * Slot: case_definition_id Description: The corresponding id of the case definition in case the decision was evaluated inside a case.
+--     * Slot: case_instance_id Description: The corresponding case instance in case the decision was evaluated inside a case.
+--     * Slot: activity_instance_id Description: The corresponding activity instance in case the decision was evaluated inside a process or a case.
+--     * Slot: activity_id Description: The corresponding activity in case the decision was evaluated inside a process or a case.
 --     * Slot: evaluation_time Description: Time when the decision was evaluated.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: removal_time Description: Time when the historic decision instance is to be removed.
 --     * Slot: collect_result_value Description: The result of the collect operation if the hit policy 'collect' was used for the decision.
---     * Slot: user_id Description: Reference to a user.
+--     * Slot: user_id Description: The user ID in case the decision was evaluated by an authenticated user using the decision service outside of an execution context.
 --     * Slot: root_decision_instance_id Description: The unique identifier of the historic decision instance of the evaluated root decision.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: decision_requirements_definition_id Description: Id of the related decision requirements definition.
---     * Slot: decision_requirements_definition_key Description: Key of the related decision requirements definition.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: root_process_instance_id Description: The unique identifier of the root historic process instance of the evaluated root decision in case the decision was evaluated inside a process, otherwise null.
+--     * Slot: decision_requirements_definition_id Description: The id of the related decision requirements definition.
+--     * Slot: decision_requirements_definition_key Description: The key of the related decision requirements definition.
+--     * Slot: tenant_id Description: The id of the tenant this historic decision instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricDecisionOutputInstance Description: Represents one output variable of a decision evaluation.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique identifier of this historic decision output instance.
 --     * Slot: decision_instance_id Description: The unique identifier of the historic decision instance.
 --     * Slot: clause_id Description: The unique identifier of the clause that the value is assigned for.
 --     * Slot: clause_name Description: The name of the clause that the value is assigned for.
@@ -352,25 +354,26 @@
 --     * Slot: text_value Description: Variable value stored as text.
 --     * Slot: text2_value Description: Variable value stored as text2.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_time Description: Creation timestamp.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: create_time Description: Time when the variable was created.
+--     * Slot: root_process_instance_id Description: Root process instance id of the process instance on which the associated business rule task has been called.
+--     * Slot: removal_time Description: The time the historic decision instance will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricDetail Description: Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: The unique DB id for this historic detail.
 --     * Slot: type Description: Type discriminator.
 --     * Slot: event_time Description: Timestamp for event time.
 --     * Slot: name Description: Human-readable name.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: case_definition_key Description: Case definition key reference.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: activity_instance_id Description: Runtime activity instance identifier.
+--     * Slot: process_definition_key Description: The process definition key reference.
+--     * Slot: process_definition_id Description: The process definition reference.
+--     * Slot: root_process_instance_id Description: The root process instance reference.
+--     * Slot: process_instance_id Description: The process instance reference.
+--     * Slot: execution_id Description: The identifier for the path of execution.
+--     * Slot: case_definition_key Description: The case definition key reference.
+--     * Slot: case_definition_id Description: The case definition reference.
+--     * Slot: case_instance_id Description: The case instance reference.
+--     * Slot: case_execution_id Description: The case execution reference.
+--     * Slot: task_id Description: The identifier for the task.
+--     * Slot: activity_instance_id Description: The activity reference in case this detail is related to an activity instance.
 --     * Slot: variable_instance_id Description: Reference to the variable instance.
 --     * Slot: variable_type Description: The variable type.
 --     * Slot: byte_array_id Description: Reference to the byte array.
@@ -379,68 +382,72 @@
 --     * Slot: text_value Description: Variable value stored as text.
 --     * Slot: text2_value Description: Variable value stored as text2.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: operation_id Description: The unique identifier of this operation.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this historic detail belongs to.
+--     * Slot: operation_id Description: Reference to the operation.
+--     * Slot: removal_time Description: The time the historic detail will be removed.
 --     * Slot: is_initial Description: Whether this entity is initial.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricExternalTaskLog Description: The HistoricExternalTaskLog is used to have a log containing information about task execution.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Unique identifier for this historic external task log.
 --     * Slot: timestamp Description: Time when this log occurred.
 --     * Slot: external_task_id Description: Id of the associated external task.
---     * Slot: retries Description: Number of retries this job has left.
+--     * Slot: retries Description: Retries of the associated external task before the associated external task has been executed and when this log occurred.
 --     * Slot: topic_name Description: Topic name of the associated external task.
 --     * Slot: worker_id Description: Id of the worker that fetched the external task most recently.
---     * Slot: priority Description: Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
---     * Slot: error_message Description: If the variable value could not be loaded, this returns the error message.
---     * Slot: error_details_id Description: Reference to a ByteArray.
---     * Slot: activity_id Description: BPMN activity element identifier.
---     * Slot: activity_instance_id Description: Runtime activity instance identifier.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: priority Description: Priority of the associated external task when this log entry was created.
+--     * Slot: error_message Description: Message of the error that occurred by executing the associated external task.
+--     * Slot: error_details_id Description: Reference to a byte array.
+--     * Slot: activity_id Description: Id of the activity which the external task associated with.
+--     * Slot: activity_instance_id Description: Id of the activity instance on which the associated external task was created.
+--     * Slot: execution_id Description: Specific execution id on which the associated external task was created.
+--     * Slot: root_process_instance_id Description: Specific root process instance id of the process instance on which the associated external task was created.
+--     * Slot: process_instance_id Description: Specific process instance id on which the associated external task was created.
+--     * Slot: process_definition_id Description: Specific process definition id on which the associated external task was created.
+--     * Slot: process_definition_key Description: Specific process definition key on which the associated external task was created.
+--     * Slot: tenant_id Description: Id of the tenant this external task log entry belongs to.
 --     * Slot: state Description: The row's state; which values it takes depends on its table.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: removal_time Description: The time the historic external task log will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricIdentityLink Description: An historic identity link stores the association of a task with a certain identity.
---     * Slot: id Description: Unique identifier.
---     * Slot: timestamp Description: Time when this log occurred.
---     * Slot: type Description: Type discriminator.
---     * Slot: user_id Description: Reference to a user.
---     * Slot: group_id Description: Reference to a group.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_definition_id Description: Reference to the process definition.
+--     * Slot: id Description: Id of historic identity link (Candidate or Assignee or Owner).
+--     * Slot: timestamp Description: Timestamp for timestamp.
+--     * Slot: type Description: Type of link (Candidate or Assignee or Owner).
+--     * Slot: user_id Description: If the identity link involves a user, then this will be a non-null id of a user.
+--     * Slot: group_id Description: If the identity link involves a group, then this will be a non-null id of a group.
+--     * Slot: task_id Description: The id of the task associated with this identity link.
+--     * Slot: root_process_instance_id Description: Root process instance id of the related process instance.
+--     * Slot: process_definition_id Description: Id of the related process definition.
 --     * Slot: operation_type Description: Type of identity link history (add or delete identity link).
 --     * Slot: assigner_id Description: UserId of the user who assigns a task to the user.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: process_definition_key Description: Key of the related process definition.
+--     * Slot: tenant_id Description: Id of the related tenant.
+--     * Slot: removal_time Description: The time the historic identity link log will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricIncident Description: Represents a historic incident that is stored permanently.
---     * Slot: id Description: Unique identifier.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: create_time Description: Creation timestamp.
---     * Slot: end_time Description: End timestamp.
+--     * Slot: id Description: Unique identifier for this incident.
+--     * Slot: process_definition_key Description: Key of the process definition of this process instance on which the incident has happened.
+--     * Slot: process_definition_id Description: Id of the process definition of this process instance on which the incident has happened.
+--     * Slot: root_process_instance_id Description: Specific root process instance id of the process instance on which this incident has happened.
+--     * Slot: process_instance_id Description: Specific process instance on which this incident has happened.
+--     * Slot: execution_id Description: Specific execution on which this incident has happened.
+--     * Slot: create_time Description: Time when the incident happened.
+--     * Slot: end_time Description: Time when the incident has been resolved or deleted.
 --     * Slot: incident_message Description: Incident message.
 --     * Slot: incident_type Description: Type of this incident to identify the kind of incident.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: activity_id Description: Id of the activity of the process instance on which this incident has happened.
 --     * Slot: failed_activity_id Description: Id of the activity on which the last exception occurred.
 --     * Slot: cause_incident_id Description: Id of the incident on which this incident has been triggered.
 --     * Slot: root_cause_incident_id Description: Id of the root incident on which this transitive incident has been triggered.
 --     * Slot: configuration Description: Payload of this incident.
 --     * Slot: history_configuration Description: History payload of this incident.
 --     * Slot: incident_state Description: The incident state.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: job_definition_id Description: Reference to the job definition.
+--     * Slot: tenant_id Description: Id of the tenant this incident belongs to.
+--     * Slot: job_definition_id Description: Id of the job definition the incident belongs to.
 --     * Slot: annotation Description: Annotation of this incident.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: removal_time Description: The time the historic incident will be removed.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricJobLog Description: The HistoricJobLog is used to have a log containing information about job execution.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Unique identifier for this historic job log.
 --     * Slot: timestamp Description: Time when this log occurred.
 --     * Slot: job_id Description: Id of the associated job.
 --     * Slot: job_due_date Description: Due date of the associated job when this log occurred.
@@ -449,260 +456,265 @@
 --     * Slot: job_exception_message Description: Message of the exception that occurred by executing the associated job.
 --     * Slot: job_exception_stack_id Description: Reference to the job exception stack.
 --     * Slot: job_state Description: The job state.
---     * Slot: job_definition_id Description: Reference to the job definition.
+--     * Slot: job_definition_id Description: Id of the job definition on which the associated job was created.
 --     * Slot: job_definition_type Description: Job definition type of the associated job.
 --     * Slot: job_definition_configuration Description: Job definition configuration type of the associated job.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: activity_id Description: Id of the activity on which the associated job was created.
 --     * Slot: failed_activity_id Description: Id of the activity on which the last exception occurred.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: deployment_id Description: Reference to the deployment.
+--     * Slot: execution_id Description: Specific execution id on which the associated job was created.
+--     * Slot: root_process_instance_id Description: Specific root process instance id of the process instance on which the associated job was created.
+--     * Slot: process_instance_id Description: Specific process instance id on which the associated job was created.
+--     * Slot: process_definition_id Description: Specific process definition id on which the associated job was created.
+--     * Slot: process_definition_key Description: Specific process definition key on which the associated job was created.
+--     * Slot: deployment_id Description: Specific deployment id on which the associated job was created.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: Id of the tenant this job log entry belongs to.
 --     * Slot: hostname Description: Name of the host where the Process Engine that added this job log runs.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
---     * Slot: batch_id Description: Reference to a batch.
+--     * Slot: removal_time Description: The time the historic job log will be removed.
+--     * Slot: batch_id Description: ID of the batch associated with the job or null if no batch is associated with the job.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricProcessInstance Description: A single execution of a whole process definition that is stored permanently.
---     * Slot: business_key Description: Domain-specific business key.
+--     * Slot: process_instance_id Description: Reference to the process instance.
+--     * Slot: business_key Description: The user provided unique reference to this process instance.
+--     * Slot: process_definition_key Description: The process definition key reference.
+--     * Slot: process_definition_id Description: The process definition reference.
+--     * Slot: start_time Description: The time the process was started.
+--     * Slot: end_time Description: The time the process was ended.
+--     * Slot: removal_time Description: The time the historic process instance will be removed.
 --     * Slot: start_user_id Description: The authenticated user that started this process instance.
 --     * Slot: start_activity_id Description: The start activity.
 --     * Slot: end_activity_id Description: Reference to the end activity.
 --     * Slot: super_process_instance_id Description: The process instance id of a potential super process instance or null if no super process instance exists.
+--     * Slot: root_process_instance_id Description: The process instance id of the top-level (root) process instance or null if no root process instance exists.
 --     * Slot: super_case_instance_id Description: The case instance id of a potential super case instance or null if no super case instance exists.
---     * Slot: case_instance_id Description: Reference to the case instance.
+--     * Slot: case_instance_id Description: The case instance id of a potential super case instance or null if no super case instance exists.
 --     * Slot: delete_reason Description: Obtains the reason for the process instance's deletion.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: state Description: The row's state; which values it takes depends on its table.
+--     * Slot: state Description: Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STATE_COMPLETED - completed through normal end event STATE_EXTERNALLY_TERMINATED - terminated externally, for instance through REST API STATE_INTERNALLY_TERMINATED - terminated internally, for instance by terminating boundary event.
 --     * Slot: restarted_process_instance_id Description: The id of the original process instance which was restarted.
---     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
+--     * Slot: id Description: The process instance id (== as the id for the runtime process instance).
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
--- # Abstract Class: FluxnovaHistoricScopeInstance Description: Abstract base for historic entities with start/end time and duration.
+--     * Slot: tenant_id Description: The id of the tenant this historic process instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
+-- # Abstract Class: FluxnovaHistoricScopeInstance Description: Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five tables have.
 --     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
--- # Class: FluxnovaHistoricTaskInstance Description: Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
---     * Slot: task_definition_key Description: The id of the activity in the process defining this task or null if this is not related to a process.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: case_definition_key Description: Case definition key reference.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: activity_instance_id Description: Runtime activity instance identifier.
---     * Slot: name Description: Human-readable name.
---     * Slot: parent_task_id Description: The parent task for which this task is a subtask.
---     * Slot: description Description: Human-readable description.
---     * Slot: owner Description: The userId of the person that is responsible for this task.
---     * Slot: assignee Description: The userId of the person to which this task is String) assigned or String) delegated.
---     * Slot: delete_reason Description: Obtains the reason for the process instance's deletion.
---     * Slot: priority Description: Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
---     * Slot: due_date Description: Due date of the task.
---     * Slot: follow_up_date Description: Follow-up date of the task.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: task_state Description: Task's state.
---     * Slot: id Description: Unique identifier.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: start_time Description: Start timestamp.
---     * Slot: end_time Description: End timestamp.
+-- # Class: FluxnovaHistoricTaskInstance Description: Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
+--     * Slot: task_definition_key Description: Task definition key.
+--     * Slot: process_definition_key Description: Process definition key reference.
+--     * Slot: process_definition_id Description: Process definition reference.
+--     * Slot: root_process_instance_id Description: Root process instance reference.
+--     * Slot: process_instance_id Description: Process instance reference.
+--     * Slot: execution_id Description: Execution reference.
+--     * Slot: case_definition_key Description: Case definition key reference.
+--     * Slot: case_definition_id Description: Case definition reference.
+--     * Slot: case_instance_id Description: Case instance reference.
+--     * Slot: case_execution_id Description: Case execution reference.
+--     * Slot: activity_instance_id Description: Activity instance reference.
+--     * Slot: name Description: The latest name given to this task.
+--     * Slot: parent_task_id Description: The parent task of this task, in case this task was a subtask.
+--     * Slot: description Description: The latest description given to this task.
+--     * Slot: owner Description: Task owner.
+--     * Slot: assignee Description: The latest assignee given to this task.
+--     * Slot: start_time Description: Time when the task started.
+--     * Slot: end_time Description: Time when the task was deleted or completed.
+--     * Slot: delete_reason Description: The reason why this task was deleted {'completed' | 'deleted' | any other user defined string }.
+--     * Slot: priority Description: Task priority *.
+--     * Slot: due_date Description: Task due date *.
+--     * Slot: follow_up_date Description: Task follow-up date.
+--     * Slot: removal_time Description: The time the historic task instance will be removed.
+--     * Slot: task_state Description: Task State also referred as lifeCycleState.
+--     * Slot: id Description: The unique identifier of this historic task instance.
 --     * Slot: duration Description: Duration in milliseconds.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this historic task instance belongs to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaHistoricVariableInstance Description: A single process variable containing the last value when its process instance has finished.
 --     * Slot: id Description: Unique identifier.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: case_definition_key Description: Case definition key reference.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: activity_instance_id Description: Runtime activity instance identifier.
---     * Slot: name Description: Human-readable name.
+--     * Slot: process_definition_key Description: The process definition key reference.
+--     * Slot: process_definition_id Description: The process definition reference.
+--     * Slot: root_process_instance_id Description: The root process instance reference.
+--     * Slot: process_instance_id Description: The process instance reference.
+--     * Slot: execution_id Description: Corresponding execution id.
+--     * Slot: case_definition_key Description: The case definition key reference.
+--     * Slot: case_definition_id Description: The case definition reference.
+--     * Slot: case_instance_id Description: The case instance reference.
+--     * Slot: case_execution_id Description: Corresponding case execution id.
+--     * Slot: task_id Description: Corresponding task id.
+--     * Slot: activity_instance_id Description: Corresponding activity instance id.
+--     * Slot: name Description: Name of this variable instance.
 --     * Slot: variable_type Description: The variable type.
---     * Slot: create_time Description: Creation timestamp.
+--     * Slot: create_time Description: The time when the variable was created.
 --     * Slot: byte_array_id Description: Reference to the byte array.
 --     * Slot: double_value Description: Variable value stored as double.
 --     * Slot: long_value Description: Variable value stored as long.
 --     * Slot: text_value Description: Variable value stored as text.
 --     * Slot: text2_value Description: Variable value stored as text2.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: state Description: The row's state; which values it takes depends on its table.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
+--     * Slot: tenant_id Description: The id of the tenant this variable belongs to.
+--     * Slot: state Description: The current state of the variable.
+--     * Slot: removal_time Description: The time when the historic variable instance will be removed.
 --     * Slot: restricted Description: Whether this variable is restricted.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaIdentityInfo Description: Identity Info entity in the identity and access management.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: user_id Description: Reference to a user.
 --     * Slot: type Description: Type discriminator.
---     * Slot: key Description: Business key for the definition.
+--     * Slot: key Description: The row's key.
 --     * Slot: value Description: The row's value.
 --     * Slot: password Description: Hashed password.
---     * Slot: parent_id Description: Reference to a CaseExecution.
+--     * Slot: parent_id Description: Reference to a case execution.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaIdentityLink Description: An identity link is used to associate a task with a certain identity.
---     * Slot: id Description: Unique identifier.
---     * Slot: group_id Description: Reference to a group.
---     * Slot: type Description: Type discriminator.
---     * Slot: user_id Description: Reference to a user.
---     * Slot: task_id Description: Reference to the task.
+--     * Slot: id Description: Get the Id of identityLink.
+--     * Slot: group_id Description: If the identity link involves a group, then this will be a non-null id of a group.
+--     * Slot: type Description: Type of link.
+--     * Slot: user_id Description: If the identity link involves a user, then this will be a non-null id of a user.
+--     * Slot: task_id Description: The id of the task associated with this identity link.
 --     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: The id of the tenant associated with this identity link.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaIncident Description: An Incident represents a failure in the execution of a process instance.
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Unique identifier for this incident.
 --     * Slot: incident_timestamp Description: Time when the incident happened.
 --     * Slot: incident_message Description: Incident message.
 --     * Slot: incident_type Description: Type of this incident to identify the kind of incident.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: execution_id Description: Specific execution on which this incident has happened.
+--     * Slot: activity_id Description: Id of the activity of the process instance on which this incident has happened.
 --     * Slot: failed_activity_id Description: Id of the activity on which the last exception occurred.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
+--     * Slot: process_instance_id Description: Specific process instance on which this incident has happened.
+--     * Slot: process_definition_id Description: Id of the process definition of this process instance on which the incident has happened.
 --     * Slot: cause_incident_id Description: Id of the incident on which this incident has been triggered.
 --     * Slot: root_cause_incident_id Description: Id of the root incident on which this transitive incident has been triggered.
 --     * Slot: configuration Description: Payload of this incident.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: job_definition_id Description: Reference to the job definition.
+--     * Slot: tenant_id Description: Id of the tenant this incident belongs to.
+--     * Slot: job_definition_id Description: Id of the job definition the incident belongs to.
 --     * Slot: annotation Description: Annotation of this incident.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaJob Description: Represents one job (timer, message, etc.).
---     * Slot: id Description: Unique identifier.
+--     * Slot: id Description: Unique identifier for this job.
 --     * Slot: type Description: Type discriminator.
 --     * Slot: lock_expiration_time Description: Time at which the lock expires.
 --     * Slot: lock_owner Description: Identifier of the node that acquired the lock.
 --     * Slot: is_exclusive Description: Whether this entity is exclusive.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
+--     * Slot: execution_id Description: Specific execution on which the job was created.
+--     * Slot: root_process_instance_id Description: Id of the root process instance which execution created the job.
+--     * Slot: process_instance_id Description: Id of the process instance which execution created the job.
+--     * Slot: process_definition_id Description: Id of the process definition which created the job.
+--     * Slot: process_definition_key Description: Key of the process definition which created the job.
 --     * Slot: retries Description: Number of retries this job has left.
---     * Slot: exception_stack_id Description: Reference to a ByteArray.
+--     * Slot: exception_stack_id Description: Reference to a byte array.
 --     * Slot: exception_message Description: Message of the exception that occurred, the last time the job was executed.
 --     * Slot: failed_activity_id Description: Id of the activity on which the last exception occurred.
---     * Slot: due_date Description: Due date of the task.
+--     * Slot: due_date Description: Date by which this should be completed.
 --     * Slot: repeat Description: Repeat/recurrence expression (ISO 8601).
 --     * Slot: repeat_offset Description: Offset applied to repeat interval calculation.
 --     * Slot: handler_type Description: Type of handler that processes this entity.
 --     * Slot: handler_configuration Description: Configuration for the handler.
---     * Slot: deployment_id Description: Reference to the deployment.
+--     * Slot: deployment_id Description: Id of the deployment in which context the job was created.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
---     * Slot: job_definition_id Description: Reference to the job definition.
---     * Slot: priority Description: Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
+--     * Slot: job_definition_id Description: The id of the JobDefinition for this job.
+--     * Slot: priority Description: The job's priority that is a hint to job acquisition.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: create_time Description: Creation timestamp.
+--     * Slot: tenant_id Description: The id of the tenant this job belongs to.
+--     * Slot: create_time Description: The date/time when this job has been created.
 --     * Slot: last_failure_log_id Description: Reference to the last failure log.
---     * Slot: batch_id Description: Reference to a batch.
+--     * Slot: batch_id Description: The ID of the batch associated with this job. null if no batch is associated with this job.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaJobDefinition Description: A Job Definition provides details about asynchronous background processing ("Jobs") performed by the process engine.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: process_definition_id Description: Reference to the process definition.
 --     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: activity_id Description: BPMN activity element identifier.
+--     * Slot: activity_id Description: The Id of the activity (from BPMN 2.0 Xml) this Job Definition is associated with.
 --     * Slot: job_type Description: The Type of a job.
 --     * Slot: job_configuration Description: The configuration of a job definition provides details about the jobs which will be created.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
---     * Slot: job_priority Description: Priority of the associated job when this log entry was created.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: deployment_id Description: Reference to the deployment.
+--     * Slot: job_priority Description: The job priority.
+--     * Slot: tenant_id Description: The id of the tenant this job definition belongs to.
+--     * Slot: deployment_id Description: The id of the deployment this job definition is related to.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaMembership Description: Association entity in identity and access management.
 --     * Slot: id
 --     * Slot: user_id Description: Reference to a user.
 --     * Slot: group_id Description: Reference to a group.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaMeterLog Description: Meter Log entity in the engine infrastructure.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
 --     * Slot: reporter Description: Identifier of the reporting node.
 --     * Slot: value Description: The row's value.
---     * Slot: timestamp Description: Time when this log occurred.
+--     * Slot: timestamp Description: Timestamp for timestamp.
 --     * Slot: milliseconds Description: The milliseconds.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaProcessDefinition Description: An object structure representing an executable process composed of activities and transitions.
+--     * Slot: category Description: Category name which is derived from the targetNamespace attribute in the definitions element.
+--     * Slot: name Description: Label used for display purposes.
+--     * Slot: diagram_resource_name Description: The diagram resource name for this definition if exist.
 --     * Slot: has_start_form_key Description: The has start form key.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
 --     * Slot: version_tag Description: Version tag of the process definition.
+--     * Slot: history_time_to_live Description: History time to live.
 --     * Slot: is_startable Description: Whether this entity is startable.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaEngineProperty Description: Property entity in the engine infrastructure.
 --     * Slot: name Description: Human-readable name.
 --     * Slot: value Description: The row's value.
--- # Abstract Class: FluxnovaResourceDefinition Description: Abstract base for deployable resource definitions (process, case, decision, form).
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
+-- # Abstract Class: FluxnovaResourceDefinition Description: Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all five tables have.
 --     * Slot: id Description: Unique identifier.
---     * Slot: key Description: Business key for the definition.
---     * Slot: name Description: Human-readable name.
---     * Slot: version Description: Version number.
---     * Slot: category Description: Category classification.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: resource_name Description: Name of the deployed resource file.
---     * Slot: diagram_resource_name Description: Name of the diagram resource file.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: history_time_to_live Description: Days to retain history before cleanup.
+--     * Slot: key Description: Unique name for all versions this definition.
+--     * Slot: version Description: Version of this definition.
+--     * Slot: deployment_id Description: The deployment in which this definition is contained.
+--     * Slot: resource_name Description: Name of the resource of this definition.
+--     * Slot: tenant_id Description: The id of the tenant this definition belongs to.
 -- # Class: FluxnovaSchemaLogEntry Description: Schema Log Entry entity in the engine infrastructure.
 --     * Slot: id Description: Unique identifier.
---     * Slot: timestamp Description: Time when this log occurred.
+--     * Slot: timestamp Description: Timestamp for timestamp.
 --     * Slot: version Description: Version number.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaTask Description: Represents one task for a human user.
---     * Slot: id Description: Unique identifier.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: name Description: Human-readable name.
+--     * Slot: id Description: DB id of the task.
+--     * Slot: execution_id Description: Reference to the path of execution or null if it is not related to a process instance.
+--     * Slot: process_instance_id Description: Reference to the process instance or null if it is not related to a process instance.
+--     * Slot: process_definition_id Description: Reference to the process definition or null if it is not related to a process.
+--     * Slot: case_execution_id Description: Reference to the path of case execution or null if it is not related to a case instance.
+--     * Slot: case_instance_id Description: Reference to the case instance or null if it is not related to a case instance.
+--     * Slot: case_definition_id Description: Reference to the case definition or null if it is not related to a case.
+--     * Slot: name Description: Name or title of the task.
 --     * Slot: parent_task_id Description: The parent task for which this task is a subtask.
---     * Slot: description Description: Human-readable description.
+--     * Slot: description Description: Free text description of the task.
 --     * Slot: task_definition_key Description: The id of the activity in the process defining this task or null if this is not related to a process.
 --     * Slot: owner Description: The userId of the person that is responsible for this task.
---     * Slot: assignee Description: The userId of the person to which this task is String) assigned or String) delegated.
+--     * Slot: assignee Description: The userId of the person to which this task is assigned or delegated.
 --     * Slot: delegation_state Description: The current DelegationState for this task.
 --     * Slot: priority Description: Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.
---     * Slot: create_time Description: Creation timestamp.
+--     * Slot: create_time Description: The date/time when this task was created.
 --     * Slot: last_updated Description: The date/time when this task was last updated.
 --     * Slot: due_date Description: Due date of the task.
 --     * Slot: follow_up_date Description: Follow-up date of the task.
 --     * Slot: suspension_state Description: Whether the entity is active or suspended.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: Task's tenant id or null in case this task does not belong to a tenant.
 --     * Slot: task_state Description: Task's state.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaTaskMeterLog Description: Task Meter Log entity in the engine infrastructure.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: assignee_hash Description: Hash of the assignee for aggregation.
---     * Slot: timestamp Description: Time when this log occurred.
+--     * Slot: timestamp Description: Timestamp for timestamp.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaTenant Description: Represents a tenant, used in IdentityService.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: name Description: Human-readable name.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaTenantMembership Description: Association entity in identity and access management.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: tenant_id Description: Multi-tenancy discriminator.
 --     * Slot: user_id Description: Reference to a user.
 --     * Slot: group_id Description: Reference to a group.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaUser Description: Represents a user, used in IdentityService.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: first_name Description: First name.
@@ -715,44 +727,45 @@
 --     * Slot: picture_id Description: Reference to the picture.
 --     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaUserOperationLogEntry Description: Log entry about an operation performed by a user.
---     * Slot: id Description: Unique identifier.
---     * Slot: deployment_id Description: Reference to the deployment.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: process_definition_key Description: Key of the process definition.
---     * Slot: root_process_instance_id Description: Root process instance for history cleanup.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: case_definition_id Description: Reference to the case definition.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: job_id Description: Id of the associated job.
---     * Slot: job_definition_id Description: Reference to the job definition.
---     * Slot: batch_id Description: Reference to a batch.
---     * Slot: user_id Description: Reference to a user.
---     * Slot: timestamp Description: Time when this log occurred.
---     * Slot: operation_type Description: Type of identity link history (add or delete identity link).
+--     * Slot: id Description: The unique identifier of this log entry.
+--     * Slot: deployment_id Description: Deployment reference.
+--     * Slot: process_definition_id Description: Process definition reference.
+--     * Slot: process_definition_key Description: Key of the process definition this log entry belongs to; null means any.
+--     * Slot: root_process_instance_id Description: Root process instance reference.
+--     * Slot: process_instance_id Description: Process instance reference.
+--     * Slot: execution_id Description: Execution reference.
+--     * Slot: case_definition_id Description: Case definition reference.
+--     * Slot: case_instance_id Description: Case instance reference.
+--     * Slot: case_execution_id Description: Case execution reference.
+--     * Slot: task_id Description: Task instance reference.
+--     * Slot: job_id Description: Job instance reference.
+--     * Slot: job_definition_id Description: Job definition reference.
+--     * Slot: batch_id Description: Batch reference.
+--     * Slot: user_id Description: The User who performed the operation.
+--     * Slot: timestamp Description: Timestamp of this change.
+--     * Slot: operation_type Description: Type of this operation, like create, assign, claim and so on.
 --     * Slot: operation_id Description: The unique identifier of this operation.
 --     * Slot: entity_type Description: The type of the entity on which this operation was executed.
 --     * Slot: property Description: The property changed by this operation.
 --     * Slot: original_value Description: The original value.
 --     * Slot: new_value Description: The new value of the property.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
---     * Slot: removal_time Description: Timestamp when this entity is eligible for removal.
---     * Slot: category Description: Category classification.
---     * Slot: external_task_id Description: Id of the associated external task.
---     * Slot: annotation Description: Annotation of this incident.
+--     * Slot: tenant_id Description: The id of the tenant this user operation log belongs to.
+--     * Slot: removal_time Description: The time the historic user operation log will be removed.
+--     * Slot: category Description: The category this entry is associated with.
+--     * Slot: external_task_id Description: External task reference.
+--     * Slot: annotation Description: An arbitrary annotation set by a user for auditing reasons.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Class: FluxnovaVariableInstance Description: A VariableInstance represents a variable in the execution of a process instance.
 --     * Slot: id Description: Unique identifier.
 --     * Slot: type Description: Type discriminator.
---     * Slot: name Description: Human-readable name.
---     * Slot: execution_id Description: Reference to the execution.
---     * Slot: process_instance_id Description: Reference to the process instance.
---     * Slot: process_definition_id Description: Reference to the process definition.
---     * Slot: case_execution_id Description: Reference to the case execution.
---     * Slot: case_instance_id Description: Reference to the case instance.
---     * Slot: task_id Description: Reference to the task.
---     * Slot: batch_id Description: Reference to a batch.
+--     * Slot: name Description: Name of this variable instance.
+--     * Slot: execution_id Description: Corresponding execution id.
+--     * Slot: process_instance_id Description: Corresponding process instance id.
+--     * Slot: process_definition_id Description: Corresponding process definition id.
+--     * Slot: case_execution_id Description: Corresponding case execution id.
+--     * Slot: case_instance_id Description: Corresponding case instance id.
+--     * Slot: task_id Description: Corresponding task id.
+--     * Slot: batch_id Description: Corresponding batch id.
 --     * Slot: byte_array_id Description: Reference to the byte array.
 --     * Slot: double_value Description: Variable value stored as double.
 --     * Slot: long_value Description: Variable value stored as long.
@@ -761,8 +774,9 @@
 --     * Slot: variable_scope_id Description: Reference to the variable scope.
 --     * Slot: sequence_counter Description: Monotonically increasing counter for ordering.
 --     * Slot: is_concurrent_local Description: Whether this entity is concurrent local.
---     * Slot: tenant_id Description: Multi-tenancy discriminator.
+--     * Slot: tenant_id Description: The id of the tenant this variable belongs to.
 --     * Slot: restricted Description: Whether this variable is restricted.
+--     * Slot: FluxnovaPlatformData_id Description: Autocreated FK slot
 -- # Abstract Class: BpmnModelElementInstance Description: Any element of a BPMN document that Fluxnova's model API reads, the base of every BPMN class here.
 --     * Slot: id
 --     * Slot: element_type Description: The name of the class an element is, which says which element it is when a slot's range admits several.
@@ -3059,634 +3073,24 @@ CREATE TABLE "FluxnovaPlatformData" (
 );
 CREATE INDEX "ix_FluxnovaPlatformData_id" ON "FluxnovaPlatformData" (id);
 
-CREATE TABLE "FluxnovaAttachment" (
-	id TEXT NOT NULL,
-	user_id TEXT,
-	name TEXT,
-	description TEXT,
-	type TEXT,
-	task_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	url TEXT,
-	content_id TEXT,
-	tenant_id TEXT,
-	create_time DATETIME,
-	removal_time DATETIME,
-	created_by TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaAttachment_id" ON "FluxnovaAttachment" (id);
-
-CREATE TABLE "FluxnovaAuthorization" (
-	id TEXT NOT NULL,
-	type INTEGER NOT NULL,
-	group_id TEXT,
-	user_id TEXT,
-	resource_type INTEGER NOT NULL,
-	resource_id TEXT,
-	permissions INTEGER,
-	removal_time DATETIME,
-	root_process_instance_id TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaAuthorization_id" ON "FluxnovaAuthorization" (id);
-
-CREATE TABLE "FluxnovaCaseDefinition" (
-	id TEXT NOT NULL,
-	"key" TEXT NOT NULL,
-	name TEXT,
-	version INTEGER NOT NULL,
-	category TEXT,
-	deployment_id TEXT,
-	resource_name TEXT,
-	diagram_resource_name TEXT,
-	tenant_id TEXT,
-	history_time_to_live INTEGER,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaCaseDefinition_id" ON "FluxnovaCaseDefinition" (id);
-
-CREATE TABLE "FluxnovaComment" (
-	id TEXT NOT NULL,
-	type TEXT,
-	event_time DATETIME NOT NULL,
-	user_id TEXT,
-	task_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	action TEXT,
-	message TEXT,
-	full_message TEXT,
-	tenant_id TEXT,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaComment_id" ON "FluxnovaComment" (id);
-
-CREATE TABLE "FluxnovaConfiguration" (
-	id TEXT NOT NULL,
-	configuration_key TEXT NOT NULL,
-	tenant_id TEXT,
-	configuration_value TEXT NOT NULL,
-	version INTEGER NOT NULL,
-	status VARCHAR(8) NOT NULL,
-	created_by TEXT,
-	created_at DATETIME,
-	updated_by TEXT,
-	updated_at DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaConfiguration_id" ON "FluxnovaConfiguration" (id);
-
-CREATE TABLE "FluxnovaDecisionRequirementsDefinition" (
-	id TEXT NOT NULL,
-	"key" TEXT NOT NULL,
-	name TEXT,
-	version INTEGER NOT NULL,
-	category TEXT,
-	deployment_id TEXT,
-	resource_name TEXT,
-	diagram_resource_name TEXT,
-	tenant_id TEXT,
-	history_time_to_live INTEGER,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaDecisionRequirementsDefinition_id" ON "FluxnovaDecisionRequirementsDefinition" (id);
-
-CREATE TABLE "FluxnovaFilter" (
-	id TEXT NOT NULL,
-	resource_type TEXT NOT NULL,
-	name TEXT NOT NULL,
-	owner TEXT,
-	"query" TEXT NOT NULL,
-	properties TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaFilter_id" ON "FluxnovaFilter" (id);
-
-CREATE TABLE "FluxnovaFormDefinition" (
-	id TEXT NOT NULL,
-	"key" TEXT NOT NULL,
-	name TEXT,
-	version INTEGER NOT NULL,
-	category TEXT,
-	deployment_id TEXT,
-	resource_name TEXT,
-	diagram_resource_name TEXT,
-	tenant_id TEXT,
-	history_time_to_live INTEGER,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaFormDefinition_id" ON "FluxnovaFormDefinition" (id);
-
-CREATE TABLE "FluxnovaHistoricActivityInstance" (
-	parent_activity_instance_id TEXT,
-	execution_id TEXT NOT NULL,
-	activity_id TEXT NOT NULL,
-	task_id TEXT,
-	called_process_instance_id TEXT,
-	called_case_instance_id TEXT,
-	activity_name TEXT,
-	activity_type TEXT NOT NULL,
-	assignee TEXT,
-	activity_instance_state INTEGER,
-	sequence_counter INTEGER,
-	tenant_id TEXT,
-	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT NOT NULL,
-	process_definition_id TEXT NOT NULL,
-	process_definition_key TEXT,
-	start_time DATETIME NOT NULL,
-	end_time DATETIME,
-	duration INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricActivityInstance_id" ON "FluxnovaHistoricActivityInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricBatch" (
-	id TEXT NOT NULL,
-	type TEXT,
-	total_jobs INTEGER,
-	jobs_per_seed INTEGER,
-	invocations_per_job INTEGER,
-	seed_job_definition_id TEXT,
-	monitor_job_definition_id TEXT,
-	batch_job_definition_id TEXT,
-	tenant_id TEXT,
-	create_user_id TEXT,
-	start_time DATETIME NOT NULL,
-	end_time DATETIME,
-	removal_time DATETIME,
-	execution_start_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricBatch_id" ON "FluxnovaHistoricBatch" (id);
-
-CREATE TABLE "FluxnovaHistoricCaseActivityInstance" (
-	parent_activity_instance_id TEXT,
-	case_definition_id TEXT NOT NULL,
-	case_instance_id TEXT NOT NULL,
-	case_activity_id TEXT NOT NULL,
-	task_id TEXT,
-	called_process_instance_id TEXT,
-	called_case_instance_id TEXT,
-	case_activity_name TEXT,
-	case_activity_type TEXT,
-	create_time DATETIME NOT NULL,
-	state INTEGER,
-	is_required BOOLEAN,
-	tenant_id TEXT,
-	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	start_time DATETIME,
-	end_time DATETIME,
-	duration INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricCaseActivityInstance_id" ON "FluxnovaHistoricCaseActivityInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricCaseInstance" (
-	case_instance_id TEXT NOT NULL,
-	business_key TEXT,
-	case_definition_id TEXT NOT NULL,
-	create_time DATETIME NOT NULL,
-	close_time DATETIME,
-	state INTEGER,
-	create_user_id TEXT,
-	super_case_instance_id TEXT,
-	super_process_instance_id TEXT,
-	tenant_id TEXT,
-	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	start_time DATETIME,
-	end_time DATETIME,
-	duration INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricCaseInstance_id" ON "FluxnovaHistoricCaseInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricDecisionInputInstance" (
-	id TEXT NOT NULL,
-	decision_instance_id TEXT NOT NULL,
-	clause_id TEXT,
-	clause_name TEXT,
-	variable_type TEXT,
-	byte_array_id TEXT,
-	double_value FLOAT,
-	long_value INTEGER,
-	text_value TEXT,
-	text2_value TEXT,
-	tenant_id TEXT,
-	create_time DATETIME,
-	root_process_instance_id TEXT,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricDecisionInputInstance_id" ON "FluxnovaHistoricDecisionInputInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricDecisionInstance" (
-	id TEXT NOT NULL,
-	decision_definition_id TEXT NOT NULL,
-	decision_definition_key TEXT NOT NULL,
-	decision_definition_name TEXT,
-	process_definition_key TEXT,
-	process_definition_id TEXT,
-	process_instance_id TEXT,
-	case_definition_key TEXT,
-	case_definition_id TEXT,
-	case_instance_id TEXT,
-	activity_instance_id TEXT,
-	activity_id TEXT,
-	evaluation_time DATETIME NOT NULL,
-	removal_time DATETIME,
-	collect_result_value FLOAT,
-	user_id TEXT,
-	root_decision_instance_id TEXT,
-	root_process_instance_id TEXT,
-	decision_requirements_definition_id TEXT,
-	decision_requirements_definition_key TEXT,
-	tenant_id TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricDecisionInstance_id" ON "FluxnovaHistoricDecisionInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricDecisionOutputInstance" (
-	id TEXT NOT NULL,
-	decision_instance_id TEXT NOT NULL,
-	clause_id TEXT,
-	clause_name TEXT,
-	rule_id TEXT,
-	rule_order INTEGER,
-	variable_name TEXT,
-	variable_type TEXT,
-	byte_array_id TEXT,
-	double_value FLOAT,
-	long_value INTEGER,
-	text_value TEXT,
-	text2_value TEXT,
-	tenant_id TEXT,
-	create_time DATETIME,
-	root_process_instance_id TEXT,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricDecisionOutputInstance_id" ON "FluxnovaHistoricDecisionOutputInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricDetail" (
-	id TEXT NOT NULL,
-	type TEXT NOT NULL,
-	event_time DATETIME NOT NULL,
-	name TEXT NOT NULL,
-	process_definition_key TEXT,
-	process_definition_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	execution_id TEXT,
-	case_definition_key TEXT,
-	case_definition_id TEXT,
-	case_instance_id TEXT,
-	case_execution_id TEXT,
-	task_id TEXT,
-	activity_instance_id TEXT,
-	variable_instance_id TEXT,
-	variable_type TEXT,
-	byte_array_id TEXT,
-	double_value FLOAT,
-	long_value INTEGER,
-	text_value TEXT,
-	text2_value TEXT,
-	sequence_counter INTEGER,
-	tenant_id TEXT,
-	operation_id TEXT,
-	removal_time DATETIME,
-	is_initial BOOLEAN,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricDetail_id" ON "FluxnovaHistoricDetail" (id);
-
-CREATE TABLE "FluxnovaHistoricExternalTaskLog" (
-	id TEXT NOT NULL,
-	timestamp DATETIME NOT NULL,
-	external_task_id TEXT NOT NULL,
-	retries INTEGER,
-	topic_name TEXT,
-	worker_id TEXT,
-	priority INTEGER NOT NULL,
-	error_message TEXT,
-	error_details_id TEXT,
-	activity_id TEXT,
-	activity_instance_id TEXT,
-	execution_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	tenant_id TEXT,
-	state INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricExternalTaskLog_id" ON "FluxnovaHistoricExternalTaskLog" (id);
-
-CREATE TABLE "FluxnovaHistoricIdentityLink" (
-	id TEXT NOT NULL,
-	timestamp DATETIME NOT NULL,
-	type TEXT,
-	user_id TEXT,
-	group_id TEXT,
-	task_id TEXT,
-	root_process_instance_id TEXT,
-	process_definition_id TEXT,
-	operation_type TEXT,
-	assigner_id TEXT,
-	process_definition_key TEXT,
-	tenant_id TEXT,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricIdentityLink_id" ON "FluxnovaHistoricIdentityLink" (id);
-
-CREATE TABLE "FluxnovaHistoricIncident" (
-	id TEXT NOT NULL,
-	process_definition_key TEXT,
-	process_definition_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	execution_id TEXT,
-	create_time DATETIME NOT NULL,
-	end_time DATETIME,
-	incident_message TEXT,
-	incident_type TEXT NOT NULL,
-	activity_id TEXT,
-	failed_activity_id TEXT,
-	cause_incident_id TEXT,
-	root_cause_incident_id TEXT,
-	configuration TEXT,
-	history_configuration TEXT,
-	incident_state INTEGER,
-	tenant_id TEXT,
-	job_definition_id TEXT,
-	annotation TEXT,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricIncident_id" ON "FluxnovaHistoricIncident" (id);
-
-CREATE TABLE "FluxnovaHistoricJobLog" (
-	id TEXT NOT NULL,
-	timestamp DATETIME NOT NULL,
-	job_id TEXT NOT NULL,
-	job_due_date DATETIME,
-	job_retries INTEGER,
-	job_priority INTEGER NOT NULL,
-	job_exception_message TEXT,
-	job_exception_stack_id TEXT,
-	job_state INTEGER,
-	job_definition_id TEXT,
-	job_definition_type TEXT,
-	job_definition_configuration TEXT,
-	activity_id TEXT,
-	failed_activity_id TEXT,
-	execution_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	deployment_id TEXT,
-	sequence_counter INTEGER,
-	tenant_id TEXT,
-	hostname TEXT,
-	removal_time DATETIME,
-	batch_id TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricJobLog_id" ON "FluxnovaHistoricJobLog" (id);
-
-CREATE TABLE "FluxnovaHistoricProcessInstance" (
-	business_key TEXT,
-	start_user_id TEXT,
-	start_activity_id TEXT,
-	end_activity_id TEXT,
-	super_process_instance_id TEXT,
-	super_case_instance_id TEXT,
-	case_instance_id TEXT,
-	delete_reason TEXT,
-	tenant_id TEXT,
-	state VARCHAR(21),
-	restarted_process_instance_id TEXT,
-	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT NOT NULL,
-	process_definition_id TEXT NOT NULL,
-	process_definition_key TEXT,
-	start_time DATETIME NOT NULL,
-	end_time DATETIME,
-	duration INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricProcessInstance_id" ON "FluxnovaHistoricProcessInstance" (id);
-
 CREATE TABLE "FluxnovaHistoricScopeInstance" (
 	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	start_time DATETIME,
-	end_time DATETIME,
 	duration INTEGER,
-	removal_time DATETIME,
+	tenant_id TEXT,
 	PRIMARY KEY (id)
 );
 CREATE INDEX "ix_FluxnovaHistoricScopeInstance_id" ON "FluxnovaHistoricScopeInstance" (id);
 
-CREATE TABLE "FluxnovaHistoricTaskInstance" (
-	task_definition_key TEXT,
-	execution_id TEXT,
-	case_definition_key TEXT,
-	case_definition_id TEXT,
-	case_instance_id TEXT,
-	case_execution_id TEXT,
-	activity_instance_id TEXT,
-	name TEXT,
-	parent_task_id TEXT,
-	description TEXT,
-	owner TEXT,
-	assignee TEXT,
-	delete_reason TEXT,
-	priority INTEGER NOT NULL,
-	due_date DATETIME,
-	follow_up_date DATETIME,
-	tenant_id TEXT,
-	task_state TEXT,
-	id TEXT NOT NULL,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	start_time DATETIME NOT NULL,
-	end_time DATETIME,
-	duration INTEGER,
-	removal_time DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricTaskInstance_id" ON "FluxnovaHistoricTaskInstance" (id);
-
-CREATE TABLE "FluxnovaHistoricVariableInstance" (
-	id TEXT NOT NULL,
-	process_definition_key TEXT,
-	process_definition_id TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	execution_id TEXT,
-	case_definition_key TEXT,
-	case_definition_id TEXT,
-	case_instance_id TEXT,
-	case_execution_id TEXT,
-	task_id TEXT,
-	activity_instance_id TEXT,
-	name TEXT NOT NULL,
-	variable_type TEXT,
-	create_time DATETIME,
-	byte_array_id TEXT,
-	double_value FLOAT,
-	long_value INTEGER,
-	text_value TEXT,
-	text2_value TEXT,
-	tenant_id TEXT,
-	state VARCHAR(7),
-	removal_time DATETIME,
-	restricted BOOLEAN,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaHistoricVariableInstance_id" ON "FluxnovaHistoricVariableInstance" (id);
-
-CREATE TABLE "FluxnovaIdentityInfo" (
-	id TEXT NOT NULL,
-	user_id TEXT,
-	type TEXT,
-	"key" TEXT,
-	value TEXT,
-	password TEXT,
-	parent_id TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaIdentityInfo_id" ON "FluxnovaIdentityInfo" (id);
-
-CREATE TABLE "FluxnovaJobDefinition" (
-	id TEXT NOT NULL,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	activity_id TEXT,
-	job_type TEXT NOT NULL,
-	job_configuration TEXT,
-	suspension_state INTEGER,
-	job_priority INTEGER NOT NULL,
-	tenant_id TEXT,
-	deployment_id TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaJobDefinition_id" ON "FluxnovaJobDefinition" (id);
-
-CREATE TABLE "FluxnovaMeterLog" (
-	id TEXT NOT NULL,
-	name TEXT NOT NULL,
-	reporter TEXT,
-	value INTEGER,
-	timestamp DATETIME,
-	milliseconds INTEGER,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaMeterLog_id" ON "FluxnovaMeterLog" (id);
-
-CREATE TABLE "FluxnovaEngineProperty" (
-	name TEXT NOT NULL,
-	value TEXT,
-	PRIMARY KEY (name)
-);
-CREATE INDEX "ix_FluxnovaEngineProperty_name" ON "FluxnovaEngineProperty" (name);
-
 CREATE TABLE "FluxnovaResourceDefinition" (
 	id TEXT NOT NULL,
 	"key" TEXT,
-	name TEXT,
 	version INTEGER,
-	category TEXT,
 	deployment_id TEXT,
 	resource_name TEXT,
-	diagram_resource_name TEXT,
 	tenant_id TEXT,
-	history_time_to_live INTEGER,
 	PRIMARY KEY (id)
 );
 CREATE INDEX "ix_FluxnovaResourceDefinition_id" ON "FluxnovaResourceDefinition" (id);
-
-CREATE TABLE "FluxnovaSchemaLogEntry" (
-	id TEXT NOT NULL,
-	timestamp DATETIME,
-	version TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaSchemaLogEntry_id" ON "FluxnovaSchemaLogEntry" (id);
-
-CREATE TABLE "FluxnovaTaskMeterLog" (
-	id TEXT NOT NULL,
-	assignee_hash INTEGER,
-	timestamp DATETIME,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaTaskMeterLog_id" ON "FluxnovaTaskMeterLog" (id);
-
-CREATE TABLE "FluxnovaTenant" (
-	id TEXT NOT NULL,
-	name TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaTenant_id" ON "FluxnovaTenant" (id);
-
-CREATE TABLE "FluxnovaUserOperationLogEntry" (
-	id TEXT NOT NULL,
-	deployment_id TEXT,
-	process_definition_id TEXT,
-	process_definition_key TEXT,
-	root_process_instance_id TEXT,
-	process_instance_id TEXT,
-	execution_id TEXT,
-	case_definition_id TEXT,
-	case_instance_id TEXT,
-	case_execution_id TEXT,
-	task_id TEXT,
-	job_id TEXT NOT NULL,
-	job_definition_id TEXT,
-	batch_id TEXT,
-	user_id TEXT,
-	timestamp DATETIME NOT NULL,
-	operation_type TEXT,
-	operation_id TEXT,
-	entity_type TEXT,
-	property TEXT,
-	original_value TEXT,
-	new_value TEXT,
-	tenant_id TEXT,
-	removal_time DATETIME,
-	category TEXT,
-	external_task_id TEXT NOT NULL,
-	annotation TEXT,
-	PRIMARY KEY (id)
-);
-CREATE INDEX "ix_FluxnovaUserOperationLogEntry_id" ON "FluxnovaUserOperationLogEntry" (id);
 
 CREATE TABLE "BpmnModelElementInstance" (
 	id INTEGER NOT NULL,
@@ -3934,69 +3338,115 @@ CREATE TABLE "FluxnovaValidation" (
 );
 CREATE INDEX "ix_FluxnovaValidation_id" ON "FluxnovaValidation" (id);
 
-CREATE TABLE "FluxnovaBatch" (
+CREATE TABLE "FluxnovaAttachment" (
 	id TEXT NOT NULL,
+	user_id TEXT,
+	name TEXT,
+	description TEXT,
 	type TEXT,
-	total_jobs INTEGER,
-	jobs_created INTEGER,
-	jobs_per_seed INTEGER,
-	invocations_per_job INTEGER,
-	seed_job_definition_id TEXT,
-	batch_job_definition_id TEXT,
-	monitor_job_definition_id TEXT,
-	suspension_state INTEGER,
-	configuration TEXT,
+	task_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	url TEXT,
+	content_id TEXT,
 	tenant_id TEXT,
-	create_user_id TEXT,
-	start_time DATETIME,
-	execution_start_time DATETIME,
+	create_time DATETIME,
+	removal_time DATETIME,
+	created_by TEXT,
 	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(seed_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
-	FOREIGN KEY(batch_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
-	FOREIGN KEY(monitor_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaBatch_id" ON "FluxnovaBatch" (id);
+CREATE INDEX "ix_FluxnovaAttachment_id" ON "FluxnovaAttachment" (id);
 
-CREATE TABLE "FluxnovaCaseExecution" (
+CREATE TABLE "FluxnovaAuthorization" (
 	id TEXT NOT NULL,
-	case_instance_id TEXT,
-	super_case_execution_id TEXT,
-	super_execution_id TEXT,
-	business_key TEXT,
-	parent_id TEXT,
-	case_definition_id TEXT,
-	activity_id TEXT,
-	previous_state INTEGER,
-	current_state INTEGER,
-	is_required BOOLEAN,
-	tenant_id TEXT,
+	type INTEGER NOT NULL,
+	group_id TEXT,
+	user_id TEXT,
+	resource_type INTEGER NOT NULL,
+	resource_id TEXT,
+	permissions INTEGER,
+	removal_time DATETIME,
+	root_process_instance_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(case_instance_id) REFERENCES "FluxnovaCaseExecution" (id),
-	FOREIGN KEY(parent_id) REFERENCES "FluxnovaCaseExecution" (id),
-	FOREIGN KEY(case_definition_id) REFERENCES "FluxnovaCaseDefinition" (id)
+	UNIQUE (type, user_id, resource_type, resource_id),
+	UNIQUE (type, group_id, resource_type, resource_id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaCaseExecution_id" ON "FluxnovaCaseExecution" (id);
+CREATE INDEX "FluxnovaAuthorization_type_group_id_resource_type_resource_id_idx" ON "FluxnovaAuthorization" (type, group_id, resource_type, resource_id);
+CREATE INDEX "FluxnovaAuthorization_type_user_id_resource_type_resource_id_idx" ON "FluxnovaAuthorization" (type, user_id, resource_type, resource_id);
+CREATE INDEX "ix_FluxnovaAuthorization_id" ON "FluxnovaAuthorization" (id);
 
-CREATE TABLE "FluxnovaDecisionDefinition" (
-	decision_requirements_definition_id TEXT,
-	decision_requirements_definition_key TEXT,
-	version_tag TEXT,
+CREATE TABLE "FluxnovaCaseDefinition" (
+	category TEXT,
+	name TEXT,
+	diagram_resource_name TEXT,
+	history_time_to_live INTEGER,
 	id TEXT NOT NULL,
 	"key" TEXT NOT NULL,
-	name TEXT,
 	version INTEGER NOT NULL,
-	category TEXT,
 	deployment_id TEXT,
 	resource_name TEXT,
-	diagram_resource_name TEXT,
 	tenant_id TEXT,
-	history_time_to_live INTEGER,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(decision_requirements_definition_id) REFERENCES "FluxnovaDecisionRequirementsDefinition" (id)
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaDecisionDefinition_id" ON "FluxnovaDecisionDefinition" (id);
+CREATE INDEX "ix_FluxnovaCaseDefinition_id" ON "FluxnovaCaseDefinition" (id);
+
+CREATE TABLE "FluxnovaComment" (
+	id TEXT NOT NULL,
+	type TEXT,
+	event_time DATETIME NOT NULL,
+	user_id TEXT,
+	task_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	action TEXT,
+	message TEXT,
+	full_message TEXT,
+	tenant_id TEXT,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaComment_id" ON "FluxnovaComment" (id);
+
+CREATE TABLE "FluxnovaConfiguration" (
+	id TEXT NOT NULL,
+	configuration_key TEXT NOT NULL,
+	tenant_id TEXT,
+	configuration_value TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	status VARCHAR(8) NOT NULL,
+	created_by TEXT,
+	created_at DATETIME,
+	updated_by TEXT,
+	updated_at DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaConfiguration_id" ON "FluxnovaConfiguration" (id);
+
+CREATE TABLE "FluxnovaDecisionRequirementsDefinition" (
+	category TEXT,
+	name TEXT,
+	diagram_resource_name TEXT,
+	id TEXT NOT NULL,
+	"key" TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	deployment_id TEXT,
+	resource_name TEXT,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaDecisionRequirementsDefinition_id" ON "FluxnovaDecisionRequirementsDefinition" (id);
 
 CREATE TABLE "FluxnovaDeployment" (
 	id TEXT NOT NULL,
@@ -4010,6 +3460,32 @@ CREATE TABLE "FluxnovaDeployment" (
 );
 CREATE INDEX "ix_FluxnovaDeployment_id" ON "FluxnovaDeployment" (id);
 
+CREATE TABLE "FluxnovaFilter" (
+	id TEXT NOT NULL,
+	resource_type TEXT NOT NULL,
+	name TEXT NOT NULL,
+	owner TEXT,
+	"query" TEXT NOT NULL,
+	properties TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaFilter_id" ON "FluxnovaFilter" (id);
+
+CREATE TABLE "FluxnovaFormDefinition" (
+	id TEXT NOT NULL,
+	"key" TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	deployment_id TEXT,
+	resource_name TEXT,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaFormDefinition_id" ON "FluxnovaFormDefinition" (id);
+
 CREATE TABLE "FluxnovaGroup" (
 	id TEXT NOT NULL,
 	name TEXT,
@@ -4020,26 +3496,508 @@ CREATE TABLE "FluxnovaGroup" (
 );
 CREATE INDEX "ix_FluxnovaGroup_id" ON "FluxnovaGroup" (id);
 
+CREATE TABLE "FluxnovaHistoricActivityInstance" (
+	parent_activity_instance_id TEXT,
+	process_definition_key TEXT,
+	process_definition_id TEXT NOT NULL,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT NOT NULL,
+	execution_id TEXT NOT NULL,
+	activity_id TEXT NOT NULL,
+	task_id TEXT,
+	called_process_instance_id TEXT,
+	called_case_instance_id TEXT,
+	activity_name TEXT,
+	activity_type TEXT NOT NULL,
+	assignee TEXT,
+	start_time DATETIME NOT NULL,
+	end_time DATETIME,
+	activity_instance_state INTEGER,
+	sequence_counter INTEGER,
+	removal_time DATETIME,
+	id TEXT NOT NULL,
+	duration INTEGER,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricActivityInstance_id" ON "FluxnovaHistoricActivityInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricBatch" (
+	id TEXT NOT NULL,
+	type TEXT,
+	total_jobs INTEGER,
+	jobs_per_seed INTEGER,
+	invocations_per_job INTEGER,
+	seed_job_definition_id TEXT,
+	monitor_job_definition_id TEXT,
+	batch_job_definition_id TEXT,
+	tenant_id TEXT,
+	create_user_id TEXT,
+	start_time DATETIME NOT NULL,
+	end_time DATETIME,
+	removal_time DATETIME,
+	execution_start_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricBatch_id" ON "FluxnovaHistoricBatch" (id);
+
+CREATE TABLE "FluxnovaHistoricCaseActivityInstance" (
+	parent_activity_instance_id TEXT,
+	case_definition_id TEXT NOT NULL,
+	case_instance_id TEXT NOT NULL,
+	case_activity_id TEXT NOT NULL,
+	task_id TEXT,
+	called_process_instance_id TEXT,
+	called_case_instance_id TEXT,
+	case_activity_name TEXT,
+	case_activity_type TEXT,
+	create_time DATETIME NOT NULL,
+	end_time DATETIME,
+	state INTEGER,
+	is_required BOOLEAN,
+	id TEXT NOT NULL,
+	duration INTEGER,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricCaseActivityInstance_id" ON "FluxnovaHistoricCaseActivityInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricCaseInstance" (
+	case_instance_id TEXT NOT NULL,
+	business_key TEXT,
+	case_definition_id TEXT NOT NULL,
+	create_time DATETIME NOT NULL,
+	close_time DATETIME,
+	state INTEGER,
+	create_user_id TEXT,
+	super_case_instance_id TEXT,
+	super_process_instance_id TEXT,
+	id TEXT NOT NULL,
+	duration INTEGER,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	UNIQUE (case_instance_id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "FluxnovaHistoricCaseInstance_case_instance_id_idx" ON "FluxnovaHistoricCaseInstance" (case_instance_id);
+CREATE INDEX "ix_FluxnovaHistoricCaseInstance_id" ON "FluxnovaHistoricCaseInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricDecisionInputInstance" (
+	id TEXT NOT NULL,
+	decision_instance_id TEXT NOT NULL,
+	clause_id TEXT,
+	clause_name TEXT,
+	variable_type TEXT,
+	byte_array_id TEXT,
+	double_value FLOAT,
+	long_value INTEGER,
+	text_value TEXT,
+	text2_value TEXT,
+	tenant_id TEXT,
+	create_time DATETIME,
+	root_process_instance_id TEXT,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricDecisionInputInstance_id" ON "FluxnovaHistoricDecisionInputInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricDecisionInstance" (
+	id TEXT NOT NULL,
+	decision_definition_id TEXT NOT NULL,
+	decision_definition_key TEXT NOT NULL,
+	decision_definition_name TEXT,
+	process_definition_key TEXT,
+	process_definition_id TEXT,
+	process_instance_id TEXT,
+	case_definition_key TEXT,
+	case_definition_id TEXT,
+	case_instance_id TEXT,
+	activity_instance_id TEXT,
+	activity_id TEXT,
+	evaluation_time DATETIME NOT NULL,
+	removal_time DATETIME,
+	collect_result_value FLOAT,
+	user_id TEXT,
+	root_decision_instance_id TEXT,
+	root_process_instance_id TEXT,
+	decision_requirements_definition_id TEXT,
+	decision_requirements_definition_key TEXT,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricDecisionInstance_id" ON "FluxnovaHistoricDecisionInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricDecisionOutputInstance" (
+	id TEXT NOT NULL,
+	decision_instance_id TEXT NOT NULL,
+	clause_id TEXT,
+	clause_name TEXT,
+	rule_id TEXT,
+	rule_order INTEGER,
+	variable_name TEXT,
+	variable_type TEXT,
+	byte_array_id TEXT,
+	double_value FLOAT,
+	long_value INTEGER,
+	text_value TEXT,
+	text2_value TEXT,
+	tenant_id TEXT,
+	create_time DATETIME,
+	root_process_instance_id TEXT,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricDecisionOutputInstance_id" ON "FluxnovaHistoricDecisionOutputInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricDetail" (
+	id TEXT NOT NULL,
+	type TEXT NOT NULL,
+	event_time DATETIME NOT NULL,
+	name TEXT NOT NULL,
+	process_definition_key TEXT,
+	process_definition_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	execution_id TEXT,
+	case_definition_key TEXT,
+	case_definition_id TEXT,
+	case_instance_id TEXT,
+	case_execution_id TEXT,
+	task_id TEXT,
+	activity_instance_id TEXT,
+	variable_instance_id TEXT,
+	variable_type TEXT,
+	byte_array_id TEXT,
+	double_value FLOAT,
+	long_value INTEGER,
+	text_value TEXT,
+	text2_value TEXT,
+	sequence_counter INTEGER,
+	tenant_id TEXT,
+	operation_id TEXT,
+	removal_time DATETIME,
+	is_initial BOOLEAN,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricDetail_id" ON "FluxnovaHistoricDetail" (id);
+
+CREATE TABLE "FluxnovaHistoricExternalTaskLog" (
+	id TEXT NOT NULL,
+	timestamp DATETIME NOT NULL,
+	external_task_id TEXT NOT NULL,
+	retries INTEGER,
+	topic_name TEXT,
+	worker_id TEXT,
+	priority INTEGER NOT NULL,
+	error_message TEXT,
+	error_details_id TEXT,
+	activity_id TEXT,
+	activity_instance_id TEXT,
+	execution_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	process_definition_id TEXT,
+	process_definition_key TEXT,
+	tenant_id TEXT,
+	state INTEGER,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricExternalTaskLog_id" ON "FluxnovaHistoricExternalTaskLog" (id);
+
+CREATE TABLE "FluxnovaHistoricIdentityLink" (
+	id TEXT NOT NULL,
+	timestamp DATETIME NOT NULL,
+	type TEXT,
+	user_id TEXT,
+	group_id TEXT,
+	task_id TEXT,
+	root_process_instance_id TEXT,
+	process_definition_id TEXT,
+	operation_type TEXT,
+	assigner_id TEXT,
+	process_definition_key TEXT,
+	tenant_id TEXT,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricIdentityLink_id" ON "FluxnovaHistoricIdentityLink" (id);
+
+CREATE TABLE "FluxnovaHistoricIncident" (
+	id TEXT NOT NULL,
+	process_definition_key TEXT,
+	process_definition_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	execution_id TEXT,
+	create_time DATETIME NOT NULL,
+	end_time DATETIME,
+	incident_message TEXT,
+	incident_type TEXT NOT NULL,
+	activity_id TEXT,
+	failed_activity_id TEXT,
+	cause_incident_id TEXT,
+	root_cause_incident_id TEXT,
+	configuration TEXT,
+	history_configuration TEXT,
+	incident_state INTEGER,
+	tenant_id TEXT,
+	job_definition_id TEXT,
+	annotation TEXT,
+	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricIncident_id" ON "FluxnovaHistoricIncident" (id);
+
+CREATE TABLE "FluxnovaHistoricJobLog" (
+	id TEXT NOT NULL,
+	timestamp DATETIME NOT NULL,
+	job_id TEXT NOT NULL,
+	job_due_date DATETIME,
+	job_retries INTEGER,
+	job_priority INTEGER NOT NULL,
+	job_exception_message TEXT,
+	job_exception_stack_id TEXT,
+	job_state INTEGER,
+	job_definition_id TEXT,
+	job_definition_type TEXT,
+	job_definition_configuration TEXT,
+	activity_id TEXT,
+	failed_activity_id TEXT,
+	execution_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	process_definition_id TEXT,
+	process_definition_key TEXT,
+	deployment_id TEXT,
+	sequence_counter INTEGER,
+	tenant_id TEXT,
+	hostname TEXT,
+	removal_time DATETIME,
+	batch_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricJobLog_id" ON "FluxnovaHistoricJobLog" (id);
+
+CREATE TABLE "FluxnovaHistoricProcessInstance" (
+	process_instance_id TEXT NOT NULL,
+	business_key TEXT,
+	process_definition_key TEXT,
+	process_definition_id TEXT NOT NULL,
+	start_time DATETIME NOT NULL,
+	end_time DATETIME,
+	removal_time DATETIME,
+	start_user_id TEXT,
+	start_activity_id TEXT,
+	end_activity_id TEXT,
+	super_process_instance_id TEXT,
+	root_process_instance_id TEXT,
+	super_case_instance_id TEXT,
+	case_instance_id TEXT,
+	delete_reason TEXT,
+	state VARCHAR(21),
+	restarted_process_instance_id TEXT,
+	id TEXT NOT NULL,
+	duration INTEGER,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	UNIQUE (process_instance_id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricProcessInstance_id" ON "FluxnovaHistoricProcessInstance" (id);
+CREATE INDEX "FluxnovaHistoricProcessInstance_process_instance_id_idx" ON "FluxnovaHistoricProcessInstance" (process_instance_id);
+
+CREATE TABLE "FluxnovaHistoricTaskInstance" (
+	task_definition_key TEXT,
+	process_definition_key TEXT,
+	process_definition_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	execution_id TEXT,
+	case_definition_key TEXT,
+	case_definition_id TEXT,
+	case_instance_id TEXT,
+	case_execution_id TEXT,
+	activity_instance_id TEXT,
+	name TEXT,
+	parent_task_id TEXT,
+	description TEXT,
+	owner TEXT,
+	assignee TEXT,
+	start_time DATETIME NOT NULL,
+	end_time DATETIME,
+	delete_reason TEXT,
+	priority INTEGER,
+	due_date DATETIME,
+	follow_up_date DATETIME,
+	removal_time DATETIME,
+	task_state TEXT,
+	id TEXT NOT NULL,
+	duration INTEGER,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricTaskInstance_id" ON "FluxnovaHistoricTaskInstance" (id);
+
+CREATE TABLE "FluxnovaHistoricVariableInstance" (
+	id TEXT NOT NULL,
+	process_definition_key TEXT,
+	process_definition_id TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	execution_id TEXT,
+	case_definition_key TEXT,
+	case_definition_id TEXT,
+	case_instance_id TEXT,
+	case_execution_id TEXT,
+	task_id TEXT,
+	activity_instance_id TEXT,
+	name TEXT NOT NULL,
+	variable_type TEXT,
+	create_time DATETIME,
+	byte_array_id TEXT,
+	double_value FLOAT,
+	long_value INTEGER,
+	text_value TEXT,
+	text2_value TEXT,
+	tenant_id TEXT,
+	state VARCHAR(7),
+	removal_time DATETIME,
+	restricted BOOLEAN,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaHistoricVariableInstance_id" ON "FluxnovaHistoricVariableInstance" (id);
+
+CREATE TABLE "FluxnovaIdentityInfo" (
+	id TEXT NOT NULL,
+	user_id TEXT,
+	type TEXT,
+	"key" TEXT,
+	value TEXT,
+	password TEXT,
+	parent_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaIdentityInfo_id" ON "FluxnovaIdentityInfo" (id);
+
+CREATE TABLE "FluxnovaJobDefinition" (
+	id TEXT NOT NULL,
+	process_definition_id TEXT,
+	process_definition_key TEXT,
+	activity_id TEXT,
+	job_type TEXT NOT NULL,
+	job_configuration TEXT,
+	suspension_state INTEGER,
+	job_priority INTEGER,
+	tenant_id TEXT,
+	deployment_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaJobDefinition_id" ON "FluxnovaJobDefinition" (id);
+
+CREATE TABLE "FluxnovaMeterLog" (
+	id TEXT NOT NULL,
+	name TEXT NOT NULL,
+	reporter TEXT,
+	value INTEGER,
+	timestamp DATETIME,
+	milliseconds INTEGER,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaMeterLog_id" ON "FluxnovaMeterLog" (id);
+
 CREATE TABLE "FluxnovaProcessDefinition" (
+	category TEXT,
+	name TEXT,
+	diagram_resource_name TEXT,
 	has_start_form_key BOOLEAN,
 	suspension_state INTEGER,
 	version_tag TEXT,
+	history_time_to_live INTEGER,
 	is_startable BOOLEAN NOT NULL,
 	id TEXT NOT NULL,
 	"key" TEXT NOT NULL,
-	name TEXT,
 	version INTEGER NOT NULL,
-	category TEXT,
 	deployment_id TEXT,
 	resource_name TEXT,
-	diagram_resource_name TEXT,
 	tenant_id TEXT,
-	history_time_to_live INTEGER,
 	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaProcessDefinition_id" ON "FluxnovaProcessDefinition" (id);
+
+CREATE TABLE "FluxnovaEngineProperty" (
+	name TEXT NOT NULL,
+	value TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (name),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaEngineProperty_name" ON "FluxnovaEngineProperty" (name);
+
+CREATE TABLE "FluxnovaSchemaLogEntry" (
+	id TEXT NOT NULL,
+	timestamp DATETIME,
+	version TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaSchemaLogEntry_id" ON "FluxnovaSchemaLogEntry" (id);
+
+CREATE TABLE "FluxnovaTaskMeterLog" (
+	id TEXT NOT NULL,
+	assignee_hash INTEGER,
+	timestamp DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaTaskMeterLog_id" ON "FluxnovaTaskMeterLog" (id);
+
+CREATE TABLE "FluxnovaTenant" (
+	id TEXT NOT NULL,
+	name TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaTenant_id" ON "FluxnovaTenant" (id);
 
 CREATE TABLE "FluxnovaUser" (
 	id TEXT NOT NULL,
@@ -4056,6 +4014,40 @@ CREATE TABLE "FluxnovaUser" (
 	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaUser_id" ON "FluxnovaUser" (id);
+
+CREATE TABLE "FluxnovaUserOperationLogEntry" (
+	id TEXT NOT NULL,
+	deployment_id TEXT,
+	process_definition_id TEXT,
+	process_definition_key TEXT,
+	root_process_instance_id TEXT,
+	process_instance_id TEXT,
+	execution_id TEXT,
+	case_definition_id TEXT,
+	case_instance_id TEXT,
+	case_execution_id TEXT,
+	task_id TEXT,
+	job_id TEXT,
+	job_definition_id TEXT,
+	batch_id TEXT,
+	user_id TEXT,
+	timestamp DATETIME NOT NULL,
+	operation_type TEXT,
+	operation_id TEXT,
+	entity_type TEXT,
+	property TEXT,
+	original_value TEXT,
+	new_value TEXT,
+	tenant_id TEXT,
+	removal_time DATETIME,
+	category TEXT,
+	external_task_id TEXT,
+	annotation TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaUserOperationLogEntry_id" ON "FluxnovaUserOperationLogEntry" (id);
 
 CREATE TABLE "DiEdge" (
 	id INTEGER NOT NULL,
@@ -4893,6 +4885,31 @@ CREATE TABLE "FluxnovaProperty" (
 );
 CREATE INDEX "ix_FluxnovaProperty_id" ON "FluxnovaProperty" (id);
 
+CREATE TABLE "FluxnovaBatch" (
+	id TEXT NOT NULL,
+	type TEXT,
+	total_jobs INTEGER,
+	jobs_created INTEGER,
+	jobs_per_seed INTEGER,
+	invocations_per_job INTEGER,
+	seed_job_definition_id TEXT,
+	batch_job_definition_id TEXT,
+	monitor_job_definition_id TEXT,
+	suspension_state INTEGER,
+	configuration TEXT,
+	tenant_id TEXT,
+	create_user_id TEXT,
+	start_time DATETIME,
+	execution_start_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(seed_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
+	FOREIGN KEY(batch_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
+	FOREIGN KEY(monitor_job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaBatch_id" ON "FluxnovaBatch" (id);
+
 CREATE TABLE "FluxnovaByteArray" (
 	id TEXT NOT NULL,
 	name TEXT,
@@ -4904,29 +4921,55 @@ CREATE TABLE "FluxnovaByteArray" (
 	create_time DATETIME,
 	root_process_instance_id TEXT,
 	removal_time DATETIME,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(deployment_id) REFERENCES "FluxnovaDeployment" (id)
+	FOREIGN KEY(deployment_id) REFERENCES "FluxnovaDeployment" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaByteArray_id" ON "FluxnovaByteArray" (id);
 
-CREATE TABLE "FluxnovaCaseSentryPart" (
+CREATE TABLE "FluxnovaCaseExecution" (
 	id TEXT NOT NULL,
 	case_instance_id TEXT,
-	case_execution_id TEXT,
-	sentry_id TEXT,
-	type TEXT,
-	source_case_execution_id TEXT,
-	standard_event TEXT,
-	source TEXT,
-	variable_event TEXT,
-	variable_name TEXT,
-	is_satisfied BOOLEAN,
+	super_case_execution_id TEXT,
+	super_execution_id TEXT,
+	business_key TEXT,
+	parent_id TEXT,
+	case_definition_id TEXT,
+	activity_id TEXT,
+	previous_state INTEGER,
+	current_state INTEGER,
+	is_required BOOLEAN,
 	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY(case_instance_id) REFERENCES "FluxnovaCaseExecution" (id),
-	FOREIGN KEY(case_execution_id) REFERENCES "FluxnovaCaseExecution" (id)
+	FOREIGN KEY(parent_id) REFERENCES "FluxnovaCaseExecution" (id),
+	FOREIGN KEY(case_definition_id) REFERENCES "FluxnovaCaseDefinition" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaCaseSentryPart_id" ON "FluxnovaCaseSentryPart" (id);
+CREATE INDEX "ix_FluxnovaCaseExecution_id" ON "FluxnovaCaseExecution" (id);
+
+CREATE TABLE "FluxnovaDecisionDefinition" (
+	category TEXT,
+	name TEXT,
+	diagram_resource_name TEXT,
+	decision_requirements_definition_id TEXT,
+	decision_requirements_definition_key TEXT,
+	history_time_to_live INTEGER,
+	version_tag TEXT,
+	id TEXT NOT NULL,
+	"key" TEXT NOT NULL,
+	version INTEGER NOT NULL,
+	deployment_id TEXT,
+	resource_name TEXT,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(decision_requirements_definition_id) REFERENCES "FluxnovaDecisionRequirementsDefinition" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaDecisionDefinition_id" ON "FluxnovaDecisionDefinition" (id);
 
 CREATE TABLE "FluxnovaExecution" (
 	id TEXT NOT NULL,
@@ -4963,24 +5006,32 @@ CREATE TABLE "FluxnovaMembership" (
 	id INTEGER NOT NULL,
 	user_id TEXT NOT NULL,
 	group_id TEXT NOT NULL,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	UNIQUE (user_id, group_id),
 	FOREIGN KEY(user_id) REFERENCES "FluxnovaUser" (id),
-	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id)
+	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
-CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
 CREATE INDEX "FluxnovaMembership_user_id_group_id_idx" ON "FluxnovaMembership" (user_id, group_id);
+CREATE INDEX "ix_FluxnovaMembership_id" ON "FluxnovaMembership" (id);
 
 CREATE TABLE "FluxnovaTenantMembership" (
 	id TEXT NOT NULL,
 	tenant_id TEXT NOT NULL,
 	user_id TEXT,
 	group_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
+	UNIQUE (tenant_id, user_id),
+	UNIQUE (tenant_id, group_id),
 	FOREIGN KEY(tenant_id) REFERENCES "FluxnovaTenant" (id),
 	FOREIGN KEY(user_id) REFERENCES "FluxnovaUser" (id),
-	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id)
+	FOREIGN KEY(group_id) REFERENCES "FluxnovaGroup" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
+CREATE INDEX "FluxnovaTenantMembership_tenant_id_user_id_idx" ON "FluxnovaTenantMembership" (tenant_id, user_id);
+CREATE INDEX "FluxnovaTenantMembership_tenant_id_group_id_idx" ON "FluxnovaTenantMembership" (tenant_id, group_id);
 CREATE INDEX "ix_FluxnovaTenantMembership_id" ON "FluxnovaTenantMembership" (id);
 
 CREATE TABLE "DiDiagramElement" (
@@ -6125,8 +6176,8 @@ CREATE TABLE "BpmnCallConversation_participant_refs" (
 	PRIMARY KEY ("BpmnCallConversation_id", participant_refs),
 	FOREIGN KEY("BpmnCallConversation_id") REFERENCES "BpmnCallConversation" (id)
 );
-CREATE INDEX "ix_BpmnCallConversation_participant_refs_participant_refs" ON "BpmnCallConversation_participant_refs" (participant_refs);
 CREATE INDEX "ix_BpmnCallConversation_participant_refs_BpmnCallConversation_id" ON "BpmnCallConversation_participant_refs" ("BpmnCallConversation_id");
+CREATE INDEX "ix_BpmnCallConversation_participant_refs_participant_refs" ON "BpmnCallConversation_participant_refs" (participant_refs);
 
 CREATE TABLE "BpmnCallConversation_message_flow_refs" (
 	"BpmnCallConversation_id" INTEGER,
@@ -6182,6 +6233,27 @@ CREATE TABLE "BpmnSubConversation_message_flow_refs" (
 CREATE INDEX "ix_BpmnSubConversation_message_flow_refs_BpmnSubConversation_id" ON "BpmnSubConversation_message_flow_refs" ("BpmnSubConversation_id");
 CREATE INDEX "ix_BpmnSubConversation_message_flow_refs_message_flow_refs" ON "BpmnSubConversation_message_flow_refs" (message_flow_refs);
 
+CREATE TABLE "FluxnovaCaseSentryPart" (
+	id TEXT NOT NULL,
+	case_instance_id TEXT,
+	case_execution_id TEXT,
+	sentry_id TEXT,
+	type TEXT,
+	source_case_execution_id TEXT,
+	standard_event TEXT,
+	source TEXT,
+	variable_event TEXT,
+	variable_name TEXT,
+	is_satisfied BOOLEAN,
+	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(case_instance_id) REFERENCES "FluxnovaCaseExecution" (id),
+	FOREIGN KEY(case_execution_id) REFERENCES "FluxnovaCaseExecution" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
+);
+CREATE INDEX "ix_FluxnovaCaseSentryPart_id" ON "FluxnovaCaseSentryPart" (id);
+
 CREATE TABLE "FluxnovaEventSubscription" (
 	id TEXT NOT NULL,
 	event_type TEXT NOT NULL,
@@ -6192,8 +6264,10 @@ CREATE TABLE "FluxnovaEventSubscription" (
 	configuration TEXT,
 	created DATETIME NOT NULL,
 	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id)
+	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaEventSubscription_id" ON "FluxnovaEventSubscription" (id);
 
@@ -6216,9 +6290,11 @@ CREATE TABLE "FluxnovaExternalTask" (
 	tenant_id TEXT,
 	priority INTEGER NOT NULL,
 	last_failure_log_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY(error_details_id) REFERENCES "FluxnovaByteArray" (id),
-	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id)
+	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaExternalTask_id" ON "FluxnovaExternalTask" (id);
 
@@ -6238,13 +6314,15 @@ CREATE TABLE "FluxnovaIncident" (
 	tenant_id TEXT,
 	job_definition_id TEXT,
 	annotation TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id),
 	FOREIGN KEY(process_instance_id) REFERENCES "FluxnovaExecution" (id),
 	FOREIGN KEY(process_definition_id) REFERENCES "FluxnovaProcessDefinition" (id),
 	FOREIGN KEY(cause_incident_id) REFERENCES "FluxnovaIncident" (id),
 	FOREIGN KEY(root_cause_incident_id) REFERENCES "FluxnovaIncident" (id),
-	FOREIGN KEY(job_definition_id) REFERENCES "FluxnovaJobDefinition" (id)
+	FOREIGN KEY(job_definition_id) REFERENCES "FluxnovaJobDefinition" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaIncident_id" ON "FluxnovaIncident" (id);
 
@@ -6299,7 +6377,7 @@ CREATE TABLE "FluxnovaTask" (
 	owner TEXT,
 	assignee TEXT,
 	delegation_state VARCHAR(8),
-	priority INTEGER NOT NULL,
+	priority INTEGER,
 	create_time DATETIME,
 	last_updated DATETIME,
 	due_date DATETIME,
@@ -6339,15 +6417,19 @@ CREATE TABLE "FluxnovaVariableInstance" (
 	is_concurrent_local BOOLEAN,
 	tenant_id TEXT,
 	restricted BOOLEAN,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
+	UNIQUE (variable_scope_id, name),
 	FOREIGN KEY(execution_id) REFERENCES "FluxnovaExecution" (id),
 	FOREIGN KEY(process_instance_id) REFERENCES "FluxnovaExecution" (id),
 	FOREIGN KEY(case_execution_id) REFERENCES "FluxnovaCaseExecution" (id),
 	FOREIGN KEY(case_instance_id) REFERENCES "FluxnovaCaseExecution" (id),
 	FOREIGN KEY(batch_id) REFERENCES "FluxnovaBatch" (id),
-	FOREIGN KEY(byte_array_id) REFERENCES "FluxnovaByteArray" (id)
+	FOREIGN KEY(byte_array_id) REFERENCES "FluxnovaByteArray" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaVariableInstance_id" ON "FluxnovaVariableInstance" (id);
+CREATE INDEX "FluxnovaVariableInstance_variable_scope_id_name_idx" ON "FluxnovaVariableInstance" (variable_scope_id, name);
 
 CREATE TABLE "DiWaypoint" (
 	id INTEGER NOT NULL,
@@ -6827,8 +6909,8 @@ CREATE TABLE "BpmnActivity_category_value_refs" (
 	PRIMARY KEY ("BpmnActivity_id", category_value_refs),
 	FOREIGN KEY("BpmnActivity_id") REFERENCES "BpmnActivity" (id)
 );
-CREATE INDEX "ix_BpmnActivity_category_value_refs_category_value_refs" ON "BpmnActivity_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnActivity_category_value_refs_BpmnActivity_id" ON "BpmnActivity_category_value_refs" ("BpmnActivity_id");
+CREATE INDEX "ix_BpmnActivity_category_value_refs_category_value_refs" ON "BpmnActivity_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnAdHocSubProcess_incoming" (
 	"BpmnAdHocSubProcess_id" INTEGER,
@@ -6845,8 +6927,8 @@ CREATE TABLE "BpmnAdHocSubProcess_outgoing" (
 	PRIMARY KEY ("BpmnAdHocSubProcess_id", outgoing),
 	FOREIGN KEY("BpmnAdHocSubProcess_id") REFERENCES "BpmnAdHocSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_outgoing" ON "BpmnAdHocSubProcess_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_BpmnAdHocSubProcess_id" ON "BpmnAdHocSubProcess_outgoing" ("BpmnAdHocSubProcess_id");
+CREATE INDEX "ix_BpmnAdHocSubProcess_outgoing_outgoing" ON "BpmnAdHocSubProcess_outgoing" (outgoing);
 
 CREATE TABLE "BpmnAdHocSubProcess_category_value_refs" (
 	"BpmnAdHocSubProcess_id" INTEGER,
@@ -6881,8 +6963,8 @@ CREATE TABLE "BpmnBusinessRuleTask_category_value_refs" (
 	PRIMARY KEY ("BpmnBusinessRuleTask_id", category_value_refs),
 	FOREIGN KEY("BpmnBusinessRuleTask_id") REFERENCES "BpmnBusinessRuleTask" (id)
 );
-CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_category_value_refs" ON "BpmnBusinessRuleTask_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_BpmnBusinessRuleTask_id" ON "BpmnBusinessRuleTask_category_value_refs" ("BpmnBusinessRuleTask_id");
+CREATE INDEX "ix_BpmnBusinessRuleTask_category_value_refs_category_value_refs" ON "BpmnBusinessRuleTask_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnCallActivity_incoming" (
 	"BpmnCallActivity_id" INTEGER,
@@ -6935,8 +7017,8 @@ CREATE TABLE "BpmnComplexGateway_outgoing" (
 	PRIMARY KEY ("BpmnComplexGateway_id", outgoing),
 	FOREIGN KEY("BpmnComplexGateway_id") REFERENCES "BpmnComplexGateway" (id)
 );
-CREATE INDEX "ix_BpmnComplexGateway_outgoing_outgoing" ON "BpmnComplexGateway_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnComplexGateway_outgoing_BpmnComplexGateway_id" ON "BpmnComplexGateway_outgoing" ("BpmnComplexGateway_id");
+CREATE INDEX "ix_BpmnComplexGateway_outgoing_outgoing" ON "BpmnComplexGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnComplexGateway_category_value_refs" (
 	"BpmnComplexGateway_id" INTEGER,
@@ -6953,8 +7035,8 @@ CREATE TABLE "BpmnConversationNode_participant_refs" (
 	PRIMARY KEY ("BpmnConversationNode_id", participant_refs),
 	FOREIGN KEY("BpmnConversationNode_id") REFERENCES "BpmnConversationNode" (id)
 );
-CREATE INDEX "ix_BpmnConversationNode_participant_refs_participant_refs" ON "BpmnConversationNode_participant_refs" (participant_refs);
 CREATE INDEX "ix_BpmnConversationNode_participant_refs_BpmnConversationNode_id" ON "BpmnConversationNode_participant_refs" ("BpmnConversationNode_id");
+CREATE INDEX "ix_BpmnConversationNode_participant_refs_participant_refs" ON "BpmnConversationNode_participant_refs" (participant_refs);
 
 CREATE TABLE "BpmnConversationNode_message_flow_refs" (
 	"BpmnConversationNode_id" INTEGER,
@@ -6998,8 +7080,8 @@ CREATE TABLE "BpmnDataStoreReference_category_value_refs" (
 	PRIMARY KEY ("BpmnDataStoreReference_id", category_value_refs),
 	FOREIGN KEY("BpmnDataStoreReference_id") REFERENCES "BpmnDataStoreReference" (id)
 );
-CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_category_value_refs" ON "BpmnDataStoreReference_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_BpmnDataStoreReference_id" ON "BpmnDataStoreReference_category_value_refs" ("BpmnDataStoreReference_id");
+CREATE INDEX "ix_BpmnDataStoreReference_category_value_refs_category_value_refs" ON "BpmnDataStoreReference_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnEvent_incoming" (
 	"BpmnEvent_id" INTEGER,
@@ -7034,8 +7116,8 @@ CREATE TABLE "BpmnEventBasedGateway_incoming" (
 	PRIMARY KEY ("BpmnEventBasedGateway_id", incoming),
 	FOREIGN KEY("BpmnEventBasedGateway_id") REFERENCES "BpmnEventBasedGateway" (id)
 );
-CREATE INDEX "ix_BpmnEventBasedGateway_incoming_incoming" ON "BpmnEventBasedGateway_incoming" (incoming);
 CREATE INDEX "ix_BpmnEventBasedGateway_incoming_BpmnEventBasedGateway_id" ON "BpmnEventBasedGateway_incoming" ("BpmnEventBasedGateway_id");
+CREATE INDEX "ix_BpmnEventBasedGateway_incoming_incoming" ON "BpmnEventBasedGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnEventBasedGateway_outgoing" (
 	"BpmnEventBasedGateway_id" INTEGER,
@@ -7061,8 +7143,8 @@ CREATE TABLE "BpmnExclusiveGateway_incoming" (
 	PRIMARY KEY ("BpmnExclusiveGateway_id", incoming),
 	FOREIGN KEY("BpmnExclusiveGateway_id") REFERENCES "BpmnExclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnExclusiveGateway_incoming_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_incoming" ("BpmnExclusiveGateway_id");
 CREATE INDEX "ix_BpmnExclusiveGateway_incoming_incoming" ON "BpmnExclusiveGateway_incoming" (incoming);
+CREATE INDEX "ix_BpmnExclusiveGateway_incoming_BpmnExclusiveGateway_id" ON "BpmnExclusiveGateway_incoming" ("BpmnExclusiveGateway_id");
 
 CREATE TABLE "BpmnExclusiveGateway_outgoing" (
 	"BpmnExclusiveGateway_id" INTEGER,
@@ -7115,8 +7197,8 @@ CREATE TABLE "BpmnGateway_incoming" (
 	PRIMARY KEY ("BpmnGateway_id", incoming),
 	FOREIGN KEY("BpmnGateway_id") REFERENCES "BpmnGateway" (id)
 );
-CREATE INDEX "ix_BpmnGateway_incoming_incoming" ON "BpmnGateway_incoming" (incoming);
 CREATE INDEX "ix_BpmnGateway_incoming_BpmnGateway_id" ON "BpmnGateway_incoming" ("BpmnGateway_id");
+CREATE INDEX "ix_BpmnGateway_incoming_incoming" ON "BpmnGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnGateway_outgoing" (
 	"BpmnGateway_id" INTEGER,
@@ -7151,8 +7233,8 @@ CREATE TABLE "BpmnInclusiveGateway_outgoing" (
 	PRIMARY KEY ("BpmnInclusiveGateway_id", outgoing),
 	FOREIGN KEY("BpmnInclusiveGateway_id") REFERENCES "BpmnInclusiveGateway" (id)
 );
-CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_outgoing" ON "BpmnInclusiveGateway_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_BpmnInclusiveGateway_id" ON "BpmnInclusiveGateway_outgoing" ("BpmnInclusiveGateway_id");
+CREATE INDEX "ix_BpmnInclusiveGateway_outgoing_outgoing" ON "BpmnInclusiveGateway_outgoing" (outgoing);
 
 CREATE TABLE "BpmnInclusiveGateway_category_value_refs" (
 	"BpmnInclusiveGateway_id" INTEGER,
@@ -7187,8 +7269,8 @@ CREATE TABLE "BpmnInputSet_while_executing_input_refs" (
 	PRIMARY KEY ("BpmnInputSet_id", while_executing_input_refs),
 	FOREIGN KEY("BpmnInputSet_id") REFERENCES "BpmnInputSet" (id)
 );
-CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_while_executing_input_refs" ON "BpmnInputSet_while_executing_input_refs" (while_executing_input_refs);
 CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_BpmnInputSet_id" ON "BpmnInputSet_while_executing_input_refs" ("BpmnInputSet_id");
+CREATE INDEX "ix_BpmnInputSet_while_executing_input_refs_while_executing_input_refs" ON "BpmnInputSet_while_executing_input_refs" (while_executing_input_refs);
 
 CREATE TABLE "BpmnInputSet_output_set_refs" (
 	"BpmnInputSet_id" INTEGER,
@@ -7205,8 +7287,8 @@ CREATE TABLE "BpmnManualTask_incoming" (
 	PRIMARY KEY ("BpmnManualTask_id", incoming),
 	FOREIGN KEY("BpmnManualTask_id") REFERENCES "BpmnManualTask" (id)
 );
-CREATE INDEX "ix_BpmnManualTask_incoming_incoming" ON "BpmnManualTask_incoming" (incoming);
 CREATE INDEX "ix_BpmnManualTask_incoming_BpmnManualTask_id" ON "BpmnManualTask_incoming" ("BpmnManualTask_id");
+CREATE INDEX "ix_BpmnManualTask_incoming_incoming" ON "BpmnManualTask_incoming" (incoming);
 
 CREATE TABLE "BpmnManualTask_outgoing" (
 	"BpmnManualTask_id" INTEGER,
@@ -7241,8 +7323,8 @@ CREATE TABLE "BpmnOutputSet_data_output_refs" (
 	PRIMARY KEY ("BpmnOutputSet_id", data_output_refs),
 	FOREIGN KEY("BpmnOutputSet_id") REFERENCES "BpmnOutputSet" (id)
 );
-CREATE INDEX "ix_BpmnOutputSet_data_output_refs_data_output_refs" ON "BpmnOutputSet_data_output_refs" (data_output_refs);
 CREATE INDEX "ix_BpmnOutputSet_data_output_refs_BpmnOutputSet_id" ON "BpmnOutputSet_data_output_refs" ("BpmnOutputSet_id");
+CREATE INDEX "ix_BpmnOutputSet_data_output_refs_data_output_refs" ON "BpmnOutputSet_data_output_refs" (data_output_refs);
 
 CREATE TABLE "BpmnOutputSet_optional_output_refs" (
 	"BpmnOutputSet_id" INTEGER,
@@ -7277,8 +7359,8 @@ CREATE TABLE "BpmnParallelGateway_incoming" (
 	PRIMARY KEY ("BpmnParallelGateway_id", incoming),
 	FOREIGN KEY("BpmnParallelGateway_id") REFERENCES "BpmnParallelGateway" (id)
 );
-CREATE INDEX "ix_BpmnParallelGateway_incoming_incoming" ON "BpmnParallelGateway_incoming" (incoming);
 CREATE INDEX "ix_BpmnParallelGateway_incoming_BpmnParallelGateway_id" ON "BpmnParallelGateway_incoming" ("BpmnParallelGateway_id");
+CREATE INDEX "ix_BpmnParallelGateway_incoming_incoming" ON "BpmnParallelGateway_incoming" (incoming);
 
 CREATE TABLE "BpmnParallelGateway_outgoing" (
 	"BpmnParallelGateway_id" INTEGER,
@@ -7313,8 +7395,8 @@ CREATE TABLE "BpmnParticipant_end_point_refs" (
 	PRIMARY KEY ("BpmnParticipant_id", end_point_refs),
 	FOREIGN KEY("BpmnParticipant_id") REFERENCES "BpmnParticipant" (id)
 );
-CREATE INDEX "ix_BpmnParticipant_end_point_refs_end_point_refs" ON "BpmnParticipant_end_point_refs" (end_point_refs);
 CREATE INDEX "ix_BpmnParticipant_end_point_refs_BpmnParticipant_id" ON "BpmnParticipant_end_point_refs" ("BpmnParticipant_id");
+CREATE INDEX "ix_BpmnParticipant_end_point_refs_end_point_refs" ON "BpmnParticipant_end_point_refs" (end_point_refs);
 
 CREATE TABLE "BpmnProcess_supports" (
 	"BpmnProcess_id" INTEGER,
@@ -7349,8 +7431,8 @@ CREATE TABLE "BpmnReceiveTask_outgoing" (
 	PRIMARY KEY ("BpmnReceiveTask_id", outgoing),
 	FOREIGN KEY("BpmnReceiveTask_id") REFERENCES "BpmnReceiveTask" (id)
 );
-CREATE INDEX "ix_BpmnReceiveTask_outgoing_outgoing" ON "BpmnReceiveTask_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnReceiveTask_outgoing_BpmnReceiveTask_id" ON "BpmnReceiveTask_outgoing" ("BpmnReceiveTask_id");
+CREATE INDEX "ix_BpmnReceiveTask_outgoing_outgoing" ON "BpmnReceiveTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnReceiveTask_category_value_refs" (
 	"BpmnReceiveTask_id" INTEGER,
@@ -7367,8 +7449,8 @@ CREATE TABLE "BpmnScriptTask_incoming" (
 	PRIMARY KEY ("BpmnScriptTask_id", incoming),
 	FOREIGN KEY("BpmnScriptTask_id") REFERENCES "BpmnScriptTask" (id)
 );
-CREATE INDEX "ix_BpmnScriptTask_incoming_BpmnScriptTask_id" ON "BpmnScriptTask_incoming" ("BpmnScriptTask_id");
 CREATE INDEX "ix_BpmnScriptTask_incoming_incoming" ON "BpmnScriptTask_incoming" (incoming);
+CREATE INDEX "ix_BpmnScriptTask_incoming_BpmnScriptTask_id" ON "BpmnScriptTask_incoming" ("BpmnScriptTask_id");
 
 CREATE TABLE "BpmnScriptTask_outgoing" (
 	"BpmnScriptTask_id" INTEGER,
@@ -7403,8 +7485,8 @@ CREATE TABLE "BpmnSendTask_outgoing" (
 	PRIMARY KEY ("BpmnSendTask_id", outgoing),
 	FOREIGN KEY("BpmnSendTask_id") REFERENCES "BpmnSendTask" (id)
 );
-CREATE INDEX "ix_BpmnSendTask_outgoing_outgoing" ON "BpmnSendTask_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnSendTask_outgoing_BpmnSendTask_id" ON "BpmnSendTask_outgoing" ("BpmnSendTask_id");
+CREATE INDEX "ix_BpmnSendTask_outgoing_outgoing" ON "BpmnSendTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnSendTask_category_value_refs" (
 	"BpmnSendTask_id" INTEGER,
@@ -7439,8 +7521,8 @@ CREATE TABLE "BpmnServiceTask_outgoing" (
 	PRIMARY KEY ("BpmnServiceTask_id", outgoing),
 	FOREIGN KEY("BpmnServiceTask_id") REFERENCES "BpmnServiceTask" (id)
 );
-CREATE INDEX "ix_BpmnServiceTask_outgoing_outgoing" ON "BpmnServiceTask_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnServiceTask_outgoing_BpmnServiceTask_id" ON "BpmnServiceTask_outgoing" ("BpmnServiceTask_id");
+CREATE INDEX "ix_BpmnServiceTask_outgoing_outgoing" ON "BpmnServiceTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnServiceTask_category_value_refs" (
 	"BpmnServiceTask_id" INTEGER,
@@ -7457,8 +7539,8 @@ CREATE TABLE "BpmnSubProcess_incoming" (
 	PRIMARY KEY ("BpmnSubProcess_id", incoming),
 	FOREIGN KEY("BpmnSubProcess_id") REFERENCES "BpmnSubProcess" (id)
 );
-CREATE INDEX "ix_BpmnSubProcess_incoming_incoming" ON "BpmnSubProcess_incoming" (incoming);
 CREATE INDEX "ix_BpmnSubProcess_incoming_BpmnSubProcess_id" ON "BpmnSubProcess_incoming" ("BpmnSubProcess_id");
+CREATE INDEX "ix_BpmnSubProcess_incoming_incoming" ON "BpmnSubProcess_incoming" (incoming);
 
 CREATE TABLE "BpmnSubProcess_outgoing" (
 	"BpmnSubProcess_id" INTEGER,
@@ -7493,8 +7575,8 @@ CREATE TABLE "BpmnTask_outgoing" (
 	PRIMARY KEY ("BpmnTask_id", outgoing),
 	FOREIGN KEY("BpmnTask_id") REFERENCES "BpmnTask" (id)
 );
-CREATE INDEX "ix_BpmnTask_outgoing_outgoing" ON "BpmnTask_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnTask_outgoing_BpmnTask_id" ON "BpmnTask_outgoing" ("BpmnTask_id");
+CREATE INDEX "ix_BpmnTask_outgoing_outgoing" ON "BpmnTask_outgoing" (outgoing);
 
 CREATE TABLE "BpmnTask_category_value_refs" (
 	"BpmnTask_id" INTEGER,
@@ -7529,8 +7611,8 @@ CREATE TABLE "BpmnTransaction_category_value_refs" (
 	PRIMARY KEY ("BpmnTransaction_id", category_value_refs),
 	FOREIGN KEY("BpmnTransaction_id") REFERENCES "BpmnTransaction" (id)
 );
-CREATE INDEX "ix_BpmnTransaction_category_value_refs_category_value_refs" ON "BpmnTransaction_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnTransaction_category_value_refs_BpmnTransaction_id" ON "BpmnTransaction_category_value_refs" ("BpmnTransaction_id");
+CREATE INDEX "ix_BpmnTransaction_category_value_refs_category_value_refs" ON "BpmnTransaction_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnUserTask_incoming" (
 	"BpmnUserTask_id" INTEGER,
@@ -7567,9 +7649,11 @@ CREATE TABLE "FluxnovaIdentityLink" (
 	task_id TEXT,
 	process_definition_id TEXT,
 	tenant_id TEXT,
+	"FluxnovaPlatformData_id" INTEGER,
 	PRIMARY KEY (id),
 	FOREIGN KEY(task_id) REFERENCES "FluxnovaTask" (id),
-	FOREIGN KEY(process_definition_id) REFERENCES "FluxnovaProcessDefinition" (id)
+	FOREIGN KEY(process_definition_id) REFERENCES "FluxnovaProcessDefinition" (id),
+	FOREIGN KEY("FluxnovaPlatformData_id") REFERENCES "FluxnovaPlatformData" (id)
 );
 CREATE INDEX "ix_FluxnovaIdentityLink_id" ON "FluxnovaIdentityLink" (id);
 
@@ -7905,8 +7989,8 @@ CREATE TABLE "BpmnBoundaryEvent_outgoing" (
 	PRIMARY KEY ("BpmnBoundaryEvent_id", outgoing),
 	FOREIGN KEY("BpmnBoundaryEvent_id") REFERENCES "BpmnBoundaryEvent" (id)
 );
-CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_outgoing" ON "BpmnBoundaryEvent_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_BpmnBoundaryEvent_id" ON "BpmnBoundaryEvent_outgoing" ("BpmnBoundaryEvent_id");
+CREATE INDEX "ix_BpmnBoundaryEvent_outgoing_outgoing" ON "BpmnBoundaryEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnBoundaryEvent_category_value_refs" (
 	"BpmnBoundaryEvent_id" INTEGER,
@@ -7932,8 +8016,8 @@ CREATE TABLE "BpmnCatchEvent_incoming" (
 	PRIMARY KEY ("BpmnCatchEvent_id", incoming),
 	FOREIGN KEY("BpmnCatchEvent_id") REFERENCES "BpmnCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnCatchEvent_incoming_incoming" ON "BpmnCatchEvent_incoming" (incoming);
 CREATE INDEX "ix_BpmnCatchEvent_incoming_BpmnCatchEvent_id" ON "BpmnCatchEvent_incoming" ("BpmnCatchEvent_id");
+CREATE INDEX "ix_BpmnCatchEvent_incoming_incoming" ON "BpmnCatchEvent_incoming" (incoming);
 
 CREATE TABLE "BpmnCatchEvent_outgoing" (
 	"BpmnCatchEvent_id" INTEGER,
@@ -7995,8 +8079,8 @@ CREATE TABLE "BpmnEndEvent_category_value_refs" (
 	PRIMARY KEY ("BpmnEndEvent_id", category_value_refs),
 	FOREIGN KEY("BpmnEndEvent_id") REFERENCES "BpmnEndEvent" (id)
 );
-CREATE INDEX "ix_BpmnEndEvent_category_value_refs_category_value_refs" ON "BpmnEndEvent_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnEndEvent_category_value_refs_BpmnEndEvent_id" ON "BpmnEndEvent_category_value_refs" ("BpmnEndEvent_id");
+CREATE INDEX "ix_BpmnEndEvent_category_value_refs_category_value_refs" ON "BpmnEndEvent_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnFlowElement_category_value_refs" (
 	"BpmnFlowElement_id" INTEGER,
@@ -8004,8 +8088,8 @@ CREATE TABLE "BpmnFlowElement_category_value_refs" (
 	PRIMARY KEY ("BpmnFlowElement_id", category_value_refs),
 	FOREIGN KEY("BpmnFlowElement_id") REFERENCES "BpmnFlowElement" (id)
 );
-CREATE INDEX "ix_BpmnFlowElement_category_value_refs_category_value_refs" ON "BpmnFlowElement_category_value_refs" (category_value_refs);
 CREATE INDEX "ix_BpmnFlowElement_category_value_refs_BpmnFlowElement_id" ON "BpmnFlowElement_category_value_refs" ("BpmnFlowElement_id");
+CREATE INDEX "ix_BpmnFlowElement_category_value_refs_category_value_refs" ON "BpmnFlowElement_category_value_refs" (category_value_refs);
 
 CREATE TABLE "BpmnIntermediateCatchEvent_event_definition_refs" (
 	"BpmnIntermediateCatchEvent_id" INTEGER,
@@ -8031,8 +8115,8 @@ CREATE TABLE "BpmnIntermediateCatchEvent_outgoing" (
 	PRIMARY KEY ("BpmnIntermediateCatchEvent_id", outgoing),
 	FOREIGN KEY("BpmnIntermediateCatchEvent_id") REFERENCES "BpmnIntermediateCatchEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_outgoing" ON "BpmnIntermediateCatchEvent_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_BpmnIntermediateCatchEvent_id" ON "BpmnIntermediateCatchEvent_outgoing" ("BpmnIntermediateCatchEvent_id");
+CREATE INDEX "ix_BpmnIntermediateCatchEvent_outgoing_outgoing" ON "BpmnIntermediateCatchEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnIntermediateCatchEvent_category_value_refs" (
 	"BpmnIntermediateCatchEvent_id" INTEGER,
@@ -8067,8 +8151,8 @@ CREATE TABLE "BpmnIntermediateThrowEvent_outgoing" (
 	PRIMARY KEY ("BpmnIntermediateThrowEvent_id", outgoing),
 	FOREIGN KEY("BpmnIntermediateThrowEvent_id") REFERENCES "BpmnIntermediateThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_outgoing" ON "BpmnIntermediateThrowEvent_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_BpmnIntermediateThrowEvent_id" ON "BpmnIntermediateThrowEvent_outgoing" ("BpmnIntermediateThrowEvent_id");
+CREATE INDEX "ix_BpmnIntermediateThrowEvent_outgoing_outgoing" ON "BpmnIntermediateThrowEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnIntermediateThrowEvent_category_value_refs" (
 	"BpmnIntermediateThrowEvent_id" INTEGER,
@@ -8103,8 +8187,8 @@ CREATE TABLE "BpmnStartEvent_outgoing" (
 	PRIMARY KEY ("BpmnStartEvent_id", outgoing),
 	FOREIGN KEY("BpmnStartEvent_id") REFERENCES "BpmnStartEvent" (id)
 );
-CREATE INDEX "ix_BpmnStartEvent_outgoing_outgoing" ON "BpmnStartEvent_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnStartEvent_outgoing_BpmnStartEvent_id" ON "BpmnStartEvent_outgoing" ("BpmnStartEvent_id");
+CREATE INDEX "ix_BpmnStartEvent_outgoing_outgoing" ON "BpmnStartEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnStartEvent_category_value_refs" (
 	"BpmnStartEvent_id" INTEGER,
@@ -8139,8 +8223,8 @@ CREATE TABLE "BpmnThrowEvent_outgoing" (
 	PRIMARY KEY ("BpmnThrowEvent_id", outgoing),
 	FOREIGN KEY("BpmnThrowEvent_id") REFERENCES "BpmnThrowEvent" (id)
 );
-CREATE INDEX "ix_BpmnThrowEvent_outgoing_outgoing" ON "BpmnThrowEvent_outgoing" (outgoing);
 CREATE INDEX "ix_BpmnThrowEvent_outgoing_BpmnThrowEvent_id" ON "BpmnThrowEvent_outgoing" ("BpmnThrowEvent_id");
+CREATE INDEX "ix_BpmnThrowEvent_outgoing_outgoing" ON "BpmnThrowEvent_outgoing" (outgoing);
 
 CREATE TABLE "BpmnThrowEvent_category_value_refs" (
 	"BpmnThrowEvent_id" INTEGER,
@@ -8177,8 +8261,8 @@ CREATE TABLE "BpmnDataInputAssociation_source_refs" (
 	PRIMARY KEY ("BpmnDataInputAssociation_id", source_refs),
 	FOREIGN KEY("BpmnDataInputAssociation_id") REFERENCES "BpmnDataInputAssociation" (id)
 );
-CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_source_refs" ON "BpmnDataInputAssociation_source_refs" (source_refs);
 CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_BpmnDataInputAssociation_id" ON "BpmnDataInputAssociation_source_refs" ("BpmnDataInputAssociation_id");
+CREATE INDEX "ix_BpmnDataInputAssociation_source_refs_source_refs" ON "BpmnDataInputAssociation_source_refs" (source_refs);
 
 CREATE TABLE "BpmnDataOutputAssociation_source_refs" (
 	"BpmnDataOutputAssociation_id" INTEGER,

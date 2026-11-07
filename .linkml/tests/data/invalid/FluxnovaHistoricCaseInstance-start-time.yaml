@@ -1,0 +1,7 @@
+# Invalid: ACT_HI_CASEINST has no START_TIME_ column. A case instance's
+# start is its CREATE_TIME_.
+id: hci-001
+case_instance_id: ci-001
+case_definition_id: casedef-001
+create_time: "2025-03-01T09:00:00+00:00"
+start_time: "2025-03-01T09:00:00+00:00"

@@ -43,9 +43,17 @@
       "assigner_id": {
          "@id": "assigner_id"
       },
+      "attachments": {
+         "@type": "@id",
+         "@id": "attachments"
+      },
       "attempts": {
          "@type": "xsd:integer",
          "@id": "attempts"
+      },
+      "authorization_entries": {
+         "@type": "@id",
+         "@id": "authorization_entries"
       },
       "batch_id": {
          "@id": "batch_id"
@@ -974,6 +982,10 @@
       "byte_array_id": {
          "@id": "byte_array_id"
       },
+      "byte_arrays": {
+         "@type": "@id",
+         "@id": "byte_arrays"
+      },
       "bytes": {
          "@id": "bytes"
       },
@@ -1002,11 +1014,23 @@
       "case_definition_key": {
          "@id": "case_definition_key"
       },
+      "case_definitions": {
+         "@type": "@id",
+         "@id": "case_definitions"
+      },
       "case_execution_id": {
          "@id": "case_execution_id"
       },
+      "case_executions": {
+         "@type": "@id",
+         "@id": "case_executions"
+      },
       "case_instance_id": {
          "@id": "case_instance_id"
+      },
+      "case_sentry_parts": {
+         "@type": "@id",
+         "@id": "case_sentry_parts"
       },
       "category": {
          "@id": "category"
@@ -1028,8 +1052,16 @@
          "@type": "xsd:float",
          "@id": "collect_result_value"
       },
+      "comment_entries": {
+         "@type": "@id",
+         "@id": "comment_entries"
+      },
       "configuration": {
          "@id": "configuration"
+      },
+      "configuration_entries": {
+         "@type": "@id",
+         "@id": "configuration_entries"
       },
       "configuration_key": {
          "@id": "configuration_key"
@@ -1107,6 +1139,10 @@
       "decision_definition_name": {
          "@id": "decision_definition_name"
       },
+      "decision_definitions": {
+         "@type": "@id",
+         "@id": "decision_definitions"
+      },
       "decision_instance_id": {
          "@id": "decision_instance_id"
       },
@@ -1115,6 +1151,10 @@
       },
       "decision_requirements_definition_key": {
          "@id": "decision_requirements_definition_key"
+      },
+      "decision_requirements_definitions": {
+         "@type": "@id",
+         "@id": "decision_requirements_definitions"
       },
       "delegation_state": {
          "@context": {
@@ -1186,6 +1226,10 @@
          "@type": "xsd:dateTime",
          "@id": "end_time"
       },
+      "engine_properties": {
+         "@type": "@id",
+         "@id": "engine_properties"
+      },
       "entity_type": {
          "@id": "entity_type"
       },
@@ -1201,6 +1245,10 @@
       },
       "event_name": {
          "@id": "event_name"
+      },
+      "event_subscriptions": {
+         "@type": "@id",
+         "@id": "event_subscriptions"
       },
       "event_time": {
          "@type": "xsd:dateTime",
@@ -1229,12 +1277,21 @@
       "external_task_id": {
          "@id": "external_task_id"
       },
+      "external_tasks": {
+         "@type": "@id",
+         "@id": "external_tasks"
+      },
       "failed_activity_id": {
          "@id": "failed_activity_id"
+      },
+      "filter_entries": {
+         "@type": "@id",
+         "@id": "filter_entries"
       },
       "first_name": {
          "@id": "first_name"
       },
+      "id": "@id",
       "connector_id": {
          "@type": "@id",
          "@id": "connector_id"
@@ -1365,6 +1422,10 @@
          "@type": "xsd:dateTime",
          "@id": "follow_up_date"
       },
+      "form_definitions": {
+         "@type": "@id",
+         "@id": "form_definitions"
+      },
       "full_message": {
          "@id": "full_message"
       },
@@ -1385,6 +1446,66 @@
          "@type": "xsd:boolean",
          "@id": "has_start_form_key"
       },
+      "historic_activity_instances": {
+         "@type": "@id",
+         "@id": "historic_activity_instances"
+      },
+      "historic_batches": {
+         "@type": "@id",
+         "@id": "historic_batches"
+      },
+      "historic_case_activity_instances": {
+         "@type": "@id",
+         "@id": "historic_case_activity_instances"
+      },
+      "historic_case_instances": {
+         "@type": "@id",
+         "@id": "historic_case_instances"
+      },
+      "historic_decision_input_instances": {
+         "@type": "@id",
+         "@id": "historic_decision_input_instances"
+      },
+      "historic_decision_instances": {
+         "@type": "@id",
+         "@id": "historic_decision_instances"
+      },
+      "historic_decision_output_instances": {
+         "@type": "@id",
+         "@id": "historic_decision_output_instances"
+      },
+      "historic_details": {
+         "@type": "@id",
+         "@id": "historic_details"
+      },
+      "historic_external_task_logs": {
+         "@type": "@id",
+         "@id": "historic_external_task_logs"
+      },
+      "historic_identity_links": {
+         "@type": "@id",
+         "@id": "historic_identity_links"
+      },
+      "historic_incidents": {
+         "@type": "@id",
+         "@id": "historic_incidents"
+      },
+      "historic_job_logs": {
+         "@type": "@id",
+         "@id": "historic_job_logs"
+      },
+      "historic_process_instances": {
+         "@type": "@id",
+         "@id": "historic_process_instances"
+      },
+      "historic_task_instances": {
+         "@type": "@id",
+         "@id": "historic_task_instances"
+      },
+      "historic_variable_instances": {
+         "@type": "@id",
+         "@id": "historic_variable_instances"
+      },
       "history_configuration": {
          "@id": "history_configuration"
       },
@@ -1395,7 +1516,14 @@
       "hostname": {
          "@id": "hostname"
       },
-      "id": "@id",
+      "identity_infos": {
+         "@type": "@id",
+         "@id": "identity_infos"
+      },
+      "identity_links": {
+         "@type": "@id",
+         "@id": "identity_links"
+      },
       "incident_message": {
          "@id": "incident_message"
       },
@@ -1409,6 +1537,10 @@
       },
       "incident_type": {
          "@id": "incident_type"
+      },
+      "incidents": {
+         "@type": "@id",
+         "@id": "incidents"
       },
       "invocations_per_job": {
          "@type": "xsd:integer",
@@ -1465,6 +1597,10 @@
       },
       "job_definition_type": {
          "@id": "job_definition_type"
+      },
+      "job_definitions": {
+         "@type": "@id",
+         "@id": "job_definitions"
       },
       "job_due_date": {
          "@type": "xsd:dateTime",
@@ -1530,8 +1666,16 @@
          "@type": "xsd:integer",
          "@id": "long_value"
       },
+      "memberships": {
+         "@type": "@id",
+         "@id": "memberships"
+      },
       "message": {
          "@id": "message"
+      },
+      "meter_logs": {
+         "@type": "@id",
+         "@id": "meter_logs"
       },
       "milliseconds": {
          "@type": "xsd:integer",
@@ -1655,6 +1799,10 @@
       "salt": {
          "@id": "salt"
       },
+      "schema_log_entries": {
+         "@type": "@id",
+         "@id": "schema_log_entries"
+      },
       "seed_job_definition_id": {
          "@id": "seed_job_definition_id"
       },
@@ -1718,6 +1866,10 @@
       "task_id": {
          "@id": "task_id"
       },
+      "task_meter_logs": {
+         "@type": "@id",
+         "@id": "task_meter_logs"
+      },
       "task_state": {
          "@id": "task_state"
       },
@@ -1727,6 +1879,14 @@
       },
       "tenant_id": {
          "@id": "tenant_id"
+      },
+      "tenant_memberships": {
+         "@type": "@id",
+         "@id": "tenant_memberships"
+      },
+      "tenants": {
+         "@type": "@id",
+         "@id": "tenants"
       },
       "text2_value": {
          "@id": "text2_value"
@@ -1758,6 +1918,10 @@
       "user_id": {
          "@id": "user_id"
       },
+      "user_operation_log_entries": {
+         "@type": "@id",
+         "@id": "user_operation_log_entries"
+      },
       "users": {
          "@type": "@id",
          "@id": "users"
@@ -1767,6 +1931,10 @@
       },
       "variable_instance_id": {
          "@id": "variable_instance_id"
+      },
+      "variable_instances": {
+         "@type": "@id",
+         "@id": "variable_instances"
       },
       "variable_name": {
          "@id": "variable_name"

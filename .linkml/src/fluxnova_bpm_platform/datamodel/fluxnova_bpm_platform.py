@@ -283,7 +283,7 @@ class FluxnovaVariableInstanceId(extended_str):
 @dataclass(repr=False)
 class FluxnovaPlatformData(YAMLRoot):
     """
-    Root container for Fluxnova BPM Platform data.
+    Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -292,31 +292,159 @@ class FluxnovaPlatformData(YAMLRoot):
     class_name: ClassVar[str] = "FluxnovaPlatformData"
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData
 
-    deployments: Optional[Union[dict[Union[str, FluxnovaDeploymentId], Union[dict, "FluxnovaDeployment"]], list[Union[dict, "FluxnovaDeployment"]]]] = empty_dict()
-    process_definitions: Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, "FluxnovaProcessDefinition"]], list[Union[dict, "FluxnovaProcessDefinition"]]]] = empty_dict()
-    executions: Optional[Union[dict[Union[str, FluxnovaExecutionId], Union[dict, "FluxnovaExecution"]], list[Union[dict, "FluxnovaExecution"]]]] = empty_dict()
-    tasks: Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, "FluxnovaTask"]], list[Union[dict, "FluxnovaTask"]]]] = empty_dict()
-    jobs: Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, "FluxnovaJob"]], list[Union[dict, "FluxnovaJob"]]]] = empty_dict()
-    users: Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, "FluxnovaUser"]], list[Union[dict, "FluxnovaUser"]]]] = empty_dict()
-    groups: Optional[Union[dict[Union[str, FluxnovaGroupId], Union[dict, "FluxnovaGroup"]], list[Union[dict, "FluxnovaGroup"]]]] = empty_dict()
+    attachments: Optional[Union[dict[Union[str, FluxnovaAttachmentId], Union[dict, "FluxnovaAttachment"]], list[Union[dict, "FluxnovaAttachment"]]]] = empty_dict()
+    authorization_entries: Optional[Union[dict[Union[str, FluxnovaAuthorizationId], Union[dict, "FluxnovaAuthorization"]], list[Union[dict, "FluxnovaAuthorization"]]]] = empty_dict()
     batches: Optional[Union[dict[Union[str, FluxnovaBatchId], Union[dict, "FluxnovaBatch"]], list[Union[dict, "FluxnovaBatch"]]]] = empty_dict()
+    byte_arrays: Optional[Union[dict[Union[str, FluxnovaByteArrayId], Union[dict, "FluxnovaByteArray"]], list[Union[dict, "FluxnovaByteArray"]]]] = empty_dict()
+    case_definitions: Optional[Union[dict[Union[str, FluxnovaCaseDefinitionId], Union[dict, "FluxnovaCaseDefinition"]], list[Union[dict, "FluxnovaCaseDefinition"]]]] = empty_dict()
+    case_executions: Optional[Union[dict[Union[str, FluxnovaCaseExecutionId], Union[dict, "FluxnovaCaseExecution"]], list[Union[dict, "FluxnovaCaseExecution"]]]] = empty_dict()
+    case_sentry_parts: Optional[Union[dict[Union[str, FluxnovaCaseSentryPartId], Union[dict, "FluxnovaCaseSentryPart"]], list[Union[dict, "FluxnovaCaseSentryPart"]]]] = empty_dict()
+    comment_entries: Optional[Union[dict[Union[str, FluxnovaCommentId], Union[dict, "FluxnovaComment"]], list[Union[dict, "FluxnovaComment"]]]] = empty_dict()
+    configuration_entries: Optional[Union[dict[Union[str, FluxnovaConfigurationId], Union[dict, "FluxnovaConfiguration"]], list[Union[dict, "FluxnovaConfiguration"]]]] = empty_dict()
+    decision_definitions: Optional[Union[dict[Union[str, FluxnovaDecisionDefinitionId], Union[dict, "FluxnovaDecisionDefinition"]], list[Union[dict, "FluxnovaDecisionDefinition"]]]] = empty_dict()
+    decision_requirements_definitions: Optional[Union[dict[Union[str, FluxnovaDecisionRequirementsDefinitionId], Union[dict, "FluxnovaDecisionRequirementsDefinition"]], list[Union[dict, "FluxnovaDecisionRequirementsDefinition"]]]] = empty_dict()
+    deployments: Optional[Union[dict[Union[str, FluxnovaDeploymentId], Union[dict, "FluxnovaDeployment"]], list[Union[dict, "FluxnovaDeployment"]]]] = empty_dict()
+    engine_properties: Optional[Union[dict[Union[str, FluxnovaEnginePropertyName], Union[dict, "FluxnovaEngineProperty"]], list[Union[dict, "FluxnovaEngineProperty"]]]] = empty_dict()
+    event_subscriptions: Optional[Union[dict[Union[str, FluxnovaEventSubscriptionId], Union[dict, "FluxnovaEventSubscription"]], list[Union[dict, "FluxnovaEventSubscription"]]]] = empty_dict()
+    executions: Optional[Union[dict[Union[str, FluxnovaExecutionId], Union[dict, "FluxnovaExecution"]], list[Union[dict, "FluxnovaExecution"]]]] = empty_dict()
+    external_tasks: Optional[Union[dict[Union[str, FluxnovaExternalTaskId], Union[dict, "FluxnovaExternalTask"]], list[Union[dict, "FluxnovaExternalTask"]]]] = empty_dict()
+    filter_entries: Optional[Union[dict[Union[str, FluxnovaFilterId], Union[dict, "FluxnovaFilter"]], list[Union[dict, "FluxnovaFilter"]]]] = empty_dict()
+    form_definitions: Optional[Union[dict[Union[str, FluxnovaFormDefinitionId], Union[dict, "FluxnovaFormDefinition"]], list[Union[dict, "FluxnovaFormDefinition"]]]] = empty_dict()
+    groups: Optional[Union[dict[Union[str, FluxnovaGroupId], Union[dict, "FluxnovaGroup"]], list[Union[dict, "FluxnovaGroup"]]]] = empty_dict()
+    historic_activity_instances: Optional[Union[dict[Union[str, FluxnovaHistoricActivityInstanceId], Union[dict, "FluxnovaHistoricActivityInstance"]], list[Union[dict, "FluxnovaHistoricActivityInstance"]]]] = empty_dict()
+    historic_batches: Optional[Union[dict[Union[str, FluxnovaHistoricBatchId], Union[dict, "FluxnovaHistoricBatch"]], list[Union[dict, "FluxnovaHistoricBatch"]]]] = empty_dict()
+    historic_case_activity_instances: Optional[Union[dict[Union[str, FluxnovaHistoricCaseActivityInstanceId], Union[dict, "FluxnovaHistoricCaseActivityInstance"]], list[Union[dict, "FluxnovaHistoricCaseActivityInstance"]]]] = empty_dict()
+    historic_case_instances: Optional[Union[dict[Union[str, FluxnovaHistoricCaseInstanceId], Union[dict, "FluxnovaHistoricCaseInstance"]], list[Union[dict, "FluxnovaHistoricCaseInstance"]]]] = empty_dict()
+    historic_decision_input_instances: Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInputInstanceId], Union[dict, "FluxnovaHistoricDecisionInputInstance"]], list[Union[dict, "FluxnovaHistoricDecisionInputInstance"]]]] = empty_dict()
+    historic_decision_instances: Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInstanceId], Union[dict, "FluxnovaHistoricDecisionInstance"]], list[Union[dict, "FluxnovaHistoricDecisionInstance"]]]] = empty_dict()
+    historic_decision_output_instances: Optional[Union[dict[Union[str, FluxnovaHistoricDecisionOutputInstanceId], Union[dict, "FluxnovaHistoricDecisionOutputInstance"]], list[Union[dict, "FluxnovaHistoricDecisionOutputInstance"]]]] = empty_dict()
+    historic_details: Optional[Union[dict[Union[str, FluxnovaHistoricDetailId], Union[dict, "FluxnovaHistoricDetail"]], list[Union[dict, "FluxnovaHistoricDetail"]]]] = empty_dict()
+    historic_external_task_logs: Optional[Union[dict[Union[str, FluxnovaHistoricExternalTaskLogId], Union[dict, "FluxnovaHistoricExternalTaskLog"]], list[Union[dict, "FluxnovaHistoricExternalTaskLog"]]]] = empty_dict()
+    historic_identity_links: Optional[Union[dict[Union[str, FluxnovaHistoricIdentityLinkId], Union[dict, "FluxnovaHistoricIdentityLink"]], list[Union[dict, "FluxnovaHistoricIdentityLink"]]]] = empty_dict()
+    historic_incidents: Optional[Union[dict[Union[str, FluxnovaHistoricIncidentId], Union[dict, "FluxnovaHistoricIncident"]], list[Union[dict, "FluxnovaHistoricIncident"]]]] = empty_dict()
+    historic_job_logs: Optional[Union[dict[Union[str, FluxnovaHistoricJobLogId], Union[dict, "FluxnovaHistoricJobLog"]], list[Union[dict, "FluxnovaHistoricJobLog"]]]] = empty_dict()
+    historic_process_instances: Optional[Union[dict[Union[str, FluxnovaHistoricProcessInstanceId], Union[dict, "FluxnovaHistoricProcessInstance"]], list[Union[dict, "FluxnovaHistoricProcessInstance"]]]] = empty_dict()
+    historic_task_instances: Optional[Union[dict[Union[str, FluxnovaHistoricTaskInstanceId], Union[dict, "FluxnovaHistoricTaskInstance"]], list[Union[dict, "FluxnovaHistoricTaskInstance"]]]] = empty_dict()
+    historic_variable_instances: Optional[Union[dict[Union[str, FluxnovaHistoricVariableInstanceId], Union[dict, "FluxnovaHistoricVariableInstance"]], list[Union[dict, "FluxnovaHistoricVariableInstance"]]]] = empty_dict()
+    identity_infos: Optional[Union[dict[Union[str, FluxnovaIdentityInfoId], Union[dict, "FluxnovaIdentityInfo"]], list[Union[dict, "FluxnovaIdentityInfo"]]]] = empty_dict()
+    identity_links: Optional[Union[dict[Union[str, FluxnovaIdentityLinkId], Union[dict, "FluxnovaIdentityLink"]], list[Union[dict, "FluxnovaIdentityLink"]]]] = empty_dict()
+    incidents: Optional[Union[dict[Union[str, FluxnovaIncidentId], Union[dict, "FluxnovaIncident"]], list[Union[dict, "FluxnovaIncident"]]]] = empty_dict()
+    job_definitions: Optional[Union[dict[Union[str, FluxnovaJobDefinitionId], Union[dict, "FluxnovaJobDefinition"]], list[Union[dict, "FluxnovaJobDefinition"]]]] = empty_dict()
+    jobs: Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, "FluxnovaJob"]], list[Union[dict, "FluxnovaJob"]]]] = empty_dict()
+    memberships: Optional[Union[Union[dict, "FluxnovaMembership"], list[Union[dict, "FluxnovaMembership"]]]] = empty_list()
+    meter_logs: Optional[Union[dict[Union[str, FluxnovaMeterLogId], Union[dict, "FluxnovaMeterLog"]], list[Union[dict, "FluxnovaMeterLog"]]]] = empty_dict()
+    process_definitions: Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, "FluxnovaProcessDefinition"]], list[Union[dict, "FluxnovaProcessDefinition"]]]] = empty_dict()
+    schema_log_entries: Optional[Union[dict[Union[str, FluxnovaSchemaLogEntryId], Union[dict, "FluxnovaSchemaLogEntry"]], list[Union[dict, "FluxnovaSchemaLogEntry"]]]] = empty_dict()
+    task_meter_logs: Optional[Union[dict[Union[str, FluxnovaTaskMeterLogId], Union[dict, "FluxnovaTaskMeterLog"]], list[Union[dict, "FluxnovaTaskMeterLog"]]]] = empty_dict()
+    tasks: Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, "FluxnovaTask"]], list[Union[dict, "FluxnovaTask"]]]] = empty_dict()
+    tenant_memberships: Optional[Union[dict[Union[str, FluxnovaTenantMembershipId], Union[dict, "FluxnovaTenantMembership"]], list[Union[dict, "FluxnovaTenantMembership"]]]] = empty_dict()
+    tenants: Optional[Union[dict[Union[str, FluxnovaTenantId], Union[dict, "FluxnovaTenant"]], list[Union[dict, "FluxnovaTenant"]]]] = empty_dict()
+    user_operation_log_entries: Optional[Union[dict[Union[str, FluxnovaUserOperationLogEntryId], Union[dict, "FluxnovaUserOperationLogEntry"]], list[Union[dict, "FluxnovaUserOperationLogEntry"]]]] = empty_dict()
+    users: Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, "FluxnovaUser"]], list[Union[dict, "FluxnovaUser"]]]] = empty_dict()
+    variable_instances: Optional[Union[dict[Union[str, FluxnovaVariableInstanceId], Union[dict, "FluxnovaVariableInstance"]], list[Union[dict, "FluxnovaVariableInstance"]]]] = empty_dict()
 
     def __post_init__(self, *_: str, **kwargs: Any):
+        self._normalize_inlined_as_list(slot_name="attachments", slot_type=FluxnovaAttachment, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="authorization_entries", slot_type=FluxnovaAuthorization, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="batches", slot_type=FluxnovaBatch, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="byte_arrays", slot_type=FluxnovaByteArray, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="case_definitions", slot_type=FluxnovaCaseDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="case_executions", slot_type=FluxnovaCaseExecution, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="case_sentry_parts", slot_type=FluxnovaCaseSentryPart, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="comment_entries", slot_type=FluxnovaComment, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="configuration_entries", slot_type=FluxnovaConfiguration, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="decision_definitions", slot_type=FluxnovaDecisionDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="decision_requirements_definitions", slot_type=FluxnovaDecisionRequirementsDefinition, key_name="id", keyed=True)
+
         self._normalize_inlined_as_list(slot_name="deployments", slot_type=FluxnovaDeployment, key_name="id", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="process_definitions", slot_type=FluxnovaProcessDefinition, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="engine_properties", slot_type=FluxnovaEngineProperty, key_name="name", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="event_subscriptions", slot_type=FluxnovaEventSubscription, key_name="id", keyed=True)
 
         self._normalize_inlined_as_list(slot_name="executions", slot_type=FluxnovaExecution, key_name="id", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="tasks", slot_type=FluxnovaTask, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="external_tasks", slot_type=FluxnovaExternalTask, key_name="id", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="jobs", slot_type=FluxnovaJob, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="filter_entries", slot_type=FluxnovaFilter, key_name="id", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="users", slot_type=FluxnovaUser, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="form_definitions", slot_type=FluxnovaFormDefinition, key_name="id", keyed=True)
 
         self._normalize_inlined_as_list(slot_name="groups", slot_type=FluxnovaGroup, key_name="id", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="batches", slot_type=FluxnovaBatch, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="historic_activity_instances", slot_type=FluxnovaHistoricActivityInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_batches", slot_type=FluxnovaHistoricBatch, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_case_activity_instances", slot_type=FluxnovaHistoricCaseActivityInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_case_instances", slot_type=FluxnovaHistoricCaseInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_decision_input_instances", slot_type=FluxnovaHistoricDecisionInputInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_decision_instances", slot_type=FluxnovaHistoricDecisionInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_decision_output_instances", slot_type=FluxnovaHistoricDecisionOutputInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_details", slot_type=FluxnovaHistoricDetail, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_external_task_logs", slot_type=FluxnovaHistoricExternalTaskLog, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_identity_links", slot_type=FluxnovaHistoricIdentityLink, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_incidents", slot_type=FluxnovaHistoricIncident, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_job_logs", slot_type=FluxnovaHistoricJobLog, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_process_instances", slot_type=FluxnovaHistoricProcessInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_task_instances", slot_type=FluxnovaHistoricTaskInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="historic_variable_instances", slot_type=FluxnovaHistoricVariableInstance, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="identity_infos", slot_type=FluxnovaIdentityInfo, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="identity_links", slot_type=FluxnovaIdentityLink, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="incidents", slot_type=FluxnovaIncident, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="job_definitions", slot_type=FluxnovaJobDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="jobs", slot_type=FluxnovaJob, key_name="id", keyed=True)
+
+        if not isinstance(self.memberships, list):
+            self.memberships = [self.memberships] if self.memberships is not None else []
+        self.memberships = [v if isinstance(v, FluxnovaMembership) else FluxnovaMembership(**as_dict(v)) for v in self.memberships]
+
+        self._normalize_inlined_as_list(slot_name="meter_logs", slot_type=FluxnovaMeterLog, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="process_definitions", slot_type=FluxnovaProcessDefinition, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="schema_log_entries", slot_type=FluxnovaSchemaLogEntry, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="task_meter_logs", slot_type=FluxnovaTaskMeterLog, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="tasks", slot_type=FluxnovaTask, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="tenant_memberships", slot_type=FluxnovaTenantMembership, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="tenants", slot_type=FluxnovaTenant, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="user_operation_log_entries", slot_type=FluxnovaUserOperationLogEntry, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="users", slot_type=FluxnovaUser, key_name="id", keyed=True)
+
+        self._normalize_inlined_as_list(slot_name="variable_instances", slot_type=FluxnovaVariableInstance, key_name="id", keyed=True)
 
         super().__post_init__(**kwargs)
 
@@ -811,8 +939,8 @@ class FluxnovaConfiguration(YAMLRoot):
     id: Union[str, FluxnovaConfigurationId] = None
     configuration_key: str = None
     configuration_value: str = None
-    version: int = None
-    status: Union[str, "ConfigurationStatus"] = None
+    version: int = 1
+    status: Union[str, "ConfigurationStatus"] = 'ACTIVE'
     tenant_id: Optional[str] = None
     created_by: Optional[str] = None
     created_at: Optional[Union[str, XSDDateTime]] = None
@@ -1074,7 +1202,7 @@ class FluxnovaExternalTask(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaExternalTask
 
     id: Union[str, FluxnovaExternalTaskId] = None
-    priority: int = None
+    priority: int = 0
     worker_id: Optional[str] = None
     topic_name: Optional[str] = None
     retries: Optional[int] = None
@@ -1735,7 +1863,7 @@ class FluxnovaHistoricExternalTaskLog(YAMLRoot):
     id: Union[str, FluxnovaHistoricExternalTaskLogId] = None
     timestamp: Union[str, XSDDateTime] = None
     external_task_id: str = None
-    priority: int = None
+    priority: int = 0
     retries: Optional[int] = None
     topic_name: Optional[str] = None
     worker_id: Optional[str] = None
@@ -2016,7 +2144,7 @@ class FluxnovaHistoricJobLog(YAMLRoot):
     id: Union[str, FluxnovaHistoricJobLogId] = None
     timestamp: Union[str, XSDDateTime] = None
     job_id: str = None
-    job_priority: int = None
+    job_priority: int = 0
     job_due_date: Optional[Union[str, XSDDateTime]] = None
     job_retries: Optional[int] = None
     job_exception_message: Optional[str] = None
@@ -2129,7 +2257,8 @@ class FluxnovaHistoricJobLog(YAMLRoot):
 @dataclass(repr=False)
 class FluxnovaHistoricScopeInstance(YAMLRoot):
     """
-    Abstract base for historic entities with start/end time and duration.
+    Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five
+    tables have.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -2139,14 +2268,8 @@ class FluxnovaHistoricScopeInstance(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricScopeInstance
 
     id: Union[str, FluxnovaHistoricScopeInstanceId] = None
-    root_process_instance_id: Optional[str] = None
-    process_instance_id: Optional[str] = None
-    process_definition_id: Optional[str] = None
-    process_definition_key: Optional[str] = None
-    start_time: Optional[Union[str, XSDDateTime]] = None
-    end_time: Optional[Union[str, XSDDateTime]] = None
     duration: Optional[int] = None
-    removal_time: Optional[Union[str, XSDDateTime]] = None
+    tenant_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2154,29 +2277,11 @@ class FluxnovaHistoricScopeInstance(YAMLRoot):
         if not isinstance(self.id, FluxnovaHistoricScopeInstanceId):
             self.id = FluxnovaHistoricScopeInstanceId(self.id)
 
-        if self.root_process_instance_id is not None and not isinstance(self.root_process_instance_id, str):
-            self.root_process_instance_id = str(self.root_process_instance_id)
-
-        if self.process_instance_id is not None and not isinstance(self.process_instance_id, str):
-            self.process_instance_id = str(self.process_instance_id)
-
-        if self.process_definition_id is not None and not isinstance(self.process_definition_id, str):
-            self.process_definition_id = str(self.process_definition_id)
-
-        if self.process_definition_key is not None and not isinstance(self.process_definition_key, str):
-            self.process_definition_key = str(self.process_definition_key)
-
-        if self.start_time is not None and not isinstance(self.start_time, XSDDateTime):
-            self.start_time = XSDDateTime(self.start_time)
-
-        if self.end_time is not None and not isinstance(self.end_time, XSDDateTime):
-            self.end_time = XSDDateTime(self.end_time)
-
         if self.duration is not None and not isinstance(self.duration, int):
             self.duration = int(self.duration)
 
-        if self.removal_time is not None and not isinstance(self.removal_time, XSDDateTime):
-            self.removal_time = XSDDateTime(self.removal_time)
+        if self.tenant_id is not None and not isinstance(self.tenant_id, str):
+            self.tenant_id = str(self.tenant_id)
 
         super().__post_init__(**kwargs)
 
@@ -2195,20 +2300,24 @@ class FluxnovaHistoricActivityInstance(FluxnovaHistoricScopeInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance
 
     id: Union[str, FluxnovaHistoricActivityInstanceId] = None
+    process_definition_id: str = None
+    process_instance_id: str = None
     execution_id: str = None
     activity_id: str = None
     activity_type: str = None
-    process_definition_id: str = None
-    process_instance_id: str = None
     start_time: Union[str, XSDDateTime] = None
     parent_activity_instance_id: Optional[str] = None
+    process_definition_key: Optional[str] = None
+    root_process_instance_id: Optional[str] = None
     task_id: Optional[str] = None
     called_process_instance_id: Optional[str] = None
     called_case_instance_id: Optional[str] = None
     activity_name: Optional[str] = None
     assignee: Optional[str] = None
+    end_time: Optional[Union[str, XSDDateTime]] = None
     activity_instance_state: Optional[int] = None
     sequence_counter: Optional[int] = None
+    removal_time: Optional[Union[str, XSDDateTime]] = None
     tenant_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -2216,6 +2325,16 @@ class FluxnovaHistoricActivityInstance(FluxnovaHistoricScopeInstance):
             self.MissingRequiredField("id")
         if not isinstance(self.id, FluxnovaHistoricActivityInstanceId):
             self.id = FluxnovaHistoricActivityInstanceId(self.id)
+
+        if self._is_empty(self.process_definition_id):
+            self.MissingRequiredField("process_definition_id")
+        if not isinstance(self.process_definition_id, str):
+            self.process_definition_id = str(self.process_definition_id)
+
+        if self._is_empty(self.process_instance_id):
+            self.MissingRequiredField("process_instance_id")
+        if not isinstance(self.process_instance_id, str):
+            self.process_instance_id = str(self.process_instance_id)
 
         if self._is_empty(self.execution_id):
             self.MissingRequiredField("execution_id")
@@ -2232,16 +2351,6 @@ class FluxnovaHistoricActivityInstance(FluxnovaHistoricScopeInstance):
         if not isinstance(self.activity_type, str):
             self.activity_type = str(self.activity_type)
 
-        if self._is_empty(self.process_definition_id):
-            self.MissingRequiredField("process_definition_id")
-        if not isinstance(self.process_definition_id, str):
-            self.process_definition_id = str(self.process_definition_id)
-
-        if self._is_empty(self.process_instance_id):
-            self.MissingRequiredField("process_instance_id")
-        if not isinstance(self.process_instance_id, str):
-            self.process_instance_id = str(self.process_instance_id)
-
         if self._is_empty(self.start_time):
             self.MissingRequiredField("start_time")
         if not isinstance(self.start_time, XSDDateTime):
@@ -2249,6 +2358,12 @@ class FluxnovaHistoricActivityInstance(FluxnovaHistoricScopeInstance):
 
         if self.parent_activity_instance_id is not None and not isinstance(self.parent_activity_instance_id, str):
             self.parent_activity_instance_id = str(self.parent_activity_instance_id)
+
+        if self.process_definition_key is not None and not isinstance(self.process_definition_key, str):
+            self.process_definition_key = str(self.process_definition_key)
+
+        if self.root_process_instance_id is not None and not isinstance(self.root_process_instance_id, str):
+            self.root_process_instance_id = str(self.root_process_instance_id)
 
         if self.task_id is not None and not isinstance(self.task_id, str):
             self.task_id = str(self.task_id)
@@ -2265,11 +2380,17 @@ class FluxnovaHistoricActivityInstance(FluxnovaHistoricScopeInstance):
         if self.assignee is not None and not isinstance(self.assignee, str):
             self.assignee = str(self.assignee)
 
+        if self.end_time is not None and not isinstance(self.end_time, XSDDateTime):
+            self.end_time = XSDDateTime(self.end_time)
+
         if self.activity_instance_state is not None and not isinstance(self.activity_instance_state, int):
             self.activity_instance_state = int(self.activity_instance_state)
 
         if self.sequence_counter is not None and not isinstance(self.sequence_counter, int):
             self.sequence_counter = int(self.sequence_counter)
+
+        if self.removal_time is not None and not isinstance(self.removal_time, XSDDateTime):
+            self.removal_time = XSDDateTime(self.removal_time)
 
         if self.tenant_id is not None and not isinstance(self.tenant_id, str):
             self.tenant_id = str(self.tenant_id)
@@ -2301,6 +2422,7 @@ class FluxnovaHistoricCaseActivityInstance(FluxnovaHistoricScopeInstance):
     called_case_instance_id: Optional[str] = None
     case_activity_name: Optional[str] = None
     case_activity_type: Optional[str] = None
+    end_time: Optional[Union[str, XSDDateTime]] = None
     state: Optional[int] = None
     is_required: Optional[Union[bool, Bool]] = None
     tenant_id: Optional[str] = None
@@ -2348,6 +2470,9 @@ class FluxnovaHistoricCaseActivityInstance(FluxnovaHistoricScopeInstance):
 
         if self.case_activity_type is not None and not isinstance(self.case_activity_type, str):
             self.case_activity_type = str(self.case_activity_type)
+
+        if self.end_time is not None and not isinstance(self.end_time, XSDDateTime):
+            self.end_time = XSDDateTime(self.end_time)
 
         if self.state is not None and not isinstance(self.state, int):
             self.state = int(self.state)
@@ -2447,16 +2572,20 @@ class FluxnovaHistoricProcessInstance(FluxnovaHistoricScopeInstance):
     process_definition_id: str = None
     start_time: Union[str, XSDDateTime] = None
     business_key: Optional[str] = None
+    process_definition_key: Optional[str] = None
+    end_time: Optional[Union[str, XSDDateTime]] = None
+    removal_time: Optional[Union[str, XSDDateTime]] = None
     start_user_id: Optional[str] = None
     start_activity_id: Optional[str] = None
     end_activity_id: Optional[str] = None
     super_process_instance_id: Optional[str] = None
+    root_process_instance_id: Optional[str] = None
     super_case_instance_id: Optional[str] = None
     case_instance_id: Optional[str] = None
     delete_reason: Optional[str] = None
-    tenant_id: Optional[str] = None
     state: Optional[Union[str, "HistoricProcessInstanceState"]] = None
     restarted_process_instance_id: Optional[str] = None
+    tenant_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -2482,6 +2611,15 @@ class FluxnovaHistoricProcessInstance(FluxnovaHistoricScopeInstance):
         if self.business_key is not None and not isinstance(self.business_key, str):
             self.business_key = str(self.business_key)
 
+        if self.process_definition_key is not None and not isinstance(self.process_definition_key, str):
+            self.process_definition_key = str(self.process_definition_key)
+
+        if self.end_time is not None and not isinstance(self.end_time, XSDDateTime):
+            self.end_time = XSDDateTime(self.end_time)
+
+        if self.removal_time is not None and not isinstance(self.removal_time, XSDDateTime):
+            self.removal_time = XSDDateTime(self.removal_time)
+
         if self.start_user_id is not None and not isinstance(self.start_user_id, str):
             self.start_user_id = str(self.start_user_id)
 
@@ -2494,6 +2632,9 @@ class FluxnovaHistoricProcessInstance(FluxnovaHistoricScopeInstance):
         if self.super_process_instance_id is not None and not isinstance(self.super_process_instance_id, str):
             self.super_process_instance_id = str(self.super_process_instance_id)
 
+        if self.root_process_instance_id is not None and not isinstance(self.root_process_instance_id, str):
+            self.root_process_instance_id = str(self.root_process_instance_id)
+
         if self.super_case_instance_id is not None and not isinstance(self.super_case_instance_id, str):
             self.super_case_instance_id = str(self.super_case_instance_id)
 
@@ -2503,14 +2644,14 @@ class FluxnovaHistoricProcessInstance(FluxnovaHistoricScopeInstance):
         if self.delete_reason is not None and not isinstance(self.delete_reason, str):
             self.delete_reason = str(self.delete_reason)
 
-        if self.tenant_id is not None and not isinstance(self.tenant_id, str):
-            self.tenant_id = str(self.tenant_id)
-
         if self.state is not None and not isinstance(self.state, HistoricProcessInstanceState):
             self.state = HistoricProcessInstanceState(self.state)
 
         if self.restarted_process_instance_id is not None and not isinstance(self.restarted_process_instance_id, str):
             self.restarted_process_instance_id = str(self.restarted_process_instance_id)
+
+        if self.tenant_id is not None and not isinstance(self.tenant_id, str):
+            self.tenant_id = str(self.tenant_id)
 
         super().__post_init__(**kwargs)
 
@@ -2529,9 +2670,12 @@ class FluxnovaHistoricTaskInstance(FluxnovaHistoricScopeInstance):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance
 
     id: Union[str, FluxnovaHistoricTaskInstanceId] = None
-    priority: int = None
     start_time: Union[str, XSDDateTime] = None
     task_definition_key: Optional[str] = None
+    process_definition_key: Optional[str] = None
+    process_definition_id: Optional[str] = None
+    root_process_instance_id: Optional[str] = None
+    process_instance_id: Optional[str] = None
     execution_id: Optional[str] = None
     case_definition_key: Optional[str] = None
     case_definition_id: Optional[str] = None
@@ -2543,22 +2687,20 @@ class FluxnovaHistoricTaskInstance(FluxnovaHistoricScopeInstance):
     description: Optional[str] = None
     owner: Optional[str] = None
     assignee: Optional[str] = None
+    end_time: Optional[Union[str, XSDDateTime]] = None
     delete_reason: Optional[str] = None
+    priority: Optional[int] = None
     due_date: Optional[Union[str, XSDDateTime]] = None
     follow_up_date: Optional[Union[str, XSDDateTime]] = None
-    tenant_id: Optional[str] = None
+    removal_time: Optional[Union[str, XSDDateTime]] = None
     task_state: Optional[str] = None
+    tenant_id: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, FluxnovaHistoricTaskInstanceId):
             self.id = FluxnovaHistoricTaskInstanceId(self.id)
-
-        if self._is_empty(self.priority):
-            self.MissingRequiredField("priority")
-        if not isinstance(self.priority, int):
-            self.priority = int(self.priority)
 
         if self._is_empty(self.start_time):
             self.MissingRequiredField("start_time")
@@ -2567,6 +2709,18 @@ class FluxnovaHistoricTaskInstance(FluxnovaHistoricScopeInstance):
 
         if self.task_definition_key is not None and not isinstance(self.task_definition_key, str):
             self.task_definition_key = str(self.task_definition_key)
+
+        if self.process_definition_key is not None and not isinstance(self.process_definition_key, str):
+            self.process_definition_key = str(self.process_definition_key)
+
+        if self.process_definition_id is not None and not isinstance(self.process_definition_id, str):
+            self.process_definition_id = str(self.process_definition_id)
+
+        if self.root_process_instance_id is not None and not isinstance(self.root_process_instance_id, str):
+            self.root_process_instance_id = str(self.root_process_instance_id)
+
+        if self.process_instance_id is not None and not isinstance(self.process_instance_id, str):
+            self.process_instance_id = str(self.process_instance_id)
 
         if self.execution_id is not None and not isinstance(self.execution_id, str):
             self.execution_id = str(self.execution_id)
@@ -2601,8 +2755,14 @@ class FluxnovaHistoricTaskInstance(FluxnovaHistoricScopeInstance):
         if self.assignee is not None and not isinstance(self.assignee, str):
             self.assignee = str(self.assignee)
 
+        if self.end_time is not None and not isinstance(self.end_time, XSDDateTime):
+            self.end_time = XSDDateTime(self.end_time)
+
         if self.delete_reason is not None and not isinstance(self.delete_reason, str):
             self.delete_reason = str(self.delete_reason)
+
+        if self.priority is not None and not isinstance(self.priority, int):
+            self.priority = int(self.priority)
 
         if self.due_date is not None and not isinstance(self.due_date, XSDDateTime):
             self.due_date = XSDDateTime(self.due_date)
@@ -2610,11 +2770,14 @@ class FluxnovaHistoricTaskInstance(FluxnovaHistoricScopeInstance):
         if self.follow_up_date is not None and not isinstance(self.follow_up_date, XSDDateTime):
             self.follow_up_date = XSDDateTime(self.follow_up_date)
 
-        if self.tenant_id is not None and not isinstance(self.tenant_id, str):
-            self.tenant_id = str(self.tenant_id)
+        if self.removal_time is not None and not isinstance(self.removal_time, XSDDateTime):
+            self.removal_time = XSDDateTime(self.removal_time)
 
         if self.task_state is not None and not isinstance(self.task_state, str):
             self.task_state = str(self.task_state)
+
+        if self.tenant_id is not None and not isinstance(self.tenant_id, str):
+            self.tenant_id = str(self.tenant_id)
 
         super().__post_init__(**kwargs)
 
@@ -2927,8 +3090,8 @@ class FluxnovaJob(YAMLRoot):
 
     id: Union[str, FluxnovaJobId] = None
     type: str = None
-    suspension_state: int = None
-    priority: int = None
+    suspension_state: int = 1
+    priority: int = 0
     lock_expiration_time: Optional[Union[str, XSDDateTime]] = None
     lock_owner: Optional[str] = None
     is_exclusive: Optional[Union[bool, Bool]] = None
@@ -2943,7 +3106,7 @@ class FluxnovaJob(YAMLRoot):
     failed_activity_id: Optional[str] = None
     due_date: Optional[Union[str, XSDDateTime]] = None
     repeat: Optional[str] = None
-    repeat_offset: Optional[int] = None
+    repeat_offset: Optional[int] = 0
     handler_type: Optional[str] = None
     handler_configuration: Optional[str] = None
     deployment_id: Optional[str] = None
@@ -3065,12 +3228,12 @@ class FluxnovaJobDefinition(YAMLRoot):
 
     id: Union[str, FluxnovaJobDefinitionId] = None
     job_type: str = None
-    job_priority: int = None
     process_definition_id: Optional[str] = None
     process_definition_key: Optional[str] = None
     activity_id: Optional[str] = None
     job_configuration: Optional[str] = None
     suspension_state: Optional[int] = None
+    job_priority: Optional[int] = None
     tenant_id: Optional[str] = None
     deployment_id: Optional[str] = None
 
@@ -3084,11 +3247,6 @@ class FluxnovaJobDefinition(YAMLRoot):
             self.MissingRequiredField("job_type")
         if not isinstance(self.job_type, str):
             self.job_type = str(self.job_type)
-
-        if self._is_empty(self.job_priority):
-            self.MissingRequiredField("job_priority")
-        if not isinstance(self.job_priority, int):
-            self.job_priority = int(self.job_priority)
 
         if self.process_definition_id is not None and not isinstance(self.process_definition_id, str):
             self.process_definition_id = str(self.process_definition_id)
@@ -3104,6 +3262,9 @@ class FluxnovaJobDefinition(YAMLRoot):
 
         if self.suspension_state is not None and not isinstance(self.suspension_state, int):
             self.suspension_state = int(self.suspension_state)
+
+        if self.job_priority is not None and not isinstance(self.job_priority, int):
+            self.job_priority = int(self.job_priority)
 
         if self.tenant_id is not None and not isinstance(self.tenant_id, str):
             self.tenant_id = str(self.tenant_id)
@@ -3160,7 +3321,7 @@ class FluxnovaMeterLog(YAMLRoot):
     reporter: Optional[str] = None
     value: Optional[int] = None
     timestamp: Optional[Union[str, XSDDateTime]] = None
-    milliseconds: Optional[int] = None
+    milliseconds: Optional[int] = 0
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -3218,7 +3379,8 @@ class FluxnovaEngineProperty(YAMLRoot):
 @dataclass(repr=False)
 class FluxnovaResourceDefinition(YAMLRoot):
     """
-    Abstract base for deployable resource definitions (process, case, decision, form).
+    Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all
+    five tables have.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
@@ -3229,14 +3391,10 @@ class FluxnovaResourceDefinition(YAMLRoot):
 
     id: Union[str, FluxnovaResourceDefinitionId] = None
     key: Optional[str] = None
-    name: Optional[str] = None
     version: Optional[int] = None
-    category: Optional[str] = None
     deployment_id: Optional[str] = None
     resource_name: Optional[str] = None
-    diagram_resource_name: Optional[str] = None
     tenant_id: Optional[str] = None
-    history_time_to_live: Optional[int] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -3247,14 +3405,8 @@ class FluxnovaResourceDefinition(YAMLRoot):
         if self.key is not None and not isinstance(self.key, str):
             self.key = str(self.key)
 
-        if self.name is not None and not isinstance(self.name, str):
-            self.name = str(self.name)
-
         if self.version is not None and not isinstance(self.version, int):
             self.version = int(self.version)
-
-        if self.category is not None and not isinstance(self.category, str):
-            self.category = str(self.category)
 
         if self.deployment_id is not None and not isinstance(self.deployment_id, str):
             self.deployment_id = str(self.deployment_id)
@@ -3262,14 +3414,8 @@ class FluxnovaResourceDefinition(YAMLRoot):
         if self.resource_name is not None and not isinstance(self.resource_name, str):
             self.resource_name = str(self.resource_name)
 
-        if self.diagram_resource_name is not None and not isinstance(self.diagram_resource_name, str):
-            self.diagram_resource_name = str(self.diagram_resource_name)
-
         if self.tenant_id is not None and not isinstance(self.tenant_id, str):
             self.tenant_id = str(self.tenant_id)
-
-        if self.history_time_to_live is not None and not isinstance(self.history_time_to_live, int):
-            self.history_time_to_live = int(self.history_time_to_live)
 
         super().__post_init__(**kwargs)
 
@@ -3289,6 +3435,10 @@ class FluxnovaCaseDefinition(FluxnovaResourceDefinition):
     id: Union[str, FluxnovaCaseDefinitionId] = None
     key: str = None
     version: int = None
+    category: Optional[str] = None
+    name: Optional[str] = None
+    diagram_resource_name: Optional[str] = None
+    history_time_to_live: Optional[int] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -3305,6 +3455,18 @@ class FluxnovaCaseDefinition(FluxnovaResourceDefinition):
             self.MissingRequiredField("version")
         if not isinstance(self.version, int):
             self.version = int(self.version)
+
+        if self.category is not None and not isinstance(self.category, str):
+            self.category = str(self.category)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.diagram_resource_name is not None and not isinstance(self.diagram_resource_name, str):
+            self.diagram_resource_name = str(self.diagram_resource_name)
+
+        if self.history_time_to_live is not None and not isinstance(self.history_time_to_live, int):
+            self.history_time_to_live = int(self.history_time_to_live)
 
         super().__post_init__(**kwargs)
 
@@ -3324,8 +3486,12 @@ class FluxnovaDecisionDefinition(FluxnovaResourceDefinition):
     id: Union[str, FluxnovaDecisionDefinitionId] = None
     key: str = None
     version: int = None
+    category: Optional[str] = None
+    name: Optional[str] = None
+    diagram_resource_name: Optional[str] = None
     decision_requirements_definition_id: Optional[Union[str, FluxnovaDecisionRequirementsDefinitionId]] = None
     decision_requirements_definition_key: Optional[str] = None
+    history_time_to_live: Optional[int] = None
     version_tag: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -3344,11 +3510,23 @@ class FluxnovaDecisionDefinition(FluxnovaResourceDefinition):
         if not isinstance(self.version, int):
             self.version = int(self.version)
 
+        if self.category is not None and not isinstance(self.category, str):
+            self.category = str(self.category)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.diagram_resource_name is not None and not isinstance(self.diagram_resource_name, str):
+            self.diagram_resource_name = str(self.diagram_resource_name)
+
         if self.decision_requirements_definition_id is not None and not isinstance(self.decision_requirements_definition_id, FluxnovaDecisionRequirementsDefinitionId):
             self.decision_requirements_definition_id = FluxnovaDecisionRequirementsDefinitionId(self.decision_requirements_definition_id)
 
         if self.decision_requirements_definition_key is not None and not isinstance(self.decision_requirements_definition_key, str):
             self.decision_requirements_definition_key = str(self.decision_requirements_definition_key)
+
+        if self.history_time_to_live is not None and not isinstance(self.history_time_to_live, int):
+            self.history_time_to_live = int(self.history_time_to_live)
 
         if self.version_tag is not None and not isinstance(self.version_tag, str):
             self.version_tag = str(self.version_tag)
@@ -3371,6 +3549,9 @@ class FluxnovaDecisionRequirementsDefinition(FluxnovaResourceDefinition):
     id: Union[str, FluxnovaDecisionRequirementsDefinitionId] = None
     key: str = None
     version: int = None
+    category: Optional[str] = None
+    name: Optional[str] = None
+    diagram_resource_name: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -3387,6 +3568,15 @@ class FluxnovaDecisionRequirementsDefinition(FluxnovaResourceDefinition):
             self.MissingRequiredField("version")
         if not isinstance(self.version, int):
             self.version = int(self.version)
+
+        if self.category is not None and not isinstance(self.category, str):
+            self.category = str(self.category)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.diagram_resource_name is not None and not isinstance(self.diagram_resource_name, str):
+            self.diagram_resource_name = str(self.diagram_resource_name)
 
         super().__post_init__(**kwargs)
 
@@ -3440,12 +3630,16 @@ class FluxnovaProcessDefinition(FluxnovaResourceDefinition):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition
 
     id: Union[str, FluxnovaProcessDefinitionId] = None
-    is_startable: Union[bool, Bool] = None
     key: str = None
     version: int = None
+    is_startable: Union[bool, Bool] = True
+    category: Optional[str] = None
+    name: Optional[str] = None
+    diagram_resource_name: Optional[str] = None
     has_start_form_key: Optional[Union[bool, Bool]] = None
     suspension_state: Optional[int] = None
     version_tag: Optional[str] = None
+    history_time_to_live: Optional[int] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
         if self._is_empty(self.id):
@@ -3468,6 +3662,15 @@ class FluxnovaProcessDefinition(FluxnovaResourceDefinition):
         if not isinstance(self.version, int):
             self.version = int(self.version)
 
+        if self.category is not None and not isinstance(self.category, str):
+            self.category = str(self.category)
+
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.diagram_resource_name is not None and not isinstance(self.diagram_resource_name, str):
+            self.diagram_resource_name = str(self.diagram_resource_name)
+
         if self.has_start_form_key is not None and not isinstance(self.has_start_form_key, Bool):
             self.has_start_form_key = Bool(self.has_start_form_key)
 
@@ -3476,6 +3679,9 @@ class FluxnovaProcessDefinition(FluxnovaResourceDefinition):
 
         if self.version_tag is not None and not isinstance(self.version_tag, str):
             self.version_tag = str(self.version_tag)
+
+        if self.history_time_to_live is not None and not isinstance(self.history_time_to_live, int):
+            self.history_time_to_live = int(self.history_time_to_live)
 
         super().__post_init__(**kwargs)
 
@@ -3524,7 +3730,6 @@ class FluxnovaTask(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaTask
 
     id: Union[str, FluxnovaTaskId] = None
-    priority: int = None
     execution_id: Optional[Union[str, FluxnovaExecutionId]] = None
     process_instance_id: Optional[Union[str, FluxnovaExecutionId]] = None
     process_definition_id: Optional[Union[str, FluxnovaProcessDefinitionId]] = None
@@ -3538,6 +3743,7 @@ class FluxnovaTask(YAMLRoot):
     owner: Optional[str] = None
     assignee: Optional[str] = None
     delegation_state: Optional[Union[str, "DelegationState"]] = None
+    priority: Optional[int] = None
     create_time: Optional[Union[str, XSDDateTime]] = None
     last_updated: Optional[Union[str, XSDDateTime]] = None
     due_date: Optional[Union[str, XSDDateTime]] = None
@@ -3551,11 +3757,6 @@ class FluxnovaTask(YAMLRoot):
             self.MissingRequiredField("id")
         if not isinstance(self.id, FluxnovaTaskId):
             self.id = FluxnovaTaskId(self.id)
-
-        if self._is_empty(self.priority):
-            self.MissingRequiredField("priority")
-        if not isinstance(self.priority, int):
-            self.priority = int(self.priority)
 
         if self.execution_id is not None and not isinstance(self.execution_id, FluxnovaExecutionId):
             self.execution_id = FluxnovaExecutionId(self.execution_id)
@@ -3595,6 +3796,9 @@ class FluxnovaTask(YAMLRoot):
 
         if self.delegation_state is not None and not isinstance(self.delegation_state, DelegationState):
             self.delegation_state = DelegationState(self.delegation_state)
+
+        if self.priority is not None and not isinstance(self.priority, int):
+            self.priority = int(self.priority)
 
         if self.create_time is not None and not isinstance(self.create_time, XSDDateTime):
             self.create_time = XSDDateTime(self.create_time)
@@ -3783,9 +3987,7 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry
 
     id: Union[str, FluxnovaUserOperationLogEntryId] = None
-    job_id: str = None
     timestamp: Union[str, XSDDateTime] = None
-    external_task_id: str = None
     deployment_id: Optional[str] = None
     process_definition_id: Optional[str] = None
     process_definition_key: Optional[str] = None
@@ -3796,6 +3998,7 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
     case_instance_id: Optional[str] = None
     case_execution_id: Optional[str] = None
     task_id: Optional[str] = None
+    job_id: Optional[str] = None
     job_definition_id: Optional[str] = None
     batch_id: Optional[str] = None
     user_id: Optional[str] = None
@@ -3808,6 +4011,7 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
     tenant_id: Optional[str] = None
     removal_time: Optional[Union[str, XSDDateTime]] = None
     category: Optional[str] = None
+    external_task_id: Optional[str] = None
     annotation: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
@@ -3816,20 +4020,10 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
         if not isinstance(self.id, FluxnovaUserOperationLogEntryId):
             self.id = FluxnovaUserOperationLogEntryId(self.id)
 
-        if self._is_empty(self.job_id):
-            self.MissingRequiredField("job_id")
-        if not isinstance(self.job_id, str):
-            self.job_id = str(self.job_id)
-
         if self._is_empty(self.timestamp):
             self.MissingRequiredField("timestamp")
         if not isinstance(self.timestamp, XSDDateTime):
             self.timestamp = XSDDateTime(self.timestamp)
-
-        if self._is_empty(self.external_task_id):
-            self.MissingRequiredField("external_task_id")
-        if not isinstance(self.external_task_id, str):
-            self.external_task_id = str(self.external_task_id)
 
         if self.deployment_id is not None and not isinstance(self.deployment_id, str):
             self.deployment_id = str(self.deployment_id)
@@ -3860,6 +4054,9 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
 
         if self.task_id is not None and not isinstance(self.task_id, str):
             self.task_id = str(self.task_id)
+
+        if self.job_id is not None and not isinstance(self.job_id, str):
+            self.job_id = str(self.job_id)
 
         if self.job_definition_id is not None and not isinstance(self.job_definition_id, str):
             self.job_definition_id = str(self.job_definition_id)
@@ -3896,6 +4093,9 @@ class FluxnovaUserOperationLogEntry(YAMLRoot):
 
         if self.category is not None and not isinstance(self.category, str):
             self.category = str(self.category)
+
+        if self.external_task_id is not None and not isinstance(self.external_task_id, str):
+            self.external_task_id = str(self.external_task_id)
 
         if self.annotation is not None and not isinstance(self.annotation, str):
             self.annotation = str(self.annotation)
@@ -9923,29 +10123,155 @@ class BpmnParticipantBandKind(EnumDefinitionImpl):
 class slots:
     pass
 
+slots.attachments = Slot(uri=FLUXNOVA_BPM_PLATFORM.attachments, name="attachments", curie=FLUXNOVA_BPM_PLATFORM.curie('attachments'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.attachments, domain=None, range=Optional[Union[dict[Union[str, FluxnovaAttachmentId], Union[dict, FluxnovaAttachment]], list[Union[dict, FluxnovaAttachment]]]])
+
+slots.authorization_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.authorization_entries, name="authorization_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('authorization_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.authorization_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaAuthorizationId], Union[dict, FluxnovaAuthorization]], list[Union[dict, FluxnovaAuthorization]]]])
+
+slots.batches = Slot(uri=FLUXNOVA_BPM_PLATFORM.batches, name="batches", curie=FLUXNOVA_BPM_PLATFORM.curie('batches'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.batches, domain=None, range=Optional[Union[dict[Union[str, FluxnovaBatchId], Union[dict, FluxnovaBatch]], list[Union[dict, FluxnovaBatch]]]])
+
+slots.byte_arrays = Slot(uri=FLUXNOVA_BPM_PLATFORM.byte_arrays, name="byte_arrays", curie=FLUXNOVA_BPM_PLATFORM.curie('byte_arrays'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.byte_arrays, domain=None, range=Optional[Union[dict[Union[str, FluxnovaByteArrayId], Union[dict, FluxnovaByteArray]], list[Union[dict, FluxnovaByteArray]]]])
+
+slots.case_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definitions, name="case_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.case_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaCaseDefinitionId], Union[dict, FluxnovaCaseDefinition]], list[Union[dict, FluxnovaCaseDefinition]]]])
+
+slots.case_executions = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_executions, name="case_executions", curie=FLUXNOVA_BPM_PLATFORM.curie('case_executions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.case_executions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaCaseExecutionId], Union[dict, FluxnovaCaseExecution]], list[Union[dict, FluxnovaCaseExecution]]]])
+
+slots.case_sentry_parts = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_sentry_parts, name="case_sentry_parts", curie=FLUXNOVA_BPM_PLATFORM.curie('case_sentry_parts'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.case_sentry_parts, domain=None, range=Optional[Union[dict[Union[str, FluxnovaCaseSentryPartId], Union[dict, FluxnovaCaseSentryPart]], list[Union[dict, FluxnovaCaseSentryPart]]]])
+
+slots.comment_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.comment_entries, name="comment_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('comment_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.comment_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaCommentId], Union[dict, FluxnovaComment]], list[Union[dict, FluxnovaComment]]]])
+
+slots.configuration_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.configuration_entries, name="configuration_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('configuration_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.configuration_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaConfigurationId], Union[dict, FluxnovaConfiguration]], list[Union[dict, FluxnovaConfiguration]]]])
+
+slots.decision_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_definitions, name="decision_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.decision_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaDecisionDefinitionId], Union[dict, FluxnovaDecisionDefinition]], list[Union[dict, FluxnovaDecisionDefinition]]]])
+
+slots.decision_requirements_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definitions, name="decision_requirements_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaDecisionRequirementsDefinitionId], Union[dict, FluxnovaDecisionRequirementsDefinition]], list[Union[dict, FluxnovaDecisionRequirementsDefinition]]]])
+
 slots.deployments = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployments, name="deployments", curie=FLUXNOVA_BPM_PLATFORM.curie('deployments'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.deployments, domain=None, range=Optional[Union[dict[Union[str, FluxnovaDeploymentId], Union[dict, FluxnovaDeployment]], list[Union[dict, FluxnovaDeployment]]]])
 
-slots.process_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definitions, name="process_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definitions'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.process_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, FluxnovaProcessDefinition]], list[Union[dict, FluxnovaProcessDefinition]]]])
+slots.engine_properties = Slot(uri=FLUXNOVA_BPM_PLATFORM.engine_properties, name="engine_properties", curie=FLUXNOVA_BPM_PLATFORM.curie('engine_properties'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.engine_properties, domain=None, range=Optional[Union[dict[Union[str, FluxnovaEnginePropertyName], Union[dict, FluxnovaEngineProperty]], list[Union[dict, FluxnovaEngineProperty]]]])
+
+slots.event_subscriptions = Slot(uri=FLUXNOVA_BPM_PLATFORM.event_subscriptions, name="event_subscriptions", curie=FLUXNOVA_BPM_PLATFORM.curie('event_subscriptions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.event_subscriptions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaEventSubscriptionId], Union[dict, FluxnovaEventSubscription]], list[Union[dict, FluxnovaEventSubscription]]]])
 
 slots.executions = Slot(uri=FLUXNOVA_BPM_PLATFORM.executions, name="executions", curie=FLUXNOVA_BPM_PLATFORM.curie('executions'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.executions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaExecutionId], Union[dict, FluxnovaExecution]], list[Union[dict, FluxnovaExecution]]]])
 
-slots.tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.tasks, name="tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('tasks'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.tasks, domain=None, range=Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, FluxnovaTask]], list[Union[dict, FluxnovaTask]]]])
+slots.external_tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.external_tasks, name="external_tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('external_tasks'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.external_tasks, domain=None, range=Optional[Union[dict[Union[str, FluxnovaExternalTaskId], Union[dict, FluxnovaExternalTask]], list[Union[dict, FluxnovaExternalTask]]]])
 
-slots.jobs = Slot(uri=FLUXNOVA_BPM_PLATFORM.jobs, name="jobs", curie=FLUXNOVA_BPM_PLATFORM.curie('jobs'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.jobs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, FluxnovaJob]], list[Union[dict, FluxnovaJob]]]])
+slots.filter_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.filter_entries, name="filter_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('filter_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.filter_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaFilterId], Union[dict, FluxnovaFilter]], list[Union[dict, FluxnovaFilter]]]])
 
-slots.users = Slot(uri=FLUXNOVA_BPM_PLATFORM.users, name="users", curie=FLUXNOVA_BPM_PLATFORM.curie('users'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.users, domain=None, range=Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, FluxnovaUser]], list[Union[dict, FluxnovaUser]]]])
+slots.form_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.form_definitions, name="form_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('form_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.form_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaFormDefinitionId], Union[dict, FluxnovaFormDefinition]], list[Union[dict, FluxnovaFormDefinition]]]])
 
 slots.groups = Slot(uri=FLUXNOVA_BPM_PLATFORM.groups, name="groups", curie=FLUXNOVA_BPM_PLATFORM.curie('groups'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.groups, domain=None, range=Optional[Union[dict[Union[str, FluxnovaGroupId], Union[dict, FluxnovaGroup]], list[Union[dict, FluxnovaGroup]]]])
 
-slots.batches = Slot(uri=FLUXNOVA_BPM_PLATFORM.batches, name="batches", curie=FLUXNOVA_BPM_PLATFORM.curie('batches'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.batches, domain=None, range=Optional[Union[dict[Union[str, FluxnovaBatchId], Union[dict, FluxnovaBatch]], list[Union[dict, FluxnovaBatch]]]])
+slots.historic_activity_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_activity_instances, name="historic_activity_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_activity_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_activity_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricActivityInstanceId], Union[dict, FluxnovaHistoricActivityInstance]], list[Union[dict, FluxnovaHistoricActivityInstance]]]])
+
+slots.historic_batches = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_batches, name="historic_batches", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_batches'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_batches, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricBatchId], Union[dict, FluxnovaHistoricBatch]], list[Union[dict, FluxnovaHistoricBatch]]]])
+
+slots.historic_case_activity_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_case_activity_instances, name="historic_case_activity_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_case_activity_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_case_activity_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricCaseActivityInstanceId], Union[dict, FluxnovaHistoricCaseActivityInstance]], list[Union[dict, FluxnovaHistoricCaseActivityInstance]]]])
+
+slots.historic_case_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_case_instances, name="historic_case_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_case_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_case_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricCaseInstanceId], Union[dict, FluxnovaHistoricCaseInstance]], list[Union[dict, FluxnovaHistoricCaseInstance]]]])
+
+slots.historic_decision_input_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_input_instances, name="historic_decision_input_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_input_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_decision_input_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInputInstanceId], Union[dict, FluxnovaHistoricDecisionInputInstance]], list[Union[dict, FluxnovaHistoricDecisionInputInstance]]]])
+
+slots.historic_decision_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_instances, name="historic_decision_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_decision_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInstanceId], Union[dict, FluxnovaHistoricDecisionInstance]], list[Union[dict, FluxnovaHistoricDecisionInstance]]]])
+
+slots.historic_decision_output_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_output_instances, name="historic_decision_output_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_output_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_decision_output_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionOutputInstanceId], Union[dict, FluxnovaHistoricDecisionOutputInstance]], list[Union[dict, FluxnovaHistoricDecisionOutputInstance]]]])
+
+slots.historic_details = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_details, name="historic_details", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_details'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_details, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricDetailId], Union[dict, FluxnovaHistoricDetail]], list[Union[dict, FluxnovaHistoricDetail]]]])
+
+slots.historic_external_task_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_external_task_logs, name="historic_external_task_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_external_task_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_external_task_logs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricExternalTaskLogId], Union[dict, FluxnovaHistoricExternalTaskLog]], list[Union[dict, FluxnovaHistoricExternalTaskLog]]]])
+
+slots.historic_identity_links = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_identity_links, name="historic_identity_links", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_identity_links'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_identity_links, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricIdentityLinkId], Union[dict, FluxnovaHistoricIdentityLink]], list[Union[dict, FluxnovaHistoricIdentityLink]]]])
+
+slots.historic_incidents = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_incidents, name="historic_incidents", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_incidents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_incidents, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricIncidentId], Union[dict, FluxnovaHistoricIncident]], list[Union[dict, FluxnovaHistoricIncident]]]])
+
+slots.historic_job_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_job_logs, name="historic_job_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_job_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_job_logs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricJobLogId], Union[dict, FluxnovaHistoricJobLog]], list[Union[dict, FluxnovaHistoricJobLog]]]])
+
+slots.historic_process_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_process_instances, name="historic_process_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_process_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_process_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricProcessInstanceId], Union[dict, FluxnovaHistoricProcessInstance]], list[Union[dict, FluxnovaHistoricProcessInstance]]]])
+
+slots.historic_task_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_task_instances, name="historic_task_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_task_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_task_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricTaskInstanceId], Union[dict, FluxnovaHistoricTaskInstance]], list[Union[dict, FluxnovaHistoricTaskInstance]]]])
+
+slots.historic_variable_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_variable_instances, name="historic_variable_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_variable_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.historic_variable_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaHistoricVariableInstanceId], Union[dict, FluxnovaHistoricVariableInstance]], list[Union[dict, FluxnovaHistoricVariableInstance]]]])
+
+slots.identity_infos = Slot(uri=FLUXNOVA_BPM_PLATFORM.identity_infos, name="identity_infos", curie=FLUXNOVA_BPM_PLATFORM.curie('identity_infos'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.identity_infos, domain=None, range=Optional[Union[dict[Union[str, FluxnovaIdentityInfoId], Union[dict, FluxnovaIdentityInfo]], list[Union[dict, FluxnovaIdentityInfo]]]])
+
+slots.identity_links = Slot(uri=FLUXNOVA_BPM_PLATFORM.identity_links, name="identity_links", curie=FLUXNOVA_BPM_PLATFORM.curie('identity_links'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.identity_links, domain=None, range=Optional[Union[dict[Union[str, FluxnovaIdentityLinkId], Union[dict, FluxnovaIdentityLink]], list[Union[dict, FluxnovaIdentityLink]]]])
+
+slots.incidents = Slot(uri=FLUXNOVA_BPM_PLATFORM.incidents, name="incidents", curie=FLUXNOVA_BPM_PLATFORM.curie('incidents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.incidents, domain=None, range=Optional[Union[dict[Union[str, FluxnovaIncidentId], Union[dict, FluxnovaIncident]], list[Union[dict, FluxnovaIncident]]]])
+
+slots.job_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definitions, name="job_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.job_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaJobDefinitionId], Union[dict, FluxnovaJobDefinition]], list[Union[dict, FluxnovaJobDefinition]]]])
+
+slots.jobs = Slot(uri=FLUXNOVA_BPM_PLATFORM.jobs, name="jobs", curie=FLUXNOVA_BPM_PLATFORM.curie('jobs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.jobs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, FluxnovaJob]], list[Union[dict, FluxnovaJob]]]])
+
+slots.memberships = Slot(uri=FLUXNOVA_BPM_PLATFORM.memberships, name="memberships", curie=FLUXNOVA_BPM_PLATFORM.curie('memberships'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.memberships, domain=None, range=Optional[Union[Union[dict, FluxnovaMembership], list[Union[dict, FluxnovaMembership]]]])
+
+slots.meter_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.meter_logs, name="meter_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('meter_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.meter_logs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaMeterLogId], Union[dict, FluxnovaMeterLog]], list[Union[dict, FluxnovaMeterLog]]]])
+
+slots.process_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definitions, name="process_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.process_definitions, domain=None, range=Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, FluxnovaProcessDefinition]], list[Union[dict, FluxnovaProcessDefinition]]]])
+
+slots.schema_log_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.schema_log_entries, name="schema_log_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('schema_log_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.schema_log_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaSchemaLogEntryId], Union[dict, FluxnovaSchemaLogEntry]], list[Union[dict, FluxnovaSchemaLogEntry]]]])
+
+slots.task_meter_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_meter_logs, name="task_meter_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('task_meter_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.task_meter_logs, domain=None, range=Optional[Union[dict[Union[str, FluxnovaTaskMeterLogId], Union[dict, FluxnovaTaskMeterLog]], list[Union[dict, FluxnovaTaskMeterLog]]]])
+
+slots.tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.tasks, name="tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('tasks'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tasks, domain=None, range=Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, FluxnovaTask]], list[Union[dict, FluxnovaTask]]]])
+
+slots.tenant_memberships = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_memberships, name="tenant_memberships", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_memberships'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tenant_memberships, domain=None, range=Optional[Union[dict[Union[str, FluxnovaTenantMembershipId], Union[dict, FluxnovaTenantMembership]], list[Union[dict, FluxnovaTenantMembership]]]])
+
+slots.tenants = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenants, name="tenants", curie=FLUXNOVA_BPM_PLATFORM.curie('tenants'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.tenants, domain=None, range=Optional[Union[dict[Union[str, FluxnovaTenantId], Union[dict, FluxnovaTenant]], list[Union[dict, FluxnovaTenant]]]])
+
+slots.user_operation_log_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_operation_log_entries, name="user_operation_log_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('user_operation_log_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.user_operation_log_entries, domain=None, range=Optional[Union[dict[Union[str, FluxnovaUserOperationLogEntryId], Union[dict, FluxnovaUserOperationLogEntry]], list[Union[dict, FluxnovaUserOperationLogEntry]]]])
+
+slots.users = Slot(uri=FLUXNOVA_BPM_PLATFORM.users, name="users", curie=FLUXNOVA_BPM_PLATFORM.curie('users'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.users, domain=None, range=Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, FluxnovaUser]], list[Union[dict, FluxnovaUser]]]])
+
+slots.variable_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.variable_instances, name="variable_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('variable_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.variable_instances, domain=None, range=Optional[Union[dict[Union[str, FluxnovaVariableInstanceId], Union[dict, FluxnovaVariableInstance]], list[Union[dict, FluxnovaVariableInstance]]]])
 
 slots.action = Slot(uri=FLUXNOVA_BPM_PLATFORM.action, name="action", curie=FLUXNOVA_BPM_PLATFORM.curie('action'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.action, domain=None, range=Optional[str])
@@ -10161,7 +10487,7 @@ slots.execution_start_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_start_time
                    model_uri=FLUXNOVA_BPM_PLATFORM.execution_start_time, domain=None, range=Optional[Union[str, XSDDateTime]])
 
 slots.external_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.external_task_id, name="external_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('external_task_id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.external_task_id, domain=None, range=str)
+                   model_uri=FLUXNOVA_BPM_PLATFORM.external_task_id, domain=None, range=Optional[str])
 
 slots.failed_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.failed_activity_id, name="failed_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('failed_activity_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.failed_activity_id, domain=None, range=Optional[str])
@@ -10269,10 +10595,10 @@ slots.job_exception_stack_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_exception_stac
                    model_uri=FLUXNOVA_BPM_PLATFORM.job_exception_stack_id, domain=None, range=Optional[str])
 
 slots.job_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_id, name="job_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_id'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.job_id, domain=None, range=str)
+                   model_uri=FLUXNOVA_BPM_PLATFORM.job_id, domain=None, range=Optional[str])
 
 slots.job_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_priority, name="job_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('job_priority'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.job_priority, domain=None, range=int)
+                   model_uri=FLUXNOVA_BPM_PLATFORM.job_priority, domain=None, range=Optional[int])
 
 slots.job_retries = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_retries, name="job_retries", curie=FLUXNOVA_BPM_PLATFORM.curie('job_retries'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.job_retries, domain=None, range=Optional[int])
@@ -10359,7 +10685,7 @@ slots.previous_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.previous_state, name="prev
                    model_uri=FLUXNOVA_BPM_PLATFORM.previous_state, domain=None, range=Optional[int])
 
 slots.priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.priority, domain=None, range=int)
+                   model_uri=FLUXNOVA_BPM_PLATFORM.priority, domain=None, range=Optional[int])
 
 slots.process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, domain=None, range=Optional[str])
@@ -12050,32 +12376,194 @@ slots.dcPoint__y = Slot(uri=FLUXNOVA_BPM_PLATFORM.y, name="dcPoint__y", curie=FL
 slots.bpmnModelElementInstance__element_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.element_type, name="bpmnModelElementInstance__element_type", curie=FLUXNOVA_BPM_PLATFORM.curie('element_type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.bpmnModelElementInstance__element_type, domain=None, range=Optional[str])
 
-slots.FluxnovaPlatformData_deployments = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployments, name="FluxnovaPlatformData_deployments", curie=FLUXNOVA_BPM_PLATFORM.curie('deployments'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_deployments, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaDeploymentId], Union[dict, "FluxnovaDeployment"]], list[Union[dict, "FluxnovaDeployment"]]]])
+slots.FluxnovaPlatformData_attachments = Slot(uri=FLUXNOVA_BPM_PLATFORM.attachments, name="FluxnovaPlatformData_attachments", curie=FLUXNOVA_BPM_PLATFORM.curie('attachments'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_attachments, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaAttachmentId], Union[dict, "FluxnovaAttachment"]], list[Union[dict, "FluxnovaAttachment"]]]])
 
-slots.FluxnovaPlatformData_process_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definitions, name="FluxnovaPlatformData_process_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definitions'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_process_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, "FluxnovaProcessDefinition"]], list[Union[dict, "FluxnovaProcessDefinition"]]]])
-
-slots.FluxnovaPlatformData_executions = Slot(uri=FLUXNOVA_BPM_PLATFORM.executions, name="FluxnovaPlatformData_executions", curie=FLUXNOVA_BPM_PLATFORM.curie('executions'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_executions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaExecutionId], Union[dict, "FluxnovaExecution"]], list[Union[dict, "FluxnovaExecution"]]]])
-
-slots.FluxnovaPlatformData_tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.tasks, name="FluxnovaPlatformData_tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('tasks'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_tasks, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, "FluxnovaTask"]], list[Union[dict, "FluxnovaTask"]]]])
-
-slots.FluxnovaPlatformData_jobs = Slot(uri=FLUXNOVA_BPM_PLATFORM.jobs, name="FluxnovaPlatformData_jobs", curie=FLUXNOVA_BPM_PLATFORM.curie('jobs'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_jobs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, "FluxnovaJob"]], list[Union[dict, "FluxnovaJob"]]]])
-
-slots.FluxnovaPlatformData_users = Slot(uri=FLUXNOVA_BPM_PLATFORM.users, name="FluxnovaPlatformData_users", curie=FLUXNOVA_BPM_PLATFORM.curie('users'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_users, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, "FluxnovaUser"]], list[Union[dict, "FluxnovaUser"]]]])
-
-slots.FluxnovaPlatformData_groups = Slot(uri=FLUXNOVA_BPM_PLATFORM.groups, name="FluxnovaPlatformData_groups", curie=FLUXNOVA_BPM_PLATFORM.curie('groups'),
-                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_groups, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaGroupId], Union[dict, "FluxnovaGroup"]], list[Union[dict, "FluxnovaGroup"]]]])
+slots.FluxnovaPlatformData_authorization_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.authorization_entries, name="FluxnovaPlatformData_authorization_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('authorization_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_authorization_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaAuthorizationId], Union[dict, "FluxnovaAuthorization"]], list[Union[dict, "FluxnovaAuthorization"]]]])
 
 slots.FluxnovaPlatformData_batches = Slot(uri=FLUXNOVA_BPM_PLATFORM.batches, name="FluxnovaPlatformData_batches", curie=FLUXNOVA_BPM_PLATFORM.curie('batches'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_batches, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaBatchId], Union[dict, "FluxnovaBatch"]], list[Union[dict, "FluxnovaBatch"]]]])
 
+slots.FluxnovaPlatformData_byte_arrays = Slot(uri=FLUXNOVA_BPM_PLATFORM.byte_arrays, name="FluxnovaPlatformData_byte_arrays", curie=FLUXNOVA_BPM_PLATFORM.curie('byte_arrays'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_byte_arrays, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaByteArrayId], Union[dict, "FluxnovaByteArray"]], list[Union[dict, "FluxnovaByteArray"]]]])
+
+slots.FluxnovaPlatformData_case_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definitions, name="FluxnovaPlatformData_case_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_case_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaCaseDefinitionId], Union[dict, "FluxnovaCaseDefinition"]], list[Union[dict, "FluxnovaCaseDefinition"]]]])
+
+slots.FluxnovaPlatformData_case_executions = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_executions, name="FluxnovaPlatformData_case_executions", curie=FLUXNOVA_BPM_PLATFORM.curie('case_executions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_case_executions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaCaseExecutionId], Union[dict, "FluxnovaCaseExecution"]], list[Union[dict, "FluxnovaCaseExecution"]]]])
+
+slots.FluxnovaPlatformData_case_sentry_parts = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_sentry_parts, name="FluxnovaPlatformData_case_sentry_parts", curie=FLUXNOVA_BPM_PLATFORM.curie('case_sentry_parts'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_case_sentry_parts, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaCaseSentryPartId], Union[dict, "FluxnovaCaseSentryPart"]], list[Union[dict, "FluxnovaCaseSentryPart"]]]])
+
+slots.FluxnovaPlatformData_comment_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.comment_entries, name="FluxnovaPlatformData_comment_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('comment_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_comment_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaCommentId], Union[dict, "FluxnovaComment"]], list[Union[dict, "FluxnovaComment"]]]])
+
+slots.FluxnovaPlatformData_configuration_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.configuration_entries, name="FluxnovaPlatformData_configuration_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('configuration_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_configuration_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaConfigurationId], Union[dict, "FluxnovaConfiguration"]], list[Union[dict, "FluxnovaConfiguration"]]]])
+
+slots.FluxnovaPlatformData_decision_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_definitions, name="FluxnovaPlatformData_decision_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_decision_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaDecisionDefinitionId], Union[dict, "FluxnovaDecisionDefinition"]], list[Union[dict, "FluxnovaDecisionDefinition"]]]])
+
+slots.FluxnovaPlatformData_decision_requirements_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definitions, name="FluxnovaPlatformData_decision_requirements_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_decision_requirements_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaDecisionRequirementsDefinitionId], Union[dict, "FluxnovaDecisionRequirementsDefinition"]], list[Union[dict, "FluxnovaDecisionRequirementsDefinition"]]]])
+
+slots.FluxnovaPlatformData_deployments = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployments, name="FluxnovaPlatformData_deployments", curie=FLUXNOVA_BPM_PLATFORM.curie('deployments'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_deployments, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaDeploymentId], Union[dict, "FluxnovaDeployment"]], list[Union[dict, "FluxnovaDeployment"]]]])
+
+slots.FluxnovaPlatformData_engine_properties = Slot(uri=FLUXNOVA_BPM_PLATFORM.engine_properties, name="FluxnovaPlatformData_engine_properties", curie=FLUXNOVA_BPM_PLATFORM.curie('engine_properties'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_engine_properties, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaEnginePropertyName], Union[dict, "FluxnovaEngineProperty"]], list[Union[dict, "FluxnovaEngineProperty"]]]])
+
+slots.FluxnovaPlatformData_event_subscriptions = Slot(uri=FLUXNOVA_BPM_PLATFORM.event_subscriptions, name="FluxnovaPlatformData_event_subscriptions", curie=FLUXNOVA_BPM_PLATFORM.curie('event_subscriptions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_event_subscriptions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaEventSubscriptionId], Union[dict, "FluxnovaEventSubscription"]], list[Union[dict, "FluxnovaEventSubscription"]]]])
+
+slots.FluxnovaPlatformData_executions = Slot(uri=FLUXNOVA_BPM_PLATFORM.executions, name="FluxnovaPlatformData_executions", curie=FLUXNOVA_BPM_PLATFORM.curie('executions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_executions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaExecutionId], Union[dict, "FluxnovaExecution"]], list[Union[dict, "FluxnovaExecution"]]]])
+
+slots.FluxnovaPlatformData_external_tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.external_tasks, name="FluxnovaPlatformData_external_tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('external_tasks'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_external_tasks, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaExternalTaskId], Union[dict, "FluxnovaExternalTask"]], list[Union[dict, "FluxnovaExternalTask"]]]])
+
+slots.FluxnovaPlatformData_filter_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.filter_entries, name="FluxnovaPlatformData_filter_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('filter_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_filter_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaFilterId], Union[dict, "FluxnovaFilter"]], list[Union[dict, "FluxnovaFilter"]]]])
+
+slots.FluxnovaPlatformData_form_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.form_definitions, name="FluxnovaPlatformData_form_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('form_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_form_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaFormDefinitionId], Union[dict, "FluxnovaFormDefinition"]], list[Union[dict, "FluxnovaFormDefinition"]]]])
+
+slots.FluxnovaPlatformData_groups = Slot(uri=FLUXNOVA_BPM_PLATFORM.groups, name="FluxnovaPlatformData_groups", curie=FLUXNOVA_BPM_PLATFORM.curie('groups'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_groups, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaGroupId], Union[dict, "FluxnovaGroup"]], list[Union[dict, "FluxnovaGroup"]]]])
+
+slots.FluxnovaPlatformData_historic_activity_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_activity_instances, name="FluxnovaPlatformData_historic_activity_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_activity_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_activity_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricActivityInstanceId], Union[dict, "FluxnovaHistoricActivityInstance"]], list[Union[dict, "FluxnovaHistoricActivityInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_batches = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_batches, name="FluxnovaPlatformData_historic_batches", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_batches'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_batches, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricBatchId], Union[dict, "FluxnovaHistoricBatch"]], list[Union[dict, "FluxnovaHistoricBatch"]]]])
+
+slots.FluxnovaPlatformData_historic_case_activity_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_case_activity_instances, name="FluxnovaPlatformData_historic_case_activity_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_case_activity_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_case_activity_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricCaseActivityInstanceId], Union[dict, "FluxnovaHistoricCaseActivityInstance"]], list[Union[dict, "FluxnovaHistoricCaseActivityInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_case_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_case_instances, name="FluxnovaPlatformData_historic_case_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_case_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_case_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricCaseInstanceId], Union[dict, "FluxnovaHistoricCaseInstance"]], list[Union[dict, "FluxnovaHistoricCaseInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_decision_input_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_input_instances, name="FluxnovaPlatformData_historic_decision_input_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_input_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_decision_input_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInputInstanceId], Union[dict, "FluxnovaHistoricDecisionInputInstance"]], list[Union[dict, "FluxnovaHistoricDecisionInputInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_decision_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_instances, name="FluxnovaPlatformData_historic_decision_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_decision_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionInstanceId], Union[dict, "FluxnovaHistoricDecisionInstance"]], list[Union[dict, "FluxnovaHistoricDecisionInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_decision_output_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_decision_output_instances, name="FluxnovaPlatformData_historic_decision_output_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_decision_output_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_decision_output_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricDecisionOutputInstanceId], Union[dict, "FluxnovaHistoricDecisionOutputInstance"]], list[Union[dict, "FluxnovaHistoricDecisionOutputInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_details = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_details, name="FluxnovaPlatformData_historic_details", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_details'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_details, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricDetailId], Union[dict, "FluxnovaHistoricDetail"]], list[Union[dict, "FluxnovaHistoricDetail"]]]])
+
+slots.FluxnovaPlatformData_historic_external_task_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_external_task_logs, name="FluxnovaPlatformData_historic_external_task_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_external_task_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_external_task_logs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricExternalTaskLogId], Union[dict, "FluxnovaHistoricExternalTaskLog"]], list[Union[dict, "FluxnovaHistoricExternalTaskLog"]]]])
+
+slots.FluxnovaPlatformData_historic_identity_links = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_identity_links, name="FluxnovaPlatformData_historic_identity_links", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_identity_links'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_identity_links, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricIdentityLinkId], Union[dict, "FluxnovaHistoricIdentityLink"]], list[Union[dict, "FluxnovaHistoricIdentityLink"]]]])
+
+slots.FluxnovaPlatformData_historic_incidents = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_incidents, name="FluxnovaPlatformData_historic_incidents", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_incidents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_incidents, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricIncidentId], Union[dict, "FluxnovaHistoricIncident"]], list[Union[dict, "FluxnovaHistoricIncident"]]]])
+
+slots.FluxnovaPlatformData_historic_job_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_job_logs, name="FluxnovaPlatformData_historic_job_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_job_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_job_logs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricJobLogId], Union[dict, "FluxnovaHistoricJobLog"]], list[Union[dict, "FluxnovaHistoricJobLog"]]]])
+
+slots.FluxnovaPlatformData_historic_process_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_process_instances, name="FluxnovaPlatformData_historic_process_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_process_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_process_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricProcessInstanceId], Union[dict, "FluxnovaHistoricProcessInstance"]], list[Union[dict, "FluxnovaHistoricProcessInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_task_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_task_instances, name="FluxnovaPlatformData_historic_task_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_task_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_task_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricTaskInstanceId], Union[dict, "FluxnovaHistoricTaskInstance"]], list[Union[dict, "FluxnovaHistoricTaskInstance"]]]])
+
+slots.FluxnovaPlatformData_historic_variable_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.historic_variable_instances, name="FluxnovaPlatformData_historic_variable_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('historic_variable_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_historic_variable_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaHistoricVariableInstanceId], Union[dict, "FluxnovaHistoricVariableInstance"]], list[Union[dict, "FluxnovaHistoricVariableInstance"]]]])
+
+slots.FluxnovaPlatformData_identity_infos = Slot(uri=FLUXNOVA_BPM_PLATFORM.identity_infos, name="FluxnovaPlatformData_identity_infos", curie=FLUXNOVA_BPM_PLATFORM.curie('identity_infos'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_identity_infos, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaIdentityInfoId], Union[dict, "FluxnovaIdentityInfo"]], list[Union[dict, "FluxnovaIdentityInfo"]]]])
+
+slots.FluxnovaPlatformData_identity_links = Slot(uri=FLUXNOVA_BPM_PLATFORM.identity_links, name="FluxnovaPlatformData_identity_links", curie=FLUXNOVA_BPM_PLATFORM.curie('identity_links'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_identity_links, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaIdentityLinkId], Union[dict, "FluxnovaIdentityLink"]], list[Union[dict, "FluxnovaIdentityLink"]]]])
+
+slots.FluxnovaPlatformData_incidents = Slot(uri=FLUXNOVA_BPM_PLATFORM.incidents, name="FluxnovaPlatformData_incidents", curie=FLUXNOVA_BPM_PLATFORM.curie('incidents'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_incidents, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaIncidentId], Union[dict, "FluxnovaIncident"]], list[Union[dict, "FluxnovaIncident"]]]])
+
+slots.FluxnovaPlatformData_job_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definitions, name="FluxnovaPlatformData_job_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_job_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaJobDefinitionId], Union[dict, "FluxnovaJobDefinition"]], list[Union[dict, "FluxnovaJobDefinition"]]]])
+
+slots.FluxnovaPlatformData_jobs = Slot(uri=FLUXNOVA_BPM_PLATFORM.jobs, name="FluxnovaPlatformData_jobs", curie=FLUXNOVA_BPM_PLATFORM.curie('jobs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_jobs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaJobId], Union[dict, "FluxnovaJob"]], list[Union[dict, "FluxnovaJob"]]]])
+
+slots.FluxnovaPlatformData_memberships = Slot(uri=FLUXNOVA_BPM_PLATFORM.memberships, name="FluxnovaPlatformData_memberships", curie=FLUXNOVA_BPM_PLATFORM.curie('memberships'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_memberships, domain=FluxnovaPlatformData, range=Optional[Union[Union[dict, "FluxnovaMembership"], list[Union[dict, "FluxnovaMembership"]]]])
+
+slots.FluxnovaPlatformData_meter_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.meter_logs, name="FluxnovaPlatformData_meter_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('meter_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_meter_logs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaMeterLogId], Union[dict, "FluxnovaMeterLog"]], list[Union[dict, "FluxnovaMeterLog"]]]])
+
+slots.FluxnovaPlatformData_process_definitions = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definitions, name="FluxnovaPlatformData_process_definitions", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definitions'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_process_definitions, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaProcessDefinitionId], Union[dict, "FluxnovaProcessDefinition"]], list[Union[dict, "FluxnovaProcessDefinition"]]]])
+
+slots.FluxnovaPlatformData_schema_log_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.schema_log_entries, name="FluxnovaPlatformData_schema_log_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('schema_log_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_schema_log_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaSchemaLogEntryId], Union[dict, "FluxnovaSchemaLogEntry"]], list[Union[dict, "FluxnovaSchemaLogEntry"]]]])
+
+slots.FluxnovaPlatformData_task_meter_logs = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_meter_logs, name="FluxnovaPlatformData_task_meter_logs", curie=FLUXNOVA_BPM_PLATFORM.curie('task_meter_logs'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_task_meter_logs, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaTaskMeterLogId], Union[dict, "FluxnovaTaskMeterLog"]], list[Union[dict, "FluxnovaTaskMeterLog"]]]])
+
+slots.FluxnovaPlatformData_tasks = Slot(uri=FLUXNOVA_BPM_PLATFORM.tasks, name="FluxnovaPlatformData_tasks", curie=FLUXNOVA_BPM_PLATFORM.curie('tasks'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_tasks, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaTaskId], Union[dict, "FluxnovaTask"]], list[Union[dict, "FluxnovaTask"]]]])
+
+slots.FluxnovaPlatformData_tenant_memberships = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_memberships, name="FluxnovaPlatformData_tenant_memberships", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_memberships'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_tenant_memberships, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaTenantMembershipId], Union[dict, "FluxnovaTenantMembership"]], list[Union[dict, "FluxnovaTenantMembership"]]]])
+
+slots.FluxnovaPlatformData_tenants = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenants, name="FluxnovaPlatformData_tenants", curie=FLUXNOVA_BPM_PLATFORM.curie('tenants'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_tenants, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaTenantId], Union[dict, "FluxnovaTenant"]], list[Union[dict, "FluxnovaTenant"]]]])
+
+slots.FluxnovaPlatformData_user_operation_log_entries = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_operation_log_entries, name="FluxnovaPlatformData_user_operation_log_entries", curie=FLUXNOVA_BPM_PLATFORM.curie('user_operation_log_entries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_user_operation_log_entries, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaUserOperationLogEntryId], Union[dict, "FluxnovaUserOperationLogEntry"]], list[Union[dict, "FluxnovaUserOperationLogEntry"]]]])
+
+slots.FluxnovaPlatformData_users = Slot(uri=FLUXNOVA_BPM_PLATFORM.users, name="FluxnovaPlatformData_users", curie=FLUXNOVA_BPM_PLATFORM.curie('users'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_users, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaUserId], Union[dict, "FluxnovaUser"]], list[Union[dict, "FluxnovaUser"]]]])
+
+slots.FluxnovaPlatformData_variable_instances = Slot(uri=FLUXNOVA_BPM_PLATFORM.variable_instances, name="FluxnovaPlatformData_variable_instances", curie=FLUXNOVA_BPM_PLATFORM.curie('variable_instances'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaPlatformData_variable_instances, domain=FluxnovaPlatformData, range=Optional[Union[dict[Union[str, FluxnovaVariableInstanceId], Union[dict, "FluxnovaVariableInstance"]], list[Union[dict, "FluxnovaVariableInstance"]]]])
+
+slots.FluxnovaAttachment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaAttachment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_id, domain=FluxnovaAttachment, range=Union[str, FluxnovaAttachmentId])
+
+slots.FluxnovaAttachment_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaAttachment_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_name, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_description = Slot(uri=FLUXNOVA_BPM_PLATFORM.description, name="FluxnovaAttachment_description", curie=FLUXNOVA_BPM_PLATFORM.curie('description'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_description, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaAttachment_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_removal_time, domain=FluxnovaAttachment, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaAttachment_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaAttachment_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_root_process_instance_id, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaAttachment_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_process_instance_id, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaAttachment_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_create_time, domain=FluxnovaAttachment, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaAttachment_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaAttachment_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_task_id, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaAttachment_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_type, domain=FluxnovaAttachment, range=Optional[str])
+
+slots.FluxnovaAttachment_created_by = Slot(uri=FLUXNOVA_BPM_PLATFORM.created_by, name="FluxnovaAttachment_created_by", curie=FLUXNOVA_BPM_PLATFORM.curie('created_by'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAttachment_created_by, domain=FluxnovaAttachment, range=Optional[str])
+
 slots.FluxnovaAuthorization_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaAuthorization_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAuthorization_type, domain=FluxnovaAuthorization, range=int)
+
+slots.FluxnovaAuthorization_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaAuthorization_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAuthorization_removal_time, domain=FluxnovaAuthorization, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaAuthorization_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaAuthorization_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaAuthorization_root_process_instance_id, domain=FluxnovaAuthorization, range=Optional[str])
 
 slots.FluxnovaBatch_seed_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.seed_job_definition_id, name="FluxnovaBatch_seed_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('seed_job_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaBatch_seed_job_definition_id, domain=FluxnovaBatch, range=Optional[Union[str, FluxnovaJobDefinitionId]])
@@ -12101,6 +12589,12 @@ slots.FluxnovaCaseDefinition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.key, name="Flu
 slots.FluxnovaCaseDefinition_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaCaseDefinition_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseDefinition_version, domain=FluxnovaCaseDefinition, range=int)
 
+slots.FluxnovaCaseDefinition_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaCaseDefinition_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseDefinition_name, domain=FluxnovaCaseDefinition, range=Optional[str])
+
+slots.FluxnovaCaseDefinition_category = Slot(uri=FLUXNOVA_BPM_PLATFORM.category, name="FluxnovaCaseDefinition_category", curie=FLUXNOVA_BPM_PLATFORM.curie('category'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseDefinition_category, domain=FluxnovaCaseDefinition, range=Optional[str])
+
 slots.FluxnovaCaseExecution_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaCaseExecution_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_case_instance_id, domain=FluxnovaCaseExecution, range=Optional[Union[str, FluxnovaCaseExecutionId]])
 
@@ -12116,14 +12610,38 @@ slots.FluxnovaCaseExecution_previous_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.prev
 slots.FluxnovaCaseExecution_current_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.current_state, name="FluxnovaCaseExecution_current_state", curie=FLUXNOVA_BPM_PLATFORM.curie('current_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_current_state, domain=FluxnovaCaseExecution, range=Optional[int])
 
+slots.FluxnovaCaseExecution_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaCaseExecution_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseExecution_tenant_id, domain=FluxnovaCaseExecution, range=Optional[str])
+
 slots.FluxnovaCaseSentryPart_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaCaseSentryPart_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseSentryPart_case_instance_id, domain=FluxnovaCaseSentryPart, range=Optional[Union[str, FluxnovaCaseExecutionId]])
 
 slots.FluxnovaCaseSentryPart_case_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_execution_id, name="FluxnovaCaseSentryPart_case_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_execution_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaCaseSentryPart_case_execution_id, domain=FluxnovaCaseSentryPart, range=Optional[Union[str, FluxnovaCaseExecutionId]])
 
+slots.FluxnovaComment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaComment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_id, domain=FluxnovaComment, range=Union[str, FluxnovaCommentId])
+
+slots.FluxnovaComment_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaComment_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_removal_time, domain=FluxnovaComment, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaComment_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaComment_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_root_process_instance_id, domain=FluxnovaComment, range=Optional[str])
+
+slots.FluxnovaComment_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaComment_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_process_instance_id, domain=FluxnovaComment, range=Optional[str])
+
+slots.FluxnovaComment_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaComment_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_task_id, domain=FluxnovaComment, range=Optional[str])
+
+slots.FluxnovaComment_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaComment_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaComment_user_id, domain=FluxnovaComment, range=Optional[str])
+
 slots.FluxnovaConfiguration_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaConfiguration_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaConfiguration_version, domain=FluxnovaConfiguration, range=int)
+
+slots.FluxnovaConfiguration_status = Slot(uri=FLUXNOVA_BPM_PLATFORM.status, name="FluxnovaConfiguration_status", curie=FLUXNOVA_BPM_PLATFORM.curie('status'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaConfiguration_status, domain=FluxnovaConfiguration, range=Union[str, "ConfigurationStatus"])
 
 slots.FluxnovaDecisionDefinition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.key, name="FluxnovaDecisionDefinition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('key'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_key, domain=FluxnovaDecisionDefinition, range=str)
@@ -12134,14 +12652,47 @@ slots.FluxnovaDecisionDefinition_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.versio
 slots.FluxnovaDecisionDefinition_decision_requirements_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definition_id, name="FluxnovaDecisionDefinition_decision_requirements_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_decision_requirements_definition_id, domain=FluxnovaDecisionDefinition, range=Optional[Union[str, FluxnovaDecisionRequirementsDefinitionId]])
 
+slots.FluxnovaDecisionDefinition_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaDecisionDefinition_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_name, domain=FluxnovaDecisionDefinition, range=Optional[str])
+
+slots.FluxnovaDecisionDefinition_category = Slot(uri=FLUXNOVA_BPM_PLATFORM.category, name="FluxnovaDecisionDefinition_category", curie=FLUXNOVA_BPM_PLATFORM.curie('category'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_category, domain=FluxnovaDecisionDefinition, range=Optional[str])
+
+slots.FluxnovaDecisionDefinition_decision_requirements_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definition_key, name="FluxnovaDecisionDefinition_decision_requirements_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_decision_requirements_definition_key, domain=FluxnovaDecisionDefinition, range=Optional[str])
+
+slots.FluxnovaDecisionDefinition_version_tag = Slot(uri=FLUXNOVA_BPM_PLATFORM.version_tag, name="FluxnovaDecisionDefinition_version_tag", curie=FLUXNOVA_BPM_PLATFORM.curie('version_tag'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionDefinition_version_tag, domain=FluxnovaDecisionDefinition, range=Optional[str])
+
 slots.FluxnovaDecisionRequirementsDefinition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.key, name="FluxnovaDecisionRequirementsDefinition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('key'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionRequirementsDefinition_key, domain=FluxnovaDecisionRequirementsDefinition, range=str)
 
 slots.FluxnovaDecisionRequirementsDefinition_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaDecisionRequirementsDefinition_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionRequirementsDefinition_version, domain=FluxnovaDecisionRequirementsDefinition, range=int)
 
+slots.FluxnovaDecisionRequirementsDefinition_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaDecisionRequirementsDefinition_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionRequirementsDefinition_name, domain=FluxnovaDecisionRequirementsDefinition, range=Optional[str])
+
+slots.FluxnovaDecisionRequirementsDefinition_category = Slot(uri=FLUXNOVA_BPM_PLATFORM.category, name="FluxnovaDecisionRequirementsDefinition_category", curie=FLUXNOVA_BPM_PLATFORM.curie('category'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDecisionRequirementsDefinition_category, domain=FluxnovaDecisionRequirementsDefinition, range=Optional[str])
+
+slots.FluxnovaDeployment_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaDeployment_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaDeployment_tenant_id, domain=FluxnovaDeployment, range=Optional[str])
+
 slots.FluxnovaEventSubscription_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaEventSubscription_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEventSubscription_execution_id, domain=FluxnovaEventSubscription, range=Optional[Union[str, FluxnovaExecutionId]])
+
+slots.FluxnovaEventSubscription_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaEventSubscription_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEventSubscription_id, domain=FluxnovaEventSubscription, range=Union[str, FluxnovaEventSubscriptionId])
+
+slots.FluxnovaEventSubscription_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaEventSubscription_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEventSubscription_tenant_id, domain=FluxnovaEventSubscription, range=Optional[str])
+
+slots.FluxnovaEventSubscription_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaEventSubscription_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEventSubscription_process_instance_id, domain=FluxnovaEventSubscription, range=Optional[str])
+
+slots.FluxnovaEventSubscription_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaEventSubscription_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEventSubscription_activity_id, domain=FluxnovaEventSubscription, range=Optional[str])
 
 slots.FluxnovaExecution_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaExecution_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExecution_process_instance_id, domain=FluxnovaExecution, range=Optional[Union[str, FluxnovaExecutionId]])
@@ -12158,6 +12709,15 @@ slots.FluxnovaExecution_super_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.supe
 slots.FluxnovaExecution_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.suspension_state, name="FluxnovaExecution_suspension_state", curie=FLUXNOVA_BPM_PLATFORM.curie('suspension_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExecution_suspension_state, domain=FluxnovaExecution, range=Optional[int])
 
+slots.FluxnovaExecution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaExecution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExecution_id, domain=FluxnovaExecution, range=Union[str, FluxnovaExecutionId])
+
+slots.FluxnovaExecution_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaExecution_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExecution_tenant_id, domain=FluxnovaExecution, range=Optional[str])
+
+slots.FluxnovaExecution_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaExecution_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExecution_process_definition_key, domain=FluxnovaExecution, range=Optional[str])
+
 slots.FluxnovaExternalTask_error_details_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.error_details_id, name="FluxnovaExternalTask_error_details_id", curie=FLUXNOVA_BPM_PLATFORM.curie('error_details_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExternalTask_error_details_id, domain=FluxnovaExternalTask, range=Optional[Union[str, FluxnovaByteArrayId]])
 
@@ -12166,6 +12726,9 @@ slots.FluxnovaExternalTask_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.sus
 
 slots.FluxnovaExternalTask_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaExternalTask_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExternalTask_execution_id, domain=FluxnovaExternalTask, range=Optional[Union[str, FluxnovaExecutionId]])
+
+slots.FluxnovaExternalTask_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="FluxnovaExternalTask_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaExternalTask_priority, domain=FluxnovaExternalTask, range=int)
 
 slots.FluxnovaFilter_resource_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.resource_type, name="FluxnovaFilter_resource_type", curie=FLUXNOVA_BPM_PLATFORM.curie('resource_type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaFilter_resource_type, domain=FluxnovaFilter, range=str)
@@ -12197,8 +12760,44 @@ slots.FluxnovaHistoricActivityInstance_start_time = Slot(uri=FLUXNOVA_BPM_PLATFO
 slots.FluxnovaHistoricActivityInstance_activity_instance_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_state, name="FluxnovaHistoricActivityInstance_activity_instance_state", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_activity_instance_state, domain=FluxnovaHistoricActivityInstance, range=Optional[int])
 
+slots.FluxnovaHistoricActivityInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricActivityInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_id, domain=FluxnovaHistoricActivityInstance, range=Union[str, FluxnovaHistoricActivityInstanceId])
+
+slots.FluxnovaHistoricActivityInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricActivityInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_tenant_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricActivityInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_removal_time, domain=FluxnovaHistoricActivityInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricActivityInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricActivityInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_root_process_instance_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricActivityInstance_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_process_definition_key, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_end_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.end_time, name="FluxnovaHistoricActivityInstance_end_time", curie=FLUXNOVA_BPM_PLATFORM.curie('end_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_end_time, domain=FluxnovaHistoricActivityInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricActivityInstance_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaHistoricActivityInstance_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_task_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_parent_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.parent_activity_instance_id, name="FluxnovaHistoricActivityInstance_parent_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('parent_activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_parent_activity_instance_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_called_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.called_process_instance_id, name="FluxnovaHistoricActivityInstance_called_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('called_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_called_process_instance_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_called_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.called_case_instance_id, name="FluxnovaHistoricActivityInstance_called_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('called_case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_called_case_instance_id, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricActivityInstance_assignee = Slot(uri=FLUXNOVA_BPM_PLATFORM.assignee, name="FluxnovaHistoricActivityInstance_assignee", curie=FLUXNOVA_BPM_PLATFORM.curie('assignee'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricActivityInstance_assignee, domain=FluxnovaHistoricActivityInstance, range=Optional[str])
+
 slots.FluxnovaHistoricBatch_start_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.start_time, name="FluxnovaHistoricBatch_start_time", curie=FLUXNOVA_BPM_PLATFORM.curie('start_time'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricBatch_start_time, domain=FluxnovaHistoricBatch, range=Union[str, XSDDateTime])
+
+slots.FluxnovaHistoricBatch_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricBatch_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricBatch_removal_time, domain=FluxnovaHistoricBatch, range=Optional[Union[str, XSDDateTime]])
 
 slots.FluxnovaHistoricCaseActivityInstance_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaHistoricCaseActivityInstance_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_case_definition_id, domain=FluxnovaHistoricCaseActivityInstance, range=str)
@@ -12212,6 +12811,24 @@ slots.FluxnovaHistoricCaseActivityInstance_create_time = Slot(uri=FLUXNOVA_BPM_P
 slots.FluxnovaHistoricCaseActivityInstance_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.state, name="FluxnovaHistoricCaseActivityInstance_state", curie=FLUXNOVA_BPM_PLATFORM.curie('state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_state, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[int])
 
+slots.FluxnovaHistoricCaseActivityInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricCaseActivityInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_id, domain=FluxnovaHistoricCaseActivityInstance, range=Union[str, FluxnovaHistoricCaseActivityInstanceId])
+
+slots.FluxnovaHistoricCaseActivityInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricCaseActivityInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_tenant_id, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricCaseActivityInstance_end_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.end_time, name="FluxnovaHistoricCaseActivityInstance_end_time", curie=FLUXNOVA_BPM_PLATFORM.curie('end_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_end_time, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricCaseActivityInstance_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaHistoricCaseActivityInstance_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_task_id, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricCaseActivityInstance_called_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.called_process_instance_id, name="FluxnovaHistoricCaseActivityInstance_called_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('called_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_called_process_instance_id, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[str])
+
+slots.FluxnovaHistoricCaseActivityInstance_called_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.called_case_instance_id, name="FluxnovaHistoricCaseActivityInstance_called_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('called_case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseActivityInstance_called_case_instance_id, domain=FluxnovaHistoricCaseActivityInstance, range=Optional[str])
+
 slots.FluxnovaHistoricCaseInstance_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricCaseInstance_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_case_instance_id, domain=FluxnovaHistoricCaseInstance, range=str)
 
@@ -12224,11 +12841,137 @@ slots.FluxnovaHistoricCaseInstance_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.
 slots.FluxnovaHistoricCaseInstance_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.state, name="FluxnovaHistoricCaseInstance_state", curie=FLUXNOVA_BPM_PLATFORM.curie('state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_state, domain=FluxnovaHistoricCaseInstance, range=Optional[int])
 
+slots.FluxnovaHistoricCaseInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricCaseInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_id, domain=FluxnovaHistoricCaseInstance, range=Union[str, FluxnovaHistoricCaseInstanceId])
+
+slots.FluxnovaHistoricCaseInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricCaseInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_tenant_id, domain=FluxnovaHistoricCaseInstance, range=Optional[str])
+
+slots.FluxnovaHistoricCaseInstance_business_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.business_key, name="FluxnovaHistoricCaseInstance_business_key", curie=FLUXNOVA_BPM_PLATFORM.curie('business_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_business_key, domain=FluxnovaHistoricCaseInstance, range=Optional[str])
+
+slots.FluxnovaHistoricCaseInstance_create_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_user_id, name="FluxnovaHistoricCaseInstance_create_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('create_user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricCaseInstance_create_user_id, domain=FluxnovaHistoricCaseInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInputInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricDecisionInputInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInputInstance_id, domain=FluxnovaHistoricDecisionInputInstance, range=Union[str, FluxnovaHistoricDecisionInputInstanceId])
+
+slots.FluxnovaHistoricDecisionInputInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricDecisionInputInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInputInstance_removal_time, domain=FluxnovaHistoricDecisionInputInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDecisionInputInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricDecisionInputInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInputInstance_root_process_instance_id, domain=FluxnovaHistoricDecisionInputInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInputInstance_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaHistoricDecisionInputInstance_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInputInstance_create_time, domain=FluxnovaHistoricDecisionInputInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDecisionInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricDecisionInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_id, domain=FluxnovaHistoricDecisionInstance, range=Union[str, FluxnovaHistoricDecisionInstanceId])
+
+slots.FluxnovaHistoricDecisionInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricDecisionInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_tenant_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricDecisionInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_removal_time, domain=FluxnovaHistoricDecisionInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDecisionInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricDecisionInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_root_process_instance_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricDecisionInstance_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_process_instance_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricDecisionInstance_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_process_definition_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricDecisionInstance_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_process_definition_key, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaHistoricDecisionInstance_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_activity_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_id, name="FluxnovaHistoricDecisionInstance_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_activity_instance_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaHistoricDecisionInstance_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_case_definition_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricDecisionInstance_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_case_instance_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaHistoricDecisionInstance_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_user_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_case_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_key, name="FluxnovaHistoricDecisionInstance_case_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_case_definition_key, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_decision_requirements_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definition_id, name="FluxnovaHistoricDecisionInstance_decision_requirements_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_decision_requirements_definition_id, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionInstance_decision_requirements_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.decision_requirements_definition_key, name="FluxnovaHistoricDecisionInstance_decision_requirements_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('decision_requirements_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionInstance_decision_requirements_definition_key, domain=FluxnovaHistoricDecisionInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionOutputInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricDecisionOutputInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionOutputInstance_id, domain=FluxnovaHistoricDecisionOutputInstance, range=Union[str, FluxnovaHistoricDecisionOutputInstanceId])
+
+slots.FluxnovaHistoricDecisionOutputInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricDecisionOutputInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionOutputInstance_removal_time, domain=FluxnovaHistoricDecisionOutputInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDecisionOutputInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricDecisionOutputInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionOutputInstance_root_process_instance_id, domain=FluxnovaHistoricDecisionOutputInstance, range=Optional[str])
+
+slots.FluxnovaHistoricDecisionOutputInstance_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaHistoricDecisionOutputInstance_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionOutputInstance_create_time, domain=FluxnovaHistoricDecisionOutputInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDecisionOutputInstance_variable_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.variable_name, name="FluxnovaHistoricDecisionOutputInstance_variable_name", curie=FLUXNOVA_BPM_PLATFORM.curie('variable_name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDecisionOutputInstance_variable_name, domain=FluxnovaHistoricDecisionOutputInstance, range=Optional[str])
+
 slots.FluxnovaHistoricDetail_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaHistoricDetail_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_type, domain=FluxnovaHistoricDetail, range=str)
 
 slots.FluxnovaHistoricDetail_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaHistoricDetail_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_name, domain=FluxnovaHistoricDetail, range=str)
+
+slots.FluxnovaHistoricDetail_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricDetail_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_id, domain=FluxnovaHistoricDetail, range=Union[str, FluxnovaHistoricDetailId])
+
+slots.FluxnovaHistoricDetail_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricDetail_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_tenant_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricDetail_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_removal_time, domain=FluxnovaHistoricDetail, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricDetail_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricDetail_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_root_process_instance_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricDetail_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_process_instance_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricDetail_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_process_definition_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricDetail_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_process_definition_key, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricDetail_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_execution_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_id, name="FluxnovaHistoricDetail_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_activity_instance_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaHistoricDetail_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_task_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaHistoricDetail_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_case_definition_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricDetail_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_case_instance_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_case_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_execution_id, name="FluxnovaHistoricDetail_case_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_case_execution_id, domain=FluxnovaHistoricDetail, range=Optional[str])
+
+slots.FluxnovaHistoricDetail_case_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_key, name="FluxnovaHistoricDetail_case_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricDetail_case_definition_key, domain=FluxnovaHistoricDetail, range=Optional[str])
 
 slots.FluxnovaHistoricExternalTaskLog_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM.timestamp, name="FluxnovaHistoricExternalTaskLog_timestamp", curie=FLUXNOVA_BPM_PLATFORM.curie('timestamp'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_timestamp, domain=FluxnovaHistoricExternalTaskLog, range=Union[str, XSDDateTime])
@@ -12236,8 +12979,89 @@ slots.FluxnovaHistoricExternalTaskLog_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM
 slots.FluxnovaHistoricExternalTaskLog_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.state, name="FluxnovaHistoricExternalTaskLog_state", curie=FLUXNOVA_BPM_PLATFORM.curie('state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_state, domain=FluxnovaHistoricExternalTaskLog, range=Optional[int])
 
+slots.FluxnovaHistoricExternalTaskLog_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="FluxnovaHistoricExternalTaskLog_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_priority, domain=FluxnovaHistoricExternalTaskLog, range=int)
+
+slots.FluxnovaHistoricExternalTaskLog_external_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.external_task_id, name="FluxnovaHistoricExternalTaskLog_external_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('external_task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_external_task_id, domain=FluxnovaHistoricExternalTaskLog, range=str)
+
+slots.FluxnovaHistoricExternalTaskLog_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricExternalTaskLog_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_id, domain=FluxnovaHistoricExternalTaskLog, range=Union[str, FluxnovaHistoricExternalTaskLogId])
+
+slots.FluxnovaHistoricExternalTaskLog_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricExternalTaskLog_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_tenant_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricExternalTaskLog_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_removal_time, domain=FluxnovaHistoricExternalTaskLog, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricExternalTaskLog_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricExternalTaskLog_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_root_process_instance_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricExternalTaskLog_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_process_instance_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricExternalTaskLog_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_process_definition_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricExternalTaskLog_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_process_definition_key, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricExternalTaskLog_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_execution_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaHistoricExternalTaskLog_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_activity_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_id, name="FluxnovaHistoricExternalTaskLog_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_activity_instance_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_retries = Slot(uri=FLUXNOVA_BPM_PLATFORM.retries, name="FluxnovaHistoricExternalTaskLog_retries", curie=FLUXNOVA_BPM_PLATFORM.curie('retries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_retries, domain=FluxnovaHistoricExternalTaskLog, range=Optional[int])
+
+slots.FluxnovaHistoricExternalTaskLog_topic_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.topic_name, name="FluxnovaHistoricExternalTaskLog_topic_name", curie=FLUXNOVA_BPM_PLATFORM.curie('topic_name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_topic_name, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_worker_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.worker_id, name="FluxnovaHistoricExternalTaskLog_worker_id", curie=FLUXNOVA_BPM_PLATFORM.curie('worker_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_worker_id, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
+slots.FluxnovaHistoricExternalTaskLog_error_message = Slot(uri=FLUXNOVA_BPM_PLATFORM.error_message, name="FluxnovaHistoricExternalTaskLog_error_message", curie=FLUXNOVA_BPM_PLATFORM.curie('error_message'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricExternalTaskLog_error_message, domain=FluxnovaHistoricExternalTaskLog, range=Optional[str])
+
 slots.FluxnovaHistoricIdentityLink_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM.timestamp, name="FluxnovaHistoricIdentityLink_timestamp", curie=FLUXNOVA_BPM_PLATFORM.curie('timestamp'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_timestamp, domain=FluxnovaHistoricIdentityLink, range=Union[str, XSDDateTime])
+
+slots.FluxnovaHistoricIdentityLink_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricIdentityLink_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_id, domain=FluxnovaHistoricIdentityLink, range=Union[str, FluxnovaHistoricIdentityLinkId])
+
+slots.FluxnovaHistoricIdentityLink_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricIdentityLink_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_tenant_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricIdentityLink_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_removal_time, domain=FluxnovaHistoricIdentityLink, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricIdentityLink_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricIdentityLink_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_root_process_instance_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricIdentityLink_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_process_definition_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricIdentityLink_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_process_definition_key, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaHistoricIdentityLink_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_task_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaHistoricIdentityLink_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_user_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_group_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.group_id, name="FluxnovaHistoricIdentityLink_group_id", curie=FLUXNOVA_BPM_PLATFORM.curie('group_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_group_id, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaHistoricIdentityLink_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_type, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
+
+slots.FluxnovaHistoricIdentityLink_operation_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.operation_type, name="FluxnovaHistoricIdentityLink_operation_type", curie=FLUXNOVA_BPM_PLATFORM.curie('operation_type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIdentityLink_operation_type, domain=FluxnovaHistoricIdentityLink, range=Optional[str])
 
 slots.FluxnovaHistoricIncident_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaHistoricIncident_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_create_time, domain=FluxnovaHistoricIncident, range=Union[str, XSDDateTime])
@@ -12245,11 +13069,92 @@ slots.FluxnovaHistoricIncident_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.crea
 slots.FluxnovaHistoricIncident_incident_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.incident_state, name="FluxnovaHistoricIncident_incident_state", curie=FLUXNOVA_BPM_PLATFORM.curie('incident_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_incident_state, domain=FluxnovaHistoricIncident, range=Optional[int])
 
+slots.FluxnovaHistoricIncident_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricIncident_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_id, domain=FluxnovaHistoricIncident, range=Union[str, FluxnovaHistoricIncidentId])
+
+slots.FluxnovaHistoricIncident_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricIncident_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_tenant_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricIncident_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_removal_time, domain=FluxnovaHistoricIncident, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricIncident_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricIncident_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_root_process_instance_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricIncident_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_process_instance_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricIncident_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_process_definition_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricIncident_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_process_definition_key, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricIncident_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_execution_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_end_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.end_time, name="FluxnovaHistoricIncident_end_time", curie=FLUXNOVA_BPM_PLATFORM.curie('end_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_end_time, domain=FluxnovaHistoricIncident, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricIncident_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaHistoricIncident_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_activity_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definition_id, name="FluxnovaHistoricIncident_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_job_definition_id, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_configuration = Slot(uri=FLUXNOVA_BPM_PLATFORM.configuration, name="FluxnovaHistoricIncident_configuration", curie=FLUXNOVA_BPM_PLATFORM.curie('configuration'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_configuration, domain=FluxnovaHistoricIncident, range=Optional[str])
+
+slots.FluxnovaHistoricIncident_annotation = Slot(uri=FLUXNOVA_BPM_PLATFORM.annotation, name="FluxnovaHistoricIncident_annotation", curie=FLUXNOVA_BPM_PLATFORM.curie('annotation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricIncident_annotation, domain=FluxnovaHistoricIncident, range=Optional[str])
+
 slots.FluxnovaHistoricJobLog_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM.timestamp, name="FluxnovaHistoricJobLog_timestamp", curie=FLUXNOVA_BPM_PLATFORM.curie('timestamp'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_timestamp, domain=FluxnovaHistoricJobLog, range=Union[str, XSDDateTime])
 
 slots.FluxnovaHistoricJobLog_job_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_state, name="FluxnovaHistoricJobLog_job_state", curie=FLUXNOVA_BPM_PLATFORM.curie('job_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_job_state, domain=FluxnovaHistoricJobLog, range=Optional[int])
+
+slots.FluxnovaHistoricJobLog_job_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_priority, name="FluxnovaHistoricJobLog_job_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('job_priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_job_priority, domain=FluxnovaHistoricJobLog, range=int)
+
+slots.FluxnovaHistoricJobLog_job_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_id, name="FluxnovaHistoricJobLog_job_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_job_id, domain=FluxnovaHistoricJobLog, range=str)
+
+slots.FluxnovaHistoricJobLog_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricJobLog_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_id, domain=FluxnovaHistoricJobLog, range=Union[str, FluxnovaHistoricJobLogId])
+
+slots.FluxnovaHistoricJobLog_deployment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployment_id, name="FluxnovaHistoricJobLog_deployment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('deployment_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_deployment_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricJobLog_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_tenant_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricJobLog_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_removal_time, domain=FluxnovaHistoricJobLog, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricJobLog_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricJobLog_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_root_process_instance_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricJobLog_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_process_instance_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricJobLog_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_process_definition_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricJobLog_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_process_definition_key, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricJobLog_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_execution_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaHistoricJobLog_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_activity_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_batch_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.batch_id, name="FluxnovaHistoricJobLog_batch_id", curie=FLUXNOVA_BPM_PLATFORM.curie('batch_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_batch_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
+
+slots.FluxnovaHistoricJobLog_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definition_id, name="FluxnovaHistoricJobLog_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricJobLog_job_definition_id, domain=FluxnovaHistoricJobLog, range=Optional[str])
 
 slots.FluxnovaHistoricProcessInstance_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricProcessInstance_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_process_instance_id, domain=FluxnovaHistoricProcessInstance, range=str)
@@ -12263,8 +13168,110 @@ slots.FluxnovaHistoricProcessInstance_start_time = Slot(uri=FLUXNOVA_BPM_PLATFOR
 slots.FluxnovaHistoricProcessInstance_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.state, name="FluxnovaHistoricProcessInstance_state", curie=FLUXNOVA_BPM_PLATFORM.curie('state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_state, domain=FluxnovaHistoricProcessInstance, range=Optional[Union[str, "HistoricProcessInstanceState"]])
 
+slots.FluxnovaHistoricProcessInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricProcessInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_id, domain=FluxnovaHistoricProcessInstance, range=Union[str, FluxnovaHistoricProcessInstanceId])
+
+slots.FluxnovaHistoricProcessInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricProcessInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_tenant_id, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
+slots.FluxnovaHistoricProcessInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricProcessInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_removal_time, domain=FluxnovaHistoricProcessInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricProcessInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricProcessInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_root_process_instance_id, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
+slots.FluxnovaHistoricProcessInstance_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricProcessInstance_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_process_definition_key, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
+slots.FluxnovaHistoricProcessInstance_end_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.end_time, name="FluxnovaHistoricProcessInstance_end_time", curie=FLUXNOVA_BPM_PLATFORM.curie('end_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_end_time, domain=FluxnovaHistoricProcessInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricProcessInstance_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricProcessInstance_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_case_instance_id, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
+slots.FluxnovaHistoricProcessInstance_business_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.business_key, name="FluxnovaHistoricProcessInstance_business_key", curie=FLUXNOVA_BPM_PLATFORM.curie('business_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_business_key, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
+slots.FluxnovaHistoricProcessInstance_delete_reason = Slot(uri=FLUXNOVA_BPM_PLATFORM.delete_reason, name="FluxnovaHistoricProcessInstance_delete_reason", curie=FLUXNOVA_BPM_PLATFORM.curie('delete_reason'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricProcessInstance_delete_reason, domain=FluxnovaHistoricProcessInstance, range=Optional[str])
+
 slots.FluxnovaHistoricTaskInstance_start_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.start_time, name="FluxnovaHistoricTaskInstance_start_time", curie=FLUXNOVA_BPM_PLATFORM.curie('start_time'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_start_time, domain=FluxnovaHistoricTaskInstance, range=Union[str, XSDDateTime])
+
+slots.FluxnovaHistoricTaskInstance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaHistoricTaskInstance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_id, domain=FluxnovaHistoricTaskInstance, range=Union[str, FluxnovaHistoricTaskInstanceId])
+
+slots.FluxnovaHistoricTaskInstance_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaHistoricTaskInstance_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_name, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_description = Slot(uri=FLUXNOVA_BPM_PLATFORM.description, name="FluxnovaHistoricTaskInstance_description", curie=FLUXNOVA_BPM_PLATFORM.curie('description'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_description, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricTaskInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_tenant_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricTaskInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_removal_time, domain=FluxnovaHistoricTaskInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricTaskInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricTaskInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_root_process_instance_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricTaskInstance_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_process_instance_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricTaskInstance_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_process_definition_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricTaskInstance_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_process_definition_key, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricTaskInstance_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_execution_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_end_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.end_time, name="FluxnovaHistoricTaskInstance_end_time", curie=FLUXNOVA_BPM_PLATFORM.curie('end_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_end_time, domain=FluxnovaHistoricTaskInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricTaskInstance_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_id, name="FluxnovaHistoricTaskInstance_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_activity_instance_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaHistoricTaskInstance_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_case_definition_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricTaskInstance_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_case_instance_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_case_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_execution_id, name="FluxnovaHistoricTaskInstance_case_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_case_execution_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_assignee = Slot(uri=FLUXNOVA_BPM_PLATFORM.assignee, name="FluxnovaHistoricTaskInstance_assignee", curie=FLUXNOVA_BPM_PLATFORM.curie('assignee'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_assignee, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_case_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_key, name="FluxnovaHistoricTaskInstance_case_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_case_definition_key, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="FluxnovaHistoricTaskInstance_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_priority, domain=FluxnovaHistoricTaskInstance, range=Optional[int])
+
+slots.FluxnovaHistoricTaskInstance_delete_reason = Slot(uri=FLUXNOVA_BPM_PLATFORM.delete_reason, name="FluxnovaHistoricTaskInstance_delete_reason", curie=FLUXNOVA_BPM_PLATFORM.curie('delete_reason'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_delete_reason, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_task_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_definition_key, name="FluxnovaHistoricTaskInstance_task_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('task_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_task_definition_key, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_parent_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.parent_task_id, name="FluxnovaHistoricTaskInstance_parent_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('parent_task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_parent_task_id, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_owner = Slot(uri=FLUXNOVA_BPM_PLATFORM.owner, name="FluxnovaHistoricTaskInstance_owner", curie=FLUXNOVA_BPM_PLATFORM.curie('owner'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_owner, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
+
+slots.FluxnovaHistoricTaskInstance_due_date = Slot(uri=FLUXNOVA_BPM_PLATFORM.due_date, name="FluxnovaHistoricTaskInstance_due_date", curie=FLUXNOVA_BPM_PLATFORM.curie('due_date'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_due_date, domain=FluxnovaHistoricTaskInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricTaskInstance_follow_up_date = Slot(uri=FLUXNOVA_BPM_PLATFORM.follow_up_date, name="FluxnovaHistoricTaskInstance_follow_up_date", curie=FLUXNOVA_BPM_PLATFORM.curie('follow_up_date'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_follow_up_date, domain=FluxnovaHistoricTaskInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricTaskInstance_task_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_state, name="FluxnovaHistoricTaskInstance_task_state", curie=FLUXNOVA_BPM_PLATFORM.curie('task_state'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricTaskInstance_task_state, domain=FluxnovaHistoricTaskInstance, range=Optional[str])
 
 slots.FluxnovaHistoricVariableInstance_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaHistoricVariableInstance_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_name, domain=FluxnovaHistoricVariableInstance, range=str)
@@ -12272,11 +13279,68 @@ slots.FluxnovaHistoricVariableInstance_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.nam
 slots.FluxnovaHistoricVariableInstance_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.state, name="FluxnovaHistoricVariableInstance_state", curie=FLUXNOVA_BPM_PLATFORM.curie('state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_state, domain=FluxnovaHistoricVariableInstance, range=Optional[Union[str, "HistoricVariableInstanceState"]])
 
+slots.FluxnovaHistoricVariableInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaHistoricVariableInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_tenant_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaHistoricVariableInstance_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_removal_time, domain=FluxnovaHistoricVariableInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricVariableInstance_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaHistoricVariableInstance_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_root_process_instance_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaHistoricVariableInstance_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_process_instance_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaHistoricVariableInstance_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_process_definition_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaHistoricVariableInstance_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_process_definition_key, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaHistoricVariableInstance_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_execution_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaHistoricVariableInstance_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_create_time, domain=FluxnovaHistoricVariableInstance, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaHistoricVariableInstance_activity_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_instance_id, name="FluxnovaHistoricVariableInstance_activity_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_activity_instance_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaHistoricVariableInstance_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_task_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaHistoricVariableInstance_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_case_definition_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaHistoricVariableInstance_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_case_instance_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_case_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_execution_id, name="FluxnovaHistoricVariableInstance_case_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_case_execution_id, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
+slots.FluxnovaHistoricVariableInstance_case_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_key, name="FluxnovaHistoricVariableInstance_case_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaHistoricVariableInstance_case_definition_key, domain=FluxnovaHistoricVariableInstance, range=Optional[str])
+
 slots.FluxnovaIdentityLink_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaIdentityLink_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_task_id, domain=FluxnovaIdentityLink, range=Optional[Union[str, FluxnovaTaskId]])
 
 slots.FluxnovaIdentityLink_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaIdentityLink_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_process_definition_id, domain=FluxnovaIdentityLink, range=Optional[Union[str, FluxnovaProcessDefinitionId]])
+
+slots.FluxnovaIdentityLink_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaIdentityLink_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_id, domain=FluxnovaIdentityLink, range=Union[str, FluxnovaIdentityLinkId])
+
+slots.FluxnovaIdentityLink_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaIdentityLink_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_tenant_id, domain=FluxnovaIdentityLink, range=Optional[str])
+
+slots.FluxnovaIdentityLink_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaIdentityLink_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_user_id, domain=FluxnovaIdentityLink, range=Optional[str])
+
+slots.FluxnovaIdentityLink_group_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.group_id, name="FluxnovaIdentityLink_group_id", curie=FLUXNOVA_BPM_PLATFORM.curie('group_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_group_id, domain=FluxnovaIdentityLink, range=Optional[str])
+
+slots.FluxnovaIdentityLink_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaIdentityLink_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIdentityLink_type, domain=FluxnovaIdentityLink, range=Optional[str])
 
 slots.FluxnovaIncident_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaIncident_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_execution_id, domain=FluxnovaIncident, range=Optional[Union[str, FluxnovaExecutionId]])
@@ -12296,6 +13360,21 @@ slots.FluxnovaIncident_root_cause_incident_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.r
 slots.FluxnovaIncident_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definition_id, name="FluxnovaIncident_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definition_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_job_definition_id, domain=FluxnovaIncident, range=Optional[Union[str, FluxnovaJobDefinitionId]])
 
+slots.FluxnovaIncident_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaIncident_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_id, domain=FluxnovaIncident, range=Union[str, FluxnovaIncidentId])
+
+slots.FluxnovaIncident_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaIncident_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_tenant_id, domain=FluxnovaIncident, range=Optional[str])
+
+slots.FluxnovaIncident_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaIncident_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_activity_id, domain=FluxnovaIncident, range=Optional[str])
+
+slots.FluxnovaIncident_configuration = Slot(uri=FLUXNOVA_BPM_PLATFORM.configuration, name="FluxnovaIncident_configuration", curie=FLUXNOVA_BPM_PLATFORM.curie('configuration'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_configuration, domain=FluxnovaIncident, range=Optional[str])
+
+slots.FluxnovaIncident_annotation = Slot(uri=FLUXNOVA_BPM_PLATFORM.annotation, name="FluxnovaIncident_annotation", curie=FLUXNOVA_BPM_PLATFORM.curie('annotation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaIncident_annotation, domain=FluxnovaIncident, range=Optional[str])
+
 slots.FluxnovaJob_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaJob_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_type, domain=FluxnovaJob, range=str)
 
@@ -12305,8 +13384,59 @@ slots.FluxnovaJob_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.suspension_s
 slots.FluxnovaJob_exception_stack_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.exception_stack_id, name="FluxnovaJob_exception_stack_id", curie=FLUXNOVA_BPM_PLATFORM.curie('exception_stack_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_exception_stack_id, domain=FluxnovaJob, range=Optional[Union[str, FluxnovaByteArrayId]])
 
+slots.FluxnovaJob_repeat_offset = Slot(uri=FLUXNOVA_BPM_PLATFORM.repeat_offset, name="FluxnovaJob_repeat_offset", curie=FLUXNOVA_BPM_PLATFORM.curie('repeat_offset'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_repeat_offset, domain=FluxnovaJob, range=Optional[int])
+
+slots.FluxnovaJob_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="FluxnovaJob_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_priority, domain=FluxnovaJob, range=int)
+
+slots.FluxnovaJob_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaJob_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_id, domain=FluxnovaJob, range=Union[str, FluxnovaJobId])
+
+slots.FluxnovaJob_deployment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployment_id, name="FluxnovaJob_deployment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('deployment_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_deployment_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaJob_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_tenant_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaJob_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_root_process_instance_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaJob_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_process_instance_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaJob_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_process_definition_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaJob_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_process_definition_key, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaJob_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_execution_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaJob_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_create_time, domain=FluxnovaJob, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaJob_batch_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.batch_id, name="FluxnovaJob_batch_id", curie=FLUXNOVA_BPM_PLATFORM.curie('batch_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_batch_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definition_id, name="FluxnovaJob_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_job_definition_id, domain=FluxnovaJob, range=Optional[str])
+
+slots.FluxnovaJob_retries = Slot(uri=FLUXNOVA_BPM_PLATFORM.retries, name="FluxnovaJob_retries", curie=FLUXNOVA_BPM_PLATFORM.curie('retries'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJob_retries, domain=FluxnovaJob, range=Optional[int])
+
 slots.FluxnovaJobDefinition_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.suspension_state, name="FluxnovaJobDefinition_suspension_state", curie=FLUXNOVA_BPM_PLATFORM.curie('suspension_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJobDefinition_suspension_state, domain=FluxnovaJobDefinition, range=Optional[int])
+
+slots.FluxnovaJobDefinition_deployment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployment_id, name="FluxnovaJobDefinition_deployment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('deployment_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJobDefinition_deployment_id, domain=FluxnovaJobDefinition, range=Optional[str])
+
+slots.FluxnovaJobDefinition_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaJobDefinition_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJobDefinition_tenant_id, domain=FluxnovaJobDefinition, range=Optional[str])
+
+slots.FluxnovaJobDefinition_activity_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.activity_id, name="FluxnovaJobDefinition_activity_id", curie=FLUXNOVA_BPM_PLATFORM.curie('activity_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaJobDefinition_activity_id, domain=FluxnovaJobDefinition, range=Optional[str])
 
 slots.FluxnovaMembership_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaMembership_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaMembership_user_id, domain=FluxnovaMembership, range=Union[str, FluxnovaUserId])
@@ -12320,6 +13450,9 @@ slots.FluxnovaMeterLog_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="Fluxnov
 slots.FluxnovaMeterLog_value = Slot(uri=FLUXNOVA_BPM_PLATFORM.value, name="FluxnovaMeterLog_value", curie=FLUXNOVA_BPM_PLATFORM.curie('value'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaMeterLog_value, domain=FluxnovaMeterLog, range=Optional[int])
 
+slots.FluxnovaMeterLog_milliseconds = Slot(uri=FLUXNOVA_BPM_PLATFORM.milliseconds, name="FluxnovaMeterLog_milliseconds", curie=FLUXNOVA_BPM_PLATFORM.curie('milliseconds'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaMeterLog_milliseconds, domain=FluxnovaMeterLog, range=Optional[int])
+
 slots.FluxnovaProcessDefinition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.key, name="FluxnovaProcessDefinition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('key'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_key, domain=FluxnovaProcessDefinition, range=str)
 
@@ -12329,8 +13462,32 @@ slots.FluxnovaProcessDefinition_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version
 slots.FluxnovaProcessDefinition_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.suspension_state, name="FluxnovaProcessDefinition_suspension_state", curie=FLUXNOVA_BPM_PLATFORM.curie('suspension_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_suspension_state, domain=FluxnovaProcessDefinition, range=Optional[int])
 
+slots.FluxnovaProcessDefinition_is_startable = Slot(uri=FLUXNOVA_BPM_PLATFORM.is_startable, name="FluxnovaProcessDefinition_is_startable", curie=FLUXNOVA_BPM_PLATFORM.curie('is_startable'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_is_startable, domain=FluxnovaProcessDefinition, range=Union[bool, Bool])
+
+slots.FluxnovaProcessDefinition_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaProcessDefinition_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_name, domain=FluxnovaProcessDefinition, range=Optional[str])
+
+slots.FluxnovaProcessDefinition_category = Slot(uri=FLUXNOVA_BPM_PLATFORM.category, name="FluxnovaProcessDefinition_category", curie=FLUXNOVA_BPM_PLATFORM.curie('category'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_category, domain=FluxnovaProcessDefinition, range=Optional[str])
+
+slots.FluxnovaProcessDefinition_version_tag = Slot(uri=FLUXNOVA_BPM_PLATFORM.version_tag, name="FluxnovaProcessDefinition_version_tag", curie=FLUXNOVA_BPM_PLATFORM.curie('version_tag'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaProcessDefinition_version_tag, domain=FluxnovaProcessDefinition, range=Optional[str])
+
 slots.FluxnovaEngineProperty_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaEngineProperty_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaEngineProperty_name, domain=FluxnovaEngineProperty, range=Union[str, FluxnovaEnginePropertyName])
+
+slots.FluxnovaResourceDefinition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.key, name="FluxnovaResourceDefinition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaResourceDefinition_key, domain=FluxnovaResourceDefinition, range=Optional[str])
+
+slots.FluxnovaResourceDefinition_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaResourceDefinition_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaResourceDefinition_version, domain=FluxnovaResourceDefinition, range=Optional[int])
+
+slots.FluxnovaResourceDefinition_deployment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployment_id, name="FluxnovaResourceDefinition_deployment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('deployment_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaResourceDefinition_deployment_id, domain=FluxnovaResourceDefinition, range=Optional[str])
+
+slots.FluxnovaResourceDefinition_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaResourceDefinition_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaResourceDefinition_tenant_id, domain=FluxnovaResourceDefinition, range=Optional[str])
 
 slots.FluxnovaSchemaLogEntry_version = Slot(uri=FLUXNOVA_BPM_PLATFORM.version, name="FluxnovaSchemaLogEntry_version", curie=FLUXNOVA_BPM_PLATFORM.curie('version'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaSchemaLogEntry_version, domain=FluxnovaSchemaLogEntry, range=Optional[str])
@@ -12353,6 +13510,48 @@ slots.FluxnovaTask_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_defi
 slots.FluxnovaTask_suspension_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.suspension_state, name="FluxnovaTask_suspension_state", curie=FLUXNOVA_BPM_PLATFORM.curie('suspension_state'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_suspension_state, domain=FluxnovaTask, range=Optional[int])
 
+slots.FluxnovaTask_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaTask_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_id, domain=FluxnovaTask, range=Union[str, FluxnovaTaskId])
+
+slots.FluxnovaTask_name = Slot(uri=FLUXNOVA_BPM_PLATFORM.name, name="FluxnovaTask_name", curie=FLUXNOVA_BPM_PLATFORM.curie('name'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_name, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_description = Slot(uri=FLUXNOVA_BPM_PLATFORM.description, name="FluxnovaTask_description", curie=FLUXNOVA_BPM_PLATFORM.curie('description'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_description, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaTask_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_tenant_id, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_create_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.create_time, name="FluxnovaTask_create_time", curie=FLUXNOVA_BPM_PLATFORM.curie('create_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_create_time, domain=FluxnovaTask, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaTask_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaTask_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_case_instance_id, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_assignee = Slot(uri=FLUXNOVA_BPM_PLATFORM.assignee, name="FluxnovaTask_assignee", curie=FLUXNOVA_BPM_PLATFORM.curie('assignee'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_assignee, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_priority = Slot(uri=FLUXNOVA_BPM_PLATFORM.priority, name="FluxnovaTask_priority", curie=FLUXNOVA_BPM_PLATFORM.curie('priority'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_priority, domain=FluxnovaTask, range=Optional[int])
+
+slots.FluxnovaTask_task_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_definition_key, name="FluxnovaTask_task_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('task_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_task_definition_key, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_parent_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.parent_task_id, name="FluxnovaTask_parent_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('parent_task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_parent_task_id, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_owner = Slot(uri=FLUXNOVA_BPM_PLATFORM.owner, name="FluxnovaTask_owner", curie=FLUXNOVA_BPM_PLATFORM.curie('owner'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_owner, domain=FluxnovaTask, range=Optional[str])
+
+slots.FluxnovaTask_due_date = Slot(uri=FLUXNOVA_BPM_PLATFORM.due_date, name="FluxnovaTask_due_date", curie=FLUXNOVA_BPM_PLATFORM.curie('due_date'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_due_date, domain=FluxnovaTask, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaTask_follow_up_date = Slot(uri=FLUXNOVA_BPM_PLATFORM.follow_up_date, name="FluxnovaTask_follow_up_date", curie=FLUXNOVA_BPM_PLATFORM.curie('follow_up_date'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_follow_up_date, domain=FluxnovaTask, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaTask_task_state = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_state, name="FluxnovaTask_task_state", curie=FLUXNOVA_BPM_PLATFORM.curie('task_state'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTask_task_state, domain=FluxnovaTask, range=Optional[str])
+
 slots.FluxnovaTenantMembership_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaTenantMembership_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaTenantMembership_tenant_id, domain=FluxnovaTenantMembership, range=Union[str, FluxnovaTenantId])
 
@@ -12364,6 +13563,72 @@ slots.FluxnovaTenantMembership_group_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.group_i
 
 slots.FluxnovaUserOperationLogEntry_timestamp = Slot(uri=FLUXNOVA_BPM_PLATFORM.timestamp, name="FluxnovaUserOperationLogEntry_timestamp", curie=FLUXNOVA_BPM_PLATFORM.curie('timestamp'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_timestamp, domain=FluxnovaUserOperationLogEntry, range=Union[str, XSDDateTime])
+
+slots.FluxnovaUserOperationLogEntry_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.id, name="FluxnovaUserOperationLogEntry_id", curie=FLUXNOVA_BPM_PLATFORM.curie('id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_id, domain=FluxnovaUserOperationLogEntry, range=Union[str, FluxnovaUserOperationLogEntryId])
+
+slots.FluxnovaUserOperationLogEntry_category = Slot(uri=FLUXNOVA_BPM_PLATFORM.category, name="FluxnovaUserOperationLogEntry_category", curie=FLUXNOVA_BPM_PLATFORM.curie('category'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_category, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_deployment_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.deployment_id, name="FluxnovaUserOperationLogEntry_deployment_id", curie=FLUXNOVA_BPM_PLATFORM.curie('deployment_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_deployment_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaUserOperationLogEntry_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_tenant_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_removal_time = Slot(uri=FLUXNOVA_BPM_PLATFORM.removal_time, name="FluxnovaUserOperationLogEntry_removal_time", curie=FLUXNOVA_BPM_PLATFORM.curie('removal_time'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_removal_time, domain=FluxnovaUserOperationLogEntry, range=Optional[Union[str, XSDDateTime]])
+
+slots.FluxnovaUserOperationLogEntry_root_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.root_process_instance_id, name="FluxnovaUserOperationLogEntry_root_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('root_process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_root_process_instance_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_process_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_instance_id, name="FluxnovaUserOperationLogEntry_process_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_process_instance_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaUserOperationLogEntry_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_process_definition_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_process_definition_key = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_key, name="FluxnovaUserOperationLogEntry_process_definition_key", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_key'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_process_definition_key, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.execution_id, name="FluxnovaUserOperationLogEntry_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_execution_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaUserOperationLogEntry_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_task_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_case_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_definition_id, name="FluxnovaUserOperationLogEntry_case_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_case_definition_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_case_instance_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_instance_id, name="FluxnovaUserOperationLogEntry_case_instance_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_instance_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_case_instance_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_case_execution_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.case_execution_id, name="FluxnovaUserOperationLogEntry_case_execution_id", curie=FLUXNOVA_BPM_PLATFORM.curie('case_execution_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_case_execution_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_user_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.user_id, name="FluxnovaUserOperationLogEntry_user_id", curie=FLUXNOVA_BPM_PLATFORM.curie('user_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_user_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_batch_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.batch_id, name="FluxnovaUserOperationLogEntry_batch_id", curie=FLUXNOVA_BPM_PLATFORM.curie('batch_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_batch_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_job_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_definition_id, name="FluxnovaUserOperationLogEntry_job_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_job_definition_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_operation_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.operation_id, name="FluxnovaUserOperationLogEntry_operation_id", curie=FLUXNOVA_BPM_PLATFORM.curie('operation_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_operation_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_external_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.external_task_id, name="FluxnovaUserOperationLogEntry_external_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('external_task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_external_task_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_operation_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.operation_type, name="FluxnovaUserOperationLogEntry_operation_type", curie=FLUXNOVA_BPM_PLATFORM.curie('operation_type'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_operation_type, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_annotation = Slot(uri=FLUXNOVA_BPM_PLATFORM.annotation, name="FluxnovaUserOperationLogEntry_annotation", curie=FLUXNOVA_BPM_PLATFORM.curie('annotation'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_annotation, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
+
+slots.FluxnovaUserOperationLogEntry_job_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.job_id, name="FluxnovaUserOperationLogEntry_job_id", curie=FLUXNOVA_BPM_PLATFORM.curie('job_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaUserOperationLogEntry_job_id, domain=FluxnovaUserOperationLogEntry, range=Optional[str])
 
 slots.FluxnovaVariableInstance_type = Slot(uri=FLUXNOVA_BPM_PLATFORM.type, name="FluxnovaVariableInstance_type", curie=FLUXNOVA_BPM_PLATFORM.curie('type'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaVariableInstance_type, domain=FluxnovaVariableInstance, range=str)
@@ -12388,3 +13653,12 @@ slots.FluxnovaVariableInstance_batch_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.batch_i
 
 slots.FluxnovaVariableInstance_byte_array_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.byte_array_id, name="FluxnovaVariableInstance_byte_array_id", curie=FLUXNOVA_BPM_PLATFORM.curie('byte_array_id'),
                    model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaVariableInstance_byte_array_id, domain=FluxnovaVariableInstance, range=Optional[Union[str, FluxnovaByteArrayId]])
+
+slots.FluxnovaVariableInstance_tenant_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.tenant_id, name="FluxnovaVariableInstance_tenant_id", curie=FLUXNOVA_BPM_PLATFORM.curie('tenant_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaVariableInstance_tenant_id, domain=FluxnovaVariableInstance, range=Optional[str])
+
+slots.FluxnovaVariableInstance_process_definition_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.process_definition_id, name="FluxnovaVariableInstance_process_definition_id", curie=FLUXNOVA_BPM_PLATFORM.curie('process_definition_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaVariableInstance_process_definition_id, domain=FluxnovaVariableInstance, range=Optional[str])
+
+slots.FluxnovaVariableInstance_task_id = Slot(uri=FLUXNOVA_BPM_PLATFORM.task_id, name="FluxnovaVariableInstance_task_id", curie=FLUXNOVA_BPM_PLATFORM.curie('task_id'),
+                   model_uri=FLUXNOVA_BPM_PLATFORM.FluxnovaVariableInstance_task_id, domain=FluxnovaVariableInstance, range=Optional[str])

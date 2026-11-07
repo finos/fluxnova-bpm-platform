@@ -89,10 +89,115 @@ def test_every_column_has_a_slot(table):
             or slot.range in _view().all_enums()
             or (slot.range in _view().all_classes() and expected == "string")
         ), (column.name, slot.range, column.sql_type)
-        if not column.nullable:
-            assert slot.required or slot.identifier, column.name
+        assert bool(slot.required or slot.identifier) == (not column.nullable), (
+            column.name
+        )
         if column.is_pk and sql.pk_columns == ["ID_"]:
             assert slot.identifier, column.name
+
+
+@pytest.mark.parametrize("table", sorted(_tables()))
+def test_every_slot_is_a_column(table):
+    """A table's class has slots for its own columns only. A base holds only the
+    columns every subclass's table has, so no class inherits one its table lacks."""
+    columns = {engine.col_to_slot(column.name) for column in _tables()[table].columns}
+    slots = {s.name for s in _view().class_induced_slots(_class_of_table()[table])}
+    assert slots <= columns, sorted(slots - columns)
+
+
+def _ddl_text() -> str:
+    return "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted(engine.DEFAULT_SQL_DIR.glob("activiti.h2.create.*.sql"))
+    )
+
+
+def test_the_parser_reads_every_default_and_unique_constraint():
+    text = _ddl_text()
+    defaults = re.findall(r"^\s*(\w+)\s.*?\bdefault\s+([^\s,]+)", text, re.I | re.M)
+    parsed = [
+        (column.name, column.default)
+        for sql in _tables().values()
+        for column in sql.columns
+        if column.default is not None
+    ]
+    assert sorted((n.upper(), v.strip("'")) for n, v in defaults) == sorted(parsed)
+    constraints = re.findall(r"\bunique\s*\(", text, re.I)
+    assert len(constraints) == sum(
+        len(t.unique_constraints) for t in _tables().values()
+    )
+
+
+@pytest.mark.parametrize("table", sorted(_tables()))
+def test_defaults_are_the_ddls(table):
+    """A column's DEFAULT is its slot's ifabsent value in its table's class, and a
+    column with none gives no ifabsent."""
+    found = _slot_of_column(table)
+    for column in _tables()[table].columns:
+        slot = found[column.name]
+        if slot is None:
+            continue
+        if column.default is None:
+            assert slot.ifabsent is None, column.name
+        else:
+            assert column.default.lower() in slot.ifabsent.lower(), column.name
+
+
+@pytest.mark.parametrize("table", sorted(_tables()))
+def test_unique_keys_are_the_ddls(table):
+    """A class's unique keys are its table's composite primary key and unique
+    constraints. A key with a column that may be null treats two nulls as unequal,
+    as SQL does."""
+    sql = _tables()[table]
+    expected = [columns for _, columns in sql.unique_constraints]
+    if len(sql.pk_columns) > 1:
+        expected.append(sql.pk_columns)
+    keys = _view().get_class(_class_of_table()[table]).unique_keys.values()
+    found = {tuple(key.unique_key_slots): key for key in keys}
+    want = {
+        tuple(engine.col_to_slot(c) for c in columns): columns for columns in expected
+    }
+    assert set(found) == set(want)
+    nullable = {column.name for column in sql.columns if column.nullable}
+    for slots, columns in want.items():
+        assert bool(found[slots].consider_nulls_inequal) == bool(
+            nullable & set(columns)
+        )
+
+
+def test_a_shared_slot_keeps_each_tables_javadoc():
+    """A slot many tables share carries, in each class, its own interface's Javadoc."""
+    task = {s.name: s for s in _view().class_induced_slots("FluxnovaTask")}
+    job = {s.name: s for s in _view().class_induced_slots("FluxnovaJob")}
+    assert task["priority"].description.startswith(
+        "Indication of how important/urgent this task is"
+    )
+    assert job["priority"].description == (
+        "The job's priority that is a hint to job acquisition."
+    )
+    assert task["assignee"].description == (
+        "The userId of the person to which this task is assigned or delegated."
+    )
+
+
+def test_each_class_slot_has_its_javadoc():
+    """Where a class's interface describes a getter, the class's slot of that name
+    carries the getter's first sentence."""
+    gen = engine.LinkMLGenerator(_tables(), engine.parse_all_javadoc(engine.REPO_ROOT))
+    names = engine.class_names(gen.classes)
+    for cls in gen.classes.values():
+        if cls.abstract:
+            continue
+        induced = {s.name: s for s in _view().class_induced_slots(names[cls.name])}
+        for slot_name in gen._slots_of(cls):
+            sentence = gen._javadoc(cls.name, slot_name)
+            if sentence:
+                assert induced[slot_name].description == sentence, (cls.name, slot_name)
+
+
+def test_the_root_holds_every_table():
+    root = _view().class_induced_slots("FluxnovaPlatformData")
+    assert sorted(s.range for s in root) == sorted(_class_of_table().values())
 
 
 @pytest.mark.parametrize("table", sorted(_tables()))
@@ -138,10 +243,25 @@ def test_text_values_are_the_engines(name):
     assert set(enum["permissible_values"]) == values
 
 
+@lru_cache(maxsize=1)
+def _converter() -> bpmn.Converter:
+    return bpmn.Converter()
+
+
+def test_the_converter_reads_every_type_bpmn_java_registers():
+    """Bpmn.java registers each type of the model API. The converter reads every one
+    but ModelElementInstanceImpl, the base, which is the schema's root class."""
+    text = (bpmn.JAVA_ROOT / "Bpmn.java").read_text(encoding="utf-8")
+    registered = set(re.findall(r"(\w+)\.registerType\(", text))
+    read = {element.source.stem for element in _converter().types.values()}
+    assert registered - read == {"ModelElementInstanceImpl"}
+    assert read <= registered
+
+
 def test_every_registered_bpmn_type_has_a_class():
     """Each type the model API registers is a class, but a child that only holds a
     reference, such as incoming, which is a slot."""
-    converter = bpmn.Converter()
+    converter = _converter()
     classes = _view().all_classes()
     for java_name, element in converter.types.items():
         if java_name in converter.holders:

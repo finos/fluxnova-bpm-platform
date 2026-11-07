@@ -10,7 +10,7 @@ import java.util.List;
 import lombok.*;
 
 /**
-  Abstract base for deployable resource definitions (process, case, decision, form).
+  Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all five tables have.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)
@@ -18,14 +18,10 @@ public abstract class FluxnovaResourceDefinition  {
 
   private String id;
   private String key;
-  private String name;
   private Integer version;
-  private String category;
   private String deploymentId;
   private String resourceName;
-  private String diagramResourceName;
   private String tenantId;
-  private Integer historyTimeToLive;
 
 
 }

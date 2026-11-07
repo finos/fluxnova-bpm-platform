@@ -23,7 +23,7 @@ public class FluxnovaJobDefinition  {
   private String jobType;
   private String jobConfiguration;
   private Integer suspensionState;
-  private int jobPriority;
+  private Integer jobPriority;
   private String tenantId;
   private String deploymentId;
 

@@ -1,0 +1,18 @@
+# Rows of three history tables and a membership, which the root holds
+# beside the runtime tables.
+historic_process_instances:
+  - id: hpi-001
+    process_instance_id: pi-001
+    process_definition_id: pd-001
+    start_time: "2025-04-01T10:00:00+00:00"
+historic_task_instances:
+  - id: hti-001
+    start_time: "2025-04-01T10:05:00+00:00"
+historic_case_instances:
+  - id: hci-001
+    case_instance_id: ci-001
+    case_definition_id: casedef-001
+    create_time: "2025-04-01T10:00:00+00:00"
+memberships:
+  - user_id: user-001
+    group_id: group-001

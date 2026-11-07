@@ -23,97 +23,560 @@ imports:
   - fluxnova_bpmn_extension
 
 slots:
-  deployments:
-    range: FluxnovaDeployment
+  attachments:
+    range: FluxnovaAttachment
     multivalued: true
     inlined_as_list: true
-    description: Deployed resources.
+    description: The rows of ACT_HI_ATTACHMENT.
 
-  process_definitions:
-    range: FluxnovaProcessDefinition
+  authorization_entries:
+    range: FluxnovaAuthorization
     multivalued: true
     inlined_as_list: true
-    description: Process definitions.
-
-  executions:
-    range: FluxnovaExecution
-    multivalued: true
-    inlined_as_list: true
-    description: Process execution instances.
-
-  tasks:
-    range: FluxnovaTask
-    multivalued: true
-    inlined_as_list: true
-    description: User tasks.
-
-  jobs:
-    range: FluxnovaJob
-    multivalued: true
-    inlined_as_list: true
-    description: Asynchronous jobs.
-
-  users:
-    range: FluxnovaUser
-    multivalued: true
-    inlined_as_list: true
-    description: Identity users.
-
-  groups:
-    range: FluxnovaGroup
-    multivalued: true
-    inlined_as_list: true
-    description: Identity groups.
+    description: The rows of ACT_RU_AUTHORIZATION.
 
   batches:
     range: FluxnovaBatch
     multivalued: true
     inlined_as_list: true
-    description: Batch operations.
+    description: The rows of ACT_RU_BATCH.
+
+  byte_arrays:
+    range: FluxnovaByteArray
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_GE_BYTEARRAY.
+
+  case_definitions:
+    range: FluxnovaCaseDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_CASE_DEF.
+
+  case_executions:
+    range: FluxnovaCaseExecution
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_CASE_EXECUTION.
+
+  case_sentry_parts:
+    range: FluxnovaCaseSentryPart
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_CASE_SENTRY_PART.
+
+  comment_entries:
+    range: FluxnovaComment
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_COMMENT.
+
+  configuration_entries:
+    range: FluxnovaConfiguration
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_GE_CONFIGURATION.
+
+  decision_definitions:
+    range: FluxnovaDecisionDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_DECISION_DEF.
+
+  decision_requirements_definitions:
+    range: FluxnovaDecisionRequirementsDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_DECISION_REQ_DEF.
+
+  deployments:
+    range: FluxnovaDeployment
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_DEPLOYMENT.
+
+  engine_properties:
+    range: FluxnovaEngineProperty
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_GE_PROPERTY.
+
+  event_subscriptions:
+    range: FluxnovaEventSubscription
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_EVENT_SUBSCR.
+
+  executions:
+    range: FluxnovaExecution
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_EXECUTION.
+
+  external_tasks:
+    range: FluxnovaExternalTask
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_EXT_TASK.
+
+  filter_entries:
+    range: FluxnovaFilter
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_FILTER.
+
+  form_definitions:
+    range: FluxnovaFormDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_CAMFORMDEF.
+
+  groups:
+    range: FluxnovaGroup
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_GROUP.
+
+  historic_activity_instances:
+    range: FluxnovaHistoricActivityInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_ACTINST.
+
+  historic_batches:
+    range: FluxnovaHistoricBatch
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_BATCH.
+
+  historic_case_activity_instances:
+    range: FluxnovaHistoricCaseActivityInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_CASEACTINST.
+
+  historic_case_instances:
+    range: FluxnovaHistoricCaseInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_CASEINST.
+
+  historic_decision_input_instances:
+    range: FluxnovaHistoricDecisionInputInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_DEC_IN.
+
+  historic_decision_instances:
+    range: FluxnovaHistoricDecisionInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_DECINST.
+
+  historic_decision_output_instances:
+    range: FluxnovaHistoricDecisionOutputInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_DEC_OUT.
+
+  historic_details:
+    range: FluxnovaHistoricDetail
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_DETAIL.
+
+  historic_external_task_logs:
+    range: FluxnovaHistoricExternalTaskLog
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_EXT_TASK_LOG.
+
+  historic_identity_links:
+    range: FluxnovaHistoricIdentityLink
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_IDENTITYLINK.
+
+  historic_incidents:
+    range: FluxnovaHistoricIncident
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_INCIDENT.
+
+  historic_job_logs:
+    range: FluxnovaHistoricJobLog
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_JOB_LOG.
+
+  historic_process_instances:
+    range: FluxnovaHistoricProcessInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_PROCINST.
+
+  historic_task_instances:
+    range: FluxnovaHistoricTaskInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_TASKINST.
+
+  historic_variable_instances:
+    range: FluxnovaHistoricVariableInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_VARINST.
+
+  identity_infos:
+    range: FluxnovaIdentityInfo
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_INFO.
+
+  identity_links:
+    range: FluxnovaIdentityLink
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_IDENTITYLINK.
+
+  incidents:
+    range: FluxnovaIncident
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_INCIDENT.
+
+  job_definitions:
+    range: FluxnovaJobDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_JOBDEF.
+
+  jobs:
+    range: FluxnovaJob
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_JOB.
+
+  memberships:
+    range: FluxnovaMembership
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_MEMBERSHIP.
+
+  meter_logs:
+    range: FluxnovaMeterLog
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_METER_LOG.
+
+  process_definitions:
+    range: FluxnovaProcessDefinition
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RE_PROCDEF.
+
+  schema_log_entries:
+    range: FluxnovaSchemaLogEntry
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_GE_SCHEMA_LOG.
+
+  task_meter_logs:
+    range: FluxnovaTaskMeterLog
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_TASK_METER_LOG.
+
+  tasks:
+    range: FluxnovaTask
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_TASK.
+
+  tenant_memberships:
+    range: FluxnovaTenantMembership
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_TENANT_MEMBER.
+
+  tenants:
+    range: FluxnovaTenant
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_TENANT.
+
+  user_operation_log_entries:
+    range: FluxnovaUserOperationLogEntry
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_HI_OP_LOG.
+
+  users:
+    range: FluxnovaUser
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_ID_USER.
+
+  variable_instances:
+    range: FluxnovaVariableInstance
+    multivalued: true
+    inlined_as_list: true
+    description: The rows of ACT_RU_VARIABLE.
 
 classes:
   FluxnovaPlatformData:
     tree_root: true
-    description: Root container for Fluxnova BPM Platform data.
+    description: 'Root container for Fluxnova BPM Platform data: a list of rows for each of
+      the engine''s tables.'
     slots:
-      - deployments
-      - process_definitions
-      - executions
-      - tasks
-      - jobs
-      - users
-      - groups
+      - attachments
+      - authorization_entries
       - batches
+      - byte_arrays
+      - case_definitions
+      - case_executions
+      - case_sentry_parts
+      - comment_entries
+      - configuration_entries
+      - decision_definitions
+      - decision_requirements_definitions
+      - deployments
+      - engine_properties
+      - event_subscriptions
+      - executions
+      - external_tasks
+      - filter_entries
+      - form_definitions
+      - groups
+      - historic_activity_instances
+      - historic_batches
+      - historic_case_activity_instances
+      - historic_case_instances
+      - historic_decision_input_instances
+      - historic_decision_instances
+      - historic_decision_output_instances
+      - historic_details
+      - historic_external_task_logs
+      - historic_identity_links
+      - historic_incidents
+      - historic_job_logs
+      - historic_process_instances
+      - historic_task_instances
+      - historic_variable_instances
+      - identity_infos
+      - identity_links
+      - incidents
+      - job_definitions
+      - jobs
+      - memberships
+      - meter_logs
+      - process_definitions
+      - schema_log_entries
+      - task_meter_logs
+      - tasks
+      - tenant_memberships
+      - tenants
+      - user_operation_log_entries
+      - users
+      - variable_instances
     slot_usage:
+      attachments:
+        range: FluxnovaAttachment
+        multivalued: true
+        inlined_as_list: true
+      authorization_entries:
+        range: FluxnovaAuthorization
+        multivalued: true
+        inlined_as_list: true
+      batches:
+        range: FluxnovaBatch
+        multivalued: true
+        inlined_as_list: true
+      byte_arrays:
+        range: FluxnovaByteArray
+        multivalued: true
+        inlined_as_list: true
+      case_definitions:
+        range: FluxnovaCaseDefinition
+        multivalued: true
+        inlined_as_list: true
+      case_executions:
+        range: FluxnovaCaseExecution
+        multivalued: true
+        inlined_as_list: true
+      case_sentry_parts:
+        range: FluxnovaCaseSentryPart
+        multivalued: true
+        inlined_as_list: true
+      comment_entries:
+        range: FluxnovaComment
+        multivalued: true
+        inlined_as_list: true
+      configuration_entries:
+        range: FluxnovaConfiguration
+        multivalued: true
+        inlined_as_list: true
+      decision_definitions:
+        range: FluxnovaDecisionDefinition
+        multivalued: true
+        inlined_as_list: true
+      decision_requirements_definitions:
+        range: FluxnovaDecisionRequirementsDefinition
+        multivalued: true
+        inlined_as_list: true
       deployments:
         range: FluxnovaDeployment
         multivalued: true
         inlined_as_list: true
-      process_definitions:
-        range: FluxnovaProcessDefinition
+      engine_properties:
+        range: FluxnovaEngineProperty
+        multivalued: true
+        inlined_as_list: true
+      event_subscriptions:
+        range: FluxnovaEventSubscription
         multivalued: true
         inlined_as_list: true
       executions:
         range: FluxnovaExecution
         multivalued: true
         inlined_as_list: true
-      tasks:
-        range: FluxnovaTask
+      external_tasks:
+        range: FluxnovaExternalTask
         multivalued: true
         inlined_as_list: true
-      jobs:
-        range: FluxnovaJob
+      filter_entries:
+        range: FluxnovaFilter
         multivalued: true
         inlined_as_list: true
-      users:
-        range: FluxnovaUser
+      form_definitions:
+        range: FluxnovaFormDefinition
         multivalued: true
         inlined_as_list: true
       groups:
         range: FluxnovaGroup
         multivalued: true
         inlined_as_list: true
-      batches:
-        range: FluxnovaBatch
+      historic_activity_instances:
+        range: FluxnovaHistoricActivityInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_batches:
+        range: FluxnovaHistoricBatch
+        multivalued: true
+        inlined_as_list: true
+      historic_case_activity_instances:
+        range: FluxnovaHistoricCaseActivityInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_case_instances:
+        range: FluxnovaHistoricCaseInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_decision_input_instances:
+        range: FluxnovaHistoricDecisionInputInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_decision_instances:
+        range: FluxnovaHistoricDecisionInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_decision_output_instances:
+        range: FluxnovaHistoricDecisionOutputInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_details:
+        range: FluxnovaHistoricDetail
+        multivalued: true
+        inlined_as_list: true
+      historic_external_task_logs:
+        range: FluxnovaHistoricExternalTaskLog
+        multivalued: true
+        inlined_as_list: true
+      historic_identity_links:
+        range: FluxnovaHistoricIdentityLink
+        multivalued: true
+        inlined_as_list: true
+      historic_incidents:
+        range: FluxnovaHistoricIncident
+        multivalued: true
+        inlined_as_list: true
+      historic_job_logs:
+        range: FluxnovaHistoricJobLog
+        multivalued: true
+        inlined_as_list: true
+      historic_process_instances:
+        range: FluxnovaHistoricProcessInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_task_instances:
+        range: FluxnovaHistoricTaskInstance
+        multivalued: true
+        inlined_as_list: true
+      historic_variable_instances:
+        range: FluxnovaHistoricVariableInstance
+        multivalued: true
+        inlined_as_list: true
+      identity_infos:
+        range: FluxnovaIdentityInfo
+        multivalued: true
+        inlined_as_list: true
+      identity_links:
+        range: FluxnovaIdentityLink
+        multivalued: true
+        inlined_as_list: true
+      incidents:
+        range: FluxnovaIncident
+        multivalued: true
+        inlined_as_list: true
+      job_definitions:
+        range: FluxnovaJobDefinition
+        multivalued: true
+        inlined_as_list: true
+      jobs:
+        range: FluxnovaJob
+        multivalued: true
+        inlined_as_list: true
+      memberships:
+        range: FluxnovaMembership
+        multivalued: true
+        inlined_as_list: true
+      meter_logs:
+        range: FluxnovaMeterLog
+        multivalued: true
+        inlined_as_list: true
+      process_definitions:
+        range: FluxnovaProcessDefinition
+        multivalued: true
+        inlined_as_list: true
+      schema_log_entries:
+        range: FluxnovaSchemaLogEntry
+        multivalued: true
+        inlined_as_list: true
+      task_meter_logs:
+        range: FluxnovaTaskMeterLog
+        multivalued: true
+        inlined_as_list: true
+      tasks:
+        range: FluxnovaTask
+        multivalued: true
+        inlined_as_list: true
+      tenant_memberships:
+        range: FluxnovaTenantMembership
+        multivalued: true
+        inlined_as_list: true
+      tenants:
+        range: FluxnovaTenant
+        multivalued: true
+        inlined_as_list: true
+      user_operation_log_entries:
+        range: FluxnovaUserOperationLogEntry
+        multivalued: true
+        inlined_as_list: true
+      users:
+        range: FluxnovaUser
+        multivalued: true
+        inlined_as_list: true
+      variable_instances:
+        range: FluxnovaVariableInstance
         multivalued: true
         inlined_as_list: true

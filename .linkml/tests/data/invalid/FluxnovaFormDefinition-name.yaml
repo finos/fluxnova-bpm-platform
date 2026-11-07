@@ -1,0 +1,5 @@
+# Invalid: ACT_RE_CAMFORMDEF has no NAME_ column.
+id: formdef-001
+key: invoice-form
+version: 1
+name: Invoice Form

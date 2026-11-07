@@ -201,6 +201,16 @@ CLASS_INHERITANCE: dict[str, str] = {
     "HistoricCaseActivityInstance": "HistoricScopeInstance",
 }
 
+# The root's lists of four tables' rows, whose plain plural another lmodel copy
+# uses as its own key: CVE's configurations, D3FEND's comments and filters and
+# OCSF's authorizations. A composite of the copies then gives each key one meaning.
+ROOT_SLOT_OVERRIDES: dict[str, str] = {
+    "Authorization": "authorization_entries",
+    "Comment": "comment_entries",
+    "Configuration": "configuration_entries",
+    "Filter": "filter_entries",
+}
+
 # Classes that are abstract
 ABSTRACT_CLASSES: set[str] = {
     "ResourceDefinition",
@@ -306,8 +316,11 @@ def _generate_slot_description(
     if sql_col_name in fk_constraints:
         ref_table = fk_constraints[sql_col_name]
         if ref_table in TABLE_TO_CLASS:
-            target_class = TABLE_TO_CLASS[ref_table][0]
-            return f"Reference to a {target_class}."
+            words = re.sub(
+                r"(?<!^)(?=[A-Z])", " ", TABLE_TO_CLASS[ref_table][0]
+            ).lower()
+            article = "an" if words[0] in "aeiou" else "a"
+            return f"Reference to {article} {words}."
         return f"Foreign key reference to {ref_table}."
 
     # Boolean patterns (IS_ prefix columns -> "Whether...")
@@ -492,8 +505,8 @@ def _clean_javadoc(raw: str) -> str:
     result = re.sub(r"<[^>]+>", "", result)
     # Replace {@link Target label} by its label, or by the target's simple name
     result = re.sub(
-        r"\{@\w+\s+([^\s}]+)(?:\s+([^}]+))?\}",
-        lambda m: m.group(2) or re.split(r"[.#]", m.group(1))[-1],
+        r"\{@\w+\s+((?:[^\s}(]|\([^)]*\))+)(?:\s+([^}]+))?\}",
+        lambda m: m.group(2) or re.split(r"[.#]", re.sub(r"\(.*", "", m.group(1)))[-1],
         result,
     )
     # A fully qualified Java name reads as its simple name
@@ -609,6 +622,8 @@ class SqlColumn:
     sql_type: str
     nullable: bool = True
     is_pk: bool = False
+    # The column's DEFAULT as the DDL writes it, without quotes.
+    default: str | None = None
 
 
 @dataclass
@@ -619,6 +634,9 @@ class SqlTable:
     columns: list[SqlColumn] = field(default_factory=list)
     pk_columns: list[str] = field(default_factory=list)
     fk_constraints: dict[str, str] = field(default_factory=dict)  # col -> ref_table
+    # Each unique constraint: its name, empty for one written inside the table, and
+    # its columns.
+    unique_constraints: list[tuple[str, list[str]]] = field(default_factory=list)
 
 
 @dataclass
@@ -663,14 +681,17 @@ class ClassDef:
 # ---------------------------------------------------------------------------
 
 RE_CREATE_TABLE = re.compile(r"create\s+table\s+(\w+)\s*\(", re.IGNORECASE)
+# A column's line: its name, its type, NOT NULL and its DEFAULT, in the DDL's order.
 RE_COLUMN = re.compile(
-    r"^\s+(\w+)\s+([\w\s\(\)]+?)(?:\s+(NOT\s+NULL))?"
-    r"(?:\s+DEFAULT\s+\S+)?"
-    r"\s*(?:,\s*)?$",
+    r"(\w+)\s+([\w\s\(\)]+?)(?:\s+(NOT\s+NULL))?(?:\s+DEFAULT\s+([^\s,]+))?\s*,?\s*$",
     re.IGNORECASE,
 )
 RE_PK = re.compile(r"primary\s+key\s*\(([^)]+)\)", re.IGNORECASE)
 RE_UNIQUE = re.compile(r"unique\s*\(([^)]+)\)", re.IGNORECASE)
+RE_UNIQUE_CONSTRAINT = re.compile(
+    r"alter\s+table\s+(\w+)\s+add\s+constraint\s+(\w+)\s+unique\s*\(([^)]+)\)",
+    re.IGNORECASE,
+)
 RE_FK = re.compile(
     r"alter\s+table\s+(\w+)\s+add\s+constraint\s+\w+\s+"
     r"foreign\s+key\s*\((\w+)\)\s*references\s+(\w+)",
@@ -682,6 +703,7 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
     """Parse all H2 DDL create SQL files and return table definitions."""
     tables: dict[str, SqlTable] = {}
     fk_stmts: list[tuple[str, str, str]] = []  # (table, col, ref_table)
+    unique_stmts: list[tuple[str, str, list[str]]] = []  # (table, name, columns)
 
     sql_files = sorted(sql_dir.glob("activiti.h2.create.*.sql"))
     if not sql_files:
@@ -696,6 +718,9 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
             fk_stmts.append(
                 (m.group(1).upper(), m.group(2).upper(), m.group(3).upper())
             )
+        for m in RE_UNIQUE_CONSTRAINT.finditer(content):
+            columns = [c.strip().upper() for c in m.group(3).split(",")]
+            unique_stmts.append((m.group(1).upper(), m.group(2).upper(), columns))
 
         # Parse CREATE TABLE blocks
         for ct_match in RE_CREATE_TABLE.finditer(content):
@@ -733,14 +758,15 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
                 ):
                     continue
                 if line_stripped.lower().startswith("unique"):
+                    unique = RE_UNIQUE.match(line_stripped)
+                    if unique:
+                        columns = [
+                            c.strip().upper() for c in unique.group(1).split(",")
+                        ]
+                        table.unique_constraints.append(("", columns))
                     continue
 
-                # Try to extract column definition
-                col_match = re.match(
-                    r"(\w+)\s+([\w\s\(\)]+?)(?:\s+(NOT\s+NULL))?(?:\s+DEFAULT\s+\S+)?\s*,?\s*$",
-                    line_stripped,
-                    re.IGNORECASE,
-                )
+                col_match = RE_COLUMN.match(line_stripped)
                 if col_match:
                     col_name = col_match.group(1).upper()
                     raw_type = col_match.group(2).strip().lower()
@@ -750,12 +776,14 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
                     not_null = col_match.group(3) is not None
                     is_pk = col_name in table.pk_columns
 
+                    default = col_match.group(4)
                     table.columns.append(
                         SqlColumn(
                             name=col_name,
                             sql_type=raw_type,
                             nullable=not not_null and not is_pk,
                             is_pk=is_pk,
+                            default=default.strip("'") if default else None,
                         )
                     )
 
@@ -766,6 +794,9 @@ def parse_sql_files(sql_dir: Path) -> dict[str, SqlTable]:
     for tbl_name, col_name, ref_table in fk_stmts:
         if tbl_name in tables:
             tables[tbl_name].fk_constraints[col_name] = ref_table
+    for tbl_name, name, columns in unique_stmts:
+        if tbl_name in tables:
+            tables[tbl_name].unique_constraints.append((name, columns))
 
     return tables
 
@@ -1033,6 +1064,32 @@ COLUMN_SLOT_OVERRIDES: dict[str, str] = {
 }
 
 
+def _snake(name: str) -> str:
+    """A CamelCase name in snake case: HistoricJobLog is historic_job_log."""
+    return re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", name).lower()
+
+
+def _plural(name: str) -> str:
+    """A snake-case name in the plural: batch is batches and log_entry is log_entries."""
+    if re.search(r"[^aeiou]y$", name):
+        return name[:-1] + "ies"
+    if name.endswith(("s", "x", "ch", "sh")):
+        return name + "es"
+    return name + "s"
+
+
+def _ifabsent(range_: str, default: str) -> str:
+    """A column's DEFAULT as an ifabsent value: an integer, a boolean, a string or
+    one of an enum's values."""
+    if range_ == "boolean":
+        return "true" if default.lower() == "true" else "false"
+    if range_ == "integer":
+        return f"int({default})"
+    if range_ == "string":
+        return f"string({default})"
+    return f"{range_}({default})"
+
+
 def col_to_slot(col_name: str) -> str:
     """Map a SQL column name to a LinkML slot name."""
     upper = col_name.upper()
@@ -1073,21 +1130,20 @@ class LinkMLGenerator:
         # Build everything
         self._build_abstract_bases()
         self._build_classes()
+        self._settle_required()
         self._assign_slot_ownership()
-        self._apply_javadoc_descriptions()
+        self._apply_descriptions()
 
     def _register_slot(self, slot: SlotDef, module: str) -> None:
         """Register a slot globally. The first area to register it owns it until
-        _assign_slot_ownership() runs."""
+        _assign_slot_ownership() runs, and _settle_required() decides where it is
+        required."""
         if slot.name not in self.all_slots:
             self.all_slots[slot.name] = slot
             self._slot_owner[slot.name] = module
         else:
-            # The first definition stays. A later table's required column is stated in
-            # slot_usage, and only the identifier flag is merged.
+            # The first definition stays, and only the identifier flag is merged.
             existing = self.all_slots[slot.name]
-            if slot.required and not existing.required:
-                pass  # Don't override, use slot_usage instead
             if slot.identifier and not existing.identifier:
                 existing.identifier = True
 
@@ -1133,57 +1189,132 @@ class LinkMLGenerator:
         "state": "The row's state; which values it takes depends on its table.",
     }
 
-    def _apply_javadoc_descriptions(self) -> None:
+    def _javadoc(self, class_name: str, slot_name: str) -> str:
+        """The Javadoc sentence that describes a class's slot: its interface's getter,
+        or the getter of the interface its base renders."""
+        for name in (class_name, CLASS_INHERITANCE.get(class_name, "")):
+            info = self.javadoc.get(name)
+            if info and info.method_descriptions.get(slot_name):
+                return info.method_descriptions[slot_name]
+        return ""
+
+    def _slots_of(self, cls: ClassDef) -> list[str]:
+        """A class's slots, with those it inherits from its base."""
+        base = self.classes.get(cls.is_a) if cls.is_a else None
+        return (base.slots if base else []) + cls.slots
+
+    def _apply_descriptions(self) -> None:
         """Give each class and slot its description.
 
-        A description already set comes first, then the Javadoc's, then one built from
-        the table or column. SHARED_DESCRIPTIONS replaces the description of each slot
-        it names.
+        A class takes its interface's Javadoc, or a description built from its table.
+        A slot's definition takes the Javadoc when every class that has the slot says
+        the same. Otherwise it keeps a description that fits every table: the one
+        SHARED_DESCRIPTIONS or the slot's registration gives, or one built from its
+        column. Each class whose Javadoc describes the slot then says so in its
+        slot_usage, or its base does, when the Javadoc of every subclass agrees.
         """
-        # Apply Javadoc-extracted class descriptions
-        for class_name, info in self.javadoc.items():
-            if info.class_description and class_name in self.classes:
-                cls = self.classes[class_name]
-                if not cls.description:
-                    cls.description = info.class_description
-
-            # Apply method descriptions to slots (only if slot has no description)
-            for slot_name, desc in info.method_descriptions.items():
-                if slot_name in self.all_slots:
-                    slot = self.all_slots[slot_name]
-                    if not slot.description:
-                        slot.description = desc
-
-        # Apply dynamically generated class descriptions (for classes without Javadoc)
         for class_name, cls in self.classes.items():
-            if not cls.description and cls.sql_table and cls.sql_table in self.tables:
-                table = self.tables[cls.sql_table]
+            info = self.javadoc.get(class_name)
+            if not cls.description and info and info.class_description:
+                cls.description = info.class_description
+            if not cls.description and cls.sql_table in self.tables:
                 cls.description = _generate_class_description(
-                    class_name, cls.module, table
+                    class_name, cls.module, self.tables[cls.sql_table]
                 )
 
-        for slot_name, description in self.SHARED_DESCRIPTIONS.items():
-            if slot_name in self.all_slots:
-                self.all_slots[slot_name].description = description
-
-        # Apply dynamically generated slot descriptions (for slots without Javadoc)
+        # The first column of each slot's name, for a description built from it.
+        columns: dict[str, tuple[SqlColumn, SqlTable]] = {}
         for table_name, table in self.tables.items():
-            if table_name not in TABLE_TO_CLASS:
+            if table_name in TABLE_TO_CLASS:
+                for col in table.columns:
+                    columns.setdefault(col_to_slot(col.name), (col, table))
+
+        for slot_name, slot in self.all_slots.items():
+            holders = [
+                cls
+                for cls in self.classes.values()
+                if not cls.abstract and slot_name in self._slots_of(cls)
+            ]
+            said = {cls.name: self._javadoc(cls.name, slot_name) for cls in holders}
+            sentences = set(said.values())
+            if slot_name in self.SHARED_DESCRIPTIONS:
+                slot.description = self.SHARED_DESCRIPTIONS[slot_name]
+            elif holders and len(sentences) == 1 and "" not in sentences:
+                slot.description = sentences.pop()
                 continue
-            for col in table.columns:
-                slot_name = col_to_slot(col.name)
-                if (
-                    slot_name in self.all_slots
-                    and not self.all_slots[slot_name].description
-                ):
-                    desc = _generate_slot_description(
-                        slot_name,
-                        col.name,
-                        col.sql_type,
-                        table_name,
-                        table.fk_constraints,
-                    )
-                    self.all_slots[slot_name].description = desc
+            if not slot.description and slot_name in columns:
+                col, table = columns[slot_name]
+                slot.description = _generate_slot_description(
+                    slot_name, col.name, col.sql_type, table.name, table.fk_constraints
+                )
+            for base in self.classes.values():
+                if not base.abstract or slot_name not in base.slots:
+                    continue
+                children = [cls for cls in holders if cls.is_a == base.name]
+                told = {said[cls.name] for cls in children}
+                if len(told) == 1 and "" not in told:
+                    sentence = told.pop()
+                    if sentence != slot.description:
+                        usage = base.slot_usage.setdefault(slot_name, {})
+                        usage["description"] = sentence
+                    for cls in children:
+                        said[cls.name] = ""
+            for cls in holders:
+                if said[cls.name] and said[cls.name] != slot.description:
+                    usage = cls.slot_usage.setdefault(slot_name, {})
+                    usage["description"] = said[cls.name]
+
+    def _shared_columns(self, base: str) -> list[str]:
+        """The slots of the columns every table of a base's subclasses has, in the
+        order of the first such table. A base holds only these, so no subclass
+        inherits a slot that its table lacks."""
+        columns = [
+            [
+                col_to_slot(c.name)
+                for c in self.tables[table].columns
+                if c.name not in SKIP_COLUMNS
+            ]
+            for table, (name, _) in TABLE_TO_CLASS.items()
+            if CLASS_INHERITANCE.get(name) == base and table in self.tables
+        ]
+        if not columns:
+            return []
+        shared = set(columns[0]).intersection(*columns[1:])
+        return [s for s in columns[0] if s in shared]
+
+    def _settle_required(self) -> None:
+        """Make a slot required only where its column is not null.
+
+        A slot's definition is required when its column is not null in every table
+        that has it. Otherwise each class whose table makes the column not null
+        says so in its slot_usage.
+        """
+        not_null: dict[str, list[bool]] = {}
+        for cls in self.classes.values():
+            if cls.sql_table:
+                for col in self.tables[cls.sql_table].columns:
+                    if col.name not in SKIP_COLUMNS:
+                        name = col_to_slot(col.name)
+                        not_null.setdefault(name, []).append(not col.nullable)
+        for name, slot in self.all_slots.items():
+            if not slot.identifier:
+                slot.required = bool(not_null.get(name)) and all(not_null[name])
+        for cls in self.classes.values():
+            if not cls.sql_table:
+                continue
+            for col in self.tables[cls.sql_table].columns:
+                name = col_to_slot(col.name)
+                if col.name in SKIP_COLUMNS or self.all_slots[name].identifier:
+                    continue
+                usage = cls.slot_usage.get(name, {})
+                if usage.get("identifier"):
+                    continue
+                if not col.nullable and not self.all_slots[name].required:
+                    cls.slot_usage.setdefault(name, {})["required"] = True
+                elif "required" in usage:
+                    del usage["required"]
+                    if not usage:
+                        del cls.slot_usage[name]
 
     def _build_abstract_bases(self) -> None:
         """Create abstract base classes and mixins not directly in SQL."""
@@ -1194,20 +1325,12 @@ class LinkMLGenerator:
         rd = ClassDef(
             name="ResourceDefinition",
             module="repository",
-            description="Abstract base for deployable resource definitions (process, case, decision, form).",
+            description=(
+                "Abstract base of the process, case, decision, decision requirements and "
+                "form definitions, with the columns all five tables have."
+            ),
             abstract=True,
-            slots=[
-                "id",
-                "key",
-                "name",
-                "version",
-                "category",
-                "deployment_id",
-                "resource_name",
-                "diagram_resource_name",
-                "tenant_id",
-                "history_time_to_live",
-            ],
+            slots=self._shared_columns("ResourceDefinition"),
             in_subset=["repository"],
         )
         self.classes["ResourceDefinition"] = rd
@@ -1216,19 +1339,12 @@ class LinkMLGenerator:
         historic_scope = ClassDef(
             name="HistoricScopeInstance",
             module="history",
-            description="Abstract base for historic entities with start/end time and duration.",
+            description=(
+                "Abstract base of the historic process, activity, task, case and case "
+                "activity instances, with the columns all five tables have."
+            ),
             abstract=True,
-            slots=[
-                "id",
-                "root_process_instance_id",
-                "process_instance_id",
-                "process_definition_id",
-                "process_definition_key",
-                "start_time",
-                "end_time",
-                "duration",
-                "removal_time",
-            ],
+            slots=self._shared_columns("HistoricScopeInstance"),
             in_subset=["history"],
         )
         self.classes["HistoricScopeInstance"] = historic_scope
@@ -1243,7 +1359,7 @@ class LinkMLGenerator:
                 description="Unique identifier.",
                 slot_uri="schema:identifier",
             ),
-            SlotDef("key", "string", description="Business key for the definition."),
+            SlotDef("key", "string", description="The row's key."),
             SlotDef(
                 "name",
                 "string",
@@ -1455,15 +1571,45 @@ class LinkMLGenerator:
             if has_id_pk and "id" not in cls.slots and "id" not in inherited_slots:
                 cls.slots.insert(0, "id")
 
-            # For composite PKs, add unique_keys and mark PK slots as required
+            # A composite primary key is a unique key, and its columns are required.
             if len(table.pk_columns) > 1:
                 pk_slot_names = [col_to_slot(c) for c in table.pk_columns]
                 key_name = f"{class_name.lower()}_pk"
                 cls.unique_keys[key_name] = {
+                    "description": "The table's primary key.",
                     "unique_key_slots": pk_slot_names,
                 }
                 for slot_name in pk_slot_names:
                     cls.slot_usage.setdefault(slot_name, {})["required"] = True
+
+            # Each unique constraint of the DDL is a unique key. Where a column of the
+            # key may be null, two nulls are never equal, as in SQL.
+            nullable = {c.name: c.nullable for c in table.columns}
+            for constraint, columns in table.unique_constraints:
+                slot_names = [col_to_slot(c) for c in columns]
+                key: dict = {
+                    "description": (
+                        f"The DDL's constraint {constraint}."
+                        if constraint
+                        else "A unique constraint of the table's DDL."
+                    ),
+                    "unique_key_slots": slot_names,
+                }
+                if any(nullable[c] for c in columns):
+                    key["consider_nulls_inequal"] = True
+                key_name = constraint.lower() or "_".join(
+                    [class_name.lower(), *slot_names]
+                )
+                cls.unique_keys[key_name] = key
+
+            # A column's DEFAULT is its slot's ifabsent value in this class.
+            for col in table.columns:
+                if col.default is None or col.name in SKIP_COLUMNS:
+                    continue
+                slot_name = col_to_slot(col.name)
+                usage = cls.slot_usage.setdefault(slot_name, {})
+                range_ = usage.get("range") or self.all_slots[slot_name].range
+                usage["ifabsent"] = _ifabsent(range_, col.default)
 
             self.classes[class_name] = cls
 
@@ -1645,47 +1791,53 @@ class LinkMLGenerator:
         return {"slots": dict(slots_dict), "classes": dict(classes_dict)}
 
     def root_elements(self) -> dict:
-        """The root class, FluxnovaPlatformData, and the container slots it holds."""
-        # The container slots are top-level slots, not ``attributes``, and the root
-        # class refines them in ``slot_usage``. Each is multivalued and inlined as a
-        # list, so a root document holds the rows of each kind it names as a list.
-        container_slot_specs: list[tuple[str, str, str]] = [
-            ("deployments", "Deployment", "Deployed resources."),
-            ("process_definitions", "ProcessDefinition", "Process definitions."),
-            ("executions", "Execution", "Process execution instances."),
-            ("tasks", "Task", "User tasks."),
-            ("jobs", "Job", "Asynchronous jobs."),
-            ("users", "User", "Identity users."),
-            ("groups", "Group", "Identity groups."),
-            ("batches", "Batch", "Batch operations."),
-        ]
+        """The root class, FluxnovaPlatformData, and the container slots it holds.
 
-        root_slots: OrderedDict[str, dict] = OrderedDict()
-        for slot_name, range_class, description in container_slot_specs:
-            root_slots[slot_name] = {
-                "range": range_class,
+        The root holds a list of rows for each table, in a slot named after the
+        table's class in the plural, such as historic_process_instances, or as
+        ROOT_SLOT_OVERRIDES names it. The
+        container slots are top-level slots, not ``attributes``, and the root class
+        refines them in ``slot_usage``.
+        """
+        names = class_names(self.classes)
+        specs = sorted(
+            (
+                ROOT_SLOT_OVERRIDES.get(cls.name)
+                or _plural(_snake(names[cls.name].removeprefix("Fluxnova"))),
+                cls.name,
+                cls.sql_table,
+            )
+            for cls in self.classes.values()
+            if cls.sql_table
+        )
+        root_slots = {
+            slot_name: {
+                "range": class_name,
                 "multivalued": True,
                 "inlined_as_list": True,
-                "description": description,
+                "description": f"The rows of {table}.",
             }
-
-        # FluxnovaPlatformData names the top-level slots and refines them in ``slot_usage``.
-        slot_usage: OrderedDict[str, dict] = OrderedDict()
-        for slot_name, range_class, _ in container_slot_specs:
-            slot_usage[slot_name] = {
-                "range": range_class,
+            for slot_name, class_name, table in specs
+        }
+        slot_usage = {
+            slot_name: {
+                "range": class_name,
                 "multivalued": True,
                 "inlined_as_list": True,
             }
-
+            for slot_name, class_name, _ in specs
+        }
         return {
-            "slots": dict(root_slots),
+            "slots": root_slots,
             "classes": {
                 "FluxnovaPlatformData": {
                     "tree_root": True,
-                    "description": "Root container for Fluxnova BPM Platform data.",
-                    "slots": [name for name, _, _ in container_slot_specs],
-                    "slot_usage": dict(slot_usage),
+                    "description": (
+                        "Root container for Fluxnova BPM Platform data: a list of rows "
+                        "for each of the engine's tables."
+                    ),
+                    "slots": [slot_name for slot_name, _, _ in specs],
+                    "slot_usage": slot_usage,
                 },
             },
         }

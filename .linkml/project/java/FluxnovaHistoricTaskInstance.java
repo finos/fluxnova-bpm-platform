@@ -17,6 +17,10 @@ import lombok.*;
 public class FluxnovaHistoricTaskInstance extends FluxnovaHistoricScopeInstance {
 
   private String taskDefinitionKey;
+  private String processDefinitionKey;
+  private String processDefinitionId;
+  private String rootProcessInstanceId;
+  private String processInstanceId;
   private String executionId;
   private String caseDefinitionKey;
   private String caseDefinitionId;
@@ -28,11 +32,13 @@ public class FluxnovaHistoricTaskInstance extends FluxnovaHistoricScopeInstance 
   private String description;
   private String owner;
   private String assignee;
+  private ZonedDateTime startTime;
+  private ZonedDateTime endTime;
   private String deleteReason;
-  private int priority;
+  private Integer priority;
   private ZonedDateTime dueDate;
   private ZonedDateTime followUpDate;
-  private String tenantId;
+  private ZonedDateTime removalTime;
   private String taskState;
 
 

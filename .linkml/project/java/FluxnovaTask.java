@@ -30,7 +30,7 @@ public class FluxnovaTask  {
   private String owner;
   private String assignee;
   private String delegationState;
-  private int priority;
+  private Integer priority;
   private ZonedDateTime createTime;
   private ZonedDateTime lastUpdated;
   private ZonedDateTime dueDate;

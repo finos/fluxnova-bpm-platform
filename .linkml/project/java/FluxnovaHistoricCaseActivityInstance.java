@@ -26,9 +26,9 @@ public class FluxnovaHistoricCaseActivityInstance extends FluxnovaHistoricScopeI
   private String caseActivityName;
   private String caseActivityType;
   private ZonedDateTime createTime;
+  private ZonedDateTime endTime;
   private Integer state;
   private Boolean isRequired;
-  private String tenantId;
 
 
 }

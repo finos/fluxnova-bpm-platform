@@ -16,6 +16,9 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaDecisionRequirementsDefinition extends FluxnovaResourceDefinition {
 
+  private String category;
+  private String name;
+  private String diagramResourceName;
 
 
 }

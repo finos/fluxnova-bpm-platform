@@ -16,15 +16,21 @@ import lombok.*;
 @EqualsAndHashCode(callSuper=false)
 public class FluxnovaHistoricProcessInstance extends FluxnovaHistoricScopeInstance {
 
+  private String processInstanceId;
   private String businessKey;
+  private String processDefinitionKey;
+  private String processDefinitionId;
+  private ZonedDateTime startTime;
+  private ZonedDateTime endTime;
+  private ZonedDateTime removalTime;
   private String startUserId;
   private String startActivityId;
   private String endActivityId;
   private String superProcessInstanceId;
+  private String rootProcessInstanceId;
   private String superCaseInstanceId;
   private String caseInstanceId;
   private String deleteReason;
-  private String tenantId;
   private String state;
   private String restartedProcessInstanceId;
 

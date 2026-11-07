@@ -2367,12 +2367,12 @@ type FluxnovaByteArray
 type FluxnovaCaseDefinition
   {
     id: String!
-    name: String
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
+    category: String
+    name: String
+    diagramResourceName: String
     historyTimeToLive: Int
     key: String!
     version: Int!
@@ -2463,15 +2463,15 @@ type FluxnovaConstraint
 type FluxnovaDecisionDefinition
   {
     id: String!
-    name: String
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
-    historyTimeToLive: Int
+    category: String
+    name: String
+    diagramResourceName: String
     decisionRequirementsDefinitionId: FluxnovaDecisionRequirementsDefinition
     decisionRequirementsDefinitionKey: String
+    historyTimeToLive: Int
     versionTag: String
     key: String!
     version: Int!
@@ -2480,13 +2480,12 @@ type FluxnovaDecisionDefinition
 type FluxnovaDecisionRequirementsDefinition
   {
     id: String!
-    name: String
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
-    historyTimeToLive: Int
+    category: String
+    name: String
+    diagramResourceName: String
     key: String!
     version: Int!
   }
@@ -2630,13 +2629,9 @@ type FluxnovaFormData
 type FluxnovaFormDefinition
   {
     id: String!
-    name: String
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
-    historyTimeToLive: Int
     key: String!
     version: Int!
   }
@@ -2679,13 +2674,12 @@ type FluxnovaGroup
 
 type FluxnovaHistoricActivityInstance
   {
-    id: String!
-    rootProcessInstanceId: String
-    processDefinitionKey: String
-    endTime: String
     duration: Int
-    removalTime: String
     parentActivityInstanceId: String
+    processDefinitionKey: String
+    processDefinitionId: String!
+    rootProcessInstanceId: String
+    processInstanceId: String!
     executionId: String!
     activityId: String!
     taskId: String
@@ -2694,12 +2688,13 @@ type FluxnovaHistoricActivityInstance
     activityName: String
     activityType: String!
     assignee: String
+    startTime: String!
+    endTime: String
     activityInstanceState: Int
     sequenceCounter: Int
+    removalTime: String
+    id: String!
     tenantId: String
-    processDefinitionId: String!
-    processInstanceId: String!
-    startTime: String!
   }
 
 type FluxnovaHistoricBatch
@@ -2722,15 +2717,7 @@ type FluxnovaHistoricBatch
 
 type FluxnovaHistoricCaseActivityInstance
   {
-    id: String!
-    rootProcessInstanceId: String
-    processInstanceId: String
-    processDefinitionId: String
-    processDefinitionKey: String
-    startTime: String
-    endTime: String
     duration: Int
-    removalTime: String
     parentActivityInstanceId: String
     caseDefinitionId: String!
     caseInstanceId: String!
@@ -2741,22 +2728,16 @@ type FluxnovaHistoricCaseActivityInstance
     caseActivityName: String
     caseActivityType: String
     createTime: String!
+    endTime: String
     state: Int
     isRequired: Boolean
+    id: String!
     tenantId: String
   }
 
 type FluxnovaHistoricCaseInstance
   {
-    id: String!
-    rootProcessInstanceId: String
-    processInstanceId: String
-    processDefinitionId: String
-    processDefinitionKey: String
-    startTime: String
-    endTime: String
     duration: Int
-    removalTime: String
     caseInstanceId: String!
     businessKey: String
     caseDefinitionId: String!
@@ -2766,6 +2747,7 @@ type FluxnovaHistoricCaseInstance
     createUserId: String
     superCaseInstanceId: String
     superProcessInstanceId: String
+    id: String!
     tenantId: String
   }
 
@@ -2960,52 +2942,43 @@ type FluxnovaHistoricJobLog
 
 type FluxnovaHistoricProcessInstance
   {
-    id: String!
-    rootProcessInstanceId: String
-    processDefinitionKey: String
-    endTime: String
     duration: Int
-    removalTime: String
+    processInstanceId: String!
     businessKey: String
+    processDefinitionKey: String
+    processDefinitionId: String!
+    startTime: String!
+    endTime: String
+    removalTime: String
     startUserId: String
     startActivityId: String
     endActivityId: String
     superProcessInstanceId: String
+    rootProcessInstanceId: String
     superCaseInstanceId: String
     caseInstanceId: String
     deleteReason: String
-    tenantId: String
     state: HistoricProcessInstanceState
     restartedProcessInstanceId: String
-    processInstanceId: String!
-    processDefinitionId: String!
-    startTime: String!
+    id: String!
+    tenantId: String
   }
 
 interface FluxnovaHistoricScopeInstance
   {
     id: String!
-    rootProcessInstanceId: String
-    processInstanceId: String
-    processDefinitionId: String
-    processDefinitionKey: String
-    startTime: String
-    endTime: String
     duration: Int
-    removalTime: String
+    tenantId: String
   }
 
 type FluxnovaHistoricTaskInstance
   {
-    id: String!
+    duration: Int
+    taskDefinitionKey: String
+    processDefinitionKey: String
+    processDefinitionId: String
     rootProcessInstanceId: String
     processInstanceId: String
-    processDefinitionId: String
-    processDefinitionKey: String
-    endTime: String
-    duration: Int
-    removalTime: String
-    taskDefinitionKey: String
     executionId: String
     caseDefinitionKey: String
     caseDefinitionId: String
@@ -3017,13 +2990,16 @@ type FluxnovaHistoricTaskInstance
     description: String
     owner: String
     assignee: String
+    startTime: String!
+    endTime: String
     deleteReason: String
-    priority: Int!
+    priority: Int
     dueDate: String
     followUpDate: String
-    tenantId: String
+    removalTime: String
     taskState: String
-    startTime: String!
+    id: String!
+    tenantId: String
   }
 
 type FluxnovaHistoricVariableInstance
@@ -3164,7 +3140,7 @@ type FluxnovaJobDefinition
     jobType: String!
     jobConfiguration: String
     suspensionState: Int
-    jobPriority: Int!
+    jobPriority: Int
     tenantId: String
     deploymentId: String
   }
@@ -3218,14 +3194,56 @@ type FluxnovaOutputParameter
 
 type FluxnovaPlatformData
   {
-    deployments: [FluxnovaDeployment]
-    processDefinitions: [FluxnovaProcessDefinition]
-    executions: [FluxnovaExecution]
-    tasks: [FluxnovaTask]
-    jobs: [FluxnovaJob]
-    users: [FluxnovaUser]
-    groups: [FluxnovaGroup]
+    attachments: [FluxnovaAttachment]
+    authorizationEntries: [FluxnovaAuthorization]
     batches: [FluxnovaBatch]
+    byteArrays: [FluxnovaByteArray]
+    caseDefinitions: [FluxnovaCaseDefinition]
+    caseExecutions: [FluxnovaCaseExecution]
+    caseSentryParts: [FluxnovaCaseSentryPart]
+    commentEntries: [FluxnovaComment]
+    configurationEntries: [FluxnovaConfiguration]
+    decisionDefinitions: [FluxnovaDecisionDefinition]
+    decisionRequirementsDefinitions: [FluxnovaDecisionRequirementsDefinition]
+    deployments: [FluxnovaDeployment]
+    engineProperties: [FluxnovaEngineProperty]
+    eventSubscriptions: [FluxnovaEventSubscription]
+    executions: [FluxnovaExecution]
+    externalTasks: [FluxnovaExternalTask]
+    filterEntries: [FluxnovaFilter]
+    formDefinitions: [FluxnovaFormDefinition]
+    groups: [FluxnovaGroup]
+    historicActivityInstances: [FluxnovaHistoricActivityInstance]
+    historicBatches: [FluxnovaHistoricBatch]
+    historicCaseActivityInstances: [FluxnovaHistoricCaseActivityInstance]
+    historicCaseInstances: [FluxnovaHistoricCaseInstance]
+    historicDecisionInputInstances: [FluxnovaHistoricDecisionInputInstance]
+    historicDecisionInstances: [FluxnovaHistoricDecisionInstance]
+    historicDecisionOutputInstances: [FluxnovaHistoricDecisionOutputInstance]
+    historicDetails: [FluxnovaHistoricDetail]
+    historicExternalTaskLogs: [FluxnovaHistoricExternalTaskLog]
+    historicIdentityLinks: [FluxnovaHistoricIdentityLink]
+    historicIncidents: [FluxnovaHistoricIncident]
+    historicJobLogs: [FluxnovaHistoricJobLog]
+    historicProcessInstances: [FluxnovaHistoricProcessInstance]
+    historicTaskInstances: [FluxnovaHistoricTaskInstance]
+    historicVariableInstances: [FluxnovaHistoricVariableInstance]
+    identityInfos: [FluxnovaIdentityInfo]
+    identityLinks: [FluxnovaIdentityLink]
+    incidents: [FluxnovaIncident]
+    jobDefinitions: [FluxnovaJobDefinition]
+    jobs: [FluxnovaJob]
+    memberships: [FluxnovaMembership]
+    meterLogs: [FluxnovaMeterLog]
+    processDefinitions: [FluxnovaProcessDefinition]
+    schemaLogEntries: [FluxnovaSchemaLogEntry]
+    taskMeterLogs: [FluxnovaTaskMeterLog]
+    tasks: [FluxnovaTask]
+    tenantMemberships: [FluxnovaTenantMembership]
+    tenants: [FluxnovaTenant]
+    userOperationLogEntries: [FluxnovaUserOperationLogEntry]
+    users: [FluxnovaUser]
+    variableInstances: [FluxnovaVariableInstance]
   }
 
 type FluxnovaPotentialStarter
@@ -3237,16 +3255,16 @@ type FluxnovaPotentialStarter
 type FluxnovaProcessDefinition
   {
     id: String!
-    name: String
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
-    historyTimeToLive: Int
+    category: String
+    name: String
+    diagramResourceName: String
     hasStartFormKey: Boolean
     suspensionState: Int
     versionTag: String
+    historyTimeToLive: Int
     isStartable: Boolean!
     key: String!
     version: Int!
@@ -3270,14 +3288,10 @@ interface FluxnovaResourceDefinition
   {
     id: String!
     key: String
-    name: String
     version: Int
-    category: String
     deploymentId: String
     resourceName: String
-    diagramResourceName: String
     tenantId: String
-    historyTimeToLive: Int
   }
 
 type FluxnovaSchemaLogEntry
@@ -3317,7 +3331,7 @@ type FluxnovaTask
     owner: String
     assignee: String
     delegationState: DelegationState
-    priority: Int!
+    priority: Int
     createTime: String
     lastUpdated: String
     dueDate: String
@@ -3386,7 +3400,7 @@ type FluxnovaUserOperationLogEntry
     caseInstanceId: String
     caseExecutionId: String
     taskId: String
-    jobId: String!
+    jobId: String
     jobDefinitionId: String
     batchId: String
     userId: String
@@ -3400,7 +3414,7 @@ type FluxnovaUserOperationLogEntry
     tenantId: String
     removalTime: String
     category: String
-    externalTaskId: String!
+    externalTaskId: String
     annotation: String
   }
 

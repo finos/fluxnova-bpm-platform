@@ -10,21 +10,15 @@ import java.util.List;
 import lombok.*;
 
 /**
-  Abstract base for historic entities with start/end time and duration.
+  Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five tables have.
 **/
 @Data
 @EqualsAndHashCode(callSuper=false)
 public abstract class FluxnovaHistoricScopeInstance  {
 
   private String id;
-  private String rootProcessInstanceId;
-  private String processInstanceId;
-  private String processDefinitionId;
-  private String processDefinitionKey;
-  private ZonedDateTime startTime;
-  private ZonedDateTime endTime;
   private Integer duration;
-  private ZonedDateTime removalTime;
+  private String tenantId;
 
 
 }

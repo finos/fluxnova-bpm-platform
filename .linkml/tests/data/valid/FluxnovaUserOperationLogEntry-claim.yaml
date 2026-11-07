@@ -1,0 +1,11 @@
+# A task claim: ACT_HI_OP_LOG's JOB_ID_ and EXT_TASK_ID_ may be null.
+id: uol-002
+task_id: task-001
+user_id: user-001
+timestamp: "2025-03-01T09:25:00+00:00"
+operation_type: Claim
+operation_id: op-002
+entity_type: Task
+property: assignee
+new_value: jane
+category: TaskWorker

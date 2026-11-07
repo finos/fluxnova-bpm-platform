@@ -229,21 +229,21 @@ export enum BpmnTransactionMethod {
  * Any type of content that is be associated with a task or with a process instance.
  */
 export interface FluxnovaAttachment {
-    /** Unique identifier. */
+    /** Unique id for this attachment. */
     id: string,
     /** Reference to a user. */
     user_id?: string,
-    /** Human-readable name. */
+    /** Free user defined short (max 255 chars) name for this attachment. */
     name?: string,
-    /** Human-readable description. */
+    /** Long (max 255 chars) explanation what this attachment is about in context of the task and/or process instance it's linked to. */
     description?: string,
-    /** Type discriminator. */
+    /** Indication of the type of content that this attachment refers to. */
     type?: string,
-    /** Reference to the task. */
+    /** Reference to the task to which this attachment is associated. */
     task_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Reference to the root process instance id of the process instance on which this attachment was made. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Reference to the process instance to which this attachment is associated. */
     process_instance_id?: string,
     /** The remote URL in case this is remote content. */
     url?: string,
@@ -251,9 +251,9 @@ export interface FluxnovaAttachment {
     content_id?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Creation timestamp. */
+    /** The time when the attachment was created. */
     create_time?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic attachment will be removed. */
     removal_time?: string,
     /** The user who created this attachment. */
     created_by?: string,
@@ -278,9 +278,9 @@ export interface FluxnovaAuthorization {
     resource_id?: string,
     /** Bitmask of granted permissions. */
     permissions?: number,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The removal time indicates the date a historic instance authorization is cleaned up A removal time can only be assigned to a historic instance authorization. */
     removal_time?: string,
-    /** Root process instance for history cleanup. */
+    /** The process instance id of the top-level (root) process instance the historic instance authorization is related to A root process instance id is only assigned to a historic instance authorization. */
     root_process_instance_id?: string,
 }
 
@@ -301,19 +301,19 @@ export interface FluxnovaBatch {
     jobs_per_seed?: number,
     /** The invocations per job. */
     invocations_per_job?: number,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     seed_job_definition_id?: FluxnovaJobDefinitionId,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     batch_job_definition_id?: FluxnovaJobDefinitionId,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     monitor_job_definition_id?: FluxnovaJobDefinitionId,
     /** Whether the entity is active or suspended. */
     suspension_state?: number,
-    /** Payload of this incident. */
+    /** Configuration value. */
     configuration?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** The authenticated user that created this case instance. */
+    /** Reference to the create user. */
     create_user_id?: string,
     /** Start timestamp. */
     start_time?: string,
@@ -353,6 +353,14 @@ export interface FluxnovaByteArray {
  * A deployed case definition in the process repository.
  */
 export interface FluxnovaCaseDefinition extends FluxnovaResourceDefinition {
+    /** Category name which is derived from the targetNamespace attribute in the definitions element. */
+    category?: string,
+    /** Label used for display purposes. */
+    name?: string,
+    /** The diagram resource name for this definition if exist. */
+    diagram_resource_name?: string,
+    /** History time to live. */
+    history_time_to_live?: number,
 }
 
 
@@ -370,7 +378,7 @@ export interface FluxnovaCaseExecution {
     super_execution_id?: string,
     /** Domain-specific business key. */
     business_key?: string,
-    /** Reference to a CaseExecution. */
+    /** Reference to a case execution. */
     parent_id?: FluxnovaCaseExecutionId,
     /** Reference to the case definition. */
     case_definition_id?: FluxnovaCaseDefinitionId,
@@ -382,7 +390,7 @@ export interface FluxnovaCaseExecution {
     current_state?: number,
     /** Whether this entity is required. */
     is_required?: boolean,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this case execution belongs to. */
     tenant_id?: string,
 }
 
@@ -409,7 +417,7 @@ export interface FluxnovaCaseSentryPart {
     source?: string,
     /** The variable event. */
     variable_event?: string,
-    /** The name of the output variable. */
+    /** The variable name. */
     variable_name?: string,
     /** Whether this entity is satisfied. */
     is_satisfied?: boolean,
@@ -422,19 +430,19 @@ export interface FluxnovaCaseSentryPart {
  * User comments that form discussions around tasks.
  */
 export interface FluxnovaComment {
-    /** Unique identifier. */
+    /** Comment id. */
     id: string,
     /** Type discriminator. */
     type?: string,
     /** Timestamp for event time. */
     event_time: string,
-    /** Reference to a user. */
+    /** Reference to the user that made the comment. */
     user_id?: string,
-    /** Reference to the task. */
+    /** Reference to the task on which this comment was made. */
     task_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Reference to the root process instance id of the process instance on which this comment was made. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Reference to the process instance on which this comment was made. */
     process_instance_id?: string,
     /** The action. */
     action?: string,
@@ -444,7 +452,7 @@ export interface FluxnovaComment {
     full_message?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic comment will be removed. */
     removal_time?: string,
 }
 
@@ -465,7 +473,7 @@ export interface FluxnovaConfiguration {
     version: number,
     /** The status. */
     status: string,
-    /** The user who created this attachment. */
+    /** The created by. */
     created_by?: string,
     /** Timestamp when this was created. */
     created_at?: string,
@@ -480,11 +488,19 @@ export interface FluxnovaConfiguration {
  * Definition of a decision resource.
  */
 export interface FluxnovaDecisionDefinition extends FluxnovaResourceDefinition {
+    /** Category name which is derived from the targetNamespace attribute in the definitions element. */
+    category?: string,
+    /** Label used for display purposes. */
+    name?: string,
+    /** The diagram resource name for this definition if exist. */
+    diagram_resource_name?: string,
     /** Id of the related decision requirements definition. */
     decision_requirements_definition_id?: FluxnovaDecisionRequirementsDefinitionId,
     /** Key of the related decision requirements definition. */
     decision_requirements_definition_key?: string,
-    /** Version tag of the process definition. */
+    /** History time to live. */
+    history_time_to_live?: number,
+    /** Version tag of the decision definition. */
     version_tag?: string,
 }
 
@@ -493,6 +509,12 @@ export interface FluxnovaDecisionDefinition extends FluxnovaResourceDefinition {
  * Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).
  */
 export interface FluxnovaDecisionRequirementsDefinition extends FluxnovaResourceDefinition {
+    /** Category name which is derived from the targetNamespace attribute in the definitions element. */
+    category?: string,
+    /** Label used for display purposes. */
+    name?: string,
+    /** The diagram resource name for this definition if exist. */
+    diagram_resource_name?: string,
 }
 
 
@@ -508,7 +530,7 @@ export interface FluxnovaDeployment {
     deploy_time?: string,
     /** The source. */
     source?: string,
-    /** Multi-tenancy discriminator. */
+    /** Id of the tenant this deployment belongs to. */
     tenant_id?: string,
 }
 
@@ -517,23 +539,23 @@ export interface FluxnovaDeployment {
  * A message event subscription exists, if an Execution waits for an event like a message.
  */
 export interface FluxnovaEventSubscription {
-    /** Unique identifier. */
+    /** The unique identifier of the event subscription. */
     id: string,
     /** The event subscriptions type. "message" identifies message event subscriptions, "signal" identifies signal event subscription, "compensation" identifies event subscriptions used for compensation events. */
     event_type: string,
     /** The name of the event this subscription belongs to as defined in the process model. */
     event_name?: string,
-    /** Reference to the execution. */
+    /** The execution that is subscribed on the referenced event. */
     execution_id?: FluxnovaExecutionId,
-    /** Reference to the process instance. */
+    /** The process instance this subscription belongs to. */
     process_instance_id?: string,
-    /** BPMN activity element identifier. */
+    /** The identifier of the activity that this event subscription belongs to. */
     activity_id?: string,
-    /** Payload of this incident. */
+    /** Configuration value. */
     configuration?: string,
     /** The time this event subscription was created. */
     created: string,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this event subscription belongs to. */
     tenant_id?: string,
 }
 
@@ -542,15 +564,15 @@ export interface FluxnovaEventSubscription {
  * Represent a 'path of execution' in a process instance.
  */
 export interface FluxnovaExecution {
-    /** Unique identifier. */
+    /** The unique identifier of the execution. */
     id: string,
     /** Root process instance for history cleanup. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Id of the root of the execution tree representing the process instance. */
     process_instance_id?: FluxnovaExecutionId,
     /** Domain-specific business key. */
     business_key?: string,
-    /** Reference to a CaseExecution. */
+    /** Reference to a case execution. */
     parent_id?: FluxnovaExecutionId,
     /** Reference to the process definition. */
     process_definition_id?: FluxnovaProcessDefinitionId,
@@ -578,9 +600,9 @@ export interface FluxnovaExecution {
     cached_entity_state?: number,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this execution belongs to. */
     tenant_id?: string,
-    /** Key of the process definition. */
+    /** The Key of the process definition. */
     process_definition_key?: string,
 }
 
@@ -591,15 +613,15 @@ export interface FluxnovaExecution {
 export interface FluxnovaExternalTask {
     /** Unique identifier. */
     id: string,
-    /** Id of the worker that fetched the external task most recently. */
+    /** Reference to the worker. */
     worker_id?: string,
-    /** Topic name of the associated external task. */
+    /** Topic name for external task subscription. */
     topic_name?: string,
-    /** Number of retries this job has left. */
+    /** Number of remaining retry attempts. */
     retries?: number,
-    /** If the variable value could not be loaded, this returns the error message. */
+    /** Error message from the last failure. */
     error_message?: string,
-    /** Reference to a ByteArray. */
+    /** Reference to a byte array. */
     error_details_id?: FluxnovaByteArrayId,
     /** Time at which the lock expires. */
     lock_expiration_time?: string,
@@ -621,7 +643,7 @@ export interface FluxnovaExternalTask {
     activity_instance_id?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    /** Priority of the external task. */
     priority: number,
     /** Reference to the last failure log. */
     last_failure_log_id?: string,
@@ -638,7 +660,7 @@ export interface FluxnovaFilter {
     resource_type: string,
     /** Human-readable name. */
     name: string,
-    /** The userId of the person that is responsible for this task. */
+    /** User ID of the owner. */
     owner?: string,
     /** Serialized query expression. */
     query: string,
@@ -673,11 +695,19 @@ export interface FluxnovaGroup {
 export interface FluxnovaHistoricActivityInstance extends FluxnovaHistoricScopeInstance {
     /** Id of the parent activity instance. */
     parent_activity_instance_id?: string,
-    /** Reference to the execution. */
+    /** Process definition key reference. */
+    process_definition_key?: string,
+    /** Process definition reference. */
+    process_definition_id: string,
+    /** Root process instance reference. */
+    root_process_instance_id?: string,
+    /** Process instance reference. */
+    process_instance_id: string,
+    /** Execution reference. */
     execution_id: string,
-    /** BPMN activity element identifier. */
+    /** The unique identifier of the activity in the process. */
     activity_id: string,
-    /** Reference to the task. */
+    /** The corresponding task in case of task activity. */
     task_id?: string,
     /** The called process instance in case of call activity. */
     called_process_instance_id?: string,
@@ -687,14 +717,18 @@ export interface FluxnovaHistoricActivityInstance extends FluxnovaHistoricScopeI
     activity_name?: string,
     /** The activity type of the activity. */
     activity_type: string,
-    /** The userId of the person to which this task is String) assigned or String) delegated. */
+    /** Assignee in case of user task activity. */
     assignee?: string,
+    /** Time when the activity instance started. */
+    start_time: string,
+    /** Time when the activity instance ended. */
+    end_time?: string,
     /** The activity instance state. */
     activity_instance_state?: number,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
+    /** The time the historic activity instance will be removed. */
+    removal_time?: string,
 }
 
 
@@ -712,21 +746,21 @@ export interface FluxnovaHistoricBatch {
     jobs_per_seed?: number,
     /** The invocations per job. */
     invocations_per_job?: number,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     seed_job_definition_id?: string,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     monitor_job_definition_id?: string,
-    /** Reference to a JobDefinition. */
+    /** Reference to a job definition. */
     batch_job_definition_id?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** The authenticated user that created this case instance. */
+    /** Reference to the create user. */
     create_user_id?: string,
     /** Start timestamp. */
     start_time: string,
     /** End timestamp. */
     end_time?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic batch will be removed. */
     removal_time?: string,
     /** Timestamp when this started. */
     execution_start_time?: string,
@@ -737,32 +771,32 @@ export interface FluxnovaHistoricBatch {
  * Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.
  */
 export interface FluxnovaHistoricCaseActivityInstance extends FluxnovaHistoricScopeInstance {
-    /** Id of the parent activity instance. */
+    /** Reference to the parent activity instance. */
     parent_activity_instance_id?: string,
-    /** Reference to the case definition. */
+    /** The case definition reference. */
     case_definition_id: string,
-    /** Reference to the case instance. */
+    /** The case instance reference. */
     case_instance_id: string,
     /** The unique identifier of the case activity in the case. */
     case_activity_id: string,
-    /** Reference to the task. */
+    /** The corresponding task in case of a human task activity. */
     task_id?: string,
-    /** The called process instance in case of call activity. */
+    /** The corresponding process in case of a process task activity. */
     called_process_instance_id?: string,
-    /** The called case instance in case of (case) call activity. */
+    /** The corresponding case in case of a case task activity. */
     called_case_instance_id?: string,
     /** The display name for the case activity. */
     case_activity_name?: string,
     /** The display type for the case activity. */
     case_activity_type?: string,
-    /** Creation timestamp. */
+    /** The time when the case activity was created. */
     create_time: string,
+    /** The time when the case activity ended. */
+    end_time?: string,
     /** The row's state; which values it takes depends on its table. */
     state?: number,
     /** Whether this entity is required. */
     is_required?: boolean,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
 }
 
 
@@ -772,11 +806,11 @@ export interface FluxnovaHistoricCaseActivityInstance extends FluxnovaHistoricSc
 export interface FluxnovaHistoricCaseInstance extends FluxnovaHistoricScopeInstance {
     /** Reference to the case instance. */
     case_instance_id: string,
-    /** Domain-specific business key. */
+    /** The user provided unique reference to this process instance. */
     business_key?: string,
-    /** Reference to the case definition. */
+    /** The case definition reference. */
     case_definition_id: string,
-    /** Creation timestamp. */
+    /** The time the case was created. */
     create_time: string,
     /** The time the case was closed. */
     close_time?: string,
@@ -788,8 +822,6 @@ export interface FluxnovaHistoricCaseInstance extends FluxnovaHistoricScopeInsta
     super_case_instance_id?: string,
     /** The process instance id of a potential super process instance or null if no super process instance exists. */
     super_process_instance_id?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
 }
 
 
@@ -797,7 +829,7 @@ export interface FluxnovaHistoricCaseInstance extends FluxnovaHistoricScopeInsta
  * Represents one input variable of a decision evaluation.
  */
 export interface FluxnovaHistoricDecisionInputInstance {
-    /** Unique identifier. */
+    /** The unique identifier of this historic decision input instance. */
     id: string,
     /** The unique identifier of the historic decision instance. */
     decision_instance_id: string,
@@ -819,11 +851,11 @@ export interface FluxnovaHistoricDecisionInputInstance {
     text2_value?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Creation timestamp. */
+    /** Time when the variable was created. */
     create_time?: string,
-    /** Root process instance for history cleanup. */
+    /** Root process instance id of the process instance on which the associated business rule task has been called. */
     root_process_instance_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic decision instance will be removed. */
     removal_time?: string,
 }
 
@@ -832,7 +864,7 @@ export interface FluxnovaHistoricDecisionInputInstance {
  * Represents one evaluation of a decision.
  */
 export interface FluxnovaHistoricDecisionInstance {
-    /** Unique identifier. */
+    /** The unique identifier of this historic decision instance. */
     id: string,
     /** The decision definition reference. */
     decision_definition_id: string,
@@ -840,39 +872,39 @@ export interface FluxnovaHistoricDecisionInstance {
     decision_definition_key: string,
     /** The name of the decision definition. */
     decision_definition_name?: string,
-    /** Key of the process definition. */
+    /** The corresponding key of the process definition in case the decision was evaluated inside a process. */
     process_definition_key?: string,
-    /** Reference to the process definition. */
+    /** The corresponding id of the process definition in case the decision was evaluated inside a process. */
     process_definition_id?: string,
-    /** Reference to the process instance. */
+    /** The corresponding process instance in case the decision was evaluated inside a process. */
     process_instance_id?: string,
-    /** Case definition key reference. */
+    /** The corresponding key of the case definition in case the decision was evaluated inside a case. */
     case_definition_key?: string,
-    /** Reference to the case definition. */
+    /** The corresponding id of the case definition in case the decision was evaluated inside a case. */
     case_definition_id?: string,
-    /** Reference to the case instance. */
+    /** The corresponding case instance in case the decision was evaluated inside a case. */
     case_instance_id?: string,
-    /** Runtime activity instance identifier. */
+    /** The corresponding activity instance in case the decision was evaluated inside a process or a case. */
     activity_instance_id?: string,
-    /** BPMN activity element identifier. */
+    /** The corresponding activity in case the decision was evaluated inside a process or a case. */
     activity_id?: string,
     /** Time when the decision was evaluated. */
     evaluation_time: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** Time when the historic decision instance is to be removed. */
     removal_time?: string,
     /** The result of the collect operation if the hit policy 'collect' was used for the decision. */
     collect_result_value?: number,
-    /** Reference to a user. */
+    /** The user ID in case the decision was evaluated by an authenticated user using the decision service outside of an execution context. */
     user_id?: string,
     /** The unique identifier of the historic decision instance of the evaluated root decision. */
     root_decision_instance_id?: string,
-    /** Root process instance for history cleanup. */
+    /** The unique identifier of the root historic process instance of the evaluated root decision in case the decision was evaluated inside a process, otherwise null. */
     root_process_instance_id?: string,
-    /** Id of the related decision requirements definition. */
+    /** The id of the related decision requirements definition. */
     decision_requirements_definition_id?: string,
-    /** Key of the related decision requirements definition. */
+    /** The key of the related decision requirements definition. */
     decision_requirements_definition_key?: string,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this historic decision instance belongs to. */
     tenant_id?: string,
 }
 
@@ -881,7 +913,7 @@ export interface FluxnovaHistoricDecisionInstance {
  * Represents one output variable of a decision evaluation.
  */
 export interface FluxnovaHistoricDecisionOutputInstance {
-    /** Unique identifier. */
+    /** The unique identifier of this historic decision output instance. */
     id: string,
     /** The unique identifier of the historic decision instance. */
     decision_instance_id: string,
@@ -909,11 +941,11 @@ export interface FluxnovaHistoricDecisionOutputInstance {
     text2_value?: string,
     /** Multi-tenancy discriminator. */
     tenant_id?: string,
-    /** Creation timestamp. */
+    /** Time when the variable was created. */
     create_time?: string,
-    /** Root process instance for history cleanup. */
+    /** Root process instance id of the process instance on which the associated business rule task has been called. */
     root_process_instance_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic decision instance will be removed. */
     removal_time?: string,
 }
 
@@ -922,7 +954,7 @@ export interface FluxnovaHistoricDecisionOutputInstance {
  * Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.
  */
 export interface FluxnovaHistoricDetail {
-    /** Unique identifier. */
+    /** The unique DB id for this historic detail. */
     id: string,
     /** Type discriminator. */
     type: string,
@@ -930,27 +962,27 @@ export interface FluxnovaHistoricDetail {
     event_time: string,
     /** Human-readable name. */
     name: string,
-    /** Key of the process definition. */
+    /** The process definition key reference. */
     process_definition_key?: string,
-    /** Reference to the process definition. */
+    /** The process definition reference. */
     process_definition_id?: string,
-    /** Root process instance for history cleanup. */
+    /** The root process instance reference. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** The process instance reference. */
     process_instance_id?: string,
-    /** Reference to the execution. */
+    /** The identifier for the path of execution. */
     execution_id?: string,
-    /** Case definition key reference. */
+    /** The case definition key reference. */
     case_definition_key?: string,
-    /** Reference to the case definition. */
+    /** The case definition reference. */
     case_definition_id?: string,
-    /** Reference to the case instance. */
+    /** The case instance reference. */
     case_instance_id?: string,
-    /** Reference to the case execution. */
+    /** The case execution reference. */
     case_execution_id?: string,
-    /** Reference to the task. */
+    /** The identifier for the task. */
     task_id?: string,
-    /** Runtime activity instance identifier. */
+    /** The activity reference in case this detail is related to an activity instance. */
     activity_instance_id?: string,
     /** Reference to the variable instance. */
     variable_instance_id?: string,
@@ -968,11 +1000,11 @@ export interface FluxnovaHistoricDetail {
     text2_value?: string,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this historic detail belongs to. */
     tenant_id?: string,
-    /** The unique identifier of this operation. */
+    /** Reference to the operation. */
     operation_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic detail will be removed. */
     removal_time?: string,
     /** Whether this entity is initial. */
     is_initial?: boolean,
@@ -983,43 +1015,43 @@ export interface FluxnovaHistoricDetail {
  * The HistoricExternalTaskLog is used to have a log containing information about task execution.
  */
 export interface FluxnovaHistoricExternalTaskLog {
-    /** Unique identifier. */
+    /** Unique identifier for this historic external task log. */
     id: string,
     /** Time when this log occurred. */
     timestamp: string,
     /** Id of the associated external task. */
     external_task_id: string,
-    /** Number of retries this job has left. */
+    /** Retries of the associated external task before the associated external task has been executed and when this log occurred. */
     retries?: number,
     /** Topic name of the associated external task. */
     topic_name?: string,
     /** Id of the worker that fetched the external task most recently. */
     worker_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    /** Priority of the associated external task when this log entry was created. */
     priority: number,
-    /** If the variable value could not be loaded, this returns the error message. */
+    /** Message of the error that occurred by executing the associated external task. */
     error_message?: string,
-    /** Reference to a ByteArray. */
+    /** Reference to a byte array. */
     error_details_id?: string,
-    /** BPMN activity element identifier. */
+    /** Id of the activity which the external task associated with. */
     activity_id?: string,
-    /** Runtime activity instance identifier. */
+    /** Id of the activity instance on which the associated external task was created. */
     activity_instance_id?: string,
-    /** Reference to the execution. */
+    /** Specific execution id on which the associated external task was created. */
     execution_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Specific root process instance id of the process instance on which the associated external task was created. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Specific process instance id on which the associated external task was created. */
     process_instance_id?: string,
-    /** Reference to the process definition. */
+    /** Specific process definition id on which the associated external task was created. */
     process_definition_id?: string,
-    /** Key of the process definition. */
+    /** Specific process definition key on which the associated external task was created. */
     process_definition_key?: string,
-    /** Multi-tenancy discriminator. */
+    /** Id of the tenant this external task log entry belongs to. */
     tenant_id?: string,
     /** The row's state; which values it takes depends on its table. */
     state?: number,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic external task log will be removed. */
     removal_time?: string,
 }
 
@@ -1028,31 +1060,31 @@ export interface FluxnovaHistoricExternalTaskLog {
  * An historic identity link stores the association of a task with a certain identity.
  */
 export interface FluxnovaHistoricIdentityLink {
-    /** Unique identifier. */
+    /** Id of historic identity link (Candidate or Assignee or Owner). */
     id: string,
-    /** Time when this log occurred. */
+    /** Timestamp for timestamp. */
     timestamp: string,
-    /** Type discriminator. */
+    /** Type of link (Candidate or Assignee or Owner). */
     type?: string,
-    /** Reference to a user. */
+    /** If the identity link involves a user, then this will be a non-null id of a user. */
     user_id?: string,
-    /** Reference to a group. */
+    /** If the identity link involves a group, then this will be a non-null id of a group. */
     group_id?: string,
-    /** Reference to the task. */
+    /** The id of the task associated with this identity link. */
     task_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Root process instance id of the related process instance. */
     root_process_instance_id?: string,
-    /** Reference to the process definition. */
+    /** Id of the related process definition. */
     process_definition_id?: string,
     /** Type of identity link history (add or delete identity link). */
     operation_type?: string,
     /** UserId of the user who assigns a task to the user. */
     assigner_id?: string,
-    /** Key of the process definition. */
+    /** Key of the related process definition. */
     process_definition_key?: string,
-    /** Multi-tenancy discriminator. */
+    /** Id of the related tenant. */
     tenant_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic identity link log will be removed. */
     removal_time?: string,
 }
 
@@ -1061,27 +1093,27 @@ export interface FluxnovaHistoricIdentityLink {
  * Represents a historic incident that is stored permanently.
  */
 export interface FluxnovaHistoricIncident {
-    /** Unique identifier. */
+    /** Unique identifier for this incident. */
     id: string,
-    /** Key of the process definition. */
+    /** Key of the process definition of this process instance on which the incident has happened. */
     process_definition_key?: string,
-    /** Reference to the process definition. */
+    /** Id of the process definition of this process instance on which the incident has happened. */
     process_definition_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Specific root process instance id of the process instance on which this incident has happened. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Specific process instance on which this incident has happened. */
     process_instance_id?: string,
-    /** Reference to the execution. */
+    /** Specific execution on which this incident has happened. */
     execution_id?: string,
-    /** Creation timestamp. */
+    /** Time when the incident happened. */
     create_time: string,
-    /** End timestamp. */
+    /** Time when the incident has been resolved or deleted. */
     end_time?: string,
     /** Incident message. */
     incident_message?: string,
     /** Type of this incident to identify the kind of incident. */
     incident_type: string,
-    /** BPMN activity element identifier. */
+    /** Id of the activity of the process instance on which this incident has happened. */
     activity_id?: string,
     /** Id of the activity on which the last exception occurred. */
     failed_activity_id?: string,
@@ -1095,13 +1127,13 @@ export interface FluxnovaHistoricIncident {
     history_configuration?: string,
     /** The incident state. */
     incident_state?: number,
-    /** Multi-tenancy discriminator. */
+    /** Id of the tenant this incident belongs to. */
     tenant_id?: string,
-    /** Reference to the job definition. */
+    /** Id of the job definition the incident belongs to. */
     job_definition_id?: string,
     /** Annotation of this incident. */
     annotation?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic incident will be removed. */
     removal_time?: string,
 }
 
@@ -1110,7 +1142,7 @@ export interface FluxnovaHistoricIncident {
  * The HistoricJobLog is used to have a log containing information about job execution.
  */
 export interface FluxnovaHistoricJobLog {
-    /** Unique identifier. */
+    /** Unique identifier for this historic job log. */
     id: string,
     /** Time when this log occurred. */
     timestamp: string,
@@ -1128,37 +1160,37 @@ export interface FluxnovaHistoricJobLog {
     job_exception_stack_id?: string,
     /** The job state. */
     job_state?: number,
-    /** Reference to the job definition. */
+    /** Id of the job definition on which the associated job was created. */
     job_definition_id?: string,
     /** Job definition type of the associated job. */
     job_definition_type?: string,
     /** Job definition configuration type of the associated job. */
     job_definition_configuration?: string,
-    /** BPMN activity element identifier. */
+    /** Id of the activity on which the associated job was created. */
     activity_id?: string,
     /** Id of the activity on which the last exception occurred. */
     failed_activity_id?: string,
-    /** Reference to the execution. */
+    /** Specific execution id on which the associated job was created. */
     execution_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Specific root process instance id of the process instance on which the associated job was created. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Specific process instance id on which the associated job was created. */
     process_instance_id?: string,
-    /** Reference to the process definition. */
+    /** Specific process definition id on which the associated job was created. */
     process_definition_id?: string,
-    /** Key of the process definition. */
+    /** Specific process definition key on which the associated job was created. */
     process_definition_key?: string,
-    /** Reference to the deployment. */
+    /** Specific deployment id on which the associated job was created. */
     deployment_id?: string,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
+    /** Id of the tenant this job log entry belongs to. */
     tenant_id?: string,
     /** Name of the host where the Process Engine that added this job log runs. */
     hostname?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic job log will be removed. */
     removal_time?: string,
-    /** Reference to a batch. */
+    /** ID of the batch associated with the job or null if no batch is associated with the job. */
     batch_id?: string,
 }
 
@@ -1167,8 +1199,20 @@ export interface FluxnovaHistoricJobLog {
  * A single execution of a whole process definition that is stored permanently.
  */
 export interface FluxnovaHistoricProcessInstance extends FluxnovaHistoricScopeInstance {
-    /** Domain-specific business key. */
+    /** Reference to the process instance. */
+    process_instance_id: string,
+    /** The user provided unique reference to this process instance. */
     business_key?: string,
+    /** The process definition key reference. */
+    process_definition_key?: string,
+    /** The process definition reference. */
+    process_definition_id: string,
+    /** The time the process was started. */
+    start_time: string,
+    /** The time the process was ended. */
+    end_time?: string,
+    /** The time the historic process instance will be removed. */
+    removal_time?: string,
     /** The authenticated user that started this process instance. */
     start_user_id?: string,
     /** The start activity. */
@@ -1177,15 +1221,15 @@ export interface FluxnovaHistoricProcessInstance extends FluxnovaHistoricScopeIn
     end_activity_id?: string,
     /** The process instance id of a potential super process instance or null if no super process instance exists. */
     super_process_instance_id?: string,
+    /** The process instance id of the top-level (root) process instance or null if no root process instance exists. */
+    root_process_instance_id?: string,
     /** The case instance id of a potential super case instance or null if no super case instance exists. */
     super_case_instance_id?: string,
-    /** Reference to the case instance. */
+    /** The case instance id of a potential super case instance or null if no super case instance exists. */
     case_instance_id?: string,
     /** Obtains the reason for the process instance's deletion. */
     delete_reason?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** The row's state; which values it takes depends on its table. */
+    /** Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STATE_COMPLETED - completed through normal end event STATE_EXTERNALLY_TERMINATED - terminated externally, for instance through REST API STATE_INTERNALLY_TERMINATED - terminated internally, for instance by terminating boundary event. */
     state?: string,
     /** The id of the original process instance which was restarted. */
     restarted_process_instance_id?: string,
@@ -1193,27 +1237,15 @@ export interface FluxnovaHistoricProcessInstance extends FluxnovaHistoricScopeIn
 
 
 /**
- * Abstract base for historic entities with start/end time and duration.
+ * Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five tables have.
  */
 export interface FluxnovaHistoricScopeInstance {
     /** Unique identifier. */
     id: string,
-    /** Root process instance for history cleanup. */
-    root_process_instance_id?: string,
-    /** Reference to the process instance. */
-    process_instance_id?: string,
-    /** Reference to the process definition. */
-    process_definition_id?: string,
-    /** Key of the process definition. */
-    process_definition_key?: string,
-    /** Start timestamp. */
-    start_time?: string,
-    /** End timestamp. */
-    end_time?: string,
     /** Duration in milliseconds. */
     duration?: number,
-    /** Timestamp when this entity is eligible for removal. */
-    removal_time?: string,
+    /** Multi-tenancy discriminator. */
+    tenant_id?: string,
 }
 
 
@@ -1221,41 +1253,53 @@ export interface FluxnovaHistoricScopeInstance {
  * Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.
  */
 export interface FluxnovaHistoricTaskInstance extends FluxnovaHistoricScopeInstance {
-    /** The id of the activity in the process defining this task or null if this is not related to a process. */
+    /** Task definition key. */
     task_definition_key?: string,
-    /** Reference to the execution. */
+    /** Process definition key reference. */
+    process_definition_key?: string,
+    /** Process definition reference. */
+    process_definition_id?: string,
+    /** Root process instance reference. */
+    root_process_instance_id?: string,
+    /** Process instance reference. */
+    process_instance_id?: string,
+    /** Execution reference. */
     execution_id?: string,
     /** Case definition key reference. */
     case_definition_key?: string,
-    /** Reference to the case definition. */
+    /** Case definition reference. */
     case_definition_id?: string,
-    /** Reference to the case instance. */
+    /** Case instance reference. */
     case_instance_id?: string,
-    /** Reference to the case execution. */
+    /** Case execution reference. */
     case_execution_id?: string,
-    /** Runtime activity instance identifier. */
+    /** Activity instance reference. */
     activity_instance_id?: string,
-    /** Human-readable name. */
+    /** The latest name given to this task. */
     name?: string,
-    /** The parent task for which this task is a subtask. */
+    /** The parent task of this task, in case this task was a subtask. */
     parent_task_id?: string,
-    /** Human-readable description. */
+    /** The latest description given to this task. */
     description?: string,
-    /** The userId of the person that is responsible for this task. */
+    /** Task owner. */
     owner?: string,
-    /** The userId of the person to which this task is String) assigned or String) delegated. */
+    /** The latest assignee given to this task. */
     assignee?: string,
-    /** Obtains the reason for the process instance's deletion. */
+    /** Time when the task started. */
+    start_time: string,
+    /** Time when the task was deleted or completed. */
+    end_time?: string,
+    /** The reason why this task was deleted {'completed' | 'deleted' | any other user defined string }. */
     delete_reason?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
-    priority: number,
-    /** Due date of the task. */
+    /** Task priority *. */
+    priority?: number,
+    /** Task due date *. */
     due_date?: string,
-    /** Follow-up date of the task. */
+    /** Task follow-up date. */
     follow_up_date?: string,
-    /** Multi-tenancy discriminator. */
-    tenant_id?: string,
-    /** Task's state. */
+    /** The time the historic task instance will be removed. */
+    removal_time?: string,
+    /** Task State also referred as lifeCycleState. */
     task_state?: string,
 }
 
@@ -1266,33 +1310,33 @@ export interface FluxnovaHistoricTaskInstance extends FluxnovaHistoricScopeInsta
 export interface FluxnovaHistoricVariableInstance {
     /** Unique identifier. */
     id: string,
-    /** Key of the process definition. */
+    /** The process definition key reference. */
     process_definition_key?: string,
-    /** Reference to the process definition. */
+    /** The process definition reference. */
     process_definition_id?: string,
-    /** Root process instance for history cleanup. */
+    /** The root process instance reference. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** The process instance reference. */
     process_instance_id?: string,
-    /** Reference to the execution. */
+    /** Corresponding execution id. */
     execution_id?: string,
-    /** Case definition key reference. */
+    /** The case definition key reference. */
     case_definition_key?: string,
-    /** Reference to the case definition. */
+    /** The case definition reference. */
     case_definition_id?: string,
-    /** Reference to the case instance. */
+    /** The case instance reference. */
     case_instance_id?: string,
-    /** Reference to the case execution. */
+    /** Corresponding case execution id. */
     case_execution_id?: string,
-    /** Reference to the task. */
+    /** Corresponding task id. */
     task_id?: string,
-    /** Runtime activity instance identifier. */
+    /** Corresponding activity instance id. */
     activity_instance_id?: string,
-    /** Human-readable name. */
+    /** Name of this variable instance. */
     name: string,
     /** The variable type. */
     variable_type?: string,
-    /** Creation timestamp. */
+    /** The time when the variable was created. */
     create_time?: string,
     /** Reference to the byte array. */
     byte_array_id?: string,
@@ -1304,11 +1348,11 @@ export interface FluxnovaHistoricVariableInstance {
     text_value?: string,
     /** Variable value stored as text2. */
     text2_value?: string,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this variable belongs to. */
     tenant_id?: string,
-    /** The row's state; which values it takes depends on its table. */
+    /** The current state of the variable. */
     state?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time when the historic variable instance will be removed. */
     removal_time?: string,
     /** Whether this variable is restricted. */
     restricted?: boolean,
@@ -1325,13 +1369,13 @@ export interface FluxnovaIdentityInfo {
     user_id?: string,
     /** Type discriminator. */
     type?: string,
-    /** Business key for the definition. */
+    /** The row's key. */
     key?: string,
     /** The row's value. */
     value?: string,
     /** Hashed password. */
     password?: string,
-    /** Reference to a CaseExecution. */
+    /** Reference to a case execution. */
     parent_id?: string,
 }
 
@@ -1340,19 +1384,19 @@ export interface FluxnovaIdentityInfo {
  * An identity link is used to associate a task with a certain identity.
  */
 export interface FluxnovaIdentityLink {
-    /** Unique identifier. */
+    /** Get the Id of identityLink. */
     id: string,
-    /** Reference to a group. */
+    /** If the identity link involves a group, then this will be a non-null id of a group. */
     group_id?: string,
-    /** Type discriminator. */
+    /** Type of link. */
     type?: string,
-    /** Reference to a user. */
+    /** If the identity link involves a user, then this will be a non-null id of a user. */
     user_id?: string,
-    /** Reference to the task. */
+    /** The id of the task associated with this identity link. */
     task_id?: FluxnovaTaskId,
     /** Reference to the process definition. */
     process_definition_id?: FluxnovaProcessDefinitionId,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant associated with this identity link. */
     tenant_id?: string,
 }
 
@@ -1361,7 +1405,7 @@ export interface FluxnovaIdentityLink {
  * An Incident represents a failure in the execution of a process instance.
  */
 export interface FluxnovaIncident {
-    /** Unique identifier. */
+    /** Unique identifier for this incident. */
     id: string,
     /** Time when the incident happened. */
     incident_timestamp: string,
@@ -1369,15 +1413,15 @@ export interface FluxnovaIncident {
     incident_message?: string,
     /** Type of this incident to identify the kind of incident. */
     incident_type: string,
-    /** Reference to the execution. */
+    /** Specific execution on which this incident has happened. */
     execution_id?: FluxnovaExecutionId,
-    /** BPMN activity element identifier. */
+    /** Id of the activity of the process instance on which this incident has happened. */
     activity_id?: string,
     /** Id of the activity on which the last exception occurred. */
     failed_activity_id?: string,
-    /** Reference to the process instance. */
+    /** Specific process instance on which this incident has happened. */
     process_instance_id?: FluxnovaExecutionId,
-    /** Reference to the process definition. */
+    /** Id of the process definition of this process instance on which the incident has happened. */
     process_definition_id?: FluxnovaProcessDefinitionId,
     /** Id of the incident on which this incident has been triggered. */
     cause_incident_id?: FluxnovaIncidentId,
@@ -1385,9 +1429,9 @@ export interface FluxnovaIncident {
     root_cause_incident_id?: FluxnovaIncidentId,
     /** Payload of this incident. */
     configuration?: string,
-    /** Multi-tenancy discriminator. */
+    /** Id of the tenant this incident belongs to. */
     tenant_id?: string,
-    /** Reference to the job definition. */
+    /** Id of the job definition the incident belongs to. */
     job_definition_id?: FluxnovaJobDefinitionId,
     /** Annotation of this incident. */
     annotation?: string,
@@ -1398,7 +1442,7 @@ export interface FluxnovaIncident {
  * Represents one job (timer, message, etc.).
  */
 export interface FluxnovaJob {
-    /** Unique identifier. */
+    /** Unique identifier for this job. */
     id: string,
     /** Type discriminator. */
     type: string,
@@ -1408,25 +1452,25 @@ export interface FluxnovaJob {
     lock_owner?: string,
     /** Whether this entity is exclusive. */
     is_exclusive?: boolean,
-    /** Reference to the execution. */
+    /** Specific execution on which the job was created. */
     execution_id?: string,
-    /** Root process instance for history cleanup. */
+    /** Id of the root process instance which execution created the job. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Id of the process instance which execution created the job. */
     process_instance_id?: string,
-    /** Reference to the process definition. */
+    /** Id of the process definition which created the job. */
     process_definition_id?: string,
-    /** Key of the process definition. */
+    /** Key of the process definition which created the job. */
     process_definition_key?: string,
     /** Number of retries this job has left. */
     retries?: number,
-    /** Reference to a ByteArray. */
+    /** Reference to a byte array. */
     exception_stack_id?: FluxnovaByteArrayId,
     /** Message of the exception that occurred, the last time the job was executed. */
     exception_message?: string,
     /** Id of the activity on which the last exception occurred. */
     failed_activity_id?: string,
-    /** Due date of the task. */
+    /** Date by which this should be completed. */
     due_date?: string,
     /** Repeat/recurrence expression (ISO 8601). */
     repeat?: string,
@@ -1436,23 +1480,23 @@ export interface FluxnovaJob {
     handler_type?: string,
     /** Configuration for the handler. */
     handler_configuration?: string,
-    /** Reference to the deployment. */
+    /** Id of the deployment in which context the job was created. */
     deployment_id?: string,
     /** Whether the entity is active or suspended. */
     suspension_state: number,
-    /** Reference to the job definition. */
+    /** The id of the JobDefinition for this job. */
     job_definition_id?: string,
-    /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
+    /** The job's priority that is a hint to job acquisition. */
     priority: number,
     /** Monotonically increasing counter for ordering. */
     sequence_counter?: number,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this job belongs to. */
     tenant_id?: string,
-    /** Creation timestamp. */
+    /** The date/time when this job has been created. */
     create_time?: string,
     /** Reference to the last failure log. */
     last_failure_log_id?: string,
-    /** Reference to a batch. */
+    /** The ID of the batch associated with this job. null if no batch is associated with this job. */
     batch_id?: string,
 }
 
@@ -1467,7 +1511,7 @@ export interface FluxnovaJobDefinition {
     process_definition_id?: string,
     /** Key of the process definition. */
     process_definition_key?: string,
-    /** BPMN activity element identifier. */
+    /** The Id of the activity (from BPMN 2.0 Xml) this Job Definition is associated with. */
     activity_id?: string,
     /** The Type of a job. */
     job_type: string,
@@ -1475,11 +1519,11 @@ export interface FluxnovaJobDefinition {
     job_configuration?: string,
     /** Whether the entity is active or suspended. */
     suspension_state?: number,
-    /** Priority of the associated job when this log entry was created. */
-    job_priority: number,
-    /** Multi-tenancy discriminator. */
+    /** The job priority. */
+    job_priority?: number,
+    /** The id of the tenant this job definition belongs to. */
     tenant_id?: string,
-    /** Reference to the deployment. */
+    /** The id of the deployment this job definition is related to. */
     deployment_id?: string,
 }
 
@@ -1507,7 +1551,7 @@ export interface FluxnovaMeterLog {
     reporter?: string,
     /** The row's value. */
     value?: number,
-    /** Time when this log occurred. */
+    /** Timestamp for timestamp. */
     timestamp?: string,
     /** The milliseconds. */
     milliseconds?: number,
@@ -1518,12 +1562,20 @@ export interface FluxnovaMeterLog {
  * An object structure representing an executable process composed of activities and transitions.
  */
 export interface FluxnovaProcessDefinition extends FluxnovaResourceDefinition {
+    /** Category name which is derived from the targetNamespace attribute in the definitions element. */
+    category?: string,
+    /** Label used for display purposes. */
+    name?: string,
+    /** The diagram resource name for this definition if exist. */
+    diagram_resource_name?: string,
     /** The has start form key. */
     has_start_form_key?: boolean,
     /** Whether the entity is active or suspended. */
     suspension_state?: number,
     /** Version tag of the process definition. */
     version_tag?: string,
+    /** History time to live. */
+    history_time_to_live?: number,
     /** Whether this entity is startable. */
     is_startable: boolean,
 }
@@ -1541,29 +1593,21 @@ export interface FluxnovaEngineProperty {
 
 
 /**
- * Abstract base for deployable resource definitions (process, case, decision, form).
+ * Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all five tables have.
  */
 export interface FluxnovaResourceDefinition {
     /** Unique identifier. */
     id: string,
-    /** Business key for the definition. */
+    /** Unique name for all versions this definition. */
     key?: string,
-    /** Human-readable name. */
-    name?: string,
-    /** Version number. */
+    /** Version of this definition. */
     version?: number,
-    /** Category classification. */
-    category?: string,
-    /** Reference to the deployment. */
+    /** The deployment in which this definition is contained. */
     deployment_id?: string,
-    /** Name of the deployed resource file. */
+    /** Name of the resource of this definition. */
     resource_name?: string,
-    /** Name of the diagram resource file. */
-    diagram_resource_name?: string,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this definition belongs to. */
     tenant_id?: string,
-    /** Days to retain history before cleanup. */
-    history_time_to_live?: number,
 }
 
 
@@ -1573,7 +1617,7 @@ export interface FluxnovaResourceDefinition {
 export interface FluxnovaSchemaLogEntry {
     /** Unique identifier. */
     id: string,
-    /** Time when this log occurred. */
+    /** Timestamp for timestamp. */
     timestamp?: string,
     /** Version number. */
     version?: string,
@@ -1584,37 +1628,37 @@ export interface FluxnovaSchemaLogEntry {
  * Represents one task for a human user.
  */
 export interface FluxnovaTask {
-    /** Unique identifier. */
+    /** DB id of the task. */
     id: string,
-    /** Reference to the execution. */
+    /** Reference to the path of execution or null if it is not related to a process instance. */
     execution_id?: FluxnovaExecutionId,
-    /** Reference to the process instance. */
+    /** Reference to the process instance or null if it is not related to a process instance. */
     process_instance_id?: FluxnovaExecutionId,
-    /** Reference to the process definition. */
+    /** Reference to the process definition or null if it is not related to a process. */
     process_definition_id?: FluxnovaProcessDefinitionId,
-    /** Reference to the case execution. */
+    /** Reference to the path of case execution or null if it is not related to a case instance. */
     case_execution_id?: FluxnovaCaseExecutionId,
-    /** Reference to the case instance. */
+    /** Reference to the case instance or null if it is not related to a case instance. */
     case_instance_id?: string,
-    /** Reference to the case definition. */
+    /** Reference to the case definition or null if it is not related to a case. */
     case_definition_id?: FluxnovaCaseDefinitionId,
-    /** Human-readable name. */
+    /** Name or title of the task. */
     name?: string,
     /** The parent task for which this task is a subtask. */
     parent_task_id?: string,
-    /** Human-readable description. */
+    /** Free text description of the task. */
     description?: string,
     /** The id of the activity in the process defining this task or null if this is not related to a process. */
     task_definition_key?: string,
     /** The userId of the person that is responsible for this task. */
     owner?: string,
-    /** The userId of the person to which this task is String) assigned or String) delegated. */
+    /** The userId of the person to which this task is assigned or delegated. */
     assignee?: string,
     /** The current DelegationState for this task. */
     delegation_state?: string,
     /** Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest. */
-    priority: number,
-    /** Creation timestamp. */
+    priority?: number,
+    /** The date/time when this task was created. */
     create_time?: string,
     /** The date/time when this task was last updated. */
     last_updated?: string,
@@ -1624,7 +1668,7 @@ export interface FluxnovaTask {
     follow_up_date?: string,
     /** Whether the entity is active or suspended. */
     suspension_state?: number,
-    /** Multi-tenancy discriminator. */
+    /** Task's tenant id or null in case this task does not belong to a tenant. */
     tenant_id?: string,
     /** Task's state. */
     task_state?: string,
@@ -1639,7 +1683,7 @@ export interface FluxnovaTaskMeterLog {
     id: string,
     /** Hash of the assignee for aggregation. */
     assignee_hash?: number,
-    /** Time when this log occurred. */
+    /** Timestamp for timestamp. */
     timestamp?: string,
 }
 
@@ -1699,39 +1743,39 @@ export interface FluxnovaUser {
  * Log entry about an operation performed by a user.
  */
 export interface FluxnovaUserOperationLogEntry {
-    /** Unique identifier. */
+    /** The unique identifier of this log entry. */
     id: string,
-    /** Reference to the deployment. */
+    /** Deployment reference. */
     deployment_id?: string,
-    /** Reference to the process definition. */
+    /** Process definition reference. */
     process_definition_id?: string,
-    /** Key of the process definition. */
+    /** Key of the process definition this log entry belongs to; null means any. */
     process_definition_key?: string,
-    /** Root process instance for history cleanup. */
+    /** Root process instance reference. */
     root_process_instance_id?: string,
-    /** Reference to the process instance. */
+    /** Process instance reference. */
     process_instance_id?: string,
-    /** Reference to the execution. */
+    /** Execution reference. */
     execution_id?: string,
-    /** Reference to the case definition. */
+    /** Case definition reference. */
     case_definition_id?: string,
-    /** Reference to the case instance. */
+    /** Case instance reference. */
     case_instance_id?: string,
-    /** Reference to the case execution. */
+    /** Case execution reference. */
     case_execution_id?: string,
-    /** Reference to the task. */
+    /** Task instance reference. */
     task_id?: string,
-    /** Id of the associated job. */
-    job_id: string,
-    /** Reference to the job definition. */
+    /** Job instance reference. */
+    job_id?: string,
+    /** Job definition reference. */
     job_definition_id?: string,
-    /** Reference to a batch. */
+    /** Batch reference. */
     batch_id?: string,
-    /** Reference to a user. */
+    /** The User who performed the operation. */
     user_id?: string,
-    /** Time when this log occurred. */
+    /** Timestamp of this change. */
     timestamp: string,
-    /** Type of identity link history (add or delete identity link). */
+    /** Type of this operation, like create, assign, claim and so on. */
     operation_type?: string,
     /** The unique identifier of this operation. */
     operation_id?: string,
@@ -1743,15 +1787,15 @@ export interface FluxnovaUserOperationLogEntry {
     original_value?: string,
     /** The new value of the property. */
     new_value?: string,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this user operation log belongs to. */
     tenant_id?: string,
-    /** Timestamp when this entity is eligible for removal. */
+    /** The time the historic user operation log will be removed. */
     removal_time?: string,
-    /** Category classification. */
+    /** The category this entry is associated with. */
     category?: string,
-    /** Id of the associated external task. */
-    external_task_id: string,
-    /** Annotation of this incident. */
+    /** External task reference. */
+    external_task_id?: string,
+    /** An arbitrary annotation set by a user for auditing reasons. */
     annotation?: string,
 }
 
@@ -1764,21 +1808,21 @@ export interface FluxnovaVariableInstance {
     id: string,
     /** Type discriminator. */
     type: string,
-    /** Human-readable name. */
+    /** Name of this variable instance. */
     name: string,
-    /** Reference to the execution. */
+    /** Corresponding execution id. */
     execution_id?: FluxnovaExecutionId,
-    /** Reference to the process instance. */
+    /** Corresponding process instance id. */
     process_instance_id?: FluxnovaExecutionId,
-    /** Reference to the process definition. */
+    /** Corresponding process definition id. */
     process_definition_id?: string,
-    /** Reference to the case execution. */
+    /** Corresponding case execution id. */
     case_execution_id?: FluxnovaCaseExecutionId,
-    /** Reference to the case instance. */
+    /** Corresponding case instance id. */
     case_instance_id?: FluxnovaCaseExecutionId,
-    /** Reference to the task. */
+    /** Corresponding task id. */
     task_id?: string,
-    /** Reference to a batch. */
+    /** Corresponding batch id. */
     batch_id?: FluxnovaBatchId,
     /** Reference to the byte array. */
     byte_array_id?: FluxnovaByteArrayId,
@@ -1796,7 +1840,7 @@ export interface FluxnovaVariableInstance {
     sequence_counter?: number,
     /** Whether this entity is concurrent local. */
     is_concurrent_local?: boolean,
-    /** Multi-tenancy discriminator. */
+    /** The id of the tenant this variable belongs to. */
     tenant_id?: string,
     /** Whether this variable is restricted. */
     restricted?: boolean,
@@ -4131,25 +4175,109 @@ export interface FluxnovaValue extends BpmnModelElementInstance {
 
 
 /**
- * Root container for Fluxnova BPM Platform data.
+ * Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.
  */
 export interface FluxnovaPlatformData {
-    /** Deployed resources. */
-    deployments?: FluxnovaDeployment[],
-    /** Process definitions. */
-    process_definitions?: FluxnovaProcessDefinition[],
-    /** Process execution instances. */
-    executions?: FluxnovaExecution[],
-    /** User tasks. */
-    tasks?: FluxnovaTask[],
-    /** Asynchronous jobs. */
-    jobs?: FluxnovaJob[],
-    /** Identity users. */
-    users?: FluxnovaUser[],
-    /** Identity groups. */
-    groups?: FluxnovaGroup[],
-    /** Batch operations. */
+    /** The rows of ACT_HI_ATTACHMENT. */
+    attachments?: FluxnovaAttachment[],
+    /** The rows of ACT_RU_AUTHORIZATION. */
+    authorization_entries?: FluxnovaAuthorization[],
+    /** The rows of ACT_RU_BATCH. */
     batches?: FluxnovaBatch[],
+    /** The rows of ACT_GE_BYTEARRAY. */
+    byte_arrays?: FluxnovaByteArray[],
+    /** The rows of ACT_RE_CASE_DEF. */
+    case_definitions?: FluxnovaCaseDefinition[],
+    /** The rows of ACT_RU_CASE_EXECUTION. */
+    case_executions?: FluxnovaCaseExecution[],
+    /** The rows of ACT_RU_CASE_SENTRY_PART. */
+    case_sentry_parts?: FluxnovaCaseSentryPart[],
+    /** The rows of ACT_HI_COMMENT. */
+    comment_entries?: FluxnovaComment[],
+    /** The rows of ACT_GE_CONFIGURATION. */
+    configuration_entries?: FluxnovaConfiguration[],
+    /** The rows of ACT_RE_DECISION_DEF. */
+    decision_definitions?: FluxnovaDecisionDefinition[],
+    /** The rows of ACT_RE_DECISION_REQ_DEF. */
+    decision_requirements_definitions?: FluxnovaDecisionRequirementsDefinition[],
+    /** The rows of ACT_RE_DEPLOYMENT. */
+    deployments?: FluxnovaDeployment[],
+    /** The rows of ACT_GE_PROPERTY. */
+    engine_properties?: FluxnovaEngineProperty[],
+    /** The rows of ACT_RU_EVENT_SUBSCR. */
+    event_subscriptions?: FluxnovaEventSubscription[],
+    /** The rows of ACT_RU_EXECUTION. */
+    executions?: FluxnovaExecution[],
+    /** The rows of ACT_RU_EXT_TASK. */
+    external_tasks?: FluxnovaExternalTask[],
+    /** The rows of ACT_RU_FILTER. */
+    filter_entries?: FluxnovaFilter[],
+    /** The rows of ACT_RE_CAMFORMDEF. */
+    form_definitions?: FluxnovaFormDefinition[],
+    /** The rows of ACT_ID_GROUP. */
+    groups?: FluxnovaGroup[],
+    /** The rows of ACT_HI_ACTINST. */
+    historic_activity_instances?: FluxnovaHistoricActivityInstance[],
+    /** The rows of ACT_HI_BATCH. */
+    historic_batches?: FluxnovaHistoricBatch[],
+    /** The rows of ACT_HI_CASEACTINST. */
+    historic_case_activity_instances?: FluxnovaHistoricCaseActivityInstance[],
+    /** The rows of ACT_HI_CASEINST. */
+    historic_case_instances?: FluxnovaHistoricCaseInstance[],
+    /** The rows of ACT_HI_DEC_IN. */
+    historic_decision_input_instances?: FluxnovaHistoricDecisionInputInstance[],
+    /** The rows of ACT_HI_DECINST. */
+    historic_decision_instances?: FluxnovaHistoricDecisionInstance[],
+    /** The rows of ACT_HI_DEC_OUT. */
+    historic_decision_output_instances?: FluxnovaHistoricDecisionOutputInstance[],
+    /** The rows of ACT_HI_DETAIL. */
+    historic_details?: FluxnovaHistoricDetail[],
+    /** The rows of ACT_HI_EXT_TASK_LOG. */
+    historic_external_task_logs?: FluxnovaHistoricExternalTaskLog[],
+    /** The rows of ACT_HI_IDENTITYLINK. */
+    historic_identity_links?: FluxnovaHistoricIdentityLink[],
+    /** The rows of ACT_HI_INCIDENT. */
+    historic_incidents?: FluxnovaHistoricIncident[],
+    /** The rows of ACT_HI_JOB_LOG. */
+    historic_job_logs?: FluxnovaHistoricJobLog[],
+    /** The rows of ACT_HI_PROCINST. */
+    historic_process_instances?: FluxnovaHistoricProcessInstance[],
+    /** The rows of ACT_HI_TASKINST. */
+    historic_task_instances?: FluxnovaHistoricTaskInstance[],
+    /** The rows of ACT_HI_VARINST. */
+    historic_variable_instances?: FluxnovaHistoricVariableInstance[],
+    /** The rows of ACT_ID_INFO. */
+    identity_infos?: FluxnovaIdentityInfo[],
+    /** The rows of ACT_RU_IDENTITYLINK. */
+    identity_links?: FluxnovaIdentityLink[],
+    /** The rows of ACT_RU_INCIDENT. */
+    incidents?: FluxnovaIncident[],
+    /** The rows of ACT_RU_JOBDEF. */
+    job_definitions?: FluxnovaJobDefinition[],
+    /** The rows of ACT_RU_JOB. */
+    jobs?: FluxnovaJob[],
+    /** The rows of ACT_ID_MEMBERSHIP. */
+    memberships?: FluxnovaMembership[],
+    /** The rows of ACT_RU_METER_LOG. */
+    meter_logs?: FluxnovaMeterLog[],
+    /** The rows of ACT_RE_PROCDEF. */
+    process_definitions?: FluxnovaProcessDefinition[],
+    /** The rows of ACT_GE_SCHEMA_LOG. */
+    schema_log_entries?: FluxnovaSchemaLogEntry[],
+    /** The rows of ACT_RU_TASK_METER_LOG. */
+    task_meter_logs?: FluxnovaTaskMeterLog[],
+    /** The rows of ACT_RU_TASK. */
+    tasks?: FluxnovaTask[],
+    /** The rows of ACT_ID_TENANT_MEMBER. */
+    tenant_memberships?: FluxnovaTenantMembership[],
+    /** The rows of ACT_ID_TENANT. */
+    tenants?: FluxnovaTenant[],
+    /** The rows of ACT_HI_OP_LOG. */
+    user_operation_log_entries?: FluxnovaUserOperationLogEntry[],
+    /** The rows of ACT_ID_USER. */
+    users?: FluxnovaUser[],
+    /** The rows of ACT_RU_VARIABLE. */
+    variable_instances?: FluxnovaVariableInstance[],
 }
 
 

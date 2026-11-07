@@ -16227,7 +16227,7 @@
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The time when the attachment was created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -16242,32 +16242,32 @@
                     ]
                 },
                 "description": {
-                    "description": "Human-readable description.",
+                    "description": "Long (max 255 chars) explanation what this attachment is about in context of the task and/or process instance it's linked to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique id for this attachment.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Free user defined short (max 255 chars) name for this attachment.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Reference to the process instance to which this attachment is associated.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic attachment will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -16275,14 +16275,14 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Reference to the root process instance id of the process instance on which this attachment was made.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "Reference to the task to which this attachment is associated.",
                     "type": [
                         "string",
                         "null"
@@ -16296,7 +16296,7 @@
                     ]
                 },
                 "type": {
-                    "description": "Type discriminator.",
+                    "description": "Indication of the type of content that this attachment refers to.",
                     "type": [
                         "string",
                         "null"
@@ -16346,7 +16346,7 @@
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The removal time indicates the date a historic instance authorization is cleaned up A removal time can only be assigned to a historic instance authorization.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -16365,7 +16365,7 @@
                     "type": "integer"
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "The process instance id of the top-level (root) process instance the historic instance authorization is related to A root process instance id is only assigned to a historic instance authorization.",
                     "type": [
                         "string",
                         "null"
@@ -16398,21 +16398,21 @@
             "description": "A batch represents a number of jobs which execute a number of commands asynchronously.",
             "properties": {
                 "batch_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "configuration": {
-                    "description": "Payload of this incident.",
+                    "description": "Configuration value.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "create_user_id": {
-                    "description": "The authenticated user that created this case instance.",
+                    "description": "Reference to the create user.",
                     "type": [
                         "string",
                         "null"
@@ -16452,14 +16452,14 @@
                     ]
                 },
                 "monitor_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "seed_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
@@ -16595,28 +16595,28 @@
             "description": "A deployed case definition in the process repository.",
             "properties": {
                 "category": {
-                    "description": "Category classification.",
+                    "description": "Category name which is derived from the targetNamespace attribute in the definitions element.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
+                    "description": "The diagram resource name for this definition if exist.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
+                    "description": "History time to live.",
                     "type": [
                         "integer",
                         "null"
@@ -16627,32 +16627,32 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "Unique name for all versions this definition.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Label used for display purposes.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": "integer"
                 }
             },
@@ -16717,7 +16717,7 @@
                     ]
                 },
                 "parent_id": {
-                    "description": "Reference to a CaseExecution.",
+                    "description": "Reference to a case execution.",
                     "type": [
                         "string",
                         "null"
@@ -16747,7 +16747,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this case execution belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -16839,7 +16839,7 @@
                     ]
                 },
                 "variable_name": {
-                    "description": "The name of the output variable.",
+                    "description": "The variable name.",
                     "type": [
                         "string",
                         "null"
@@ -16876,7 +16876,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Comment id.",
                     "type": "string"
                 },
                 "message": {
@@ -16887,14 +16887,14 @@
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Reference to the process instance on which this comment was made.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic comment will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -16902,14 +16902,14 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Reference to the root process instance id of the process instance on which this comment was made.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "Reference to the task on which this comment was made.",
                     "type": [
                         "string",
                         "null"
@@ -16930,7 +16930,7 @@
                     ]
                 },
                 "user_id": {
-                    "description": "Reference to a user.",
+                    "description": "Reference to the user that made the comment.",
                     "type": [
                         "string",
                         "null"
@@ -16965,7 +16965,7 @@
                     ]
                 },
                 "created_by": {
-                    "description": "The user who created this attachment.",
+                    "description": "The created by.",
                     "type": [
                         "string",
                         "null"
@@ -17114,7 +17114,7 @@
             "description": "Definition of a decision resource.",
             "properties": {
                 "category": {
-                    "description": "Category classification.",
+                    "description": "Category name which is derived from the targetNamespace attribute in the definitions element.",
                     "type": [
                         "string",
                         "null"
@@ -17135,21 +17135,21 @@
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
+                    "description": "The diagram resource name for this definition if exist.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
+                    "description": "History time to live.",
                     "type": [
                         "integer",
                         "null"
@@ -17160,36 +17160,36 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "Unique name for all versions this definition.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Label used for display purposes.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": "integer"
                 },
                 "version_tag": {
-                    "description": "Version tag of the process definition.",
+                    "description": "Version tag of the decision definition.",
                     "type": [
                         "string",
                         "null"
@@ -17209,30 +17209,23 @@
             "description": "Container of DecisionDefinitions which belongs to the same decision requirements graph (i.e. DMN resource).",
             "properties": {
                 "category": {
-                    "description": "Category classification.",
+                    "description": "Category name which is derived from the targetNamespace attribute in the definitions element.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
+                    "description": "The diagram resource name for this definition if exist.",
                     "type": [
                         "string",
-                        "null"
-                    ]
-                },
-                "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
-                    "type": [
-                        "integer",
                         "null"
                     ]
                 },
@@ -17241,32 +17234,32 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "Unique name for all versions this definition.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Label used for display purposes.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": "integer"
                 }
             },
@@ -17309,7 +17302,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the tenant this deployment belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -17406,14 +17399,14 @@
             "description": "A message event subscription exists, if an Execution waits for an event like a message.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "The identifier of the activity that this event subscription belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "configuration": {
-                    "description": "Payload of this incident.",
+                    "description": "Configuration value.",
                     "type": [
                         "string",
                         "null"
@@ -17436,25 +17429,25 @@
                     "type": "string"
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "The execution that is subscribed on the referenced event.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of the event subscription.",
                     "type": "string"
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "The process instance this subscription belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this event subscription belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -17509,7 +17502,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of the execution.",
                     "type": "string"
                 },
                 "is_active": {
@@ -17541,7 +17534,7 @@
                     ]
                 },
                 "parent_id": {
-                    "description": "Reference to a CaseExecution.",
+                    "description": "Reference to a case execution.",
                     "type": [
                         "string",
                         "null"
@@ -17555,14 +17548,14 @@
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "The Key of the process definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Id of the root of the execution tree representing the process instance.",
                     "type": [
                         "string",
                         "null"
@@ -17606,7 +17599,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this execution belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -17738,14 +17731,14 @@
                     ]
                 },
                 "error_details_id": {
-                    "description": "Reference to a ByteArray.",
+                    "description": "Reference to a byte array.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "error_message": {
-                    "description": "If the variable value could not be loaded, this returns the error message.",
+                    "description": "Error message from the last failure.",
                     "type": [
                         "string",
                         "null"
@@ -17778,7 +17771,7 @@
                     ]
                 },
                 "priority": {
-                    "description": "Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.",
+                    "description": "Priority of the external task.",
                     "type": "integer"
                 },
                 "process_definition_id": {
@@ -17803,7 +17796,7 @@
                     ]
                 },
                 "retries": {
-                    "description": "Number of retries this job has left.",
+                    "description": "Number of remaining retry attempts.",
                     "type": [
                         "integer",
                         "null"
@@ -17826,14 +17819,14 @@
                     ]
                 },
                 "topic_name": {
-                    "description": "Topic name of the associated external task.",
+                    "description": "Topic name for external task subscription.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "worker_id": {
-                    "description": "Id of the worker that fetched the external task most recently.",
+                    "description": "Reference to the worker.",
                     "type": [
                         "string",
                         "null"
@@ -17946,7 +17939,7 @@
                     "type": "string"
                 },
                 "owner": {
-                    "description": "The userId of the person that is responsible for this task.",
+                    "description": "User ID of the owner.",
                     "type": [
                         "string",
                         "null"
@@ -18009,31 +18002,10 @@
             "additionalProperties": false,
             "description": "An object structure representing a Camunda Form used to present forms to users either when starting a process instance or when assigned to a User Task.",
             "properties": {
-                "category": {
-                    "description": "Category classification.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
-                        "null"
-                    ]
-                },
-                "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
-                    "type": [
-                        "integer",
                         "null"
                     ]
                 },
@@ -18042,32 +18014,25 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "Unique name for all versions this definition.",
                     "type": "string"
                 },
-                "name": {
-                    "description": "Human-readable name.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": "integer"
                 }
             },
@@ -18296,7 +18261,7 @@
             "description": "Represents one execution of an activity and it's stored permanent for statistics, audit and other business intelligence purposes.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "The unique identifier of the activity in the process.",
                     "type": "string"
                 },
                 "activity_instance_state": {
@@ -18320,7 +18285,7 @@
                     "type": "string"
                 },
                 "assignee": {
-                    "description": "The userId of the person to which this task is String) assigned or String) delegated.",
+                    "description": "Assignee in case of user task activity.",
                     "type": [
                         "string",
                         "null"
@@ -18348,7 +18313,7 @@
                     ]
                 },
                 "end_time": {
-                    "description": "End timestamp.",
+                    "description": "Time when the activity instance ended.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18356,11 +18321,11 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Execution reference.",
                     "type": "string"
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this historic activity instance.",
                     "type": "string"
                 },
                 "parent_activity_instance_id": {
@@ -18371,22 +18336,22 @@
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Process definition reference.",
                     "type": "string"
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Process definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Process instance reference.",
                     "type": "string"
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic activity instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18394,7 +18359,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance reference.",
                     "type": [
                         "string",
                         "null"
@@ -18408,19 +18373,19 @@
                     ]
                 },
                 "start_time": {
-                    "description": "Start timestamp.",
+                    "description": "Time when the activity instance started.",
                     "format": "date-time",
                     "type": "string"
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "The corresponding task in case of task activity.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic activity instance belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -18428,13 +18393,13 @@
                 }
             },
             "required": [
+                "process_definition_id",
+                "process_instance_id",
                 "execution_id",
                 "activity_id",
                 "activity_type",
-                "id",
-                "process_instance_id",
-                "process_definition_id",
-                "start_time"
+                "start_time",
+                "id"
             ],
             "title": "FluxnovaHistoricActivityInstance",
             "type": "object"
@@ -18444,14 +18409,14 @@
             "description": "Historic representation of a Batch.",
             "properties": {
                 "batch_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "create_user_id": {
-                    "description": "The authenticated user that created this case instance.",
+                    "description": "Reference to the create user.",
                     "type": [
                         "string",
                         "null"
@@ -18492,14 +18457,14 @@
                     ]
                 },
                 "monitor_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic batch will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18507,7 +18472,7 @@
                     ]
                 },
                 "seed_job_definition_id": {
-                    "description": "Reference to a JobDefinition.",
+                    "description": "Reference to a job definition.",
                     "type": [
                         "string",
                         "null"
@@ -18552,14 +18517,14 @@
             "description": "Represents one execution of a case activity which is stored permanent for statistics, audit and other business intelligence purposes.",
             "properties": {
                 "called_case_instance_id": {
-                    "description": "The called case instance in case of (case) call activity.",
+                    "description": "The corresponding case in case of a case task activity.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "called_process_instance_id": {
-                    "description": "The called process instance in case of call activity.",
+                    "description": "The corresponding process in case of a process task activity.",
                     "type": [
                         "string",
                         "null"
@@ -18584,15 +18549,15 @@
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The case definition reference.",
                     "type": "string"
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "The case instance reference.",
                     "type": "string"
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The time when the case activity was created.",
                     "format": "date-time",
                     "type": "string"
                 },
@@ -18604,7 +18569,7 @@
                     ]
                 },
                 "end_time": {
-                    "description": "End timestamp.",
+                    "description": "The time when the case activity ended.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18612,7 +18577,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The id of the case activity instance (== as the id of the runtime activity).",
                     "type": "string"
                 },
                 "is_required": {
@@ -18623,51 +18588,7 @@
                     ]
                 },
                 "parent_activity_instance_id": {
-                    "description": "Id of the parent activity instance.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_definition_id": {
-                    "description": "Reference to the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_definition_key": {
-                    "description": "Key of the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_instance_id": {
-                    "description": "Reference to the process instance.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "start_time": {
-                    "description": "Start timestamp.",
-                    "format": "date-time",
+                    "description": "Reference to the parent activity instance.",
                     "type": [
                         "string",
                         "null"
@@ -18683,14 +18604,14 @@
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "The corresponding task in case of a human task activity.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic case activity instance belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -18712,14 +18633,14 @@
             "description": "A single execution of a case definition that is stored permanently.",
             "properties": {
                 "business_key": {
-                    "description": "Domain-specific business key.",
+                    "description": "The user provided unique reference to this process instance.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The case definition reference.",
                     "type": "string"
                 },
                 "case_instance_id": {
@@ -18735,7 +18656,7 @@
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The time the case was created.",
                     "format": "date-time",
                     "type": "string"
                 },
@@ -18753,61 +18674,9 @@
                         "null"
                     ]
                 },
-                "end_time": {
-                    "description": "End timestamp.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The case instance id (== as the id of the runtime CaseInstance).",
                     "type": "string"
-                },
-                "process_definition_id": {
-                    "description": "Reference to the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_definition_key": {
-                    "description": "Key of the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_instance_id": {
-                    "description": "Reference to the process instance.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "start_time": {
-                    "description": "Start timestamp.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
                 },
                 "state": {
                     "description": "The row's state; which values it takes depends on its table.",
@@ -18833,7 +18702,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic case instance belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -18875,7 +18744,7 @@
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "Time when the variable was created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18894,7 +18763,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this historic decision input instance.",
                     "type": "string"
                 },
                 "long_value": {
@@ -18905,7 +18774,7 @@
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic decision instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -18913,7 +18782,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance id of the process instance on which the associated business rule task has been called.",
                     "type": [
                         "string",
                         "null"
@@ -18960,35 +18829,35 @@
             "description": "Represents one evaluation of a decision.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "The corresponding activity in case the decision was evaluated inside a process or a case.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "activity_instance_id": {
-                    "description": "Runtime activity instance identifier.",
+                    "description": "The corresponding activity instance in case the decision was evaluated inside a process or a case.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The corresponding id of the case definition in case the decision was evaluated inside a case.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_key": {
-                    "description": "Case definition key reference.",
+                    "description": "The corresponding key of the case definition in case the decision was evaluated inside a case.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "The corresponding case instance in case the decision was evaluated inside a case.",
                     "type": [
                         "string",
                         "null"
@@ -19017,14 +18886,14 @@
                     ]
                 },
                 "decision_requirements_definition_id": {
-                    "description": "Id of the related decision requirements definition.",
+                    "description": "The id of the related decision requirements definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "decision_requirements_definition_key": {
-                    "description": "Key of the related decision requirements definition.",
+                    "description": "The key of the related decision requirements definition.",
                     "type": [
                         "string",
                         "null"
@@ -19036,32 +18905,32 @@
                     "type": "string"
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this historic decision instance.",
                     "type": "string"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "The corresponding id of the process definition in case the decision was evaluated inside a process.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "The corresponding key of the process definition in case the decision was evaluated inside a process.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "The corresponding process instance in case the decision was evaluated inside a process.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "Time when the historic decision instance is to be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19076,21 +18945,21 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "The unique identifier of the root historic process instance of the evaluated root decision in case the decision was evaluated inside a process, otherwise null.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic decision instance belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "user_id": {
-                    "description": "Reference to a user.",
+                    "description": "The user ID in case the decision was evaluated by an authenticated user using the decision service outside of an execution context.",
                     "type": [
                         "string",
                         "null"
@@ -19132,7 +19001,7 @@
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "Time when the variable was created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19151,7 +19020,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this historic decision output instance.",
                     "type": "string"
                 },
                 "long_value": {
@@ -19162,7 +19031,7 @@
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic decision instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19170,7 +19039,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance id of the process instance on which the associated business rule task has been called.",
                     "type": [
                         "string",
                         "null"
@@ -19238,7 +19107,7 @@
             "description": "Base class for all kinds of information that is related to either a HistoricProcessInstance or a HistoricActivityInstance.",
             "properties": {
                 "activity_instance_id": {
-                    "description": "Runtime activity instance identifier.",
+                    "description": "The activity reference in case this detail is related to an activity instance.",
                     "type": [
                         "string",
                         "null"
@@ -19252,28 +19121,28 @@
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The case definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_key": {
-                    "description": "Case definition key reference.",
+                    "description": "The case definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "The case execution reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "The case instance reference.",
                     "type": [
                         "string",
                         "null"
@@ -19292,14 +19161,14 @@
                     "type": "string"
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "The identifier for the path of execution.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique DB id for this historic detail.",
                     "type": "string"
                 },
                 "is_initial": {
@@ -19321,35 +19190,35 @@
                     "type": "string"
                 },
                 "operation_id": {
-                    "description": "The unique identifier of this operation.",
+                    "description": "Reference to the operation.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "The process definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "The process definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "The process instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic detail will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19357,7 +19226,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "The root process instance reference.",
                     "type": [
                         "string",
                         "null"
@@ -19371,14 +19240,14 @@
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "The identifier for the task.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic detail belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -19431,35 +19300,35 @@
             "description": "The HistoricExternalTaskLog is used to have a log containing information about task execution.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "Id of the activity which the external task associated with.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "activity_instance_id": {
-                    "description": "Runtime activity instance identifier.",
+                    "description": "Id of the activity instance on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "error_details_id": {
-                    "description": "Reference to a ByteArray.",
+                    "description": "Reference to a byte array.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "error_message": {
-                    "description": "If the variable value could not be loaded, this returns the error message.",
+                    "description": "Message of the error that occurred by executing the associated external task.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Specific execution id on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
@@ -19470,36 +19339,36 @@
                     "type": "string"
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique identifier for this historic external task log.",
                     "type": "string"
                 },
                 "priority": {
-                    "description": "Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.",
+                    "description": "Priority of the associated external task when this log entry was created.",
                     "type": "integer"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Specific process definition id on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Specific process definition key on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Specific process instance id on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic external task log will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19507,14 +19376,14 @@
                     ]
                 },
                 "retries": {
-                    "description": "Number of retries this job has left.",
+                    "description": "Retries of the associated external task before the associated external task has been executed and when this log occurred.",
                     "type": [
                         "integer",
                         "null"
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Specific root process instance id of the process instance on which the associated external task was created.",
                     "type": [
                         "string",
                         "null"
@@ -19530,7 +19399,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the tenant this external task log entry belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -19577,14 +19446,14 @@
                     ]
                 },
                 "group_id": {
-                    "description": "Reference to a group.",
+                    "description": "If the identity link involves a group, then this will be a non-null id of a group.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Id of historic identity link (Candidate or Assignee or Owner).",
                     "type": "string"
                 },
                 "operation_type": {
@@ -19595,21 +19464,21 @@
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Id of the related process definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Key of the related process definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic identity link log will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19617,40 +19486,40 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance id of the related process instance.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "The id of the task associated with this identity link.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the related tenant.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "timestamp": {
-                    "description": "Time when this log occurred.",
+                    "description": "Timestamp for timestamp.",
                     "format": "date-time",
                     "type": "string"
                 },
                 "type": {
-                    "description": "Type discriminator.",
+                    "description": "Type of link (Candidate or Assignee or Owner).",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "user_id": {
-                    "description": "Reference to a user.",
+                    "description": "If the identity link involves a user, then this will be a non-null id of a user.",
                     "type": [
                         "string",
                         "null"
@@ -19669,7 +19538,7 @@
             "description": "Represents a historic incident that is stored permanently.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "Id of the activity of the process instance on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
@@ -19697,12 +19566,12 @@
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "Time when the incident happened.",
                     "format": "date-time",
                     "type": "string"
                 },
                 "end_time": {
-                    "description": "End timestamp.",
+                    "description": "Time when the incident has been resolved or deleted.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19710,7 +19579,7 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Specific execution on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
@@ -19731,7 +19600,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique identifier for this incident.",
                     "type": "string"
                 },
                 "incident_message": {
@@ -19755,35 +19624,35 @@
                     "type": "string"
                 },
                 "job_definition_id": {
-                    "description": "Reference to the job definition.",
+                    "description": "Id of the job definition the incident belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Id of the process definition of this process instance on which the incident has happened.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Key of the process definition of this process instance on which the incident has happened.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Specific process instance on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic incident will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19798,14 +19667,14 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Specific root process instance id of the process instance on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the tenant this incident belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -19825,28 +19694,28 @@
             "description": "The HistoricJobLog is used to have a log containing information about job execution.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "Id of the activity on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "batch_id": {
-                    "description": "Reference to a batch.",
+                    "description": "ID of the batch associated with the job or null if no batch is associated with the job.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "Specific deployment id on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Specific execution id on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
@@ -19867,7 +19736,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique identifier for this historic job log.",
                     "type": "string"
                 },
                 "job_definition_configuration": {
@@ -19878,7 +19747,7 @@
                     ]
                 },
                 "job_definition_id": {
-                    "description": "Reference to the job definition.",
+                    "description": "Id of the job definition on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
@@ -19938,28 +19807,28 @@
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Specific process definition id on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Specific process definition key on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Specific process instance id on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic job log will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -19967,7 +19836,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Specific root process instance id of the process instance on which the associated job was created.",
                     "type": [
                         "string",
                         "null"
@@ -19981,7 +19850,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the tenant this job log entry belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -20007,14 +19876,14 @@
             "description": "A single execution of a whole process definition that is stored permanently.",
             "properties": {
                 "business_key": {
-                    "description": "Domain-specific business key.",
+                    "description": "The user provided unique reference to this process instance.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "The case instance id of a potential super case instance or null if no super case instance exists.",
                     "type": [
                         "string",
                         "null"
@@ -20042,7 +19911,7 @@
                     ]
                 },
                 "end_time": {
-                    "description": "End timestamp.",
+                    "description": "The time the process was ended.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20050,15 +19919,15 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The process instance id (== as the id for the runtime process instance).",
                     "type": "string"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "The process definition reference.",
                     "type": "string"
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "The process definition key reference.",
                     "type": [
                         "string",
                         "null"
@@ -20069,7 +19938,7 @@
                     "type": "string"
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic process instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20084,7 +19953,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "The process instance id of the top-level (root) process instance or null if no root process instance exists.",
                     "type": [
                         "string",
                         "null"
@@ -20098,7 +19967,7 @@
                     ]
                 },
                 "start_time": {
-                    "description": "Start timestamp.",
+                    "description": "The time the process was started.",
                     "format": "date-time",
                     "type": "string"
                 },
@@ -20118,7 +19987,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The row's state; which values it takes depends on its table."
+                    "description": "Current state of HistoricProcessInstance, following values are recognized during process engine operations: STATE_ACTIVE - running process instance STATE_SUSPENDED - suspended process instances STATE_COMPLETED - completed through normal end event STATE_EXTERNALLY_TERMINATED - terminated externally, for instance through REST API STATE_INTERNALLY_TERMINATED - terminated internally, for instance by terminating boundary event."
                 },
                 "super_case_instance_id": {
                     "description": "The case instance id of a potential super case instance or null if no super case instance exists.",
@@ -20135,7 +20004,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic process instance belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -20143,17 +20012,17 @@
                 }
             },
             "required": [
-                "id",
                 "process_instance_id",
                 "process_definition_id",
-                "start_time"
+                "start_time",
+                "id"
             ],
             "title": "FluxnovaHistoricProcessInstance",
             "type": "object"
         },
         "FluxnovaHistoricScopeInstance": {
             "additionalProperties": false,
-            "description": "Abstract base for historic entities with start/end time and duration.",
+            "description": "Abstract base of the historic process, activity, task, case and case activity instances, with the columns all five tables have.",
             "properties": {
                 "duration": {
                     "description": "Duration in milliseconds.",
@@ -20162,57 +20031,12 @@
                         "null"
                     ]
                 },
-                "end_time": {
-                    "description": "End timestamp.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "id": {
                     "description": "Unique identifier.",
                     "type": "string"
                 },
-                "process_definition_id": {
-                    "description": "Reference to the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_definition_key": {
-                    "description": "Key of the process definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "process_instance_id": {
-                    "description": "Reference to the process instance.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
-                    "format": "date-time",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "start_time": {
-                    "description": "Start timestamp.",
-                    "format": "date-time",
+                "tenant_id": {
+                    "description": "Multi-tenancy discriminator.",
                     "type": [
                         "string",
                         "null"
@@ -20230,21 +20054,21 @@
             "description": "Represents a historic task instance (waiting, finished or deleted) that is stored permanent for statistics, audit and other business intelligence purposes.",
             "properties": {
                 "activity_instance_id": {
-                    "description": "Runtime activity instance identifier.",
+                    "description": "Activity instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "assignee": {
-                    "description": "The userId of the person to which this task is String) assigned or String) delegated.",
+                    "description": "The latest assignee given to this task.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "Case definition reference.",
                     "type": [
                         "string",
                         "null"
@@ -20258,35 +20082,35 @@
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "Case execution reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "Case instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "delete_reason": {
-                    "description": "Obtains the reason for the process instance's deletion.",
+                    "description": "The reason why this task was deleted {'completed' | 'deleted' | any other user defined string }.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "description": {
-                    "description": "Human-readable description.",
+                    "description": "The latest description given to this task.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "due_date": {
-                    "description": "Due date of the task.",
+                    "description": "Task due date *.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20301,7 +20125,7 @@
                     ]
                 },
                 "end_time": {
-                    "description": "End timestamp.",
+                    "description": "Time when the task was deleted or completed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20309,14 +20133,14 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Execution reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "follow_up_date": {
-                    "description": "Follow-up date of the task.",
+                    "description": "Task follow-up date.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20324,57 +20148,60 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this historic task instance.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "The latest name given to this task.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "owner": {
-                    "description": "The userId of the person that is responsible for this task.",
+                    "description": "Task owner.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "parent_task_id": {
-                    "description": "The parent task for which this task is a subtask.",
+                    "description": "The parent task of this task, in case this task was a subtask.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "priority": {
-                    "description": "Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.",
-                    "type": "integer"
+                    "description": "Task priority *.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Process definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Process definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Process instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic task instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20382,33 +20209,33 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "start_time": {
-                    "description": "Start timestamp.",
+                    "description": "Time when the task started.",
                     "format": "date-time",
                     "type": "string"
                 },
                 "task_definition_key": {
-                    "description": "The id of the activity in the process defining this task or null if this is not related to a process.",
+                    "description": "Task definition key.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "task_state": {
-                    "description": "Task's state.",
+                    "description": "Task State also referred as lifeCycleState.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this historic task instance belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -20416,9 +20243,8 @@
                 }
             },
             "required": [
-                "priority",
-                "id",
-                "start_time"
+                "start_time",
+                "id"
             ],
             "title": "FluxnovaHistoricTaskInstance",
             "type": "object"
@@ -20428,7 +20254,7 @@
             "description": "A single process variable containing the last value when its process instance has finished.",
             "properties": {
                 "activity_instance_id": {
-                    "description": "Runtime activity instance identifier.",
+                    "description": "Corresponding activity instance id.",
                     "type": [
                         "string",
                         "null"
@@ -20442,35 +20268,35 @@
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "The case definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_key": {
-                    "description": "Case definition key reference.",
+                    "description": "The case definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "Corresponding case execution id.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "The case instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The time when the variable was created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20485,7 +20311,7 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Corresponding execution id.",
                     "type": [
                         "string",
                         "null"
@@ -20503,32 +20329,32 @@
                     ]
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Name of this variable instance.",
                     "type": "string"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "The process definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "The process definition key reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "The process instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time when the historic variable instance will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20543,7 +20369,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "The root process instance reference.",
                     "type": [
                         "string",
                         "null"
@@ -20558,17 +20384,17 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The row's state; which values it takes depends on its table."
+                    "description": "The current state of the variable."
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "Corresponding task id.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this variable belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -20612,14 +20438,14 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "The row's key.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "parent_id": {
-                    "description": "Reference to a CaseExecution.",
+                    "description": "Reference to a case execution.",
                     "type": [
                         "string",
                         "null"
@@ -20665,14 +20491,14 @@
             "description": "An identity link is used to associate a task with a certain identity.",
             "properties": {
                 "group_id": {
-                    "description": "Reference to a group.",
+                    "description": "If the identity link involves a group, then this will be a non-null id of a group.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Get the Id of identityLink.",
                     "type": "string"
                 },
                 "process_definition_id": {
@@ -20683,28 +20509,28 @@
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "The id of the task associated with this identity link.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant associated with this identity link.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "type": {
-                    "description": "Type discriminator.",
+                    "description": "Type of link.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "user_id": {
-                    "description": "Reference to a user.",
+                    "description": "If the identity link involves a user, then this will be a non-null id of a user.",
                     "type": [
                         "string",
                         "null"
@@ -20789,7 +20615,7 @@
             "description": "An Incident represents a failure in the execution of a process instance.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "Id of the activity of the process instance on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
@@ -20817,7 +20643,7 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Specific execution on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
@@ -20831,7 +20657,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique identifier for this incident.",
                     "type": "string"
                 },
                 "incident_message": {
@@ -20851,21 +20677,21 @@
                     "type": "string"
                 },
                 "job_definition_id": {
-                    "description": "Reference to the job definition.",
+                    "description": "Id of the job definition the incident belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Id of the process definition of this process instance on which the incident has happened.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Specific process instance on which this incident has happened.",
                     "type": [
                         "string",
                         "null"
@@ -20879,7 +20705,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Id of the tenant this incident belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -20983,14 +20809,14 @@
             "description": "Represents one job (timer, message, etc.).",
             "properties": {
                 "batch_id": {
-                    "description": "Reference to a batch.",
+                    "description": "The ID of the batch associated with this job. null if no batch is associated with this job.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The date/time when this job has been created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -20998,14 +20824,14 @@
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "Id of the deployment in which context the job was created.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "due_date": {
-                    "description": "Due date of the task.",
+                    "description": "Date by which this should be completed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -21020,14 +20846,14 @@
                     ]
                 },
                 "exception_stack_id": {
-                    "description": "Reference to a ByteArray.",
+                    "description": "Reference to a byte array.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Specific execution on which the job was created.",
                     "type": [
                         "string",
                         "null"
@@ -21055,7 +20881,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "Unique identifier for this job.",
                     "type": "string"
                 },
                 "is_exclusive": {
@@ -21066,7 +20892,7 @@
                     ]
                 },
                 "job_definition_id": {
-                    "description": "Reference to the job definition.",
+                    "description": "The id of the JobDefinition for this job.",
                     "type": [
                         "string",
                         "null"
@@ -21095,25 +20921,25 @@
                     ]
                 },
                 "priority": {
-                    "description": "Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.",
+                    "description": "The job's priority that is a hint to job acquisition.",
                     "type": "integer"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Id of the process definition which created the job.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Key of the process definition which created the job.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Id of the process instance which execution created the job.",
                     "type": [
                         "string",
                         "null"
@@ -21141,7 +20967,7 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Id of the root process instance which execution created the job.",
                     "type": [
                         "string",
                         "null"
@@ -21161,7 +20987,7 @@
                     "type": "integer"
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this job belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -21186,14 +21012,14 @@
             "description": "A Job Definition provides details about asynchronous background processing (\"Jobs\") performed by the process engine.",
             "properties": {
                 "activity_id": {
-                    "description": "BPMN activity element identifier.",
+                    "description": "The Id of the activity (from BPMN 2.0 Xml) this Job Definition is associated with.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The id of the deployment this job definition is related to.",
                     "type": [
                         "string",
                         "null"
@@ -21211,8 +21037,11 @@
                     ]
                 },
                 "job_priority": {
-                    "description": "Priority of the associated job when this log entry was created.",
-                    "type": "integer"
+                    "description": "The job priority.",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "job_type": {
                     "description": "The Type of a job.",
@@ -21242,7 +21071,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this job definition belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -21251,8 +21080,7 @@
             },
             "required": [
                 "id",
-                "job_type",
-                "job_priority"
+                "job_type"
             ],
             "title": "FluxnovaJobDefinition",
             "type": "object"
@@ -21350,7 +21178,7 @@
                     ]
                 },
                 "timestamp": {
-                    "description": "Time when this log occurred.",
+                    "description": "Timestamp for timestamp.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -21480,10 +21308,30 @@
         },
         "FluxnovaPlatformData": {
             "additionalProperties": false,
-            "description": "Root container for Fluxnova BPM Platform data.",
+            "description": "Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.",
             "properties": {
+                "attachments": {
+                    "description": "The rows of ACT_HI_ATTACHMENT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaAttachment"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "authorization_entries": {
+                    "description": "The rows of ACT_RU_AUTHORIZATION.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaAuthorization"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "batches": {
-                    "description": "Batch operations.",
+                    "description": "The rows of ACT_RU_BATCH.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaBatch"
                     },
@@ -21492,8 +21340,88 @@
                         "null"
                     ]
                 },
+                "byte_arrays": {
+                    "description": "The rows of ACT_GE_BYTEARRAY.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaByteArray"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "case_definitions": {
+                    "description": "The rows of ACT_RE_CASE_DEF.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaCaseDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "case_executions": {
+                    "description": "The rows of ACT_RU_CASE_EXECUTION.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaCaseExecution"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "case_sentry_parts": {
+                    "description": "The rows of ACT_RU_CASE_SENTRY_PART.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaCaseSentryPart"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "comment_entries": {
+                    "description": "The rows of ACT_HI_COMMENT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaComment"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "configuration_entries": {
+                    "description": "The rows of ACT_GE_CONFIGURATION.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaConfiguration"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "decision_definitions": {
+                    "description": "The rows of ACT_RE_DECISION_DEF.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaDecisionDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "decision_requirements_definitions": {
+                    "description": "The rows of ACT_RE_DECISION_REQ_DEF.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaDecisionRequirementsDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "deployments": {
-                    "description": "Deployed resources.",
+                    "description": "The rows of ACT_RE_DEPLOYMENT.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaDeployment"
                     },
@@ -21502,8 +21430,28 @@
                         "null"
                     ]
                 },
+                "engine_properties": {
+                    "description": "The rows of ACT_GE_PROPERTY.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaEngineProperty"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "event_subscriptions": {
+                    "description": "The rows of ACT_RU_EVENT_SUBSCR.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaEventSubscription"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "executions": {
-                    "description": "Process execution instances.",
+                    "description": "The rows of ACT_RU_EXECUTION.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaExecution"
                     },
@@ -21512,8 +21460,38 @@
                         "null"
                     ]
                 },
+                "external_tasks": {
+                    "description": "The rows of ACT_RU_EXT_TASK.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaExternalTask"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "filter_entries": {
+                    "description": "The rows of ACT_RU_FILTER.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaFilter"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "form_definitions": {
+                    "description": "The rows of ACT_RE_CAMFORMDEF.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaFormDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "groups": {
-                    "description": "Identity groups.",
+                    "description": "The rows of ACT_ID_GROUP.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaGroup"
                     },
@@ -21522,8 +21500,198 @@
                         "null"
                     ]
                 },
+                "historic_activity_instances": {
+                    "description": "The rows of ACT_HI_ACTINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricActivityInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_batches": {
+                    "description": "The rows of ACT_HI_BATCH.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricBatch"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_case_activity_instances": {
+                    "description": "The rows of ACT_HI_CASEACTINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricCaseActivityInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_case_instances": {
+                    "description": "The rows of ACT_HI_CASEINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricCaseInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_decision_input_instances": {
+                    "description": "The rows of ACT_HI_DEC_IN.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricDecisionInputInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_decision_instances": {
+                    "description": "The rows of ACT_HI_DECINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricDecisionInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_decision_output_instances": {
+                    "description": "The rows of ACT_HI_DEC_OUT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricDecisionOutputInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_details": {
+                    "description": "The rows of ACT_HI_DETAIL.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricDetail"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_external_task_logs": {
+                    "description": "The rows of ACT_HI_EXT_TASK_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricExternalTaskLog"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_identity_links": {
+                    "description": "The rows of ACT_HI_IDENTITYLINK.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricIdentityLink"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_incidents": {
+                    "description": "The rows of ACT_HI_INCIDENT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricIncident"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_job_logs": {
+                    "description": "The rows of ACT_HI_JOB_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricJobLog"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_process_instances": {
+                    "description": "The rows of ACT_HI_PROCINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricProcessInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_task_instances": {
+                    "description": "The rows of ACT_HI_TASKINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricTaskInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "historic_variable_instances": {
+                    "description": "The rows of ACT_HI_VARINST.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaHistoricVariableInstance"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "identity_infos": {
+                    "description": "The rows of ACT_ID_INFO.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaIdentityInfo"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "identity_links": {
+                    "description": "The rows of ACT_RU_IDENTITYLINK.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaIdentityLink"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "incidents": {
+                    "description": "The rows of ACT_RU_INCIDENT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaIncident"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "job_definitions": {
+                    "description": "The rows of ACT_RU_JOBDEF.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaJobDefinition"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "jobs": {
-                    "description": "Asynchronous jobs.",
+                    "description": "The rows of ACT_RU_JOB.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaJob"
                     },
@@ -21532,8 +21700,28 @@
                         "null"
                     ]
                 },
+                "memberships": {
+                    "description": "The rows of ACT_ID_MEMBERSHIP.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaMembership"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "meter_logs": {
+                    "description": "The rows of ACT_RU_METER_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaMeterLog"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "process_definitions": {
-                    "description": "Process definitions.",
+                    "description": "The rows of ACT_RE_PROCDEF.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaProcessDefinition"
                     },
@@ -21542,8 +21730,28 @@
                         "null"
                     ]
                 },
+                "schema_log_entries": {
+                    "description": "The rows of ACT_GE_SCHEMA_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaSchemaLogEntry"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "task_meter_logs": {
+                    "description": "The rows of ACT_RU_TASK_METER_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaTaskMeterLog"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "tasks": {
-                    "description": "User tasks.",
+                    "description": "The rows of ACT_RU_TASK.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaTask"
                     },
@@ -21552,10 +21760,50 @@
                         "null"
                     ]
                 },
+                "tenant_memberships": {
+                    "description": "The rows of ACT_ID_TENANT_MEMBER.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaTenantMembership"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "tenants": {
+                    "description": "The rows of ACT_ID_TENANT.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaTenant"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "user_operation_log_entries": {
+                    "description": "The rows of ACT_HI_OP_LOG.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaUserOperationLogEntry"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
                 "users": {
-                    "description": "Identity users.",
+                    "description": "The rows of ACT_ID_USER.",
                     "items": {
                         "$ref": "#/$defs/FluxnovaUser"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "variable_instances": {
+                    "description": "The rows of ACT_RU_VARIABLE.",
+                    "items": {
+                        "$ref": "#/$defs/FluxnovaVariableInstance"
                     },
                     "type": [
                         "array",
@@ -21600,21 +21848,21 @@
             "description": "An object structure representing an executable process composed of activities and transitions.",
             "properties": {
                 "category": {
-                    "description": "Category classification.",
+                    "description": "Category name which is derived from the targetNamespace attribute in the definitions element.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
+                    "description": "The diagram resource name for this definition if exist.",
                     "type": [
                         "string",
                         "null"
@@ -21628,7 +21876,7 @@
                     ]
                 },
                 "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
+                    "description": "History time to live.",
                     "type": [
                         "integer",
                         "null"
@@ -21643,18 +21891,18 @@
                     "type": "boolean"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
+                    "description": "Unique name for all versions this definition.",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Label used for display purposes.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
@@ -21670,14 +21918,14 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": "integer"
                 },
                 "version_tag": {
@@ -21766,33 +22014,12 @@
         },
         "FluxnovaResourceDefinition": {
             "additionalProperties": false,
-            "description": "Abstract base for deployable resource definitions (process, case, decision, form).",
+            "description": "Abstract base of the process, case, decision, decision requirements and form definitions, with the columns all five tables have.",
             "properties": {
-                "category": {
-                    "description": "Category classification.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "The deployment in which this definition is contained.",
                     "type": [
                         "string",
-                        "null"
-                    ]
-                },
-                "diagram_resource_name": {
-                    "description": "Name of the diagram resource file.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "history_time_to_live": {
-                    "description": "Days to retain history before cleanup.",
-                    "type": [
-                        "integer",
                         "null"
                     ]
                 },
@@ -21801,35 +22028,28 @@
                     "type": "string"
                 },
                 "key": {
-                    "description": "Business key for the definition.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "name": {
-                    "description": "Human-readable name.",
+                    "description": "Unique name for all versions this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "resource_name": {
-                    "description": "Name of the deployed resource file.",
+                    "description": "Name of the resource of this definition.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this definition belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "version": {
-                    "description": "Version number.",
+                    "description": "Version of this definition.",
                     "type": [
                         "integer",
                         "null"
@@ -21851,7 +22071,7 @@
                     "type": "string"
                 },
                 "timestamp": {
-                    "description": "Time when this log occurred.",
+                    "description": "Timestamp for timestamp.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -21941,35 +22161,35 @@
             "description": "Represents one task for a human user.",
             "properties": {
                 "assignee": {
-                    "description": "The userId of the person to which this task is String) assigned or String) delegated.",
+                    "description": "The userId of the person to which this task is assigned or delegated.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "Reference to the case definition or null if it is not related to a case.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "Reference to the path of case execution or null if it is not related to a case instance.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "Reference to the case instance or null if it is not related to a case instance.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "create_time": {
-                    "description": "Creation timestamp.",
+                    "description": "The date/time when this task was created.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -21988,7 +22208,7 @@
                     "description": "The current DelegationState for this task."
                 },
                 "description": {
-                    "description": "Human-readable description.",
+                    "description": "Free text description of the task.",
                     "type": [
                         "string",
                         "null"
@@ -22003,7 +22223,7 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Reference to the path of execution or null if it is not related to a process instance.",
                     "type": [
                         "string",
                         "null"
@@ -22018,7 +22238,7 @@
                     ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "DB id of the task.",
                     "type": "string"
                 },
                 "last_updated": {
@@ -22030,7 +22250,7 @@
                     ]
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Name or title of the task.",
                     "type": [
                         "string",
                         "null"
@@ -22052,17 +22272,20 @@
                 },
                 "priority": {
                     "description": "Indication of how important/urgent this task is with a number between 0 and 100 where higher values mean a higher priority and lower values mean lower priority: [0..19] lowest, [20..39] low, [40..59] normal, [60..79] high [80..100] highest.",
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Reference to the process definition or null if it is not related to a process.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Reference to the process instance or null if it is not related to a process instance.",
                     "type": [
                         "string",
                         "null"
@@ -22092,7 +22315,7 @@
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "Task's tenant id or null in case this task does not belong to a tenant.",
                     "type": [
                         "string",
                         "null"
@@ -22100,8 +22323,7 @@
                 }
             },
             "required": [
-                "id",
-                "priority"
+                "id"
             ],
             "title": "FluxnovaTask",
             "type": "object"
@@ -22200,7 +22422,7 @@
                     "type": "string"
                 },
                 "timestamp": {
-                    "description": "Time when this log occurred.",
+                    "description": "Timestamp for timestamp.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -22347,49 +22569,49 @@
             "description": "Log entry about an operation performed by a user.",
             "properties": {
                 "annotation": {
-                    "description": "Annotation of this incident.",
+                    "description": "An arbitrary annotation set by a user for auditing reasons.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "batch_id": {
-                    "description": "Reference to a batch.",
+                    "description": "Batch reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_definition_id": {
-                    "description": "Reference to the case definition.",
+                    "description": "Case definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "Case execution reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "Case instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "category": {
-                    "description": "Category classification.",
+                    "description": "The category this entry is associated with.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "deployment_id": {
-                    "description": "Reference to the deployment.",
+                    "description": "Deployment reference.",
                     "type": [
                         "string",
                         "null"
@@ -22403,30 +22625,36 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Execution reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "external_task_id": {
-                    "description": "Id of the associated external task.",
-                    "type": "string"
+                    "description": "External task reference.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "id": {
-                    "description": "Unique identifier.",
+                    "description": "The unique identifier of this log entry.",
                     "type": "string"
                 },
                 "job_definition_id": {
-                    "description": "Reference to the job definition.",
+                    "description": "Job definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "job_id": {
-                    "description": "Id of the associated job.",
-                    "type": "string"
+                    "description": "Job instance reference.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "new_value": {
                     "description": "The new value of the property.",
@@ -22443,7 +22671,7 @@
                     ]
                 },
                 "operation_type": {
-                    "description": "Type of identity link history (add or delete identity link).",
+                    "description": "Type of this operation, like create, assign, claim and so on.",
                     "type": [
                         "string",
                         "null"
@@ -22457,21 +22685,21 @@
                     ]
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Process definition reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_definition_key": {
-                    "description": "Key of the process definition.",
+                    "description": "Key of the process definition this log entry belongs to; null means any.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Process instance reference.",
                     "type": [
                         "string",
                         "null"
@@ -22485,7 +22713,7 @@
                     ]
                 },
                 "removal_time": {
-                    "description": "Timestamp when this entity is eligible for removal.",
+                    "description": "The time the historic user operation log will be removed.",
                     "format": "date-time",
                     "type": [
                         "string",
@@ -22493,33 +22721,33 @@
                     ]
                 },
                 "root_process_instance_id": {
-                    "description": "Root process instance for history cleanup.",
+                    "description": "Root process instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "Task instance reference.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this user operation log belongs to.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "timestamp": {
-                    "description": "Time when this log occurred.",
+                    "description": "Timestamp of this change.",
                     "format": "date-time",
                     "type": "string"
                 },
                 "user_id": {
-                    "description": "Reference to a user.",
+                    "description": "The User who performed the operation.",
                     "type": [
                         "string",
                         "null"
@@ -22528,9 +22756,7 @@
             },
             "required": [
                 "id",
-                "job_id",
-                "timestamp",
-                "external_task_id"
+                "timestamp"
             ],
             "title": "FluxnovaUserOperationLogEntry",
             "type": "object"
@@ -22607,7 +22833,7 @@
             "description": "A VariableInstance represents a variable in the execution of a process instance.",
             "properties": {
                 "batch_id": {
-                    "description": "Reference to a batch.",
+                    "description": "Corresponding batch id.",
                     "type": [
                         "string",
                         "null"
@@ -22621,14 +22847,14 @@
                     ]
                 },
                 "case_execution_id": {
-                    "description": "Reference to the case execution.",
+                    "description": "Corresponding case execution id.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "case_instance_id": {
-                    "description": "Reference to the case instance.",
+                    "description": "Corresponding case instance id.",
                     "type": [
                         "string",
                         "null"
@@ -22642,7 +22868,7 @@
                     ]
                 },
                 "execution_id": {
-                    "description": "Reference to the execution.",
+                    "description": "Corresponding execution id.",
                     "type": [
                         "string",
                         "null"
@@ -22667,18 +22893,18 @@
                     ]
                 },
                 "name": {
-                    "description": "Human-readable name.",
+                    "description": "Name of this variable instance.",
                     "type": "string"
                 },
                 "process_definition_id": {
-                    "description": "Reference to the process definition.",
+                    "description": "Corresponding process definition id.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "process_instance_id": {
-                    "description": "Reference to the process instance.",
+                    "description": "Corresponding process instance id.",
                     "type": [
                         "string",
                         "null"
@@ -22699,14 +22925,14 @@
                     ]
                 },
                 "task_id": {
-                    "description": "Reference to the task.",
+                    "description": "Corresponding task id.",
                     "type": [
                         "string",
                         "null"
                     ]
                 },
                 "tenant_id": {
-                    "description": "Multi-tenancy discriminator.",
+                    "description": "The id of the tenant this variable belongs to.",
                     "type": [
                         "string",
                         "null"
@@ -22769,11 +22995,31 @@
     "$id": "https://w3id.org/lmodel/fluxnova-bpm-platform",
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "additionalProperties": false,
-    "description": "Root container for Fluxnova BPM Platform data.",
+    "description": "Root container for Fluxnova BPM Platform data: a list of rows for each of the engine's tables.",
     "metamodel_version": "1.12.0",
     "properties": {
+        "attachments": {
+            "description": "The rows of ACT_HI_ATTACHMENT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaAttachment"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "authorization_entries": {
+            "description": "The rows of ACT_RU_AUTHORIZATION.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaAuthorization"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "batches": {
-            "description": "Batch operations.",
+            "description": "The rows of ACT_RU_BATCH.",
             "items": {
                 "$ref": "#/$defs/FluxnovaBatch"
             },
@@ -22782,8 +23028,88 @@
                 "null"
             ]
         },
+        "byte_arrays": {
+            "description": "The rows of ACT_GE_BYTEARRAY.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaByteArray"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "case_definitions": {
+            "description": "The rows of ACT_RE_CASE_DEF.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaCaseDefinition"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "case_executions": {
+            "description": "The rows of ACT_RU_CASE_EXECUTION.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaCaseExecution"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "case_sentry_parts": {
+            "description": "The rows of ACT_RU_CASE_SENTRY_PART.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaCaseSentryPart"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "comment_entries": {
+            "description": "The rows of ACT_HI_COMMENT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaComment"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "configuration_entries": {
+            "description": "The rows of ACT_GE_CONFIGURATION.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaConfiguration"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "decision_definitions": {
+            "description": "The rows of ACT_RE_DECISION_DEF.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaDecisionDefinition"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "decision_requirements_definitions": {
+            "description": "The rows of ACT_RE_DECISION_REQ_DEF.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaDecisionRequirementsDefinition"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "deployments": {
-            "description": "Deployed resources.",
+            "description": "The rows of ACT_RE_DEPLOYMENT.",
             "items": {
                 "$ref": "#/$defs/FluxnovaDeployment"
             },
@@ -22792,8 +23118,28 @@
                 "null"
             ]
         },
+        "engine_properties": {
+            "description": "The rows of ACT_GE_PROPERTY.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaEngineProperty"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "event_subscriptions": {
+            "description": "The rows of ACT_RU_EVENT_SUBSCR.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaEventSubscription"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "executions": {
-            "description": "Process execution instances.",
+            "description": "The rows of ACT_RU_EXECUTION.",
             "items": {
                 "$ref": "#/$defs/FluxnovaExecution"
             },
@@ -22802,8 +23148,38 @@
                 "null"
             ]
         },
+        "external_tasks": {
+            "description": "The rows of ACT_RU_EXT_TASK.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaExternalTask"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "filter_entries": {
+            "description": "The rows of ACT_RU_FILTER.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaFilter"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "form_definitions": {
+            "description": "The rows of ACT_RE_CAMFORMDEF.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaFormDefinition"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "groups": {
-            "description": "Identity groups.",
+            "description": "The rows of ACT_ID_GROUP.",
             "items": {
                 "$ref": "#/$defs/FluxnovaGroup"
             },
@@ -22812,8 +23188,198 @@
                 "null"
             ]
         },
+        "historic_activity_instances": {
+            "description": "The rows of ACT_HI_ACTINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricActivityInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_batches": {
+            "description": "The rows of ACT_HI_BATCH.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricBatch"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_case_activity_instances": {
+            "description": "The rows of ACT_HI_CASEACTINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricCaseActivityInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_case_instances": {
+            "description": "The rows of ACT_HI_CASEINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricCaseInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_decision_input_instances": {
+            "description": "The rows of ACT_HI_DEC_IN.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricDecisionInputInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_decision_instances": {
+            "description": "The rows of ACT_HI_DECINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricDecisionInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_decision_output_instances": {
+            "description": "The rows of ACT_HI_DEC_OUT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricDecisionOutputInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_details": {
+            "description": "The rows of ACT_HI_DETAIL.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricDetail"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_external_task_logs": {
+            "description": "The rows of ACT_HI_EXT_TASK_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricExternalTaskLog"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_identity_links": {
+            "description": "The rows of ACT_HI_IDENTITYLINK.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricIdentityLink"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_incidents": {
+            "description": "The rows of ACT_HI_INCIDENT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricIncident"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_job_logs": {
+            "description": "The rows of ACT_HI_JOB_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricJobLog"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_process_instances": {
+            "description": "The rows of ACT_HI_PROCINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricProcessInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_task_instances": {
+            "description": "The rows of ACT_HI_TASKINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricTaskInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "historic_variable_instances": {
+            "description": "The rows of ACT_HI_VARINST.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaHistoricVariableInstance"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "identity_infos": {
+            "description": "The rows of ACT_ID_INFO.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaIdentityInfo"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "identity_links": {
+            "description": "The rows of ACT_RU_IDENTITYLINK.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaIdentityLink"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "incidents": {
+            "description": "The rows of ACT_RU_INCIDENT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaIncident"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "job_definitions": {
+            "description": "The rows of ACT_RU_JOBDEF.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaJobDefinition"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "jobs": {
-            "description": "Asynchronous jobs.",
+            "description": "The rows of ACT_RU_JOB.",
             "items": {
                 "$ref": "#/$defs/FluxnovaJob"
             },
@@ -22822,8 +23388,28 @@
                 "null"
             ]
         },
+        "memberships": {
+            "description": "The rows of ACT_ID_MEMBERSHIP.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaMembership"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "meter_logs": {
+            "description": "The rows of ACT_RU_METER_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaMeterLog"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "process_definitions": {
-            "description": "Process definitions.",
+            "description": "The rows of ACT_RE_PROCDEF.",
             "items": {
                 "$ref": "#/$defs/FluxnovaProcessDefinition"
             },
@@ -22832,8 +23418,28 @@
                 "null"
             ]
         },
+        "schema_log_entries": {
+            "description": "The rows of ACT_GE_SCHEMA_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaSchemaLogEntry"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "task_meter_logs": {
+            "description": "The rows of ACT_RU_TASK_METER_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaTaskMeterLog"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "tasks": {
-            "description": "User tasks.",
+            "description": "The rows of ACT_RU_TASK.",
             "items": {
                 "$ref": "#/$defs/FluxnovaTask"
             },
@@ -22842,10 +23448,50 @@
                 "null"
             ]
         },
+        "tenant_memberships": {
+            "description": "The rows of ACT_ID_TENANT_MEMBER.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaTenantMembership"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "tenants": {
+            "description": "The rows of ACT_ID_TENANT.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaTenant"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "user_operation_log_entries": {
+            "description": "The rows of ACT_HI_OP_LOG.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaUserOperationLogEntry"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
         "users": {
-            "description": "Identity users.",
+            "description": "The rows of ACT_ID_USER.",
             "items": {
                 "$ref": "#/$defs/FluxnovaUser"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "variable_instances": {
+            "description": "The rows of ACT_RU_VARIABLE.",
+            "items": {
+                "$ref": "#/$defs/FluxnovaVariableInstance"
             },
             "type": [
                 "array",
