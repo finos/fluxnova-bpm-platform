@@ -62,6 +62,11 @@ The `quarkus-tests` profile is required: extension tests are skipped by default.
 It enables both the deployment-module tests and the CDI QA tests, including the
 shared CDI tests packaged by `engine-cdi`.
 
+GitHub Actions runs these suites in the existing integration-test job, in a
+separate "Quarkus extension tests" step before the Tomcat suite. After installing
+internal artifacts, it cleans JUEL's workspace output as described below and
+runs the extension tests with `quarkus-tests` enabled, without `-am`.
+
 To build and test just the extension and its reactor dependencies from the
 repository root:
 
