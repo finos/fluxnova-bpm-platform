@@ -65,13 +65,11 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
   @Test
   public void testProcessEngineInject() {
     //given only custom engine exist
-    init();
     //when TestClass is created
     InjectedProcessEngineBean testClass = ProgrammaticBeanLookup.lookup(InjectedProcessEngineBean.class);
     Assertions.assertNotNull(testClass);
 
     //then custom engine is injected
     Assertions.assertEquals("myCustomEngine", testClass.processEngine.getName());
-    tearDownCdiProcessEngineTestCase();
   }
 }

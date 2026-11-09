@@ -51,16 +51,71 @@ quarkus.fluxnova.datasource=my-datasource
 
 ### Local Build
 
+The extension is built against Quarkus 3.40.1.1 LTS and requires Java 21 for this
+repository's build. Keep the application's Quarkus BOM and build plugin aligned
+with the extension's Quarkus version.
+
 #### Executing the Tests  
 ```mvn clean install -Pquarkus-tests```
+
+The `quarkus-tests` profile is required: extension tests are skipped by default.
+It enables both the deployment-module tests and the CDI QA tests, including the
+shared CDI tests packaged by `engine-cdi`.
+
+To build and test just the extension and its reactor dependencies from the
+repository root:
+
+```shell
+mvn clean install -Pquarkus-tests -pl :fluxnova-bpm-quarkus-engine-deployment,:fluxnova-bpm-quarkus-engine-qa -am
+```
+
+#### Upgrading from Quarkus 3.27
+
+Quarkus 3.40 uses JUnit 6. Extension tests now depend on
+`quarkus-junit-internal` instead of `quarkus-junit5-internal`. Custom Surefire JVM
+arguments must retain `@{argLine}` so injected test and coverage arguments are
+preserved.
+
+Runtime configuration is supplied to the engine recorder through
+`RuntimeValue<FluxnovaEngineConfig>`; build steps must not consume runtime
+configuration directly.
+
+ArC rejects CDI Full features such as `@Specializes` during augmentation. Use
+CDI alternatives instead. The extension tests verify this rejection separately
+from supported bean lookup and exclude the unused specialization fixture from
+the shared CDI QA deployment.
+
+The default JDBC connection pool maximum increased from 20 to 50 in Quarkus
+3.31. Applications that need the previous limit should explicitly configure
+`quarkus.datasource.jdbc.max-size=20` (and the corresponding property for each
+named datasource). The extension does not override Quarkus's datasource defaults.
+
+The TLS registry also defaults to TLS 1.3. Applications using it should verify
+compatibility with their endpoints and configure supported protocols explicitly
+if TLS 1.2 is still required.
+
+Review the intervening
+[Quarkus migration guides](https://github.com/quarkusio/quarkus/wiki/Migration-Guides)
+for changes affecting other extensions used by the application.
 
 
 ---------
 #### Quarkus and JUEL bytecode incompatibilities
 
-**Context**: JUEL was built with a different Java version. Quarkus won't pick up new build changes.
+**Context**: Quarkus workspace discovery may bypass the packaged JUEL jar and
+load classes whose Jakarta EL references have not been relocated.
 
-**Solution**: If you notice juel exceptions like below, delete `/juel/target` folder and run the Quarkus build again.
+**Solution**: Quarkus workspace discovery can load unshaded JUEL classes from
+`juel/target/classes` instead of the installed shaded artifact. First install
+JUEL with `mvn install -pl :fluxnova-juel -DskipTests`. Then remove only its
+workspace output with `mvn clean -pl :fluxnova-juel` and rerun the extension
+tests without `-am`:
+
+```shell
+mvn verify -Pquarkus-tests -pl :fluxnova-bpm-quarkus-engine,:fluxnova-bpm-quarkus-engine-deployment,:fluxnova-bpm-quarkus-engine-qa
+```
+
+The other reactor dependencies must already be installed.
 
 <details>
 
@@ -83,3 +138,17 @@ Bytecode:
 0000010: 03b5 0013 2abb 0017 59b7 0019 b500 1a2a
 0000020: 2bb5 001e b1```
 </details>
+
+#### Platform integration tests
+
+After installing the current Tomcat assembly, run the platform integration suite
+from the repository root:
+
+```shell
+mvn clean verify -f qa/pom.xml -Ptomcat,engine-integration-jakarta,h2
+```
+
+Keep the `clean` phase when reusing a workspace. The Jakarta suite copies test
+sources into `target/generated-test-sources`; copying does not remove previously
+generated files for tests deleted from the repository. Without cleaning, obsolete
+JBoss tests can still run under Tomcat and fail on unsupported JNDI bindings.

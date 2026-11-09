@@ -31,6 +31,9 @@ public class ArquillianAutomaticDeployment implements AutomaticDeployment {
         .addPackages(true, this.getClass().getPackage())
         .addAsResource("application.properties");
 
+    // The shared specialization test is excluded; its CDI Full fixture is invalid in ArC.
+    jar.deleteClass("org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.SpecializedTestBean");
+
     return new DeploymentContentBuilder(jar).get();
   }
 

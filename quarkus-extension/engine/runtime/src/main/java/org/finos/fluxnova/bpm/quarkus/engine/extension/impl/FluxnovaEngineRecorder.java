@@ -45,6 +45,12 @@ import org.eclipse.microprofile.context.ManagedExecutor;
 @Recorder
 public class FluxnovaEngineRecorder {
 
+  private final RuntimeValue<FluxnovaEngineConfig> engineConfig;
+
+  public FluxnovaEngineRecorder(RuntimeValue<FluxnovaEngineConfig> engineConfig) {
+    this.engineConfig = engineConfig;
+  }
+
   public void configureProcessEngineCdiBeans(BeanContainer beanContainer) {
 
     if (BeanManagerLookup.localInstance == null) {
@@ -52,9 +58,9 @@ public class FluxnovaEngineRecorder {
     }
   }
 
-  public RuntimeValue<ProcessEngineConfigurationImpl> createProcessEngineConfiguration(BeanContainer beanContainer,
-                                                                                       FluxnovaEngineConfig config) {
+  public RuntimeValue<ProcessEngineConfigurationImpl> createProcessEngineConfiguration(BeanContainer beanContainer) {
 
+    FluxnovaEngineConfig config = engineConfig.getValue();
     QuarkusProcessEngineConfiguration configuration = getBeanFromContainer(QuarkusProcessEngineConfiguration.class,
         beanContainer);
 

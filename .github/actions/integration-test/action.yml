@@ -10,4 +10,4 @@ runs:
         JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70.0"
       shell: bash
       run: |
-        mvn -B -e verify -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2
+        mvn -B -e clean verify -f qa/pom.xml -P tomcat,engine-integration-jakarta,h2
