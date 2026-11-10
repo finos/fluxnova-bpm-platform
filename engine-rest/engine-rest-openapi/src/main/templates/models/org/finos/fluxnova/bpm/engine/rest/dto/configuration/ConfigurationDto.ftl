@@ -31,7 +31,7 @@
     <@lib.property
         name = "status"
         type = "string"
-        enumValues = ['"ACTIVE"', '"DELETED"']
+        enumValues = ['"ACTIVE"', '"INACTIVE"', '"DELETED"']
         desc = "The status of the configuration entry." />
 
     <@lib.property

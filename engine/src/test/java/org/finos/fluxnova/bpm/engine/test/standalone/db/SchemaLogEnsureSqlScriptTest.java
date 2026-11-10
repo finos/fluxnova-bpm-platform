@@ -34,7 +34,7 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
 
   protected String currentSchemaVersion;
   protected String dataBaseType;
-  private static final String FLUXNOVA_VERSION = "3.1.0";
+  private static final String FLUXNOVA_VERSION = "3.1.1";
 
   @Override
   @BeforeEach
@@ -81,8 +81,8 @@ public class SchemaLogEnsureSqlScriptTest extends SchemaLogTestCase {
 
   /**
    * This method is added due to naming inconsistencies in the update script files.
-   * A future release will streamline the upgrade scripts to the Fluxnova naming convention
-   * and remove this workaround.
+   * When we do the next Fluxnova release, this method will be removed and we will use
+   * getLatestTargetVersion() instead.
    */
   protected String getLatestFluxnovaTargetVersion() {
     return FLUXNOVA_VERSION;

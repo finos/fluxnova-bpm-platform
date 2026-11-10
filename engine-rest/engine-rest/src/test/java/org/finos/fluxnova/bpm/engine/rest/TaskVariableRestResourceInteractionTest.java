@@ -878,6 +878,32 @@ public class TaskVariableRestResourceInteractionTest extends
   }
 
   @Test
+  public void testPutSingleVariableWithExplicitNullValueForPrimitiveTypes() {
+    // JSON {"type": "<PrimitiveType>", "value": null} must create a typed null value, not fail deserialization
+    String variableKey = "aVariableKey";
+    String[] primitiveTypes = {"String", "Integer", "Short", "Long", "Double", "Boolean"};
+
+    for (String type : primitiveTypes) {
+      Map<String, Object> variableJson = new HashMap<>();
+      variableJson.put("value", null);
+      variableJson.put("type", type);
+
+      given().pathParam("id", EXAMPLE_TASK_ID).pathParam("varId", variableKey)
+        .contentType(ContentType.JSON).body(variableJson)
+        .header("accept", MediaType.APPLICATION_JSON)
+        .then().expect().statusCode(Status.NO_CONTENT.getStatusCode())
+        .when().put(SINGLE_TASK_PUT_SINGLE_VARIABLE_URL);
+    }
+
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.stringValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.integerValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.shortValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.longValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.doubleValue(null)));
+    verify(taskServiceMock).setVariable(eq(EXAMPLE_TASK_ID), eq(variableKey), argThat(EqualsPrimitiveValue.booleanValue(null)));
+  }
+
+  @Test
   public void testPutVariableForNonExistingTaskId() {
     String variableKey = "aVariableKey";
     String variableValue = "aVariableValue";
