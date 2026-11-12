@@ -57,8 +57,9 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
     boolean restricted = variableInstance.isRestricted();
 
     if (restricted
-        && hasNoEffectiveChange(variableInstance, newValue)
-        && isAuthorizedToReadRestricted()) {
+        && newValue != null
+        && isAuthorizedToReadRestricted()
+        && hasNoEffectiveChange(variableInstance, newValue)) {
       // No-op resubmit (same value, same restricted flag): UPDATE_RESTRICTED is not required.
       return newValue;
     }
@@ -156,9 +157,11 @@ public class DefaultRestrictedVariableInterceptor implements VariableInterceptor
       return false;
     }
 
-    // No internal-read bypass needed here: UPDATE_RESTRICTED implies READ_RESTRICTED, so a user
-    // who reaches this point (authorized to update) is also authorized to read the current value.
-    TypedValue currentValue = variableInstance.getTypedValue(false);
+    // Read access is checked before this comparison; avoid repeating it through the interceptor.
+    TypedValue[] currentValueHolder = new TypedValue[1];
+    InternalVariableContext.executeAsInternalRead(
+        () -> currentValueHolder[0] = variableInstance.getTypedValue(false));
+    TypedValue currentValue = currentValueHolder[0];
     if (currentValue == null) {
       return false;
     }
