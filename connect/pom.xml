@@ -19,7 +19,7 @@
     <connect.version.old>2.0.0</connect.version.old>
     <mockito.version>5.23.0</mockito.version>
     <wiremock.version>2.35.2</wiremock.version>
-    <maven-bundle-plugin.version>5.1.1</maven-bundle-plugin.version>
+    <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
 
     <license.includeTransitiveDependencies>false</license.includeTransitiveDependencies>
     <additionalparam>-Xdoclint:none</additionalparam>
