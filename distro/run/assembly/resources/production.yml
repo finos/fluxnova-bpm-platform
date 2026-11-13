@@ -70,7 +70,7 @@ server:
     key-store: classpath:keystore.p12
     key-store-password: ${KEY_STORE_PASSWORD}
     key-store-type: pkcs12
-    key-alias: camunda
+    key-alias: fluxnova
     key-password: ${KEY_PASSWORD}
   port: 8443
 

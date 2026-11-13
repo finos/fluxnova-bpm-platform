@@ -18,9 +18,11 @@ package org.finos.fluxnova.bpm.container.impl.jmx.deployment.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,21 +40,42 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 public class ClassPathScannerTest {
 
+  private static final String RESOURCE_ROOT =
+      "src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/";
+
   private String url;
   private static ClassPathProcessApplicationScanner scanner;
 
-  public static List<Object[]> data() {
+  // jars are generated at test execution time instead of being committed to
+  // version control (see OSPS-QA-05.01 / OSPS-QA-05.02)
+  private static File testScanClassPathJar;
+  private static File testScanClassPathRecursiveJar;
+  private static File testScanClassPathRecursiveTwoDirectoriesJar;
+
+  public static synchronized List<Object[]> data() {
+    ensureJarsBuilt();
     return Arrays.asList(new Object[][] {
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFiles/" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFilesRecursive/" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithFilesRecursiveTwoDirectories/" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathWithAdditionalResourceSuffixes/" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPath.jar" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathRecursive.jar" },
-            { "file:src/test/resources/org/finos/fluxnova/bpm/container/impl/jmx/deployment/util/ClassPathScannerTest.testScanClassPathRecursiveTwoDirectories.jar" },
+            { "file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFiles/" },
+            { "file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursive/" },
+            { "file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursiveTwoDirectories/" },
+            { "file:" + RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithAdditionalResourceSuffixes/" },
+            { "file:" + testScanClassPathJar.getAbsolutePath() },
+            { "file:" + testScanClassPathRecursiveJar.getAbsolutePath() },
+            { "file:" + testScanClassPathRecursiveTwoDirectoriesJar.getAbsolutePath() },
     });
   }
 
+  // jars are built lazily (and cached) instead of relying on test lifecycle ordering
+  private static synchronized void ensureJarsBuilt() {
+    if (testScanClassPathJar == null) {
+      testScanClassPathJar = TestJarBuilder.createJarFromDirectory(
+          Paths.get(RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFiles"), "testScanClassPath");
+      testScanClassPathRecursiveJar = TestJarBuilder.createJarFromDirectory(
+          Paths.get(RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursive"), "testScanClassPathRecursive");
+      testScanClassPathRecursiveTwoDirectoriesJar = TestJarBuilder.createJarFromDirectory(
+          Paths.get(RESOURCE_ROOT + "ClassPathScannerTest.testScanClassPathWithFilesRecursiveTwoDirectories"), "testScanClassPathRecursiveTwoDirectories");
+    }
+  }
 
   public void initClassPathScannerTest(String url) {
     this.url = url;
@@ -61,6 +84,7 @@ public class ClassPathScannerTest {
   @BeforeAll
   public static void setup() {
     scanner = new ClassPathProcessApplicationScanner();
+    ensureJarsBuilt();
   }
 
   /**
