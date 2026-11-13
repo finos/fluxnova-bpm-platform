@@ -16,7 +16,7 @@
         <!-- Maven Dependencies -->
         <maven-model.version>3.9.9</maven-model.version>
         <maven-invoker.version>3.3.0</maven-invoker.version>
-        <plexus-utils.version>3.5.1</plexus-utils.version>
+        <plexus-utils.version>3.6.1</plexus-utils.version>
 
         <!-- Testing Dependencies -->
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
