@@ -39,6 +39,7 @@ import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
 import static org.finos.fluxnova.bpm.engine.authorization.TaskPermissions.READ_VARIABLE;
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.READ_HISTORY_RESTRICTED;
 import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.READ_RESTRICTED;
+import static org.finos.fluxnova.bpm.engine.authorization.VariablePermissions.UPDATE_RESTRICTED;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -694,10 +695,13 @@ public class AuthorizationManager extends AbstractManager {
               .build();
       }
         addPermissionCheck(query.getAuthCheck(), permissionCheck);
-      PermissionCheck restrictedCheck = new PermissionCheck();
-      restrictedCheck.setPermission(READ_RESTRICTED);
-      restrictedCheck.setResource(VARIABLE);
-      restrictedCheck.setResourceId(Authorization.ANY);
+      // UPDATE_RESTRICTED implies READ_RESTRICTED: a user authorized to update a restricted
+      // variable must also be able to see it in query results.
+      CompositePermissionCheck restrictedCheck = new PermissionCheckBuilder()
+          .disjunctive()
+          .atomicCheckForResourceId(VARIABLE, Authorization.ANY, READ_RESTRICTED)
+          .atomicCheckForResourceId(VARIABLE, Authorization.ANY, UPDATE_RESTRICTED)
+          .build();
       query.getAuthCheck().setRestrictedVariablePermissionCheck(restrictedCheck);
     }
   }
@@ -847,10 +851,11 @@ public class AuthorizationManager extends AbstractManager {
     }
 
     if (authCheck.isAuthorizationCheckEnabled()) {
-      PermissionCheck restrictedCheck = new PermissionCheck();
-      restrictedCheck.setPermission(READ_HISTORY_RESTRICTED);
-      restrictedCheck.setResource(VARIABLE);
-      restrictedCheck.setResourceId(Authorization.ANY);
+      // History has no "update": only READ_HISTORY_RESTRICTED grants visibility here.
+      CompositePermissionCheck restrictedCheck = new PermissionCheckBuilder()
+          .disjunctive()
+          .atomicCheckForResourceId(VARIABLE, Authorization.ANY, READ_HISTORY_RESTRICTED)
+          .build();
       authCheck.setRestrictedVariablePermissionCheck(restrictedCheck);
     }
   }
