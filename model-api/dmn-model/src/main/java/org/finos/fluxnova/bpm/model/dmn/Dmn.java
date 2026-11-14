@@ -16,6 +16,7 @@
  */
 package org.finos.fluxnova.bpm.model.dmn;
 
+import static org.finos.fluxnova.bpm.model.dmn.impl.DmnModelConstants.CAMUNDA_NS;
 import static org.finos.fluxnova.bpm.model.dmn.impl.DmnModelConstants.DMN11_ALTERNATIVE_NS;
 import static org.finos.fluxnova.bpm.model.dmn.impl.DmnModelConstants.DMN11_NS;
 import static org.finos.fluxnova.bpm.model.dmn.impl.DmnModelConstants.DMN12_NS;
@@ -229,7 +230,7 @@ public class Dmn {
     dmnModelBuilder.alternativeNamespace(DMN12_NS, DMN13_NS);
     dmnModelBuilder.alternativeNamespace(DMN11_NS, DMN13_NS);
     dmnModelBuilder.alternativeNamespace(DMN11_ALTERNATIVE_NS, DMN13_NS);
-    dmnModelBuilder.alternativeNamespace(FLUXNOVA_NS, DMN13_NS);
+    dmnModelBuilder.alternativeNamespace(FLUXNOVA_NS, CAMUNDA_NS);
     doRegisterTypes(dmnModelBuilder);
     dmnModel = dmnModelBuilder.build();
   }

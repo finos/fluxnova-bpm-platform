@@ -159,6 +159,15 @@ public class HistoryTimeToLiveDeploymentTest {
   }
 
   @Test
+  public void decisionWithHTTLInFluxnovaNamespaceShouldSucceed() {
+    testRule.deploy(repositoryService
+        .createDeployment()
+        .addClasspathResource("org/finos/fluxnova/bpm/engine/test/api/repository/decision_with_180_httl_fluxnova_ns.dmn"));
+
+    assertThat(repositoryService.createDecisionDefinitionQuery().singleResult().getHistoryTimeToLive()).isEqualTo(180);
+  }
+
+  @Test
   public void decisionWithoutHTTLShouldFail() {
     assertThatThrownBy(() ->
       // when
