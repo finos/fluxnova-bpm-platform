@@ -10,13 +10,11 @@ type: Meeting
 
 ## Date
 
-Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
+Thursday DD MMM yyyy - 9am (EST) 
 
 ### Zoom info
 
-- **[Join Zoom Meeting](https://zoom.us/j/96553335469?pwd=jE1yjyavejsZDLuwTkKMKEAbRBMYy7.1)**
-- **Meeting ID:** 965 5333 5469
-- **Passcode:** 536792
+- Maintainers meeting, email help@finos.org for details.
 
 ## Meeting notices
 
@@ -28,41 +26,15 @@ Thursday DD MMM yyyy - 9am (US eastern timezone EDT/EST) / 2pm (London, GMT/BST)
 
 - FINOS project meetings may be recorded for use solely by the FINOS team for administration purposes. In very limited instances, and with explicit approval, recordings may be made more widely available.
 
-## Tracking Attendance
-
-**Note:** Meeting participants are expected to _add a comment to this GitHub issue_ in order that we can track attendance of Fluxnova project meetings.  Please do this at the start of the meeting.
-
 ## Agenda
 
 - [ ] Convene & roll call, review meeting notices (5mins)
 - [ ] Review action items from previous meeting (5mins)
-- [ ] Check review status of open PRs on each repo
-  - [fluxnova-bpm-platform/pulls](https://github.com/finos/fluxnova-bpm-platform/pulls)
-  - [fluxnova-feel-scala/pulls](https://github.com/finos/fluxnova-feel-scala/pulls)
-  - [fluxnova-modeler/pulls](https://github.com/finos/fluxnova-modeler/pulls)
-  - [fluxnova-docs-manual/pulls](https://github.com/finos/fluxnova-docs-manual/pulls)
-  - [fluxnova-release-parent/pulls](https://github.com/finos/fluxnova-release-parent/pulls)
-  - [fluxnova-bpm-release-parent/pulls](https://github.com/finos/fluxnova-bpm-release-parent/pulls)
-  - [fluxnova-docs-theme/pulls](https://github.com/finos/fluxnova-docs-theme)
-  - [fluxnova-website/pulls](https://github.com/finos/fluxnova-website)
-- [ ] Agenda item 2
+- [ ] Review project board - https://github.com/orgs/finos/projects/128
+- [ ] Agenda item 1
 - [ ] ...
 - [ ] AOB & Adjourn (5mins)
 
 ## Minutes
 
-- ...
-
-### Decisions Made
-
-- ...
-
-## Action Items
-
-- [ ] ...
-
-## Untracked attendees
-
-| Full name | Affiliation | GitHub username |
-|-----------|-------------|-----------------|
-|           |             |                 |
+...

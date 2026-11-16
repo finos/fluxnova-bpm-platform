@@ -607,6 +607,25 @@ public class MessageRestServiceTest extends AbstractRestServiceTest {
   }
 
   @Test
+  public void testMessageCorrelationWithNullWithoutTenantId() {
+    // null for withoutTenantId (primitive boolean) must fall back to its default (false), not fail deserialization
+    String messageName = "aMessageName";
+
+    Map<String, Object> messageParameters = new HashMap<>();
+    messageParameters.put("messageName", messageName);
+    messageParameters.put("withoutTenantId", null);
+
+    given().contentType(POST_JSON_CONTENT_TYPE).body(messageParameters)
+      .then().expect().statusCode(Status.NO_CONTENT.getStatusCode())
+      .when().post(MESSAGE_URL);
+
+    verify(runtimeServiceMock).createMessageCorrelation(eq(messageName));
+    verify(messageCorrelationBuilderMock, Mockito.never()).withoutTenantId();
+    verify(messageCorrelationBuilderMock).correlateWithResult();
+    verifyNoMoreInteractions(messageCorrelationBuilderMock);
+  }
+
+  @Test
   public void testFailingInvalidTenantParameters() {
     String messageName = "aMessageName";
 

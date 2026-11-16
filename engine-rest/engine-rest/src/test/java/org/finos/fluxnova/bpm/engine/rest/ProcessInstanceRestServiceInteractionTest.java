@@ -421,6 +421,28 @@ public class ProcessInstanceRestServiceInteractionTest extends AbstractRestServi
   }
 
   @Test
+  public void testDeleteAsyncWithNullSkipFlags() {
+    // null for skipCustomListeners/skipSubprocesses/skipIoMappings (primitive booleans) must fall back to defaults
+    var ids = List.of(MockProvider.EXAMPLE_PROCESS_INSTANCE_ID);
+    when(runtimeServiceMock.deleteProcessInstancesAsync(any(), any(), any(), anyString(), anyBoolean(), anyBoolean(), anyBoolean())).thenReturn(new BatchEntity());
+
+    Map<String, Object> messageBodyJson = new HashMap<>();
+    messageBodyJson.put("processInstanceIds", ids);
+    messageBodyJson.put(DELETE_REASON, TEST_DELETE_REASON);
+    messageBodyJson.put("skipCustomListeners", null);
+    messageBodyJson.put("skipSubprocesses", null);
+    messageBodyJson.put(SKIP_IO_MAPPINGS, null);
+
+    given()
+        .contentType(ContentType.JSON).body(messageBodyJson)
+        .then().expect()
+        .statusCode(Status.OK.getStatusCode())
+        .when().post(DELETE_PROCESS_INSTANCES_ASYNC_URL);
+
+    verify(runtimeServiceMock, times(1)).deleteProcessInstancesAsync(ids, null, null, TEST_DELETE_REASON, false, false, false);
+  }
+
+  @Test
   public void testDeleteAsyncWithQuery() {
     Map<String, Object> messageBodyJson = new HashMap<>();
     messageBodyJson.put(DELETE_REASON, TEST_DELETE_REASON);
@@ -3494,6 +3516,34 @@ public class ProcessInstanceRestServiceInteractionTest extends AbstractRestServi
     inOrder.verify(mockModificationBuilder).execute(true, true);
 
     inOrder.verifyNoMoreInteractions();
+  }
+
+  @Test
+  public void testProcessInstanceModificationWithNullSkipFlags() {
+    // null for skipCustomListeners/skipIoMappings (primitive booleans) must not fail deserialization
+    ProcessInstanceModificationInstantiationBuilder mockModificationBuilder = setUpMockModificationBuilder();
+    when(runtimeServiceMock.createProcessInstanceModification(anyString())).thenReturn(mockModificationBuilder);
+
+    Map<String, Object> json = new HashMap<>();
+    json.put("skipCustomListeners", null);
+    json.put("skipIoMappings", null);
+
+    List<Map<String, Object>> instructions = new ArrayList<>();
+    instructions.add(ModificationInstructionBuilder.cancellation().activityId("activityId").getJson());
+    json.put("instructions", instructions);
+
+    given()
+      .pathParam("id", EXAMPLE_PROCESS_INSTANCE_ID)
+      .contentType(ContentType.JSON)
+      .body(json)
+    .then()
+      .expect()
+        .statusCode(Status.NO_CONTENT.getStatusCode())
+      .when()
+        .post(PROCESS_INSTANCE_MODIFICATION_URL);
+
+    verify(runtimeServiceMock).createProcessInstanceModification(eq(EXAMPLE_PROCESS_INSTANCE_ID));
+    verify(mockModificationBuilder).execute(false, false);
   }
 
   @Test

@@ -118,6 +118,10 @@ After the workflow is manually run, `.github/workflows/release.yml` will:
 
 - Build and publish Maven artifacts to Maven Central.
 - Create the Git tag, for example `v<release-version>`.
+- Generate CycloneDX SBOM files, attach them to the Maven artifacts, and upload them to the GitHub Release:
+  - `fluxnova-sbom.json`
+  - `fluxnova-sbom.xml`
+- Create GitHub artifact attestations for the generated SBOM and Maven release artifacts.
 - Build the distro ZIP needed for Docker.
 - Build and publish the Docker Hub images:
   - Based on Amazon Corretto 21
@@ -143,6 +147,8 @@ Verify:
   - After publishing, go to [Maven Central Search](https://central.sonatype.com/search) and verify the artifacts show up correctly. This can take anywhere from a few minutes to a couple of hours.
 - The Maven artifacts are available in Maven Central.
 - The Git tag exists, for example `v<release-version>`.
+- The GitHub Release for the tag includes the generated SBOM assets, `fluxnova-sbom.json` and `fluxnova-sbom.xml`.
+- The generated SBOM and Maven release artifacts have GitHub artifact attestations.
 - The Docker Hub image exists with the release version and `latest` tags.
 - Javadocs and OpenAPI docs were published.
 - For major and minor releases, the root `pom.xml` was moved to the expected next `-SNAPSHOT` version and the release branch was merged back to `main`.

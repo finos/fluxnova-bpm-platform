@@ -18,7 +18,6 @@ package org.finos.fluxnova.bpm.spring.boot.starter.rest;
 
 import jakarta.ws.rs.ApplicationPath;
 import org.finos.fluxnova.bpm.engine.rest.impl.FluxnovaRestResources;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,7 +38,6 @@ public class FluxnovaJerseyResourceConfig extends ResourceConfig implements Init
 
     this.registerClasses(FluxnovaRestResources.getResourceClasses());
     this.registerClasses(FluxnovaRestResources.getConfigurationClasses());
-    this.register(JacksonFeature.class);
 
     log.info("Finished configuring camunda rest api.");
   }
