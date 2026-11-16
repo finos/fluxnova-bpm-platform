@@ -28,6 +28,17 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-jersey</artifactId>
+      <exclusions>
+        <!-- The REST API uses the Jackson 3 JAX-RS provider from fluxnova-engine-rest-core-jakarta -->
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-jackson2</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.jersey.media</groupId>
+          <artifactId>jersey-media-json-jackson</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
