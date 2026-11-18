@@ -66,7 +66,7 @@
       <outputDirectory>configuration/</outputDirectory>
     </file>
     <file>
-      <source>resources/keystore.p12</source>
+      <source>target/generated-resources/keystore/keystore.p12</source>
       <outputDirectory>configuration/keystore/</outputDirectory>
     </file>
     <file>
