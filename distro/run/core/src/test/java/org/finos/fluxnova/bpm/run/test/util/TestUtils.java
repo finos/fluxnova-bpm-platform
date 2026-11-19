@@ -63,7 +63,7 @@ public final class TestUtils {
           if (trustStoreStream == null) {
             throw new IllegalStateException("Could not load test keystore keystore.p12 from classpath");
           }
-          trustStore.load(trustStoreStream, "camunda".toCharArray());
+          trustStore.load(trustStoreStream, "fluxnova".toCharArray());
         }
 
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
