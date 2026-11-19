@@ -1,0 +1,199 @@
+header:
+  schema-version: 2.2.0
+  last-updated: '2026-10-16'
+  last-reviewed: '2026-10-16'
+  url: https://raw.githubusercontent.com/finos/fluxnova-bpm-platform/main/security-insights.yml
+  comment: |
+    Project-wide Security Insights for Fluxnova covering all finos/fluxnova-*
+    repositories. This file lives in fluxnova-bpm-platform as the project's
+    main repository. See MAINTAINERS.md for the current maintainer roster.
+
+project:
+  name: Fluxnova
+  homepage: https://fluxnova.finos.org/
+  roadmap: https://github.com/orgs/finos/projects/116
+  administrators:
+    - name: Fluxnova Maintainers
+      primary: true
+  documentation:
+    quickstart-guide: https://docs.fluxnova.finos.org/get-started/
+    detailed-guide: https://docs.fluxnova.finos.org/
+    code-of-conduct: https://www.finos.org/code-of-conduct
+    release-process: https://github.com/finos/fluxnova-bpm-platform/blob/main/RELEASE.md
+    support-policy: https://github.com/finos/fluxnova-bpm-platform/blob/main/SUPPORT.md
+  repositories:
+    - name: fluxnova-bpm-platform
+      url: https://github.com/finos/fluxnova-bpm-platform
+      comment: Core BPMN/DMN engine, REST API, web apps, and distributions.
+    - name: fluxnova-feel-scala
+      url: https://github.com/finos/fluxnova-feel-scala
+      comment: FEEL parser and interpreter written in Scala.
+    - name: fluxnova-modeler
+      url: https://github.com/finos/fluxnova-modeler
+      comment: Desktop application for modeling BPMN, DMN, and Forms.
+    - name: fluxnova-control-center
+      url: https://github.com/finos/fluxnova-control-center
+      comment: Web application for monitoring and interacting with the engine.
+    - name: fluxnova-plugins
+      url: https://github.com/finos/fluxnova-plugins
+      comment: Engine plugins including backward-compatibility and agentic/MCP support.
+    - name: fluxnova-testing-framework
+      url: https://github.com/finos/fluxnova-testing-framework
+      comment: Framework for testing BPMN models.
+    - name: fluxnova-modeler-plugins
+      url: https://github.com/finos/fluxnova-modeler-plugins
+      comment: Installable plugins for Fluxnova Modeler.
+    - name: fluxnova-examples
+      url: https://github.com/finos/fluxnova-examples
+      comment: Example projects demonstrating Fluxnova usage patterns.
+    - name: fluxnova-docs-manual
+      url: https://github.com/finos/fluxnova-docs-manual
+      comment: Sources for the docs.fluxnova.finos.org documentation site.
+    - name: fluxnova-docs-theme
+      url: https://github.com/finos/fluxnova-docs-theme
+      comment: Hugo theme for the documentation site.
+    - name: fluxnova-website
+      url: https://github.com/finos/fluxnova-website
+      comment: Sources for the fluxnova.finos.org project website.
+    - name: fluxnova-ai
+      url: https://github.com/finos/fluxnova-ai
+      comment: Fluxnova AI working group resources.
+    - name: fluxnova-deploy
+      url: https://github.com/finos/fluxnova-deploy
+      comment: Deployment resources and configurations.
+  vulnerability-reporting:
+    reports-accepted: true
+    bug-bounty-available: false
+    contact:
+      name: Fluxnova Maintainers
+      primary: true
+    policy: https://github.com/finos/fluxnova-bpm-platform/blob/main/SECURITY.md
+    comment: |
+      See SECURITY.md for reporting instructions and CRA escalation requirements.
+      The current maintainer roster is at
+      https://github.com/finos/fluxnova-bpm-platform/blob/main/MAINTAINERS.md
+
+# Repository section describes fluxnova-bpm-platform as the project's main repo.
+# The project-level policies in security-insights.yml, THREAT_MODEL.md, and
+# SUPPORT.md apply to all finos/fluxnova-* repositories.
+repository:
+  url: https://github.com/finos/fluxnova-bpm-platform
+  status: active
+  accepts-change-request: true
+  accepts-automated-change-request: true
+  core-team:
+    - name: Fluxnova Maintainers
+      primary: true
+  documentation:
+    contributing-guide: https://github.com/finos/fluxnova-bpm-platform/blob/main/CONTRIBUTING.md
+    governance: https://github.com/finos/fluxnova-bpm-platform/blob/main/GOVERNANCE.md
+    security-policy: https://github.com/finos/fluxnova-bpm-platform/blob/main/SECURITY.md
+  license:
+    url: https://github.com/finos/fluxnova-bpm-platform/blob/main/LICENSE
+    expression: Apache-2.0
+  release:
+    automated-pipeline: true
+    distribution-points:
+      - uri: https://github.com/finos/fluxnova-bpm-platform/releases
+        comment: GitHub Releases page for tagged releases.
+      - uri: https://central.sonatype.com/search?q=org.finos.fluxnova
+        comment: Maven Central artifacts (bpm-platform, feel-scala, plugins, testing-framework), GPG-signed.
+      - uri: https://hub.docker.com/r/finos/fluxnova-bpm-platform
+        comment: Docker Hub image for Fluxnova Run distribution.
+      - uri: https://ghcr.io/finos/fluxnova-bpm-platform
+        comment: GitHub Container Registry image (pre-release builds from main).
+    attestations:
+      - name: GPG signatures on Maven Central artifacts
+        location: https://central.sonatype.com/search?q=org.finos.fluxnova
+        predicate-uri: https://www.ietf.org/rfc/rfc4880.txt
+        comment: |
+          All release artifacts published to Maven Central are GPG-signed during
+          release workflows.
+      - name: CycloneDX SBOMs
+        location: https://github.com/finos/fluxnova-bpm-platform/releases
+        predicate-uri: https://cyclonedx.org/specification/overview/
+        comment: |
+          CycloneDX SBOMs are generated and attached to GitHub Releases by the
+          release workflow.
+      - name: Build provenance attestations
+        location: https://github.com/finos/fluxnova-bpm-platform/releases
+        predicate-uri: https://slsa.dev/provenance/v1
+        comment: |
+          SLSA build provenance attestations are generated during the release
+          workflow and attached to release artifacts.
+  security:
+    assessments:
+      self:
+        name: Threat model and attack surface analysis
+        date: '2026-10-16'
+        evidence: https://github.com/finos/fluxnova-bpm-platform/blob/main/THREAT_MODEL.md
+        comment: |
+          Maintainer-authored threat model covering all Fluxnova components:
+          engine, REST API, web apps, Modeler, Control Center, plugins, and the
+          shared CI/CD and release supply chain. Reviewed at least yearly and
+          whenever a component gains a new interface, trust boundary, or
+          distribution channel.
+    tools:
+      # Tools are enabled across all fluxnova-* repos via FINOS org security
+      # configuration and per-repo workflows.
+      - name: GitHub Secret Scanning
+        type: secret
+        comment: |
+          GitHub secret scanning with push protection, enabled across all
+          fluxnova-* repos via FINOS org security configuration.
+        rulesets:
+          - default
+        integration:
+          adhoc: true
+          ci: true
+          release: false
+        results: {}
+      - name: CodeQL
+        type: SAST
+        comment: |
+          Enabled across all fluxnova-* repos via FINOS org security configuration.
+          Runs on pull requests and on push to main.
+        rulesets:
+          - default
+        integration:
+          adhoc: false
+          ci: true
+          release: false
+        results: {}
+      - name: Dependabot
+        type: SCA
+        comment: |
+          Security updates and alerts enabled across all fluxnova-* repos via
+          FINOS org security configuration. Grouped security updates are enabled.
+        rulesets:
+          - GitHub Advisory Database
+        integration:
+          adhoc: false
+          ci: true
+          release: false
+        results: {}
+      - name: Dependency Review
+        type: SCA
+        comment: |
+          actions/dependency-review-action on every pull request via per-repo
+          workflows; fails on severity high.
+        rulesets:
+          - fail-on-severity high
+        integration:
+          adhoc: false
+          ci: true
+          release: false
+        results: {}
+      - name: License Scanning
+        type: SCA
+        comment: |
+          Per-repo license scanning workflows validate dependencies against the
+          FINOS Category A approved license list. Runs on push to main, on pull
+          requests, weekly, and as part of release workflows.
+        rulesets:
+          - FINOS Category A approved licenses
+        integration:
+          adhoc: true
+          ci: true
+          release: true
+        results: {}
