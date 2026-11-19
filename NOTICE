@@ -19,4 +19,15 @@ This product includes software developed at the Fintech Open Source Foundation
 Third Party Libraries contained within this distribution
 can be reviewed in the License Book (LicenseBook.txt)
 
+========================================================================
+Third-Party Dependencies
+========================================================================
+
+This project includes software developed by Oracle and/or its affiliates:
+
+  - GraalVM JavaScript ScriptEngine (org.graalvm.js:js-scriptengine)
+    Copyright (c) 2019, Oracle and/or its affiliates.
+    Licensed under the Universal Permissive License (UPL), Version 1.0
+    https://oss.oracle.com/licenses/upl/
+
 ========================================================
