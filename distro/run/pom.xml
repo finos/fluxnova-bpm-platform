@@ -15,7 +15,7 @@
   <description>This is the root of Fluxnova Platform Run</description>
   <packaging>pom</packaging>
   <properties>
-    <version.spring-boot>4.0.5</version.spring-boot>
+    <version.spring-boot>4.1.2</version.spring-boot>
     <jacoco.skip>true</jacoco.skip>
   </properties>
 
