@@ -1,29 +1,32 @@
 package org.finos.fluxnova.bpm.engine.test.api.authorization.task;
 
 import static org.finos.fluxnova.bpm.engine.authorization.Authorization.ANY;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.READ;
 import static org.finos.fluxnova.bpm.engine.authorization.Permissions.UPDATE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_DEFINITION;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.PROCESS_INSTANCE;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.TASK;
 import static org.finos.fluxnova.bpm.engine.authorization.Resources.VARIABLE;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.finos.fluxnova.bpm.engine.AuthorizationException;
 import org.finos.fluxnova.bpm.engine.ProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.engine.history.HistoricVariableInstance;
 import org.finos.fluxnova.bpm.engine.authorization.VariablePermissions;
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
+import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
 import org.finos.fluxnova.bpm.engine.task.Task;
 import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.RequiredHistoryLevel;
 import org.finos.fluxnova.bpm.engine.test.api.authorization.AuthorizationTest;
 import org.finos.fluxnova.bpm.engine.variable.VariableOptions;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @RequiredHistoryLevel(ProcessEngineConfiguration.HISTORY_AUDIT)
 public class RestrictedVariableTaskCompletionTest extends AuthorizationTest {
@@ -173,6 +176,80 @@ public class RestrictedVariableTaskCompletionTest extends AuthorizationTest {
 
   @Test
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
+  public void testCompleteAllowedOnUpdateOfExistingRestrictedVariableWithoutReadPermission() {
+    // given: user has UPDATE_RESTRICTED but not READ_RESTRICTED
+    ProcessInstance processInstance = startProcessInstanceByKey(PROCESS_KEY);
+    Task task = selectSingleTask();
+
+    setTaskVariable(task.getId(), RESTRICTED_VARIABLE_NAME,
+        Variables.stringValue(RESTRICTED_VARIABLE_VALUE, VariableOptions.options(false, true)));
+
+    grantTaskCompletionPermissions();
+    createGrantAuthorization(VARIABLE, ANY, userId, VariablePermissions.UPDATE_RESTRICTED);
+
+    // when: completing with a genuinely different value must not throw an NPE and must complete the task
+    taskService.complete(task.getId(), Variables.createVariables().putValueTyped(
+        RESTRICTED_VARIABLE_NAME,
+        Variables.stringValue("updatedValue")));
+
+    // then
+    assertNull(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult());
+
+    HistoricVariableInstance historicVariable = runWithoutAuthorization(() ->
+        historyService.createHistoricVariableInstanceQuery()
+            .variableName(RESTRICTED_VARIABLE_NAME)
+            .singleResult());
+    assertEquals("updatedValue", historicVariable.getValue());
+    // the restricted flag is taken at face value: an update without it un-restricts the variable
+    assertFalse(historicVariable.isRestricted());
+  }
+
+  @Test
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
+  public void testGetVariableAllowedWithOnlyUpdateRestrictedPermission() {
+    // given: user has UPDATE_RESTRICTED but not READ_RESTRICTED
+    ProcessInstance processInstance = startProcessInstanceByKey(PROCESS_KEY);
+    Task task = selectSingleTask();
+
+    setTaskVariable(task.getId(), RESTRICTED_VARIABLE_NAME,
+        Variables.stringValue(RESTRICTED_VARIABLE_VALUE, VariableOptions.options(false, true)));
+
+    createGrantAuthorization(PROCESS_INSTANCE, ANY, userId, READ);
+    createGrantAuthorization(VARIABLE, ANY, userId, VariablePermissions.UPDATE_RESTRICTED);
+
+    // when: UPDATE_RESTRICTED implies READ_RESTRICTED, so a plain get must return the real value
+    Object value = runtimeService.getVariable(processInstance.getId(), RESTRICTED_VARIABLE_NAME);
+
+    // then
+    assertEquals(RESTRICTED_VARIABLE_VALUE, value);
+  }
+
+  @Test
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
+  public void testVariableInstanceQueryIncludesRestrictedVariableWithOnlyUpdateRestrictedPermission() {
+    // given: user has UPDATE_RESTRICTED but not READ_RESTRICTED
+    ProcessInstance processInstance = startProcessInstanceByKey(PROCESS_KEY);
+    Task task = selectSingleTask();
+
+    setTaskVariable(task.getId(), RESTRICTED_VARIABLE_NAME,
+        Variables.stringValue(RESTRICTED_VARIABLE_VALUE, VariableOptions.options(false, true)));
+
+    createGrantAuthorization(PROCESS_INSTANCE, ANY, userId, READ);
+    createGrantAuthorization(VARIABLE, ANY, userId, VariablePermissions.UPDATE_RESTRICTED);
+
+    // when: UPDATE_RESTRICTED implies READ_RESTRICTED, so the variable must show up in query results
+    VariableInstance variableInstance = runtimeService.createVariableInstanceQuery()
+        .processInstanceIdIn(processInstance.getId())
+        .variableName(RESTRICTED_VARIABLE_NAME)
+        .singleResult();
+
+    // then
+    assertNotNull(variableInstance);
+    assertEquals(RESTRICTED_VARIABLE_VALUE, variableInstance.getValue());
+  }
+
+  @Test
+  @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
   public void testCompleteDeniedOnModifyingExistingRestrictedVariableWithReadPermissionAndUntaggedPayload() {
     // given
     ProcessInstance processInstance = startProcessInstanceByKey(PROCESS_KEY);
@@ -202,7 +279,7 @@ public class RestrictedVariableTaskCompletionTest extends AuthorizationTest {
 
   @Test
   @Deployment(resources = {"org/finos/fluxnova/bpm/engine/test/api/oneTaskProcess.bpmn20.xml"})
-  public void testCompleteAllowedOnResubmittingUnchangedRestrictedVariableWithReadPermission() {
+  public void testCompleteDeniedOnResubmittingUnchangedRestrictedVariableWithoutUpdatePermission() {
     // given
     ProcessInstance processInstance = startProcessInstanceByKey(PROCESS_KEY);
     Task task = selectSingleTask();
@@ -213,20 +290,24 @@ public class RestrictedVariableTaskCompletionTest extends AuthorizationTest {
     grantTaskCompletionPermissions();
     createGrantAuthorization(VARIABLE, ANY, userId, VariablePermissions.READ_RESTRICTED);
 
-    // when: resubmit without restriction tag (as tasklist does)
-    taskService.complete(task.getId(), Variables.createVariables().putValueTyped(
-        RESTRICTED_VARIABLE_NAME,
-        Variables.stringValue(RESTRICTED_VARIABLE_VALUE)));
+    // when: resubmit without restriction tag (as tasklist does); dropping the flag is itself a
+    // real change (declassification) and requires UPDATE_RESTRICTED, even though the value is the same
+    try {
+      taskService.complete(task.getId(), Variables.createVariables().putValueTyped(
+          RESTRICTED_VARIABLE_NAME,
+          Variables.stringValue(RESTRICTED_VARIABLE_VALUE)));
+      fail("Expected AuthorizationException due to missing UPDATE_RESTRICTED permission");
+    } catch (AuthorizationException e) {
+      // then
+      assertEquals(VariablePermissions.UPDATE_RESTRICTED.getName(), e.getMissingAuthorizations().get(0).getViolatedPermissionName());
+    }
 
-    // then
-    assertNull(runtimeService.createProcessInstanceQuery().processInstanceId(processInstance.getId()).singleResult());
-
+    // and: the variable remains restricted and unchanged
     HistoricVariableInstance historicVariable = runWithoutAuthorization(() ->
         historyService.createHistoricVariableInstanceQuery()
             .variableName(RESTRICTED_VARIABLE_NAME)
             .singleResult());
     assertEquals(RESTRICTED_VARIABLE_VALUE, historicVariable.getValue());
-    // a resubmit that dropped the restriction tag must not un-restrict the variable
     assertTrue(historicVariable.isRestricted());
   }
 

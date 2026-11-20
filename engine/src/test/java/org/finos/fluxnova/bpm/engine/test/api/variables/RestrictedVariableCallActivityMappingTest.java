@@ -1,9 +1,9 @@
 package org.finos.fluxnova.bpm.engine.test.api.variables;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
 import org.finos.fluxnova.bpm.engine.runtime.VariableInstance;
@@ -12,7 +12,7 @@ import org.finos.fluxnova.bpm.engine.test.Deployment;
 import org.finos.fluxnova.bpm.engine.test.util.PluggableProcessEngineTest;
 import org.finos.fluxnova.bpm.engine.variable.VariableMap;
 import org.finos.fluxnova.bpm.engine.variable.Variables;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RestrictedVariableCallActivityMappingTest extends PluggableProcessEngineTest {
 
@@ -119,7 +119,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
 
     // Transient values are not persisted across command boundaries, so the mapped variable
     // is expected to be absent when queried in a subsequent command.
-    assertNull("Transient flag should be preserved with source attribute, resulting in no persisted variable", subSecretVariable);
+    assertNull(subSecretVariable, "Transient flag should be preserved with source attribute, resulting in no persisted variable");
 
     Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
     assertNotNull(subTask);
@@ -133,8 +133,8 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
     // The transient source variable is not persisted in the subprocess, so out mapping resolves to null
     // and creates a restricted null variable in the parent scope.
     assertNotNull(parentResultVariable);
-    assertNull("Out mapping should resolve to null when transient source variable is not persisted", parentResultVariable.getValue());
-    assertTrue("Restricted flag should still be applied on out mapping", parentResultVariable.isRestricted());
+    assertNull(parentResultVariable.getValue(), "Out mapping should resolve to null when transient source variable is not persisted");
+    assertTrue(parentResultVariable.isRestricted(), "Restricted flag should still be applied on out mapping");
   }
 
   @Test
@@ -173,7 +173,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
 
     assertNotNull(parentResultVariable);
     assertEquals("top-secret", parentResultVariable.getValue());
-    assertTrue("Restricted flag should be applied on local out mapping", parentResultVariable.isRestricted());
+    assertTrue(parentResultVariable.isRestricted(), "Restricted flag should be applied on local out mapping");
   }
 
   @Test
@@ -204,7 +204,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
 
     assertNotNull(subSecretVariable);
     assertEquals("top-secret", subSecretVariable.getValue());
-    assertTrue("variables='all' should NOT apply restriction flag", !subSecretVariable.isRestricted());
+    assertTrue(!subSecretVariable.isRestricted(), "variables='all' should NOT apply restriction flag");
 
     VariableInstance subOtherVariable = runtimeService.createVariableInstanceQuery()
         .processInstanceIdIn(subInstance.getId())
@@ -213,7 +213,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
 
     assertNotNull(subOtherVariable);
     assertEquals("other-value", subOtherVariable.getValue());
-    assertTrue("variables='all' should NOT apply restriction flag", !subOtherVariable.isRestricted());
+    assertTrue(!subOtherVariable.isRestricted(), "variables='all' should NOT apply restriction flag");
 
     Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
     assertNotNull(subTask);
@@ -227,7 +227,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
 
     assertNotNull(parentSecretVariable);
     assertEquals("top-secret", parentSecretVariable.getValue());
-    assertTrue("variables='all' out-mapping should NOT apply restriction flag", !parentSecretVariable.isRestricted());
+    assertTrue(!parentSecretVariable.isRestricted(), "variables='all' out-mapping should NOT apply restriction flag");
   }
 
   @Test
@@ -257,8 +257,8 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
     assertNotNull(subSecretVariable);
     assertEquals(42, subSecretVariable.getValue());
     // The transient flag is lost because sourceExpression evaluates through EL which unwraps TypedValue
-    assertTrue("Transient flag should be lost with sourceExpression (EL evaluator unwraps TypedValue)", !subSecretVariable.getTypedValue().isTransient());
-    assertTrue("Restricted flag should be applied", subSecretVariable.isRestricted());
+    assertTrue(!subSecretVariable.getTypedValue().isTransient(), "Transient flag should be lost with sourceExpression (EL evaluator unwraps TypedValue)");
+    assertTrue(subSecretVariable.isRestricted(), "Restricted flag should be applied");
 
     Task subTask = taskService.createTaskQuery().processInstanceId(subInstance.getId()).singleResult();
     assertNotNull(subTask);
@@ -272,7 +272,7 @@ public class RestrictedVariableCallActivityMappingTest extends PluggableProcessE
     assertNotNull(parentResultVariable);
     assertEquals(42, parentResultVariable.getValue());
     // Transient flag continues to be lost through the mapping chain
-    assertTrue("Transient flag should remain lost through out mapping", !parentResultVariable.getTypedValue().isTransient());
-    assertTrue("Restricted flag should be applied on out mapping", parentResultVariable.isRestricted());
+    assertTrue(!parentResultVariable.getTypedValue().isTransient(), "Transient flag should remain lost through out mapping");
+    assertTrue(parentResultVariable.isRestricted(), "Restricted flag should be applied on out mapping");
   }
 }

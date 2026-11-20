@@ -25,7 +25,8 @@ public enum VariablePermissions implements Permission {
     /** Indicates that READ_HISTORY_RESTRICTED interactions are permitted. */
     READ_HISTORY_RESTRICTED("READ_HISTORY_RESTRICTED", 32),
 
-    /** Indicates that UPDATE_RESTRICTED interactions are permitted. */
+    /** Indicates that UPDATE_RESTRICTED interactions are permitted. Implies READ_RESTRICTED:
+     * a user authorized to update a restricted variable is also authorized to see its value. */
     UPDATE_RESTRICTED("UPDATE_RESTRICTED", 4),
 
     /** Indicates that CREATE_RESTRICTED interactions are permitted. */

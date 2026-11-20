@@ -282,4 +282,19 @@ public class VariableApiTest {
       assertTrue(value.isTransient(),"Variable '" + e.getKey() + "' should be transient");
     }
   }
+
+  @Test
+  public void testUntypedValueAppliesFlagsToExistingUntypedValueImpl() {
+    // an already-untyped value (e.g. produced by an earlier untypedValue(...) call) must still
+    // have the transient/restricted flags applied, not silently ignored
+    TypedValue original = untypedValue("secret");
+    assertFalse(original.isTransient());
+    assertFalse(original.isRestricted());
+
+    TypedValue flagged = untypedValue(original, true, true);
+
+    assertTrue(flagged.isTransient());
+    assertTrue(flagged.isRestricted());
+    assertEquals("secret", flagged.getValue());
+  }
 }
