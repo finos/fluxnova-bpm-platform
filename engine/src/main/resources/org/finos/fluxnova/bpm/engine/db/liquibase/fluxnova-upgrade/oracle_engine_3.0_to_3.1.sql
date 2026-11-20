@@ -24,5 +24,8 @@ create unique index ACT_UNIQ_GE_CONFIG
     on ACT_GE_CONFIGURATION (CONFIG_KEY_, case when TENANT_ID_ is null then 1 else 0 end, NVL(TENANT_ID_, ' '),
                              case when STATUS_ = 'ACTIVE' then 'ACTIVE' else ID_ end);
 
+create index ACT_IDX_TASK_PARENT_TASK_ID on ACT_RU_TASK(PARENT_TASK_ID_);
+create index ACT_IDX_HI_TASK_INST_PARENT on ACT_HI_TASKINST(PARENT_TASK_ID_);
+
 insert into ACT_GE_SCHEMA_LOG
 values ('1600', CURRENT_TIMESTAMP, '3.1.0');
