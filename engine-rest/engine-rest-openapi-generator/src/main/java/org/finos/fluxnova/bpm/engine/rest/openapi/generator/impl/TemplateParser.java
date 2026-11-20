@@ -125,27 +125,34 @@ public class TemplateParser {
   }
 
   /**
-   * Resolve the Camunda Platform version and the respective documentation version used in the links.
+   * Resolve the Fluxnova Platform version and the respective documentation version used in the links.
    */
   protected static void resolveVersions(Map<String, Object> templateData) {
-    String version = TemplateParser.class.getPackage().getImplementationVersion();
-  
-    if (version != null) {
-      // cambpmVersion = 7.X.Y
+    String version = System.getProperty("project.version");
+    if (version == null || version.trim().isEmpty()) {
+      version = TemplateParser.class.getPackage().getImplementationVersion();
+    }
+    String explicitDocsVersion = System.getProperty("docs.version");
+
+    if (version != null && !version.trim().isEmpty()) {
+      version = version.trim();
       templateData.put("cambpmVersion", version);
-  
-      if (version.contains("SNAPSHOT")) {
-        templateData.put("docsVersion", "develop");
+
+      if (explicitDocsVersion != null && !explicitDocsVersion.trim().isEmpty()) {
+        templateData.put("docsVersion", explicitDocsVersion.trim());
       } else if (version.contains("alpha")) {
         templateData.put("docsVersion", "latest");
       } else {
-        // docsVersion = 7.X
-        templateData.put("docsVersion", version.substring(0, version.lastIndexOf(".")));
+        String baseVersion = version.replaceFirst("-.*$", "");
+        int lastDot = baseVersion.lastIndexOf(".");
+        String majorMinor = lastDot > 0 ? baseVersion.substring(0, lastDot) : baseVersion;
+        templateData.put("docsVersion", majorMinor);
       }
     } else {
-      // only for debug cases 
+      // only for debug cases
       templateData.put("cambpmVersion", "develop");
-      templateData.put("docsVersion", "develop");
+      templateData.put("docsVersion", explicitDocsVersion != null && !explicitDocsVersion.trim().isEmpty()
+          ? explicitDocsVersion.trim() : "develop");
     }
   }
 
