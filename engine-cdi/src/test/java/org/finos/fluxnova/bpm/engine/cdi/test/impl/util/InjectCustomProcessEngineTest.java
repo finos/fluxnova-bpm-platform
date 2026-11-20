@@ -23,9 +23,7 @@ import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import org.finos.fluxnova.bpm.engine.cdi.test.CdiProcessEngineTestCase;
 import org.finos.fluxnova.bpm.engine.cdi.test.impl.beans.InjectedProcessEngineBean;
 import org.finos.fluxnova.bpm.engine.impl.test.TestHelper;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -40,7 +38,6 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
   protected ProcessEngine defaultProcessEngine = null;
   protected ProcessEngine processEngine = null;
 
-  @BeforeEach
   public void init() {
     processEngine = TestHelper.getProcessEngine("org/finos/fluxnova/bpm/engine/cdi/test/impl/util/camunda.cfg.xml");
     defaultProcessEngine = BpmPlatform.getProcessEngineService().getDefaultProcessEngine();
@@ -52,7 +49,6 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
     RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(processEngine);
   }
 
-  @AfterEach
   public void tearDownCdiProcessEngineTestCase() {
     RuntimeContainerDelegate.INSTANCE.get().unregisterProcessEngine(processEngine);
 
@@ -64,14 +60,14 @@ public class InjectCustomProcessEngineTest extends CdiProcessEngineTestCase {
 
   @Test
   public void testProcessEngineInject() {
-    //given only custom engine exist
+    // Register the engine in the same container context that performs the lookup.
     init();
-    //when TestClass is created
-    InjectedProcessEngineBean testClass = ProgrammaticBeanLookup.lookup(InjectedProcessEngineBean.class);
-    Assertions.assertNotNull(testClass);
-
-    //then custom engine is injected
-    Assertions.assertEquals("myCustomEngine", testClass.processEngine.getName());
-    tearDownCdiProcessEngineTestCase();
+    try {
+      InjectedProcessEngineBean testClass = ProgrammaticBeanLookup.lookup(InjectedProcessEngineBean.class);
+      Assertions.assertNotNull(testClass);
+      Assertions.assertEquals("myCustomEngine", testClass.processEngine.getName());
+    } finally {
+      tearDownCdiProcessEngineTestCase();
+    }
   }
 }

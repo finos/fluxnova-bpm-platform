@@ -104,6 +104,13 @@ jobs:
       - name: Build internal artifacts
         run: mvn -B -e -U clean install -DskipTests=true -DskipITs=true
 
+      - name: Quarkus extension tests
+        shell: bash
+        run: |
+          # Use the installed shaded JUEL JAR instead of unshaded workspace classes.
+          mvn -B -e clean -pl :fluxnova-juel
+          mvn -B -e clean verify -Pquarkus-tests -pl :fluxnova-bpm-quarkus-engine,:fluxnova-bpm-quarkus-engine-deployment,:fluxnova-bpm-quarkus-engine-qa
+
       - name: Integration Tests
         uses: ./.github/actions/integration-test
 

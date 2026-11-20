@@ -40,7 +40,6 @@ import org.finos.fluxnova.bpm.engine.cdi.impl.ProcessVariableMap;
 import org.finos.fluxnova.bpm.engine.cdi.impl.context.DefaultContextAssociationManager;
 import org.finos.fluxnova.bpm.engine.cdi.impl.context.RequestScopedAssociation;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.finos.fluxnova.bpm.quarkus.engine.extension.FluxnovaEngineConfig;
 import org.finos.fluxnova.bpm.quarkus.engine.extension.QuarkusProcessEngineConfiguration;
 import org.finos.fluxnova.bpm.quarkus.engine.extension.impl.FluxnovaEngineRecorder;
 import org.finos.fluxnova.bpm.quarkus.engine.extension.impl.InjectableBusinessProcessContext;
@@ -96,13 +95,12 @@ public class FluxnovaEngineProcessor {
   @Record(RUNTIME_INIT)
   protected void processEngineConfiguration(FluxnovaEngineRecorder recorder,
                                             BeanContainerBuildItem beanContainerBuildItem,
-                                            FluxnovaEngineConfig camundaEngineConfig,
                                             BuildProducer<ProcessEngineConfigurationBuildItem> configurationProducer) {
 
     BeanContainer beanContainer = beanContainerBuildItem.getValue();
     recorder.configureProcessEngineCdiBeans(beanContainer);
     RuntimeValue<ProcessEngineConfigurationImpl> processEngineConfiguration =
-        recorder.createProcessEngineConfiguration(beanContainer, camundaEngineConfig);
+        recorder.createProcessEngineConfiguration(beanContainer);
     configurationProducer.produce(new ProcessEngineConfigurationBuildItem(processEngineConfiguration));
   }
 

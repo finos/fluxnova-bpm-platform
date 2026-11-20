@@ -20,7 +20,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.finos.fluxnova.bpm.quarkus.engine.test.helper.ProcessEngineAwareExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
@@ -28,7 +27,6 @@ import org.finos.fluxnova.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
 import jakarta.annotation.Priority;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Alternative;
-import jakarta.enterprise.inject.Specializes;
 import jakarta.inject.Named;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +43,6 @@ public class ProgrammaticBeanLookupTest {
           .addClass(TestBean.class)
           .addClass(OtherTestBean.class)
           .addClass(AlternativeTestBean.class)
-          .addClass(SpecializedTestBean.class)
           .addClass(BeanWithProducerMethods.class));
 
   @Test
@@ -58,13 +55,6 @@ public class ProgrammaticBeanLookupTest {
   public void shouldFindAlternative() {
     Object lookup = ProgrammaticBeanLookup.lookup("otherTestBean");
     assertThat(lookup).isInstanceOf(AlternativeTestBean.class);
-  }
-
-  @Test
-  @Disabled("specialization not supported")
-  public void shouldFindSpecialization() {
-    Object lookup = ProgrammaticBeanLookup.lookup("specializedTestBean");
-    assertThat(lookup).isInstanceOf(SpecializedTestBean.class);
   }
 
   @Test
@@ -87,11 +77,6 @@ public class ProgrammaticBeanLookupTest {
   @Named("otherTestBean")
   @Dependent
   public static class AlternativeTestBean extends OtherTestBean {
-  }
-
-  @Dependent
-  @Specializes
-  public static class SpecializedTestBean extends TestBean {
   }
 
 }
