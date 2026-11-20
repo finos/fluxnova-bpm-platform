@@ -10,6 +10,9 @@
 #   - release/patch or release/patch/*: release current patch line and prepare next patch version
 #     (e.g., 1.0.0-SNAPSHOT releases 1.0.0, then prepares 1.0.1-SNAPSHOT)
 #   - After a patch release, merge or cherry-pick the patch changes back into main or the current development branch.
+#   - Synchronizes webapps/frontend/package.json (and package-lock.json) and engine-rest/docs/package.json
+#     (and package-lock.json) to RELEASE_VERSION in the tagged release commit and DEVELOPMENT_VERSION
+#     in the post-release development iteration commit.
 
 name: "Release and publish artifacts to Maven Central and creates docker image in Docker Hub"
 
@@ -126,6 +129,47 @@ jobs:
         run: |
           git config --global url."https://${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
+      - name: Sync package.json versions to release version
+        run: |
+          echo "Syncing package.json versions to RELEASE_VERSION=${RELEASE_VERSION}..."
+          npm --prefix webapps/frontend version "${RELEASE_VERSION}" --no-git-tag-version --allow-same-version
+          npm --prefix engine-rest/docs version "${RELEASE_VERSION}" --no-git-tag-version --allow-same-version
+
+          frontendVersion=$(node -p "require('./webapps/frontend/package.json').version")
+          docsVersion=$(node -p "require('./engine-rest/docs/package.json').version")
+          echo "Synced webapps/frontend/package.json version: ${frontendVersion}"
+          echo "Synced engine-rest/docs/package.json version: ${docsVersion}"
+
+          if [[ "${frontendVersion}" != "${RELEASE_VERSION}" || "${docsVersion}" != "${RELEASE_VERSION}" ]]; then
+            echo "ERROR: package.json versions did not match RELEASE_VERSION (${RELEASE_VERSION})" >&2
+            exit 1
+          fi
+
+          # Install post-commit hook so Maven Release Plugin's release and post-release commits
+          # atomically include the synchronized package.json and package-lock.json files before tagging/pushing.
+          mkdir -p .git/hooks
+          cat << 'EOF' > .git/hooks/post-commit
+          #!/usr/bin/env bash
+          set -euo pipefail
+          if [[ "${SKIP_PACKAGE_JSON_AMEND:-0}" == "1" ]]; then
+            exit 0
+          fi
+          commit_msg=$(git log -1 --pretty=%B)
+          if [[ "${commit_msg}" == *"[maven-release-plugin] prepare release"* ]]; then
+            git add webapps/frontend/package.json webapps/frontend/package-lock.json \
+                    engine-rest/docs/package.json engine-rest/docs/package-lock.json
+            SKIP_PACKAGE_JSON_AMEND=1 git commit --amend --no-edit --no-verify
+          elif [[ "${commit_msg}" == *"[maven-release-plugin] prepare for next development iteration"* ]]; then
+            echo "Syncing package.json versions to DEVELOPMENT_VERSION=${DEVELOPMENT_VERSION}..."
+            npm --prefix webapps/frontend version "${DEVELOPMENT_VERSION}" --no-git-tag-version --allow-same-version
+            npm --prefix engine-rest/docs version "${DEVELOPMENT_VERSION}" --no-git-tag-version --allow-same-version
+            git add webapps/frontend/package.json webapps/frontend/package-lock.json \
+                    engine-rest/docs/package.json engine-rest/docs/package-lock.json
+            SKIP_PACKAGE_JSON_AMEND=1 git commit --amend --no-edit --no-verify
+          fi
+          EOF
+          chmod +x .git/hooks/post-commit
+
       - name: Prepare release
         run: |
           mvn -B \
@@ -134,9 +178,34 @@ jobs:
             -DreleaseVersion=${{ env.RELEASE_VERSION }} \
             -DdevelopmentVersion=${{ env.DEVELOPMENT_VERSION }} \
             -Dtag=${{ env.TAG }} \
+            -DcheckModificationExcludeList=webapps/frontend/package.json,webapps/frontend/package-lock.json,engine-rest/docs/package.json,engine-rest/docs/package-lock.json \
             -Psonatype-oss-release,distro,distro-ce,coverage-aggregate \
             -DignoreSnapshots=true \
             -DinteractiveMode=false
+
+      - name: Verify synced package.json versions
+        run: |
+          rm -f .git/hooks/post-commit
+
+          tagFrontendVersion=$(git show "${TAG}:webapps/frontend/package.json" | node -e "const fs = require('fs'); console.log(JSON.parse(fs.readFileSync(0, 'utf8')).version);")
+          tagDocsVersion=$(git show "${TAG}:engine-rest/docs/package.json" | node -e "const fs = require('fs'); console.log(JSON.parse(fs.readFileSync(0, 'utf8')).version);")
+          echo "Tag ${TAG} webapps/frontend/package.json version: ${tagFrontendVersion}"
+          echo "Tag ${TAG} engine-rest/docs/package.json version: ${tagDocsVersion}"
+
+          if [[ "${tagFrontendVersion}" != "${RELEASE_VERSION}" || "${tagDocsVersion}" != "${RELEASE_VERSION}" ]]; then
+            echo "ERROR: Tagged package.json versions do not match RELEASE_VERSION (${RELEASE_VERSION})" >&2
+            exit 1
+          fi
+
+          devFrontendVersion=$(node -p "require('./webapps/frontend/package.json').version")
+          devDocsVersion=$(node -p "require('./engine-rest/docs/package.json').version")
+          echo "Post-release webapps/frontend/package.json version: ${devFrontendVersion}"
+          echo "Post-release engine-rest/docs/package.json version: ${devDocsVersion}"
+
+          if [[ "${devFrontendVersion}" != "${DEVELOPMENT_VERSION}" || "${devDocsVersion}" != "${DEVELOPMENT_VERSION}" ]]; then
+            echo "ERROR: Post-release package.json versions do not match DEVELOPMENT_VERSION (${DEVELOPMENT_VERSION})" >&2
+            exit 1
+          fi
 
       - name: Perform release
         run: |
