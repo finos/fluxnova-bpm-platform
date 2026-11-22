@@ -1,0 +1,29 @@
+# Workflow: Manually (re)publish OpenAPI spec and Javadoc for an already-released tag
+# Purpose: Backfill/regenerate GitHub Pages docs for a given release without cutting a
+#          new release/hotfix branch or touching Maven Central publishing.
+# Usage: Actions tab -> "Publish Docs (manual backfill)" -> Run workflow ->
+#        leave "Use workflow from" on main, then enter the release_tag input
+#        (e.g. v3.0.1) to pick which released code to build docs from.
+#
+# The actual generation/publish steps live in publish-docs-reusable.yml. release.yml
+# still has its own separate (duplicate) copy of this logic for now - a future
+# follow-up could have it call this reusable workflow too, to remove that duplication.
+
+name: "Publish docs (manual backfill)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag to check out and generate docs from, e.g. v3.0.1 (NOT the "Use workflow from" branch above, which must stay on main)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish-docs:
+    name: Publish docs
+    uses: ./.github/workflows/publish-docs-reusable.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
