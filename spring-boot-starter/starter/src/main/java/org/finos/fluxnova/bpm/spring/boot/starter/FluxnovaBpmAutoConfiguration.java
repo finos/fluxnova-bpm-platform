@@ -20,11 +20,13 @@ import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.interceptor.CommandExecutor;
 import org.finos.fluxnova.bpm.engine.spring.ProcessEngineFactoryBean;
 import org.finos.fluxnova.bpm.engine.spring.SpringProcessEngineServicesConfiguration;
+import org.finos.fluxnova.bpm.engine.spring.configuration.ConfigurationLookup;
 import org.finos.fluxnova.bpm.spring.boot.starter.event.ProcessApplicationEventPublisher;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.FluxnovaBpmProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.property.ManagementProperties;
 import org.finos.fluxnova.bpm.spring.boot.starter.util.FluxnovaBpmVersion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
@@ -78,6 +80,12 @@ public class FluxnovaBpmAutoConfiguration {
     public CommandExecutor commandExecutorSchemaOperations() {
       return processEngineConfigurationImpl.getCommandExecutorSchemaOperations();
     }
+  }
+
+  @Bean
+  @ConditionalOnMissingBean(name = "configurationLookup")
+  public ConfigurationLookup configurationLookup() {
+    return new ConfigurationLookup();
   }
 
   @Bean

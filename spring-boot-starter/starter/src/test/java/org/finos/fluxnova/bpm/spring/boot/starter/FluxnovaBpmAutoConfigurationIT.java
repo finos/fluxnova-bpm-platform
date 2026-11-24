@@ -25,21 +25,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.finos.fluxnova.bpm.engine.ProcessEngine;
 import org.finos.fluxnova.bpm.engine.ProcessEngineServices;
 import org.finos.fluxnova.bpm.engine.impl.cfg.CompositeProcessEnginePlugin;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.finos.fluxnova.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.finos.fluxnova.bpm.engine.impl.variable.serializer.TypedValueSerializer;
+import org.finos.fluxnova.bpm.engine.repository.Deployment;
+import org.finos.fluxnova.bpm.engine.repository.DeploymentBuilder;
+import org.finos.fluxnova.bpm.engine.runtime.ProcessInstance;
+import org.finos.fluxnova.bpm.model.bpmn.Bpmn;
+import org.finos.fluxnova.bpm.model.bpmn.BpmnModelInstance;
 import org.finos.fluxnova.bpm.spring.boot.starter.test.nonpa.TestApplication;
 import org.finos.fluxnova.connect.plugin.impl.ConnectProcessEnginePlugin;
 import org.finos.fluxnova.spin.plugin.impl.SpinObjectValueSerializer;
 import org.finos.fluxnova.spin.plugin.impl.SpinProcessEnginePlugin;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(classes = { TestApplication.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class FluxnovaBpmAutoConfigurationIT {
@@ -91,6 +100,52 @@ public class FluxnovaBpmAutoConfigurationIT {
 
     // then
     assertThat(plugins.stream().anyMatch(plugin -> plugin instanceof ConnectProcessEnginePlugin)).isTrue();
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+      ",${null},global-value",
+      ",${execution.getTenantId()},global-value",
+      "tenant-a,${execution.getTenantId()},tenant-value",
+      "tenant-b,${execution.getTenantId()},global-value",
+      "tenant-a,${null},global-value"
+  })
+  @Transactional
+  public void resolvesConfigurationThroughServiceTaskExpression(
+      String tenantId, String tenantExpression, String expectedValue) {
+    ProcessEngine engine = appContext.getBean(ProcessEngine.class);
+    engine.getConfigurationService().createConfiguration("lookup.test", "global-value", null);
+    engine.getConfigurationService().createConfiguration("lookup.test", "tenant-value", "tenant-a");
+
+    BpmnModelInstance model = Bpmn.createExecutableProcess("configurationLookupTest")
+        .fluxnovaHistoryTimeToLive(1)
+        .startEvent()
+        .serviceTask("readConfiguration")
+          .fluxnovaInputParameter("configurationKey", "lookup.test")
+          .fluxnovaInputParameter("configurationTenantId", tenantExpression)
+          .fluxnovaExpression(
+              "${configurationLookup.getValue(execution, configurationKey, configurationTenantId)}")
+          .fluxnovaResultVariable("configurationValue")
+        .userTask("waitForResult")
+        .endEvent()
+        .done();
+
+    DeploymentBuilder builder = engine.getRepositoryService().createDeployment()
+        .addModelInstance("configurationLookup.bpmn", model);
+    if (tenantId != null) {
+      builder.tenantId(tenantId);
+    }
+    Deployment deployment = builder.deploy();
+    try {
+      String definitionId = engine.getRepositoryService().createProcessDefinitionQuery()
+          .deploymentId(deployment.getId()).singleResult().getId();
+      ProcessInstance instance = engine.getRuntimeService().startProcessInstanceById(definitionId);
+
+      assertThat(engine.getRuntimeService().getVariable(instance.getId(), "configurationValue"))
+          .isEqualTo(expectedValue);
+    } finally {
+      engine.getRepositoryService().deleteDeployment(deployment.getId(), true);
+    }
   }
 
   private String convertToBeanName(Class<?> beanClass) {
