@@ -25,7 +25,7 @@
           <artifactId>commons-io</artifactId>
         </exclusion>
       </exclusions>
-    <version>2.0.0-M4</version>
+    <version>2.0.0-M5</version>
     </dependency>
     <!-- override managed version from commons-fileupload -->
     <dependency>

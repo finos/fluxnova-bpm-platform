@@ -68,7 +68,7 @@
       <groupId>org.jboss.arquillian.junit5</groupId>
       <artifactId>arquillian-junit5-container</artifactId>
       <scope>provided</scope>
-      <version>1.10.1.Final</version>
+      <version>1.10.2.Final</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
